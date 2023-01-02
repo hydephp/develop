@@ -11,6 +11,9 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 
+use function str_repeat;
+use function strlen;
+
 /**
  * Hyde Command to validate one or all publications.
  *
@@ -101,7 +104,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $warnColor = $countWarnings ? 'yellow' : 'green';
         $errorColor = $countErrors ? 'red' : 'green';
-        $this->title('Summary:');
+        $this->subtitle('Summary:');
         $this->output->writeln("<fg=green>Validated $countPubTypes Publication Types, $countPubs Publications, $countFields Fields</>");
         $this->output->writeln("<fg=$warnColor>Found $countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $countErrors Errors</>");
@@ -110,5 +113,21 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
 
         return Command::SUCCESS;
+    }
+
+
+    /*
+     * Displays the given string as subtitle.
+     */
+    public function subtitle(string $title): Command
+    {
+        $size = strlen($title);
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
+        $this->output->newLine();
+
+        return $this;
     }
 }
