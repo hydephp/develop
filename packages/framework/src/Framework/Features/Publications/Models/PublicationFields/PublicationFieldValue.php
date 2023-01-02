@@ -37,6 +37,11 @@ final class PublicationFieldValue
         }
     }
 
+    public function getType(): PublicationFieldTypes
+    {
+        return $this->type;
+    }
+
     public function getValue(): string|array|bool|float|int|DateTime
     {
         return $this->value;

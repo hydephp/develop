@@ -39,6 +39,13 @@ class PublicationFieldServiceTest extends TestCase
         );
     }
 
+    public function testGetType()
+    {
+        $this->assertSame(PublicationFieldTypes::String,
+            (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))->getType()
+        );
+    }
+
     public function testGetValue()
     {
         $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))->getValue());
@@ -46,9 +53,9 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testType()
     {
-        $this->assertSame(PublicationFieldTypes::String,
-            (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))->type
-        );
+        $field = new PublicationFieldValue(PublicationFieldTypes::String, 'foo');
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
+        $this->assertSame($field->type, $field->getType());
     }
 
     // StringField tests
