@@ -9,10 +9,8 @@ use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-
-use JsonException;
-
 use function json_encode;
+use JsonException;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationTags

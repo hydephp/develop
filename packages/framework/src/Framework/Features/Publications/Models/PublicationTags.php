@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Facades\Filesystem;
-use Hyde\Framework\Exceptions\FileNotFoundException;
-use JsonException;
 use function file_exists;
 use function file_get_contents;
+use Hyde\Facades\Filesystem;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use function json_decode;
 use function json_encode;
+use JsonException;
 
 /**
  * Object representation for the tags.json file.
