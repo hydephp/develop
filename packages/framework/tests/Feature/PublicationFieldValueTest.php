@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\PublicationFieldService
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
  */
-class PublicationFieldServiceTest extends TestCase
+class PublicationFieldValueTest extends TestCase
 {
     // Base class tests
 
