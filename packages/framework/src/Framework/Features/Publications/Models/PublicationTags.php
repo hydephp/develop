@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use JsonException;
 use function file_exists;
 use function file_get_contents;
 use Hyde\Hyde;
@@ -67,6 +69,35 @@ class PublicationTags
     public static function getValuesForTagName(string $tagName): array
     {
         return self::getAllTags()->get($tagName) ?? [];
+    }
+
+    /**
+     * Validate the tags.json file is valid.
+     *
+     * @internal This method is experimental and may be removed without notice
+     */
+    public static function validateTagsFile(): bool
+    {
+        if (! file_exists(Hyde::path('tags.json'))) {
+            throw new FileNotFoundException('tags.json');
+        }
+
+        $tags = json_decode(file_get_contents(Hyde::path('tags.json')), true);
+
+        if (! is_array($tags) || empty($tags)) {
+            throw new JsonException('Could not decode tags.json');
+        }
+
+        foreach ($tags as $name => $values) {
+            assert(is_string($name));
+            assert(is_array($values));
+            foreach ($values as $key => $value) {
+                assert(is_int($key));
+                assert(is_string($value));
+            }
+        }
+
+        return true;
     }
 
     /** @return array<string, array<string>> */

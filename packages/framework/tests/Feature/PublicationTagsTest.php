@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+
+use JsonException;
+
+use function json_encode;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationTags
@@ -123,5 +128,34 @@ class PublicationTagsTest extends TestCase
     public function testGetValuesForTagNameWithNoTags()
     {
         $this->assertSame([], PublicationTags::getValuesForTagName('foo'));
+    }
+
+    public function testValidateTagsFileWithValidFile()
+    {
+        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+
+        $this->assertTrue(PublicationTags::validateTagsFile());
+    }
+
+    public function testValidateTagsFileWithInvalidFile()
+    {
+        $this->file('tags.json', 'invalid json');
+
+        $this->expectException(JsonException::class);
+        PublicationTags::validateTagsFile();
+    }
+
+    public function testValidateTagsFileWithNoFile()
+    {
+        $this->expectException(FileNotFoundException::class);
+        PublicationTags::validateTagsFile();
+    }
+
+    public function testValidateTagsFileWithEmptyJsonFile()
+    {
+        $this->file('tags.json', json_encode([]));
+
+        $this->expectException(JsonException::class);
+        PublicationTags::validateTagsFile();
     }
 }
