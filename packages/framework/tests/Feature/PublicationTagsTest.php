@@ -134,7 +134,8 @@ class PublicationTagsTest extends TestCase
     {
         $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
 
-        $this->assertTrue(PublicationTags::validateTagsFile());
+        PublicationTags::validateTagsFile();
+        $this->assertTrue(true);
     }
 
     public function testValidateTagsFileWithInvalidFile()

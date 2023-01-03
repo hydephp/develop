@@ -76,7 +76,7 @@ class PublicationTags
      *
      * @internal This method is experimental and may be removed without notice
      */
-    public static function validateTagsFile(): bool
+    public static function validateTagsFile(): void
     {
         if (! file_exists(Hyde::path('tags.json'))) {
             throw new FileNotFoundException('tags.json');
@@ -93,8 +93,6 @@ class PublicationTags
                 assert(is_string($value));
             }
         }
-
-        return true;
     }
 
     /** @return array<string, array<string>> */
