@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
-use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Facades\Filesystem;
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use function implode;
-use function json_encode;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use function sprintf;
