@@ -337,6 +337,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -360,6 +361,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tags',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -434,6 +436,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -454,6 +457,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -486,6 +490,7 @@ class MakePublicationCommandTest extends TestCase
                 'type' => 'tag',
                 'name' => 'tag',
                 'rules' => ['required'],
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
