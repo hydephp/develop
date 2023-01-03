@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use function file_exists;
-use function file_get_contents;
 use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function json_decode;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
@@ -61,7 +59,7 @@ class PublicationService
      */
     public static function getAllTags(): Collection
     {
-        return Collection::make(self::parseTagsFile())->sortKeys();
+        return PublicationTags::getAllTags();
     }
 
     /**
@@ -69,7 +67,7 @@ class PublicationService
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
-        return Collection::make(self::getAllTags()->get($tagName) ?? []);
+        return collect(PublicationTags::getValuesForTagName($tagName));
     }
 
     /**
@@ -103,14 +101,5 @@ class PublicationService
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
     {
         return glob(Hyde::path("_media/$directory/*.$extensions"), GLOB_BRACE);
-    }
-
-    protected static function parseTagsFile(): array
-    {
-        if (file_exists(Hyde::path('tags.json'))) {
-            return json_decode(file_get_contents(Hyde::path('tags.json')), true);
-        }
-
-        return [];
     }
 }

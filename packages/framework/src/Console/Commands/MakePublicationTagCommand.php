@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Facades\Filesystem;
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use function implode;
-use function json_encode;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use function sprintf;
@@ -96,8 +94,6 @@ class MakePublicationTagCommand extends ValidatingCommand
             DiscoveryService::createClickableFilepath(Hyde::path('tags.json'))
         );
 
-        Filesystem::putContents('tags.json', json_encode(array_merge(
-            PublicationService::getAllTags()->toArray(), $this->tags
-        ), JSON_PRETTY_PRINT));
+        app(PublicationTags::class)->addTagGroups($this->tags)->save();
     }
 }
