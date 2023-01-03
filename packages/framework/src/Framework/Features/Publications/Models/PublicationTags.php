@@ -24,12 +24,17 @@ class PublicationTags
         $this->tags = $this->parseTagsFile();
     }
 
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
     /**
      * Get all available tags.
      */
     public static function getAllTags(): Collection
     {
-        return Collection::make((new self())->tags)->sortKeys();
+        return Collection::make((new self())->getTags())->sortKeys();
     }
 
     /**
