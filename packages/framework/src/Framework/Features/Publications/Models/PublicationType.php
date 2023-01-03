@@ -97,6 +97,14 @@ class PublicationType implements SerializableContract
     }
 
     /**
+     * Get the raw field definitions for this publication type.
+     */
+    public function getFieldData(): array
+    {
+        return $this->fields;
+    }
+
+    /**
      * Get the publication fields, deserialized to PublicationFieldDefinition objects.
      *
      * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
