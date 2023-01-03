@@ -6,12 +6,23 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationTags
  */
 class PublicationTagsTest extends TestCase
 {
+    public function testCanAddTags()
+    {
+        $tags = new PublicationTags();
+        $tags->addTag('test', ['test1', 'test2']);
+
+        $this->assertEquals(new Collection([
+            'test' => ['test1', 'test2'],
+        ]), $tags->getTags());
+    }
+
     public function testGetAllTags()
     {
         $tags = [

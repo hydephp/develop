@@ -30,6 +30,13 @@ class PublicationTags
         return $this->tags;
     }
 
+    public function addTag(string $name, array $values): self
+    {
+        $this->tags->put($name, $values);
+
+        return $this;
+    }
+
     /**
      * Get all available tags.
      */
