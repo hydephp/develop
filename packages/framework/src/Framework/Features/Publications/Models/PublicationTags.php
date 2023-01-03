@@ -39,7 +39,7 @@ class PublicationTags
      * @param  array<string>|string  $values
      * @return $this
      */
-    public function addTag(string $name, array|string $values): self
+    public function addTagGroup(string $name, array|string $values): self
     {
         $this->tags->put($name, (array) $values);
 
@@ -50,10 +50,10 @@ class PublicationTags
      * @param  array<string, array<string>|string>  $tags
      * @return $this
      */
-    public function addTags(array $tags): self
+    public function addTagGroups(array $tags): self
     {
         foreach ($tags as $name => $values) {
-            $this->addTag($name, $values);
+            $this->addTagGroup($name, $values);
         }
 
         return $this;

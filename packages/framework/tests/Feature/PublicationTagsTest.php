@@ -34,34 +34,34 @@ class PublicationTagsTest extends TestCase
         $this->assertEquals(new Collection(), (new PublicationTags())->getTags());
     }
 
-    public function testCanAddTags()
+    public function testCanAddTagGroup()
     {
         $tags = new PublicationTags();
-        $tags->addTag('test', ['test1', 'test2']);
+        $tags->addTagGroup('test', ['test1', 'test2']);
 
         $this->assertEquals(new Collection([
             'test' => ['test1', 'test2'],
         ]), $tags->getTags());
     }
 
-    public function testCanAddTagsWithSingleValue()
+    public function testCanAddTagGroupWithSingleValue()
     {
         $tags = new PublicationTags();
-        $tags->addTag('test', 'test1');
+        $tags->addTagGroup('test', 'test1');
 
         $this->assertEquals(new Collection([
             'test' => ['test1'],
         ]), $tags->getTags());
     }
 
-    public function testCanAddMultipleTags()
+    public function testCanAddMultipleTagGroups()
     {
         $expected = new PublicationTags();
-        $expected->addTag('test', ['test1', 'test2']);
-        $expected->addTag('test2', ['test3', 'test4']);
+        $expected->addTagGroup('test', ['test1', 'test2']);
+        $expected->addTagGroup('test2', ['test3', 'test4']);
 
         $tags = new PublicationTags();
-        $tags->addTags([
+        $tags->addTagGroups([
             'test' => ['test1', 'test2'],
             'test2' => ['test3', 'test4'],
         ]);
@@ -76,7 +76,7 @@ class PublicationTagsTest extends TestCase
     public function testCanSaveTagsToDisk()
     {
         $tags = new PublicationTags();
-        $tags->addTag('test', ['test1', 'test2']);
+        $tags->addTagGroup('test', ['test1', 'test2']);
         $tags->save();
 
         $this->assertSame(
