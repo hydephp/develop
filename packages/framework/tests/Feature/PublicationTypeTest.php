@@ -132,6 +132,32 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals($publicationType, PublicationType::fromFile(('tests/fixtures/test-publication-schema.json')));
     }
 
+    public function test_it_loads_arbitrary_publication_fields_from_schema_file()
+    {
+        $this->directory('test-publication');
+        $fields = [
+            [
+                'name' => 'Title',
+                'type' => 'text',
+                'identifier' => 'title',
+                'required' => true,
+            ],
+            [
+                'name' => 'Body',
+                'type' => 'markdown',
+                'identifier' => 'body',
+                'required' => true,
+            ],
+        ];
+        $this->file('test-publication/schema.json', json_encode([
+            'name' => 'Test Publication',
+            'fields' => $fields,
+        ]));
+
+        $publicationType = PublicationType::fromFile('test-publication/schema.json');
+        $this->assertSame($fields, $publicationType->fields);
+    }
+
     public function test_get_fields_method_returns_collection_of_field_objects()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
@@ -139,9 +165,45 @@ class PublicationTypeTest extends TestCase
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationFieldDefinition::class, $collection->first());
-        $this->assertEquals(new \Illuminate\Support\Collection([
+        $this->assertEquals(new Collection([
             'title' => new PublicationFieldDefinition('string', 'title'),
         ]), $collection);
+    }
+
+    public function test_get_field_method_parses_publication_fields_from_schema_file()
+    {
+        $this->directory('test-publication');
+        $this->file('test-publication/schema.json', json_encode([
+            'name' => 'Test Publication',
+            'fields' => [
+                ['name' => 'title', 'type' => 'string'],
+                ['name' => 'number', 'type' => 'integer'],
+            ],
+        ]));
+
+        $publicationType = PublicationType::fromFile('test-publication/schema.json');
+        $this->assertEquals(new Collection([
+            'title' => new PublicationFieldDefinition('string', 'title'),
+            'number' => new PublicationFieldDefinition('integer', 'number'),
+        ]), $publicationType->getFields());
+    }
+
+    public function test_get_field_method_parses_publication_fields_with_option_properties_from_schema_file()
+    {
+        $this->directory('test-publication');
+        $this->file('test-publication/schema.json', json_encode([
+            'name' => 'Test Publication',
+            'fields' => [
+                ['name' => 'title', 'type' => 'string', 'rules' => ['foo', 'bar']],
+                ['name' => 'tags', 'type' => 'tag', 'tagGroup' => 'myTags'],
+            ],
+        ]));
+
+        $publicationType = PublicationType::fromFile('test-publication/schema.json');
+        $this->assertEquals(new Collection([
+            'title' => new PublicationFieldDefinition('string', 'title', ['foo', 'bar']),
+            'tags' => new PublicationFieldDefinition('tag', 'tags', tagGroup: 'myTags'),
+        ]), $publicationType->getFields());
     }
 
     public function test_get_method_can_find_existing_file_on_disk()
