@@ -17,6 +17,7 @@ use function json_decode;
  */
 class PublicationTags
 {
+    /** @var array<string, array<string>> */
     protected array $tags;
 
     public function __construct()
