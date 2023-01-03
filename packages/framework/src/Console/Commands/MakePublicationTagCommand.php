@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
@@ -96,8 +97,6 @@ class MakePublicationTagCommand extends ValidatingCommand
             DiscoveryService::createClickableFilepath(Hyde::path('tags.json'))
         );
 
-        Filesystem::putContents('tags.json', json_encode(array_merge(
-            PublicationService::getAllTags()->toArray(), $this->tags
-        ), JSON_PRETTY_PRINT));
+        app(PublicationTags::class)->addTagGroups($this->tags)->save();
     }
 }
