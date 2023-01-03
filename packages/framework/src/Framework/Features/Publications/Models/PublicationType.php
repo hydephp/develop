@@ -96,7 +96,11 @@ class PublicationType implements SerializableContract
         return $this->directory;
     }
 
-    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition> */
+    /**
+     * Get the publication fields, deserialized to PublicationFieldDefinition objects.
+     *
+     * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
+     */
     public function getFields(): Collection
     {
         return Collection::make($this->fields)->mapWithKeys(function (array $data): array {
