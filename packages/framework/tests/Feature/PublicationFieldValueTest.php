@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class PublicationFieldValueTest extends TestCase
 {
-    // Base class tests
+    // Base tests
 
     public function testConstruct()
     {
