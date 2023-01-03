@@ -41,6 +41,30 @@ class PublicationTagsTest extends TestCase
         $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
     }
 
+    public function testGetTagsInGroup()
+    {
+        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+
+        $this->assertEquals(['bar', 'baz'], (new PublicationTags())->getTagsInGroup('foo'));
+    }
+
+    public function testGetTagsInGroupOnlyReturnTagsForTheSpecifiedGroup()
+    {
+        $this->file('tags.json', json_encode([
+            'foo' => ['bar', 'baz'],
+            'bar' => ['foo', 'baz'],
+        ]));
+
+        $this->assertEquals(['foo', 'baz'], (new PublicationTags())->getTagsInGroup('bar'));
+    }
+
+    public function testGetTagsInGroupReturnsEmptyArrayWhenGroupDoesNotExist()
+    {
+        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+
+        $this->assertEquals([], (new PublicationTags())->getTagsInGroup('bar'));
+    }
+
     public function testCanAddTagGroup()
     {
         $tags = new PublicationTags();

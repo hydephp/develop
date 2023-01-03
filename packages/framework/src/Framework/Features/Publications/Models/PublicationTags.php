@@ -35,6 +35,12 @@ class PublicationTags
         return $this->tags;
     }
 
+    /** @return array<string> */
+    public function getTagsInGroup(string $name): array
+    {
+        return $this->tags->get($name) ?? [];
+    }
+
     /**
      * @param  array<string>|string  $values
      * @return $this
@@ -65,7 +71,7 @@ class PublicationTags
      */
     public function addTagsToGroup(string $name, array|string $values): self
     {
-        $this->tags->put($name, array_merge($this->tags->get($name, []), (array) $values));
+        $this->tags->put($name, array_merge($this->getTagsInGroup($name), (array) $values));
 
         return $this;
     }
