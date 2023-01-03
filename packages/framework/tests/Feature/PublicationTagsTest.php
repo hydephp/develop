@@ -73,6 +73,28 @@ class PublicationTagsTest extends TestCase
         ], $tags->getTags()->toArray());
     }
 
+    public function testCanAddTagsToExistingGroup()
+    {
+        $tags = new PublicationTags();
+        $tags->addTagGroup('test', ['foo']);
+        $tags->addTagsToGroup('test', ['bar', 'baz']);
+
+        $this->assertEquals(new Collection([
+            'test' => ['foo', 'bar', 'baz'],
+        ]), $tags->getTags());
+    }
+
+    public function testCanAddSingleTagToExistingGroup()
+    {
+        $tags = new PublicationTags();
+        $tags->addTagGroup('test', ['foo']);
+        $tags->addTagsToGroup('test', 'bar');
+
+        $this->assertEquals(new Collection([
+            'test' => ['foo', 'bar'],
+        ]), $tags->getTags());
+    }
+
     public function testCanSaveTagsToDisk()
     {
         $tags = new PublicationTags();
