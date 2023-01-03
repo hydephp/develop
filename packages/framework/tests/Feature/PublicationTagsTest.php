@@ -23,6 +23,16 @@ class PublicationTagsTest extends TestCase
         ]), $tags->getTags());
     }
 
+    public function testCanAddTagsWithSingleValue()
+    {
+        $tags = new PublicationTags();
+        $tags->addTag('test', 'test1');
+
+        $this->assertEquals(new Collection([
+            'test' => ['test1'],
+        ]), $tags->getTags());
+    }
+
     public function testGetAllTags()
     {
         $tags = [

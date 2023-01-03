@@ -31,9 +31,9 @@ class PublicationTags
     }
 
     /** @param  array<string>  $values */
-    public function addTag(string $name, array $values): self
+    public function addTag(string $name, array|string $values): self
     {
-        $this->tags->put($name, $values);
+        $this->tags->put($name, (array) $values);
 
         return $this;
     }
