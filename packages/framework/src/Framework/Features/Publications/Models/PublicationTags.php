@@ -27,6 +27,7 @@ class PublicationTags
         $this->tags = Collection::make($this->parseTagsFile());
     }
 
+    /** @return \Illuminate\Support\Collection<string, array<string>> */
     public function getTags(): Collection
     {
         return $this->tags;
@@ -50,6 +51,8 @@ class PublicationTags
 
     /**
      * Get all available tags.
+     *
+     * @return Collection<string, array<string>>
      */
     public static function getAllTags(): Collection
     {
@@ -58,12 +61,15 @@ class PublicationTags
 
     /**
      * Get all values for a given tag name.
+     *
+     * @return array<string>
      */
     public static function getValuesForTagName(string $tagName): array
     {
         return self::getAllTags()->get($tagName) ?? [];
     }
 
+    /** @return array<string, array<string>> */
     protected function parseTagsFile(): array
     {
         if (file_exists(Hyde::path('tags.json'))) {
