@@ -82,11 +82,8 @@ class PublicationTags
             throw new FileNotFoundException('tags.json');
         }
 
-        $tags = json_decode(file_get_contents(Hyde::path('tags.json')), true);
-
-        if (! is_array($tags) || empty($tags)) {
-            throw new JsonException('Could not decode tags.json');
-        }
+        $tags = json_decode(file_get_contents(Hyde::path('tags.json')), true)
+            ?: throw new JsonException('Could not decode tags.json');
 
         foreach ($tags as $name => $values) {
             assert(is_string($name));
