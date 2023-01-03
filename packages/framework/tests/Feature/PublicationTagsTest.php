@@ -14,6 +14,23 @@ use Illuminate\Support\Collection;
  */
 class PublicationTagsTest extends TestCase
 {
+    public function canConstructNewTagsInstance()
+    {
+        $this->assertInstanceOf(PublicationTags::class, new PublicationTags());
+    }
+
+    public function testConstructorAutomaticallyLoadsTagsFile()
+    {
+        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+
+        $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
+    }
+
+    public function testConstructorAddsEmptyArrayWhenThereIsNoTagsFile()
+    {
+        $this->assertEquals(new Collection(), (new PublicationTags())->getTags());
+    }
+
     public function testCanAddTags()
     {
         $tags = new PublicationTags();
