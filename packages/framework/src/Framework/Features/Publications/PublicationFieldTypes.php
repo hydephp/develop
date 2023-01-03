@@ -24,7 +24,7 @@ enum PublicationFieldTypes: string
     case Array = 'array';
     case Text = 'text';
     case Url = 'url';
-    case Tag = 'tag'; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
+    case Tag = 'tag';
 
     /** Get the default validation rules for this field type. */
     public function rules(): array
