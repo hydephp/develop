@@ -30,6 +30,7 @@ class PublicationTags
         return $this->tags;
     }
 
+    /** @param  array<string>  $values */
     public function addTag(string $name, array $values): self
     {
         $this->tags->put($name, $values);
