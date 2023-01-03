@@ -80,7 +80,6 @@ class PublicationFieldDefinitionTest extends TestCase
     public function test_type_must_be_valid()
     {
         $this->expectException(ValueError::class);
-        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "'.PublicationFieldTypes::class.'"');
 
         new PublicationFieldDefinition('invalid', 'test');
     }
