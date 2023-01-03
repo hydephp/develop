@@ -49,9 +49,9 @@ class PublicationTags
     /**
      * Get all values for a given tag name.
      */
-    public static function getValuesForTagName(string $tagName): Collection
+    public static function getValuesForTagName(string $tagName): array
     {
-        return Collection::make(self::getAllTags()->get($tagName) ?? []);
+        return self::getAllTags()->get($tagName) ?? [];
     }
 
     protected function parseTagsFile(): array

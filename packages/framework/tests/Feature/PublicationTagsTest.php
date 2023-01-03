@@ -65,7 +65,7 @@ class PublicationTagsTest extends TestCase
 
         $this->file('tags.json', json_encode($tags));
 
-        $this->assertSame(['bar', 'baz'], PublicationTags::getValuesForTagName('foo')->toArray());
+        $this->assertSame(['bar', 'baz'], PublicationTags::getValuesForTagName('foo'));
     }
 
     public function testGetValuesForTagNameWithMissingTagName()
@@ -79,11 +79,11 @@ class PublicationTagsTest extends TestCase
 
         $this->file('tags.json', json_encode($tags));
 
-        $this->assertSame([], PublicationTags::getValuesForTagName('bar')->toArray());
+        $this->assertSame([], PublicationTags::getValuesForTagName('bar'));
     }
 
     public function testGetValuesForTagNameWithNoTags()
     {
-        $this->assertSame([], PublicationTags::getValuesForTagName('foo')->toArray());
+        $this->assertSame([], PublicationTags::getValuesForTagName('foo'));
     }
 }
