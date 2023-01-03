@@ -17,15 +17,15 @@ use function json_decode;
  */
 class PublicationTags
 {
-    /** @var array<string, array<string>> */
-    protected array $tags;
+    /** @var Collection<string, array<string>> */
+    protected Collection $tags;
 
     public function __construct()
     {
-        $this->tags = $this->parseTagsFile();
+        $this->tags = Collection::make($this->parseTagsFile());
     }
 
-    public function getTags(): array
+    public function getTags(): Collection
     {
         return $this->tags;
     }
@@ -35,7 +35,7 @@ class PublicationTags
      */
     public static function getAllTags(): Collection
     {
-        return Collection::make((new self())->getTags())->sortKeys();
+        return (new self())->getTags()->sortKeys();
     }
 
     /**
