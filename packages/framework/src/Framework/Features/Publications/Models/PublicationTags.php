@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Facades\Filesystem;
 use function file_exists;
 use function file_get_contents;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use function json_decode;
+use function json_encode;
 
 /**
  * Object representation for the tags.json file.
@@ -34,6 +36,14 @@ class PublicationTags
     public function addTag(string $name, array|string $values): self
     {
         $this->tags->put($name, (array) $values);
+
+        return $this;
+    }
+
+    /** Save the tags collection to disk. */
+    public function save(): self
+    {
+        Filesystem::putContents('tags.json', json_encode($this->tags, JSON_PRETTY_PRINT));
 
         return $this;
     }

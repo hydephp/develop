@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
@@ -31,6 +32,26 @@ class PublicationTagsTest extends TestCase
         $this->assertEquals(new Collection([
             'test' => ['test1'],
         ]), $tags->getTags());
+    }
+
+    public function testCanSaveTagsToDisk()
+    {
+        $tags = new PublicationTags();
+        $tags->addTag('test', ['test1', 'test2']);
+        $tags->save();
+
+        $this->assertSame(
+            <<<'JSON'
+            {
+                "test": [
+                    "test1",
+                    "test2"
+                ]
+            }
+            JSON, file_get_contents(Hyde::path('tags.json'))
+        );
+
+        unlink(Hyde::path('tags.json'));
     }
 
     public function testGetAllTags()
