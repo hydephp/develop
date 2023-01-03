@@ -155,7 +155,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $tagGroup = $this->publicationType->getIdentifier();
+        $tagGroup = $field->tagGroup;
         $this->infoComment('Select a tag for field', $field->name, "from the $tagGroup group");
 
         $options = PublicationService::getValuesForTagName($tagGroup);
