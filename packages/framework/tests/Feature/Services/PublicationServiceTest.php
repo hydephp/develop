@@ -148,6 +148,7 @@ class PublicationServiceTest extends TestCase
         $this->assertTrue(PublicationService::publicationTypeExists('test-publication'));
         $this->assertFalse(PublicationService::publicationTypeExists('foo'));
     }
+
     public function testGetAllTags()
     {
         $tags = [

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Hyde;
-
-use Illuminate\Support\Collection;
-
 use function file_exists;
 use function file_get_contents;
+use Hyde\Hyde;
+use Illuminate\Support\Collection;
 use function json_decode;
 
 /**

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
