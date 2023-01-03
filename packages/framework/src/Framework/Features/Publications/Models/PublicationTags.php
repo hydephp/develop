@@ -46,10 +46,8 @@ class PublicationTags
         return $this;
     }
 
-
     /**
      * @param  array<string, array<string>|string>  $tags
-     *
      * @return $this
      */
     public function addTags(array $tags): self
