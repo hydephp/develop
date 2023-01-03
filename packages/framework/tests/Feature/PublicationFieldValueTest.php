@@ -14,7 +14,6 @@ use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\PublicationFieldService
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
  */
 class PublicationFieldValueTest extends TestCase
