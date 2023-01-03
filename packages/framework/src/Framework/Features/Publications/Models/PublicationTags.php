@@ -17,12 +17,19 @@ use function json_decode;
  */
 class PublicationTags
 {
+    protected array $tags;
+
+    public function __construct()
+    {
+        $this->tags = $this->parseTagsFile();
+    }
+
     /**
      * Get all available tags.
      */
     public static function getAllTags(): Collection
     {
-        return Collection::make(self::parseTagsFile())->sortKeys();
+        return Collection::make((new self())->tags)->sortKeys();
     }
 
     /**
@@ -33,7 +40,7 @@ class PublicationTags
         return Collection::make(self::getAllTags()->get($tagName) ?? []);
     }
 
-    protected static function parseTagsFile(): array
+    protected function parseTagsFile(): array
     {
         if (file_exists(Hyde::path('tags.json'))) {
             return json_decode(file_get_contents(Hyde::path('tags.json')), true);
