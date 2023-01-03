@@ -98,6 +98,8 @@ class PublicationType implements SerializableContract
 
     /**
      * Get the raw field definitions for this publication type.
+     *
+     * @see self::getFields() to get the deserialized field definitions.
      */
     public function getFieldData(): array
     {
@@ -106,6 +108,8 @@ class PublicationType implements SerializableContract
 
     /**
      * Get the publication fields, deserialized to PublicationFieldDefinition objects.
+     *
+     * @see self::getFieldData() to get the raw field definitions.
      *
      * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
      */
