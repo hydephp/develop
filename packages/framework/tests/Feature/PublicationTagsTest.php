@@ -54,6 +54,25 @@ class PublicationTagsTest extends TestCase
         ]), $tags->getTags());
     }
 
+    public function testCanAddMultipleTags()
+    {
+        $expected = new PublicationTags();
+        $expected->addTag('test', ['test1', 'test2']);
+        $expected->addTag('test2', ['test3', 'test4']);
+
+        $tags = new PublicationTags();
+        $tags->addTags([
+            'test' => ['test1', 'test2'],
+            'test2' => ['test3', 'test4'],
+        ]);
+
+        $this->assertEquals($expected->getTags(), $tags->getTags());
+        $this->assertSame([
+            'test' => ['test1', 'test2'],
+            'test2' => ['test3', 'test4'],
+        ], $tags->getTags()->toArray());
+    }
+
     public function testCanSaveTagsToDisk()
     {
         $tags = new PublicationTags();

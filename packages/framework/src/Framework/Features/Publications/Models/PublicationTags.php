@@ -43,6 +43,17 @@ class PublicationTags
         return $this;
     }
 
+
+    /** @param  array<string, array<string>>  $tags */
+    public function addTags(array $tags): self
+    {
+        foreach ($tags as $name => $values) {
+            $this->addTag($name, $values);
+        }
+
+        return $this;
+    }
+
     /** Save the tags collection to disk. */
     public function save(): self
     {
