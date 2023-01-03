@@ -26,7 +26,7 @@ class PublicationTagsTest extends TestCase
     {
         $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
 
-        $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
+        $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags()->toArray());
     }
 
     public function testConstructorAddsEmptyArrayWhenThereIsNoTagsFile()
