@@ -494,7 +494,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->expectsOutput('Error: Tag field tag is missing tagGroup property')
+            ->expectsOutput("Error: Tag field 'tag' is missing the 'tagGroup' property")
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
