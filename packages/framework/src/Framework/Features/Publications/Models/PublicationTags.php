@@ -35,7 +35,10 @@ class PublicationTags
         return $this->tags;
     }
 
-    /** @param  array<string>  $values */
+    /**
+     * @param  array<string>|string  $values
+     * @return $this
+     */
     public function addTag(string $name, array|string $values): self
     {
         $this->tags->put($name, (array) $values);
@@ -44,7 +47,11 @@ class PublicationTags
     }
 
 
-    /** @param  array<string, array<string>>  $tags */
+    /**
+     * @param  array<string, array<string>|string>  $tags
+     *
+     * @return $this
+     */
     public function addTags(array $tags): self
     {
         foreach ($tags as $name => $values) {
@@ -54,7 +61,11 @@ class PublicationTags
         return $this;
     }
 
-    /** Save the tags collection to disk. */
+    /**
+     * Save the tags collection to disk.
+     *
+     * @return $this
+     */
     public function save(): self
     {
         Filesystem::putContents('tags.json', json_encode($this->tags, JSON_PRETTY_PRINT));
