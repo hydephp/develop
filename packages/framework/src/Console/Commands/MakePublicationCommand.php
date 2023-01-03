@@ -155,9 +155,10 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
+        $tagGroup = $this->publicationType->getIdentifier();
+        $this->infoComment('Select a tag for field', $field->name, "from the $tagGroup group");
 
-        $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
+        $options = PublicationService::getValuesForTagName($tagGroup);
         if ($options->isEmpty()) {
             return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags for this publication type found in tags.json');
         }
