@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use BadMethodCallException;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\FileCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
+use stdClass;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
@@ -37,14 +40,14 @@ class HydeKernelDynamicPageClassesTest extends TestCase
 
     public function test_register_page_class_method_only_accepts_instances_of_hyde_page_class()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The specified class must be a subclass of HydePage.');
-        Hyde::registerPageClass(\stdClass::class);
+        Hyde::registerPageClass(stdClass::class);
     }
 
     public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
     {
-        $this->expectException(\BadMethodCallException::class);
+        $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Cannot register a page class after the Kernel has been booted.');
 
         Hyde::boot();
