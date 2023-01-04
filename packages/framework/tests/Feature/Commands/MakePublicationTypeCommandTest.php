@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use function config;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -166,7 +166,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
         (new PublicationTags())->addTagGroups([
             'foo' => ['bar', 'baz'],
-            'bar' => ['foo', 'baz']
+            'bar' => ['foo', 'baz'],
         ])->save();
 
         $this->artisan('make:publicationType "Test Publication" --use-defaults')
