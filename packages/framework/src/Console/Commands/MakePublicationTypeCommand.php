@@ -134,16 +134,15 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
 
         $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
-
-        if (empty(PublicationTags::getTagGroups()) && (str_contains($choice, 'no tags defined') || ($choice === 'Tag'))) {
-            throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.json');
-        }
-
         return PublicationFieldTypes::from(strtolower($choice));
     }
 
     protected function getTagGroup(): string
     {
+        if (empty(PublicationTags::getTagGroups())) {
+            throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.json');
+        }
+
         return $this->choice("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups());
     }
 
