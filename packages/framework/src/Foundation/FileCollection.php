@@ -39,6 +39,8 @@ use function is_subclass_of;
  */
 final class FileCollection extends BaseFoundationCollection
 {
+    protected array $pageClasses = [];
+
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
      * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile>
@@ -124,6 +126,8 @@ final class FileCollection extends BaseFoundationCollection
     public function registerPageClass(string $pageClass): self
     {
         assert(is_subclass_of($pageClass, HydePage::class));
+
+        $this->pageClasses[$pageClass] = $pageClass;
 
         return $this;
     }
