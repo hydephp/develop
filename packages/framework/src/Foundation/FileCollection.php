@@ -19,7 +19,8 @@ use Hyde\Support\Filesystem\SourceFile;
 use function is_subclass_of;
 
 /**
- * The FileCollection contains all the discovered source and media files.
+ * The FileCollection contains all the discovered source and media files,
+ * and thus has an integral role in the Hyde Auto Discovery process.
  *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
@@ -29,7 +30,6 @@ use function is_subclass_of;
  *
  * Developer Information:
  *
- * The class has an integral role in the Hyde Auto Discovery process.
  * If you are a package developer, and want a custom page class to be discovered,
  * you'll need to add it to this collection sometime before the boot process, before discovery is run.
  * Typically, you would do this in the register method of  a service provider. Hyde will then automatically
