@@ -71,6 +71,31 @@ final class FileCollection extends BaseFoundationCollection
         return $this->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
     }
 
+    public function registerPageClass(string $pageClass): self
+    {
+        if (! is_subclass_of($pageClass, HydePage::class)) {
+            throw new \InvalidArgumentException('The specified class must be a subclass of HydePage.');
+        }
+
+        if (! in_array($pageClass, $this->pageClasses, true)) {
+            $this->pageClasses[] = $pageClass;
+        }
+
+        return $this;
+    }
+
+    public function getRegisteredPageClasses(): array
+    {
+        return $this->pageClasses;
+    }
+
+    public function rerunDiscovery(): self
+    {
+        $this->items = [];
+        $this->runDiscovery();
+        return $this;
+    }
+
     protected function runDiscovery(): self
     {
         if (Features::hasHtmlPages()) {
@@ -123,30 +148,5 @@ final class FileCollection extends BaseFoundationCollection
     public function discoverSourceFile(string $relativeSourceFilePath, SourceFile $sourceFileModelInstance): self
     {
         return $this->put($relativeSourceFilePath, $sourceFileModelInstance);
-    }
-
-    public function registerPageClass(string $pageClass): self
-    {
-        if (! is_subclass_of($pageClass, HydePage::class)) {
-            throw new \InvalidArgumentException("The specified class must be a subclass of HydePage.");
-        }
-
-        if(! in_array($pageClass, $this->pageClasses, true)) {
-            $this->pageClasses[] = $pageClass;
-        }
-
-        return $this;
-    }
-
-    public function getRegisteredPageClasses(): array
-    {
-        return $this->pageClasses;
-    }
-
-    public function rerunDiscovery(): self
-    {
-        $this->items = [];
-        $this->runDiscovery();
-        return $this;
     }
 }
