@@ -132,9 +132,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getTagGroup(): string
     {
-        $selected = trim($this->askWithValidation('name', "Enter tag group for field #{$this->getCount()}", ['required']));
-
-        return $selected;
+        return trim($this->askWithValidation('name', "Enter tag group for field #{$this->getCount()}", ['required']));
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition
