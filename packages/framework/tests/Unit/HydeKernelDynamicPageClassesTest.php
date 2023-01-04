@@ -64,6 +64,15 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->assertArrayHasKey('foo/bar.txt', Facades\FileCollection::all());
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
     }
+
+    public function test_custom_registered_pages_are_discovered_by_the_page_collection_class()
+    {
+        $this->directory('foo');
+        $this->file('foo/bar.txt');
+        Hyde::registerPageClass(TestPageClassWithSourceInformation::class);
+        $this->assertArrayHasKey('foo/bar.txt', Facades\PageCollection::all());
+        $this->assertEquals(new TestPageClassWithSourceInformation('bar'), Facades\PageCollection::get('foo/bar.txt'));
+    }
 }
 
 abstract class TestPageClass extends HydePage
@@ -74,6 +83,7 @@ abstract class TestPageClass extends HydePage
 class TestPageClassWithSourceInformation extends HydePage
 {
     public static string $sourceDirectory = 'foo';
+    public static string $outputDirectory = 'foo';
     public static string $fileExtension = '.txt';
 
     public function compile(): string
