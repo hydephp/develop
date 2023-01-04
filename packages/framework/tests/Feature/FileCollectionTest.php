@@ -121,4 +121,9 @@ class FileCollectionTest extends TestCase
     {
         //
     }
+
+    public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
+    {
+        //
+    }
 }
