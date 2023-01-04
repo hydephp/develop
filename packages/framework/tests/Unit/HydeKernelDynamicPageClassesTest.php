@@ -16,6 +16,8 @@ use stdClass;
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
+ * @covers \Hyde\Foundation\FileCollection
+ * @covers \Hyde\Foundation\PageCollection
  */
 class HydeKernelDynamicPageClassesTest extends TestCase
 {
