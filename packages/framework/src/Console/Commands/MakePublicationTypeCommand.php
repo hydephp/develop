@@ -135,7 +135,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getTagGroup(): string
     {
-        return trim($this->anticipate("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups()));
+        return $this->choice("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups());
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition
