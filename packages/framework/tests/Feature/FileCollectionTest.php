@@ -139,6 +139,16 @@ class FileCollectionTest extends TestCase
         $this->expectExceptionMessage('The specified class must be a subclass of HydePage.');
         Facades\FileCollection::registerPageClass(\stdClass::class);
     }
+
+    public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
+    {
+        $this->markTestSkipped('Skipped until we know if it\'s actually needed.');
+        
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot register a page class after the FileCollection has been booted.');
+        Facades\FileCollection::boot(Hyde::getInstance());
+        Facades\FileCollection::registerPageClass(TestPageClass::class);
+    }
 }
 
 abstract class TestPageClass extends HydePage
