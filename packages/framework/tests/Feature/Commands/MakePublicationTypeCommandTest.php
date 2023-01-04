@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
+use Hyde\Console\Commands\MakePublicationTagCommand;
 use function config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
@@ -223,5 +225,33 @@ class MakePublicationTypeCommandTest extends TestCase
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('test-publication/schema.json'));
+    }
+
+    public function testWithTagFieldInputButNoTagsCanPromptToCreateTags()
+    {
+        $this->directory('test-publication');
+        $this->cleanUpWhenDone('tags.json');
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+
+       $this->artisan('make:publicationType "Test Publication"')
+            ->expectsQuestion('Enter name for field #1', 'MyTag')
+            ->expectsChoice('Enter type for field #1', 'Tag',
+                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
+            ->expectsOutput('No tag groups have been added to tags.json')
+            ->expectsConfirmation('Would you like to add some tags now?', 'yes')
+            ->expectsQuestion('Tag name', 'foo')
+            ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
+            ->expectsConfirmation('Field #1 added! Add another field?')
+            ->expectsConfirmation('Do you want to configure pagination settings?')
+            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt',])
+            ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
+           ->assertSuccessful();
+
+        $this->assertCommandCalled('make:publicationTag');
+        $this->assertFileExists(Hyde::path('tags.json'));
+        $this->assertSame(
+            json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
+            file_get_contents(Hyde::path('tags.json'))
+        );
     }
 }
