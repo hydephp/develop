@@ -207,4 +207,19 @@ class MakePublicationTypeCommandTest extends TestCase
 
         unlink(Hyde::path('tags.json'));
     }
+
+    public function testWithTagFieldInputButNoTags()
+    {
+        config(['app.throw_on_console_exception' => false]);
+        $this->directory('test-publication');
+
+        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+            ->expectsQuestion('Enter name for field #1', 'MyTag')
+            ->expectsChoice('Enter type for field #1', 'Tag',
+                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', '<fg=gray>[9mTag[0m</> <fg=gray>(no tags defined)</>'], true)
+            ->expectsOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('test-publication/schema.json'));
+    }
 }
