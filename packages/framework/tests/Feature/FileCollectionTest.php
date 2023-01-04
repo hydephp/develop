@@ -106,4 +106,9 @@ class FileCollectionTest extends TestCase
         $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
         $this->assertEquals(new SourceFile('_docs/foo.md', DocumentationPage::class), $collection->get('_docs/foo.md'));
     }
+
+    public function test_register_page_class_method()
+    {
+        //
+    }
 }

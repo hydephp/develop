@@ -117,4 +117,11 @@ final class FileCollection extends BaseFoundationCollection
     {
         return $this->put($relativeSourceFilePath, $sourceFileModelInstance);
     }
+
+    public function registerPageClass(string $pageClass): self
+    {
+        //
+
+        return $this;
+    }
 }
