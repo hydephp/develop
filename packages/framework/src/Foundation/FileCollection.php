@@ -40,7 +40,6 @@ use function is_subclass_of;
 final class FileCollection extends BaseFoundationCollection
 {
     protected array $pageClasses = [];
-    protected bool $discoveryHasRun = false;
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
@@ -98,8 +97,6 @@ final class FileCollection extends BaseFoundationCollection
 
         $this->discoverMediaAssetFiles();
 
-        $this->discoveryHasRun = true;
-
         return $this;
     }
 
@@ -128,8 +125,8 @@ final class FileCollection extends BaseFoundationCollection
 
     public function registerPageClass(string $pageClass): self
     {
-        if ($this->discoveryHasRun) {
-            throw new \BadMethodCallException('Cannot register a page class after file discovery has run.');
+        if ($this->hasBeenBooted()) {
+            throw new \BadMethodCallException('Cannot register a page class after the FileCollection has been booted.');
         }
 
         if (! is_subclass_of($pageClass, HydePage::class)) {

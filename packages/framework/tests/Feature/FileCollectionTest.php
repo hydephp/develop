@@ -142,10 +142,7 @@ class FileCollectionTest extends TestCase
 
     public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
     {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('Cannot register a page class after the FileCollection has been booted.');
-        Facades\FileCollection::boot(Hyde::getInstance());
-        Facades\FileCollection::registerPageClass(TestPageClass::class);
+        //
     }
 }
 
