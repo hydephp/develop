@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use BadMethodCallException;
 use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
+
+use InvalidArgumentException;
 
 use function in_array;
 use function is_subclass_of;
@@ -70,11 +73,11 @@ trait ManagesHydeKernel
     public function registerPageClass(string $pageClass): self
     {
         if ($this->booted) {
-            throw new \BadMethodCallException('Cannot register a page class after the Kernel has been booted.');
+            throw new BadMethodCallException('Cannot register a page class after the Kernel has been booted.');
         }
 
         if (! is_subclass_of($pageClass, HydePage::class)) {
-            throw new \InvalidArgumentException('The specified class must be a subclass of HydePage.');
+            throw new InvalidArgumentException('The specified class must be a subclass of HydePage.');
         }
 
         if (! in_array($pageClass, $this->pageClasses, true)) {
