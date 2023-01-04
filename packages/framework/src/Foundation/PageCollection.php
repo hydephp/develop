@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\HtmlPage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
