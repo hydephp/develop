@@ -54,7 +54,9 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         Hyde::registerPageClass(TestPageClass::class);
     }
 
-    public function test_custom_registered_pages_are_discovered()
+    // Test custom registered pages can be further processed and parsed
+
+    public function test_custom_registered_pages_are_discovered_by_the_file_collection_class()
     {
         $this->directory('foo');
         $this->file('foo/bar.txt');
@@ -64,10 +66,6 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
     }
 
-    public function test_custom_registered_pages_can_be_further_processed_and_parsed()
-    {
-        $this->markTestSkipped('Todo');
-    }
 }
 
 abstract class TestPageClass extends HydePage
