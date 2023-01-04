@@ -155,6 +155,7 @@ class FileCollectionTest extends TestCase
         $this->directory('foo');
         $this->file('foo/bar.txt');
         Facades\FileCollection::registerPageClass(TestPageClassWithSourceInformation::class);
+        Facades\FileCollection::reboot();
 
         $this->assertArrayHasKey('foo/bar.txt', Facades\FileCollection::all());
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
