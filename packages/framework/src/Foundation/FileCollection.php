@@ -101,7 +101,7 @@ final class FileCollection extends BaseFoundationCollection
         // Scan the source directory, and directories therein, for files that match the model's file extension.
         foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename((string) $filepath), '_')) {
-                $this->put($this->kernel->pathToRelative($filepath), SourceFile::make($filepath, $pageClass));
+                $this->discoverSourceFile($this->kernel->pathToRelative($filepath), SourceFile::make($filepath, $pageClass));
             }
         }
     }
@@ -111,5 +111,10 @@ final class FileCollection extends BaseFoundationCollection
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
             $this->put($this->kernel->pathToRelative($filepath), MediaFile::make($filepath));
         }
+    }
+
+    public function discoverSourceFile(string $relativeSourceFilePath, SourceFile $sourceFileModelInstance): self
+    {
+        return $this->put($relativeSourceFilePath, $sourceFileModelInstance);
     }
 }
