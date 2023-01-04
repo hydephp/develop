@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
-use Hyde\Foundation\FileCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
