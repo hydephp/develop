@@ -239,7 +239,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsOutput('No tag groups have been added to tags.json')
             ->expectsConfirmation('Would you like to add some tags now?', 'yes')
             ->expectsQuestion('Tag name', 'foo')
-            ->expectsOutput("\nOkay, we're back on track!")
+            ->expectsOutput("Okay, we're back on track!")
             ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
             ->expectsConfirmation('Do you want to configure pagination settings?')

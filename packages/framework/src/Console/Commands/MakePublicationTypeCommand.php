@@ -139,7 +139,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
             $this->error('No tag groups have been added to tags.json');
             if ($this->confirm('Would you like to add some tags now?')) {
                 $this->call('make:publicationTag');
-                $this->comment("\nOkay, we're back on track!");
+
+                $this->newLine();
+                $this->comment("Okay, we're back on track!");
             } else {
                 throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.json');
             }
