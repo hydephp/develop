@@ -135,7 +135,9 @@ class FileCollectionTest extends TestCase
 
     public function test_register_page_class_method_only_accepts_instances_of_hyde_page_class()
     {
-        //
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must be a subclass of HydePage.');
+        Facades\FileCollection::registerPageClass(\stdClass::class);
     }
 
     public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
