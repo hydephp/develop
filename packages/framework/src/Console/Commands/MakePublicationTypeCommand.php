@@ -103,6 +103,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         // TODO: Here we could collect other data like the "rules" array for the field.
 
+        if ($fieldType === PublicationFieldTypes::Tag) {
+            $tagGroup = $this->getTagGroup();
+        }
+
         return new PublicationFieldDefinition($fieldType, $fieldName);
     }
 
@@ -124,6 +128,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
 
         return PublicationFieldTypes::from(strtolower($choice));
+    }
+
+    protected function getTagGroup(): string
+    {
+        $selected = trim($this->askWithValidation('name', "Enter tag group for field #{$this->getCount()}", ['required']));
+
+        return $selected;
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition
