@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use function config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -157,5 +158,53 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
              ->expectsOutput('Error: Storage path [test-publication] already exists')
              ->assertExitCode(1);
+    }
+
+    public function testWithTagFieldInput()
+    {
+        $this->directory('test-publication');
+
+        (new PublicationTags())->addTagGroups([
+            'foo' => ['bar', 'baz'],
+            'bar' => ['foo', 'baz']
+        ])->save();
+
+        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+            ->expectsQuestion('Enter name for field #1', 'MyTag')
+            ->expectsChoice('Enter type for field #1', 'Tag',
+                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
+            ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
+            ->assertSuccessful();
+
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+        $this->assertFileEqualsString(
+            <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "pagination": {
+                    "sortField": "__createdAt",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 25
+                },
+                "fields": [
+                    {
+                        "type": "datetime",
+                        "name": "__createdAt"
+                    },
+                    {
+                        "type": "tag",
+                        "name": "my-tag",
+                        "tagGroup": "foo"
+                    }
+                ]
+            }
+            JSON,
+            'test-publication/schema.json');
+
+        unlink(Hyde::path('tags.json'));
     }
 }
