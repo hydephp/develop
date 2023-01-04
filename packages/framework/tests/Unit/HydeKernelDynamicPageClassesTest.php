@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\Facades;
 use Hyde\Foundation\FileCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
-use Hyde\Foundation\Facades;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
@@ -17,7 +17,6 @@ use Hyde\Foundation\Facades;
  */
 class HydeKernelDynamicPageClassesTest extends TestCase
 {
-
     public function test_get_registered_page_classes_method()
     {
         $this->assertSame([], Facades\FileCollection::getRegisteredPageClasses());
