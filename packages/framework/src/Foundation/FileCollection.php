@@ -125,10 +125,6 @@ final class FileCollection extends BaseFoundationCollection
 
     public function registerPageClass(string $pageClass): self
     {
-        if ($this->hasBeenBooted()) {
-            throw new \BadMethodCallException('Cannot register a page class after the FileCollection has been booted.');
-        }
-
         if (! is_subclass_of($pageClass, HydePage::class)) {
             throw new \InvalidArgumentException("The specified class must be a subclass of HydePage.");
         }
