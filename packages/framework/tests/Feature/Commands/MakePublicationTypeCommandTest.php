@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Console\Commands\Helpers\InputStreamHandler;
-use Hyde\Console\Commands\MakePublicationTagCommand;
 use function config;
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -233,7 +232,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->cleanUpWhenDone('tags.json');
         InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
-       $this->artisan('make:publicationType "Test Publication"')
+        $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
@@ -243,7 +242,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
             ->expectsConfirmation('Do you want to configure pagination settings?')
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt',])
+            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt'])
             ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
            ->assertSuccessful();
 
