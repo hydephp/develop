@@ -18,6 +18,7 @@ use function is_dir;
 use function is_file;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
+use function str_contains;
 use function strtolower;
 use function trim;
 
@@ -134,14 +135,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
 
-        if ($choice === "<fg=gray>\e[9mTag\e[0m</> <fg=gray>(no tags defined)</>") {
-            $this->error('Error: Can not create a tag field without any tag groups defined.');
-            $this->warn('Please create a tag group first, or choose a different field type.');
-            if ($this->confirm('Select another type for this field?', true)) {
-                return $this->getFieldType();
-            } else {
-                throw new InvalidArgumentException('No field type selected');
-            }
+        if (str_contains($choice, 'no tags defined')) {
+            throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.json.');
         }
 
         return PublicationFieldTypes::from(strtolower($choice));
