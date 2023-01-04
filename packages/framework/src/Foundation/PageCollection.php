@@ -43,27 +43,9 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        if (Features::hasHtmlPages()) {
-            $this->discoverPagesFor(HtmlPage::class);
+        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
+            $this->discoverPagesFor($pageClass);
         }
-
-        if (Features::hasBladePages()) {
-            $this->discoverPagesFor(BladePage::class);
-        }
-
-        if (Features::hasMarkdownPages()) {
-            $this->discoverPagesFor(MarkdownPage::class);
-        }
-
-        if (Features::hasMarkdownPosts()) {
-            $this->discoverPagesFor(MarkdownPost::class);
-        }
-
-        if (Features::hasDocumentationPages()) {
-            $this->discoverPagesFor(DocumentationPage::class);
-        }
-
-        // TODO: #781 Add package developer hook to discover custom page types
 
         return $this;
     }
