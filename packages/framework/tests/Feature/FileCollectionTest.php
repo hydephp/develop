@@ -160,6 +160,11 @@ class FileCollectionTest extends TestCase
         $this->assertArrayHasKey('foo/bar.txt', Facades\FileCollection::all());
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
     }
+
+    public function test_custom_registered_pages_can_be_further_processed_and_parsed()
+    {
+        $this->markTestSkipped('Todo');
+    }
 }
 
 abstract class TestPageClass extends HydePage
