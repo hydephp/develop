@@ -129,10 +129,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $options = PublicationFieldTypes::names();
 
-        if (empty(PublicationTags::getTagGroups())) {
-            $options[9] = "<fg=gray>\e[9mTag\e[0m</> <fg=gray>(no tags defined)</>";
-        }
-
         $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
         return PublicationFieldTypes::from(strtolower($choice));
     }
