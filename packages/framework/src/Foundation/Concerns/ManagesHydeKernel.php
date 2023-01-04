@@ -70,7 +70,7 @@ trait ManagesHydeKernel
         })->unique()->values()->toArray();
     }
 
-    public function registerPageClass(string $pageClass): self
+    public function registerPageClass(string $pageClass): void
     {
         if ($this->booted) {
             throw new BadMethodCallException('Cannot register a page class after the Kernel has been booted.');
@@ -83,8 +83,6 @@ trait ManagesHydeKernel
         if (! in_array($pageClass, $this->pageClasses, true)) {
             $this->pageClasses[] = $pageClass;
         }
-
-        return $this;
     }
 
     public function getRegisteredPageClasses(): array
