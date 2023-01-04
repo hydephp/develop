@@ -74,6 +74,7 @@ trait ManagesHydeKernel
         })->unique()->values()->toArray();
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public function registerPageClass(string $pageClass): void
     {
         if ($this->booted) {
@@ -89,6 +90,7 @@ trait ManagesHydeKernel
         }
     }
 
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
         return $this->pageClasses;
