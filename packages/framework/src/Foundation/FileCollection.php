@@ -17,6 +17,9 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 
+use function assert;
+use function is_subclass_of;
+
 /**
  * The FileCollection contains all the discovered source and media files.
  *
@@ -120,7 +123,7 @@ final class FileCollection extends BaseFoundationCollection
 
     public function registerPageClass(string $pageClass): self
     {
-        //
+        assert(is_subclass_of($pageClass, HydePage::class));
 
         return $this;
     }

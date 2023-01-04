@@ -111,4 +111,9 @@ class FileCollectionTest extends TestCase
     {
         //
     }
+
+    public function test_register_page_class_method_only_accepts_instances_of_hyde_page_class()
+    {
+        //
+    }
 }
