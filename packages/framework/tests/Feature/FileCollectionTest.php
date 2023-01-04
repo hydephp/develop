@@ -116,8 +116,8 @@ class FileCollectionTest extends TestCase
 
     public function test_register_page_class_method_returns_self()
     {
-        $this->assertInstanceOf(FileCollection::class, Facades\FileCollection::registerPageClass(MarkdownPage::class));
-        $this->assertSame(Facades\FileCollection::getInstance(), Facades\FileCollection::registerPageClass(MarkdownPage::class));
+        $this->assertInstanceOf(FileCollection::class, Facades\FileCollection::registerPageClass(TestPageClass::class));
+        $this->assertSame(Facades\FileCollection::getInstance(), Facades\FileCollection::registerPageClass(TestPageClass::class));
     }
 
     public function test_register_page_class_method_adds_specified_class_name_to_index()
@@ -134,4 +134,9 @@ class FileCollectionTest extends TestCase
     {
         //
     }
+}
+
+abstract class TestPageClass extends HydePage
+{
+    //
 }
