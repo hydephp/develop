@@ -14,6 +14,7 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Hyde\Foundation\Facades;
 
 /**
  * @covers \Hyde\Foundation\FileCollection
@@ -105,6 +106,11 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::boot(Hyde::getInstance());
         $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
         $this->assertEquals(new SourceFile('_docs/foo.md', DocumentationPage::class), $collection->get('_docs/foo.md'));
+    }
+
+    public function test_get_registered_page_classes_method()
+    {
+        $this->assertSame([], Facades\FileCollection::getRegisteredPageClasses());
     }
 
     public function test_register_page_class_method()

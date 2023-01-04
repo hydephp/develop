@@ -135,4 +135,9 @@ final class FileCollection extends BaseFoundationCollection
 
         return $this;
     }
+
+    public function getRegisteredPageClasses(): array
+    {
+        return $this->pageClasses;
+    }
 }
