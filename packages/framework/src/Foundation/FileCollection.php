@@ -25,6 +25,13 @@ use Hyde\Support\Filesystem\SourceFile;
  *
  * @see \Hyde\Foundation\Facades\FileCollection
  * @see \Hyde\Hyde::files()
+ *
+ * Developer Information:
+ *
+ * The class has an integral role in the Hyde Auto Discovery process.
+ * If you are a package developer, and want a custom page class to be discovered,
+ * you'll need to add it to this collection sometime during the boot process.
+ * Typically, you would do this in a service provider.
  */
 final class FileCollection extends BaseFoundationCollection
 {
