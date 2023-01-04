@@ -64,7 +64,6 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->assertArrayHasKey('foo/bar.txt', Facades\FileCollection::all());
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
     }
-
 }
 
 abstract class TestPageClass extends HydePage
