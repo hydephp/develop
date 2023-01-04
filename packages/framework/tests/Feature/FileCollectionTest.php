@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\FileCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -113,9 +114,10 @@ class FileCollectionTest extends TestCase
         $this->assertSame([], Facades\FileCollection::getRegisteredPageClasses());
     }
 
-    public function test_register_page_class_method()
+    public function test_register_page_class_method_returns_self()
     {
-        //
+        $this->assertInstanceOf(FileCollection::class, Facades\FileCollection::registerPageClass(MarkdownPage::class));
+        $this->assertSame(Facades\FileCollection::getInstance(), Facades\FileCollection::registerPageClass(MarkdownPage::class));
     }
 
     public function test_register_page_class_method_adds_specified_class_name_to_index()
