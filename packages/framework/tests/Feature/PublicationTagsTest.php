@@ -126,6 +126,22 @@ class PublicationTagsTest extends TestCase
         ]), $tags->getTags());
     }
 
+    public function testGetTagGroups()
+    {
+        $tags = new PublicationTags();
+        $tags->addTagGroup('test', ['foo']);
+        $tags->addTagGroup('test2', ['bar']);
+        $tags->save();
+
+        $this->assertSame(['test', 'test2'], PublicationTags::getTagGroups());
+        unlink(Hyde::path('tags.json'));
+    }
+
+    public function testGetTagGroupsWithNoTags()
+    {
+        $this->assertSame([], PublicationTags::getTagGroups());
+    }
+
     public function testCanSaveTagsToDisk()
     {
         $tags = new PublicationTags();

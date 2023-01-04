@@ -109,6 +109,16 @@ class PublicationTags
     }
 
     /**
+     * Get all tag names.
+     *
+     * @return array<string>
+     */
+    public static function getTagGroups(): array
+    {
+        return self::getAllTags()->keys()->toArray();
+    }
+
+    /**
      * Validate the tags.json file is valid.
      *
      * @internal This method is experimental and may be removed without notice

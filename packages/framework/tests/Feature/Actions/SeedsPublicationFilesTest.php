@@ -133,7 +133,10 @@ class SeedsPublicationFilesTest extends TestCase
     {
         $tags = ['test-publication' => ['foo', 'bar', 'baz']];
         $this->file('tags.json', json_encode($tags));
-        $this->updateSchema('tag', 'tag');
+        $this->pubType->fields = [
+            (new PublicationFieldDefinition('tag', 'tag', tagGroup: 'test-publication'))->toArray(),
+        ];
+        $this->pubType->save();
         (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();

@@ -67,7 +67,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
                 $publication->matter->forget('__createdAt');
 
-                foreach ($publication->type->fields as $field) {
+                foreach ($publication->type->getFieldData() as $field) {
                     $countFields++;
                     $fieldName = $field['name'];
                     $pubTypeField = new PublicationFieldDefinition($field['type'], $fieldName);

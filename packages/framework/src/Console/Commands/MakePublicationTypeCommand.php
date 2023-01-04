@@ -8,6 +8,7 @@ use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
@@ -103,6 +104,12 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         // TODO: Here we could collect other data like the "rules" array for the field.
 
+        if ($fieldType === PublicationFieldTypes::Tag) {
+            $tagGroup = $this->getTagGroup();
+
+            return new PublicationFieldDefinition($fieldType, $fieldName, tagGroup: $tagGroup);
+        }
+
         return new PublicationFieldDefinition($fieldType, $fieldName);
     }
 
@@ -124,6 +131,23 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
 
         return PublicationFieldTypes::from(strtolower($choice));
+    }
+
+    protected function getTagGroup(): string
+    {
+        if (empty(PublicationTags::getTagGroups())) {
+            $this->error('No tag groups have been added to tags.json');
+            if ($this->confirm('Would you like to add some tags now?')) {
+                $this->call('make:publicationTag');
+
+                $this->newLine();
+                $this->comment("Okay, we're back on track!");
+            } else {
+                throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.json');
+            }
+        }
+
+        return $this->choice("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups());
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition

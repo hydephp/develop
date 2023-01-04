@@ -155,16 +155,17 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
+        $tagGroup = $field->tagGroup ?? throw new InvalidArgumentException("Tag field '$field->name' is missing the 'tagGroup' property");
+        $this->infoComment('Select a tag for field', $field->name, "from the $tagGroup group");
 
-        $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
+        $options = PublicationService::getValuesForTagName($tagGroup);
         if ($options->isEmpty()) {
             return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags for this publication type found in tags.json');
         }
 
         $this->tip('You can enter multiple tags separated by commas');
 
-        $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
+        $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure($tagGroup),
             'Which tag would you like to use?',
             'Reload tags.json',
             true
@@ -210,10 +211,10 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return Closure<array<string>> */
-    protected function getReloadableTagValuesArrayClosure(): Closure
+    protected function getReloadableTagValuesArrayClosure(string $tagGroup): Closure
     {
-        return function (): array {
-            return PublicationService::getValuesForTagName($this->publicationType->getIdentifier())->toArray();
+        return function () use ($tagGroup): array {
+            return PublicationService::getValuesForTagName($tagGroup)->toArray();
         };
     }
 }

@@ -337,6 +337,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -360,6 +361,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tags',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -434,6 +436,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -454,6 +457,7 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -477,6 +481,25 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, $this->getDatedPublicationContents());
     }
 
+    public function test_tag_input_for_field_without_tagGroup_specified()
+    {
+        config(['app.throw_on_console_exception' => false]);
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'tag',
+                'name' => 'tag',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsOutput("Error: Tag field 'tag' is missing the 'tagGroup' property")
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
+    }
+
     public function test_handleEmptyOptionsCollection_for_required_field()
     {
         config(['app.throw_on_console_exception' => false]);
@@ -486,6 +509,7 @@ class MakePublicationCommandTest extends TestCase
                 'type' => 'tag',
                 'name' => 'tag',
                 'rules' => ['required'],
+                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
