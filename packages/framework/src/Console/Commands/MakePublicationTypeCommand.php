@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
@@ -133,7 +134,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getTagGroup(): string
     {
-        return trim($this->askWithValidation('name', "Enter tag group for field #{$this->getCount()}", ['required']));
+        return trim($this->anticipate("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups()));
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition
