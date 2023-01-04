@@ -131,7 +131,9 @@ final class FileCollection extends BaseFoundationCollection
 
         assert(is_subclass_of($pageClass, HydePage::class));
 
-        $this->pageClasses[] = $pageClass;
+        if(! in_array($pageClass, $this->pageClasses, true)) {
+            $this->pageClasses[] = $pageClass;
+        }
 
         return $this;
     }

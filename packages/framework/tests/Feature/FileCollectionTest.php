@@ -126,6 +126,13 @@ class FileCollectionTest extends TestCase
         $this->assertSame([TestPageClass::class], Facades\FileCollection::getRegisteredPageClasses());
     }
 
+    public function test_register_page_class_method_does_not_add_already_added_class_names()
+    {
+        Facades\FileCollection::registerPageClass(TestPageClass::class);
+        Facades\FileCollection::registerPageClass(TestPageClass::class);
+        $this->assertSame([TestPageClass::class], Facades\FileCollection::getRegisteredPageClasses());
+    }
+
     public function test_register_page_class_method_only_accepts_instances_of_hyde_page_class()
     {
         //
