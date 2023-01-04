@@ -6,8 +6,12 @@ namespace Hyde\Testing;
 
 use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
+
+use function file_get_contents;
+use function Hyde\normalize_newlines;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -48,5 +52,14 @@ abstract class TestCase extends BaseTestCase
     protected function setupTestPublication(string $directory = 'test-publication')
     {
         Filesystem::copy('tests/fixtures/test-publication-schema.json', "$directory/schema.json");
+    }
+
+    protected function assertFileEqualsString(string $string, string $path, bool $strict = false): void
+    {
+        if ($strict) {
+            $this->assertSame($string, file_get_contents(Hyde::path($path)));
+        } else {
+            $this->assertEquals(normalize_newlines($string), normalize_newlines(file_get_contents(Hyde::path($path))));
+        }
     }
 }
