@@ -69,6 +69,10 @@ trait ManagesHydeKernel
 
     public function registerPageClass(string $pageClass): self
     {
+        if ($this->booted) {
+            throw new \BadMethodCallException('Cannot register a page class after the Kernel has been booted.');
+        }
+
         if (! is_subclass_of($pageClass, HydePage::class)) {
             throw new \InvalidArgumentException('The specified class must be a subclass of HydePage.');
         }
