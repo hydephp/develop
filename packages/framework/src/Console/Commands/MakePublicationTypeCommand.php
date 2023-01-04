@@ -18,7 +18,6 @@ use function is_dir;
 use function is_file;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
-use function str_contains;
 use function strtolower;
 use function trim;
 
@@ -130,6 +129,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $options = PublicationFieldTypes::names();
 
         $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
+
         return PublicationFieldTypes::from(strtolower($choice));
     }
 
