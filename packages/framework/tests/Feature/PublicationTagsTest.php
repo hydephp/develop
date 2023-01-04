@@ -139,11 +139,7 @@ class PublicationTagsTest extends TestCase
 
     public function testGetTagGroupsWithNoTags()
     {
-        $tags = new PublicationTags();
-        $tags->save();
-
         $this->assertSame([], PublicationTags::getTagGroups());
-        unlink(Hyde::path('tags.json'));
     }
 
     public function testCanSaveTagsToDisk()
