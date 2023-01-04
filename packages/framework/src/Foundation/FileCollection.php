@@ -16,8 +16,6 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
-
-use function assert;
 use function is_subclass_of;
 
 /**
@@ -93,6 +91,7 @@ final class FileCollection extends BaseFoundationCollection
     {
         $this->items = [];
         $this->runDiscovery();
+
         return $this;
     }
 

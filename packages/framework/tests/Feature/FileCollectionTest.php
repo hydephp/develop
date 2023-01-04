@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\Facades;
 use Hyde\Foundation\FileCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -15,7 +16,6 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use Hyde\Foundation\Facades;
 
 /**
  * @covers \Hyde\Foundation\FileCollection
@@ -143,7 +143,7 @@ class FileCollectionTest extends TestCase
     public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
     {
         $this->markTestSkipped('Skipped until we know if it\'s actually needed.');
-        
+
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('Cannot register a page class after the FileCollection has been booted.');
         Facades\FileCollection::boot(Hyde::getInstance());
