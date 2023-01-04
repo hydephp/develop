@@ -149,9 +149,30 @@ class FileCollectionTest extends TestCase
         Facades\FileCollection::boot(Hyde::getInstance());
         Facades\FileCollection::registerPageClass(TestPageClass::class);
     }
+
+    public function test_custom_registered_pages_are_discovered()
+    {
+        $this->directory('foo');
+        $this->file('foo/bar.txt');
+        Facades\FileCollection::registerPageClass(TestPageClassWithSourceInformation::class);
+
+        $this->assertArrayHasKey('foo/bar.txt', Facades\FileCollection::all());
+        $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
+    }
 }
 
 abstract class TestPageClass extends HydePage
 {
     //
+}
+
+class TestPageClassWithSourceInformation extends HydePage
+{
+    public static string $sourceDirectory = 'foo';
+    public static string $fileExtension = '.txt';
+
+    public function compile(): string
+    {
+        return '';
+    }
 }
