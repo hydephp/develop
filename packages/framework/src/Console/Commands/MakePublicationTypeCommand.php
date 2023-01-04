@@ -137,6 +137,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
         if ($choice === "<fg=gray>\e[9mTag\e[0m</>") {
             $this->error('Error: Can not create a tag field without any tag groups defined.');
             $this->warn('Please create a tag group first, or choose a different field type.');
+            if ($this->confirm('Select another type for this field?', true)) {
+                return $this->getFieldType();
+            } else {
+                throw new InvalidArgumentException('No field type selected');
+            }
         }
 
         return PublicationFieldTypes::from(strtolower($choice));
