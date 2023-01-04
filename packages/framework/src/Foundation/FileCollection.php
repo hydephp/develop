@@ -143,7 +143,7 @@ final class FileCollection extends BaseFoundationCollection
         return $this->pageClasses;
     }
 
-    public function reboot(): self
+    public function rerunDiscovery(): self
     {
         $this->items = [];
         $this->runDiscovery();
