@@ -10,6 +10,9 @@ use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 
+use function in_array;
+use function is_subclass_of;
+
 /**
  * @internal Single-use trait for the HydeKernel class.
  *
@@ -62,5 +65,23 @@ trait ManagesHydeKernel
         return $this->pages()->map(function (HydePage $page): string {
             return $page::class;
         })->unique()->values()->toArray();
+    }
+
+    public function registerPageClass(string $pageClass): self
+    {
+        if (! is_subclass_of($pageClass, HydePage::class)) {
+            throw new \InvalidArgumentException('The specified class must be a subclass of HydePage.');
+        }
+
+        if (! in_array($pageClass, $this->pageClasses, true)) {
+            $this->pageClasses[] = $pageClass;
+        }
+
+        return $this;
+    }
+
+    public function getRegisteredPageClasses(): array
+    {
+        return $this->pageClasses;
     }
 }
