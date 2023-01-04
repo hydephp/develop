@@ -83,14 +83,14 @@ trait ManagesHydeKernel
             throw new InvalidArgumentException('The specified class must be a subclass of HydePage.');
         }
 
-        if (! in_array($pageClass, static::$pageClasses, true)) {
-            static::$pageClasses[] = $pageClass;
+        if (! in_array($pageClass, $this->pageClasses, true)) {
+            $this->pageClasses[] = $pageClass;
         }
     }
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
-        return static::$pageClasses;
+        return $this->pageClasses;
     }
 }
