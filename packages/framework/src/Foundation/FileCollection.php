@@ -62,6 +62,26 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
+        if (Features::hasHtmlPages()) {
+            $this->discoverFilesFor(HtmlPage::class);
+        }
+
+        if (Features::hasBladePages()) {
+            $this->discoverFilesFor(BladePage::class);
+        }
+
+        if (Features::hasMarkdownPages()) {
+            $this->discoverFilesFor(MarkdownPage::class);
+        }
+
+        if (Features::hasMarkdownPosts()) {
+            $this->discoverFilesFor(MarkdownPost::class);
+        }
+
+        if (Features::hasDocumentationPages()) {
+            $this->discoverFilesFor(DocumentationPage::class);
+        }
+
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverFilesFor($pageClass);
         }
