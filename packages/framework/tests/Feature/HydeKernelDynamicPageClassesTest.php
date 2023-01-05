@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Support\Models\Route;
 use function app;
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
@@ -84,7 +84,7 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->file('foo/bar.txt');
         app(HydeKernel::class)->registerPageClass(TestPageClassWithSourceInformation::class);
         $this->assertArrayHasKey('foo/bar', Facades\Router::all());
-        $this->assertEquals(new Route(New TestPageClassWithSourceInformation('bar')), Facades\Router::get('foo/bar'));
+        $this->assertEquals(new Route(new TestPageClassWithSourceInformation('bar')), Facades\Router::get('foo/bar'));
     }
 }
 
