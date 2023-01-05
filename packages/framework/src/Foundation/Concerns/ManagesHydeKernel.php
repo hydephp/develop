@@ -75,6 +75,8 @@ trait ManagesHydeKernel
     /**
      * Developer Information:
      *
+     * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
+     *
      * If you are a package developer, and want a custom page class to be discovered,
      * you'll need to register it sometime before the boot process, before discovery is run.
      * Typically, you would do this by calling this method in the register method of a service provider.
