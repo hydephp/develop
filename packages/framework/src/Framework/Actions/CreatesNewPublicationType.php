@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function file_put_contents;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -56,66 +55,16 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createDetailTemplate(): void
     {
-        $contents = <<<'BLADE'
-        @extends('hyde::layouts.app')
-        @section('content')
-            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-                <article class="prose dark:prose-invert">
-                    @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
-                    <h1>{{ $publication->title }}</h1>
-                    <p>
-                        {{ $publication->markdown }}
-                    </p>
-                </article>
-                
-                <div class="prose dark:prose-invert my-8">
-                    <hr>
-                </div>
-                
-                <article class="prose dark:prose-invert">
-                    <h3>Front Matter Data</h3>
-                    <div class="ml-4">
-                        @foreach($publication->matter->data as $key => $value)
-                        <dt class="font-bold">{{ $key }}</dt>
-                        <dd class="ml-4">
-                            {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}
-                        </dd>
-                        @endforeach
-                    </div>
-                </article>
-            </main>
-        @endsection
-        BLADE;
-
-        $this->savePublicationFile('detail.blade.php', $contents);
+        $this->savePublicationFile('detail.blade.php', 'resources/views/layouts/publication.blade.php');
     }
 
     protected function createListTemplate(): void
     {
-        $contents = <<<'BLADE'
-        @extends('hyde::layouts.app')
-        @section('content')
-            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-                <div class="prose dark:prose-invert">
-                    <h1>Publications for type {{ $page->type->name }}</h1>
-                    <ol>
-                        @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
-                        @foreach($publications as $publication)
-                        <li>
-                            <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
-                        </li>
-                        @endforeach
-                    </ol>
-                </div>
-            </main>
-        @endsection
-        BLADE;
-
-        $this->savePublicationFile('list.blade.php', $contents);
+        $this->savePublicationFile('list.blade.php', 'resources/views/layouts/publication_list.blade.php');
     }
 
-    protected function savePublicationFile(string $filename, string $contents): int
+    protected function savePublicationFile(string $filename, string $viewPath): void
     {
-        return file_put_contents(Hyde::path("$this->directoryName/$filename"), "$contents\n");
+        copy(Hyde::vendorPath($viewPath), Hyde::path("$this->directoryName/$filename"));
     }
 }
