@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Error;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
@@ -127,7 +128,8 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testGetBladeView()
     {
-        $this->assertSame('foo.html', (new VirtualPage('foo'))->getBladeView());
+        $this->expectException(Error::class);
+        (new VirtualPage('foo'))->getBladeView();
     }
 
     public function testFiles()
