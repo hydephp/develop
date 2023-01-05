@@ -96,15 +96,16 @@ class PublicationPageCompilerTest extends TestCase
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
+        $this->file('vendor/hyde/framework/resources/views/layouts/test.blade.php', 'Registered list view');
 
         $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
-        $schema->listTemplate = 'hyde::layouts.publication_list';
+        $schema->listTemplate = 'hyde::layouts.test';
         file_put_contents(Hyde::path('test-publication/schema.json'), json_encode($schema));
         file_put_contents(Hyde::path('test-publication/my-publication.md'), 'Foo');
 
         $publicationType = PublicationType::get('test-publication');
         $publicationPage = $publicationType->getListPage();
-        $this->assertEquals("The default publication list template\n", PublicationPageCompiler::call($publicationPage));
+        $this->assertEquals("Registered list view", PublicationPageCompiler::call($publicationPage));
     }
 
     public function test_with_missing_detail_blade_view()
