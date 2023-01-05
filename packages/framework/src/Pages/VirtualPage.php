@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 
 /**
@@ -24,9 +25,9 @@ class VirtualPage extends HydePage
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 
-    public function __construct(string $identifier, string $contents = '')
+    public function __construct(string $identifier, string $contents = '', FrontMatter|array $matter = [])
     {
-        parent::__construct($identifier);
+        parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
     }
