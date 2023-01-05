@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Support\Models\Route;
 use function app;
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
@@ -75,6 +76,15 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         app(HydeKernel::class)->registerPageClass(TestPageClassWithSourceInformation::class);
         $this->assertArrayHasKey('foo/bar.txt', Facades\PageCollection::all());
         $this->assertEquals(new TestPageClassWithSourceInformation('bar'), Facades\PageCollection::get('foo/bar.txt'));
+    }
+
+    public function test_custom_registered_pages_are_discovered_by_the_route_collection_class()
+    {
+        $this->directory('foo');
+        $this->file('foo/bar.txt');
+        app(HydeKernel::class)->registerPageClass(TestPageClassWithSourceInformation::class);
+        $this->assertArrayHasKey('foo/bar', Facades\Router::all());
+        $this->assertEquals(new Route(New TestPageClassWithSourceInformation('bar')), Facades\Router::get('foo/bar'));
     }
 }
 
