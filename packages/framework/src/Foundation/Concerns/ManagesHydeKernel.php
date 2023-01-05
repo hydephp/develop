@@ -90,6 +90,7 @@ trait ManagesHydeKernel
             // We throw an exception here to prevent the developer from registering a page class after the Kernel has been booted.
             // The reason we do this is because at this point all the source files have already been discovered and parsed.
             // If we allowed new classes after this point, we would have to reboot everything which adds complexity.
+
             throw new BadMethodCallException('Cannot register a page class after the Kernel has been booted.');
         }
 
