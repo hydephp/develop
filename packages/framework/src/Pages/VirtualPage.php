@@ -9,6 +9,8 @@ use Hyde\Pages\Concerns\HydePage;
 /**
  * A virtual page is a page that does not have a source file.
  *
+ * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
+ *
  * This can be useful for creating pagination pages and the like.
  * When used in a package, it's on the package developer to ensure
  * that the virtual page is registered with Hyde, usually within the
