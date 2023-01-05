@@ -73,7 +73,7 @@ trait ManagesHydeKernel
     }
 
     /**
-     * Developer Information:.
+     * Developer Information.
      *
      * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
      *
