@@ -1,4 +1,7 @@
 @extends('hyde::layouts.app')
+@push('meta')
+    <meta name="robots" content="noindex">
+@endpush
 @section('content')
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
         <div class="prose dark:prose-invert">
