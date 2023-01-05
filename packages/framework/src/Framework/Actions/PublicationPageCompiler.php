@@ -107,5 +107,9 @@ class PublicationPageCompiler extends InvokableAction
         ], $data));
 
         file_put_contents(Hyde::sitePath($path), $content);
+        if ($pageNumber === 1) { //fixme this overwrites the other page leading to wasted compilation time and also makes us lose that page's data // we also prob dont want to show the number in the title
+            $path = "{$pubType->getDirectory()}/index.html";
+            file_put_contents(Hyde::sitePath($path), $content);
+        }
     }
 }
