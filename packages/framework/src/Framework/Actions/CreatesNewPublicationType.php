@@ -65,11 +65,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $this->savePublicationFile('list.blade.php', 'resources/views/layouts/publication_list.blade.php');
     }
 
-    protected function savePublicationFile(string $filename, string $viewPath): int
+    protected function savePublicationFile(string $filename, string $viewPath): bool
     {
-        return file_put_contents(
-            Hyde::path("$this->directoryName/$filename"),
-            file_get_contents(Hyde::vendorPath($viewPath))
-        );
+        return copy(Hyde::vendorPath($viewPath), Hyde::path("$this->directoryName/$filename"));
     }
 }
