@@ -1,0 +1,22 @@
+{
+    "name": "test",
+    "canonicalField": "__createdAt",
+    "detailTemplate": "detail.blade.php",
+    "listTemplate": "list.blade.php",
+    "pagination": {
+        "sortField": "__createdAt",
+        "sortAscending": true,
+        "prevNextLinks": true,
+        "pageSize": 25
+    },
+    "fields": [
+        {
+            "type": "datetime",
+            "name": "__createdAt"
+        },
+        {
+            "type": "string",
+            "name": "title"
+        }
+    ]
+}
