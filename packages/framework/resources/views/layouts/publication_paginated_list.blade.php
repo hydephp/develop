@@ -16,6 +16,8 @@
                 @if($paginator->previous)
 {{--                    useful if using routes: <x-link :href="$paginator->previous">Prev</x-link>--}}
                     <a href="page-{{ $paginator->previous }}.html">Prev</a> <!-- fixme support pretty urls -->
+                @else
+                    <span>Prev</span>
                 @endif
 
                 @foreach(range(1, $paginator->total) as $number)
@@ -29,6 +31,8 @@
 
                 @if($paginator->next)
                         <a href="page-{{ $paginator->next }}.html">Next</a> <!-- fixme support pretty urls -->
+                @else
+                    <span>Next</span>
                 @endif
             </nav>
         </div>
