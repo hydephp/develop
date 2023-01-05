@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function array_merge;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -12,8 +13,6 @@ use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
-
-use function array_merge;
 use function str_ends_with;
 
 /**
@@ -33,6 +32,7 @@ class PublicationPageCompiler extends InvokableAction
         // FIXME implement condition
         if (true) {
             $this->generatePaginationPages();
+
             return '';
         }
 
@@ -94,10 +94,11 @@ class PublicationPageCompiler extends InvokableAction
         }
     }
 
-    protected function savePaginationPage(PublicationType $pubType, int $pageNumber, array $data) {
+    protected function savePaginationPage(PublicationType $pubType, int $pageNumber, array $data)
+    {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
         $page = new HtmlPage($identifier, matter: [
-            'title' => $pubType->name . " (Page - $pageNumber)",
+            'title' => $pubType->name." (Page - $pageNumber)",
         ]); // virtual page?
         Hyde::shareViewData($page);
         $path = "$identifier.html";
