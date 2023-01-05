@@ -55,7 +55,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createDetailTemplate(): void
     {
-        $this->savePublicationFile('detail.blade.php', 'resources/views/layouts/publication.blade.php');
+        $this->savePublicationFile('detail.blade.php', 'resources/views/layouts/publication_detail.blade.php');
     }
 
     protected function createListTemplate(): void
