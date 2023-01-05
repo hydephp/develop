@@ -144,7 +144,7 @@ abstract class HydePage implements PageSchema
      */
     final public static function fileExtension(): string
     {
-        return '.'.ltrim(static::$fileExtension, '.');
+        return rtrim('.'.ltrim(static::$fileExtension, '.'), '.');
     }
 
     /**
