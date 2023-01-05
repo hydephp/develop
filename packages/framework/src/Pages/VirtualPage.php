@@ -16,8 +16,22 @@ use Hyde\Pages\Concerns\HydePage;
  */
 class VirtualPage extends HydePage
 {
+    protected string $contents;
+
+    public function __construct(string $identifier, string $contents)
+    {
+        parent::__construct($identifier);
+
+        $this->contents = $contents;
+    }
+
+    public function contents(): string
+    {
+        return $this->contents;
+    }
+
     public function compile(): string
     {
-        // TODO: Implement compile() method.
+        return $this->contents();
     }
 }
