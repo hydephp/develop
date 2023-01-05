@@ -20,6 +20,9 @@ class VirtualPage extends HydePage
 {
     protected string $contents;
 
+    public static string $sourceDirectory = '';
+    public static string $outputDirectory = '';
+
     public function __construct(string $identifier, string $contents)
     {
         parent::__construct($identifier);
