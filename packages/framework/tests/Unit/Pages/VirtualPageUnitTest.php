@@ -144,7 +144,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $page = new VirtualPage('foo');
         HydeKernel::getInstance()->pages()->put('foo', $page);
-        $this->assertEquals($page, VirtualPage::get('foo'));
+        $this->assertSame($page, VirtualPage::get('foo'));
     }
 
     public function testParse()
