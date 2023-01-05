@@ -57,38 +57,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createDetailTemplate(): void
     {
-        $contents = <<<'BLADE'
-        @extends('hyde::layouts.app')
-        @section('content')
-            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-                <article class="prose dark:prose-invert">
-                    @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
-                    <h1>{{ $publication->title }}</h1>
-                    <p>
-                        {{ $publication->markdown }}
-                    </p>
-                </article>
-                
-                <div class="prose dark:prose-invert my-8">
-                    <hr>
-                </div>
-                
-                <article class="prose dark:prose-invert">
-                    <h3>Front Matter Data</h3>
-                    <div class="ml-4">
-                        @foreach($publication->matter->data as $key => $value)
-                        <dt class="font-bold">{{ $key }}</dt>
-                        <dd class="ml-4">
-                            {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}
-                        </dd>
-                        @endforeach
-                    </div>
-                </article>
-            </main>
-        @endsection
-        BLADE;
-
-        $this->savePublicationFile('detail.blade.php', $contents);
+        $this->savePublicationFile('detail.blade.php', file_get_contents(Hyde::vendorPath('resources/views/layouts/publication.blade.php')));
     }
 
     protected function createListTemplate(): void
