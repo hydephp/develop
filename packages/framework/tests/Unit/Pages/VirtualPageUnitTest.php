@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
@@ -141,8 +142,9 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testGet()
     {
-        $this->file(VirtualPage::sourcePath('foo'));
-        $this->assertEquals(new VirtualPage('foo'), VirtualPage::get('foo'));
+        $page = new VirtualPage('foo');
+        HydeKernel::getInstance()->pages()->put('foo', $page);
+        $this->assertEquals($page, VirtualPage::get('foo'));
     }
 
     public function testParse()
