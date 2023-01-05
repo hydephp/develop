@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
@@ -92,26 +93,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createListTemplate(): void
     {
-        $contents = <<<'BLADE'
-        @extends('hyde::layouts.app')
-        @section('content')
-            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-                <div class="prose dark:prose-invert">
-                    <h1>Publications for type {{ $page->type->name }}</h1>
-                    <ol>
-                        @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
-                        @foreach($publications as $publication)
-                        <li>
-                            <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
-                        </li>
-                        @endforeach
-                    </ol>
-                </div>
-            </main>
-        @endsection
-        BLADE;
-
-        $this->savePublicationFile('list.blade.php', $contents);
+        $this->savePublicationFile('list.blade.php', file_get_contents(Hyde::vendorPath('resources/views/layouts/publication_list.blade.php')));
     }
 
     protected function savePublicationFile(string $filename, string $contents): int
