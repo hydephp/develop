@@ -1,5 +1,5 @@
 {
-    "name": "test",
+    "name": "Test",
     "canonicalField": "__createdAt",
     "detailTemplate": "detail.blade.php",
     "listTemplate": "list.blade.php",

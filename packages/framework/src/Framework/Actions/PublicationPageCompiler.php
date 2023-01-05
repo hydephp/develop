@@ -97,7 +97,7 @@ class PublicationPageCompiler extends InvokableAction
     protected function savePaginationPage(PublicationType $pubType, int $pageNumber, array $data) {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
         $page = new HtmlPage($identifier, matter: [
-            'title' => "Publications for type ".$pubType->name . " (Page - $pageNumber)",
+            'title' => $pubType->name . " (Page - $pageNumber)",
         ]); // virtual page?
         Hyde::shareViewData($page);
         $path = "$identifier.html";
