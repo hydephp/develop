@@ -22,7 +22,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     public function testSourceDirectory()
     {
         $this->assertSame(
-            '_pages',
+            '',
             VirtualPage::sourceDirectory()
         );
     }
@@ -38,7 +38,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     public function testFileExtension()
     {
         $this->assertSame(
-            '.html',
+            '',
             VirtualPage::fileExtension()
         );
     }
@@ -46,7 +46,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     public function testSourcePath()
     {
         $this->assertSame(
-            '_pages/hello-world.html',
+            'hello-world',
             VirtualPage::sourcePath('hello-world')
         );
     }
@@ -62,15 +62,15 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     public function testPath()
     {
         $this->assertSame(
-            Hyde::path('_pages/hello-world.html'),
-            VirtualPage::path('hello-world.html')
+            Hyde::path('hello-world'),
+            VirtualPage::path('hello-world')
         );
     }
 
     public function testGetSourcePath()
     {
         $this->assertSame(
-            '_pages/hello-world.html',
+            'hello-world',
             (new VirtualPage('hello-world'))->getSourcePath()
         );
     }
@@ -93,25 +93,25 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testMake()
     {
-        $this->assertEquals(VirtualPage::make(), new VirtualPage());
+        $this->assertEquals(VirtualPage::make('foo'), new VirtualPage('foo'));
     }
 
     public function testMakeWithData()
     {
         $this->assertEquals(
             VirtualPage::make('foo', ['foo' => 'bar']),
-            new VirtualPage('foo', ['foo' => 'bar'])
+            new VirtualPage('foo', matter: ['foo' => 'bar'])
         );
     }
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new VirtualPage())->showInNavigation());
+        $this->assertTrue((new VirtualPage('foo'))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new VirtualPage())->navigationMenuPriority());
+        $this->assertSame(999, (new VirtualPage('foo'))->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
@@ -126,7 +126,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testGetBladeView()
     {
-        $this->assertSame('_pages/foo.html', (new VirtualPage('foo'))->getBladeView());
+        $this->assertSame('foo.html', (new VirtualPage('foo'))->getBladeView());
     }
 
     public function testFiles()
@@ -168,17 +168,17 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testMetadata()
     {
-        $this->assertInstanceOf(PageMetadataBag::class, (new VirtualPage())->metadata());
+        $this->assertInstanceOf(PageMetadataBag::class, (new VirtualPage('foo'))->metadata());
     }
 
     public function test__construct()
     {
-        $this->assertInstanceOf(VirtualPage::class, new VirtualPage());
+        $this->assertInstanceOf(VirtualPage::class, new VirtualPage('foo'));
     }
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new VirtualPage())->getRoute());
+        $this->assertInstanceOf(Route::class, (new VirtualPage('foo'))->getRoute());
     }
 
     public function testGetIdentifier()
@@ -198,7 +198,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testConstructFactoryData()
     {
-        (new VirtualPage())->constructFactoryData($this->mockPageDataFactory());
+        (new VirtualPage('foo'))->constructFactoryData($this->mockPageDataFactory());
         $this->assertTrue(true);
     }
 
