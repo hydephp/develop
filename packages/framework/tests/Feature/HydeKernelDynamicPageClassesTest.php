@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function app;
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
@@ -12,8 +13,6 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
-
-use function app;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel

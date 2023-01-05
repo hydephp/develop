@@ -73,7 +73,7 @@ trait ManagesHydeKernel
     }
 
     /**
-     * Developer Information:
+     * Developer Information:.
      *
      * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
      *
@@ -82,7 +82,7 @@ trait ManagesHydeKernel
      * Typically, you would do this by calling this method in the register method of a service provider.
      * Hyde will then automatically discover source files for the new page class, and compile them during the build process.
      *
-     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
     public function registerPageClass(string $pageClass): void
     {
