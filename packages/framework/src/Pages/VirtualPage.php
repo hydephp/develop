@@ -24,7 +24,7 @@ class VirtualPage extends HydePage
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 
-    public function __construct(string $identifier, string $contents)
+    public function __construct(string $identifier, string $contents = '')
     {
         parent::__construct($identifier);
 
