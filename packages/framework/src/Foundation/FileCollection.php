@@ -26,13 +26,6 @@ use Hyde\Support\Filesystem\SourceFile;
  *
  * @see \Hyde\Foundation\Facades\FileCollection
  * @see \Hyde\Hyde::files()
- *
- * Developer Information:
- *
- * If you are a package developer, and want a custom page class to be discovered,
- * you'll need to add it to this collection sometime before the boot process, before discovery is run.
- * Typically, you would do this in the register method of  a service provider. Hyde will then automatically
- * discover source files for the new page class, and compile them during the build process.
  */
 final class FileCollection extends BaseFoundationCollection
 {

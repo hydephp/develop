@@ -72,7 +72,16 @@ trait ManagesHydeKernel
         })->unique()->values()->toArray();
     }
 
-    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
+    /**
+     * Developer Information:
+     *
+     * If you are a package developer, and want a custom page class to be discovered,
+     * you'll need to register it sometime before the boot process, before discovery is run.
+     * Typically, you would do this by calling this method in the register method of a service provider.
+     * Hyde will then automatically discover source files for the new page class, and compile them during the build process.
+     *
+     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
+     */
     public function registerPageClass(string $pageClass): void
     {
         if ($this->booted) {
