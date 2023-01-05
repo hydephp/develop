@@ -105,7 +105,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationType = PublicationType::get('test-publication');
         $publicationPage = $publicationType->getListPage();
-        $this->assertEquals("Registered list view", PublicationPageCompiler::call($publicationPage));
+        $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
     }
 
     public function test_with_missing_detail_blade_view()
