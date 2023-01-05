@@ -18,7 +18,8 @@ use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 
 /**
- * The FileCollection contains all the discovered source and media files.
+ * The FileCollection contains all the discovered source and media files,
+ * and thus has an integral role in the Hyde Auto Discovery process.
  *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
@@ -80,7 +81,9 @@ final class FileCollection extends BaseFoundationCollection
             $this->discoverFilesFor(DocumentationPage::class);
         }
 
-        // TODO: Add hook to support custom page types
+        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
+            $this->discoverFilesFor($pageClass);
+        }
 
         $this->discoverMediaAssetFiles();
 

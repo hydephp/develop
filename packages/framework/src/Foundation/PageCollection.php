@@ -63,7 +63,9 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor(DocumentationPage::class);
         }
 
-        // TODO: #781 Add package developer hook to discover custom page types
+        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
+            $this->discoverPagesFor($pageClass);
+        }
 
         return $this;
     }
