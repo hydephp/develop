@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_merge;
 use function dirname;
 use Exception;
 use function file_get_contents;
+use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
@@ -14,6 +16,7 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
+use function json_encode;
 use RuntimeException;
 use function str_starts_with;
 
@@ -134,13 +137,6 @@ class PublicationType implements SerializableContract
         return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
     }
 
-    public function save(?string $path = null): void
-    {
-        $path ??= $this->getSchemaFile();
-        $this->needsParentDirectory($path);
-        file_put_contents(Hyde::path($path), json_encode($this->toArray(), JSON_PRETTY_PRINT));
-    }
-
     public function getListPage(): PublicationListPage
     {
         return new PublicationListPage($this);
@@ -149,6 +145,13 @@ class PublicationType implements SerializableContract
     public function usesPagination(): bool
     {
         return $this->pagination->pageSize > 0;
+    }
+
+    public function save(?string $path = null): void
+    {
+        $path ??= $this->getSchemaFile();
+        $this->needsParentDirectory($path);
+        file_put_contents(Hyde::path($path), json_encode($this->toArray(), JSON_PRETTY_PRINT));
     }
 
     protected static function parseSchemaFile(string $schemaFile): array
