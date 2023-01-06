@@ -40,7 +40,7 @@ class PaginationService
 
     protected function generate(Collection $items): void
     {
-        $this->chunks = $items->chunk($this->paginationSettings->pageSize);
+        $this->chunks = $items->chunk($this->perPage());
     }
 
     public function getPaginatedPageCollection(): Collection
