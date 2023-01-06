@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
-
-use function collect;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginationServiceTest
