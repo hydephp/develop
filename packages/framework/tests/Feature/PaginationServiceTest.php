@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use function array_combine;
 use function collect;
+use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Testing\TestCase;
 use function range;

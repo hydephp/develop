@@ -51,6 +51,7 @@ class PaginationService
     public function setCurrentPage(int $currentPage): PaginationService
     {
         $this->currentPage = $currentPage;
+
         return $this;
     }
 
