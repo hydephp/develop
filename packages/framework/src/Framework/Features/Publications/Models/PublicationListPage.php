@@ -30,10 +30,4 @@ class PublicationListPage extends VirtualPage
     {
         return PublicationPageCompiler::call($this);
     }
-
-    /** @deprecated for this child class */
-    public function getSourcePath(): string
-    {
-        return $this->type->getDirectory().'/schema.json';
-    }
 }
