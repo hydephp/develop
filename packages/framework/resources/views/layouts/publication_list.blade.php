@@ -13,6 +13,6 @@
             </ol>
         </div>
 
-        // todo if paginated add pagination navigation here too for the index page
+        // todo if paginated add pagination navigation here too for the index page (and extract component)
     </main>
 @endsection
