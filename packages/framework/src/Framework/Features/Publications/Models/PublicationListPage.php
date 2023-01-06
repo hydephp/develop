@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Pages\BladePage;
-use Hyde\Support\Contracts\DynamicPage;
+use Hyde\Pages\Contracts\DynamicPage;
 
 /**
  * @see \Hyde\Pages\PublicationPage
