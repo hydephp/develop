@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
+use function array_combine;
 use function collect;
 use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Testing\TestCase;
@@ -31,6 +32,11 @@ class PaginationServiceTest extends TestCase
         $this->assertCount(2, $collection);
         $this->assertCount(25, $collection->first());
         $this->assertCount(25, $collection->last());
+
+        $this->assertSame([
+            range(1, 25),
+            array_combine(range(25, 49), range(26, 50)),
+        ], $collection->toArray());
     }
 
     public function testGetAndSetCurrentPageNumber()
