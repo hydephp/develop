@@ -8,7 +8,7 @@ use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Support\Contracts\DynamicPage;
+use Hyde\Pages\Contracts\DynamicPage;
 use function str_starts_with;
 
 /**

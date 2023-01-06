@@ -10,6 +10,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\Contracts\DynamicPage;
 use function in_array;
 use InvalidArgumentException;
 use function is_subclass_of;
@@ -96,6 +97,10 @@ trait ManagesHydeKernel
 
         if (! is_subclass_of($pageClass, HydePage::class)) {
             throw new InvalidArgumentException('The specified class must be a subclass of HydePage.');
+        }
+
+        if (is_subclass_of($pageClass, DynamicPage::class)) {
+            throw new InvalidArgumentException('The specified class must not be a subclass of DynamicPage.');
         }
 
         if (! in_array($pageClass, $this->pageClasses, true)) {
