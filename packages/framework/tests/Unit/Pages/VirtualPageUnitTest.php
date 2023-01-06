@@ -128,8 +128,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testGetBladeView()
     {
-        $this->expectException(Error::class);
-        (new VirtualPage('foo'))->getBladeView();
+        $this->assertSame('foo', (new VirtualPage('foo', view: 'foo'))->getBladeView());
     }
 
     public function testFiles()
@@ -238,7 +237,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testViewMethod()
     {
-        $this->assertSame('bar', (new VirtualPage('foo', view: 'bar'))->getView());
+        $this->assertSame('bar', (new VirtualPage('foo', view: 'bar'))->getBladeView());
     }
 
     public function testCompileMethodUsesContentsProperty()
