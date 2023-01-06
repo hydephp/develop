@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Closure;
+use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
@@ -54,6 +55,7 @@ class VirtualPage extends HydePage implements DynamicPage
         $viewData = array_merge($this->matter->toArray(), $viewData);
 
         if ($this->view) {
+            Hyde::shareViewData($this);
             return View::make($this->view, $viewData)->render();
         }
 
