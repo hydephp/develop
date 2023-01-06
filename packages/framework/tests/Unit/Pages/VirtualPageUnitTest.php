@@ -244,4 +244,16 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->compile());
     }
+
+    public function testCompileMethodUsesViewProperty()
+    {
+        $this->file('_pages/foo.blade.php', 'bar');
+        $this->assertSame('bar', (new VirtualPage('foo', view: 'foo'))->compile());
+    }
+
+    public function testCompileMethodPrefersViewPropertyOverContents()
+    {
+        $this->file('_pages/foo.blade.php', 'blade');
+        $this->assertSame('blade', (new VirtualPage('foo', contents: 'contents', view: 'foo'))->compile());
+    }
 }
