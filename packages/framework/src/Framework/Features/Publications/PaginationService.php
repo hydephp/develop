@@ -10,6 +10,8 @@ use Illuminate\Support\Collection;
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginationServiceTest
  *
+ * @todo Implement sorting from PaginationSettings
+ *
  * Internal developer note: It may be useful to match the Laravel method names as much as possible.
  * @link https://laravel.com/docs/9.x/pagination#paginator-instance-methods
  *
