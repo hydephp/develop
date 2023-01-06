@@ -12,5 +12,7 @@
                 @endforeach
             </ol>
         </div>
+
+        // todo if paginated add pagination navigation here too for the index page
     </main>
 @endsection
