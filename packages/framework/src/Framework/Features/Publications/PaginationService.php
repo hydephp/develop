@@ -31,14 +31,14 @@ class PaginationService
     public function __construct(PublicationType $publicationType)
     {
         $this->publicationType = $publicationType;
+
+        $this->generate();
     }
 
-    public function generate(): static
+    protected function generate(): void
     {
         $this->chunks = PublicationService::getPublicationsForPubType($this->publicationType)
             ->chunk($this->publicationType->pagination->pageSize);
-
-        return $this;
     }
 
     public function getPaginatedPageCollection(): Collection
