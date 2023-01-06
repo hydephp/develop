@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
@@ -51,11 +52,11 @@ class PaginatesPublicationListing
                 ],
             ];
 
-            $this->makePaginationPage($this->type, $page, $data);
+            $this->pages[] = $this->makePaginationPage($this->type, $page, $data);;
         }
     }
 
-    protected function makePaginationPage(PublicationType $pubType, int $pageNumber, array $data)
+    protected function makePaginationPage(PublicationType $pubType, int $pageNumber, array $data): PublicationListPage
     {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
 
@@ -69,10 +70,6 @@ class PaginatesPublicationListing
             'title' => $pubType->name." (Page - $pageNumber)",
         ], $data), '', 'hyde::layouts.publication_paginated_list');
 
-        file_put_contents(Hyde::sitePath($path), $page->compile());
-        if ($pageNumber === 1) { //fixme this overwrites the other page leading to wasted compilation time and also makes us lose that page's data // we also prob dont want to show the number in the title
-            $path = "{$pubType->getDirectory()}/index.html";
-            file_put_contents(Hyde::sitePath($path), $page->compile());
-        }
+        return $page;
     }
 }
