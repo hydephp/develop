@@ -6,6 +6,7 @@ namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
+use Hyde\Framework\Actions\PaginatesPublicationListing;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -127,6 +128,7 @@ final class PageCollection extends BaseFoundationCollection
         // FIXME
         if ($type->usesPagination()) {
             // generate pagination pages and use the first one as the listing page
+            $paginatedPages = (new PaginatesPublicationListing($type))->__invoke();
             return;
         }
 
