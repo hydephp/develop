@@ -10,6 +10,8 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
 
+use function array_merge;
+
 /**
  * A virtual page is a page that does not have a source file.
  *
@@ -47,14 +49,16 @@ class VirtualPage extends HydePage implements DynamicPage
         return $this->contents;
     }
 
-    public function compile(): string
+    public function compile(array $viewData = []): string
     {
+        $viewData = array_merge($this->matter->toArray(), $viewData);
+
         if ($this->view) {
-            return View::make($this->view, $this->matter->toArray())->render();
+            return View::make($this->view, $viewData)->render();
         }
 
         if ($this->contents instanceof Closure) {
-            return ($this->contents)($this);
+            return ($this->contents)($this, $viewData);
         }
 
         return $this->contents();
