@@ -18,7 +18,7 @@ class PaginationServiceTest extends TestCase
 {
     public function test_it_can_be_instantiated(): void
     {
-        $this->assertInstanceOf(PaginationService::class, new PaginationService([], new PaginationSettings()));
+        $this->assertInstanceOf(PaginationService::class, new PaginationService([]));
     }
 
     public function testGetPaginatedPageCollection()
