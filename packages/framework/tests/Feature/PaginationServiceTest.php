@@ -18,19 +18,19 @@ class PaginationServiceTest extends TestCase
 {
     public function test_it_can_be_instantiated(): void
     {
-        $this->assertInstanceOf(PaginationService::class, new PaginationService(new PaginationSettings()));
+        $this->assertInstanceOf(PaginationService::class, new PaginationService([], new PaginationSettings()));
     }
 
     public function testGetPaginatedPageCollection()
     {
-        $this->assertEquals(collect([]), (new PaginationService(new PaginationSettings()))->getPaginatedPageCollection());
+        $this->assertEquals(collect([]), (new PaginationService([], new PaginationSettings()))->getPaginatedPageCollection());
     }
 
     public function testGetPaginatedPageCollectionWithPages()
     {
         $collection = (new PaginationService(
-            new PaginationSettings(),
-            collect(range(1, 50))
+            collect(range(1, 50)),
+            new PaginationSettings()
         ))->getPaginatedPageCollection();
 
         $this->assertCount(2, $collection);
@@ -46,8 +46,8 @@ class PaginationServiceTest extends TestCase
     public function testCollectionIsChunkedBySpecifiedSettingValue()
     {
         $collection = (new PaginationService(
-            new PaginationSettings(pageSize: 10),
-            collect(range(1, 50)))
+            collect(range(1, 50)),
+            new PaginationSettings(pageSize: 10))
         )->getPaginatedPageCollection();
 
         $this->assertCount(5, $collection);
@@ -57,7 +57,7 @@ class PaginationServiceTest extends TestCase
 
     public function testGetAndSetCurrentPageNumber()
     {
-        $service = new PaginationService(new PaginationSettings());
+        $service = new PaginationService([], new PaginationSettings());
 
         $this->assertSame(1, $service->currentPage());
         $this->assertSame($service, $service->setCurrentPage(2));
