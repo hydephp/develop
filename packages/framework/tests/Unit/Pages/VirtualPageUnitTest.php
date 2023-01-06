@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Error;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
@@ -18,6 +17,8 @@ require_once __DIR__.'/BaseHydePageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\VirtualPage
+ *
+ * @see \Hyde\Framework\Testing\Unit\VirtualPageTest
  */
 class VirtualPageUnitTest extends BaseHydePageUnitTest
 {
@@ -128,8 +129,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
 
     public function testGetBladeView()
     {
-        $this->expectException(Error::class);
-        (new VirtualPage('foo'))->getBladeView();
+        $this->assertSame('foo', (new VirtualPage('foo', view: 'foo'))->getBladeView());
     }
 
     public function testFiles()
@@ -218,26 +218,5 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     public function testMatter()
     {
         $this->assertInstanceOf(FrontMatter::class, (new VirtualPage('404'))->matter());
-    }
-
-    public function testConstructWithContentsString()
-    {
-        $this->assertInstanceOf(VirtualPage::class, new VirtualPage('foo', contents: 'bar'));
-    }
-
-    public function testMakeWithContentsString()
-    {
-        $this->assertInstanceOf(VirtualPage::class, VirtualPage::make('foo', contents: 'bar'));
-        $this->assertEquals(VirtualPage::make('foo', contents: 'bar'), new VirtualPage('foo', contents: 'bar'));
-    }
-
-    public function testContentsMethod()
-    {
-        $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->contents());
-    }
-
-    public function testCompileMethodUsesContentsProperty()
-    {
-        $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->compile());
     }
 }
