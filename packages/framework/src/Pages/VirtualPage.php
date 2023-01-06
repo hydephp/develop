@@ -27,7 +27,7 @@ class VirtualPage extends HydePage
 
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = ''): static
     {
-        return new static($identifier, matter: $matter, contents: $contents);
+        return new static($identifier, $matter, $contents);
     }
 
     public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '')
