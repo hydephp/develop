@@ -29,9 +29,9 @@ class VirtualPage extends HydePage implements DynamicPage
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 
-    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = ''): static
+    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = '', string $view = ''): static
     {
-        return new static($identifier, $matter, $contents);
+        return new static($identifier, $matter, $contents, $view);
     }
 
     public function __construct(string $identifier, FrontMatter|array $matter = [], string|Closure $contents = '', string $view = '')
