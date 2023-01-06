@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Pages\Contracts\DynamicPage;
 use function app;
 use function array_filter;
 use function array_map;
@@ -25,6 +26,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use function is_subclass_of;
 use function method_exists;
 use function str_starts_with;
 
@@ -253,7 +255,7 @@ class HydeServiceProviderTest extends TestCase
     protected function getDeclaredPages(): array
     {
         return array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && (! str_starts_with($class, 'Hyde\Pages\Concerns') && ! is_subclass_of($class, DynamicPage::class));
         }));
     }
 }
