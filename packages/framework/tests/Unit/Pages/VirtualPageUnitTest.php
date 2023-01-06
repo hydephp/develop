@@ -18,6 +18,7 @@ require_once __DIR__.'/BaseHydePageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\VirtualPage
+ * @see \Hyde\Framework\Testing\Unit\VirtualPageTest
  */
 class VirtualPageUnitTest extends BaseHydePageUnitTest
 {
@@ -217,43 +218,5 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     public function testMatter()
     {
         $this->assertInstanceOf(FrontMatter::class, (new VirtualPage('404'))->matter());
-    }
-
-    public function testConstructWithContentsString()
-    {
-        $this->assertInstanceOf(VirtualPage::class, new VirtualPage('foo', contents: 'bar'));
-    }
-
-    public function testMakeWithContentsString()
-    {
-        $this->assertInstanceOf(VirtualPage::class, VirtualPage::make('foo', contents: 'bar'));
-        $this->assertEquals(VirtualPage::make('foo', contents: 'bar'), new VirtualPage('foo', contents: 'bar'));
-    }
-
-    public function testContentsMethod()
-    {
-        $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->getContents());
-    }
-
-    public function testViewMethod()
-    {
-        $this->assertSame('bar', (new VirtualPage('foo', view: 'bar'))->getBladeView());
-    }
-
-    public function testCompileMethodUsesContentsProperty()
-    {
-        $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->compile());
-    }
-
-    public function testCompileMethodUsesViewProperty()
-    {
-        $this->file('_pages/foo.blade.php', 'bar');
-        $this->assertSame('bar', (new VirtualPage('foo', view: 'foo'))->compile());
-    }
-
-    public function testCompileMethodPrefersContentsPropertyOverView()
-    {
-        $this->file('_pages/foo.blade.php', 'blade');
-        $this->assertSame('contents', (new VirtualPage('foo', contents: 'contents', view: 'foo'))->compile());
     }
 }
