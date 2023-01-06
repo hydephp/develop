@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Pages\HtmlPage;
 use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Pages\VirtualPage
+ *
  * @see \Hyde\Framework\Testing\Unit\Pages\VirtualPageUnitTest
  */
 class VirtualPageTest extends TestCase

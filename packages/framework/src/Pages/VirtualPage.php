@@ -42,12 +42,12 @@ class VirtualPage extends HydePage implements DynamicPage
      *
      * Note that $contents take precedence over $view, so if you pass both, only $contents will be used.
      *
-     * @param  string  $identifier The identifier of the page. This is used to generate the route key which is used to create the output filename.
-     *                             If the identifier for a virtual page is "foo/bar" the page will be saved to "_site/foo/bar.html".
-     * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter The front matter of the page. When using the Blade view rendering option,
-     *                                                          this will be passed to the view.
-     * @param  string  $contents The contents of the page. This will be saved as-is to the output file.
-     * @param  string  $view The view key for the view to use to render the page contents.
+     * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
+     *                              If the identifier for a virtual page is "foo/bar" the page will be saved to "_site/foo/bar.html".
+     * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
+     *                                                           this will be passed to the view.
+     * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
+     * @param  string  $view  The view key for the view to use to render the page contents.
      */
     public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {

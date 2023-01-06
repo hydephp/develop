@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Error;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
@@ -18,6 +17,7 @@ require_once __DIR__.'/BaseHydePageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\VirtualPage
+ *
  * @see \Hyde\Framework\Testing\Unit\VirtualPageTest
  */
 class VirtualPageUnitTest extends BaseHydePageUnitTest
