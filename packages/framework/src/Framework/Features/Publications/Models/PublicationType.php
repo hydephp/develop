@@ -146,6 +146,11 @@ class PublicationType implements SerializableContract
         return new PublicationListPage($this);
     }
 
+    public function usesPagination(): bool
+    {
+        return $this->pagination->pageSize > 0;
+    }
+
     protected static function parseSchemaFile(string $schemaFile): array
     {
         return json_decode(file_get_contents(Hyde::path($schemaFile)), true, 512, JSON_THROW_ON_ERROR);

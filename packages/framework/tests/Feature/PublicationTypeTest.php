@@ -274,6 +274,18 @@ class PublicationTypeTest extends TestCase
         ]), $publicationType->getCanonicalFieldDefinition());
     }
 
+    public function testUsesPaginationReturnsTrueWhenPaginationShouldBeEnabled()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertTrue($publicationType->usesPagination());
+    }
+
+    public function testUsesPaginationReturnsFalseWhenPaginationShouldBeDisabled()
+    {
+        $publicationType = new PublicationType(...$this->getTestData(['pagination' => ['pageSize' => 0]]));
+        $this->assertFalse($publicationType->usesPagination());
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
