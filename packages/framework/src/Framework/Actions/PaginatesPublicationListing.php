@@ -17,7 +17,7 @@ class PaginatesPublicationListing
 {
     protected PublicationType $type;
 
-    /** @var array<\Hyde\Framework\Features\Publications\Models\PublicationListPage> */
+    /** fixme: @var array<\Hyde\Framework\Features\Publications\Models\PublicationListPage> */
     protected array $pages;
 
     public function __construct(PublicationType $type)
