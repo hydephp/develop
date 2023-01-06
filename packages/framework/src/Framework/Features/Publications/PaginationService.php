@@ -32,9 +32,7 @@ class PaginationService
 
     public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [])
     {
-        $this->paginationSettings = $paginationSettings instanceof PaginationSettings
-            ? $paginationSettings
-            : PaginationSettings::fromArray($paginationSettings);
+        $this->paginationSettings = $this->getPaginationSettings($paginationSettings);
 
         $this->generate(collect($items));
     }
@@ -103,5 +101,12 @@ class PaginationService
     public function hasFewerPages(): bool
     {
         return $this->currentPage > 1;
+    }
+
+    protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
+    {
+        return $paginationSettings instanceof PaginationSettings
+            ? $paginationSettings
+            : PaginationSettings::fromArray($paginationSettings);
     }
 }
