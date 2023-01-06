@@ -13,9 +13,9 @@ use Hyde\Pages\VirtualPage;
  */
 class PublicationListPage extends VirtualPage
 {
-    public static string $sourceDirectory = '__publications';
+    public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
-    public static string $fileExtension = 'json';
+    public static string $fileExtension = '';
 
     public PublicationType $type;
 
