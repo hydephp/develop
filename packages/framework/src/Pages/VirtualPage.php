@@ -49,7 +49,7 @@ class VirtualPage extends HydePage implements DynamicPage
     public function compile(): string
     {
         if ($this->view) {
-            return View::make($this->view)->render();
+            return View::make($this->view, $this->matter->toArray())->render();
         }
 
         return $this->contents();
