@@ -134,16 +134,16 @@ class PublicationType implements SerializableContract
         return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
     }
 
+    public function getListPage(): PublicationListPage
+    {
+        return new PublicationListPage($this);
+    }
+
     public function save(?string $path = null): void
     {
         $path ??= $this->getSchemaFile();
         $this->needsParentDirectory($path);
         file_put_contents(Hyde::path($path), json_encode($this->toArray(), JSON_PRETTY_PRINT));
-    }
-
-    public function getListPage(): PublicationListPage
-    {
-        return new PublicationListPage($this);
     }
 
     protected static function parseSchemaFile(string $schemaFile): array
