@@ -16,6 +16,9 @@ class PaginatesPublicationListing
 {
     protected PublicationType $type;
 
+    /** @var array<\Hyde\Framework\Features\Publications\Models\PublicationListPage> */
+    protected array $pages;
+
     public function __construct(PublicationType $type)
     {
         $this->type = $type;
@@ -23,14 +26,14 @@ class PaginatesPublicationListing
 
     public function __invoke(): array
     {
-        return [];
-    }
+        $this->generatePaginationPages();
 
+        return $this->pages;
+    }
 
     protected function generatePaginationPages(): void
     {
-        $pubType = $this->page->type;
-        $pages = PublicationService::getPublicationsForPubType($pubType);
+        $pages = PublicationService::getPublicationsForPubType($this->type);
 
         $count = 25; //FIXme get form type
         $chunks = $pages->chunk($count);
@@ -48,11 +51,11 @@ class PaginatesPublicationListing
                 ],
             ];
 
-            $this->savePaginationPage($pubType, $page, $data);
+            $this->makePaginationPage($this->type, $page, $data);
         }
     }
 
-    protected function savePaginationPage(PublicationType $pubType, int $pageNumber, array $data)
+    protected function makePaginationPage(PublicationType $pubType, int $pageNumber, array $data)
     {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
 
