@@ -129,6 +129,7 @@ final class PageCollection extends BaseFoundationCollection
 
         if ($type->usesPagination()) {
             $paginatedPages = (new PaginatesPublicationListing($type))->__invoke();
+            $this->put($type->getListPage()->getSourcePath(), $paginatedPages[0]);
             foreach ($paginatedPages as $page) {
                 $this->discover($page);
             }
