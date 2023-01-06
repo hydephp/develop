@@ -28,7 +28,8 @@ class PaginationServiceTest extends TestCase
 
     public function testGetPaginatedPageCollectionWithPages()
     {
-        $collection = (new PaginationService(new PaginationSettings(), collect(range(1, 50))))->getPaginatedPageCollection();
+        $collection = (new PaginationService(new PaginationSettings(),
+            collect(range(1, 50))))->getPaginatedPageCollection();
         $this->assertCount(2, $collection);
         $this->assertCount(25, $collection->first());
         $this->assertCount(25, $collection->last());
@@ -41,7 +42,8 @@ class PaginationServiceTest extends TestCase
 
     public function testCollectionIsChunkedBySpecifiedSettingValue()
     {
-        $collection = (new PaginationService(new PaginationSettings(pageSize: 10), collect(range(1, 50))))->getPaginatedPageCollection();
+        $collection = (new PaginationService(new PaginationSettings(pageSize: 10),
+            collect(range(1, 50))))->getPaginatedPageCollection();
 
         $this->assertCount(5, $collection);
         $this->assertCount(10, $collection->first());
