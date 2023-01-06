@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Closure;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
@@ -21,19 +22,19 @@ use Illuminate\Support\Facades\View;
  */
 class VirtualPage extends HydePage implements DynamicPage
 {
-    protected string $contents;
+    protected string|Closure $contents;
     protected string $view;
 
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 
-    public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = ''): static
+    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = ''): static
     {
         return new static($identifier, $matter, $contents);
     }
 
-    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
+    public function __construct(string $identifier, FrontMatter|array $matter = [], string|Closure $contents = '', string $view = '')
     {
         parent::__construct($identifier, $matter);
 
@@ -50,6 +51,10 @@ class VirtualPage extends HydePage implements DynamicPage
     {
         if ($this->view) {
             return View::make($this->view, $this->matter->toArray())->render();
+        }
+
+        if ($this->contents instanceof Closure) {
+            return ($this->contents)($this);
         }
 
         return $this->contents();
