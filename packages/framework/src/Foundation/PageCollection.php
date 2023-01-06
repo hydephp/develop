@@ -125,10 +125,10 @@ final class PageCollection extends BaseFoundationCollection
     protected function generatePublicationListingPageForType(PublicationType $type): void
     {
         // FIXME
-//        if ($paginate) {
-//            // generate pagination pages and use the first one as the listing page
-//            return;
-//        }
+        if ($type->usesPagination()) {
+            // generate pagination pages and use the first one as the listing page
+            return;
+        }
 
         $page = new PublicationListPage($type);
         $this->put($page->getSourcePath(), $page);
