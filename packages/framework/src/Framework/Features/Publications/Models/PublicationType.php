@@ -28,7 +28,7 @@ class PublicationType implements SerializableContract
     use Serializable;
     use InteractsWithDirectories;
 
-    public PaginationSettings|array $pagination = [];
+    public PaginationSettings $pagination;
     protected string $directory;
 
     /** @var array<array<string, mixed>> */
