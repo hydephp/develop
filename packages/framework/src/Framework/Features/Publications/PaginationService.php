@@ -23,6 +23,8 @@ class PaginationService
 
     protected Collection $chunks;
 
+    public int $currentPage = 1;
+
     public function __construct(PublicationType $publicationType)
     {
         $this->publicationType = $publicationType;
