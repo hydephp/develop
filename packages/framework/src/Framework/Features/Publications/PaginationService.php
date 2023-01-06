@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
  *
  * Additional note: In most cases when this class uses the term "page" it is referring
  * to the paginated page of publications, not the publication pages themselves.
+ * This is for the reason stated above, to match the Laravel method names.
  */
 class PaginationService
 {
