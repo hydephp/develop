@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Publications\PublicationService;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PaginationService;
@@ -19,7 +20,7 @@ class PaginationServiceTest extends TestCase
         $publicationType = $this->setupPublication();
 
         $this->assertInstanceOf(PaginationService::class,
-            new PaginationService($publicationType)
+            new PaginationService($publicationType->pagination)
         );
     }
 
@@ -27,7 +28,7 @@ class PaginationServiceTest extends TestCase
     {
         $publicationType = $this->setupPublication();
 
-        $this->assertEquals(collect([]), (new PaginationService($publicationType))->getPaginatedPageCollection());
+        $this->assertEquals(collect([]), (new PaginationService($publicationType->pagination))->getPaginatedPageCollection());
     }
 
     public function testGetPaginatedPageCollectionWithPages()
@@ -38,7 +39,7 @@ class PaginationServiceTest extends TestCase
             $this->file("test-publication/$i.md", "title: $i");
         }
 
-        $collection = (new PaginationService($publicationType))->getPaginatedPageCollection();
+        $collection = (new PaginationService($publicationType->pagination, PublicationService::getPublicationsForPubType($publicationType)))->getPaginatedPageCollection();
         $this->assertCount(2, $collection);
         $this->assertCount(25, $collection->first());
         $this->assertCount(25, $collection->last());
