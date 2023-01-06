@@ -29,13 +29,6 @@ class PublicationPageCompiler extends InvokableAction
 
     public function __invoke(): string
     {
-        // FIXME implement condition
-        if (true) {
-            $this->generatePaginationPages();
-
-            return '';
-        }
-
         return $this->page instanceof PublicationPage
             ? $this->compilePublicationPage()
             : $this->compilePublicationListPage();
