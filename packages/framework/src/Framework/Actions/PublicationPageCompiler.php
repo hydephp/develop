@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Pages\VirtualPage;
 use function array_merge;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
@@ -97,15 +98,17 @@ class PublicationPageCompiler extends InvokableAction
     protected function savePaginationPage(PublicationType $pubType, int $pageNumber, array $data)
     {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
-        $page = new HtmlPage($identifier, matter: [
-            'title' => $pubType->name." (Page - $pageNumber)",
-        ]); // virtual page?
-        Hyde::shareViewData($page);
+
+
         $path = "$identifier.html";
         $content = view('hyde::layouts.publication_paginated_list', array_merge([
             'type' => $pubType,
             'paginator' => (object) $data['pagination'],
         ], $data));
+
+        $page = new VirtualPage($identifier, [
+            'title' => $pubType->name." (Page - $pageNumber)",
+        ], $content->render());
 
         file_put_contents(Hyde::sitePath($path), $content);
         if ($pageNumber === 1) { //fixme this overwrites the other page leading to wasted compilation time and also makes us lose that page's data // we also prob dont want to show the number in the title
