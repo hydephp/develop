@@ -203,6 +203,13 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
+    public function test_get_file_extension_removes_trailing_period()
+    {
+        MarkdownPage::$fileExtension = 'foo.';
+        $this->assertEquals('.foo', MarkdownPage::fileExtension());
+        $this->resetDirectoryConfiguration();
+    }
+
     public function test_get_identifier_returns_identifier_property()
     {
         $page = new MarkdownPage('foo');
