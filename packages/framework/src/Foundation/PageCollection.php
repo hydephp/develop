@@ -125,7 +125,6 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function generatePublicationListingPageForType(PublicationType $type): void
     {
-
         if ($type->usesPagination()) {
             // todo investigate memory load of this and consider lazy loading if needed
             $paginatedPages = (new PaginatesPublicationListing($type))->__invoke();
