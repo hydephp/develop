@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Pages\VirtualPage;
 use function app;
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\VirtualPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
