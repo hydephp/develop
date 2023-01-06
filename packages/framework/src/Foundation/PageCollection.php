@@ -109,7 +109,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPublicationPages(): void
     {
-        PublicationService::getPublicationTypes()->each(function (PublicationType $type) {
+        PublicationService::getPublicationTypes()->each(function (PublicationType $type): void {
             $this->discoverPublicationPagesForType($type);
             $this->generatePublicationListingPageForType($type);
         });
@@ -117,7 +117,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPublicationPagesForType(PublicationType $type): void
     {
-        PublicationService::getPublicationsForPubType($type)->each(function ($publication) {
+        PublicationService::getPublicationsForPubType($type)->each(function ($publication): void {
             $this->discover($publication);
         });
     }
