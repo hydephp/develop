@@ -72,4 +72,22 @@ class PaginationService
     {
         return $this->chunks->flatten()->count();
     }
+
+    /** Determine if there are enough items to split into multiple pages. */
+    public function hasPages(): bool
+    {
+        return $this->chunks->count() > 1;
+    }
+
+    /** Determine if there are more items in the data store. */
+    public function hasMorePages(): bool
+    {
+        return $this->currentPage < $this->lastPage();
+    }
+
+    /** Determine if there are fewer items in the data store. */
+    public function hasFewerPages(): bool
+    {
+        return $this->currentPage > 1;
+    }
 }
