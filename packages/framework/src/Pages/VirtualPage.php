@@ -41,7 +41,7 @@ class VirtualPage extends HydePage implements DynamicPage
         $this->view = $view;
     }
 
-    public function contents(): string
+    public function getContents(): string
     {
         return $this->contents;
     }
@@ -52,6 +52,6 @@ class VirtualPage extends HydePage implements DynamicPage
             return View::make($this->view, $this->matter->toArray())->render();
         }
 
-        return $this->contents();
+        return $this->getContents();
     }
 }
