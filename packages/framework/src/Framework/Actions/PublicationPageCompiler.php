@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Pages\VirtualPage;
 use function array_merge;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
-use Hyde\Pages\HtmlPage;
 use Hyde\Pages\PublicationPage;
+use Hyde\Pages\VirtualPage;
 use Illuminate\Support\Facades\View;
 use function str_ends_with;
 

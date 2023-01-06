@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use function array_merge;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
-
-use function array_merge;
 
 /**
  * A virtual page is a page that does not have a source file.
@@ -56,6 +55,7 @@ class VirtualPage extends HydePage implements DynamicPage
 
         if ($this->view) {
             Hyde::shareViewData($this);
+
             return View::make($this->view, $viewData)->render();
         }
 
