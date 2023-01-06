@@ -17,4 +17,9 @@ class PaginationService
     {
         $this->publicationType = $publicationType;
     }
+
+    public function getPaginationSettings(): array
+    {
+        return $this->publicationType->pagination;
+    }
 }
