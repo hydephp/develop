@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\Models\PaginationSettings;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+
+use function collect;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginationServiceTest
@@ -22,23 +25,22 @@ use Illuminate\Support\Collection;
  */
 class PaginationService
 {
-    protected PublicationType $publicationType;
+    protected PaginationSettings $paginationSettings;
 
     protected Collection $chunks;
 
     public int $currentPage = 1;
 
-    public function __construct(PublicationType $publicationType)
+    public function __construct(PaginationSettings $paginationSettings, Arrayable|array $items = [])
     {
-        $this->publicationType = $publicationType;
+        $this->paginationSettings = $paginationSettings;
 
-        $this->generate();
+        $this->generate(collect($items));
     }
 
-    protected function generate(): void
+    protected function generate(Collection $items): void
     {
-        $this->chunks = PublicationService::getPublicationsForPubType($this->publicationType)
-            ->chunk($this->publicationType->pagination->pageSize);
+        $this->chunks = $items->chunk($this->paginationSettings->pageSize);
     }
 
     public function getPaginatedPageCollection(): Collection
@@ -67,7 +69,7 @@ class PaginationService
     /** The number of items to be shown per page. */
     public function perPage(): int
     {
-        return $this->publicationType->pagination->pageSize;
+        return $this->paginationSettings->pageSize;
     }
 
     /** Determine the total number of matching items in the data store. */
