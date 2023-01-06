@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Pages\Contracts\DynamicPage;
 use function app;
 use function array_filter;
 use function array_map;
@@ -20,6 +19,7 @@ use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Contracts\DynamicPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
