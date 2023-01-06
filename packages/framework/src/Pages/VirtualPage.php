@@ -6,6 +6,7 @@ namespace Hyde\Pages;
 
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\Contracts\DynamicPage;
 
 /**
  * A virtual page is a page that does not have a source file.
@@ -17,7 +18,7 @@ use Hyde\Pages\Concerns\HydePage;
  * that the virtual page is registered with Hyde, usually within the
  * boot method of the package's service provider so it can be compiled.
  */
-class VirtualPage extends HydePage
+class VirtualPage extends HydePage implements DynamicPage
 {
     protected string $contents;
 
