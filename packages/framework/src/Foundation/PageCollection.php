@@ -132,8 +132,6 @@ final class PageCollection extends BaseFoundationCollection
             foreach ($paginatedPages as $page) {
                 $this->discover($page);
             }
-
-            return;
         }
 
         $page = new PublicationListPage($type);
