@@ -8,6 +8,7 @@ use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use function is_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginationServiceTest
@@ -105,8 +106,10 @@ class PaginationService
 
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
     {
-        return $paginationSettings instanceof PaginationSettings
-            ? $paginationSettings
-            : PaginationSettings::fromArray($paginationSettings);
+        if (is_array($paginationSettings)) {
+            return PaginationSettings::fromArray($paginationSettings);
+        }
+
+        return $paginationSettings;
     }
 }
