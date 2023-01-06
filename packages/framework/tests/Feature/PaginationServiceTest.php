@@ -48,6 +48,7 @@ class PaginationServiceTest extends TestCase
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
+
         return PublicationType::get('test-publication');
     }
 }
