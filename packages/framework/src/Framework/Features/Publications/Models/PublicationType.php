@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_merge;
 use function dirname;
 use Exception;
 use function file_get_contents;
@@ -13,8 +14,10 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function file_put_contents;
 use function json_decode;
 use RuntimeException;
+use function json_encode;
 use function str_starts_with;
 
 /**
