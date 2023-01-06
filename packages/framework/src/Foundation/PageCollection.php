@@ -126,7 +126,7 @@ final class PageCollection extends BaseFoundationCollection
     {
         // FIXME
 //        if ($paginate) {
-//            // generate pagination pages
+//            // generate pagination pages and use the first one as the listing page
 //            return;
 //        }
 
