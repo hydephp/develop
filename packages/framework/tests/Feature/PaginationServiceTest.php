@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Testing\TestCase;
-
-use function collect;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PaginationService
