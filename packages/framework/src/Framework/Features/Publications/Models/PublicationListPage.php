@@ -9,8 +9,8 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\Contracts\DynamicPage;
 
 /**
- * FIXME refactor to dynamic page
-
+ * FIXME refactor to dynamic page.
+ *
  * @see \Hyde\Pages\PublicationPage
  * @see \Hyde\Framework\Testing\Feature\PublicationListPageTest
  */

@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Features\Publications\Models\PublicationListPage;
+use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Hyde;
 use Hyde\Pages\VirtualPage;
-
-use function array_merge;
-use function file_put_contents;
 
 class PaginatesPublicationListing
 {
@@ -52,7 +48,7 @@ class PaginatesPublicationListing
                 ],
             ];
 
-            $this->pages[] = $this->makePaginationPage($this->type, $page, $data);;
+            $this->pages[] = $this->makePaginationPage($this->type, $page, $data);
         }
     }
 
