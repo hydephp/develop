@@ -26,7 +26,7 @@ class PaginationServiceTest extends TestCase
         $this->directory('test-publication');
         $this->setupTestPublication();
 
-        $this->assertEquals(collect([]), (new PaginationService(PublicationType::get('test-publication')))->generate()->getPaginatedPageCollection());
+        $this->assertEquals(collect([]), (new PaginationService(PublicationType::get('test-publication')))->getPaginatedPageCollection());
     }
 
     public function testGetPaginatedPageCollectionWithPages()
@@ -38,7 +38,7 @@ class PaginationServiceTest extends TestCase
             $this->file("test-publication/$i.md", "title: $i");
         }
 
-        $collection = (new PaginationService(PublicationType::get('test-publication')))->generate()->getPaginatedPageCollection();
+        $collection = (new PaginationService(PublicationType::get('test-publication')))->getPaginatedPageCollection();
         $this->assertCount(2, $collection);
         $this->assertCount(25, $collection->first());
         $this->assertCount(25, $collection->last());
