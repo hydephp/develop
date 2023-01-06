@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\View;
  */
 class VirtualPage extends HydePage implements DynamicPage
 {
-    protected string $contents;
-    protected string $view;
-
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
+
+    protected string $contents;
+    protected string $view;
 
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
     {
