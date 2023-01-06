@@ -9,6 +9,7 @@ use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Testing\TestCase;
+use function range;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PaginationService
@@ -35,11 +36,7 @@ class PaginationServiceTest extends TestCase
     {
         $publicationType = $this->setupPublication();
 
-        foreach (range(1, 50) as $i) {
-            $this->file("test-publication/$i.md", "title: $i");
-        }
-
-        $collection = (new PaginationService($publicationType->pagination, PublicationService::getPublicationsForPubType($publicationType)))->getPaginatedPageCollection();
+        $collection = (new PaginationService($publicationType->pagination, collect(range(1, 50))))->getPaginatedPageCollection();
         $this->assertCount(2, $collection);
         $this->assertCount(25, $collection->first());
         $this->assertCount(25, $collection->last());
