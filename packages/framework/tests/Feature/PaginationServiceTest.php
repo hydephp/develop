@@ -16,8 +16,11 @@ class PaginationServiceTest extends TestCase
 {
     public function test_it_can_be_instantiated(): void
     {
+        $this->directory('test-publication');
+        $this->setupTestPublication();
+
         $this->assertInstanceOf(PaginationService::class,
-            new PaginationService($this->createMock(PublicationType::class))
+            new PaginationService(PublicationType::get('test-publication'))
         );
     }
 
