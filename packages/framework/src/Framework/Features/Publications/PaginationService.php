@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @todo Implement sorting from PaginationSettings
  *
  * Internal developer note: It may be useful to match the Laravel method names as much as possible.
+ *
  * @link https://laravel.com/docs/9.x/pagination#paginator-instance-methods
  *
  * Additional note: In most cases when this class uses the term "page" it is referring
