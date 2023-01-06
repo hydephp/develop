@@ -39,6 +39,7 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
+        // Fixme: this should get pages from the page collection
         return Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
             return static::parsePublicationFile(Hyde::pathToRelative($file));
         });
