@@ -7,6 +7,7 @@ namespace Hyde\Pages;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
+use Illuminate\Support\Facades\View;
 
 /**
  * A virtual page is a page that does not have a source file.
@@ -21,6 +22,7 @@ use Hyde\Pages\Contracts\DynamicPage;
 class VirtualPage extends HydePage implements DynamicPage
 {
     protected string $contents;
+    protected string $view;
 
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
@@ -31,11 +33,12 @@ class VirtualPage extends HydePage implements DynamicPage
         return new static($identifier, $matter, $contents);
     }
 
-    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '')
+    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
         parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
+        $this->view = $view;
     }
 
     public function contents(): string
