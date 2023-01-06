@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
+use Hyde\Pages\PublicationPage;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Testing\TestCase;
+use function range;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PaginationService
@@ -34,8 +37,10 @@ class PaginationServiceTest extends TestCase
         $this->directory('test-publication');
         $this->setupTestPublication();
 
+        $type = PublicationType::get('test-publication');
         foreach (range(1, 50) as $i) {
-            $this->file("test-publication/$i.md", "title: $i");
+            $page = new PublicationPage("test-publication-$i", type: $type);
+            Hyde::pages()->put($page->getSourcePath(), $page);
         }
 
         $collection = (new PaginationService(PublicationType::get('test-publication')))->getPaginatedPageCollection();
