@@ -127,10 +127,11 @@ final class PageCollection extends BaseFoundationCollection
     {
         // todo investigate memory load of this and consider lazy loading if needed
 
-        // FIXME
         if ($type->usesPagination()) {
-            // generate pagination pages and use the first one as the listing page
             $paginatedPages = (new PaginatesPublicationListing($type))->__invoke();
+            foreach ($paginatedPages as $page) {
+                $this->discover($page);
+            }
             return;
         }
 

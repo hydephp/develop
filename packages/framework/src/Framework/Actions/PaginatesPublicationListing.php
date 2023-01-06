@@ -56,7 +56,7 @@ class PaginatesPublicationListing
         }
     }
 
-    protected function makePaginationPage(PublicationType $pubType, int $pageNumber, array $data): PublicationListPage
+    protected function makePaginationPage(PublicationType $pubType, int $pageNumber, array $data): VirtualPage
     {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
 
