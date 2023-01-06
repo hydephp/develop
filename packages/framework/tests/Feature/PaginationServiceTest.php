@@ -18,12 +18,12 @@ class PaginationServiceTest extends TestCase
 {
     public function test_it_can_be_instantiated(): void
     {
-        $this->assertInstanceOf(PaginationService::class, new PaginationService([]));
+        $this->assertInstanceOf(PaginationService::class, new PaginationService());
     }
 
     public function testGetPaginatedPageCollection()
     {
-        $this->assertEquals(collect([]), (new PaginationService([], new PaginationSettings()))->getPaginatedPageCollection());
+        $this->assertEquals(collect([]), (new PaginationService())->getPaginatedPageCollection());
     }
 
     public function testGetPaginatedPageCollectionWithPages()
@@ -57,7 +57,7 @@ class PaginationServiceTest extends TestCase
 
     public function testGetAndSetCurrentPageNumber()
     {
-        $service = new PaginationService([], new PaginationSettings());
+        $service = new PaginationService();
 
         $this->assertSame(1, $service->currentPage());
         $this->assertSame($service, $service->setCurrentPage(2));
