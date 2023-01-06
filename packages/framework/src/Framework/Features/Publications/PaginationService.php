@@ -42,4 +42,34 @@ class PaginationService
     {
         return $this->chunks;
     }
+
+    /** Get the current page number. */
+    public function currentPage(): int
+    {
+        return $this->currentPage;
+    }
+
+    /** Get the page number of the last available page. */
+    public function lastPage(): int
+    {
+        return $this->chunks->count();
+    }
+
+    /** Get the total number of pages. */
+    public function pagesTotal(): int
+    {
+        return $this->chunks->count();
+    }
+
+    /** The number of items to be shown per page. */
+    public function perPage(): int
+    {
+        return $this->publicationType->pagination->pageSize;
+    }
+
+    /** Determine the total number of matching items in the data store. */
+    public function total(): int
+    {
+        return $this->chunks->flatten()->count();
+    }
 }
