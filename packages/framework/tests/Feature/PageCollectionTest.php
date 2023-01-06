@@ -200,7 +200,7 @@ class PageCollectionTest extends TestCase
 
         $this->assertInstanceOf(
             PublicationListPage::class,
-            PageCollection::boot(Hyde::getInstance())->getPage('publication/schema.json')
+            PageCollection::boot(Hyde::getInstance())->getPage('publication/index')
         );
 
         File::deleteDirectory(Hyde::path('publication'));
