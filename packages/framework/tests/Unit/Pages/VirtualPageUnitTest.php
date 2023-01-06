@@ -219,4 +219,25 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertInstanceOf(FrontMatter::class, (new VirtualPage('404'))->matter());
     }
+
+    public function testConstructWithContentsString()
+    {
+        $this->assertInstanceOf(VirtualPage::class, new VirtualPage('foo', contents: 'bar'));
+    }
+
+    public function testMakeWithContentsString()
+    {
+        $this->assertInstanceOf(VirtualPage::class, VirtualPage::make('foo', contents: 'bar'));
+        $this->assertEquals(VirtualPage::make('foo', contents: 'bar'), new VirtualPage('foo', contents: 'bar'));
+    }
+
+    public function testContentsMethod()
+    {
+        $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->contents());
+    }
+
+    public function testCompileMethodUsesContentsProperty()
+    {
+        $this->assertSame('bar', (new VirtualPage('foo', contents: 'bar'))->compile());
+    }
 }
