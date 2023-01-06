@@ -30,7 +30,7 @@ class PaginationService
 
     public int $currentPage = 1;
 
-    public function __construct(PaginationSettings $paginationSettings, Arrayable|array $items = [])
+    public function __construct(Arrayable|array $items = [], PaginationSettings $paginationSettings)
     {
         $this->paginationSettings = $paginationSettings;
 
