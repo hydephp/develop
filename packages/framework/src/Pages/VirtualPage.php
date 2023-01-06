@@ -30,7 +30,7 @@ class VirtualPage extends HydePage
         return new static($identifier, matter: $matter);
     }
 
-    public function __construct(string $identifier, string $contents = '', FrontMatter|array $matter = [])
+    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '')
     {
         parent::__construct($identifier, $matter);
 
