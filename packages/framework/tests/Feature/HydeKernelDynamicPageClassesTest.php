@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Pages\VirtualPage;
 use function app;
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
@@ -46,6 +47,13 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The specified class must be a subclass of HydePage.');
         app(HydeKernel::class)->registerPageClass(stdClass::class);
+    }
+
+    public function test_register_page_class_method_does_not_accept_classes_that_implement_dynamic_page_interface()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must not be a subclass of DynamicPage.');
+        app(HydeKernel::class)->registerPageClass(VirtualPage::class);
     }
 
     public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()
