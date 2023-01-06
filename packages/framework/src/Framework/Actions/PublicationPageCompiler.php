@@ -15,6 +15,7 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
 use function str_ends_with;
+use function view;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Actions\PublicationPageCompilerTest
@@ -108,7 +109,14 @@ class PublicationPageCompiler extends InvokableAction
 
         $page = new VirtualPage($identifier, [
             'title' => $pubType->name." (Page - $pageNumber)",
-        ], $content->render());
+        ], function (VirtualPage $page, array $viewData) use ($pubType, $data): \Illuminate\Contracts\View\View {
+            Hyde::shareViewData($page);
+            return view('hyde::layouts.publication_paginated_list', array_merge([
+                'page' => $page,
+                'type' => $pubType,
+                'paginator' => (object) $data['pagination'],
+            ], $data));
+        });
 
         file_put_contents(Hyde::sitePath($path), $content);
         if ($pageNumber === 1) { //fixme this overwrites the other page leading to wasted compilation time and also makes us lose that page's data // we also prob dont want to show the number in the title
