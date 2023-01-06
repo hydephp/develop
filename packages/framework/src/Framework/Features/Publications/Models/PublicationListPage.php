@@ -23,7 +23,7 @@ class PublicationListPage extends VirtualPage
     {
         $this->type = $type;
 
-        parent::__construct("{$type->getDirectory()}/index");
+        parent::__construct("{$type->getDirectory()}/index", view: $type->listTemplate);
     }
 
     public function compile(): string
