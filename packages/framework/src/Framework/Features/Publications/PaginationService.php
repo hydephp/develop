@@ -47,6 +47,13 @@ class PaginationService
         return $this->chunks;
     }
 
+    /** Set the current page number. */
+    public function setCurrentPage(int $currentPage): PaginationService
+    {
+        $this->currentPage = $currentPage;
+        return $this;
+    }
+
     /** Get the current page number. */
     public function currentPage(): int
     {
