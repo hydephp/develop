@@ -30,9 +30,11 @@ class PaginationService
 
     public int $currentPage = 1;
 
-    public function __construct(Arrayable|array $items = [], PaginationSettings $paginationSettings)
+    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [])
     {
-        $this->paginationSettings = $paginationSettings;
+        $this->paginationSettings = $paginationSettings instanceof PaginationSettings
+            ? $paginationSettings
+            : PaginationSettings::fromArray($paginationSettings);
 
         $this->generate(collect($items));
     }
