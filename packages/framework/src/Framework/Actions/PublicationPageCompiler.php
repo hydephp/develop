@@ -15,7 +15,6 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
 use function str_ends_with;
-use function view;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Actions\PublicationPageCompilerTest
@@ -100,28 +99,20 @@ class PublicationPageCompiler extends InvokableAction
     {
         $identifier = "{$pubType->getDirectory()}/page-$pageNumber";
 
-
         $path = "$identifier.html";
-        $content = view('hyde::layouts.publication_paginated_list', array_merge([
+        $data = array_merge([
             'type' => $pubType,
             'paginator' => (object) $data['pagination'],
-        ], $data));
+        ], $data);
 
-        $page = new VirtualPage($identifier, [
+        $page = new VirtualPage($identifier, array_merge([
             'title' => $pubType->name." (Page - $pageNumber)",
-        ], function (VirtualPage $page, array $viewData) use ($pubType, $data): \Illuminate\Contracts\View\View {
-            Hyde::shareViewData($page);
-            return view('hyde::layouts.publication_paginated_list', array_merge([
-                'page' => $page,
-                'type' => $pubType,
-                'paginator' => (object) $data['pagination'],
-            ], $data));
-        });
+        ], $data), '', 'hyde::layouts.publication_paginated_list');
 
-        file_put_contents(Hyde::sitePath($path), $content);
+        file_put_contents(Hyde::sitePath($path), $page->compile());
         if ($pageNumber === 1) { //fixme this overwrites the other page leading to wasted compilation time and also makes us lose that page's data // we also prob dont want to show the number in the title
             $path = "{$pubType->getDirectory()}/index.html";
-            file_put_contents(Hyde::sitePath($path), $content);
+            file_put_contents(Hyde::sitePath($path), $page->compile());
         }
     }
 }
