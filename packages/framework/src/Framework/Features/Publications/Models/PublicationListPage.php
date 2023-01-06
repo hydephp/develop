@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Framework\Actions\PublicationPageCompiler;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\Contracts\DynamicPage;
+use Hyde\Pages\VirtualPage;
 
 /**
  * @see \Hyde\Pages\PublicationPage
  * @see \Hyde\Framework\Testing\Feature\PublicationListPageTest
  */
-class PublicationListPage extends BladePage implements DynamicPage
+class PublicationListPage extends VirtualPage
 {
     public static string $sourceDirectory = '__publications';
     public static string $outputDirectory = '';
