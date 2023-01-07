@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\PaginationService;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;

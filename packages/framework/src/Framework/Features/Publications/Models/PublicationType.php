@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Framework\Features\Publications\PaginationService;
 use function array_merge;
 use function dirname;
 use Exception;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
