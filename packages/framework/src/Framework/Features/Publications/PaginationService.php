@@ -10,6 +10,8 @@ use Hyde\Support\Models\Route;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use function range;
+use function sprintf;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginatorTest
