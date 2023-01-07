@@ -289,7 +289,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(
-            (new PaginationService()),
+            (new PaginationService(paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
