@@ -137,7 +137,7 @@ class PaginationService
         if ($this->paginationRouteBasename) {
             $array = range(1, $this->totalPages());
             foreach ($array as $key => $value) {
-                $array[$key] = Route::get("$this->paginationRouteBasename/page-".$value) ?? ''; // fixme should use orFail
+                $array[$key] = Route::getOrFail("$this->paginationRouteBasename/page-".$value);
             }
 
             return $array;
