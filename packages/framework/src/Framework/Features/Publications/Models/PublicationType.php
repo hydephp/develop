@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Pages\PublicationPage;
 use function array_merge;
 use function dirname;
 use Exception;
@@ -14,6 +13,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
+use Hyde\Pages\PublicationPage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
@@ -150,7 +150,7 @@ class PublicationType implements SerializableContract
     {
         return new Paginator($this->getPublications()->sortBy(function (PublicationPage $page): mixed {
             return $page->matter($this->pagination->sortField);
-        }, descending: !$this->pagination->sortAscending)->values(),
+        }, descending: ! $this->pagination->sortAscending)->values(),
             $this->pagination->pageSize,
             $currentPageNumber,
             $this->getIdentifier()
