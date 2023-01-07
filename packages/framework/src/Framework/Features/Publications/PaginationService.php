@@ -142,7 +142,7 @@ class PaginationService
             }
         } else {
             foreach ($pageRange as $number) {
-                $array[$number] = "page-$number.html"; // Todo support pretty urls
+                $array[$number] = "page-$number.html"; // fixme support pretty urls
             }
         }
         return $array;
