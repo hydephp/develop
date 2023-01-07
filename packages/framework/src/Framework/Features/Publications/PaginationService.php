@@ -68,6 +68,7 @@ class PaginationService
         return $this->currentPage;
     }
 
+    /** Get the paginated collection */
     public function getPaginatedPageCollection(): Collection
     {
         return $this->chunks;
