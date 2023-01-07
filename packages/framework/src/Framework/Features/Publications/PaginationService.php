@@ -182,6 +182,6 @@ class PaginationService
 
     protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
     {
-        return "page-".($this->currentPage + $offset). ($withHtmlExtension ? '.html' : '');
+        return sprintf("page-%d%s", $this->currentPage + $offset, $withHtmlExtension ? '.html' : '');
     }
 }
