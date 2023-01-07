@@ -65,7 +65,7 @@ class Paginator
     }
 
     /** Get the paginated collection */
-    public function getPaginatedCollection(): Collection
+    public function getPaginatedItems(): Collection
     {
         return $this->items;
     }
