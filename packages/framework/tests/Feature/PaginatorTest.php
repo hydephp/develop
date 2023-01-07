@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Route;
+use Hyde\Hyde;
+use Hyde\Pages\VirtualPage;
 use function array_combine;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
@@ -156,6 +159,30 @@ class PaginatorTest extends TestCase
     public function testNextMethodReturnsNextPageNumberWhenNoBaseRouteIsSet()
     {
         $this->assertSame(2, $this->makePaginator()->setCurrentPage(1)->next());
+    }
+
+    public function testPreviousAndNextMethodsWithBaseRouteSet()
+    {
+        $pages[1] = new VirtualPage('pages/page-1');
+        $pages[2] = new VirtualPage('pages/page-2');
+        $pages[3] = new VirtualPage('pages/page-3');
+        $pages[4] = new VirtualPage('pages/page-4');
+        $pages[5] = new VirtualPage('pages/page-5');
+
+        foreach ($pages as $page) {
+            Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
+        }
+
+        $paginator = new Paginator($pages, new PaginationSettings(pageSize: 2), paginationRouteBasename: 'pages');
+
+        $this->assertNull($paginator->setCurrentPage(1)->previous());
+        $this->assertNull($paginator->setCurrentPage(5)->next());
+
+        $this->assertSame($pages[2]->getRoute(), $paginator->setCurrentPage(1)->next());
+        $this->assertSame($pages[3]->getRoute(), $paginator->setCurrentPage(2)->next());
+
+        $this->assertSame($pages[2]->getRoute(), $paginator->setCurrentPage(3)->previous());
+        $this->assertSame($pages[1]->getRoute(), $paginator->setCurrentPage(2)->previous());
     }
 
     public function testPreviousNumberWithoutFewerPagesReturnsFalse()
