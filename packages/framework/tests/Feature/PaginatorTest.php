@@ -182,14 +182,14 @@ class PaginatorTest extends TestCase
         $this->assertFalse($this->makePaginator()->setCurrentPage(5)->next());
     }
 
-    public function testPreviousMethodReturnsPreviousPageNumberWhenNoBaseRouteIsSet()
+    public function testPreviousMethodReturnsPreviousPageLinkWhenNoBaseRouteIsSet()
     {
-        $this->assertSame(1, $this->makePaginator()->setCurrentPage(2)->previous());
+        $this->assertSame('page-1.html', $this->makePaginator()->setCurrentPage(2)->previous());
     }
 
-    public function testNextMethodReturnsNextPageNumberWhenNoBaseRouteIsSet()
+    public function testNextMethodReturnsNextPageLinkWhenNoBaseRouteIsSet()
     {
-        $this->assertSame(2, $this->makePaginator()->setCurrentPage(1)->next());
+        $this->assertSame('page-2.html', $this->makePaginator()->setCurrentPage(1)->next());
     }
 
     public function testPreviousAndNextMethodsWithBaseRouteSet()
