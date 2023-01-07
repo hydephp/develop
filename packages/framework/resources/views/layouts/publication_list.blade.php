@@ -1,8 +1,8 @@
+@php/** @var \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType*/@endphp
 @extends('hyde::layouts.app')
 @section('content')
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
         <div class="prose dark:prose-invert">
-            @php/** @var \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType*/@endphp
             <h1>Publications for type {{ $publicationType->name }}</h1>
             <ol>
                 @foreach($publicationType->getPublications() as $publication)
