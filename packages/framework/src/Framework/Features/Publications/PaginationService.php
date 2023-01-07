@@ -69,7 +69,7 @@ class PaginationService
     }
 
     /** Get the paginated collection */
-    public function getPaginatedPageCollection(): Collection
+    public function getPaginatedCollection(): Collection
     {
         return $this->chunks;
     }
