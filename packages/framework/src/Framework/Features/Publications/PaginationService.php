@@ -103,20 +103,20 @@ class PaginationService
     }
 
     /** Determine if there are more items after the cursor in the data store. */
-    public function hasMorePages(): bool
+    public function canNavigateRight(): bool
     {
         return $this->currentPage < $this->lastPage();
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
-    public function hasFewerPages(): bool
+    public function canNavigateLeft(): bool
     {
         return $this->currentPage > 1;
     }
 
     public function previous(): null|int|\Hyde\Support\Models\Route
     {
-        if (! $this->hasFewerPages()) {
+        if (! $this->canNavigateLeft()) {
             return null;
         }
 
@@ -129,7 +129,7 @@ class PaginationService
 
     public function next(): null|int|\Hyde\Support\Models\Route
     {
-        if (! $this->hasMorePages()) {
+        if (! $this->canNavigateRight()) {
             return null;
         }
 
@@ -142,7 +142,7 @@ class PaginationService
 
     public function previousPageNumber(): false|int
     {
-        if (! $this->hasFewerPages()) {
+        if (! $this->canNavigateLeft()) {
             return false;
         }
 
@@ -151,7 +151,7 @@ class PaginationService
 
     public function nextPageNumber(): false|int
     {
-        if (! $this->hasMorePages()) {
+        if (! $this->canNavigateRight()) {
             return false;
         }
 
