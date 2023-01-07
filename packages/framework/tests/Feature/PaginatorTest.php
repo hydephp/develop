@@ -57,7 +57,22 @@ class PaginatorTest extends TestCase
 
     public function testGetItemsForPageReturnsTheCorrectChunk()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $paginator = new Paginator(
+            collect(range(1, 50)),
+            new PaginationSettings(pageSize: 10)
+        );
+
+        $this->assertCount(10, $paginator->setCurrentPage(1)->getItemsForPage());
+        $this->assertCount(10, $paginator->setCurrentPage(2)->getItemsForPage());
+        $this->assertCount(10, $paginator->setCurrentPage(3)->getItemsForPage());
+        $this->assertCount(10, $paginator->setCurrentPage(4)->getItemsForPage());
+        $this->assertCount(10, $paginator->setCurrentPage(5)->getItemsForPage());
+
+        $this->assertEquals(range(1, 10), $paginator->setCurrentPage(1)->getItemsForPage()->toArray());
+        $this->assertEquals(array_combine(range(10, 19), range(11, 20)), $paginator->setCurrentPage(2)->getItemsForPage()->toArray());
+        $this->assertEquals(array_combine(range(20, 29), range(21, 30)), $paginator->setCurrentPage(3)->getItemsForPage()->toArray());
+        $this->assertEquals(array_combine(range(30, 39), range(31, 40)), $paginator->setCurrentPage(4)->getItemsForPage()->toArray());
+        $this->assertEquals(array_combine(range(40, 49), range(41, 50)), $paginator->setCurrentPage(5)->getItemsForPage()->toArray());
     }
 
     public function testCanGetCurrentPageNumber()
