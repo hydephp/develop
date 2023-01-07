@@ -223,7 +223,7 @@ class PaginatorTest extends TestCase
 
     public function testPreviousNumberWithoutFewerPagesReturnsFalse()
     {
-        $this->assertFalse($this->makePaginator()->previousNumber());
+        $this->assertFalse($this->makePaginator()->lastNumber());
     }
 
     public function testNextNumberWithoutMorePagesReturnsFalse()
@@ -233,7 +233,7 @@ class PaginatorTest extends TestCase
 
     public function testPreviousNumberReturnsThePreviousPageNumberWhenThereIsOne()
     {
-        $this->assertSame(1, $this->makePaginator()->setCurrentPage(2)->previousNumber());
+        $this->assertSame(1, $this->makePaginator()->setCurrentPage(2)->lastNumber());
     }
 
     public function testNextNumberReturnsTheNextPageNumberWhenThereIsOne()
