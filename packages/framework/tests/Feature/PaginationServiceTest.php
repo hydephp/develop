@@ -55,6 +55,11 @@ class PaginationServiceTest extends TestCase
         $this->assertCount(10, $collection->last());
     }
 
+    public function testGetItemsForPageReturnsTheCorrectChunk()
+    {
+        $this->markTestIncomplete('Not yet implemented');
+    }
+
     public function testCanGetCurrentPageNumber()
     {
         $service = new PaginationService();
