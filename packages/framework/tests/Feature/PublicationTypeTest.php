@@ -301,9 +301,8 @@ class PublicationTypeTest extends TestCase
                 'pageSize' => 10,
             ],
         ]));
-        $paginationSettings = new PaginationSettings(pageSize: 10);
         $this->assertEquals(
-            (new Paginator(paginationSettings: $paginationSettings, paginationRouteBasename: 'test-publication')),
+            (new Paginator(pageSize: 10, paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
