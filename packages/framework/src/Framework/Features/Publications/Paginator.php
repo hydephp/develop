@@ -182,8 +182,6 @@ class Paginator
 
     protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
     {
-        $number = $this->currentPage + $offset;
-
-        return "page-$number" . ($withHtmlExtension ? '.html' : '');
+        return "page-".($this->currentPage + $offset). ($withHtmlExtension ? '.html' : '');
     }
 }
