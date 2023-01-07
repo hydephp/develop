@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Facades\Route;
-use Hyde\Hyde;
-use Hyde\Pages\VirtualPage;
 use function array_combine;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Paginator;
+use Hyde\Hyde;
+use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
 use function range;
 
