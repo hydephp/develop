@@ -142,9 +142,9 @@ class PaginatorTest extends TestCase
         $this->assertSame(10, $this->makePaginator()->perPage());
     }
 
-    public function testHasPagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
+    public function testHasMultiplePagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
     {
-        $this->assertTrue($this->makePaginator()->hasPages());
+        $this->assertTrue($this->makePaginator()->hasMultiplePages());
     }
 
     public function testHasPagesReturnsFalseIfThereAreNotEnoughItemsToSplitIntoMultiplePages()
