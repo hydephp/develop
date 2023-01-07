@@ -190,7 +190,7 @@ class PaginationService
 
     protected function formatPageName(int $offset): string
     {
-        return sprintf("page-%d", $this->currentPage + $offset);
+        return sprintf('page-%d', $this->currentPage + $offset);
     }
 
     protected function formatLink(int $offset): string
