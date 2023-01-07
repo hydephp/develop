@@ -26,4 +26,9 @@ class PublicationListPage extends VirtualPage
     {
         return PublicationPageCompiler::call($this);
     }
+
+    public function htmlTitle(): string
+    {
+        return config('site.name', 'HydePHP').' - '.$this->type->name;
+    }
 }
