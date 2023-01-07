@@ -75,6 +75,10 @@ class PaginationService
             throw new \InvalidArgumentException('Current page number must be greater than 0.');
         }
 
+        if ($currentPage > $this->lastPage()) {
+            throw new \InvalidArgumentException('Current page number must be less than or equal to the last page number.');
+        }
+
         $this->currentPage = $currentPage;
 
         return $this;
