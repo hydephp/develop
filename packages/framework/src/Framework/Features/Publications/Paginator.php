@@ -150,13 +150,21 @@ class Paginator
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
     }
 
-    public function previousNumber(): int
+    public function previousNumber(): bool|int
     {
+        if (! $this->hasFewerPages()) {
+            return false;
+        }
+
         return $this->currentPage - 1;
     }
 
-    public function nextNumber(): int
+    public function nextNumber(): bool|int
     {
+        if (! $this->hasMorePages()) {
+            return false;
+        }
+
         return $this->currentPage + 1;
     }
 
