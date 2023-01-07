@@ -6,7 +6,7 @@
             <h1>Publications for type {{ $publicationType->name }}</h1>
             @if($publicationType->usesPagination())
                 @php
-                    $paginator = $publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'));
+                    $paginator = $publicationType->getPaginator($page->matter('paginatorPage'));
                 @endphp
                 <ol start="{{ $paginator->itemsStartNumber() }}">
                     @foreach($paginator->getItemsForPage() as $publication)
