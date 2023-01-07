@@ -97,31 +97,31 @@ class PaginationServiceTest extends TestCase
     // test inverse
     public function testHasPagesReturnsFalseIfThereAreNotEnoughItemsToSplitIntoMultiplePages()
     {
-        $this->assertFalse((new PaginationService(collect(range(1, 9))))->hasPages());
+        $this->assertFalse($this->makeService(1, 9)->hasMorePages());
     }
 
     /** Determine if there are more items after the cursor in the data store. */
-    public function testHasMorePagesReturnsTrueIfThereAreMoreItemsAfterTheCursorInTheDataStore()
+    public function testHasMorePagesReturnsTrueIfCursorCanNavigateForward()
     {
         $this->assertTrue($this->makeService()->hasMorePages());
     }
 
     // test inverse
-    public function testHasMorePagesReturnsFalseIfThereAreNotMoreItemsAfterTheCursorInTheDataStore()
+    public function testHasMorePagesReturnsFalseIfCursorCannotNavigateForward()
     {
-        $this->assertFalse((new PaginationService(collect(range(1, 10))))->hasMorePages());
+        $this->assertFalse($this->makeService()->setCurrentPage(5)->hasMorePages());
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
-    public function testHasFewerPagesReturnsTrueIfThereAreFewerItemsAfterTheCursorInTheDataStore()
+    public function testHasFewerPagesReturnsTrueIfCursorCanNavigateBack()
     {
-        $this->assertFalse($this->makeService()->hasFewerPages());
+        $this->assertTrue($this->makeService()->setCurrentPage(2)->hasFewerPages());
     }
 
     // test inverse
-    public function testHasFewerPagesReturnsFalseIfThereAreNotFewerItemsAfterTheCursorInTheDataStore()
+    public function testHasFewerPagesReturnsFalseIfCursorCannotNavigateBack()
     {
-        $this->assertTrue((new PaginationService(collect(range(1, 10))))->hasFewerPages());
+        $this->assertFalse($this->makeService()->hasFewerPages());
     }
 
     protected function makeService(int $start = 1, int $end = 50, int $pageSize = 10): PaginationService
