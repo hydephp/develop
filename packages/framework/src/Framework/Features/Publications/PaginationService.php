@@ -164,7 +164,7 @@ class PaginationService
         $pageRange = range(1, $this->totalPages());
         if ($this->paginationRouteBasename) {
             foreach ($pageRange as $number) {
-                $array[$number] = Route::getOrFail("$this->paginationRouteBasename/page-".$number);
+                $array[$number] = Route::getOrFail("$this->paginationRouteBasename/page-$number");
             }
         } else {
             foreach ($pageRange as $number) {
