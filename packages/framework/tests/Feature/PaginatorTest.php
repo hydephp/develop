@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Feature;
 
 use InvalidArgumentException;
 use function array_combine;
-use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Hyde;
 use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
+use function collect;
 use function range;
 
 /**
@@ -32,7 +32,7 @@ class PaginatorTest extends TestCase
     public function testGetPaginatedPageCollectionWithPages()
     {
         $collection = (new Paginator(
-            collect(range(1, 50)),
+            (range(1, 50)),
             new PaginationSettings()
         ))->getPaginatedPageCollection();
 
@@ -49,7 +49,7 @@ class PaginatorTest extends TestCase
     public function testCollectionIsChunkedBySpecifiedSettingValue()
     {
         $collection = (new Paginator(
-            collect(range(1, 50)),
+            (range(1, 50)),
             new PaginationSettings(pageSize: 10))
         )->getPaginatedPageCollection();
 
@@ -61,7 +61,7 @@ class PaginatorTest extends TestCase
     public function testGetItemsForPageReturnsTheCorrectChunk()
     {
         $paginator = new Paginator(
-            collect(range(1, 50)),
+            (range(1, 50)),
             new PaginationSettings(pageSize: 10)
         );
 
@@ -86,7 +86,7 @@ class PaginatorTest extends TestCase
 
     public function testCanSetCurrentPageNumber()
     {
-        $service = new Paginator(collect(range(1, 50)));
+        $service = new Paginator((range(1, 50)));
         $service->setCurrentPage(2);
         $this->assertSame(2, $service->currentPage());
     }
@@ -108,7 +108,7 @@ class PaginatorTest extends TestCase
     public function testSetCurrentPageNumberRequiresIntegerToBeLessThanTotalPages()
     {
         $service = new Paginator(
-            collect(range(1, 50)),
+            (range(1, 50)),
             new PaginationSettings(pageSize: 10)
         );
 
@@ -123,7 +123,7 @@ class PaginatorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         new Paginator(
-            collect(range(1, 50)),
+            (range(1, 50)),
             new PaginationSettings(pageSize: 10),
             currentPageNumber: 6
         );
@@ -246,7 +246,7 @@ class PaginatorTest extends TestCase
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
         return new Paginator(
-            collect(range($start, $end)),
+            (range($start, $end)),
             new PaginationSettings(pageSize: $pageSize)
         );
     }
