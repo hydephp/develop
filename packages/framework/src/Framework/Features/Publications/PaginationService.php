@@ -39,9 +39,9 @@ class PaginationService
      */
     protected string $paginationRouteBasename;
 
-    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [], int $currentPageNumber = null, string $paginationRouteBasename = null)
+    public function __construct(Arrayable|array $items = [], int $pageSize = 25, int $currentPageNumber = null, string $paginationRouteBasename = null)
     {
-        $this->pageSize = $this->getPaginationSettings($paginationSettings)->pageSize;
+        $this->pageSize = $pageSize;
 
         $this->generate(collect($items));
 
