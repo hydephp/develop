@@ -117,20 +117,20 @@ class PaginationService
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
-    public function canNavigateLeft(): bool
+    public function canNavigateBack(): bool
     {
         return $this->currentPage > 1;
     }
 
     /** Determine if there are more items after the cursor in the data store. */
-    public function canNavigateRight(): bool
+    public function canNavigateForward(): bool
     {
         return $this->currentPage < $this->lastPage();
     }
 
     public function previousPageNumber(): false|int
     {
-        if (! $this->canNavigateLeft()) {
+        if (! $this->canNavigateBack()) {
             return false;
         }
 
@@ -139,7 +139,7 @@ class PaginationService
 
     public function nextPageNumber(): false|int
     {
-        if (! $this->canNavigateRight()) {
+        if (! $this->canNavigateForward()) {
             return false;
         }
 
@@ -148,7 +148,7 @@ class PaginationService
 
     public function previous(): false|string|Route
     {
-        if (! $this->canNavigateLeft()) {
+        if (! $this->canNavigateBack()) {
             return false;
         }
 
@@ -161,7 +161,7 @@ class PaginationService
 
     public function next(): false|string|Route
     {
-        if (! $this->canNavigateRight()) {
+        if (! $this->canNavigateForward()) {
             return false;
         }
 
