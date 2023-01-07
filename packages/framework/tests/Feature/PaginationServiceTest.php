@@ -68,61 +68,51 @@ class PaginationServiceTest extends TestCase
         $this->assertSame(2, $service->currentPage());
     }
 
-    /** Get the page number of the last available page. */
     public function testLastPageReturnsTheLastPageNumber()
     {
         $this->assertSame(5, $this->makeService()->lastPage());
     }
 
-    /** Get the total number of pages. */
     public function testTotalPagesReturnsTheTotalNumberOfPages()
     {
         $this->assertSame(5, $this->makeService()->totalPages());
     }
 
-    /** The number of items to be shown per page. */
     public function testPerPageReturnsTheNumberOfItemsToBeShownPerPage()
     {
         $this->assertSame(10, $this->makeService()->perPage());
     }
 
-    /** Determine the total number of matching items in the data store. */
     public function testTotalReturnsTheTotalNumberOfMatchingItemsInTheDataStore()
     {
         $this->assertSame(50, $this->makeService()->total());
     }
 
-    /** Determine if there are enough items to split into multiple pages. */
     public function testHasPagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
     {
         $this->assertTrue($this->makeService()->hasPages());
     }
 
-    // test inverse
     public function testHasPagesReturnsFalseIfThereAreNotEnoughItemsToSplitIntoMultiplePages()
     {
         $this->assertFalse($this->makeService(1, 9)->hasMorePages());
     }
 
-    /** Determine if there are more items after the cursor in the data store. */
     public function testHasMorePagesReturnsTrueIfCursorCanNavigateForward()
     {
         $this->assertTrue($this->makeService()->hasMorePages());
     }
 
-    // test inverse
     public function testHasMorePagesReturnsFalseIfCursorCannotNavigateForward()
     {
         $this->assertFalse($this->makeService()->setCurrentPage(5)->hasMorePages());
     }
 
-    /** Determine if there are fewer items after the cursor in the data store. */
     public function testHasFewerPagesReturnsTrueIfCursorCanNavigateBack()
     {
         $this->assertTrue($this->makeService()->setCurrentPage(2)->hasFewerPages());
     }
 
-    // test inverse
     public function testHasFewerPagesReturnsFalseIfCursorCannotNavigateBack()
     {
         $this->assertFalse($this->makeService()->hasFewerPages());
