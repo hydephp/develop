@@ -102,16 +102,34 @@ class PaginationService
         return $this->chunks->count() > 1;
     }
 
+    /** Determine if there are fewer items after the cursor in the data store. */
+    public function canNavigateLeft(): bool
+    {
+        return $this->currentPage > 1;
+    }
+
     /** Determine if there are more items after the cursor in the data store. */
     public function canNavigateRight(): bool
     {
         return $this->currentPage < $this->lastPage();
     }
 
-    /** Determine if there are fewer items after the cursor in the data store. */
-    public function canNavigateLeft(): bool
+    public function previousPageNumber(): false|int
     {
-        return $this->currentPage > 1;
+        if (! $this->canNavigateLeft()) {
+            return false;
+        }
+
+        return $this->currentPage - 1;
+    }
+
+    public function nextPageNumber(): false|int
+    {
+        if (! $this->canNavigateRight()) {
+            return false;
+        }
+
+        return $this->currentPage + 1;
     }
 
     public function previous(): false|string|Route
@@ -138,24 +156,6 @@ class PaginationService
         }
 
         return Route::get("$this->paginationRouteBasename/{$this->formatPageName(+1)}");
-    }
-
-    public function previousPageNumber(): false|int
-    {
-        if (! $this->canNavigateLeft()) {
-            return false;
-        }
-
-        return $this->currentPage - 1;
-    }
-
-    public function nextPageNumber(): false|int
-    {
-        if (! $this->canNavigateRight()) {
-            return false;
-        }
-
-        return $this->currentPage + 1;
     }
 
     public function getPageLinks(): array
