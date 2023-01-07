@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Hyde;
 use function collect;
 use Hyde\Facades\Route;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
@@ -151,7 +152,7 @@ class PaginationService
             }
         } else {
             foreach ($pageRange as $number) {
-                $array[$number] = "page-$number.html"; // fixme support pretty urls
+                $array[$number] = Hyde::formatLink("page-$number.html");
             }
         }
 
