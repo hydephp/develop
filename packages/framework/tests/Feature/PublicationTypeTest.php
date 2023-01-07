@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Pages\PublicationPage;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
@@ -17,6 +18,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
+use function array_reverse;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationType
@@ -303,6 +305,62 @@ class PublicationTypeTest extends TestCase
         ]));
         $this->assertEquals(
             (new Paginator(pageSize: 10, paginationRouteBasename: 'test-publication')),
+            $publicationType->getPaginator()
+        );
+    }
+
+    public function testGetPaginatorSortsCollectionBySpecifiedPaginationSettings()
+    {
+        $this->directory('test-publication');
+
+        $paginationSettings = new PaginationSettings('myNumber', pageSize: 10);
+        $fields = [
+            ['name' => 'myNumber', 'type' => 'integer'],
+        ];
+        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
+        $publicationType->save();
+
+        $pages[0] = new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType);
+        $pages[1] = new PublicationPage('test-publication/page-2', ['myNumber' => 4], type: $publicationType);
+        $pages[2] = new PublicationPage('test-publication/page-3', ['myNumber' => 3], type: $publicationType);
+        $pages[3] = new PublicationPage('test-publication/page-4', ['myNumber' => 2], type: $publicationType);
+        $pages[4] = new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType);
+
+        foreach ($pages as $page) {
+            $page->save();
+        }
+
+        $items = array_reverse($pages);
+        $this->assertEquals(
+            (new Paginator($items, 10, paginationRouteBasename: 'test-publication')),
+            $publicationType->getPaginator()
+        );
+    }
+
+    public function testGetPaginatorSortsCollectionBySpecifiedPaginationSettingsWithDescendingSort()
+    {
+        $this->directory('test-publication');
+
+        $paginationSettings = new PaginationSettings('myNumber', false, pageSize: 10);
+        $fields = [
+            ['name' => 'myNumber', 'type' => 'integer'],
+        ];
+        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
+        $publicationType->save();
+
+        $pages[0] = new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType);
+        $pages[1] = new PublicationPage('test-publication/page-2', ['myNumber' => 4], type: $publicationType);
+        $pages[2] = new PublicationPage('test-publication/page-3', ['myNumber' => 3], type: $publicationType);
+        $pages[3] = new PublicationPage('test-publication/page-4', ['myNumber' => 2], type: $publicationType);
+        $pages[4] = new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType);
+
+        foreach ($pages as $page) {
+            $page->save();
+        }
+
+        $items = ($pages);
+        $this->assertEquals(
+            (new Paginator($items, 10, paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
