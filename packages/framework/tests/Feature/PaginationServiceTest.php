@@ -94,16 +94,34 @@ class PaginationServiceTest extends TestCase
         $this->assertTrue($this->makeService()->hasPages());
     }
 
+    // test inverse
+    public function testHasPagesReturnsFalseIfThereAreNotEnoughItemsToSplitIntoMultiplePages()
+    {
+        $this->assertFalse((new PaginationService(collect(range(1, 9))))->hasPages());
+    }
+
     /** Determine if there are more items after the cursor in the data store. */
     public function testHasMorePagesReturnsTrueIfThereAreMoreItemsAfterTheCursorInTheDataStore()
     {
         $this->assertTrue($this->makeService()->hasMorePages());
     }
 
+    // test inverse
+    public function testHasMorePagesReturnsFalseIfThereAreNotMoreItemsAfterTheCursorInTheDataStore()
+    {
+        $this->assertFalse((new PaginationService(collect(range(1, 10))))->hasMorePages());
+    }
+
     /** Determine if there are fewer items after the cursor in the data store. */
     public function testHasFewerPagesReturnsTrueIfThereAreFewerItemsAfterTheCursorInTheDataStore()
     {
         $this->assertFalse($this->makeService()->hasFewerPages());
+    }
+
+    // test inverse
+    public function testHasFewerPagesReturnsFalseIfThereAreNotFewerItemsAfterTheCursorInTheDataStore()
+    {
+        $this->assertTrue((new PaginationService(collect(range(1, 10))))->hasFewerPages());
     }
 
     protected function makeService(int $start = 1, int $end = 50, int $pageSize = 10): PaginationService
