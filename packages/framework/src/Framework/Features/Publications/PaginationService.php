@@ -120,8 +120,7 @@ class PaginationService
             return null;
         }
 
-        $routeBaseName = 'test'; // FIXME
-        return Route::get("$routeBaseName/page-" . $this->currentPage - 1);
+        return Route::get("$this->paginationRouteBasename/page-" . $this->currentPage - 1);
     }
 
     public function next(): ?\Hyde\Support\Models\Route
@@ -130,8 +129,7 @@ class PaginationService
             return null;
         }
 
-        $routeBaseName = 'test';
-        return Route::get("$routeBaseName/page-" . $this->currentPage + 1);
+        return Route::get("$this->paginationRouteBasename/page-" . $this->currentPage + 1);
     }
 
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
