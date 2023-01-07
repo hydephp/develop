@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Support\Models\Route;
 use function collect;
-use Hyde\Facades\Route;
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
@@ -114,7 +114,7 @@ class Paginator
         return $this->currentPage > 1;
     }
 
-    public function previous(): false|int|\Hyde\Support\Models\Route
+    public function previous(): false|int|Route
     {
         if (! $this->canNavigateLeft()) {
             return false;
@@ -127,7 +127,7 @@ class Paginator
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
     }
 
-    public function next(): false|int|\Hyde\Support\Models\Route
+    public function next(): false|int|Route
     {
         if (! $this->canNavigateRight()) {
             return false;
