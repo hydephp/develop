@@ -292,8 +292,20 @@ class PublicationTypeTest extends TestCase
             (new PaginationService(paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
+    }
 
-        //fixme test with differing arguments
+    public function testGetPaginatorWithCustomPublicationTypePaginationSettings()
+    {
+        $publicationType = new PublicationType(...$this->getTestData([
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]));
+        $paginationSettings = new PaginationSettings(pageSize: 10);
+        $this->assertEquals(
+            (new PaginationService(paginationSettings: $paginationSettings, paginationRouteBasename: 'test-publication')),
+            $publicationType->getPaginator()
+        );
     }
 
     public function testUsesPaginationReturnsTrueWhenPaginationShouldBeEnabled()
