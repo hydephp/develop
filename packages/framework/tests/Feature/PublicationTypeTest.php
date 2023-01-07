@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Publications\PublicationService;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
@@ -272,6 +273,15 @@ class PublicationTypeTest extends TestCase
             'name' => '__createdAt',
             'type' => 'string',
         ]), $publicationType->getCanonicalFieldDefinition());
+    }
+
+    public function testGetPublications()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $this->assertEquals(
+            PublicationService::getPublicationsForPubType($publicationType),
+            $publicationType->getPublications()
+        );
     }
 
     protected function getTestData(array $mergeData = []): array

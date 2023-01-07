@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Framework\Features\Publications\PublicationService;
 use function array_merge;
 use function dirname;
 use Exception;
@@ -135,6 +136,12 @@ class PublicationType implements SerializableContract
         }
 
         return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
+    }
+
+    /** @return \Illuminate\Support\Collection<\Hyde\Pages\PublicationPage> */
+    public function getPublications(): Collection
+    {
+        return PublicationService::getPublicationsForPubType($this);
     }
 
     public function getListPage(): PublicationListPage
