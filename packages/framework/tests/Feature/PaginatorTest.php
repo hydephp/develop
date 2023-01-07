@@ -105,6 +105,20 @@ class PaginatorTest extends TestCase
         $service->setCurrentPage(-1);
     }
 
+    public function testSetCurrentPageNumberRequiresIntegerToBeLessThanTotalPages()
+    {
+        $service = new Paginator(
+            collect(range(1, 50)),
+            new PaginationSettings(pageSize: 10)
+        );
+
+        $service->setCurrentPage(5);
+        $this->assertSame(5, $service->currentPage());
+
+        $this->expectException(\InvalidArgumentException::class);
+        $service->setCurrentPage(6);
+    }
+
     public function testLastPageReturnsTheLastPageNumber()
     {
         $this->assertSame(5, $this->makePaginator()->lastPage());
