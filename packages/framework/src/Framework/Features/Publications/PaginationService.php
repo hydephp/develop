@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Hyde;
 use function collect;
 use Hyde\Facades\Route;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
+use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use function is_array;
