@@ -8,7 +8,7 @@
                 @php
                     $paginator = $publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'));
                 @endphp
-                <ol>
+                <ol start="{{ $paginator->itemsStartNumber() }}">
                     @foreach($paginator->getItemsForPage() as $publication)
                         <li>
                             <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
