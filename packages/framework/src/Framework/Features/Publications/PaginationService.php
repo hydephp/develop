@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Foundation\PageCollection;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Illuminate\Contracts\Support\Arrayable;
@@ -31,11 +32,22 @@ class PaginationService
 
     public int $currentPage = 1;
 
-    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [])
+    /**
+     * Optionally provide a collection of the page listing models to use in pagination links.
+     *
+     * @var \Hyde\Foundation\PageCollection<\Hyde\Pages\VirtualPage>
+     */
+    protected PageCollection $pageCollection;
+
+    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [], PageCollection $pageCollection = null)
     {
         $this->paginationSettings = $this->getPaginationSettings($paginationSettings);
 
         $this->generate(collect($items));
+
+        if ($pageCollection) {
+            $this->pageCollection = $pageCollection;
+        }
     }
 
     protected function generate(Collection $items): void
