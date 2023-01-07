@@ -172,14 +172,14 @@ class PaginatorTest extends TestCase
         $this->assertFalse($this->makePaginator()->canNavigateLeft());
     }
 
-    public function testPreviousMethodWithoutFewerPagesReturnsNull()
+    public function testPreviousMethodWithoutFewerPagesReturnsFalse()
     {
-        $this->assertNull($this->makePaginator()->previous());
+        $this->assertFalse($this->makePaginator()->previous());
     }
 
-    public function testNextMethodWithoutMorePagesReturnsNull()
+    public function testNextMethodWithoutMorePagesReturnsFalse()
     {
-        $this->assertNull($this->makePaginator()->setCurrentPage(5)->next());
+        $this->assertFalse($this->makePaginator()->setCurrentPage(5)->next());
     }
 
     public function testPreviousMethodReturnsPreviousPageNumberWhenNoBaseRouteIsSet()
@@ -206,8 +206,8 @@ class PaginatorTest extends TestCase
 
         $paginator = new Paginator($pages, (2), paginationRouteBasename: 'pages');
 
-        $this->assertNull($paginator->setCurrentPage(1)->previous());
-        $this->assertNull($paginator->setCurrentPage(3)->next());
+        $this->assertFalse($paginator->setCurrentPage(1)->previous());
+        $this->assertFalse($paginator->setCurrentPage(3)->next());
 
         $this->assertSame($pages[2]->getRoute(), $paginator->setCurrentPage(1)->next());
         $this->assertSame($pages[3]->getRoute(), $paginator->setCurrentPage(2)->next());

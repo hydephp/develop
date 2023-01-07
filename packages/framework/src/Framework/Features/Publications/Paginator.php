@@ -114,10 +114,10 @@ class Paginator
         return $this->currentPage > 1;
     }
 
-    public function previous(): null|int|\Hyde\Support\Models\Route
+    public function previous(): false|int|\Hyde\Support\Models\Route
     {
         if (! $this->canNavigateLeft()) {
-            return null;
+            return false;
         }
 
         if (! isset($this->paginationRouteBasename)) {
@@ -127,10 +127,10 @@ class Paginator
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
     }
 
-    public function next(): null|int|\Hyde\Support\Models\Route
+    public function next(): false|int|\Hyde\Support\Models\Route
     {
         if (! $this->canNavigateRight()) {
-            return null;
+            return false;
         }
 
         if (! isset($this->paginationRouteBasename)) {
