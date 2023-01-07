@@ -7,7 +7,7 @@
     @endif
 
     <div>
-        @foreach($paginator->getNumbersArray() as $pageNumber => $destination)
+        @foreach($paginator->getPages() as $pageNumber => $destination)
             @if($paginator->currentPage() === $pageNumber)
                 <strong>{{ $pageNumber }}</strong>
             @else

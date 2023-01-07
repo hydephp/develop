@@ -166,7 +166,7 @@ class Paginator
         return $this->currentPage + 1;
     }
 
-    public function getNumbersArray(): array
+    public function getPages(): array
     {
         $array = [];
         $pageRange = range(1, $this->totalPages());
