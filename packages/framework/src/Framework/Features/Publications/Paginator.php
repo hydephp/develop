@@ -95,7 +95,7 @@ class Paginator
     /** Get the page number of the last available page. */
     public function lastPage(): int
     {
-        return $this->paginatedItems->count();
+        return $this->totalPages();
     }
 
     /** Get the total number of pages. */
@@ -113,7 +113,7 @@ class Paginator
     /** Determine if there are enough items to split into multiple pages. */
     public function hasPages(): bool
     {
-        return $this->paginatedItems->count() > 1;
+        return $this->totalPages() > 1;
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
