@@ -124,7 +124,7 @@ class PaginationService
             return $this->previousPageNumber();
         }
 
-        return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
+        return Route::get("$this->paginationRouteBasename/page-".$this->previousPageNumber());
     }
 
     public function next(): false|int|Route
@@ -137,7 +137,7 @@ class PaginationService
             return $this->nextPageNumber();
         }
 
-        return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
+        return Route::get("$this->paginationRouteBasename/page-".$this->nextPageNumber());
     }
 
     public function previousPageNumber(): false|int
