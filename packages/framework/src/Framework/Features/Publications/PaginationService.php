@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Support\Models\Route;
 use function collect;
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -182,6 +182,6 @@ class PaginationService
 
     protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
     {
-        return sprintf("page-%d%s", $this->currentPage + $offset, $withHtmlExtension ? '.html' : '');
+        return sprintf('page-%d%s', $this->currentPage + $offset, $withHtmlExtension ? '.html' : '');
     }
 }
