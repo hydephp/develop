@@ -119,7 +119,7 @@ class Paginator
     /** Determine if there are fewer items after the cursor in the data store. */
     public function canNavigateBack(): bool
     {
-        return $this->currentPage > 1;
+        return $this->currentPage > $this->firstPage();
     }
 
     /** Determine if there are more items after the cursor in the data store. */
@@ -179,7 +179,7 @@ class Paginator
 
     protected function validateCurrentPageValue(int $currentPage): void
     {
-        if ($currentPage < 1) {
+        if ($currentPage < $this->firstPage()) {
             throw new InvalidArgumentException('Current page number must be greater than 0.');
         }
 
@@ -191,5 +191,10 @@ class Paginator
     protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
     {
         return sprintf('page-%d%s', $this->currentPage + $offset, $withHtmlExtension ? '.html' : '');
+    }
+
+    protected function firstPage(): int
+    {
+        return 1;
     }
 }
