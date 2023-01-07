@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use InvalidArgumentException;
 use function array_combine;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
@@ -92,14 +93,14 @@ class PaginatorTest extends TestCase
 
     public function testSetCurrentPageNumberRequiresIntegerToBeGreaterThanNought()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $service = new Paginator();
         $service->setCurrentPage(0);
     }
 
     public function testSetCurrentPageNumberRequiresIntegerToBeGreaterThanNought2()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $service = new Paginator();
         $service->setCurrentPage(-1);
     }
@@ -114,13 +115,13 @@ class PaginatorTest extends TestCase
         $service->setCurrentPage(5);
         $this->assertSame(5, $service->currentPage());
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $service->setCurrentPage(6);
     }
 
     public function testCannotSetInvalidCurrentPageNumberInConstructor()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         new Paginator(
             collect(range(1, 50)),
             new PaginationSettings(pageSize: 10),
