@@ -137,12 +137,12 @@ class PaginationService
         $array = [];
         $pageRange = range(1, $this->totalPages());
         if ($this->paginationRouteBasename) {
-            foreach ($pageRange as $key => $number) {
-                $array[$key] = Route::getOrFail("$this->paginationRouteBasename/page-".$number);
+            foreach ($pageRange as $number) {
+                $array[$number] = Route::getOrFail("$this->paginationRouteBasename/page-".$number);
             }
         } else {
-            foreach ($pageRange as $key => $number) {
-                $array[$key] = "page-$number.html"; // Todo support pretty urls
+            foreach ($pageRange as $number) {
+                $array[$number] = "page-$number.html"; // Todo support pretty urls
             }
         }
         return $array;
