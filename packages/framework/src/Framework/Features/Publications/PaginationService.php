@@ -37,11 +37,15 @@ class PaginationService
      */
     protected string $paginationRouteBasename;
 
-    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [], string $paginationRouteBasename = null)
+    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [], int $currentPageNumber = null, string $paginationRouteBasename = null)
     {
         $this->paginationSettings = $this->getPaginationSettings($paginationSettings);
 
         $this->generate(collect($items));
+
+        if ($currentPageNumber) {
+            $this->currentPage = $currentPageNumber;
+        }
 
         if ($paginationRouteBasename) {
             $this->paginationRouteBasename = $paginationRouteBasename;
