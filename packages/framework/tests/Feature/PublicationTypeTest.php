@@ -9,7 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PaginationService;
+use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -289,7 +289,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(
-            (new PaginationService(paginationRouteBasename: 'test-publication')),
+            (new Paginator(paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
@@ -303,7 +303,7 @@ class PublicationTypeTest extends TestCase
         ]));
         $paginationSettings = new PaginationSettings(pageSize: 10);
         $this->assertEquals(
-            (new PaginationService(paginationSettings: $paginationSettings, paginationRouteBasename: 'test-publication')),
+            (new Paginator(paginationSettings: $paginationSettings, paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }

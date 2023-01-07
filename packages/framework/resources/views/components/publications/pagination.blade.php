@@ -1,4 +1,4 @@
-@php/** @var \Hyde\Framework\Features\Publications\PaginationService $paginator */@endphp
+@php/** @var \Hyde\Framework\Features\Publications\Paginator $paginator */@endphp
 
 <nav class="flex justify-between">
     @if($paginator->previous())

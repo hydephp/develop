@@ -7,28 +7,28 @@ namespace Hyde\Framework\Testing\Feature;
 use function array_combine;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
-use Hyde\Framework\Features\Publications\PaginationService;
+use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Testing\TestCase;
 use function range;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\PaginationService
+ * @covers \Hyde\Framework\Features\Publications\Paginator
  */
-class PaginationServiceTest extends TestCase
+class PaginatorTest extends TestCase
 {
     public function test_it_can_be_instantiated(): void
     {
-        $this->assertInstanceOf(PaginationService::class, new PaginationService());
+        $this->assertInstanceOf(Paginator::class, new Paginator());
     }
 
     public function testGetPaginatedPageCollection()
     {
-        $this->assertEquals(collect([]), (new PaginationService())->getPaginatedPageCollection());
+        $this->assertEquals(collect([]), (new Paginator())->getPaginatedPageCollection());
     }
 
     public function testGetPaginatedPageCollectionWithPages()
     {
-        $collection = (new PaginationService(
+        $collection = (new Paginator(
             collect(range(1, 50)),
             new PaginationSettings()
         ))->getPaginatedPageCollection();
@@ -45,7 +45,7 @@ class PaginationServiceTest extends TestCase
 
     public function testCollectionIsChunkedBySpecifiedSettingValue()
     {
-        $collection = (new PaginationService(
+        $collection = (new Paginator(
             collect(range(1, 50)),
             new PaginationSettings(pageSize: 10))
         )->getPaginatedPageCollection();
@@ -62,70 +62,70 @@ class PaginationServiceTest extends TestCase
 
     public function testCanGetCurrentPageNumber()
     {
-        $service = new PaginationService();
+        $service = new Paginator();
         $this->assertSame(1, $service->currentPage());
     }
 
     public function testCanSetCurrentPageNumber()
     {
-        $service = new PaginationService();
+        $service = new Paginator();
         $service->setCurrentPage(2);
         $this->assertSame(2, $service->currentPage());
     }
 
     public function testLastPageReturnsTheLastPageNumber()
     {
-        $this->assertSame(5, $this->makeService()->lastPage());
+        $this->assertSame(5, $this->makePaginator()->lastPage());
     }
 
     public function testTotalPagesReturnsTheTotalNumberOfPages()
     {
-        $this->assertSame(5, $this->makeService()->totalPages());
+        $this->assertSame(5, $this->makePaginator()->totalPages());
     }
 
     public function testPerPageReturnsTheNumberOfItemsToBeShownPerPage()
     {
-        $this->assertSame(10, $this->makeService()->perPage());
+        $this->assertSame(10, $this->makePaginator()->perPage());
     }
 
     public function testTotalReturnsTheTotalNumberOfMatchingItemsInTheDataStore()
     {
-        $this->assertSame(50, $this->makeService()->total());
+        $this->assertSame(50, $this->makePaginator()->total());
     }
 
     public function testHasPagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
     {
-        $this->assertTrue($this->makeService()->hasPages());
+        $this->assertTrue($this->makePaginator()->hasPages());
     }
 
     public function testHasPagesReturnsFalseIfThereAreNotEnoughItemsToSplitIntoMultiplePages()
     {
-        $this->assertFalse($this->makeService(1, 9)->hasMorePages());
+        $this->assertFalse($this->makePaginator(1, 9)->hasMorePages());
     }
 
     public function testHasMorePagesReturnsTrueIfCursorCanNavigateForward()
     {
-        $this->assertTrue($this->makeService()->hasMorePages());
+        $this->assertTrue($this->makePaginator()->hasMorePages());
     }
 
     public function testHasMorePagesReturnsFalseIfCursorCannotNavigateForward()
     {
-        $this->assertFalse($this->makeService()->setCurrentPage(5)->hasMorePages());
+        $this->assertFalse($this->makePaginator()->setCurrentPage(5)->hasMorePages());
     }
 
     public function testHasFewerPagesReturnsTrueIfCursorCanNavigateBack()
     {
-        $this->assertTrue($this->makeService()->setCurrentPage(2)->hasFewerPages());
+        $this->assertTrue($this->makePaginator()->setCurrentPage(2)->hasFewerPages());
     }
 
     public function testHasFewerPagesReturnsFalseIfCursorCannotNavigateBack()
     {
-        $this->assertFalse($this->makeService()->hasFewerPages());
+        $this->assertFalse($this->makePaginator()->hasFewerPages());
     }
 
-    protected function makeService(int $start = 1, int $end = 50, int $pageSize = 10): PaginationService
+    protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
-        return new PaginationService(
+        return new Paginator(
             collect(range($start, $end)),
             new PaginationSettings(pageSize: $pageSize)
         );
