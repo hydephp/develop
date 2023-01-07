@@ -186,6 +186,6 @@ class PublicationType implements SerializableContract
     {
         return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
             return $page->matter($this->pagination->sortField);
-        }, descending: !$this->pagination->sortAscending)->values();
+        }, descending: ! $this->pagination->sortAscending)->values();
     }
 }
