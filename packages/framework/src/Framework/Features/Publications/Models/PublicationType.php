@@ -160,6 +160,15 @@ class PublicationType implements SerializableContract
         return $this->pagination->pageSize > 0;
     }
 
+    public function pageSize(): int
+    {
+        if ($this->usesPagination()) {
+            return $this->pagination->pageSize;
+        }
+
+        return PHP_INT_MAX;
+    }
+
     public function save(?string $path = null): void
     {
         $path ??= $this->getSchemaFile();
