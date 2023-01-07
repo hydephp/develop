@@ -19,7 +19,9 @@ class PublicationListPage extends VirtualPage
     {
         $this->type = $type;
 
-        parent::__construct("{$type->getDirectory()}/index", view: $type->listTemplate);
+        parent::__construct("{$type->getDirectory()}/index", [
+            'title' => $this->type->name,
+        ], view: $type->listTemplate);
     }
 
     public function compile(): string
