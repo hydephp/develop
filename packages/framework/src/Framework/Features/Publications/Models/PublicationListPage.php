@@ -19,16 +19,13 @@ class PublicationListPage extends VirtualPage
     {
         $this->type = $type;
 
-        parent::__construct("{$type->getDirectory()}/index", view: $type->listTemplate);
+        parent::__construct("{$type->getDirectory()}/index", [
+            'title' => $this->type->name,
+        ], view: $type->listTemplate);
     }
 
     public function compile(): string
     {
         return PublicationPageCompiler::call($this);
-    }
-
-    public function htmlTitle(): string
-    {
-        return config('site.name', 'HydePHP').' - '.$this->type->name;
     }
 }
