@@ -28,7 +28,7 @@ use function is_array;
  */
 class PaginationService
 {
-    protected PaginationSettings $paginationSettings;
+    protected int $pageSize = 25;
 
     protected Collection $chunks;
 
@@ -41,7 +41,7 @@ class PaginationService
 
     public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [], int $currentPageNumber = null, string $paginationRouteBasename = null)
     {
-        $this->paginationSettings = $this->getPaginationSettings($paginationSettings);
+        $this->pageSize = $this->getPaginationSettings($paginationSettings)->pageSize;
 
         $this->generate(collect($items));
 
@@ -106,7 +106,7 @@ class PaginationService
     /** The number of items to be shown per page. */
     public function perPage(): int
     {
-        return $this->paginationSettings->pageSize;
+        return $this->pageSize;
     }
 
     /** Determine the total number of matching items in the data store. */
