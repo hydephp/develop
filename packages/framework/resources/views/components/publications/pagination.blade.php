@@ -10,9 +10,9 @@
     <div>
         @foreach($paginator->getNumbersArray() as $pageNumber => $destination)
             @if($paginator->currentPage() === $pageNumber)
-                <span><strong>{{ $pageNumber }}</strong></span>
+                <strong>{{ $pageNumber }}</strong>
             @else
-                <span><x-link :href="$destination">{{ $pageNumber }}</x-link>
+                <x-link :href="$destination">{{ $pageNumber }}</x-link>
             @endif
         @endforeach
     </div>
