@@ -188,14 +188,14 @@ class Paginator
         }
     }
 
-    protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
+    protected function formatPageName(int $offset): string
     {
-        return sprintf('page-%d%s', $this->currentPage + $offset, $withHtmlExtension ? '.html' : '');
+        return sprintf("page-%d", $this->currentPage + $offset);
     }
 
     protected function formatLink(int $offset): string
     {
-        return Hyde::formatLink($this->formatPageName($offset, true));
+        return Hyde::formatLink("{$this->formatPageName($offset)}.html");
     }
 
     protected function firstPage(): int
