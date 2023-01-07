@@ -214,7 +214,7 @@ class PaginatorTest extends TestCase
         $paginator = new Paginator($pages, new PaginationSettings(pageSize: 2), paginationRouteBasename: 'pages');
 
         $this->assertNull($paginator->setCurrentPage(1)->previous());
-        $this->assertNull($paginator->setCurrentPage(5)->next());
+        $this->assertNull($paginator->setCurrentPage(3)->next());
 
         $this->assertSame($pages[2]->getRoute(), $paginator->setCurrentPage(1)->next());
         $this->assertSame($pages[3]->getRoute(), $paginator->setCurrentPage(2)->next());
