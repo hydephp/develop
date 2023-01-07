@@ -67,46 +67,46 @@ class PaginationServiceTest extends TestCase
     /** Get the page number of the last available page. */
     public function testLastPageReturnsTheLastPageNumber()
     {
-        $this->assertSame(5, $this->makeService(1, 50, 10)->lastPage());
+        $this->assertSame(5, $this->makeService()->lastPage());
     }
 
     /** Get the total number of pages. */
     public function testTotalPagesReturnsTheTotalNumberOfPages()
     {
-        $this->assertSame(5, $this->makeService(1, 50, 10)->totalPages());
+        $this->assertSame(5, $this->makeService()->totalPages());
     }
 
     /** The number of items to be shown per page. */
     public function testPerPageReturnsTheNumberOfItemsToBeShownPerPage()
     {
-        $this->assertSame(10, $this->makeService(1, 50, 10)->perPage());
+        $this->assertSame(10, $this->makeService()->perPage());
     }
 
     /** Determine the total number of matching items in the data store. */
     public function testTotalReturnsTheTotalNumberOfMatchingItemsInTheDataStore()
     {
-        $this->assertSame(50, $this->makeService(1, 50, 10)->total());
+        $this->assertSame(50, $this->makeService()->total());
     }
 
     /** Determine if there are enough items to split into multiple pages. */
     public function testHasPagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
     {
-        $this->assertTrue($this->makeService(1, 50, 10)->hasPages());
+        $this->assertTrue($this->makeService()->hasPages());
     }
 
     /** Determine if there are more items after the cursor in the data store. */
     public function testHasMorePagesReturnsTrueIfThereAreMoreItemsAfterTheCursorInTheDataStore()
     {
-        $this->assertTrue($this->makeService(1, 50, 10)->hasMorePages());
+        $this->assertTrue($this->makeService()->hasMorePages());
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
     public function testHasFewerPagesReturnsTrueIfThereAreFewerItemsAfterTheCursorInTheDataStore()
     {
-        $this->assertFalse($this->makeService(1, 50, 10)->hasFewerPages());
+        $this->assertFalse($this->makeService()->hasFewerPages());
     }
 
-    protected function makeService(int $start = 1, int $end = 50, int $pageSize = 25): PaginationService
+    protected function makeService(int $start = 1, int $end = 50, int $pageSize = 10): PaginationService
     {
         return new PaginationService(
             collect(range($start, $end)),
