@@ -55,12 +55,16 @@ class PaginationServiceTest extends TestCase
         $this->assertCount(10, $collection->last());
     }
 
-    public function testGetAndSetCurrentPageNumber()
+    public function testCanGetCurrentPageNumber()
     {
         $service = new PaginationService();
-
         $this->assertSame(1, $service->currentPage());
-        $this->assertSame($service, $service->setCurrentPage(2));
+    }
+
+    public function testCanSetCurrentPageNumber()
+    {
+        $service = new PaginationService();
+        $service->setCurrentPage(2);
         $this->assertSame(2, $service->currentPage());
     }
 
