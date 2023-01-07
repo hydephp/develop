@@ -314,25 +314,19 @@ class PublicationTypeTest extends TestCase
         $this->directory('test-publication');
 
         $paginationSettings = new PaginationSettings('myNumber');
-        $fields = [
-            ['name' => 'myNumber', 'type' => 'integer'],
-        ];
+        $fields = [['name' => 'myNumber', 'type' => 'integer']];
+
         $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
         $publicationType->save();
 
-        $pages[0] = new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType);
-        $pages[1] = new PublicationPage('test-publication/page-2', ['myNumber' => 4], type: $publicationType);
-        $pages[2] = new PublicationPage('test-publication/page-3', ['myNumber' => 3], type: $publicationType);
-        $pages[3] = new PublicationPage('test-publication/page-4', ['myNumber' => 2], type: $publicationType);
-        $pages[4] = new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType);
+        $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
+        $pages[1] = (new PublicationPage('test-publication/page-2', ['myNumber' => 4], type: $publicationType))->save();
+        $pages[2] = (new PublicationPage('test-publication/page-3', ['myNumber' => 3], type: $publicationType))->save();
+        $pages[3] = (new PublicationPage('test-publication/page-4', ['myNumber' => 2], type: $publicationType))->save();
+        $pages[4] = (new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType))->save();
 
-        foreach ($pages as $page) {
-            $page->save();
-        }
-
-        $items = array_reverse($pages);
         $this->assertEquals(
-            (new Paginator($items, paginationRouteBasename: 'test-publication')),
+            (new Paginator(array_reverse($pages), paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
@@ -342,25 +336,19 @@ class PublicationTypeTest extends TestCase
         $this->directory('test-publication');
 
         $paginationSettings = new PaginationSettings('myNumber', false);
-        $fields = [
-            ['name' => 'myNumber', 'type' => 'integer'],
-        ];
+        $fields = [['name' => 'myNumber', 'type' => 'integer']];
+
         $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
         $publicationType->save();
 
-        $pages[0] = new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType);
-        $pages[1] = new PublicationPage('test-publication/page-2', ['myNumber' => 4], type: $publicationType);
-        $pages[2] = new PublicationPage('test-publication/page-3', ['myNumber' => 3], type: $publicationType);
-        $pages[3] = new PublicationPage('test-publication/page-4', ['myNumber' => 2], type: $publicationType);
-        $pages[4] = new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType);
+        $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
+        $pages[1] = (new PublicationPage('test-publication/page-2', ['myNumber' => 4], type: $publicationType))->save();
+        $pages[2] = (new PublicationPage('test-publication/page-3', ['myNumber' => 3], type: $publicationType))->save();
+        $pages[3] = (new PublicationPage('test-publication/page-4', ['myNumber' => 2], type: $publicationType))->save();
+        $pages[4] = (new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType))->save();
 
-        foreach ($pages as $page) {
-            $page->save();
-        }
-
-        $items = ($pages);
         $this->assertEquals(
-            (new Paginator($items, paginationRouteBasename: 'test-publication')),
+            (new Paginator($pages, paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
