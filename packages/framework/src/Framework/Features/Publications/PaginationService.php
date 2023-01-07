@@ -46,16 +46,6 @@ class PaginationService
         $this->chunks = $items->chunk($this->perPage());
     }
 
-    public function getPaginatedPageCollection(): Collection
-    {
-        return $this->chunks;
-    }
-
-    public function getItemsForPage(): Collection
-    {
-        return $this->chunks->get($this->currentPage - 1, collect());
-    }
-
     /** Set the current page number. */
     public function setCurrentPage(int $currentPage): PaginationService
     {
@@ -76,6 +66,33 @@ class PaginationService
     public function currentPage(): int
     {
         return $this->currentPage;
+    }
+
+    public function getPaginatedPageCollection(): Collection
+    {
+        return $this->chunks;
+    }
+
+    public function getItemsForPage(): Collection
+    {
+        return $this->chunks->get($this->currentPage - 1, collect());
+    }
+
+    public function getPageLinks(): array
+    {
+        $array = [];
+        $pageRange = range(1, $this->totalPages());
+        if ($this->paginationRouteBasename) {
+            foreach ($pageRange as $number) {
+                $array[$number] = Route::getOrFail("$this->paginationRouteBasename/page-$number");
+            }
+        } else {
+            foreach ($pageRange as $number) {
+                $array[$number] = Hyde::formatLink("page-$number.html");
+            }
+        }
+
+        return $array;
     }
 
     /** Get the page number of the last available page. */
@@ -156,23 +173,6 @@ class PaginationService
         }
 
         return Route::get("$this->paginationRouteBasename/{$this->formatPageName(+1)}");
-    }
-
-    public function getPageLinks(): array
-    {
-        $array = [];
-        $pageRange = range(1, $this->totalPages());
-        if ($this->paginationRouteBasename) {
-            foreach ($pageRange as $number) {
-                $array[$number] = Route::getOrFail("$this->paginationRouteBasename/page-$number");
-            }
-        } else {
-            foreach ($pageRange as $number) {
-                $array[$number] = Hyde::formatLink("page-$number.html");
-            }
-        }
-
-        return $array;
     }
 
     public function firstItemNumberOnPage(): int
