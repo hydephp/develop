@@ -292,6 +292,8 @@ class PublicationTypeTest extends TestCase
             (new PaginationService(paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
+
+        //fixme test with differing arguments
     }
 
     public function testUsesPaginationReturnsTrueWhenPaginationShouldBeEnabled()
