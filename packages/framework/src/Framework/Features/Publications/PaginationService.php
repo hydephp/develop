@@ -124,19 +124,27 @@ class PaginationService
         return $this->currentPage > 1;
     }
 
-    public function previous(): ?\Hyde\Support\Models\Route
+    public function previous(): null|int|\Hyde\Support\Models\Route
     {
         if (! $this->hasFewerPages()) {
             return null;
         }
 
+        if (! isset($this->paginationRouteBasename)) {
+            return $this->currentPage - 1;
+        }
+
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
     }
 
-    public function next(): ?\Hyde\Support\Models\Route
+    public function next(): null|int|\Hyde\Support\Models\Route
     {
         if (! $this->hasMorePages()) {
             return null;
+        }
+
+        if (! isset($this->paginationRouteBasename)) {
+            return $this->currentPage + 1;
         }
 
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
