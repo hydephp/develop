@@ -18,7 +18,7 @@ use function sprintf;
  */
 class Paginator
 {
-    protected Collection $chunks;
+    protected Collection $items;
 
     protected int $pageSize = 25;
     protected int $currentPage = 1;
@@ -45,7 +45,7 @@ class Paginator
 
     protected function generate(Collection $items): void
     {
-        $this->chunks = $items->chunk($this->perPage());
+        $this->items = $items->chunk($this->perPage());
     }
 
     /** Set the current page number. */
@@ -67,12 +67,12 @@ class Paginator
     /** Get the paginated collection */
     public function getPaginatedCollection(): Collection
     {
-        return $this->chunks;
+        return $this->items;
     }
 
     public function getItemsForPage(): Collection
     {
-        return $this->chunks->get($this->currentPage - 1, collect());
+        return $this->items->get($this->currentPage - 1, collect());
     }
 
     public function getPageLinks(): array
@@ -95,13 +95,13 @@ class Paginator
     /** Get the page number of the last available page. */
     public function lastPage(): int
     {
-        return $this->chunks->count();
+        return $this->items->count();
     }
 
     /** Get the total number of pages. */
     public function totalPages(): int
     {
-        return $this->chunks->count();
+        return $this->items->count();
     }
 
     /** The number of items to be shown per page. */
@@ -113,7 +113,7 @@ class Paginator
     /** Determine if there are enough items to split into multiple pages. */
     public function hasPages(): bool
     {
-        return $this->chunks->count() > 1;
+        return $this->items->count() > 1;
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
