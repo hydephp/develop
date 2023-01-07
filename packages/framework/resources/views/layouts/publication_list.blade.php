@@ -5,7 +5,7 @@
             @php/** @var \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType*/@endphp
             <h1>Publications for type {{ $publicationType->name }}</h1>
             <ol>
-                @foreach($publicationType->getPublications() as $publication)
+                @foreach($publicationType->getPublications()->take($publicationType->pageSize()) as $publication)
                     <li>
                         <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
                     </li>
