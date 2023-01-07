@@ -12,7 +12,7 @@
                 @endforeach
             </ol>
             @if($publicationType->usesPagination())
-                @include('hyde::components.publications.pagination', ['paginator' => $publicationType->getPaginator()])
+                @include('hyde::components.publications.pagination', ['paginator' => $publicationType->getPaginator(currentPageNumber: $page->paginatorPage)])
             @endif
         </div>
     </main>
