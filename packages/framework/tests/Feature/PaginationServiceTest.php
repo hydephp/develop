@@ -63,4 +63,12 @@ class PaginationServiceTest extends TestCase
         $this->assertSame($service, $service->setCurrentPage(2));
         $this->assertSame(2, $service->currentPage());
     }
+
+    protected function makeService(int $start = 1, int $end = 50, int $pageSize = 25): PaginationService
+    {
+        return new PaginationService(
+            collect(range($start, $end)),
+            new PaginationSettings(pageSize: $pageSize)
+        );
+    }
 }
