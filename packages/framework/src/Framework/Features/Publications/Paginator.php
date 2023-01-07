@@ -71,6 +71,10 @@ class Paginator
     /** Set the current page number. */
     public function setCurrentPage(int $currentPage): Paginator
     {
+        if ($currentPage < 1) {
+            throw new \InvalidArgumentException('Current page number must be greater than 0.');
+        }
+
         $this->currentPage = $currentPage;
 
         return $this;

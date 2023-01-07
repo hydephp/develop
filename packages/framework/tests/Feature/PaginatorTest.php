@@ -91,6 +91,20 @@ class PaginatorTest extends TestCase
         $this->assertSame(2, $service->currentPage());
     }
 
+    public function testSetCurrentPageNumberRequiresIntegerToBeGreaterThanNought()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $service = new Paginator();
+        $service->setCurrentPage(0);
+    }
+
+    public function testSetCurrentPageNumberRequiresIntegerToBeGreaterThanNought2()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $service = new Paginator();
+        $service->setCurrentPage(-1);
+    }
+
     public function testLastPageReturnsTheLastPageNumber()
     {
         $this->assertSame(5, $this->makePaginator()->lastPage());
