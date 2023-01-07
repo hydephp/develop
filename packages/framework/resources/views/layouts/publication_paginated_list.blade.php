@@ -8,7 +8,7 @@
         <div class="prose dark:prose-invert">
             <h1>Publications for type {{ $publicationType->name }}</h1>
 
-            <ol start="{{ $paginator->itemsStartNumber() }}">
+            <ol start="{{ $paginator->firstItemNumberOnPage() }}">
                 @foreach($paginator->getItemsForPage() as $publication)
                     <li>
                         <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
