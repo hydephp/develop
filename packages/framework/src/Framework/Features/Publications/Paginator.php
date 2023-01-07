@@ -92,10 +92,10 @@ class Paginator
         return $array;
     }
 
-    /** Get the page number of the last available page. */
-    public function lastPage(): int
+    /** The number of items to be shown per page. */
+    public function perPage(): int
     {
-        return $this->totalPages();
+        return $this->pageSize;
     }
 
     /** Get the total number of pages. */
@@ -104,16 +104,16 @@ class Paginator
         return $this->paginatedItems->count();
     }
 
-    /** The number of items to be shown per page. */
-    public function perPage(): int
-    {
-        return $this->pageSize;
-    }
-
     /** Determine if there are enough items to split into multiple pages. */
     public function hasMultiplePages(): bool
     {
         return $this->totalPages() > 1;
+    }
+
+    /** Get the page number of the last available page. */
+    public function lastPage(): int
+    {
+        return $this->totalPages();
     }
 
     /** Determine if there are fewer items after the cursor in the data store. */
