@@ -127,7 +127,7 @@ class Paginator
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->lastNumber();
+            return $this->lastPageNumber();
         }
 
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
@@ -140,13 +140,13 @@ class Paginator
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->nextNumber();
+            return $this->nextPageNumber();
         }
 
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
     }
 
-    public function lastNumber(): bool|int
+    public function lastPageNumber(): bool|int
     {
         if (! $this->hasFewerPages()) {
             return false;
@@ -155,7 +155,7 @@ class Paginator
         return $this->currentPage - 1;
     }
 
-    public function nextNumber(): bool|int
+    public function nextPageNumber(): bool|int
     {
         if (! $this->hasMorePages()) {
             return false;
