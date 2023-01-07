@@ -6,7 +6,7 @@
             <h1>Publications for type {{ $publicationType->name }}</h1>
             @if($publicationType->usesPagination())
                 <ol>
-                    @foreach($publicationType->getPublications() as $publication)
+                    @foreach($publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'))->getItemsForPage() as $publication)
                         <li>
                             <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
                         </li>
