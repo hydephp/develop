@@ -69,7 +69,7 @@ class PaginationService
     }
 
     /** Get the total number of pages. */
-    public function pagesTotal(): int
+    public function totalPages(): int
     {
         return $this->chunks->count();
     }
