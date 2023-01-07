@@ -56,7 +56,7 @@ class PaginationService
         return $this;
     }
 
-    /** Get the current page number. */
+    /** Get the current page number (which is used as a cursor). */
     public function currentPage(): int
     {
         return $this->currentPage;
@@ -92,13 +92,13 @@ class PaginationService
         return $this->chunks->count() > 1;
     }
 
-    /** Determine if there are more items in the data store. */
+    /** Determine if there are more items after the cursor in the data store. */
     public function hasMorePages(): bool
     {
         return $this->currentPage < $this->lastPage();
     }
 
-    /** Determine if there are fewer items in the data store. */
+    /** Determine if there are fewer items after the cursor in the data store. */
     public function hasFewerPages(): bool
     {
         return $this->currentPage > 1;
