@@ -158,7 +158,7 @@ class PaginationService
         return $this->currentPage + 1;
     }
 
-    public function getPages(): array
+    public function getPageLinks(): array
     {
         $array = [];
         $pageRange = range(1, $this->totalPages());
