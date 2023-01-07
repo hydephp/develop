@@ -161,7 +161,7 @@ class PaginationService
 
     public function itemsStartNumber(): int
     {
-        return (($this->currentPage -1) * $this->perPage())+1;
+        return (($this->currentPage - 1) * $this->perPage()) + 1;
     }
 
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
