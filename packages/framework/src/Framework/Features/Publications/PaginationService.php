@@ -111,7 +111,7 @@ class PaginationService
     }
 
     /** Determine if there are enough items to split into multiple pages. */
-    public function hasPages(): bool
+    public function hasMultiplePages(): bool
     {
         return $this->totalPages() > 1;
     }
