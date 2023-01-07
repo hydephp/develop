@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Facades\Route;
 use function collect;
+use Hyde\Facades\Route;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
@@ -120,7 +120,7 @@ class PaginationService
             return null;
         }
 
-        return Route::get("$this->paginationRouteBasename/page-" . $this->currentPage - 1);
+        return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
     }
 
     public function next(): ?\Hyde\Support\Models\Route
@@ -129,7 +129,7 @@ class PaginationService
             return null;
         }
 
-        return Route::get("$this->paginationRouteBasename/page-" . $this->currentPage + 1);
+        return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
     }
 
     public function getNumbersArray(): array
@@ -137,16 +137,16 @@ class PaginationService
         if ($this->paginationRouteBasename) {
             $array = range(1, $this->totalPages());
             foreach ($array as $key => $value) {
-                $array[$key] = Route::get("$this->paginationRouteBasename/page-" . $value) ?? ''; // fixme should use orFail
+                $array[$key] = Route::get("$this->paginationRouteBasename/page-".$value) ?? ''; // fixme should use orFail
             }
-            return $array;
-        }
 
-        else {
+            return $array;
+        } else {
             $array = range(1, $this->totalPages());
             foreach ($array as $key => $value) {
                 $array[$key] = "page-$value.html"; // Todo support pretty urls
             }
+
             return $array;
         }
     }
