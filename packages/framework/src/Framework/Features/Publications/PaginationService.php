@@ -97,7 +97,7 @@ class PaginationService
     }
 
     /** Determine the total number of matching items in the data store. */
-    public function total(): int
+    public function itemsTotal(): int
     {
         return $this->chunks->flatten()->count();
     }
