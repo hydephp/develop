@@ -147,6 +147,7 @@ class PublicationType implements SerializableContract
 
     public function getPaginator(int $currentPageNumber = null): Paginator
     {
+        // TODO Sort collection using the pagination settings before paginating it
         return new Paginator($this->getPublications(), $this->pagination->pageSize, $currentPageNumber, $this->getIdentifier());
     }
 

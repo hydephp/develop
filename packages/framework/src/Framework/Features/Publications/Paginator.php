@@ -15,8 +15,6 @@ use function is_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginatorTest
- *
- * @todo Implement sorting from PaginationSettings
  */
 class Paginator
 {
