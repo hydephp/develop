@@ -132,6 +132,25 @@ class PaginationService
         return Route::get("$this->paginationRouteBasename/page-" . $this->currentPage + 1);
     }
 
+    public function getNumbersArray(): array
+    {
+        if ($this->paginationRouteBasename) {
+            $array = range(1, $this->totalPages());
+            foreach ($array as $key => $value) {
+                $array[$key] = Route::get("$this->paginationRouteBasename/page-" . $value) ?? ''; // fixme should use orFail
+            }
+            return $array;
+        }
+
+        else {
+            $array = range(1, $this->totalPages());
+            foreach ($array as $key => $value) {
+                $array[$key] = "page-$value.html"; // Todo support pretty urls
+            }
+            return $array;
+        }
+    }
+
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
     {
         if (is_array($paginationSettings)) {
