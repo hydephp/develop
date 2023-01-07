@@ -39,7 +39,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupTestPublication();
 
         file_put_contents(Hyde::path('test-publication/my-publication.md'), 'Foo');
-        file_put_contents(Hyde::path('test-publication/list.blade.php'), 'List: {{ $publications->first()->title }}');
+        file_put_contents(Hyde::path('test-publication/list.blade.php'), 'List: {{ $publicationType->getPublications()->first()->title }}');
 
         $string = PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
 
