@@ -147,7 +147,7 @@ class PublicationType implements SerializableContract
 
     public function getPaginator(): PaginationService
     {
-        return new PaginationService($this->getPublications(), $this->pagination);
+        return new PaginationService($this->getPublications(), $this->pagination, $this->getIdentifier());
     }
 
     public function getListPage(): PublicationListPage
