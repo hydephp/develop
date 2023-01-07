@@ -138,6 +138,16 @@ class PaginatorTest extends TestCase
         $this->assertFalse($this->makePaginator()->hasFewerPages());
     }
 
+    public function testPreviousMethodWithoutFewerPagesReturnsNull()
+    {
+        $this->assertNull($this->makePaginator()->previous());
+    }
+
+    public function testNextMethodWithoutMorePagesReturnsNull()
+    {
+        $this->assertNull($this->makePaginator()->setCurrentPage(5)->next());
+    }
+
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
         return new Paginator(
