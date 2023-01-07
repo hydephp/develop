@@ -140,7 +140,7 @@ final class PageCollection extends BaseFoundationCollection
         foreach (range(1, $paginator->totalPages()) as $page) {
             $paginator->setCurrentPage($page);
             $listingPage = new VirtualPage("{$type->getDirectory()}/page-$page", [
-                'publicationType' => $type, 'paginatorPage' => $page
+                'publicationType' => $type, 'paginatorPage' => $page,
             ], view: $type->listTemplate);
             $this->put($listingPage->getSourcePath(), $listingPage);
         }
