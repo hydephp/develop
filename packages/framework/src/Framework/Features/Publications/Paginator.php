@@ -114,12 +114,6 @@ class Paginator
         return $this->currentPage > 1;
     }
 
-    /** Determine the total number of matching items in the data store. */
-    public function itemsTotal(): int
-    {
-        return $this->chunks->flatten()->count();
-    }
-
     public function previous(): null|int|\Hyde\Support\Models\Route
     {
         if (! $this->hasFewerPages()) {

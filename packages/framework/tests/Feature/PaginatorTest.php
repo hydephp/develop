@@ -142,11 +142,6 @@ class PaginatorTest extends TestCase
         $this->assertSame(10, $this->makePaginator()->perPage());
     }
 
-    public function testItemsTotalReturnsTheTotalNumberOfMatchingItemsInTheDataStore()
-    {
-        $this->assertSame(50, $this->makePaginator()->itemsTotal());
-    }
-
     public function testHasPagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
     {
         $this->assertTrue($this->makePaginator()->hasPages());
