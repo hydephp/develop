@@ -133,6 +133,10 @@ final class PageCollection extends BaseFoundationCollection
         }
     }
 
+    /**
+     * @deprecated This method will be removed before merging into master.
+     * @internal This method will be removed before merging into master.
+     */
     protected function generatePublicationPaginatedListingPagesForType(PublicationType $type): void
     {
         $paginator = $type->getPaginator();
