@@ -146,7 +146,7 @@ class Paginator
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
     }
 
-    public function lastPageNumber(): bool|int
+    public function lastPageNumber(): false|int
     {
         if (! $this->hasFewerPages()) {
             return false;
@@ -155,7 +155,7 @@ class Paginator
         return $this->currentPage - 1;
     }
 
-    public function nextPageNumber(): bool|int
+    public function nextPageNumber(): false|int
     {
         if (! $this->hasMorePages()) {
             return false;
