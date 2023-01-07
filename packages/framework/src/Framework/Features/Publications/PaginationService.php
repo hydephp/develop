@@ -31,7 +31,6 @@ class PaginationService
     protected Collection $chunks;
 
     protected int $pageSize = 25;
-
     protected int $currentPage = 1;
 
     /**
