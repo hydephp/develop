@@ -127,7 +127,7 @@ class PaginationService
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->lastPageNumber();
+            return $this->previousPageNumber();
         }
 
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
@@ -146,7 +146,7 @@ class PaginationService
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
     }
 
-    public function lastPageNumber(): false|int
+    public function previousPageNumber(): false|int
     {
         if (! $this->hasFewerPages()) {
             return false;
