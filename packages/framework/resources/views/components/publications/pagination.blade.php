@@ -8,11 +8,11 @@
     @endif
 
     <div>
-        @foreach(range(1, $paginator->totalPages()) as $pageNumber)
+        @foreach($paginator->getNumbersArray() as $pageNumber => $destination)
             @if($paginator->currentPage() === $pageNumber)
                 <span class="mx-1"><strong>{{ $pageNumber }}</strong></span>
             @else
-                // TODO
+                <span class="mx-1"><x-link :href="$destination">{{ $pageNumber }}</x-link>
             @endif
         @endforeach
     </div>
