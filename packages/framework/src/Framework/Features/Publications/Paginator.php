@@ -45,7 +45,7 @@ class Paginator
         $this->generate(collect($items));
 
         if ($currentPageNumber) {
-            $this->currentPage = $currentPageNumber;
+            $this->setCurrentPage($currentPageNumber);
         }
 
         if ($paginationRouteBasename) {

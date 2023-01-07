@@ -119,6 +119,16 @@ class PaginatorTest extends TestCase
         $service->setCurrentPage(6);
     }
 
+    public function testCannotSetInvalidCurrentPageNumberInConstructor()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new Paginator(
+            collect(range(1, 50)),
+            new PaginationSettings(pageSize: 10),
+            currentPageNumber: 6
+        );
+    }
+
     public function testLastPageReturnsTheLastPageNumber()
     {
         $this->assertSame(5, $this->makePaginator()->lastPage());
