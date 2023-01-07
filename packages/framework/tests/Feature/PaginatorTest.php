@@ -86,7 +86,7 @@ class PaginatorTest extends TestCase
 
     public function testCanSetCurrentPageNumber()
     {
-        $service = new Paginator();
+        $service = new Paginator(collect(range(1, 50)));
         $service->setCurrentPage(2);
         $this->assertSame(2, $service->currentPage());
     }
