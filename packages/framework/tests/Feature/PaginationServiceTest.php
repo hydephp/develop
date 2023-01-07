@@ -57,12 +57,15 @@ class PaginationServiceTest extends TestCase
 
     public function testCanGetCurrentPageNumber()
     {
-        $this->assertSame(1, (new PaginationService())->currentPage());
+        $service = new PaginationService();
+        $this->assertSame(1, $service->currentPage());
     }
 
     public function testCanSetCurrentPageNumber()
     {
-        $this->assertSame(2, (new PaginationService())->setCurrentPage(2)->currentPage());
+        $service = new PaginationService();
+        $service->setCurrentPage(2);
+        $this->assertSame(2, $service->currentPage());
     }
 
     /** Get the page number of the last available page. */
