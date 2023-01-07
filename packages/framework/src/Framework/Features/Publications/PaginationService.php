@@ -153,7 +153,7 @@ class PaginationService
         }
 
         if (! isset($this->routeBasename)) {
-            return Hyde::formatLink($this->formatPageName(-1, true));
+            return $this->formatLink(-1);
         }
 
         return Route::get("$this->routeBasename/{$this->formatPageName(-1)}");
@@ -166,7 +166,7 @@ class PaginationService
         }
 
         if (! isset($this->routeBasename)) {
-            return Hyde::formatLink($this->formatPageName(+1, true));
+            return $this->formatLink(+1);
         }
 
         return Route::get("$this->routeBasename/{$this->formatPageName(+1)}");
@@ -191,6 +191,11 @@ class PaginationService
     protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
     {
         return sprintf('page-%d%s', $this->currentPage + $offset, $withHtmlExtension ? '.html' : '');
+    }
+
+    protected function formatLink(int $offset): string
+    {
+        return Hyde::formatLink($this->formatPageName($offset, true));
     }
 
     protected function firstPage(): int
