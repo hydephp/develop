@@ -40,7 +40,6 @@ class PublicationPageCompiler extends InvokableAction
     protected function compilePublicationListPage(): string
     {
         return $this->compileView($this->page->type->listTemplate, [
-            'publications' => PublicationService::getPublicationsForPubType($this->page->type),
             'publicationType' => $this->page->type,
         ]);
     }
