@@ -156,7 +156,7 @@ class PaginationService
             return $this->formatLink(-1);
         }
 
-        return Route::get("$this->routeBasename/{$this->formatPageName(-1)}");
+        return $this->getRoute(-1);
     }
 
     public function next(): false|string|Route
@@ -169,7 +169,7 @@ class PaginationService
             return $this->formatLink(+1);
         }
 
-        return Route::get("$this->routeBasename/{$this->formatPageName(+1)}");
+        return $this->getRoute(+1);
     }
 
     public function firstItemNumberOnPage(): int
@@ -196,6 +196,11 @@ class PaginationService
     protected function formatLink(int $offset): string
     {
         return Hyde::formatLink("{$this->formatPageName($offset)}.html");
+    }
+
+    protected function getRoute(int $offset): ?Route
+    {
+        return Route::get("$this->routeBasename/{$this->formatPageName($offset)}");
     }
 
     protected function firstPage(): int
