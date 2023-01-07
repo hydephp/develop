@@ -145,6 +145,7 @@ class PaginationService
                 $array[$number] = "page-$number.html"; // fixme support pretty urls
             }
         }
+
         return $array;
     }
 
