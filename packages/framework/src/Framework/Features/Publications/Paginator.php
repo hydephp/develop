@@ -32,7 +32,7 @@ class Paginator
 
     protected Collection $chunks;
 
-    public int $currentPage = 1;
+    protected int $currentPage = 1;
 
     /**
      * Optionally provide a route basename to be used in generating the pagination links.
