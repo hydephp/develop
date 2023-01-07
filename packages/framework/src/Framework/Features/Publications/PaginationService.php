@@ -49,13 +49,7 @@ class PaginationService
     /** Set the current page number. */
     public function setCurrentPage(int $currentPage): PaginationService
     {
-        if ($currentPage < 1) {
-            throw new InvalidArgumentException('Current page number must be greater than 0.');
-        }
-
-        if ($currentPage > $this->lastPage()) {
-            throw new InvalidArgumentException('Current page number must be less than or equal to the last page number.');
-        }
+        $this->validateCurrentPageValue($currentPage);
 
         $this->currentPage = $currentPage;
 
@@ -179,6 +173,17 @@ class PaginationService
     public function firstItemNumberOnPage(): int
     {
         return (($this->currentPage - 1) * $this->perPage()) + 1;
+    }
+
+    protected function validateCurrentPageValue(int $currentPage): void
+    {
+        if ($currentPage < 1) {
+            throw new InvalidArgumentException('Current page number must be greater than 0.');
+        }
+
+        if ($currentPage > $this->lastPage()) {
+            throw new InvalidArgumentException('Current page number must be less than or equal to the last page number.');
+        }
     }
 
     protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
