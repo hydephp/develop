@@ -187,13 +187,4 @@ class Paginator
     {
         return (($this->currentPage - 1) * $this->perPage()) + 1;
     }
-
-    protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
-    {
-        if (is_array($paginationSettings)) {
-            return PaginationSettings::fromArray($paginationSettings);
-        }
-
-        return $paginationSettings;
-    }
 }
