@@ -33,7 +33,6 @@ class PaginatorTest extends TestCase
     {
         $collection = (new Paginator(
             range(1, 50),
-            new PaginationSettings()
         ))->getPaginatedPageCollection();
 
         $this->assertCount(2, $collection);
@@ -50,7 +49,7 @@ class PaginatorTest extends TestCase
     {
         $collection = (new Paginator(
             range(1, 50),
-            new PaginationSettings(pageSize: 10))
+            (10))
         )->getPaginatedPageCollection();
 
         $this->assertCount(5, $collection);
@@ -62,7 +61,7 @@ class PaginatorTest extends TestCase
     {
         $paginator = new Paginator(
             range(1, 50),
-            new PaginationSettings(pageSize: 10)
+            (10)
         );
 
         $this->assertCount(10, $paginator->setCurrentPage(1)->getItemsForPage());
@@ -109,7 +108,7 @@ class PaginatorTest extends TestCase
     {
         $service = new Paginator(
             range(1, 50),
-            new PaginationSettings(pageSize: 10)
+            (10)
         );
 
         $service->setCurrentPage(5);
@@ -124,7 +123,7 @@ class PaginatorTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Paginator(
             range(1, 50),
-            new PaginationSettings(pageSize: 10),
+            (10),
             currentPageNumber: 6
         );
     }
@@ -211,7 +210,7 @@ class PaginatorTest extends TestCase
             Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
         }
 
-        $paginator = new Paginator($pages, new PaginationSettings(pageSize: 2), paginationRouteBasename: 'pages');
+        $paginator = new Paginator($pages, (2), paginationRouteBasename: 'pages');
 
         $this->assertNull($paginator->setCurrentPage(1)->previous());
         $this->assertNull($paginator->setCurrentPage(3)->next());
@@ -245,6 +244,6 @@ class PaginatorTest extends TestCase
 
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
-        return new Paginator(range($start, $end), new PaginationSettings(pageSize: $pageSize));
+        return new Paginator(range($start, $end), $pageSize);
     }
 }
