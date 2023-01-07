@@ -157,7 +157,7 @@ class PublicationType implements SerializableContract
 
     public function usesPagination(): bool
     {
-        return $this->pagination->pageSize > 0;
+        return $this->pagination->pageSize > 0 && $this->pagination->pageSize < $this->getPublications()->count();
     }
 
     public function pageSize(): int
