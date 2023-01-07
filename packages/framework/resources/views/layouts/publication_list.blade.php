@@ -11,6 +11,9 @@
                     </li>
                 @endforeach
             </ol>
+            @if($publicationType->usesPagination())
+                @include('hyde::components.publications.pagination', ['paginator' => $publicationType->getPaginator()])
+            @endif
         </div>
     </main>
 @endsection
