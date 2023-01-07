@@ -96,12 +96,6 @@ class PaginationService
         return $this->pageSize;
     }
 
-    /** Determine the total number of matching items in the data store. */
-    public function itemsTotal(): int
-    {
-        return $this->chunks->flatten()->count();
-    }
-
     /** Determine if there are enough items to split into multiple pages. */
     public function hasPages(): bool
     {
@@ -118,6 +112,12 @@ class PaginationService
     public function hasFewerPages(): bool
     {
         return $this->currentPage > 1;
+    }
+
+    /** Determine the total number of matching items in the data store. */
+    public function itemsTotal(): int
+    {
+        return $this->chunks->flatten()->count();
     }
 
     public function previous(): null|int|\Hyde\Support\Models\Route
