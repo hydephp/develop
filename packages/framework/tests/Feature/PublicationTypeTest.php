@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Publications\PaginationService;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
@@ -281,6 +282,15 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals(
             PublicationService::getPublicationsForPubType($publicationType),
             $publicationType->getPublications()
+        );
+    }
+
+    public function testGetPaginator()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertEquals(
+            (new PaginationService()),
+            $publicationType->getPaginator()
         );
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Framework\Features\Publications\PaginationService;
 use function array_merge;
 use function dirname;
 use Exception;
@@ -142,6 +143,11 @@ class PublicationType implements SerializableContract
     public function getPublications(): Collection
     {
         return PublicationService::getPublicationsForPubType($this);
+    }
+
+    public function getPaginator(): PaginationService
+    {
+        return new PaginationService($this->getPublications(), $this->pagination);
     }
 
     public function getListPage(): PublicationListPage
