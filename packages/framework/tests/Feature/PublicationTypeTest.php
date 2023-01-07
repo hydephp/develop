@@ -313,7 +313,7 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
 
-        $paginationSettings = new PaginationSettings('myNumber', pageSize: 10);
+        $paginationSettings = new PaginationSettings('myNumber');
         $fields = [
             ['name' => 'myNumber', 'type' => 'integer'],
         ];
@@ -332,7 +332,7 @@ class PublicationTypeTest extends TestCase
 
         $items = array_reverse($pages);
         $this->assertEquals(
-            (new Paginator($items, 10, paginationRouteBasename: 'test-publication')),
+            (new Paginator($items, paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
@@ -341,7 +341,7 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
 
-        $paginationSettings = new PaginationSettings('myNumber', false, pageSize: 10);
+        $paginationSettings = new PaginationSettings('myNumber', false);
         $fields = [
             ['name' => 'myNumber', 'type' => 'integer'],
         ];
@@ -360,7 +360,7 @@ class PublicationTypeTest extends TestCase
 
         $items = ($pages);
         $this->assertEquals(
-            (new Paginator($items, 10, paginationRouteBasename: 'test-publication')),
+            (new Paginator($items, paginationRouteBasename: 'test-publication')),
             $publicationType->getPaginator()
         );
     }
