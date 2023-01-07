@@ -131,7 +131,7 @@ class Paginator
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->currentPage - 1;
+            return $this->previousNumber();
         }
 
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage - 1);
@@ -144,10 +144,20 @@ class Paginator
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->currentPage + 1;
+            return $this->nextNumber();
         }
 
         return Route::get("$this->paginationRouteBasename/page-".$this->currentPage + 1);
+    }
+
+    public function previousNumber(): int
+    {
+        return $this->currentPage - 1;
+    }
+
+    public function nextNumber(): int
+    {
+        return $this->currentPage + 1;
     }
 
     public function getNumbersArray(): array
