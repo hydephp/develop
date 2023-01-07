@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Facades\Route;
 use Hyde\Foundation\PageCollection;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
@@ -114,6 +115,26 @@ class PaginationService
     public function hasFewerPages(): bool
     {
         return $this->currentPage > 1;
+    }
+
+    public function previous(): ?\Hyde\Support\Models\Route
+    {
+        if (! $this->hasFewerPages()) {
+            return null;
+        }
+
+        $routeBaseName = 'test'; // FIXME
+        return Route::get("$routeBaseName/page-" . $this->currentPage - 1);
+    }
+
+    public function next(): ?\Hyde\Support\Models\Route
+    {
+        if (! $this->hasMorePages()) {
+            return null;
+        }
+
+        $routeBaseName = 'test';
+        return Route::get("$routeBaseName/page-" . $this->currentPage + 1);
     }
 
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
