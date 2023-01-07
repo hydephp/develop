@@ -121,7 +121,7 @@ class PaginationService
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return Hyde::formatLink("{$this->formatPageName(-1)}.html");
+            return Hyde::formatLink($this->formatPageName(-1, true));
         }
 
         return Route::get("$this->paginationRouteBasename/{$this->formatPageName(-1)}");
@@ -134,7 +134,7 @@ class PaginationService
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return Hyde::formatLink("{$this->formatPageName(+1)}.html");
+            return Hyde::formatLink($this->formatPageName(+1, true));
         }
 
         return Route::get("$this->paginationRouteBasename/{$this->formatPageName(+1)}");
@@ -180,10 +180,10 @@ class PaginationService
         return (($this->currentPage - 1) * $this->perPage()) + 1;
     }
 
-    protected function formatPageName(int $offset): string
+    protected function formatPageName(int $offset, bool $withHtmlExtension = false): string
     {
         $number = $this->currentPage + $offset;
 
-        return "page-$number";
+        return "page-$number" . ($withHtmlExtension ? '.html' : '');
     }
 }
