@@ -17,14 +17,6 @@ use function is_array;
  * @see \Hyde\Framework\Testing\Feature\PaginatorTest
  *
  * @todo Implement sorting from PaginationSettings
- *
- * Internal developer note: It may be useful to match the Laravel method names as much as possible.
- *
- * @link https://laravel.com/docs/9.x/pagination#paginator-instance-methods
- *
- * Additional note: In most cases when this class uses the term "page" it is referring
- * to the paginated page of publications, not the publication pages themselves.
- * This is for the reason stated above, to match the Laravel method names.
  */
 class Paginator
 {
