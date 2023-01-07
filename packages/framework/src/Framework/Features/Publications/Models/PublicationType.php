@@ -148,8 +148,7 @@ class PublicationType implements SerializableContract
 
     public function getPaginator(int $currentPageNumber = null): Paginator
     {
-        $collection = $this->getPublications();
-        $collection = $collection->sortBy(function (PublicationPage $page): mixed {
+        $collection = $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
             return $page->matter($this->pagination->sortField);
         }, descending: ! $this->pagination->sortAscending)->values();
 
