@@ -121,10 +121,10 @@ class PaginationService
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return Hyde::formatLink("page-{$this->previousPageNumber()}.html");
+            return Hyde::formatLink("{$this->formatPageName(-1)}.html");
         }
 
-        return Route::get("$this->paginationRouteBasename/page-{$this->previousPageNumber()}");
+        return Route::get("$this->paginationRouteBasename/{$this->formatPageName(-1)}");
     }
 
     public function next(): false|string|Route
@@ -134,10 +134,10 @@ class PaginationService
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return Hyde::formatLink("page-{$this->nextPageNumber()}.html");
+            return Hyde::formatLink("{$this->formatPageName(+1)}.html");
         }
 
-        return Route::get("$this->paginationRouteBasename/page-{$this->nextPageNumber()}");
+        return Route::get("$this->paginationRouteBasename/{$this->formatPageName(+1)}");
     }
 
     public function previousPageNumber(): false|int
@@ -178,5 +178,12 @@ class PaginationService
     public function firstItemNumberOnPage(): int
     {
         return (($this->currentPage - 1) * $this->perPage()) + 1;
+    }
+
+    protected function formatPageName(int $offset): string
+    {
+        $number = $this->currentPage + $offset;
+
+        return "page-$number";
     }
 }
