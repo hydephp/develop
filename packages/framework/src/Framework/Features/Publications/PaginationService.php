@@ -32,11 +32,20 @@ class PaginationService
 
     public int $currentPage = 1;
 
-    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [])
+    /**
+     * Optionally provide a route basename to be used in generating the pagination links.
+     */
+    protected string $paginationRouteBasename;
+
+    public function __construct(Arrayable|array $items = [], PaginationSettings|array $paginationSettings = [], string $paginationRouteBasename = null)
     {
         $this->paginationSettings = $this->getPaginationSettings($paginationSettings);
 
         $this->generate(collect($items));
+
+        if ($paginationRouteBasename) {
+            $this->paginationRouteBasename = $paginationRouteBasename;
+        }
     }
 
     protected function generate(Collection $items): void
