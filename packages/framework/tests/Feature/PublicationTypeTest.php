@@ -298,8 +298,50 @@ class PublicationTypeTest extends TestCase
 
     public function testUsesPaginationReturnsTrueWhenPaginationShouldBeEnabled()
     {
-        $publicationType = new PublicationType(...$this->getTestData());
+        $this->directory('test-publication');
+        $publicationType = new PublicationType(...$this->getTestData([
+            'pagination' => [
+                'pageSize' => 1,
+            ],
+        ]));
+        $publicationType->save();
+
+        $this->file('test-publication/1.md');
+        $this->file('test-publication/2.md');
+
         $this->assertTrue($publicationType->usesPagination());
+    }
+
+    public function testUsesPaginationReturnsFalseWhenPageSizeIsSetToNought()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType(...$this->getTestData([
+            'pagination' => [
+                'pageSize' => 0,
+            ],
+        ]));
+        $publicationType->save();
+
+        $this->file('test-publication/1.md');
+        $this->file('test-publication/2.md');
+
+        $this->assertFalse($publicationType->usesPagination());
+    }
+
+    public function testUsesPaginationReturnsFalseWhenNumberOfPagesIsLessThanPageSize()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType(...$this->getTestData([
+            'pagination' => [
+                'pageSize' => 2,
+            ],
+        ]));
+        $publicationType->save();
+
+        $this->file('test-publication/1.md');
+        $this->file('test-publication/2.md');
+
+        $this->assertFalse($publicationType->usesPagination());
     }
 
     protected function getTestData(array $mergeData = []): array
