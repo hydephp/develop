@@ -16,7 +16,7 @@
                     @endforeach
                 </ol>
 
-                @include('hyde::components.publications.pagination', ['paginator' => $paginator])
+                @include('hyde::components.publications.pagination')
             @else
                 <ol>
                     @foreach($publicationType->getPublications() as $publication)
