@@ -7,7 +7,7 @@
     @endif
 
     <div>
-        @foreach($paginator->getPages() as $pageNumber => $destination)
+        @foreach($paginator->getPageLinks() as $pageNumber => $destination)
             @if($paginator->currentPage() === $pageNumber)
                 <strong>{{ $pageNumber }}</strong>
             @else
