@@ -1,5 +1,4 @@
 @php/** @var \Hyde\Framework\Features\Publications\Paginator $paginator */@endphp
-
 <nav class="flex justify-between mt-4">
     @if($paginator->previous())
         <x-link :href="$paginator->previous()">Prev</x-link>
