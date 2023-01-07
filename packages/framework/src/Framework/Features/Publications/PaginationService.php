@@ -181,7 +181,7 @@ class PaginationService
         return $array;
     }
 
-    public function itemsStartNumber(): int
+    public function firstItemNumberOnPage(): int
     {
         return (($this->currentPage - 1) * $this->perPage()) + 1;
     }
