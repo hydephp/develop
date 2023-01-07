@@ -4,15 +4,24 @@
         <div class="prose dark:prose-invert">
             @php/** @var \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType*/@endphp
             <h1>Publications for type {{ $publicationType->name }}</h1>
-            <ol>
-                @foreach($publicationType->getPublications() as $publication)
-                    <li>
-                        <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
-                    </li>
-                @endforeach
-            </ol>
             @if($publicationType->usesPagination())
+                <ol>
+                    @foreach($publicationType->getPublications() as $publication)
+                        <li>
+                            <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
+                        </li>
+                    @endforeach
+                </ol>
+
                 @include('hyde::components.publications.pagination', ['paginator' => $publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'))])
+            @else
+                <ol>
+                    @foreach($publicationType->getPublications() as $publication)
+                        <li>
+                            <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
+                        </li>
+                    @endforeach
+                </ol>
             @endif
         </div>
     </main>
