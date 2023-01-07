@@ -159,6 +159,11 @@ class PaginationService
         return $array;
     }
 
+    public function itemsStartNumber(): int
+    {
+        return (($this->currentPage -1) * $this->perPage())+1;
+    }
+
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
     {
         if (is_array($paginationSettings)) {
