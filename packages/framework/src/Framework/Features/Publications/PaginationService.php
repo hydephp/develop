@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use InvalidArgumentException;
 use function collect;
 use Hyde\Facades\Route;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
@@ -72,11 +73,11 @@ class PaginationService
     public function setCurrentPage(int $currentPage): PaginationService
     {
         if ($currentPage < 1) {
-            throw new \InvalidArgumentException('Current page number must be greater than 0.');
+            throw new InvalidArgumentException('Current page number must be greater than 0.');
         }
 
         if ($currentPage > $this->lastPage()) {
-            throw new \InvalidArgumentException('Current page number must be less than or equal to the last page number.');
+            throw new InvalidArgumentException('Current page number must be less than or equal to the last page number.');
         }
 
         $this->currentPage = $currentPage;
