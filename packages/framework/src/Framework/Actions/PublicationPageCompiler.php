@@ -6,7 +6,6 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
 use function str_ends_with;
@@ -40,7 +39,7 @@ class PublicationPageCompiler extends InvokableAction
     protected function compilePublicationListPage(): string
     {
         return $this->compileView($this->page->type->listTemplate, [
-            'publications' => PublicationService::getPublicationsForPubType($this->page->type),
+            'publicationType' => $this->page->type,
         ]);
     }
 

@@ -10,6 +10,7 @@ use Exception;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
@@ -135,6 +136,12 @@ class PublicationType implements SerializableContract
         }
 
         return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
+    }
+
+    /** @return \Illuminate\Support\Collection<\Hyde\Pages\PublicationPage> */
+    public function getPublications(): Collection
+    {
+        return PublicationService::getPublicationsForPubType($this);
     }
 
     public function getListPage(): PublicationListPage

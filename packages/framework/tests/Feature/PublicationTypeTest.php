@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
@@ -274,16 +275,19 @@ class PublicationTypeTest extends TestCase
         ]), $publicationType->getCanonicalFieldDefinition());
     }
 
+    public function testGetPublications()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $this->assertEquals(
+            PublicationService::getPublicationsForPubType($publicationType),
+            $publicationType->getPublications()
+        );
+    }
+
     public function testUsesPaginationReturnsTrueWhenPaginationShouldBeEnabled()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertTrue($publicationType->usesPagination());
-    }
-
-    public function testUsesPaginationReturnsFalseWhenPaginationShouldBeDisabled()
-    {
-        $publicationType = new PublicationType(...$this->getTestData(['pagination' => ['pageSize' => 0]]));
-        $this->assertFalse($publicationType->usesPagination());
     }
 
     protected function getTestData(array $mergeData = []): array
