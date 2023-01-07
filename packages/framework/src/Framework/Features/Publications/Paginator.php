@@ -26,7 +26,7 @@ class Paginator
     /**
      * Optionally provide a route basename to be used in generating the pagination links.
      */
-    protected string $paginationRouteBasename;
+    protected string $routeBasename;
 
     public function __construct(Arrayable|array $items = [], int $pageSize = 25, int $currentPageNumber = null, string $paginationRouteBasename = null)
     {
@@ -39,7 +39,7 @@ class Paginator
         }
 
         if ($paginationRouteBasename) {
-            $this->paginationRouteBasename = $paginationRouteBasename;
+            $this->routeBasename = $paginationRouteBasename;
         }
     }
 
@@ -79,9 +79,9 @@ class Paginator
     {
         $array = [];
         $pageRange = range(1, $this->totalPages());
-        if ($this->paginationRouteBasename) {
+        if ($this->routeBasename) {
             foreach ($pageRange as $number) {
-                $array[$number] = Route::getOrFail("$this->paginationRouteBasename/page-$number");
+                $array[$number] = Route::getOrFail("$this->routeBasename/page-$number");
             }
         } else {
             foreach ($pageRange as $number) {
@@ -152,11 +152,11 @@ class Paginator
             return false;
         }
 
-        if (! isset($this->paginationRouteBasename)) {
+        if (! isset($this->routeBasename)) {
             return Hyde::formatLink($this->formatPageName(-1, true));
         }
 
-        return Route::get("$this->paginationRouteBasename/{$this->formatPageName(-1)}");
+        return Route::get("$this->routeBasename/{$this->formatPageName(-1)}");
     }
 
     public function next(): false|string|Route
@@ -165,11 +165,11 @@ class Paginator
             return false;
         }
 
-        if (! isset($this->paginationRouteBasename)) {
+        if (! isset($this->routeBasename)) {
             return Hyde::formatLink($this->formatPageName(+1, true));
         }
 
-        return Route::get("$this->paginationRouteBasename/{$this->formatPageName(+1)}");
+        return Route::get("$this->routeBasename/{$this->formatPageName(+1)}");
     }
 
     public function firstItemNumberOnPage(): int
