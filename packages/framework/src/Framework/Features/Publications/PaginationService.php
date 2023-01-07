@@ -134,21 +134,17 @@ class PaginationService
 
     public function getNumbersArray(): array
     {
+        $array = range(1, $this->totalPages());
         if ($this->paginationRouteBasename) {
-            $array = range(1, $this->totalPages());
             foreach ($array as $key => $value) {
                 $array[$key] = Route::getOrFail("$this->paginationRouteBasename/page-".$value);
             }
-
-            return $array;
         } else {
-            $array = range(1, $this->totalPages());
             foreach ($array as $key => $value) {
                 $array[$key] = "page-$value.html"; // Todo support pretty urls
             }
-
-            return $array;
         }
+        return $array;
     }
 
     protected function getPaginationSettings(array|PaginationSettings $paginationSettings): PaginationSettings
