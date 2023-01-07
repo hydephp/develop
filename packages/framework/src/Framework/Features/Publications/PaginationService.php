@@ -72,7 +72,7 @@ class PaginationService
 
     public function getItemsForPage(): Collection
     {
-        return $this->items->get($this->currentPage - 1, collect());
+        return $this->items->get($this->currentPage - 1);
     }
 
     public function getPageLinks(): array
