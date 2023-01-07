@@ -5,15 +5,18 @@
             @php/** @var \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType*/@endphp
             <h1>Publications for type {{ $publicationType->name }}</h1>
             @if($publicationType->usesPagination())
+                @php
+                    $paginator = $publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'));
+                @endphp
                 <ol>
-                    @foreach($publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'))->getItemsForPage() as $publication)
+                    @foreach($paginator->getItemsForPage() as $publication)
                         <li>
                             <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
                         </li>
                     @endforeach
                 </ol>
 
-                @include('hyde::components.publications.pagination', ['paginator' => $publicationType->getPaginator(currentPageNumber: $page->matter('paginatorPage'))])
+                @include('hyde::components.publications.pagination', ['paginator' => $paginator])
             @else
                 <ol>
                     @foreach($publicationType->getPublications() as $publication)
