@@ -245,9 +245,6 @@ class PaginatorTest extends TestCase
 
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
-        return new Paginator(
-            range($start, $end),
-            new PaginationSettings(pageSize: $pageSize)
-        );
+        return new Paginator(range($start, $end), new PaginationSettings(pageSize: $pageSize));
     }
 }
