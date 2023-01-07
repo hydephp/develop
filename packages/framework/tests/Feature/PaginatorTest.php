@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_combine;
 use function collect;
-use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Hyde;
 use Hyde\Pages\VirtualPage;
