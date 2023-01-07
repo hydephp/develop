@@ -28,9 +28,9 @@ use function is_array;
  */
 class Paginator
 {
-    protected int $pageSize = 25;
-
     protected Collection $chunks;
+
+    protected int $pageSize = 25;
 
     protected int $currentPage = 1;
 
