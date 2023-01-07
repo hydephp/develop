@@ -64,6 +64,62 @@ class PaginationServiceTest extends TestCase
         $this->assertSame(2, $service->currentPage());
     }
 
+    /** Get the page number of the last available page. */
+    public function testLastPageReturnsTheLastPageNumber()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertSame(5, $service->lastPage());
+    }
+
+    /** Get the total number of pages. */
+    public function testTotalPagesReturnsTheTotalNumberOfPages()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertSame(5, $service->totalPages());
+    }
+
+    /** The number of items to be shown per page. */
+    public function testPerPageReturnsTheNumberOfItemsToBeShownPerPage()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertSame(10, $service->perPage());
+    }
+
+    /** Determine the total number of matching items in the data store. */
+    public function testTotalReturnsTheTotalNumberOfMatchingItemsInTheDataStore()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertSame(50, $service->total());
+    }
+
+    /** Determine if there are enough items to split into multiple pages. */
+    public function testHasPagesReturnsTrueIfThereAreEnoughItemsToSplitIntoMultiplePages()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertTrue($service->hasPages());
+    }
+
+    /** Determine if there are more items after the cursor in the data store. */
+    public function testHasMorePagesReturnsTrueIfThereAreMoreItemsAfterTheCursorInTheDataStore()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertTrue($service->hasMorePages());
+    }
+
+    /** Determine if there are fewer items after the cursor in the data store. */
+    public function testHasFewerPagesReturnsTrueIfThereAreFewerItemsAfterTheCursorInTheDataStore()
+    {
+        $service = $this->makeService(1, 50, 10);
+
+        $this->assertFalse($service->hasFewerPages());
+    }
+
     protected function makeService(int $start = 1, int $end = 50, int $pageSize = 25): PaginationService
     {
         return new PaginationService(
