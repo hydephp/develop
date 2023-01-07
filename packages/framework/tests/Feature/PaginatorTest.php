@@ -149,27 +149,27 @@ class PaginatorTest extends TestCase
 
     public function testHasPagesReturnsFalseIfThereAreNotEnoughItemsToSplitIntoMultiplePages()
     {
-        $this->assertFalse($this->makePaginator(1, 9)->hasMorePages());
+        $this->assertFalse($this->makePaginator(1, 9)->canNavigateRight());
     }
 
     public function testHasMorePagesReturnsTrueIfCursorCanNavigateForward()
     {
-        $this->assertTrue($this->makePaginator()->hasMorePages());
+        $this->assertTrue($this->makePaginator()->canNavigateRight());
     }
 
     public function testHasMorePagesReturnsFalseIfCursorCannotNavigateForward()
     {
-        $this->assertFalse($this->makePaginator()->setCurrentPage(5)->hasMorePages());
+        $this->assertFalse($this->makePaginator()->setCurrentPage(5)->canNavigateRight());
     }
 
     public function testHasFewerPagesReturnsTrueIfCursorCanNavigateBack()
     {
-        $this->assertTrue($this->makePaginator()->setCurrentPage(2)->hasFewerPages());
+        $this->assertTrue($this->makePaginator()->setCurrentPage(2)->canNavigateLeft());
     }
 
     public function testHasFewerPagesReturnsFalseIfCursorCannotNavigateBack()
     {
-        $this->assertFalse($this->makePaginator()->hasFewerPages());
+        $this->assertFalse($this->makePaginator()->canNavigateLeft());
     }
 
     public function testPreviousMethodWithoutFewerPagesReturnsNull()
