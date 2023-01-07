@@ -148,6 +148,16 @@ class PaginatorTest extends TestCase
         $this->assertNull($this->makePaginator()->setCurrentPage(5)->next());
     }
 
+    public function testPreviousMethodReturnsPreviousPageNumberWhenNoBaseRouteIsSet()
+    {
+        $this->assertSame(1, $this->makePaginator()->setCurrentPage(2)->previous());
+    }
+
+    public function testNextMethodReturnsNextPageNumberWhenNoBaseRouteIsSet()
+    {
+        $this->assertSame(2, $this->makePaginator()->setCurrentPage(1)->next());
+    }
+
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
         return new Paginator(
