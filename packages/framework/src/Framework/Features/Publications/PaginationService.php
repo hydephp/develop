@@ -114,27 +114,27 @@ class PaginationService
         return $this->currentPage > 1;
     }
 
-    public function previous(): false|int|Route
+    public function previous(): false|string|Route
     {
         if (! $this->canNavigateLeft()) {
             return false;
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->previousPageNumber();
+            return Hyde::formatLink("page-{$this->previousPageNumber()}.html");
         }
 
         return Route::get("$this->paginationRouteBasename/page-{$this->previousPageNumber()}");
     }
 
-    public function next(): false|int|Route
+    public function next(): false|string|Route
     {
         if (! $this->canNavigateRight()) {
             return false;
         }
 
         if (! isset($this->paginationRouteBasename)) {
-            return $this->nextPageNumber();
+            return Hyde::formatLink("page-{$this->nextPageNumber()}.html");
         }
 
         return Route::get("$this->paginationRouteBasename/page-{$this->nextPageNumber()}");
