@@ -54,9 +54,9 @@ class PublicationType implements SerializableContract
     /**
      * The front matter fields used for the publications.
      *
-     * @var array<array<string, mixed>>
+     * @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
      */
-    public array $fields = [];
+    public Collection $fields;
 
     /** The directory of the publication files */
     protected string $directory;
@@ -91,7 +91,7 @@ class PublicationType implements SerializableContract
         $this->canonicalField = $canonicalField;
         $this->detailTemplate = $detailTemplate;
         $this->listTemplate = $listTemplate;
-        $this->fields = $fields;
+        $this->fields = $this->parseFieldData($fields);
         $this->directory = $directory ?? Str::slug($name);
         $this->pagination = $this->evaluatePaginationSettings($pagination);
     }
@@ -148,9 +148,7 @@ class PublicationType implements SerializableContract
      */
     public function getFields(): Collection
     {
-        return Collection::make($this->fields)->mapWithKeys(function (array $data): array {
-            return [$data['name'] => new PublicationFieldDefinition(...$data)];
-        });
+        return $this->fields;
     }
 
     public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
@@ -214,6 +212,13 @@ class PublicationType implements SerializableContract
         return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
             return $page->matter($this->pagination->sortField);
         }, descending: ! $this->pagination->sortAscending)->values();
+    }
+
+    protected function parseFieldData(array $fields): Collection
+    {
+        return Collection::make($fields)->mapWithKeys(function (array $data): array {
+            return [$data['name'] => new PublicationFieldDefinition(...$data)];
+        });
     }
 
     protected function evaluatePaginationSettings(array $pagination): ?PaginationSettings
