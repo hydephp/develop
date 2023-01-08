@@ -20,7 +20,10 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
+        $this->directory('test-publication');
 
+        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+            ->assertSuccessful();
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
