@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
-use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -21,7 +20,7 @@ use Symfony\Component\Yaml\Yaml;
  * @see \Hyde\Console\Commands\MakePublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationPageTest
  */
-class CreatesNewPublicationPage extends CreateAction implements CreateActionContract
+class CreatesNewPublicationPage extends CreateAction
 {
     protected bool $force = false;
     protected Collection $fieldData;

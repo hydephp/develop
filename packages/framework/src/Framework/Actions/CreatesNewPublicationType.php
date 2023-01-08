@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
-use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
@@ -16,7 +15,7 @@ use Illuminate\Contracts\Support\Arrayable;
  * @see \Hyde\Console\Commands\MakePublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeTest
  */
-class CreatesNewPublicationType extends CreateAction implements CreateActionContract
+class CreatesNewPublicationType extends CreateAction
 {
     protected string $directoryName;
 
