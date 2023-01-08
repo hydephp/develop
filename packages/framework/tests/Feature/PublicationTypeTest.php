@@ -63,8 +63,11 @@ class PublicationTypeTest extends TestCase
             'sortAscending' => false,
             'pageSize'      => 10,
         ];
-        $publicationType = new PublicationType('Test Publication', pagination: $paginationSettings);
-        $this->assertSame($paginationSettings, $publicationType->pagination->toArray());
+        $publicationType = new PublicationType('Test Publication', ...$paginationSettings);
+
+        $this->assertSame('title', $publicationType->sortField);
+        $this->assertSame(false, $publicationType->sortAscending);
+        $this->assertSame(10, $publicationType->pageSize);
     }
 
     public function test_class_is_arrayable()
@@ -454,11 +457,9 @@ class PublicationTypeTest extends TestCase
             'canonicalField' => 'title',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
-            'pagination' => [
-                'sortField' => '__createdAt',
-                'sortAscending' => true,
-                'pageSize' => 25,
-            ],
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 25,
             'fields' => [
                 [
                     'type' => 'string',
