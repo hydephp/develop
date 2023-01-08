@@ -87,7 +87,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
             'publication-3.html',
             'publication-4.html',
             'publication-5.html',
-        ], collect(Filesystem::files('_site/test-publication'))->map(fn ($file) => $file->getFilename())->toArray());
+        ], $this->getFilenamesInDirectory('_site/test-publication'));
 
         $this->resetSite();
     }
@@ -124,5 +124,10 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         }
 
         return collect($array);
+    }
+
+    protected function getFilenamesInDirectory(string $directory): array
+    {
+        return collect(Filesystem::files($directory))->map(fn($file) => $file->getFilename())->toArray();
     }
 }
