@@ -475,8 +475,8 @@ class PublicationTypeTest extends TestCase
             ],
             'fields' => [
                 [
-                    'name' => 'title',
                     'type' => 'string',
+                    'name' => 'title',
                 ],
             ],
         ], $mergeData);
