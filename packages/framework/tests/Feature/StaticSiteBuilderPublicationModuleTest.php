@@ -25,6 +25,8 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
+        // Setup
+
         $this->directory('test-publication');
 
         $creator = new CreatesNewPublicationType('Test Publication', $this->getAllFields());
@@ -35,6 +37,8 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $this->assertFileExists('test-publication/schema.json');
         $this->assertFileExists('test-publication/detail.blade.php');
         $this->assertFileExists('test-publication/list.blade.php');
+
+        // Test site build without any publications
 
         $this->artisan('build')->assertSuccessful();
 
