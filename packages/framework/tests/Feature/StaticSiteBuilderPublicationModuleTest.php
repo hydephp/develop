@@ -74,6 +74,10 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
                 'name' => "{$type->name}Field",
                 'type' => $type->value,
             ];
+
+            if ($type === PublicationFieldTypes::Tag) {
+                $array[$index]['tagGroup'] = 'myTagGroup';
+            }
         }
 
         return collect($array);
