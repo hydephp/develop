@@ -51,7 +51,9 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
         $this->assertEquals('list.blade.php', $publicationType->listTemplate);
         $this->assertEquals(collect([]), $publicationType->fields);
-        $this->assertNull($publicationType->pagination);
+        $this->assertEquals('__createdAt', $publicationType->sortField);
+        $this->assertEquals(true, $publicationType->sortAscending);
+        $this->assertEquals(25, $publicationType->pageSize);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
