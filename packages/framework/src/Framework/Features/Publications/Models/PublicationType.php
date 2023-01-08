@@ -55,7 +55,7 @@ class PublicationType implements SerializableContract
     public bool $sortAscending = true;
 
     /** The number of publications to show per paginated page. Set to 0 to disable pagination. */
-    public int $pageSize = 25; // TODO Set default pageSize to 0 to disable pagination by default
+    public int $pageSize = 0;
 
     /**
      * The front matter fields used for the publications.
@@ -91,7 +91,7 @@ class PublicationType implements SerializableContract
         string $listTemplate = 'list.blade.php',
         string $sortField = '__createdAt', // Todo make nullable so it can default to $canonicalField
         bool $sortAscending = true,
-        int $pageSize = 25,
+        int $pageSize = 0,
         array $fields = [],
         ?string $directory = null
     ) {

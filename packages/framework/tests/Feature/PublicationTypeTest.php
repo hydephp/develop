@@ -52,7 +52,7 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals(collect([]), $publicationType->fields);
         $this->assertEquals('__createdAt', $publicationType->sortField);
         $this->assertEquals(true, $publicationType->sortAscending);
-        $this->assertEquals(25, $publicationType->pageSize);
+        $this->assertEquals(0, $publicationType->pageSize);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
@@ -297,7 +297,7 @@ class PublicationTypeTest extends TestCase
 
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', sortField: 'myNumber', fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', sortField: 'myNumber', pageSize: 25, fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -318,7 +318,7 @@ class PublicationTypeTest extends TestCase
 
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', sortField: 'myNumber', sortAscending: false, fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', sortField: 'myNumber', sortAscending: false, pageSize: 25, fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -386,7 +386,7 @@ class PublicationTypeTest extends TestCase
             'listTemplate' => 'list.blade.php',
             'sortField' => '__createdAt',
             'sortAscending' => true,
-            'pageSize' => 25,
+            'pageSize' => 0,
             'fields' => [],
         ], $publicationType->toArray());
     }
@@ -403,7 +403,7 @@ class PublicationTypeTest extends TestCase
                 "listTemplate": "list.blade.php",
                 "sortField": "__createdAt",
                 "sortAscending": true,
-                "pageSize": 25,
+                "pageSize": 0,
                 "fields": []
             }
             JSON, $publicationType->toJson());
