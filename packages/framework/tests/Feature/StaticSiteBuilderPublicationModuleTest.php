@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function collect;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
@@ -12,8 +13,6 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-
-use function collect;
 use function range;
 
 /**
@@ -163,7 +162,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
         (new CreatesNewPublicationType('Test Publication', collect([])))->create();
         // TODO assert the paginated template was published once we implement that
-        
+
         $this->markTestIncomplete();
     }
 
