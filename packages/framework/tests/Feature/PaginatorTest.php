@@ -236,6 +236,43 @@ class PaginatorTest extends TestCase
         $this->assertSame(2, $this->makePaginator()->setCurrentPage(1)->nextPageNumber());
     }
 
+    public function testGetPageLinks()
+    {
+        $this->assertSame(
+            [
+                1 => 'page-1.html',
+                2 => 'page-2.html',
+                3 => 'page-3.html',
+                4 => 'page-4.html',
+                5 => 'page-5.html',
+            ],
+            $this->makePaginator()->getPageLinks()
+        );
+    }
+
+    public function testGetPageLinksWithBaseRoute()
+    {
+        $pages[1] = new VirtualPage('pages/page-1');
+        $pages[2] = new VirtualPage('pages/page-2');
+        $pages[3] = new VirtualPage('pages/page-3');
+        $pages[4] = new VirtualPage('pages/page-4');
+        $pages[5] = new VirtualPage('pages/page-5');
+
+        foreach ($pages as $page) {
+            Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
+        }
+
+        $paginator = new Paginator($pages, (2), paginationRouteBasename: 'pages');
+        $this->assertSame(
+            [
+                1 => $pages[1]->getRoute(),
+                2 => $pages[2]->getRoute(),
+                3 => $pages[3]->getRoute(),
+            ],
+            $paginator->getPageLinks()
+        );
+    }
+
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
         return new Paginator(range($start, $end), $pageSize);

@@ -79,7 +79,7 @@ class Paginator
     {
         $array = [];
         $pageRange = range(1, $this->totalPages());
-        if ($this->routeBasename) {
+        if (isset($this->routeBasename)) {
             foreach ($pageRange as $number) {
                 $array[$number] = Route::getOrFail("$this->routeBasename/page-$number");
             }
