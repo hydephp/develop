@@ -204,17 +204,6 @@ class PublicationTypeTest extends TestCase
         ]), $publicationType->getFields());
     }
 
-    public function test_get_field_data_returns_field_data()
-    {
-        $publicationType = new PublicationType(...$this->getTestData());
-
-        $this->assertSame([['name' => 'title', 'type' => 'string']], $publicationType->getFieldData());
-
-        $publicationType->fields = [];
-
-        $this->assertSame([], $publicationType->getFieldData());
-    }
-
     public function test_get_method_can_find_existing_file_on_disk()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
