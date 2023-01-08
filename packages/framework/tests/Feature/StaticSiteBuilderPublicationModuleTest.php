@@ -13,6 +13,8 @@ use Illuminate\Support\Collection;
 
 /**
  * Tests that publication pages are compiled properly when building the static site.
+ *
+ * These tests provide a high level overview of the entire publications feature.
  */
 class StaticSiteBuilderPublicationModuleTest extends TestCase
 {
