@@ -64,9 +64,11 @@ class PublicationFieldDefinition implements SerializableContract
 
     protected function normalizeName(string $name): string
     {
+        // If it's a meta field we consider the name to already be normalized.
         if (str_starts_with($name, '__')) {
             return $name;
         } else {
+            // Otherwise we normalize it to kebab case.
             return Str::kebab($name);
         }
     }
