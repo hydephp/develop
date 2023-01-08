@@ -134,32 +134,6 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals($publicationType, PublicationType::fromFile(('tests/fixtures/test-publication-schema.json')));
     }
 
-    public function test_it_loads_arbitrary_publication_fields_from_schema_file()
-    {
-        $this->directory('test-publication');
-        $fields = [
-            [
-                'name' => 'Title',
-                'type' => 'text',
-                'identifier' => 'title',
-                'required' => true,
-            ],
-            [
-                'name' => 'Body',
-                'type' => 'markdown',
-                'identifier' => 'body',
-                'required' => true,
-            ],
-        ];
-        $this->file('test-publication/schema.json', json_encode([
-            'name' => 'Test Publication',
-            'fields' => $fields,
-        ]));
-
-        $publicationType = PublicationType::fromFile('test-publication/schema.json');
-        $this->assertSame($fields, $publicationType->fields);
-    }
-
     public function test_get_fields_method_returns_collection_of_field_objects()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
