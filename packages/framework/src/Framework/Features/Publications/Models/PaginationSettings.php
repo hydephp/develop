@@ -13,8 +13,6 @@ class PaginationSettings implements SerializableContract
 
     public string $sortField = '__createdAt';
     public bool $sortAscending = true;
-    /** @deprecated This setting might be deprecated as its unlikely one would enable page size limits without a way to traverse them */
-    public bool $prevNextLinks = true;
     public int $pageSize = 25;
 
     public static function fromArray(array $data): static
