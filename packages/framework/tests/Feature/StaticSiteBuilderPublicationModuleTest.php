@@ -35,6 +35,13 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $this->assertFileExists('test-publication/schema.json');
         $this->assertFileExists('test-publication/detail.blade.php');
         $this->assertFileExists('test-publication/list.blade.php');
+
+        $this->artisan('build')->assertSuccessful();
+
+        $this->assertCount(1, Filesystem::files('_site/test-publication'));
+        $this->assertFileExists('_site/test-publication/index.html');
+
+        $this->resetSite();
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
