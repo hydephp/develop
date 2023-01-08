@@ -49,9 +49,6 @@ class PublicationType implements SerializableContract
     /** The Blade filename or view identifier used for rendering the index page (or index pages, when using pagination) */
     public string $listTemplate = 'list.blade.php';
 
-    /** @deprecated  The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
-    public null|PaginationSettings $pagination;
-
     /** The field that is used for sorting publications. */
     public string $sortField = '__createdAt';
 
@@ -93,7 +90,6 @@ class PublicationType implements SerializableContract
         string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
-        #[Deprecated]?array $pagination = [],
         string $sortField = '__createdAt', // Todo make nullable so it can default to $canonicalField
         bool $sortAscending = true,
         int $pageSize = 25,
@@ -106,7 +102,6 @@ class PublicationType implements SerializableContract
         $this->listTemplate = $listTemplate;
         $this->fields = $this->parseFieldData($fields);
         $this->directory = $directory ?? Str::slug($name);
-        $this->pagination = $this->evaluatePaginationSettings($pagination);
         $this->sortField = $sortField;
         $this->sortAscending = $sortAscending;
         $this->pageSize = $pageSize;
@@ -223,15 +218,6 @@ class PublicationType implements SerializableContract
         return Collection::make($fields)->map(function (array $data): PublicationFieldDefinition {
             return new PublicationFieldDefinition(...$data);
         });
-    }
-
-    protected function evaluatePaginationSettings(array $pagination): ?PaginationSettings
-    {
-        if (empty($pagination)) {
-            return null;
-        }
-
-        return PaginationSettings::fromArray($pagination);
     }
 
     protected function withoutNullValues(array $array): array
