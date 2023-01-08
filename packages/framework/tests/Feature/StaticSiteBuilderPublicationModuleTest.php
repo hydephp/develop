@@ -80,7 +80,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
         $this->artisan('build')->assertSuccessful();
 
-        $this->assertEquals([
+        $this->assertSame([
             'index.html',
             'publication-1.html',
             'publication-2.html',
