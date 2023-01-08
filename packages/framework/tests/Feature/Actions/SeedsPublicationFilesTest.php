@@ -196,6 +196,6 @@ class SeedsPublicationFilesTest extends TestCase
     protected function assertBaseline(MarkdownDocument $publication): void
     {
         $this->assertCount(2, $publication->matter()->toArray());
-        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
+        $this->assertStringStartsWith('## Write something awesome.', $publication->markdown()->body());
     }
 }

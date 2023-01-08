@@ -51,7 +51,7 @@ class SeedsPublicationFiles
             $this->generatePublicationData();
             $identifier = Str::slug(substr($this->canonicalValue, 0, 64));
 
-            $page = new PublicationPage($identifier, $this->matter, '## Write something awesome.', $this->pubType);
+            $page = new PublicationPage($identifier, $this->matter, "## Write something awesome.\n\n{$this->randomMarkdownLines(rand(0, 16))}\n\n", $this->pubType);
             $page->save();
         }
     }
@@ -202,5 +202,15 @@ class SeedsPublicationFiles
     private function fakeUrl(): string
     {
         return 'https://example.com/'.$this->fakeWord();
+    }
+
+    private function randomMarkdownLines(int $count): string
+    {
+        $lines = [];
+        for ($i = 0; $i < $count; $i++) {
+            $lines[] = $this->fakeSentence(rand(0, 15));
+        }
+
+        return implode("\n", $lines);
     }
 }
