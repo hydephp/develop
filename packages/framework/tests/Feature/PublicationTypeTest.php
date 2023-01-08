@@ -52,15 +52,15 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
 
-    public function test_construct_with_pagination_object()
+    public function test_construct_with_pagination_settings()
     {
-        $paginationSettings = PaginationSettings::fromArray([
+        $paginationSettings = [
             'sortField'     => 'title',
             'sortAscending' => false,
             'pageSize'      => 10,
-        ]);
+        ];
         $publicationType = new PublicationType('Test Publication', pagination: $paginationSettings);
-        $this->assertSame($paginationSettings, $publicationType->pagination);
+        $this->assertSame($paginationSettings, $publicationType->pagination->toArray());
     }
 
     public function test_class_is_arrayable()
@@ -310,7 +310,7 @@ class PublicationTypeTest extends TestCase
         $paginationSettings = new PaginationSettings('myNumber');
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings->toArray(), fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -332,7 +332,7 @@ class PublicationTypeTest extends TestCase
         $paginationSettings = new PaginationSettings('myNumber', false);
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings->toArray(), fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -425,7 +425,7 @@ class PublicationTypeTest extends TestCase
 
     public function testArrayRepresentationWithPaginationSettings()
     {
-        $publicationType = new PublicationType('test-publication', pagination: new PaginationSettings());
+        $publicationType = new PublicationType('test-publication', pagination: (new PaginationSettings())->toArray());
 
         $this->assertSame([
             'name' => 'test-publication',
@@ -443,7 +443,7 @@ class PublicationTypeTest extends TestCase
 
     public function testJsonRepresentationWithPaginationSettings()
     {
-        $publicationType = new PublicationType('test-publication', pagination: new PaginationSettings());
+        $publicationType = new PublicationType('test-publication', pagination: (new PaginationSettings())->toArray());
 
         $this->assertSame(<<<'JSON'
             {

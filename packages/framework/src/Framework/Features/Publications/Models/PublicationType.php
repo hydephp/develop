@@ -61,7 +61,7 @@ class PublicationType implements SerializableContract
         public string $canonicalField = 'identifier',
         public string $detailTemplate = 'detail.blade.php',
         public string $listTemplate = 'list.blade.php',
-        array|PaginationSettings $pagination = [],
+        ?array $pagination = [],
         array $fields = [],
         ?string $directory = null
     ) {
@@ -189,17 +189,13 @@ class PublicationType implements SerializableContract
         }, descending: ! $this->pagination->sortAscending)->values();
     }
 
-    protected function evaluatePaginationSettings(array|PaginationSettings $pagination): ?PaginationSettings
+    protected function evaluatePaginationSettings(array $pagination): ?PaginationSettings
     {
-        if (is_array($pagination)) {
-            if (empty($pagination)) {
-                return null;
-            }
-
-            return PaginationSettings::fromArray($pagination);
+        if (empty($pagination)) {
+            return null;
         }
 
-        return $pagination;
+        return PaginationSettings::fromArray($pagination);
     }
 
     protected function withoutNullValues(array $array): array
