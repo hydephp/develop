@@ -32,6 +32,7 @@ enum PublicationFieldTypes: string
         return self::getRules($this);
     }
 
+    /** @return Collection<array-key, self> */
     public static function collect(): Collection
     {
         return collect(self::cases());
