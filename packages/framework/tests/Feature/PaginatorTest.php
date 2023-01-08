@@ -240,11 +240,11 @@ class PaginatorTest extends TestCase
     {
         $this->assertSame(
             [
-               1 => 'page-1.html',
-               2 => 'page-2.html',
-               3 => 'page-3.html',
-               4 => 'page-4.html',
-               5 => 'page-5.html',
+                1 => 'page-1.html',
+                2 => 'page-2.html',
+                3 => 'page-3.html',
+                4 => 'page-4.html',
+                5 => 'page-5.html',
             ],
             $this->makePaginator()->getPageLinks()
         );
@@ -265,9 +265,9 @@ class PaginatorTest extends TestCase
         $paginator = new Paginator($pages, (2), paginationRouteBasename: 'pages');
         $this->assertSame(
             [
-               1 => $pages[1]->getRoute(),
-               2 => $pages[2]->getRoute(),
-               3 => $pages[3]->getRoute(),
+                1 => $pages[1]->getRoute(),
+                2 => $pages[2]->getRoute(),
+                3 => $pages[3]->getRoute(),
             ],
             $paginator->getPageLinks()
         );
