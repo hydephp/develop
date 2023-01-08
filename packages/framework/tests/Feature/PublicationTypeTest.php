@@ -403,7 +403,7 @@ class PublicationTypeTest extends TestCase
 
     public function testArrayRepresentationWithDefaultValues()
     {
-        $type = new PublicationType('test-publication');
+        $publicationType = new PublicationType('test-publication');
 
         $this->assertSame([
             'name' => 'test-publication',
@@ -417,12 +417,12 @@ class PublicationTypeTest extends TestCase
             ],
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
-        ], $type->toArray());
+        ], $publicationType->toArray());
     }
 
     public function testJsonRepresentationWithDefaultValues()
     {
-        $type = new PublicationType('test-publication');
+        $publicationType = new PublicationType('test-publication');
 
         $this->assertSame(<<<'JSON'
             {
@@ -438,7 +438,7 @@ class PublicationTypeTest extends TestCase
                 },
                 "fields": []
             }
-            JSON, $type->toJson());
+            JSON, $publicationType->toJson());
     }
 
     protected function getTestData(array $mergeData = []): array
