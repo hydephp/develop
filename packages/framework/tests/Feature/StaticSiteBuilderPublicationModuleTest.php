@@ -27,6 +27,46 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         config(['app.throw_on_console_exception' => true]);
     }
 
+    public function testCompilingWithPublicationTypeWithSeededFilesContainingAllFieldTypes()
+    {
+        // Setup
+
+        $this->directory('test-publication');
+
+        $creator = new CreatesNewPublicationType('Test Publication', $this->getAllFields());
+        $creator->create();
+
+        $this->assertCount(3, Filesystem::files('test-publication'));
+
+        $this->assertFileExists('test-publication/schema.json');
+        $this->assertFileExists('test-publication/detail.blade.php');
+        $this->assertFileExists('test-publication/list.blade.php');
+
+        // Test site build without any publications
+
+        $this->artisan('build')->assertSuccessful();
+
+        $this->assertCount(1, Filesystem::files('_site/test-publication'));
+        $this->assertFileExists('_site/test-publication/index.html');
+
+        $this->resetSite();
+
+        // Test site build with publications
+
+        $seeder = new SeedsPublicationFiles(PublicationType::get('test-publication'), 5);
+        $seeder->create();
+
+        $this->assertCount(3 + 5, Filesystem::files('test-publication'));
+
+        Hyde::boot(); // Reboot the kernel to discover the new publications
+
+        $this->artisan('build')->assertSuccessful();
+
+        $this->assertCount(1 + 5, Filesystem::files('_site/test-publication'));
+
+        $this->resetSite();
+    }
+
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
         // Setup
