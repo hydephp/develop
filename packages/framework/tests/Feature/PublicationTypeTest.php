@@ -33,7 +33,11 @@ class PublicationTypeTest extends TestCase
             if ($key === 'pagination') {
                 $this->assertEquals($property, $publicationType->$key->toArray());
             } else {
-                $this->assertEquals($property, $publicationType->$key);
+                if ($key === 'fields') {
+                    $this->assertEquals($property, $publicationType->$key->values()->toArray());
+                } else {
+                    $this->assertEquals($property, $publicationType->$key);
+                }
             }
         }
     }
@@ -46,7 +50,7 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals('__createdAt', $publicationType->canonicalField);
         $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
         $this->assertEquals('list.blade.php', $publicationType->listTemplate);
-        $this->assertEquals([], $publicationType->fields);
+        $this->assertEquals(collect([]), $publicationType->fields);
         $this->assertNull($publicationType->pagination);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
