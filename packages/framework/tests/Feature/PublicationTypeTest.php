@@ -161,7 +161,7 @@ class PublicationTypeTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationFieldDefinition::class, $collection->first());
         $this->assertEquals(new Collection([
-            'title' => new PublicationFieldDefinition('string', 'title'),
+            new PublicationFieldDefinition('string', 'title'),
         ]), $collection);
     }
 
@@ -178,8 +178,8 @@ class PublicationTypeTest extends TestCase
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
         $this->assertEquals(new Collection([
-            'title' => new PublicationFieldDefinition('string', 'title'),
-            'number' => new PublicationFieldDefinition('integer', 'number'),
+            new PublicationFieldDefinition('string', 'title'),
+            new PublicationFieldDefinition('integer', 'number'),
         ]), $publicationType->getFields());
     }
 
@@ -196,8 +196,8 @@ class PublicationTypeTest extends TestCase
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
         $this->assertEquals(new Collection([
-            'title' => new PublicationFieldDefinition('string', 'title', ['foo', 'bar']),
-            'tags' => new PublicationFieldDefinition('tag', 'tags', tagGroup: 'myTags'),
+            new PublicationFieldDefinition('string', 'title', ['foo', 'bar']),
+            new PublicationFieldDefinition('tag', 'tags', tagGroup: 'myTags'),
         ]), $publicationType->getFields());
     }
 
