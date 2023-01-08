@@ -32,15 +32,17 @@ class PublicationType implements SerializableContract
     use Serializable;
     use InteractsWithDirectories;
 
-    public PaginationSettings|null $pagination;
     public string $name;
     public string $canonicalField = 'identifier';
     public string $detailTemplate = 'detail.blade.php';
     public string $listTemplate = 'list.blade.php';
-    protected string $directory;
+
+    public null|PaginationSettings $pagination;
 
     /** @var array<array<string, mixed>> */
     public array $fields = [];
+
+    protected string $directory;
 
     public static function get(string $name): static
     {
