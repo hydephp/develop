@@ -385,6 +385,9 @@ class PublicationTypeTest extends TestCase
             'canonicalField' => '__createdAt',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 25,
             'fields' => [],
         ], $publicationType->toArray());
     }
@@ -399,6 +402,9 @@ class PublicationTypeTest extends TestCase
                 "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
                 "fields": []
             }
             JSON, $publicationType->toJson());
