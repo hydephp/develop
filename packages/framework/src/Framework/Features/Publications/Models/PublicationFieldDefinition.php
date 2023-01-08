@@ -37,7 +37,7 @@ class PublicationFieldDefinition implements SerializableContract
     public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [], ?string $tagGroup = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
-        $this->name = str_starts_with($name, '__') ? $name : Str::kebab($name);
+        $this->name = $this->normalizeName($name);
         $this->rules = $rules;
         $this->tagGroup = $tagGroup;
     }
@@ -60,5 +60,10 @@ class PublicationFieldDefinition implements SerializableContract
     public function getRules(): array
     {
         return array_merge($this->type->rules(), $this->rules);
+    }
+
+    protected function normalizeName(string $name): string
+    {
+        return str_starts_with($name, '__') ? $name : Str::kebab($name);
     }
 }
