@@ -216,11 +216,6 @@ class PublicationType implements SerializableContract
 
     protected function parseFieldData(array $fields): Collection
     {
-        return Collection::make($fields)->map(function (array $data): PublicationFieldDefinition {
-            return new PublicationFieldDefinition(...$data);
-        });
-
-        // FIXME 
         return Collection::make($fields)->mapWithKeys(function (array $data): array {
             return [$data['name'] => new PublicationFieldDefinition(...$data)];
         });
