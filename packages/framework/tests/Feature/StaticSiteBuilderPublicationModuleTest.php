@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 
 /**
  * Tests that publication pages are compiled properly when building the static site.
@@ -23,7 +26,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
     {
         $this->directory('test-publication');
 
-        $creator = new CreatesNewPublicationType('Test Publication', collect());
+        $creator = new CreatesNewPublicationType('Test Publication', $this->getAllFields());
         $creator->create();
     }
 
@@ -40,5 +43,20 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
     public function testCompilingWithPublicationTypeThatUsesThePaginatedVendorViews()
     {
         $this->markTestIncomplete();
+    }
+
+    protected function getAllFields(): Collection
+    {
+        $types = PublicationFieldTypes::collect();
+
+        $array = [];
+        foreach ($types as $type) {
+            $array[] = [
+                'name' => "{$type->name}Field",
+                'type' => $type->value,
+            ];
+        }
+
+        return collect($array);
     }
 }
