@@ -189,8 +189,10 @@ class PublicationType implements SerializableContract
 
     protected function evaluatePaginationSettings(array|PaginationSettings $pagination): PaginationSettings
     {
-        return $pagination instanceof PaginationSettings
-            ? $pagination
-            : PaginationSettings::fromArray($pagination);
+        if ($pagination instanceof PaginationSettings) {
+            return $pagination;
+        }
+        
+        return PaginationSettings::fromArray($pagination);
     }
 }
