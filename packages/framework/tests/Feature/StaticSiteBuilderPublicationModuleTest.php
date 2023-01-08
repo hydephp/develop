@@ -152,6 +152,8 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
             'publication-5.html',
         ], $this->getFilenamesInDirectory('_site/test-publication'));
 
+        // TODO test that the pagination links are correct
+
         $this->resetSite();
     }
 
