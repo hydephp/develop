@@ -133,9 +133,9 @@ class SeedsPublicationFilesTest extends TestCase
     {
         $tags = ['test-publication' => ['foo', 'bar', 'baz']];
         $this->file('tags.json', json_encode($tags));
-        $this->pubType->fields = [
-            (new PublicationFieldDefinition('tag', 'tag', tagGroup: 'test-publication'))->toArray(),
-        ];
+        $this->pubType->fields = collect([
+            (new PublicationFieldDefinition('tag', 'tag', tagGroup: 'test-publication')),
+        ]);
         $this->pubType->save();
         (new SeedsPublicationFiles($this->pubType))->create();
 
@@ -187,9 +187,9 @@ class SeedsPublicationFilesTest extends TestCase
 
     protected function updateSchema(string $type, string $name): void
     {
-        $this->pubType->fields = [
-            (new PublicationFieldDefinition($type, $name))->toArray(),
-        ];
+        $this->pubType->fields = collect([
+            (new PublicationFieldDefinition($type, $name)),
+        ]);
         $this->pubType->save();
     }
 

@@ -33,7 +33,11 @@ class PublicationTypeTest extends TestCase
             if ($key === 'pagination') {
                 $this->assertEquals($property, $publicationType->$key->toArray());
             } else {
-                $this->assertEquals($property, $publicationType->$key);
+                if ($key === 'fields') {
+                    $this->assertEquals($property, $publicationType->$key->toArray());
+                } else {
+                    $this->assertEquals($property, $publicationType->$key);
+                }
             }
         }
     }
@@ -43,30 +47,24 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType('Test Publication');
 
         $this->assertEquals('Test Publication', $publicationType->name);
-        $this->assertEquals('identifier', $publicationType->canonicalField);
+        $this->assertEquals('__createdAt', $publicationType->canonicalField);
         $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
         $this->assertEquals('list.blade.php', $publicationType->listTemplate);
-        $this->assertEquals([], $publicationType->fields);
-        $this->assertEquals(PaginationSettings::fromArray([
-            'sortField' => '__createdAt',
-            'sortAscending' => true,
-            'pageSize' => 25,
-            'prevNextLinks' => true,
-        ]), $publicationType->pagination);
+        $this->assertEquals(collect([]), $publicationType->fields);
+        $this->assertNull($publicationType->pagination);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
 
-    public function test_construct_with_pagination_object()
+    public function test_construct_with_pagination_settings()
     {
-        $paginationSettings = PaginationSettings::fromArray([
+        $paginationSettings = [
             'sortField'     => 'title',
             'sortAscending' => false,
             'pageSize'      => 10,
-            'prevNextLinks' => false,
-        ]);
+        ];
         $publicationType = new PublicationType('Test Publication', pagination: $paginationSettings);
-        $this->assertSame($paginationSettings, $publicationType->pagination);
+        $this->assertSame($paginationSettings, $publicationType->pagination->toArray());
     }
 
     public function test_class_is_arrayable()
@@ -136,21 +134,14 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals($publicationType, PublicationType::fromFile(('tests/fixtures/test-publication-schema.json')));
     }
 
-    public function test_it_loads_arbitrary_publication_fields_from_schema_file()
+    public function test_can_load_fields_with_validation_rules()
     {
         $this->directory('test-publication');
         $fields = [
             [
-                'name' => 'Title',
                 'type' => 'text',
-                'identifier' => 'title',
-                'required' => true,
-            ],
-            [
-                'name' => 'Body',
-                'type' => 'markdown',
-                'identifier' => 'body',
-                'required' => true,
+                'name' => 'title',
+                'rules' => ['required'],
             ],
         ];
         $this->file('test-publication/schema.json', json_encode([
@@ -159,7 +150,7 @@ class PublicationTypeTest extends TestCase
         ]));
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
-        $this->assertSame($fields, $publicationType->fields);
+        $this->assertSame($fields, $publicationType->getFields()->toArray());
     }
 
     public function test_get_fields_method_returns_collection_of_field_objects()
@@ -170,7 +161,7 @@ class PublicationTypeTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationFieldDefinition::class, $collection->first());
         $this->assertEquals(new Collection([
-            'title' => new PublicationFieldDefinition('string', 'title'),
+            new PublicationFieldDefinition('string', 'title'),
         ]), $collection);
     }
 
@@ -187,8 +178,8 @@ class PublicationTypeTest extends TestCase
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
         $this->assertEquals(new Collection([
-            'title' => new PublicationFieldDefinition('string', 'title'),
-            'number' => new PublicationFieldDefinition('integer', 'number'),
+            new PublicationFieldDefinition('string', 'title'),
+            new PublicationFieldDefinition('integer', 'number'),
         ]), $publicationType->getFields());
     }
 
@@ -205,20 +196,9 @@ class PublicationTypeTest extends TestCase
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
         $this->assertEquals(new Collection([
-            'title' => new PublicationFieldDefinition('string', 'title', ['foo', 'bar']),
-            'tags' => new PublicationFieldDefinition('tag', 'tags', tagGroup: 'myTags'),
+            new PublicationFieldDefinition('string', 'title', ['foo', 'bar']),
+            new PublicationFieldDefinition('tag', 'tags', tagGroup: 'myTags'),
         ]), $publicationType->getFields());
-    }
-
-    public function test_get_field_data_returns_field_data()
-    {
-        $publicationType = new PublicationType(...$this->getTestData());
-
-        $this->assertSame([['name' => 'title', 'type' => 'string']], $publicationType->getFieldData());
-
-        $publicationType->fields = [];
-
-        $this->assertSame([], $publicationType->getFieldData());
     }
 
     public function test_get_method_can_find_existing_file_on_disk()
@@ -316,7 +296,7 @@ class PublicationTypeTest extends TestCase
         $paginationSettings = new PaginationSettings('myNumber');
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings->toArray(), fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -338,7 +318,7 @@ class PublicationTypeTest extends TestCase
         $paginationSettings = new PaginationSettings('myNumber', false);
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings, fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings->toArray(), fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -407,15 +387,9 @@ class PublicationTypeTest extends TestCase
 
         $this->assertSame([
             'name' => 'test-publication',
-            'canonicalField' => 'identifier',
+            'canonicalField' => '__createdAt',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
-            'pagination' => [
-                'sortField' => '__createdAt',
-                'sortAscending' => true,
-                'prevNextLinks' => true,
-                'pageSize' => 25,
-            ],
             'fields' => [],
         ], $publicationType->toArray());
     }
@@ -427,13 +401,45 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(<<<'JSON'
             {
                 "name": "test-publication",
-                "canonicalField": "identifier",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "fields": []
+            }
+            JSON, $publicationType->toJson());
+    }
+
+    public function testArrayRepresentationWithPaginationSettings()
+    {
+        $publicationType = new PublicationType('test-publication', pagination: (new PaginationSettings())->toArray());
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => '__createdAt',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+            'pagination' => [
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'pageSize' => 25,
+            ],
+            'fields' => [],
+        ], $publicationType->toArray());
+    }
+
+    public function testJsonRepresentationWithPaginationSettings()
+    {
+        $publicationType = new PublicationType('test-publication', pagination: (new PaginationSettings())->toArray());
+
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
-                    "prevNextLinks": true,
                     "pageSize": 25
                 },
                 "fields": []
@@ -451,13 +457,12 @@ class PublicationTypeTest extends TestCase
             'pagination' => [
                 'sortField' => '__createdAt',
                 'sortAscending' => true,
-                'prevNextLinks' => true,
                 'pageSize' => 25,
             ],
             'fields' => [
                 [
-                    'name' => 'title',
                     'type' => 'string',
+                    'name' => 'title',
                 ],
             ],
         ], $mergeData);

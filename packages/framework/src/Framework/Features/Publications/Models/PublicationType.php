@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_filter;
 use function array_merge;
 use function dirname;
 use Exception;
@@ -31,11 +32,34 @@ class PublicationType implements SerializableContract
     use Serializable;
     use InteractsWithDirectories;
 
-    public PaginationSettings $pagination;
-    protected string $directory;
+    /** The "pretty" name of the publication type */
+    public string $name;
 
-    /** @var array<array<string, mixed>> */
-    public array $fields = [];
+    /**
+     * The field name that is used as the canonical (or identifying) field of publications.
+     *
+     * It's used primarily for generating filenames, and the publications must thus be unique by this field.
+     */
+    public string $canonicalField = '__createdAt';
+
+    /** The Blade filename or view identifier used for rendering a single publication */
+    public string $detailTemplate = 'detail.blade.php';
+
+    /** The Blade filename or view identifier used for rendering the index page (or index pages, when using pagination) */
+    public string $listTemplate = 'list.blade.php';
+
+    /** The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
+    public null|PaginationSettings $pagination;
+
+    /**
+     * The front matter fields used for the publications.
+     *
+     * @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
+     */
+    public Collection $fields;
+
+    /** The directory of the publication files */
+    protected string $directory;
 
     public static function get(string $name): static
     {
@@ -55,31 +79,33 @@ class PublicationType implements SerializableContract
     }
 
     public function __construct(
-        public string $name,
-        public string $canonicalField = 'identifier',
-        public string $detailTemplate = 'detail.blade.php',
-        public string $listTemplate = 'list.blade.php',
-        array|PaginationSettings $pagination = [],
+        string $name,
+        string $canonicalField = '__createdAt',
+        string $detailTemplate = 'detail.blade.php',
+        string $listTemplate = 'list.blade.php',
+        ?array $pagination = [],
         array $fields = [],
         ?string $directory = null
     ) {
-        $this->fields = $fields;
+        $this->name = $name;
+        $this->canonicalField = $canonicalField;
+        $this->detailTemplate = $detailTemplate;
+        $this->listTemplate = $listTemplate;
+        $this->fields = $this->parseFieldData($fields);
         $this->directory = $directory ?? Str::slug($name);
-        $this->pagination = $pagination instanceof PaginationSettings
-            ? $pagination
-            : PaginationSettings::fromArray($pagination);
+        $this->pagination = $this->evaluatePaginationSettings($pagination);
     }
 
     public function toArray(): array
     {
-        return [
+        return $this->withoutNullValues([
             'name' => $this->name,
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,
-            'pagination' => $this->pagination->toArray(),
-            'fields' => $this->fields,
-        ];
+            'pagination' => $this->pagination?->toArray(),
+            'fields' => $this->fields->toArray(),
+        ]);
     }
 
     public function toJson($options = JSON_PRETTY_PRINT): string
@@ -87,6 +113,7 @@ class PublicationType implements SerializableContract
         return json_encode($this->toArray(), $options);
     }
 
+    /** Get the publication type's identifier */
     public function getIdentifier(): string
     {
         return $this->directory ?? Str::slug($this->name);
@@ -103,27 +130,13 @@ class PublicationType implements SerializableContract
     }
 
     /**
-     * Get the raw field definitions for this publication type.
-     *
-     * @see self::getFields() to get the deserialized field definitions.
-     */
-    public function getFieldData(): array
-    {
-        return $this->fields;
-    }
-
-    /**
      * Get the publication fields, deserialized to PublicationFieldDefinition objects.
-     *
-     * @see self::getFieldData() to get the raw field definitions.
      *
      * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
      */
     public function getFields(): Collection
     {
-        return Collection::make($this->fields)->mapWithKeys(function (array $data): array {
-            return [$data['name'] => new PublicationFieldDefinition(...$data)];
-        });
+        return $this->fields;
     }
 
     public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
@@ -187,5 +200,26 @@ class PublicationType implements SerializableContract
         return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
             return $page->matter($this->pagination->sortField);
         }, descending: ! $this->pagination->sortAscending)->values();
+    }
+
+    protected function parseFieldData(array $fields): Collection
+    {
+        return Collection::make($fields)->map(function (array $data): PublicationFieldDefinition {
+            return new PublicationFieldDefinition(...$data);
+        });
+    }
+
+    protected function evaluatePaginationSettings(array $pagination): ?PaginationSettings
+    {
+        if (empty($pagination)) {
+            return null;
+        }
+
+        return PaginationSettings::fromArray($pagination);
+    }
+
+    protected function withoutNullValues(array $array): array
+    {
+        return array_filter($array, fn (mixed $value): bool => ! is_null($value));
     }
 }

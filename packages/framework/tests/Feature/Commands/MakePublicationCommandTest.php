@@ -77,7 +77,6 @@ class MakePublicationCommandTest extends TestCase
                 'listTemplate'   => 'list',
                 'pagination' => [
                     'pageSize'       => 10,
-                    'prevNextLinks'  => true,
                     'sortField'      => '__createdAt',
                     'sortAscending'  => true,
                 ],
@@ -584,7 +583,6 @@ class MakePublicationCommandTest extends TestCase
                 'listTemplate'   => 'list',
                 'pagination' => [
                     'pageSize'       => 10,
-                    'prevNextLinks'  => true,
                     'sortField'      => '__createdAt',
                     'sortAscending'  => true,
                 ],
