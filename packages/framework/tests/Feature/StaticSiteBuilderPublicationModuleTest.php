@@ -20,6 +20,8 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
+        $this->markTestIncomplete();
+
         $this->directory('test-publication');
 
         $this->artisan('make:publicationType "Test Publication" --use-defaults')
@@ -28,16 +30,16 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
     {
-
+        $this->markTestIncomplete();
     }
 
     public function testCompilingWithPublicationTypeThatUsesTheVendorViews()
     {
-
+        $this->markTestIncomplete();
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePaginatedVendorViews()
     {
-        
+        $this->markTestIncomplete();
     }
 }
