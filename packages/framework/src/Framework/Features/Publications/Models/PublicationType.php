@@ -76,7 +76,7 @@ class PublicationType implements SerializableContract
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,
-            'pagination' => $this->pagination->toArray(),
+            'pagination' => $this->pagination?->toArray(),
             'fields' => $this->fields,
         ];
     }
