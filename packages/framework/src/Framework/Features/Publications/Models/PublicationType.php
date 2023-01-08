@@ -188,9 +188,13 @@ class PublicationType implements SerializableContract
         }, descending: ! $this->pagination->sortAscending)->values();
     }
 
-    protected function evaluatePaginationSettings(array|PaginationSettings $pagination): PaginationSettings
+    protected function evaluatePaginationSettings(array|PaginationSettings $pagination): ?PaginationSettings
     {
         if (is_array($pagination)) {
+            if (empty($pagination)) {
+                return null;
+            }
+
             return PaginationSettings::fromArray($pagination);
         }
         return $pagination;
