@@ -70,6 +70,7 @@ class VirtualPage extends HydePage implements DynamicPage
     public function compile(): string
     {
         if (! $this->contents && $this->view) {
+            // TODO This needs to support Blade files if we're gonna use it for pagination.
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 
