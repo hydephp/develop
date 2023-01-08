@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Testing\TestCase;
 
 /**
@@ -20,12 +21,10 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
-        $this->markTestIncomplete();
-
         $this->directory('test-publication');
 
-        $this->artisan('make:publicationType "Test Publication" --use-defaults')
-            ->assertSuccessful();
+        $creator = new CreatesNewPublicationType('Test Publication', collect());
+        $creator->create();
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
