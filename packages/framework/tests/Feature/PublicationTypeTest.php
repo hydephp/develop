@@ -395,9 +395,28 @@ class PublicationTypeTest extends TestCase
         $this->assertFalse($publicationType->usesPagination());
     }
 
+    public function testArrayRepresentationWithDefaultValues()
+    {
+        $publicationType = new PublicationType('test-publication');
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => 'identifier',
+            'fields' => [],
+            'pagination' => [
+                'pageSize' => 25,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'prevNextLinks' => true,
+            ],
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+        ], $publicationType->toArray());
+    }
+
     public function testJsonRepresentationWithDefaultValues()
     {
-        $type = new PublicationType('test-publication');
+        $publicationType = new PublicationType('test-publication');
 
         $this->assertSame(<<<'JSON'
             {
@@ -413,7 +432,7 @@ class PublicationTypeTest extends TestCase
                 },
                 "fields": []
             }
-            JSON, $type->toJson());
+            JSON, $publicationType->toJson());
     }
 
     protected function getTestData(array $mergeData = []): array
