@@ -121,8 +121,7 @@ class PublicationPageTest extends TestCase
   "pagination": {
       "sortField": "__createdAt",
       "sortAscending": true,
-      "pageSize": 0,
-      "prevNextLinks": true
+      "pageSize": 0
   },
   "fields": [
     {

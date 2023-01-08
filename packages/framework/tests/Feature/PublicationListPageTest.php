@@ -74,7 +74,6 @@ Hello World!
                 'sortField'      => 'sort',
                 'sortAscending'  => true,
                 'pageSize'       => 10,
-                'prevNextLinks'  => true,
             ],
             'fields'         => [
                 'foo' => 'bar',

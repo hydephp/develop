@@ -51,7 +51,6 @@ class PublicationTypeTest extends TestCase
             'sortField' => '__createdAt',
             'sortAscending' => true,
             'pageSize' => 25,
-            'prevNextLinks' => true,
         ]), $publicationType->pagination);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
@@ -63,7 +62,6 @@ class PublicationTypeTest extends TestCase
             'sortField'     => 'title',
             'sortAscending' => false,
             'pageSize'      => 10,
-            'prevNextLinks' => false,
         ]);
         $publicationType = new PublicationType('Test Publication', pagination: $paginationSettings);
         $this->assertSame($paginationSettings, $publicationType->pagination);
@@ -411,7 +409,6 @@ class PublicationTypeTest extends TestCase
             'pagination' => [
                 'sortField' => '__createdAt',
                 'sortAscending' => true,
-                'prevNextLinks' => true,
                 'pageSize' => 25,
             ],
             'fields' => [
