@@ -10,7 +10,6 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
-use function str_starts_with;
 use function strtolower;
 
 /**
@@ -37,7 +36,7 @@ class PublicationFieldDefinition implements SerializableContract
     public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [], ?string $tagGroup = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
-        $this->name = str_starts_with($name, '__') ? $name : Str::kebab($name);
+        $this->name = str_contains($name, ' ') ? Str::kebab($name) : Str::ascii($name);
         $this->rules = $rules;
         $this->tagGroup = $tagGroup;
     }
