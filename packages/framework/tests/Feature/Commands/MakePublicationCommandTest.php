@@ -75,11 +75,9 @@ class MakePublicationCommandTest extends TestCase
                 'canonicalField' => '__createdAt',
                 'detailTemplate' => 'detail',
                 'listTemplate'   => 'list',
-                'pagination' => [
-                    'pageSize'       => 10,
-                    'sortField'      => '__createdAt',
-                    'sortAscending'  => true,
-                ],
+                'pageSize'       => 10,
+                'sortField'      => '__createdAt',
+                'sortAscending'  => true,
                 'fields'         =>  [],
             ])
         );
@@ -581,11 +579,9 @@ class MakePublicationCommandTest extends TestCase
                 'canonicalField' => 'title',
                 'detailTemplate' => 'detail',
                 'listTemplate'   => 'list',
-                'pagination' => [
-                    'pageSize'       => 10,
-                    'sortField'      => '__createdAt',
-                    'sortAscending'  => true,
-                ],
+                'pageSize'       => 10,
+                'sortField'      => '__createdAt',
+                'sortAscending'  => true,
                 'fields'         =>  [
                     [
                         'name' => 'title',
