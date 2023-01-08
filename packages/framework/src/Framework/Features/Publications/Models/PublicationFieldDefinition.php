@@ -10,7 +10,6 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
-use function str_starts_with;
 use function strtolower;
 
 /**
