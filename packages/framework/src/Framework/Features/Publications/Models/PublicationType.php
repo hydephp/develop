@@ -65,9 +65,7 @@ class PublicationType implements SerializableContract
     ) {
         $this->fields = $fields;
         $this->directory = $directory ?? Str::slug($name);
-        $this->pagination = $pagination instanceof PaginationSettings
-            ? $pagination
-            : PaginationSettings::fromArray($pagination);
+        $this->pagination = $this->evaluatePaginationSettings($pagination);
     }
 
     public function toArray(): array
@@ -187,5 +185,12 @@ class PublicationType implements SerializableContract
         return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
             return $page->matter($this->pagination->sortField);
         }, descending: ! $this->pagination->sortAscending)->values();
+    }
+
+    protected function evaluatePaginationSettings(array|PaginationSettings $pagination): PaginationSettings
+    {
+        return $pagination instanceof PaginationSettings
+            ? $pagination
+            : PaginationSettings::fromArray($pagination);
     }
 }
