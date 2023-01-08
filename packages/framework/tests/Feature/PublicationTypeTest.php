@@ -404,7 +404,6 @@ class PublicationTypeTest extends TestCase
             'canonicalField' => 'identifier',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
-            'pagination' => null,
             'fields' => [],
         ], $publicationType->toArray());
     }
@@ -419,7 +418,6 @@ class PublicationTypeTest extends TestCase
                 "canonicalField": "identifier",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
-                "pagination": null,
                 "fields": []
             }
             JSON, $publicationType->toJson());
