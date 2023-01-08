@@ -68,7 +68,7 @@ class PublicationFieldDefinition implements SerializableContract
         if (! str_contains($name, ' ')) {
             return $name;
         } else {
-            // Otherwise we normalize it to kebab case.
+            // Otherwise we normalize it to kebab case so it remains readable
             return Str::kebab($name);
         }
     }
