@@ -59,7 +59,7 @@ class PublicationType implements SerializableContract
     public bool $sortAscending = true;
 
     /** The number of publications to show per paginated page. Set to 0 to disable pagination. */
-    public int $pageSize = 25;
+    public int $pageSize = 25; // TODO Set default pageSize to 0 to disable pagination by default
 
     /**
      * The front matter fields used for the publications.
