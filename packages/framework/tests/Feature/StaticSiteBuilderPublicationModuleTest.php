@@ -92,12 +92,12 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $this->resetSite();
     }
 
-    public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
+    public function testCompilingWithPublicationTypeThatUsesTheVendorViews()
     {
         $this->markTestIncomplete();
     }
 
-    public function testCompilingWithPublicationTypeThatUsesTheVendorViews()
+    public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
     {
         $this->markTestIncomplete();
     }
