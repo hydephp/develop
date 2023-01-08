@@ -65,7 +65,7 @@ class PublicationFieldDefinition implements SerializableContract
     /** Normalize the selected field name to ensure it's consistent and readable */
     protected function normalizeName(string $name): string
     {
-        // As long as the name doesn't contain any spaces it should be fine as is
+        // As long as the name doesn't contain any spaces it should be fine as-is
         if (! str_contains($name, ' ')) {
             return Str::ascii($name);
         } else {
