@@ -12,17 +12,5 @@ namespace Hyde\Framework\Actions\Contracts;
  */
 interface CreateActionContract
 {
-    public function create(): void;
-
-    public function force(bool $force = true): static;
-
-    public function setOutputPath(string $outputPath): static;
-
-    public function getOutputPath(): string;
-
-    public function getAbsoluteOutputPath(): string;
-
-    public function fileExists(): bool;
-
-    public function hasFileConflict(): bool;
+    //
 }
