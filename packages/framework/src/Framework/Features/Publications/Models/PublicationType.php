@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_filter;
 use function array_merge;
 use function dirname;
 use Exception;
@@ -71,14 +72,14 @@ class PublicationType implements SerializableContract
 
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'name' => $this->name,
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,
             'pagination' => $this->pagination?->toArray(),
             'fields' => $this->fields,
-        ];
+        ]);
     }
 
     public function toJson($options = JSON_PRETTY_PRINT): string
