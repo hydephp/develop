@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -28,6 +29,12 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
         $creator = new CreatesNewPublicationType('Test Publication', $this->getAllFields());
         $creator->create();
+
+        $this->assertCount(3, Filesystem::files('test-publication'));
+
+        $this->assertFileExists('test-publication/schema.json');
+        $this->assertFileExists('test-publication/detail.blade.php');
+        $this->assertFileExists('test-publication/list.blade.php');
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
