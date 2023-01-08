@@ -24,7 +24,6 @@ class PaginationSettings implements SerializableContract
     {
         $this->sortField = $sortField;
         $this->sortAscending = $sortAscending;
-        $this->prevNextLinks = $prevNextLinks;
         $this->pageSize = $pageSize;
     }
 
@@ -33,7 +32,6 @@ class PaginationSettings implements SerializableContract
         return [
             'sortField' => $this->sortField,
             'sortAscending' => $this->sortAscending,
-            'prevNextLinks' => $this->prevNextLinks,
             'pageSize' => $this->pageSize,
         ];
     }
