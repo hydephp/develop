@@ -236,6 +236,20 @@ class PaginatorTest extends TestCase
         $this->assertSame(2, $this->makePaginator()->setCurrentPage(1)->nextPageNumber());
     }
 
+    public function testGetPageLinks()
+    {
+        $this->assertSame(
+            [
+               1 => 'page-1.html',
+               2 => 'page-2.html',
+               3 => 'page-3.html',
+               4 => 'page-4.html',
+               5 => 'page-5.html',
+            ],
+            $this->makePaginator()->getPageLinks()
+        );
+    }
+
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
         return new Paginator(range($start, $end), $pageSize);
