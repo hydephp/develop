@@ -192,6 +192,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return [null, null, null, null];
         }
 
+        $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
+
         return [$this->getSortField(), $this->getSortDirection(), $this->getPrevNextLinks(), $this->getPageSize()];
     }
 
