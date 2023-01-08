@@ -40,7 +40,6 @@ class PublicationPageCompiler extends InvokableAction
     {
         return $this->compileView($this->page->type->listTemplate, [
             'publicationType' => $this->page->type,
-            'paginator' => $this->page->type->getPaginator($this->page->matter('paginatorPage'))
         ]);
     }
 

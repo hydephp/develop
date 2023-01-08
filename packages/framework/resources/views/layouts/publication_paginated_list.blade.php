@@ -1,5 +1,7 @@
 @php/** @var \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType*/@endphp
-@php/** @var \Hyde\Framework\Features\Publications\Paginator $paginator*/@endphp
+@php
+    $paginator = $publicationType->getPaginator($page->matter('paginatorPage'));
+@endphp
 @extends('hyde::layouts.app')
 @section('content')
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
