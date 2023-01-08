@@ -402,15 +402,15 @@ class PublicationTypeTest extends TestCase
         $this->assertSame([
             'name' => 'test-publication',
             'canonicalField' => 'identifier',
-            'fields' => [],
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
             'pagination' => [
-                'pageSize' => 25,
                 'sortField' => '__createdAt',
                 'sortAscending' => true,
                 'prevNextLinks' => true,
+                'pageSize' => 25,
             ],
-            'detailTemplate' => 'detail.blade.php',
-            'listTemplate' => 'list.blade.php',
+            'fields' => [],
         ], $publicationType->toArray());
     }
 
