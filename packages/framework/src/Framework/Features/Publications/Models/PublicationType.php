@@ -33,6 +33,10 @@ class PublicationType implements SerializableContract
     use InteractsWithDirectories;
 
     public PaginationSettings|null $pagination;
+    public string $listTemplate = 'list.blade.php';
+    public string $detailTemplate = 'detail.blade.php';
+    public string $canonicalField = 'identifier';
+    public string $name;
     protected string $directory;
 
     /** @var array<array<string, mixed>> */
@@ -56,14 +60,18 @@ class PublicationType implements SerializableContract
     }
 
     public function __construct(
-        public string $name,
-        public string $canonicalField = 'identifier',
-        public string $detailTemplate = 'detail.blade.php',
-        public string $listTemplate = 'list.blade.php',
+        string $name,
+        string $canonicalField = 'identifier',
+        string $detailTemplate = 'detail.blade.php',
+        string $listTemplate = 'list.blade.php',
         ?array $pagination = [],
         array $fields = [],
         ?string $directory = null
     ) {
+        $this->name = $name;
+        $this->canonicalField = $canonicalField;
+        $this->detailTemplate = $detailTemplate;
+        $this->listTemplate = $listTemplate;
         $this->fields = $fields;
         $this->directory = $directory ?? Str::slug($name);
         $this->pagination = $this->evaluatePaginationSettings($pagination);
