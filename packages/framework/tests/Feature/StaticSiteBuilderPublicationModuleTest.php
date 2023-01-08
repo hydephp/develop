@@ -97,7 +97,30 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesTheVendorViews()
     {
-        $this->markTestIncomplete();
+        $this->directory('test-publication');
+
+        (new CreatesNewPublicationType('Test Publication', collect([])))->create();
+        $type = PublicationType::get('test-publication');
+        $type->detailTemplate = 'hyde::layouts.publication_detail';
+        $type->listTemplate = 'hyde::layouts.publication_list';
+        $type->save();
+
+        foreach (range(1, 5) as $i) {
+            $this->file("test-publication/publication-$i.md", "## Test publication $i");
+        }
+
+        $this->artisan('build')->assertSuccessful();
+
+        $this->assertSame([
+            'index.html',
+            'publication-1.html',
+            'publication-2.html',
+            'publication-3.html',
+            'publication-4.html',
+            'publication-5.html',
+        ], $this->getFilenamesInDirectory('_site/test-publication'));
+
+        $this->resetSite();
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
