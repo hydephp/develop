@@ -24,7 +24,7 @@ class PaginationSettingsTest extends TestCase
 
     public function testConstruct()
     {
-        $paginationSettings = new PaginationSettings('foo', false, false, 10);
+        $paginationSettings = new PaginationSettings('foo', false, 10);
 
         $this->assertSame('foo', $paginationSettings->sortField);
         $this->assertFalse($paginationSettings->sortAscending);
