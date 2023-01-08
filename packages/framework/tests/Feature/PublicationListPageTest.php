@@ -79,7 +79,7 @@ Hello World!
                 [
                     'type' => 'string',
                     'name' => 'Foo',
-                ]
+                ],
             ],
         ];
     }
