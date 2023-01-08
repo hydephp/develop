@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use JetBrains\PhpStorm\Deprecated;
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -20,6 +19,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\Deprecated;
 use function json_decode;
 use function json_encode;
 use RuntimeException;
