@@ -11,5 +11,23 @@ use Hyde\Testing\TestCase;
  */
 class StaticSiteBuilderPublicationModuleTest extends TestCase
 {
-    //
+    public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
+    {
+
+    }
+
+    public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
+    {
+
+    }
+
+    public function testCompilingWithPublicationTypeThatUsesTheVendorViews()
+    {
+
+    }
+
+    public function testCompilingWithPublicationTypeThatUsesThePaginatedVendorViews()
+    {
+        
+    }
 }
