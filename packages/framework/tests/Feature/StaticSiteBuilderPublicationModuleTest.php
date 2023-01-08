@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
