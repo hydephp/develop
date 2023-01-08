@@ -112,6 +112,7 @@ class PublicationType implements SerializableContract
         return json_encode($this->toArray(), $options);
     }
 
+    /** Get the publication type's identifier */
     public function getIdentifier(): string
     {
         return $this->directory ?? Str::slug($this->name);
