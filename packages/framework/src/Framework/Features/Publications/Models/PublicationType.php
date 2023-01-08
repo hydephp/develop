@@ -132,7 +132,7 @@ class PublicationType implements SerializableContract
     /**
      * Get the raw field definitions for this publication type.
      *
-     * @see self::getFields() to get the deserialized field definitions.
+     * @deprecated Use getFields() instead
      */
     public function getFieldData(): array
     {
