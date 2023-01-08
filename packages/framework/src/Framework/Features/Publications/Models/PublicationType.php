@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use JetBrains\PhpStorm\Deprecated;
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -83,7 +84,7 @@ class PublicationType implements SerializableContract
         string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
-        ?array $pagination = [],
+        #[Deprecated]?array $pagination = [],
         array $fields = [],
         ?string $directory = null
     ) {
