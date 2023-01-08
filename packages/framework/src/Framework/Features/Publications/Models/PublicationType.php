@@ -32,16 +32,32 @@ class PublicationType implements SerializableContract
     use Serializable;
     use InteractsWithDirectories;
 
+    /** The "pretty" name of the publication type */
     public string $name;
+
+    /**
+     * The field name that is used as the canonical (or identifying) field of publications.
+     * It's used primarily for generating filenames, and the publications must thus be unique by this field.
+     */
     public string $canonicalField = 'identifier';
+
+    /** The Blade filename or view identifier used for rendering a single publication */
     public string $detailTemplate = 'detail.blade.php';
+
+    /** The Blade filename or view identifier used for rendering the index page (or index pages, when using pagination) */
     public string $listTemplate = 'list.blade.php';
 
+    /** The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
     public null|PaginationSettings $pagination;
 
-    /** @var array<array<string, mixed>> */
+    /**
+     * The front matter fields used for the publications.
+     *
+     * @var array<array<string, mixed>>
+     */
     public array $fields = [];
 
+    /** The directory of the publication files */
     protected string $directory;
 
     public static function get(string $name): static
