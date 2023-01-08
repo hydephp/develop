@@ -67,11 +67,11 @@ class PublicationFieldDefinition implements SerializableContract
     {
         // As long as the name doesn't contain any spaces it should be fine as-is,
         // and this allows the user to use any case convention they want.
-        if (str_contains($name, ' ')) {
-            return Str::kebab($name);
+        if (! str_contains($name, ' ')) {
+            return Str::ascii($name);
         } else {
             // Otherwise we normalize it to snake_case to ensure it's readable
-            return Str::ascii($name);
+            return Str::kebab($name);
         }
     }
 }
