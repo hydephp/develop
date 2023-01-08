@@ -157,6 +157,11 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePaginatedVendorViews()
     {
+        $this->directory('test-publication');
+
+        (new CreatesNewPublicationType('Test Publication', collect([])))->create();
+        // TODO assert the paginated template was published once we implement that
+        
         $this->markTestIncomplete();
     }
 
