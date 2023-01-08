@@ -69,40 +69,25 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
-        // Setup
-
         $this->directory('test-publication');
 
-        $creator = new CreatesNewPublicationType('Test Publication', $this->getAllFields());
-        $creator->create();
-
+        (new CreatesNewPublicationType('Test Publication', collect([])))->create();
         $this->assertCount(3, Filesystem::files('test-publication'));
 
-        $this->assertFileExists('test-publication/schema.json');
-        $this->assertFileExists('test-publication/detail.blade.php');
-        $this->assertFileExists('test-publication/list.blade.php');
-
-        // Test site build without any publications
+        foreach (range(1, 5) as $i) {
+            $this->file("test-publication/publication-$i.md", "## Test publication $i");
+        }
 
         $this->artisan('build')->assertSuccessful();
 
-        $this->assertCount(1, Filesystem::files('_site/test-publication'));
-        $this->assertFileExists('_site/test-publication/index.html');
-
-        $this->resetSite();
-
-        // Test site build with publications
-
-        $seeder = new SeedsPublicationFiles(PublicationType::get('test-publication'), 5);
-        $seeder->create();
-
-        $this->assertCount(3 + 5, Filesystem::files('test-publication'));
-
-        Hyde::boot(); // Reboot the kernel to discover the new publications
-
-        $this->artisan('build')->assertSuccessful();
-
-        $this->assertCount(1 + 5, Filesystem::files('_site/test-publication'));
+        $this->assertEquals([
+            'index.html',
+            'publication-1.html',
+            'publication-2.html',
+            'publication-3.html',
+            'publication-4.html',
+            'publication-5.html',
+        ], collect(Filesystem::files('_site/test-publication'))->map(fn ($file) => $file->getFilename())->toArray());
 
         $this->resetSite();
     }
