@@ -39,7 +39,7 @@ class PublicationType implements SerializableContract
      * The field name that is used as the canonical (or identifying) field of publications.
      * It's used primarily for generating filenames, and the publications must thus be unique by this field.
      */
-    public string $canonicalField = 'identifier';
+    public string $canonicalField = '__createdAt';
 
     /** The Blade filename or view identifier used for rendering a single publication */
     public string $detailTemplate = 'detail.blade.php';
@@ -79,7 +79,7 @@ class PublicationType implements SerializableContract
 
     public function __construct(
         string $name,
-        string $canonicalField = 'identifier',
+        string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
         ?array $pagination = [],

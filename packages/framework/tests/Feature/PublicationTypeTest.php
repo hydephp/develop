@@ -43,7 +43,7 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType('Test Publication');
 
         $this->assertEquals('Test Publication', $publicationType->name);
-        $this->assertEquals('identifier', $publicationType->canonicalField);
+        $this->assertEquals('__createdAt', $publicationType->canonicalField);
         $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
         $this->assertEquals('list.blade.php', $publicationType->listTemplate);
         $this->assertEquals([], $publicationType->fields);
@@ -401,7 +401,7 @@ class PublicationTypeTest extends TestCase
 
         $this->assertSame([
             'name' => 'test-publication',
-            'canonicalField' => 'identifier',
+            'canonicalField' => '__createdAt',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
             'fields' => [],
@@ -415,7 +415,7 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(<<<'JSON'
             {
                 "name": "test-publication",
-                "canonicalField": "identifier",
+                "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
                 "fields": []
@@ -429,7 +429,7 @@ class PublicationTypeTest extends TestCase
 
         $this->assertSame([
             'name' => 'test-publication',
-            'canonicalField' => 'identifier',
+            'canonicalField' => '__createdAt',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
             'pagination' => [
@@ -448,7 +448,7 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(<<<'JSON'
             {
                 "name": "test-publication",
-                "canonicalField": "identifier",
+                "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
                 "pagination": {
