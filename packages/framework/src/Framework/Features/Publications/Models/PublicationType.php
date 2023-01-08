@@ -14,7 +14,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
-use Hyde\Pages\PublicationPage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
