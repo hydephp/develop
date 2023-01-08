@@ -435,6 +435,46 @@ class PublicationTypeTest extends TestCase
             JSON, $publicationType->toJson());
     }
 
+    public function testArrayRepresentationWithPaginationSettings()
+    {
+        $publicationType = new PublicationType('test-publication');
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => 'identifier',
+            'fields' => [],
+            'pagination' => [
+                'pageSize' => 25,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'prevNextLinks' => true,
+            ],
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+        ], $publicationType->toArray());
+    }
+
+    public function testJsonRepresentationWithPaginationSettings()
+    {
+        $publicationType = new PublicationType('test-publication');
+
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "identifier",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "pagination": {
+                    "sortField": "__createdAt",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 25
+                },
+                "fields": []
+            }
+            JSON, $publicationType->toJson());
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
