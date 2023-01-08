@@ -104,7 +104,7 @@ class PublicationType implements SerializableContract
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,
             'pagination' => $this->pagination?->toArray(),
-            'fields' => $this->fields,
+            'fields' => $this->fields->toArray(),
         ]);
     }
 
