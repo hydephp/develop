@@ -34,7 +34,7 @@ class PublicationTypeTest extends TestCase
                 $this->assertEquals($property, $publicationType->$key->toArray());
             } else {
                 if ($key === 'fields') {
-                    $this->assertEquals($property, $publicationType->$key->values()->toArray());
+                    $this->assertEquals($property, $publicationType->$key->toArray());
                 } else {
                     $this->assertEquals($property, $publicationType->$key);
                 }
@@ -150,7 +150,7 @@ class PublicationTypeTest extends TestCase
         ]));
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
-        $this->assertSame($fields, $publicationType->getFields()->values()->toArray());
+        $this->assertSame($fields, $publicationType->getFields()->toArray());
     }
 
     public function test_get_fields_method_returns_collection_of_field_objects()
