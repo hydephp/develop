@@ -11,6 +11,13 @@ use Hyde\Testing\TestCase;
  */
 class StaticSiteBuilderPublicationModuleTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['app.throw_on_console_exception' => true]);
+    }
+
     public function testCompilingWithPublicationTypeThatUsesThePublishedViews()
     {
 
