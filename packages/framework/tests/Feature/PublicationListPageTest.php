@@ -76,7 +76,10 @@ Hello World!
                 'pageSize'       => 10,
             ],
             'fields'         => [
-                'foo' => 'bar',
+                [
+                    'type' => 'string',
+                    'name' => 'Foo',
+                ]
             ],
         ];
     }
