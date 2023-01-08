@@ -52,6 +52,10 @@ class PublicationType implements SerializableContract
     /** @deprecated  The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
     public null|PaginationSettings $pagination;
 
+    public string $sortField = '__createdAt';
+    public bool $sortAscending = true;
+    public int $pageSize = 25;
+
     /**
      * The front matter fields used for the publications.
      *
