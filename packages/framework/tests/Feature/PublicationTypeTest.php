@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
 use function array_reverse;
-use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
