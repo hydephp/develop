@@ -128,6 +128,6 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     protected function getFilenamesInDirectory(string $directory): array
     {
-        return collect(Filesystem::files($directory))->map(fn($file) => $file->getFilename())->toArray();
+        return collect(Filesystem::files($directory))->map(fn ($file) => $file->getFilename())->toArray();
     }
 }
