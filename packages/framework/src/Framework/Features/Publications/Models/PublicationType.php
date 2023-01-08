@@ -197,6 +197,7 @@ class PublicationType implements SerializableContract
 
             return PaginationSettings::fromArray($pagination);
         }
+
         return $pagination;
     }
 }
