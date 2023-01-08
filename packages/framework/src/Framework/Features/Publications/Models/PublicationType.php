@@ -10,8 +10,10 @@ use Exception;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\Publications\Paginator;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
+use Hyde\Pages\PublicationPage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
@@ -144,9 +146,23 @@ class PublicationType implements SerializableContract
         return PublicationService::getPublicationsForPubType($this);
     }
 
+    public function getPaginator(int $currentPageNumber = null): Paginator
+    {
+        return new Paginator($this->getPublicationsSortedByPaginationField(),
+            $this->pagination->pageSize,
+            $currentPageNumber,
+            $this->getIdentifier()
+        );
+    }
+
     public function getListPage(): PublicationListPage
     {
         return new PublicationListPage($this);
+    }
+
+    public function usesPagination(): bool
+    {
+        return ($this->pagination->pageSize > 0) && ($this->pagination->pageSize < $this->getPublications()->count());
     }
 
     public function save(?string $path = null): void
@@ -164,5 +180,12 @@ class PublicationType implements SerializableContract
     protected static function getRelativeDirectoryEntry(string $schemaFile): array
     {
         return ['directory' => Hyde::pathToRelative(dirname($schemaFile))];
+    }
+
+    protected function getPublicationsSortedByPaginationField(): Collection
+    {
+        return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
+            return $page->matter($this->pagination->sortField);
+        }, descending: ! $this->pagination->sortAscending)->values();
     }
 }

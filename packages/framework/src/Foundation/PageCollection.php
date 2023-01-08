@@ -16,6 +16,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\VirtualPage;
 use Illuminate\Support\Collection;
 
 /**
@@ -126,5 +127,28 @@ final class PageCollection extends BaseFoundationCollection
     {
         $page = new PublicationListPage($type);
         $this->put($page->getSourcePath(), $page);
+
+        if ($type->usesPagination()) {
+            $this->generatePublicationPaginatedListingPagesForType($type);
+        }
+    }
+
+    /**
+     * @deprecated This method will be removed before merging into master.
+     *
+     * @internal This method will be removed before merging into master.
+     */
+    protected function generatePublicationPaginatedListingPagesForType(PublicationType $type): void
+    {
+        $paginator = $type->getPaginator();
+
+        foreach (range(1, $paginator->totalPages()) as $page) {
+            $paginator->setCurrentPage($page);
+            $listingPage = new VirtualPage("{$type->getDirectory()}/page-$page", [
+                'publicationType' => $type, 'paginatorPage' => $page,
+                'title' => $type->name.' - Page '.$page,
+            ], view: $type->listTemplate);
+            $this->put($listingPage->getSourcePath(), $listingPage);
+        }
     }
 }
