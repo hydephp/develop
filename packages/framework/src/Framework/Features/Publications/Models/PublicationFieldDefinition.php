@@ -64,8 +64,8 @@ class PublicationFieldDefinition implements SerializableContract
 
     protected function normalizeName(string $name): string
     {
-        // If it's a meta field we consider the name to already be normalized.
-        if (str_starts_with($name, '__')) {
+        // As long as the name doesn't contain any spaces it should be fine as is
+        if (! str_contains($name, ' ')) {
             return $name;
         } else {
             // Otherwise we normalize it to kebab case.
