@@ -173,7 +173,7 @@ class PublicationType implements SerializableContract
     public function getPaginator(int $currentPageNumber = null): Paginator
     {
         return new Paginator($this->getPublicationsSortedByPaginationField(),
-            $this->pagination->pageSize,
+            $this->pageSize,
             $currentPageNumber,
             $this->getIdentifier()
         );
@@ -186,7 +186,7 @@ class PublicationType implements SerializableContract
 
     public function usesPagination(): bool
     {
-        return ($this->pagination->pageSize > 0) && ($this->pagination->pageSize < $this->getPublications()->count());
+        return ($this->pageSize > 0) && ($this->pageSize < $this->getPublications()->count());
     }
 
     public function save(?string $path = null): void
@@ -209,8 +209,8 @@ class PublicationType implements SerializableContract
     protected function getPublicationsSortedByPaginationField(): Collection
     {
         return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
-            return $page->matter($this->pagination->sortField);
-        }, descending: ! $this->pagination->sortAscending)->values();
+            return $page->matter($this->sortField);
+        }, descending: ! $this->sortAscending)->values();
     }
 
     protected function parseFieldData(array $fields): Collection
