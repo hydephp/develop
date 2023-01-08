@@ -55,7 +55,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $seeder = new SeedsPublicationFiles(PublicationType::get('test-publication'), 5);
         $seeder->create();
 
-        $this->assertCount(8, Filesystem::files('test-publication'));
+        $this->assertCount(3 + 5, Filesystem::files('test-publication'));
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
