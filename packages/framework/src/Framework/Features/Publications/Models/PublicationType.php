@@ -107,6 +107,9 @@ class PublicationType implements SerializableContract
         $this->fields = $this->parseFieldData($fields);
         $this->directory = $directory ?? Str::slug($name);
         $this->pagination = $this->evaluatePaginationSettings($pagination);
+        $this->sortField = $sortField;
+        $this->sortAscending = $sortAscending;
+        $this->pageSize = $pageSize;
     }
 
     public function toArray(): array
