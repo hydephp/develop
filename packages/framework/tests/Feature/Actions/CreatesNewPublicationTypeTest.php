@@ -33,7 +33,6 @@ class CreatesNewPublicationTypeTest extends TestCase
             'canonical',
             'sort',
             false,
-            false,
             10
         );
         $creator->create();
