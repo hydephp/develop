@@ -115,11 +115,4 @@ class FrontMatterModelTest extends TestCase
         $matter = new FrontMatter(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $matter->toArray());
     }
-
-    public function test_forget()
-    {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $matter->forget('foo');
-        $this->assertFalse($matter->has('foo'));
-    }
 }

@@ -9,6 +9,7 @@ use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Features\Publications\ValidatesPublicationField;
+use Hyde\Markdown\Models\FrontMatter;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use function str_repeat;
@@ -65,7 +66,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             foreach ($publications as $publication) {
                 $countPubs++;
                 $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
-                $publication->matter->forget('__createdAt');
+                unset($publication->matter->data['__createdAt']);
 
                 foreach ($publication->type->getFields() as $field) {
                     $countFields++;
@@ -87,7 +88,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         $countErrors++;
                         $this->output->writeln(" <fg=red>$xMark\n        {$e->getMessage()}</>");
                     }
-                    $publication->matter->forget($fieldName);
+                    unset($publication->matter->data[$fieldName]);
                 }
 
                 foreach ($publication->matter->data as $k=>$v) {
