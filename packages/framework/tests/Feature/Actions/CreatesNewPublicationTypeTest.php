@@ -33,7 +33,6 @@ class CreatesNewPublicationTypeTest extends TestCase
             'canonical',
             'sort',
             false,
-            false,
             10
         );
         $creator->create();
@@ -48,7 +47,6 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "pagination": {
                     "sortField": "sort",
                     "sortAscending": false,
-                    "prevNextLinks": false,
                     "pageSize": 10
                 },
                 "fields": []
@@ -75,7 +73,6 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
-                    "prevNextLinks": true,
                     "pageSize": 25
                 },
                 "fields": []

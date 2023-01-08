@@ -13,8 +13,6 @@ class PaginationSettings implements SerializableContract
 
     public string $sortField = '__createdAt';
     public bool $sortAscending = true;
-    /** @deprecated This setting might be deprecated as its unlikely one would enable page size limits without a way to traverse them */
-    public bool $prevNextLinks = true;
     public int $pageSize = 25;
 
     public static function fromArray(array $data): static
@@ -22,11 +20,10 @@ class PaginationSettings implements SerializableContract
         return new static(...$data);
     }
 
-    public function __construct(string $sortField = '__createdAt', bool $sortAscending = true, bool $prevNextLinks = true, int $pageSize = 25)
+    public function __construct(string $sortField = '__createdAt', bool $sortAscending = true, int $pageSize = 25)
     {
         $this->sortField = $sortField;
         $this->sortAscending = $sortAscending;
-        $this->prevNextLinks = $prevNextLinks;
         $this->pageSize = $pageSize;
     }
 
@@ -35,7 +32,6 @@ class PaginationSettings implements SerializableContract
         return [
             'sortField' => $this->sortField,
             'sortAscending' => $this->sortAscending,
-            'prevNextLinks' => $this->prevNextLinks,
             'pageSize' => $this->pageSize,
         ];
     }

@@ -49,11 +49,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->fields = $this->captureFieldsDefinitions();
 
-        [$sortField, $sortAscending, $prevNextLinks, $pageSize] = ($this->getPaginationSettings());
+        [$sortField, $sortAscending, $pageSize] = ($this->getPaginationSettings());
 
         $canonicalField = $this->getCanonicalField();
 
-        $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize);
+        $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $pageSize);
         $this->output->writeln("Saving publication data to [{$creator->getOutputPath()}]");
         $creator->create();
 
@@ -188,16 +188,18 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getPaginationSettings(): array
     {
-        if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
-            return [null, null, null, null];
+        if ($this->option('use-defaults') || ! $this->confirm('Would you like to enable pagination?')) {
+            return [null, null, null];
         }
 
-        return [$this->getSortField(), $this->getSortDirection(), $this->getPrevNextLinks(), $this->getPageSize()];
+        $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
+
+        return [$this->getSortField(), $this->getSortDirection(), $this->getPageSize()];
     }
 
     protected function getSortField(): string
     {
-        return $this->choice('Choose the default field you wish to sort by', $this->fields->pluck('name')->toArray(), '__dateCreated');
+        return $this->choice('Choose the default field you wish to sort by', $this->fields->pluck('name')->toArray(), 0);
     }
 
     protected function getSortDirection(): bool
@@ -205,11 +207,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $options = ['Ascending' => true, 'Descending' => false];
 
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending')];
-    }
-
-    protected function getPrevNextLinks(): bool
-    {
-        return $this->confirm('Generate previous/next links in detail view?', true);
     }
 
     protected function getPageSize(): int

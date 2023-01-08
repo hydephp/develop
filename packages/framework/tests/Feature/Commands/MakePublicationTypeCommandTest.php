@@ -50,7 +50,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
             ], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
-            ->expectsConfirmation('Do you want to configure pagination settings?', 'yes')
+            ->expectsConfirmation('Would you like to enable pagination?', 'yes')
             ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
                 '__createdAt',
                 'publication-title',
@@ -59,7 +59,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Ascending',
                 'Descending',
             ])
-            ->expectsConfirmation('Generate previous/next links in detail view?', 'yes')
             ->expectsQuestion('Enter the page size (0 for no limit)', 10)
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'publication-title', [
                 '__createdAt',
@@ -81,7 +80,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
-                    "prevNextLinks": true,
                     "pageSize": 10
                 },
                 "fields": [
@@ -129,7 +127,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsConfirmation('Field #2 added! Add another field?')
 
-            ->expectsConfirmation('Do you want to configure pagination settings?')
+            ->expectsConfirmation('Would you like to enable pagination?')
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [
                 '__createdAt',
                 'bar',
@@ -188,7 +186,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
-                    "prevNextLinks": true,
                     "pageSize": 25
                 },
                 "fields": [
@@ -242,7 +239,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsOutput("Okay, we're back on track!")
             ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
-            ->expectsConfirmation('Do you want to configure pagination settings?')
+            ->expectsConfirmation('Would you like to enable pagination?')
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt'])
             ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
            ->assertSuccessful();
