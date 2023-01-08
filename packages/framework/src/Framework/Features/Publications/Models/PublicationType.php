@@ -18,6 +18,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function is_array;
 use function json_decode;
 use function json_encode;
 use RuntimeException;
@@ -189,10 +190,9 @@ class PublicationType implements SerializableContract
 
     protected function evaluatePaginationSettings(array|PaginationSettings $pagination): PaginationSettings
     {
-        if ($pagination instanceof PaginationSettings) {
-            return $pagination;
+        if (is_array($pagination)) {
+            return PaginationSettings::fromArray($pagination);
         }
-        
-        return PaginationSettings::fromArray($pagination);
+        return $pagination;
     }
 }
