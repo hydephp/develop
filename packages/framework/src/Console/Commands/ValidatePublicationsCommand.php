@@ -9,7 +9,6 @@ use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Features\Publications\ValidatesPublicationField;
-use Hyde\Markdown\Models\FrontMatter;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use function str_repeat;
