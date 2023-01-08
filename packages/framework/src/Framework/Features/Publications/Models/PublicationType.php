@@ -37,6 +37,7 @@ class PublicationType implements SerializableContract
 
     /**
      * The field name that is used as the canonical (or identifying) field of publications.
+     * 
      * It's used primarily for generating filenames, and the publications must thus be unique by this field.
      */
     public string $canonicalField = '__createdAt';
