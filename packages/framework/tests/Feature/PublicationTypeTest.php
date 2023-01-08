@@ -401,6 +401,25 @@ class PublicationTypeTest extends TestCase
         $this->assertFalse($publicationType->usesPagination());
     }
 
+    public function testArrayRepresentationWithDefaultValues()
+    {
+        $type = new PublicationType('test-publication');
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => 'identifier',
+            'fields' => [],
+            'pagination' => [
+                'pageSize' => 25,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'prevNextLinks' => true,
+            ],
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+        ], $type->toArray());
+    }
+
     public function testJsonRepresentationWithDefaultValues()
     {
         $type = new PublicationType('test-publication');
