@@ -48,6 +48,7 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
+    /** @deprecated as it's probably better to do this via the object constructor */
     protected function setupTestPublication(string $directory = 'test-publication')
     {
         Filesystem::copy('tests/fixtures/test-publication-schema.json', "$directory/schema.json");
