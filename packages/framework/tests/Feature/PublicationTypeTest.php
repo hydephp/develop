@@ -401,6 +401,27 @@ class PublicationTypeTest extends TestCase
         $this->assertFalse($publicationType->usesPagination());
     }
 
+    public function testJsonRepresentationWithDefaultValues()
+    {
+        $type = new PublicationType('test-publication');
+
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "identifier",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "pagination": {
+                    "sortField": "__createdAt",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 25
+                },
+                "fields": []
+            }
+            JSON, $type->toJson());
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
