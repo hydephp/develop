@@ -94,6 +94,9 @@ class PublicationType implements SerializableContract
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
         #[Deprecated]?array $pagination = [],
+        string $sortField = '__createdAt',
+        bool $sortAscending = true,
+        int $pageSize = 25,
         array $fields = [],
         ?string $directory = null
     ) {
