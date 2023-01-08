@@ -89,7 +89,7 @@ class PublicationType implements SerializableContract
         string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
-        string $sortField = '__createdAt', // Todo make nullable so it can default to $canonicalField
+        string $sortField = '__createdAt',
         bool $sortAscending = true,
         int $pageSize = 0,
         array $fields = [],
