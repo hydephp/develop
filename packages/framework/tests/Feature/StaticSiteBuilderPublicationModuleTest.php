@@ -13,6 +13,9 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
+use function collect;
+use function range;
+
 /**
  * Tests that publication pages are compiled properly when building the static site.
  *
