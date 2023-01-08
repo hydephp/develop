@@ -7,6 +7,10 @@ namespace Hyde\Framework\Features\Publications\Models;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
+/**
+ * @deprecated Since this class has now been simplified, and both sortField and sortAscending can be used outside of pagination,
+ *             this class is now longer needed and can be inlined into the PublicationType class.
+ */
 class PaginationSettings implements SerializableContract
 {
     use Serializable;
