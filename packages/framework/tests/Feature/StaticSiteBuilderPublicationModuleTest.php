@@ -69,8 +69,8 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $types = PublicationFieldTypes::collect();
 
         $array = [];
-        foreach ($types as $type) {
-            $array[] = [
+        foreach ($types as $index => $type) {
+            $array[$index] = [
                 'name' => "{$type->name}Field",
                 'type' => $type->value,
             ];
