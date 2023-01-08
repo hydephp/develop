@@ -173,7 +173,7 @@ class PublicationType implements SerializableContract
 
     public function getPaginator(int $currentPageNumber = null): Paginator
     {
-        return new Paginator($this->getSortedPublications(),
+        return new Paginator($this->getPublications(),
             $this->pageSize,
             $currentPageNumber,
             $this->getIdentifier()
@@ -205,13 +205,6 @@ class PublicationType implements SerializableContract
     protected static function getRelativeDirectoryEntry(string $schemaFile): array
     {
         return ['directory' => Hyde::pathToRelative(dirname($schemaFile))];
-    }
-
-    protected function getSortedPublications(): Collection
-    {
-        return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
-            return $page->matter($this->sortField);
-        }, descending: ! $this->sortAscending)->values();
     }
 
     protected function parseFieldData(array $fields): Collection
