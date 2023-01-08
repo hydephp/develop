@@ -188,7 +188,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getPaginationSettings(): array
     {
-        if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
+        if ($this->option('use-defaults') || ! $this->confirm('Would you like to enable pagination?')) {
             return [null, null, null, null];
         }
 
