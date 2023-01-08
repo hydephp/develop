@@ -6,6 +6,8 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Actions\SeedsPublicationFiles;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
@@ -47,6 +49,13 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $this->assertFileExists('_site/test-publication/index.html');
 
         $this->resetSite();
+
+        // Test site build with publications
+
+        $seeder = new SeedsPublicationFiles(PublicationType::get('test-publication'), 5);
+        $seeder->create();
+
+        $this->assertCount(8, Filesystem::files('test-publication'));
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
