@@ -36,7 +36,7 @@ class PublicationFieldDefinition implements SerializableContract
     public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [], ?string $tagGroup = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
-        $this->name = $this->normalizeName($name);
+        $this->name = str_contains($name, ' ') ? Str::kebab($name) : Str::ascii($name);
         $this->rules = $rules;
         $this->tagGroup = $tagGroup;
     }
@@ -59,18 +59,5 @@ class PublicationFieldDefinition implements SerializableContract
     public function getRules(): array
     {
         return array_merge($this->type->rules(), $this->rules);
-    }
-
-    /** Normalize the selected field name to ensure it's consistent and readable */
-    protected function normalizeName(string $name): string
-    {
-        // As long as the name doesn't contain any spaces it should be fine as-is,
-        // and this allows the user to use any case convention they want.
-        if (! str_contains($name, ' ')) {
-            return Str::ascii($name);
-        } else {
-            // Otherwise we normalize it to snake_case to ensure it's readable
-            return Str::kebab($name);
-        }
     }
 }
