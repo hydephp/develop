@@ -44,11 +44,9 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "canonicalField": "canonical",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
-                "pagination": {
-                    "sortField": "sort",
-                    "sortAscending": false,
-                    "pageSize": 10
-                },
+                "sortField": "sort",
+                "sortAscending": false,
+                "pageSize": 10,
                 "fields": []
             }
             JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
@@ -70,11 +68,9 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
-                "pagination": {
-                    "sortField": "__createdAt",
-                    "sortAscending": true,
-                    "pageSize": 25
-                },
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
                 "fields": []
             }
             JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
