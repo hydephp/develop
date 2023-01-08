@@ -25,7 +25,11 @@ abstract class CreateAction implements CreateActionContract
 
     abstract protected function handleCreate(): void;
 
-    /** @inheritDoc */
+    /**
+     * Create the file at the configured output path.
+     *
+     * @throws \Hyde\Framework\Exceptions\FileConflictException
+     */
     public function create(): void
     {
         if ($this->hasFileConflict()) {
@@ -35,7 +39,10 @@ abstract class CreateAction implements CreateActionContract
         $this->handleCreate();
     }
 
-    /** @inheritDoc */
+    /**
+     * @param  bool  $force  Should existing files at the output path be overwritten?
+     * @return $this
+     */
     public function force(bool $force = true): static
     {
         $this->force = $force;
@@ -43,7 +50,10 @@ abstract class CreateAction implements CreateActionContract
         return $this;
     }
 
-    /** @inheritDoc */
+    /**
+     * @param  string  $outputPath  Relative path.
+     * @return $this
+     */
     public function setOutputPath(string $outputPath): static
     {
         $this->outputPath = $outputPath;
@@ -51,25 +61,33 @@ abstract class CreateAction implements CreateActionContract
         return $this;
     }
 
-    /** @inheritDoc */
+    /**
+     * @return string Relative path.
+     */
     public function getOutputPath(): string
     {
         return $this->outputPath;
     }
 
-    /** @inheritDoc */
+    /**
+     * @return string Absolute path.
+     */
     public function getAbsoluteOutputPath(): string
     {
         return Hyde::path($this->getOutputPath());
     }
 
-    /** @inheritDoc */
+    /**
+     * @return bool Does a file at the output path already exist?
+     */
     public function fileExists(): bool
     {
         return file_exists($this->getAbsoluteOutputPath());
     }
 
-    /** @inheritDoc */
+    /**
+     * @return bool Will the action cause a file conflict exception?
+     */
     public function hasFileConflict(): bool
     {
         return $this->fileExists() && ! $this->force;
