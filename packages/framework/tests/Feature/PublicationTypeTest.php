@@ -437,7 +437,7 @@ class PublicationTypeTest extends TestCase
 
     public function testArrayRepresentationWithPaginationSettings()
     {
-        $publicationType = new PublicationType('test-publication');
+        $publicationType = new PublicationType('test-publication', pagination: new PaginationSettings());
 
         $this->assertSame([
             'name' => 'test-publication',
@@ -447,7 +447,6 @@ class PublicationTypeTest extends TestCase
                 'pageSize' => 25,
                 'sortField' => '__createdAt',
                 'sortAscending' => true,
-                'prevNextLinks' => true,
             ],
             'detailTemplate' => 'detail.blade.php',
             'listTemplate' => 'list.blade.php',
@@ -456,7 +455,7 @@ class PublicationTypeTest extends TestCase
 
     public function testJsonRepresentationWithPaginationSettings()
     {
-        $publicationType = new PublicationType('test-publication');
+        $publicationType = new PublicationType('test-publication', pagination: new PaginationSettings());
 
         $this->assertSame(<<<'JSON'
             {
@@ -467,7 +466,6 @@ class PublicationTypeTest extends TestCase
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
-                    "prevNextLinks": true,
                     "pageSize": 25
                 },
                 "fields": []
