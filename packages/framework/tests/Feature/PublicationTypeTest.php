@@ -284,9 +284,7 @@ class PublicationTypeTest extends TestCase
     public function testGetPaginatorWithCustomPublicationTypePaginationSettings()
     {
         $publicationType = new PublicationType(...$this->getTestData([
-            'pagination' => [
-                'pageSize' => 10,
-            ],
+            'pageSize' => 10,
         ]));
         $this->assertEquals(
             (new Paginator(pageSize: 10, paginationRouteBasename: 'test-publication')),
@@ -298,10 +296,9 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
 
-        $paginationSettings = new PaginationSettings('myNumber');
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings->toArray(), fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', sortField: 'myNumber', fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -320,10 +317,9 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
 
-        $paginationSettings = new PaginationSettings('myNumber', false);
         $fields = [['name' => 'myNumber', 'type' => 'integer']];
 
-        $publicationType = new PublicationType('test-publication', 'myNumber', pagination: $paginationSettings->toArray(), fields: $fields);
+        $publicationType = new PublicationType('test-publication', 'myNumber', sortField: 'myNumber', sortAscending: false, fields: $fields);
         $publicationType->save();
 
         $pages[0] = (new PublicationPage('test-publication/page-1', ['myNumber' => 5], type: $publicationType))->save();
@@ -342,9 +338,7 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
         $publicationType = new PublicationType(...$this->getTestData([
-            'pagination' => [
-                'pageSize' => 1,
-            ],
+            'pageSize' => 1,
         ]));
         $publicationType->save();
 
@@ -358,9 +352,7 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
         $publicationType = new PublicationType(...$this->getTestData([
-            'pagination' => [
-                'pageSize' => 0,
-            ],
+            'pageSize' => 0,
         ]));
         $publicationType->save();
 
@@ -374,9 +366,7 @@ class PublicationTypeTest extends TestCase
     {
         $this->directory('test-publication');
         $publicationType = new PublicationType(...$this->getTestData([
-            'pagination' => [
-                'pageSize' => 2,
-            ],
+            'pageSize' => 2,
         ]));
         $publicationType->save();
 
