@@ -118,11 +118,9 @@ class PublicationPageTest extends TestCase
   "canonicalField": "slug",
   "detailTemplate": "test_detail.blade.php",
   "listTemplate": "test_list.blade.php",
-  "pagination": {
-      "sortField": "__createdAt",
-      "sortAscending": true,
-      "pageSize": 0
-  },
+  "sortField": "__createdAt",
+  "sortAscending": true,
+  "pageSize": 0,
   "fields": [
     {
       "name": "slug",

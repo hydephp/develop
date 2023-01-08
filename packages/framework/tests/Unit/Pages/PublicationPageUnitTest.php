@@ -244,7 +244,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
             'canonicalField',
             'detail.blade.php',
             'list.blade.php',
-            ['sortField', true, 1],
+            'sortField', true, 1,
             [],
             'directory'
         );

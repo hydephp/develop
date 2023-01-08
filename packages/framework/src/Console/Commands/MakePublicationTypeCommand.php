@@ -186,6 +186,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
     }
 
+    /** @deprecated Since the pagination settings object is deprecated we should just inline these */
     protected function getPaginationSettings(): array
     {
         if ($this->option('use-defaults') || ! $this->confirm('Would you like to enable pagination?')) {

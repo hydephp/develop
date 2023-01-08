@@ -70,11 +70,9 @@ Hello World!
             'canonicalField' => 'canonical',
             'detailTemplate' => 'detail.blade.php',
             'listTemplate'   => 'list.blade.php',
-            'pagination' => [
-                'sortField'      => 'sort',
-                'sortAscending'  => true,
-                'pageSize'       => 10,
-            ],
+            'sortField'      => 'sort',
+            'sortAscending'  => true,
+            'pageSize'       => 10,
             'fields'         => [
                 [
                     'type' => 'string',

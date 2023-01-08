@@ -77,11 +77,9 @@ class MakePublicationTypeCommandTest extends TestCase
                 "canonicalField": "publication-title",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
-                "pagination": {
-                    "sortField": "__createdAt",
-                    "sortAscending": true,
-                    "pageSize": 10
-                },
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 10,
                 "fields": [
                     {
                         "type": "datetime",
@@ -183,11 +181,9 @@ class MakePublicationTypeCommandTest extends TestCase
                 "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
-                "pagination": {
-                    "sortField": "__createdAt",
-                    "sortAscending": true,
-                    "pageSize": 25
-                },
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
                 "fields": [
                     {
                         "type": "datetime",

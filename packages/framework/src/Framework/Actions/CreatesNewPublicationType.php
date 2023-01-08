@@ -39,11 +39,9 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             $this->canonicalField ?? '__createdAt',
             'detail.blade.php',
             'list.blade.php',
-            [
-                $this->sortField ?? '__createdAt',
-                $this->sortAscending ?? true,
-                $this->pageSize ?? 25,
-            ],
+            $this->sortField ?? '__createdAt',
+            $this->sortAscending ?? true,
+            $this->pageSize ?? 25,
             $this->fields->toArray()
         ))->save($this->outputPath);
 

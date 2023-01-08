@@ -19,7 +19,6 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\Deprecated;
 use function json_decode;
 use function json_encode;
 use RuntimeException;
@@ -49,8 +48,14 @@ class PublicationType implements SerializableContract
     /** The Blade filename or view identifier used for rendering the index page (or index pages, when using pagination) */
     public string $listTemplate = 'list.blade.php';
 
-    /** @deprecated  The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
-    public null|PaginationSettings $pagination;
+    /** The field that is used for sorting publications. */
+    public string $sortField = '__createdAt';
+
+    /** Whether the sort field should be sorted in ascending order. */
+    public bool $sortAscending = true;
+
+    /** The number of publications to show per paginated page. Set to 0 to disable pagination. */
+    public int $pageSize = 0;
 
     /**
      * The front matter fields used for the publications.
@@ -84,7 +89,9 @@ class PublicationType implements SerializableContract
         string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
-        #[Deprecated]?array $pagination = [],
+        string $sortField = '__createdAt',
+        bool $sortAscending = true,
+        int $pageSize = 0,
         array $fields = [],
         ?string $directory = null
     ) {
@@ -94,7 +101,9 @@ class PublicationType implements SerializableContract
         $this->listTemplate = $listTemplate;
         $this->fields = $this->parseFieldData($fields);
         $this->directory = $directory ?? Str::slug($name);
-        $this->pagination = $this->evaluatePaginationSettings($pagination);
+        $this->sortField = $sortField;
+        $this->sortAscending = $sortAscending;
+        $this->pageSize = $pageSize;
     }
 
     public function toArray(): array
@@ -104,7 +113,9 @@ class PublicationType implements SerializableContract
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,
-            'pagination' => $this->pagination?->toArray(),
+            'sortField' => $this->sortField,
+            'sortAscending' => $this->sortAscending,
+            'pageSize' => $this->pageSize,
             'fields' => $this->fields->toArray(),
         ]);
     }
@@ -163,7 +174,7 @@ class PublicationType implements SerializableContract
     public function getPaginator(int $currentPageNumber = null): Paginator
     {
         return new Paginator($this->getPublicationsSortedByPaginationField(),
-            $this->pagination->pageSize,
+            $this->pageSize,
             $currentPageNumber,
             $this->getIdentifier()
         );
@@ -176,7 +187,7 @@ class PublicationType implements SerializableContract
 
     public function usesPagination(): bool
     {
-        return ($this->pagination->pageSize > 0) && ($this->pagination->pageSize < $this->getPublications()->count());
+        return ($this->pageSize > 0) && ($this->pageSize < $this->getPublications()->count());
     }
 
     public function save(?string $path = null): void
@@ -199,8 +210,8 @@ class PublicationType implements SerializableContract
     protected function getPublicationsSortedByPaginationField(): Collection
     {
         return $this->getPublications()->sortBy(function (PublicationPage $page): mixed {
-            return $page->matter($this->pagination->sortField);
-        }, descending: ! $this->pagination->sortAscending)->values();
+            return $page->matter($this->sortField);
+        }, descending: ! $this->sortAscending)->values();
     }
 
     protected function parseFieldData(array $fields): Collection
@@ -208,15 +219,6 @@ class PublicationType implements SerializableContract
         return Collection::make($fields)->map(function (array $data): PublicationFieldDefinition {
             return new PublicationFieldDefinition(...$data);
         });
-    }
-
-    protected function evaluatePaginationSettings(array $pagination): ?PaginationSettings
-    {
-        if (empty($pagination)) {
-            return null;
-        }
-
-        return PaginationSettings::fromArray($pagination);
     }
 
     protected function withoutNullValues(array $array): array

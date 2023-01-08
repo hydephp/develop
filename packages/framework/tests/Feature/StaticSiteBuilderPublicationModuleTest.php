@@ -130,7 +130,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
         $type = PublicationType::get('test-publication');
         $type->listTemplate = 'hyde::layouts.publication_paginated_list';
-        $type->pagination->pageSize = 2;
+        $type->pageSize = 2;
         $type->save();
 
         foreach (range(1, 5) as $i) {
