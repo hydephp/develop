@@ -125,7 +125,34 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
     {
-        $this->markTestIncomplete();
+        $this->directory('test-publication');
+
+        (new CreatesNewPublicationType('Test Publication', collect([])))->create();
+
+        $type = PublicationType::get('test-publication');
+        $type->listTemplate = 'hyde::layouts.publication_paginated_list';
+        $type->pagination->pageSize = 2;
+        $type->save();
+
+        foreach (range(1, 5) as $i) {
+            $this->file("test-publication/publication-$i.md", "## Test publication $i");
+        }
+
+        $this->artisan('build')->assertSuccessful();
+
+        $this->assertSame([
+            'index.html',
+            'page-1.html',
+            'page-2.html',
+            'page-3.html',
+            'publication-1.html',
+            'publication-2.html',
+            'publication-3.html',
+            'publication-4.html',
+            'publication-5.html',
+        ], $this->getFilenamesInDirectory('_site/test-publication'));
+
+        $this->resetSite();
     }
 
     public function testCompilingWithPublicationTypeThatUsesThePaginatedVendorViews()
