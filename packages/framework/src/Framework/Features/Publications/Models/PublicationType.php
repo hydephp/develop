@@ -19,7 +19,6 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function is_array;
 use function json_decode;
 use function json_encode;
 use RuntimeException;
