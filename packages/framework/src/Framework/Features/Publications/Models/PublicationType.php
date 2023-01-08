@@ -49,7 +49,7 @@ class PublicationType implements SerializableContract
     /** The Blade filename or view identifier used for rendering the index page (or index pages, when using pagination) */
     public string $listTemplate = 'list.blade.php';
 
-    /** The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
+    /** @deprecated  The pagination settings. Set to null to disable pagination. Make sure your list view supports it when enabled. */
     public null|PaginationSettings $pagination;
 
     /**
