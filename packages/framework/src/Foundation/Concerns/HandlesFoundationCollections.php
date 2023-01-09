@@ -38,7 +38,7 @@ trait HandlesFoundationCollections
 
     protected function needsToBeBooted(): void
     {
-        if (! $this->booted) {
+        if (! $this->isBooted()) {
             throw new \BadMethodCallException('The Hyde kernel needs to be booted before you can access the collections.');
         }
     }

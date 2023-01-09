@@ -22,9 +22,12 @@ use function is_subclass_of;
  */
 trait ManagesHydeKernel
 {
+    /** @var bool Is the Kernel currently booting? */
+    protected bool $booting = false;
+
     public function isBooted(): bool
     {
-        return $this->booted;
+        return $this->booted || $this->booting;
     }
 
     public function boot(): void
@@ -33,10 +36,13 @@ trait ManagesHydeKernel
             return;
         }
 
+        $this->booting = true;
+
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
 
+        $this->booting = false;
         $this->booted = true;
     }
 
