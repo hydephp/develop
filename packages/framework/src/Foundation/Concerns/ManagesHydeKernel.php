@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
-use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\PageCollection;
-use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use function in_array;
