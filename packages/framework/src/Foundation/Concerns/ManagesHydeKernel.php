@@ -52,14 +52,12 @@ trait ManagesHydeKernel
             throw new BadMethodCallException('The HydeKernel cannot be booted yet.');
         }
 
-        $this->booting = true;
         $this->canBoot = false;
 
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
 
-        $this->booting = false;
         $this->booted = true;
     }
 
