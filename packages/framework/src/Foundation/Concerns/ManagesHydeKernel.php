@@ -33,11 +33,11 @@ trait ManagesHydeKernel
             return;
         }
 
-        $this->booted = true;
-
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
+
+        $this->booted = true;
     }
 
     /** @internal Reboot the kernel - useful for resetting the application during testing */
