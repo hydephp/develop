@@ -24,7 +24,7 @@ trait ManagesHydeKernel
 {
     public function isBooted(): bool
     {
-        return $this->bootState !== self::NOT_BOOTED;
+        return $this->bootState !== 0;
     }
 
     public function boot(): void
@@ -33,13 +33,13 @@ trait ManagesHydeKernel
             return;
         }
 
-        $this->bootState = self::BOOTING;
+        $this->bootState = 1;
 
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
 
-        $this->bootState = self::BOOTED;
+        $this->bootState = 2;
     }
 
     /** @internal Reboot the kernel - useful for resetting the application during testing */

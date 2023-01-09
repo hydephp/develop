@@ -54,14 +54,11 @@ class HydeKernel implements SerializableContract
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
-    protected int $bootState = self::NOT_BOOTED;
+    /** @var int 0 = not booted, 1 = booting, 2 = booted */
+    protected int $bootState = 0;
     protected array $pageClasses = [];
 
     final public const VERSION = '1.0.0-dev';
-
-    protected final const NOT_BOOTED = 0;
-    protected final const BOOTING = 1;
-    protected final const BOOTED = 2;
 
     public function __construct(?string $basePath = null, string $sourceRoot = '')
     {
