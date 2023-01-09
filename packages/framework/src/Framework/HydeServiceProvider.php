@@ -45,8 +45,6 @@ class HydeServiceProvider extends ServiceProvider
 
         Hyde::setSourceRoot(config('hyde.source_root', ''));
 
-        $this->registerPageModels();
-
         $this->registerSourceDirectories([
             HtmlPage::class => '_pages',
             BladePage::class => '_pages',
@@ -106,36 +104,6 @@ class HydeServiceProvider extends ServiceProvider
     {
         if (YamlConfigurationService::hasFile()) {
             YamlConfigurationService::boot();
-        }
-    }
-
-    /**
-     * Register the page model classes that Hyde should use.
-     */
-    protected function registerPageModels(): void
-    {
-        return; // TODO
-
-        // TODO use the hyde facade once it gets the method annotations
-
-        if (Features::hasHtmlPages()) {
-            HydeKernel::getInstance()->registerPageClass(HtmlPage::class);
-        }
-
-        if (Features::hasBladePages()) {
-            HydeKernel::getInstance()->registerPageClass(BladePage::class);
-        }
-
-        if (Features::hasMarkdownPages()) {
-            HydeKernel::getInstance()->registerPageClass(MarkdownPage::class);
-        }
-
-        if (Features::hasMarkdownPosts()) {
-            HydeKernel::getInstance()->registerPageClass(MarkdownPost::class);
-        }
-
-        if (Features::hasDocumentationPages()) {
-            HydeKernel::getInstance()->registerPageClass(DocumentationPage::class);
         }
     }
 
