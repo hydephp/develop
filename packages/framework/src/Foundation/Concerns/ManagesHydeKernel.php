@@ -22,30 +22,20 @@ use function is_subclass_of;
  */
 trait ManagesHydeKernel
 {
-    /**
-     * @var bool Is the Kernel currently booting?
-     *
-     * @deprecated As I don't think it's solving the right problem.
-     */
-    protected bool $booting = false;
-
-    /** @var bool Is the Kernel ready to be booted? */
-    protected bool $readyToBoot = false;
-
     public function isBooted(): bool
     {
-        return $this->booted;
+        return $this->bootState->isBooted();
     }
 
     public function canBoot(): bool
     {
-        return $this->readyToBoot && ! $this->booting;
+        return $this->bootState->canBoot();
     }
 
     /** @internal */
     public function readyToBoot(): void
     {
-        $this->readyToBoot = true;
+        $this->bootState->ready();
     }
 
     public function boot(): void
@@ -54,22 +44,21 @@ trait ManagesHydeKernel
             return;
         }
 
-        if (! $this->readyToBoot) {
+        if (! $this->bootState->isReady()) {
             throw new BadMethodCallException('The HydeKernel cannot be booted yet.');
         }
 
-        if ($this->booting) {
+        if ($this->bootState->isBooting()) {
             throw new BadMethodCallException('The HydeKernel is already booting.');
         }
 
-        $this->booting = true;
+        $this->bootState->booting();
 
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
 
-        $this->booting = false;
-        $this->booted = true;
+        $this->bootState->booted();
     }
 
     /** @internal Reboot the kernel - useful for resetting the application during testing */

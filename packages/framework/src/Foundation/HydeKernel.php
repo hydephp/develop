@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
+use Hyde\Foundation\Internal\BootState;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Traits\Macroable;
@@ -54,7 +55,7 @@ class HydeKernel implements SerializableContract
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
-    protected bool $booted = false;
+    protected BootState $bootState;
     protected array $pageClasses = [];
 
     final public const VERSION = '1.0.0-dev';
@@ -65,6 +66,7 @@ class HydeKernel implements SerializableContract
         $this->setSourceRoot($sourceRoot);
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+        $this->bootState = new BootState();
     }
 
     public static function version(): string
