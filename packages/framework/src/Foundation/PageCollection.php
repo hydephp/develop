@@ -133,7 +133,8 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPublicationPagesForType(PublicationType $type): void
     {
-        PublicationService::getPublicationsForPubType($type)->each(function (PublicationPage $publication): void {
+        $collection = PublicationService::getPublicationsForPubType($type);
+        $collection->each(function (PublicationPage $publication): void {
             $this->addPage($publication);
         });
     }
