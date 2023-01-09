@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Foundation\HydeKernel;
 use function file_get_contents;
 use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
@@ -61,5 +62,10 @@ abstract class TestCase extends BaseTestCase
         } else {
             $this->assertEquals(normalize_newlines($string), normalize_newlines(file_get_contents(Hyde::path($path))));
         }
+    }
+
+    protected function rebootCollections(): void
+    {
+        HydeKernel::getInstance()->rebootCollections();
     }
 }
