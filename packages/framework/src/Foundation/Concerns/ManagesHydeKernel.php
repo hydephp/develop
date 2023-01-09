@@ -22,6 +22,11 @@ use function is_subclass_of;
  */
 trait ManagesHydeKernel
 {
+    public function isBooted(): bool
+    {
+        return $this->booted;
+    }
+
     public function boot(): void
     {
         $this->booted = true;
