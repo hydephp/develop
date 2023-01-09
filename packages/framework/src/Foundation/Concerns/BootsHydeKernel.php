@@ -101,6 +101,7 @@ trait BootsHydeKernel
 
     /**
      * @internal
+     *
      * @todo Cherry pick to master
      */
     public function rebootCollections(): void
