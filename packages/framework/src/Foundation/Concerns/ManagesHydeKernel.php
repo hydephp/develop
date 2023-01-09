@@ -53,6 +53,7 @@ trait ManagesHydeKernel
         }
 
         $this->booting = true;
+        $this->canBoot = false;
 
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
