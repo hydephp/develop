@@ -10,6 +10,7 @@ use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -40,7 +41,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        collect(Hyde::getDiscoveredPageTypes())->each(function (string $pageClass): void {
+        collect($this->getPageTypes())->each(function (string $pageClass): void {
             $this->compilePagesForClass($pageClass);
         });
     }
@@ -120,5 +121,13 @@ class BuildService
     protected function safeOutputDirectories(): array
     {
         return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
+    }
+
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage> */
+    protected function getPageTypes(): array
+    {
+        return Hyde::pages()->map(function (HydePage $page): string {
+            return $page::class;
+        })->unique()->values()->toArray();
     }
 }
