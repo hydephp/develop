@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
-use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\PageCollection;
-use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use function in_array;
@@ -22,15 +19,6 @@ use function is_subclass_of;
  */
 trait ManagesHydeKernel
 {
-    public function boot(): void
-    {
-        $this->booted = true;
-
-        $this->files = FileCollection::boot($this);
-        $this->pages = PageCollection::boot($this);
-        $this->routes = RouteCollection::boot($this);
-    }
-
     public static function getInstance(): HydeKernel
     {
         return static::$instance;
