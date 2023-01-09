@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework;
 
 use Hyde\Console\HydeConsoleServiceProvider;
-use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
