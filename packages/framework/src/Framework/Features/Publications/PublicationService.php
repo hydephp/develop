@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Pages\Concerns\HydePage;
 use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
@@ -39,8 +40,8 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        $collection = Hyde::pages()->filter(function (PublicationPage $page) use ($pubType): bool {
-            return $page->type->getDirectory() === $pubType->getDirectory();
+        $collection = Hyde::pages()->filter(function (HydePage $page) use ($pubType): bool {
+            return $page instanceof PublicationPage && $page->type->getDirectory() === $pubType->getDirectory();
         });
 
         $sorted = $collection->sortBy(function (PublicationPage $page) use ($pubType): mixed {
