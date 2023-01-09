@@ -39,8 +39,6 @@ trait BootsHydeKernel
     {
         // To give package developers ample time to register their services,
         // don't want to boot the kernel until all providers have been registered.
-        // This method is called by the HydeServiceProvider's boot method, indicating
-        // that it's okay to boot the kernel now.
 
         $this->readyToBoot = true;
     }
