@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\HydeKernel;
 use function collect;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
@@ -136,6 +137,8 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         foreach (range(1, 5) as $i) {
             $this->file("test-publication/publication-$i.md", "## Test publication $i");
         }
+
+        $this->rebootCollections();
 
         $this->artisan('build')->assertSuccessful();
 
