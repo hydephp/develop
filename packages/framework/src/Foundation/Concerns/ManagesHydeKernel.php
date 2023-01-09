@@ -40,6 +40,16 @@ trait ManagesHydeKernel
         $this->routes = RouteCollection::boot($this);
     }
 
+    /** @internal Reboot the kernel - useful for resetting the application during testing */
+    public static function reboot(): void
+    {
+        $kernel = static::getInstance();
+
+        $kernel->files = FileCollection::boot($kernel);
+        $kernel->pages = PageCollection::boot($kernel);
+        $kernel->routes = RouteCollection::boot($kernel);
+    }
+
     public static function getInstance(): HydeKernel
     {
         return static::$instance;
