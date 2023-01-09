@@ -32,6 +32,7 @@ use Illuminate\Support\Traits\Macroable;
  */
 class HydeKernel implements SerializableContract
 {
+    use Concerns\ManagesHydeKernelBootState;
     use Concerns\HandlesFoundationCollections;
     use Concerns\ImplementsStringHelpers;
     use Concerns\ForwardsHyperlinks;
