@@ -48,7 +48,7 @@ class PublicationService
             return $page->matter($pubType->sortField);
         }, descending: ! $pubType->sortAscending)->values();
 
-        return $sorted;
+        return $sorted->toBase();
     }
 
     /**
