@@ -20,7 +20,7 @@ trait BootsHydeKernel
 
     public function boot(): void
     {
-        if (! $this->readyToBoot ||  $this->booting) {
+        if (! $this->readyToBoot || $this->booting) {
             return;
         }
 
