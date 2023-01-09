@@ -114,24 +114,26 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerPageModels(): void
     {
+        // TODO use the hyde facade once it gets the method annotations
+
         if (Features::hasHtmlPages()) {
-            Hyde::registerPageClass(HtmlPage::class);
+            HydeKernel::getInstance()->registerPageClass(HtmlPage::class);
         }
 
         if (Features::hasBladePages()) {
-            Hyde::registerPageClass(BladePage::class);
+            HydeKernel::getInstance()->registerPageClass(BladePage::class);
         }
 
         if (Features::hasMarkdownPages()) {
-            Hyde::registerPageClass(MarkdownPage::class);
+            HydeKernel::getInstance()->registerPageClass(MarkdownPage::class);
         }
 
         if (Features::hasMarkdownPosts()) {
-            Hyde::registerPageClass(MarkdownPost::class);
+            HydeKernel::getInstance()->registerPageClass(MarkdownPost::class);
         }
 
         if (Features::hasDocumentationPages()) {
-            Hyde::registerPageClass(DocumentationPage::class);
+            HydeKernel::getInstance()->registerPageClass(DocumentationPage::class);
         }
     }
 
