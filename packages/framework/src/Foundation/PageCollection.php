@@ -16,6 +16,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\PublicationPage;
 use Hyde\Pages\VirtualPage;
 use Illuminate\Support\Collection;
 
@@ -132,7 +133,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPublicationPagesForType(PublicationType $type): void
     {
-        PublicationService::getPublicationsForPubType($type)->each(function ($publication): void {
+        PublicationService::getPublicationsForPubType($type)->each(function (PublicationPage $publication): void {
             $this->addPage($publication);
         });
     }
