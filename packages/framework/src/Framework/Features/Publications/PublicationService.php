@@ -45,7 +45,7 @@ class PublicationService
 
         $sorted = $collection->sortBy(function (PublicationPage $page) use ($pubType): mixed {
             return $page->matter($pubType->sortField);
-        }, descending: !$pubType->sortAscending)->values();
+        }, descending: ! $pubType->sortAscending)->values();
 
         return $sorted;
     }
