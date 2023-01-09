@@ -10,6 +10,7 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
@@ -19,6 +20,8 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\PublicationPage;
 use Hyde\Pages\VirtualPage;
 use Illuminate\Support\Collection;
+
+use function glob;
 
 /**
  * The PageCollection contains all the instantiated pages.
@@ -133,7 +136,10 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPublicationPagesForType(PublicationType $type): void
     {
-        $collection = PublicationService::getPublicationsForPubType($type);
+        $collection = Collection::make(glob(Hyde::path($type->getDirectory()."/*.md")))->map(function (string $file): PublicationPage {
+            return PublicationService::parsePublicationFile(Hyde::pathToRelative($file));
+        });
+
         $collection->each(function (PublicationPage $publication): void {
             $this->addPage($publication);
         });

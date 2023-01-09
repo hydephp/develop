@@ -39,10 +39,6 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        $collection = Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
-            return static::parsePublicationFile(Hyde::pathToRelative($file));
-        });
-
         $sorted = $collection->sortBy(function (PublicationPage $page) use ($pubType): mixed {
             return $page->matter($pubType->sortField);
         }, descending: ! $pubType->sortAscending)->values();
