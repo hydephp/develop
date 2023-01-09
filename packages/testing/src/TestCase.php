@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Foundation\HydeKernel;
 use function file_get_contents;
 use Hyde\Facades\Features;
 use Hyde\Hyde;
@@ -45,6 +46,16 @@ abstract class TestCase extends BaseTestCase
         Features::clearMockedInstances();
 
         parent::tearDown();
+    }
+
+    protected function rebootKernel(): void
+    {
+        HydeKernel::reboot();
+    }
+
+    protected function discoverNewFiles(): void
+    {
+        $this->rebootKernel();
     }
 
     protected function assertFileEqualsString(string $string, string $path, bool $strict = false): void
