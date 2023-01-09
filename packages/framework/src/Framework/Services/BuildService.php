@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Pages\Concerns\HydePage;
 use function collect;
 use Hyde\Facades\Site;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
