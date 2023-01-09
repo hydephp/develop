@@ -52,6 +52,10 @@ trait ManagesHydeKernel
             throw new BadMethodCallException('The HydeKernel cannot be booted yet.');
         }
 
+        if ($this->booting) {
+            throw new BadMethodCallException('The HydeKernel is already booting.');
+        }
+
         $this->booting = true;
 
         $fileCollection = FileCollection::boot($this);
