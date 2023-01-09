@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
-use Hyde\Foundation\HydeKernel;
 use function file_get_contents;
 use Hyde\Facades\Features;
 use Hyde\Hyde;
