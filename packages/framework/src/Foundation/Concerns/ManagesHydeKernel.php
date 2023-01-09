@@ -37,6 +37,11 @@ trait ManagesHydeKernel
         return $this->booted;
     }
 
+    public function canBoot(): bool
+    {
+        return $this->canBoot && ! $this->booting;
+    }
+
     /** @internal */
     public function readyToBoot(): void
     {
