@@ -76,6 +76,11 @@ class StaticSiteServiceTest extends TestCase
         $this->file('_docs/docs.md');
 
         $this->artisan('build')
+            ->expectsOutput('Creating Html Pages...')
+            ->expectsOutput('Creating Blade Pages...')
+            ->expectsOutput('Creating Markdown Pages...')
+            ->expectsOutput('Creating Markdown Posts...')
+            ->expectsOutput('Creating Documentation Pages...')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/html.html'));
