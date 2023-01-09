@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use function glob;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -20,8 +21,6 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\PublicationPage;
 use Hyde\Pages\VirtualPage;
 use Illuminate\Support\Collection;
-
-use function glob;
 
 /**
  * The PageCollection contains all the instantiated pages.
@@ -136,7 +135,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPublicationPagesForType(PublicationType $type): void
     {
-        $collection = Collection::make(glob(Hyde::path($type->getDirectory()."/*.md")))->map(function (string $file): PublicationPage {
+        $collection = Collection::make(glob(Hyde::path($type->getDirectory().'/*.md')))->map(function (string $file): PublicationPage {
             return PublicationService::parsePublicationFile(Hyde::pathToRelative($file));
         });
 

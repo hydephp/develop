@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Pages\Concerns\HydePage;
 use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
