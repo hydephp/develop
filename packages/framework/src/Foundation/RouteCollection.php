@@ -46,7 +46,7 @@ final class RouteCollection extends BaseFoundationCollection
     /**
      * This method adds the specified route to the route index.
      * It can be used by package developers to hook into the routing system.
-
+     *
      * Note that this method when used outside of this class is only intended to be used for adding on-off routes;
      * If you are registering multiple routes, you may instead want to register an entire custom page class,
      * as that will allow you to utilize the full power of the HydePHP autodiscovery. In addition,
