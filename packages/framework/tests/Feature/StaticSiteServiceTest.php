@@ -76,6 +76,12 @@ class StaticSiteServiceTest extends TestCase
         $this->file('_docs/docs.md');
 
         $this->artisan('build')
+            ->expectsOutput('Creating Html Pages...')
+            ->expectsOutput('Creating Blade Pages...')
+            ->expectsOutput('Creating Markdown Pages...')
+            ->expectsOutput('Creating Markdown Posts...')
+            ->expectsOutput('Creating Documentation Pages...')
+            ->doesntExpectOutputToContain('Creating')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/html.html'));
@@ -89,6 +95,26 @@ class StaticSiteServiceTest extends TestCase
         unlink(Hyde::path('_site/markdown.html'));
         unlink(Hyde::path('_site/posts/post.html'));
         unlink(Hyde::path('_site/docs/docs.html'));
+    }
+
+    public function test_only_progress_bars_for_types_with_pages_are_shown()
+    {
+        $this->file('_pages/blade.blade.php');
+        $this->file('_pages/markdown.md');
+
+        $this->artisan('build')
+            ->doesntExpectOutput('Creating Html Pages...')
+            ->expectsOutput('Creating Blade Pages...')
+            ->expectsOutput('Creating Markdown Pages...')
+            ->doesntExpectOutput('Creating Markdown Posts...')
+            ->doesntExpectOutput('Creating Documentation Pages...')
+            ->doesntExpectOutputToContain('Creating')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/blade.html'));
+        $this->assertFileExists(Hyde::path('_site/markdown.html'));
+        unlink(Hyde::path('_site/blade.html'));
+        unlink(Hyde::path('_site/markdown.html'));
     }
 
     public function test_print_initial_information_allows_api_to_be_disabled()
