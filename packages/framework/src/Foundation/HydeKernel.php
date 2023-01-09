@@ -54,8 +54,7 @@ class HydeKernel implements SerializableContract
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
-    /** @var int 0 = not booted, 1 = booting, 2 = booted */
-    protected int $bootState = 0;
+    protected bool $booted = false;
     protected array $pageClasses = [];
 
     final public const VERSION = '1.0.0-dev';
