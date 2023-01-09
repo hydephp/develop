@@ -68,9 +68,7 @@ trait ManagesHydeKernel
      */
     public function getDiscoveredPageTypes(): array
     {
-        return $this->pages()->map(function (HydePage $page): string {
-            return $page::class;
-        })->unique()->values()->toArray();
+        return $this->getRegisteredPageClasses();
     }
 
     /**
