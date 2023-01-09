@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Pages\Concerns\HydePage;
 use function collect;
 use Hyde\Facades\Site;
 use Hyde\Foundation\RouteCollection;
@@ -125,6 +126,8 @@ class BuildService
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage> */
     protected function getPageTypes(): array
     {
-        return Hyde::getDiscoveredPageTypes();
+        return Hyde::pages()->map(function (HydePage $page): string {
+            return $page::class;
+        })->unique()->values()->toArray();
     }
 }
