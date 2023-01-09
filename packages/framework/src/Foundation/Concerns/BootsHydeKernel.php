@@ -20,10 +20,13 @@ trait BootsHydeKernel
 
     public function boot(): void
     {
-        $this->booted = true;
+        $this->booting = true;
 
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
+
+        $this->booting = false;
+        $this->booted = true;
     }
 }
