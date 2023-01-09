@@ -36,7 +36,6 @@ trait HandlesFoundationCollections
         return $this->routes;
     }
 
-    /** @deprecated */
     protected function needsToBeBooted(): void
     {
         if (! $this->booted && ! $this->booting) {
