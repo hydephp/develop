@@ -20,6 +20,10 @@ trait BootsHydeKernel
 
     public function boot(): void
     {
+        if ($this->booting) {
+            return;
+        }
+
         $this->booting = true;
 
         $this->files = FileCollection::boot($this);
