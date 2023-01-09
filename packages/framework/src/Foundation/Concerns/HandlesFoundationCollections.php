@@ -38,8 +38,10 @@ trait HandlesFoundationCollections
 
     protected function needsToBeBooted(): void
     {
-        if (! $this->booted && $this->canBoot()) {
-            $this->boot();
+        if (! $this->booted) {
+            if ($this->canBoot()) {
+                $this->boot();
+            }
         }
     }
 }
