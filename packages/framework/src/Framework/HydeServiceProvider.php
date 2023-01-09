@@ -100,7 +100,6 @@ class HydeServiceProvider extends ServiceProvider
         Blade::component('link', LinkComponent::class);
 
         HydeKernel::getInstance()->readyToBoot();
-        HydeKernel::getInstance()->boot();
     }
 
     protected function initializeConfiguration()
