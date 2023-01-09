@@ -46,7 +46,10 @@ final class RouteCollection extends BaseFoundationCollection
     /**
      * This method adds the specified route to the route index.
      * It can be used by package developers to hook into the routing system.
-     * As a package developer, you will need to make sure your route leads to something.
+     *
+     * When using this method, take notice of the following things:
+     * 1. Be sure to register the route before the HydeKernel boots.
+     * 2. Make sure the route leads to something that can be compiled.
      */
     public function addRoute(Route $route): self
     {
