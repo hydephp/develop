@@ -149,8 +149,6 @@ final class PageCollection extends BaseFoundationCollection
         $page = new PublicationListPage($type);
         $this->put($page->getSourcePath(), $page);
 
-        return; // return early as this is broken as this requires access to the pages which is currently being constructed. We prob want this in a booted callback
-
         if ($type->usesPagination()) {
             $this->generatePublicationPaginatedListingPagesForType($type);
         }
