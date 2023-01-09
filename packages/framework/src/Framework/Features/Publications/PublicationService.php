@@ -39,6 +39,10 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
+        $collection = Hyde::pages()->filter(function (PublicationPage $page) use ($pubType): bool {
+            return $page->type->getDirectory() === $pubType->getDirectory();
+        });
+
         $sorted = $collection->sortBy(function (PublicationPage $page) use ($pubType): mixed {
             return $page->matter($pubType->sortField);
         }, descending: ! $pubType->sortAscending)->values();
