@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\InvokableAction;
-use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationListPage;
 use Illuminate\Support\Facades\View;
 use function str_ends_with;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models;
+namespace Hyde\Publications\Models;
 
 use function array_filter;
 use function array_merge;
@@ -11,9 +11,9 @@ use Exception;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Features\Publications\Paginator;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
+use Hyde\Publications\Paginator;
+use Hyde\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
@@ -59,7 +59,7 @@ class PublicationType implements SerializableContract
     /**
      * The front matter fields used for the publications.
      *
-     * @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
+     * @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationFieldDefinition>
      */
     public Collection $fields;
 
@@ -143,7 +143,7 @@ class PublicationType implements SerializableContract
     /**
      * Get the publication fields, deserialized to PublicationFieldDefinition objects.
      *
-     * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition>
+     * @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationFieldDefinition>
      */
     public function getFields(): Collection
     {

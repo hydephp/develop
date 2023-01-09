@@ -6,9 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function file_put_contents;
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use function mkdir;

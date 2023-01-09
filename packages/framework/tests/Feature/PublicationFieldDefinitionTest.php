@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use ValueError;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
+ * @covers \Hyde\Publications\Models\PublicationFieldDefinition
  */
 class PublicationFieldDefinitionTest extends TestCase
 {

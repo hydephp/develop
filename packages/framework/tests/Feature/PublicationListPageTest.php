@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Models\PublicationListPage;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationListPage;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationListPage
+ * @covers \Hyde\Publications\Models\PublicationListPage
  */
 class PublicationListPageTest extends TestCase
 {

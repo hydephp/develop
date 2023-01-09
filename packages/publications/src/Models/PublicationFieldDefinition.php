@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models;
+namespace Hyde\Publications\Models;
 
 use function array_filter;
 use function array_merge;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
+use function str_contains;
 use function strtolower;
 
 /**
  * Represents an entry in the "fields" array of a publication type schema.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
- * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
+ * @see \Hyde\Publications\Models\PublicationFieldValue
+ * @see \Hyde\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldDefinitionTest
  */
 class PublicationFieldDefinition implements SerializableContract

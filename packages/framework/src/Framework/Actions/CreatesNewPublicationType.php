@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**

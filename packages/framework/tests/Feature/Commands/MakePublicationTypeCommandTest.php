@@ -7,9 +7,9 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use function config;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 
 /**

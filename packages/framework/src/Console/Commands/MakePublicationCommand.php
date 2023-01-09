@@ -8,11 +8,11 @@ use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\Models\PublicationFieldValue;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\PublicationFieldTypes;
+use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use function implode;
 use function in_array;
@@ -38,7 +38,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected PublicationType $publicationType;
 
-    /** @var \Illuminate\Support\Collection<string, PublicationType> */
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     protected Collection $fieldData;
 
     public function safeHandle(): int
@@ -98,7 +98,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->newLine();
         $this->info('Now please enter the field data:');
 
-        /** @var PublicationFieldDefinition $field */
+        /** @var \Hyde\Publications\Models\PublicationFieldDefinition $field */
         foreach ($this->publicationType->getFields() as $field) {
             if (str_starts_with($field->name, '__')) {
                 continue;

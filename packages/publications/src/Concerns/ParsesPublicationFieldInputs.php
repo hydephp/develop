@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Concerns;
+namespace Hyde\Publications\Concerns;
 
 use DateTime;
 use function filter_var;
@@ -16,7 +16,7 @@ use function ucfirst;
 /**
  * @internal Single-use trait for the PublicationFieldValue class.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
+ * @see \Hyde\Publications\Models\PublicationFieldValue
  */
 trait ParsesPublicationFieldInputs
 {

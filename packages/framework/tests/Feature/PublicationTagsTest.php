@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationTags;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use function json_encode;
 use JsonException;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationTags
+ * @covers \Hyde\Publications\Models\PublicationTags
  */
 class PublicationTagsTest extends TestCase
 {

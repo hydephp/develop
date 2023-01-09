@@ -7,9 +7,6 @@ namespace Hyde\Foundation;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Features\Publications\Models\PublicationListPage;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
@@ -18,6 +15,9 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\PublicationPage;
 use Hyde\Pages\VirtualPage;
+use Hyde\Publications\Models\PublicationListPage;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 
 /**

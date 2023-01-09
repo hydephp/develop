@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models;
+namespace Hyde\Publications\Models;
 
 use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Pages\VirtualPage;

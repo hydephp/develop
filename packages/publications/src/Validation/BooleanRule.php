@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Validation;
+namespace Hyde\Publications\Validation;
 
 use Illuminate\Contracts\Validation\InvokableRule;
 use function in_array;

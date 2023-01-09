@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use function glob;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 
 /**

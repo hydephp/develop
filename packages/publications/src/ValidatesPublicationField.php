@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications;
+namespace Hyde\Publications;
 
 use function array_merge;
 use function collect;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
 use function validator;
 

@@ -6,13 +6,13 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
 use function array_reverse;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationListPage;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\Paginator;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\Models\PublicationListPage;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Paginator;
+use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -20,7 +20,7 @@ use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationType
+ * @covers \Hyde\Publications\Models\PublicationType
  */
 class PublicationTypeTest extends TestCase
 {

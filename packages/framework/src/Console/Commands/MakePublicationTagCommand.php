@@ -6,10 +6,10 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\PublicationService;
 use function implode;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;

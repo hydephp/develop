@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications;
+namespace Hyde\Publications;
 
-use Hyde\Framework\Features\Publications\Validation\BooleanRule;
+use Hyde\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
 
 /**
  * The supported field types for publication types.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
+ * @see \Hyde\Publications\Models\PublicationFieldDefinition
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes: string
@@ -69,7 +69,7 @@ enum PublicationFieldTypes: string
     /**
      * The types that can be used for canonical fields (used to generate file names).
      *
-     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     * @return \Hyde\Publications\PublicationFieldTypes[]
      */
     public static function canonicable(): array
     {
@@ -84,7 +84,7 @@ enum PublicationFieldTypes: string
     /**
      * The types that can be array values.
      *
-     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     * @return \Hyde\Publications\PublicationFieldTypes[]
      */
     public static function arrayable(): array
     {

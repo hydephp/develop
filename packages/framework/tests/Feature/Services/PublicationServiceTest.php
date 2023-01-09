@@ -7,10 +7,10 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use function copy;
 use function file_put_contents;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -18,7 +18,7 @@ use function json_encode;
 use function mkdir;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\PublicationService
+ * @covers \Hyde\Publications\PublicationService
  */
 class PublicationServiceTest extends TestCase
 {

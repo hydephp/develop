@@ -6,8 +6,8 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -60,8 +60,8 @@ class SeedPublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
-     * @return \Hyde\Framework\Features\Publications\Models\PublicationType
+     * @param  \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType>  $pubTypes
+     * @return \Hyde\Publications\Models\PublicationType
      */
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
     {

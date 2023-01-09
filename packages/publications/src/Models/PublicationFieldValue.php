@@ -4,19 +4,19 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models;
+namespace Hyde\Publications\Models;
 
 use DateTime;
-use Hyde\Framework\Features\Publications\Concerns\ParsesPublicationFieldInputs;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Publications\Concerns\ParsesPublicationFieldInputs;
+use Hyde\Publications\PublicationFieldTypes;
 use function is_array;
 
 /**
  * Represents a single value for a field in a publication's front matter,
  * following rules defined in the "fields" array of the publication type's schema.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
- * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
+ * @see \Hyde\Publications\Models\PublicationFieldDefinition
+ * @see \Hyde\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldValueTest
  */
 final class PublicationFieldValue

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Hyde\Framework\Features\Publications\Validation\BooleanRule;
+use Hyde\Publications\PublicationFieldTypes;
+use Hyde\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\PublicationFieldTypes
+ * @covers \Hyde\Publications\PublicationFieldTypes
  */
 class PublicationFieldTypesEnumTest extends TestCase
 {

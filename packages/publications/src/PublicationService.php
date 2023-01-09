@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications;
+namespace Hyde\Publications;
 
 use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Features\Publications\Models\PublicationTags;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 

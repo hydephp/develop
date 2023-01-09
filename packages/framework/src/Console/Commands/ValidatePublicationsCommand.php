@@ -6,9 +6,9 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Framework\Features\Publications\ValidatesPublicationField;
+use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\PublicationService;
+use Hyde\Publications\ValidatesPublicationField;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use function str_repeat;
