@@ -24,6 +24,7 @@ trait ManagesHydeKernel
 {
     /**
      * @var bool Is the Kernel currently booting?
+     *
      * @deprecated As I don't think it's solving the right problem.
      */
     protected bool $booting = false;
