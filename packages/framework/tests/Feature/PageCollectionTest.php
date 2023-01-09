@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use function copy;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Hyde;
@@ -139,6 +140,8 @@ class PageCollectionTest extends TestCase
     public function test_pages_are_not_discovered_for_disabled_features()
     {
         config(['hyde.features' => []]);
+
+        HydeKernel::setInstance(new HydeKernel(Hyde::path()));
 
         touch('_pages/blade.blade.php');
         touch('_pages/markdown.md');
