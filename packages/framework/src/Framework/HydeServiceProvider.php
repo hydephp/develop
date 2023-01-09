@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework;
 
 use Hyde\Console\HydeConsoleServiceProvider;
+use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
@@ -43,6 +44,8 @@ class HydeServiceProvider extends ServiceProvider
         });
 
         Hyde::setSourceRoot(config('hyde.source_root', ''));
+
+        $this->registerPageModels();
 
         $this->registerSourceDirectories([
             HtmlPage::class => '_pages',
@@ -103,6 +106,32 @@ class HydeServiceProvider extends ServiceProvider
     {
         if (YamlConfigurationService::hasFile()) {
             YamlConfigurationService::boot();
+        }
+    }
+
+    /**
+     * Register the page model classes that Hyde should use.
+     */
+    protected function registerPageModels(): void
+    {
+        if (Features::hasHtmlPages()) {
+            Hyde::registerPageClass(HtmlPage::class);
+        }
+
+        if (Features::hasBladePages()) {
+            Hyde::registerPageClass(BladePage::class);
+        }
+
+        if (Features::hasMarkdownPages()) {
+            Hyde::registerPageClass(MarkdownPage::class);
+        }
+
+        if (Features::hasMarkdownPosts()) {
+            Hyde::registerPageClass(MarkdownPost::class);
+        }
+
+        if (Features::hasDocumentationPages()) {
+            Hyde::registerPageClass(DocumentationPage::class);
         }
     }
 
