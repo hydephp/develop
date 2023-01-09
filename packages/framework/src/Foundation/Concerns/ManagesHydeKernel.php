@@ -27,7 +27,7 @@ trait ManagesHydeKernel
 
     public function isBooted(): bool
     {
-        return $this->booted || $this->booting;
+        return $this->booted;
     }
 
     public function boot(): void
