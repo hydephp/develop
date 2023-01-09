@@ -15,6 +15,9 @@ use Hyde\Foundation\RouteCollection;
  */
 trait BootsHydeKernel
 {
+    private bool $readyToBoot = false;
+    private bool $booting = false;
+
     public function boot(): void
     {
         $this->booted = true;
