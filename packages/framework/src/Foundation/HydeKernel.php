@@ -38,6 +38,7 @@ class HydeKernel implements SerializableContract
     use Concerns\ForwardsFilesystem;
     use Concerns\ManagesHydeKernel;
     use Concerns\ManagesViewData;
+    use Concerns\BootsHydeKernel;
 
     use Serializable;
     use Macroable;
