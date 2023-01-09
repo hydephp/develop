@@ -25,8 +25,6 @@ trait CreatesTemporaryFiles
         }
 
         $this->cleanUpWhenDone($path);
-
-        $this->discoverNewFiles();
     }
 
     /**

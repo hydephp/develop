@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
@@ -44,7 +45,7 @@ class AuthorPostsIntegrationTest extends TestCase
 
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-undefined-author.md'));
-        $this->discoverNewFiles();
+        HydeKernel::reboot(); // Load new file changes
 
         // Build the static page
         $this->artisan('rebuild _posts/test-2dcbb2c-post-with-undefined-author.md')->assertExitCode(0);
@@ -86,7 +87,7 @@ class AuthorPostsIntegrationTest extends TestCase
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
-        $this->discoverNewFiles();
+        HydeKernel::reboot(); // Load new file changes
 
         // Build the static page
         $this->artisan('rebuild _posts/test-2dcbb2c-post-with-defined-author-with-name.md')->assertExitCode(0);
@@ -128,7 +129,7 @@ class AuthorPostsIntegrationTest extends TestCase
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
-        $this->discoverNewFiles();
+        HydeKernel::reboot(); // Load new file changes
         // Build the static page
         $this->artisan('rebuild _posts/test-2dcbb2c-post-with-defined-author-with-name.md')->assertExitCode(0);
         // Check that the file was created

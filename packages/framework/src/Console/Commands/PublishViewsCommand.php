@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\PublishesHydeViews;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
@@ -40,7 +39,6 @@ class PublishViewsCommand extends Command
     protected function publishOption(string $selected): void
     {
         (new PublishesHydeViews($selected))->execute();
-        HydeKernel::reboot();
 
         $from = Hyde::vendorPath(PublishesHydeViews::$options[$selected]['path']);
         $from = substr($from, strpos($from, 'vendor'));
