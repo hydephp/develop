@@ -309,32 +309,4 @@ class HydeKernelTest extends TestCase
         Hyde::setSourceRoot('foo');
         $this->assertEquals('foo', Hyde::getSourceRoot());
     }
-
-    public function get_discovered_page_types_method()
-    {
-        $this->assertSame([BladePage::class], Hyde::getDiscoveredPageTypes());
-    }
-
-    public function test_get_discovered_page_types_returns_class_strings_for_all_discovered_page_types()
-    {
-        $pages = [
-            HtmlPage::class,
-            BladePage::class,
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-        ];
-
-        /** @var HydePage $page */
-        foreach ($pages as $page) {
-            Hyde::touch($page::sourcePath('foo'));
-        }
-
-        $this->assertEquals($pages, Hyde::getDiscoveredPageTypes());
-
-        /** @var HydePage $page */
-        foreach ($pages as $page) {
-            Hyde::unlink($page::sourcePath('foo'));
-        }
-    }
 }

@@ -62,16 +62,6 @@ trait ManagesHydeKernel
     }
 
     /**
-     * @deprecated This method may be removed in favour of {@see self::getRegisteredPageClasses()}
-     *
-     * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
-     */
-    public function getDiscoveredPageTypes(): array
-    {
-        return $this->getRegisteredPageClasses();
-    }
-
-    /**
      * Developer Information.
      *
      * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
