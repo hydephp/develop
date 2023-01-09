@@ -22,7 +22,10 @@ use function is_subclass_of;
  */
 trait ManagesHydeKernel
 {
-    /** @var bool Is the Kernel currently booting? */
+    /**
+     * @var bool Is the Kernel currently booting?
+     * @deprecated As I don't think it's solving the right problem.
+     */
     protected bool $booting = false;
 
     /** @var bool Is the Kernel ready to be booted? */
