@@ -41,6 +41,23 @@ final class PageCollection extends BaseFoundationCollection
         });
     }
 
+    /**
+     * This method adds the specified page to the page collection.
+     * It can be used by package developers to add a page that will be compiled.
+     *
+     * When using this method, take notice of the following things:
+     * 1. Be sure to register the page before the HydeKernel boots,
+     *    otherwise it might not be fully processed by Hyde.
+     * 2. Note that all pages will have their routes added to the route index,
+     *    and subsequently be compiled during the build process.
+     */
+    public function addPage(HydePage $page): self
+    {
+        $this->put($page->getSourcePath(), $page);
+
+        return $this;
+    }
+
     protected function runDiscovery(): self
     {
         if (Features::hasHtmlPages()) {
