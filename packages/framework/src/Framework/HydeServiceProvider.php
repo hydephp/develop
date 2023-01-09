@@ -114,6 +114,8 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerPageModels(): void
     {
+        return; // TODO
+
         // TODO use the hyde facade once it gets the method annotations
 
         if (Features::hasHtmlPages()) {
