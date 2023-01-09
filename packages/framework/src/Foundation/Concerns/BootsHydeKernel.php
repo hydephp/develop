@@ -33,4 +33,10 @@ trait BootsHydeKernel
         $this->booting = false;
         $this->booted = true;
     }
+
+    /** @internal */
+    public function readyToBoot(): void
+    {
+        $this->readyToBoot = true;
+    }
 }
