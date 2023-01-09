@@ -98,4 +98,12 @@ trait BootsHydeKernel
 
         $this->readyToBoot = true;
     }
+
+    /** @internal */
+    public function rebootCollections(): void
+    {
+        $this->files = FileCollection::boot($this);
+        $this->pages = PageCollection::boot($this);
+        $this->routes = RouteCollection::boot($this);
+    }
 }
