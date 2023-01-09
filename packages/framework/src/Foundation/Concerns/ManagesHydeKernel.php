@@ -29,6 +29,10 @@ trait ManagesHydeKernel
 
     public function boot(): void
     {
+        if ($this->isBooted()) {
+            return;
+        }
+
         $this->booted = true;
 
         $this->files = FileCollection::boot($this);
