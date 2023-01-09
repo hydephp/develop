@@ -61,7 +61,6 @@ navigation:
   label: "My custom label"
 ---
 ');
-        Hyde::boot();
 
         $this->artisan('rebuild _pages/foo.md');
         $this->assertStringContainsString('My custom label', file_get_contents(Hyde::path('_site/foo.html')));
@@ -75,7 +74,6 @@ navigation:
 @php($navigation = ['label' => 'My custom label'])
 BLADE
 );
-        Hyde::boot();
 
         $this->artisan('rebuild _pages/foo.blade.php');
         $this->assertStringContainsString('My custom label', file_get_contents(Hyde::path('_site/foo.html')));
