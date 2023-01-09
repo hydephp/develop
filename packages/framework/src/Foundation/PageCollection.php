@@ -149,9 +149,11 @@ final class PageCollection extends BaseFoundationCollection
         $page = new PublicationListPage($type);
         $this->put($page->getSourcePath(), $page);
 
-        if ($type->usesPagination()) {
-            $this->generatePublicationPaginatedListingPagesForType($type);
-        }
+        HydeKernel::getInstance()->booted(function () use ($type) {
+            if ($type->usesPagination()) {
+                $this->generatePublicationPaginatedListingPagesForType($type);
+            }
+        });
     }
 
     /**
