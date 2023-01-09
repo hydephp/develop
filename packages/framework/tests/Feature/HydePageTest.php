@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
@@ -983,13 +984,13 @@ class HydePageTest extends TestCase
             $this->assertSame($page->getRoute()->getLink(), $page->getLink());
 
             Hyde::touch($page::sourcePath('foo'));
-            Hyde::boot();
+            HydeKernel::reboot();
 
             $this->assertArrayHasKey($page->getSourcePath(), Hyde::pages());
             $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
 
             unlink($page::sourcePath('foo'));
-            Hyde::boot();
+            HydeKernel::reboot();
         }
     }
 

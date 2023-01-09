@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
@@ -312,7 +313,7 @@ class DiscoveryServiceTest extends TestCase
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
     {
         Hyde::touch(($path));
-        Hyde::boot(); // Reboot to rediscover new pages
+        HydeKernel::reboot();
 
         $expected = $expected ?? basename($path, '.md');
 
