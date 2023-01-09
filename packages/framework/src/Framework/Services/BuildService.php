@@ -40,7 +40,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        collect(Hyde::getDiscoveredPageTypes())->each(function (string $pageClass): void {
+        collect($this->getPageTypes())->each(function (string $pageClass): void {
             $this->compilePagesForClass($pageClass);
         });
     }
@@ -120,5 +120,10 @@ class BuildService
     protected function safeOutputDirectories(): array
     {
         return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
+    }
+
+    protected function getPageTypes(): array
+    {
+        return Hyde::getDiscoveredPageTypes();
     }
 }
