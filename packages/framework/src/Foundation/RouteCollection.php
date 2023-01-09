@@ -44,9 +44,18 @@ final class RouteCollection extends BaseFoundationCollection
     }
 
     /**
-     * This internal method adds the specified route to the route index.
-     * It's made public so package developers can hook into the routing system.
-     * As a package developer, you will need to make sure your route leads to something.
+     * This method adds the specified route to the route index.
+     * It can be used by package developers to hook into the routing system.
+     *
+     * Note that this method when used outside of this class is only intended to be used for adding on-off routes;
+     * If you are registering multiple routes, you may instead want to register an entire custom page class,
+     * as that will allow you to utilize the full power of the HydePHP autodiscovery. In addition,
+     * you might actually rather want to use the page collection's addPage method instead,
+     * as all pages there are automatically also added as routes here as well.
+     *
+     * When using this method, take notice of the following things:
+     * 1. Be sure to register the route before the HydeKernel boots.
+     * 2. Make sure the route leads to something that can be compiled.
      */
     public function addRoute(Route $route): self
     {
