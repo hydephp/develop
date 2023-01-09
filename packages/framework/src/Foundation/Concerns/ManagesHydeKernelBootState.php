@@ -36,12 +36,12 @@ trait ManagesHydeKernelBootState
 
     public function boot(): void
     {
-        if (! $this->canBoot) {
-            throw new BadMethodCallException('The HydeKernel cannot be booted yet.');
-        }
-
         if ($this->isBooted()) {
             return;
+        }
+
+        if (! $this->canBoot) {
+            throw new BadMethodCallException('The HydeKernel cannot be booted yet.');
         }
 
         $this->booting = true;
