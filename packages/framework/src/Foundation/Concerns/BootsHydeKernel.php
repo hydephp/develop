@@ -99,7 +99,10 @@ trait BootsHydeKernel
         $this->readyToBoot = true;
     }
 
-    /** @internal */
+    /**
+     * @internal
+     * @todo Cherry pick to master
+     */
     public function rebootCollections(): void
     {
         $this->files = FileCollection::boot($this);
