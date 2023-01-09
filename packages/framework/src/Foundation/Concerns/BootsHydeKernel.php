@@ -18,6 +18,24 @@ trait BootsHydeKernel
     private bool $readyToBoot = false;
     private bool $booting = false;
 
+    /**
+     * The array of booting callbacks.
+     *
+     * @todo Cherry pick to master
+     *
+     * @var callable[]
+     */
+    protected array $bootingCallbacks = [];
+
+    /**
+     * The array of booted callbacks.
+     *
+     * @todo Cherry pick to master
+     *
+     * @var callable[]
+     */
+    protected array $bootedCallbacks = [];
+
     public function boot(): void
     {
         if (! $this->readyToBoot || $this->booting) {
@@ -26,12 +44,50 @@ trait BootsHydeKernel
 
         $this->booting = true;
 
+        foreach ($this->bootingCallbacks as $callback) {
+            $callback($this);
+        }
+
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
 
+        foreach ($this->bootedCallbacks as $callback) {
+            $callback($this);
+        }
+
         $this->booting = false;
         $this->booted = true;
+    }
+
+    /**
+     * Register a new boot listener.
+     *
+     * @todo Cherry pick to master
+     *
+     * @param  callable  $callback
+     * @return void
+     */
+    public function booting($callback): void
+    {
+        $this->bootingCallbacks[] = $callback;
+    }
+
+    /**
+     * Register a new "booted" listener.
+     *
+     * @todo Cherry pick to master
+     *
+     * @param  callable  $callback
+     * @return void
+     */
+    public function booted($callback): void
+    {
+        $this->bootedCallbacks[] = $callback;
+
+        if ($this->booted) {
+            $callback($this);
+        }
     }
 
     /** @internal */
