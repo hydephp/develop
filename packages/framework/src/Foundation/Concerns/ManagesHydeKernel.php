@@ -59,13 +59,9 @@ trait ManagesHydeKernel
 
         $this->booting = true;
 
-        $fileCollection = FileCollection::boot($this);
-        $pageCollection = PageCollection::boot($this);
-        $routeCollection = RouteCollection::boot($this);
-
-        $this->files = $fileCollection;
-        $this->pages = $pageCollection;
-        $this->routes = $routeCollection;
+        $this->files = FileCollection::boot($this);
+        $this->pages = PageCollection::boot($this);
+        $this->routes = RouteCollection::boot($this);
 
         $this->booting = false;
         $this->booted = true;
