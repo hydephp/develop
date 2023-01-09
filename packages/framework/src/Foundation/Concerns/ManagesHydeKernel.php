@@ -30,7 +30,7 @@ trait ManagesHydeKernel
     protected bool $booting = false;
 
     /** @var bool Is the Kernel ready to be booted? */
-    protected bool $canBoot = false;
+    protected bool $readyToBoot = false;
 
     public function isBooted(): bool
     {
@@ -39,13 +39,13 @@ trait ManagesHydeKernel
 
     public function canBoot(): bool
     {
-        return $this->canBoot && ! $this->booting;
+        return $this->readyToBoot && ! $this->booting;
     }
 
     /** @internal */
     public function readyToBoot(): void
     {
-        $this->canBoot = true;
+        $this->readyToBoot = true;
     }
 
     public function boot(): void
@@ -54,7 +54,7 @@ trait ManagesHydeKernel
             return;
         }
 
-        if (! $this->canBoot) {
+        if (! $this->readyToBoot) {
             throw new BadMethodCallException('The HydeKernel cannot be booted yet.');
         }
 
