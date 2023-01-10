@@ -25,6 +25,7 @@
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./packages/framework/src</directory>
+            <directory suffix=".php">./packages/publications/src</directory>
         </include>
     </coverage>
     <php>
