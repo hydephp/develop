@@ -6,10 +6,10 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 
 use function file_get_contents;
 use function file_put_contents;
-use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Actions\PublicationPageCompiler;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
@@ -17,7 +17,7 @@ use function json_decode;
 use function json_encode;
 
 /**
- * @covers \Hyde\Framework\Actions\PublicationPageCompiler
+ * @covers \Hyde\Publications\Actions\PublicationPageCompiler
  */
 class PublicationPageCompilerTest extends TestCase
 {
@@ -28,7 +28,7 @@ class PublicationPageCompilerTest extends TestCase
 
         file_put_contents(Hyde::path('test-publication/detail.blade.php'), 'Detail: {{ $publication->title }}');
 
-        $string = PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
+        $string = \Hyde\Publications\Actions\PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
 
         $this->assertEquals('Detail: My Publication', $string);
     }
@@ -41,7 +41,7 @@ class PublicationPageCompilerTest extends TestCase
         file_put_contents(Hyde::path('test-publication/my-publication.md'), 'Foo');
         file_put_contents(Hyde::path('test-publication/list.blade.php'), 'List: {{ $publicationType->getPublications()->first()->title }}');
 
-        $string = PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
+        $string = \Hyde\Publications\Actions\PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
 
         $this->assertEquals('List: My Publication', $string);
     }
@@ -59,7 +59,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationPage = new PublicationPage('my-publication', type: PublicationType::get('test-publication'));
         Render::setPage($publicationPage);
-        $this->assertEquals('Registered detail view', PublicationPageCompiler::call($publicationPage));
+        $this->assertEquals('Registered detail view', \Hyde\Publications\Actions\PublicationPageCompiler::call($publicationPage));
     }
 
     public function test_can_compile_publication_list_pages_with_registered_view()
@@ -89,7 +89,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationPage = new PublicationPage('my-publication', type: PublicationType::get('test-publication'));
         Render::setPage($publicationPage);
-        $this->assertStringContainsString('My Publication', PublicationPageCompiler::call($publicationPage));
+        $this->assertStringContainsString('My Publication', \Hyde\Publications\Actions\PublicationPageCompiler::call($publicationPage));
     }
 
     public function test_can_compile_publication_list_pages_with_registered_namespaced_view()
@@ -105,7 +105,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationType = PublicationType::get('test-publication');
         $publicationPage = $publicationType->getListPage();
-        $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
+        $this->assertEquals('Registered list view', \Hyde\Publications\Actions\PublicationPageCompiler::call($publicationPage));
     }
 
     public function test_with_missing_detail_blade_view()
@@ -116,7 +116,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [test-publication/detail.blade.php] not found.');
 
-        PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
+        \Hyde\Publications\Actions\PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
     }
 
     public function test_with_missing_list_blade_view()
@@ -127,6 +127,6 @@ class PublicationPageCompilerTest extends TestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [test-publication/list.blade.php] not found.');
 
-        PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
+        \Hyde\Publications\Actions\PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
     }
 }

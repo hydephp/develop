@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Pages\VirtualPage;
+use Hyde\Publications\Actions\PublicationPageCompiler;
 
 /**
  * @see \Hyde\Pages\PublicationPage

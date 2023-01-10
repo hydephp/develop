@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
+use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use function key;
 
 /**
- * @covers \Hyde\Framework\Actions\SeedsPublicationFiles
+ * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
  */
 class SeedsPublicationFilesTest extends TestCase
 {
@@ -98,7 +98,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithImageType()
     {
         $this->updateSchema('image', 'image');
-        (new SeedsPublicationFiles($this->pubType))->create();
+        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
@@ -121,7 +121,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithStringType()
     {
         $this->updateSchema('string', 'title');
-        (new SeedsPublicationFiles($this->pubType))->create();
+        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
@@ -150,7 +150,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithTextType()
     {
         $this->updateSchema('text', 'description');
-        (new SeedsPublicationFiles($this->pubType))->create();
+        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
@@ -163,7 +163,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithUrlType()
     {
         $this->updateSchema('url', 'url');
-        (new SeedsPublicationFiles($this->pubType))->create();
+        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 

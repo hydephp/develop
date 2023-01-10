@@ -6,9 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function collect;
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Actions\CreatesNewPublicationType;
-use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Hyde;
+use Hyde\Publications\Actions\CreatesNewPublicationType;
+use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;

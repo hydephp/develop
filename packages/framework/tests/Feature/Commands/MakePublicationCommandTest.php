@@ -17,7 +17,7 @@ use function json_encode;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationCommand
- * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
+ * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
  */
 class MakePublicationCommandTest extends TestCase
 {

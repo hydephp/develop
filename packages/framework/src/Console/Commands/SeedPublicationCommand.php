@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Actions\SeedsPublicationFiles;
+use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
@@ -15,7 +15,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to seed publication files for a publication type.
  *
- * @see \Hyde\Framework\Actions\SeedsPublicationFiles
+ * @see \Hyde\Publications\Actions\SeedsPublicationFiles
  * @see \Hyde\Framework\Testing\Feature\Commands\SeedPublicationCommandTest
  *
  * @todo Normalize command output style, maybe by hooking into the build actions?

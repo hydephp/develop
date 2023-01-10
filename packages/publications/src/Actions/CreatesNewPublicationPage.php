@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Publications\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
+use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationFieldTypes;

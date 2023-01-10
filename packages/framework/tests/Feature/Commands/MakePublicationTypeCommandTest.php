@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationTypeCommand
- * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
+ * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
  */
 class MakePublicationTypeCommandTest extends TestCase
 {

@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\SeedPublicationCommand
- * @covers \Hyde\Framework\Actions\SeedsPublicationFiles
+ * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
  */
 class SeedPublicationCommandTest extends TestCase
 {

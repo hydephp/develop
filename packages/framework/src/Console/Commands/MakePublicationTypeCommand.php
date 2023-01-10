@@ -6,8 +6,8 @@ namespace Hyde\Console\Commands;
 
 use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Hyde;
+use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationFieldTypes;
@@ -24,7 +24,7 @@ use function trim;
 /**
  * Hyde Command to create a new publication type.
  *
- * @see \Hyde\Framework\Actions\CreatesNewPublicationType
+ * @see \Hyde\Publications\Actions\CreatesNewPublicationType
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
 class MakePublicationTypeCommand extends ValidatingCommand

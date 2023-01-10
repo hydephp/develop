@@ -7,7 +7,7 @@ namespace Hyde\Console\Commands;
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Actions\CreatesNewPublicationPage;
+use Hyde\Publications\Actions\CreatesNewPublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Models\PublicationType;
@@ -23,7 +23,7 @@ use function str_starts_with;
 /**
  * Hyde Command to create a new publication for a given publication type.
  *
- * @see \Hyde\Framework\Actions\CreatesNewPublicationPage
+ * @see \Hyde\Publications\Actions\CreatesNewPublicationPage
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
 class MakePublicationCommand extends ValidatingCommand

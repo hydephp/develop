@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Publications\Actions;
 
+use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Pages\PublicationPage;
 use Hyde\Publications\Models\PublicationListPage;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Publications\Actions;
 
 use Hyde\Pages\PublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;

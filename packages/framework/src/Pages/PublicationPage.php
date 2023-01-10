@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\Contracts\DynamicPage;
+use Hyde\Publications\Actions\PublicationPageCompiler;
 use Hyde\Publications\Models\PublicationType;
 use function str_starts_with;
 
