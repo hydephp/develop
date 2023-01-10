@@ -50,12 +50,12 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createDetailTemplate(): void
     {
-        $this->savePublicationFile('detail.blade.php', 'resources/views/layouts/publication_detail.blade.php');
+        $this->savePublicationFile('detail.blade.php', '/../publications/resources/views/publication_detail.blade.php');
     }
 
     protected function createListTemplate(): void
     {
-        $this->savePublicationFile('list.blade.php', 'resources/views/layouts/publication_list.blade.php');
+        $this->savePublicationFile('list.blade.php', '/../publications/resources/views/publication_list.blade.php');
     }
 
     protected function savePublicationFile(string $filename, string $viewPath): void
