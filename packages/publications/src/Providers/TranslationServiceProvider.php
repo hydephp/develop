@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Providers;
+namespace Hyde\Publications\Providers;
 
 use function config;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
@@ -16,7 +16,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
         parent::register();
 
         if (! is_dir(lang_path())) {
-            $this->app->useLangPath(__DIR__.'/../../../../publications/resources/lang');
+            $this->app->useLangPath(__DIR__.'/../../resources/lang');
         }
 
         config([
@@ -27,6 +27,6 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 
     public function boot(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../../../publications/resources/lang/en/validation.php', 'validation');
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang/en/validation.php', 'validation');
     }
 }

@@ -79,7 +79,7 @@ return [
     'providers' => [
         App\Providers\AppServiceProvider::class,
         Hyde\Framework\HydeServiceProvider::class,
-        Hyde\Framework\Providers\TranslationServiceProvider::class,
+        \Hyde\Publications\Providers\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
     ],
 
