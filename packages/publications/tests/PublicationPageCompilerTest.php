@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Actions;
+namespace Hyde\Publications\Testing;
 
 use function file_get_contents;
 use function file_put_contents;

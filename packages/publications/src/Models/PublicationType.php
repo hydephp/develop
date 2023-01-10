@@ -24,7 +24,7 @@ use RuntimeException;
 use function str_starts_with;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
+ * @see \Hyde\Publications\Testing\PublicationTypeTest
  */
 class PublicationType implements SerializableContract
 {

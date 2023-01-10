@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Publications\Testing;
 
 use function file_put_contents;
 use Hyde\Facades\Filesystem;

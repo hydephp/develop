@@ -24,7 +24,7 @@ use function str_starts_with;
  * Hyde Command to create a new publication for a given publication type.
  *
  * @see \Hyde\Publications\Actions\CreatesNewPublicationPage
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
+ * @see \Hyde\Publications\Testing\MakePublicationCommandTest
  */
 class MakePublicationCommand extends ValidatingCommand
 {

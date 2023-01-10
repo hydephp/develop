@@ -18,7 +18,7 @@ use function strlen;
 /**
  * Hyde Command to validate one or all publications.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationsCommandTest
+ * @see \Hyde\Publications\Testing\ValidatePublicationsCommandTest
  *
  * @todo Add JSON output option?
  */

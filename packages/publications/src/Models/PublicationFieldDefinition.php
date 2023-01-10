@@ -18,7 +18,7 @@ use function strtolower;
  *
  * @see \Hyde\Publications\Models\PublicationFieldValue
  * @see \Hyde\Publications\PublicationFieldTypes
- * @see \Hyde\Framework\Testing\Feature\PublicationFieldDefinitionTest
+ * @see \Hyde\Publications\Testing\PublicationFieldDefinitionTest
  */
 class PublicationFieldDefinition implements SerializableContract
 {

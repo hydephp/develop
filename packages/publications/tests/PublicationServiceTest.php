@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Services;
+namespace Hyde\Publications\Testing;
 
 use function copy;
 use function file_put_contents;

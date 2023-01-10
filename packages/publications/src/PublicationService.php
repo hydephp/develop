@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
+ * @see \Hyde\Publications\Testing\PublicationServiceTest
  */
 class PublicationService
 {

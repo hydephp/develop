@@ -12,7 +12,7 @@ use Illuminate\Contracts\Validation\Validator;
 use function validator;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\ValidatesPublicationsTest
+ * @see \Hyde\Publications\Testing\ValidatesPublicationsTest
  */
 class ValidatesPublicationField
 {

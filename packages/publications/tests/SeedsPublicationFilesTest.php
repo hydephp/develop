@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Actions;
+namespace Hyde\Publications\Testing;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;

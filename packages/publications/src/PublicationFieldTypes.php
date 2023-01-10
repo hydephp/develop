@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
  * The supported field types for publication types.
  *
  * @see \Hyde\Publications\Models\PublicationFieldDefinition
- * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
+ * @see \Hyde\Publications\Testing\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes: string
 {

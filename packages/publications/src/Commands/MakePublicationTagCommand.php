@@ -18,7 +18,7 @@ use function sprintf;
 /**
  * Hyde Command to create a new publication type.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTagCommandTest
+ * @see \Hyde\Publications\Testing\MakePublicationTagCommandTest
  */
 class MakePublicationTagCommand extends ValidatingCommand
 {

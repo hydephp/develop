@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Publications\Testing;
 
 use function collect;
 use Hyde\Facades\Filesystem;

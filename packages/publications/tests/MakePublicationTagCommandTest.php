@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Commands;
+namespace Hyde\Publications\Testing;
 
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Hyde;
