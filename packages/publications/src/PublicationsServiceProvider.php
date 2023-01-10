@@ -13,7 +13,14 @@ class PublicationsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->commands([
+            Commands\MakePublicationTagCommand::class,
+            Commands\MakePublicationTypeCommand::class,
+            Commands\MakePublicationCommand::class,
+
+            Commands\ValidatePublicationsCommand::class,
+            Commands\SeedPublicationCommand::class,
+        ]);
     }
 
     /**
