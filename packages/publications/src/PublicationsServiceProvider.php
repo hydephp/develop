@@ -39,5 +39,6 @@ class PublicationsServiceProvider extends ServiceProvider
     protected function registerAdditionalServiceProviders(): void
     {
         $this->app->register(\Hyde\Publications\Providers\TranslationServiceProvider::class);
+        $this->app->register(\Illuminate\Validation\ValidationServiceProvider::class);
     }
 }
