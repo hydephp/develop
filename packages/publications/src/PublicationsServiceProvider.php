@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
+use Hyde\Publications\Providers\TranslationServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\ValidationServiceProvider;
 
 class PublicationsServiceProvider extends ServiceProvider
 {
@@ -38,7 +40,7 @@ class PublicationsServiceProvider extends ServiceProvider
      */
     protected function registerAdditionalServiceProviders(): void
     {
-        $this->app->register(\Hyde\Publications\Providers\TranslationServiceProvider::class);
-        $this->app->register(\Illuminate\Validation\ValidationServiceProvider::class);
+        $this->app->register(TranslationServiceProvider::class);
+        $this->app->register(ValidationServiceProvider::class);
     }
 }
