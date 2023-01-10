@@ -21,6 +21,8 @@ class PublicationsServiceProvider extends ServiceProvider
             Commands\ValidatePublicationsCommand::class,
             Commands\SeedPublicationCommand::class,
         ]);
+
+        $this->registerAdditionalServiceProviders();
     }
 
     /**
@@ -29,5 +31,13 @@ class PublicationsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'hyde-publications');
+    }
+
+    /**
+     * Register additional service providers.
+     */
+    protected function registerAdditionalServiceProviders(): void
+    {
+        //
     }
 }
