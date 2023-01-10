@@ -10,7 +10,7 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\SeedPublicationCommand
+ * @covers \Hyde\Publications\Commands\SeedPublicationCommand
  * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
  */
 class SeedPublicationCommandTest extends TestCase

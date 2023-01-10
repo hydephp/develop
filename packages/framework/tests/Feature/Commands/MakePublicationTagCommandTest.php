@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 use function unlink;
 
 /**
- * @covers \Hyde\Console\Commands\MakePublicationTagCommand
+ * @covers \Hyde\Publications\Commands\MakePublicationTagCommand
  * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler
  */
 class MakePublicationTagCommandTest extends TestCase

@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Scaffold a publication file.
  *
- * @see \Hyde\Console\Commands\MakePublicationCommand
+ * @see \Hyde\Publications\Commands\MakePublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationPageTest
  */
 class CreatesNewPublicationPage extends CreateAction

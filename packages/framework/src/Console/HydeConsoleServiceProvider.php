@@ -26,9 +26,9 @@ class HydeConsoleServiceProvider extends ServiceProvider
 
                 Commands\MakePageCommand::class,
                 Commands\MakePostCommand::class,
-                Commands\MakePublicationTagCommand::class,
-                Commands\MakePublicationTypeCommand::class,
-                Commands\MakePublicationCommand::class,
+                \Hyde\Publications\Commands\MakePublicationTagCommand::class,
+                \Hyde\Publications\Commands\MakePublicationTypeCommand::class,
+                \Hyde\Publications\Commands\MakePublicationCommand::class,
 
                 Commands\PublishHomepageCommand::class,
                 Commands\PublishViewsCommand::class,
@@ -40,8 +40,8 @@ class HydeConsoleServiceProvider extends ServiceProvider
                 Commands\ServeCommand::class,
                 Commands\DebugCommand::class,
 
-                Commands\ValidatePublicationsCommand::class,
-                Commands\SeedPublicationCommand::class,
+                \Hyde\Publications\Commands\ValidatePublicationsCommand::class,
+                \Hyde\Publications\Commands\SeedPublicationCommand::class,
             ]
         );
     }

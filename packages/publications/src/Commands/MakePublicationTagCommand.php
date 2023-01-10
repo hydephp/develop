@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Console\Commands;
+namespace Hyde\Publications\Commands;
 
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;

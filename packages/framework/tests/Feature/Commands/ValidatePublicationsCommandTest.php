@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\ValidatePublicationsCommand
+ * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
  */
 class ValidatePublicationsCommandTest extends TestCase
 {

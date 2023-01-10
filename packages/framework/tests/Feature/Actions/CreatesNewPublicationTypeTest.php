@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
  *
- * @see \Hyde\Console\Commands\MakePublicationTypeCommand
+ * @see \Hyde\Publications\Commands\MakePublicationTypeCommand
  */
 class CreatesNewPublicationTypeTest extends TestCase
 {

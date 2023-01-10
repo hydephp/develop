@@ -16,7 +16,7 @@ use Illuminate\Support\Carbon;
 use function json_encode;
 
 /**
- * @covers \Hyde\Console\Commands\MakePublicationCommand
+ * @covers \Hyde\Publications\Commands\MakePublicationCommand
  * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
  */
 class MakePublicationCommandTest extends TestCase

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Console\Commands;
+namespace Hyde\Publications\Commands;
 
+use function count;
 use Exception;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Publications\Models\PublicationFieldDefinition;

@@ -12,7 +12,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * Scaffold a new publication type schema.
  *
- * @see \Hyde\Console\Commands\MakePublicationCommand
+ * @see \Hyde\Publications\Commands\MakePublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeTest
  */
 class CreatesNewPublicationType extends CreateAction
