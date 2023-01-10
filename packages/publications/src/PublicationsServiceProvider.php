@@ -38,6 +38,6 @@ class PublicationsServiceProvider extends ServiceProvider
      */
     protected function registerAdditionalServiceProviders(): void
     {
-        //
+        $this->app->register(\Hyde\Publications\Providers\TranslationServiceProvider::class);
     }
 }
