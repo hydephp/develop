@@ -7,7 +7,7 @@ namespace Hyde\Publications;
 use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Hyde;
-use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;

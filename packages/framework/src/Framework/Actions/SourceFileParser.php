@@ -8,7 +8,7 @@ use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Str;
 

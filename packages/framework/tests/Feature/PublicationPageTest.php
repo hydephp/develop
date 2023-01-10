@@ -7,14 +7,14 @@ namespace Hyde\Framework\Testing\Feature;
 use function file_put_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
-use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use function mkdir;
 
 /**
- * @covers \Hyde\Pages\PublicationPage
+ * @covers \Hyde\Publications\Models\PublicationPage
  */
 class PublicationPageTest extends TestCase
 {

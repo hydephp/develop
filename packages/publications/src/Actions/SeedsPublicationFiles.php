@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use Hyde\Pages\PublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Illuminate\Support\Arr;

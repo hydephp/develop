@@ -6,8 +6,8 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Concerns\InvokableAction;
-use Hyde\Pages\PublicationPage;
 use Hyde\Publications\Models\PublicationListPage;
+use Hyde\Publications\Models\PublicationPage;
 use Illuminate\Support\Facades\View;
 use function str_ends_with;
 

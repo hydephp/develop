@@ -8,7 +8,7 @@ use function copy;
 use function file_put_contents;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;

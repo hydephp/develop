@@ -8,7 +8,7 @@ use Hyde\Pages\VirtualPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 
 /**
- * @see \Hyde\Pages\PublicationPage
+ * @see \Hyde\Publications\Models\PublicationPage
  * @see \Hyde\Framework\Testing\Feature\PublicationListPageTest
  */
 class PublicationListPage extends VirtualPage
