@@ -14,6 +14,8 @@ use function trim;
 /**
  * Collects an array of lines from the standard input stream. Feed is terminated by a blank line.
  *
+ * @internal
+ *
  * @see \Hyde\Framework\Testing\Unit\InputStreamHandlerTest
  */
 class InputStreamHandler extends InvokableAction
