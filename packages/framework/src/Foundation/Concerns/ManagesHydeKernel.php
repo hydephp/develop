@@ -54,6 +54,8 @@ trait ManagesHydeKernel
      *
      * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
      *
+     * @deprecated This feature may be replaced by the {@see \Hyde\Foundation\Concerns\HydeExtension} system.
+     *
      * If you are a package developer, and want a custom page class to be discovered,
      * you'll need to register it sometime before the boot process, before discovery is run.
      * Typically, you would do this by calling this method in the register method of a service provider.
@@ -90,7 +92,7 @@ trait ManagesHydeKernel
         return $this->pageClasses;
     }
 
-    /** @param class-string<\Hyde\Foundation\Extensions\HydeExtension>  $extension */
+    /** @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension */
     public function registerExtension(string $extension): void
     {
         if (! in_array($extension, $this->extensions, true)) {
@@ -98,7 +100,7 @@ trait ManagesHydeKernel
         }
     }
 
-    /** @return array<class-string<\Hyde\Foundation\Extensions\HydeExtension>> */
+    /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {
         return $this->extensions;

@@ -78,7 +78,7 @@ final class RouteCollection extends BaseFoundationCollection
             $this->discover($page);
         });
 
-        /** @var class-string<\Hyde\Foundation\Extensions\HydeExtension> $extension */
+        /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getRegisteredExtensions() as $extension) {
             $extension::discoverRoutes($this);
         }
