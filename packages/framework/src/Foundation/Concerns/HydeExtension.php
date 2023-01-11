@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Foundation\Extensions;
+namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\PageCollection;

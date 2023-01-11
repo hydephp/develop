@@ -8,8 +8,9 @@ use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
-use function in_array;
 use InvalidArgumentException;
+
+use function in_array;
 use function is_subclass_of;
 
 /**
@@ -90,7 +91,7 @@ trait ManagesHydeKernel
         return $this->pageClasses;
     }
 
-    /** @param class-string<\Hyde\Foundation\Extensions\HydeExtension>  $extension */
+    /** @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension */
     public function registerExtension(string $extension): void
     {
         if (! in_array($extension, $this->extensions, true)) {
@@ -98,7 +99,7 @@ trait ManagesHydeKernel
         }
     }
 
-    /** @return array<class-string<\Hyde\Foundation\Extensions\HydeExtension>> */
+    /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {
         return $this->extensions;
