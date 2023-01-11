@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Foundation\Concerns\HydeExtension
  */
-class HydeExtensionTest extends TestCase
+class HydeExtensionFeatureTest extends TestCase
 {
     //
 }
