@@ -90,11 +90,11 @@ trait ManagesHydeKernel
         return $this->pageClasses;
     }
 
-    /** @param class-string<\Hyde\Foundation\Extensions\HydeExtension>  $extensionClass */
-    public function registerExtension(string $extensionClass): void
+    /** @param class-string<\Hyde\Foundation\Extensions\HydeExtension>  $extension */
+    public function registerExtension(string $extension): void
     {
-        if (! in_array($extensionClass, $this->extensions, true)) {
-            $this->extensions[] = $extensionClass;
+        if (! in_array($extension, $this->extensions, true)) {
+            $this->extensions[] = $extension;
         }
     }
 
