@@ -14,6 +14,15 @@ use function range;
 
 class PublicationsExtension extends HydeExtension
 {
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    public static function getPageClasses(): array
+    {
+        return [
+            PublicationPage::class,
+            PublicationListPage::class,
+        ];
+    }
+
     public static function discoverPages(PageCollection $collection): void
     {
         static::discoverPublicationPages($collection);
