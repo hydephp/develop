@@ -7,17 +7,17 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\PublicationPage;
+use Hyde\Publications\Models\PublicationPage;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Support\Models\Route;
 
 require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
 
 /**
- * @covers \Hyde\Pages\PublicationPage
+ * @covers \Hyde\Publications\Models\PublicationPage
  */
 class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 {
@@ -65,7 +65,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $this->assertSame(
             Hyde::path('hello-world.md'),
-            PublicationPage::path('hello-world.md')
+            \Hyde\Publications\Models\PublicationPage::path('hello-world.md')
         );
     }
 
@@ -108,7 +108,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testShowInNavigation()
     {
-        $this->assertFalse((new PublicationPage('', [], '', $this->pubType()))->showInNavigation());
+        $this->assertFalse((new \Hyde\Publications\Models\PublicationPage('', [], '', $this->pubType()))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
@@ -145,7 +145,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::pages()->put($page->getSourcePath(), $page);
-        $this->assertSame($page, PublicationPage::get('directory/foo'));
+        $this->assertSame($page, \Hyde\Publications\Models\PublicationPage::get('directory/foo'));
     }
 
     public function testParse()
@@ -153,7 +153,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->directory('directory');
         $this->setupTestPublication('directory');
 
-        Hyde::touch(PublicationPage::sourcePath('directory/foo'));
+        Hyde::touch(\Hyde\Publications\Models\PublicationPage::sourcePath('directory/foo'));
         $this->assertInstanceOf(PublicationPage::class, PublicationPage::parse('directory/foo'));
     }
 
@@ -232,7 +232,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $this->directory('directory');
 
-        $page = new PublicationPage('foo', type: $this->pubType());
+        $page = new \Hyde\Publications\Models\PublicationPage('foo', type: $this->pubType());
         $this->assertSame($page, $page->save());
         $this->assertFileExists(Hyde::path('directory/foo.md'));
     }

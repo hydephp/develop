@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78b1219de18274f319428a8c8c32dc54",
+    "content-hash": "a2a7b8e3ebf43478ef868c4a20c21413",
     "packages": [
         {
             "name": "brick/math",
@@ -1014,6 +1014,53 @@
                 }
             ],
             "description": "The HydePHP Framework",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "hyde/publications",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./packages/publications",
+                "reference": "62407d296062c0a6ae83aca74794480ec2394679"
+            },
+            "require": {
+                "illuminate/support": "^9.5",
+                "illuminate/validation": "^9.0.0",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\Publications\\PublicationsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyde\\Publications\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "HydePHP Publications",
+            "homepage": "https://github.com/hyde/publications",
+            "keywords": [
+                "hyde",
+                "hydephp",
+                "publications"
+            ],
             "transport-options": {
                 "relative": true
             }
@@ -10036,6 +10083,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hyde/framework": 20,
+        "hyde/publications": 20,
         "hyde/ui-kit": 20,
         "hyde/realtime-compiler": 20,
         "hyde/testing": 20

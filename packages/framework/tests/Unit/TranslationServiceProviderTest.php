@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Providers\TranslationServiceProvider;
+use Hyde\Publications\Providers\TranslationServiceProvider;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Providers\TranslationServiceProvider
+ * @covers \Hyde\Publications\Providers\TranslationServiceProvider
  */
 class TranslationServiceProviderTest extends TestCase
 {

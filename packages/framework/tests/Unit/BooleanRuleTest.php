@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Features\Publications\Validation\BooleanRule;
+use Hyde\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\Validation\Factory;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Validation\BooleanRule
+ * @covers \Hyde\Publications\Validation\BooleanRule
  */
 class BooleanRuleTest extends TestCase
 {

@@ -18,10 +18,14 @@
         <testsuite name="UnitFramework">
             <directory suffix="Test.php">./packages/framework/tests/Unit</directory>
         </testsuite>
+        <testsuite name="Publications">
+            <directory suffix="Test.php">./packages/publications/tests</directory>
+        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./packages/framework/src</directory>
+            <directory suffix=".php">./packages/publications/src</directory>
         </include>
     </coverage>
     <php>
