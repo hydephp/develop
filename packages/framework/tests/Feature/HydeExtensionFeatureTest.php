@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use function func_get_args;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\FileCollection;
@@ -30,6 +31,20 @@ class HydeExtensionFeatureTest extends TestCase
         parent::setUp();
 
         $this->kernel = HydeKernel::getInstance();
+    }
+
+    public function testBaseClassGetPageClasses()
+    {
+        $this->assertSame([], HydeExtension::getPageClasses());
+    }
+
+    public function testBaseClassDiscoveryHandlers()
+    {
+        HydeExtension::discoverFiles(Hyde::files());
+        HydeExtension::discoverPages(Hyde::pages());
+        HydeExtension::discoverRoutes(Hyde::routes());
+
+        $this->assertTrue(true);
     }
 
     public function testCanRegisterNewExtension()
