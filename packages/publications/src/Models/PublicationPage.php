@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
+use Hyde\Framework\Actions\MarkdownFileParser;
+use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\Concerns;
 use Hyde\Pages\Contracts\DynamicPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
+use Illuminate\Support\Str;
+
 use function str_starts_with;
 
 /**
@@ -19,6 +23,8 @@ use function str_starts_with;
  */
 class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 {
+    use ValidatesExistence;
+
     public PublicationType $type;
 
     public static string $sourceDirectory = '';
@@ -40,6 +46,23 @@ class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
     public function compile(): string
     {
         return $this->renderComponent();
+    }
+
+    public static function parse(string $identifier): self
+    {
+        static::validateExistence(static::class, $identifier);
+
+        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
+        $document = MarkdownFileParser::parse(
+            PublicationPage::sourcePath($identifier)
+        );
+
+        return new PublicationPage(
+            identifier: $identifier,
+            matter: $document->matter,
+            markdown: $document->markdown,
+            type: PublicationType::get(Str::before($identifier, '/'))
+        );
     }
 
     protected function renderComponent(): string
