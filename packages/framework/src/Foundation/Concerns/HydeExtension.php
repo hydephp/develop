@@ -19,6 +19,7 @@ use Hyde\Foundation\RouteCollection;
  * An excellent place for this is the 'register' method of your extensions service provider,
  * where you call the 'registerExtension' method of the HydeKernel singleton instance,
  * which you can access via the Hyde\Hyde facade, or via the service container.
+ *
  * @example ```php $this->app->make(HydeKernel::class)->registerExtension(MyExtension::class); ```
  *
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionTest
