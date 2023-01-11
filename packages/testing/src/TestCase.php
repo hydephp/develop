@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use JetBrains\PhpStorm\Deprecated;
 use function file_get_contents;
 use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
@@ -49,6 +50,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /** @deprecated Will be removed as it's no longer part of the main package. */
+    #[Deprecated (reason: "Will be removed as it's no longer part of the main package. In most cases you can use the following replacement:", replacement: "(new PublicationType('Test Publication'))->save();")]
     protected function setupTestPublication(string $directory = 'test-publication')
     {
         Filesystem::copy('tests/fixtures/test-publication-schema.json', "$directory/schema.json");
