@@ -27,6 +27,12 @@ class HydeExtensionFeatureTest extends TestCase
 
         $this->kernel = HydeKernel::getInstance();
     }
+
+    public function testCanRegisterNewExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+        $this->assertSame([HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
 }
 
 class HydeTestExtension extends HydeExtension
