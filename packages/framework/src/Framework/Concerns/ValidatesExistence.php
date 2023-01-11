@@ -19,7 +19,7 @@ trait ValidatesExistence
      *
      * @throws FileNotFoundException If the file does not exist.
      */
-    protected static function validateExistence(string $model, string $identifier): void
+    public static function validateExistence(string $model, string $identifier): void
     {
         /** @var \Hyde\Pages\Concerns\HydePage $model */
         $filepath = $model::sourcePath($identifier);
