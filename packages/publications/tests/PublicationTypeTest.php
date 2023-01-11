@@ -6,12 +6,12 @@ namespace Hyde\Publications\Testing;
 
 use function array_merge;
 use function array_reverse;
+use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Paginator;
 use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
