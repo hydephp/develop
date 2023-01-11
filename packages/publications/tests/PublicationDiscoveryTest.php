@@ -21,27 +21,23 @@ class PublicationDiscoveryTest extends TestCase
 {
     public function test_publication_pages_are_discovered()
     {
-        mkdir(Hyde::path('publication'));
+        $this->directory('publication');
         $this->createPublication();
 
         $collection = PageCollection::boot(Hyde::getInstance())->getPages();
         $this->assertCount(4, $collection); // Default pages + publication index + publication page
         $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
-
-        File::deleteDirectory(Hyde::path('publication'));
     }
 
     public function test_listing_pages_for_publications_are_discovered()
     {
-        mkdir(Hyde::path('publication'));
+        $this->directory('publication');
         $this->createPublication();
 
         $this->assertInstanceOf(
             PublicationListPage::class,
             PageCollection::boot(Hyde::getInstance())->getPage('publication/index')
         );
-
-        File::deleteDirectory(Hyde::path('publication'));
     }
 
     protected function createPublication(): void
