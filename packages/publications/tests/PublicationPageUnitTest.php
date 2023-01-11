@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit\Pages;
+namespace Hyde\Publications\Testing;
 
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Factories\Concerns\PageDataFactory;
+use Hyde\Framework\Factories\HydePageDataFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
@@ -13,13 +15,12 @@ use Hyde\Markdown\Models\Markdown;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Support\Models\Route;
-
-require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationPage
  */
-class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
+class PublicationPageUnitTest extends TestCase
 {
     public function testSourceDirectory()
     {
@@ -95,7 +96,8 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testMake()
     {
-        $this->assertEquals(PublicationPage::make(type: $this->pubType()), new PublicationPage('', [], '', $this->pubType()));
+        $this->assertEquals(PublicationPage::make(type: $this->pubType()),
+            new PublicationPage('', [], '', $this->pubType()));
     }
 
     public function testMakeWithData()
@@ -174,7 +176,8 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testMetadata()
     {
-        $this->assertInstanceOf(PageMetadataBag::class, (new PublicationPage('', [], '', $this->pubType()))->metadata());
+        $this->assertInstanceOf(PageMetadataBag::class,
+            (new PublicationPage('', [], '', $this->pubType()))->metadata());
     }
 
     public function test__construct()
@@ -199,7 +202,8 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testToCoreDataObject()
     {
-        $this->assertInstanceOf(CoreDataObject::class, (new PublicationPage('foo', [], '', $this->pubType()))->toCoreDataObject());
+        $this->assertInstanceOf(CoreDataObject::class,
+            (new PublicationPage('foo', [], '', $this->pubType()))->toCoreDataObject());
     }
 
     public function testConstructFactoryData()
@@ -248,5 +252,10 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
             [],
             'directory'
         );
+    }
+
+    protected function mockPageDataFactory(): PageDataFactory
+    {
+        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
     }
 }
