@@ -85,6 +85,7 @@ final class FileCollection extends BaseFoundationCollection
             $this->discoverFilesFor($pageClass);
         }
 
+        /** @var class-string<\Hyde\Foundation\Extensions\HydeExtension> $extension */
         foreach ($this->kernel->getRegisteredExtensions() as $extension) {
             $extension::discoverFiles($this);
         }
