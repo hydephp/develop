@@ -126,6 +126,6 @@ class PublicationPageCompilerTest extends TestCase
     protected function copyTestPublicationFixture()
     {
         $this->directory('test-publication');
-        Filesystem::copy('tests/fixtures/test-publication-schema.json', "test-publication/schema.json");
+        (new PublicationType('Test Publication'))->save();
     }
 }
