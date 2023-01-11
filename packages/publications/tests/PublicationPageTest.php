@@ -18,20 +18,6 @@ use function mkdir;
  */
 class PublicationPageTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        mkdir(Hyde::path('test-publication'));
-    }
-
-    protected function tearDown(): void
-    {
-        Filesystem::deleteDirectory('test-publication');
-
-        parent::tearDown();
-    }
-
     public function test_source_path_mappings()
     {
         $this->createPublicationFiles();
@@ -113,6 +99,7 @@ class PublicationPageTest extends TestCase
 
     protected function createRealPublicationFiles(): void
     {
+        $this->directory('test-publication');
         file_put_contents(Hyde::path('test-publication/schema.json'), '{
   "name": "test",
   "canonicalField": "slug",
@@ -145,7 +132,9 @@ Hello World!
 
     protected function createPublicationFiles(): void
     {
-        $this->setupTestPublication();
+        $this->directory('test-publication');
+        (new PublicationType('Test Publication'))->save();
+
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---
