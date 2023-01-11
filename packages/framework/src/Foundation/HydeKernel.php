@@ -58,6 +58,8 @@ class HydeKernel implements SerializableContract
     protected bool $booted = false;
     protected array $pageClasses = [];
 
+    protected array $extensions = [];
+
     final public const VERSION = '1.0.0-dev';
 
     public function __construct(?string $basePath = null, string $sourceRoot = '')
