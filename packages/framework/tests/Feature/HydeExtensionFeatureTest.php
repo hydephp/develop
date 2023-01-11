@@ -49,7 +49,11 @@ class HydeExtensionFeatureTest extends TestCase
 
     public function testCanRegisterNewExtension()
     {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $this->kernel = HydeKernel::getInstance();
         $this->kernel->registerExtension(HydeTestExtension::class);
+
         $this->assertSame([HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
