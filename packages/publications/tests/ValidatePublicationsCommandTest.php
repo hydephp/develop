@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use Hyde\Publications\Models\PublicationType;
 use function copy;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -87,8 +88,8 @@ Hello World
     {
         $this->directory('test-publication');
         $this->directory('test-publication-two');
-        $this->setupTestPublication();
-        $this->setupTestPublication('test-publication-two');
+        (new PublicationType('Test Publication'))->save();
+        (new PublicationType('Test Publication Two'))->save();
 
         $this->artisan('validate:publications')
             ->expectsOutput('Validating publication type [test-publication-two]')
@@ -100,8 +101,8 @@ Hello World
     {
         $this->directory('test-publication');
         $this->directory('test-publication-two');
-        $this->setupTestPublication();
-        $this->setupTestPublication('test-publication-two');
+        (new PublicationType('Test Publication'))->save();
+        (new PublicationType('Test Publication Two'))->save();
 
         $this->artisan('validate:publications test-publication-two')
             ->expectsOutput('Validating publication type [test-publication-two]')
