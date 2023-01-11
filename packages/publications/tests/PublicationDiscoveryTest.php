@@ -11,8 +11,6 @@ use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\File;
-use function mkdir;
 
 /**
  * @covers \Hyde\Publications\PublicationsExtension
