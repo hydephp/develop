@@ -44,7 +44,7 @@ class HydeExtensionFeatureTest extends TestCase
         HydeExtension::discoverPages(Hyde::pages());
         HydeExtension::discoverRoutes(Hyde::routes());
 
-        $this->assertTrue(true);
+        $this->markTestSuccessful();
     }
 
     public function testCanRegisterNewExtension()
@@ -88,6 +88,11 @@ class HydeExtensionFeatureTest extends TestCase
         $this->kernel->boot();
 
         $this->assertInstanceOf(RouteCollection::class, ...SpyableTestExtension::getCalled('routes'));
+    }
+
+    protected function markTestSuccessful(): void
+    {
+        $this->assertTrue(true);
     }
 }
 
