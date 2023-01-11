@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use Hyde\Facades\Filesystem;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -23,8 +24,7 @@ class PublicationPageCompilerTest extends TestCase
 {
     public function test_can_compile_publication_pages()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         file_put_contents(Hyde::path('test-publication/detail.blade.php'), 'Detail: {{ $publication->title }}');
 
@@ -35,8 +35,7 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_can_compile_publication_list_pages()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         file_put_contents(Hyde::path('test-publication/my-publication.md'), 'Foo');
         file_put_contents(Hyde::path('test-publication/list.blade.php'), 'List: {{ $publicationType->getPublications()->first()->title }}');
@@ -48,8 +47,7 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_can_compile_publication_pages_with_registered_view()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
         $schema->detailTemplate = 'foo';
@@ -64,8 +62,7 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_can_compile_publication_list_pages_with_registered_view()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
         $schema->listTemplate = 'foo';
@@ -80,8 +77,7 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_can_compile_publication_pages_with_registered_namespaced_view()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
         $schema->detailTemplate = 'hyde-publications::publication_detail';
@@ -94,8 +90,7 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_can_compile_publication_list_pages_with_registered_namespaced_view()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         $this->file('vendor/hyde/framework/resources/views/layouts/test.blade.php', 'Registered list view');
 
         $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
@@ -110,8 +105,7 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_with_missing_detail_blade_view()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [test-publication/detail.blade.php] not found.');
@@ -121,12 +115,17 @@ class PublicationPageCompilerTest extends TestCase
 
     public function test_with_missing_list_blade_view()
     {
-        $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
 
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [test-publication/list.blade.php] not found.');
 
         PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
+    }
+
+    protected function copyTestPublicationFixture()
+    {
+        $this->directory('test-publication');
+        Filesystem::copy('tests/fixtures/test-publication-schema.json', "test-publication/schema.json");
     }
 }
