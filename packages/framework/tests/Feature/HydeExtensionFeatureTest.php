@@ -12,6 +12,8 @@ use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
+use function func_get_args;
+
 /**
  * @covers \Hyde\Foundation\Concerns\HydeExtension
  * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
@@ -49,6 +51,30 @@ class HydeExtensionFeatureTest extends TestCase
 
         HydeTestExtension::$callCache = [];
     }
+
+    public function testFileHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(SpyableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(FileCollection::class, ...SpyableTestExtension::getCalled('files'));
+    }
+
+    public function testPageHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(SpyableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(PageCollection::class, ...SpyableTestExtension::getCalled('pages'));
+    }
+
+    public function testRouteHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(SpyableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(RouteCollection::class, ...SpyableTestExtension::getCalled('routes'));
+    }
 }
 
 class HydeTestExtension extends HydeExtension
@@ -76,6 +102,31 @@ class HydeTestExtension extends HydeExtension
     public static function discoverRoutes(RouteCollection $collection): void
     {
         static::$callCache[] = 'routes';
+    }
+}
+
+class SpyableTestExtension extends HydeExtension
+{
+    private static array $callCache = [];
+
+    public static function discoverFiles(FileCollection $collection): void
+    {
+        self::$callCache['files'] = func_get_args();
+    }
+
+    public static function discoverPages(PageCollection $collection): void
+    {
+        self::$callCache['pages'] = func_get_args();
+    }
+
+    public static function discoverRoutes(RouteCollection $collection): void
+    {
+        self::$callCache['routes'] = func_get_args();
+    }
+
+    public static function getCalled(string $method): array
+    {
+        return self::$callCache[$method];
     }
 }
 
