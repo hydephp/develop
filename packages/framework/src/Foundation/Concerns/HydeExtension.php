@@ -15,6 +15,10 @@ use Hyde\Foundation\RouteCollection;
  * Hyde will be able to use the information within to integrate your plugin, and to allow you to
  * hook into various parts of the internal application lifecycle, and through that, all aspects of Hyde.
  *
+ * Before creating your extension, it will certainly be helpful if you first become familiar
+ * with the basic internal architecture of HydePHP, as well as how the auto-discovery system functions.
+ * @link https://hydephp.com/docs/master/architecture-concepts
+ *
  * It's important that your class is registered before the HydeKernel boots.
  * An excellent place for this is the 'register' method of your extensions service provider,
  * where you call the 'registerExtension' method of the HydeKernel singleton instance,
