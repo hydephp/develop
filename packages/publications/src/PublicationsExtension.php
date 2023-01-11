@@ -10,7 +10,6 @@ use Hyde\Pages\VirtualPage;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
-
 use function range;
 
 class PublicationsExtension extends HydeExtension
@@ -54,8 +53,7 @@ class PublicationsExtension extends HydeExtension
      */
     protected static function generatePublicationPaginatedListingPagesForType(PublicationType $type,
         PageCollection $instance
-    ): void
-    {
+    ): void {
         $paginator = $type->getPaginator();
 
         foreach (range(1, $paginator->totalPages()) as $page) {

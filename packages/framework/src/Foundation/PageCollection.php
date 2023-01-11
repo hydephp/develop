@@ -13,11 +13,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Pages\VirtualPage;
-use Hyde\Publications\Models\PublicationListPage;
-use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 
 /**
