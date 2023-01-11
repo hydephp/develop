@@ -8,6 +8,7 @@ use Hyde\Publications\Models\PublicationType;
 use function copy;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use function file_put_contents;
 
 /**
  * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
@@ -31,7 +32,7 @@ class ValidatePublicationsCommandTest extends TestCase
     public function testWithPublicationType()
     {
         $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
         $this->artisan('validate:publications')
@@ -48,7 +49,7 @@ class ValidatePublicationsCommandTest extends TestCase
     public function testWithPublicationTypeAndVerboseOutput()
     {
         $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
         $this->artisan('validate:publications', ['--verbose' => true])
@@ -65,7 +66,7 @@ class ValidatePublicationsCommandTest extends TestCase
     public function testWithInvalidPublication()
     {
         $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         file_put_contents(Hyde::path('test-publication/test.md'), '---
 Foo: bar
 ---
@@ -108,6 +109,28 @@ Hello World
             ->expectsOutput('Validating publication type [test-publication-two]')
             ->doesntExpectOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
+    }
+
+    protected function copyTestPublicationFixture(): void
+    {
+        file_put_contents(Hyde::path('test-publication/schema.json'), <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "title",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
+                "fields": [
+                    {
+                        "name": "title",
+                        "type": "string"
+                    }
+                ]
+            }
+            JSON
+        );
     }
 
     protected function savePublication(string $name): void
