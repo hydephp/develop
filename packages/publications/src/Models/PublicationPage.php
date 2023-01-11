@@ -12,7 +12,6 @@ use Hyde\Pages\Concerns;
 use Hyde\Pages\Contracts\DynamicPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 use Illuminate\Support\Str;
-
 use function str_starts_with;
 
 /**
