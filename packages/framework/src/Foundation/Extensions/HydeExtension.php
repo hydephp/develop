@@ -6,6 +6,11 @@ namespace Hyde\Foundation\Extensions;
 
 abstract class HydeExtension
 {
+    public static function getPageClasses(): array
+    {
+        return [];
+    }
+
     public static function discoverFiles(): void
     {
         //
