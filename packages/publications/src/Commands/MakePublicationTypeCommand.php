@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use function array_keys;
-use function count;
-use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -15,9 +12,11 @@ use Hyde\Publications\PublicationFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use LaravelZero\Framework\Commands\Command;
+use function array_keys;
+use function count;
 use function is_dir;
 use function is_file;
-use LaravelZero\Framework\Commands\Command;
 use function scandir;
 use function strtolower;
 use function trim;

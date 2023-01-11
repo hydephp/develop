@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use function count;
 use Exception;
-use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\PublicationService;
 use Hyde\Publications\ValidatesPublicationField;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function count;
 use function str_repeat;
 use function strlen;
 
