@@ -10,6 +10,11 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Foundation\Concerns\HydeExtension
+ * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
+ * @covers \Hyde\Foundation\HydeKernel
+ * @covers \Hyde\Foundation\FileCollection
+ * @covers \Hyde\Foundation\PageCollection
+ * @covers \Hyde\Foundation\RouteCollection
  */
 class HydeExtensionFeatureTest extends TestCase
 {
