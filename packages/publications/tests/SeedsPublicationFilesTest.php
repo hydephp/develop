@@ -25,7 +25,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $this->directory('test-publication');
         $this->pubType = new PublicationType('Test Publication');
-        $this->pubType->save();
     }
 
     public function testCreate()
