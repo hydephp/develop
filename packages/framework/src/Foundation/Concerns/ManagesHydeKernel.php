@@ -8,9 +8,8 @@ use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
-use InvalidArgumentException;
-
 use function in_array;
+use InvalidArgumentException;
 use function is_subclass_of;
 
 /**
@@ -54,6 +53,7 @@ trait ManagesHydeKernel
      * Developer Information.
      *
      * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
+     *
      * @deprecated This feature may be replaced by the {@see \Hyde\Foundation\Concerns\HydeExtension} system.
      *
      * If you are a package developer, and want a custom page class to be discovered,
