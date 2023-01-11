@@ -17,6 +17,7 @@ use Hyde\Foundation\RouteCollection;
  *
  * Before creating your extension, it will certainly be helpful if you first become familiar
  * with the basic internal architecture of HydePHP, as well as how the auto-discovery system functions.
+ *
  * @link https://hydephp.com/docs/master/architecture-concepts
  *
  * It's important that your class is registered before the HydeKernel boots.
