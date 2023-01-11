@@ -49,7 +49,7 @@ class CreatesNewPublicationPageTest extends TestCase
             'title' => new PublicationFieldValue(PublicationFieldTypes::String, 'Hello World'),
         ]);
 
-        (new \Hyde\Publications\Actions\CreatesNewPublicationPage($pubType, $fieldData))->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
         $this->assertEquals(<<<'MARKDOWN'
@@ -135,7 +135,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage("Could not find field value for 'title' which is required as it's the type's canonical field");
-        (new \Hyde\Publications\Actions\CreatesNewPublicationPage($pubType, $fieldData))->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
     }
 
     public function testCreateWithoutSupplyingRequiredField()
@@ -144,7 +144,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
         $fieldData = Collection::make();
 
-        (new \Hyde\Publications\Actions\CreatesNewPublicationPage($pubType, $fieldData))->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         // Since the inputs are collected by the command, with the shipped code this should never happen.
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
@@ -175,7 +175,7 @@ class CreatesNewPublicationPageTest extends TestCase
             'tags' => new PublicationFieldValue(PublicationFieldTypes::Tag, ['tag1', 'tag2', 'foo bar']),
         ]);
 
-        (new \Hyde\Publications\Actions\CreatesNewPublicationPage($pubType, $fieldData))->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $contents = file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));

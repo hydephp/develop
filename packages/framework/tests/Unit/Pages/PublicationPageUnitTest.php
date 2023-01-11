@@ -65,7 +65,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $this->assertSame(
             Hyde::path('hello-world.md'),
-            \Hyde\Publications\Models\PublicationPage::path('hello-world.md')
+            PublicationPage::path('hello-world.md')
         );
     }
 
@@ -108,7 +108,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testShowInNavigation()
     {
-        $this->assertFalse((new \Hyde\Publications\Models\PublicationPage('', [], '', $this->pubType()))->showInNavigation());
+        $this->assertFalse((new PublicationPage('', [], '', $this->pubType()))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
@@ -145,7 +145,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::pages()->put($page->getSourcePath(), $page);
-        $this->assertSame($page, \Hyde\Publications\Models\PublicationPage::get('directory/foo'));
+        $this->assertSame($page, PublicationPage::get('directory/foo'));
     }
 
     public function testParse()
@@ -153,7 +153,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->directory('directory');
         $this->setupTestPublication('directory');
 
-        Hyde::touch(\Hyde\Publications\Models\PublicationPage::sourcePath('directory/foo'));
+        Hyde::touch(PublicationPage::sourcePath('directory/foo'));
         $this->assertInstanceOf(PublicationPage::class, PublicationPage::parse('directory/foo'));
     }
 
@@ -232,7 +232,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $this->directory('directory');
 
-        $page = new \Hyde\Publications\Models\PublicationPage('foo', type: $this->pubType());
+        $page = new PublicationPage('foo', type: $this->pubType());
         $this->assertSame($page, $page->save());
         $this->assertFileExists(Hyde::path('directory/foo.md'));
     }
