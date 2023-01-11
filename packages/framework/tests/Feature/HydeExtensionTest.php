@@ -14,3 +14,8 @@ class HydeExtensionTest extends TestCase
 {
     //
 }
+
+class HydeTestExtension extends HydeExtension
+{
+    //
+}
