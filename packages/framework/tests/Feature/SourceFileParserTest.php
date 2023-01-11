@@ -77,24 +77,6 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('<h1>Foo Bar</h1>', $page->contents());
     }
 
-    public function test_publication_parser()
-    {
-        mkdir(Hyde::path('test-publication'));
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
-        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/foo.md'));
-
-        $parser = new SourceFileParser(PublicationPage::class, 'test-publication/foo');
-        $page = $parser->get();
-        $this->assertInstanceOf(PublicationPage::class, $page);
-        $this->assertEquals('test-publication/foo', $page->identifier);
-        $this->assertEquals('## Write something awesome.', $page->markdown);
-        $this->assertEquals('My Title', $page->title);
-        $this->assertEquals('My Title', $page->matter->get('title'));
-        $this->assertTrue($page->matter->has('__createdAt'));
-
-        Filesystem::deleteDirectory('test-publication');
-    }
-
     public function test_parsed_page_is_run_through_dynamic_constructor()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use Hyde\Facades\Filesystem;
+use Hyde\Framework\Actions\SourceFileParser;
+use function copy;
 use function file_put_contents;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use function mkdir;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationPage
@@ -60,6 +64,23 @@ class PublicationPageTest extends TestCase
         $this->assertEquals('bar', $page->matter('foo'));
         $this->assertEquals('canonical', $page->matter('__canonical'));
         $this->assertEquals('Hello World!', $page->markdown()->body());
+    }
+
+    public function test_publication_pages_are_parsable()
+    {
+        mkdir(Hyde::path('test-publication'));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/foo.md'));
+
+        $page = (PublicationPage::parse('test-publication/foo'));
+        $this->assertInstanceOf(PublicationPage::class, $page);
+        $this->assertEquals('test-publication/foo', $page->identifier);
+        $this->assertEquals('## Write something awesome.', $page->markdown);
+        $this->assertEquals('My Title', $page->title);
+        $this->assertEquals('My Title', $page->matter->get('title'));
+        $this->assertTrue($page->matter->has('__createdAt'));
+
+        Filesystem::deleteDirectory('test-publication');
     }
 
     public function test_publication_pages_are_compilable()
