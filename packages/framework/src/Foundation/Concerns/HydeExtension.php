@@ -8,6 +8,9 @@ use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\HydeExtensionTest
+ */
 abstract class HydeExtension
 {
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
