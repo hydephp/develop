@@ -151,7 +151,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     public function testParse()
     {
         $this->directory('directory');
-        $this->setupTestPublication('directory');
+        (new PublicationType('directory'))->save();
 
         Hyde::touch(\Hyde\Publications\Models\PublicationPage::sourcePath('directory/foo'));
         $this->assertInstanceOf(PublicationPage::class, PublicationPage::parse('directory/foo'));
