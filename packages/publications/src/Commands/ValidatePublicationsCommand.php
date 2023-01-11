@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Publications\Actions\ValidatesPublicationField;
 use function count;
 use Exception;
+use Hyde\Publications\Actions\ValidatesPublicationField;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\PublicationService;
 use InvalidArgumentException;

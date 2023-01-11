@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use Hyde\Publications\PublicationFieldTypes;
-use Hyde\Publications\PublicationService;
 use function array_merge;
 use function collect;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\PublicationFieldTypes;
+use Hyde\Publications\PublicationService;
 use Illuminate\Contracts\Validation\Validator;
 use function validator;
 
