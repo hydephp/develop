@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
-use Hyde\Publications\Models\PublicationType;
 use function copy;
-use Hyde\Hyde;
-use Hyde\Testing\TestCase;
 use function file_put_contents;
+use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
