@@ -12,7 +12,7 @@ use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
-use Hyde\Publications\Paginator;
+use Hyde\Framework\Features\Paginator;
 use Hyde\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications;
+namespace Hyde\Framework\Features;
 
 use function collect;
 use Hyde\Hyde;

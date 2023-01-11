@@ -6,15 +6,15 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_combine;
 use function collect;
+use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
 use Hyde\Pages\VirtualPage;
-use Hyde\Publications\Paginator;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use function range;
 
 /**
- * @covers \Hyde\Publications\Paginator
+ * @covers \Hyde\Framework\Features\Paginator
  */
 class PaginatorTest extends TestCase
 {
