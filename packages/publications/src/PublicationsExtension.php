@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Foundation\Extensions\HydeExtension;
+use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\PageCollection;
 use Hyde\Pages\VirtualPage;
 use Hyde\Publications\Models\PublicationListPage;
