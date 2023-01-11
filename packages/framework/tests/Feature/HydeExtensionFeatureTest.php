@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use function func_get_args;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
+use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
