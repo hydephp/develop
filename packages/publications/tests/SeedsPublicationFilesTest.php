@@ -98,7 +98,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithImageType()
     {
         $this->updateSchema('image', 'image');
-        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
+        (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
@@ -121,7 +121,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithStringType()
     {
         $this->updateSchema('string', 'title');
-        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
+        (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
@@ -150,7 +150,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithTextType()
     {
         $this->updateSchema('text', 'description');
-        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
+        (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
@@ -163,7 +163,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithUrlType()
     {
         $this->updateSchema('url', 'url');
-        (new \Hyde\Publications\Actions\SeedsPublicationFiles($this->pubType))->create();
+        (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
