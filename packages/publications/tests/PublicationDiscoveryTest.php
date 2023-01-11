@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use function copy;
+use function file_put_contents;
 use Hyde\Foundation\PageCollection;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\PublicationsExtension;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
-
-use function copy;
-use function file_put_contents;
 use function mkdir;
 
 /**
@@ -21,7 +19,6 @@ use function mkdir;
  */
 class PublicationDiscoveryTest extends TestCase
 {
-
     public function test_publication_pages_are_discovered()
     {
         mkdir(Hyde::path('publication'));
