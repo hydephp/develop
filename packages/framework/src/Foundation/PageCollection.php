@@ -88,6 +88,10 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor($pageClass);
         }
 
+        foreach ($this->kernel->getRegisteredExtensions() as $extension) {
+            $extension::discoverPages($this);
+        }
+
         return $this;
     }
 

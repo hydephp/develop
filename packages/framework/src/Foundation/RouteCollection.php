@@ -78,6 +78,10 @@ final class RouteCollection extends BaseFoundationCollection
             $this->discover($page);
         });
 
+        foreach ($this->kernel->getRegisteredExtensions() as $extension) {
+            $extension::discoverRoutes($this);
+        }
+
         return $this;
     }
 }
