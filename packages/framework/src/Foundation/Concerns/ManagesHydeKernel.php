@@ -54,6 +54,7 @@ trait ManagesHydeKernel
      * Developer Information.
      *
      * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
+     * @deprecated This feature may be replaced by the {@see \Hyde\Foundation\Concerns\HydeExtension} system.
      *
      * If you are a package developer, and want a custom page class to be discovered,
      * you'll need to register it sometime before the boot process, before discovery is run.
