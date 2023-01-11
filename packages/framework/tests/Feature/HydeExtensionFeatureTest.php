@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
@@ -18,7 +19,14 @@ use Hyde\Testing\TestCase;
  */
 class HydeExtensionFeatureTest extends TestCase
 {
-    //
+    protected HydeKernel $kernel;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->kernel = HydeKernel::getInstance();
+    }
 }
 
 class HydeTestExtension extends HydeExtension
