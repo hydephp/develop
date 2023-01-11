@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Extensions;
 
 abstract class HydeExtension
 {
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {
         return [];
