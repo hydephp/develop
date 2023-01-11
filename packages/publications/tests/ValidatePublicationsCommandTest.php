@@ -88,8 +88,8 @@ Hello World
     {
         $this->directory('test-publication');
         $this->directory('test-publication-two');
-        (new PublicationType('Test Publication'))->save();
-        (new PublicationType('Test Publication Two'))->save();
+        $this->savePublication('Test Publication');
+        $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications')
             ->expectsOutput('Validating publication type [test-publication-two]')
@@ -101,12 +101,17 @@ Hello World
     {
         $this->directory('test-publication');
         $this->directory('test-publication-two');
-        (new PublicationType('Test Publication'))->save();
-        (new PublicationType('Test Publication Two'))->save();
+        $this->savePublication('Test Publication');
+        $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications test-publication-two')
             ->expectsOutput('Validating publication type [test-publication-two]')
             ->doesntExpectOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
+    }
+
+    protected function savePublication(string $name): void
+    {
+        (new PublicationType($name))->save();
     }
 }
