@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
-use JetBrains\PhpStorm\Deprecated;
 use function file_get_contents;
 use Hyde\Facades\Features;
-use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use function Hyde\normalize_newlines;
 use Illuminate\View\Component;
