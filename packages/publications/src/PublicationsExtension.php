@@ -11,6 +11,7 @@ use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use function range;
+use function str_ends_with;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationsExtensionTest
@@ -70,10 +71,14 @@ class PublicationsExtension extends HydeExtension
 
         foreach (range(1, $paginator->totalPages()) as $page) {
             $paginator->setCurrentPage($page);
+            $listTemplate = $type->listTemplate;
+            if (str_ends_with($listTemplate, '.blade.php')) {
+                $listTemplate = "{$type->getDirectory()}/$listTemplate";
+            }
             $listingPage = new VirtualPage("{$type->getDirectory()}/page-$page", [
                 'publicationType' => $type, 'paginatorPage' => $page,
                 'title' => $type->name.' - Page '.$page,
-            ], view: $type->listTemplate);
+            ], view: $listTemplate);
             $instance->put($listingPage->getSourcePath(), $listingPage);
         }
     }
