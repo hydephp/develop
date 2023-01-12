@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Console\Commands\Helpers;
+namespace Hyde\Publications\Commands\Helpers;
+
+use Hyde\Framework\Concerns\InvokableAction;
+use Hyde\Hyde;
 
 use function array_shift;
 use function explode;
 use function fgets;
-use Hyde\Framework\Concerns\InvokableAction;
-use Hyde\Hyde;
 use function trim;
 
 /**

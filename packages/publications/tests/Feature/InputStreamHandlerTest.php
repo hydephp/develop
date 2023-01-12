@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Console\Commands\Helpers\InputStreamHandler;
+use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
 use Mockery;
 
 /**
- * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler
+ * @covers \Hyde\Publications\Commands\Helpers\InputStreamHandler
  */
 class InputStreamHandlerTest extends TestCase
 {

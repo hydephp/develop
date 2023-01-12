@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationService;
-use function implode;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
+use function implode;
 use function sprintf;
 
 /**

@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Hyde;
+use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
+
 use function unlink;
 
 /**
  * @covers \Hyde\Publications\Commands\MakePublicationTagCommand
- * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler
+ * @covers \Hyde\Publications\Commands\Helpers\InputStreamHandler
  */
 class MakePublicationTagCommandTest extends TestCase
 {
