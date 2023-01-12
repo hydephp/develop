@@ -124,12 +124,13 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/685/files#r1064151223');
+
         $this->directory('test-publication');
 
-        (new CreatesNewPublicationType('Test Publication', collect([])))->create();
+        (new CreatesNewPublicationType('Test Publication', collect([]), pageSize: 10))->create();
 
         $type = PublicationType::get('test-publication');
-        $type->listTemplate = 'hyde-publications::publication_paginated_list';
         $type->pageSize = 2;
         $type->save();
 
@@ -161,9 +162,33 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $this->directory('test-publication');
 
         (new CreatesNewPublicationType('Test Publication', collect([])))->create();
-        // TODO assert the paginated template was published once we implement that
 
-        $this->markTestIncomplete();
+        $type = PublicationType::get('test-publication');
+        $type->listTemplate = 'hyde-publications::publication_paginated_list';
+        $type->pageSize = 2;
+        $type->save();
+
+        foreach (range(1, 5) as $i) {
+            $this->file("test-publication/publication-$i.md", "## Test publication $i");
+        }
+
+        $this->artisan('build')->assertSuccessful();
+
+        $this->assertSame([
+            'index.html',
+            'page-1.html',
+            'page-2.html',
+            'page-3.html',
+            'publication-1.html',
+            'publication-2.html',
+            'publication-3.html',
+            'publication-4.html',
+            'publication-5.html',
+        ], $this->getFilenamesInDirectory('_site/test-publication'));
+
+        // TODO test that the pagination links are correct
+
+        $this->resetSite();
     }
 
     protected function getAllFields(): Collection
