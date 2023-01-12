@@ -183,7 +183,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "listTemplate": "list.blade.php",
                 "sortField": "__createdAt",
                 "sortAscending": true,
-                "pageSize": 25,
+                "pageSize": 0,
                 "fields": [
                     {
                         "type": "datetime",
