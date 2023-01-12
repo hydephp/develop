@@ -9,6 +9,7 @@ use Hyde\Foundation\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -83,18 +84,22 @@ class PageCollectionTest extends TestCase
         $this->file('_pages/foo.md');
         $this->file('_posts/foo.md');
         $this->file('_docs/foo.md');
+        $this->file('_pages/foo.html');
+
         $collection = PageCollection::boot(Hyde::getInstance());
-        $this->assertCount(4, $collection);
+        $this->assertCount(5, $collection);
 
         $this->assertContainsOnlyInstancesOf(BladePage::class, $collection->getPages(BladePage::class));
         $this->assertContainsOnlyInstancesOf(MarkdownPage::class, $collection->getPages(MarkdownPage::class));
         $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection->getPages(MarkdownPost::class));
         $this->assertContainsOnlyInstancesOf(DocumentationPage::class, $collection->getPages(DocumentationPage::class));
+        $this->assertContainsOnlyInstancesOf(HtmlPage::class, $collection->getPages(HtmlPage::class));
 
         $this->assertEquals(new BladePage('foo'), $collection->getPages(BladePage::class)->first());
         $this->assertEquals(new MarkdownPage('foo'), $collection->getPages(MarkdownPage::class)->first());
         $this->assertEquals(new MarkdownPost('foo'), $collection->getPages(MarkdownPost::class)->first());
         $this->assertEquals(new DocumentationPage('foo'), $collection->getPages(DocumentationPage::class)->first());
+        $this->assertEquals(new HtmlPage('foo'), $collection->getPages(HtmlPage::class)->first());
 
         $this->restoreDefaultPages();
     }
@@ -107,13 +112,16 @@ class PageCollectionTest extends TestCase
         $this->file('_pages/foo.md');
         $this->file('_posts/foo.md');
         $this->file('_docs/foo.md');
+        $this->file('_pages/foo.html');
+
         $collection = PageCollection::boot(Hyde::getInstance())->getPages();
-        $this->assertCount(4, $collection);
+        $this->assertCount(5, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
         $this->assertEquals(new MarkdownPage('foo'), $collection->get('_pages/foo.md'));
         $this->assertEquals(new MarkdownPost('foo'), $collection->get('_posts/foo.md'));
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('_docs/foo.md'));
+        $this->assertEquals(new HtmlPage('foo'), $collection->get('_pages/foo.html'));
 
         $this->restoreDefaultPages();
     }
