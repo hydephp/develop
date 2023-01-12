@@ -6,7 +6,6 @@ namespace Hyde\Publications\Commands;
 
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
-use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Publications\Actions\CreatesNewPublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationFieldValue;

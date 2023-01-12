@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use function glob;
-use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationTags;
@@ -79,7 +78,7 @@ class PublicationService
      */
     public static function parsePublicationFile(string $identifier): PublicationPage
     {
-        return (new SourceFileParser(PublicationPage::class, Str::replaceLast('.md', '', $identifier)))->get();
+        return PublicationPage::parse(Str::replaceLast('.md', '', $identifier));
     }
 
     /**

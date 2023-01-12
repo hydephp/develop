@@ -24,8 +24,7 @@ class SeedsPublicationFilesTest extends TestCase
         parent::setUp();
 
         $this->directory('test-publication');
-        $this->setupTestPublication();
-        $this->pubType = PublicationType::get('test-publication');
+        $this->pubType = new PublicationType('Test Publication');
     }
 
     public function testCreate()

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Closure;
-use Hyde\Console\Concerns\ValidatingCommand;
+use Hyde\Publications\Commands\ValidatingCommand;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +16,7 @@ use function str_starts_with;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 /**
- * @covers \Hyde\Console\Concerns\ValidatingCommand
+ * @covers \Hyde\Publications\Commands\ValidatingCommand
  */
 class ValidatingCommandTest extends TestCase
 {

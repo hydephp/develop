@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Commands;
 
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
-use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationTags;

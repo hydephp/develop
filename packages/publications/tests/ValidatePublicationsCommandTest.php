@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Publications\Testing;
 
 use function copy;
+use function file_put_contents;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 
 /**
@@ -30,7 +32,7 @@ class ValidatePublicationsCommandTest extends TestCase
     public function testWithPublicationType()
     {
         $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
         $this->artisan('validate:publications')
@@ -47,7 +49,7 @@ class ValidatePublicationsCommandTest extends TestCase
     public function testWithPublicationTypeAndVerboseOutput()
     {
         $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
         $this->artisan('validate:publications', ['--verbose' => true])
@@ -64,7 +66,7 @@ class ValidatePublicationsCommandTest extends TestCase
     public function testWithInvalidPublication()
     {
         $this->directory('test-publication');
-        $this->setupTestPublication();
+        $this->copyTestPublicationFixture();
         file_put_contents(Hyde::path('test-publication/test.md'), '---
 Foo: bar
 ---
@@ -87,8 +89,8 @@ Hello World
     {
         $this->directory('test-publication');
         $this->directory('test-publication-two');
-        $this->setupTestPublication();
-        $this->setupTestPublication('test-publication-two');
+        $this->savePublication('Test Publication');
+        $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications')
             ->expectsOutput('Validating publication type [test-publication-two]')
@@ -100,12 +102,39 @@ Hello World
     {
         $this->directory('test-publication');
         $this->directory('test-publication-two');
-        $this->setupTestPublication();
-        $this->setupTestPublication('test-publication-two');
+        $this->savePublication('Test Publication');
+        $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications test-publication-two')
             ->expectsOutput('Validating publication type [test-publication-two]')
             ->doesntExpectOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
+    }
+
+    protected function copyTestPublicationFixture(): void
+    {
+        file_put_contents(Hyde::path('test-publication/schema.json'), <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "title",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
+                "fields": [
+                    {
+                        "name": "title",
+                        "type": "string"
+                    }
+                ]
+            }
+            JSON
+        );
+    }
+
+    protected function savePublication(string $name): void
+    {
+        (new PublicationType($name))->save();
     }
 }

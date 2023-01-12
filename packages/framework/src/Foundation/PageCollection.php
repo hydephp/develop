@@ -13,11 +13,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Pages\VirtualPage;
-use Hyde\Publications\Models\PublicationListPage;
-use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 
 /**
@@ -89,10 +84,6 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor(DocumentationPage::class);
         }
 
-        if (Features::hasPublicationPages()) {
-            $this->discoverPublicationPages();
-        }
-
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverPagesFor($pageClass);
         }
@@ -126,49 +117,5 @@ final class PageCollection extends BaseFoundationCollection
         }
 
         return $collection;
-    }
-
-    protected function discoverPublicationPages(): void
-    {
-        PublicationService::getPublicationTypes()->each(function (PublicationType $type): void {
-            $this->discoverPublicationPagesForType($type);
-            $this->generatePublicationListingPageForType($type);
-        });
-    }
-
-    protected function discoverPublicationPagesForType(PublicationType $type): void
-    {
-        PublicationService::getPublicationsForPubType($type)->each(function (PublicationPage $publication): void {
-            $this->addPage($publication);
-        });
-    }
-
-    protected function generatePublicationListingPageForType(PublicationType $type): void
-    {
-        $page = new PublicationListPage($type);
-        $this->put($page->getSourcePath(), $page);
-
-        if ($type->usesPagination()) {
-            $this->generatePublicationPaginatedListingPagesForType($type);
-        }
-    }
-
-    /**
-     * @deprecated This method will be removed before merging into master.
-     *
-     * @internal This method will be removed before merging into master.
-     */
-    protected function generatePublicationPaginatedListingPagesForType(PublicationType $type): void
-    {
-        $paginator = $type->getPaginator();
-
-        foreach (range(1, $paginator->totalPages()) as $page) {
-            $paginator->setCurrentPage($page);
-            $listingPage = new VirtualPage("{$type->getDirectory()}/page-$page", [
-                'publicationType' => $type, 'paginatorPage' => $page,
-                'title' => $type->name.' - Page '.$page,
-            ], view: $type->listTemplate);
-            $this->put($listingPage->getSourcePath(), $listingPage);
-        }
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;

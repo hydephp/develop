@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Publications\Testing;
 
 use Hyde\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;

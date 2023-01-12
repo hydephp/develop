@@ -8,9 +8,6 @@ use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
-use Illuminate\Support\Str;
 
 /**
  * Parses a source file and returns a new page model instance for it.
@@ -46,30 +43,11 @@ class SourceFileParser
             return $this->parseBladePage();
         }
 
-        if ($pageClass === PublicationPage::class) {
-            return $this->parsePublicationPage();
-        }
-
         if (is_subclass_of($pageClass, BaseMarkdownPage::class)) {
             return $this->parseMarkdownPage($pageClass);
         }
 
         return new $pageClass($this->identifier);
-    }
-
-    protected function parsePublicationPage(): PublicationPage
-    {
-        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
-        $document = MarkdownFileParser::parse(
-            PublicationPage::sourcePath($this->identifier)
-        );
-
-        return new PublicationPage(
-            identifier: $this->identifier,
-            matter: $document->matter,
-            markdown: $document->markdown,
-            type: PublicationType::get(Str::before($this->identifier, '/'))
-        );
     }
 
     protected function parseBladePage(): BladePage

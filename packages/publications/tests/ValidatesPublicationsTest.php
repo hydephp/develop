@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use Hyde\Publications\Actions\ValidatesPublicationField;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\ValidatesPublicationField;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * @covers \Hyde\Publications\ValidatesPublicationField
+ * @covers \Hyde\Publications\Actions\ValidatesPublicationField
  */
 class ValidatesPublicationsTest extends TestCase
 {

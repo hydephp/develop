@@ -6,7 +6,6 @@ namespace Hyde\Testing;
 
 use function file_get_contents;
 use Hyde\Facades\Features;
-use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use function Hyde\normalize_newlines;
 use Illuminate\View\Component;
@@ -46,12 +45,6 @@ abstract class TestCase extends BaseTestCase
         Features::clearMockedInstances();
 
         parent::tearDown();
-    }
-
-    /** @deprecated as it's probably better to do this via the object constructor */
-    protected function setupTestPublication(string $directory = 'test-publication')
-    {
-        Filesystem::copy('tests/fixtures/test-publication-schema.json', "$directory/schema.json");
     }
 
     protected function assertFileEqualsString(string $string, string $path, bool $strict = false): void

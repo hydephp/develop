@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use function copy;
 use function file_put_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
@@ -18,20 +19,6 @@ use function mkdir;
  */
 class PublicationPageTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        mkdir(Hyde::path('test-publication'));
-    }
-
-    protected function tearDown(): void
-    {
-        Filesystem::deleteDirectory('test-publication');
-
-        parent::tearDown();
-    }
-
     public function test_source_path_mappings()
     {
         $this->createPublicationFiles();
@@ -78,6 +65,23 @@ class PublicationPageTest extends TestCase
         $this->assertEquals('Hello World!', $page->markdown()->body());
     }
 
+    public function test_publication_pages_are_parsable()
+    {
+        mkdir(Hyde::path('test-publication'));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/foo.md'));
+
+        $page = (PublicationPage::parse('test-publication/foo'));
+        $this->assertInstanceOf(PublicationPage::class, $page);
+        $this->assertEquals('test-publication/foo', $page->identifier);
+        $this->assertEquals('## Write something awesome.', $page->markdown);
+        $this->assertEquals('My Title', $page->title);
+        $this->assertEquals('My Title', $page->matter->get('title'));
+        $this->assertTrue($page->matter->has('__createdAt'));
+
+        Filesystem::deleteDirectory('test-publication');
+    }
+
     public function test_publication_pages_are_compilable()
     {
         $this->createRealPublicationFiles();
@@ -113,6 +117,7 @@ class PublicationPageTest extends TestCase
 
     protected function createRealPublicationFiles(): void
     {
+        $this->directory('test-publication');
         file_put_contents(Hyde::path('test-publication/schema.json'), '{
   "name": "test",
   "canonicalField": "slug",
@@ -145,7 +150,9 @@ Hello World!
 
     protected function createPublicationFiles(): void
     {
-        $this->setupTestPublication();
+        $this->directory('test-publication');
+        (new PublicationType('Test Publication'))->save();
+
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---

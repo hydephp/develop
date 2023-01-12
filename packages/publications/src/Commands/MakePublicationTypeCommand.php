@@ -6,7 +6,6 @@ namespace Hyde\Publications\Commands;
 
 use function array_keys;
 use function count;
-use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Publications\Models\PublicationFieldDefinition;

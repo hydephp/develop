@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Console\Concerns;
+namespace Hyde\Publications\Commands;
 
 use function __;
 use function array_merge;

@@ -20,8 +20,8 @@ class SeedPublicationCommandTest extends TestCase
         parent::setUp();
 
         $this->directory('test-publication');
-        $this->setupTestPublication();
-        $this->pubType = PublicationType::get('test-publication');
+        $this->pubType = new PublicationType('Test Publication');
+        $this->pubType->save();
     }
 
     public function test_can_seed_publications()
