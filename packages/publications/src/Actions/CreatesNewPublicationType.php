@@ -55,11 +55,7 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createListTemplate(): void
     {
-        if ($this->usesPagination()) {
-            $name = 'publication_paginated_list';
-        } else {
-            $name = 'publication_list';
-        }
+        $name = $this->usesPagination() ? 'publication_paginated_list' : 'publication_list';
         $this->savePublicationFile('list.blade.php', '/../publications/resources/views/'.$name.'.blade.php');
     }
 
