@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
+
+use function str_ends_with;
 
 /**
  * A virtual page is a page that does not have a source file.
@@ -70,7 +73,10 @@ class VirtualPage extends HydePage implements DynamicPage
     public function compile(): string
     {
         if (! $this->contents && $this->view) {
-            // TODO This needs to support Blade files if we're gonna use it for pagination.
+            if (str_ends_with($this->view, '.blade.php')) {
+                return AnonymousViewCompiler::call($this->view, $this->matter->toArray());
+            }
+
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 
