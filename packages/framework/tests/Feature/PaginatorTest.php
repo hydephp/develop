@@ -273,6 +273,22 @@ class PaginatorTest extends TestCase
         );
     }
 
+    public function testFirstItemNumberOnPage()
+    {
+        $paginator = $this->makePaginator();
+        $this->assertSame(1, $paginator->firstItemNumberOnPage());
+        $this->assertSame(11, $paginator->setCurrentPage(2)->firstItemNumberOnPage());
+        $this->assertSame(21, $paginator->setCurrentPage(3)->firstItemNumberOnPage());
+        $this->assertSame(31, $paginator->setCurrentPage(4)->firstItemNumberOnPage());
+        $this->assertSame(41, $paginator->setCurrentPage(5)->firstItemNumberOnPage());
+
+        $paginator = $this->makePaginator(1, 100, 25);
+        $this->assertSame(1, $paginator->firstItemNumberOnPage());
+        $this->assertSame(26, $paginator->setCurrentPage(2)->firstItemNumberOnPage());
+        $this->assertSame(51, $paginator->setCurrentPage(3)->firstItemNumberOnPage());
+        $this->assertSame(76, $paginator->setCurrentPage(4)->firstItemNumberOnPage());
+    }
+
     protected function makePaginator(int $start = 1, int $end = 50, int $pageSize = 10): Paginator
     {
         return new Paginator(range($start, $end), $pageSize);
