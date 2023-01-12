@@ -79,7 +79,7 @@ class CreatesNewPublicationTypeTest extends TestCase
 
     public function test_it_creates_list_and_detail_pages()
     {
-        $creator = new \Hyde\Publications\Actions\CreatesNewPublicationType(
+        $creator = new CreatesNewPublicationType(
             'Test Publication',
             new Collection(),
             'canonical',
