@@ -32,10 +32,9 @@ class PublicationsExtensionTest extends TestCase
         $this->createPublication();
 
         $booted = PageCollection::boot(Hyde::getInstance());
- 
-        $collection = $booted->getPages();
-        $this->assertCount(4, $collection); // Default pages + publication index + publication page
-        $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
+
+        $this->assertCount(4, $booted->getPages()); // Default pages + publication index + publication page
+        $this->assertInstanceOf(PublicationPage::class, $booted->getPages()->get('publication/foo.md'));
     }
 
     public function test_listing_pages_for_publications_are_discovered()
