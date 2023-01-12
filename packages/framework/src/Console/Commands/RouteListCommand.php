@@ -7,7 +7,6 @@ namespace Hyde\Console\Commands;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
-use function str_starts_with;
 
 /**
  * Hyde command to display the list of site routes.
