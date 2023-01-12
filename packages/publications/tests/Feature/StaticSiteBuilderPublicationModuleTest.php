@@ -124,8 +124,6 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
 
     public function testCompilingWithPublicationTypeThatUsesThePublishedPaginatedViews()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/685/files#r1064151223');
-
         $this->directory('test-publication');
 
         (new CreatesNewPublicationType('Test Publication', collect([]), pageSize: 10))->create();
