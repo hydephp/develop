@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
@@ -31,6 +32,8 @@ class VirtualPage extends HydePage implements DynamicPage
     protected string $contents;
     protected string $view;
 
+    protected Closure $compiler;
+
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
     {
         return new static($identifier, $matter, $contents, $view);
@@ -51,13 +54,19 @@ class VirtualPage extends HydePage implements DynamicPage
      *                                                           this will be passed to the view.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key for the view to use to render the page contents.
+     * @param Closure|null $compiler  Additionally, you can instead pass a closure to control the compiling completely.
+     *                                The closure accepts the page instance, and must return a string (which will be saved as the page's contents).
      */
-    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
+    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '', Closure $compiler = null)
     {
         parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
         $this->view = $view;
+
+        if ($compiler) {
+            $this->compiler = $compiler;
+        }
     }
 
     public function getContents(): string
@@ -72,6 +81,10 @@ class VirtualPage extends HydePage implements DynamicPage
 
     public function compile(): string
     {
+        if (isset($this->compiler)) {
+            return ($this->compiler)($this);
+        }
+
         if (! $this->contents && $this->view) {
             if (str_ends_with($this->view, '.blade.php')) {
                 return AnonymousViewCompiler::call($this->view, $this->matter->toArray());
