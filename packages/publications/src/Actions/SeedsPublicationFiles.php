@@ -77,7 +77,7 @@ class SeedsPublicationFiles
         ));
     }
 
-    protected function getTextValue($lines): string
+    protected function getTextValue(int $lines): string
     {
         $value = '';
 
