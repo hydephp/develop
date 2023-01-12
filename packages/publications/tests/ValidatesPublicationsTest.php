@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * @covers \Hyde\Publications\ValidatesPublicationField
+ * @covers \Hyde\Publications\Actions\ValidatesPublicationField
  */
 class ValidatesPublicationsTest extends TestCase
 {
