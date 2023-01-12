@@ -7,7 +7,6 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
-
 use function unlink;
 
 /**
