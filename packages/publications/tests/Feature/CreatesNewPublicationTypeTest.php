@@ -70,7 +70,7 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "listTemplate": "list.blade.php",
                 "sortField": "__createdAt",
                 "sortAscending": true,
-                "pageSize": 25,
+                "pageSize": 0,
                 "fields": []
             }
             JSON, file_get_contents(Hyde::path('test-publication/schema.json'))

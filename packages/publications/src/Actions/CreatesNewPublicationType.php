@@ -40,7 +40,7 @@ class CreatesNewPublicationType extends CreateAction
             'list.blade.php',
             $this->sortField ?? '__createdAt',
             $this->sortAscending ?? true,
-            $this->pageSize ?? 25,
+            $this->pageSize ?? 0,
             $this->fields->toArray()
         ))->save($this->outputPath);
 
