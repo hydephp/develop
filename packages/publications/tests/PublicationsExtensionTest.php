@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing;
 
+use Hyde\Publications\PublicationsExtension;
 use function copy;
 use function file_put_contents;
 use Hyde\Foundation\PageCollection;
@@ -17,6 +18,14 @@ use Hyde\Testing\TestCase;
  */
 class PublicationsExtensionTest extends TestCase
 {
+    public function test_get_page_classes_method()
+    {
+        $this->assertSame([
+            PublicationPage::class,
+            PublicationListPage::class,
+        ], PublicationsExtension::getPageClasses());
+    }
+    
     public function test_publication_pages_are_discovered()
     {
         $this->directory('publication');
