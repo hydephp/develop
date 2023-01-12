@@ -31,7 +31,9 @@ class PublicationsExtensionTest extends TestCase
         $this->directory('publication');
         $this->createPublication();
 
-        $collection = PageCollection::boot(Hyde::getInstance())->getPages();
+        $booted = PageCollection::boot(Hyde::getInstance());
+ 
+        $collection = $booted->getPages();
         $this->assertCount(4, $collection); // Default pages + publication index + publication page
         $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
     }
@@ -41,9 +43,11 @@ class PublicationsExtensionTest extends TestCase
         $this->directory('publication');
         $this->createPublication();
 
+        $booted = PageCollection::boot(Hyde::getInstance());
+
         $this->assertInstanceOf(
             PublicationListPage::class,
-            PageCollection::boot(Hyde::getInstance())->getPage('publication/index')
+            $booted->getPage('publication/index')
         );
     }
 
