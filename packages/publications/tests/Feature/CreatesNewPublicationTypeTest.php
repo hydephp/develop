@@ -96,4 +96,25 @@ class CreatesNewPublicationTypeTest extends TestCase
             Hyde::path('test-publication/list.blade.php')
         );
     }
+
+    public function test_it_uses_the_paginated_list_view_when_pagination_is_enabled()
+    {
+        $creator = new CreatesNewPublicationType(
+            'Test Publication',
+            new Collection(),
+            'canonical',
+            pageSize: 10,
+        );
+        $creator->create();
+
+        $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
+
+        $this->assertFileEquals(__DIR__.'/../../resources/views/publication_detail.blade.php',
+            Hyde::path('test-publication/detail.blade.php')
+        );
+        $this->assertFileEquals(__DIR__.'/../../resources/views/publication_paginated_list.blade.php',
+            Hyde::path('test-publication/list.blade.php')
+        );
+    }
 }

@@ -55,11 +55,21 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createListTemplate(): void
     {
-        $this->savePublicationFile('list.blade.php', '/../publications/resources/views/publication_list.blade.php');
+        if ($this->usesPagination()) {
+            $name = 'publication_paginated_list';
+        } else {
+            $name = 'publication_list';
+        }
+        $this->savePublicationFile('list.blade.php', '/../publications/resources/views/'.$name.'.blade.php');
     }
 
     protected function savePublicationFile(string $filename, string $viewPath): void
     {
         copy(Hyde::vendorPath($viewPath), Hyde::path("$this->directoryName/$filename"));
+    }
+
+    protected function usesPagination(): bool
+    {
+        return $this->pageSize > 0;
     }
 }
