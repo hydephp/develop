@@ -81,12 +81,11 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertArrayHasKey('blade-pages', $array);
         $this->assertArrayHasKey('markdown-pages', $array);
         $this->assertArrayHasKey('documentation-pages', $array);
-        $this->assertArrayHasKey('publication-pages', $array);
         $this->assertArrayHasKey('darkmode', $array);
         $this->assertArrayHasKey('documentation-search', $array);
         $this->assertArrayHasKey('torchlight', $array);
 
-        $this->assertCount(10, $array);
+        $this->assertCount(9, $array);
     }
 
     public function test_features_can_be_mocked()

@@ -40,7 +40,6 @@ class Features implements SerializableContract
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
-            static::publications(),
             // static::dataCollections(),
 
             // Frontend Features
@@ -136,12 +135,6 @@ class Features implements SerializableContract
     public static function documentationPages(): string
     {
         return 'documentation-pages';
-    }
-
-    /** @deprecated This feature method is not needed as publications are in a package. To enable/disable the feature install/uninstall the package. */
-    public static function publications(): string
-    {
-        return 'publication-pages';
     }
 
     public static function documentationSearch(): string
