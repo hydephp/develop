@@ -60,10 +60,7 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function savePublicationFile(string $filename, string $viewName): void
     {
-        copy(
-            Hyde::vendorPath("/../publications/resources/views/$viewName.blade.php"),
-            Hyde::path("$this->directoryName/$filename.blade.php")
-        );
+        copy(Hyde::vendorPath("/../publications/resources/views/$viewName.blade.php"), Hyde::path("$this->directoryName/$filename.blade.php"));
     }
 
     protected function usesPagination(): bool
