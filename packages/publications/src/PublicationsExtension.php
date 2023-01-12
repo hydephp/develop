@@ -12,6 +12,9 @@ use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use function range;
 
+/**
+ * @see \Hyde\Publications\Testing\PublicationsExtensionTest
+ */
 class PublicationsExtension extends HydeExtension
 {
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
