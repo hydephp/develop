@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Testing;
+namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\PublicationFieldTypes;

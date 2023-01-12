@@ -25,7 +25,7 @@ use function trim;
  * Hyde Command to create a new publication type.
  *
  * @see \Hyde\Publications\Actions\CreatesNewPublicationType
- * @see \Hyde\Publications\Testing\MakePublicationTypeCommandTest
+ * @see \Hyde\Publications\Testing\Feature\MakePublicationTypeCommandTest
  */
 class MakePublicationTypeCommand extends ValidatingCommand
 {

@@ -17,7 +17,7 @@ use JsonException;
 /**
  * Object representation for the tags.json file.
  *
- * @see \Hyde\Publications\Testing\PublicationTagsTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationTagsTest
  */
 class PublicationTags
 {

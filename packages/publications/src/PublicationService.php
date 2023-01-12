@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * @see \Hyde\Publications\Testing\PublicationServiceTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationServiceTest
  */
 class PublicationService
 {

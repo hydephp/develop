@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\View;
 use function str_ends_with;
 
 /**
- * @see \Hyde\Publications\Testing\PublicationPageCompilerTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationPageCompilerTest
  */
 class PublicationPageCompiler extends InvokableAction
 {

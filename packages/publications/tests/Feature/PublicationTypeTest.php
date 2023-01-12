@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Testing;
+namespace Hyde\Publications\Testing\Feature;
 
-use function array_merge;
-use function array_reverse;
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -18,6 +16,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
+use function array_merge;
+use function array_reverse;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationType

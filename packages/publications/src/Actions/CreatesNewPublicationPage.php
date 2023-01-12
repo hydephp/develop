@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Yaml;
  * Scaffold a publication file.
  *
  * @see \Hyde\Publications\Commands\MakePublicationCommand
- * @see \Hyde\Publications\Testing\CreatesNewPublicationPageTest
+ * @see \Hyde\Publications\Testing\Feature\CreatesNewPublicationPageTest
  */
 class CreatesNewPublicationPage extends CreateAction
 {

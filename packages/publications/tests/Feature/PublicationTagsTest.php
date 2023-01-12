@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Testing;
+namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use function json_encode;
 use JsonException;
+use function json_encode;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationTags

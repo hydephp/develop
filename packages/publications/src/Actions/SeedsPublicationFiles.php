@@ -26,7 +26,7 @@ use function ucfirst;
  * @internal This class is not part of the public API and does not adhere to the BC promise.
  *
  * @see \Hyde\Publications\Commands\SeedPublicationCommand
- * @see \Hyde\Publications\Testing\SeedsPublicationFilesTest
+ * @see \Hyde\Publications\Testing\Feature\SeedsPublicationFilesTest
  */
 class SeedsPublicationFiles
 {

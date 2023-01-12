@@ -13,7 +13,7 @@ use Hyde\Publications\Models\PublicationType;
 use function range;
 
 /**
- * @see \Hyde\Publications\Testing\PublicationsExtensionTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationsExtensionTest
  */
 class PublicationsExtension extends HydeExtension
 {

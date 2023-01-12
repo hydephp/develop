@@ -18,7 +18,7 @@ use function str_starts_with;
  * Publication pages adds an easy way to create custom no-code page types,
  * with support using a custom front matter schema and Blade templates.
  *
- * @see \Hyde\Publications\Testing\PublicationPageTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationPageTest
  */
 class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 {

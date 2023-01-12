@@ -15,7 +15,7 @@ use LaravelZero\Framework\Commands\Command;
  * Hyde Command to seed publication files for a publication type.
  *
  * @see \Hyde\Publications\Actions\SeedsPublicationFiles
- * @see \Hyde\Publications\Testing\SeedPublicationCommandTest
+ * @see \Hyde\Publications\Testing\Feature\SeedPublicationCommandTest
  *
  * @todo Normalize command output style, maybe by hooking into the build actions?
  */

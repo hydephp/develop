@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Testing;
+namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Publications\Validation\BooleanRule;

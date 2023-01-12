@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Testing;
+namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -10,6 +10,7 @@ use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
+
 use function key;
 
 /**

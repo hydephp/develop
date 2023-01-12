@@ -14,7 +14,7 @@ use Illuminate\Contracts\Validation\Validator;
 use function validator;
 
 /**
- * @see \Hyde\Publications\Testing\ValidatesPublicationsTest
+ * @see \Hyde\Publications\Testing\Feature\ValidatesPublicationsTest
  */
 class ValidatesPublicationField
 {

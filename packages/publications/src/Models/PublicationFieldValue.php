@@ -17,7 +17,7 @@ use function is_array;
  *
  * @see \Hyde\Publications\Models\PublicationFieldDefinition
  * @see \Hyde\Publications\PublicationFieldTypes
- * @see \Hyde\Publications\Testing\PublicationFieldValueTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationFieldValueTest
  */
 final class PublicationFieldValue
 {

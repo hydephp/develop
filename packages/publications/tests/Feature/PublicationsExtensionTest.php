@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Testing;
+namespace Hyde\Publications\Testing\Feature;
 
-use function copy;
-use function file_put_contents;
 use Hyde\Foundation\PageCollection;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\PublicationsExtension;
 use Hyde\Testing\TestCase;
+use function copy;
+use function file_put_contents;
 
 /**
  * @covers \Hyde\Publications\PublicationsExtension
