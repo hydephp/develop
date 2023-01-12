@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Publications\PublicationsExtension
  */
-class PublicationDiscoveryTest extends TestCase
+class PublicationsExtensionTest extends TestCase
 {
     public function test_publication_pages_are_discovered()
     {
