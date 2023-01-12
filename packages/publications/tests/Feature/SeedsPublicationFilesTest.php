@@ -172,6 +172,20 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertStringStartsWith('http', $publication->matter('url'));
     }
 
+    public function testWithCanonicalDefinition()
+    {
+        $this->updateSchema('string', 'title');
+        $this->pubType->canonicalField = 'title';
+        $this->pubType->save();
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertNotEmpty($publication->matter('title'));
+        $this->assertIsString($publication->matter('title'));
+    }
+
     protected function getPublicationFiles(): array
     {
         $files = glob(Hyde::path('test-publication/*.md'));
