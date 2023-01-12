@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationPage;
@@ -16,8 +17,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
-
-use function file_get_contents;
 
 /**
  * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage

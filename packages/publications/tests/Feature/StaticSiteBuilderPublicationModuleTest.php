@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use function collect;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
@@ -12,7 +13,6 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use function collect;
 use function range;
 
 /**

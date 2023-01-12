@@ -10,7 +10,6 @@ use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
-
 use function key;
 
 /**

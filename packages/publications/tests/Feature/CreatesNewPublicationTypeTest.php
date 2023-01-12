@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use function file_get_contents;
 
 /**
  * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
