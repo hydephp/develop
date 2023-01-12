@@ -50,17 +50,17 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createDetailTemplate(): void
     {
-        $this->savePublicationFile('detail.blade.php', 'publication_detail');
+        $this->savePublicationFile('detail', 'publication_detail');
     }
 
     protected function createListTemplate(): void
     {
-        $this->savePublicationFile('list.blade.php', $this->usesPagination() ? 'publication_paginated_list' : 'publication_list');
+        $this->savePublicationFile('list', $this->usesPagination() ? 'publication_paginated_list' : 'publication_list');
     }
 
     protected function savePublicationFile(string $filename, string $viewPath): void
     {
-        copy(Hyde::vendorPath("/../publications/resources/views/$viewPath.blade.php"), Hyde::path("$this->directoryName/$filename"));
+        copy(Hyde::vendorPath("/../publications/resources/views/$viewPath.blade.php"), Hyde::path("$this->directoryName/$filename.blade.php"));
     }
 
     protected function usesPagination(): bool
