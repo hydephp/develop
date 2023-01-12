@@ -81,13 +81,6 @@ class Features implements SerializableContract
         return static::enabled(static::documentationPages());
     }
 
-    /** @deprecated This feature method is not needed as publications are in a package. To enable/disable the feature install/uninstall the package. */
-    public static function hasPublicationPages(): bool
-    {
-        return static::enabled(static::publications())
-            && class_exists('Hyde\Publications\PublicationsExtension');
-    }
-
     public static function hasDataCollections(): bool
     {
         return static::enabled(static::dataCollections());
