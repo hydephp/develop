@@ -25,7 +25,7 @@ use Hyde\Foundation\RouteCollection;
  * where you call the 'registerExtension' method of the HydeKernel singleton instance,
  * which you can access via the Hyde\Hyde facade, or via the service container.
  *
- * @example ```php $this->app->make(HydeKernel::class)->registerExtension(MyExtension::class); ```
+ * @example `$this->app->make(HydeKernel::class)->registerExtension(MyExtension::class);`
  *
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionTest
  */
