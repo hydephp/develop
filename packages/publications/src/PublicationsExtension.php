@@ -6,6 +6,7 @@ namespace Hyde\Publications;
 
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\PageCollection;
+use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Pages\VirtualPage;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
@@ -73,7 +74,9 @@ class PublicationsExtension extends HydeExtension
             $listingPage = new VirtualPage("{$type->getDirectory()}/page-$page", [
                 'publicationType' => $type, 'paginatorPage' => $page,
                 'title' => $type->name.' - Page '.$page,
-            ], view: $type->listTemplate);
+            ], compiler: function (VirtualPage $page) use ($type): string {
+                return AnonymousViewCompiler::call("{$type->getDirectory()}/$type->listTemplate", $page->matter->toArray());
+            });
             $instance->put($listingPage->getSourcePath(), $listingPage);
         }
     }
