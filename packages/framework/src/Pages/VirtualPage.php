@@ -10,7 +10,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
-
 use function str_ends_with;
 
 /**
@@ -54,8 +53,8 @@ class VirtualPage extends HydePage implements DynamicPage
      *                                                           this will be passed to the view.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key for the view to use to render the page contents.
-     * @param Closure|null $compiler  Additionally, you can instead pass a closure to control the compiling completely.
-     *                                The closure accepts the page instance, and must return a string (which will be saved as the page's contents).
+     * @param  Closure|null  $compiler  Additionally, you can instead pass a closure to control the compiling completely.
+     *                                  The closure accepts the page instance, and must return a string (which will be saved as the page's contents).
      */
     public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '', Closure $compiler = null)
     {
