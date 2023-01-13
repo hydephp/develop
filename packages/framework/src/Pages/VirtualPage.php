@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
@@ -33,7 +32,7 @@ class VirtualPage extends HydePage implements DynamicPage
     protected string $contents;
     protected string $view;
 
-    /** @var array<string, Closure> */
+    /** @var array<string, callable> */
     protected array $macros = [];
 
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
@@ -88,7 +87,7 @@ class VirtualPage extends HydePage implements DynamicPage
         return $this->getContents();
     }
 
-    public function macro(string $name, Closure $macro): void
+    public function macro(string $name, callable $macro): void
     {
         $this->macros[$name] = $macro;
     }
