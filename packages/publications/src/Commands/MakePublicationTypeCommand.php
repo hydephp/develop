@@ -154,9 +154,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(): PublicationFieldDefinition
     {
-        $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
-            return ! in_array($field->type, PublicationFieldTypes::canonicable());
-        });
+        $selectableFields = $this->availableFieldsWithoutCanonicalTypes();
 
         $options = $selectableFields->pluck('name');
 
@@ -170,9 +168,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
-        $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
-            return ! in_array($field->type, PublicationFieldTypes::canonicable());
-        });
+        $selectableFields = $this->availableFieldsWithoutCanonicalTypes();
 
         return $this->choice('Choose the field you wish to sort by', $selectableFields->pluck('name')->toArray(), 0);
     }
@@ -212,5 +208,12 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCount(int $offset = 0): int
     {
         return $this->fields->count() + $offset;
+    }
+
+    protected function availableFieldsWithoutCanonicalTypes(): Collection
+    {
+        return $this->fields->reject(function (PublicationFieldDefinition $field): bool {
+            return !in_array($field->type, PublicationFieldTypes::canonicable());
+        });
     }
 }
