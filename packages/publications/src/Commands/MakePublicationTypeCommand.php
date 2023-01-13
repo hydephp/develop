@@ -217,7 +217,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function availableFieldsWithoutCanonicalTypes(): Collection
     {
         return $this->fields->reject(function (PublicationFieldDefinition $field): bool {
-            return !in_array($field->type, PublicationFieldTypes::canonicable());
+            return ! in_array($field->type, PublicationFieldTypes::canonicable());
         });
     }
 }
