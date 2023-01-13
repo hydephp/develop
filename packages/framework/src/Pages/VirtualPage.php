@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use BadMethodCallException;
+use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
@@ -101,6 +102,12 @@ class VirtualPage extends HydePage implements DynamicPage
             ));
         }
 
-        return ($this->macros[$method])($this, ...$parameters);
+        $macro = $this->macros[$method];
+
+        if ($macro instanceof Closure) {
+            $macro = $macro->bindTo($this, static::class);
+        }
+
+        return $macro($this, ...$parameters);
     }
 }
