@@ -93,7 +93,7 @@ class VirtualPage extends HydePage implements DynamicPage
         $this->macros[$name] = $macro;
     }
 
-    public function __call(string $method, array $parameters)
+    public function __call(string $method, array $parameters): mixed
     {
         if (! isset($this->macros[$method])) {
             throw new BadMethodCallException(sprintf(
