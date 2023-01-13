@@ -113,8 +113,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldName(?string $message = null): string
     {
-        $default = $this->input->isInteractive() ? null: 'Example Field';
         $message ??= "Enter name for field #{$this->getCount()}";
+        $default = $this->input->isInteractive() ? null: 'Example Field';
 
         $selected = Str::kebab(trim($this->askWithValidation(
             'name', $message, ['required'], default: $default
