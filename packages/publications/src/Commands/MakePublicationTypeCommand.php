@@ -49,7 +49,15 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->fields = $this->captureFieldsDefinitions();
 
-        [$sortField, $sortAscending, $pageSize] = ($this->getPaginationSettings());
+        if ($this->option('use-defaults') || !$this->confirm('Would you like to enable pagination?')) {
+            $paginationSettings = [null, null, null];
+        } else {
+            $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
+
+            $paginationSettings = [$this->getSortField(), $this->getSortDirection(), $this->getPageSize()];
+        }
+
+        [$sortField, $sortAscending, $pageSize] = ($paginationSettings);
 
         $canonicalField = $this->getCanonicalField();
 
@@ -184,18 +192,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function addCreatedAtMetaField(): void
     {
         $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
-    }
-
-    /** @deprecated Since the pagination settings object is deprecated we should just inline these */
-    protected function getPaginationSettings(): array
-    {
-        if ($this->option('use-defaults') || ! $this->confirm('Would you like to enable pagination?')) {
-            return [null, null, null];
-        }
-
-        $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
-
-        return [$this->getSortField(), $this->getSortDirection(), $this->getPageSize()];
     }
 
     protected function getSortField(): string
