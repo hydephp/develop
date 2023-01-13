@@ -97,6 +97,18 @@ class VirtualPageTest extends TestCase
         $this->assertSame('bar', $page->foo());
     }
 
+    public function testCallingMacroWithArguments()
+    {
+        $page = VirtualPage::make('foo');
+
+        $page->macro('foo', function (...$args) {
+            return $args;
+        });
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->assertSame([$page, 'bar'], $page->foo('bar'));
+    }
+
     public function testCallingUndefinedMacro()
     {
         $this->expectException(\BadMethodCallException::class);
