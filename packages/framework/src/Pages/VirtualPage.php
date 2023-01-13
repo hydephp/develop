@@ -101,8 +101,6 @@ class VirtualPage extends HydePage implements DynamicPage
             ));
         }
 
-        if (isset($this->macros[$method])) {
-            return ($this->macros[$method])($this, ...$parameters);
-        }
+        return ($this->macros[$method])($this, ...$parameters);
     }
 }
