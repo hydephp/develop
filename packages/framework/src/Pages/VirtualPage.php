@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use BadMethodCallException;
+use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
-use function str_ends_with;
 
 /**
  * A virtual page is a page that does not have a source file.
@@ -20,6 +21,9 @@ use function str_ends_with;
  * When used in a package, it's on the package developer to ensure
  * that the virtual page is registered with Hyde, usually within the
  * boot method of the package's service provider so it can be compiled.
+ *
+ * This class is especially useful for one-off pages, but if your usage grows,
+ * you may benefit from creating a custom page class instead to get full control.
  */
 class VirtualPage extends HydePage implements DynamicPage
 {
@@ -30,6 +34,12 @@ class VirtualPage extends HydePage implements DynamicPage
     protected string $contents;
     protected string $view;
 
+    /** @var array<string, callable> */
+    protected array $macros = [];
+
+    /**
+     * Static alias for the constructor.
+     */
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
     {
         return new static($identifier, $matter, $contents, $view);
@@ -43,6 +53,7 @@ class VirtualPage extends HydePage implements DynamicPage
      * and Hyde will use that view to render the page contents with the supplied front matter during the static site build process.
      *
      * Note that $contents take precedence over $view, so if you pass both, only $contents will be used.
+     * You can also register a macro with the name 'compile' to overload the default compile method.
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for a virtual page is "foo/bar" the page will be saved to "_site/foo/bar.html".
@@ -69,8 +80,15 @@ class VirtualPage extends HydePage implements DynamicPage
         return $this->view;
     }
 
+    /**
+     * Get the contents that will be saved to disk for this page.
+     */
     public function compile(): string
     {
+        if (isset($this->macros['compile'])) {
+            return $this->__call('compile', []);
+        }
+
         if (! $this->contents && $this->view) {
             if (str_ends_with($this->view, '.blade.php')) {
                 return AnonymousViewCompiler::call($this->view, $this->matter->toArray());
@@ -80,5 +98,33 @@ class VirtualPage extends HydePage implements DynamicPage
         }
 
         return $this->getContents();
+    }
+
+    /**
+     * Register a macro for the instance.
+     */
+    public function macro(string $name, callable $macro): void
+    {
+        $this->macros[$name] = $macro;
+    }
+
+    /**
+     * Dynamically handle calls to the class.
+     */
+    public function __call(string $method, array $parameters): mixed
+    {
+        if (! isset($this->macros[$method])) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
+        }
+
+        $macro = $this->macros[$method];
+
+        if ($macro instanceof Closure) {
+            $macro = $macro->bindTo($this, static::class);
+        }
+
+        return $macro(...$parameters);
     }
 }
