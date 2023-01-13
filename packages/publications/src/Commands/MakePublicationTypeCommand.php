@@ -14,6 +14,7 @@ use Hyde\Publications\PublicationFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function in_array;
 use function is_dir;
 use function is_file;
 use LaravelZero\Framework\Commands\Command;
@@ -30,11 +31,10 @@ use function trim;
 class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
-    protected $signature = 'make:publicationType
-		{name? : The name of the publication type to create}';
+    protected $signature = 'make:publicationType {name? : The name of the publication type to create}';
 
     /** @var string */
-    protected $description = 'Create a new publication type definition';
+    protected $description = 'Create a new publication type';
 
     protected Collection $fields;
 
@@ -43,13 +43,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->title('Creating a new Publication Type!');
 
         $title = $this->getTitle();
-
         $this->validateStorageDirectory(Str::slug($title));
 
         $this->captureFieldsDefinitions();
 
         $canonicalField = $this->getCanonicalField();
-
         $sortField = $this->getSortField();
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
@@ -88,7 +86,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return;
         }
 
-        $this->line('You now need to define the fields in your publication type:');
+        $this->line('Now please define the fields for your publication type:');
         $this->fields = Collection::make();
 
         $this->addCreatedAtMetaField();
