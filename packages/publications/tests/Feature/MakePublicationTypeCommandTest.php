@@ -50,16 +50,15 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
             ], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
-            ->expectsConfirmation('Would you like to enable pagination?', 'yes')
-            ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', [
                 '__createdAt',
                 'publication-title',
             ])
-            ->expectsChoice('Choose the default sort direction', 'Ascending', [
+            ->expectsChoice('Choose the sort direction', 'Ascending', [
                 'Ascending',
                 'Descending',
             ])
-            ->expectsQuestion('Enter the page size (0 for no limit)', 10)
+            ->expectsQuestion('Enter the list (index) page size (any value above 0 will enable pagination)', 10)
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'publication-title', [
                 '__createdAt',
                 'publication-title',
@@ -113,6 +112,7 @@ class MakePublicationTypeCommandTest extends TestCase
     public function test_with_multiple_fields_of_the_same_name()
     {
         $this->artisan('make:publicationType "Test Publication"')
+
             ->expectsQuestion('Enter name for field #1', 'foo')
             ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
 
@@ -125,12 +125,16 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsConfirmation('Field #2 added! Add another field?')
 
-            ->expectsConfirmation('Would you like to enable pagination?')
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'foo', 'bar'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion('Enter the list (index) page size (any value above 0 will enable pagination)', 0)
+
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [
                 '__createdAt',
                 'bar',
                 'foo',
             ])
+
             ->assertExitCode(0);
     }
 
@@ -235,7 +239,11 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsOutput("Okay, we're back on track!")
             ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
-            ->expectsConfirmation('Would you like to enable pagination?')
+
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'my-tag'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion('Enter the list (index) page size (any value above 0 will enable pagination)', 0)
+
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt'])
             ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
            ->assertSuccessful();
