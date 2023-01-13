@@ -13,8 +13,8 @@ use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use function in_array;
+use InvalidArgumentException;
 use function is_dir;
 use function is_file;
 use LaravelZero\Framework\Commands\Command;
@@ -82,13 +82,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->line('Now please define the fields for your publication type:');
 
         $this->fields = Collection::make([
-            new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt')
+            new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'),
         ]);
 
         do {
             $this->fields->add($this->captureFieldDefinition());
 
-            $addAnother = $this->confirm("Field #".($this->getCount() - 1)." added! Add another field?");
+            $addAnother = $this->confirm('Field #'.($this->getCount() - 1).' added! Add another field?');
         } while ($addAnother);
     }
 
@@ -114,7 +114,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getFieldName(?string $message = null): string
     {
         $message ??= "Enter name for field #{$this->getCount()}";
-        $default = $this->input->isInteractive() ? null: 'Example Field';
+        $default = $this->input->isInteractive() ? null : 'Example Field';
 
         $selected = Str::kebab(trim($this->askWithValidation(
             'name', $message, ['required'], default: $default
