@@ -53,6 +53,12 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
             ], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
+
+            ->expectsChoice(self::selectCanonicalNameQuestion, 'publication-title', [
+                '__createdAt',
+                'publication-title',
+            ])
+
             ->expectsChoice('Choose the field you wish to sort by', '__createdAt', [
                 '__createdAt',
                 'publication-title',
@@ -62,10 +68,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Descending',
             ])
             ->expectsQuestion(self::selectPageSizeQuestion, 10)
-            ->expectsChoice(self::selectCanonicalNameQuestion, 'publication-title', [
-                '__createdAt',
-                'publication-title',
-            ])
+
             ->expectsOutputToContain('Creating a new Publication Type!')
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication type created successfully!')
@@ -128,15 +131,16 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsConfirmation('Field #2 added! Add another field?')
 
-            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'foo', 'bar'])
-            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
-            ->expectsQuestion(self::selectPageSizeQuestion, 0)
-
             ->expectsChoice(self::selectCanonicalNameQuestion, 'foo', [
                 '__createdAt',
                 'bar',
                 'foo',
             ])
+
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'foo', 'bar'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
+
 
             ->assertExitCode(0);
     }
@@ -243,11 +247,12 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
 
+            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
+
             ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'my-tag'])
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
             ->expectsQuestion(self::selectPageSizeQuestion, 0)
 
-            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
             ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
            ->assertSuccessful();
 
