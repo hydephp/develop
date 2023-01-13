@@ -40,7 +40,7 @@ class CreatesNewPublicationType extends CreateAction
             'list.blade.php',
             $this->sortField ?? '__createdAt',
             $this->sortAscending ?? true,
-            $this->pageSize ?? 25,
+            $this->pageSize ?? 0,
             $this->fields->toArray()
         ))->save($this->outputPath);
 
@@ -50,16 +50,21 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createDetailTemplate(): void
     {
-        $this->savePublicationFile('detail.blade.php', '/../publications/resources/views/publication_detail.blade.php');
+        $this->publishPublicationFile('detail', 'publication_detail');
     }
 
     protected function createListTemplate(): void
     {
-        $this->savePublicationFile('list.blade.php', '/../publications/resources/views/publication_list.blade.php');
+        $this->publishPublicationFile('list', $this->usesPagination() ? 'publication_paginated_list' : 'publication_list');
     }
 
-    protected function savePublicationFile(string $filename, string $viewPath): void
+    protected function publishPublicationFile(string $filename, string $viewName): void
     {
-        copy(Hyde::vendorPath($viewPath), Hyde::path("$this->directoryName/$filename"));
+        copy(Hyde::vendorPath("/../publications/resources/views/$viewName.blade.php"), Hyde::path("$this->directoryName/$filename.blade.php"));
+    }
+
+    protected function usesPagination(): bool
+    {
+        return $this->pageSize > 0;
     }
 }

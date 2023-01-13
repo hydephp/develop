@@ -18,6 +18,9 @@ use Hyde\Testing\TestCase;
  */
 class MakePublicationTypeCommandTest extends TestCase
 {
+    protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>';
+    protected const selectCanonicalNameQuestion = 'Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -50,20 +53,22 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
             ], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
-            ->expectsConfirmation('Would you like to enable pagination?', 'yes')
-            ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
+
+            ->expectsChoice(self::selectCanonicalNameQuestion, 'publication-title', [
                 '__createdAt',
                 'publication-title',
             ])
-            ->expectsChoice('Choose the default sort direction', 'Ascending', [
+
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', [
+                '__createdAt',
+                'publication-title',
+            ])
+            ->expectsChoice('Choose the sort direction', 'Ascending', [
                 'Ascending',
                 'Descending',
             ])
-            ->expectsQuestion('Enter the page size (0 for no limit)', 10)
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'publication-title', [
-                '__createdAt',
-                'publication-title',
-            ])
+            ->expectsQuestion(self::selectPageSizeQuestion, 10)
+
             ->expectsOutputToContain('Creating a new Publication Type!')
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication type created successfully!')
@@ -82,10 +87,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 "pageSize": 10,
                 "fields": [
                     {
-                        "type": "datetime",
-                        "name": "__createdAt"
-                    },
-                    {
                         "type": "string",
                         "name": "publication-title"
                     }
@@ -97,22 +98,51 @@ class MakePublicationTypeCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
         $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
+
+        $this->assertStringContainsString('paginator', file_get_contents(Hyde::path('test-publication/list.blade.php')));
     }
 
     public function test_with_default_values()
     {
-        $this->artisan('make:publicationType --use-defaults')
-            ->expectsQuestion('Publication type name', 'Test Publication')
-            ->expectsQuestion('Enter name for field #1', 'foo')
-            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
-            ->expectsOutput('Saving publication data to [test-publication/schema.json]')
-            ->expectsOutput('Publication type created successfully!')
-            ->assertExitCode(0);
+        // When running this command with the no-interaction flag in an actual console, no questions are asked.
+        // However, when running it in a test, the questions are still asked, presumably due to a vendor bug.
+
+        $this->withoutMockingConsoleOutput();
+
+        $this->assertSame(0, $this->artisan('make:publicationType "Test Publication" --no-interaction'));
+
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+        $this->assertEquals(
+            <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [
+                    {
+                        "type": "string",
+                        "name": "example-field"
+                    }
+                ]
+            }
+            JSON,
+            file_get_contents(Hyde::path('test-publication/schema.json'))
+        );
+
+        $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
+
+        $this->assertStringNotContainsString('paginator', file_get_contents(Hyde::path('test-publication/list.blade.php')));
     }
 
     public function test_with_multiple_fields_of_the_same_name()
     {
         $this->artisan('make:publicationType "Test Publication"')
+
             ->expectsQuestion('Enter name for field #1', 'foo')
             ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
 
@@ -125,12 +155,16 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsConfirmation('Field #2 added! Add another field?')
 
-            ->expectsConfirmation('Would you like to enable pagination?')
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [
+            ->expectsChoice(self::selectCanonicalNameQuestion, 'foo', [
                 '__createdAt',
                 'bar',
                 'foo',
             ])
+
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'foo', 'bar'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
+
             ->assertExitCode(0);
     }
 
@@ -166,11 +200,18 @@ class MakePublicationTypeCommandTest extends TestCase
             'bar' => ['foo', 'baz'],
         ])->save();
 
-        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+        $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
             ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
+
+            ->expectsConfirmation('Field #1 added! Add another field?')
+            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
+
             ->assertSuccessful();
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
@@ -183,12 +224,8 @@ class MakePublicationTypeCommandTest extends TestCase
                 "listTemplate": "list.blade.php",
                 "sortField": "__createdAt",
                 "sortAscending": true,
-                "pageSize": 25,
+                "pageSize": 0,
                 "fields": [
-                    {
-                        "type": "datetime",
-                        "name": "__createdAt"
-                    },
                     {
                         "type": "tag",
                         "name": "my-tag",
@@ -207,7 +244,7 @@ class MakePublicationTypeCommandTest extends TestCase
         config(['app.throw_on_console_exception' => false]);
         $this->directory('test-publication');
 
-        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+        $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'], true)
@@ -235,8 +272,13 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsOutput("Okay, we're back on track!")
             ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
-            ->expectsConfirmation('Would you like to enable pagination?')
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt'])
+
+            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
+
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
+
             ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
            ->assertSuccessful();
 

@@ -13,6 +13,7 @@ use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function in_array;
 use InvalidArgumentException;
 use function is_dir;
 use function is_file;
@@ -30,12 +31,10 @@ use function trim;
 class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
-    protected $signature = 'make:publicationType
-		{name? : The name of the publication type to create}
-        {--use-defaults : Select the default options wherever possible}';
+    protected $signature = 'make:publicationType {name? : The name of the publication type to create}';
 
     /** @var string */
-    protected $description = 'Create a new publication type definition';
+    protected $description = 'Create a new publication type';
 
     protected Collection $fields;
 
@@ -44,14 +43,18 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->title('Creating a new Publication Type!');
 
         $title = $this->getTitle();
-
         $this->validateStorageDirectory(Str::slug($title));
 
-        $this->fields = $this->captureFieldsDefinitions();
-
-        [$sortField, $sortAscending, $pageSize] = ($this->getPaginationSettings());
+        $this->captureFieldsDefinitions();
 
         $canonicalField = $this->getCanonicalField();
+        $sortField = $this->getSortField();
+        $sortAscending = $this->getSortDirection();
+        $pageSize = $this->getPageSize();
+
+        if ($this->fields->first()->name === '__createdAt') {
+            $this->fields->shift();
+        }
 
         $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $pageSize);
         $this->output->writeln("Saving publication data to [{$creator->getOutputPath()}]");
@@ -74,24 +77,19 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
     }
 
-    protected function captureFieldsDefinitions(): Collection
+    protected function captureFieldsDefinitions(): void
     {
-        $this->line('You now need to define the fields in your publication type:');
-        $this->fields = Collection::make();
+        $this->line('Now please define the fields for your publication type:');
 
-        $this->addCreatedAtMetaField();
+        $this->fields = Collection::make([
+            new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'),
+        ]);
 
         do {
             $this->fields->add($this->captureFieldDefinition());
 
-            if ($this->option('use-defaults') === true) {
-                $addAnother = false;
-            } else {
-                $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
-            }
+            $addAnother = $this->confirm(sprintf('Field #%d added! Add another field?', $this->getCount() - 1));
         } while ($addAnother);
-
-        return $this->fields;
     }
 
     protected function captureFieldDefinition(): PublicationFieldDefinition
@@ -115,7 +113,12 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldName(?string $message = null): string
     {
-        $selected = Str::kebab(trim($this->askWithValidation('name', $message ?? "Enter name for field #{$this->getCount()}", ['required'])));
+        $message ??= "Enter name for field #{$this->getCount()}";
+        $default = $this->input->isInteractive() ? null : 'Example Field';
+
+        $selected = Str::kebab(trim($this->askWithValidation(
+            'name', $message, ['required'], default: $default
+        )));
 
         if ($this->checkIfFieldIsDuplicate($selected)) {
             return $this->getFieldName("Try again: Enter name for field #{$this->getCount()}");
@@ -126,11 +129,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldType(): PublicationFieldTypes
     {
-        $options = PublicationFieldTypes::names();
-
-        $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
-
-        return PublicationFieldTypes::from(strtolower($choice));
+        return PublicationFieldTypes::from(strtolower($this->choice(
+            "Enter type for field #{$this->getCount()}",
+            PublicationFieldTypes::names(),
+            'String'
+        )));
     }
 
     protected function getTagGroup(): string
@@ -152,22 +155,34 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(): PublicationFieldDefinition
     {
-        $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
-            return ! in_array($field->type, PublicationFieldTypes::canonicable());
-        });
+        $options = $this->availableCanonicableFieldNames();
 
-        if ($this->option('use-defaults')) {
-            return $selectableFields->first();
-        }
-
-        $options = $selectableFields->pluck('name');
-
-        $selected = $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
+        return $this->fields->firstWhere('name', $this->choice(
+            'Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>',
             $options->toArray(),
             $options->first()
-        );
+        ));
+    }
 
-        return $this->fields->firstWhere('name', $selected);
+    protected function getSortField(): string
+    {
+        return $this->choice('Choose the field you wish to sort by', $this->availableCanonicableFieldNames()->toArray(), 0);
+    }
+
+    protected function getSortDirection(): bool
+    {
+        $options = ['Ascending' => true, 'Descending' => false];
+
+        return $options[$this->choice('Choose the sort direction', array_keys($options), 'Ascending')];
+    }
+
+    protected function getPageSize(): int
+    {
+        return (int) $this->askWithValidation('pageSize',
+            'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>',
+            ['required', 'integer', 'between:0,100'],
+            0
+        );
     }
 
     protected function checkIfFieldIsDuplicate($name): bool
@@ -181,46 +196,15 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return false;
     }
 
-    protected function addCreatedAtMetaField(): void
+    protected function getCount(): int
     {
-        $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
+        return $this->fields->count();
     }
 
-    /** @deprecated Since the pagination settings object is deprecated we should just inline these */
-    protected function getPaginationSettings(): array
+    protected function availableCanonicableFieldNames(): Collection
     {
-        if ($this->option('use-defaults') || ! $this->confirm('Would you like to enable pagination?')) {
-            return [null, null, null];
-        }
-
-        $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
-
-        return [$this->getSortField(), $this->getSortDirection(), $this->getPageSize()];
-    }
-
-    protected function getSortField(): string
-    {
-        return $this->choice('Choose the default field you wish to sort by', $this->fields->pluck('name')->toArray(), 0);
-    }
-
-    protected function getSortDirection(): bool
-    {
-        $options = ['Ascending' => true, 'Descending' => false];
-
-        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending')];
-    }
-
-    protected function getPageSize(): int
-    {
-        return (int) $this->askWithValidation('pageSize',
-            'Enter the page size (0 for no limit)',
-            ['required', 'integer', 'between:0,100'],
-            25
-        );
-    }
-
-    protected function getCount(int $offset = 0): int
-    {
-        return $this->fields->count() + $offset;
+        return $this->fields->reject(function (PublicationFieldDefinition $field): bool {
+            return ! in_array($field->type, PublicationFieldTypes::canonicable());
+        })->pluck('name');
     }
 }
