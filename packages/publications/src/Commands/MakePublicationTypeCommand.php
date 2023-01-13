@@ -77,9 +77,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function captureFieldsDefinitions(): Collection
     {
-        if (!$this->input->isInteractive()) {
+        if (! $this->input->isInteractive()) {
             $this->fields = Collection::make();
             $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::String, 'Example Field'));
+
             return $this->fields;
         }
 
