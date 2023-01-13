@@ -49,15 +49,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->fields = $this->captureFieldsDefinitions();
 
-        if ($this->option('use-defaults')) {
-            $sortField = null;
-            $sortAscending = null;
-            $pageSize = null;
-        } else {
-            $sortField = $this->getSortField();
-            $sortAscending = $this->getSortDirection();
-            $pageSize = $this->getPageSize();
-        }
+        $sortField = $this->option('use-defaults') ? null : $this->getSortField();
+        $sortAscending = $this->option('use-defaults') ? null : $this->getSortDirection();
+        $pageSize = $this->option('use-defaults') ? null : $this->getPageSize();
 
         $canonicalField = $this->getCanonicalField();
 
