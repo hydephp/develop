@@ -106,10 +106,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
     public function test_with_default_values()
     {
-        $this->artisan('make:publicationType')
-            ->expectsQuestion('Publication type name', 'Test Publication')
-            ->expectsQuestion('Enter name for field #1', 'foo')
-            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
+        $this->artisan('make:publicationType "Test Publication" --no-interaction')
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication type created successfully!')
             ->assertExitCode(0);
