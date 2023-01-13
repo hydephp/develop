@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Contracts\DynamicPage;
@@ -73,6 +74,10 @@ class VirtualPage extends HydePage implements DynamicPage
     public function compile(): string
     {
         if (! $this->contents && $this->view) {
+            if (str_ends_with($this->view, '.blade.php')) {
+                return AnonymousViewCompiler::call($this->view, $this->matter->toArray());
+            }
+
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 

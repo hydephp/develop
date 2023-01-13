@@ -51,4 +51,10 @@ class VirtualPageTest extends TestCase
         $this->file('_pages/foo.blade.php', 'blade');
         $this->assertSame('contents', (new VirtualPage('foo', contents: 'contents', view: 'foo'))->compile());
     }
+
+    public function testCompileMethodCanCompileAnonymousViewFiles()
+    {
+        $this->file('_pages/foo.blade.php', 'blade');
+        $this->assertSame('blade', (new VirtualPage('foo', view: '_pages/foo.blade.php'))->compile());
+    }
 }
