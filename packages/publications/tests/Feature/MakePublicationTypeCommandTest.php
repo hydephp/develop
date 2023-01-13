@@ -116,10 +116,10 @@ class MakePublicationTypeCommandTest extends TestCase
             <<<'JSON'
             {
                 "name": "Test Publication",
-                "canonicalField": "example-field",
+                "canonicalField": "__createdAt",
                 "detailTemplate": "detail.blade.php",
                 "listTemplate": "list.blade.php",
-                "sortField": "example-field",
+                "sortField": "__createdAt",
                 "sortAscending": true,
                 "pageSize": 0,
                 "fields": [
