@@ -183,7 +183,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsConfirmation('Field #1 added! Add another field?')
             ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
-            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'my-tag'])
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
             ->expectsQuestion(self::selectPageSizeQuestion, 0)
 
@@ -254,7 +254,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
 
-            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'my-tag'])
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
             ->expectsQuestion(self::selectPageSizeQuestion, 0)
 

@@ -188,9 +188,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
-        // todo non-canonicable fields should not be allowed to be used for sorting
+        $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
+            return ! in_array($field->type, PublicationFieldTypes::canonicable());
+        });
 
-        return $this->choice('Choose the field you wish to sort by', $this->fields->pluck('name')->toArray(), 0);
+        $options = $selectableFields->pluck('name')->toArray();
+
+        return $this->choice('Choose the field you wish to sort by', $options, 0);
     }
 
     protected function getSortDirection(): bool
