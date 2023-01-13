@@ -98,6 +98,8 @@ class MakePublicationTypeCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
         $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
+
+        $this->assertStringContainsString('paginator', file_get_contents(Hyde::path('test-publication/list.blade.php')));
     }
 
     public function test_with_default_values()
@@ -133,6 +135,8 @@ class MakePublicationTypeCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
         $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
+
+        $this->assertStringNotContainsString('paginator', file_get_contents(Hyde::path('test-publication/list.blade.php')));
     }
 
     public function test_with_multiple_fields_of_the_same_name()
