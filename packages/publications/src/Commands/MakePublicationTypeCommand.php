@@ -88,7 +88,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
         do {
             $this->fields->add($this->captureFieldDefinition());
 
-            $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
+            $offsetCount = $this->getCount() - 1;
+            $addAnother = $this->confirm("Field #$offsetCount added! Add another field?");
         } while ($addAnother);
     }
 
@@ -196,9 +197,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return false;
     }
 
-    protected function getCount(int $offset = 0): int
+    protected function getCount(): int
     {
-        return $this->fields->count() + $offset;
+        return $this->fields->count();
     }
 
     protected function availableCanonicableFieldNames(): Collection
