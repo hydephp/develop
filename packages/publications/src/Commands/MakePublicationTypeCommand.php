@@ -164,7 +164,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $options = $selectableFields->pluck('name');
 
-        $selected = $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
+        $selected = $this->choice('Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>',
             $options->toArray(),
             $options->first()
         );
@@ -203,7 +203,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPageSize(): int
     {
         return (int) $this->askWithValidation('pageSize',
-            'How many links should be shown on the listing page? (any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)',
+            'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>',
             ['required', 'integer', 'between:0,100'],
             0
         );

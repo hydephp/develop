@@ -18,8 +18,8 @@ use Hyde\Testing\TestCase;
  */
 class MakePublicationTypeCommandTest extends TestCase
 {
-    protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? (any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)';
-    protected const selectCanonicalNameQuestion = 'Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)';
+    protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>';
+    protected const selectCanonicalNameQuestion = 'Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>';
 
     protected function setUp(): void
     {
