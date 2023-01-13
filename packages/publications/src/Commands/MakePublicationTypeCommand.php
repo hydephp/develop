@@ -202,7 +202,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->fields->count() + $offset;
     }
 
-    /** Get a collection of names for added fields that can be canonicable */
     protected function availableCanonicableFieldNames(): Collection
     {
         return $this->fields->reject(function (PublicationFieldDefinition $field): bool {
