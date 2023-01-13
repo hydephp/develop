@@ -79,14 +79,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function captureFieldsDefinitions(): void
     {
-        if (! $this->input->isInteractive()) {
-            $this->fields = Collection::make([
-                new PublicationFieldDefinition(PublicationFieldTypes::String, 'Example Field')
-            ]);
-
-            return;
-        }
-
         $this->line('Now please define the fields for your publication type:');
 
         $this->fields = Collection::make([
@@ -121,7 +113,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldName(?string $message = null): string
     {
-        $selected = Str::kebab(trim($this->askWithValidation('name', $message ?? "Enter name for field #{$this->getCount()}", ['required'])));
+        $default = $this->input->isInteractive() ? null: 'Example Field';
+
+        $selected = Str::kebab(trim($this->askWithValidation('name', $message ?? "Enter name for field #{$this->getCount()}", ['required'], default: $default)));
 
         if ($this->checkIfFieldIsDuplicate($selected)) {
             return $this->getFieldName("Try again: Enter name for field #{$this->getCount()}");
