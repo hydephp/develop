@@ -46,7 +46,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->validateStorageDirectory(Str::slug($title));
 
-        $this->fields = $this->captureFieldsDefinitions();
+        $this->captureFieldsDefinitions();
 
         $canonicalField = $this->getCanonicalField();
 
@@ -75,13 +75,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
     }
 
-    protected function captureFieldsDefinitions(): Collection
+    protected function captureFieldsDefinitions(): void
     {
         if (! $this->input->isInteractive()) {
             $this->fields = Collection::make();
             $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::String, 'Example Field'));
 
-            return $this->fields;
+            return;
         }
 
         $this->line('You now need to define the fields in your publication type:');
@@ -94,8 +94,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
             $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
         } while ($addAnother);
-
-        return $this->fields;
     }
 
     protected function captureFieldDefinition(): PublicationFieldDefinition
