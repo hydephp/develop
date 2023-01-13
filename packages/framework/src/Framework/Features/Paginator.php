@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications;
+namespace Hyde\Framework\Features;
 
 use function collect;
 use Hyde\Hyde;
@@ -52,10 +52,6 @@ class Paginator
     public function setCurrentPage(int $currentPage): Paginator
     {
         $this->validateCurrentPageValue($currentPage);
-
-        if ($currentPage > $this->lastPage()) {
-            throw new InvalidArgumentException('Current page number must be less than or equal to the last page number.');
-        }
 
         $this->currentPage = $currentPage;
 

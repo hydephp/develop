@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_combine;
 use function collect;
-use Hyde\Framework\Features\Publications\Paginator;
+use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
 use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
@@ -14,7 +14,7 @@ use InvalidArgumentException;
 use function range;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Paginator
+ * @covers \Hyde\Framework\Features\Paginator
  */
 class PaginatorTest extends TestCase
 {
@@ -182,14 +182,14 @@ class PaginatorTest extends TestCase
         $this->assertFalse($this->makePaginator()->setCurrentPage(5)->next());
     }
 
-    public function testPreviousMethodReturnsPreviousPageNumberWhenNoBaseRouteIsSet()
+    public function testPreviousMethodReturnsPreviousPageLinkWhenNoBaseRouteIsSet()
     {
-        $this->assertSame(1, $this->makePaginator()->setCurrentPage(2)->previous());
+        $this->assertSame('page-1.html', $this->makePaginator()->setCurrentPage(2)->previous());
     }
 
-    public function testNextMethodReturnsNextPageNumberWhenNoBaseRouteIsSet()
+    public function testNextMethodReturnsNextPageLinkWhenNoBaseRouteIsSet()
     {
-        $this->assertSame(2, $this->makePaginator()->setCurrentPage(1)->next());
+        $this->assertSame('page-2.html', $this->makePaginator()->setCurrentPage(1)->next());
     }
 
     public function testPreviousAndNextMethodsWithBaseRouteSet()
