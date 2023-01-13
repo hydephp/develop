@@ -69,4 +69,15 @@ class VirtualPageTest extends TestCase
         $this->file('_pages/foo.blade.php', 'blade {{ $foo }}');
         $this->assertSame('blade bar', (new VirtualPage('foo', ['foo' => 'bar'], view: '_pages/foo.blade.php'))->compile());
     }
+
+    public function testCanCreateInstanceMacros()
+    {
+        $page = VirtualPage::make('foo');
+
+        $page->macro('foo', function () {
+            return 'bar';
+        });
+
+        $this->assertSame('bar', $page->foo());
+    }
 }
