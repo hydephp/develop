@@ -87,10 +87,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 "pageSize": 10,
                 "fields": [
                     {
-                        "type": "datetime",
-                        "name": "__createdAt"
-                    },
-                    {
                         "type": "string",
                         "name": "publication-title"
                     }
@@ -226,10 +222,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 "sortAscending": true,
                 "pageSize": 0,
                 "fields": [
-                    {
-                        "type": "datetime",
-                        "name": "__createdAt"
-                    },
                     {
                         "type": "tag",
                         "name": "my-tag",

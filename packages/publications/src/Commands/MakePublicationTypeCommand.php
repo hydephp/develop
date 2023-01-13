@@ -54,6 +54,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
 
+        if ($this->fields->first()->name === '__createdAt') {
+            $this->fields->shift();
+        }
+
         $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $pageSize);
         $this->output->writeln("Saving publication data to [{$creator->getOutputPath()}]");
         $creator->create();
