@@ -53,6 +53,7 @@ class VirtualPage extends HydePage implements DynamicPage
      * and Hyde will use that view to render the page contents with the supplied front matter during the static site build process.
      *
      * Note that $contents take precedence over $view, so if you pass both, only $contents will be used.
+     * You can also register a macro with the name 'compile' to overload the default compile method.
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for a virtual page is "foo/bar" the page will be saved to "_site/foo/bar.html".
