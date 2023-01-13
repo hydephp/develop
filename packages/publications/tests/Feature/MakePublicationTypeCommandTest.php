@@ -112,6 +112,31 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->withoutMockingConsoleOutput();
 
         $this->assertSame(0, $this->artisan('make:publicationType "Test Publication" --no-interaction'));
+
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+        $this->assertEquals(
+            <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "example-field",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "example-field",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [
+                    {
+                        "type": "string",
+                        "name": "example-field"
+                    }
+                ]
+            }
+            JSON,
+            file_get_contents(Hyde::path('test-publication/schema.json'))
+        );
+
+        $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
     }
 
     public function test_with_multiple_fields_of_the_same_name()
