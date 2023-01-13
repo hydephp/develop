@@ -31,8 +31,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationType
-		{name? : The name of the publication type to create}
-        {--use-defaults : Select the default options wherever possible}'; // Deprecated
+		{name? : The name of the publication type to create}';
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
@@ -51,9 +50,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $canonicalField = $this->getCanonicalField();
 
-        $sortField = $this->option('use-defaults') ? null : $this->getSortField();
-        $sortAscending = $this->option('use-defaults') ? null : $this->getSortDirection();
-        $pageSize = $this->option('use-defaults') ? null : $this->getPageSize();
+        $sortField = $this->getSortField();
+        $sortAscending = $this->getSortDirection();
+        $pageSize = $this->getPageSize();
 
         $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $pageSize);
         $this->output->writeln("Saving publication data to [{$creator->getOutputPath()}]");
@@ -86,11 +85,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         do {
             $this->fields->add($this->captureFieldDefinition());
 
-            if ($this->option('use-defaults') === true) {
-                $addAnother = false;
-            } else {
-                $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
-            }
+            $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
         } while ($addAnother);
 
         return $this->fields;
@@ -157,10 +152,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
             return ! in_array($field->type, PublicationFieldTypes::canonicable());
         });
-
-        if ($this->option('use-defaults')) {
-            return $selectableFields->first();
-        }
 
         $options = $selectableFields->pluck('name');
 

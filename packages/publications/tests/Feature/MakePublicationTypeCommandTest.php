@@ -106,7 +106,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
     public function test_with_default_values()
     {
-        $this->artisan('make:publicationType --use-defaults')
+        $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
             ->expectsQuestion('Enter name for field #1', 'foo')
             ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
@@ -176,7 +176,7 @@ class MakePublicationTypeCommandTest extends TestCase
             'bar' => ['foo', 'baz'],
         ])->save();
 
-        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+        $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
@@ -217,7 +217,7 @@ class MakePublicationTypeCommandTest extends TestCase
         config(['app.throw_on_console_exception' => false]);
         $this->directory('test-publication');
 
-        $this->artisan('make:publicationType "Test Publication" --use-defaults')
+        $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'], true)
