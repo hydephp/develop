@@ -87,7 +87,8 @@ class VirtualPageTest extends TestCase
     {
         $page = VirtualPage::make('foo');
 
-        $page->macro('foo', new class {
+        $page->macro('foo', new class
+        {
             public function __invoke(): string
             {
                 return 'bar';
