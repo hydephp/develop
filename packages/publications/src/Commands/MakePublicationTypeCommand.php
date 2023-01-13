@@ -203,7 +203,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPageSize(): int
     {
         return (int) $this->askWithValidation('pageSize',
-            // Todo href pagination to the docs? // how many items should be shown on the listing page?
             'Enter the list (index) page size (any value above 0 will enable pagination)',
             ['required', 'integer', 'between:0,100'],
             0
