@@ -37,6 +37,9 @@ class VirtualPage extends HydePage implements DynamicPage
     /** @var array<string, callable> */
     protected array $macros = [];
 
+    /**
+     * Static alias for the constructor.
+     */
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
     {
         return new static($identifier, $matter, $contents, $view);
