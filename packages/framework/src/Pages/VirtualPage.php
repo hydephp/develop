@@ -93,16 +93,16 @@ class VirtualPage extends HydePage implements DynamicPage
         $this->macros[$name] = $macro;
     }
 
-    public function __call(string $name, array $arguments)
+    public function __call(string $method, array $parameters)
     {
-        if (! isset($this->macros[$name])) {
+        if (! isset($this->macros[$method])) {
             throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $name
+                'Method %s::%s does not exist.', static::class, $method
             ));
         }
 
-        if (isset($this->macros[$name])) {
-            return ($this->macros[$name])($this, ...$arguments);
+        if (isset($this->macros[$method])) {
+            return ($this->macros[$method])($this, ...$parameters);
         }
     }
 }
