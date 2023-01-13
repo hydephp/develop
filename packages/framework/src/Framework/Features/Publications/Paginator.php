@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginatorTest
  */
-class PaginationService
+class Paginator
 {
     protected Collection $paginatedItems;
 
@@ -49,7 +49,7 @@ class PaginationService
     }
 
     /** Set the current page number. */
-    public function setCurrentPage(int $currentPage): PaginationService
+    public function setCurrentPage(int $currentPage): Paginator
     {
         $this->validateCurrentPageValue($currentPage);
 

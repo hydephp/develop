@@ -10,9 +10,9 @@ use Hyde\Framework\Features\Publications\PaginationService;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\PaginationService
+ * @covers \Hyde\Framework\Features\Publications\Paginator
  */
-class PaginationServiceTest extends TestCase
+class PaginatorTest extends TestCase
 {
     public function test_it_can_be_instantiated(): void
     {
