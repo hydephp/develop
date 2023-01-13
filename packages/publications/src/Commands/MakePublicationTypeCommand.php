@@ -155,9 +155,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(): PublicationFieldDefinition
     {
-        $selectableFields = $this->availableCanonicableFields();
-
-        $options = $selectableFields->pluck('name');
+        $options = $this->availableCanonicableFields()->pluck('name');
 
         $selected = $this->choice('Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>',
             $options->toArray(),
