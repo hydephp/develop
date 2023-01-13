@@ -18,6 +18,9 @@ use Hyde\Testing\TestCase;
  */
 class MakePublicationTypeCommandTest extends TestCase
 {
+    protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? (any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)';
+    protected const selectCanonicalNameQuestion = 'Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -58,8 +61,8 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Ascending',
                 'Descending',
             ])
-            ->expectsQuestion('How many links should be shown on the listing page? (any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)', 10)
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'publication-title', [
+            ->expectsQuestion(self::selectPageSizeQuestion, 10)
+            ->expectsChoice(self::selectCanonicalNameQuestion, 'publication-title', [
                 '__createdAt',
                 'publication-title',
             ])
@@ -127,9 +130,9 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'foo', 'bar'])
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
-            ->expectsQuestion('How many links should be shown on the listing page? (any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)', 0)
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
 
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [
+            ->expectsChoice(self::selectCanonicalNameQuestion, 'foo', [
                 '__createdAt',
                 'bar',
                 'foo',
@@ -242,9 +245,9 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'my-tag'])
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
-            ->expectsQuestion('How many links should be shown on the listing page? (any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)', 0)
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
 
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', '__createdAt', ['__createdAt'])
+            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
             ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
            ->assertSuccessful();
 
