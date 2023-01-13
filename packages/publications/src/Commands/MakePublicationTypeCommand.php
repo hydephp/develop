@@ -52,8 +52,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         if ($this->option('use-defaults')) {
             $paginationSettings = [null, null, null];
         } else {
-            $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
-
             $paginationSettings = [$this->getSortField(), $this->getSortDirection(), $this->getPageSize()];
         }
 
