@@ -203,7 +203,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return (int) $this->askWithValidation('pageSize',
             'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>',
             ['required', 'integer', 'between:0,100'],
-            '0'
+            0
         );
     }
 
