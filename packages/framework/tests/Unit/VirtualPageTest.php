@@ -106,7 +106,7 @@ class VirtualPageTest extends TestCase
         });
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $this->assertSame([$page, 'bar'], $page->foo('bar'));
+        $this->assertSame(['bar'], $page->foo('bar'));
     }
 
     public function testCallingUndefinedMacro()

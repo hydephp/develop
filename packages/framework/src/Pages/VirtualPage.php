@@ -108,6 +108,6 @@ class VirtualPage extends HydePage implements DynamicPage
             $macro = $macro->bindTo($this, static::class);
         }
 
-        return $macro($this, ...$parameters);
+        return $macro(...$parameters);
     }
 }
