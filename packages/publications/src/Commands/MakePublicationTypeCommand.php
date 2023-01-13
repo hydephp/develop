@@ -49,7 +49,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->fields = $this->captureFieldsDefinitions();
 
-        if ($this->option('use-defaults') || !$this->confirm('Would you like to enable pagination?')) {
+        if ($this->option('use-defaults') || ! $this->confirm('Would you like to enable pagination?')) {
             $paginationSettings = [null, null, null];
         } else {
             $this->info("Okay, let's set up pagination! Tip: You can just hit enter to accept the default values.");
