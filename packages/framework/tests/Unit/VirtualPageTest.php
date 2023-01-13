@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use BadMethodCallException;
 use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
 
@@ -111,7 +112,7 @@ class VirtualPageTest extends TestCase
 
     public function testCallingUndefinedMacro()
     {
-        $this->expectException(\BadMethodCallException::class);
+        $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Method Hyde\Pages\VirtualPage::foo does not exist.');
 
         $page = VirtualPage::make('foo');
