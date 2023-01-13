@@ -76,6 +76,9 @@ class VirtualPage extends HydePage implements DynamicPage
         return $this->view;
     }
 
+    /**
+     * Get the contents that will be saved to disk for this page.
+     */
     public function compile(): string
     {
         if (! $this->contents && $this->view) {
@@ -89,11 +92,17 @@ class VirtualPage extends HydePage implements DynamicPage
         return $this->getContents();
     }
 
+    /**
+     * Register a macro for the instance.
+     */
     public function macro(string $name, callable $macro): void
     {
         $this->macros[$name] = $macro;
     }
 
+    /**
+     * Dynamically handle calls to the class.
+     */
     public function __call(string $method, array $parameters): mixed
     {
         if (! isset($this->macros[$method])) {
