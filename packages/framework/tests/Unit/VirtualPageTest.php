@@ -80,4 +80,14 @@ class VirtualPageTest extends TestCase
 
         $this->assertSame('bar', $page->foo());
     }
+
+    public function testCallingUndefinedMacro()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method Hyde\Pages\VirtualPage::foo does not exist.');
+
+        $page = VirtualPage::make('foo');
+
+        $page->foo();
+    }
 }

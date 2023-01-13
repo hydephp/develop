@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use BadMethodCallException;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
@@ -94,6 +95,12 @@ class VirtualPage extends HydePage implements DynamicPage
 
     public function __call(string $name, array $arguments)
     {
+        if (! isset($this->macros[$name])) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $name
+            ));
+        }
+
         if (isset($this->macros[$name])) {
             return ($this->macros[$name])($this, ...$arguments);
         }
