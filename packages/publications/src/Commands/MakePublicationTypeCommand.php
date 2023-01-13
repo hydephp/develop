@@ -88,7 +88,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         do {
             $this->fields->add($this->captureFieldDefinition());
 
-            $addAnother = $this->confirm(sprintf("Field #%d added! Add another field?", $this->getCount() - 1));
+            $addAnother = $this->confirm(sprintf('Field #%d added! Add another field?', $this->getCount() - 1));
         } while ($addAnother);
     }
 
