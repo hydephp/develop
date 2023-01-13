@@ -141,7 +141,6 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
             ->expectsQuestion(self::selectPageSizeQuestion, 0)
 
-
             ->assertExitCode(0);
     }
 
