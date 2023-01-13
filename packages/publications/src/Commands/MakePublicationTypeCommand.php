@@ -174,9 +174,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return ! in_array($field->type, PublicationFieldTypes::canonicable());
         });
 
-        $options = $selectableFields->pluck('name')->toArray();
-
-        return $this->choice('Choose the field you wish to sort by', $options, 0);
+        return $this->choice('Choose the field you wish to sort by', $selectableFields->pluck('name')->toArray(), 0);
     }
 
     protected function getSortDirection(): bool
