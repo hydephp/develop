@@ -78,6 +78,7 @@ class VirtualPageTest extends TestCase
             return 'bar';
         });
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->assertSame('bar', $page->foo());
     }
 
@@ -88,6 +89,7 @@ class VirtualPageTest extends TestCase
 
         $page = VirtualPage::make('foo');
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $page->foo();
     }
 }
