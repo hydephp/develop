@@ -190,14 +190,14 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
-        return $this->choice('Choose the default field you wish to sort by', $this->fields->pluck('name')->toArray(), 0);
+        return $this->choice('Choose the field you wish to sort by', $this->fields->pluck('name')->toArray(), 0);
     }
 
     protected function getSortDirection(): bool
     {
         $options = ['Ascending' => true, 'Descending' => false];
 
-        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending')];
+        return $options[$this->choice('Choose the sort direction', array_keys($options), 'Ascending')];
     }
 
     protected function getPageSize(): int
