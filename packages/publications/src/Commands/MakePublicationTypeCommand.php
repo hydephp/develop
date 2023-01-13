@@ -157,12 +157,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $options = $this->availableCanonicableFieldNames();
 
-        $selected = $this->choice('Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>',
+        return $this->fields->firstWhere('name', $this->choice(
+            'Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>',
             $options->toArray(),
             $options->first()
-        );
-
-        return $this->fields->firstWhere('name', $selected);
+        ));
     }
 
     protected function getSortField(): string
