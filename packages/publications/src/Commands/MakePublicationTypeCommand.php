@@ -80,16 +80,18 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function captureFieldsDefinitions(): void
     {
         if (! $this->input->isInteractive()) {
-            $this->fields = Collection::make();
-            $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::String, 'Example Field'));
+            $this->fields = Collection::make([
+                new PublicationFieldDefinition(PublicationFieldTypes::String, 'Example Field')
+            ]);
 
             return;
         }
 
         $this->line('Now please define the fields for your publication type:');
-        $this->fields = Collection::make();
 
-        $this->addCreatedAtMetaField();
+        $this->fields = Collection::make([
+            new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt')
+        ]);
 
         do {
             $this->fields->add($this->captureFieldDefinition());
@@ -200,11 +202,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
 
         return false;
-    }
-
-    protected function addCreatedAtMetaField(): void
-    {
-        $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
     }
 
     protected function getCount(int $offset = 0): int
