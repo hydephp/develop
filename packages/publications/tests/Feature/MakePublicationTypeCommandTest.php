@@ -180,6 +180,13 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsChoice('Enter type for field #1', 'Tag',
                 ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
             ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
+
+            ->expectsConfirmation('Field #1 added! Add another field?')
+            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
+            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt', 'my-tag'])
+            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
+            ->expectsQuestion(self::selectPageSizeQuestion, 0)
+
             ->assertSuccessful();
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
