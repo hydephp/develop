@@ -88,8 +88,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         do {
             $this->fields->add($this->captureFieldDefinition());
 
-            $offsetCount = $this->getCount() - 1;
-            $addAnother = $this->confirm("Field #$offsetCount added! Add another field?");
+            $addAnother = $this->confirm("Field #".($this->getCount() - 1)." added! Add another field?");
         } while ($addAnother);
     }
 
