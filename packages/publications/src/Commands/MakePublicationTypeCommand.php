@@ -155,7 +155,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(): PublicationFieldDefinition
     {
-        $options = $this->availableCanonicableFields()->pluck('name');
+        $options = $this->availableCanonicableFieldNames();
 
         $selected = $this->choice('Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>',
             $options->toArray(),
@@ -167,7 +167,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
-        return $this->choice('Choose the field you wish to sort by', $this->availableCanonicableFields()->pluck('name')->toArray(), 0);
+        return $this->choice('Choose the field you wish to sort by', $this->availableCanonicableFieldNames()->toArray(), 0);
     }
 
     protected function getSortDirection(): bool
@@ -202,10 +202,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->fields->count() + $offset;
     }
 
-    protected function availableCanonicableFields(): Collection
+    protected function availableCanonicableFieldNames(): Collection
     {
         return $this->fields->reject(function (PublicationFieldDefinition $field): bool {
             return ! in_array($field->type, PublicationFieldTypes::canonicable());
-        });
+        })->pluck('name');
     }
 }
