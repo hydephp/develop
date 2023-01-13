@@ -169,9 +169,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
-        $selectableFields = $this->availableFieldsWithoutCanonicalTypes();
-
-        return $this->choice('Choose the field you wish to sort by', $selectableFields->pluck('name')->toArray(), 0);
+        return $this->choice('Choose the field you wish to sort by', $this->availableFieldsWithoutCanonicalTypes()->pluck('name')->toArray(), 0);
     }
 
     protected function getSortDirection(): bool
