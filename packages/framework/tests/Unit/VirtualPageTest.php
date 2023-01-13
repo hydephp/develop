@@ -46,6 +46,12 @@ class VirtualPageTest extends TestCase
         $this->assertSame('bar', (new VirtualPage('foo', view: 'foo'))->compile());
     }
 
+    public function testCompileMethodUsingViewCompileAndFrontMatter()
+    {
+        $this->file('_pages/foo.blade.php', 'foo {{ $bar }}');
+        $this->assertSame('foo baz', (new VirtualPage('foo', ['bar' => 'baz'], view: 'foo'))->compile());
+    }
+
     public function testCompileMethodPrefersContentsPropertyOverView()
     {
         $this->file('_pages/foo.blade.php', 'blade');
@@ -56,5 +62,11 @@ class VirtualPageTest extends TestCase
     {
         $this->file('_pages/foo.blade.php', 'blade');
         $this->assertSame('blade', (new VirtualPage('foo', view: '_pages/foo.blade.php'))->compile());
+    }
+
+    public function testCompileMethodCanCompileAnonymousViewFilesWithFrontMatter()
+    {
+        $this->file('_pages/foo.blade.php', 'blade {{ $foo }}');
+        $this->assertSame('blade bar', (new VirtualPage('foo', ['foo' => 'bar'], view: '_pages/foo.blade.php'))->compile());
     }
 }
