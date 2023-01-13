@@ -50,12 +50,14 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->fields = $this->captureFieldsDefinitions();
 
         if ($this->option('use-defaults')) {
-            $paginationSettings = [null, null, null];
+            $sortField = null;
+            $sortAscending = null;
+            $pageSize = null;
         } else {
-            $paginationSettings = [$this->getSortField(), $this->getSortDirection(), $this->getPageSize()];
+            $sortField = $this->getSortField();
+            $sortAscending = $this->getSortDirection();
+            $pageSize = $this->getPageSize();
         }
-
-        [$sortField, $sortAscending, $pageSize] = ($paginationSettings);
 
         $canonicalField = $this->getCanonicalField();
 
