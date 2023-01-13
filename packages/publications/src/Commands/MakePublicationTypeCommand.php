@@ -129,11 +129,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldType(): PublicationFieldTypes
     {
-        $options = PublicationFieldTypes::names();
-
-        $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
-
-        return PublicationFieldTypes::from(strtolower($choice));
+        return PublicationFieldTypes::from(strtolower($this->choice(
+            "Enter type for field #{$this->getCount()}",
+            PublicationFieldTypes::names(),
+            'String'
+        )));
     }
 
     protected function getTagGroup(): string
