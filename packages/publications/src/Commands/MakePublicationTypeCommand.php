@@ -188,6 +188,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
+        // todo non-canonicable fields should not be allowed to be used for sorting
+
         return $this->choice('Choose the field you wish to sort by', $this->fields->pluck('name')->toArray(), 0);
     }
 
