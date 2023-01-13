@@ -82,6 +82,21 @@ class VirtualPageTest extends TestCase
         $this->assertSame('bar', $page->foo());
     }
 
+    public function testCanCreateInstanceMacrosUsingCallableObject()
+    {
+        $page = VirtualPage::make('foo');
+
+        $page->macro('foo', new class {
+            public function __invoke(): string
+            {
+                return 'bar';
+            }
+        });
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->assertSame('bar', $page->foo());
+    }
+
     public function testCallingUndefinedMacro()
     {
         $this->expectException(\BadMethodCallException::class);
