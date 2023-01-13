@@ -210,31 +210,4 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         return $this->fields->count() + $offset;
     }
-
-    public function choice($question, array $choices, $default = null, $attempts = null, $multiple = false)
-    {
-        if ($this->input->isInteractive()) {
-            return parent::choice($question, $choices, $default, $attempts, $multiple);
-        }
-
-        return $choices[$default] ?? $default;
-    }
-
-    public function confirm($question, $default = false)
-    {
-        if ($this->input->isInteractive()) {
-            return parent::confirm($question, $default);
-        }
-
-        return $default;
-    }
-
-    public function askWithValidation(string $name, string $question, array $rules = [], mixed $default = null, int $retryCount = 0): string
-    {
-        if ($this->input->isInteractive()) {
-            return parent::askWithValidation($name, $question, $rules, $default, $retryCount);
-        }
-
-        return $default;
-    }
 }
