@@ -32,7 +32,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     /** @var string */
     protected $signature = 'make:publicationType
 		{name? : The name of the publication type to create}
-        {--use-defaults : Select the default options wherever possible}';
+        {--use-defaults : Select the default options wherever possible}'; // Deprecated
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
@@ -209,6 +209,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPageSize(): int
     {
         return (int) $this->askWithValidation('pageSize',
+            // Todo href pagination to the docs? // how many items should be shown on the listing page?
             'Enter the list (index) page size (any value above 0 will enable pagination)',
             ['required', 'integer', 'between:0,100'],
             0
