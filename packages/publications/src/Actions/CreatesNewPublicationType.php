@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Support\Arrayable;

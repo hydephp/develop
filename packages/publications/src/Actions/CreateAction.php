@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions\Concerns;
+namespace Hyde\Publications\Actions;
 
-use function file_exists;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 
+use function file_exists;
+
 /**
- * @see \Hyde\Framework\Testing\Feature\CreateActionTest
+ * @see \Hyde\Publications\Testing\Feature\CreateActionTest
  *
  * @internal This class is experimental and is not meant to be used outside the Hyde framework.
  */

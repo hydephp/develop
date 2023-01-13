@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
+use Hyde\Publications\Actions\CreateAction;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Actions\Concerns\CreateAction
+ * @covers \Hyde\Publications\Actions\CreateAction
  */
 class CreateActionTest extends TestCase
 {
