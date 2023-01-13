@@ -170,22 +170,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->fields->firstWhere('name', $selected);
     }
 
-    protected function checkIfFieldIsDuplicate($name): bool
-    {
-        if ($this->fields->where('name', $name)->count() > 0) {
-            $this->error("Field name [$name] already exists!");
-
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function addCreatedAtMetaField(): void
-    {
-        $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
-    }
-
     protected function getSortField(): string
     {
         $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
@@ -211,6 +195,22 @@ class MakePublicationTypeCommand extends ValidatingCommand
             ['required', 'integer', 'between:0,100'],
             0
         );
+    }
+
+    protected function checkIfFieldIsDuplicate($name): bool
+    {
+        if ($this->fields->where('name', $name)->count() > 0) {
+            $this->error("Field name [$name] already exists!");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function addCreatedAtMetaField(): void
+    {
+        $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
     }
 
     protected function getCount(int $offset = 0): int
