@@ -84,6 +84,10 @@ class VirtualPage extends HydePage implements DynamicPage
      */
     public function compile(): string
     {
+        if (isset($this->macros['compile'])) {
+            return $this->__call('compile', []);
+        }
+
         if (! $this->contents && $this->view) {
             if (str_ends_with($this->view, '.blade.php')) {
                 return AnonymousViewCompiler::call($this->view, $this->matter->toArray());

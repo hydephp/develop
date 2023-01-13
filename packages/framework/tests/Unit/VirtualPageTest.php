@@ -111,6 +111,17 @@ class VirtualPageTest extends TestCase
         $this->assertSame(['bar'], $page->foo('bar'));
     }
 
+    public function testCanUseMacrosToOverloadClassCompileMethod()
+    {
+        $page = VirtualPage::make('foo');
+
+        $page->macro('compile', function () {
+            return 'bar';
+        });
+
+        $this->assertSame('bar', $page->compile());
+    }
+
     public function testCallingUndefinedMacro()
     {
         $this->expectException(BadMethodCallException::class);
