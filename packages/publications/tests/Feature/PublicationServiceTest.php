@@ -83,6 +83,42 @@ class PublicationServiceTest extends TestCase
         );
     }
 
+    public function testGetPublicationsForPubTypeSortsPublicationsBySortField()
+    {
+        (new PublicationType('test-publication', sortField: 'order'))->save();
+
+        $this->markdown('test-publication/one.md', matter: ['order' => 1]);
+        $this->markdown('test-publication/two.md', matter: ['order' => 2]);
+        $this->markdown('test-publication/three.md', matter: ['order' => 3]);
+
+        $this->assertEquals(
+            new Collection([
+                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationService::parsePublicationFile('test-publication/two.md'),
+                PublicationService::parsePublicationFile('test-publication/three.md'),
+            ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+        );
+    }
+
+    public function testGetPublicationsForPubTypeSortsPublicationsWithSpecifiedDirection()
+    {
+        (new PublicationType('test-publication', sortField: 'order', sortAscending: false))->save();
+
+        $this->markdown('test-publication/one.md', matter: ['order' => 1]);
+        $this->markdown('test-publication/two.md', matter: ['order' => 2]);
+        $this->markdown('test-publication/three.md', matter: ['order' => 3]);
+
+        $this->assertEquals(
+            new Collection([
+                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationService::parsePublicationFile('test-publication/two.md'),
+                PublicationService::parsePublicationFile('test-publication/one.md'),
+            ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+        );
+    }
+
     public function testGetMediaForPubType()
     {
         $this->createPublicationType();
