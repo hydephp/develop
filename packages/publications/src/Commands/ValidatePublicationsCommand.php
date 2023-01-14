@@ -122,8 +122,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 throw new Exception("Field [$fieldName] is missing from publication");
             }
 
-            (new ValidatesPublicationField($publicationType,
-                $publicationTypeField))->validate($publication->matter->get($fieldName));
+            (new ValidatesPublicationField($publicationType, $publicationTypeField))->validate($publication->matter->get($fieldName));
             $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
         } catch (Exception $e) {
             $this->countErrors++;
