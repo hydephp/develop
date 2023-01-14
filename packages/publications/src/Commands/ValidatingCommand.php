@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use Hyde\Publications\Validation\BooleanRule;
 use function __;
 use function array_merge;
 use Exception;
@@ -67,6 +68,12 @@ class ValidatingCommand extends Command
             // Prevent infinite loops that may happen due to the method's recursion.
             // For example when running a command in tests or without interaction.
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
+        }
+
+        if (in_array('boolean', $rules)) {
+            // Replace default boolean rule with our own that works with command line input.
+
+            $rules[array_search('boolean', $rules)] = new BooleanRule();
         }
 
         $answer = trim((string) $this->ask(ucfirst($question), $default));
