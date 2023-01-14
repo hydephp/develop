@@ -157,6 +157,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function indent(int $levels): string
     {
-        return str_repeat(' ', $levels * 4);
+        return str_repeat(' ', $levels * 2);
     }
 }
