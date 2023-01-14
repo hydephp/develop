@@ -16,7 +16,7 @@
                 @endforeach
             </ol>
 
-            @include('hyde::components.publications.pagination-navigation')
+            @include('hyde::components.pagination-navigation')
         </div>
     </main>
 @endsection
