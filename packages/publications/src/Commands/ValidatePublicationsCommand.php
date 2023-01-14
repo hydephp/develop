@@ -23,6 +23,9 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
+    protected const CHECKMARK = "\u{2713}";
+    protected const CROSS_MARK = "\u{2717}";
+
     /** @var string */
     protected $signature = 'validate:publications
 		{publicationType? : The name of the publication type to validate.}';
@@ -48,8 +51,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
             throw new InvalidArgumentException('No publication types to validate!');
         }
 
-        $checkmark = "\u{2713}";
-        $xMark = "\u{2717}";
         $countPubTypes = 0;
         $countPubs = 0;
         $countFields = 0;
@@ -82,10 +83,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         }
 
                         (new ValidatesPublicationField($pubType, $pubTypeField))->validate($publication->matter->get($fieldName));
-                        $this->output->writeln(" <fg=green>$checkmark</>");
+                        $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
                     } catch (Exception $e) {
                         $countErrors++;
-                        $this->output->writeln(" <fg=red>$xMark\n        {$e->getMessage()}</>");
+                        $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
                     }
                     unset($publication->matter->data[$fieldName]);
                 }
