@@ -103,7 +103,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationField($field, $publication, $publicationType);
         }
 
-        // Check for extra fields that are not defined in the publication type
+        // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
         foreach ($publication->matter->data as $key => $value) {
             $this->countWarnings++;
             $this->output->writeln("<fg=yellow>        Field [$key] is not defined in publication type</>");
