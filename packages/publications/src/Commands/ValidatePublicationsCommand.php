@@ -107,32 +107,37 @@ class ValidatePublicationsCommand extends ValidatingCommand
         unset($publication->matter->data['__createdAt']);
 
         foreach ($publication->type->getFields() as $field) {
-            $this->countFields++;
-            $fieldName = $field->name;
-            $pubTypeField = new PublicationFieldDefinition($field->type, $fieldName);
-
-            try {
-                if ($this->verbose) {
-                    $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
-                }
-
-                if (!$publication->matter->has($fieldName)) {
-                    throw new Exception("Field [$fieldName] is missing from publication");
-                }
-
-                (new ValidatesPublicationField($pubType,
-                    $pubTypeField))->validate($publication->matter->get($fieldName));
-                $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
-            } catch (Exception $e) {
-                $this->countErrors++;
-                $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
-            }
-            unset($publication->matter->data[$fieldName]);
+            $this->validatePublicationField($field, $publication, $pubType);
         }
 
         foreach ($publication->matter->data as $k => $v) {
             $this->countWarnings++;
             $this->output->writeln("<fg=yellow>        Field [$k] is not defined in publication type</>");
         }
+    }
+
+    protected function validatePublicationField(mixed $field, PublicationPage $publication, PublicationType $pubType): void
+    {
+        $this->countFields++;
+        $fieldName = $field->name;
+        $pubTypeField = new PublicationFieldDefinition($field->type, $fieldName);
+
+        try {
+            if ($this->verbose) {
+                $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
+            }
+
+            if (!$publication->matter->has($fieldName)) {
+                throw new Exception("Field [$fieldName] is missing from publication");
+            }
+
+            (new ValidatesPublicationField($pubType,
+                $pubTypeField))->validate($publication->matter->get($fieldName));
+            $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
+        } catch (Exception $e) {
+            $this->countErrors++;
+            $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
+        }
+        unset($publication->matter->data[$fieldName]);
     }
 }
