@@ -20,8 +20,8 @@ enum PublicationFieldTypes: string
     case Boolean = 'boolean';
     case Integer = 'integer';
     case Float = 'float';
-    case Media = 'media'; // TODO Move down in the list
     case Array = 'array';
+    case Media = 'media';
     case Text = 'text';
     case Url = 'url';
     case Tag = 'tag';
