@@ -133,7 +133,7 @@ class ValidatingCommand extends Command
         ]);
     }
 
-    protected static function normalizeInput(string $param, array $rules)
+    protected static function normalizeInput(string $param, array $rules): bool|string
     {
         $value = trim($param);
 
