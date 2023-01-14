@@ -96,7 +96,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
         $this->countPublications++;
-        $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
+        $indentation = str_repeat(' ', 4);
+
+        $this->output->write("\n<fg=cyan>{$indentation}Validating publication [$publication->title]</>");
         unset($publication->matter->data['__createdAt']);
 
         foreach ($publication->type->getFields() as $field) {
@@ -106,7 +108,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
         foreach ($publication->matter->data as $key => $value) {
             $this->countWarnings++;
-            $this->output->writeln("<fg=yellow>        Field [$key] is not defined in publication type</>");
+            $indentation = str_repeat(' ', 8);
+            $this->output->writeln("<fg=yellow>{$indentation}Field [$key] is not defined in publication type</>");
         }
     }
 
@@ -115,10 +118,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->countFields++;
         $fieldName = $field->name;
         $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
+        $indentation = str_repeat(' ', 8);
 
         try {
             if ($this->verbose) {
-                $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
+                $this->output->write("\n<fg=gray>{$indentation}Validating field [$fieldName]</>");
             }
 
             if (!$publication->matter->has($fieldName)) {
@@ -131,7 +135,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
         } catch (Exception $exception) {
             $this->countErrors++;
-            $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$exception->getMessage()}</>");
+            $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n$indentation{$exception->getMessage()}</>");
         }
         unset($publication->matter->data[$fieldName]);
     }
