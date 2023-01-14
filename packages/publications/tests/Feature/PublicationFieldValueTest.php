@@ -402,7 +402,7 @@ class PublicationFieldValueTest extends TestCase
         ];
 
         foreach ($expected as $type => $rules) {
-            $this->assertEquals($rules, PublicationFieldTypes::from($type)->rules());
+            $this->assertSame($rules, PublicationFieldTypes::from($type)->rules());
         }
     }
 
