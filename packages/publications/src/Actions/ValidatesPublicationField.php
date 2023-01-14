@@ -15,6 +15,8 @@ use function validator;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\ValidatesPublicationsTest
+ *
+ * @todo Rename to PublicationFieldValidator?
  */
 class ValidatesPublicationField
 {
