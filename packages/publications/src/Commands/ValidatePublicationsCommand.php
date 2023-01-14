@@ -36,8 +36,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected $description = 'Validate all or the specified publication type(s)';
 
     protected bool $verbose;
-    protected int $countPubTypes = 0;
-    protected int $countPubs = 0;
+    protected int $countPublicationTypes = 0;
+    protected int $countPublications = 0;
     protected int $countFields = 0;
     protected int $countErrors = 0;
     protected int $countWarnings = 0;
@@ -46,28 +46,28 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $this->title('Validating publications!');
 
-        $pubTypesToValidate = PublicationService::getPublicationTypes();
+        $publicationTypesToValidate = PublicationService::getPublicationTypes();
         $this->verbose = $this->option('verbose');
         $name = $this->argument('publicationType');
         if ($name) {
-            if (! $pubTypesToValidate->has($name)) {
+            if (! $publicationTypesToValidate->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
-            $pubTypesToValidate = [$name => $pubTypesToValidate->get($name)];
+            $publicationTypesToValidate = [$name => $publicationTypesToValidate->get($name)];
         }
 
-        if (count($pubTypesToValidate) === 0) {
+        if (count($publicationTypesToValidate) === 0) {
             throw new InvalidArgumentException('No publication types to validate!');
         }
 
-        foreach ($pubTypesToValidate as $name=>$pubType) {
-            $this->validatePublicationType($pubType, $name);
+        foreach ($publicationTypesToValidate as $name=>$publicationType) {
+            $this->validatePublicationType($publicationType, $name);
         }
 
         $warnColor = $this->countWarnings ? 'yellow' : 'green';
         $errorColor = $this->countErrors ? 'red' : 'green';
         $this->subtitle('Summary:');
-        $this->output->writeln("<fg=green>Validated $this->countPubTypes Publication Types, $this->countPubs Publications, $this->countFields Fields</>");
+        $this->output->writeln("<fg=green>Validated $this->countPublicationTypes Publication Types, $this->countPublications Publications, $this->countFields Fields</>");
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
         if ($this->countErrors) {
@@ -92,40 +92,40 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $this;
     }
 
-    protected function validatePublicationType(PublicationType $pubType, string $name): void
+    protected function validatePublicationType(PublicationType $publicationType, string $name): void
     {
-        $this->countPubTypes++;
-        $publications = PublicationService::getPublicationsForPubType($pubType);
+        $this->countPublicationTypes++;
+        $publications = PublicationService::getPublicationsForPubType($publicationType);
         $this->output->write("<fg=yellow>Validating publication type [$name]</>");
 
         /** @var \Hyde\Publications\Models\PublicationPage $publication */
         foreach ($publications as $publication) {
-            $this->validatePublication($publication, $pubType);
+            $this->validatePublication($publication, $publicationType);
         }
         $this->output->newLine();
     }
 
-    protected function validatePublication(PublicationPage $publication, PublicationType $pubType): void
+    protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->countPubs++;
+        $this->countPublications++;
         $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
         unset($publication->matter->data['__createdAt']);
 
         foreach ($publication->type->getFields() as $field) {
-            $this->validatePublicationField($field, $publication, $pubType);
+            $this->validatePublicationField($field, $publication, $publicationType);
         }
 
-        foreach ($publication->matter->data as $k => $v) {
+        foreach ($publication->matter->data as $key => $value) {
             $this->countWarnings++;
-            $this->output->writeln("<fg=yellow>        Field [$k] is not defined in publication type</>");
+            $this->output->writeln("<fg=yellow>        Field [$key] is not defined in publication type</>");
         }
     }
 
-    protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $pubType): void
+    protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $publicationType): void
     {
         $this->countFields++;
         $fieldName = $field->name;
-        $pubTypeField = new PublicationFieldDefinition($field->type, $fieldName);
+        $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
 
         try {
             if ($this->verbose) {
@@ -136,8 +136,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 throw new Exception("Field [$fieldName] is missing from publication");
             }
 
-            (new ValidatesPublicationField($pubType,
-                $pubTypeField))->validate($publication->matter->get($fieldName));
+            (new ValidatesPublicationField($publicationType,
+                $publicationTypeField))->validate($publication->matter->get($fieldName));
             $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
         } catch (Exception $e) {
             $this->countErrors++;
