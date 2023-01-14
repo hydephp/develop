@@ -59,7 +59,7 @@ enum PublicationFieldTypes: string
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
             self::Array => ['array'],
-            self::Media => [],
+            self::Media => ['string'],
             self::Text => ['string'],
             self::Url => ['url'],
             self::Tag => [],

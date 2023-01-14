@@ -139,7 +139,7 @@ class ValidatesPublicationsTest extends TestCase
         $this->file('_media/foo/baz.png');
         $fieldDefinition = new PublicationFieldDefinition('media', 'myMedia');
         $rules = (new ValidatesPublicationField((new PublicationType('foo')), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
+        $this->assertSame(['string', 'in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
     }
 
     public function testGetRulesForTag()
