@@ -70,7 +70,7 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        $answer = self::normalizeInput((string) $this->ask(ucfirst($question), $default));
+        $answer = self::normalizeInput((string) $this->ask(ucfirst($question), $default), $rules);
         $validator = Validator::make([$name => $answer], [$name => $rules]);
 
         if ($validator->passes()) {
@@ -133,7 +133,7 @@ class ValidatingCommand extends Command
         ]);
     }
 
-    protected static function normalizeInput(string $param)
+    protected static function normalizeInput(string $param, array $rules)
     {
         $value = trim($param);
 
