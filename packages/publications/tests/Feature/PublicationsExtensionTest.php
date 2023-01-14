@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function copy;
-use function file_put_contents;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Foundation\PageCollection;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationListPage;
@@ -28,7 +27,6 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_publication_pages_are_discovered()
     {
-        $this->directory('publication');
         $this->createPublication();
 
         $booted = PageCollection::boot(Hyde::getInstance());
@@ -39,7 +37,6 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_listing_pages_for_publications_are_discovered()
     {
-        $this->directory('publication');
         $this->createPublication();
 
         $booted = PageCollection::boot(Hyde::getInstance());
@@ -52,16 +49,9 @@ class PublicationsExtensionTest extends TestCase
 
     protected function createPublication(): void
     {
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('publication/schema.json'));
-        file_put_contents(Hyde::path('publication/foo.md'),
-            '---
-__canonical: canonical
-__createdAt: 2022-11-16 11:32:52
-foo: bar
----
+        $this->directory('publication');
 
-Hello World!
-'
-        );
+        (new PublicationType('publication'))->save();
+        (new PublicationPage('foo', [], '', PublicationType::get('publication')))->save();
     }
 }
