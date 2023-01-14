@@ -61,8 +61,8 @@ enum PublicationFieldTypes: string
             self::Array => ['array'],
             self::Media => ['string'],
             self::Text => ['string'],
-            self::Url => ['url'],
             self::Tag => [],
+            self::Url => ['url'],
         };
     }
 
@@ -75,8 +75,8 @@ enum PublicationFieldTypes: string
     {
         return [
             self::String,
-            self::Integer,
             self::Datetime,
+            self::Integer,
             self::Text,
         ];
     }
