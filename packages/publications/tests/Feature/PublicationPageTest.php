@@ -67,9 +67,9 @@ class PublicationPageTest extends TestCase
 
     public function test_publication_pages_are_parsable()
     {
-        mkdir(Hyde::path('test-publication'));
+        $this->directory('test-publication');
 
-        file_put_contents(Hyde::path('test-publication/schema.json'), <<<'JSON'
+        $this->file('test-publication/schema.json', <<<'JSON'
             {
                 "name": "Test Publication",
                 "canonicalField": "title",
@@ -88,7 +88,7 @@ class PublicationPageTest extends TestCase
             JSON
         );
 
-        file_put_contents(Hyde::path('test-publication/foo.md'), <<<'MD'
+        $this->file('test-publication/foo.md', <<<'MD'
             ---
             __createdAt: 2022-11-27 21:07:37
             title: My Title
@@ -107,8 +107,6 @@ class PublicationPageTest extends TestCase
         $this->assertEquals('My Title', $page->title);
         $this->assertEquals('My Title', $page->matter->get('title'));
         $this->assertTrue($page->matter->has('__createdAt'));
-
-        Filesystem::deleteDirectory('test-publication');
     }
 
     public function test_publication_pages_are_compilable()
