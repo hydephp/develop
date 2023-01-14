@@ -33,7 +33,7 @@ class PublicationFieldTypesEnumTest extends TestCase
     {
         $this->assertSame(['string'], PublicationFieldTypes::String->rules());
         $this->assertEquals([new BooleanRule()], PublicationFieldTypes::Boolean->rules());
-        $this->assertSame(['integer', 'numeric'], PublicationFieldTypes::Integer->rules());
+        $this->assertSame(['integer'], PublicationFieldTypes::Integer->rules());
         $this->assertSame(['numeric'], PublicationFieldTypes::Float->rules());
         $this->assertSame(['date'], PublicationFieldTypes::Datetime->rules());
         $this->assertSame(['url'], PublicationFieldTypes::Url->rules());

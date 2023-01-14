@@ -115,7 +115,7 @@ class ValidatesPublicationsTest extends TestCase
     {
         $fieldDefinition = new PublicationFieldDefinition('integer', 'myInteger');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['integer', 'numeric'], $rules);
+        $this->assertSame(['integer'], $rules);
     }
 
     public function testGetRulesForString()

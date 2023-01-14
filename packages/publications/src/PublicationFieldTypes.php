@@ -56,7 +56,7 @@ enum PublicationFieldTypes: string
             self::String => ['string'],
             self::Datetime => ['date'],
             self::Boolean => [new BooleanRule],
-            self::Integer => ['integer', 'numeric'],
+            self::Integer => ['integer'],
             self::Float => ['numeric'],
             self::Array => ['array'],
             self::Media => ['string'],
