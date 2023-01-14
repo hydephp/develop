@@ -100,7 +100,7 @@ class PublicationPageTest extends TestCase
             MD
         );
 
-        $page = (PublicationPage::parse('test-publication/foo'));
+        $page = PublicationPage::parse('test-publication/foo');
         $this->assertInstanceOf(PublicationPage::class, $page);
         $this->assertEquals('test-publication/foo', $page->identifier);
         $this->assertEquals('## Write something awesome.', $page->markdown);
