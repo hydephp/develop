@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
 
 /**
@@ -55,7 +54,7 @@ enum PublicationFieldTypes: string
         return match ($type) {
             self::String => ['string'],
             self::Datetime => ['date'],
-            self::Boolean => [new BooleanRule],
+            self::Boolean => ['boolean'],
             self::Integer => ['integer'],
             self::Float => ['numeric'],
             self::Array => ['array'],

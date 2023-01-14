@@ -8,7 +8,6 @@ use DateTime;
 use Exception;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\PublicationFieldTypes;
-use Hyde\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
@@ -391,7 +390,7 @@ class PublicationFieldValueTest extends TestCase
         $expected = [
             'string' => ['string'],
             'datetime' => ['date'],
-            'boolean' => [new BooleanRule],
+            'boolean' => ['boolean'],
             'integer' => ['integer'],
             'float' => ['numeric'],
             'media' => ['string'],
@@ -402,7 +401,7 @@ class PublicationFieldValueTest extends TestCase
         ];
 
         foreach ($expected as $type => $rules) {
-            $this->assertEquals($rules, PublicationFieldTypes::from($type)->rules());
+            $this->assertSame($rules, PublicationFieldTypes::from($type)->rules());
         }
     }
 
