@@ -96,9 +96,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
         $this->countPublications++;
-        $indentation = $this->indent(1);
-
-        $this->output->write("\n<fg=cyan>{$indentation}Validating publication [$publication->title]</>");
+        $this->output->write("\n<fg=cyan>{$this->indent(1)}Validating publication [$publication->title]</>");
         unset($publication->matter->data['__createdAt']);
 
         foreach ($publication->type->getFields() as $field) {
@@ -108,8 +106,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
         foreach ($publication->matter->data as $key => $value) {
             $this->countWarnings++;
-            $indentation = $this->indent(2);
-            $this->output->writeln("<fg=yellow>{$indentation}Field [$key] is not defined in publication type</>");
+            $this->output->writeln("<fg=yellow>{$this->indent(2)}Field [$key] is not defined in publication type</>");
         }
     }
 
