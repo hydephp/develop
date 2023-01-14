@@ -74,7 +74,7 @@ class ValidatingCommand extends Command
         $validator = Validator::make([$name => $answer], [$name => $rules]);
 
         if ($validator->passes()) {
-            return $answer;
+            return (string) $answer;
         }
 
         foreach ($validator->errors()->all() as $error) {
