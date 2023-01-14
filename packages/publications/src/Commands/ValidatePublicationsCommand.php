@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use Hyde\Publications\Models\PublicationPage;
+use Hyde\Publications\Models\PublicationType;
 use function count;
 use Exception;
 use Hyde\Publications\Actions\ValidatesPublicationField;
@@ -65,37 +67,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
             /** @var \Hyde\Publications\Models\PublicationPage $publication */
             foreach ($publications as $publication) {
-                $this->countPubs++;
-                $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
-                unset($publication->matter->data['__createdAt']);
-
-                foreach ($publication->type->getFields() as $field) {
-                    $this->countFields++;
-                    $fieldName = $field->name;
-                    $pubTypeField = new PublicationFieldDefinition($field->type, $fieldName);
-
-                    try {
-                        if ($this->verbose) {
-                            $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
-                        }
-
-                        if (! $publication->matter->has($fieldName)) {
-                            throw new Exception("Field [$fieldName] is missing from publication");
-                        }
-
-                        (new ValidatesPublicationField($pubType, $pubTypeField))->validate($publication->matter->get($fieldName));
-                        $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
-                    } catch (Exception $e) {
-                        $this->countErrors++;
-                        $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
-                    }
-                    unset($publication->matter->data[$fieldName]);
-                }
-
-                foreach ($publication->matter->data as $k=>$v) {
-                    $this->countWarnings++;
-                    $this->output->writeln("<fg=yellow>        Field [$k] is not defined in publication type</>");
-                }
+                $this->validatePublication($publication, $pubType);
             }
             $this->output->newLine();
         }
@@ -126,5 +98,41 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->newLine();
 
         return $this;
+    }
+
+    protected function validatePublication(PublicationPage $publication, PublicationType $pubType): void
+    {
+        $this->countPubs++;
+        $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
+        unset($publication->matter->data['__createdAt']);
+
+        foreach ($publication->type->getFields() as $field) {
+            $this->countFields++;
+            $fieldName = $field->name;
+            $pubTypeField = new PublicationFieldDefinition($field->type, $fieldName);
+
+            try {
+                if ($this->verbose) {
+                    $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
+                }
+
+                if (!$publication->matter->has($fieldName)) {
+                    throw new Exception("Field [$fieldName] is missing from publication");
+                }
+
+                (new ValidatesPublicationField($pubType,
+                    $pubTypeField))->validate($publication->matter->get($fieldName));
+                $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
+            } catch (Exception $e) {
+                $this->countErrors++;
+                $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
+            }
+            unset($publication->matter->data[$fieldName]);
+        }
+
+        foreach ($publication->matter->data as $k => $v) {
+            $this->countWarnings++;
+            $this->output->writeln("<fg=yellow>        Field [$k] is not defined in publication type</>");
+        }
     }
 }
