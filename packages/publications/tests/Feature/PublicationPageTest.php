@@ -68,8 +68,37 @@ class PublicationPageTest extends TestCase
     public function test_publication_pages_are_parsable()
     {
         mkdir(Hyde::path('test-publication'));
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
-        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/foo.md'));
+
+        file_put_contents(Hyde::path('test-publication/schema.json'), <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "title",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
+                "fields": [
+                    {
+                        "name": "title",
+                        "type": "string"
+                    }
+                ]
+            }
+            JSON
+        );
+
+        file_put_contents(Hyde::path('test-publication/foo.md'), <<<'MD'
+            ---
+            __createdAt: 2022-11-27 21:07:37
+            title: My Title
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MD
+        );
 
         $page = (PublicationPage::parse('test-publication/foo'));
         $this->assertInstanceOf(PublicationPage::class, $page);
