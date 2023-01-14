@@ -146,7 +146,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function subtitle(string $title): Command
     {
         $size = strlen($title);
-        $spaces = $this->indent($size);
+        $spaces = str_repeat(' ', $size);
 
         $this->output->newLine();
         $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
