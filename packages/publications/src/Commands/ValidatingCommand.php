@@ -70,8 +70,6 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        $rules = self::normalizeRules($rules);
-
         $answer = trim((string) $this->ask(ucfirst($question), $default));
         $validator = Validator::make([$name => $answer], [$name => $rules]);
 
@@ -133,15 +131,5 @@ class ValidatingCommand extends Command
         return __($error, [
             'attribute' => $name,
         ]);
-    }
-
-    protected static function normalizeRules(array $rules): array
-    {
-        if (in_array('boolean', $rules)) {
-            // Replace default boolean rule with our own that works with command line input.
-            $rules[array_search('boolean', $rules)] = new BooleanRule();
-        }
-
-        return $rules;
     }
 }
