@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Publications\Validation\BooleanRule;
 use function __;
 use function array_merge;
 use Exception;
+use Hyde\Publications\Validation\BooleanRule;
 use Illuminate\Support\Facades\Validator;
 use function in_array;
 use LaravelZero\Framework\Commands\Command;

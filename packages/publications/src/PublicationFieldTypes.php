@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
 
 /**
