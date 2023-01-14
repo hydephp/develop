@@ -122,7 +122,7 @@ class ValidatingCommandTest extends TestCase
         $command->setOutput($output);
         $command->handle();
 
-        $this->assertSame([true, false], $inputs);
+        $this->assertSame(['true', 'false'], $inputs);
     }
 
     public function testValidationIsCalled()
