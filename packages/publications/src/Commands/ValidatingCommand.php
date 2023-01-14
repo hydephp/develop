@@ -135,6 +135,8 @@ class ValidatingCommand extends Command
 
     protected static function normalizeInput(string $param)
     {
-        return trim($param);
+        $value = trim($param);
+
+        return $value;
     }
 }
