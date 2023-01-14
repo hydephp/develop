@@ -36,7 +36,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected $description = 'Validate all or the specified publication type(s)';
 
     protected bool $verbose;
-    protected int $countPublicationTypes = 0;
     protected int $countPublications = 0;
     protected int $countFields = 0;
     protected int $countErrors = 0;
@@ -70,7 +69,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $errorColor = $this->countErrors ? 'red' : 'green';
 
         $this->subtitle('Summary:');
-        $this->output->writeln("<fg=green>Validated $this->countPublicationTypes Publication Types, $this->countPublications Publications, $this->countFields Fields</>");
+        $this->output->writeln("<fg=green>Validated {$publicationTypesToValidate->count()} Publication Types, $this->countPublications Publications, $this->countFields Fields</>");
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
 
@@ -83,7 +82,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationType(PublicationType $publicationType, string $name): void
     {
-        $this->countPublicationTypes++;
         $publications = PublicationService::getPublicationsForPubType($publicationType);
         $this->output->write("<fg=yellow>Validating publication type [$name]</>");
 
