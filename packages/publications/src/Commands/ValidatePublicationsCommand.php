@@ -83,7 +83,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $publications = PublicationService::getPublicationsForPubType($publicationType);
         $this->output->write("<fg=yellow>Validating publication type [$name]</>");
 
-        /** @var \Hyde\Publications\Models\PublicationPage $publication */
         foreach ($publications as $publication) {
             $this->validatePublication($publication, $publicationType);
         }
