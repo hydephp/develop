@@ -391,7 +391,7 @@ class PublicationFieldValueTest extends TestCase
         $expected = [
             'string' => ['string'],
             'datetime' => ['date'],
-            'boolean' => [new BooleanRule],
+            'boolean' => ['boolean'],
             'integer' => ['integer'],
             'float' => ['numeric'],
             'media' => ['string'],
