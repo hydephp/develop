@@ -20,7 +20,7 @@ enum PublicationFieldTypes: string
     case Boolean = 'boolean';
     case Integer = 'integer';
     case Float = 'float';
-    case Image = 'image'; // TODO Rename to media and move down in the list
+    case Media = 'media'; // TODO Move down in the list
     case Array = 'array';
     case Text = 'text';
     case Url = 'url';
@@ -58,7 +58,7 @@ enum PublicationFieldTypes: string
             self::Boolean => [new BooleanRule],
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
-            self::Image => [],
+            self::Media => [],
             self::Array => ['array'],
             self::Text => ['string'],
             self::Url => ['url'],

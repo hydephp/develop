@@ -95,7 +95,7 @@ class SeedsPublicationFiles
             'boolean' => rand(0, 100) < 50,
             'datetime' => $this->getDateTimeValue(),
             'float' => ((mt_rand() / mt_getrandmax()) * (200000)) + -100000,
-            'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
+            'media' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
             'integer' => rand(-100000, 100000),
             'string' => substr($this->fakeSentence(10), 0, rand(1, 255)),
             'tag' => $this->getTags($field->tagGroup),

@@ -327,24 +327,24 @@ class PublicationFieldValueTest extends TestCase
         new PublicationFieldValue(PublicationFieldTypes::from('url'), 'foo');
     }
 
-    // ImageField tests
+    // MediaField tests
 
-    public function testImageFieldConstruct()
+    public function testMediaFieldConstruct()
     {
-        $field = $this->makeFieldType('image', 'foo');
+        $field = $this->makeFieldType('media', 'foo');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
-        $this->assertSame(PublicationFieldTypes::Image, $field->type);
+        $this->assertSame(PublicationFieldTypes::Media, $field->type);
     }
 
-    public function testImageFieldGetValue()
+    public function testMediaFieldGetValue()
     {
-        $this->assertSame('foo', $this->makeFieldType('image', 'foo')->getValue());
+        $this->assertSame('foo', $this->makeFieldType('media', 'foo')->getValue());
     }
 
-    public function testImageFieldToYaml()
+    public function testMediaFieldToYaml()
     {
-        $this->assertSame('foo', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('image'), 'foo')));
+        $this->assertSame('foo', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('media'), 'foo')));
     }
 
     // TagField tests
@@ -394,7 +394,7 @@ class PublicationFieldValueTest extends TestCase
             'boolean' => [new BooleanRule],
             'integer' => ['integer', 'numeric'],
             'float' => ['numeric'],
-            'image' => [],
+            'media' => [],
             'array' => ['array'],
             'text' => ['string'],
             'url' => ['url'],

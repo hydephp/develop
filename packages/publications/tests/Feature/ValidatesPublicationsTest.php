@@ -132,12 +132,12 @@ class ValidatesPublicationsTest extends TestCase
         $this->assertSame(['string'], $rules);
     }
 
-    public function testGetRulesForImage()
+    public function testGetRulesForMedia()
     {
         $this->directory('_media/foo');
         $this->file('_media/foo/bar.jpg');
         $this->file('_media/foo/baz.png');
-        $fieldDefinition = new PublicationFieldDefinition('image', 'myImage');
+        $fieldDefinition = new PublicationFieldDefinition('media', 'myMedia');
         $rules = (new ValidatesPublicationField((new PublicationType('foo')), $fieldDefinition))->getValidationRules();
         $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
     }

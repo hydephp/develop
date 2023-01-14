@@ -120,7 +120,7 @@ class MakePublicationCommand extends ValidatingCommand
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
-            PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
+            PublicationFieldTypes::Media => $this->captureMediaFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
             default => $this->captureOtherFieldInput($field),
         };
@@ -140,7 +140,7 @@ class MakePublicationCommand extends ValidatingCommand
         return new PublicationFieldValue(PublicationFieldTypes::Array, InputStreamHandler::call());
     }
 
-    protected function captureImageFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
+    protected function captureMediaFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $this->infoComment('Select file for image field', $field->name);
 
@@ -149,7 +149,7 @@ class MakePublicationCommand extends ValidatingCommand
             return $this->handleEmptyOptionsCollection($field, 'media file', "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
         }
 
-        return new PublicationFieldValue(PublicationFieldTypes::Image, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
+        return new PublicationFieldValue(PublicationFieldTypes::Media, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue

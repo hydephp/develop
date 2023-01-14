@@ -25,7 +25,7 @@ class PublicationFieldTypesEnumTest extends TestCase
         $this->assertSame('url', PublicationFieldTypes::Url->value);
         $this->assertSame('array', PublicationFieldTypes::Array->value);
         $this->assertSame('text', PublicationFieldTypes::Text->value);
-        $this->assertSame('image', PublicationFieldTypes::Image->value);
+        $this->assertSame('media', PublicationFieldTypes::Media->value);
         $this->assertSame('tag', PublicationFieldTypes::Tag->value);
     }
 
@@ -39,7 +39,7 @@ class PublicationFieldTypesEnumTest extends TestCase
         $this->assertSame(['url'], PublicationFieldTypes::Url->rules());
         $this->assertSame(['string'], PublicationFieldTypes::Text->rules());
         $this->assertSame(['array'], PublicationFieldTypes::Array->rules());
-        $this->assertSame([], PublicationFieldTypes::Image->rules());
+        $this->assertSame([], PublicationFieldTypes::Media->rules());
         $this->assertSame([], PublicationFieldTypes::Tag->rules());
     }
 
@@ -56,7 +56,7 @@ class PublicationFieldTypesEnumTest extends TestCase
             2 => 'boolean',
             3 => 'integer',
             4 => 'float',
-            5 => 'image',
+            5 => 'media',
             6 => 'array',
             7 => 'text',
             8 => 'url',
@@ -72,7 +72,7 @@ class PublicationFieldTypesEnumTest extends TestCase
             2 => 'Boolean',
             3 => 'Integer',
             4 => 'Float',
-            5 => 'Image',
+            5 => 'Media',
             6 => 'Array',
             7 => 'Text',
             8 => 'Url',

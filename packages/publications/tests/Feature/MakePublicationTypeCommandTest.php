@@ -46,7 +46,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Boolean',
                 'Integer',
                 'Float',
-                'Image',
+                'Media',
                 'Array',
                 'Text',
                 'Url',
@@ -203,7 +203,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
-                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
+                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Media', 'Array', 'Text', 'Url', 'Tag'])
             ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
 
             ->expectsConfirmation('Field #1 added! Add another field?')
@@ -247,7 +247,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
-                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'], true)
+                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Media', 'Array', 'Text', 'Url', 'Tag'], true)
             ->expectsOutput('No tag groups have been added to tags.json')
             ->expectsConfirmation('Would you like to add some tags now?')
             ->expectsOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
@@ -265,7 +265,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
-                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
+                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Media', 'Array', 'Text', 'Url', 'Tag'])
             ->expectsOutput('No tag groups have been added to tags.json')
             ->expectsConfirmation('Would you like to add some tags now?', 'yes')
             ->expectsQuestion('Tag name', 'foo')
