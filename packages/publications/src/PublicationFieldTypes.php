@@ -55,7 +55,7 @@ enum PublicationFieldTypes: string
         return match ($type) {
             self::String => ['string'],
             self::Datetime => ['date'],
-            self::Boolean => [new BooleanRule],
+            self::Boolean => ['boolean'],
             self::Integer => ['integer'],
             self::Float => ['numeric'],
             self::Array => ['array'],
