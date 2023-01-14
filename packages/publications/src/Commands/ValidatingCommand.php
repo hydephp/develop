@@ -7,7 +7,6 @@ namespace Hyde\Publications\Commands;
 use function __;
 use function array_merge;
 use Exception;
-use Hyde\Publications\Validation\BooleanRule;
 use Illuminate\Support\Facades\Validator;
 use function in_array;
 use LaravelZero\Framework\Commands\Command;
@@ -70,10 +69,8 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        $rules = self::normalizeRules($rules);
-
         $answer = trim((string) $this->ask(ucfirst($question), $default));
-        $validator = Validator::make([$name => $answer], [$name => $rules]);
+        $validator = Validator::make([$name => self::normalizeInput($answer, $rules)], [$name => $rules]);
 
         if ($validator->passes()) {
             return $answer;
@@ -135,13 +132,19 @@ class ValidatingCommand extends Command
         ]);
     }
 
-    protected static function normalizeRules(array $rules): array
+    protected static function normalizeInput(string $value, array $rules): bool|string
     {
         if (in_array('boolean', $rules)) {
-            // Replace default boolean rule with our own that works with command line input.
-            $rules[array_search('boolean', $rules)] = new BooleanRule();
+            // Since the Laravel validation rule requires booleans to be boolean, but the Symfony
+            // console input is a string, so we need to convert it so that it can be validated.
+            if ($value === 'true') {
+                return true;
+            }
+            if ($value === 'false') {
+                return false;
+            }
         }
 
-        return $rules;
+        return $value;
     }
 }

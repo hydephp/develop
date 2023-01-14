@@ -101,6 +101,30 @@ class ValidatingCommandTest extends TestCase
         });
     }
 
+    public function testAskWithValidationNormalizesBooleanInput()
+    {
+        $inputs = [];
+        $command = new DynamicValidatingTestCommand();
+        $command->closure = function (ValidatingCommand $command) use (&$inputs) {
+            $inputs[] = $command->askWithValidation('true', 'True?', ['boolean']);
+            $inputs[] = $command->askWithValidation('false', 'False?', ['boolean']);
+        };
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
+            return $question === 'True?';
+        })->andReturn('true');
+
+        $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
+            return $question === 'False?';
+        })->andReturn('false');
+
+        $command->setOutput($output);
+        $command->handle();
+
+        $this->assertSame(['true', 'false'], $inputs);
+    }
+
     public function testValidationIsCalled()
     {
         $command = new ValidationTestCommand();
