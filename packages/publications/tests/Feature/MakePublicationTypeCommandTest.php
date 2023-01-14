@@ -20,7 +20,7 @@ class MakePublicationTypeCommandTest extends TestCase
 {
     protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>';
     protected const selectCanonicalNameQuestion = 'Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>';
-    const EXPECTED_ENUM_CASES = ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Media', 'Array', 'Text', 'Url', 'Tag'];
+    protected const EXPECTED_ENUM_CASES = ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Media', 'Array', 'Text', 'Url', 'Tag'];
 
     protected function setUp(): void
     {
