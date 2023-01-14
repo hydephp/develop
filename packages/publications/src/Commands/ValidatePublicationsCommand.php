@@ -121,7 +121,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    protected function validatePublicationField(mixed $field, PublicationPage $publication, PublicationType $pubType): void
+    protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $pubType): void
     {
         $this->countFields++;
         $fieldName = $field->name;
