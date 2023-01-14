@@ -37,6 +37,7 @@ class ValidatesPublicationField
         );
     }
 
+    /** @throws \Illuminate\Validation\ValidationException */
     public function validate(mixed $input = null): array
     {
         return $this->makeValidator($input, $this->getValidationRules())->validate();
