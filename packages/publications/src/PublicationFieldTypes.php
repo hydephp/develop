@@ -15,16 +15,16 @@ use Illuminate\Support\Collection;
  */
 enum PublicationFieldTypes: string
 {
+    case Tag = 'tag';
+    case Url = 'url';
+    case Text = 'text';
+    case Media = 'media';
+    case Float = 'float';
     case Array = 'array';
+    case String = 'string';
+    case Integer = 'integer';
     case Boolean = 'boolean';
     case Datetime = 'datetime';
-    case Float = 'float';
-    case Integer = 'integer';
-    case Media = 'media';
-    case String = 'string';
-    case Tag = 'tag';
-    case Text = 'text';
-    case Url = 'url';
 
     /** Get the default validation rules for this field type. */
     public function rules(): array
