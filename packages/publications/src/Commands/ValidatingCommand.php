@@ -138,6 +138,8 @@ class ValidatingCommand extends Command
         $value = trim($param);
 
         if (in_array('boolean', $rules)) {
+            // Since the Laravel validation rule requires booleans to be boolean, but the Symfony
+            // console input is a string, so we need to convert it so that it can be validated.
             if ($value === 'true') {
                 return true;
             }
