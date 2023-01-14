@@ -394,7 +394,7 @@ class PublicationFieldValueTest extends TestCase
             'boolean' => [new BooleanRule],
             'integer' => ['integer', 'numeric'],
             'float' => ['numeric'],
-            'media' => [],
+            'media' => ['string'],
             'array' => ['array'],
             'text' => ['string'],
             'url' => ['url'],
