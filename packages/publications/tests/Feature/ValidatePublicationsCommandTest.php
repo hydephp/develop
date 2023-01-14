@@ -33,7 +33,14 @@ class ValidatePublicationsCommandTest extends TestCase
     {
         $this->directory('test-publication');
         $this->copyTestPublicationFixture();
-        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
+        $this->file('test-publication/test.md', '---
+__createdAt: 2022-11-27 21:07:37
+title: My Title
+---
+
+## Write something awesome.
+
+');
 
         $this->artisan('validate:publications')
             ->expectsOutputToContain('Validating publications!')
@@ -50,7 +57,14 @@ class ValidatePublicationsCommandTest extends TestCase
     {
         $this->directory('test-publication');
         $this->copyTestPublicationFixture();
-        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
+        $this->file('test-publication/test.md', '---
+__createdAt: 2022-11-27 21:07:37
+title: My Title
+---
+
+## Write something awesome.
+
+');
 
         $this->artisan('validate:publications', ['--verbose' => true])
              ->expectsOutputToContain('Validating publications!')
