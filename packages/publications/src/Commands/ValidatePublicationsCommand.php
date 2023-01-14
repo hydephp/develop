@@ -33,12 +33,19 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
+    protected bool $verbose;
+    protected int $countPubTypes = 0;
+    protected int $countPubs = 0;
+    protected int $countFields = 0;
+    protected int $countErrors = 0;
+    protected int $countWarnings = 0;
+
     public function safeHandle(): int
     {
         $this->title('Validating publications!');
 
         $pubTypesToValidate = PublicationService::getPublicationTypes();
-        $verbose = $this->option('verbose');
+        $this->verbose = $this->option('verbose');
         $name = $this->argument('publicationType');
         if ($name) {
             if (! $pubTypesToValidate->has($name)) {
@@ -51,30 +58,24 @@ class ValidatePublicationsCommand extends ValidatingCommand
             throw new InvalidArgumentException('No publication types to validate!');
         }
 
-        $countPubTypes = 0;
-        $countPubs = 0;
-        $countFields = 0;
-        $countErrors = 0;
-        $countWarnings = 0;
-
         foreach ($pubTypesToValidate as $name=>$pubType) {
-            $countPubTypes++;
+            $this->countPubTypes++;
             $publications = PublicationService::getPublicationsForPubType($pubType);
             $this->output->write("<fg=yellow>Validating publication type [$name]</>");
 
             /** @var \Hyde\Publications\Models\PublicationPage $publication */
             foreach ($publications as $publication) {
-                $countPubs++;
+                $this->countPubs++;
                 $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
                 unset($publication->matter->data['__createdAt']);
 
                 foreach ($publication->type->getFields() as $field) {
-                    $countFields++;
+                    $this->countFields++;
                     $fieldName = $field->name;
                     $pubTypeField = new PublicationFieldDefinition($field->type, $fieldName);
 
                     try {
-                        if ($verbose) {
+                        if ($this->verbose) {
                             $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
                         }
 
@@ -85,27 +86,27 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         (new ValidatesPublicationField($pubType, $pubTypeField))->validate($publication->matter->get($fieldName));
                         $this->output->writeln(" <fg=green>".(self::CHECKMARK)."</>");
                     } catch (Exception $e) {
-                        $countErrors++;
+                        $this->countErrors++;
                         $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
                     }
                     unset($publication->matter->data[$fieldName]);
                 }
 
                 foreach ($publication->matter->data as $k=>$v) {
-                    $countWarnings++;
+                    $this->countWarnings++;
                     $this->output->writeln("<fg=yellow>        Field [$k] is not defined in publication type</>");
                 }
             }
             $this->output->newLine();
         }
 
-        $warnColor = $countWarnings ? 'yellow' : 'green';
-        $errorColor = $countErrors ? 'red' : 'green';
+        $warnColor = $this->countWarnings ? 'yellow' : 'green';
+        $errorColor = $this->countErrors ? 'red' : 'green';
         $this->subtitle('Summary:');
-        $this->output->writeln("<fg=green>Validated $countPubTypes Publication Types, $countPubs Publications, $countFields Fields</>");
-        $this->output->writeln("<fg=$warnColor>Found $countWarnings Warnings</>");
-        $this->output->writeln("<fg=$errorColor>Found $countErrors Errors</>");
-        if ($countErrors) {
+        $this->output->writeln("<fg=green>Validated $this->countPubTypes Publication Types, $this->countPubs Publications, $this->countFields Fields</>");
+        $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
+        $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
+        if ($this->countErrors) {
             return Command::FAILURE;
         }
 
