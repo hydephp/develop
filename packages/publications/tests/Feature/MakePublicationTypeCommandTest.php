@@ -20,6 +20,7 @@ class MakePublicationTypeCommandTest extends TestCase
 {
     protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>';
     protected const selectCanonicalNameQuestion = 'Choose a canonical name field <fg=gray>(this will be used to generate filenames, so the values need to be unique)</>';
+    protected const expectedEnumCases = ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Array', 'Media', 'Text', 'Tag', 'Url'];
 
     protected function setUp(): void
     {
@@ -46,11 +47,11 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Boolean',
                 'Integer',
                 'Float',
-                'Image',
                 'Array',
+                'Media',
                 'Text',
-                'Url',
                 'Tag',
+                'Url',
             ], true)
             ->expectsConfirmation('Field #1 added! Add another field?')
 
@@ -203,7 +204,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
-                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
+                self::expectedEnumCases)
             ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
 
             ->expectsConfirmation('Field #1 added! Add another field?')
@@ -247,7 +248,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
-                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'], true)
+                self::expectedEnumCases, true)
             ->expectsOutput('No tag groups have been added to tags.json')
             ->expectsConfirmation('Would you like to add some tags now?')
             ->expectsOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
@@ -265,7 +266,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
-                ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'])
+                self::expectedEnumCases)
             ->expectsOutput('No tag groups have been added to tags.json')
             ->expectsConfirmation('Would you like to add some tags now?', 'yes')
             ->expectsQuestion('Tag name', 'foo')

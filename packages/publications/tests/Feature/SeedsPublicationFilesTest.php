@@ -94,16 +94,16 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsFloat($publication->matter('price'));
     }
 
-    public function testWithImageType()
+    public function testWithMediaType()
     {
-        $this->updateSchema('image', 'image');
+        $this->updateSchema('media', 'media');
         (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
 
         $this->assertBaseline($publication);
-        $this->assertIsString($publication->matter('image'));
-        $this->assertStringStartsWith('https://picsum.photos/id/', $publication->matter('image'));
+        $this->assertIsString($publication->matter('media'));
+        $this->assertStringStartsWith('https://picsum.photos/id/', $publication->matter('media'));
     }
 
     public function testWithIntegerType()

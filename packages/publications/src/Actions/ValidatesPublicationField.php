@@ -42,7 +42,7 @@ class ValidatesPublicationField
 
     protected function makeDynamicRules(): array
     {
-        if ($this->fieldDefinition->type == PublicationFieldTypes::Image) {
+        if ($this->fieldDefinition->type == PublicationFieldTypes::Media) {
             $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
             $valueList = $mediaFiles->implode(',');
 

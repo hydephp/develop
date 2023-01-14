@@ -20,11 +20,11 @@ enum PublicationFieldTypes: string
     case Boolean = 'boolean';
     case Integer = 'integer';
     case Float = 'float';
-    case Image = 'image'; // TODO Rename to media and move down in the list
     case Array = 'array';
+    case Media = 'media';
     case Text = 'text';
-    case Url = 'url';
     case Tag = 'tag';
+    case Url = 'url';
 
     /** Get the default validation rules for this field type. */
     public function rules(): array
@@ -56,13 +56,13 @@ enum PublicationFieldTypes: string
             self::String => ['string'],
             self::Datetime => ['date'],
             self::Boolean => [new BooleanRule],
-            self::Integer => ['integer', 'numeric'],
+            self::Integer => ['integer'],
             self::Float => ['numeric'],
-            self::Image => [],
             self::Array => ['array'],
+            self::Media => ['string'],
             self::Text => ['string'],
-            self::Url => ['url'],
             self::Tag => [],
+            self::Url => ['url'],
         };
     }
 
@@ -75,8 +75,8 @@ enum PublicationFieldTypes: string
     {
         return [
             self::String,
-            self::Integer,
             self::Datetime,
+            self::Integer,
             self::Text,
         ];
     }

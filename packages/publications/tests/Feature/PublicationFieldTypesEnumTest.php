@@ -25,7 +25,7 @@ class PublicationFieldTypesEnumTest extends TestCase
         $this->assertSame('url', PublicationFieldTypes::Url->value);
         $this->assertSame('array', PublicationFieldTypes::Array->value);
         $this->assertSame('text', PublicationFieldTypes::Text->value);
-        $this->assertSame('image', PublicationFieldTypes::Image->value);
+        $this->assertSame('media', PublicationFieldTypes::Media->value);
         $this->assertSame('tag', PublicationFieldTypes::Tag->value);
     }
 
@@ -33,13 +33,13 @@ class PublicationFieldTypesEnumTest extends TestCase
     {
         $this->assertSame(['string'], PublicationFieldTypes::String->rules());
         $this->assertEquals([new BooleanRule()], PublicationFieldTypes::Boolean->rules());
-        $this->assertSame(['integer', 'numeric'], PublicationFieldTypes::Integer->rules());
+        $this->assertSame(['integer'], PublicationFieldTypes::Integer->rules());
         $this->assertSame(['numeric'], PublicationFieldTypes::Float->rules());
         $this->assertSame(['date'], PublicationFieldTypes::Datetime->rules());
         $this->assertSame(['url'], PublicationFieldTypes::Url->rules());
         $this->assertSame(['string'], PublicationFieldTypes::Text->rules());
         $this->assertSame(['array'], PublicationFieldTypes::Array->rules());
-        $this->assertSame([], PublicationFieldTypes::Image->rules());
+        $this->assertSame(['string'], PublicationFieldTypes::Media->rules());
         $this->assertSame([], PublicationFieldTypes::Tag->rules());
     }
 
@@ -56,11 +56,11 @@ class PublicationFieldTypesEnumTest extends TestCase
             2 => 'boolean',
             3 => 'integer',
             4 => 'float',
-            5 => 'image',
-            6 => 'array',
+            5 => 'array',
+            6 => 'media',
             7 => 'text',
-            8 => 'url',
-            9 => 'tag',
+            8 => 'tag',
+            9 => 'url',
         ], PublicationFieldTypes::values());
     }
 
@@ -72,11 +72,11 @@ class PublicationFieldTypesEnumTest extends TestCase
             2 => 'Boolean',
             3 => 'Integer',
             4 => 'Float',
-            5 => 'Image',
-            6 => 'Array',
+            5 => 'Array',
+            6 => 'Media',
             7 => 'Text',
-            8 => 'Url',
-            9 => 'Tag',
+            8 => 'Tag',
+            9 => 'Url',
         ], PublicationFieldTypes::names());
     }
 
@@ -84,8 +84,8 @@ class PublicationFieldTypesEnumTest extends TestCase
     {
         $this->assertSame([
             PublicationFieldTypes::String,
-            PublicationFieldTypes::Integer,
             PublicationFieldTypes::Datetime,
+            PublicationFieldTypes::Integer,
             PublicationFieldTypes::Text,
         ], PublicationFieldTypes::canonicable());
     }

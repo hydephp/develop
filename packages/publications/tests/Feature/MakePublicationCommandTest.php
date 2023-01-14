@@ -279,15 +279,15 @@ class MakePublicationCommandTest extends TestCase
         );
     }
 
-    public function test_command_with_image_input()
+    public function test_command_with_media_input()
     {
         $this->directory('_media/test-publication');
         $this->file('_media/test-publication/image.jpg');
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
-                'type' => 'image',
-                'name' => 'image',
+                'type' => 'media',
+                'name' => 'media',
             ],
             ],
         ]);
@@ -297,10 +297,10 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/image.jpg');
+        $this->assertCreatedPublicationMatterEquals('media: _media/test-publication/image.jpg');
     }
 
-    public function test_image_input_selects_the_right_file()
+    public function test_media_input_selects_the_right_file()
     {
         $this->directory('_media/test-publication');
         $this->file('_media/test-publication/foo.jpg');
@@ -310,8 +310,8 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
-                'type' => 'image',
-                'name' => 'image',
+                'type' => 'media',
+                'name' => 'media',
             ],
             ],
         ]);
@@ -321,7 +321,7 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/bar.png');
+        $this->assertCreatedPublicationMatterEquals('media: _media/test-publication/bar.png');
     }
 
     public function test_command_with_single_tag_input()
@@ -374,14 +374,14 @@ class MakePublicationCommandTest extends TestCase
     - bar');
     }
 
-    public function test_image_input_with_no_images()
+    public function test_media_input_with_no_images()
     {
         config(['app.throw_on_console_exception' => false]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
-                'type' => 'image',
-                'name' => 'image',
+                'type' => 'media',
+                'name' => 'media',
             ],
             ],
         ]);
@@ -395,13 +395,13 @@ class MakePublicationCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
-    public function test_image_input_with_no_images_but_skips()
+    public function test_media_input_with_no_files_but_skips()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
-                'type' => 'image',
-                'name' => 'image',
+                'type' => 'media',
+                'name' => 'media',
             ],
             ],
         ]);
@@ -531,7 +531,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication test-publication')
             ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 'string')
-            ->expectsOutput('The integer must be a number.')
+            ->expectsOutput('The integer must be an integer.')
             ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 15)
             ->expectsOutput('The integer must not be greater than 10.')
             ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 5)

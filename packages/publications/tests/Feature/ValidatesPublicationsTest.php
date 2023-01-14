@@ -115,7 +115,7 @@ class ValidatesPublicationsTest extends TestCase
     {
         $fieldDefinition = new PublicationFieldDefinition('integer', 'myInteger');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['integer', 'numeric'], $rules);
+        $this->assertSame(['integer'], $rules);
     }
 
     public function testGetRulesForString()
@@ -132,14 +132,14 @@ class ValidatesPublicationsTest extends TestCase
         $this->assertSame(['string'], $rules);
     }
 
-    public function testGetRulesForImage()
+    public function testGetRulesForMedia()
     {
         $this->directory('_media/foo');
         $this->file('_media/foo/bar.jpg');
         $this->file('_media/foo/baz.png');
-        $fieldDefinition = new PublicationFieldDefinition('image', 'myImage');
+        $fieldDefinition = new PublicationFieldDefinition('media', 'myMedia');
         $rules = (new ValidatesPublicationField((new PublicationType('foo')), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
+        $this->assertSame(['string', 'in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
     }
 
     public function testGetRulesForTag()
