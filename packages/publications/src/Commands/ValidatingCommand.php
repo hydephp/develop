@@ -133,10 +133,8 @@ class ValidatingCommand extends Command
         ]);
     }
 
-    protected static function normalizeInput(string $param, array $rules): bool|string
+    protected static function normalizeInput(string $value, array $rules): bool|string
     {
-        $value = $param;
-
         if (in_array('boolean', $rules)) {
             // Since the Laravel validation rule requires booleans to be boolean, but the Symfony
             // console input is a string, so we need to convert it so that it can be validated.
