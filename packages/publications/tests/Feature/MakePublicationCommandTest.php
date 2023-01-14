@@ -531,7 +531,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication test-publication')
             ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 'string')
-            ->expectsOutput('The integer must be a number.')
+            ->expectsOutput('The integer must be an integer.')
             ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 15)
             ->expectsOutput('The integer must not be greater than 10.')
             ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 5)
