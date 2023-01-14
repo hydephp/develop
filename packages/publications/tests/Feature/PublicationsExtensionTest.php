@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Publications\Models\PublicationType;
 use Hyde\Foundation\PageCollection;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationsExtension;
 use Hyde\Testing\TestCase;
 

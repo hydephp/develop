@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function copy;
 use function file_put_contents;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
