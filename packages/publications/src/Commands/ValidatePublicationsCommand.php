@@ -61,15 +61,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
 
         foreach ($pubTypesToValidate as $name=>$pubType) {
-            $this->countPubTypes++;
-            $publications = PublicationService::getPublicationsForPubType($pubType);
-            $this->output->write("<fg=yellow>Validating publication type [$name]</>");
-
-            /** @var \Hyde\Publications\Models\PublicationPage $publication */
-            foreach ($publications as $publication) {
-                $this->validatePublication($publication, $pubType);
-            }
-            $this->output->newLine();
+            $this->validatePublicationType($pubType, $name);
         }
 
         $warnColor = $this->countWarnings ? 'yellow' : 'green';
@@ -98,6 +90,19 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->newLine();
 
         return $this;
+    }
+
+    protected function validatePublicationType(PublicationType $pubType, string $name): void
+    {
+        $this->countPubTypes++;
+        $publications = PublicationService::getPublicationsForPubType($pubType);
+        $this->output->write("<fg=yellow>Validating publication type [$name]</>");
+
+        /** @var \Hyde\Publications\Models\PublicationPage $publication */
+        foreach ($publications as $publication) {
+            $this->validatePublication($publication, $pubType);
+        }
+        $this->output->newLine();
     }
 
     protected function validatePublication(PublicationPage $publication, PublicationType $pubType): void
