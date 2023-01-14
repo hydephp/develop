@@ -135,7 +135,7 @@ class ValidatingCommand extends Command
 
     protected static function normalizeInput(string $param, array $rules): bool|string
     {
-        $value = trim($param);
+        $value = $param;
 
         if (in_array('boolean', $rules)) {
             // Since the Laravel validation rule requires booleans to be boolean, but the Symfony
