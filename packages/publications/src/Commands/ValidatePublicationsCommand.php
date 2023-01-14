@@ -77,21 +77,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    /*
-     * Displays the given string as subtitle.
-     */
-    public function subtitle(string $title): Command
-    {
-        $size = strlen($title);
-        $spaces = str_repeat(' ', $size);
-
-        $this->output->newLine();
-        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
-        $this->output->newLine();
-
-        return $this;
-    }
-
     protected function validatePublicationType(PublicationType $publicationType, string $name): void
     {
         $this->countPublicationTypes++;
@@ -144,5 +129,20 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->output->writeln(" <fg=red>".(self::CROSS_MARK)."\n        {$e->getMessage()}</>");
         }
         unset($publication->matter->data[$fieldName]);
+    }
+
+    /*
+     * Displays the given string as subtitle.
+     */
+    protected function subtitle(string $title): Command
+    {
+        $size = strlen($title);
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
+        $this->output->newLine();
+
+        return $this;
     }
 }
