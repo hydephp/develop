@@ -131,11 +131,30 @@ class PublicationTypeTest extends TestCase
 
     public function test_can_load_from_json_file()
     {
-        $publicationType = new PublicationType(...array_merge($this->getTestData(), [
-            'directory' => 'tests/fixtures',
-        ]));
+        $this->directory('test-publication');
 
-        $this->assertEquals($publicationType, PublicationType::fromFile(('tests/fixtures/test-publication-schema.json')));
+        $this->file('test-publication/schema.json', <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "title",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 25,
+                "fields": [
+                    {
+                        "name": "title",
+                        "type": "string"
+                    }
+                ]
+            }
+            JSON
+        );
+
+        $publicationType = new PublicationType(...$this->getTestData());
+
+        $this->assertEquals($publicationType, PublicationType::fromFile('test-publication/schema.json'));
     }
 
     public function test_can_load_fields_with_validation_rules()
