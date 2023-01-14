@@ -69,24 +69,7 @@ class PublicationPageTest extends TestCase
     {
         $this->directory('test-publication');
 
-        $this->file('test-publication/schema.json', <<<'JSON'
-            {
-                "name": "Test Publication",
-                "canonicalField": "title",
-                "detailTemplate": "detail.blade.php",
-                "listTemplate": "list.blade.php",
-                "sortField": "__createdAt",
-                "sortAscending": true,
-                "pageSize": 25,
-                "fields": [
-                    {
-                        "name": "title",
-                        "type": "string"
-                    }
-                ]
-            }
-            JSON
-        );
+        (new PublicationType('test-publication'))->save();
 
         $this->file('test-publication/foo.md', <<<'MD'
             ---
