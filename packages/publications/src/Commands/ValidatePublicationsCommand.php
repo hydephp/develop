@@ -151,20 +151,20 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function getPublicationTypesToValidate(): Collection
     {
-        $publicationTypesToValidate = PublicationService::getPublicationTypes();
+        $publicationTypes = PublicationService::getPublicationTypes();
         $name = $this->argument('publicationType');
 
         if (filled($name)) {
-            if (!$publicationTypesToValidate->has($name)) {
+            if (!$publicationTypes->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
-            $publicationTypesToValidate = collect([$name => $publicationTypesToValidate->get($name)]);
+            $publicationTypes = collect([$name => $publicationTypes->get($name)]);
         }
 
-        if ($publicationTypesToValidate->isEmpty()) {
+        if ($publicationTypes->isEmpty()) {
             throw new InvalidArgumentException('No publication types to validate!');
         }
-        return $publicationTypesToValidate;
+        return $publicationTypes;
     }
 
     protected function countPublicationTypes(): ?int
