@@ -41,7 +41,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected bool $verbose;
     protected bool $json;
 
+    /** @deprecated  */
     protected int $countErrors = 0;
+    /** @deprecated  */
     protected int $countWarnings = 0;
 
     protected array $results = [];
