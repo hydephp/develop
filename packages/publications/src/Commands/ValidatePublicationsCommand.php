@@ -146,7 +146,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return str_repeat(' ', $levels * 2);
     }
 
-    protected function getPublicationTypesToValidate(): Collection|array
+    protected function getPublicationTypesToValidate(): Collection
     {
         $publicationTypesToValidate = PublicationService::getPublicationTypes();
         $name = $this->argument('publicationType');
@@ -155,7 +155,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if (!$publicationTypesToValidate->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
-            $publicationTypesToValidate = [$name => $publicationTypesToValidate->get($name)];
+            $publicationTypesToValidate = collect([$name => $publicationTypesToValidate->get($name)]);
         }
 
         if (empty($publicationTypesToValidate)) {
