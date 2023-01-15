@@ -33,12 +33,14 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     /** @var string */
     protected $signature = 'validate:publications
-		{publicationType? : The name of the publication type to validate.}';
+		{publicationType? : The name of the publication type to validate.}
+		{--json : Display results as JSON.}';
 
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
     protected bool $verbose;
+    protected bool $json;
     protected int $countErrors = 0;
     protected int $countWarnings = 0;
 
@@ -49,6 +51,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->title('Validating publications!');
 
         $this->verbose = $this->option('verbose');
+        $this->json = $this->option('json');
         $timeStart = microtime(true);
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
