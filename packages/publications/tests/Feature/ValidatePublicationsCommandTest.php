@@ -138,6 +138,22 @@ Hello World
             ->assertExitCode(0);
     }
 
+    public function testWithJsonOutput()
+    {
+        $this->directory('test-publication');
+        $this->copyTestPublicationFixture();
+
+        $this->artisan('validate:publications --json')
+            ->expectsOutput(<<<'JSON'
+                {
+                    "$publicationTypes": {
+                        "test-publication": []
+                    }
+                }
+                JSON)
+            ->assertExitCode(0);
+    }
+
     protected function copyTestPublicationFixture(): void
     {
         file_put_contents(Hyde::path('test-publication/schema.json'), <<<'JSON'
