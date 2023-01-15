@@ -206,7 +206,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         $this->line("    Validating field: $fieldName" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
                     }
                     foreach ($field['errors'] ?? [] as $error) {
-                        $this->line("      <fg=red>$error</>");
+                        $indentation = $this->verbose ? '      ' : '    ';
+                        $this->line("{$indentation}<fg=red>$error</>");
                     }
                 }
             }
