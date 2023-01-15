@@ -67,6 +67,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         if (! $this->json) {
             $this->outputSummary($timeStart);
+        } else {
+            $this->outputJson();
         }
 
         if ($this->countErrors) {
@@ -201,5 +203,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
+    }
+
+    protected function outputJson(): void
+    {
+        $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
     }
 }
