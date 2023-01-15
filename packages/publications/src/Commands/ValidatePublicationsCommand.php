@@ -53,7 +53,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
-        foreach ($publicationTypesToValidate as $name => $publicationType) {
+        foreach ($publicationTypesToValidate as $publicationType) {
             $this->validatePublicationType($publicationType);
         }
 
