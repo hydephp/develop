@@ -24,8 +24,6 @@ use function strlen;
  * Hyde Command to validate one or all publications.
  *
  * @see \Hyde\Publications\Testing\Feature\ValidatePublicationsCommandTest
- *
- * @todo Add JSON output option?
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
