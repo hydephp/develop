@@ -168,7 +168,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function countPublicationTypes(): ?int
     {
-        return count($this->results);
+        return count($this->results['$publicationTypes']);
     }
 
     private function countPublications(): int
