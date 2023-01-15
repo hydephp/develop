@@ -108,7 +108,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $fieldName = $field->name;
 
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
-        $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
 
         try {
             if ($this->verbose) {
@@ -119,7 +118,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 throw new Exception("Field [$fieldName] is missing from publication");
             }
 
-            $validator = new ValidatesPublicationField($publicationType, $publicationTypeField);
+            $validator = new ValidatesPublicationField($publicationType, $field);
             $validator->validate($publication->matter->get($fieldName));
         } catch (Exception $exception) {
             $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName]['errors'][] = $exception->getMessage();
