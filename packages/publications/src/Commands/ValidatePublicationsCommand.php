@@ -24,6 +24,7 @@ use function strlen;
  * Hyde Command to validate one or all publications.
  *
  * @see \Hyde\Publications\Testing\Feature\ValidatePublicationsCommandTest
+ * @internal This command is not part of the public API and may change without notice.
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
