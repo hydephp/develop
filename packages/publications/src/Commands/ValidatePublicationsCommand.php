@@ -188,6 +188,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             round((microtime(true) - $timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
+
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
     }
