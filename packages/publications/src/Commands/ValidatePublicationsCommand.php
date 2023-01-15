@@ -57,18 +57,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
-        $warnColor = $this->countWarnings ? 'yellow' : 'green';
-        $errorColor = $this->countErrors ? 'red' : 'green';
-
-        $this->subtitle('Summary:');
-
-        $this->output->writeln(sprintf("<fg=green>Validated %d Publication Types, %d Publications, %d Fields</><fg=gray> in %sms using %sMB peak memory</>",
-            $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
-            round((microtime(true) - $timeStart) * 1000),
-            round(memory_get_peak_usage() / 1024 / 1024)
-        ));
-        $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
-        $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
+        $this->outputSummary($timeStart);
 
         if ($this->countErrors) {
             return Command::FAILURE;
@@ -185,5 +174,21 @@ class ValidatePublicationsCommand extends ValidatingCommand
             }
         }
         return $count;
+    }
+
+    protected function outputSummary($timeStart): void
+    {
+        $warnColor = $this->countWarnings ? 'yellow' : 'green';
+        $errorColor = $this->countErrors ? 'red' : 'green';
+
+        $this->subtitle('Summary:');
+
+        $this->output->writeln(sprintf("<fg=green>Validated %d Publication Types, %d Publications, %d Fields</><fg=gray> in %sms using %sMB peak memory</>",
+            $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
+            round((microtime(true) - $timeStart) * 1000),
+            round(memory_get_peak_usage() / 1024 / 1024)
+        ));
+        $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
+        $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
     }
 }
