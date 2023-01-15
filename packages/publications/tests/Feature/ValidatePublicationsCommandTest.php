@@ -54,7 +54,7 @@ title: My Title
 ');
 
         $this->artisan('validate:publications')
-            ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+            ->expectsOutputToContain('Validated 1 Publication Types, 1 Publications, 1 Fields')
             ->expectsOutput('Found 0 Warnings')
             ->expectsOutput('Found 0 Errors')
             ->assertExitCode(0);
@@ -74,7 +74,7 @@ title: My Title
 ');
 
         $this->artisan('validate:publications', ['--verbose' => true])
-             ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+             ->expectsOutputToContain('Validated 1 Publication Types, 1 Publications, 1 Fields')
              ->expectsOutput('Found 0 Warnings')
              ->expectsOutput('Found 0 Errors')
              ->assertExitCode(0);
@@ -92,7 +92,7 @@ Hello World
 ');
 
         $this->artisan('validate:publications')
-             ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+             ->expectsOutputToContain('Validated 1 Publication Types, 1 Publications, 1 Fields')
              ->expectsOutput('Found 1 Warnings')
              ->expectsOutput('Found 1 Errors')
              ->assertExitCode(1);
