@@ -50,11 +50,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     public function safeHandle(): int
     {
+        $timeStart = microtime(true);
+
         $this->title('Validating publications!');
 
         $this->verbose = $this->option('verbose');
         $this->json = $this->option('json');
-        $timeStart = microtime(true);
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
