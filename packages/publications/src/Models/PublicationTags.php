@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
+use Symfony\Component\Yaml\Yaml;
 use function file_exists;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
@@ -150,6 +151,10 @@ class PublicationTags
     {
         if (file_exists(Hyde::path('tags.json'))) {
             return json_decode(file_get_contents(Hyde::path('tags.json')), true);
+        }
+
+        if (file_exists(Hyde::path('tags.yml'))) {
+            return Yaml::parseFile(Hyde::path('tags.yml'));
         }
 
         return [];

@@ -185,6 +185,25 @@ class PublicationTagsTest extends TestCase
         ], PublicationTags::getAllTags()->toArray());
     }
 
+    public function testCanLoadTagsFromYamlFile()
+    {
+        $this->file('tags.yml', <<<'YAML'
+            Foo:
+                - one
+                - two
+                - three
+            Second:
+                - foo
+                - bar
+                - baz
+            YAML);
+
+        $this->assertSame([
+            'Foo' => ['one', 'two', 'three'],
+            'Second' => ['foo', 'bar', 'baz'],
+        ], PublicationTags::getAllTags()->toArray());
+    }
+
     public function testGetAllTags()
     {
         $tags = [
