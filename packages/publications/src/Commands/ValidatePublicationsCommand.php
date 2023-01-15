@@ -99,8 +99,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         foreach ($publication->matter->data as $key => $value) {
             $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
             $this->countWarnings++;
-            $indentation = $this->indent(2);
-            $this->output->writeln("<fg=yellow>{$indentation}Field [$key] is not defined in publication type</>");
         }
     }
 
@@ -123,13 +121,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
             $validator = new ValidatesPublicationField($publicationType, $publicationTypeField);
             $validator->validate($publication->matter->get($fieldName));
-
-            $this->output->writeln(' <fg=green>'.(self::CHECKMARK).'</>');
         } catch (Exception $exception) {
             $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName]['errors'][] = $exception->getMessage();
-
             $this->countErrors++;
-            $this->output->writeln(' <fg=red>'.(self::CROSS_MARK)."\n$indentation{$exception->getMessage()}</>");
         }
         unset($publication->matter->data[$fieldName]);
     }
