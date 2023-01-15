@@ -55,7 +55,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->verbose = $this->option('verbose');
         $this->json = $this->option('json');
 
-        $this->title('Validating publications!');
+        if (! $this->json) {
+            $this->title('Validating publications!');
+        }
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
@@ -63,7 +65,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
-        $this->outputSummary($timeStart);
+        if (! $this->json) {
+            $this->outputSummary($timeStart);
+        }
 
         if ($this->countErrors) {
             return Command::FAILURE;
