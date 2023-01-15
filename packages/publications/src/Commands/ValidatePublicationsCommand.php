@@ -81,21 +81,16 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $this->results['$publicationTypes'][$publicationType->getIdentifier()] = [];
         $publications = PublicationService::getPublicationsForPubType($publicationType);
-        $this->output->write("<fg=yellow>Validating publication type [$name]</>");
 
         foreach ($publications as $publication) {
             $this->validatePublication($publication, $publicationType);
         }
-        $this->output->newLine();
     }
 
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'] = [];
 
-        if ($this->verbose) {
-            $this->output->write("\n<fg=cyan>{$this->indent(1)}Validating publication [$publication->title]</>");
-        }
         unset($publication->matter->data['__createdAt']);
 
         foreach ($publication->type->getFields() as $field) {
@@ -116,10 +111,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
 
         try {
-            if ($this->verbose) {
-                $this->output->write("\n<fg=gray>{$this->indent(2)}Validating field [$fieldName]</>");
-            }
-
             if (!$publication->matter->has($fieldName)) {
                 throw new Exception("Field [$fieldName] is missing from publication");
             }
