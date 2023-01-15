@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Symfony\Component\Yaml\Yaml;
 use function file_exists;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
@@ -14,6 +13,7 @@ use Illuminate\Support\Collection;
 use function json_decode;
 use function json_encode;
 use JsonException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Object representation for the tags.json file.
