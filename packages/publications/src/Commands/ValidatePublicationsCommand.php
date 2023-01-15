@@ -87,7 +87,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->results['[T] '.$publicationType->getIdentifier()]['[P] '.$publication->getIdentifier()] = ['passed'];
+        $this->results[$publicationType->getIdentifier()][$publication->getIdentifier()] = ['passed'];
         $this->countPublications++;
         $indentation = $this->indent(1);
 
@@ -100,7 +100,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
         foreach ($publication->matter->data as $key => $value) {
-            $this->results['[T] '.$publicationType->getIdentifier()]['[P] '.$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
+            $this->results[$publicationType->getIdentifier()][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
             $this->countWarnings++;
             $indentation = $this->indent(2);
             $this->output->writeln("<fg=yellow>{$indentation}Field [$key] is not defined in publication type</>");
@@ -109,7 +109,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->results['[T] '.$publicationType->getIdentifier()]['[P] '.$publication->getIdentifier()]['fields'] = ['passed'];
+        $this->results[$publicationType->getIdentifier()][$publication->getIdentifier()]['fields'] = ['passed'];
         $this->countFields++;
         $fieldName = $field->name;
         $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
@@ -129,7 +129,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
             $this->output->writeln(' <fg=green>'.(self::CHECKMARK).'</>');
         } catch (Exception $exception) {
-            $this->results['[T] '.$publicationType->getIdentifier()]['[P] '.$publication->getIdentifier()]['fields']['[F] '.$fieldName]['errors'][] = $exception->getMessage();
+            $this->results[$publicationType->getIdentifier()][$publication->getIdentifier()]['fields'][$fieldName]['errors'][] = $exception->getMessage();
 
             $this->countErrors++;
             $this->output->writeln(' <fg=red>'.(self::CROSS_MARK)."\n$indentation{$exception->getMessage()}</>");
