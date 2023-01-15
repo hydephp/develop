@@ -87,7 +87,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->results['[T] '.$publicationType->getIdentifier()]['[P] '.$publication->getIdentifier()] = [];
+        $this->results['[T] '.$publicationType->getIdentifier()]['[P] '.$publication->getIdentifier()] = ['passed'];
         $this->countPublications++;
         $indentation = $this->indent(1);
 
