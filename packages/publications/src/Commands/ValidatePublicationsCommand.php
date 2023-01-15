@@ -109,9 +109,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $publicationType): void
     {
+        $fieldName = $field->name;
+
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
         $this->countFields++;
-        $fieldName = $field->name;
         $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
         $indentation = $this->indent(2);
 
