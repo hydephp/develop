@@ -199,7 +199,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         $hasErrors = true;
                     }
                 }
-                $this->comment("  Publication $publicationName.md" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                $this->comment("  File $publicationName.md" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
                 foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
                     if ($this->verbose) {
                         $hasErrors = isset($field['errors']);
