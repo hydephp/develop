@@ -63,10 +63,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
-        if (! $this->json) {
-            $this->outputSummary($timeStart);
-        } else {
+        if ($this->json) {
             $this->outputJson();
+        } else {
+            $this->outputSummary($timeStart);
         }
 
         if ($this->countErrors) {
