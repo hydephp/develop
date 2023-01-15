@@ -173,7 +173,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     private function countPublications(): int
     {
         $count = 0;
-        foreach ($this->results['$publicationTypes'] as $publicationType) {
+        foreach ($this->results['$publicationTypes'] ?? [] as $publicationType) {
             $count += count($publicationType['$publications']);
         }
         return $count;
@@ -182,7 +182,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     private function countFields(): int
     {
         $count = 0;
-        foreach ($this->results['$publicationTypes'] as $publicationType) {
+        foreach ($this->results['$publicationTypes'] ?? [] as $publicationType) {
             foreach ($publicationType['$publications'] as $publication) {
                 $count += count($publication['$fields']);
             }
