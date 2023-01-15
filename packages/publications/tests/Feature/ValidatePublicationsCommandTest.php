@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use function config;
 use function file_put_contents;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
@@ -14,8 +15,17 @@ use Hyde\Testing\TestCase;
  */
 class ValidatePublicationsCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['app.throw_on_console_exception' => true]);
+    }
+
     public function testWithNoPublicationTypes()
     {
+        config(['app.throw_on_console_exception' => false]);
+
         $this->artisan('validate:publications')
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
@@ -23,6 +33,8 @@ class ValidatePublicationsCommandTest extends TestCase
 
     public function testWithInvalidPublicationType()
     {
+        config(['app.throw_on_console_exception' => false]);
+
         $this->artisan('validate:publications', ['publicationType' => 'invalid'])
             ->expectsOutput('Error: Publication type [invalid] does not exist')
             ->assertExitCode(1);
