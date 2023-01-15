@@ -128,9 +128,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
             $this->output->writeln(' <fg=green>'.(self::CHECKMARK).'</>');
         } catch (Exception $exception) {
-            $this->results[$publicationType->getIdentifier()][$publication->getIdentifier()]['fields'][$fieldName] = [
-                'error' => $exception->getMessage(),
-            ];
+            $this->results[$publicationType->getIdentifier()][$publication->getIdentifier()]['fields'][$fieldName]['errors'][] = $exception->getMessage();
 
             $this->countErrors++;
             $this->output->writeln(' <fg=red>'.(self::CROSS_MARK)."\n$indentation{$exception->getMessage()}</>");
