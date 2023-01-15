@@ -203,9 +203,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         $hasErrors = true;
                     }
                 }
-                $icon = $hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>';
+                $icon = $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>', self::CHECKMARK);
                 if ($hasWarnings && !$hasErrors) {
-                    $icon = ' <fg=yellow>'.self::WARNING.'</>';
+                    $icon = sprintf(' <fg=yellow>%s</>', self::WARNING);
                 }
                 $this->line("  <fg=cyan>".($this->verbose ? "File" : "<fg=gray>\u{2010}</>")." $publicationName.md</>".$icon);
                 foreach ($publication['warnings'] ?? [] as $warning) {
