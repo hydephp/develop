@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use function config;
 use function file_put_contents;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
@@ -14,8 +15,17 @@ use Hyde\Testing\TestCase;
  */
 class ValidatePublicationsCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['app.throw_on_console_exception' => true]);
+    }
+
     public function testWithNoPublicationTypes()
     {
+        config(['app.throw_on_console_exception' => false]);
+
         $this->artisan('validate:publications')
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
@@ -23,6 +33,8 @@ class ValidatePublicationsCommandTest extends TestCase
 
     public function testWithInvalidPublicationType()
     {
+        config(['app.throw_on_console_exception' => false]);
+
         $this->artisan('validate:publications', ['publicationType' => 'invalid'])
             ->expectsOutput('Error: Publication type [invalid] does not exist')
             ->assertExitCode(1);
@@ -42,11 +54,7 @@ title: My Title
 ');
 
         $this->artisan('validate:publications')
-            ->expectsOutputToContain('Validating publications!')
-            ->expectsOutput('Validating publication type [test-publication]')
-            ->expectsOutputToContain('Validating publication [My Title]')
-            ->doesntExpectOutputToContain('Validating field')
-            ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
             ->expectsOutput('Found 0 Warnings')
             ->expectsOutput('Found 0 Errors')
             ->assertExitCode(0);
@@ -66,11 +74,7 @@ title: My Title
 ');
 
         $this->artisan('validate:publications', ['--verbose' => true])
-             ->expectsOutputToContain('Validating publications!')
-             ->expectsOutput('Validating publication type [test-publication]')
-             ->expectsOutputToContain('Validating publication [My Title]')
-             ->expectsOutputToContain('Validating field')
-             ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+             ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
              ->expectsOutput('Found 0 Warnings')
              ->expectsOutput('Found 0 Errors')
              ->assertExitCode(0);
@@ -81,21 +85,35 @@ title: My Title
         $this->directory('test-publication');
         $this->copyTestPublicationFixture();
         file_put_contents(Hyde::path('test-publication/test.md'), '---
-Foo: bar
 ---
 
 Hello World
 ');
 
         $this->artisan('validate:publications')
-             ->expectsOutputToContain('Validating publications!')
-             ->expectsOutput('Validating publication type [test-publication]')
-             ->expectsOutputToContain('Validating publication [Test]')
-             ->doesntExpectOutputToContain('Validating field')
-             ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
-             ->expectsOutput('Found 1 Warnings')
+             ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
+             ->expectsOutput('Found 0 Warnings')
              ->expectsOutput('Found 1 Errors')
              ->assertExitCode(1);
+    }
+
+    public function testWithWarnedPublication()
+    {
+        $this->directory('test-publication');
+        $this->copyTestPublicationFixture();
+        file_put_contents(Hyde::path('test-publication/test.md'), '---
+title: foo
+extra: field
+---
+
+Hello World
+');
+
+        $this->artisan('validate:publications')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
+            ->expectsOutput('Found 1 Warnings')
+            ->expectsOutput('Found 0 Errors')
+            ->assertExitCode(0);
     }
 
     public function testWithMultiplePublicationTypes()
@@ -106,8 +124,6 @@ Hello World
         $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications')
-            ->expectsOutput('Validating publication type [test-publication-two]')
-            ->expectsOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
     }
 
@@ -119,8 +135,22 @@ Hello World
         $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications test-publication-two')
-            ->expectsOutput('Validating publication type [test-publication-two]')
-            ->doesntExpectOutput('Validating publication type [test-publication]')
+            ->assertExitCode(0);
+    }
+
+    public function testWithJsonOutput()
+    {
+        $this->directory('test-publication');
+        $this->copyTestPublicationFixture();
+
+        $this->artisan('validate:publications --json')
+            ->expectsOutput(<<<'JSON'
+                {
+                    "$publicationTypes": {
+                        "test-publication": []
+                    }
+                }
+                JSON)
             ->assertExitCode(0);
     }
 
