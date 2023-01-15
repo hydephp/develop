@@ -237,7 +237,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->subtitle('Summary:');
 
-        $this->output->writeln(sprintf("<fg=green>Validated %d Publication Types, %d Publications, %d Fields</><fg=gray> in %sms using %sMB peak memory</>",
+        $this->output->writeln(sprintf("<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>",
             $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
             round((microtime(true) - $timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
