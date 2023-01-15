@@ -62,7 +62,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $errorColor = $this->countErrors ? 'red' : 'green';
 
         $this->subtitle('Summary:');
-        $this->output->writeln("<fg=green>Validated {$publicationTypesToValidate->count()} Publication Types, $this->countPublications Publications, $this->countFields Fields</>");
+
+        $countedPublicationTypes = count($this->results);
+
+        $this->output->writeln("<fg=green>Validated {$countedPublicationTypes} Publication Types, $this->countPublications Publications, $this->countFields Fields</>");
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
 
