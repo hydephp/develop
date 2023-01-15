@@ -89,7 +89,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $indentation = $this->indent(1);
 
         if ($this->verbose) {
-            $this->output->write("\n<fg=cyan>{$indentation}Validating publication [$publication->title]</>");
+            $this->output->write("\n<fg=cyan>{$indentation}Validating publication [$publication->identifier]</>");
         }
         unset($publication->matter->data['__createdAt']);
 
