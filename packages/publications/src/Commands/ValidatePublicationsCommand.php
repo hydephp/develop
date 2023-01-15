@@ -161,7 +161,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $publicationTypesToValidate = collect([$name => $publicationTypesToValidate->get($name)]);
         }
 
-        if (empty($publicationTypesToValidate)) {
+        if ($publicationTypesToValidate->isEmpty()) {
             throw new InvalidArgumentException('No publication types to validate!');
         }
         return $publicationTypesToValidate;
