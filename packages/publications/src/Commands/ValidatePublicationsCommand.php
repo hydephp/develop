@@ -88,7 +88,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()] = [];
 
         if ($this->verbose) {
-            $this->output->write("\n<fg=cyan>{$this->indent(1)}Validating publication [$publication->identifier]</>");
+            $this->output->write("\n<fg=cyan>{$this->indent(1)}Validating publication [$publication->title]</>");
         }
         unset($publication->matter->data['__createdAt']);
 
