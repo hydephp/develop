@@ -177,7 +177,8 @@ class PublicationTagsTest extends TestCase
                     "baz"
                 ]
             }
-            JSON);
+            JSON
+        );
 
         $this->assertSame([
             'Foo' => ['one', 'two', 'three'],
@@ -196,7 +197,8 @@ class PublicationTagsTest extends TestCase
                 - foo
                 - bar
                 - baz
-            YAML);
+            YAML
+        );
 
         $this->assertSame([
             'Foo' => ['one', 'two', 'three'],
