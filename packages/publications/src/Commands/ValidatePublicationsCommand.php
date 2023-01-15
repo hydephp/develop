@@ -7,7 +7,6 @@ namespace Hyde\Publications\Commands;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;
-use function count;
 use Exception;
 use Hyde\Publications\Actions\ValidatesPublicationField;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -50,7 +49,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
-        foreach ($publicationTypesToValidate as $name=>$publicationType) {
+        foreach ($publicationTypesToValidate as $name => $publicationType) {
             $this->validatePublicationType($publicationType, $name);
         }
 
