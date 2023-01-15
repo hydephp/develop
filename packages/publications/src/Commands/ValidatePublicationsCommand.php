@@ -183,8 +183,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
     private function countPublications(): int
     {
         $count = 0;
-        foreach ($this->results as $publicationType) {
-            foreach ($publicationType as $publication) {
+        foreach ($this->results['$publicationTypes'] as $publicationType) {
+            foreach ($publicationType['$publications'] as $publication) {
                 $count++;
             }
         }
