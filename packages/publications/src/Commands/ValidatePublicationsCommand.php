@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
-use Illuminate\Support\Collection;
+use function collect;
 use Exception;
+use function filled;
 use Hyde\Publications\Actions\ValidatesPublicationField;
 use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\Models\PublicationPage;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-
-use function collect;
-use function filled;
 use function microtime;
 use function str_repeat;
 use function strlen;
@@ -24,12 +23,13 @@ use function strlen;
  * Hyde Command to validate one or all publications.
  *
  * @see \Hyde\Publications\Testing\Feature\ValidatePublicationsCommandTest
+ *
  * @internal This command is not part of the public API and may change without notice.
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
     protected const CHECKMARK = "\u{2713}";
-    protected const CROSS_MARK = "x";
+    protected const CROSS_MARK = 'x';
     protected const WARNING = "\u{26A0}";
 
     /** @var string */
@@ -116,7 +116,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
 
         try {
-            if (!$publication->matter->has($fieldName)) {
+            if (! $publication->matter->has($fieldName)) {
                 throw new Exception("Field [$fieldName] is missing from publication");
             }
 
@@ -155,7 +155,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $name = $this->argument('publicationType');
 
         if (filled($name)) {
-            if (!$publicationTypes->has($name)) {
+            if (! $publicationTypes->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
             $publicationTypes = collect([$name => $publicationTypes->get($name)]);
@@ -164,6 +164,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         if ($publicationTypes->isEmpty()) {
             throw new InvalidArgumentException('No publication types to validate!');
         }
+
         return $publicationTypes;
     }
 
@@ -178,6 +179,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         foreach ($this->results['$publicationTypes'] as $publicationType) {
             $count += count($publicationType['$publications'] ?? []);
         }
+
         return $count;
     }
 
@@ -189,13 +191,14 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 $count += count($publication['$fields']);
             }
         }
+
         return $count;
     }
 
     protected function displayResults(): void
     {
         foreach ($this->results['$publicationTypes'] as $publicationTypeName => $publicationType) {
-            $this->infoComment("Validating publication type", $publicationTypeName);
+            $this->infoComment('Validating publication type', $publicationTypeName);
             foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
                 $hasErrors = false;
                 $hasWarnings = isset($publication['warnings']);
@@ -205,10 +208,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
                     }
                 }
                 $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
-                if ($hasWarnings && !$hasErrors) {
+                if ($hasWarnings && ! $hasErrors) {
                     $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
                 }
-                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s', $this->verbose ? "File" : "<fg=gray>\u{2010}</>", $publicationName, $icon));
+                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s', $this->verbose ? 'File' : "<fg=gray>\u{2010}</>", $publicationName, $icon));
                 foreach ($publication['warnings'] ?? [] as $warning) {
                     $this->line("      <fg=yellow>Warning: $warning</>");
                 }
@@ -237,7 +240,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->subtitle('Summary:');
 
-        $this->output->writeln(sprintf("<fg=green>Validated %d Publication Types, %d Publications, %d Fields</><fg=gray> in %sms using %sMB peak memory</>",
+        $this->output->writeln(sprintf('<fg=green>Validated %d Publication Types, %d Publications, %d Fields</><fg=gray> in %sms using %sMB peak memory</>',
             $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
             round((microtime(true) - $timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
