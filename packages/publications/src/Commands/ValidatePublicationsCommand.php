@@ -62,7 +62,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->subtitle('Summary:');
 
-        $this->output->writeln("<fg=green>Validated {$this->countPublicationTypes()} Publication Types, {$this->countPublications()} Publications, {$this->countFields()} Fields</><fg=gray> in " . round((microtime(true) - $timeStart) * 1000) . 'ms</>');
+        $this->output->writeln(sprintf("<fg=green>Validated %d Publication Types, %d Publications, %d Fields</><fg=gray> in %sms</>",
+            $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
+            round((microtime(true) - $timeStart) * 1000)
+        ));
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
 
