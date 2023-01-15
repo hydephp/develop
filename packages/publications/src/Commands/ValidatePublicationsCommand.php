@@ -219,6 +219,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         $this->line("      <fg=red>Error: $error</>");
                     }
                 }
+                foreach ($publication['warnings'] ?? [] as $warning) {
+                    $this->line("      <fg=yellow>Warning: $warning</>");
+                }
             }
         }
     }
