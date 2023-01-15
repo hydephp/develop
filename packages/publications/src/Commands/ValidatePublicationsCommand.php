@@ -74,6 +74,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationType(PublicationType $publicationType, string $name): void
     {
+        $this->results['$publicationTypes'][$publicationType->getIdentifier()] = [];
         $publications = PublicationService::getPublicationsForPubType($publicationType);
         $this->output->write("<fg=yellow>Validating publication type [$name]</>");
 
@@ -85,7 +86,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()] = [];
+        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'] = [];
 
         if ($this->verbose) {
             $this->output->write("\n<fg=cyan>{$this->indent(1)}Validating publication [$publication->title]</>");
@@ -174,7 +175,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $count = 0;
         foreach ($this->results['$publicationTypes'] as $publicationType) {
-            $count += count($publicationType['$publications']);
+            $count += count($publicationType['$publications'] ?? []);
         }
         return $count;
     }
@@ -183,7 +184,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $count = 0;
         foreach ($this->results['$publicationTypes'] as $publicationType) {
-            foreach ($publicationType['$publications'] as $publication) {
+            foreach ($publicationType['$publications'] ?? [] as $publication) {
                 $count += count($publication['$fields']);
             }
         }
