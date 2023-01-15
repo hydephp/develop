@@ -200,11 +200,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
                     }
                 }
                 $this->comment("  Validating publication: $publicationName.md" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
-                foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
-                    $hasErrors = isset($field['errors']);
-                    $this->line("    Validating field: $fieldName" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
-                    foreach ($field['errors'] ?? [] as $error) {
-                        $this->line("      <fg=red>$error</>");
+                if ($this->verbose) {
+                    foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
+                        $hasErrors = isset($field['errors']);
+                        $this->line("    Validating field: $fieldName" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                        foreach ($field['errors'] ?? [] as $error) {
+                            $this->line("      <fg=red>$error</>");
+                        }
                     }
                 }
             }
