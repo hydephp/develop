@@ -49,6 +49,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->title('Validating publications!');
 
         $this->verbose = $this->option('verbose');
+        $timeStart = microtime(true);
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
@@ -61,7 +62,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->subtitle('Summary:');
 
-        $this->output->writeln("<fg=green>Validated {$this->countPublicationTypes()} Publication Types, {$this->countPublications()} Publications, {$this->countFields()} Fields</>");
+        $this->output->writeln("<fg=green>Validated {$this->countPublicationTypes()} Publication Types, {$this->countPublications()} Publications, {$this->countFields()} Fields</><fg=gray> in " . round((microtime(true) - $timeStart) * 1000) . 'ms</>');
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
 
