@@ -52,10 +52,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $timeStart = microtime(true);
 
-        $this->title('Validating publications!');
-
         $this->verbose = $this->option('verbose');
         $this->json = $this->option('json');
+
+        $this->title('Validating publications!');
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
