@@ -66,6 +66,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         if ($this->json) {
             $this->outputJson();
         } else {
+            $this->displayResults();
+
             $this->outputSummary($timeStart);
         }
 
@@ -184,6 +186,29 @@ class ValidatePublicationsCommand extends ValidatingCommand
             }
         }
         return $count;
+    }
+
+    protected function displayResults(): void
+    {
+        foreach ($this->results['$publicationTypes'] as $publicationTypeName => $publicationType) {
+            $this->info("Validating publication type: $publicationTypeName");
+            foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
+                $hasErrors = false;
+                foreach ($publication['$fields'] ?? [] as $field) {
+                    if (isset($field['errors'])) {
+                        $hasErrors = true;
+                    }
+                }
+                $this->comment("  Validating publication: $publicationName.md" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
+                    $hasErrors = isset($field['errors']);
+                    $this->line("    Validating field: $fieldName" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                    foreach ($field['errors'] ?? [] as $error) {
+                        $this->line("      <fg=red>$error</>");
+                    }
+                }
+            }
+        }
     }
 
     protected function outputSummary($timeStart): void
