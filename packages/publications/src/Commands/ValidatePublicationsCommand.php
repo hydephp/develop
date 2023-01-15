@@ -182,21 +182,25 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     private function countPublications(): int
     {
-        $arr = $this->results;
-
-        $allValidatedPublications = Arr::flatten($arr, 2);
-
-        return count($allValidatedPublications);
+        $count = 0;
+        foreach ($this->results as $publicationType) {
+            foreach ($publicationType as $publication) {
+                $count++;
+            }
+        }
+        return $count;
     }
 
     private function countFields(): int
     {
-        $arr = $this->results;
-
-        $allValidatedPublications = Arr::flatten($arr, 2);
-
-        $allValidatedFields = Arr::flatten($allValidatedPublications, 2);
-
-        return count($allValidatedFields);
+        $count = 0;
+        foreach ($this->results as $publicationType) {
+            foreach ($publicationType as $publication) {
+                foreach ($publication['fields'] as $field) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
     }
 }
