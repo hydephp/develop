@@ -144,11 +144,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $this;
     }
 
-    protected function indent(int $levels): string
-    {
-        return str_repeat(' ', $levels * 2);
-    }
-
     protected function getPublicationTypesToValidate(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
