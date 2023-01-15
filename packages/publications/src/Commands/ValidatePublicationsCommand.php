@@ -191,7 +191,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function displayResults(): void
     {
         foreach ($this->results['$publicationTypes'] as $publicationTypeName => $publicationType) {
-            $this->info("Validating publication type: $publicationTypeName");
+            $this->infoComment("Validating publication type", $publicationTypeName);
             foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
                 $hasErrors = false;
                 foreach ($publication['$fields'] ?? [] as $field) {
@@ -199,11 +199,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         $hasErrors = true;
                     }
                 }
-                $this->comment("  Validating publication: $publicationName.md" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                $this->comment("  Publication $publicationName.md" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
                 foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
                     if ($this->verbose) {
                         $hasErrors = isset($field['errors']);
-                        $this->line("    Validating field: $fieldName" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                        $this->line("    Field '$fieldName'" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
                     }
                     foreach ($field['errors'] ?? [] as $error) {
                         $indentation = $this->verbose ? '      ' : '    ';
