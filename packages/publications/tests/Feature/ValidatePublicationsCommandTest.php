@@ -85,7 +85,6 @@ title: My Title
         $this->directory('test-publication');
         $this->copyTestPublicationFixture();
         file_put_contents(Hyde::path('test-publication/test.md'), '---
-Foo: bar
 ---
 
 Hello World
@@ -93,9 +92,28 @@ Hello World
 
         $this->artisan('validate:publications')
              ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
-             ->expectsOutput('Found 1 Warnings')
+             ->expectsOutput('Found 0 Warnings')
              ->expectsOutput('Found 1 Errors')
              ->assertExitCode(1);
+    }
+
+    public function testWithWarnedPublication()
+    {
+        $this->directory('test-publication');
+        $this->copyTestPublicationFixture();
+        file_put_contents(Hyde::path('test-publication/test.md'), '---
+title: foo
+extra: field
+---
+
+Hello World
+');
+
+        $this->artisan('validate:publications')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
+            ->expectsOutput('Found 1 Warnings')
+            ->expectsOutput('Found 0 Errors')
+            ->assertExitCode(0);
     }
 
     public function testWithMultiplePublicationTypes()
