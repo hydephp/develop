@@ -63,9 +63,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->subtitle('Summary:');
 
-        $validatedPublicationTypes = count($this->results);
-
-        $this->output->writeln("<fg=green>Validated {$validatedPublicationTypes} Publication Types, $this->countPublications Publications, $this->countFields Fields</>");
+        $this->output->writeln("<fg=green>Validated {$this->countPublicationTypes()} Publication Types, {$this->countPublications()} Publications, {$this->countFields()} Fields</>");
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
 
@@ -175,5 +173,34 @@ class ValidatePublicationsCommand extends ValidatingCommand
             throw new InvalidArgumentException('No publication types to validate!');
         }
         return $publicationTypesToValidate;
+    }
+
+    protected function countPublicationTypes(): ?int
+    {
+        return count($this->results);
+    }
+
+    private function countPublications(): int
+    {
+        $count = 0;
+        foreach ($this->results as $publicationType) {
+            foreach ($publicationType as $publication) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+    private function countFields(): int
+    {
+        $count = 0;
+        foreach ($this->results as $publicationType) {
+            foreach ($publicationType as $publication) {
+                foreach ($publication['fields'] as $field) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
     }
 }
