@@ -88,8 +88,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()] = [];
 
         if ($this->verbose) {
-            $indentation = $this->indent(1);
-            $this->output->write("\n<fg=cyan>{$indentation}Validating publication [$publication->identifier]</>");
+            $this->output->write("\n<fg=cyan>{$this->indent(1)}Validating publication [$publication->identifier]</>");
         }
         unset($publication->matter->data['__createdAt']);
 
@@ -113,8 +112,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         try {
             if ($this->verbose) {
-                $indentation = $this->indent(2);
-                $this->output->write("\n<fg=gray>{$indentation}Validating field [$fieldName]</>");
+                $this->output->write("\n<fg=gray>{$this->indent(2)}Validating field [$fieldName]</>");
             }
 
             if (!$publication->matter->has($fieldName)) {
