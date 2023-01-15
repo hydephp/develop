@@ -210,6 +210,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 $dash = "\u{2010}";
                 $prefix = $this->verbose ? "File" : "<fg=gray>$dash</>";
                 $this->comment("  $prefix $publicationName.md".$icon);
+                foreach ($publication['warnings'] ?? [] as $warning) {
+                    $this->line("      <fg=yellow>Warning: $warning</>");
+                }
                 foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
                     if ($this->verbose) {
                         $hasErrors = isset($field['errors']);
@@ -218,9 +221,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
                     foreach ($field['errors'] ?? [] as $error) {
                         $this->line("      <fg=red>Error: $error</>");
                     }
-                }
-                foreach ($publication['warnings'] ?? [] as $warning) {
-                    $this->line("      <fg=yellow>Warning: $warning</>");
                 }
             }
         }
