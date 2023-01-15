@@ -80,7 +80,7 @@ title: My Title
         $this->artisan('validate:publications', ['--verbose' => true])
              ->expectsOutputToContain('Validating publications!')
              ->expectsOutput('Validating publication type [test-publication]')
-             ->expectsOutputToContain('Validating publication [My Title]')
+             ->expectsOutputToContain('Validating publication [test-publication/test]')
              ->expectsOutputToContain('Validating field')
              ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
              ->expectsOutput('Found 0 Warnings')
