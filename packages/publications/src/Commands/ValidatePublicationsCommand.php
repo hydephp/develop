@@ -16,6 +16,7 @@ use LaravelZero\Framework\Commands\Command;
 
 use function collect;
 use function filled;
+use function microtime;
 use function str_repeat;
 use function strlen;
 
@@ -41,6 +42,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected bool $verbose;
     protected bool $json;
+
     protected int $countErrors = 0;
     protected int $countWarnings = 0;
 
