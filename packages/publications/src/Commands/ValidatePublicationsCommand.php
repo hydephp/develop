@@ -223,6 +223,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
                     }
                 }
             }
+
+            if ($publicationTypeName !== array_key_last($this->results['$publicationTypes'])) {
+                $this->output->newLine();
+            }
         }
     }
 
