@@ -6,6 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Illuminate\Support\Collection;
 use function count;
 use Exception;
 use Hyde\Publications\Actions\ValidatesPublicationField;
@@ -47,19 +48,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->verbose = $this->option('verbose');
 
-        $publicationTypesToValidate = PublicationService::getPublicationTypes();
-        $name = $this->argument('publicationType');
-
-        if (filled($name)) {
-            if (! $publicationTypesToValidate->has($name)) {
-                throw new InvalidArgumentException("Publication type [$name] does not exist");
-            }
-            $publicationTypesToValidate = [$name => $publicationTypesToValidate->get($name)];
-        }
-
-        if (empty($publicationTypesToValidate)) {
-            throw new InvalidArgumentException('No publication types to validate!');
-        }
+        $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
         foreach ($publicationTypesToValidate as $name=>$publicationType) {
             $this->validatePublicationType($publicationType, $name);
@@ -156,5 +145,23 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function indent(int $levels): string
     {
         return str_repeat(' ', $levels * 2);
+    }
+
+    protected function getPublicationTypesToValidate(): Collection|array
+    {
+        $publicationTypesToValidate = PublicationService::getPublicationTypes();
+        $name = $this->argument('publicationType');
+
+        if (filled($name)) {
+            if (!$publicationTypesToValidate->has($name)) {
+                throw new InvalidArgumentException("Publication type [$name] does not exist");
+            }
+            $publicationTypesToValidate = [$name => $publicationTypesToValidate->get($name)];
+        }
+
+        if (empty($publicationTypesToValidate)) {
+            throw new InvalidArgumentException('No publication types to validate!');
+        }
+        return $publicationTypesToValidate;
     }
 }
