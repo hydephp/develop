@@ -216,7 +216,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
                     if ($this->verbose) {
                         $hasErrors = isset($field['errors']);
-                        $this->line("    Field [$fieldName]" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                        $this->line("    <fg=bright-cyan>Field [$fieldName]</>" . ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
                     }
                     foreach ($field['errors'] ?? [] as $error) {
                         $this->line("      <fg=red>Error: $error</>");
