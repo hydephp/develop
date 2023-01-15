@@ -29,6 +29,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 {
     protected const CHECKMARK = "\u{2713}";
     protected const CROSS_MARK = "x";
+    protected const WARNING = "\u{26A0}";
 
     /** @var string */
     protected $signature = 'validate:publications
@@ -196,14 +197,19 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->infoComment("Validating publication type", $publicationTypeName);
             foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
                 $hasErrors = false;
+                $hasWarnings = isset($publication['warnings']);
                 foreach ($publication['$fields'] ?? [] as $field) {
                     if (isset($field['errors'])) {
                         $hasErrors = true;
                     }
                 }
+                $icon = $hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>';
+                if ($hasWarnings && !$hasErrors) {
+                    $icon = ' <fg=yellow>'.self::WARNING.'</>';
+                }
                 $dash = "\u{2010}";
                 $prefix = $this->verbose ? "File" : "<fg=gray>$dash</>";
-                $this->comment("  $prefix $publicationName.md". ($hasErrors ? ' <fg=red>'.self::CROSS_MARK.'</>' : ' <info>'.self::CHECKMARK.'</info>'));
+                $this->comment("  $prefix $publicationName.md".$icon);
                 foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
                     if ($this->verbose) {
                         $hasErrors = isset($field['errors']);
