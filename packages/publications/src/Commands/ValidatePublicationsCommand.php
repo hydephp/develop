@@ -39,8 +39,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected $description = 'Validate all or the specified publication type(s)';
 
     protected bool $verbose;
-    protected int $countPublications = 0;
-    protected int $countFields = 0;
     protected int $countErrors = 0;
     protected int $countWarnings = 0;
 
@@ -88,7 +86,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()] = [];
-        $this->countPublications++;
         $indentation = $this->indent(1);
 
         $this->output->write("\n<fg=cyan>{$indentation}Validating publication [$publication->title]</>");
@@ -112,7 +109,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $fieldName = $field->name;
 
         $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
-        $this->countFields++;
         $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
         $indentation = $this->indent(2);
 
