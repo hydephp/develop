@@ -162,6 +162,29 @@ class PublicationTagsTest extends TestCase
         unlink(Hyde::path('tags.json'));
     }
 
+    public function testCanLoadTagsFromJsonFile()
+    {
+        $this->file('tags.json', <<<'JSON'
+            {
+                "Foo": [
+                    "one",
+                    "two",
+                    "three"
+                ],
+                "Second": [
+                    "foo",
+                    "bar",
+                    "baz"
+                ]
+            }
+            JSON);
+
+        $this->assertSame([
+            'Foo' => ['one', 'two', 'three'],
+            'Second' => ['foo', 'bar', 'baz'],
+        ], PublicationTags::getAllTags()->toArray());
+    }
+
     public function testGetAllTags()
     {
         $tags = [
