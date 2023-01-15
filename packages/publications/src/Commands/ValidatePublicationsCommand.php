@@ -194,9 +194,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
     private function countFields(): int
     {
         $count = 0;
-        foreach ($this->results as $publicationType) {
-            foreach ($publicationType as $publication) {
-                foreach ($publication['fields'] as $field) {
+        foreach ($this->results['$publicationTypes'] as $publicationType) {
+            foreach ($publicationType['$publications'] as $publication) {
+                foreach ($publication['$fields'] as $field) {
                     $count++;
                 }
             }
