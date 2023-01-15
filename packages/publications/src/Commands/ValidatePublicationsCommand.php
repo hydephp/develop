@@ -209,7 +209,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 }
                 $dash = "\u{2010}";
                 $prefix = $this->verbose ? "File" : "<fg=gray>$dash</>";
-                $this->line("  $prefix <fg=bright-blue>$publicationName.md</>".$icon);
+                $this->line("  <fg=bright-blue>$prefix $publicationName.md</>".$icon);
                 foreach ($publication['warnings'] ?? [] as $warning) {
                     $this->line("      <fg=yellow>Warning: $warning</>");
                 }
