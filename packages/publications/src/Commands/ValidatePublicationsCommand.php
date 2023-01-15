@@ -207,7 +207,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                     }
                     foreach ($field['errors'] ?? [] as $error) {
                         $indentation = $this->verbose ? '      ' : '    ';
-                        $this->line("$indentation<fg=red>$error</>");
+                        $this->line("$indentation<fg=red>Error: $error</>");
                     }
                 }
             }
