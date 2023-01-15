@@ -54,7 +54,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
 
         foreach ($publicationTypesToValidate as $name => $publicationType) {
-            $this->validatePublicationType($publicationType, $name);
+            $this->validatePublicationType($publicationType);
         }
 
         $warnColor = $this->countWarnings ? 'yellow' : 'green';
@@ -77,7 +77,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function validatePublicationType(PublicationType $publicationType, string $name): void
+    protected function validatePublicationType(PublicationType $publicationType): void
     {
         $this->results['$publicationTypes'][$publicationType->getIdentifier()] = [];
         $publications = PublicationService::getPublicationsForPubType($publicationType);
