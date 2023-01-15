@@ -207,9 +207,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 if ($hasWarnings && !$hasErrors) {
                     $icon = ' <fg=yellow>'.self::WARNING.'</>';
                 }
-                $dash = "\u{2010}";
-                $prefix = $this->verbose ? "File" : "<fg=gray>$dash</>";
-                $this->line("  <fg=cyan>$prefix $publicationName.md</>".$icon);
+                $this->line("  <fg=cyan>".($this->verbose ? "File" : "<fg=gray>\u{2010}</>")." $publicationName.md</>".$icon);
                 foreach ($publication['warnings'] ?? [] as $warning) {
                     $this->line("      <fg=yellow>Warning: $warning</>");
                 }
