@@ -28,7 +28,7 @@ use function strlen;
 class ValidatePublicationsCommand extends ValidatingCommand
 {
     protected const CHECKMARK = "\u{2713}";
-    protected const CROSS_MARK = "\u{2717}";
+    protected const CROSS_MARK = "x";
 
     /** @var string */
     protected $signature = 'validate:publications
