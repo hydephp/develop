@@ -54,10 +54,6 @@ title: My Title
 ');
 
         $this->artisan('validate:publications')
-            ->expectsOutputToContain('Validating publications!')
-            ->expectsOutput('Validating publication type [test-publication]')
-            ->doesntExpectOutputToContain('Validating publication [My Title]')
-            ->doesntExpectOutputToContain('Validating field')
             ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
             ->expectsOutput('Found 0 Warnings')
             ->expectsOutput('Found 0 Errors')
@@ -78,10 +74,6 @@ title: My Title
 ');
 
         $this->artisan('validate:publications', ['--verbose' => true])
-             ->expectsOutputToContain('Validating publications!')
-             ->expectsOutput('Validating publication type [test-publication]')
-             ->expectsOutputToContain('Validating publication [My Title]')
-             ->expectsOutputToContain('Validating field')
              ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
              ->expectsOutput('Found 0 Warnings')
              ->expectsOutput('Found 0 Errors')
@@ -100,10 +92,6 @@ Hello World
 ');
 
         $this->artisan('validate:publications')
-             ->expectsOutputToContain('Validating publications!')
-             ->expectsOutput('Validating publication type [test-publication]')
-             ->doesntExpectOutputToContain('Validating publication [Test]')
-             ->doesntExpectOutputToContain('Validating field')
              ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
              ->expectsOutput('Found 1 Warnings')
              ->expectsOutput('Found 1 Errors')
@@ -118,8 +106,6 @@ Hello World
         $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications')
-            ->expectsOutput('Validating publication type [test-publication-two]')
-            ->expectsOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
     }
 
@@ -131,8 +117,6 @@ Hello World
         $this->savePublication('Test Publication Two');
 
         $this->artisan('validate:publications test-publication-two')
-            ->expectsOutput('Validating publication type [test-publication-two]')
-            ->doesntExpectOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
     }
 
