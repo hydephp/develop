@@ -109,7 +109,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'] = [];
+        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
         $this->countFields++;
         $fieldName = $field->name;
         $publicationTypeField = new PublicationFieldDefinition($field->type, $fieldName);
