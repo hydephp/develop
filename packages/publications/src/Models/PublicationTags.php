@@ -123,6 +123,7 @@ class PublicationTags
      * Validate the tags.yml file is valid.
      *
      * @internal This method is experimental and may be removed without notice
+     *
      * @todo Support Yaml
      */
     public static function validateTagsFile(): void
