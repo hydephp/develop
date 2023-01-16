@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
+use Symfony\Component\Yaml\Exception\ParseException;
 use function file_exists;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
@@ -132,10 +133,10 @@ class PublicationTags
             throw new FileNotFoundException('tags.yml');
         }
 
-        $tags = json_decode(file_get_contents(Hyde::path('tags.yml')), true);
+        $tags = Yaml::parseFile(Hyde::path('tags.yml'));
 
         if (! is_array($tags) || empty($tags)) {
-            throw new JsonException('Could not decode tags.yml');
+            throw new ParseException('Could not decode tags.yml');
         }
 
         foreach ($tags as $name => $values) {

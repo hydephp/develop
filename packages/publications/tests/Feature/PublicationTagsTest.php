@@ -9,6 +9,8 @@ use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 use function json_encode;
 use JsonException;
 
@@ -270,9 +272,9 @@ class PublicationTagsTest extends TestCase
 
     public function testValidateTagsFileWithInvalidFile()
     {
-        $this->file('tags.yml', 'invalid json');
+        $this->file('tags.yml', 'invalid yaml');
 
-        $this->expectException(JsonException::class);
+        $this->expectException(ParseException::class);
         PublicationTags::validateTagsFile();
     }
 
@@ -282,11 +284,11 @@ class PublicationTagsTest extends TestCase
         PublicationTags::validateTagsFile();
     }
 
-    public function testValidateTagsFileWithEmptyJsonFile()
+    public function testValidateTagsFileWithEmptyYamlFile()
     {
-        $this->file('tags.yml', json_encode([]));
+        $this->file('tags.yml', Yaml::dump([]));
 
-        $this->expectException(JsonException::class);
+        $this->expectException(ParseException::class);
         PublicationTags::validateTagsFile();
     }
 }
