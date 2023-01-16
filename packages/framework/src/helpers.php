@@ -29,7 +29,6 @@ namespace {
 namespace Hyde {
     use Hyde\Foundation\HydeKernel;
     use Illuminate\Contracts\Support\Arrayable;
-
     use Symfony\Component\Yaml\Yaml;
 
     if (! function_exists('\Hyde\hyde')) {
