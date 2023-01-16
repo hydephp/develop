@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Publications\Models;
 
 use function file_exists;
-use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
-use function json_decode;
-use function json_encode;
-use JsonException;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
- * Object representation for the tags.json file.
+ * Object representation for the tags.yml file.
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationTagsTest
  */
@@ -83,7 +81,7 @@ class PublicationTags
      */
     public function save(): self
     {
-        Filesystem::putContents('tags.json', json_encode($this->tags, JSON_PRETTY_PRINT));
+        Filesystem::putContents('tags.yml', Yaml::dump($this->tags->toArray()));
 
         return $this;
     }
@@ -119,20 +117,22 @@ class PublicationTags
     }
 
     /**
-     * Validate the tags.json file is valid.
+     * Validate the tags.yml file is valid.
      *
      * @internal This method is experimental and may be removed without notice
+     *
+     * @todo Support Yaml
      */
     public static function validateTagsFile(): void
     {
-        if (! file_exists(Hyde::path('tags.json'))) {
-            throw new FileNotFoundException('tags.json');
+        if (! file_exists(Hyde::path('tags.yml'))) {
+            throw new FileNotFoundException('tags.yml');
         }
 
-        $tags = json_decode(file_get_contents(Hyde::path('tags.json')), true);
+        $tags = Yaml::parseFile(Hyde::path('tags.yml'));
 
         if (! is_array($tags) || empty($tags)) {
-            throw new JsonException('Could not decode tags.json');
+            throw new ParseException('Could not decode tags.yml');
         }
 
         foreach ($tags as $name => $values) {
@@ -148,8 +148,8 @@ class PublicationTags
     /** @return array<string, array<string>> */
     protected function parseTagsFile(): array
     {
-        if (file_exists(Hyde::path('tags.json'))) {
-            return json_decode(file_get_contents(Hyde::path('tags.json')), true);
+        if (file_exists(Hyde::path('tags.yml'))) {
+            return Yaml::parseFile(Hyde::path('tags.yml'));
         }
 
         return [];

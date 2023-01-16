@@ -326,7 +326,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_single_tag_input()
     {
-        $this->file('tags.json', json_encode([
+        $this->file('tags.yml', json_encode([
             'test-publication' => ['foo', 'bar', 'baz'],
         ]));
         $this->makeSchemaFile([
@@ -350,7 +350,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_multiple_tag_inputs()
     {
-        $this->file('tags.json', json_encode([
+        $this->file('tags.yml', json_encode([
             'test-publication' => ['foo', 'bar', 'baz'],
         ]));
         $this->makeSchemaFile([
@@ -439,7 +439,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags for this publication type found in tags.json')
+             ->expectsOutput('Warning: No tags for this publication type found in tags.yml')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(1);
@@ -460,7 +460,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags for this publication type found in tags.json')
+             ->expectsOutput('Warning: No tags for this publication type found in tags.yml')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(0);
@@ -512,8 +512,8 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->doesntExpectOutput('Warning: No tags for this publication type found in tags.json')
-            ->expectsOutput('Error: Unable to create publication: No tags for this publication type found in tags.json')
+            ->doesntExpectOutput('Warning: No tags for this publication type found in tags.yml')
+            ->expectsOutput('Error: Unable to create publication: No tags for this publication type found in tags.yml')
             ->assertExitCode(1);
     }
 

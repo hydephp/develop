@@ -237,7 +237,7 @@ class MakePublicationTypeCommandTest extends TestCase
             JSON,
             'test-publication/schema.json');
 
-        unlink(Hyde::path('tags.json'));
+        unlink(Hyde::path('tags.yml'));
     }
 
     public function testWithTagFieldInputButNoTags()
@@ -249,9 +249,9 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 self::expectedEnumCases, true)
-            ->expectsOutput('No tag groups have been added to tags.json')
+            ->expectsOutput('No tag groups have been added to tags.yml')
             ->expectsConfirmation('Would you like to add some tags now?')
-            ->expectsOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
+            ->expectsOutput('Error: Can not create a tag field without any tag groups defined in tags.yml')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('test-publication/schema.json'));
@@ -260,14 +260,14 @@ class MakePublicationTypeCommandTest extends TestCase
     public function testWithTagFieldInputButNoTagsCanPromptToCreateTags()
     {
         $this->directory('test-publication');
-        $this->cleanUpWhenDone('tags.json');
+        $this->cleanUpWhenDone('tags.yml');
         InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 self::expectedEnumCases)
-            ->expectsOutput('No tag groups have been added to tags.json')
+            ->expectsOutput('No tag groups have been added to tags.yml')
             ->expectsConfirmation('Would you like to add some tags now?', 'yes')
             ->expectsQuestion('Tag name', 'foo')
             ->expectsOutput("Okay, we're back on track!")
@@ -280,14 +280,14 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
             ->expectsQuestion(self::selectPageSizeQuestion, 0)
 
-            ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.json')
+            ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.yml')
            ->assertSuccessful();
 
         $this->assertCommandCalled('make:publicationTag');
-        $this->assertFileExists(Hyde::path('tags.json'));
+        $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
-            json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
-            file_get_contents(Hyde::path('tags.json'))
+            "foo:\n    - foo\n    - bar\n    - baz\n",
+            file_get_contents(Hyde::path('tags.yml'))
         );
     }
 }

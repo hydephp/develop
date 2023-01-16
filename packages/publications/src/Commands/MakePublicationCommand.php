@@ -159,14 +159,14 @@ class MakePublicationCommand extends ValidatingCommand
 
         $options = PublicationService::getValuesForTagName($tagGroup);
         if ($options->isEmpty()) {
-            return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags for this publication type found in tags.json');
+            return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags for this publication type found in tags.yml');
         }
 
         $this->tip('You can enter multiple tags separated by commas');
 
         $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure($tagGroup),
             'Which tag would you like to use?',
-            'Reload tags.json',
+            'Reload tags.yml',
             true
         );
 

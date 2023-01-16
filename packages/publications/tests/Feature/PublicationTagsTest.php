@@ -10,7 +10,8 @@ use Hyde\Publications\Models\PublicationTags;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use function json_encode;
-use JsonException;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationTags
@@ -24,7 +25,7 @@ class PublicationTagsTest extends TestCase
 
     public function testConstructorAutomaticallyLoadsTagsFile()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags()->toArray());
     }
@@ -36,21 +37,21 @@ class PublicationTagsTest extends TestCase
 
     public function testGetTags()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
     }
 
     public function testGetTagsInGroup()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertEquals(['bar', 'baz'], (new PublicationTags())->getTagsInGroup('foo'));
     }
 
     public function testGetTagsInGroupOnlyReturnTagsForTheSpecifiedGroup()
     {
-        $this->file('tags.json', json_encode([
+        $this->file('tags.yml', json_encode([
             'foo' => ['bar', 'baz'],
             'bar' => ['foo', 'baz'],
         ]));
@@ -60,7 +61,7 @@ class PublicationTagsTest extends TestCase
 
     public function testGetTagsInGroupReturnsEmptyArrayWhenGroupDoesNotExist()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertEquals([], (new PublicationTags())->getTagsInGroup('bar'));
     }
@@ -134,7 +135,7 @@ class PublicationTagsTest extends TestCase
         $tags->save();
 
         $this->assertSame(['test', 'test2'], PublicationTags::getTagGroups());
-        unlink(Hyde::path('tags.json'));
+        unlink(Hyde::path('tags.yml'));
     }
 
     public function testGetTagGroupsWithNoTags()
@@ -149,17 +150,59 @@ class PublicationTagsTest extends TestCase
         $tags->save();
 
         $this->assertSame(
-            <<<'JSON'
-            {
-                "test": [
-                    "test1",
-                    "test2"
-                ]
-            }
-            JSON, file_get_contents(Hyde::path('tags.json'))
+            <<<'YAML'
+            test:
+                - test1
+                - test2
+
+            YAML, file_get_contents(Hyde::path('tags.yml'))
         );
 
-        unlink(Hyde::path('tags.json'));
+        unlink(Hyde::path('tags.yml'));
+    }
+
+    public function testCanLoadTagsFromJsonFile()
+    {
+        $this->file('tags.yml', <<<'JSON'
+            {
+                "Foo": [
+                    "one",
+                    "two",
+                    "three"
+                ],
+                "Second": [
+                    "foo",
+                    "bar",
+                    "baz"
+                ]
+            }
+            JSON
+        );
+
+        $this->assertSame([
+            'Foo' => ['one', 'two', 'three'],
+            'Second' => ['foo', 'bar', 'baz'],
+        ], PublicationTags::getAllTags()->toArray());
+    }
+
+    public function testCanLoadTagsFromYamlFile()
+    {
+        $this->file('tags.yml', <<<'YAML'
+            Foo:
+                - one
+                - two
+                - three
+            Second:
+                - foo
+                - bar
+                - baz
+            YAML
+        );
+
+        $this->assertSame([
+            'Foo' => ['one', 'two', 'three'],
+            'Second' => ['foo', 'bar', 'baz'],
+        ], PublicationTags::getAllTags()->toArray());
     }
 
     public function testGetAllTags()
@@ -170,7 +213,7 @@ class PublicationTagsTest extends TestCase
                 'baz',
             ],
         ];
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
         $this->assertSame($tags, PublicationTags::getAllTags()->toArray());
     }
 
@@ -192,7 +235,7 @@ class PublicationTagsTest extends TestCase
             ],
         ];
 
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
 
         $this->assertSame(['bar', 'baz'], PublicationTags::getValuesForTagName('foo'));
     }
@@ -206,7 +249,7 @@ class PublicationTagsTest extends TestCase
             ],
         ];
 
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
 
         $this->assertSame([], PublicationTags::getValuesForTagName('bar'));
     }
@@ -218,7 +261,7 @@ class PublicationTagsTest extends TestCase
 
     public function testValidateTagsFileWithValidFile()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         PublicationTags::validateTagsFile();
         $this->assertTrue(true);
@@ -226,9 +269,9 @@ class PublicationTagsTest extends TestCase
 
     public function testValidateTagsFileWithInvalidFile()
     {
-        $this->file('tags.json', 'invalid json');
+        $this->file('tags.yml', 'invalid yaml');
 
-        $this->expectException(JsonException::class);
+        $this->expectException(ParseException::class);
         PublicationTags::validateTagsFile();
     }
 
@@ -238,11 +281,11 @@ class PublicationTagsTest extends TestCase
         PublicationTags::validateTagsFile();
     }
 
-    public function testValidateTagsFileWithEmptyJsonFile()
+    public function testValidateTagsFileWithEmptyYamlFile()
     {
-        $this->file('tags.json', json_encode([]));
+        $this->file('tags.yml', Yaml::dump([]));
 
-        $this->expectException(JsonException::class);
+        $this->expectException(ParseException::class);
         PublicationTags::validateTagsFile();
     }
 }

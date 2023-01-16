@@ -192,7 +192,7 @@ class PublicationServiceTest extends TestCase
                 'baz',
             ],
         ];
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
         $this->assertSame($tags, PublicationService::getAllTags()->toArray());
     }
 
@@ -209,7 +209,7 @@ class PublicationServiceTest extends TestCase
             ],
         ];
 
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
 
         $this->assertSame(['bar', 'baz'], PublicationService::getValuesForTagName('foo')->toArray());
     }
