@@ -28,4 +28,9 @@ class PublicationListPage extends VirtualPage
     {
         return PublicationPageCompiler::call($this);
     }
+
+    public function showInNavigation(): bool
+    {
+        return true;
+    }
 }
