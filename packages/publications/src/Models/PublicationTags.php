@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Symfony\Component\Yaml\Exception\ParseException;
 use function file_exists;
-use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
-use function json_decode;
 use function json_encode;
-use JsonException;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
