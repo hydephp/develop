@@ -90,7 +90,7 @@ namespace Hyde {
     if (! function_exists('\Hyde\yaml_encode')) {
         function yaml_encode(mixed $input): string
         {
-            return Yaml::dump($input);
+            return Yaml::dump($input instanceof Arrayable ? $input->toArray() : $input);
         }
     }
 
