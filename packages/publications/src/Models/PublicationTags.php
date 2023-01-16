@@ -16,7 +16,7 @@ use JsonException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Object representation for the tags.json file.
+ * Object representation for the tags.yml file.
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationTagsTest
  */
@@ -84,7 +84,7 @@ class PublicationTags
      */
     public function save(): self
     {
-        Filesystem::putContents('tags.json', json_encode($this->tags, JSON_PRETTY_PRINT));
+        Filesystem::putContents('tags.yml', json_encode($this->tags, JSON_PRETTY_PRINT));
 
         return $this;
     }
@@ -120,20 +120,20 @@ class PublicationTags
     }
 
     /**
-     * Validate the tags.json file is valid.
+     * Validate the tags.yml file is valid.
      *
      * @internal This method is experimental and may be removed without notice
      */
     public static function validateTagsFile(): void
     {
-        if (! file_exists(Hyde::path('tags.json'))) {
-            throw new FileNotFoundException('tags.json');
+        if (! file_exists(Hyde::path('tags.yml'))) {
+            throw new FileNotFoundException('tags.yml');
         }
 
-        $tags = json_decode(file_get_contents(Hyde::path('tags.json')), true);
+        $tags = json_decode(file_get_contents(Hyde::path('tags.yml')), true);
 
         if (! is_array($tags) || empty($tags)) {
-            throw new JsonException('Could not decode tags.json');
+            throw new JsonException('Could not decode tags.yml');
         }
 
         foreach ($tags as $name => $values) {
@@ -149,10 +149,6 @@ class PublicationTags
     /** @return array<string, array<string>> */
     protected function parseTagsFile(): array
     {
-        if (file_exists(Hyde::path('tags.json'))) {
-            return json_decode(file_get_contents(Hyde::path('tags.json')), true);
-        }
-
         if (file_exists(Hyde::path('tags.yml'))) {
             return Yaml::parseFile(Hyde::path('tags.yml'));
         }

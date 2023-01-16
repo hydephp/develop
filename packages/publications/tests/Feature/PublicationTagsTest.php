@@ -24,7 +24,7 @@ class PublicationTagsTest extends TestCase
 
     public function testConstructorAutomaticallyLoadsTagsFile()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags()->toArray());
     }
@@ -36,21 +36,21 @@ class PublicationTagsTest extends TestCase
 
     public function testGetTags()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
     }
 
     public function testGetTagsInGroup()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertEquals(['bar', 'baz'], (new PublicationTags())->getTagsInGroup('foo'));
     }
 
     public function testGetTagsInGroupOnlyReturnTagsForTheSpecifiedGroup()
     {
-        $this->file('tags.json', json_encode([
+        $this->file('tags.yml', json_encode([
             'foo' => ['bar', 'baz'],
             'bar' => ['foo', 'baz'],
         ]));
@@ -60,7 +60,7 @@ class PublicationTagsTest extends TestCase
 
     public function testGetTagsInGroupReturnsEmptyArrayWhenGroupDoesNotExist()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         $this->assertEquals([], (new PublicationTags())->getTagsInGroup('bar'));
     }
@@ -134,7 +134,7 @@ class PublicationTagsTest extends TestCase
         $tags->save();
 
         $this->assertSame(['test', 'test2'], PublicationTags::getTagGroups());
-        unlink(Hyde::path('tags.json'));
+        unlink(Hyde::path('tags.yml'));
     }
 
     public function testGetTagGroupsWithNoTags()
@@ -156,15 +156,15 @@ class PublicationTagsTest extends TestCase
                     "test2"
                 ]
             }
-            JSON, file_get_contents(Hyde::path('tags.json'))
+            JSON, file_get_contents(Hyde::path('tags.yml'))
         );
 
-        unlink(Hyde::path('tags.json'));
+        unlink(Hyde::path('tags.yml'));
     }
 
     public function testCanLoadTagsFromJsonFile()
     {
-        $this->file('tags.json', <<<'JSON'
+        $this->file('tags.yml', <<<'JSON'
             {
                 "Foo": [
                     "one",
@@ -208,7 +208,7 @@ class PublicationTagsTest extends TestCase
 
     public function testJsonFileIsPreferredOverYaml()
     {
-        $this->file('tags.json', '{"json":["foo"]}');
+        $this->file('tags.yml', '{"json":["foo"]}');
         $this->file('tags.yml', 'yaml: [foo]');
 
         $this->assertSame(['json' => ['foo']], PublicationTags::getAllTags()->toArray());
@@ -222,7 +222,7 @@ class PublicationTagsTest extends TestCase
                 'baz',
             ],
         ];
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
         $this->assertSame($tags, PublicationTags::getAllTags()->toArray());
     }
 
@@ -244,7 +244,7 @@ class PublicationTagsTest extends TestCase
             ],
         ];
 
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
 
         $this->assertSame(['bar', 'baz'], PublicationTags::getValuesForTagName('foo'));
     }
@@ -258,7 +258,7 @@ class PublicationTagsTest extends TestCase
             ],
         ];
 
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
 
         $this->assertSame([], PublicationTags::getValuesForTagName('bar'));
     }
@@ -270,7 +270,7 @@ class PublicationTagsTest extends TestCase
 
     public function testValidateTagsFileWithValidFile()
     {
-        $this->file('tags.json', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
         PublicationTags::validateTagsFile();
         $this->assertTrue(true);
@@ -278,7 +278,7 @@ class PublicationTagsTest extends TestCase
 
     public function testValidateTagsFileWithInvalidFile()
     {
-        $this->file('tags.json', 'invalid json');
+        $this->file('tags.yml', 'invalid json');
 
         $this->expectException(JsonException::class);
         PublicationTags::validateTagsFile();
@@ -292,7 +292,7 @@ class PublicationTagsTest extends TestCase
 
     public function testValidateTagsFileWithEmptyJsonFile()
     {
-        $this->file('tags.json', json_encode([]));
+        $this->file('tags.yml', json_encode([]));
 
         $this->expectException(JsonException::class);
         PublicationTags::validateTagsFile();
