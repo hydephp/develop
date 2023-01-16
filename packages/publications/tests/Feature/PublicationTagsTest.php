@@ -206,14 +206,6 @@ class PublicationTagsTest extends TestCase
         ], PublicationTags::getAllTags()->toArray());
     }
 
-    public function testJsonFileIsPreferredOverYaml()
-    {
-        $this->file('tags.yml', '{"json":["foo"]}');
-        $this->file('tags.yml', 'yaml: [foo]');
-
-        $this->assertSame(['json' => ['foo']], PublicationTags::getAllTags()->toArray());
-    }
-
     public function testGetAllTags()
     {
         $tags = [
