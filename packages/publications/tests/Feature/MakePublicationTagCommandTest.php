@@ -17,7 +17,7 @@ class MakePublicationTagCommandTest extends TestCase
 {
     protected function tearDown(): void
     {
-        unlink(Hyde::path('tags.json'));
+        unlink(Hyde::path('tags.yml'));
 
         parent::tearDown();
     }
@@ -31,13 +31,13 @@ class MakePublicationTagCommandTest extends TestCase
             ->expectsOutput('Enter the tag values: (end with an empty line)')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
-            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.json').']')
+            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.yml').']')
             ->assertExitCode(0);
 
-        $this->assertFileExists(Hyde::path('tags.json'));
+        $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
             json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
-            file_get_contents(Hyde::path('tags.json'))
+            file_get_contents(Hyde::path('tags.yml'))
         );
     }
 
@@ -50,13 +50,13 @@ class MakePublicationTagCommandTest extends TestCase
             ->expectsOutput('Enter the tag values: (end with an empty line)')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
-            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.json').']')
+            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.yml').']')
             ->assertExitCode(0);
 
-        $this->assertFileExists(Hyde::path('tags.json'));
+        $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
             json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
-            file_get_contents(Hyde::path('tags.json'))
+            file_get_contents(Hyde::path('tags.yml'))
         );
     }
 

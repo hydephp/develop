@@ -131,7 +131,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithTagType()
     {
         $tags = ['test-publication' => ['foo', 'bar', 'baz']];
-        $this->file('tags.json', json_encode($tags));
+        $this->file('tags.yml', json_encode($tags));
         $this->pubType->fields = collect([
             (new PublicationFieldDefinition('tag', 'tag', tagGroup: 'test-publication')),
         ]);
