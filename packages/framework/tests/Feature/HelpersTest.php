@@ -145,8 +145,8 @@ class HelpersTest extends TestCase
     public function test_hyde_yaml_decode_function_accepts_parameters()
     {
         $this->assertSame(
-            Yaml::parse("foo: bar", 128),
-            \Hyde\yaml_decode("foo: bar", 128)
+            Yaml::parse('foo: bar', 128),
+            \Hyde\yaml_decode('foo: bar', 128)
         );
     }
 }
