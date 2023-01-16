@@ -88,16 +88,16 @@ namespace Hyde {
     }
 
     if (! function_exists('\Hyde\yaml_encode')) {
-        function yaml_encode(mixed $input): string
+        function yaml_encode(mixed $input, int $inline = 2, int $indent = 4, int $flags = 0): string
         {
-            return Yaml::dump($input instanceof Arrayable ? $input->toArray() : $input);
+            return Yaml::dump($input instanceof Arrayable ? $input->toArray() : $input, $inline, $indent, $flags);
         }
     }
 
     if (! function_exists('\Hyde\yaml_decode')) {
-        function yaml_decode(string $input): mixed
+        function yaml_decode(string $input, int $flags = 0): mixed
         {
-            return Yaml::parse($input);
+            return Yaml::parse($input, $flags);
         }
     }
 }
