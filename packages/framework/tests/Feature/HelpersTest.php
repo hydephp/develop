@@ -118,4 +118,10 @@ class HelpersTest extends TestCase
     {
         $this->assertSame("foo: bar\n", \Hyde\yaml_encode(['foo' => 'bar']));
     }
+
+    /** @covers ::\Hyde\yaml_decode */
+    public function test_hyde_yaml_decode_function()
+    {
+        $this->assertSame(['foo' => 'bar'], \Hyde\yaml_decode("foo: bar\n"));
+    }
 }

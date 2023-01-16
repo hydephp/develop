@@ -93,4 +93,11 @@ namespace Hyde {
             return Yaml::dump($input);
         }
     }
+
+    if (! function_exists('\Hyde\yaml_decode')) {
+        function yaml_decode(string $input): mixed
+        {
+            return Yaml::parse($input);
+        }
+    }
 }
