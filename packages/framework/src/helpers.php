@@ -29,6 +29,7 @@ namespace {
 namespace Hyde {
     use Hyde\Foundation\HydeKernel;
     use Illuminate\Contracts\Support\Arrayable;
+    use Symfony\Component\Yaml\Yaml;
 
     if (! function_exists('\Hyde\hyde')) {
         /**
@@ -82,6 +83,20 @@ namespace Hyde {
         function evaluate_arrayable(array|Arrayable $array): array
         {
             return $array instanceof Arrayable ? $array->toArray() : $array;
+        }
+    }
+
+    if (! function_exists('\Hyde\yaml_encode')) {
+        function yaml_encode(mixed $input, int $inline = 2, int $indent = 4, int $flags = 0): string
+        {
+            return Yaml::dump($input instanceof Arrayable ? $input->toArray() : $input, $inline, $indent, $flags);
+        }
+    }
+
+    if (! function_exists('\Hyde\yaml_decode')) {
+        function yaml_decode(string $input, int $flags = 0): mixed
+        {
+            return Yaml::parse($input, $flags);
         }
     }
 }

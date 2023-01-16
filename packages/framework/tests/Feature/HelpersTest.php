@@ -9,6 +9,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Symfony\Component\Yaml\Yaml;
 
 class HelpersTest extends TestCase
 {
@@ -111,5 +112,41 @@ class HelpersTest extends TestCase
     {
         $this->assertSame(['foo'], \Hyde\evaluate_arrayable(['foo']));
         $this->assertSame(['foo'], \Hyde\evaluate_arrayable(collect(['foo'])));
+    }
+
+    /** @covers ::\Hyde\yaml_encode */
+    public function test_hyde_yaml_encode_function()
+    {
+        $this->assertSame("foo: bar\n", \Hyde\yaml_encode(['foo' => 'bar']));
+    }
+
+    /** @covers ::\Hyde\yaml_encode */
+    public function test_hyde_yaml_encode_function_encodes_arrayables()
+    {
+        $this->assertSame("foo: bar\n", \Hyde\yaml_encode(collect(['foo' => 'bar'])));
+    }
+
+    /** @covers ::\Hyde\yaml_encode */
+    public function test_hyde_yaml_encode_function_accepts_parameters()
+    {
+        $this->assertSame(
+            Yaml::dump(['foo' => 'bar'], 4, 2, 128),
+            \Hyde\yaml_encode(['foo' => 'bar'], 4, 2, 128)
+        );
+    }
+
+    /** @covers ::\Hyde\yaml_decode */
+    public function test_hyde_yaml_decode_function()
+    {
+        $this->assertSame(['foo' => 'bar'], \Hyde\yaml_decode("foo: bar\n"));
+    }
+
+    /** @covers ::\Hyde\yaml_decode */
+    public function test_hyde_yaml_decode_function_accepts_parameters()
+    {
+        $this->assertSame(
+            Yaml::parse('foo: bar', 128),
+            \Hyde\yaml_decode('foo: bar', 128)
+        );
     }
 }
