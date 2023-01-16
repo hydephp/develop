@@ -30,6 +30,8 @@ namespace Hyde {
     use Hyde\Foundation\HydeKernel;
     use Illuminate\Contracts\Support\Arrayable;
 
+    use Symfony\Component\Yaml\Yaml;
+
     if (! function_exists('\Hyde\hyde')) {
         /**
          * Get the available HydeKernel instance.
@@ -82,6 +84,13 @@ namespace Hyde {
         function evaluate_arrayable(array|Arrayable $array): array
         {
             return $array instanceof Arrayable ? $array->toArray() : $array;
+        }
+    }
+
+    if (! function_exists('\Hyde\yaml_encode')) {
+        function yaml_encode(mixed $input): string
+        {
+            return Yaml::dump($input);
         }
     }
 }
