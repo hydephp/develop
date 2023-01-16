@@ -36,7 +36,13 @@ class MakePublicationTagCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
-            json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
+            <<<'YAML'
+            foo:
+                - foo
+                - bar
+                - baz
+
+            YAML,
             file_get_contents(Hyde::path('tags.yml'))
         );
     }
@@ -55,7 +61,13 @@ class MakePublicationTagCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
-            json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
+            <<<'YAML'
+            foo:
+                - foo
+                - bar
+                - baz
+
+            YAML,
             file_get_contents(Hyde::path('tags.yml'))
         );
     }

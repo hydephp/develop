@@ -150,14 +150,12 @@ class PublicationTagsTest extends TestCase
         $tags->save();
 
         $this->assertSame(
-            <<<'JSON'
-            {
-                "test": [
-                    "test1",
-                    "test2"
-                ]
-            }
-            JSON, file_get_contents(Hyde::path('tags.yml'))
+            <<<'YAML'
+            test:
+                - test1
+                - test2
+
+            YAML, file_get_contents(Hyde::path('tags.yml'))
         );
 
         unlink(Hyde::path('tags.yml'));

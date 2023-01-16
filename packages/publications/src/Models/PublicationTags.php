@@ -9,7 +9,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
-use function json_encode;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -82,7 +81,7 @@ class PublicationTags
      */
     public function save(): self
     {
-        Filesystem::putContents('tags.yml', json_encode($this->tags, JSON_PRETTY_PRINT));
+        Filesystem::putContents('tags.yml', Yaml::dump($this->tags->toArray()));
 
         return $this;
     }

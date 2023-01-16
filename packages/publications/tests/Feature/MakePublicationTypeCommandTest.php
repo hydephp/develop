@@ -286,7 +286,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->assertCommandCalled('make:publicationTag');
         $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
-            json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
+            "foo:\n    - foo\n    - bar\n    - baz\n",
             file_get_contents(Hyde::path('tags.yml'))
         );
     }
