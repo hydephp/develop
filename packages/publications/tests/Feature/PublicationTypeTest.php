@@ -428,6 +428,17 @@ class PublicationTypeTest extends TestCase
             JSON, $publicationType->toJson());
     }
 
+    public function testValidateSchemaFile()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $publicationType->validateSchemaFile();
+
+        $this->assertTrue(true);
+    }
+    
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([

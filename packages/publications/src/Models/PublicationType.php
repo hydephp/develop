@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
+use Hyde\Facades\Filesystem;
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -84,7 +85,7 @@ class PublicationType implements SerializableContract
     }
 
     public function __construct(
-        string $name,
+        string $name, // todo get from directory name if not set in schema?
         string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
@@ -216,5 +217,68 @@ class PublicationType implements SerializableContract
     protected function withoutNullValues(array $array): array
     {
         return array_filter($array, fn (mixed $value): bool => ! is_null($value));
+    }
+
+    /**
+     * Validate the schema.json file is valid.
+     *
+     * @internal This method is experimental and may be removed without notice
+     */
+    public function validateSchemaFile(): void
+    {
+        $schema = json_decode(Filesystem::getContents($this->getSchemaFile()));
+
+        if (isset($schema->directory)) {
+            throw new RuntimeException("The 'directory' property is not allowed in the schema file as that may cause unexpected issues.");
+        }
+
+        $shouldBeStrings = ['name', 'canonicalField', 'detailTemplate', 'listTemplate', 'sortField'];
+        $shouldBeBooleans = ['sortAscending'];
+        $shouldBeIntegers = ['pageSize'];
+        $shouldBeArrays = ['fields'];
+
+        foreach ($schema as $key => $value) {
+            if (in_array($key, $shouldBeStrings) && ! is_string($value)) {
+                throw new RuntimeException("The '$key' property must be a string.");
+            }
+
+            if (in_array($key, $shouldBeBooleans) && ! is_bool($value)) {
+                throw new RuntimeException("The '$key' property must be a boolean.");
+            }
+
+            if (in_array($key, $shouldBeIntegers) && ! is_int($value)) {
+                throw new RuntimeException("The '$key' property must be an integer.");
+            }
+
+            if (in_array($key, $shouldBeArrays) && ! is_array($value)) {
+                throw new RuntimeException("The '$key' property must be an array.");
+            }
+        }
+
+        foreach ($schema->fields as $field) {
+            if (! isset($field->type)) {
+                throw new RuntimeException("The 'type' property is required for each field.");
+            }
+
+            if (! isset($field->name)) {
+                throw new RuntimeException("The 'name' property is required for each field.");
+            }
+
+            if (! is_string($field->type)) {
+                throw new RuntimeException("The 'type' property must be a string.");
+            }
+
+            if (! is_string($field->name)) {
+                throw new RuntimeException("The 'name' property must be a string.");
+            }
+
+            if (isset($field->rules) && ! is_array($field->rules)) {
+                throw new RuntimeException("The 'rules' property must be an array.");
+            }
+
+            if (isset($field->tagGroup) && ! is_string($field->tagGroup)) {
+                throw new RuntimeException("The 'tagGroup' property must be a string.");
+            }
+        }
     }
 }
