@@ -95,7 +95,7 @@ class PublicationType implements SerializableContract
         array $fields = [],
         ?string $directory = null
     ) {
-        $this->name = $name;
+        $this->name = $name; // todo get from directory name if not set in schema?
         $this->canonicalField = $canonicalField;
         $this->detailTemplate = $detailTemplate;
         $this->listTemplate = $listTemplate;
@@ -238,6 +238,8 @@ class PublicationType implements SerializableContract
         $shouldBeArrays = ['fields'];
 
         foreach ($schema as $key => $value) {
+            // TODO throw (custom?) validation exception instead?
+
             if (in_array($key, $shouldBeStrings) && ! is_string($value)) {
                 throw new RuntimeException("The '$key' property must be a string.");
             }
@@ -254,6 +256,14 @@ class PublicationType implements SerializableContract
                 throw new RuntimeException("The '$key' property must be an array.");
             }
         }
+
+        // TODO warn if fields are empty?
+
+        // TODO warn if canonicalField does not match meta field or actual?
+
+        // TODO Warn if template files do not exist (assuming files not vendor views)?
+
+        // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
         foreach ($schema->fields as $field) {
             if (! isset($field->type)) {
@@ -278,6 +288,7 @@ class PublicationType implements SerializableContract
 
             if (isset($field->tagGroup) && ! is_string($field->tagGroup)) {
                 throw new RuntimeException("The 'tagGroup' property must be a string.");
+                // TODO check tag group exists?
             }
         }
     }
