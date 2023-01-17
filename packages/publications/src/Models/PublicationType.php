@@ -264,8 +264,8 @@ class PublicationType implements SerializableContract
             validator([
                 'type' => $field->type ?? null,
                 'name' => $field->name ?? null,
-                'rules' => $field->type ?? null,
-                'tagGroup' => $field->name ?? null,
+                'rules' => $field->rules ?? null,
+                'tagGroup' => $field->tagGroup ?? null,
             ], [
                 'type' => 'required|string',
                 'name' => 'required|string',
