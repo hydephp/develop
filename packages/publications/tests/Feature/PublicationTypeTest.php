@@ -431,7 +431,9 @@ class PublicationTypeTest extends TestCase
     public function testValidateSchemaFile()
     {
         $this->directory('test-publication');
-        $publicationType = new PublicationType('test-publication');
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'myField', 'type' => 'string'],
+        ]);
         $publicationType->save();
 
         $publicationType->validateSchemaFile();
