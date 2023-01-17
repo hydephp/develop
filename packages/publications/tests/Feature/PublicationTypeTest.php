@@ -438,7 +438,31 @@ class PublicationTypeTest extends TestCase
 
         $this->assertTrue(true);
     }
-    
+
+    public function testValidateSchemaFileWithInvalidSchema()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->file('test-publication/schema.json', <<<'JSON'
+            {
+                "name": 123,
+                "canonicalField": 123,
+                "detailTemplate": 123,
+                "listTemplate": 123,
+                "sortField": 123,
+                "sortAscending": 123,
+                "pageSize": "123",
+                "fields": 123
+            }
+            JSON
+        );
+
+        $this->expectException(RuntimeException::class);
+        $publicationType->validateSchemaFile();
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
