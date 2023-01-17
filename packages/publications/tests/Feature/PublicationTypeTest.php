@@ -456,7 +456,8 @@ class PublicationTypeTest extends TestCase
                 "sortField": 123,
                 "sortAscending": 123,
                 "pageSize": "123",
-                "fields": 123
+                "fields": 123,
+                "directory": "foo"
             }
             JSON
         );
