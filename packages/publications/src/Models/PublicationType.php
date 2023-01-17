@@ -230,10 +230,6 @@ class PublicationType implements SerializableContract
     {
         $schema = json_decode(Filesystem::getContents($this->getSchemaFile()));
 
-        if (isset($schema->directory)) {
-            throw new RuntimeException("The 'directory' property is not allowed in the schema file as that may cause unexpected issues.");
-        }
-
         validator([
             'name' => $schema->name ?? null,
             'canonicalField' => $schema->canonicalField ?? null,
@@ -243,6 +239,7 @@ class PublicationType implements SerializableContract
             'sortAscending' => $schema->sortAscending ?? null,
             'pageSize' => $schema->pageSize ?? null,
             'fields' => $schema->fields ?? null,
+            'directory' => $schema->directory ?? null,
         ], [
             'name' => 'required|string',
             'canonicalField' => 'nullable|string',
@@ -252,6 +249,7 @@ class PublicationType implements SerializableContract
             'sortAscending' => 'nullable|boolean',
             'pageSize' => 'nullable|integer',
             'fields' => 'nullable|array',
+            'directory' => 'prohibited',
         ])->validate();
 
         // TODO warn if fields are empty?
