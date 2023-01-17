@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Publications\Models;
 
 use Hyde\Facades\Filesystem;
+use Illuminate\Contracts\Validation\Validator;
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -23,6 +24,7 @@ use function json_decode;
 use function json_encode;
 use RuntimeException;
 use function str_starts_with;
+use function validator;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationTypeTest
@@ -238,22 +240,20 @@ class PublicationType implements SerializableContract
         $shouldBeArrays = ['fields'];
 
         foreach ($schema as $key => $value) {
-            // TODO throw (custom?) validation exception instead?
+            if (in_array($key, $shouldBeStrings)) {
+                validator([$key => $value], [$key => 'string'])->validate();
+           }
 
-            if (in_array($key, $shouldBeStrings) && ! is_string($value)) {
-                throw new RuntimeException("The '$key' property must be a string.");
+            if (in_array($key, $shouldBeBooleans)) {
+                validator([$key => $value], [$key => 'boolean'])->validate();
             }
 
-            if (in_array($key, $shouldBeBooleans) && ! is_bool($value)) {
-                throw new RuntimeException("The '$key' property must be a boolean.");
+            if (in_array($key, $shouldBeIntegers)) {
+                validator([$key => $value], [$key => 'integer'])->validate();
             }
 
-            if (in_array($key, $shouldBeIntegers) && ! is_int($value)) {
-                throw new RuntimeException("The '$key' property must be an integer.");
-            }
-
-            if (in_array($key, $shouldBeArrays) && ! is_array($value)) {
-                throw new RuntimeException("The '$key' property must be an array.");
+            if (in_array($key, $shouldBeArrays)) {
+                validator([$key => $value], [$key => 'array'])->validate();
             }
         }
 
