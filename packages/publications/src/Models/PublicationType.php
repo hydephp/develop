@@ -248,7 +248,7 @@ class PublicationType implements SerializableContract
             'sortField' => 'nullable|string',
             'sortAscending' => 'nullable|boolean',
             'pageSize' => 'nullable|integer',
-            'fields' => 'nullable|array',
+            'fields' => 'nullable|array:type,name,rules,tagGroup',
             'directory' => 'nullable|prohibited',
         ])->validate();
 
