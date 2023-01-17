@@ -249,7 +249,7 @@ class PublicationType implements SerializableContract
             'sortAscending' => 'nullable|boolean',
             'pageSize' => 'nullable|integer',
             'fields' => 'nullable|array',
-            'directory' => 'prohibited',
+            'directory' => 'nullable|prohibited',
         ])->validate();
 
         // TODO warn if fields are empty?
