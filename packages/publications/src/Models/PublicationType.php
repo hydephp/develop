@@ -226,11 +226,12 @@ class PublicationType implements SerializableContract
      *
      * @internal This method is experimental and may be removed without notice
      */
-    public function validateSchemaFile(): void
+    public function validateSchemaFile(bool $throw = true): array
     {
         $schema = json_decode(Filesystem::getContents($this->getSchemaFile()));
+        $errors = [];
 
-        validator([
+        $schemaValidator = validator([
             'name' => $schema->name ?? null,
             'canonicalField' => $schema->canonicalField ?? null,
             'detailTemplate' => $schema->detailTemplate ?? null,
@@ -250,7 +251,13 @@ class PublicationType implements SerializableContract
             'pageSize' => 'nullable|integer',
             'fields' => 'nullable|array',
             'directory' => 'nullable|prohibited',
-        ])->validate();
+        ]);
+
+        $errors['schema'] = $schemaValidator->errors()->toArray();
+
+        if ($throw) {
+            $schemaValidator->validate();
+        }
 
         // TODO warn if fields are empty?
 
@@ -260,8 +267,10 @@ class PublicationType implements SerializableContract
 
         // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
+        $errors['fields'] = [];
+
         foreach ($schema->fields as $field) {
-            validator([
+            $fieldValidator = validator([
                 'type' => $field->type ?? null,
                 'name' => $field->name ?? null,
                 'rules' => $field->rules ?? null,
@@ -271,9 +280,17 @@ class PublicationType implements SerializableContract
                 'name' => 'required|string',
                 'rules' => 'nullable|array',
                 'tagGroup' => 'nullable|string',
-            ])->validate();
+            ]);
 
             // TODO check tag group exists?
+
+            $errors['fields'][] = $fieldValidator->errors()->toArray();
+
+            if ($throw) {
+                $fieldValidator->validate();
+            }
         }
+
+        return $errors;
     }
 }
