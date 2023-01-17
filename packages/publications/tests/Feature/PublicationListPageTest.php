@@ -48,6 +48,8 @@ class PublicationListPageTest extends TestCase
         $page = new PublicationListPage($this->getPublicationType());
 
         $this->assertTrue($page->showInNavigation());
+
+        File::deleteDirectory(Hyde::path('test-publication'));
     }
 
     protected function createPublicationFiles(): void
