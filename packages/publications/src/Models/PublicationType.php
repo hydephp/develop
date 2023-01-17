@@ -266,30 +266,19 @@ class PublicationType implements SerializableContract
         // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
         foreach ($schema->fields as $field) {
-            if (! isset($field->type)) {
-                throw new RuntimeException("The 'type' property is required for each field.");
-            }
+            validator([
+                'type' => $field->type ?? null,
+                'name' => $field->name ?? null,
+                'rules' => $field->type ?? null,
+                'tagGroup' => $field->name ?? null,
+            ], [
+                'type' => 'required|string',
+                'name' => 'required|string',
+                'rules' => 'nullable|array',
+                'tagGroup' => 'nullable|string',
+            ])->validate();
 
-            if (! isset($field->name)) {
-                throw new RuntimeException("The 'name' property is required for each field.");
-            }
-
-            if (! is_string($field->type)) {
-                throw new RuntimeException("The 'type' property must be a string.");
-            }
-
-            if (! is_string($field->name)) {
-                throw new RuntimeException("The 'name' property must be a string.");
-            }
-
-            if (isset($field->rules) && ! is_array($field->rules)) {
-                throw new RuntimeException("The 'rules' property must be an array.");
-            }
-
-            if (isset($field->tagGroup) && ! is_string($field->tagGroup)) {
-                throw new RuntimeException("The 'tagGroup' property must be a string.");
-                // TODO check tag group exists?
-            }
+            // TODO check tag group exists?
         }
     }
 }
