@@ -465,6 +465,39 @@ class PublicationTypeTest extends TestCase
         $publicationType->validateSchemaFile();
     }
 
+    public function testValidateSchemaFileWithInvalidFields()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->file('test-publication/schema.json', <<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [
+                    {
+                        "name": 123,
+                        "type": 123
+                    },
+                    {
+                        "noName": "myField",
+                        "noType": "string"
+                    }
+                ]
+            }
+            JSON
+        );
+
+        $this->expectException(RuntimeException::class);
+        $publicationType->validateSchemaFile();
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
