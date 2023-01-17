@@ -235,14 +235,14 @@ class PublicationType implements SerializableContract
         }
 
         validator([
-            'name' => $schema->name,
-            'canonicalField' => $schema->canonicalField,
-            'detailTemplate' => $schema->detailTemplate,
-            'listTemplate' => $schema->listTemplate,
-            'sortField' => $schema->sortField,
-            'sortAscending' => $schema->sortAscending,
-            'pageSize' => $schema->pageSize,
-            'fields' => $schema->fields,
+            'name' => $schema->name ?? null,
+            'canonicalField' => $schema->canonicalField ?? null,
+            'detailTemplate' => $schema->detailTemplate ?? null,
+            'listTemplate' => $schema->listTemplate ?? null,
+            'sortField' => $schema->sortField ?? null,
+            'sortAscending' => $schema->sortAscending ?? null,
+            'pageSize' => $schema->pageSize ?? null,
+            'fields' => $schema->fields ?? null,
         ], [
             'name' => 'required|string',
             'canonicalField' => 'nullable|string',
