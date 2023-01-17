@@ -234,28 +234,25 @@ class PublicationType implements SerializableContract
             throw new RuntimeException("The 'directory' property is not allowed in the schema file as that may cause unexpected issues.");
         }
 
-        $shouldBeStrings = ['name', 'canonicalField', 'detailTemplate', 'listTemplate', 'sortField'];
-        $shouldBeBooleans = ['sortAscending'];
-        $shouldBeIntegers = ['pageSize'];
-        $shouldBeArrays = ['fields'];
-
-        foreach ($schema as $key => $value) {
-            if (in_array($key, $shouldBeStrings)) {
-                validator([$key => $value], [$key => 'string'])->validate();
-           }
-
-            if (in_array($key, $shouldBeBooleans)) {
-                validator([$key => $value], [$key => 'boolean'])->validate();
-            }
-
-            if (in_array($key, $shouldBeIntegers)) {
-                validator([$key => $value], [$key => 'integer'])->validate();
-            }
-
-            if (in_array($key, $shouldBeArrays)) {
-                validator([$key => $value], [$key => 'array'])->validate();
-            }
-        }
+        validator([
+            'name' => $schema->name,
+            'canonicalField' => $schema->canonicalField,
+            'detailTemplate' => $schema->detailTemplate,
+            'listTemplate' => $schema->listTemplate,
+            'sortField' => $schema->sortField,
+            'sortAscending' => $schema->sortAscending,
+            'pageSize' => $schema->pageSize,
+            'fields' => $schema->fields,
+        ], [
+            'name' => 'required|string',
+            'canonicalField' => 'nullable|string',
+            'detailTemplate' => 'nullable|string',
+            'listTemplate' => 'nullable|string',
+            'sortField' => 'nullable|string',
+            'sortAscending' => 'nullable|boolean',
+            'pageSize' => 'nullable|integer',
+            'fields' => 'nullable|array',
+        ])->validate();
 
         // TODO warn if fields are empty?
 
