@@ -41,6 +41,30 @@ class PublicationListPageTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
+    public function test_list_page_can_show_up_in_navigation()
+    {
+        $this->createPublicationFiles();
+
+        $page = new PublicationListPage($this->getPublicationType());
+
+        $this->assertTrue($page->showInNavigation());
+
+        File::deleteDirectory(Hyde::path('test-publication'));
+    }
+
+    public function test_list_page_is_not_added_to_navigation_when_publication_identifier_is_set_in_config()
+    {
+        config(['hyde.navigation.exclude' => ['test-publication']]);
+
+        $this->createPublicationFiles();
+
+        $page = new PublicationListPage($this->getPublicationType());
+
+        $this->assertFalse($page->showInNavigation());
+
+        File::deleteDirectory(Hyde::path('test-publication'));
+    }
+
     protected function createPublicationFiles(): void
     {
         mkdir(Hyde::path('test-publication'));
