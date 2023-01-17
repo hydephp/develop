@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use Illuminate\Validation\ValidationException;
 use function array_merge;
 use function array_reverse;
 use Hyde\Framework\Features\Paginator;
@@ -462,7 +463,7 @@ class PublicationTypeTest extends TestCase
             JSON
         );
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ValidationException::class);
         $publicationType->validateSchemaFile();
     }
 
@@ -495,7 +496,7 @@ class PublicationTypeTest extends TestCase
             JSON
         );
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ValidationException::class);
         $publicationType->validateSchemaFile();
     }
 
