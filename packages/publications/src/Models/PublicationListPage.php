@@ -31,6 +31,6 @@ class PublicationListPage extends VirtualPage
 
     public function showInNavigation(): bool
     {
-        return true;
+        return ! in_array($this->type->getDirectory(), config('hyde.navigation.exclude', []));
     }
 }
