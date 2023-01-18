@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use Hyde\Hyde;
+use function basename;
 use function collect;
 use Exception;
 use function filled;
@@ -15,6 +17,7 @@ use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function glob;
 use function microtime;
 use function str_repeat;
 use function strlen;
@@ -35,7 +38,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /** @var string */
     protected $signature = 'validate:publications
 		{publicationType? : The name of the publication type to validate.}
-		{--json : Display results as JSON.}';
+		{--json : Display results as JSON.}
+		{--schemas : Only validate the publication schema files.}';
 
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
@@ -59,6 +63,17 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         if (! $this->json) {
             $this->title('Validating publications!');
+        }
+
+        if ($this->option('schemas')) {
+            $this->validateSchemaFiles();
+
+            $this->newLine();
+            $this->info(sprintf('All done in %sms using %sMB peak memory!',
+                round((microtime(true) - $timeStart) * 1000),
+                round(memory_get_peak_usage() / 1024 / 1024)
+            ));
+            return Command::SUCCESS;
         }
 
         $publicationTypesToValidate = $this->getPublicationTypesToValidate();
@@ -248,5 +263,31 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
+    }
+
+    protected function validateSchemaFiles(): void
+    {
+        /** @see PublicationService::getSchemaFiles() */
+        $schemaFiles = glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
+
+        foreach ($schemaFiles as $number => $schemaFile) {
+            $name = basename(dirname($schemaFile));
+            $this->infoComment('Validating schema file for', $name);
+
+            $errors = PublicationService::validateSchemaFile($schemaFile, false);
+
+            if (empty($errors['schema'])) {
+                $this->line('<info>  No top-level schema errors found</info>');
+            } else {
+                $this->line(sprintf("  <fg=red>Found %s errors:</>", count($errors['schema'])));
+                foreach ($errors['schema'] as $error) {
+                    $this->line(sprintf("    <fg=red>%s</> <comment>%s</comment>", self::CROSS_MARK, implode(' ', $error)));
+                }
+            }
+
+            if ($number !== count($schemaFiles) - 1) {
+                $this->newLine();
+            }
+        }
     }
 }
