@@ -8,8 +8,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Collection;
-use function array_combine;
-use function array_keys;
 use function json_decode;
 use stdClass;
 use function validator;
@@ -84,10 +82,7 @@ class ValidatesPublicationSchema extends InvokableAction
             $input[$key] = $this->schema->{$key} ?? null;
         }
 
-        $this->schemaValidator = validator(
-            array_combine(array_keys($rules), $input),
-            array_combine(array_keys($rules), $rules)
-        );
+        $this->schemaValidator = validator($input, $rules);
     }
 
     protected function validateFields(): void
