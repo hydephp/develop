@@ -62,4 +62,30 @@ class PublicationPageValidatorTest extends TestCase
         $this->expectException(ValidationException::class);
         $validator->validate();
     }
+
+    public function testValidatePageFileWithInvalidDataBuffered()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'myField', 'type' => 'string'],
+            ['name' => 'myNumber', 'type' => 'integer'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/my-page.md', <<<'MD'
+            ---
+            myField: false
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $validator = PublicationPageValidator::call($publicationType, 'my-page');
+
+        $this->assertSame([
+            'The myField must be a string.',
+            'The myNumber must be an integer.',
+        ], $validator->errors());
+    }
 }
