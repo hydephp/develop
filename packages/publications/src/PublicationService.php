@@ -93,16 +93,6 @@ class PublicationService
         return static::getPublicationTypes()->has(Str::slug($pubTypeName));
     }
 
-    /**
-     * Validate the schema.json file is valid.
-     *
-     * @internal This method is experimental and may be removed without notice
-     */
-    public static function validateSchemaFile(string $pubTypeName, bool $throw = true): array
-    {
-        return ValidatesPublicationSchema::call($pubTypeName, $throw);
-    }
-
     protected static function getSchemaFiles(): array
     {
         return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');

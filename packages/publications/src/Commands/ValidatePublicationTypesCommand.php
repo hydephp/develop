@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use function array_filter;
 use function basename;
 use function dirname;
@@ -74,7 +75,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
 
         foreach ($schemaFiles as $schemaFile) {
             $publicationName = basename(dirname($schemaFile));
-            $this->results[$publicationName] = PublicationService::validateSchemaFile($publicationName, false);
+            $this->results[$publicationName] = ValidatesPublicationSchema::call($publicationName, false);
         }
     }
 

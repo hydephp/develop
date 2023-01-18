@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
+use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -225,6 +226,6 @@ class PublicationType implements SerializableContract
      */
     public function validateSchemaFile(bool $throw = true): array
     {
-        return PublicationService::validateSchemaFile($this->getIdentifier(), $throw);
+        return ValidatesPublicationSchema::call($this->getIdentifier(), $throw);
     }
 }
