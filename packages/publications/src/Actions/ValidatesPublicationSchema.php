@@ -34,7 +34,6 @@ class ValidatesPublicationSchema extends InvokableAction
     public function __invoke(): static
     {
         $this->makePropertyValidator();
-
         $this->makeFieldsValidators();
 
         return $this;
