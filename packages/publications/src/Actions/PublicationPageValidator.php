@@ -8,6 +8,9 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationType;
 
+use Illuminate\Contracts\Validation\Validator;
+
+use function collect;
 use function validator;
 
 /**
@@ -43,5 +46,13 @@ class PublicationPageValidator extends InvokableAction
         foreach ($this->fieldValidators as $validator) {
             $validator->validate();
         }
+    }
+
+    /** @return array<string, array */
+    public function errors(): array
+    {
+        return collect($this->fieldValidators)->map(function (Validator $validator): array {
+            return $validator->errors()->all();
+        })->all();
     }
 }
