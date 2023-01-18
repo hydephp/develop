@@ -82,27 +82,27 @@ class ValidatesPublicationSchema extends InvokableAction
         ];
 
         $input = [
-            'name' => $schema->name ?? null,
-            'canonicalField' => $schema->canonicalField ?? null,
-            'detailTemplate' => $schema->detailTemplate ?? null,
-            'listTemplate' => $schema->listTemplate ?? null,
-            'sortField' => $schema->sortField ?? null,
-            'sortAscending' => $schema->sortAscending ?? null,
-            'pageSize' => $schema->pageSize ?? null,
-            'fields' => $schema->fields ?? null,
-            'directory' => $schema->directory ?? null,
+            $schema->name ?? null,
+            $schema->canonicalField ?? null,
+            $schema->detailTemplate ?? null,
+            $schema->listTemplate ?? null,
+            $schema->sortField ?? null,
+            $schema->sortAscending ?? null,
+            $schema->pageSize ?? null,
+            $schema->fields ?? null,
+            $schema->directory ?? null,
         ];
 
         $rules = [
-            'name' => 'required|string',
-            'canonicalField' => 'nullable|string',
-            'detailTemplate' => 'nullable|string',
-            'listTemplate' => 'nullable|string',
-            'sortField' => 'nullable|string',
-            'sortAscending' => 'nullable|boolean',
-            'pageSize' => 'nullable|integer',
-            'fields' => 'nullable|array',
-            'directory' => 'nullable|prohibited',
+            'required|string',
+            'nullable|string',
+            'nullable|string',
+            'nullable|string',
+            'nullable|string',
+            'nullable|boolean',
+            'nullable|integer',
+            'nullable|array',
+            'nullable|prohibited',
         ];
 
         $this->schemaValidator = validator($input, $rules);
