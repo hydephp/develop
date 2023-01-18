@@ -24,9 +24,6 @@ class ValidatesPublicationSchema extends InvokableAction
     /** @var \Illuminate\Support\Collection<\Illuminate\Contracts\Validation\Validator> */
     protected Collection $fieldValidators;
 
-    /** @var array<string> */
-    protected array $warnings = [];
-
     public function __construct(string $pubTypeName)
     {
         $this->schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
@@ -39,14 +36,6 @@ class ValidatesPublicationSchema extends InvokableAction
         $this->makePropertyValidator();
 
         $this->makeFieldsValidator();
-
-        // TODO warn if fields are empty?
-
-        // TODO warn if canonicalField does not match meta field or actual?
-
-        // TODO Warn if template files do not exist (assuming files not vendor views)?
-
-        // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
         return $this;
     }
@@ -94,8 +83,6 @@ class ValidatesPublicationSchema extends InvokableAction
 
         if (is_array($schema->fields)) {
             foreach ($schema->fields as $field) {
-                // TODO check tag group exists?
-
                 $this->fieldValidators->add(validator([
                     'type' => $field->type ?? null,
                     'name' => $field->name ?? null,
