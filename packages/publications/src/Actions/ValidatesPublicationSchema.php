@@ -60,7 +60,7 @@ class ValidatesPublicationSchema extends InvokableAction
     {
         return [
             'schema' => $this->schemaValidator->errors()->all(),
-            'fields' => $this->fieldValidators->map(fn (Validator $validator): array => $validator->errors()->all())->all(),
+            'fields' => $this->evaluateFieldValidators(),
         ];
     }
 
@@ -106,5 +106,10 @@ class ValidatesPublicationSchema extends InvokableAction
                 ]));
             }
         }
+    }
+
+    protected function evaluateFieldValidators(): array
+    {
+        return $this->fieldValidators->map(fn(Validator $validator): array => $validator->errors()->all())->all();
     }
 }
