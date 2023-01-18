@@ -28,9 +28,7 @@ use function sprintf;
  */
 class ValidatePublicationTypesCommand extends ValidatingCommand
 {
-    protected const CHECKMARK = "\u{2713}";
     protected const CROSS_MARK = 'x';
-    protected const WARNING = "\u{26A0}";
 
     /** @var string */
     protected $signature = 'validate:publicationTypes {--json : Display results as JSON.}';
