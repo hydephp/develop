@@ -32,9 +32,7 @@ class PublicationPageValidatorTest extends TestCase
             MD
         );
 
-        $validator = new PublicationPageValidator($publicationType, 'my-page');
-        $validator->__invoke();
-
+        $validator = PublicationPageValidator::call($publicationType, 'my-page');
         $validator->validate();
 
         $this->assertTrue(true);
