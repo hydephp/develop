@@ -68,7 +68,7 @@ class ValidatesPublicationSchema extends InvokableAction
     {
         $schema = $this->schema;
 
-        $this->schemaValidator = validator([
+        $input = [
             'name' => $schema->name ?? null,
             'canonicalField' => $schema->canonicalField ?? null,
             'detailTemplate' => $schema->detailTemplate ?? null,
@@ -78,7 +78,9 @@ class ValidatesPublicationSchema extends InvokableAction
             'pageSize' => $schema->pageSize ?? null,
             'fields' => $schema->fields ?? null,
             'directory' => $schema->directory ?? null,
-        ], [
+        ];
+
+        $rules = [
             'name' => 'required|string',
             'canonicalField' => 'nullable|string',
             'detailTemplate' => 'nullable|string',
@@ -88,7 +90,9 @@ class ValidatesPublicationSchema extends InvokableAction
             'pageSize' => 'nullable|integer',
             'fields' => 'nullable|array',
             'directory' => 'nullable|prohibited',
-        ]);
+        ];
+
+        $this->schemaValidator = validator($input, $rules);
     }
 
     protected function validateFields(): void
