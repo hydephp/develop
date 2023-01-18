@@ -107,8 +107,6 @@ class ValidatesPublicationSchema extends InvokableAction
 
     protected function mapRulesInput(array $rules, stdClass $field): array
     {
-        return collect($rules)->mapWithKeys(function (string $rule, string $key) use ($field): array {
-            return [$key => $field->{$key} ?? null];
-        })->all();
+        return collect($rules)->mapWithKeys(fn(string $rule, string $key): array => [$key => $field->{$key} ?? null])->all();
     }
 }
