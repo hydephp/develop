@@ -168,4 +168,97 @@ class ValidatePublicationTypesCommandTest extends TestCase
             ->expectsOutputToContain('All done')
             ->assertExitCode(0);
     }
+
+    public function testJsonOutputOption()
+    {
+        config(['app.throw_on_console_exception' => true]);
+
+        $this->directory('test-publication-1');
+        $publicationType = new PublicationType('test-publication-1', fields: [
+            ['name' => 'myField', 'type' => 'string'],
+        ]);
+        $publicationType->save();
+
+        $this->directory('test-publication-2');
+        $this->file('test-publication-2/schema.json', <<<'JSON'
+            {
+                "name": 123,
+                "canonicalField": 123,
+                "detailTemplate": 123,
+                "listTemplate": 123,
+                "sortField": 123,
+                "sortAscending": 123,
+                "pageSize": "123",
+                 "fields": [
+                    {
+                        "name": 123,
+                        "type": 123
+                    },
+                    {
+                        "noName": "myField",
+                        "noType": "string"
+                    }
+                ],
+                "directory": "foo"
+            }
+            JSON
+        );
+
+        $this->artisan('validate:publicationTypes --json')
+            ->expectsOutput(
+                <<<'JSON'
+                {
+                    "test-publication-1": {
+                        "schema": [],
+                        "fields": [
+                            []
+                        ]
+                    },
+                    "test-publication-2": {
+                        "schema": {
+                            "name": [
+                                "The name must be a string."
+                            ],
+                            "canonicalField": [
+                                "The canonical field must be a string."
+                            ],
+                            "detailTemplate": [
+                                "The detail template must be a string."
+                            ],
+                            "listTemplate": [
+                                "The list template must be a string."
+                            ],
+                            "sortField": [
+                                "The sort field must be a string."
+                            ],
+                            "sortAscending": [
+                                "The sort ascending field must be true or false."
+                            ],
+                            "directory": [
+                                "The directory field is prohibited."
+                            ]
+                        },
+                        "fields": [
+                            {
+                                "type": [
+                                    "The type must be a string."
+                                ],
+                                "name": [
+                                    "The name must be a string."
+                                ]
+                            },
+                            {
+                                "type": [
+                                    "The type field is required."
+                                ],
+                                "name": [
+                                    "The name field is required."
+                                ]
+                            }
+                        ]
+                    }
+                }
+                JSON
+            )->assertExitCode(1);
+    }
 }
