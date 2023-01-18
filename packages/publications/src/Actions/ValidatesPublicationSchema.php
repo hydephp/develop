@@ -83,17 +83,19 @@ class ValidatesPublicationSchema extends InvokableAction
 
         if (is_array($schema->fields)) {
             foreach ($schema->fields as $field) {
-                $this->fieldValidators->add(validator([
+                $input = [
                     'type' => $field->type ?? null,
                     'name' => $field->name ?? null,
                     'rules' => $field->rules ?? null,
                     'tagGroup' => $field->tagGroup ?? null,
-                ], [
+                ];
+                $rules = [
                     'type' => 'required|string',
                     'name' => 'required|string',
                     'rules' => 'nullable|array',
                     'tagGroup' => 'nullable|string',
-                ]));
+                ];
+                $this->fieldValidators->add(validator($input, $rules));
             }
         }
     }
