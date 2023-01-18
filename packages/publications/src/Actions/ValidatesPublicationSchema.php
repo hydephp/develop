@@ -23,7 +23,7 @@ class ValidatesPublicationSchema extends InvokableAction
         $this->throw = $throw;
     }
 
-    public function __invoke()
+    public function __invoke(): array
     {
         // TODO: Implement __invoke() method.
     }
