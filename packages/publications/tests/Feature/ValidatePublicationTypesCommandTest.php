@@ -12,8 +12,17 @@ use Hyde\Testing\TestCase;
  */
 class ValidatePublicationTypesCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['app.throw_on_console_exception' => true]);
+    }
+
     public function testWithNoPublicationTypes()
     {
+        config(['app.throw_on_console_exception' => false]);
+
         $this->artisan('validate:publicationTypes')
             ->expectsOutputToContain('Validating publication schemas!')
             ->expectsOutput('Error: No publication types to validate!')
@@ -22,6 +31,8 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testWithValidSchemaFile()
     {
+        config(['app.throw_on_console_exception' => false]);
+
         $this->directory('test-publication');
         $publicationType = new PublicationType('test-publication', fields: [
             ['name' => 'myField', 'type' => 'string'],
@@ -40,8 +51,6 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testWithInvalidSchemaFile()
     {
-        config(['app.throw_on_console_exception' => true]);
-
         $this->directory('test-publication');
         $publicationType = new PublicationType('test-publication');
         $publicationType->save();
@@ -94,8 +103,6 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testWithMultiplePublicationTypes()
     {
-        config(['app.throw_on_console_exception' => true]);
-
         $this->directory('test-publication-1');
         $publicationType = new PublicationType('test-publication-1', fields: [
             ['name' => 'myField', 'type' => 'string'],
@@ -154,8 +161,6 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testWithNoFields()
     {
-        config(['app.throw_on_console_exception' => true]);
-
         $this->directory('test-publication');
         $publicationType = new PublicationType('test-publication');
         $publicationType->save();
@@ -171,8 +176,6 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testJsonOutputOption()
     {
-        config(['app.throw_on_console_exception' => true]);
-
         $this->directory('test-publication');
         $publicationType = new PublicationType('test-publication');
         $publicationType->save();
@@ -191,8 +194,6 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testMultipleTypesWithJsonOutput()
     {
-        config(['app.throw_on_console_exception' => true]);
-
         $this->directory('test-publication-1');
         $publicationType = new PublicationType('test-publication-1', fields: [
             ['name' => 'myField', 'type' => 'string'],
