@@ -173,6 +173,26 @@ class ValidatePublicationTypesCommandTest extends TestCase
     {
         config(['app.throw_on_console_exception' => true]);
 
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->artisan('validate:publicationTypes --json')
+            ->expectsOutput(<<<'JSON'
+                {
+                    "test-publication": {
+                        "schema": [],
+                        "fields": []
+                    }
+                }
+                JSON)
+            ->assertExitCode(0);
+    }
+
+    public function testMultipleTypesWithJsonOutput()
+    {
+        config(['app.throw_on_console_exception' => true]);
+
         $this->directory('test-publication-1');
         $publicationType = new PublicationType('test-publication-1', fields: [
             ['name' => 'myField', 'type' => 'string'],
