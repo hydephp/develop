@@ -67,9 +67,7 @@ class ValidatesPublicationSchema extends InvokableAction
             'directory' => 'nullable|prohibited',
         ];
 
-        foreach ($rules as $key => $rule) {
-            $input[$key] = $this->schema->{$key} ?? null;
-        }
+        $input = $this->mapRulesInput($rules, $this->schema);
 
         $this->schemaValidator = validator($input, $rules);
     }
@@ -85,9 +83,7 @@ class ValidatesPublicationSchema extends InvokableAction
 
         if (is_array($this->schema->fields)) {
             foreach ($this->schema->fields as $field) {
-                foreach ($rules as $key => $rule) {
-                    $input[$key] = $field->{$key} ?? null;
-                }
+                $input = $this->mapRulesInput($rules, $field);
 
                 $this->fieldValidators[] = validator($input, $rules);
             }
@@ -107,5 +103,13 @@ class ValidatesPublicationSchema extends InvokableAction
         foreach ($this->fieldValidators as $validator) {
             $validator->validate();
         }
+    }
+
+    protected function mapRulesInput(array $rules, stdClass $field): array
+    {
+        foreach ($rules as $key => $rule) {
+            $input[$key] = $field->{$key} ?? null;
+        }
+        return $input;
     }
 }
