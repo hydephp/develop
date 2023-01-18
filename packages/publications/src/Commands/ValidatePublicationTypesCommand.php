@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use function array_filter;
 use function basename;
 use function dirname;
 use function glob;
 use Hyde\Hyde;
+use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use Hyde\Publications\PublicationService;
 use function implode;
 use InvalidArgumentException;

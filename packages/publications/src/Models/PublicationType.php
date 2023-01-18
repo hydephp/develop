@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -14,6 +13,7 @@ use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
+use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use Hyde\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;

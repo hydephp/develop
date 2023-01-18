@@ -6,12 +6,10 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
-
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Collection;
-use stdClass;
-
 use function json_decode;
+use stdClass;
 use function validator;
 
 /**
@@ -98,7 +96,7 @@ class ValidatesPublicationSchema extends InvokableAction
     {
         return [
             'schema' => $this->schemaValidator->errors()->toArray(),
-            'fields' => $this->fieldValidators->map(fn(Validator $validator): array => $validator->errors()->toArray())->toArray(),
+            'fields' => $this->fieldValidators->map(fn (Validator $validator): array => $validator->errors()->toArray())->toArray(),
         ];
     }
 }

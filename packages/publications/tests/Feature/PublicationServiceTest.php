@@ -13,7 +13,6 @@ use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Illuminate\Validation\ValidationException;
 use function json_encode;
 use function mkdir;
 
