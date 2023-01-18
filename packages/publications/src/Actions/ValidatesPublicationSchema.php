@@ -35,7 +35,7 @@ class ValidatesPublicationSchema extends InvokableAction
     {
         $this->makePropertyValidator();
 
-        $this->makeFieldsValidator();
+        $this->makeFieldsValidators();
 
         return $this;
     }
@@ -77,7 +77,7 @@ class ValidatesPublicationSchema extends InvokableAction
         $this->schemaValidator = validator($input, $rules);
     }
 
-    protected function makeFieldsValidator(): void
+    protected function makeFieldsValidators(): void
     {
         $rules = [
             'type' => 'required|string',
