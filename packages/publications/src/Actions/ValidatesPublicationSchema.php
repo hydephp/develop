@@ -104,6 +104,8 @@ class ValidatesPublicationSchema extends InvokableAction
 
     protected function validateFields(): void
     {
-        collect($this->fieldValidators)->each(fn(Validator $validator): array => $validator->validate());
+        collect($this->fieldValidators)->each(function (Validator $validator): array {
+            return $validator->validate();
+        });
     }
 }
