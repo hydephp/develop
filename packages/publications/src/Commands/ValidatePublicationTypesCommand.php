@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Hyde;
-use Hyde\Publications\PublicationService;
-use InvalidArgumentException;
-use LaravelZero\Framework\Commands\Command;
 use function array_filter;
 use function basename;
 use function dirname;
 use function glob;
+use Hyde\Hyde;
+use Hyde\Publications\PublicationService;
 use function implode;
+use InvalidArgumentException;
 use function json_encode;
+use LaravelZero\Framework\Commands\Command;
 use function memory_get_peak_usage;
 use function microtime;
 use function next;

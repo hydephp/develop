@@ -48,7 +48,6 @@ class ValidatePublicationTypesCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-
     public function testWithInvalidSchemaFile()
     {
         $this->directory('test-publication');

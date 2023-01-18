@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Hyde;
 use function array_filter;
 use function basename;
 use function collect;
 use Exception;
 use function filled;
+use function glob;
+use Hyde\Hyde;
 use Hyde\Publications\Actions\ValidatesPublicationField;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationPage;
@@ -18,7 +19,6 @@ use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-use function glob;
 use function microtime;
 use function str_repeat;
 use function strlen;
@@ -74,6 +74,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 round((microtime(true) - $timeStart) * 1000),
                 round(memory_get_peak_usage() / 1024 / 1024)
             ));
+
             return Command::SUCCESS;
         }
 
@@ -280,9 +281,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if (empty($errors['schema'])) {
                 $this->line('<info>  No top-level schema errors found</info>');
             } else {
-                $this->line(sprintf("  <fg=red>Found %s top-level schema errors:</>", count($errors['schema'])));
+                $this->line(sprintf('  <fg=red>Found %s top-level schema errors:</>', count($errors['schema'])));
                 foreach ($errors['schema'] as $error) {
-                    $this->line(sprintf("    <fg=red>%s</> <comment>%s</comment>", self::CROSS_MARK, implode(' ', $error)));
+                    $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, implode(' ', $error)));
                 }
             }
 
@@ -290,11 +291,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 $this->line('<info>  No field-level schema errors found</info>');
             } else {
                 $this->newLine();
-                $this->line(sprintf("  <fg=red>Found errors in %s field definitions:</>", count($errors['fields'])));
+                $this->line(sprintf('  <fg=red>Found errors in %s field definitions:</>', count($errors['fields'])));
                 foreach ($errors['fields'] as $fieldNumber => $fieldErrors) {
-                    $this->line(sprintf("    <fg=cyan>Field #%s:</>", $fieldNumber+1));
+                    $this->line(sprintf('    <fg=cyan>Field #%s:</>', $fieldNumber + 1));
                     foreach ($fieldErrors as $error) {
-                        $this->line(sprintf("      <fg=red>%s</> <comment>%s</comment>", self::CROSS_MARK, implode(' ', $error)));
+                        $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, implode(' ', $error)));
                     }
                 }
             }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Illuminate\Validation\ValidationException;
 use function file_put_contents;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
@@ -14,6 +13,7 @@ use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\ValidationException;
 use function json_encode;
 use function mkdir;
 
@@ -330,7 +330,7 @@ class PublicationServiceTest extends TestCase
             ],
             'fields' => [[
                 'type' => ['The type must be a string.'],
-                'name' => ['The name must be a string.']
+                'name' => ['The name must be a string.'],
             ], [
                 'type' => ['The type field is required.'],
                 'name' => ['The name field is required.'],

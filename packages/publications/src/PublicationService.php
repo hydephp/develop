@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Facades\Filesystem;
 use function glob;
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationTags;
