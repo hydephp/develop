@@ -22,6 +22,8 @@ class ValidatesPublicationSchema extends InvokableAction
     protected stdClass $schema;
 
     protected Validator $schemaValidator;
+
+    /** @var \Illuminate\Support\Collection<\Illuminate\Contracts\Validation\Validator> */
     protected Collection $fieldValidators;
 
     public function __construct(string $pubTypeName)
@@ -84,12 +86,14 @@ class ValidatesPublicationSchema extends InvokableAction
         return $this;
     }
 
+    /** @throws \Illuminate\Validation\ValidationException */
     public function validate(): void
     {
         $this->schemaValidator->validate();
         $this->fieldValidators->each(fn (Validator $validator): array => $validator->validate());
     }
 
+    /** @return array<string, Validator|array */
     public function errors(): array
     {
         return [
