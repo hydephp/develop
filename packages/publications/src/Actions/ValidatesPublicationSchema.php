@@ -33,6 +33,39 @@ class ValidatesPublicationSchema extends InvokableAction
     /** @return $this */
     public function __invoke(): static
     {
+        $this->validateProperties();
+
+        $this->validateFields();
+
+        // TODO warn if fields are empty?
+
+        // TODO warn if canonicalField does not match meta field or actual?
+
+        // TODO Warn if template files do not exist (assuming files not vendor views)?
+
+        // TODO warn if pageSize is less than 0 (as that equals no pagination)?
+
+        return $this;
+    }
+
+    /** @throws \Illuminate\Validation\ValidationException */
+    public function validate(): void
+    {
+        $this->schemaValidator->validate();
+        $this->fieldValidators->each(fn (Validator $validator): array => $validator->validate());
+    }
+
+    /** @return array<string, Validator|array */
+    public function errors(): array
+    {
+        return [
+            'schema' => $this->schemaValidator->errors()->all(),
+            'fields' => $this->fieldValidators->map(fn (Validator $validator): array => $validator->errors()->all())->all(),
+        ];
+    }
+
+    protected function validateProperties(): void
+    {
         $schema = $this->schema;
 
         $this->schemaValidator = validator([
@@ -56,14 +89,11 @@ class ValidatesPublicationSchema extends InvokableAction
             'fields' => 'nullable|array',
             'directory' => 'nullable|prohibited',
         ]);
+    }
 
-        // TODO warn if fields are empty?
-
-        // TODO warn if canonicalField does not match meta field or actual?
-
-        // TODO Warn if template files do not exist (assuming files not vendor views)?
-
-        // TODO warn if pageSize is less than 0 (as that equals no pagination)?
+    protected function validateFields(): void
+    {
+        $schema = $this->schema;
 
         if (is_array($schema->fields)) {
             foreach ($schema->fields as $field) {
@@ -82,23 +112,5 @@ class ValidatesPublicationSchema extends InvokableAction
                 ]));
             }
         }
-
-        return $this;
-    }
-
-    /** @throws \Illuminate\Validation\ValidationException */
-    public function validate(): void
-    {
-        $this->schemaValidator->validate();
-        $this->fieldValidators->each(fn (Validator $validator): array => $validator->validate());
-    }
-
-    /** @return array<string, Validator|array */
-    public function errors(): array
-    {
-        return [
-            'schema' => $this->schemaValidator->errors()->all(),
-            'fields' => $this->fieldValidators->map(fn (Validator $validator): array => $validator->errors()->all())->all(),
-        ];
     }
 }
