@@ -24,9 +24,6 @@ class ValidatesPublicationSchema extends InvokableAction
     /** @var \Illuminate\Support\Collection<\Illuminate\Contracts\Validation\Validator> */
     protected Collection $fieldValidators;
 
-    /** @var array<string> */
-    protected array $warnings = [];
-
     public function __construct(string $pubTypeName)
     {
         $this->schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
