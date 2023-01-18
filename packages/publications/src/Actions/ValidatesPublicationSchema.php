@@ -67,9 +67,7 @@ class ValidatesPublicationSchema extends InvokableAction
             'directory' => 'nullable|prohibited',
         ];
 
-        $input = $this->mapRulesInput($rules, $this->schema);
-
-        $this->schemaValidator = validator($input, $rules);
+        $this->schemaValidator = validator($this->mapRulesInput($rules, $this->schema), $rules);
     }
 
     protected function makeFieldsValidators(): void
@@ -83,9 +81,7 @@ class ValidatesPublicationSchema extends InvokableAction
 
         if (is_array($this->schema->fields)) {
             foreach ($this->schema->fields as $field) {
-                $input = $this->mapRulesInput($rules, $field);
-
-                $this->fieldValidators[] = validator($input, $rules);
+                $this->fieldValidators[] = validator($this->mapRulesInput($rules, $field), $rules);
             }
         }
     }
