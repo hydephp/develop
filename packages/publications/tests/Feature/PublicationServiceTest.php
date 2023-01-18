@@ -316,8 +316,6 @@ class PublicationServiceTest extends TestCase
             JSON
         );
 
-        $errors = $publicationType->validateSchemaFile(false);
-
         $this->assertSame([
             'schema' => [
                 'name' => ['The name must be a string.'],
@@ -335,7 +333,7 @@ class PublicationServiceTest extends TestCase
                 'type' => ['The type field is required.'],
                 'name' => ['The name field is required.'],
             ]],
-        ], $errors);
+        ], $publicationType->validateSchemaFile(false));
     }
 
     protected function createPublicationType(): void
