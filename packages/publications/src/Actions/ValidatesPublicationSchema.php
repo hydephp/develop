@@ -101,7 +101,8 @@ class ValidatesPublicationSchema extends InvokableAction
         }
     }
 
-    protected function makeValidator(array $rules, stdClass $input): Validator {
+    protected function makeValidator(array $rules, stdClass $input): Validator
+    {
         return validator($this->mapRulesInput($rules, $input), $rules);
     }
 
