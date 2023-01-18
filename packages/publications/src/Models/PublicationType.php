@@ -84,7 +84,7 @@ class PublicationType implements SerializableContract
     }
 
     public function __construct(
-        string $name,
+        string $name, // todo get from directory name if not set in schema?
         string $canonicalField = '__createdAt',
         string $detailTemplate = 'detail.blade.php',
         string $listTemplate = 'list.blade.php',
@@ -94,7 +94,7 @@ class PublicationType implements SerializableContract
         array $fields = [],
         ?string $directory = null
     ) {
-        $this->name = $name;
+        $this->name = $name; // todo get from directory name if not set in schema?
         $this->canonicalField = $canonicalField;
         $this->detailTemplate = $detailTemplate;
         $this->listTemplate = $listTemplate;
