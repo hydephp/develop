@@ -8,6 +8,8 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationType;
 
+use function validator;
+
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationPageValidatorTest
  */
@@ -15,6 +17,8 @@ class PublicationPageValidator extends InvokableAction
 {
     protected PublicationType $publicationType;
     protected array $matter;
+
+    protected array $fieldValidators = [];
 
     public function __construct(PublicationType $publicationType, string $pageIdentifier)
     {
@@ -25,6 +29,11 @@ class PublicationPageValidator extends InvokableAction
     /** @return $this */
     public function __invoke(): static
     {
+        foreach ($this->publicationType->getFields() as $field) {
+            $validator = new PublicationFieldValidator($this->publicationType, $field);
+            $this->fieldValidators[] = validator([$this->matter[$field->name] ?? null], $validator->getValidationRules());
+        }
+
         return $this;
     }
 }
