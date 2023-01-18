@@ -43,12 +43,15 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
     {
         $timeStart = microtime(true);
 
+        if (! $this->option('json')) {
+            $this->title('Validating publication schemas!');
+        }
+
         $this->validateSchemaFiles();
 
         if ($this->option('json')) {
             $this->outputJson();
         } else {
-            $this->title('Validating publication schemas!');
             $this->displayResults();
             $this->outputSummary($timeStart);
         }
