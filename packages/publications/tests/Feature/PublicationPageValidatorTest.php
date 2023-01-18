@@ -7,7 +7,7 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Publications\Actions\PublicationSchemaValidator
+ * @covers \Hyde\Publications\Actions\PublicationPageValidator
  */
 class PublicationPageValidatorTest extends TestCase
 {
