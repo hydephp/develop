@@ -95,8 +95,8 @@ class ValidatesPublicationSchema extends InvokableAction
     public function errors(): array
     {
         return [
-            'schema' => $this->schemaValidator->errors()->toArray(),
-            'fields' => $this->fieldValidators->map(fn (Validator $validator): array => $validator->errors()->toArray())->toArray(),
+            'schema' => $this->schemaValidator->errors()->all(),
+            'fields' => $this->fieldValidators->map(fn (Validator $validator): array => $validator->errors()->all())->all(),
         ];
     }
 }

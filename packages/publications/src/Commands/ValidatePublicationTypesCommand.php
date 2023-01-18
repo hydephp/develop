@@ -11,7 +11,6 @@ use function glob;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\ValidatesPublicationSchema;
 use Hyde\Publications\PublicationService;
-use function implode;
 use InvalidArgumentException;
 use function json_encode;
 use LaravelZero\Framework\Commands\Command;
@@ -90,7 +89,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
             } else {
                 $this->line(sprintf('  <fg=red>Found %s top-level schema errors:</>', count($schemaErrors)));
                 foreach ($schemaErrors as $error) {
-                    $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, implode(' ', $error)));
+                    $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, $error));
                 }
             }
 
@@ -103,8 +102,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
                 foreach ($schemaFields as $fieldNumber => $fieldErrors) {
                     $this->line(sprintf('    <fg=cyan>Field #%s:</>', $fieldNumber + 1));
                     foreach ($fieldErrors as $error) {
-                        $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK,
-                            implode(' ', $error)));
+                        $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, $error));
                     }
                 }
             }

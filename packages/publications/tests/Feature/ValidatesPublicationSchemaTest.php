@@ -118,20 +118,20 @@ class ValidatesPublicationSchemaTest extends TestCase
 
         $this->assertSame([
             'schema' => [
-                'name' => ['The name must be a string.'],
-                'canonicalField' => ['The canonical field must be a string.'],
-                'detailTemplate' => ['The detail template must be a string.'],
-                'listTemplate' => ['The list template must be a string.'],
-                'sortField' => ['The sort field must be a string.'],
-                'sortAscending' => ['The sort ascending field must be true or false.'],
-                'directory' => ['The directory field is prohibited.'],
+                'The name must be a string.',
+                'The canonical field must be a string.',
+                'The detail template must be a string.',
+                'The list template must be a string.',
+                'The sort field must be a string.',
+                'The sort ascending field must be true or false.',
+                'The directory field is prohibited.',
             ],
             'fields' => [[
-                'type' => ['The type must be a string.'],
-                'name' => ['The name must be a string.'],
+                'The type must be a string.',
+                'The name must be a string.',
             ], [
-                'type' => ['The type field is required.'],
-                'name' => ['The name field is required.'],
+                'The type field is required.',
+                'The name field is required.',
             ]],
         ], $errors);
     }
