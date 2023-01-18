@@ -84,8 +84,8 @@ class PublicationPageValidatorTest extends TestCase
         $validator = PublicationPageValidator::call($publicationType, 'my-page');
 
         $this->assertSame([
-            'The myField must be a string.',
-            'The myNumber must be an integer.',
+            'The my field must be a string.',
+            'The my number must be an integer.',
         ], $validator->errors());
     }
 }
