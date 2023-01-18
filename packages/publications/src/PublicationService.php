@@ -100,7 +100,6 @@ class PublicationService
     public static function validateSchemaFile(string $pubTypeName, bool $throw = true): array
     {
         $schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
-        $errors = [];
 
         $schemaValidator = validator([
             'name' => $schema->name ?? null,
@@ -124,7 +123,7 @@ class PublicationService
             'directory' => 'nullable|prohibited',
         ]);
 
-        $errors['schema'] = $schemaValidator->errors()->toArray();
+        $schemaErrors = $schemaValidator->errors()->toArray();
 
         if ($throw) {
             $schemaValidator->validate();
@@ -138,7 +137,7 @@ class PublicationService
 
         // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
-        $errors['fields'] = [];
+        $fieldErrors = [];
 
         foreach ($schema->fields as $field) {
             $fieldValidator = validator([
@@ -155,14 +154,17 @@ class PublicationService
 
             // TODO check tag group exists?
 
-            $errors['fields'][] = $fieldValidator->errors()->toArray();
+            $fieldErrors[] = $fieldValidator->errors()->toArray();
 
             if ($throw) {
                 $fieldValidator->validate();
             }
         }
 
-        return $errors;
+        return [
+            'schema' => $schemaErrors,
+            'fields' => $fieldErrors,
+        ];
     }
 
     protected static function getSchemaFiles(): array
