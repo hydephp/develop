@@ -78,7 +78,38 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
 
     protected function displayResults(): void
     {
-       // TODO: Split out display logic
+        foreach ($this->results as $name => $errors) {
+            $this->infoComment('Validating schema file for', $name);
+
+            $schemaErrors = $errors['schema'];
+            if (empty($schemaErrors)) {
+                $this->line('<info>  No top-level schema errors found</info>');
+            } else {
+                $this->line(sprintf('  <fg=red>Found %s top-level schema errors:</>', count($schemaErrors)));
+                foreach ($schemaErrors as $error) {
+                    $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, implode(' ', $error)));
+                }
+            }
+
+            $schemaFields = $errors['fields'];
+            if (empty(array_filter($schemaFields))) {
+                $this->line('<info>  No field-level schema errors found</info>');
+            } else {
+                $this->newLine();
+                $this->line(sprintf('  <fg=red>Found errors in %s field definitions:</>', count($schemaFields)));
+                foreach ($schemaFields as $fieldNumber => $fieldErrors) {
+                    $this->line(sprintf('    <fg=cyan>Field #%s:</>', $fieldNumber + 1));
+                    foreach ($fieldErrors as $error) {
+                        $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK,
+                            implode(' ', $error)));
+                    }
+                }
+            }
+
+            if (next($this->results)) {
+                $this->newLine();
+            }
+        }
     }
 
     protected function outputSummary($timeStart): void
@@ -100,39 +131,9 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
         /** @see PublicationService::getSchemaFiles() */
         $schemaFiles = glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
 
-        foreach ($schemaFiles as $number => $schemaFile) {
+        foreach ($schemaFiles as $schemaFile) {
             $name = basename(dirname($schemaFile));
-            $this->infoComment('Validating schema file for', $name);
-
-            $errors = PublicationService::validateSchemaFile($schemaFile, false);
-
-            $schemaErrors = $errors['schema'];
-            if (empty($schemaErrors)) {
-                $this->line('<info>  No top-level schema errors found</info>');
-            } else {
-                $this->line(sprintf("  <fg=red>Found %s top-level schema errors:</>", count($schemaErrors)));
-                foreach ($schemaErrors as $error) {
-                    $this->line(sprintf("    <fg=red>%s</> <comment>%s</comment>", self::CROSS_MARK, implode(' ', $error)));
-                }
-            }
-
-            $schemaFields = $errors['fields'];
-            if (empty(array_filter($schemaFields))) {
-                $this->line('<info>  No field-level schema errors found</info>');
-            } else {
-                $this->newLine();
-                $this->line(sprintf("  <fg=red>Found errors in %s field definitions:</>", count($schemaFields)));
-                foreach ($schemaFields as $fieldNumber => $fieldErrors) {
-                    $this->line(sprintf("    <fg=cyan>Field #%s:</>", $fieldNumber+1));
-                    foreach ($fieldErrors as $error) {
-                        $this->line(sprintf("      <fg=red>%s</> <comment>%s</comment>", self::CROSS_MARK, implode(' ', $error)));
-                    }
-                }
-            }
-
-            if ($number !== count($schemaFiles) - 1) {
-                $this->newLine();
-            }
+            $this->results[$name] = PublicationService::validateSchemaFile($schemaFile, false);
         }
     }
 }
