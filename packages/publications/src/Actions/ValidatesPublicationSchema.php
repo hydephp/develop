@@ -79,8 +79,6 @@ class ValidatesPublicationSchema extends InvokableAction
 
     protected function makeFieldsValidator(): void
     {
-        $schema = $this->schema;
-
         $rules = [
             'type' => 'required|string',
             'name' => 'required|string',
@@ -88,8 +86,8 @@ class ValidatesPublicationSchema extends InvokableAction
             'tagGroup' => 'nullable|string',
         ];
 
-        if (is_array($schema->fields)) {
-            foreach ($schema->fields as $field) {
+        if (is_array($this->schema->fields)) {
+            foreach ($this->schema->fields as $field) {
                 foreach ($rules as $key => $rule) {
                     $input[$key] = $field->{$key} ?? null;
                 }
