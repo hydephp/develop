@@ -6,6 +6,7 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Markdown\Models\MarkdownDocument;
+use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -35,7 +36,7 @@ class PublicationPageValidator extends InvokableAction
         $input = [];
 
         foreach ($this->publicationType->getFields() as $field) {
-            $rules[$field->name] = (new PublicationFieldValidator($this->publicationType, $field))->getValidationRules();
+            $rules[$field->name] = $this->getValidationRules($field);
             $input[$field->name] = $this->matter[$field->name] ?? null;
         }
 
@@ -54,5 +55,10 @@ class PublicationPageValidator extends InvokableAction
     public function errors(): array
     {
         return $this->validator->errors()->all();
+    }
+
+    protected function getValidationRules(PublicationFieldDefinition $field): array
+    {
+        return (new PublicationFieldValidator($this->publicationType, $field))->getValidationRules();
     }
 }
