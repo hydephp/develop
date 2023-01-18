@@ -151,4 +151,21 @@ class ValidatePublicationTypesCommandTest extends TestCase
             ->expectsOutputToContain('All done')
             ->assertExitCode(1);
     }
+
+    public function testWithNoFields()
+    {
+        config(['app.throw_on_console_exception' => true]);
+
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->artisan('validate:publicationTypes')
+            ->expectsOutputToContain('Validating publication schemas!')
+            ->expectsOutput('Validating schema file for [test-publication]')
+            ->expectsOutput('  No top-level schema errors found')
+            ->expectsOutput('  No field-level schema errors found')
+            ->expectsOutputToContain('All done')
+            ->assertExitCode(0);
+    }
 }
