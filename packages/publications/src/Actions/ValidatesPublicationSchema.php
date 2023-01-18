@@ -7,7 +7,6 @@ namespace Hyde\Publications\Actions;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Collection;
 use function json_decode;
 use stdClass;
 use function validator;
@@ -21,13 +20,12 @@ class ValidatesPublicationSchema extends InvokableAction
 
     protected Validator $schemaValidator;
 
-    /** @var \Illuminate\Support\Collection<\Illuminate\Contracts\Validation\Validator> */
-    protected Collection $fieldValidators;
+    /** @var array<\Illuminate\Contracts\Validation\Validator> */
+    protected array $fieldValidators;
 
     public function __construct(string $pubTypeName)
     {
         $this->schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
-        $this->fieldValidators = new Collection();
     }
 
     /** @return $this */
@@ -43,7 +41,7 @@ class ValidatesPublicationSchema extends InvokableAction
     public function validate(): void
     {
         $this->schemaValidator->validate();
-        $this->fieldValidators->each(fn (Validator $validator): array => $validator->validate());
+        collect($this->fieldValidators)->each(fn (Validator $validator): array => $validator->validate());
     }
 
     /** @return array<string, Validator|array */
@@ -91,7 +89,7 @@ class ValidatesPublicationSchema extends InvokableAction
                     $input[$key] = $field->{$key} ?? null;
                 }
 
-                $this->fieldValidators->add(validator($input, $rules));
+                $this->fieldValidators[] = validator($input, $rules);
             }
         }
     }
@@ -99,7 +97,7 @@ class ValidatesPublicationSchema extends InvokableAction
     /** @return array<array-key, array<array-key, string>> */
     protected function evaluateFieldValidators(): array
     {
-        return $this->fieldValidators->map(function (Validator $validator): array {
+        return collect($this->fieldValidators)->map(function (Validator $validator): array {
             return $validator->errors()->all();
         })->all();
     }
