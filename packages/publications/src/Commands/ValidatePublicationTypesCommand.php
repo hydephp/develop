@@ -72,11 +72,8 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
     protected function validateSchemaFiles(): void
     {
         /** @see PublicationService::getSchemaFiles() */
-        $schemaFiles = glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
-
-        foreach ($schemaFiles as $schemaFile) {
-            $name = basename(dirname($schemaFile));
-            $this->results[$name] = PublicationService::validateSchemaFile($schemaFile, false);
+        foreach (glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json') as $schemaFile) {
+            $this->results[basename(dirname($schemaFile))] = PublicationService::validateSchemaFile($schemaFile, false);
         }
     }
 
