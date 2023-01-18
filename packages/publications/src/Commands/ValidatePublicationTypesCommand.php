@@ -36,23 +36,21 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Validate all publication schema files.';
 
-    protected bool $json;
-
     protected array $results = [];
 
     public function safeHandle(): int
     {
         $timeStart = microtime(true);
 
-        $this->json = $this->option('json');
+        $json = $this->option('json');
 
-        if (! $this->json) {
+        if (!$json) {
             $this->title('Validating publication schemas!');
         }
 
         $this->validateSchemaFiles();
 
-        if ($this->json) {
+        if ($json) {
             $this->outputJson();
         } else {
             $this->displayResults();
