@@ -7,6 +7,8 @@ namespace Hyde\Publications\Actions;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Collection;
 use stdClass;
 
 use function json_decode;
@@ -19,21 +21,21 @@ class ValidatesPublicationSchema extends InvokableAction
 {
     protected stdClass $schema;
 
-    /** @deprecated Will be replaced by fluent methods */
-    protected bool $throw;
+    protected Validator $schemaValidator;
+    protected Collection $fieldValidators;
 
-    public function __construct(string $pubTypeName, bool $throw = true)
+    public function __construct(string $pubTypeName)
     {
         $this->schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
-        $this->throw = $throw;
+        $this->fieldValidators = new Collection();
     }
 
-    public function __invoke(): array
+    /** @return $this */
+    public function __invoke(): static
     {
         $schema = $this->schema;
-        $throw = $this->throw;
 
-        $schemaValidator = validator([
+        $this->schemaValidator = validator([
             'name' => $schema->name ?? null,
             'canonicalField' => $schema->canonicalField ?? null,
             'detailTemplate' => $schema->detailTemplate ?? null,
@@ -55,12 +57,6 @@ class ValidatesPublicationSchema extends InvokableAction
             'directory' => 'nullable|prohibited',
         ]);
 
-        $schemaErrors = $schemaValidator->errors()->toArray();
-
-        if ($throw) {
-            $schemaValidator->validate();
-        }
-
         // TODO warn if fields are empty?
 
         // TODO warn if canonicalField does not match meta field or actual?
@@ -69,10 +65,10 @@ class ValidatesPublicationSchema extends InvokableAction
 
         // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
-        $fieldErrors = [];
-
         foreach ($schema->fields as $field) {
-            $fieldValidator = validator([
+            // TODO check tag group exists?
+
+            $this->fieldValidators->add(validator([
                 'type' => $field->type ?? null,
                 'name' => $field->name ?? null,
                 'rules' => $field->rules ?? null,
@@ -82,20 +78,23 @@ class ValidatesPublicationSchema extends InvokableAction
                 'name' => 'required|string',
                 'rules' => 'nullable|array',
                 'tagGroup' => 'nullable|string',
-            ]);
-
-            // TODO check tag group exists?
-
-            $fieldErrors[] = $fieldValidator->errors()->toArray();
-
-            if ($throw) {
-                $fieldValidator->validate();
-            }
+            ]));
         }
 
+        return $this;
+    }
+
+    public function validate(): void
+    {
+        $this->schemaValidator->validate();
+        $this->fieldValidators->each(fn (Validator $validator): array => $validator->validate());
+    }
+
+    public function errors(): array
+    {
         return [
-            'schema' => $schemaErrors,
-            'fields' => $fieldErrors,
+            'schema' => $this->schemaValidator->errors()->toArray(),
+            'fields' => $this->fieldValidators->map(fn(Validator $validator): array => $validator->errors()->toArray())->toArray(),
         ];
     }
 }

@@ -226,6 +226,8 @@ class PublicationType implements SerializableContract
      */
     public function validateSchemaFile(bool $throw = true): array
     {
-        return ValidatesPublicationSchema::call($this->getIdentifier(), $throw);
+        $method = $throw ? 'validate' : 'errors';
+
+        return ValidatesPublicationSchema::call($this->getIdentifier(), $throw)->$method();
     }
 }
