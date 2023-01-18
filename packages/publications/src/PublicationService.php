@@ -97,9 +97,9 @@ class PublicationService
      *
      * @internal This method is experimental and may be removed without notice
      */
-    public static function validateSchemaFile(string $schemaFile, bool $throw = true): array
+    public static function validateSchemaFile(string $pubTypeName, bool $throw = true): array
     {
-        $schema = json_decode(Filesystem::getContents($schemaFile));
+        $schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
         $errors = [];
 
         $schemaValidator = validator([

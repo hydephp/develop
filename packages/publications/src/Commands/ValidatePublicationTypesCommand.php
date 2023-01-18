@@ -73,7 +73,8 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
         }
 
         foreach ($schemaFiles as $schemaFile) {
-            $this->results[basename(dirname($schemaFile))] = PublicationService::validateSchemaFile($schemaFile, false);
+            $publicationName = basename(dirname($schemaFile));
+            $this->results[$publicationName] = PublicationService::validateSchemaFile($publicationName, false);
         }
     }
 
