@@ -75,7 +75,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
 
         foreach ($schemaFiles as $schemaFile) {
             $publicationName = basename(dirname($schemaFile));
-            $this->results[$publicationName] = ValidatesPublicationSchema::call($publicationName, false);
+            $this->results[$publicationName] = ValidatesPublicationSchema::call($publicationName, false)->errors();
         }
     }
 
