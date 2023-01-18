@@ -500,6 +500,58 @@ class PublicationTypeTest extends TestCase
         $publicationType->validateSchemaFile();
     }
 
+    public function testValidateSchemaFileWithInvalidDataBuffered()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->file('test-publication/schema.json', <<<'JSON'
+            {
+                "name": 123,
+                "canonicalField": 123,
+                "detailTemplate": 123,
+                "listTemplate": 123,
+                "sortField": 123,
+                "sortAscending": 123,
+                "pageSize": "123",
+                 "fields": [
+                    {
+                        "name": 123,
+                        "type": 123
+                    },
+                    {
+                        "noName": "myField",
+                        "noType": "string"
+                    }
+                ],
+                "directory": "foo"
+            }
+            JSON
+        );
+
+        $errors = $publicationType->validateSchemaFile(false);
+
+        $this->assertSame([
+            'schema' => [
+            'name' => ['The name must be a string.'],
+            'canonicalField' => ['The canonical field must be a string.'],
+            'detailTemplate' => ['The detail template must be a string.'],
+            'listTemplate' => ['The list template must be a string.'],
+            'sortField' => ['The sort field must be a string.'],
+            'sortAscending' => ['The sort ascending field must be true or false.'],
+            'directory' => ['The directory field is prohibited.'],
+          ],
+          'fields' => [[
+            'type' => ['The type must be a string.'],
+            'name' => ['The name must be a string.']
+          ], [
+            'type' => ['The type field is required.'],
+            'name' => ['The name field is required.'],
+        ]],
+        ], $errors);
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
