@@ -7,6 +7,7 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Publications\Actions\PublicationPageValidator;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
+use Illuminate\Validation\ValidationException;
 
 /**
  * @covers \Hyde\Publications\Actions\PublicationPageValidator
@@ -36,5 +37,29 @@ class PublicationPageValidatorTest extends TestCase
         $validator->validate();
 
         $this->assertTrue(true);
+    }
+
+    public function testValidatePageFileWithInvalidFields()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'myField', 'type' => 'string'],
+            ['name' => 'myNumber', 'type' => 'integer'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/my-page.md', <<<'MD'
+            ---
+            myField: false
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $validator = PublicationPageValidator::call($publicationType, 'my-page');
+
+        $this->expectException(ValidationException::class);
+        $validator->validate();
     }
 }
