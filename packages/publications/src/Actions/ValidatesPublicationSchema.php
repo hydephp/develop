@@ -9,6 +9,7 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Collection;
 use function array_combine;
+use function array_keys;
 use function json_decode;
 use stdClass;
 use function validator;
@@ -69,16 +70,16 @@ class ValidatesPublicationSchema extends InvokableAction
     {
         $schema = $this->schema;
 
-        $properties = [
-            'name',
-            'canonicalField',
-            'detailTemplate',
-            'listTemplate',
-            'sortField',
-            'sortAscending',
-            'pageSize',
-            'fields',
-            'directory'
+        $rules = [
+            'name' => 'required|string',
+            'canonicalField' => 'nullable|string',
+            'detailTemplate' => 'nullable|string',
+            'listTemplate' => 'nullable|string',
+            'sortField' => 'nullable|string',
+            'sortAscending' => 'nullable|boolean',
+            'pageSize' => 'nullable|integer',
+            'fields' => 'nullable|array',
+            'directory' => 'nullable|prohibited',
         ];
 
         $input = [
@@ -93,21 +94,9 @@ class ValidatesPublicationSchema extends InvokableAction
             $schema->directory ?? null,
         ];
 
-        $rules = [
-            'required|string',
-            'nullable|string',
-            'nullable|string',
-            'nullable|string',
-            'nullable|string',
-            'nullable|boolean',
-            'nullable|integer',
-            'nullable|array',
-            'nullable|prohibited',
-        ];
-
         $this->schemaValidator = validator(
-            array_combine($properties, $input),
-            array_combine($properties, $rules)
+            array_combine(array_keys($rules), $input),
+            array_combine(array_keys($rules), $rules)
         );
     }
 
