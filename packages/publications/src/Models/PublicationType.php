@@ -13,6 +13,7 @@ use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
+use Hyde\Publications\Actions\PublicationSchemaValidator;
 use Hyde\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
@@ -223,8 +224,10 @@ class PublicationType implements SerializableContract
      *
      * @internal This method is experimental and may be removed without notice
      */
-    public function validateSchemaFile(bool $throw = true): array
+    public function validateSchemaFile(bool $throw = true): ?array
     {
-        return PublicationService::validateSchemaFile($this->getIdentifier(), $throw);
+        $method = $throw ? 'validate' : 'errors';
+
+        return PublicationSchemaValidator::call($this->getIdentifier(), $throw)->$method();
     }
 }
