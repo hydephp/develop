@@ -21,7 +21,7 @@ class ValidatesPublicationSchema extends InvokableAction
     protected Validator $schemaValidator;
 
     /** @var array<\Illuminate\Contracts\Validation\Validator> */
-    protected array $fieldValidators;
+    protected array $fieldValidators = [];
 
     public function __construct(string $pubTypeName)
     {
