@@ -8,7 +8,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Collection;
-use function collect;
 use function json_decode;
 use stdClass;
 use function validator;
@@ -89,9 +88,11 @@ class ValidatesPublicationSchema extends InvokableAction
 
         if (is_array($this->schema->fields)) {
             foreach ($this->schema->fields as $field) {
-                $this->fieldValidators->add(validator(collect($rules)->mapWithKeys(function ($rule, $key) use ($field): array {
-                    return [$key => $field->{$key} ?? null];
-                })->all(), $rules));
+                foreach ($rules as $key => $rule) {
+                    $input[$key] = $field->{$key} ?? null;
+                }
+
+                $this->fieldValidators->add(validator($input, $rules));
             }
         }
     }
