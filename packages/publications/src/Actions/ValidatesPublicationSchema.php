@@ -17,10 +17,7 @@ use function validator;
 class ValidatesPublicationSchema extends InvokableAction
 {
     protected stdClass $schema;
-
     protected Validator $schemaValidator;
-
-    /** @var array<\Illuminate\Contracts\Validation\Validator> */
     protected array $fieldValidators = [];
 
     public function __construct(string $pubTypeName)
