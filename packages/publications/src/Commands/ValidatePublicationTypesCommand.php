@@ -76,6 +76,17 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
+    protected function validateSchemaFiles(): void
+    {
+        /** @see PublicationService::getSchemaFiles() */
+        $schemaFiles = glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
+
+        foreach ($schemaFiles as $schemaFile) {
+            $name = basename(dirname($schemaFile));
+            $this->results[$name] = PublicationService::validateSchemaFile($schemaFile, false);
+        }
+    }
+
     protected function displayResults(): void
     {
         foreach ($this->results as $name => $errors) {
@@ -124,16 +135,5 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
-    }
-
-    protected function validateSchemaFiles(): void
-    {
-        /** @see PublicationService::getSchemaFiles() */
-        $schemaFiles = glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
-
-        foreach ($schemaFiles as $schemaFile) {
-            $name = basename(dirname($schemaFile));
-            $this->results[$name] = PublicationService::validateSchemaFile($schemaFile, false);
-        }
     }
 }
