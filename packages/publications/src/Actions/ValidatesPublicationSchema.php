@@ -7,6 +7,8 @@ namespace Hyde\Publications\Actions;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 
+use stdClass;
+
 use function json_decode;
 
 /**
@@ -14,7 +16,7 @@ use function json_decode;
  */
 class ValidatesPublicationSchema extends InvokableAction
 {
-    protected array $schema;
+    protected stdClass $schema;
     protected bool $throw;
 
     public function __construct(string $pubTypeName, bool $throw = true)
