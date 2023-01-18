@@ -9,9 +9,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
 
 /**
- * @covers \Hyde\Publications\Actions\ValidatesPublicationSchema
+ * @covers \Hyde\Publications\Actions\PublicationSchemaValidator
  */
-class ValidatesPublicationSchemaTest extends TestCase
+class PublicationSchemaValidatorTest extends TestCase
 {
     public function testValidateSchemaFile()
     {

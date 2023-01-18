@@ -13,7 +13,7 @@ use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
-use Hyde\Publications\Actions\ValidatesPublicationSchema;
+use Hyde\Publications\Actions\PublicationSchemaValidator;
 use Hyde\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
@@ -228,6 +228,6 @@ class PublicationType implements SerializableContract
     {
         $method = $throw ? 'validate' : 'errors';
 
-        return ValidatesPublicationSchema::call($this->getIdentifier(), $throw)->$method();
+        return PublicationSchemaValidator::call($this->getIdentifier(), $throw)->$method();
     }
 }

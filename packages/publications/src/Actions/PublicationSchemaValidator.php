@@ -12,9 +12,9 @@ use stdClass;
 use function validator;
 
 /**
- * @see \Hyde\Publications\Testing\Feature\ValidatesPublicationSchemaTest
+ * @see \Hyde\Publications\Testing\Feature\PublicationSchemaValidatorTest
  */
-class ValidatesPublicationSchema extends InvokableAction
+class PublicationSchemaValidator extends InvokableAction
 {
     protected stdClass $schema;
     protected Validator $schemaValidator;

@@ -9,7 +9,7 @@ use function basename;
 use function dirname;
 use function glob;
 use Hyde\Hyde;
-use Hyde\Publications\Actions\ValidatesPublicationSchema;
+use Hyde\Publications\Actions\PublicationSchemaValidator;
 use Hyde\Publications\PublicationService;
 use InvalidArgumentException;
 use function json_encode;
@@ -74,7 +74,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
 
         foreach ($schemaFiles as $schemaFile) {
             $publicationName = basename(dirname($schemaFile));
-            $this->results[$publicationName] = ValidatesPublicationSchema::call($publicationName, false)->errors();
+            $this->results[$publicationName] = PublicationSchemaValidator::call($publicationName, false)->errors();
         }
     }
 
