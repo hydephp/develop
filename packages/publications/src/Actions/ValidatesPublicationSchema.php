@@ -18,6 +18,8 @@ use function validator;
 class ValidatesPublicationSchema extends InvokableAction
 {
     protected stdClass $schema;
+
+    /** @deprecated Will be replaced by fluent methods */
     protected bool $throw;
 
     public function __construct(string $pubTypeName, bool $throw = true)
