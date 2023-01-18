@@ -65,20 +65,22 @@ class ValidatesPublicationSchema extends InvokableAction
 
         // TODO warn if pageSize is less than 0 (as that equals no pagination)?
 
-        foreach ($schema->fields as $field) {
-            // TODO check tag group exists?
+        if (is_array($schema->fields)) {
+            foreach ($schema->fields as $field) {
+                // TODO check tag group exists?
 
-            $this->fieldValidators->add(validator([
-                'type' => $field->type ?? null,
-                'name' => $field->name ?? null,
-                'rules' => $field->rules ?? null,
-                'tagGroup' => $field->tagGroup ?? null,
-            ], [
-                'type' => 'required|string',
-                'name' => 'required|string',
-                'rules' => 'nullable|array',
-                'tagGroup' => 'nullable|string',
-            ]));
+                $this->fieldValidators->add(validator([
+                    'type' => $field->type ?? null,
+                    'name' => $field->name ?? null,
+                    'rules' => $field->rules ?? null,
+                    'tagGroup' => $field->tagGroup ?? null,
+                ], [
+                    'type' => 'required|string',
+                    'name' => 'required|string',
+                    'rules' => 'nullable|array',
+                    'tagGroup' => 'nullable|string',
+                ]));
+            }
         }
 
         return $this;
