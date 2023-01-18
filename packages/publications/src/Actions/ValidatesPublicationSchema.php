@@ -111,12 +111,8 @@ class ValidatesPublicationSchema extends InvokableAction
     /** @return array<array-key, array<array-key, string>> */
     protected function evaluateFieldValidators(): array
     {
-        $errors = [];
-
-        foreach ($this->fieldValidators as $validator) {
-            $errors[] = $validator->errors()->all();
-        }
-
-        return $errors;
+        return $this->fieldValidators->map(function (Validator $validator): array {
+            return $validator->errors()->all();
+        })->all();
     }
 }
