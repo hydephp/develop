@@ -68,8 +68,6 @@ class ValidatesPublicationSchema extends InvokableAction
 
     protected function validateProperties(): void
     {
-        $schema = $this->schema;
-
         $rules = [
             'name' => 'required|string',
             'canonicalField' => 'nullable|string',
@@ -83,7 +81,7 @@ class ValidatesPublicationSchema extends InvokableAction
         ];
 
         foreach ($rules as $key => $rule) {
-            $input[$key] = $schema->{$key} ?? null;
+            $input[$key] = $this->schema->{$key} ?? null;
         }
 
         $this->schemaValidator = validator(
