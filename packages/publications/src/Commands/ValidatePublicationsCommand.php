@@ -7,7 +7,7 @@ namespace Hyde\Publications\Commands;
 use function collect;
 use Exception;
 use function filled;
-use Hyde\Publications\Actions\ValidatesPublicationField;
+use Hyde\Publications\Actions\PublicationFieldValidator;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
@@ -120,7 +120,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 throw new Exception("Field [$fieldName] is missing from publication");
             }
 
-            $validator = new ValidatesPublicationField($publicationType, $field);
+            $validator = new PublicationFieldValidator($publicationType, $field);
             $validator->validate($publication->matter->get($fieldName));
         } catch (Exception $exception) {
             $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName]['errors'][] = $exception->getMessage();

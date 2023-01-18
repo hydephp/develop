@@ -14,11 +14,9 @@ use Illuminate\Contracts\Validation\Validator;
 use function validator;
 
 /**
- * @see \Hyde\Publications\Testing\Feature\ValidatesPublicationsTest
- *
- * @todo Rename to PublicationFieldValidator?
+ * @see \Hyde\Publications\Testing\Feature\PublicationFieldValidatorTest
  */
-class ValidatesPublicationField
+class PublicationFieldValidator
 {
     protected PublicationType $publicationType;
     protected PublicationFieldDefinition $fieldDefinition;
