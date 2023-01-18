@@ -33,9 +33,9 @@ class ValidatesPublicationSchema extends InvokableAction
     /** @return $this */
     public function __invoke(): static
     {
-        $this->validateProperties();
+        $this->makePropertyValidator();
 
-        $this->validateFields();
+        $this->makeFieldsValidator();
 
         // TODO warn if fields are empty?
 
@@ -64,7 +64,7 @@ class ValidatesPublicationSchema extends InvokableAction
         ];
     }
 
-    protected function validateProperties(): void
+    protected function makePropertyValidator(): void
     {
         $rules = [
             'name' => 'required|string',
@@ -85,7 +85,7 @@ class ValidatesPublicationSchema extends InvokableAction
         $this->schemaValidator = validator($input, $rules);
     }
 
-    protected function validateFields(): void
+    protected function makeFieldsValidator(): void
     {
         $schema = $this->schema;
 
