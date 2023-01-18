@@ -82,17 +82,11 @@ class ValidatesPublicationSchema extends InvokableAction
             'directory' => 'nullable|prohibited',
         ];
 
-        $input = [
-            $schema->name ?? null,
-            $schema->canonicalField ?? null,
-            $schema->detailTemplate ?? null,
-            $schema->listTemplate ?? null,
-            $schema->sortField ?? null,
-            $schema->sortAscending ?? null,
-            $schema->pageSize ?? null,
-            $schema->fields ?? null,
-            $schema->directory ?? null,
-        ];
+        $input = [];
+
+        foreach ($rules as $key => $rule) {
+            $input[$key] = $schema->{$key} ?? null;
+        }
 
         $this->schemaValidator = validator(
             array_combine(array_keys($rules), $input),
