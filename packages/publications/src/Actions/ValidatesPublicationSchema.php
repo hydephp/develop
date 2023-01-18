@@ -105,7 +105,10 @@ class ValidatesPublicationSchema extends InvokableAction
             'nullable|prohibited',
         ];
 
-        $this->schemaValidator = validator($input, $rules);
+        $this->schemaValidator = validator(
+            array_combine($properties, $input),
+            array_combine($properties, $rules)
+        );
     }
 
     protected function validateFields(): void
