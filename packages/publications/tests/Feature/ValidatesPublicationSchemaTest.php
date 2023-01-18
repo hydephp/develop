@@ -88,7 +88,6 @@ class ValidatesPublicationSchemaTest extends TestCase
     {
         $this->directory('test-publication');
         $publicationType = new PublicationType('test-publication');
-        $publicationType->save();
 
         $this->file('test-publication/schema.json', <<<'JSON'
             {
