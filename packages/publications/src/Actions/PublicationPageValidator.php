@@ -8,9 +8,7 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
-
 use Illuminate\Contracts\Validation\Validator;
-
 use function validator;
 
 /**
