@@ -82,8 +82,6 @@ class ValidatesPublicationSchema extends InvokableAction
             'directory' => 'nullable|prohibited',
         ];
 
-        $input = [];
-
         foreach ($rules as $key => $rule) {
             $input[$key] = $schema->{$key} ?? null;
         }
