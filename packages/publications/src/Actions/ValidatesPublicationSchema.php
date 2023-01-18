@@ -108,7 +108,7 @@ class ValidatesPublicationSchema extends InvokableAction
         }
     }
 
-    /** @return string[][] */
+    /** @return array<array-key, array<array-key, string>> */
     protected function evaluateFieldValidators(): array
     {
         return $this->fieldValidators->map(function (Validator $validator): array {
