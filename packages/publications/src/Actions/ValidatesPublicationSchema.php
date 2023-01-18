@@ -8,6 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Collection;
+use function array_combine;
 use function json_decode;
 use stdClass;
 use function validator;
@@ -67,6 +68,18 @@ class ValidatesPublicationSchema extends InvokableAction
     protected function validateProperties(): void
     {
         $schema = $this->schema;
+
+        $properties = [
+            'name',
+            'canonicalField',
+            'detailTemplate',
+            'listTemplate',
+            'sortField',
+            'sortAscending',
+            'pageSize',
+            'fields',
+            'directory'
+        ];
 
         $input = [
             'name' => $schema->name ?? null,
