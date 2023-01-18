@@ -4,21 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Exception;
 use Hyde\Hyde;
-use Hyde\Publications\Actions\ValidatesPublicationField;
-use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
-use Illuminate\Support\Collection;
-use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use function array_filter;
 use function basename;
-use function collect;
 use function dirname;
-use function filled;
 use function glob;
 use function implode;
 use function json_encode;
@@ -27,8 +18,6 @@ use function microtime;
 use function next;
 use function round;
 use function sprintf;
-use function str_repeat;
-use function strlen;
 
 /**
  * Hyde Command to validate all publication schema file..
