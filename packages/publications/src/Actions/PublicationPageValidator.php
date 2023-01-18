@@ -34,7 +34,7 @@ class PublicationPageValidator extends InvokableAction
     {
         foreach ($this->publicationType->getFields() as $field) {
             $validator = new PublicationFieldValidator($this->publicationType, $field);
-            $this->fieldValidators[] = validator([$this->matter[$field->name] ?? null], $validator->getValidationRules());
+            $this->fieldValidators[] = validator([$field->name => $this->matter[$field->name] ?? null], [$field->name => $validator->getValidationRules()]);
         }
 
         return $this;
