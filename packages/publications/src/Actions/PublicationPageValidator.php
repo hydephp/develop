@@ -10,7 +10,6 @@ use Hyde\Publications\Models\PublicationType;
 
 use Illuminate\Contracts\Validation\Validator;
 
-use function collect;
 use function validator;
 
 /**
@@ -21,7 +20,7 @@ class PublicationPageValidator extends InvokableAction
     protected PublicationType $publicationType;
     protected array $matter;
 
-    protected array $fieldValidators = [];
+    protected Validator $validator;
 
     public function __construct(PublicationType $publicationType, string $pageIdentifier)
     {
@@ -41,7 +40,7 @@ class PublicationPageValidator extends InvokableAction
             $input[$field->name] = $this->matter[$field->name] ?? null;
         }
 
-        $this->fieldValidators[] = validator($input, $rules);
+        $this->validator = validator($input, $rules);
 
         return $this;
     }
@@ -49,16 +48,12 @@ class PublicationPageValidator extends InvokableAction
     /** @throws \Illuminate\Validation\ValidationException */
     public function validate(): void
     {
-        foreach ($this->fieldValidators as $validator) {
-            $validator->validate();
-        }
+        $this->validator->validate();
     }
 
-    /** @return array<string, array */
+    /** @return array<int, string> */
     public function errors(): array
     {
-        return collect($this->fieldValidators)->map(function (Validator $validator): array {
-            return $validator->errors()->all();
-        })->all();
+        return $this->validator->errors()->all();
     }
 }
