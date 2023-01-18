@@ -17,6 +17,7 @@ use function validator;
 class PublicationSchemaValidator extends InvokableAction
 {
     protected stdClass $schema;
+
     protected Validator $schemaValidator;
     protected array $fieldValidators = [];
 
