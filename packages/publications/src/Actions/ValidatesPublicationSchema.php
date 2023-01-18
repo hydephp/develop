@@ -105,10 +105,10 @@ class ValidatesPublicationSchema extends InvokableAction
         }
     }
 
-    protected function mapRulesInput(array $rules, stdClass $field): array
+    protected function mapRulesInput(array $rules, stdClass $input): array
     {
-        return collect($rules)->mapWithKeys(function (string $rule, string $key) use ($field): array {
-            return [$key => $field->{$key} ?? null];
+        return collect($rules)->mapWithKeys(function (string $rule, string $key) use ($input): array {
+            return [$key => $input->{$key} ?? null];
         })->all();
     }
 }
