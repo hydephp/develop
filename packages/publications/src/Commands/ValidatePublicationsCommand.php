@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use function array_filter;
+use Hyde\Hyde;
 use function basename;
 use function collect;
 use Exception;
@@ -281,22 +281,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if (empty($errors['schema'])) {
                 $this->line('<info>  No top-level schema errors found</info>');
             } else {
-                $this->line(sprintf('  <fg=red>Found %s top-level schema errors:</>', count($errors['schema'])));
+                $this->line(sprintf("  <fg=red>Found %s errors:</>", count($errors['schema'])));
                 foreach ($errors['schema'] as $error) {
                     $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, implode(' ', $error)));
-                }
-            }
-
-            if (empty(array_filter($errors['fields']))) {
-                $this->line('<info>  No field-level schema errors found</info>');
-            } else {
-                $this->newLine();
-                $this->line(sprintf('  <fg=red>Found errors in %s field definitions:</>', count($errors['fields'])));
-                foreach ($errors['fields'] as $fieldNumber => $fieldErrors) {
-                    $this->line(sprintf('    <fg=cyan>Field #%s:</>', $fieldNumber + 1));
-                    foreach ($fieldErrors as $error) {
-                        $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, implode(' ', $error)));
-                    }
                 }
             }
 
