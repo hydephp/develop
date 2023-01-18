@@ -36,4 +36,12 @@ class PublicationPageValidator extends InvokableAction
 
         return $this;
     }
+
+    /** @throws \Illuminate\Validation\ValidationException */
+    public function validate(): void
+    {
+        foreach ($this->fieldValidators as $validator) {
+            $validator->validate();
+        }
+    }
 }
