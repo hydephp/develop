@@ -22,8 +22,9 @@ class PublicationPageValidator extends InvokableAction
         $this->matter = MarkdownDocument::parse("{$publicationType->getDirectory()}/$pageIdentifier.md")->matter()->toArray();
     }
 
-    public function __invoke()
+    /** @return $this */
+    public function __invoke(): static
     {
-        // TODO: Implement __invoke() method.
+        return $this;
     }
 }
