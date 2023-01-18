@@ -224,7 +224,7 @@ class PublicationType implements SerializableContract
      *
      * @internal This method is experimental and may be removed without notice
      */
-    public function validateSchemaFile(bool $throw = true): array
+    public function validateSchemaFile(bool $throw = true): ?array
     {
         $method = $throw ? 'validate' : 'errors';
 
