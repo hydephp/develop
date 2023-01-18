@@ -56,7 +56,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
             $this->outputSummary($timeStart);
         }
 
-        if (count(array_filter($this->results))) {
+        if ($this->countErrors() > 0) {
             return Command::FAILURE;
         }
 
@@ -125,5 +125,17 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
+    }
+
+    protected function countErrors(): int
+    {
+        $errors = 0;
+
+        foreach ($this->results as $results) {
+            $errors += count($results['schema']);
+            $errors += count(array_filter($results['fields']));
+        }
+
+        return $errors;
     }
 }
