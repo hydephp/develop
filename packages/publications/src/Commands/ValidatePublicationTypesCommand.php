@@ -56,7 +56,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
         $this->json = $this->option('json');
 
         if (! $this->json) {
-            $this->title('Validating publications!');
+            $this->title('Validating publication schemas!');
         }
 
         $this->validateSchemaFiles();
