@@ -81,6 +81,13 @@ class ValidatesPublicationSchema extends InvokableAction
     {
         $schema = $this->schema;
 
+        $rules = [
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'rules' => 'nullable|array',
+            'tagGroup' => 'nullable|string',
+        ];
+
         if (is_array($schema->fields)) {
             foreach ($schema->fields as $field) {
                 $input = [
@@ -89,12 +96,7 @@ class ValidatesPublicationSchema extends InvokableAction
                     'rules' => $field->rules ?? null,
                     'tagGroup' => $field->tagGroup ?? null,
                 ];
-                $rules = [
-                    'type' => 'required|string',
-                    'name' => 'required|string',
-                    'rules' => 'nullable|array',
-                    'tagGroup' => 'nullable|string',
-                ];
+
                 $this->fieldValidators->add(validator($input, $rules));
             }
         }
