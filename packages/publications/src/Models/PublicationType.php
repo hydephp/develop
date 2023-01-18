@@ -217,4 +217,14 @@ class PublicationType implements SerializableContract
     {
         return array_filter($array, fn (mixed $value): bool => ! is_null($value));
     }
+
+    /**
+     * Validate the schema.json file is valid.
+     *
+     * @internal This method is experimental and may be removed without notice
+     */
+    public function validateSchemaFile(bool $throw = true): array
+    {
+        return PublicationService::validateSchemaFile($this->getIdentifier(), $throw);
+    }
 }

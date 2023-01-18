@@ -23,6 +23,7 @@ class PublicationsServiceProvider extends ServiceProvider
             Commands\MakePublicationTypeCommand::class,
             Commands\MakePublicationCommand::class,
 
+            Commands\ValidatePublicationTypesCommand::class,
             Commands\ValidatePublicationsCommand::class,
             Commands\SeedPublicationCommand::class,
         ]);
