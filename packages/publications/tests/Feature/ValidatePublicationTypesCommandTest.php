@@ -15,6 +15,7 @@ class ValidatePublicationTypesCommandTest extends TestCase
     public function testWithNoPublicationTypes()
     {
         $this->artisan('validate:publicationTypes')
+            ->expectsOutputToContain('Validating publication schemas!')
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
     }
@@ -28,6 +29,11 @@ class ValidatePublicationTypesCommandTest extends TestCase
         $publicationType->save();
 
         $this->artisan('validate:publicationTypes')
+            ->expectsOutputToContain('Validating publication schemas!')
+            ->expectsOutput('Validating schema file for [test-publication]')
+            ->expectsOutput('  No top-level schema errors found')
+            ->expectsOutput('  No field-level schema errors found')
+            ->expectsOutputToContain('All done')
             ->assertExitCode(0);
     }
 
@@ -65,6 +71,24 @@ class ValidatePublicationTypesCommandTest extends TestCase
         );
 
         $this->artisan('validate:publicationTypes')
+            ->expectsOutputToContain('Validating publication schemas!')
+            ->expectsOutput('Validating schema file for [test-publication]')
+            ->expectsOutput('  Found 7 top-level schema errors:')
+            ->expectsOutput('    x The name must be a string.')
+            ->expectsOutput('    x The canonical field must be a string.')
+            ->expectsOutput('    x The detail template must be a string.')
+            ->expectsOutput('    x The list template must be a string.')
+            ->expectsOutput('    x The sort field must be a string.')
+            ->expectsOutput('    x The sort ascending field must be true or false.')
+            ->expectsOutput('    x The directory field is prohibited.')
+            ->expectsOutput('  Found errors in 2 field definitions:')
+            ->expectsOutput('    Field #1:')
+            ->expectsOutput('      x The type must be a string.')
+            ->expectsOutput('      x The name must be a string.')
+            ->expectsOutput('    Field #2:')
+            ->expectsOutput('      x The type field is required.')
+            ->expectsOutput('      x The name field is required.')
+            ->expectsOutputToContain('All done')
             ->assertExitCode(1);
     }
 }
