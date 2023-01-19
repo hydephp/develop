@@ -145,7 +145,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $hasErrors = false;
         $hasWarnings = false;
 
-        foreach ($results ?? [] as $result) {
+        foreach ($results as $result) {
             if (str_starts_with($result, 'Warning: ')) {
                 $hasWarnings = true;
             } else if (str_starts_with($result, 'Error: ')) {
