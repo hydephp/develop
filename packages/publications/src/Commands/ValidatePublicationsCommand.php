@@ -154,10 +154,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $hasErrors = count($errors);
         $hasWarnings = count($warnings);
+
         $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
+
         if ($hasWarnings && !$hasErrors) {
             $icon = self::WARNING;
         }
+
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
         foreach ($results as $fieldName => $message) {
@@ -168,6 +171,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function displayPublicationFieldResults(string $fieldName, string $message): void
     {
         $isWarning = str_starts_with($message, 'Warning: ');
+
         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</> %s', $fieldName,
             $isWarning ? self::WARNING : self::CROSS_MARK
         ));
