@@ -88,10 +88,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     private function validatePublicationType(PublicationType $publicationType): void
     {
+        $typeResults = [];
+
         foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
             $identifier = basename($publicationFile, '.md');
             $validator = PublicationPageValidator::call($publicationType, $identifier);
-            $this->results[$publicationType->getIdentifier()][$identifier] = [
+            $typeResults[$identifier] = [
                 'errors' => $validator->errors(),
                 'warnings' => $validator->warnings(),
             ];
@@ -100,6 +102,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->countedErrors += count($validator->errors());
             $this->countedWarnings += count($validator->warnings());
         }
+
+        $this->results[$publicationType->getIdentifier()] = $typeResults;
 
         $this->countedPublicationTypes++;
     }

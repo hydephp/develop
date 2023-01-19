@@ -233,7 +233,12 @@ Hello World
         $this->copyTestPublicationFixture();
 
         $this->artisan('validate:publications --json')
-            ->expectsOutput('[]')
+            ->expectsOutput(<<<'JSON'
+                {
+                    "test-publication": []
+                }
+                JSON
+            )
             ->assertExitCode(0);
     }
 
