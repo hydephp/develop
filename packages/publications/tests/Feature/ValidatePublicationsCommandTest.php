@@ -223,12 +223,12 @@ Hello World
                 {
                     "test-publication": {
                         "extra-field": {
-                            "title": "Passed",
-                            "extra": "Warning: This field is not defined in the schema."
+                            "title": "Field title passed.",
+                            "extra": "Warning: The extra field is not defined in the publication type."
                         },
                         "invalid-field-and-extra-field": {
                             "title": "Error: The title must be a string.",
-                            "extra": "Warning: This field is not defined in the schema."
+                            "extra": "Warning: The extra field is not defined in the publication type."
                         },
                         "invalid-field": {
                             "title": "Error: The title must be a string."
@@ -237,7 +237,7 @@ Hello World
                             "title": "Error: The title must be a string."
                         },
                         "valid": {
-                            "title": "Passed"
+                            "title": "Field title passed."
                         }
                     }
                 }
