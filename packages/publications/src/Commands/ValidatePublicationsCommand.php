@@ -158,11 +158,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->line("      <fg=yellow>Warning: $warning</>");
         }
         foreach ($errors ?? [] as $error) {
-            $this->displayPublicationFieldResults($error);
+            $this->displayPublicationFieldResults('FIXME', $error);
         }
     }
 
-    protected function displayPublicationFieldResults(string $error): void
+    protected function displayPublicationFieldResults(string $fieldName, string $error): void
     {
         $hasErrors = isset($field['errors']);
         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
