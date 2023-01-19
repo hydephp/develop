@@ -75,7 +75,7 @@ class PublicationPageValidator extends InvokableAction
         return $warnings;
     }
 
-    /** @internal Get the fields being validated */
+    /** @deprecated Count the results instead */
     public function fields(): array
     {
         return $this->matter;
