@@ -171,6 +171,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $isWarning = str_starts_with($message, 'Warning: ');
         $isError = str_starts_with($message, 'Error: ');
 
+        $message = str_replace(['Warning: ', 'Error: '], '', $message);
+
         if ($isWarning || $isError) {
             if ($isWarning) {
                 $this->line(sprintf('    <fg=yellow>%s</> <comment>%s</comment>', self::WARNING, $message));
