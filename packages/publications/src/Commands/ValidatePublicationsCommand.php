@@ -156,7 +156,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $hasWarnings = count($warnings);
         $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
         if ($hasWarnings && !$hasErrors) {
-            $icon = sprintf('%s', self::WARNING);
+            $icon = self::WARNING;
         }
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
