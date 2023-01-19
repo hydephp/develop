@@ -27,6 +27,7 @@ class PublicationPageValidator extends InvokableAction
     {
         $this->publicationType = $publicationType;
         $this->matter = MarkdownDocument::parse("{$publicationType->getDirectory()}/$pageIdentifier.md")->matter()->toArray();
+        unset($this->matter['__createdAt']);
     }
 
     /** @return $this */
