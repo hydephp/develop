@@ -168,9 +168,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function displayPublicationFieldResults(string $fieldName, string $message): void
     {
         $isWarning = str_starts_with($message, 'Warning: ');
-        $fieldHasErrors = !$isWarning;
         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
-            $fieldHasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <comment>%s</comment>',
+            !$isWarning ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <comment>%s</comment>',
                 self::WARNING)));
 
         if ($isWarning) {
