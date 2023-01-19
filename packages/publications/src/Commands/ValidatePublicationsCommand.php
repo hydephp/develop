@@ -32,9 +32,9 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
-    private const CHECKMARK = "\u{2713}";
-    private const CROSS_MARK = 'x';
-    private const WARNING = "\u{26A0}";
+    protected const CHECKMARK = "\u{2713}";
+    protected const CROSS_MARK = 'x';
+    protected const WARNING = "\u{26A0}";
 
     /** @var string */
     protected $signature = 'validate:publications
@@ -44,16 +44,16 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
-    private float $timeStart;
-    private bool $verbose;
+    protected float $timeStart;
+    protected bool $verbose;
 
-    private array $results = [];
+    protected array $results = [];
 
-    private int $countedPublicationTypes = 0;
-    private int $countedPublications = 0;
-    private int $countedFields = 0;
-    private int $countedErrors = 0;
-    private int $countedWarnings = 0;
+    protected int $countedPublicationTypes = 0;
+    protected int $countedPublications = 0;
+    protected int $countedFields = 0;
+    protected int $countedErrors = 0;
+    protected int $countedWarnings = 0;
 
     public function safeHandle(): int
     {
@@ -86,7 +86,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    private function validatePublicationType(PublicationType $publicationType): void
+    protected function validatePublicationType(PublicationType $publicationType): void
     {
         $typeResults = [];
 
@@ -106,7 +106,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->countedPublicationTypes++;
     }
 
-    private function getPublicationTypesToValidate(): Collection
+    protected function getPublicationTypesToValidate(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
         $name = $this->argument('publicationType');
@@ -125,7 +125,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $publicationTypes;
     }
 
-    private function displayResults(): void
+    protected function displayResults(): void
     {
         foreach ($this->results as $publicationTypeName => $publicationType) {
             $this->infoComment('Validating publication type', $publicationTypeName);
@@ -163,7 +163,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    private function outputSummary(): void
+    protected function outputSummary(): void
     {
         $warnColor = $this->countedWarnings ? 'yellow' : 'green';
         $errorColor = $this->countedErrors ? 'red' : 'green';
@@ -180,12 +180,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->writeln("<fg=$errorColor>Found $this->countedErrors Errors</>");
     }
 
-    private function outputJson(): void
+    protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
     }
 
-    private function subtitle(): void
+    protected function subtitle(): void
     {
         $size = strlen('Summary:');
         $spaces = str_repeat(' ', $size);
