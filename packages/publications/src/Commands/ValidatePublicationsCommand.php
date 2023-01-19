@@ -161,17 +161,22 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
         foreach ($results as $fieldName => $message) {
-            $isWarning = str_starts_with($message, 'Warning: ');
-            $fieldHasErrors = !$isWarning;
-            $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
-                $fieldHasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
-                    self::CHECKMARK)));
+            $this->displayPublicationFieldResults($fieldName, $message);
+        }
+    }
 
-            if ($isWarning) {
-                $this->line("      <fg=yellow>$message</>");
-            } else {
-                $this->line("      <fg=red>Error: $message</>");
-            }
+    protected function displayPublicationFieldResults(string $fieldName, string $message): void
+    {
+        $isWarning = str_starts_with($message, 'Warning: ');
+        $fieldHasErrors = !$isWarning;
+        $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
+            $fieldHasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
+                self::CHECKMARK)));
+
+        if ($isWarning) {
+            $this->line("      <fg=yellow>$message</>");
+        } else {
+            $this->line("      <fg=red>Error: $message</>");
         }
     }
 
