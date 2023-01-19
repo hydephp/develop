@@ -161,8 +161,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
         foreach ($results as $fieldName => $message) {
+            $fieldHasErrors = ! str_starts_with($message, 'Warning: ');
             $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
-                $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
+                $fieldHasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
                     self::CHECKMARK)));
         }
 
