@@ -69,7 +69,7 @@ class PublicationPageValidator extends InvokableAction
         $fields = $this->publicationType->getFields()->pluck('name')->toArray();
         foreach ($this->matter as $key => $value) {
             if (! in_array($key, $fields)) {
-                $warnings[$key] = "Warning: This field is not defined in the schema.";
+                $warnings[$key] = "This field is not defined in the schema.";
             }
         }
 
@@ -93,7 +93,7 @@ class PublicationPageValidator extends InvokableAction
 
         foreach ($validatedFields as $key => $value) {
             if (isset($warnings[$key])) {
-                $results[$key] = $warnings[$key];
+                $results[$key] = "Warning: $warnings[$key]";
             } elseif (isset($errors[$key])) {
                 $results[$key] = $errors[$key];
             } else {
