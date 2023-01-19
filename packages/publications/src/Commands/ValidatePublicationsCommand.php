@@ -60,7 +60,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->verbose = $this->option('verbose');
 
-        if (!($this->option('json'))) {
+        if (! $this->option('json')) {
             $this->title('Validating publications!');
         }
 
