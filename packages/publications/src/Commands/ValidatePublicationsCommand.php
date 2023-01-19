@@ -142,19 +142,16 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function displayPublicationResults(string $publicationName, array $results): void
     {
-        $errors = [];
-        $warnings = [];
+        $hasErrors = false;
+        $hasWarnings = false;
 
         foreach ($results ?? [] as $result) {
             if (str_starts_with($result, 'Warning: ')) {
-                $warnings[] = $result;
-            } else {
-                $errors[] = $result;
+                $hasWarnings = true;
+            } else if (str_starts_with($result, 'Error: ')) {
+                $hasErrors = true;
             }
         }
-
-        $hasErrors = count($errors);
-        $hasWarnings = count($warnings);
 
         $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
 
