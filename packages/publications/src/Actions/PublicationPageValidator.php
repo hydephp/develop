@@ -61,8 +61,9 @@ class PublicationPageValidator extends InvokableAction
     {
         $warnings = [];
 
+        $fields = $this->publicationType->getFields()->pluck('name')->toArray();
         foreach ($this->matter as $key => $value) {
-            if (in_array($key, $this->publicationType->getFields()->pluck('name')->toArray())) {
+            if (in_array($key, $fields)) {
                 $warnings[] = "Field '$key' is not defined in the schema.";
             }
         }
