@@ -146,7 +146,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function countWarnings(): int
     {
-        // FIXME Implement this
+        // FIXME Implement the countWarnings method
         return 0;
     }
 
