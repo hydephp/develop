@@ -182,6 +182,16 @@ Hello World
             MD
         );
 
+        $this->file('test-publication/invalid-field-and-extra-field.md', <<<'MD'
+            ---
+            title: false
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
         $this->file('test-publication/missing-field.md', <<<'MD'
             ---
             ---
@@ -204,6 +214,10 @@ Hello World
                 {
                     "test-publication": {
                         "extra-field": [
+                            "Warning: Field 'extra' is not defined in the schema."
+                        ],
+                        "invalid-field-and-extra-field": [
+                            "The title must be a string.",
                             "Warning: Field 'extra' is not defined in the schema."
                         ],
                         "invalid-field": [
