@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Publications\Commands;
 
 use Hyde\Hyde;
+use Hyde\Publications\Actions\PublicationPageValidator;
 use function collect;
 use Exception;
 use function filled;
@@ -84,20 +85,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $publications = glob(Hyde::path("{$publicationType->getDirectory()}/*.md"));
 
         foreach ($publications as $publication) {
-            $this->validatePublication($publication, $publicationType);
+            $this->results[$publicationType->getIdentifier()][] = PublicationPageValidator::call($publicationType, basename($publication, '.md'));
         }
     }
 
     protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
     {
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'] = [];
-
-        unset($publication->matter->data['__createdAt']);
-
-        foreach ($publication->type->getFields() as $field) {
-            $this->validatePublicationField($field, $publication, $publicationType);
-        }
-
         // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
         foreach ($publication->matter->data as $key => $value) {
             $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
