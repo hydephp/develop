@@ -144,7 +144,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $count = 0;
         foreach ($this->results as $publicationType) {
             foreach ($publicationType ?? [] as $publication) {
-                $count += count($publication['$fields']);
+                $count += count($publication);
             }
         }
 
@@ -175,7 +175,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             foreach ($publicationType ?? [] as $publicationName => $publication) {
                 $hasErrors = false;
                 $hasWarnings = isset($publication['warnings']);
-                foreach ($publication['$fields'] ?? [] as $field) {
+                foreach ($publication ?? [] as $field) {
                     if (isset($field['errors'])) {
                         $hasErrors = true;
                     }
@@ -188,7 +188,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 foreach ($publication['warnings'] ?? [] as $warning) {
                     $this->line("      <fg=yellow>Warning: $warning</>");
                 }
-                foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
+                foreach ($publication ?? [] as $fieldName => $field) {
                     if ($this->verbose) {
                         $hasErrors = isset($field['errors']);
                         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
