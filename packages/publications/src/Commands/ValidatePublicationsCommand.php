@@ -191,7 +191,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function outputSummary($timeStart): void
     {
         $warnColor = $this->countWarnings ? 'yellow' : 'green';
-        $errorColor = $this->countErrors ? 'red' : 'green';
+        $errorColor = $this->countErrors() ? 'red' : 'green';
 
         $this->subtitle('Summary:');
 
@@ -202,7 +202,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         ));
 
         $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
-        $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
+        $this->output->writeln("<fg=$errorColor>Found {$this->countErrors()} Errors</>");
     }
 
     protected function outputJson(): void
