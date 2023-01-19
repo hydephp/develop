@@ -176,7 +176,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $isWarning ? self::WARNING : self::CROSS_MARK
         ));
 
-        $this->line(sprintf("      <fg=%s>$message</>", $isWarning ? 'yellow' : 'red'));
+        $this->line(sprintf("      <fg=%s>%s</>", $isWarning ? 'yellow' : 'red', $message));
     }
 
     protected function outputSummary(): void
