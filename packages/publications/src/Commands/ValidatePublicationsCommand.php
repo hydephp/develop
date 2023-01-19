@@ -26,9 +26,9 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
-    protected const CHECKMARK = "\u{2713}";
-    protected const CROSS_MARK = 'x';
-    protected const WARNING = "\u{26A0}";
+    private const CHECKMARK = "\u{2713}";
+    private const CROSS_MARK = 'x';
+    private const WARNING = "\u{26A0}";
 
     /** @var string */
     protected $signature = 'validate:publications
@@ -38,16 +38,16 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
-    protected bool $verbose;
-    protected bool $json;
+    private bool $verbose;
+    private bool $json;
 
-    protected array $results = [];
+    private array $results = [];
 
-    protected int $countedPublicationTypes = 0;
-    protected int $countedPublications = 0;
-    protected int $countedFields = 0;
-    protected int $countedErrors = 0;
-    protected int $countedWarnings = 0;
+    private int $countedPublicationTypes = 0;
+    private int $countedPublications = 0;
+    private int $countedFields = 0;
+    private int $countedErrors = 0;
+    private int $countedWarnings = 0;
 
     public function safeHandle(): int
     {
@@ -81,7 +81,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function validatePublicationType(PublicationType $publicationType): void
+    private function validatePublicationType(PublicationType $publicationType): void
     {
         foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
             $identifier = basename($publicationFile, '.md');
@@ -102,7 +102,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /*
      * Displays the given string as subtitle.
      */
-    protected function subtitle(string $title): Command
+    private function subtitle(string $title): Command
     {
         $size = strlen($title);
         $spaces = str_repeat(' ', $size);
@@ -114,7 +114,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $this;
     }
 
-    protected function getPublicationTypesToValidate(): Collection
+    private function getPublicationTypesToValidate(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
         $name = $this->argument('publicationType');
@@ -133,7 +133,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $publicationTypes;
     }
 
-    protected function displayResults(): void
+    private function displayResults(): void
     {
         foreach ($this->results as $publicationTypeName => $publicationType) {
             $this->infoComment('Validating publication type', $publicationTypeName);
@@ -171,7 +171,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    protected function outputSummary($timeStart): void
+    private function outputSummary($timeStart): void
     {
         $warnColor = $this->countedWarnings ? 'yellow' : 'green';
         $errorColor = $this->countedErrors ? 'red' : 'green';
@@ -188,7 +188,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->writeln("<fg=$errorColor>Found {$this->countedErrors} Errors</>");
     }
 
-    protected function outputJson(): void
+    private function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
     }
