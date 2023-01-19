@@ -45,7 +45,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected $description = 'Validate all or the specified publication type(s)';
 
     private bool $verbose;
-    private bool $json;
 
     private array $results = [];
 
@@ -60,9 +59,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $timeStart = microtime(true);
 
         $this->verbose = $this->option('verbose');
-        $this->json = $this->option('json');
+        $json = $this->option('json');
 
-        if (! $this->json) {
+        if (!$json) {
             $this->title('Validating publications!');
         }
 
@@ -72,7 +71,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
-        if ($this->json) {
+        if ($json) {
             $this->outputJson();
         } else {
             $this->displayResults();
