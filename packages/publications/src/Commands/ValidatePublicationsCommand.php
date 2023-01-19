@@ -141,7 +141,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    protected function displayPublicationResults(string $publicationName, array $errors): void
+    protected function displayPublicationResults(string $publicationName, array $results): void
     {
         $hasErrors = false;
         $hasWarnings = false;
