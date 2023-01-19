@@ -103,7 +103,7 @@ class PublicationPageValidator extends InvokableAction
                 $passed = false;
                 $results[$key] = "Error: $errors[$key]";
             } else if ($passed) {
-                $results[$key] = 'Passed';
+                $results[$key] = "Field $key passed";
             }
         }
 
