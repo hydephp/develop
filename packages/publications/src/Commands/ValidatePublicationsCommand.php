@@ -105,10 +105,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         /** @var PublicationPageValidator $validator */
         $validator = PublicationPageValidator::call($publicationType, $identifier);
-        $results = array_merge($validator->errors(), $validator->warnings());
         $this->incrementCountersForPublicationPage($validator);
 
-        return $results;
+        return array_merge($validator->errors(), $validator->warnings());
     }
 
     protected function getPublicationTypesToValidate(): Collection
