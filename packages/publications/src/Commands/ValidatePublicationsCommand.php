@@ -83,16 +83,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
             $this->results[$publicationType->getIdentifier()][] = PublicationPageValidator::call($publicationType, basename($publicationFile, '.md'))->errors();
-        }
-    }
 
-    protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
-    {
-        // TODO Port this
-        // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
-        foreach ($publication->matter->data as $key => $value) {
-            $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
-            $this->countWarnings++;
+            // TODO Port this
+            // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
+            // foreach ($publication->matter->data as $key => $value) {
+            //     $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
+            //     $this->countWarnings++;
+            // }
         }
     }
 
