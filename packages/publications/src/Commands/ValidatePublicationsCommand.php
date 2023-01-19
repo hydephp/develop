@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Hyde;
-use Hyde\Publications\Actions\PublicationPageValidator;
-use function array_filter;
 use function collect;
 use function filled;
+use Hyde\Hyde;
+use Hyde\Publications\Actions\PublicationPageValidator;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
