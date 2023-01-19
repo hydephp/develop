@@ -96,26 +96,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $publicationType): void
-    {
-        $fieldName = $field->name;
-
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
-
-        try {
-            if (! $publication->matter->has($fieldName)) {
-                throw new Exception("Field [$fieldName] is missing from publication");
-            }
-
-            $validator = new PublicationFieldValidator($publicationType, $field);
-            $validator->validate($publication->matter->get($fieldName));
-        } catch (Exception $exception) {
-            $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName]['errors'][] = $exception->getMessage();
-            $this->countErrors++;
-        }
-        unset($publication->matter->data[$fieldName]);
-    }
-
     /*
      * Displays the given string as subtitle.
      */
