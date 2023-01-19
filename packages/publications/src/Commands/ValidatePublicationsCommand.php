@@ -97,10 +97,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 'errors' => $validator->errors(),
                 'warnings' => $validator->warnings(),
             ];
-            $this->countedPublications++;
-            $this->countedFields += count($validator->fields());
-            $this->countedErrors += count($validator->errors());
-            $this->countedWarnings += count($validator->warnings());
+
+            $this->incrementCountersForPublicationPage($validator);
         }
 
         $this->results[$publicationType->getIdentifier()] = $typeResults;
@@ -195,5 +193,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->newLine();
         $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
         $this->output->newLine();
+    }
+
+    protected function incrementCountersForPublicationPage(PublicationPageValidator $validator): void
+    {
+        $this->countedPublications++;
+        $this->countedFields += count($validator->fields());
+        $this->countedErrors += count($validator->errors());
+        $this->countedWarnings += count($validator->warnings());
     }
 }
