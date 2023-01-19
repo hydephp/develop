@@ -161,11 +161,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
         }
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
-        foreach ($errors ?? [] as $error) {
-            $this->displayPublicationFieldResults('FIXME', $error);
-        }
         foreach ($warnings ?? [] as $warning) {
             $this->line("      <fg=yellow>$warning</>");
+        }
+        foreach ($errors ?? [] as $error) {
+            $this->displayPublicationFieldResults('FIXME', $error);
         }
     }
 
