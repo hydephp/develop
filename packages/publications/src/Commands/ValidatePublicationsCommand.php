@@ -122,59 +122,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $publicationTypes;
     }
 
-    protected function countPublicationTypes(): ?int
-    {
-        return count($this->results);
-    }
-
-    private function countPublications(): int
-    {
-        $count = 0;
-        foreach ($this->results as $publicationType) {
-            $count += count($publicationType ?? []);
-        }
-
-        return $count;
-    }
-
-    private function countFields(): int
-    {
-        $count = 0;
-        foreach ($this->results as $publicationType) {
-            foreach ($publicationType ?? [] as $publication) {
-                $count += count($publication);
-            }
-        }
-
-        return $count;
-    }
-
-    protected function countWarnings(): int
-    {
-        $warnings = 0;
-
-        foreach ($this->results as $publicationType => $publications) {
-            foreach ($publications as $publication => $results) {
-                $warnings += count($results['warnings']);
-            }
-        }
-
-        return $warnings;
-    }
-
-    protected function countErrors(): int
-    {
-        $errors = 0;
-
-        foreach ($this->results as $publicationType => $publications) {
-            foreach ($publications as $publication => $results) {
-                $errors += count($results['errors']);
-            }
-        }
-
-        return $errors;
-    }
-
     protected function displayResults(): void
     {
         foreach ($this->results as $publicationTypeName => $publicationType) {
