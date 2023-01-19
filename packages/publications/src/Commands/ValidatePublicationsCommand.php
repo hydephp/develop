@@ -59,9 +59,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $timeStart = microtime(true);
 
         $this->verbose = $this->option('verbose');
-        $json = $this->option('json');
 
-        if (!$json) {
+        if (!($this->option('json'))) {
             $this->title('Validating publications!');
         }
 
@@ -71,7 +70,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
-        if ($json) {
+        if ($this->option('json')) {
             $this->outputJson();
         } else {
             $this->displayResults();
