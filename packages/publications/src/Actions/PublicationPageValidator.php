@@ -72,6 +72,12 @@ class PublicationPageValidator extends InvokableAction
         return $warnings;
     }
 
+    /** @internal Get the fields being validated */
+    public function fields(): array
+    {
+        return $this->matter;
+    }
+
     protected function getValidationRules(PublicationFieldDefinition $field): array
     {
         return (new PublicationFieldValidator($this->publicationType, $field))->getValidationRules();
