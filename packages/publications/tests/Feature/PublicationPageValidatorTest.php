@@ -88,4 +88,39 @@ class PublicationPageValidatorTest extends TestCase
             'The my number must be an integer.',
         ], $validator->errors());
     }
+
+    public function testWarningsWithWarnings()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->file('test-publication/my-page.md', <<<'MD'
+            ---
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $validator = PublicationPageValidator::call($publicationType, 'my-page');
+
+        $this->assertSame([
+            "Field 'extra' is not defined in the schema.",
+        ], $validator->warnings());
+    }
+
+    public function testWarningsWithoutWarnings()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->save();
+
+        $this->file('test-publication/my-page.md');
+
+        $validator = PublicationPageValidator::call($publicationType, 'my-page');
+
+        $this->assertSame([], $validator->warnings());
+    }
 }

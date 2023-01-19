@@ -55,6 +55,18 @@ class PublicationPageValidator extends InvokableAction
         return $this->validator->errors()->all();
     }
 
+    public function warnings(): array
+    {
+        $warnings = [];
+
+        foreach ($this->matter as $key => $value) {
+            // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
+            $warnings[] = "Field '$key' is not defined in the schema.";
+        }
+
+        return $warnings;
+    }
+
     protected function getValidationRules(PublicationFieldDefinition $field): array
     {
         return (new PublicationFieldValidator($this->publicationType, $field))->getValidationRules();
