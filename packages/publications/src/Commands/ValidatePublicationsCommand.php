@@ -83,7 +83,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             // TODO Port this
             // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
             // foreach ($publication->matter->data as $key => $value) {
-            //     $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
+            //     $this->results[$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
             //     $this->countWarnings++;
             // }
         }
@@ -125,13 +125,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function countPublicationTypes(): ?int
     {
-        return count($this->results['$publicationTypes']);
+        return count($this->results);
     }
 
     private function countPublications(): int
     {
         $count = 0;
-        foreach ($this->results['$publicationTypes'] as $publicationType) {
+        foreach ($this->results as $publicationType) {
             $count += count($publicationType['$publications'] ?? []);
         }
 
@@ -141,7 +141,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     private function countFields(): int
     {
         $count = 0;
-        foreach ($this->results['$publicationTypes'] as $publicationType) {
+        foreach ($this->results as $publicationType) {
             foreach ($publicationType['$publications'] ?? [] as $publication) {
                 $count += count($publication['$fields']);
             }
@@ -152,7 +152,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function displayResults(): void
     {
-        foreach ($this->results['$publicationTypes'] as $publicationTypeName => $publicationType) {
+        foreach ($this->results as $publicationTypeName => $publicationType) {
             $this->infoComment('Validating publication type', $publicationTypeName);
             foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
                 $hasErrors = false;
@@ -182,7 +182,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 }
             }
 
-            if ($publicationTypeName !== array_key_last($this->results['$publicationTypes'])) {
+            if ($publicationTypeName !== array_key_last($this->results)) {
                 $this->output->newLine();
             }
         }
