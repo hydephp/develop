@@ -127,6 +127,31 @@ Hello World
             ->assertExitCode(0);
     }
 
+    public function testWithMultipleInvalidFields()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'myField', 'type' => 'string'],
+            ['name' => 'myNumber', 'type' => 'integer'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/my-page.md', <<<'MD'
+            ---
+            myField: false
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->artisan('validate:publications')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 2 fields')
+            ->expectsOutput('Found 0 Warnings')
+            ->expectsOutput('Found 2 Errors')
+            ->assertExitCode(1);
+    }
+
     public function testOnlySpecifiedTypeIsValidatedWhenUsingArgument()
     {
         $this->directory('test-publication');
