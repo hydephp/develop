@@ -179,6 +179,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
             } else {
                 $this->line(sprintf('    <fg=red>%s</> <fg=red>%s</>', self::CROSS_MARK, $message));
             }
+        } else if ($this->output->isVerbose()) {
+            $this->line(sprintf('    <fg=green>%s</> <fg=green>%s</>', self::CHECKMARK, $message));
         }
     }
 
