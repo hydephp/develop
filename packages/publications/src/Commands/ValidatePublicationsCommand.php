@@ -173,11 +173,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
             : sprintf(' <fg=red>%s</>', self::CROSS_MARK);
         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName, $icon));
 
-        if ($isWarning) {
-            $this->line("      <fg=yellow>$message</>");
-        } else {
-            $this->line("      <fg=red>Error: $message</>");
-        }
+        $this->line($isWarning
+            ? "      <fg=yellow>$message</>"
+            : "      <fg=red>Error: $message</>"
+        );
     }
 
     protected function outputSummary(): void
