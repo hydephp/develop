@@ -190,8 +190,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
 
-        $this->output->writeln("<fg=$warnColor>Found {$this->countedWarnings} Warnings</>");
-        $this->output->writeln("<fg=$errorColor>Found {$this->countedErrors} Errors</>");
+        $this->output->writeln("<fg=$warnColor>Found $this->countedWarnings Warnings</>");
+        $this->output->writeln("<fg=$errorColor>Found $this->countedErrors Errors</>");
     }
 
     private function outputJson(): void
