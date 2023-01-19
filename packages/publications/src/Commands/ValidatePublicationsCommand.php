@@ -162,11 +162,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
         foreach ($results as $fieldName => $message) {
-            $this->displayPublicationFieldResults($fieldName, $message);
+            $this->displayPublicationFieldResults($message);
         }
     }
 
-    protected function displayPublicationFieldResults(string $fieldName, string $message): void
+    protected function displayPublicationFieldResults(string $message): void
     {
         $isWarning = str_starts_with($message, 'Warning: ');
         $isError = str_starts_with($message, 'Error: ');
