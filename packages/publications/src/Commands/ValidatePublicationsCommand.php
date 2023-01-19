@@ -79,7 +79,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationType(PublicationType $publicationType): void
     {
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()] = [];
+        $this->results[$publicationType->getIdentifier()] = [];
         $publications = PublicationService::getPublicationsForPubType($publicationType);
 
         foreach ($publications as $publication) {
