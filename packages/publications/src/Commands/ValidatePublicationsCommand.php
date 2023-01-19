@@ -172,10 +172,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $isWarning ? self::WARNING : self::CROSS_MARK
         ));
 
-        $this->line('      '. $isWarning
-            ? "<fg=yellow>$message</>"
-            : "fg=red>Error: $message</>"
-        );
+        $this->line('      '. $isWarning ? "<fg=yellow>$message</>" : "fg=red>Error: $message</>");
     }
 
     protected function outputSummary(): void
