@@ -223,11 +223,12 @@ Hello World
                 {
                     "test-publication": {
                         "extra-field": {
+                            "title": "Passed",
                             "extra": "Warning: This field is not defined in the schema."
                         },
                         "invalid-field-and-extra-field": {
-                            "extra": "Warning: This field is not defined in the schema.",
-                            "title": "The title must be a string."
+                            "title": "The title must be a string.",
+                            "extra": "Warning: This field is not defined in the schema."
                         },
                         "invalid-field": {
                             "title": "The title must be a string."
@@ -235,7 +236,9 @@ Hello World
                         "missing-field": {
                             "title": "The title must be a string."
                         },
-                        "valid": []
+                        "valid": {
+                            "title": "Passed"
+                        }
                     }
                 }
                 JSON)
