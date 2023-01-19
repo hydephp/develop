@@ -159,8 +159,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $errors = 0;
 
-        foreach ($this->results as $publication => $results) {
-            $errors += count($results, COUNT_RECURSIVE) - count($results);
+        foreach ($this->results as $publicationType => $publications) {
+            foreach ($publications as $publication => $results) {
+                $errors += count($results['errors']);
+            }
         }
 
         return $errors;
