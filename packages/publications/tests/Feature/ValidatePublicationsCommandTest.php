@@ -209,6 +209,15 @@ Hello World
             MD
         );
 
+        $this->file('test-publication/valid.md', <<<'MD'
+            ---
+            title: foo
+            ---
+            
+            # My Page
+            MD
+        );
+
         $this->artisan('validate:publications --json')
             ->expectsOutput(<<<'JSON'
                 {
@@ -225,7 +234,8 @@ Hello World
                         },
                         "missing-field": {
                             "title": "The title must be a string."
-                        }
+                        },
+                        "valid": []
                     }
                 }
                 JSON)
