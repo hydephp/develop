@@ -166,16 +166,74 @@ Hello World
     public function testWithJsonOutput()
     {
         $this->directory('test-publication');
-        $this->copyTestPublicationFixture();
+
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'title', 'type' => 'string'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/extra-field.md', <<<'MD'
+            ---
+            title: foo
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/missing-field.md', <<<'MD'
+            ---
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/invalid-field.md', <<<'MD'
+            ---
+            title: false
+            ---
+            
+            # My Page
+            MD
+        );
 
         $this->artisan('validate:publications --json')
             ->expectsOutput(<<<'JSON'
                 {
-                    "$publicationTypes": {
-                        "test-publication": []
+                    "test-publication": {
+                        "extra-field": {
+                            "errors": [],
+                            "warnings": [
+                                "Field 'extra' is not defined in the schema."
+                            ]
+                        },
+                        "invalid-field": {
+                            "errors": [
+                                "The title must be a string."
+                            ],
+                            "warnings": []
+                        },
+                        "missing-field": {
+                            "errors": [
+                                "The title must be a string."
+                            ],
+                            "warnings": []
+                        }
                     }
                 }
                 JSON)
+            ->assertExitCode(1);
+    }
+
+    public function testWithJsonOutputWithNoPublications()
+    {
+        $this->directory('test-publication');
+        $this->copyTestPublicationFixture();
+
+        $this->artisan('validate:publications --json')
+            ->expectsOutput('[]')
             ->assertExitCode(0);
     }
 
