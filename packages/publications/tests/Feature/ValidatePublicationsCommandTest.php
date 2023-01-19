@@ -213,19 +213,19 @@ Hello World
             ->expectsOutput(<<<'JSON'
                 {
                     "test-publication": {
-                        "extra-field": [
-                            "Warning: Field 'extra' is not defined in the schema."
-                        ],
-                        "invalid-field-and-extra-field": [
-                            "The title must be a string.",
-                            "Warning: Field 'extra' is not defined in the schema."
-                        ],
-                        "invalid-field": [
-                            "The title must be a string."
-                        ],
-                        "missing-field": [
-                            "The title must be a string."
-                        ]
+                        "extra-field": {
+                            "extra": "Warning: This field is not defined in the schema."
+                        },
+                        "invalid-field-and-extra-field": {
+                            "extra": "Warning: This field is not defined in the schema.",
+                            "title": "The title must be a string."
+                        },
+                        "invalid-field": {
+                            "title": "The title must be a string."
+                        },
+                        "missing-field": {
+                            "title": "The title must be a string."
+                        }
                     }
                 }
                 JSON)
