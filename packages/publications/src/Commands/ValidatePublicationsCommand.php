@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use function array_merge;
 use function basename;
 use function collect;
 use function filled;
@@ -104,8 +103,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         /** @var PublicationPageValidator $validator */
         $validator = PublicationPageValidator::call($publicationType, $identifier);
         $this->incrementCountersForPublicationPage($validator);
-
-        return array_merge($validator->errors(), $validator->warnings());
+        return $validator->getResults();
     }
 
     protected function getPublicationTypesToValidate(): Collection

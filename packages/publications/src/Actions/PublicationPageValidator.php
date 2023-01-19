@@ -9,6 +9,8 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
+
+use function array_merge;
 use function in_array;
 use function validator;
 
@@ -75,6 +77,11 @@ class PublicationPageValidator extends InvokableAction
     public function fields(): array
     {
         return $this->matter;
+    }
+
+    public function getResults(): array
+    {
+        return array_merge($this->errors(), $this->warnings());
     }
 
     protected function getValidationRules(PublicationFieldDefinition $field): array
