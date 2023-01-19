@@ -211,6 +211,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
     }
 
+    protected function countWarnings(): int
+    {
+        // FIXME Implement this
+        return 0;
+    }
+
     protected function countErrors(): int
     {
         $errors = 0;
