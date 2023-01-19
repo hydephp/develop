@@ -84,7 +84,21 @@ class PublicationPageValidator extends InvokableAction
     /** @return array<string, string> */
     public function getResults(): array
     {
-        return array_merge($this->warnings(), $this->errors());
+        $results = [];
+        $warnings = $this->warnings();
+        $errors = $this->errors();
+
+        foreach ($this->matter as $key => $value) {
+            if (isset($warnings[$key])) {
+                $results[$key] = $warnings[$key];
+            } elseif (isset($errors[$key])) {
+                $results[$key] = $errors[$key];
+            } else {
+                $results[$key] = 'Passed';
+            }
+        }
+
+        return $results;
     }
 
     protected function getValidationRules(PublicationFieldDefinition $field): array
