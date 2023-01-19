@@ -107,7 +107,7 @@ class PublicationPageValidatorTest extends TestCase
         $validator = PublicationPageValidator::call($publicationType, 'my-page');
 
         $this->assertSame([
-            'extra' => "Field 'extra' is not defined in the schema.",
+            'extra' => 'This field is not defined in the schema.',
         ], $validator->warnings());
     }
 
