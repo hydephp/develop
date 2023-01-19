@@ -227,14 +227,14 @@ Hello World
                             "extra": "Warning: This field is not defined in the schema."
                         },
                         "invalid-field-and-extra-field": {
-                            "title": "The title must be a string.",
+                            "title": "Error: The title must be a string.",
                             "extra": "Warning: This field is not defined in the schema."
                         },
                         "invalid-field": {
-                            "title": "The title must be a string."
+                            "title": "Error: The title must be a string."
                         },
                         "missing-field": {
-                            "title": "The title must be a string."
+                            "title": "Error: The title must be a string."
                         },
                         "valid": {
                             "title": "Passed"

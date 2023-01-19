@@ -95,7 +95,7 @@ class PublicationPageValidator extends InvokableAction
             if (isset($warnings[$key])) {
                 $results[$key] = "Warning: $warnings[$key]";
             } elseif (isset($errors[$key])) {
-                $results[$key] = $errors[$key];
+                $results[$key] = "Error: $errors[$key]";
             } else {
                 $results[$key] = 'Passed';
             }
