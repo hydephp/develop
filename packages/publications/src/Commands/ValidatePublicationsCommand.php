@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use function basename;
 use function collect;
 use function filled;
 use Hyde\Hyde;
@@ -13,7 +14,12 @@ use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function glob;
+use function json_encode;
+use function memory_get_peak_usage;
 use function microtime;
+use function round;
+use function sprintf;
 use function str_repeat;
 use function strlen;
 
