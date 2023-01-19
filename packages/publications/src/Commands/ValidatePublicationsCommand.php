@@ -151,6 +151,23 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $count;
     }
 
+    protected function countWarnings(): int
+    {
+        // FIXME Implement this
+        return 0;
+    }
+
+    protected function countErrors(): int
+    {
+        $errors = 0;
+
+        foreach ($this->results as $publication => $results) {
+            $errors += count($results, COUNT_RECURSIVE) - count($results);
+        }
+
+        return $errors;
+    }
+
     protected function displayResults(): void
     {
         foreach ($this->results as $publicationTypeName => $publicationType) {
@@ -209,22 +226,5 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
-    }
-
-    protected function countWarnings(): int
-    {
-        // FIXME Implement this
-        return 0;
-    }
-
-    protected function countErrors(): int
-    {
-        $errors = 0;
-
-        foreach ($this->results as $publication => $results) {
-            $errors += count($results, COUNT_RECURSIVE) - count($results);
-        }
-
-        return $errors;
     }
 }
