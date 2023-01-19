@@ -44,6 +44,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected array $results = [];
 
+    protected int $countedPublicationTypes = 0;
+    protected int $countedPublications = 0;
+    protected int $countedFields = 0;
+    protected int $countedErrors = 0;
+    protected int $countedWarnings = 0;
+
     public function safeHandle(): int
     {
         $timeStart = microtime(true);
@@ -69,7 +75,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->outputSummary($timeStart);
         }
 
-        if ($this->countErrors() > 0) {
+        if ($this->countedErrors > 0) {
             return Command::FAILURE;
         }
 
@@ -162,19 +168,19 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function outputSummary($timeStart): void
     {
-        $warnColor = $this->countWarnings() ? 'yellow' : 'green';
-        $errorColor = $this->countErrors() ? 'red' : 'green';
+        $warnColor = $this->countedWarnings ? 'yellow' : 'green';
+        $errorColor = $this->countedErrors ? 'red' : 'green';
 
         $this->subtitle('Summary:');
 
         $this->output->writeln(sprintf('<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>',
-            $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
+            $this->countedPublicationTypes, $this->countedPublications, $this->countedFields,
             round((microtime(true) - $timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
 
-        $this->output->writeln("<fg=$warnColor>Found {$this->countWarnings()} Warnings</>");
-        $this->output->writeln("<fg=$errorColor>Found {$this->countErrors()} Errors</>");
+        $this->output->writeln("<fg=$warnColor>Found {$this->countedWarnings} Warnings</>");
+        $this->output->writeln("<fg=$errorColor>Found {$this->countedErrors} Errors</>");
     }
 
     protected function outputJson(): void
