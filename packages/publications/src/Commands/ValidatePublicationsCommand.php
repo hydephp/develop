@@ -151,8 +151,15 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function countWarnings(): int
     {
-        // FIXME Implement the countWarnings method
-        return 0;
+        $warnings = 0;
+
+        foreach ($this->results as $publicationType => $publications) {
+            foreach ($publications as $publication => $results) {
+                $warnings += count($results['warnings']);
+            }
+        }
+
+        return $warnings;
     }
 
     protected function countErrors(): int
