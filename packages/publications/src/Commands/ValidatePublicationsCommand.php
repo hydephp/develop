@@ -171,7 +171,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function displayPublicationFieldResults(string $fieldName, string $error): void
     {
-        $hasErrors = isset($field['errors']);
+        $hasErrors = true;
         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
             $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
                 self::CHECKMARK)));
