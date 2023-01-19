@@ -60,7 +60,6 @@ class PublicationPageValidator extends InvokableAction
         $warnings = [];
 
         foreach ($this->matter as $key => $value) {
-            // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
             $warnings[] = "Field '$key' is not defined in the schema.";
         }
 
