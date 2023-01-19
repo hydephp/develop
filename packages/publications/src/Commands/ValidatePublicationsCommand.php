@@ -34,8 +34,8 @@ use function strlen;
 class ValidatePublicationsCommand extends ValidatingCommand
 {
     protected const CHECKMARK = "\u{2713}";
-    protected const CROSS_MARK = 'x';
-    protected const WARNING = "\u{26A0}";
+    protected const CROSS_MARK = '<fg=red>x</>';
+    protected const WARNING = "<fg=yellow>\u{26A0}</>";
 
     /** @var string */
     protected $signature = 'validate:publications
@@ -156,7 +156,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $hasWarnings = count($warnings);
         $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
         if ($hasWarnings && !$hasErrors) {
-            $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
+            $icon = sprintf('%s', self::WARNING);
         }
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
@@ -169,8 +169,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $isWarning = str_starts_with($message, 'Warning: ');
         $icon = $isWarning
-            ? sprintf(' <comment>%s</comment>', self::WARNING)
-            : sprintf(' <fg=red>%s</>', self::CROSS_MARK);
+            ? sprintf(' %s', self::WARNING)
+            : sprintf(' %s', self::CROSS_MARK);
         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName, $icon));
 
         $this->line($isWarning
