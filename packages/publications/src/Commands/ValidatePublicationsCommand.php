@@ -70,7 +70,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->outputSummary($timeStart);
         }
 
-        if ($this->countErrors) {
+        if ($this->countErrors() > 0) {
             return Command::FAILURE;
         }
 
