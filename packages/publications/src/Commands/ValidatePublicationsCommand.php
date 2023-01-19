@@ -131,33 +131,39 @@ class ValidatePublicationsCommand extends ValidatingCommand
         foreach ($this->results as $publicationTypeName => $publicationType) {
             $this->infoComment('Validating publication type', $publicationTypeName);
             foreach ($publicationType ?? [] as $publicationName => $publication) {
-                $hasErrors = false;
-                $hasWarnings = isset($publication['warnings']);
-                foreach ($publication ?? [] as $field) {
-                    if (isset($field['errors'])) {
-                        $hasErrors = true;
-                    }
-                }
-                $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
-                if ($hasWarnings && ! $hasErrors) {
-                    $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
-                }
-                $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
-                foreach ($publication['warnings'] ?? [] as $warning) {
-                    $this->line("      <fg=yellow>Warning: $warning</>");
-                }
-                foreach ($publication ?? [] as $fieldName => $field) {
-                    $hasErrors = isset($field['errors']);
-                    $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
-                        $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>', self::CHECKMARK)));
-                    foreach ($field['errors'] ?? [] as $error) {
-                        $this->line("      <fg=red>Error: $error</>");
-                    }
-                }
+                $this->displayPublicationResults($publication, $publicationName);
             }
 
             if ($publicationTypeName !== array_key_last($this->results)) {
                 $this->output->newLine();
+            }
+        }
+    }
+
+    protected function displayPublicationResults(mixed $publication, int|string $publicationName): void
+    {
+        $hasErrors = false;
+        $hasWarnings = isset($publication['warnings']);
+        foreach ($publication ?? [] as $field) {
+            if (isset($field['errors'])) {
+                $hasErrors = true;
+            }
+        }
+        $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
+        if ($hasWarnings && !$hasErrors) {
+            $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
+        }
+        $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
+        foreach ($publication['warnings'] ?? [] as $warning) {
+            $this->line("      <fg=yellow>Warning: $warning</>");
+        }
+        foreach ($publication ?? [] as $fieldName => $field) {
+            $hasErrors = isset($field['errors']);
+            $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
+                $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
+                    self::CHECKMARK)));
+            foreach ($field['errors'] ?? [] as $error) {
+                $this->line("      <fg=red>Error: $error</>");
             }
         }
     }
