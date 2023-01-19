@@ -142,16 +142,14 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 if ($hasWarnings && ! $hasErrors) {
                     $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
                 }
-                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s', true ? 'File' : "<fg=gray>\u{2010}</>", $publicationName, $icon));
+                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s','File', $publicationName, $icon));
                 foreach ($publication['warnings'] ?? [] as $warning) {
                     $this->line("      <fg=yellow>Warning: $warning</>");
                 }
                 foreach ($publication ?? [] as $fieldName => $field) {
-                    if (true) {
-                        $hasErrors = isset($field['errors']);
-                        $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
-                            $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>', self::CHECKMARK)));
-                    }
+                    $hasErrors = isset($field['errors']);
+                    $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
+                        $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>', self::CHECKMARK)));
                     foreach ($field['errors'] ?? [] as $error) {
                         $this->line("      <fg=red>Error: $error</>");
                     }
