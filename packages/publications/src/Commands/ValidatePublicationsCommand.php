@@ -182,7 +182,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $warnColor = $this->countedWarnings ? 'yellow' : 'green';
         $errorColor = $this->countedErrors ? 'red' : 'green';
 
-        $this->subtitle();
+        $size = strlen('Summary:');
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
+        $this->output->newLine();
 
         $this->output->writeln(sprintf('<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>',
             $this->countedPublicationTypes, $this->countedPublications, $this->countedFields,
@@ -197,16 +202,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
-    }
-
-    protected function subtitle(): void
-    {
-        $size = strlen('Summary:');
-        $spaces = str_repeat(' ', $size);
-
-        $this->output->newLine();
-        $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
-        $this->output->newLine();
     }
 
     protected function incrementCountersForPublicationPage(PublicationPageValidator $validator): void
