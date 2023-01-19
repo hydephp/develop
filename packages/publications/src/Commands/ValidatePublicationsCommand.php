@@ -108,13 +108,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /*
      * Displays the given string as subtitle.
      */
-    private function subtitle(string $title): void
+    private function subtitle(): void
     {
-        $size = strlen($title);
+        $size = strlen('Summary:');
         $spaces = str_repeat(' ', $size);
 
         $this->output->newLine();
-        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
+        $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
         $this->output->newLine();
     }
 
@@ -180,7 +180,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $warnColor = $this->countedWarnings ? 'yellow' : 'green';
         $errorColor = $this->countedErrors ? 'red' : 'green';
 
-        $this->subtitle('Summary:');
+        $this->subtitle();
 
         $this->output->writeln(sprintf('<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>',
             $this->countedPublicationTypes, $this->countedPublications, $this->countedFields,
