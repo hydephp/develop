@@ -64,7 +64,7 @@ class PublicationPageValidator extends InvokableAction
 
         $fields = $this->publicationType->getFields()->pluck('name')->toArray();
         foreach ($this->matter as $key => $value) {
-            if ($key !== '__createdAt' && ! in_array($key, $fields)) {
+            if (! in_array($key, $fields)) {
                 $warnings[] = "Field '$key' is not defined in the schema.";
             }
         }
