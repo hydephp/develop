@@ -105,9 +105,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->countedPublicationTypes++;
     }
 
-    /*
-     * Displays the given string as subtitle.
-     */
     private function subtitle(): void
     {
         $size = strlen('Summary:');
