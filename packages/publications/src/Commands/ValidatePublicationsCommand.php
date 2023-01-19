@@ -83,6 +83,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $validator = PublicationPageValidator::call($publicationType, $identifier);
             $this->results[$publicationType->getIdentifier()][$identifier] = [
                 'errors' => $validator->errors(),
+                'warnings' => $validator->warnings(),
             ];
         }
     }
