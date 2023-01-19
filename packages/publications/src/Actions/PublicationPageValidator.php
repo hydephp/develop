@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
+use Illuminate\Support\Str;
 use function array_flip;
 use function array_merge;
 use Hyde\Framework\Concerns\InvokableAction;
@@ -12,6 +13,8 @@ use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
 use function in_array;
+use function lcfirst;
+use function sprintf;
 use function validator;
 
 /**
@@ -68,7 +71,7 @@ class PublicationPageValidator extends InvokableAction
         $fields = $this->publicationType->getFields()->pluck('name')->toArray();
         foreach ($this->matter as $key => $value) {
             if (! in_array($key, $fields)) {
-                $warnings[$key] = 'This field is not defined in the schema.';
+                $warnings[$key] = sprintf('The %s field is not defined in the publication type.', lcfirst(Str::title($key)));
             }
         }
 
