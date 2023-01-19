@@ -46,7 +46,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected $description = 'Validate all or the specified publication type(s)';
 
     protected float $timeStart;
-    protected bool $verbose = true;
 
     protected array $results = [];
 
@@ -143,12 +142,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 if ($hasWarnings && ! $hasErrors) {
                     $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
                 }
-                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s', $this->verbose ? 'File' : "<fg=gray>\u{2010}</>", $publicationName, $icon));
+                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s', true ? 'File' : "<fg=gray>\u{2010}</>", $publicationName, $icon));
                 foreach ($publication['warnings'] ?? [] as $warning) {
                     $this->line("      <fg=yellow>Warning: $warning</>");
                 }
                 foreach ($publication ?? [] as $fieldName => $field) {
-                    if ($this->verbose) {
+                    if (true) {
                         $hasErrors = isset($field['errors']);
                         $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
                             $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>', self::CHECKMARK)));
