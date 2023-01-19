@@ -107,7 +107,7 @@ class PublicationPageValidatorTest extends TestCase
         $validator = PublicationPageValidator::call($publicationType, 'my-page');
 
         $this->assertSame([
-            'extra' => 'The extra field is not defined in the publication type.'
+            'extra' => 'The extra field is not defined in the publication type.',
         ], $validator->warnings());
     }
 

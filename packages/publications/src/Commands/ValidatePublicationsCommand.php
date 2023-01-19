@@ -148,7 +148,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         foreach ($results as $result) {
             if (str_starts_with($result, 'Warning: ')) {
                 $hasWarnings = true;
-            } else if (str_starts_with($result, 'Error: ')) {
+            } elseif (str_starts_with($result, 'Error: ')) {
                 $hasErrors = true;
             }
         }
@@ -179,7 +179,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             } else {
                 $this->line(sprintf('    <fg=red>%s</> <fg=red>%s</>', self::CROSS_MARK, $message));
             }
-        } else if ($this->output->isVerbose()) {
+        } elseif ($this->output->isVerbose()) {
             $this->line(sprintf('    <fg=green>%s</> <fg=green>%s</>', self::CHECKMARK, $message));
         }
     }
@@ -199,8 +199,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
 
-        $this->output->writeln("<fg=".($this->countedWarnings ? 'yellow' : 'green').">Found $this->countedWarnings Warnings</>");
-        $this->output->writeln("<fg=".($this->countedErrors ? 'red' : 'green').">Found $this->countedErrors Errors</>");
+        $this->output->writeln('<fg='.($this->countedWarnings ? 'yellow' : 'green').">Found $this->countedWarnings Warnings</>");
+        $this->output->writeln('<fg='.($this->countedErrors ? 'red' : 'green').">Found $this->countedErrors Errors</>");
     }
 
     protected function outputJson(): void

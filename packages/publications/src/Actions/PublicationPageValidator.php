@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use Illuminate\Support\Str;
 use function array_flip;
 use function array_merge;
 use Hyde\Framework\Concerns\InvokableAction;
@@ -12,6 +11,7 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Str;
 use function in_array;
 use function lcfirst;
 use function sprintf;
