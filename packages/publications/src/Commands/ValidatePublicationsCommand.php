@@ -179,9 +179,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function outputSummary(): void
     {
-        $warnColor = $this->countedWarnings ? 'yellow' : 'green';
-        $errorColor = $this->countedErrors ? 'red' : 'green';
-
         $size = strlen('Summary:');
         $spaces = str_repeat(' ', $size);
 
@@ -194,6 +191,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
             round((microtime(true) - $this->timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
+
+        $warnColor = $this->countedWarnings ? 'yellow' : 'green';
+        $errorColor = $this->countedErrors ? 'red' : 'green';
 
         $this->output->writeln("<fg=$warnColor>Found $this->countedWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $this->countedErrors Errors</>");
