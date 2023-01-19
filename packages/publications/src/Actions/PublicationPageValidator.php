@@ -93,20 +93,18 @@ class PublicationPageValidator extends InvokableAction
 
         $validatedFields = array_merge($this->matter, array_flip($this->publicationType->getFields()->pluck('name')->toArray()));
 
+        $passed = true;
+
         foreach ($validatedFields as $key => $value) {
             if (isset($warnings[$key])) {
+                $passed = false;
                 $results[$key] = "Warning: $warnings[$key]";
             } elseif (isset($errors[$key])) {
+                $passed = false;
                 $results[$key] = "Error: $errors[$key]";
-            } else {
+            } else if ($passed) {
                 $results[$key] = 'Passed';
-                $passed = true;
             }
-        }
-
-        if (isset($passed) && count($results) > 1) {
-            // Remove the passed message if there are other messages
-            $results = array_filter($results, fn ($message) => $message !== 'Passed');
         }
 
         return $results;
