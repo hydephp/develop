@@ -89,7 +89,9 @@ class PublicationPageValidator extends InvokableAction
         $warnings = $this->warnings();
         $errors = $this->errors();
 
-        foreach (array_merge($this->matter, array_flip($this->publicationType->getFields()->pluck('name')->toArray())) as $key => $value) {
+        $validatedFields = array_merge($this->matter, array_flip($this->publicationType->getFields()->pluck('name')->toArray()));
+
+        foreach ($validatedFields as $key => $value) {
             if (isset($warnings[$key])) {
                 $results[$key] = $warnings[$key];
             } elseif (isset($errors[$key])) {
