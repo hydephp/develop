@@ -105,16 +105,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->countedPublicationTypes++;
     }
 
-    private function subtitle(): void
-    {
-        $size = strlen('Summary:');
-        $spaces = str_repeat(' ', $size);
-
-        $this->output->newLine();
-        $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
-        $this->output->newLine();
-    }
-
     private function getPublicationTypesToValidate(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
@@ -192,5 +182,15 @@ class ValidatePublicationsCommand extends ValidatingCommand
     private function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
+    }
+
+    private function subtitle(): void
+    {
+        $size = strlen('Summary:');
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
+        $this->output->newLine();
     }
 }
