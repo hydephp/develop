@@ -9,6 +9,8 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
+
+use function in_array;
 use function validator;
 
 /**
@@ -60,7 +62,9 @@ class PublicationPageValidator extends InvokableAction
         $warnings = [];
 
         foreach ($this->matter as $key => $value) {
-            $warnings[] = "Field '$key' is not defined in the schema.";
+            if (in_array($key, $this->publicationType->getFields()->pluck('name')->toArray())) {
+                $warnings[] = "Field '$key' is not defined in the schema.";
+            }
         }
 
         return $warnings;
