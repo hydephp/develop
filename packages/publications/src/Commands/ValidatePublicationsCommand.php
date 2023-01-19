@@ -108,7 +108,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /*
      * Displays the given string as subtitle.
      */
-    private function subtitle(string $title): Command
+    private function subtitle(string $title): void
     {
         $size = strlen($title);
         $spaces = str_repeat(' ', $size);
@@ -116,8 +116,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->newLine();
         $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
         $this->output->newLine();
-
-        return $this;
     }
 
     private function getPublicationTypesToValidate(): Collection
