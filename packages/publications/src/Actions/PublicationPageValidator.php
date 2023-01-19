@@ -81,6 +81,7 @@ class PublicationPageValidator extends InvokableAction
         return $this->matter;
     }
 
+    /** @return array<string, string> */
     public function getResults(): array
     {
         return array_merge($this->warnings(), $this->errors());
