@@ -22,6 +22,7 @@ use function microtime;
 use function round;
 use function sprintf;
 use function str_repeat;
+use function str_starts_with;
 use function strlen;
 
 /**
@@ -143,9 +144,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function displayPublicationResults(string $publicationName, array $errors): void
     {
         $hasErrors = false;
-        $hasWarnings = isset($errors['warnings']);
-        foreach ($errors ?? [] as $field) {
-            if (isset($field['errors'])) {
+        $hasWarnings = false;
+        foreach ($errors ?? [] as $message) {
+            if (str_starts_with($message, 'Warning: ')) {
+                $hasWarnings = true;
+            } else {
                 $hasErrors = true;
             }
         }
