@@ -83,7 +83,7 @@ class PublicationPageValidator extends InvokableAction
 
     public function getResults(): array
     {
-        return array_merge($this->errors(), $this->warnings());
+        return array_merge($this->warnings(), $this->errors());
     }
 
     protected function getValidationRules(PublicationFieldDefinition $field): array
