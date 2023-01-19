@@ -44,6 +44,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
+    private float $timeStart;
     private bool $verbose;
 
     private array $results = [];
@@ -56,7 +57,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     public function safeHandle(): int
     {
-        $timeStart = microtime(true);
+        $this->timeStart = microtime(true);
 
         $this->verbose = $this->option('verbose');
 
@@ -75,7 +76,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         } else {
             $this->displayResults();
 
-            $this->outputSummary($timeStart);
+            $this->outputSummary();
         }
 
         if ($this->countedErrors > 0) {
@@ -160,7 +161,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    private function outputSummary($timeStart): void
+    private function outputSummary(): void
     {
         $warnColor = $this->countedWarnings ? 'yellow' : 'green';
         $errorColor = $this->countedErrors ? 'red' : 'green';
@@ -169,7 +170,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->output->writeln(sprintf('<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>',
             $this->countedPublicationTypes, $this->countedPublications, $this->countedFields,
-            round((microtime(true) - $timeStart) * 1000),
+            round((microtime(true) - $this->timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
 
