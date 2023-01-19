@@ -146,8 +146,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $errors = [];
         $warnings = [];
 
-        $hasErrors = false;
-        $hasWarnings = false;
         foreach ($results ?? [] as $result) {
             if (str_starts_with($result, 'Warning: ')) {
                 $warnings[] = $result;
@@ -155,6 +153,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 $errors[] = $result;
             }
         }
+
+        $hasErrors = count($errors);
+        $hasWarnings = count($warnings);
         $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
         if ($hasWarnings && !$hasErrors) {
             $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
