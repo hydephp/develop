@@ -103,6 +103,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         /** @var PublicationPageValidator $validator */
         $validator = PublicationPageValidator::call($publicationType, $identifier);
         $this->incrementCountersForPublicationPage($validator);
+
         return $validator->getResults();
     }
 
@@ -157,7 +158,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
 
-        if ($hasWarnings && !$hasErrors) {
+        if ($hasWarnings && ! $hasErrors) {
             $icon = self::WARNING;
         }
 
@@ -176,7 +177,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $isWarning ? self::WARNING : self::CROSS_MARK
         ));
 
-        $this->line(sprintf("      <fg=%s>%s</>", $isWarning ? 'yellow' : 'red', $message));
+        $this->line(sprintf('      <fg=%s>%s</>', $isWarning ? 'yellow' : 'red', $message));
     }
 
     protected function outputSummary(): void
