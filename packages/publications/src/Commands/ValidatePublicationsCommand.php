@@ -81,9 +81,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationType(PublicationType $publicationType): void
     {
-        $publications = glob(Hyde::path("{$publicationType->getDirectory()}/*.md"));
-
-        foreach ($publications as $publicationFile) {
+        foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
             $validators[] = PublicationPageValidator::call($publicationType, basename($publicationFile, '.md'))->errors();
         }
 
