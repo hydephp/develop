@@ -10,6 +10,7 @@ use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
 
+use function array_flip;
 use function array_merge;
 use function in_array;
 use function validator;
@@ -88,7 +89,7 @@ class PublicationPageValidator extends InvokableAction
         $warnings = $this->warnings();
         $errors = $this->errors();
 
-        foreach ($this->matter as $key => $value) {
+        foreach (array_merge($this->matter, array_flip($this->publicationType->getFields()->pluck('name')->toArray())) as $key => $value) {
             if (isset($warnings[$key])) {
                 $results[$key] = $warnings[$key];
             } elseif (isset($errors[$key])) {
