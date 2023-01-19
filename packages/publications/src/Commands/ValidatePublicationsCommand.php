@@ -83,7 +83,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             // TODO Port this
             // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
             // foreach ($publication->matter->data as $key => $value) {
-            //     $this->results[$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
+            //     $this->results[$publicationType->getIdentifier()][][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
             //     $this->countWarnings++;
             // }
         }
@@ -132,7 +132,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $count = 0;
         foreach ($this->results as $publicationType) {
-            $count += count($publicationType['$publications'] ?? []);
+            $count += count($publicationType ?? []);
         }
 
         return $count;
@@ -142,7 +142,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         $count = 0;
         foreach ($this->results as $publicationType) {
-            foreach ($publicationType['$publications'] ?? [] as $publication) {
+            foreach ($publicationType ?? [] as $publication) {
                 $count += count($publication['$fields']);
             }
         }
@@ -154,7 +154,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         foreach ($this->results as $publicationTypeName => $publicationType) {
             $this->infoComment('Validating publication type', $publicationTypeName);
-            foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
+            foreach ($publicationType ?? [] as $publicationName => $publication) {
                 $hasErrors = false;
                 $hasWarnings = isset($publication['warnings']);
                 foreach ($publication['$fields'] ?? [] as $field) {
