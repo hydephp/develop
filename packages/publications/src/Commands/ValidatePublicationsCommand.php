@@ -92,6 +92,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
             $identifier = basename($publicationFile, '.md');
+            /** @var PublicationPageValidator $validator */
             $validator = PublicationPageValidator::call($publicationType, $identifier);
             $typeResults[$identifier] = [
                 'errors' => $validator->errors(),
