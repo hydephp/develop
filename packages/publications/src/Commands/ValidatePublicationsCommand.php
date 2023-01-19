@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use Hyde\Hyde;
 use function collect;
 use Exception;
 use function filled;
@@ -80,7 +81,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function validatePublicationType(PublicationType $publicationType): void
     {
         $this->results[$publicationType->getIdentifier()] = [];
-        $publications = PublicationService::getPublicationsForPubType($publicationType);
+        $publications = glob(Hyde::path("{$publicationType->getDirectory()}/*.md"));
 
         foreach ($publications as $publication) {
             $this->validatePublication($publication, $publicationType);
