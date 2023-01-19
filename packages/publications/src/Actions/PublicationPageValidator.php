@@ -100,7 +100,13 @@ class PublicationPageValidator extends InvokableAction
                 $results[$key] = "Error: $errors[$key]";
             } else {
                 $results[$key] = 'Passed';
+                $passed = true;
             }
+        }
+
+        if (isset($passed) && count($results) > 1) {
+            // Remove the passed message if there are other messages
+            $results = array_filter($results, fn ($message) => $message !== 'Passed');
         }
 
         return $results;
