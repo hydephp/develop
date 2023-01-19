@@ -162,7 +162,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         foreach ($results as $fieldName => $message) {
             $isWarning = str_starts_with($message, 'Warning: ');
-            $fieldHasErrors = !$isWarning; // FIXME when fields that pass validation are added to the results
+            $fieldHasErrors = !$isWarning;
             $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
                 $fieldHasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>',
                     self::CHECKMARK)));
