@@ -6,6 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use Hyde\Hyde;
 use Hyde\Publications\Actions\PublicationPageValidator;
+use function array_filter;
 use function collect;
 use function filled;
 use Hyde\Publications\Models\PublicationType;
@@ -208,5 +209,17 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
+    }
+
+    protected function countErrors(): int
+    {
+        $errors = 0;
+
+        foreach ($this->results as $results) {
+            $errors += count($results['schema']);
+            $errors += count(array_filter($results['fields']));
+        }
+
+        return $errors;
     }
 }
