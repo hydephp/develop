@@ -171,15 +171,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $isWarning = str_starts_with($message, 'Warning: ');
         $isError = str_starts_with($message, 'Error: ');
 
-        if (! $isWarning && ! $isError) {
-            return;
+        if ($isWarning || $isError) {
+            $this->line(sprintf('    <fg=bright-cyan>Field [%s]</> %s', $fieldName,
+                $isWarning ? self::WARNING : self::CROSS_MARK
+            ));
+
+            $this->line(sprintf('      <fg=%s>%s</>', $isWarning ? 'yellow' : 'red', $message));
         }
-
-        $this->line(sprintf('    <fg=bright-cyan>Field [%s]</> %s', $fieldName,
-            $isWarning ? self::WARNING : self::CROSS_MARK
-        ));
-
-        $this->line(sprintf('      <fg=%s>%s</>', $isWarning ? 'yellow' : 'red', $message));
     }
 
     protected function outputSummary(): void
