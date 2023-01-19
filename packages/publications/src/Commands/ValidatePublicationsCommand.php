@@ -161,7 +161,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
 
-        foreach ($results as $fieldName => $message) {
+        foreach ($results as $message) {
             $this->displayPublicationFieldResults($message);
         }
     }
