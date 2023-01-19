@@ -56,7 +56,9 @@ class PublicationPageValidator extends InvokableAction
     /** @return array<int, string> */
     public function errors(): array
     {
-        return $this->validator->errors()->toArray();
+        return collect($this->validator->errors())->map(function (array $message): string {
+            return $message[0];
+        })->toArray();
     }
 
     public function warnings(): array
