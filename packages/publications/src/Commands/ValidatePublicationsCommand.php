@@ -162,6 +162,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
         $this->line(sprintf('  <fg=cyan>File %s.md</> %s', $publicationName, $icon));
         foreach ($warnings ?? [] as $warning) {
+            // TODO add cyan field name here
             $this->line("      <fg=yellow>$warning</>");
         }
         foreach ($errors ?? [] as $error) {
