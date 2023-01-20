@@ -165,58 +165,7 @@ Hello World
 
     public function testOutput()
     {
-        $this->directory('test-publication');
-
-        $publicationType = new PublicationType('test-publication', fields: [
-            ['name' => 'title', 'type' => 'string'],
-        ]);
-        $publicationType->save();
-
-        $this->file('test-publication/extra-field.md', <<<'MD'
-            ---
-            title: foo
-            extra: field
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/invalid-field-and-extra-field.md', <<<'MD'
-            ---
-            title: false
-            extra: field
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/missing-field.md', <<<'MD'
-            ---
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/invalid-field.md', <<<'MD'
-            ---
-            title: false
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/valid.md', <<<'MD'
-            ---
-            title: foo
-            ---
-            
-            # My Page
-            MD
-        );
+        $this->createFullRangeTestFixtures();
 
         $this->artisan('validate:publications')
             ->expectsOutputToContain('Validating publications!')
@@ -240,58 +189,7 @@ Hello World
 
     public function testWithJsonOutput()
     {
-        $this->directory('test-publication');
-
-        $publicationType = new PublicationType('test-publication', fields: [
-            ['name' => 'title', 'type' => 'string'],
-        ]);
-        $publicationType->save();
-
-        $this->file('test-publication/extra-field.md', <<<'MD'
-            ---
-            title: foo
-            extra: field
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/invalid-field-and-extra-field.md', <<<'MD'
-            ---
-            title: false
-            extra: field
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/missing-field.md', <<<'MD'
-            ---
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/invalid-field.md', <<<'MD'
-            ---
-            title: false
-            ---
-            
-            # My Page
-            MD
-        );
-
-        $this->file('test-publication/valid.md', <<<'MD'
-            ---
-            title: foo
-            ---
-            
-            # My Page
-            MD
-        );
+        $this->createFullRangeTestFixtures();
 
         $this->artisan('validate:publications --json')
             ->expectsOutput(<<<'JSON'
@@ -360,5 +258,61 @@ Hello World
     protected function savePublication(string $name): void
     {
         (new PublicationType($name))->save();
+    }
+
+    protected function createFullRangeTestFixtures(): void
+    {
+        $this->directory('test-publication');
+
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'title', 'type' => 'string'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/extra-field.md', <<<'MD'
+            ---
+            title: foo
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/invalid-field-and-extra-field.md', <<<'MD'
+            ---
+            title: false
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/missing-field.md', <<<'MD'
+            ---
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/invalid-field.md', <<<'MD'
+            ---
+            title: false
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/valid.md', <<<'MD'
+            ---
+            title: foo
+            ---
+            
+            # My Page
+            MD
+        );
     }
 }
