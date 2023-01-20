@@ -171,22 +171,15 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function getPublicationResultsIcon(array $results): string
     {
-        $hasErrors = false;
-        $hasWarnings = false;
-
         foreach ($results as $result) {
             if (str_starts_with($result, 'Warning: ')) {
-                $hasWarnings = true;
+                return $this->warningIcon;
             } elseif (str_starts_with($result, 'Error: ')) {
-                $hasErrors = true;
+                return $this->failedIcon;
             }
         }
 
-        return match (true) {
-            $hasErrors => $this->failedIcon,
-            $hasWarnings => $this->warningIcon,
-            default => $this->passedIcon,
-        };
+        return $this->passedIcon;
     }
 
     protected function outputSummary(): void
