@@ -153,7 +153,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             }
         }
 
-        $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::FAILED) : sprintf('<info>%s</info>', self::PASSED);
+        $icon = $hasErrors ? sprintf('%s', self::FAILED) : sprintf('%s', self::PASSED);
 
         if ($hasWarnings && ! $hasErrors) {
             $icon = self::WARNING;
@@ -175,12 +175,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         if ($isWarning || $isError) {
             if ($isWarning) {
-                $this->line(sprintf('    <fg=yellow>%s</> <comment>%s</comment>', self::WARNING, $message));
+                $this->line(sprintf('    %s <comment>%s</comment>', self::WARNING, $message));
             } else {
-                $this->line(sprintf('    <fg=red>%s</> <fg=red>%s</>', self::FAILED, $message));
+                $this->line(sprintf('    %s <fg=red>%s</>', self::FAILED, $message));
             }
         } elseif ($this->output->isVerbose()) {
-            $this->line(sprintf('    <fg=green>%s</> <fg=green>%s</>', self::PASSED, $message));
+            $this->line(sprintf('    %s <fg=green>%s</>', self::PASSED, $message));
         }
     }
 
