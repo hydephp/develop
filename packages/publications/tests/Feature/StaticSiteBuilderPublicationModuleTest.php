@@ -155,6 +155,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         $this->resetSite();
     }
 
+    /** @noinspection HtmlUnknownTarget */
     public function testCompilingWithPublicationTypeThatUsesThePaginatedVendorViews()
     {
         $this->directory('test-publication');
@@ -184,7 +185,32 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
             'publication-5.html',
         ], $this->getFilenamesInDirectory('_site/test-publication'));
 
-        // TODO test that the pagination links are correct
+        $this->assertHtmlHas(<<<'HTML'
+            <div class="px-2">
+                <strong>1</strong>
+                <a href="../test-publication/page-2.html">2</a>
+                <a href="../test-publication/page-3.html">3</a>
+            </div>
+            HTML, Filesystem::get('_site/test-publication/page-1.html')
+        );
+
+        $this->assertHtmlHas(<<<'HTML'
+            <div class="px-2">
+                <a href="../test-publication/page-1.html">1</a>
+                <strong>2</strong>
+                <a href="../test-publication/page-3.html">3</a>
+            </div>
+            HTML, Filesystem::get('_site/test-publication/page-2.html')
+        );
+
+        $this->assertHtmlHas(<<<'HTML'
+            <div class="px-2">
+                <a href="../test-publication/page-1.html">1</a>
+                <a href="../test-publication/page-2.html">2</a>
+                <strong>3</strong>
+            </div>
+            HTML, Filesystem::get('_site/test-publication/page-3.html')
+        );
 
         $this->resetSite();
     }
@@ -211,5 +237,19 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
     protected function getFilenamesInDirectory(string $directory): array
     {
         return collect(Filesystem::files($directory))->map(fn ($file) => $file->getFilename())->toArray();
+    }
+
+    protected function assertHtmlHas(string $expected, string $html): void
+    {
+        $this->assertStringContainsString($this->stripIndentationForEachLine($expected), $this->stripIndentationForEachLine($html));
+    }
+
+    protected function stripIndentationForEachLine(string $string): string
+    {
+        $array = explode("\n", $string);
+        foreach ($array as $index => $line) {
+            $array[$index] = ltrim($line);
+        }
+        return implode("\n", $array);
     }
 }
