@@ -145,7 +145,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function displayPublicationResults(string $publicationName, array $results): void
     {
-        $icon = $this->getPublicationResultsIcon($results);
+        $icon = $this->getPublicationResultsIcon(array_map(function (string $result): string {
+            return explode(':', $result)[0];
+        }, array_values($results)));
 
         $this->line(sprintf('  %s <fg=cyan>%s.md</>', $icon, $publicationName));
 
@@ -172,12 +174,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
     }
 
-    protected function getPublicationResultsIcon(array $results): string
+    protected function getPublicationResultsIcon(array $types): string
     {
-        $types = array_map(function (string $result): string {
-            return explode(':', $result)[0];
-        }, array_values($results));
-
         if (in_array('Error', $types)) {
             return $this->failedIcon;
         }
