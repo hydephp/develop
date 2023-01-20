@@ -35,14 +35,14 @@ trait ParsesPublicationFieldInputs
         return match ($value) {
             'true', '1' => true,
             'false', '0' => false,
-            default => throw self::parseError('boolean', $value)
+            default => throw self::parseError('Boolean', $value)
         };
     }
 
     protected static function parseIntegerValue(string $value): int
     {
         if (! is_numeric($value)) {
-            throw self::parseError('integer', $value);
+            throw self::parseError('Integer', $value);
         }
 
         return (int) $value;
@@ -51,7 +51,7 @@ trait ParsesPublicationFieldInputs
     protected static function parseFloatValue(string $value): float
     {
         if (! is_numeric($value)) {
-            throw self::parseError('float', $value);
+            throw self::parseError('Float', $value);
         }
 
         return (float) $value;
@@ -81,7 +81,7 @@ trait ParsesPublicationFieldInputs
     protected static function parseUrlValue(string $value): string
     {
         if (! filter_var($value, FILTER_VALIDATE_URL)) {
-            throw self::parseError('url', $value);
+            throw self::parseError('Url', $value);
         }
 
         return $value;
@@ -95,7 +95,7 @@ trait ParsesPublicationFieldInputs
     protected static function parseError(string $typeName, string $input): InvalidArgumentException
     {
         return new InvalidArgumentException(sprintf("%s: Unable to parse invalid %s value '%s'",
-            ucfirst($typeName).'Field', $typeName, $input
+            $typeName.'Field', $typeName, $input
         ));
     }
 }
