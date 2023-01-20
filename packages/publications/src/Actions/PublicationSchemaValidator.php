@@ -21,6 +21,11 @@ class PublicationSchemaValidator extends InvokableAction
     protected Validator $schemaValidator;
     protected array $fieldValidators = [];
 
+    public static function call(...$args): static
+    {
+        return (new static(...$args))->__invoke();
+    }
+
     public function __construct(string $pubTypeName)
     {
         $this->schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));

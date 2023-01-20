@@ -27,6 +27,11 @@ class PublicationPageValidator extends InvokableAction
 
     protected Validator $validator;
 
+    public static function call(...$args): static
+    {
+        return (new static(...$args))->__invoke();
+    }
+
     public function __construct(PublicationType $publicationType, string $pageIdentifier)
     {
         $this->publicationType = $publicationType;
