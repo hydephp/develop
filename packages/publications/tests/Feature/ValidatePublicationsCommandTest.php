@@ -187,6 +187,32 @@ Hello World
             ->assertExitCode(1);
     }
 
+    public function testWithVerboseOutput()
+    {
+        $this->createFullRangeTestFixtures();
+
+        $this->artisan('validate:publications --verbose')
+            ->expectsOutputToContain('Validating publications!')
+            ->expectsOutput('Validating publication type [test-publication]')
+            ->expectsOutput('  ⚠ extra-field.md')
+            ->expectsOutput('    ✓ Field title passed.')
+            ->expectsOutput('    ⚠ The extra field is not defined in the publication type.')
+            ->expectsOutput('  ⨯ invalid-field-and-extra-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('    ⚠ The extra field is not defined in the publication type.')
+            ->expectsOutput('  ⨯ invalid-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('  ⨯ missing-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('  ✓ valid.md')
+            ->expectsOutput('    ✓ Field title passed.')
+            ->expectsOutputToContain('Summary:')
+            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 6 fields')
+            ->expectsOutput('Found 2 Warnings')
+            ->expectsOutput('Found 3 Errors')
+            ->assertExitCode(1);
+    }
+
     public function testWithJsonOutput()
     {
         $this->createFullRangeTestFixtures();
