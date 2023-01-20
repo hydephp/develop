@@ -184,11 +184,13 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         if ($hasErrors) {
             return $this->failedIcon;
-        } elseif ($hasWarnings) {
-            return $this->warningIcon;
-        } else {
-            return $this->passedIcon;
         }
+
+        if ($hasWarnings) {
+            return $this->warningIcon;
+        }
+
+        return $this->passedIcon;
     }
 
     protected function outputSummary(): void
