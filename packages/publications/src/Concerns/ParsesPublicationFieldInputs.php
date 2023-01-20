@@ -95,7 +95,7 @@ trait ParsesPublicationFieldInputs
     protected static function parseError(string $typeName, string $input): InvalidArgumentException
     {
         return new InvalidArgumentException(sprintf("%s: Unable to parse invalid %s value '%s'",
-            (ucfirst($typeName).'Field'), $typeName, $input
+            ucfirst($typeName).'Field', $typeName, $input
         ));
     }
 }
