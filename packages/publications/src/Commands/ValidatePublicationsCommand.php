@@ -174,7 +174,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         foreach ($results as $result) {
             if (str_starts_with($result, 'Warning: ')) {
                 return $this->warningIcon;
-            } elseif (str_starts_with($result, 'Error: ')) {
+            }
+            if (str_starts_with($result, 'Error: ')) {
                 return $this->failedIcon;
             }
         }
