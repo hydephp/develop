@@ -102,9 +102,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function getPublicationTypesToValidate(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
+        $name = $this->argument('publicationType');
 
-        if (filled($this->argument('publicationType'))) {
-            return $this->getPublicationTypeFromArgument($publicationTypes, $this->argument('publicationType'));
+        if (filled($name)) {
+            return $this->getPublicationTypeFromArgument($publicationTypes, $name);
         }
 
         if ($publicationTypes->isEmpty()) {
