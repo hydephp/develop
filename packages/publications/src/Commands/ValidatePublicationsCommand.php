@@ -103,10 +103,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function validatePublicationPage(PublicationType $publicationType, string $identifier): array
     {
-        /** @var PublicationPageValidator $validator */
-        $validator = PublicationPageValidator::call($publicationType, $identifier);
-
-        return $validator->getResults();
+        return PublicationPageValidator::call($publicationType, $identifier)->getResults();
     }
 
     protected function getPublicationTypesToValidate(): Collection
