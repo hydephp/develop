@@ -91,7 +91,7 @@ Hello World
 ');
 
         $this->artisan('validate:publications')
-             ->expectsOutputToContain('Validated 1 publication types, 1 publications, 0 fields')
+             ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
              ->expectsOutput('Found 0 Warnings')
              ->expectsOutput('Found 1 Errors')
              ->assertExitCode(1);
@@ -146,7 +146,7 @@ Hello World
         );
 
         $this->artisan('validate:publications')
-            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 2 fields')
             ->expectsOutput('Found 0 Warnings')
             ->expectsOutput('Found 2 Errors')
             ->assertExitCode(1);
