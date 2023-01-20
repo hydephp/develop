@@ -27,6 +27,7 @@ use function sprintf;
 use function str_repeat;
 use function str_starts_with;
 use function strlen;
+use function substr_count;
 
 /**
  * Hyde Command to validate one or all publications.
@@ -70,6 +71,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
+        $this->countedErrors = substr_count(json_encode($this->results), '":"Error: ');
+        $this->countedWarnings = substr_count(json_encode($this->results), '":"Warning: ');
+
         if ($this->option('json')) {
             $this->outputJson();
         } else {
@@ -101,7 +105,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     {
         /** @var PublicationPageValidator $validator */
         $validator = PublicationPageValidator::call($publicationType, $identifier);
-        $this->incrementCountersForPublicationPage($validator);
 
         return $validator->getResults();
     }
@@ -214,12 +217,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
-    }
-
-    protected function incrementCountersForPublicationPage(PublicationPageValidator $validator): void
-    {
-        $this->countedErrors += count($validator->errors());
-        $this->countedWarnings += count($validator->warnings());
     }
 
     protected static function countRecursive(array $array, int $limit): int
