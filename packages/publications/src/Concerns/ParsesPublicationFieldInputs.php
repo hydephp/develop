@@ -8,7 +8,6 @@ use DateTime;
 use function filter_var;
 use InvalidArgumentException;
 use function is_numeric;
-use function sprintf;
 use function substr_count;
 use function trim;
 use function ucfirst;
