@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use function array_map;
+use function array_values;
 use function basename;
 use function collect;
+use function explode;
 use function filled;
 use function glob;
 use Hyde\Hyde;
@@ -171,16 +174,19 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function getPublicationResultsIcon(array $results): string
     {
-        foreach ($results as $result) {
-            if (str_starts_with($result, 'Error: ')) {
-                return $this->failedIcon;
-            }
-            if (str_starts_with($result, 'Warning: ')) {
-                $hasWarning = true;
-            }
+        $types = array_map(function (string $result): string {
+            return explode(':', $result)[0];
+        }, array_values($results));
+
+        if (in_array('Error', $types)) {
+            return $this->failedIcon;
         }
 
-        return ($hasWarning ?? false) ? $this->warningIcon : $this->passedIcon;
+        if (in_array('Warning', $types)) {
+            return $this->warningIcon;
+        }
+
+        return $this->passedIcon;
     }
 
     protected function outputSummary(): void
