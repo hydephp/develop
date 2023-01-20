@@ -148,7 +148,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->line(sprintf('  %s <fg=cyan>%s.md</>',
             $this->getPublicationResultsIcon(array_map(function (string $result): string {
                 return explode(':', $result)[0];
-            }, array_values($results))), $publicationName));
+            }, array_values($results))), $publicationName
+        ));
 
         foreach ($results as $message) {
             $this->displayPublicationFieldResults($message);
