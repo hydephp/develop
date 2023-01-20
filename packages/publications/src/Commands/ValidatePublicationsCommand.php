@@ -176,11 +176,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 return $this->failedIcon;
             }
             if (str_starts_with($result, 'Warning: ')) {
-                return $this->warningIcon;
+                $hasWarning = true;
             }
         }
 
-        return $this->passedIcon;
+        return ($hasWarning ?? false) ? $this->warningIcon : $this->passedIcon;
     }
 
     protected function outputSummary(): void
