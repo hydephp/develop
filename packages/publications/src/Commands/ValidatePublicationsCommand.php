@@ -105,10 +105,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $name = $this->argument('publicationType');
 
         if (filled($name)) {
-            if (! $publicationTypes->has($name)) {
-                throw new InvalidArgumentException("Publication type [$name] does not exist");
-            }
-            return collect([$name => PublicationType::get($name)]);
+            return $this->getPublicationTypeFromArgument($publicationTypes, $name);
         }
 
         if ($publicationTypes->isEmpty()) {
@@ -116,6 +113,14 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
 
         return $publicationTypes;
+    }
+
+    protected function getPublicationTypeFromArgument(Collection $publicationTypes, string $name): Collection
+    {
+        if (!$publicationTypes->has($name)) {
+            throw new InvalidArgumentException("Publication type [$name] does not exist");
+        }
+        return collect([$name => PublicationType::get($name)]);
     }
 
     protected function displayResults(): void
