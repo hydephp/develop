@@ -108,7 +108,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if (! $publicationTypes->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
-            $publicationTypes = collect([$name => $publicationTypes->get($name)]);
+            $publicationTypes = collect([$name => PublicationType::get($name)]);
         }
 
         if ($publicationTypes->isEmpty()) {
