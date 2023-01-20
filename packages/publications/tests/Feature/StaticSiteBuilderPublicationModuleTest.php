@@ -250,6 +250,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         foreach ($array as $index => $line) {
             $array[$index] = ltrim($line);
         }
+
         return implode("\n", $array);
     }
 }
