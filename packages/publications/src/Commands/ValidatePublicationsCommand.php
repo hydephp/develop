@@ -142,24 +142,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function displayPublicationResults(string $publicationName, array $results): void
     {
-        $hasErrors = false;
-        $hasWarnings = false;
-
-        foreach ($results as $result) {
-            if (str_starts_with($result, 'Warning: ')) {
-                $hasWarnings = true;
-            } elseif (str_starts_with($result, 'Error: ')) {
-                $hasErrors = true;
-            }
-        }
-
-        if ($hasErrors) {
-            $icon = $this->failedIcon;
-        } elseif ($hasWarnings) {
-            $icon = $this->warningIcon;
-        } else {
-            $icon = $this->passedIcon;
-        }
+        $icon = $this->getPublicationResultsIcon($results);
 
         $this->line(sprintf('  %s <fg=cyan>%s.md</>', $icon, $publicationName));
 
@@ -184,6 +167,29 @@ class ValidatePublicationsCommand extends ValidatingCommand
         } elseif ($this->output->isVerbose()) {
             $this->line(sprintf('    %s <fg=green>%s</>', $this->passedIcon, $message));
         }
+    }
+
+    protected function getPublicationResultsIcon(array $results): string
+    {
+        $hasErrors = false;
+        $hasWarnings = false;
+
+        foreach ($results as $result) {
+            if (str_starts_with($result, 'Warning: ')) {
+                $hasWarnings = true;
+            } elseif (str_starts_with($result, 'Error: ')) {
+                $hasErrors = true;
+            }
+        }
+
+        if ($hasErrors) {
+            $icon = $this->failedIcon;
+        } elseif ($hasWarnings) {
+            $icon = $this->warningIcon;
+        } else {
+            $icon = $this->passedIcon;
+        }
+        return $icon;
     }
 
     protected function outputSummary(): void
