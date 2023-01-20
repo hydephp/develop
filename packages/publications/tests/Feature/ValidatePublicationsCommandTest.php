@@ -181,7 +181,7 @@ Hello World
             ->expectsOutput('    ⨯ The title must be a string.')
             ->expectsOutput('  ✓ valid.md')
             ->expectsOutputToContain('Summary:')
-            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 6 fields')
+            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 7 fields')
             ->expectsOutput('Found 2 Warnings')
             ->expectsOutput('Found 3 Errors')
             ->assertExitCode(1);
@@ -207,7 +207,7 @@ Hello World
             ->expectsOutput('  ✓ valid.md')
             ->expectsOutput('    ✓ Field title passed.')
             ->expectsOutputToContain('Summary:')
-            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 6 fields')
+            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 7 fields')
             ->expectsOutput('Found 2 Warnings')
             ->expectsOutput('Found 3 Errors')
             ->assertExitCode(1);
