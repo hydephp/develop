@@ -153,10 +153,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
             }
         }
 
-        $icon = $hasErrors ? $this->failedIcon : $this->passedIcon;
-
-        if ($hasWarnings && ! $hasErrors) {
+        if ($hasErrors) {
+            $icon = $this->failedIcon;
+        } elseif ($hasWarnings) {
             $icon = $this->warningIcon;
+        } else {
+            $icon = $this->passedIcon;
         }
 
         $this->line(sprintf('  %s <fg=cyan>%s.md</>', $icon, $publicationName));
