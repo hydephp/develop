@@ -33,8 +33,8 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
-    protected const PASSED = "\u{2713}";
-    protected const FAILED = '<fg=red>x</>';
+    protected const PASSED = "<fg=green>\u{2713}</>";
+    protected const FAILED = "<fg=red>\u{2A2F}</>";
     protected const WARNING = "<fg=yellow>\u{26A0}</>";
 
     /** @var string */
