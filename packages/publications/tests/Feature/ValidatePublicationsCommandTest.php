@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
+ * @covers \Hyde\Publications\Actions\PublicationPageValidator
  */
 class ValidatePublicationsCommandTest extends TestCase
 {
