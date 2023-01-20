@@ -33,8 +33,8 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
-    protected const CHECKMARK = "\u{2713}";
-    protected const CROSS_MARK = '<fg=red>x</>';
+    protected const PASSED = "\u{2713}";
+    protected const FAILED = '<fg=red>x</>';
     protected const WARNING = "<fg=yellow>\u{26A0}</>";
 
     /** @var string */
@@ -153,7 +153,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             }
         }
 
-        $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
+        $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::FAILED) : sprintf('<info>%s</info>', self::PASSED);
 
         if ($hasWarnings && ! $hasErrors) {
             $icon = self::WARNING;
@@ -177,10 +177,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if ($isWarning) {
                 $this->line(sprintf('    <fg=yellow>%s</> <comment>%s</comment>', self::WARNING, $message));
             } else {
-                $this->line(sprintf('    <fg=red>%s</> <fg=red>%s</>', self::CROSS_MARK, $message));
+                $this->line(sprintf('    <fg=red>%s</> <fg=red>%s</>', self::FAILED, $message));
             }
         } elseif ($this->output->isVerbose()) {
-            $this->line(sprintf('    <fg=green>%s</> <fg=green>%s</>', self::CHECKMARK, $message));
+            $this->line(sprintf('    <fg=green>%s</> <fg=green>%s</>', self::PASSED, $message));
         }
     }
 
