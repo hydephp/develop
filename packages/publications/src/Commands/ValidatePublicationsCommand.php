@@ -33,10 +33,6 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
-    protected const PASSED = "<fg=green>\u{2713}</>";
-    protected const FAILED = "<fg=red>\u{2A2F}</>";
-    protected const WARNING = "<fg=yellow>\u{26A0}</>";
-
     /** @var string */
     protected $signature = 'validate:publications
 		{publicationType? : The name of the publication type to validate.}
@@ -54,6 +50,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected int $countedFields = 0;
     protected int $countedErrors = 0;
     protected int $countedWarnings = 0;
+
+    protected string $passedIcon= "<fg=green>\u{2713}</>";
+    protected string $failedIcon= "<fg=red>\u{2A2F}</>";
+    protected string $warningIcon = "<fg=yellow>\u{26A0}</>";
 
     public function safeHandle(): int
     {
@@ -153,10 +153,10 @@ class ValidatePublicationsCommand extends ValidatingCommand
             }
         }
 
-        $icon = $hasErrors ? sprintf('%s', self::FAILED) : sprintf('%s', self::PASSED);
+        $icon = $hasErrors ? sprintf('%s', $this->failedIcon) : sprintf('%s', $this->passedIcon);
 
         if ($hasWarnings && ! $hasErrors) {
-            $icon = self::WARNING;
+            $icon = $this->warningIcon;
         }
 
         $this->line(sprintf('  %s <fg=cyan>%s.md</>', $icon, $publicationName));
@@ -175,12 +175,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         if ($isWarning || $isError) {
             if ($isWarning) {
-                $this->line(sprintf('    %s <comment>%s</comment>', self::WARNING, $message));
+                $this->line(sprintf('    %s <comment>%s</comment>', $this->warningIcon, $message));
             } else {
-                $this->line(sprintf('    %s <fg=red>%s</>', self::FAILED, $message));
+                $this->line(sprintf('    %s <fg=red>%s</>', $this->failedIcon, $message));
             }
         } elseif ($this->output->isVerbose()) {
-            $this->line(sprintf('    %s <fg=green>%s</>', self::PASSED, $message));
+            $this->line(sprintf('    %s <fg=green>%s</>', $this->passedIcon, $message));
         }
     }
 
