@@ -57,7 +57,7 @@ trait ParsesPublicationFieldInputs
         return (float) $value;
     }
 
-    protected static function parseImageValue(string $value): string
+    protected static function parseMediaValue(string $value): string
     {
         // TODO Validate file exists as the dynamic validation rules does the same
         return $value;

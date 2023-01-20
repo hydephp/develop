@@ -57,7 +57,7 @@ final class PublicationFieldValue
             PublicationFieldTypes::Boolean => self::parseBooleanValue($value),
             PublicationFieldTypes::Integer => self::parseIntegerValue($value),
             PublicationFieldTypes::Float => self::parseFloatValue($value),
-            PublicationFieldTypes::Media => self::parseImageValue($value),
+            PublicationFieldTypes::Media => self::parseMediaValue($value),
             PublicationFieldTypes::Array => self::parseArrayValue($value),
             PublicationFieldTypes::Text => self::parseTextValue($value),
             PublicationFieldTypes::Url => self::parseUrlValue($value),
