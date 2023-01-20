@@ -8,6 +8,7 @@ use function array_map;
 use function array_values;
 use function basename;
 use function collect;
+use function count;
 use function explode;
 use function filled;
 use function glob;
@@ -48,9 +49,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected array $results = [];
 
-    protected int $countedPublicationTypes = 0;
-    protected int $countedPublications = 0;
-    protected int $countedFields = 0;
     protected int $countedErrors = 0;
     protected int $countedWarnings = 0;
 
@@ -97,8 +95,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
 
         $this->results[$publicationType->getIdentifier()] = $typeResults;
-
-        $this->countedPublicationTypes++;
     }
 
     protected function validatePublicationPage(PublicationType $publicationType, string $identifier): array
@@ -201,8 +197,12 @@ class ValidatePublicationsCommand extends ValidatingCommand
         $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
         $this->output->newLine();
 
+        $countPublicationTypes = count($this->results);
+        $countPublications = self::countRecursive($this->results, 1);
+        $countFields = self::countRecursive($this->results, 2);
+
         $this->output->writeln(sprintf('<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>',
-            $this->countedPublicationTypes, $this->countedPublications, $this->countedFields,
+            $countPublicationTypes, $countPublications, $countFields,
             round((microtime(true) - $this->timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
@@ -218,9 +218,22 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function incrementCountersForPublicationPage(PublicationPageValidator $validator): void
     {
-        $this->countedPublications++;
-        $this->countedFields += count($validator->validatedFields());
         $this->countedErrors += count($validator->errors());
         $this->countedWarnings += count($validator->warnings());
+    }
+
+    protected static function countRecursive(array $array, int $limit): int
+    {
+        $count = 0;
+
+        foreach ($array as $child) {
+            if ($limit > 0) {
+                $count += self::countRecursive($child, $limit - 1);
+            } else {
+                $count += 1;
+            }
+        }
+
+        return $count;
     }
 }
