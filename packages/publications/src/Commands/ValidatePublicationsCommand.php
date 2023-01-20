@@ -89,16 +89,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function validatePublicationType(PublicationType $publicationType): void
-    {
-        $this->results[$publicationType->getIdentifier()] = [];
-
-        foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
-            $identifier = basename($publicationFile, '.md');
-            $this->results[$publicationType->getIdentifier()][$identifier] = PublicationPageValidator::call($publicationType, $identifier)->getResults();
-        }
-    }
-
     protected function getPublicationTypesToValidate(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
@@ -116,6 +106,16 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
 
         return $publicationTypes;
+    }
+
+    protected function validatePublicationType(PublicationType $publicationType): void
+    {
+        $this->results[$publicationType->getIdentifier()] = [];
+
+        foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
+            $identifier = basename($publicationFile, '.md');
+            $this->results[$publicationType->getIdentifier()][$identifier] = PublicationPageValidator::call($publicationType, $identifier)->getResults();
+        }
     }
 
     protected function displayResults(): void
