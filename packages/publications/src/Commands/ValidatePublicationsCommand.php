@@ -219,7 +219,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function incrementCountersForPublicationPage(PublicationPageValidator $validator): void
     {
         $this->countedPublications++;
-        $this->countedFields += count($validator->fields());
+        $this->countedFields += count($validator->validatedFields());
         $this->countedErrors += count($validator->errors());
         $this->countedWarnings += count($validator->warnings());
     }

@@ -78,10 +78,9 @@ class PublicationPageValidator extends InvokableAction
         return $warnings;
     }
 
-    /** @deprecated Count the results instead */
-    public function fields(): array
+    public function validatedFields(): array
     {
-        return $this->matter;
+        return array_merge($this->matter, array_flip($this->publicationType->getFields()->pluck('name')->toArray()));
     }
 
     /** @return array<string, string> */
@@ -91,9 +90,7 @@ class PublicationPageValidator extends InvokableAction
         $warnings = $this->warnings();
         $errors = $this->errors();
 
-        $validatedFields = array_merge($this->matter, array_flip($this->publicationType->getFields()->pluck('name')->toArray()));
-
-        foreach ($validatedFields as $key => $value) {
+        foreach ($this->validatedFields() as $key => $value) {
             if (isset($warnings[$key])) {
                 $results[$key] = "Warning: $warnings[$key]";
             } elseif (isset($errors[$key])) {
