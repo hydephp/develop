@@ -54,8 +54,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected int $countedErrors = 0;
     protected int $countedWarnings = 0;
 
-    protected string $passedIcon= "<fg=green>\u{2713}</>";
-    protected string $failedIcon= "<fg=red>\u{2A2F}</>";
+    protected string $passedIcon = "<fg=green>\u{2713}</>";
+    protected string $failedIcon = "<fg=red>\u{2A2F}</>";
     protected string $warningIcon = "<fg=yellow>\u{26A0}</>";
 
     public function safeHandle(): int
