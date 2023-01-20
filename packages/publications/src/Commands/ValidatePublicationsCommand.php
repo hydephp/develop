@@ -146,7 +146,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function displayPublicationResults(string $publicationName, array $results): void
     {
         $this->line(sprintf('  %s <fg=cyan>%s.md</>',
-            $this->getPublicationResultsIcon($this->getOutputTypesInResult($results)), $publicationName
+            $this->getPublicationResultsIcon($this->getMessageTypesInResult($results)), $publicationName
         ));
 
         foreach ($results as $message) {
@@ -185,7 +185,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $this->passedIcon;
     }
 
-    protected function getOutputTypesInResult(array $results): array
+    protected function getMessageTypesInResult(array $results): array
     {
         return array_map(function (string $result): string {
             return explode(':', $result)[0];
