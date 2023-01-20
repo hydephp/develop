@@ -4,20 +4,30 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use function array_map;
+use function array_values;
+use function basename;
 use function collect;
-use Exception;
+use function count;
+use function explode;
 use function filled;
-use Hyde\Publications\Actions\PublicationFieldValidator;
-use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationPage;
+use function glob;
+use Hyde\Hyde;
+use Hyde\Publications\Actions\PublicationPageValidator;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use function json_encode;
 use LaravelZero\Framework\Commands\Command;
+use function memory_get_peak_usage;
 use function microtime;
+use function round;
+use function sprintf;
 use function str_repeat;
+use function str_starts_with;
 use function strlen;
+use function substr_count;
 
 /**
  * Hyde Command to validate one or all publications.
@@ -28,10 +38,6 @@ use function strlen;
  */
 class ValidatePublicationsCommand extends ValidatingCommand
 {
-    protected const CHECKMARK = "\u{2713}";
-    protected const CROSS_MARK = 'x';
-    protected const WARNING = "\u{26A0}";
-
     /** @var string */
     protected $signature = 'validate:publications
 		{publicationType? : The name of the publication type to validate.}
@@ -40,24 +46,22 @@ class ValidatePublicationsCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
-    protected bool $verbose;
-    protected bool $json;
-
-    /** @deprecated  */
-    protected int $countErrors = 0;
-    /** @deprecated  */
-    protected int $countWarnings = 0;
+    protected float $timeStart;
 
     protected array $results = [];
 
+    protected int $countedErrors = 0;
+    protected int $countedWarnings = 0;
+
+    protected string $passedIcon = "<fg=green>\u{2713}</>";
+    protected string $failedIcon = "<fg=red>\u{2A2F}</>";
+    protected string $warningIcon = "<fg=yellow>\u{0021}</>";
+
     public function safeHandle(): int
     {
-        $timeStart = microtime(true);
+        $this->timeStart = microtime(true);
 
-        $this->verbose = $this->option('verbose');
-        $this->json = $this->option('json');
-
-        if (! $this->json) {
+        if (! $this->option('json')) {
             $this->title('Validating publications!');
         }
 
@@ -67,81 +71,22 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $this->validatePublicationType($publicationType);
         }
 
-        if ($this->json) {
+        $this->countedErrors = substr_count(json_encode($this->results), '":"Error: ');
+        $this->countedWarnings = substr_count(json_encode($this->results), '":"Warning: ');
+
+        if ($this->option('json')) {
             $this->outputJson();
         } else {
             $this->displayResults();
 
-            $this->outputSummary($timeStart);
+            $this->outputSummary();
         }
 
-        if ($this->countErrors) {
+        if ($this->countedErrors > 0) {
             return Command::FAILURE;
         }
 
         return Command::SUCCESS;
-    }
-
-    protected function validatePublicationType(PublicationType $publicationType): void
-    {
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()] = [];
-        $publications = PublicationService::getPublicationsForPubType($publicationType);
-
-        foreach ($publications as $publication) {
-            $this->validatePublication($publication, $publicationType);
-        }
-    }
-
-    protected function validatePublication(PublicationPage $publication, PublicationType $publicationType): void
-    {
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'] = [];
-
-        unset($publication->matter->data['__createdAt']);
-
-        foreach ($publication->type->getFields() as $field) {
-            $this->validatePublicationField($field, $publication, $publicationType);
-        }
-
-        // Check for extra fields that are not defined in the publication type (we'll add a warning for each one)
-        foreach ($publication->matter->data as $key => $value) {
-            $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['warnings'][] = "Field [$key] is not defined in publication type";
-            $this->countWarnings++;
-        }
-    }
-
-    protected function validatePublicationField(PublicationFieldDefinition $field, PublicationPage $publication, PublicationType $publicationType): void
-    {
-        $fieldName = $field->name;
-
-        $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName] = [];
-
-        try {
-            if (! $publication->matter->has($fieldName)) {
-                throw new Exception("Field [$fieldName] is missing from publication");
-            }
-
-            $validator = new PublicationFieldValidator($publicationType, $field);
-            $validator->validate($publication->matter->get($fieldName));
-        } catch (Exception $exception) {
-            $this->results['$publicationTypes'][$publicationType->getIdentifier()]['$publications'][$publication->getIdentifier()]['$fields'][$fieldName]['errors'][] = $exception->getMessage();
-            $this->countErrors++;
-        }
-        unset($publication->matter->data[$fieldName]);
-    }
-
-    /*
-     * Displays the given string as subtitle.
-     */
-    protected function subtitle(string $title): Command
-    {
-        $size = strlen($title);
-        $spaces = str_repeat(' ', $size);
-
-        $this->output->newLine();
-        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
-        $this->output->newLine();
-
-        return $this;
     }
 
     protected function getPublicationTypesToValidate(): Collection
@@ -153,7 +98,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if (! $publicationTypes->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
-            $publicationTypes = collect([$name => $publicationTypes->get($name)]);
+
+            return collect([$name => PublicationType::get($name)]);
         }
 
         if ($publicationTypes->isEmpty()) {
@@ -163,90 +109,119 @@ class ValidatePublicationsCommand extends ValidatingCommand
         return $publicationTypes;
     }
 
-    protected function countPublicationTypes(): ?int
+    protected function validatePublicationType(PublicationType $publicationType): void
     {
-        return count($this->results['$publicationTypes']);
-    }
+        $this->results[$publicationType->getIdentifier()] = [];
 
-    private function countPublications(): int
-    {
-        $count = 0;
-        foreach ($this->results['$publicationTypes'] as $publicationType) {
-            $count += count($publicationType['$publications'] ?? []);
+        foreach (glob(Hyde::path("{$publicationType->getDirectory()}/*.md")) as $publicationFile) {
+            $identifier = basename($publicationFile, '.md');
+            $this->results[$publicationType->getIdentifier()][$identifier] = PublicationPageValidator::call($publicationType, $identifier)->getResults();
         }
-
-        return $count;
-    }
-
-    private function countFields(): int
-    {
-        $count = 0;
-        foreach ($this->results['$publicationTypes'] as $publicationType) {
-            foreach ($publicationType['$publications'] ?? [] as $publication) {
-                $count += count($publication['$fields']);
-            }
-        }
-
-        return $count;
     }
 
     protected function displayResults(): void
     {
-        foreach ($this->results['$publicationTypes'] as $publicationTypeName => $publicationType) {
+        foreach ($this->results as $publicationTypeName => $publications) {
             $this->infoComment('Validating publication type', $publicationTypeName);
-            foreach ($publicationType['$publications'] ?? [] as $publicationName => $publication) {
-                $hasErrors = false;
-                $hasWarnings = isset($publication['warnings']);
-                foreach ($publication['$fields'] ?? [] as $field) {
-                    if (isset($field['errors'])) {
-                        $hasErrors = true;
-                    }
-                }
-                $icon = $hasErrors ? sprintf('<fg=red>%s</>', self::CROSS_MARK) : sprintf('<info>%s</info>', self::CHECKMARK);
-                if ($hasWarnings && ! $hasErrors) {
-                    $icon = sprintf('<fg=yellow>%s</>', self::WARNING);
-                }
-                $this->line(sprintf('  <fg=cyan>%s %s.md</> %s', $this->verbose ? 'File' : "<fg=gray>\u{2010}</>", $publicationName, $icon));
-                foreach ($publication['warnings'] ?? [] as $warning) {
-                    $this->line("      <fg=yellow>Warning: $warning</>");
-                }
-                foreach ($publication['$fields'] ?? [] as $fieldName => $field) {
-                    if ($this->verbose) {
-                        $hasErrors = isset($field['errors']);
-                        $this->line(sprintf('    <fg=bright-cyan>Field [%s]</>%s', $fieldName,
-                            $hasErrors ? sprintf(' <fg=red>%s</>', self::CROSS_MARK) : sprintf(' <info>%s</info>', self::CHECKMARK)));
-                    }
-                    foreach ($field['errors'] ?? [] as $error) {
-                        $this->line("      <fg=red>Error: $error</>");
-                    }
-                }
+            foreach ($publications ?? [] as $publicationName => $errors) {
+                $this->displayPublicationResults($publicationName, $errors);
             }
 
-            if ($publicationTypeName !== array_key_last($this->results['$publicationTypes'])) {
+            if ($publicationTypeName !== array_key_last($this->results)) {
                 $this->output->newLine();
             }
         }
     }
 
-    protected function outputSummary($timeStart): void
+    protected function displayPublicationResults(string $publicationName, array $results): void
     {
-        $warnColor = $this->countWarnings ? 'yellow' : 'green';
-        $errorColor = $this->countErrors ? 'red' : 'green';
+        $this->line(sprintf('  %s <fg=cyan>%s.md</>', $this->getPublicationResultsIcon(
+            $this->getMessageTypesInResult($results)), $publicationName
+        ));
 
-        $this->subtitle('Summary:');
+        foreach ($results as $message) {
+            $this->displayPublicationFieldResults($message);
+        }
+    }
+
+    protected function displayPublicationFieldResults(string $message): void
+    {
+        $isWarning = str_starts_with($message, 'Warning: ');
+        $isError = str_starts_with($message, 'Error: ');
+
+        $message = str_replace(['Warning: ', 'Error: '], '', $message);
+
+        if ($isWarning || $isError) {
+            if ($isWarning) {
+                $this->line(sprintf('    %s <comment>%s</comment>', $this->warningIcon, $message));
+            } else {
+                $this->line(sprintf('    %s <fg=red>%s</>', $this->failedIcon, $message));
+            }
+        } elseif ($this->output->isVerbose()) {
+            $this->line(sprintf('    %s <fg=green>%s</>', $this->passedIcon, $message));
+        }
+    }
+
+    protected function getPublicationResultsIcon(array $types): string
+    {
+        if (in_array('Error', $types)) {
+            return $this->failedIcon;
+        }
+
+        if (in_array('Warning', $types)) {
+            return $this->warningIcon;
+        }
+
+        return $this->passedIcon;
+    }
+
+    protected function getMessageTypesInResult(array $results): array
+    {
+        return array_map(function (string $result): string {
+            return explode(':', $result)[0];
+        }, array_values($results));
+    }
+
+    protected function outputSummary(): void
+    {
+        $size = strlen('Summary:');
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>{$spaces}Summary:$spaces</>");
+        $this->output->newLine();
+
+        $countPublicationTypes = count($this->results);
+        $countPublications = self::countRecursive($this->results, 1);
+        $countFields = self::countRecursive($this->results, 2);
 
         $this->output->writeln(sprintf('<fg=green>Validated %d publication types, %d publications, %d fields</><fg=gray> in %sms using %sMB peak memory</>',
-            $this->countPublicationTypes(), $this->countPublications(), $this->countFields(),
-            round((microtime(true) - $timeStart) * 1000),
+            $countPublicationTypes, $countPublications, $countFields,
+            round((microtime(true) - $this->timeStart) * 1000),
             round(memory_get_peak_usage() / 1024 / 1024)
         ));
 
-        $this->output->writeln("<fg=$warnColor>Found $this->countWarnings Warnings</>");
-        $this->output->writeln("<fg=$errorColor>Found $this->countErrors Errors</>");
+        $this->output->writeln('<fg='.($this->countedWarnings ? 'yellow' : 'green').">Found $this->countedWarnings Warnings</>");
+        $this->output->writeln('<fg='.($this->countedErrors ? 'red' : 'green').">Found $this->countedErrors Errors</>");
     }
 
     protected function outputJson(): void
     {
         $this->output->writeln(json_encode($this->results, JSON_PRETTY_PRINT));
+    }
+
+    protected static function countRecursive(array $array, int $limit): int
+    {
+        $count = 0;
+
+        foreach ($array as $child) {
+            if ($limit > 0) {
+                $count += self::countRecursive($child, $limit - 1);
+            } else {
+                $count += 1;
+            }
+        }
+
+        return $count;
     }
 }

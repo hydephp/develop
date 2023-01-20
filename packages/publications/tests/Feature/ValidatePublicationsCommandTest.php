@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
+ * @covers \Hyde\Publications\Actions\PublicationPageValidator
  */
 class ValidatePublicationsCommandTest extends TestCase
 {
@@ -110,7 +111,7 @@ Hello World
 ');
 
         $this->artisan('validate:publications')
-            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 1 fields')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 2 fields')
             ->expectsOutput('Found 1 Warnings')
             ->expectsOutput('Found 0 Errors')
             ->assertExitCode(0);
@@ -127,6 +128,31 @@ Hello World
             ->assertExitCode(0);
     }
 
+    public function testWithMultipleInvalidFields()
+    {
+        $this->directory('test-publication');
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'myField', 'type' => 'string'],
+            ['name' => 'myNumber', 'type' => 'integer'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/my-page.md', <<<'MD'
+            ---
+            myField: false
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->artisan('validate:publications')
+            ->expectsOutputToContain('Validated 1 publication types, 1 publications, 2 fields')
+            ->expectsOutput('Found 0 Warnings')
+            ->expectsOutput('Found 2 Errors')
+            ->assertExitCode(1);
+    }
+
     public function testOnlySpecifiedTypeIsValidatedWhenUsingArgument()
     {
         $this->directory('test-publication');
@@ -138,7 +164,88 @@ Hello World
             ->assertExitCode(0);
     }
 
+    public function testOutput()
+    {
+        $this->createFullRangeTestFixtures();
+
+        $this->artisan('validate:publications')
+            ->expectsOutputToContain('Validating publications!')
+            ->expectsOutput('Validating publication type [test-publication]')
+            ->expectsOutput('  ! extra-field.md')
+            ->expectsOutput('    ! The extra field is not defined in the publication type.')
+            ->expectsOutput('  ⨯ invalid-field-and-extra-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('    ! The extra field is not defined in the publication type.')
+            ->expectsOutput('  ⨯ invalid-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('  ⨯ missing-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('  ✓ valid.md')
+            ->expectsOutputToContain('Summary:')
+            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 7 fields')
+            ->expectsOutput('Found 2 Warnings')
+            ->expectsOutput('Found 3 Errors')
+            ->assertExitCode(1);
+    }
+
+    public function testWithVerboseOutput()
+    {
+        $this->createFullRangeTestFixtures();
+
+        $this->artisan('validate:publications --verbose')
+            ->expectsOutputToContain('Validating publications!')
+            ->expectsOutput('Validating publication type [test-publication]')
+            ->expectsOutput('  ! extra-field.md')
+            ->expectsOutput('    ✓ Field title passed.')
+            ->expectsOutput('    ! The extra field is not defined in the publication type.')
+            ->expectsOutput('  ⨯ invalid-field-and-extra-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('    ! The extra field is not defined in the publication type.')
+            ->expectsOutput('  ⨯ invalid-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('  ⨯ missing-field.md')
+            ->expectsOutput('    ⨯ The title must be a string.')
+            ->expectsOutput('  ✓ valid.md')
+            ->expectsOutput('    ✓ Field title passed.')
+            ->expectsOutputToContain('Summary:')
+            ->expectsOutputToContain('Validated 1 publication types, 5 publications, 7 fields')
+            ->expectsOutput('Found 2 Warnings')
+            ->expectsOutput('Found 3 Errors')
+            ->assertExitCode(1);
+    }
+
     public function testWithJsonOutput()
+    {
+        $this->createFullRangeTestFixtures();
+
+        $this->artisan('validate:publications --json')
+            ->expectsOutput(<<<'JSON'
+                {
+                    "test-publication": {
+                        "extra-field": {
+                            "title": "Field title passed.",
+                            "extra": "Warning: The extra field is not defined in the publication type."
+                        },
+                        "invalid-field-and-extra-field": {
+                            "title": "Error: The title must be a string.",
+                            "extra": "Warning: The extra field is not defined in the publication type."
+                        },
+                        "invalid-field": {
+                            "title": "Error: The title must be a string."
+                        },
+                        "missing-field": {
+                            "title": "Error: The title must be a string."
+                        },
+                        "valid": {
+                            "title": "Field title passed."
+                        }
+                    }
+                }
+                JSON)
+            ->assertExitCode(1);
+    }
+
+    public function testWithJsonOutputWithNoPublications()
     {
         $this->directory('test-publication');
         $this->copyTestPublicationFixture();
@@ -146,11 +253,10 @@ Hello World
         $this->artisan('validate:publications --json')
             ->expectsOutput(<<<'JSON'
                 {
-                    "$publicationTypes": {
-                        "test-publication": []
-                    }
+                    "test-publication": []
                 }
-                JSON)
+                JSON
+            )
             ->assertExitCode(0);
     }
 
@@ -179,5 +285,61 @@ Hello World
     protected function savePublication(string $name): void
     {
         (new PublicationType($name))->save();
+    }
+
+    protected function createFullRangeTestFixtures(): void
+    {
+        $this->directory('test-publication');
+
+        $publicationType = new PublicationType('test-publication', fields: [
+            ['name' => 'title', 'type' => 'string'],
+        ]);
+        $publicationType->save();
+
+        $this->file('test-publication/extra-field.md', <<<'MD'
+            ---
+            title: foo
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/invalid-field-and-extra-field.md', <<<'MD'
+            ---
+            title: false
+            extra: field
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/missing-field.md', <<<'MD'
+            ---
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/invalid-field.md', <<<'MD'
+            ---
+            title: false
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/valid.md', <<<'MD'
+            ---
+            title: foo
+            ---
+            
+            # My Page
+            MD
+        );
     }
 }

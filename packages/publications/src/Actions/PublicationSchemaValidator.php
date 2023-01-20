@@ -17,8 +17,14 @@ use function validator;
 class PublicationSchemaValidator extends InvokableAction
 {
     protected stdClass $schema;
+
     protected Validator $schemaValidator;
     protected array $fieldValidators = [];
+
+    public static function call(...$args): static
+    {
+        return (new static(...$args))->__invoke();
+    }
 
     public function __construct(string $pubTypeName)
     {
