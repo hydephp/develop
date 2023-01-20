@@ -16,8 +16,6 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Publications\Actions\SeedsPublicationFiles
  * @see \Hyde\Publications\Testing\Feature\SeedPublicationCommandTest
- *
- * @todo Normalize command output style, maybe by hooking into the build actions?
  */
 class SeedPublicationCommand extends ValidatingCommand
 {
