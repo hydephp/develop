@@ -227,8 +227,7 @@ class MarkdownService
 
     protected static function getNormalizedLines(string $string): array
     {
-        $string = str_replace(["\t", "\r\n"], ['    ', "\n"], $string);
-        return explode("\n", $string);
+        return explode("\n", str_replace(["\t", "\r\n"], ['    ', "\n"], $string));
     }
 
     /** @return int[]  Find the indentation level and position of the first line that has content */
