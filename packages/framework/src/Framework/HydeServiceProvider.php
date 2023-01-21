@@ -102,7 +102,7 @@ class HydeServiceProvider extends ServiceProvider
         HydeKernel::getInstance()->readyToBoot();
     }
 
-    protected function initializeConfiguration()
+    protected function initializeConfiguration(): void
     {
         if (YamlConfigurationService::hasFile()) {
             YamlConfigurationService::boot();
