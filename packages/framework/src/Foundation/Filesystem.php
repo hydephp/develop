@@ -51,8 +51,6 @@ class Filesystem
      *
      * You may also use the function to generate a fully qualified path to a given file
      * relative to the project root directory when supplying the path argument.
-     *
-     * @param  string  $path
      */
     public function path(string $path = ''): string
     {

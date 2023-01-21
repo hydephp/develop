@@ -40,6 +40,7 @@ class FrontMatter implements Stringable, SerializableContract
         return (new ConvertsArrayToFrontMatter())->execute($this->data);
     }
 
+    /** @return mixed|static */
     public function __get(string $key): mixed
     {
         return $this->get($key);
