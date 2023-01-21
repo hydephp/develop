@@ -176,7 +176,7 @@ class StaticSiteServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['hyde.generate_rss_feed' => true]);
 
-        Hyde::touch(('_posts/foo.md'));
+        Hyde::touch('_posts/foo.md');
 
         $this->artisan('build')
             // ->expectsOutput('Generating RSS feed...')
@@ -196,7 +196,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_generates_search_files_when_conditions_are_met()
     {
-        Hyde::touch(('_docs/foo.md'));
+        Hyde::touch('_docs/foo.md');
 
         $this->artisan('build')
             // ->expectsOutput('Generating search index...')
@@ -208,7 +208,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_site_directory_is_emptied_before_build()
     {
-        Hyde::touch(('_site/foo.html'));
+        Hyde::touch('_site/foo.html');
         $this->artisan('build')
             ->expectsOutput('Removing all files from build directory.')
             ->assertExitCode(0);
@@ -218,7 +218,7 @@ class StaticSiteServiceTest extends TestCase
     public function test_output_directory_is_not_emptied_if_disabled_in_config()
     {
         config(['hyde.empty_output_directory' => false]);
-        Hyde::touch(('_site/keep.html'));
+        Hyde::touch('_site/keep.html');
 
         $this->artisan('build')
             ->doesntExpectOutput('Removing all files from build directory.')
@@ -233,7 +233,7 @@ class StaticSiteServiceTest extends TestCase
         Site::$outputPath = 'foo';
 
         mkdir(Hyde::path('foo'));
-        Hyde::touch(('foo/keep.html'));
+        Hyde::touch('foo/keep.html');
 
         $this->artisan('build')
             ->expectsOutput('Removing all files from build directory.')
