@@ -115,19 +115,19 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('image/jpeg', $item->enclosure->attributes()->type);
         $this->assertEquals('8', $item->enclosure->attributes()->length);
 
-        unlink(Hyde::path('_posts/rss.md'));
-        unlink(Hyde::path('_media/rss-test.jpg'));
+        Hyde::unlink('_posts/rss.md');
+        Hyde::unlink('_media/rss-test.jpg');
     }
 
     public function test_get_xml_method_returns_xml_string()
     {
         $service = new RssFeedGenerator();
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', ($service->getXml()));
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $service->getXml());
     }
 
     public function test_generate_feed_helper_returns_xml_string()
     {
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (RssFeedGenerator::make()));
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', RssFeedGenerator::make());
     }
 
     public function test_can_generate_feed_helper_returns_true_if_hyde_has_base_url()

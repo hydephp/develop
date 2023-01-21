@@ -36,7 +36,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
     public function test_markdown_posts_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/blog'));
-        Hyde::touch(('testSourceDir/blog/test.md'));
+        Hyde::touch('testSourceDir/blog/test.md');
 
         MarkdownPost::$sourceDirectory = 'testSourceDir/blog';
 
@@ -46,13 +46,13 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/posts/test.html'));
-        unlink(Hyde::path('_site/posts/test.html'));
+        Hyde::unlink('_site/posts/test.html');
     }
 
     public function test_markdown_pages_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/pages'));
-        Hyde::touch(('testSourceDir/pages/test.md'));
+        Hyde::touch('testSourceDir/pages/test.md');
 
         MarkdownPage::$sourceDirectory = 'testSourceDir/pages';
 
@@ -62,13 +62,13 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
-        unlink(Hyde::path('_site/test.html'));
+        Hyde::unlink('_site/test.html');
     }
 
     public function test_documentation_pages_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/documentation'));
-        Hyde::touch(('testSourceDir/documentation/test.md'));
+        Hyde::touch('testSourceDir/documentation/test.md');
 
         DocumentationPage::$sourceDirectory = 'testSourceDir/documentation';
 
@@ -78,13 +78,13 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/docs/test.html'));
-        unlink(Hyde::path('_site/docs/test.html'));
+        Hyde::unlink('_site/docs/test.html');
     }
 
     public function test_blade_pages_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/blade'));
-        Hyde::touch(('testSourceDir/blade/test.blade.php'));
+        Hyde::touch('testSourceDir/blade/test.blade.php');
 
         BladePage::$sourceDirectory = 'testSourceDir/blade';
         Config::set('view.paths', ['testSourceDir/blade']);
@@ -95,6 +95,6 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
-        unlink(Hyde::path('_site/test.html'));
+        Hyde::unlink('_site/test.html');
     }
 }

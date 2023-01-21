@@ -8,6 +8,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
+use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Support\Models\Render
@@ -70,7 +71,7 @@ class RenderHelperTest extends TestCase
 
     public function testShareInvalidProperty()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("Property 'foo' does not exist on Hyde\Support\Models\Render");
 
         Render::share('foo', 'bar');

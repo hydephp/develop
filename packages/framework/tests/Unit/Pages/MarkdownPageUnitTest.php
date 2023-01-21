@@ -12,7 +12,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
-use function unlink;
 
 require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
 
@@ -226,6 +225,6 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         $page = new MarkdownPage('foo');
         $this->assertSame($page, $page->save());
         $this->assertFileExists('_pages/foo.md');
-        unlink(Hyde::path('_pages/foo.md'));
+        Hyde::unlink('_pages/foo.md');
     }
 }

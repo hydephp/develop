@@ -23,6 +23,6 @@ class BuildSitemapCommandTest extends TestCase
         $this->artisan('build:sitemap')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
 
-        unlink(Hyde::path('_site/sitemap.xml'));
+        Hyde::unlink('_site/sitemap.xml');
     }
 }

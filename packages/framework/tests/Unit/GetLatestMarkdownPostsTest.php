@@ -27,7 +27,7 @@ class GetLatestMarkdownPostsTest extends TestCase
         $this->assertEquals('new', $collection->first()->identifier);
         $this->assertEquals('old', $collection->last()->identifier);
 
-        unlink(Hyde::path('_posts/new.md'));
-        unlink(Hyde::path('_posts/old.md'));
+        Hyde::unlink('_posts/new.md');
+        Hyde::unlink('_posts/old.md');
     }
 }

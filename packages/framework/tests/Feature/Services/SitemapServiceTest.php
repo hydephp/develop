@@ -42,38 +42,38 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_markdown_pages_to_xml()
     {
-        Hyde::touch(('_pages/foo.md'));
+        Hyde::touch('_pages/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->getXmlElement()->url);
 
-        unlink(Hyde::path('_pages/foo.md'));
+        Hyde::unlink('_pages/foo.md');
     }
 
     public function test_generate_adds_markdown_posts_to_xml()
     {
-        Hyde::touch(('_posts/foo.md'));
+        Hyde::touch('_posts/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->getXmlElement()->url);
 
-        unlink(Hyde::path('_posts/foo.md'));
+        Hyde::unlink('_posts/foo.md');
     }
 
     public function test_generate_adds_documentation_pages_to_xml()
     {
-        Hyde::touch(('_docs/foo.md'));
+        Hyde::touch('_docs/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->getXmlElement()->url);
 
-        unlink(Hyde::path('_docs/foo.md'));
+        Hyde::unlink('_docs/foo.md');
     }
 
     public function test_get_xml_returns_xml_string()
@@ -98,7 +98,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['site.pretty_urls' => false]);
         config(['site.url' => 'https://example.com']);
-        Hyde::touch(('_pages/0-test.blade.php'));
+        Hyde::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -108,14 +108,14 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('daily', $url->changefreq);
         $this->assertTrue(isset($url->lastmod));
 
-        unlink(Hyde::path('_pages/0-test.blade.php'));
+        Hyde::unlink('_pages/0-test.blade.php');
     }
 
     public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
         config(['site.pretty_urls' => true]);
         config(['site.url' => 'https://example.com']);
-        Hyde::touch(('_pages/0-test.blade.php'));
+        Hyde::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -123,7 +123,7 @@ class SitemapServiceTest extends TestCase
         $url = $service->getXmlElement()->url[0];
         $this->assertEquals('https://example.com/0-test', $url->loc);
 
-        unlink(Hyde::path('_pages/0-test.blade.php'));
+        Hyde::unlink('_pages/0-test.blade.php');
     }
 
     public function test_all_route_types_are_discovered()

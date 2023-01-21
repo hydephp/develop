@@ -107,7 +107,7 @@ class MediaFileTest extends TestCase
             'length' => 0,
             'mimeType' => 'text/plain',
         ], MediaFile::make('foo/bar.txt')->toArray());
-        unlink(Hyde::path('foo/bar.txt'));
+        Hyde::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
 
