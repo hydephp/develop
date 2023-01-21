@@ -287,14 +287,16 @@ class MarkdownServiceTest extends TestCase
 
     protected function makeService(): MarkdownService
     {
-        return new class extends MarkdownService
-        {
-            public array $features = [];
+        return new MarkdownServiceTestClass();
+    }
+}
 
-            public function __construct(string $markdown = '', ?string $sourceModel = null)
-            {
-                parent::__construct($markdown, $sourceModel);
-            }
-        };
+class MarkdownServiceTestClass extends MarkdownService
+{
+    public array $features = [];
+
+    public function __construct(string $markdown = '', ?string $sourceModel = null)
+    {
+        parent::__construct($markdown, $sourceModel);
     }
 }
