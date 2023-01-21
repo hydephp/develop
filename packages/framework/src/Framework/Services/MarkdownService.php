@@ -218,9 +218,9 @@ class MarkdownService
 
         [$offset, $indentationLevel] = self::getIndentationLevelOfFirstLineWithContent($lines);
 
-        foreach ($lines as $index => $line) {
-            if ($index >= $offset) {
-                $lines[$index] = substr($line, $indentationLevel);
+        foreach ($lines as $lineNumber => $line) {
+            if ($lineNumber >= $offset) {
+                $lines[$lineNumber] = substr($line, $indentationLevel);
             }
         }
 
@@ -230,13 +230,13 @@ class MarkdownService
 
     protected static function getIndentationLevelOfFirstLineWithContent(array $lines): array
     {
-        foreach ($lines as $index => $line) {
+        foreach ($lines as $lineNumber => $line) {
             if (filled(trim($line))) {
                 $lineLen = strlen($line);
                 $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
 
                 if ($lineLen !== $stripLen) {
-                    return [$index, $lineLen - $stripLen];
+                    return [$lineNumber, $lineLen - $stripLen];
                 }
             }
         }
