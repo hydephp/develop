@@ -220,18 +220,16 @@ class MarkdownService
 
         // Find the indentation level of the first line that has content
         foreach ($lines as $index => $line) {
-            if (empty(trim($line))) {
-                continue;
-            }
+            if (! empty(trim($line))) {
+                $lineLen = strlen($line);
+                $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
 
-            $lineLen = strlen($line);
-            $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
+                if ($lineLen !== $stripLen) {
+                    $offset = $index;
+                    $indentationLevel = $lineLen - $stripLen;
 
-            if ($lineLen !== $stripLen) {
-                $offset = $index;
-                $indentationLevel = $lineLen - $stripLen;
-
-                break;
+                    break;
+                }
             }
         }
 
