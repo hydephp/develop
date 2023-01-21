@@ -237,11 +237,9 @@ class MarkdownService
         }
 
         foreach ($lines as $index => $line) {
-            if ($index < $offset) {
-                continue;
+            if ($index >= $offset) {
+                $lines[$index] = substr($line, $indentationLevel);
             }
-
-            $lines[$index] = substr($line, $indentationLevel);
         }
 
         return implode("\n", $lines);
