@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\HtmlPage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
@@ -61,26 +55,6 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        if (Features::hasHtmlPages()) {
-            $this->discoverFilesFor(HtmlPage::class);
-        }
-
-        if (Features::hasBladePages()) {
-            $this->discoverFilesFor(BladePage::class);
-        }
-
-        if (Features::hasMarkdownPages()) {
-            $this->discoverFilesFor(MarkdownPage::class);
-        }
-
-        if (Features::hasMarkdownPosts()) {
-            $this->discoverFilesFor(MarkdownPost::class);
-        }
-
-        if (Features::hasDocumentationPages()) {
-            $this->discoverFilesFor(DocumentationPage::class);
-        }
-
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverFilesFor($pageClass);
         }
