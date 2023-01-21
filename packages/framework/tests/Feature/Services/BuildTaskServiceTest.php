@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Exception;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
@@ -173,7 +174,7 @@ class BuildTaskServiceTest extends TestCase
         {
             public function run(): void
             {
-                throw new \Exception('foo', 1);
+                throw new Exception('foo', 1);
             }
         })->handle();
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use ArgumentCountError;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
@@ -45,7 +46,7 @@ class DataCollectionTest extends TestCase
 
     public function test_key_is_required()
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         new DataCollection();
     }
 
