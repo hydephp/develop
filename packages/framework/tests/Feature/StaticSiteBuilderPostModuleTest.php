@@ -29,7 +29,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
             'author' => 'Lewis Carroll',
             'date' => '1865-11-18 18:52',
             'image' => 'image.png',
-        ], "## CHAPTER I. DOWN THE RABBIT-HOLE. \n\nSo she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.", 'Test Title');
+        ], "## CHAPTER I. DOWN THE RABBIT-HOLE. \n\nSo she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.");
     }
 
     protected function tearDown(): void
