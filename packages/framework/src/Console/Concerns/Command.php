@@ -7,7 +7,7 @@ namespace Hyde\Console\Concerns;
 /**
  * @see \Hyde\Framework\Testing\Feature\CommandTest
  */
-abstract class Command
+abstract class Command extends \LaravelZero\Framework\Commands\Command
 {
     //
 }
