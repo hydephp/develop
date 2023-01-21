@@ -29,7 +29,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
             'author' => 'Lewis Carroll',
             'date' => '1865-11-18 18:52',
             'image' => 'image.png',
-        ], <<<MARKDOWN
+        ], <<<'MARKDOWN'
             ## CHAPTER I. DOWN THE RABBIT-HOLE. 
             
             So she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.
