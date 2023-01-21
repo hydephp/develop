@@ -91,7 +91,7 @@ class FilesystemTest extends TestCase
 
     public function test_vendor_path_method_exists()
     {
-        $this->assertTrue(method_exists(\Hyde\Foundation\Filesystem::class, 'vendorPath'));
+        $this->assertTrue(method_exists(Filesystem::class, 'vendorPath'));
     }
 
     public function test_vendor_path_method_returns_string()
@@ -113,7 +113,7 @@ class FilesystemTest extends TestCase
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
-        $this->assertTrue(method_exists(\Hyde\Foundation\Filesystem::class, 'copy'));
+        $this->assertTrue(method_exists(Filesystem::class, 'copy'));
         $this->assertTrue(Hyde::copy('foo', 'bar'));
         $this->assertFileExists(Hyde::path('bar'));
         Hyde::unlink('foo');
