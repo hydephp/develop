@@ -212,9 +212,9 @@ class MarkdownService
      */
     public static function normalizeIndentationLevel(string $string): string
     {
-        $string = str_replace("\t", '    ', $string);
-        $string = str_replace("\r\n", "\n", $string);
-        $lines = explode("\n", $string);
+        $replaceTabs = str_replace("\t", '    ', $string);
+        $normalizeNewlines = str_replace("\r\n", "\n", $replaceTabs);
+        $lines = explode("\n", $normalizeNewlines);
 
         [$startNumber, $indentationLevel] = self::getIndentationLevelOfFirstLineWithContent($lines);
 
