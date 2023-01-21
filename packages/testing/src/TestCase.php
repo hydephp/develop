@@ -36,7 +36,7 @@ abstract class TestCase extends BaseTestCase
         $this->cleanUpFilesystem();
 
         if (method_exists(Component::class, 'flushCache')) {
-            /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
+            /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the view cache ourselves */
             Component::flushCache();
             Component::forgetComponentsResolver();
             Component::forgetFactory();
