@@ -8,12 +8,12 @@ use Illuminate\Support\ServiceProvider;
 
 class SessionServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Session::class, Session::class);
     }
 
-    public function boot()
+    public function boot(): void
     {
         //
     }

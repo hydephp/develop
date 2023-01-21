@@ -97,6 +97,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return (string) $priority;
     }
 
+    /** @return numeric-string */
     protected function getFormattedProcessingTime(): string
     {
         return (string) round((microtime(true) - $this->timeStart) * 1000, 2);

@@ -88,7 +88,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
     }
 
-    protected function makeHidden(): ?bool
+    protected function makeHidden(): bool
     {
         return $this->isInstanceOf(MarkdownPost::class)
             || $this->searchForHiddenInFrontMatter()
