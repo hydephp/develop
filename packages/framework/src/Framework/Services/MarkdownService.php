@@ -227,8 +227,7 @@ class MarkdownService
 
     protected static function getNormalizedLines(string $string): array
     {
-        $string = str_replace("\t", '    ', $string);
-        $string = str_replace("\r\n", "\n", $string);
+        $string = str_replace(["\t", "\r\n"], ['    ', "\n"], $string);
         return explode("\n", $string);
     }
 
