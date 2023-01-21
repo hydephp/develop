@@ -212,9 +212,7 @@ class MarkdownService
      */
     public static function normalizeIndentationLevel(string $string): string
     {
-        $replaceTabs = str_replace("\t", '    ', $string);
-        $normalizeNewlines = str_replace("\r\n", "\n", $replaceTabs);
-        $lines = explode("\n", $normalizeNewlines);
+        $lines = self::getNormalizedLines($string);
 
         [$startNumber, $indentationLevel] = self::findLineContentPositions($lines);
 
@@ -227,6 +225,12 @@ class MarkdownService
         return implode("\n", $lines);
     }
 
+    protected static function getNormalizedLines(string $string): array
+    {
+        $replaceTabs = str_replace("\t", '    ', $string);
+        $normalizeNewlines = str_replace("\r\n", "\n", $replaceTabs);
+        return explode("\n", $normalizeNewlines);
+    }
 
     /** @return int[]  Find the indentation level and position of the first line that has content */
     protected static function findLineContentPositions(array $lines): array
