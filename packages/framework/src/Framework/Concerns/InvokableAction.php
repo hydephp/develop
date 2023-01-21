@@ -13,7 +13,7 @@ abstract class InvokableAction
 {
     abstract public function __invoke();
 
-    public static function call(...$args): mixed
+    public static function call(mixed ...$args): mixed
     {
         return (new static(...$args))->__invoke();
     }
