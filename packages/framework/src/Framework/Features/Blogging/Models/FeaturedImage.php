@@ -49,6 +49,11 @@ abstract class FeaturedImage implements Stringable
      */
     abstract public function getSource(): string;
 
+    protected function setSource(string $source): string
+    {
+        return $source;
+    }
+
     abstract public function getContentLength(): int;
 
     public function getAltText(): ?string
