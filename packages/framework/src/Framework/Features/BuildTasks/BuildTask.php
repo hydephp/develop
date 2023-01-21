@@ -25,6 +25,9 @@ abstract class BuildTask
      */
     protected ?int $exitCode = null;
 
+    /** @var \Illuminate\Console\OutputStyle|null */
+    protected $output;
+
     public function __construct(?OutputStyle $output = null)
     {
         $this->timeStart = microtime(true);
