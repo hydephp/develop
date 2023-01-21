@@ -16,27 +16,9 @@ use Illuminate\Support\LazyCollection;
 trait ForwardsIlluminateFilesystem
 {
     /** @inheritDoc */
-    public static function exists(string $path): bool
-    {
-        return self::filesystem()->exists(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function missing(string $path): bool
-    {
-        return self::filesystem()->missing(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
     public static function get(string $path, bool $lock = false): string
     {
         return self::filesystem()->get(self::absolutePath($path), $lock);
-    }
-
-    /** @inheritDoc */
-    public static function sharedGet(string $path): string
-    {
-        return self::filesystem()->sharedGet(self::absolutePath($path));
     }
 
     /** @inheritDoc */
@@ -49,12 +31,6 @@ trait ForwardsIlluminateFilesystem
     public static function requireOnce(string $path, array $data = []): mixed
     {
         return self::filesystem()->requireOnce(self::absolutePath($path), $data);
-    }
-
-    /** @inheritDoc */
-    public static function lines(string $path): LazyCollection
-    {
-        return self::filesystem()->lines(self::absolutePath($path));
     }
 
     /** @inheritDoc */
@@ -130,93 +106,15 @@ trait ForwardsIlluminateFilesystem
     }
 
     /** @inheritDoc */
-    public static function name(string $path): string
-    {
-        return self::filesystem()->name(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function basename(string $path): string
-    {
-        return self::filesystem()->basename(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function dirname(string $path): string
-    {
-        return self::filesystem()->dirname(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function extension(string $path): string
-    {
-        return self::filesystem()->extension(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function guessExtension(string $path): ?string
-    {
-        return self::filesystem()->guessExtension(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function type(string $path): string
-    {
-        return self::filesystem()->type(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function mimeType(string $path): bool|string
-    {
-        return self::filesystem()->mimeType(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function size(string $path): int
-    {
-        return self::filesystem()->size(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function lastModified(string $path): int
-    {
-        return self::filesystem()->lastModified(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function isDirectory(string $directory): bool
-    {
-        return self::filesystem()->isDirectory(self::absolutePath($directory));
-    }
-
-    /** @inheritDoc */
     public static function isEmptyDirectory(string $directory, bool $ignoreDotFiles = false): bool
     {
         return self::filesystem()->isEmptyDirectory(self::absolutePath($directory), $ignoreDotFiles);
     }
 
     /** @inheritDoc */
-    public static function isReadable(string $path): bool
-    {
-        return self::filesystem()->isReadable(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function isWritable(string $path): bool
-    {
-        return self::filesystem()->isWritable(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
     public static function hasSameHash(string $firstFile, string $secondFile): bool
     {
         return self::filesystem()->hasSameHash(self::absolutePath($firstFile), self::absolutePath($secondFile));
-    }
-
-    /** @inheritDoc */
-    public static function isFile(string $file): bool
-    {
-        return self::filesystem()->isFile(self::absolutePath($file));
     }
 
     /** @inheritDoc */
@@ -235,12 +133,6 @@ trait ForwardsIlluminateFilesystem
     public static function allFiles(string $directory, bool $hidden = false): array
     {
         return self::filesystem()->allFiles(self::absolutePath($directory), $hidden);
-    }
-
-    /** @inheritDoc */
-    public static function directories(string $directory): array
-    {
-        return self::filesystem()->directories(self::absolutePath($directory));
     }
 
     /** @inheritDoc */
@@ -273,15 +165,15 @@ trait ForwardsIlluminateFilesystem
         return self::filesystem()->deleteDirectory(self::absolutePath($directory), $preserve);
     }
 
-    /** @inheritDoc */
-    public static function deleteDirectories(string $directory): bool
+    protected static function callPathMethod(string $name, string $path): bool|string|int|null|array|LazyCollection
     {
-        return self::filesystem()->deleteDirectories(self::absolutePath($directory));
+        return self::filesystem()->$name(self::absolutePath($path));
     }
 
-    /** @inheritDoc */
-    public static function cleanDirectory(string $directory): bool
+    public static function __callStatic(string $name, array $arguments)
     {
-        return self::filesystem()->cleanDirectory(self::absolutePath($directory));
+        if (count($arguments) === 1) {
+            return self::callPathMethod($name, $arguments[0]);
+        }
     }
 }
