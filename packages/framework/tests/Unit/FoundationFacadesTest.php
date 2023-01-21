@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Foundation;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\Facades\FileCollection;
 use Hyde\Foundation\Facades\PageCollection;
