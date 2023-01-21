@@ -22,6 +22,8 @@ abstract class FeaturedImage implements Stringable
 
     public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
     {
+        $this->source = $this->setSource($source);
+
         $this->altText = $altText;
         $this->titleText = $titleText;
         $this->authorName = $authorName;
@@ -29,8 +31,6 @@ abstract class FeaturedImage implements Stringable
         $this->copyrightText = $copyrightText;
         $this->licenseName = $licenseName;
         $this->licenseUrl = $licenseUrl;
-
-        $this->source = $this->setSource($source);
     }
 
     public function __toString(): string
