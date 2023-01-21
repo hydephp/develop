@@ -48,7 +48,7 @@ class PaginatorTest extends TestCase
     {
         $collection = (new Paginator(
             range(1, 50),
-            (10))
+            10)
         )->getPaginatedItems();
 
         $this->assertCount(5, $collection);
@@ -60,7 +60,7 @@ class PaginatorTest extends TestCase
     {
         $paginator = new Paginator(
             range(1, 50),
-            (10)
+            10
         );
 
         $this->assertCount(10, $paginator->setCurrentPage(1)->getItemsForPage());
@@ -107,7 +107,7 @@ class PaginatorTest extends TestCase
     {
         $service = new Paginator(
             range(1, 50),
-            (10)
+            10
         );
 
         $service->setCurrentPage(5);
@@ -122,7 +122,7 @@ class PaginatorTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Paginator(
             range(1, 50),
-            (10),
+            10,
             currentPageNumber: 6
         );
     }
@@ -204,7 +204,7 @@ class PaginatorTest extends TestCase
             Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
         }
 
-        $paginator = new Paginator($pages, (2), paginationRouteBasename: 'pages');
+        $paginator = new Paginator($pages, 2, paginationRouteBasename: 'pages');
 
         $this->assertFalse($paginator->setCurrentPage(1)->previous());
         $this->assertFalse($paginator->setCurrentPage(3)->next());
@@ -262,7 +262,7 @@ class PaginatorTest extends TestCase
             Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
         }
 
-        $paginator = new Paginator($pages, (2), paginationRouteBasename: 'pages');
+        $paginator = new Paginator($pages, 2, paginationRouteBasename: 'pages');
         $this->assertSame(
             [
                 1 => $pages[1]->getRoute(),

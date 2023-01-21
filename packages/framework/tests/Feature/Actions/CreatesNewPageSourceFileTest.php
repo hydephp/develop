@@ -22,7 +22,7 @@ class CreatesNewPageSourceFileTest extends TestCase
     {
         $this->assertInstanceOf(
             CreatesNewPageSourceFile::class,
-            (new CreatesNewPageSourceFile('Test Page'))
+            new CreatesNewPageSourceFile('Test Page')
         );
     }
 
@@ -31,7 +31,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->expectException(UnsupportedPageTypeException::class);
         $this->expectExceptionMessage('The page type must be either "markdown", "blade", or "documentation"');
 
-        (new CreatesNewPageSourceFile('Test Page', 'invalid'));
+        new CreatesNewPageSourceFile('Test Page', 'invalid');
     }
 
     public function test_that_an_exception_is_thrown_if_file_already_exists_and_overwrite_is_false()
@@ -42,7 +42,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->expectExceptionMessage('File already exists: '.Hyde::path('_pages/foo.md'));
         $this->expectExceptionCode(409);
 
-        (new CreatesNewPageSourceFile('foo'));
+        new CreatesNewPageSourceFile('foo');
         $this->assertSame('foo', file_get_contents(Hyde::path('_pages/foo.md')));
         Filesystem::unlink('_pages/foo.md');
     }
@@ -51,7 +51,7 @@ class CreatesNewPageSourceFileTest extends TestCase
     {
         $this->file('_pages/foo.md', 'foo');
 
-        (new CreatesNewPageSourceFile('foo', force: true));
+        new CreatesNewPageSourceFile('foo', force: true);
         $this->assertSame("---\ntitle: foo\n---\n\n# foo\n", file_get_contents(Hyde::path('_pages/foo.md')));
         Filesystem::unlink('_pages/foo.md');
     }
@@ -59,7 +59,7 @@ class CreatesNewPageSourceFileTest extends TestCase
     public function test_that_a_markdown_file_can_be_created_and_contains_expected_content()
     {
         Filesystem::unlink('_pages/test-page.md');
-        (new CreatesNewPageSourceFile('Test Page'));
+        new CreatesNewPageSourceFile('Test Page');
 
         $this->assertFileExists(Hyde::path('_pages/test-page.md'));
 
@@ -72,7 +72,7 @@ class CreatesNewPageSourceFileTest extends TestCase
 
     public function test_that_a_blade_file_can_be_created_and_contains_expected_content()
     {
-        (new CreatesNewPageSourceFile('Test Page', BladePage::class));
+        new CreatesNewPageSourceFile('Test Page', BladePage::class);
 
         $this->assertFileExists(Hyde::path('_pages/test-page.blade.php'));
 
@@ -96,7 +96,7 @@ class CreatesNewPageSourceFileTest extends TestCase
 
     public function test_that_a_documentation_file_can_be_created_and_contains_expected_content()
     {
-        (new CreatesNewPageSourceFile('Test Page', DocumentationPage::class));
+        new CreatesNewPageSourceFile('Test Page', DocumentationPage::class);
 
         $this->assertFileExists(Hyde::path('_docs/test-page.md'));
 
@@ -126,21 +126,21 @@ class CreatesNewPageSourceFileTest extends TestCase
 
     public function test_file_is_created_using_slug_generated_from_title()
     {
-        (new CreatesNewPageSourceFile('Foo Bar'));
+        new CreatesNewPageSourceFile('Foo Bar');
         $this->assertFileExists(Hyde::path('_pages/foo-bar.md'));
         Filesystem::unlink('_pages/foo-bar.md');
     }
 
     public function test_action_can_generate_nested_pages()
     {
-        (new CreatesNewPageSourceFile('foo/bar'));
+        new CreatesNewPageSourceFile('foo/bar');
         $this->assertFileExists(Hyde::path('_pages/foo/bar.md'));
         Filesystem::deleteDirectory('_pages/foo');
     }
 
     public function test_can_create_deeply_nested_pages()
     {
-        (new CreatesNewPageSourceFile('/foo/bar/Foo Bar'));
+        new CreatesNewPageSourceFile('/foo/bar/Foo Bar');
         $this->assertFileExists(Hyde::path('_pages/foo/bar/foo-bar.md'));
         Filesystem::deleteDirectory('_pages/foo');
     }

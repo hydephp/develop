@@ -29,8 +29,8 @@ class RouteCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
 
         $this->assertEquals([
-            '404' => (new Route(new BladePage('404'))),
-            'index' => (new Route(new BladePage('index'))),
+            '404' => new Route(new BladePage('404')),
+            'index' => new Route(new BladePage('index')),
         ], $collection->all());
     }
 
@@ -50,11 +50,11 @@ class RouteCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
 
         $this->assertEquals([
-            'blade' => (new Route(new BladePage('blade'))),
-            'markdown' => (new Route(new MarkdownPage('markdown'))),
-            'html' => (new Route(new HtmlPage('html'))),
-            'posts/post' => (new Route(new MarkdownPost('post'))),
-            'docs/docs' => (new Route(new DocumentationPage('docs'))),
+            'blade' => new Route(new BladePage('blade')),
+            'markdown' => new Route(new MarkdownPage('markdown')),
+            'html' => new Route(new HtmlPage('html')),
+            'posts/post' => new Route(new MarkdownPost('post')),
+            'docs/docs' => new Route(new DocumentationPage('docs')),
         ], $collection->all());
 
         $this->restoreDefaultPages();

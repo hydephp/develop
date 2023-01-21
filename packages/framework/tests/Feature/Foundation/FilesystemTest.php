@@ -334,7 +334,7 @@ class FilesystemTest extends TestCase
 
         foreach ($testStrings as $testString) {
             $this->assertEquals(
-                $this->systemPath(($testString)),
+                $this->systemPath($testString),
                 Hyde::pathToRelative(
                     $this->systemPath($testString)
                 )
