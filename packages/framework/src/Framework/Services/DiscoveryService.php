@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use function class_exists;
-use function config;
-use function glob;
 use Hyde\Foundation\Facades\FileCollection;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
@@ -17,10 +14,13 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
+
+use function class_exists;
+use function config;
+use function glob;
 use function implode;
 use function is_array;
 use function is_subclass_of;
-use function realpath;
 use function sprintf;
 use function str_replace;
 use function unslash;
@@ -90,23 +90,6 @@ class DiscoveryService
     public static function getModelSourceDirectory(string $model): string
     {
         return $model::sourceDirectory();
-    }
-
-    /**
-     * Create a filepath that can be opened in the browser from a terminal.
-     *
-     * @todo Add support for custom label?
-     * @todo Add option to treat path as already validated so paths that are not created yet can be printed?
-     *
-     * @deprecated Will be moved to a command helper class.
-     */
-    public static function createClickableFilepath(string $filepath): string
-    {
-        if (realpath($filepath) === false) {
-            return $filepath;
-        }
-
-        return 'file://'.str_replace('\\', '/', realpath($filepath));
     }
 
     /**

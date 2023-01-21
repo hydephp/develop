@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\Command as CommandAlias;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
@@ -115,7 +115,7 @@ class BuildSiteCommand extends Command
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
             'Your new homepage is stored here -> '.
-            DiscoveryService::createClickableFilepath(Hyde::sitePath('index.html'))
+            CommandAlias::createClickableFilepath(Hyde::sitePath('index.html'))
         );
     }
 
