@@ -32,7 +32,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_component_has_link_to_app_js_file_when_it_exists()
     {
-        Hyde::touch(('_media/app.js'));
+        Hyde::touch('_media/app.js');
         $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
         unlink(Hyde::path('_media/app.js'));
     }
@@ -44,7 +44,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_component_uses_relative_path_to_app_js_file_for_nested_pages()
     {
-        Hyde::touch(('_media/app.js'));
+        Hyde::touch('_media/app.js');
         $this->mockCurrentPage = 'foo';
         $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
         $this->mockCurrentPage = 'foo/bar';
