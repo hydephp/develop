@@ -216,10 +216,10 @@ class MarkdownService
         $string = str_replace("\r\n", "\n", $string);
         $lines = explode("\n", $string);
 
-        [$offset, $indentationLevel] = self::getIndentationLevelOfFirstLineWithContent($lines);
+        [$startNumber, $indentationLevel] = self::getIndentationLevelOfFirstLineWithContent($lines);
 
         foreach ($lines as $lineNumber => $line) {
-            if ($lineNumber >= $offset) {
+            if ($lineNumber >= $startNumber) {
                 $lines[$lineNumber] = substr($line, $indentationLevel);
             }
         }
