@@ -225,7 +225,7 @@ class MarkdownService
             }
 
             $lineLen = strlen($line);
-            $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets is know it's indentation level
+            $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level
 
             if ($lineLen === $stripLen) {
                 continue;
