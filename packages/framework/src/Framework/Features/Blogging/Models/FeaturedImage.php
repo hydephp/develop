@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use function method_exists;
 use Stringable;
 
 abstract class FeaturedImage implements Stringable
@@ -31,9 +30,7 @@ abstract class FeaturedImage implements Stringable
         $this->licenseName = $licenseName;
         $this->licenseUrl = $licenseUrl;
 
-        if (method_exists($this, 'setSource')) {
-            $this->source = $this->setSource($source);
-        }
+        $this->source = $this->setSource($source);
     }
 
     public function __toString(): string
