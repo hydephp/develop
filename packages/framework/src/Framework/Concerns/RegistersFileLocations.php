@@ -30,8 +30,8 @@ trait RegistersFileLocations
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
+        /** @var HydePage $class */
         foreach ($directoryMapping as $class => $location) {
-            /** @var HydePage $class */
             $class::$sourceDirectory = unslash(Hyde::getSourceRoot().'/'.unslash($location));
         }
     }
