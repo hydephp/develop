@@ -49,6 +49,9 @@ class BuildTaskService
         );
     }
 
+    /**
+     * @deprecated Public usage of this method is deprecated as the method will be made protected.
+     */
     public static function findTasksInAppDirectory(): array
     {
         $tasks = [];
