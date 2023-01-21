@@ -35,7 +35,7 @@ class LinkElement implements MetadataElementContract
             return '';
         }
 
-        return sprintf(' %s', collect($this->attr)->map(function ($value, $key): string {
+        return sprintf(' %s', collect($this->attr)->map(function (string $value, string $key): string {
             return e($key).'="'.e($value).'"';
         })->implode(' '));
     }
