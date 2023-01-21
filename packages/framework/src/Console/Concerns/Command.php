@@ -7,7 +7,7 @@ namespace Hyde\Console\Concerns;
 /**
  * @see \Hyde\Framework\Testing\Feature\CommandTest
  */
-class Command
+abstract class Command
 {
     //
 }
