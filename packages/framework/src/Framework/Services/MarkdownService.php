@@ -230,8 +230,6 @@ class MarkdownService
 
     protected static function getIndentationLevelOfFirstLineWithContent(array $lines): array
     {
-        $indentationLevel = 0;
-        $offset = 0;
         foreach ($lines as $index => $line) {
             if (! empty(trim($line))) {
                 $lineLen = strlen($line);
@@ -246,6 +244,6 @@ class MarkdownService
             }
         }
 
-        return [$indentationLevel, $offset];
+        return [0, 0];
     }
 }
