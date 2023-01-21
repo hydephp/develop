@@ -285,7 +285,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\nbaz\n", $service->normalizeIndentationLevel($markdown));
     }
 
-    protected function makeService(): MarkdownService
+    protected function makeService(): MarkdownServiceTestClass
     {
         return new MarkdownServiceTestClass();
     }
