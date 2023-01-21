@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function class_exists;
+use function config;
+use function glob;
 use Hyde\Foundation\Facades\FileCollection;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
@@ -14,10 +17,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
-
-use function class_exists;
-use function config;
-use function glob;
 use function implode;
 use function is_array;
 use function is_subclass_of;
