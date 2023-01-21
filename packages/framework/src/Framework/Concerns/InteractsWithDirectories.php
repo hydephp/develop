@@ -24,7 +24,7 @@ trait InteractsWithDirectories
     /**
      * Ensure the supplied directories exist by creating them if they don't.
      *
-     * @param  array  $directories  array with absolute file paths to the directories
+     * @param  array<string>  $directories  array with absolute file paths to the directories
      */
     public static function needsDirectories(array $directories): void
     {
