@@ -212,38 +212,38 @@ class MarkdownService
      */
     public static function normalizeIndentationLevel(string $string): string
     {
-        $string = str_replace("\t", '    ', $string);
-        $string = str_replace("\r\n", "\n", $string);
-        $lines = explode("\n", $string);
-        $indentationLevel = 0;
-        $offset = 0;
+        $lines = self::getNormalizedLines($string);
 
-        // Find the indentation level of the first line that has content
-        foreach ($lines as $index => $line) {
-            if (empty(trim($line))) {
-                continue;
+        [$startNumber, $indentationLevel] = self::findLineContentPositions($lines);
+
+        foreach ($lines as $lineNumber => $line) {
+            if ($lineNumber >= $startNumber) {
+                $lines[$lineNumber] = substr($line, $indentationLevel);
             }
-
-            $lineLen = strlen($line);
-            $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets is know it's indentation level
-
-            if ($lineLen === $stripLen) {
-                continue;
-            }
-
-            $offset = $index;
-            $indentationLevel = $lineLen - $stripLen;
-            break;
-        }
-
-        foreach ($lines as $index => $line) {
-            if ($index < $offset) {
-                continue;
-            }
-
-            $lines[$index] = substr($line, $indentationLevel);
         }
 
         return implode("\n", $lines);
+    }
+
+    protected static function getNormalizedLines(string $string): array
+    {
+        return explode("\n", str_replace(["\t", "\r\n"], ['    ', "\n"], $string));
+    }
+
+    /** @return int[]  Find the indentation level and position of the first line that has content */
+    protected static function findLineContentPositions(array $lines): array
+    {
+        foreach ($lines as $lineNumber => $line) {
+            if (filled(trim($line))) {
+                $lineLen = strlen($line);
+                $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
+
+                if ($lineLen !== $stripLen) {
+                    return [$lineNumber, $lineLen - $stripLen];
+                }
+            }
+        }
+
+        return [0, 0];
     }
 }
