@@ -40,6 +40,7 @@ class BuildTaskService
         $this->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
     }
 
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getPostBuildTasks(): array
     {
         return array_unique(
