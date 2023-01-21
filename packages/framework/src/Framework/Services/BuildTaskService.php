@@ -19,6 +19,8 @@ class BuildTaskService
     /**
      * Information for package developers: This offers a hook for packages to add custom build tasks.
      * Make sure to add the fully qualified class name to the array and doing so by merging the array, not overwriting it.
+     *
+     * @var array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
      */
     public static array $postBuildTasks = [];
 
