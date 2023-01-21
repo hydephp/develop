@@ -36,7 +36,7 @@ trait RegistersFileLocations
         }
     }
 
-    /*
+    /**
      * Register the optional output directories.
      * Some HTML pages, like Blade and Markdown pages are stored right in the _site/ directory.
      * However, some pages, like docs and posts are in subdirectories of the _site/ directory.
