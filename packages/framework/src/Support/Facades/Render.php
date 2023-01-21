@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Render extends Facade
 {
+    /** @return class-string */
     protected static function getFacadeAccessor(): string
     {
         return \Hyde\Support\Models\Render::class;
