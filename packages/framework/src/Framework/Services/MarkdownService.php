@@ -236,10 +236,7 @@ class MarkdownService
                 $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
 
                 if ($lineLen !== $stripLen) {
-                    $offset = $index;
-                    $indentationLevel = $lineLen - $stripLen;
-
-                    return [$offset, $indentationLevel];
+                    return [$index, $lineLen - $stripLen];
                 }
             }
         }
