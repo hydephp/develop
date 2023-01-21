@@ -30,7 +30,7 @@ abstract class FeaturedImage implements Stringable
         $this->licenseUrl = $licenseUrl;
 
         if (method_exists($this, 'setSource')) {
-            $this->setSource($source);
+            $this->source = $this->setSource($source);
         }
     }
 
