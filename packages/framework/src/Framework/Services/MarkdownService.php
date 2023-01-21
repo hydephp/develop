@@ -216,7 +216,7 @@ class MarkdownService
         $string = str_replace("\r\n", "\n", $string);
         $lines = explode("\n", $string);
 
-        [$indentationLevel, $offset] = self::getIndentationLevelOfFirstLineWithContent($lines);
+        [$offset, $indentationLevel] = self::getIndentationLevelOfFirstLineWithContent($lines);
 
         foreach ($lines as $index => $line) {
             if ($index >= $offset) {
@@ -239,7 +239,7 @@ class MarkdownService
                     $offset = $index;
                     $indentationLevel = $lineLen - $stripLen;
 
-                    return [$indentationLevel, $offset];
+                    return [$offset, $indentationLevel];
                 }
             }
         }
