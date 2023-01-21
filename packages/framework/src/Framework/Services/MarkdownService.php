@@ -241,7 +241,7 @@ class MarkdownService
                     $offset = $index;
                     $indentationLevel = $lineLen - $stripLen;
 
-                    break;
+                    return [$indentationLevel, $offset];
                 }
             }
         }
