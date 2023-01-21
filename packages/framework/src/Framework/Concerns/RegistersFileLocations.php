@@ -45,7 +45,6 @@ trait RegistersFileLocations
      * @example registerOutputDirectories([HydePage::class => 'docs'])
      *
      * @param  array  $directoryMapping{class: string<HydePage>, location: string}
-     * @return void
      */
     protected function registerOutputDirectories(array $directoryMapping): void
     {
