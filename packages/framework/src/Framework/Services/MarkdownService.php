@@ -228,6 +228,7 @@ class MarkdownService
     }
 
 
+    /** @return int[] */
     protected static function getIndentationLevelOfFirstLineWithContent(array $lines): array
     {
         foreach ($lines as $lineNumber => $line) {
