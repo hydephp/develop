@@ -15,7 +15,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class DataCollectionServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         // Register the class alias
         AliasLoader::getInstance()->alias(
