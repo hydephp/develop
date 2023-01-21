@@ -34,9 +34,9 @@ class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostPr
 
     public static function preprocess(string $markdown): string
     {
-        return implode("\n", array_map(function ($line): string {
+        return implode("\n", array_map(function (string $line): string {
             return str_starts_with(strtolower($line), strtolower('[Blade]:'))
-                ? '<!-- HYDE'.trim(htmlentities($line)).' -->'
+                ? '<!-- HYDE'.trim(e($line)).' -->'
                 : $line;
         }, explode("\n", $markdown)));
     }
@@ -54,7 +54,7 @@ class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostPr
 
     public function run(): static
     {
-        $this->output = implode("\n", array_map(function ($line): string {
+        $this->output = implode("\n", array_map(function (string $line): string {
             return $this->lineStartsWithDirective($line)
                 ? $this->processLine($line)
                 : $line;
