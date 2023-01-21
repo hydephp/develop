@@ -9,6 +9,8 @@ use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
+    protected readonly string $source;
+
     protected readonly ?string $altText;
     protected readonly ?string $titleText;
 

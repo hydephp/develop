@@ -19,8 +19,6 @@ use function substr;
  */
 class LocalFeaturedImage extends FeaturedImage
 {
-    protected readonly string $source;
-
     protected function setSource(string $source): string
     {
         if (! str_starts_with($source, '_media/')) {
