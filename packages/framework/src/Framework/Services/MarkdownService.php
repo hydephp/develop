@@ -216,7 +216,7 @@ class MarkdownService
         $normalizeNewlines = str_replace("\r\n", "\n", $replaceTabs);
         $lines = explode("\n", $normalizeNewlines);
 
-        [$startNumber, $indentationLevel] = self::getIndentationLevelOfFirstLineWithContent($lines);
+        [$startNumber, $indentationLevel] = self::findLineContentPositions($lines);
 
         foreach ($lines as $lineNumber => $line) {
             if ($lineNumber >= $startNumber) {
@@ -229,7 +229,7 @@ class MarkdownService
 
 
     /** @return int[]  Find the indentation level and position of the first line that has content */
-    protected static function getIndentationLevelOfFirstLineWithContent(array $lines): array
+    protected static function findLineContentPositions(array $lines): array
     {
         foreach ($lines as $lineNumber => $line) {
             if (filled(trim($line))) {
