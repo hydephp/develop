@@ -20,9 +20,9 @@ class Application extends \LaravelZero\Framework\Application
         parent::registerBaseBindings();
 
         /*
-         * Enable auto-discovery.
+         * Enable package auto-discovery.
          */
-        $this->app->singleton(PackageManifest::class, function (): \Illuminate\Foundation\PackageManifest {
+        $this->app->singleton(PackageManifest::class, function (): PackageManifest {
             return new PackageManifest(
                 new Filesystem,
                 $this->basePath(),
