@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
