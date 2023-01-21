@@ -46,7 +46,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/posts/test.html'));
-        unlink(Hyde::path('_site/posts/test.html'));
+        Hyde::unlink('_site/posts/test.html');
     }
 
     public function test_markdown_pages_in_changed_directory_can_be_compiled()
@@ -62,7 +62,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
-        unlink(Hyde::path('_site/test.html'));
+        Hyde::unlink('_site/test.html');
     }
 
     public function test_documentation_pages_in_changed_directory_can_be_compiled()
@@ -78,7 +78,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/docs/test.html'));
-        unlink(Hyde::path('_site/docs/test.html'));
+        Hyde::unlink('_site/docs/test.html');
     }
 
     public function test_blade_pages_in_changed_directory_can_be_compiled()
@@ -95,6 +95,6 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         );
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
-        unlink(Hyde::path('_site/test.html'));
+        Hyde::unlink('_site/test.html');
     }
 }

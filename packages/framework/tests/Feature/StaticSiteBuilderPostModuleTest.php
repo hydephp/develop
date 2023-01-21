@@ -34,7 +34,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
 
     protected function tearDown(): void
     {
-        unlink(Hyde::path('_site/posts/test-post.html'));
+        Hyde::unlink('_site/posts/test-post.html');
 
         parent::tearDown();
     }

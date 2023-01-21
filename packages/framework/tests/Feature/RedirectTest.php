@@ -43,7 +43,7 @@ class RedirectTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertSame($redirect->render(), file_get_contents(Hyde::path('_site/foo.html')));
 
-        unlink(Hyde::path('_site/foo.html'));
+        Hyde::unlink('_site/foo.html');
     }
 
     public function test_path_parameter_is_normalized()
@@ -52,7 +52,7 @@ class RedirectTest extends TestCase
 
         $this->assertSame('foo', $redirect->path);
 
-        unlink(Hyde::path('_site/foo.html'));
+        Hyde::unlink('_site/foo.html');
     }
 
     public function test_text_can_be_disabled()

@@ -34,7 +34,7 @@ class PageModelGetHelperTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPage::class, $collection);
 
-        unlink(Hyde::path('_pages/test-page.md'));
+        Hyde::unlink('_pages/test-page.md');
     }
 
     public function test_markdown_post_get_helper_returns_markdown_post_collection()
@@ -46,7 +46,7 @@ class PageModelGetHelperTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection);
 
-        unlink(Hyde::path('_posts/test-post.md'));
+        Hyde::unlink('_posts/test-post.md');
     }
 
     public function test_documentation_page_get_helper_returns_documentation_page_collection()
@@ -58,6 +58,6 @@ class PageModelGetHelperTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(DocumentationPage::class, $collection);
 
-        unlink(Hyde::path('_docs/test-page.md'));
+        Hyde::unlink('_docs/test-page.md');
     }
 }

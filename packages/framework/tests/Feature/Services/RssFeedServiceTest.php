@@ -115,8 +115,8 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('image/jpeg', $item->enclosure->attributes()->type);
         $this->assertEquals('8', $item->enclosure->attributes()->length);
 
-        unlink(Hyde::path('_posts/rss.md'));
-        unlink(Hyde::path('_media/rss-test.jpg'));
+        Hyde::unlink('_posts/rss.md');
+        Hyde::unlink('_media/rss-test.jpg');
     }
 
     public function test_get_xml_method_returns_xml_string()

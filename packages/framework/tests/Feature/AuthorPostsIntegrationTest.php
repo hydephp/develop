@@ -58,8 +58,8 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        unlink(Hyde::path('_posts/test-2dcbb2c-post-with-undefined-author.md'));
-        unlink(Hyde::path('_site/posts/test-2dcbb2c-post-with-undefined-author.html'));
+        Hyde::unlink('_posts/test-2dcbb2c-post-with-undefined-author.md');
+        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-undefined-author.html');
     }
 
     /**
@@ -96,8 +96,8 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        unlink(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
-        unlink(Hyde::path('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html'));
+        Hyde::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
+        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
     }
 
     /**
@@ -140,7 +140,7 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        unlink(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
-        unlink(Hyde::path('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html'));
+        Hyde::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
+        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
     }
 }

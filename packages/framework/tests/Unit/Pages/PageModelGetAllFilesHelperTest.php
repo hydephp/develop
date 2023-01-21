@@ -33,7 +33,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertIsArray($array);
         $this->assertEquals(['test-page'], $array);
 
-        unlink(Hyde::path('_pages/test-page.md'));
+        Hyde::unlink('_pages/test-page.md');
     }
 
     public function test_markdown_post_get_helper_returns_markdown_post_array()
@@ -45,7 +45,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertIsArray($array);
         $this->assertEquals(['test-post'], $array);
 
-        unlink(Hyde::path('_posts/test-post.md'));
+        Hyde::unlink('_posts/test-post.md');
     }
 
     public function test_documentation_page_get_helper_returns_documentation_page_array()
@@ -57,6 +57,6 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertIsArray($array);
         $this->assertEquals(['test-page'], $array);
 
-        unlink(Hyde::path('_docs/test-page.md'));
+        Hyde::unlink('_docs/test-page.md');
     }
 }

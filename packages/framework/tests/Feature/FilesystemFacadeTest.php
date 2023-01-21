@@ -55,7 +55,7 @@ class FilesystemFacadeTest extends TestCase
         Filesystem::touch('foo');
 
         $this->assertFileExists(Hyde::path('foo'));
-        unlink(Hyde::path('foo'));
+        Hyde::unlink('foo');
     }
 
     public function testUnlink()

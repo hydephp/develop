@@ -61,7 +61,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
             DiscoveryService::getSourceFileListForModel(MarkdownPost::class)
         );
 
-        unlink(Hyde::path('_posts/test/test.md'));
+        Hyde::unlink('_posts/test/test.md');
         rmdir(Hyde::path('_posts/test'));
     }
 }

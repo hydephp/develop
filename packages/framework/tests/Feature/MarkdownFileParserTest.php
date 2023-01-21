@@ -28,7 +28,7 @@ This is a post stub used in the automated tests
 
     protected function tearDown(): void
     {
-        unlink(Hyde::path('_posts/test-post.md'));
+        Hyde::unlink('_posts/test-post.md');
 
         parent::tearDown();
     }

@@ -54,8 +54,8 @@ class StaticSiteServiceTest extends TestCase
         file_put_contents(Hyde::path('_media/test-image.png'), 'foo');
         $this->artisan('build');
         $this->assertFileEquals(Hyde::path('_media/test-image.png'), Hyde::path('_site/media/test-image.png'));
-        unlink(Hyde::path('_media/test-image.png'));
-        unlink(Hyde::path('_site/media/test-image.png'));
+        Hyde::unlink('_media/test-image.png');
+        Hyde::unlink('_site/media/test-image.png');
     }
 
     public function test_build_command_transfers_media_asset_files_recursively()
@@ -90,11 +90,11 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/posts/post.html'));
         $this->assertFileExists(Hyde::path('_site/docs/docs.html'));
 
-        unlink(Hyde::path('_site/html.html'));
-        unlink(Hyde::path('_site/blade.html'));
-        unlink(Hyde::path('_site/markdown.html'));
-        unlink(Hyde::path('_site/posts/post.html'));
-        unlink(Hyde::path('_site/docs/docs.html'));
+        Hyde::unlink('_site/html.html');
+        Hyde::unlink('_site/blade.html');
+        Hyde::unlink('_site/markdown.html');
+        Hyde::unlink('_site/posts/post.html');
+        Hyde::unlink('_site/docs/docs.html');
     }
 
     public function test_only_progress_bars_for_types_with_pages_are_shown()
@@ -113,8 +113,8 @@ class StaticSiteServiceTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/blade.html'));
         $this->assertFileExists(Hyde::path('_site/markdown.html'));
-        unlink(Hyde::path('_site/blade.html'));
-        unlink(Hyde::path('_site/markdown.html'));
+        Hyde::unlink('_site/blade.html');
+        Hyde::unlink('_site/markdown.html');
     }
 
     public function test_print_initial_information_allows_api_to_be_disabled()
@@ -158,7 +158,7 @@ class StaticSiteServiceTest extends TestCase
         $this->artisan('build')
             // ->expectsOutput('Generating sitemap...')
             ->assertExitCode(0);
-        unlink(Hyde::path('_site/sitemap.xml'));
+        Hyde::unlink('_site/sitemap.xml');
     }
 
     public function test_rss_feed_is_not_generated_when_conditions_are_not_met()
@@ -182,8 +182,8 @@ class StaticSiteServiceTest extends TestCase
             // ->expectsOutput('Generating RSS feed...')
             ->assertExitCode(0);
 
-        unlink(Hyde::path('_posts/foo.md'));
-        unlink(Hyde::path('_site/feed.xml'));
+        Hyde::unlink('_posts/foo.md');
+        Hyde::unlink('_site/feed.xml');
     }
 
     public function test_does_not_generate_search_files_when_conditions_are_not_met()
@@ -203,7 +203,7 @@ class StaticSiteServiceTest extends TestCase
             // ->expectsOutput('Generating search page...')
             ->assertExitCode(0);
 
-        unlink(Hyde::path('_docs/foo.md'));
+        Hyde::unlink('_docs/foo.md');
     }
 
     public function test_site_directory_is_emptied_before_build()
@@ -225,7 +225,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/keep.html'));
-        unlink(Hyde::path('_site/keep.html'));
+        Hyde::unlink('_site/keep.html');
     }
 
     public function test_aborts_when_non_standard_directory_is_emptied()

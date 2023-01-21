@@ -156,7 +156,7 @@ class ValidationServiceTest extends TestCase
     {
         Hyde::touch('_pages/index.md');
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 2);
-        unlink(Hyde::path('_pages/index.md'));
+        Hyde::unlink('_pages/index.md');
     }
 
     // Some unit tests

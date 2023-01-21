@@ -43,6 +43,6 @@ class MarkdownPageTest extends TestCase
             file_get_contents(Hyde::path('_site/test-page.html'))
         );
 
-        unlink(Hyde::path('_site/test-page.html'));
+        Hyde::unlink('_site/test-page.html');
     }
 }
