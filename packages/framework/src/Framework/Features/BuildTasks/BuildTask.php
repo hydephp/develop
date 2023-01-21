@@ -27,8 +27,8 @@ abstract class BuildTask
 
     public function __construct(?OutputStyle $output = null)
     {
-        $this->output = $output;
         $this->timeStart = microtime(true);
+        $this->output = $output;
     }
 
     public function handle(): ?int
