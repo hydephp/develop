@@ -215,10 +215,23 @@ class MarkdownService
         $string = str_replace("\t", '    ', $string);
         $string = str_replace("\r\n", "\n", $string);
         $lines = explode("\n", $string);
+
+        [$indentationLevel, $offset] = self::getIndentationLevelOfFirstLineWithContent($lines);
+
+        foreach ($lines as $index => $line) {
+            if ($index >= $offset) {
+                $lines[$index] = substr($line, $indentationLevel);
+            }
+        }
+
+        return implode("\n", $lines);
+    }
+
+
+    protected static function getIndentationLevelOfFirstLineWithContent(array $lines): array
+    {
         $indentationLevel = 0;
         $offset = 0;
-
-        // Find the indentation level of the first line that has content
         foreach ($lines as $index => $line) {
             if (! empty(trim($line))) {
                 $lineLen = strlen($line);
@@ -233,12 +246,6 @@ class MarkdownService
             }
         }
 
-        foreach ($lines as $index => $line) {
-            if ($index >= $offset) {
-                $lines[$index] = substr($line, $indentationLevel);
-            }
-        }
-
-        return implode("\n", $lines);
+        return [$indentationLevel, $offset];
     }
 }
