@@ -12,7 +12,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
-use function unlink;
 
 require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
 
