@@ -92,6 +92,6 @@ class MakePublicationTagCommand extends ValidatingCommand
             \Hyde\Console\Concerns\Command::createClickableFilepath('tags.yml')
         );
 
-        app(PublicationTags::class)->addTagGroups($this->tags)->save();
+        (new PublicationTags)->addTagGroups($this->tags)->save();
     }
 }
