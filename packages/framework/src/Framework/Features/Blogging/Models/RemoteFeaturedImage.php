@@ -12,13 +12,11 @@ use function key;
 
 class RemoteFeaturedImage extends FeaturedImage
 {
-    protected readonly string $source;
-
-    protected function setSource(string $source): void
+    protected function setSource(string $source): string
     {
         // Here we can validate the source URL if we want.
 
-        $this->source = $source;
+        return $source;
     }
 
     public function getSource(): string

@@ -19,9 +19,7 @@ use function substr;
  */
 class LocalFeaturedImage extends FeaturedImage
 {
-    protected readonly string $source;
-
-    protected function setSource(string $source): void
+    protected function setSource(string $source): string
     {
         if (! str_starts_with($source, '_media/')) {
             // Throwing an exception here ensures we have a super predictable state.
@@ -30,7 +28,7 @@ class LocalFeaturedImage extends FeaturedImage
 
         // We could also validate the file exists here if we want. We might also want to just send a warning.
 
-        $this->source = $source;
+        return $source;
     }
 
     public function getSource(): string
