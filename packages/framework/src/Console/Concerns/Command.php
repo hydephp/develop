@@ -19,4 +19,12 @@ abstract class Command extends BaseCommand
     {
         return 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path($filepath));
     }
+
+    /**
+     * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
+     */
+    public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
+    {
+        $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
+    }
 }
