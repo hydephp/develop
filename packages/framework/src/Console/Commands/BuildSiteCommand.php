@@ -13,7 +13,7 @@ use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 
 /**
  * Hyde Command to run the Build Process.
