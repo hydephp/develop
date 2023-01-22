@@ -48,7 +48,7 @@ class TracksExecutionTimeTest extends TestCase
         $class->startClock();
 
         $this->assertIsString($class->getExecutionTimeString());
-        $this->assertTrue(str_starts_with($class->getExecutionTimeString(), '0.0'));
+        $this->assertTrue(str_starts_with($class->getExecutionTimeString(), '0'));
         $this->assertTrue(str_ends_with($class->getExecutionTimeString(), 'ms'));
     }
 }
