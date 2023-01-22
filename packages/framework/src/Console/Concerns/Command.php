@@ -27,4 +27,21 @@ abstract class Command extends BaseCommand
     {
         $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
     }
+
+    /** @experimental This method may change (or be removed) before the 1.0.0 release */
+    public function gray(string $string): void
+    {
+        $this->line($this->inlineGray($string));
+    }
+
+    /** @experimental This method may change (or be removed) before the 1.0.0 release */
+    public function inlineGray(string $string): string
+    {
+        return "<fg=gray>$string</>";
+    }
+
+    public function indentedLine(int $indent, string $string): void
+    {
+        $this->line(str_repeat(' ', $indent).$string);
+    }
 }
