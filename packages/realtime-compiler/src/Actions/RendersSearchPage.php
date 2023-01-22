@@ -10,7 +10,7 @@ class RendersSearchPage
 {
     use InteractsWithLaravel;
 
-    public function __invoke()
+    public function __invoke(): string
     {
         $this->bootApplication();
 
