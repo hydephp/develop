@@ -15,7 +15,7 @@ use Stringable;
 /**
  * Filesystem abstraction for a file stored in the project.
  *
- * @see \Hyde\Framework\Testing\Feature\FileTest
+ * @see \Hyde\Framework\Testing\Feature\Support\ProjectFileTest
  */
 abstract class ProjectFile implements SerializableContract, Stringable
 {
@@ -29,9 +29,9 @@ abstract class ProjectFile implements SerializableContract, Stringable
      */
     public readonly string $path;
 
-    public static function make(string $path, mixed ...$args): static
+    public static function make(string $path): static
     {
-        return new static($path, ...$args);
+        return new static($path);
     }
 
     public function __construct(string $path)
