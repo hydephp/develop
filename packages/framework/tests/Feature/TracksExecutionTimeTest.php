@@ -12,7 +12,40 @@ use Hyde\Testing\TestCase;
  */
 class TracksExecutionTimeTest extends TestCase
 {
-    //
+    public function test_startClock()
+    {
+        $class = new TracksExecutionTimeTestClass();
+
+        $this->assertFalse($class->isset('timeStart'));
+        $class->startClock();
+
+        $this->assertTrue($class->isset('timeStart'));
+        $this->assertIsFloat($class->timeStart);
+    }
+
+    public function test_stopClock()
+    {
+        $class = new TracksExecutionTimeTestClass();
+        $class->startClock();
+
+        $this->assertIsFloat($class->stopClock());
+    }
+
+    public function test_getExecutionTimeString()
+    {
+        $class = new TracksExecutionTimeTestClass();
+        $class->startClock();
+
+        $this->assertIsString($class->getExecutionTimeString());
+    }
+
+    public function test_getExecutionTimeInMs()
+    {
+        $class = new TracksExecutionTimeTestClass();
+        $class->startClock();
+
+        $this->assertIsFloat($class->getExecutionTimeInMs());
+    }
 }
 
 class TracksExecutionTimeTestClass {
