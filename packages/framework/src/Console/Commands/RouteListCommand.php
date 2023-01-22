@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command as CommandAlias;
 use Hyde\Hyde;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 
 /**
  * Hyde command to display the list of site routes.
