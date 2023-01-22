@@ -21,6 +21,7 @@ class TracksExecutionTimeTest extends TestCase
 
         $this->assertTrue($class->isset('timeStart'));
         $this->assertIsFloat($class->timeStart);
+        $this->assertSame(round(microtime(true)), round($class->timeStart));
     }
 
     public function test_stopClock()
@@ -29,6 +30,7 @@ class TracksExecutionTimeTest extends TestCase
         $class->startClock();
 
         $this->assertIsFloat($class->stopClock());
+        $this->assertSame(0.0, round($class->stopClock()));
     }
 
     public function test_getExecutionTimeString()
@@ -37,6 +39,8 @@ class TracksExecutionTimeTest extends TestCase
         $class->startClock();
 
         $this->assertIsString($class->getExecutionTimeString());
+        $this->assertTrue(str_starts_with($class->getExecutionTimeString(), '0.0'));
+        $this->assertTrue(str_ends_with( $class->getExecutionTimeString(), 'ms'));
     }
 
     public function test_getExecutionTimeInMs()
@@ -45,6 +49,7 @@ class TracksExecutionTimeTest extends TestCase
         $class->startClock();
 
         $this->assertIsFloat($class->getExecutionTimeInMs());
+        $this->assertSame(0.0, round($class->getExecutionTimeInMs()));
     }
 }
 
