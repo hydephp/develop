@@ -8,7 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest;
 
 /**
- * @property mixed $app
+ * @property self $app
  */
 class Application extends \LaravelZero\Framework\Application
 {
