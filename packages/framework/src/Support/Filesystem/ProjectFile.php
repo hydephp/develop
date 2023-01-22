@@ -15,7 +15,7 @@ use Stringable;
 /**
  * Filesystem abstraction for a file stored in the project.
  *
- * @see \Hyde\Framework\Testing\Feature\FileTest
+ * @see \Hyde\Framework\Testing\Feature\Support\ProjectFileTest
  */
 abstract class ProjectFile implements SerializableContract, Stringable
 {
