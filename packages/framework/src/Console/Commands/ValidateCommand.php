@@ -64,6 +64,6 @@ class ValidateCommand extends Command
 
     protected function timeTotal(): string
     {
-        return'<fg=gray>Ran '.sizeof(ValidationService::checks()).' checks in '.$this->getExecutionTimeString().'</>';
+        return'<fg=gray>Ran '.sizeof(ValidationService::checks())." checks in {$this->getExecutionTimeString()}</>";
     }
 }
