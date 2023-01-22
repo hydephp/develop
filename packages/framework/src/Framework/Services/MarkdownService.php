@@ -94,7 +94,7 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        /** @var PostProcessor $processor */
+        /** @var PostProcessor $postprocessor */
         foreach ($this->postprocessors as $postprocessor) {
             $this->html = $postprocessor::postprocess($this->html);
         }
