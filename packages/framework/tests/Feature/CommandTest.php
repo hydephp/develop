@@ -64,6 +64,48 @@ class CommandTest extends TestCase
         $command->setMockedOutput($output);
         $command->handle();
     }
+
+    public function testGray()
+    {
+        $command = new MockableTestCommand();
+        $command->closure = function (Command $command) {
+            $command->gray('foo');
+        };
+
+        $output = $this->mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
+            return $message === '<fg=gray>foo</>';
+        });
+
+        $command->setMockedOutput($output);
+        $command->handle();
+    }
+
+    public function testInlineGray()
+    {
+        $command = new MockableTestCommand();
+        $command->closure = function (Command $command) {
+            $this->assertSame('<fg=gray>foo</>', $command->inlineGray('foo'));
+        };
+
+        $command->handle();
+    }
+
+    public function testIndentedLine()
+    {
+        $command = new MockableTestCommand();
+        $command->closure = function (Command $command) {
+            $command->indentedLine(2, 'foo');
+        };
+
+        $output = $this->mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
+            return $message === '  foo';
+        });
+
+        $command->setMockedOutput($output);
+        $command->handle();
+    }
 }
 
 class MockableTestCommand extends Command
