@@ -14,4 +14,9 @@ trait TracksExecutionTime
     {
         $this->timeStart = microtime(true);
     }
+
+    protected function getExecutionTimeInMs(): int|float
+    {
+        return (microtime(true) - $this->timeStart) * 1000;
+    }
 }
