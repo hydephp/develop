@@ -56,6 +56,7 @@ class Route implements Stringable, SerializableContract
         return $this->page;
     }
 
+    /** @return class-string<HydePage> */
     public function getPageClass(): string
     {
         return $this->page::class;

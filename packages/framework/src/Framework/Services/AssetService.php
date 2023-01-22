@@ -20,7 +20,7 @@ class AssetService
     /**
      * The default HydeFront version to load.
      *
-     * @property string $version HydeFront SemVer Tag
+     * @var string HydeFront SemVer Tag
      */
     public string $version = 'v2.0';
 

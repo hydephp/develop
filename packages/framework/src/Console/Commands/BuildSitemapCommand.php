@@ -14,7 +14,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class BuildSitemapCommand extends Command
 {
+    /** @var string */
     protected $signature = 'build:sitemap';
+
+    /** @var string */
     protected $description = 'Generate the sitemap.xml';
 
     public function handle(): int
