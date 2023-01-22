@@ -86,5 +86,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Psalm
+      - name: Run Psalm
         uses: docker://vimeo/psalm-github-actions
