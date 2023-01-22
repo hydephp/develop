@@ -6,5 +6,5 @@ namespace Hyde\Framework\Concerns;
 
 trait TracksExecutionTime
 {
-    //
+    protected float $timeStart;
 }
