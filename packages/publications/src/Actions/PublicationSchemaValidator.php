@@ -14,16 +14,16 @@ use function validator;
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationSchemaValidatorTest
  */
-class PublicationSchemaValidator extends InvokableAction
+class PublicationSchemaValidator
 {
     protected stdClass $schema;
 
     protected Validator $schemaValidator;
     protected array $fieldValidators = [];
 
-    public static function call(...$args): static
+    public static function call(string $pubTypeName): static
     {
-        return (new static(...$args))->__invoke();
+        return (new self($pubTypeName))->__invoke();
     }
 
     public function __construct(string $pubTypeName)
