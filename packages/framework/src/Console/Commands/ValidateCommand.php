@@ -42,7 +42,7 @@ class ValidateCommand extends Command
             $this->runCheck($check);
         }
 
-        $this->info('All done! '.$this->timeTotal());
+        $this->info("All done! {$this->timeTotal()}");
 
         return Command::SUCCESS;
     }
