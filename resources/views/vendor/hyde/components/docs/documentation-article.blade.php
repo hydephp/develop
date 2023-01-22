@@ -7,6 +7,13 @@
         'mx-auto lg:ml-8 prose dark:prose-invert max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]',
         'torchlight-enabled' => $document->hasTorchlight()])>
     @yield('content')
+    <blockquote class="warning" style="max-width: 680px; padding: 10px 20px;">
+        <p>
+            <strong>WARNING</strong>
+            You're browsing the documentation for an upcoming version of HydePHP.
+            The documentation and features of this release are subject to change.
+        </p>
+    </blockquote>
 
     <header id="document-header" class="flex items-center flex-wrap prose-h1:mb-3">
         {{ $document->renderHeader() }}
