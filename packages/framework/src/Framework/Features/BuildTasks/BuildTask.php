@@ -94,7 +94,7 @@ abstract class BuildTask
 
     public function withExecutionTime(): static
     {
-        $this->write(" in {$this->getExecutionTime()}");
+        $this->write(" in {$this->getExecutionTimeString()}");
 
         return $this;
     }
