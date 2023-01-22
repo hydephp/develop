@@ -20,16 +20,16 @@ use function validator;
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationPageValidatorTest
  */
-class PublicationPageValidator extends InvokableAction
+class PublicationPageValidator
 {
     protected PublicationType $publicationType;
     protected array $matter;
 
     protected Validator $validator;
 
-    public static function call(...$args): static
+    public static function call(PublicationType $publicationType, string $pageIdentifier): static
     {
-        return (new static(...$args))->__invoke();
+        return (new self($publicationType, $pageIdentifier))->__invoke();
     }
 
     public function __construct(PublicationType $publicationType, string $pageIdentifier)
