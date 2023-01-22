@@ -57,6 +57,8 @@ jobs:
         rm hyde/CHANGELOG.md -v
         rm hyde/phpunit.dusk.xml -v
         rm hyde/psalm.xml -v
+        rm hyde/psalm-baseline.xml -v
+        rm hyde/rector.php -v
 
     - name: Commit and push changes
       run: |
