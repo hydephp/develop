@@ -74,7 +74,7 @@ class CommandTest extends TestCase
 
         $output = $this->mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === "<fg=gray>foo</>";
+            return $message === '<fg=gray>foo</>';
         });
 
         $command->setMockedOutput($output);
