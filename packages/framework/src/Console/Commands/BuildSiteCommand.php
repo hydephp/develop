@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
@@ -12,7 +13,6 @@ use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
-use Hyde\Console\Concerns\Command;
 
 /**
  * Hyde Command to run the Build Process.

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
+use Hyde\Hyde;
 
 /**
  * Hyde command to display the list of site routes.

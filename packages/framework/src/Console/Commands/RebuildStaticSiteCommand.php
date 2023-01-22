@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
+use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
-use Hyde\Console\Concerns\Command;
 
 /**
  * Hyde Command to build a single static site file.
