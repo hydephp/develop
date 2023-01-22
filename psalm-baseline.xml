@@ -606,14 +606,6 @@
       <code>addExtension</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="packages/framework/src/Framework/Concerns/InvokableAction.php">
-    <TooManyArguments occurrences="1">
-      <code>new static(...$args)</code>
-    </TooManyArguments>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static(...$args)</code>
-    </UnsafeInstantiation>
-  </file>
   <file src="packages/framework/src/Framework/Concerns/RegistersFileLocations.php">
     <MixedArgument occurrences="3">
       <code>$location</code>
@@ -1458,9 +1450,8 @@
     <MixedInferredReturnType occurrences="1">
       <code>string</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="2">
+    <MixedReturnStatement occurrences="1">
       <code>$this-&gt;__call('compile', [])</code>
-      <code>AnonymousViewCompiler::call($this-&gt;view, $this-&gt;matter-&gt;toArray())</code>
     </MixedReturnStatement>
     <PossiblyInvalidFunctionCall occurrences="1">
       <code>$macro(...$parameters)</code>
@@ -1476,11 +1467,13 @@
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>array{name: string, path: string}</code>
     </ImplementedReturnTypeMismatch>
-    <TooManyArguments occurrences="1">
-      <code>new static($path, ...$args)</code>
-    </TooManyArguments>
     <UnsafeInstantiation occurrences="1">
-      <code>new static($path, ...$args)</code>
+      <code>new static($path)</code>
+    </UnsafeInstantiation>
+  </file>
+  <file src="packages/framework/src/Support/Filesystem/SourceFile.php">
+    <UnsafeInstantiation occurrences="1">
+      <code>new static($path, $pageClass)</code>
     </UnsafeInstantiation>
   </file>
   <file src="packages/framework/src/Support/Models/Redirect.php">
