@@ -11,7 +11,7 @@ namespace Hyde\Framework\Concerns;
  */
 abstract class InvokableAction
 {
-    abstract public function __invoke();
+    abstract public function __invoke(): mixed;
 
     public static function call(mixed ...$args): mixed
     {

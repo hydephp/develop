@@ -123,7 +123,7 @@ class BuildService
         return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
     }
 
-    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage> */
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     protected function getPageTypes(): array
     {
         return Hyde::pages()->map(function (HydePage $page): string {

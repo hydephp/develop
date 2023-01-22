@@ -31,6 +31,8 @@ trait InteractsWithFrontMatter
      * Get the front matter object, or a value from within.
      *
      * @return \Hyde\Markdown\Models\FrontMatter|mixed
+     *
+     * @todo Narrow down mixed return type to static + only types that can be in front matter.
      */
     public function matter(string $key = null, mixed $default = null): mixed
     {
