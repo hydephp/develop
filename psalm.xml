@@ -11,6 +11,7 @@
         <directory name="packages/framework/src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <file name="packages/framework/src/Support/Contracts/FilesystemContract.php" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
