@@ -15,13 +15,9 @@ abstract class Command extends BaseCommand
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      */
-    public static function createClickableFilepath(string $filepath, bool $useRealPath = true): string
+    public static function createClickableFilepath(string $filepath): string
     {
-        $realpath = $useRealPath ? realpath($filepath) : Hyde::path($filepath);
-
-        if ($realpath === false) {
-            return $filepath;
-        }
+        $realpath = realpath($filepath) ?: Hyde::path($filepath);
 
         return 'file://'.str_replace('\\', '/', $realpath);
     }

@@ -23,8 +23,11 @@ class CommandTest extends TestCase
         );
     }
 
-    public function test_create_clickable_filepath_falls_back_to_returning_input_if_file_does_not_exist()
+    public function test_create_clickable_filepath_creates_link_for_non_existing_file()
     {
-        $this->assertSame('foo.txt', Command::createClickableFilepath('foo.txt'));
+        $this->assertSame(
+            sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
+            Command::createClickableFilepath('foo.txt')
+        );
     }
 }
