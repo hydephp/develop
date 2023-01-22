@@ -30,6 +30,11 @@ abstract class Command extends BaseCommand
 
     public function gray(string $string): void
     {
-        $this->line("<fg=gray>$string</>");
+        $this->line($this->inlineGray($string));
+    }
+
+    public function inlineGray(string $string): string
+    {
+        return "<fg=gray>$string</>";
     }
 }
