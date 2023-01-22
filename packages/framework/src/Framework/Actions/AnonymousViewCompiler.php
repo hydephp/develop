@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Facades\Blade;
 
@@ -13,10 +12,15 @@ use Illuminate\Support\Facades\Blade;
  * Compile any Blade file using the Blade facade as it allows us to render
  * it without having to register the directory with the view finder.
  */
-class AnonymousViewCompiler extends InvokableAction
+class AnonymousViewCompiler
 {
     protected string $viewPath;
     protected array $data;
+
+    public static function call(string $viewPath, array $data = []): string
+    {
+        return (new self($viewPath, $data))->__invoke();
+    }
 
     public function __construct(string $viewPath, array $data = [])
     {
