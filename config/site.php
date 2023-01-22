@@ -18,12 +18,12 @@
 */
 
 return [
-    'name' => env('SITE_NAME', 'HydePHP Canary Preview'),
-    'url' => env('SITE_URL', 'http://localhost'),
-    'pretty_urls' => false,
-    'generate_sitemap' => true,
+    'name'              => env('SITE_NAME', 'HydePHP Canary Preview'),
+    'url'               => env('SITE_URL', 'http://localhost'),
+    'pretty_urls'       => false,
+    'generate_sitemap'  => true,
     'generate_rss_feed' => true,
-    'rss_filename' => 'feed.xml',
-    'language' => 'en',
-    'output_directory' => '_site',
+    'rss_filename'      => 'feed.xml',
+    'language'          => 'en',
+    'output_directory'  => '_site',
 ];
