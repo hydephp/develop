@@ -36,7 +36,7 @@ class BuildSiteCommand extends Command
 
     public function handle(): int
     {
-        $time_start = microtime(true);
+        $timeStart = microtime(true);
 
         $this->title('Building your static site!');
 
@@ -52,7 +52,7 @@ class BuildSiteCommand extends Command
 
         $this->runPostBuildActions();
 
-        $this->printFinishMessage($time_start);
+        $this->printFinishMessage($timeStart);
 
         return Command::SUCCESS;
     }
@@ -101,13 +101,13 @@ class BuildSiteCommand extends Command
         $service->runPostBuildTasks();
     }
 
-    protected function printFinishMessage(float $time_start): void
+    protected function printFinishMessage(float $timeStart): void
     {
-        $execution_time = (microtime(true) - $time_start);
+        $executionTime = (microtime(true) - $timeStart);
         $this->info(sprintf(
             "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
-            number_format($execution_time, 2),
-            number_format($execution_time * 1000, 2),
+            number_format($executionTime, 2),
+            number_format($executionTime * 1000, 2),
             number_format(memory_get_peak_usage() / 1024 / 1024, 2)
         ));
 

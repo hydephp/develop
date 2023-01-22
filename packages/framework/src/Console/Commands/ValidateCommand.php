@@ -39,31 +39,33 @@ class ValidateCommand extends Command
         $this->newLine();
 
         foreach (ValidationService::checks() as $check) {
-            $this->check($check);
+            $this->runCheck($check);
         }
 
-        $this->info('All done! '.$this->timeTotal());
+        $this->info("All done! {$this->timeTotal()}");
 
         return Command::SUCCESS;
     }
 
-    protected function check(string $check): void
+    protected function runCheck(string $check): void
     {
         $timeStart = microtime(true);
         $result = $this->service->run($check);
 
-        $this->line($result->formattedMessage($this->time($timeStart)));
+        $this->line($result->formattedMessage($this->getCheckTime($timeStart)));
 
         $this->newline();
     }
 
-    protected function time(float $timeStart): string
+    protected function getCheckTime(float $timeStart): string
     {
         return number_format((microtime(true) - $timeStart) * 1000, 2);
     }
 
     protected function timeTotal(): string
     {
-        return'<fg=gray>Ran '.sizeof(ValidationService::checks()).' checks in '.$this->getExecutionTimeString().'</>';
+        return sprintf("<fg=gray>Ran %s checks in {$this->getExecutionTimeString()}</>",
+            sizeof(ValidationService::checks())
+        );
     }
 }
