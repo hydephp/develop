@@ -21,6 +21,11 @@ class SourceFile extends ProjectFile
      */
     public readonly string $model;
 
+    public static function make(string $path, string $pageClass = HydePage::class): static
+    {
+        return new self($path, $pageClass);
+    }
+
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
