@@ -10,7 +10,7 @@ use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 
 /**
  * Hyde Command to build a single static site file.
