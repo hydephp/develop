@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Hyde\Hyde;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationService;
