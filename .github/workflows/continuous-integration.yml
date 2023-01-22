@@ -409,7 +409,7 @@ jobs:
       - name: Download upcoming documentation artifact
         uses: actions/download-artifact@v3
         with:
-          name: dev-doc
+          name: dev-docs
           path: master/dev-docs
 
       - name: Download API documentation artifact
