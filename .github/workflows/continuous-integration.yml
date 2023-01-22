@@ -383,6 +383,7 @@ jobs:
       - run-smoke-tests
       - build-test-coverage
       - build-api-documentation
+      - build-upcoming-documentation
       - build-preview-site
       - build-test-fixture-docs
 
@@ -394,6 +395,7 @@ jobs:
       - name: Reset output directories
         run: |
           rm -rf master/coverage && mkdir master/coverage
+          rm -rf master/dev-docs && mkdir master/dev-docs
           rm -rf master/api-docs && mkdir master/api-docs
           rm -rf master/preview && mkdir master/preview
           rm -rf master/test-fixtures && mkdir master/test-fixtures
@@ -403,6 +405,12 @@ jobs:
         with:
           name: html-coverage
           path: master/coverage
+
+      - name: Download upcoming documentation artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dev-documentation
+          path: master/dev-docs
 
       - name: Download API documentation artifact
         uses: actions/download-artifact@v3
