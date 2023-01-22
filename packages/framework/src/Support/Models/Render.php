@@ -34,17 +34,17 @@ class Render implements Arrayable
 
     public function getPage(): ?HydePage
     {
-        return $this->page ?? self::handleFallback('page');
+        return $this->page ?? null;
     }
 
     public function getCurrentRoute(): ?Route
     {
-        return $this->currentRoute ?? self::handleFallback('currentRoute');
+        return $this->currentRoute ?? null;
     }
 
     public function getCurrentPage(): ?string
     {
-        return $this->currentPage ?? self::handleFallback('currentPage');
+        return $this->currentPage ?? null;
     }
 
     public function shareToView(): void
@@ -79,20 +79,5 @@ class Render implements Arrayable
             'currentRoute' => $this->getCurrentRoute(),
             'currentPage' => $this->getCurrentPage(),
         ];
-    }
-
-    /**
-     * @deprecated Setting page rendering data via the view facade is deprecated. Use {@see Render::share()} instead.
-     * @codeCoverageIgnore
-     */
-    protected static function handleFallback(string $property): mixed
-    {
-        $shared = View::shared($property);
-
-        if ($shared !== null) {
-            trigger_error("Setting page rendering data via the view facade is deprecated. Use `Render::share('$property', \$value)` instead", E_USER_DEPRECATED);
-        }
-
-        return $shared;
     }
 }
