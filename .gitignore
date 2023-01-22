@@ -20,7 +20,6 @@
 /build
 /storage
 /app
-/resources
 .env.example
 .gitattributes
 .styleci.yml
