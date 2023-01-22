@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RebuildService;
@@ -43,6 +43,6 @@ class MarkdownPageTest extends TestCase
             file_get_contents(Hyde::path('_site/test-page.html'))
         );
 
-        unlink(Hyde::path('_site/test-page.html'));
+        Hyde::unlink('_site/test-page.html');
     }
 }

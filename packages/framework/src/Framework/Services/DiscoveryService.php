@@ -62,6 +62,7 @@ class DiscoveryService
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
+     * @return array<string>
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *

@@ -101,6 +101,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 
+    /** @return numeric-string */
     protected function getImageLength(MarkdownPost $post): string
     {
         /** @todo We might want to add a build warning if the length is zero */

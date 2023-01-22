@@ -23,7 +23,7 @@ class BuildRssFeedCommandTest extends TestCase
         $this->artisan('build:rss')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/feed.xml'));
-        unlink(Hyde::path('_site/feed.xml'));
+        Hyde::unlink('_site/feed.xml');
     }
 
     public function test_rss_filename_can_be_changed()
@@ -40,6 +40,6 @@ class BuildRssFeedCommandTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
         $this->assertFileExists(Hyde::path('_site/blog.xml'));
-        unlink(Hyde::path('_site/blog.xml'));
+        Hyde::unlink('_site/blog.xml');
     }
 }

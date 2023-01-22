@@ -104,9 +104,9 @@ abstract class HydePage implements PageSchema
      *
      * Essentially an alias of DiscoveryService::getAbstractPageList().
      *
-     * @return array<string>|false
+     * @return array<string>
      */
-    public static function files(): array|false
+    public static function files(): array
     {
         return DiscoveryService::getSourceFileListForModel(static::class);
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
+use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Hyde\Testing\TestCase;
 
 /**
@@ -14,7 +15,7 @@ class ShortcodeProcessorTest extends TestCase
 {
     public function test_constructor_discovers_default_shortcodes()
     {
-        $shortcodes = (new \Hyde\Markdown\Processing\ShortcodeProcessor('foo'))->shortcodes;
+        $shortcodes = (new ShortcodeProcessor('foo'))->shortcodes;
 
         $this->assertCount(4, $shortcodes);
         $this->assertContainsOnlyInstancesOf(MarkdownShortcodeContract::class, $shortcodes);
@@ -22,7 +23,7 @@ class ShortcodeProcessorTest extends TestCase
 
     public function test_discovered_shortcodes_are_used_to_process_input()
     {
-        $processor = new \Hyde\Markdown\Processing\ShortcodeProcessor('>info foo');
+        $processor = new ShortcodeProcessor('>info foo');
 
         $this->assertEquals('<blockquote class="info">foo</blockquote>',
             $processor->run());
@@ -30,7 +31,7 @@ class ShortcodeProcessorTest extends TestCase
 
     public function test_string_without_shortcode_is_not_modified()
     {
-        $processor = new \Hyde\Markdown\Processing\ShortcodeProcessor('foo');
+        $processor = new ShortcodeProcessor('foo');
 
         $this->assertEquals('foo', $processor->run());
     }
@@ -38,12 +39,12 @@ class ShortcodeProcessorTest extends TestCase
     public function test_process_static_shorthand()
     {
         $this->assertEquals('<blockquote class="info">foo</blockquote>',
-            \Hyde\Markdown\Processing\ShortcodeProcessor::preprocess('>info foo'));
+            ShortcodeProcessor::preprocess('>info foo'));
     }
 
     public function test_shortcodes_can_be_added_to_processor()
     {
-        $processor = new \Hyde\Markdown\Processing\ShortcodeProcessor('foo');
+        $processor = new ShortcodeProcessor('foo');
 
         $processor->addShortcode(new class implements MarkdownShortcodeContract
         {

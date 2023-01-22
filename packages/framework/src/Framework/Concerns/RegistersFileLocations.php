@@ -36,7 +36,7 @@ trait RegistersFileLocations
         }
     }
 
-    /*
+    /**
      * Register the optional output directories.
      * Some HTML pages, like Blade and Markdown pages are stored right in the _site/ directory.
      * However, some pages, like docs and posts are in subdirectories of the _site/ directory.
@@ -44,8 +44,7 @@ trait RegistersFileLocations
      *
      * @example registerOutputDirectories([HydePage::class => 'docs'])
      *
-     * @param  array  $directoryMapping{class: string<HydePage>, location: string}
-     * @return void
+     * @param  array  $directoryMapping{class:  string<HydePage>, location: string}
      */
     protected function registerOutputDirectories(array $directoryMapping): void
     {

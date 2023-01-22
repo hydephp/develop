@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use ArgumentCountError;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
@@ -45,7 +46,7 @@ class DataCollectionTest extends TestCase
 
     public function test_key_is_required()
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         new DataCollection();
     }
 
@@ -81,8 +82,8 @@ class DataCollectionTest extends TestCase
     public function test_get_markdown_files_method_returns_an_array_of_markdown_files_in_the_specified_directory()
     {
         mkdir(Hyde::path('_data/foo'));
-        Hyde::touch(('_data/foo/foo.md'));
-        Hyde::touch(('_data/foo/bar.md'));
+        Hyde::touch('_data/foo/foo.md');
+        Hyde::touch('_data/foo/bar.md');
 
         $this->assertEquals([
             Hyde::path('_data/foo/bar.md'),
@@ -96,8 +97,8 @@ class DataCollectionTest extends TestCase
     {
         mkdir(Hyde::path('_data/foo'));
         mkdir(Hyde::path('_data/foo/bar'));
-        Hyde::touch(('_data/foo/foo.md'));
-        Hyde::touch(('_data/foo/bar/bar.md'));
+        Hyde::touch('_data/foo/foo.md');
+        Hyde::touch('_data/foo/bar/bar.md');
         $this->assertEquals([
             Hyde::path('_data/foo/foo.md'),
         ], (new DataCollection('foo'))->getMarkdownFiles());
@@ -107,8 +108,8 @@ class DataCollectionTest extends TestCase
     public function test_get_markdown_files_method_does_not_include_files_with_extensions_other_than_md()
     {
         mkdir(Hyde::path('_data/foo'));
-        Hyde::touch(('_data/foo/foo.md'));
-        Hyde::touch(('_data/foo/bar.txt'));
+        Hyde::touch('_data/foo/foo.md');
+        Hyde::touch('_data/foo/bar.txt');
         $this->assertEquals([
             Hyde::path('_data/foo/foo.md'),
         ], (new DataCollection('foo'))->getMarkdownFiles());
@@ -118,7 +119,7 @@ class DataCollectionTest extends TestCase
     public function test_get_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
     {
         mkdir(Hyde::path('_data/foo'));
-        Hyde::touch(('_data/foo/_foo.md'));
+        Hyde::touch('_data/foo/_foo.md');
 
         $this->assertEquals([
             Hyde::path('_data/foo/_foo.md'),
@@ -134,8 +135,8 @@ class DataCollectionTest extends TestCase
     public function test_static_markdown_helper_discovers_and_parses_markdown_files_in_the_specified_directory()
     {
         mkdir(Hyde::path('_data/foo'));
-        Hyde::touch(('_data/foo/foo.md'));
-        Hyde::touch(('_data/foo/bar.md'));
+        Hyde::touch('_data/foo/foo.md');
+        Hyde::touch('_data/foo/bar.md');
 
         $collection = DataCollection::markdown('foo');
 
@@ -147,8 +148,8 @@ class DataCollectionTest extends TestCase
     public function test_static_markdown_helper_doest_not_ignore_files_starting_with_an_underscore()
     {
         mkdir(Hyde::path('_data/foo'));
-        Hyde::touch(('_data/foo/foo.md'));
-        Hyde::touch(('_data/foo/_bar.md'));
+        Hyde::touch('_data/foo/foo.md');
+        Hyde::touch('_data/foo/_bar.md');
         $this->assertCount(2, DataCollection::markdown('foo'));
         File::deleteDirectory(Hyde::path('_data/foo'));
     }
@@ -201,7 +202,7 @@ class DataCollectionTest extends TestCase
     {
         DataCollection::$sourceDirectory = 'foo';
         mkdir(Hyde::path('foo/bar'), recursive: true);
-        Hyde::touch(('foo/bar/foo.md'));
+        Hyde::touch('foo/bar/foo.md');
         $this->assertEquals([
             Hyde::path('foo/bar/foo.md'),
         ], (new DataCollection('bar'))->getMarkdownFiles());

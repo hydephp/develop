@@ -27,21 +27,21 @@ class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostPr
 
     protected array $pageData = [];
 
-    public static function render(string $html, ?array $pageData = []): string
+    public static function render(string $html, array $pageData = []): string
     {
         return (new static(static::preprocess($html), $pageData))->run()->get();
     }
 
     public static function preprocess(string $markdown): string
     {
-        return implode("\n", array_map(function ($line): string {
+        return implode("\n", array_map(function (string $line): string {
             return str_starts_with(strtolower($line), strtolower('[Blade]:'))
-                ? '<!-- HYDE'.trim(htmlentities($line)).' -->'
+                ? '<!-- HYDE'.trim(e($line)).' -->'
                 : $line;
         }, explode("\n", $markdown)));
     }
 
-    public static function postprocess(string $html, ?array $pageData = []): string
+    public static function postprocess(string $html, array $pageData = []): string
     {
         return (new static($html, $pageData))->run()->get();
     }
@@ -54,7 +54,7 @@ class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostPr
 
     public function run(): static
     {
-        $this->output = implode("\n", array_map(function ($line): string {
+        $this->output = implode("\n", array_map(function (string $line): string {
             return $this->lineStartsWithDirective($line)
                 ? $this->processLine($line)
                 : $line;

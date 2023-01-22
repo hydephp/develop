@@ -60,7 +60,7 @@ class PageModelConstructorsTest extends TestCase
         $page = DocumentationPage::parse('foo/bar');
         $this->assertEquals('foo', $page->navigationMenuGroup());
 
-        unlink(Hyde::path('_docs/foo/bar.md'));
+        Hyde::unlink('_docs/foo/bar.md');
         rmdir(Hyde::path('_docs/foo'));
     }
 }

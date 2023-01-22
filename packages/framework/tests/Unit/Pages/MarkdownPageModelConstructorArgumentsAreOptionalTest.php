@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;

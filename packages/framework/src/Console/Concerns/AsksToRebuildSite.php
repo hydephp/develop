@@ -14,7 +14,7 @@ trait AsksToRebuildSite
             return;
         }
 
-        if ($this->confirm('Would you like to rebuild the site?', 'Yes')) {
+        if ($this->confirm('Would you like to rebuild the site?', true)) {
             $this->line('Okay, building site!');
             Artisan::call('build');
             $this->info('Site is built!');

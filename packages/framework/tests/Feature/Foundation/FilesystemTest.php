@@ -91,7 +91,7 @@ class FilesystemTest extends TestCase
 
     public function test_vendor_path_method_exists()
     {
-        $this->assertTrue(method_exists(\Hyde\Foundation\Filesystem::class, 'vendorPath'));
+        $this->assertTrue(method_exists(Filesystem::class, 'vendorPath'));
     }
 
     public function test_vendor_path_method_returns_string()
@@ -113,18 +113,18 @@ class FilesystemTest extends TestCase
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
-        $this->assertTrue(method_exists(\Hyde\Foundation\Filesystem::class, 'copy'));
+        $this->assertTrue(method_exists(Filesystem::class, 'copy'));
         $this->assertTrue(Hyde::copy('foo', 'bar'));
         $this->assertFileExists(Hyde::path('bar'));
-        unlink(Hyde::path('foo'));
-        unlink(Hyde::path('bar'));
+        Hyde::unlink('foo');
+        Hyde::unlink('bar');
     }
 
     public function test_touch_helper_creates_file_at_given_path()
     {
         $this->assertTrue(Hyde::touch('foo'));
         $this->assertFileExists(Hyde::path('foo'));
-        unlink(Hyde::path('foo'));
+        Hyde::unlink('foo');
     }
 
     public function test_touch_helper_creates_multiple_files_at_given_paths()
@@ -132,8 +132,8 @@ class FilesystemTest extends TestCase
         $this->assertTrue(Hyde::touch(['foo', 'bar']));
         $this->assertFileExists(Hyde::path('foo'));
         $this->assertFileExists(Hyde::path('bar'));
-        unlink(Hyde::path('foo'));
-        unlink(Hyde::path('bar'));
+        Hyde::unlink('foo');
+        Hyde::unlink('bar');
     }
 
     public function test_unlink_helper_deletes_file_at_given_path()
@@ -334,7 +334,7 @@ class FilesystemTest extends TestCase
 
         foreach ($testStrings as $testString) {
             $this->assertEquals(
-                $this->systemPath(($testString)),
+                $this->systemPath($testString),
                 Hyde::pathToRelative(
                     $this->systemPath($testString)
                 )

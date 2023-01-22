@@ -21,7 +21,7 @@ trait Serializable
         return $this->toArray();
     }
 
-    /** @inheritDoc */
+    /** @param  int  $options */
     public function toJson($options = 0): string
     {
         return json_encode($this->jsonSerialize(), $options);

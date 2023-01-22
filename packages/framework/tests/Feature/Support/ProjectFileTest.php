@@ -100,7 +100,7 @@ class ProjectFileTest extends TestCase
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
         ], ProjectFileTestClass::make('foo/bar.txt')->toArray());
-        unlink(Hyde::path('foo/bar.txt'));
+        Hyde::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
 }

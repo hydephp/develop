@@ -90,7 +90,7 @@ class MakePageCommandTest extends TestCase
         $this->artisan('make:page "foo test page" --type="documentation"')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_docs/foo-test-page.md'));
-        unlink(Hyde::path('_docs/foo-test-page.md'));
+        Hyde::unlink('_docs/foo-test-page.md');
     }
 
     public function test_command_fails_if_file_already_exists()
@@ -121,7 +121,7 @@ class MakePageCommandTest extends TestCase
             ->expectsOutput("Creating a new Markdown page with title: Test Page\n")
             ->assertExitCode(0);
 
-        unlink(Hyde::path('_pages/test-page.md'));
+        Hyde::unlink('_pages/test-page.md');
     }
 
     public function test_command_falls_back_to_default_title_if_user_enters_nothing()
@@ -131,7 +131,7 @@ class MakePageCommandTest extends TestCase
             ->expectsOutput("Creating a new Markdown page with title: My New Page\n")
             ->assertExitCode(0);
 
-        unlink(Hyde::path('_pages/my-new-page.md'));
+        Hyde::unlink('_pages/my-new-page.md');
     }
 
     public function test_page_type_shorthand_can_be_used_to_create_blade_pages()
@@ -150,6 +150,6 @@ class MakePageCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_docs/foo-test-page.md'));
-        unlink(Hyde::path('_docs/foo-test-page.md'));
+        Hyde::unlink('_docs/foo-test-page.md');
     }
 }

@@ -52,7 +52,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
     {
         // Using a subdirectory in a directory we know exists, to make cleanup easier.
         mkdir(Hyde::path('_posts/test'));
-        Hyde::touch(('_posts/test/test.md'));
+        Hyde::touch('_posts/test/test.md');
 
         MarkdownPost::$sourceDirectory = '_posts/test';
 
@@ -61,7 +61,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
             DiscoveryService::getSourceFileListForModel(MarkdownPost::class)
         );
 
-        unlink(Hyde::path('_posts/test/test.md'));
+        Hyde::unlink('_posts/test/test.md');
         rmdir(Hyde::path('_posts/test'));
     }
 }

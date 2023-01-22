@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
@@ -33,7 +33,7 @@ This is a post stub used in the automated tests
 
     protected function tearDown(): void
     {
-        unlink(Hyde::path('_posts/test-post.md'));
+        Hyde::unlink('_posts/test-post.md');
 
         parent::tearDown();
     }
@@ -42,7 +42,7 @@ This is a post stub used in the automated tests
     {
         $post = MarkdownPost::parse('test-post');
         $this->assertInstanceOf(MarkdownPost::class, $post);
-        $this->assertCount(3, ($post->matter->toArray()));
+        $this->assertCount(3, $post->matter->toArray());
         $this->assertInstanceOf(FrontMatter::class, $post->matter);
         $this->assertInstanceOf(Markdown::class, $post->markdown);
         $this->assertIsString($post->markdown->body());
