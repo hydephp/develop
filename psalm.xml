@@ -12,6 +12,7 @@
         <ignoreFiles>
             <directory name="vendor" />
             <file name="packages/framework/src/Support/Contracts/FilesystemContract.php" />
+            <file name="packages/framework/src/Framework/Concerns/Internal/ForwardsIlluminateFilesystem.php" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
