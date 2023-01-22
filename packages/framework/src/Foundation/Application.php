@@ -7,6 +7,9 @@ namespace Hyde\Foundation;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest;
 
+/**
+ * @property mixed $app
+ */
 class Application extends \LaravelZero\Framework\Application
 {
     /**
