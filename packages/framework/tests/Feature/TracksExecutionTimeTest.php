@@ -33,6 +33,15 @@ class TracksExecutionTimeTest extends TestCase
         $this->assertSame(0.0, round($class->stopClock()));
     }
 
+    public function test_getExecutionTimeInMs()
+    {
+        $class = new TracksExecutionTimeTestClass();
+        $class->startClock();
+
+        $this->assertIsFloat($class->getExecutionTimeInMs());
+        $this->assertSame(0.0, round($class->getExecutionTimeInMs()));
+    }
+
     public function test_getExecutionTimeString()
     {
         $class = new TracksExecutionTimeTestClass();
@@ -41,15 +50,6 @@ class TracksExecutionTimeTest extends TestCase
         $this->assertIsString($class->getExecutionTimeString());
         $this->assertTrue(str_starts_with($class->getExecutionTimeString(), '0.0'));
         $this->assertTrue(str_ends_with( $class->getExecutionTimeString(), 'ms'));
-    }
-
-    public function test_getExecutionTimeInMs()
-    {
-        $class = new TracksExecutionTimeTestClass();
-        $class->startClock();
-
-        $this->assertIsFloat($class->getExecutionTimeInMs());
-        $this->assertSame(0.0, round($class->getExecutionTimeInMs()));
     }
 }
 
