@@ -17,8 +17,6 @@ abstract class Command extends BaseCommand
      */
     public static function createClickableFilepath(string $filepath): string
     {
-        $realpath = realpath($filepath) ?: Hyde::path($filepath);
-
-        return 'file://'.str_replace('\\', '/', $realpath);
+        return 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path($filepath));
     }
 }
