@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\BuildTasks;
 
+use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -15,10 +16,9 @@ use Throwable;
 abstract class BuildTask
 {
     use InteractsWithIO;
+    use TracksExecutionTime;
 
     protected static string $description = 'Generic build task';
-
-    protected float $timeStart;
 
     /**
      * @todo Consider setting default value to 0
@@ -30,7 +30,7 @@ abstract class BuildTask
 
     public function __construct(?OutputStyle $output = null)
     {
-        $this->timeStart = microtime(true);
+        $this->startClock();
         $this->output = $output;
     }
 
@@ -66,7 +66,7 @@ abstract class BuildTask
 
     public function getExecutionTime(): string
     {
-        return number_format((microtime(true) - $this->timeStart) * 1000, 2).'ms';
+        return $this->getExecutionTimeString();
     }
 
     public function write(string $message): void
