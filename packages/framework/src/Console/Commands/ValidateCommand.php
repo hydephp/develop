@@ -52,12 +52,12 @@ class ValidateCommand extends Command
         $timeStart = microtime(true);
         $result = $this->service->run($check);
 
-        $this->line($result->formattedMessage($this->time($timeStart)));
+        $this->line($result->formattedMessage($this->getCheckTime($timeStart)));
 
         $this->newline();
     }
 
-    protected function time(float $timeStart): string
+    protected function getCheckTime(float $timeStart): string
     {
         return number_format((microtime(true) - $timeStart) * 1000, 2);
     }
