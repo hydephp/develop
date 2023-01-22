@@ -27,4 +27,9 @@ abstract class Command extends BaseCommand
     {
         $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
     }
+
+    public function gray(string $string): void
+    {
+        $this->line("<fg=gray>$string</>");
+    }
 }
