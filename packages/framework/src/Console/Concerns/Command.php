@@ -39,4 +39,9 @@ abstract class Command extends BaseCommand
     {
         return "<fg=gray>$string</>";
     }
+
+    public function indentedLine(int $indent, string $string): void
+    {
+        $this->line(str_repeat(' ', $indent).$string);
+    }
 }
