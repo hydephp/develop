@@ -39,7 +39,7 @@ class ValidateCommand extends Command
         $this->newLine();
 
         foreach (ValidationService::checks() as $check) {
-            $this->check($check);
+            $this->runCheck($check);
         }
 
         $this->info('All done! '.$this->timeTotal());
@@ -47,7 +47,7 @@ class ValidateCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function check(string $check): void
+    protected function runCheck(string $check): void
     {
         $timeStart = microtime(true);
         $result = $this->service->run($check);
