@@ -229,6 +229,54 @@ jobs:
           path: 'build/api-documentation'
 
 
+  build-upcoming-documentation:
+    environment:
+      name: dev-docs
+      url: https://hydephp.github.io/develop/master/dev-docs/
+
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Download configuration
+        run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config-dev-docs -O config.zip
+
+      - name: Unzip configuration
+        run: unzip config.zip -d temp
+
+      - name: Copy configuration to root
+        run: cp -r temp/hydephp-develop-*/* .
+
+      - name: Move documentation files
+        run: rm -rf _docs && mv -f docs _docs
+
+      - name: Compile the static site
+        run: php hyde build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: 'dev-docs'
+          path: '_site/docs'
+
+
   build-preview-site:
     environment:
       name: live-preview-site
