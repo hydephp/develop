@@ -92,7 +92,7 @@ class ValidationResult
 
     public function formattedMessage(?string $withTimeString = null): string
     {
-        $string = '  '.$this->formatResult($this->message).$this->formatTimeString($withTimeString);
+        $string = "  {$this->formatResult($this->message)}{$this->formatTimeString($withTimeString)}";
         if ($this->tip()) {
             $string .= "\n".str_repeat(' ', 9).$this->formatTip($this->tip);
         }
