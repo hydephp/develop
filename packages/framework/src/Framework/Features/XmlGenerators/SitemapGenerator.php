@@ -9,6 +9,7 @@ namespace Hyde\Framework\Features\XmlGenerators;
 use function config;
 use function date;
 use function filemtime;
+use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -16,8 +17,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use function in_array;
-use function microtime;
-use function round;
 use SimpleXMLElement;
 
 /**
@@ -26,7 +25,7 @@ use SimpleXMLElement;
  */
 class SitemapGenerator extends BaseXmlGenerator
 {
-    protected float $timeStart;
+    use TracksExecutionTime;
 
     public function generate(): static
     {
@@ -46,7 +45,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function constructBaseElement(): void
     {
-        $this->timeStart = microtime(true);
+        $this->startClock();
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
@@ -100,6 +99,6 @@ class SitemapGenerator extends BaseXmlGenerator
     /** @return numeric-string */
     protected function getFormattedProcessingTime(): string
     {
-        return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
+        return (string) $this->getExecutionTimeInMs();
     }
 }
