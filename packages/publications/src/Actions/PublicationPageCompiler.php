@@ -14,9 +14,14 @@ use function str_ends_with;
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationPageCompilerTest
  */
-class PublicationPageCompiler extends InvokableAction
+class PublicationPageCompiler
 {
     protected PublicationPage|PublicationListPage $page;
+
+    public static function call(PublicationPage|PublicationListPage $page): string
+    {
+        return (new self($page))->__invoke();
+    }
 
     public function __construct(PublicationPage|PublicationListPage $page)
     {
