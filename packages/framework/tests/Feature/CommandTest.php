@@ -8,7 +8,6 @@ use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Mockery;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
