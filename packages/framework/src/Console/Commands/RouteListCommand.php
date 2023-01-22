@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\Command as CommandAlias;
 use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
 
@@ -56,7 +55,7 @@ class RouteListCommand extends Command
 
     protected function formatSourcePath(string $path): string
     {
-        return $this->clickablePathLink(CommandAlias::createClickableFilepath(Hyde::path($path)), $path);
+        return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
     }
 
     protected function formatOutputPath(string $path): string
@@ -65,7 +64,7 @@ class RouteListCommand extends Command
             return "_site/$path";
         }
 
-        return $this->clickablePathLink(CommandAlias::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
+        return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
     }
 
     protected function clickablePathLink(string $link, string $path): string

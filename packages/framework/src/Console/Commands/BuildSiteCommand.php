@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\Command as CommandAlias;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
@@ -115,7 +114,7 @@ class BuildSiteCommand extends Command
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
             'Your new homepage is stored here -> '.
-            CommandAlias::createClickableFilepath(Hyde::sitePath('index.html'))
+            Command::createClickableFilepath(Hyde::sitePath('index.html'))
         );
     }
 
