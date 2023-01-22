@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Actions;
 
 use Hyde\Framework\Actions\AnonymousViewCompiler;
-use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Illuminate\Support\Facades\View;

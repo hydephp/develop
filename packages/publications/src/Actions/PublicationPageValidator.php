@@ -6,7 +6,6 @@ namespace Hyde\Publications\Actions;
 
 use function array_flip;
 use function array_merge;
-use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;

@@ -7,7 +7,6 @@ namespace Hyde\Publications\Commands\Helpers;
 use function array_shift;
 use function explode;
 use function fgets;
-use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Hyde;
 use function trim;
 
