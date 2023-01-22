@@ -31,7 +31,7 @@ class MakePublicationTagCommandTest extends TestCase
             ->expectsOutput('Enter the tag values: (end with an empty line)')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
-            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.yml').']')
+            ->expectsOutput('Saving tag data to [file://'.str_replace('\\', '/', Hyde::path('tags.yml')).']')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('tags.yml'));
@@ -56,7 +56,7 @@ class MakePublicationTagCommandTest extends TestCase
             ->expectsOutput('Enter the tag values: (end with an empty line)')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
-            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.yml').']')
+            ->expectsOutput('Saving tag data to [file://'.str_replace('\\', '/', Hyde::path('tags.yml')).']')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('tags.yml'));
