@@ -16,6 +16,11 @@ trait TracksExecutionTime
         $this->timeStart = microtime(true);
     }
 
+    protected function stopClock(): float
+    {
+        return microtime(true) - $this->timeStart;
+    }
+
     protected function getExecutionTimeString(): string
     {
         return number_format($this->getExecutionTimeInMs(), 2).'ms';
@@ -23,6 +28,6 @@ trait TracksExecutionTime
 
     protected function getExecutionTimeInMs(): int|float
     {
-        return (microtime(true) - $this->timeStart) * 1000;
+        return $this->stopClock() * 1000;
     }
 }
