@@ -19,7 +19,7 @@ class AnonymousViewCompiler
 
     public static function call(string $viewPath, array $data = []): string
     {
-        return (new static($viewPath, $data))->__invoke();
+        return (new self($viewPath, $data))->__invoke();
     }
 
     public function __construct(string $viewPath, array $data = [])
