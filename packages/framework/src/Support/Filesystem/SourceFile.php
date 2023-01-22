@@ -24,7 +24,7 @@ class SourceFile extends ProjectFile
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */
     public static function make(string $path, string $pageClass = HydePage::class): static
     {
-        return new self($path, $pageClass);
+        return new static($path, $pageClass);
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */
