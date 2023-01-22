@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Framework\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
 
@@ -12,14 +13,13 @@ use LaravelZero\Framework\Commands\Command;
  */
 class ValidateCommand extends Command
 {
+    use TracksExecutionTime;
+
     /** @var string */
     protected $signature = 'validate';
 
     /** @var string */
     protected $description = 'Run a series of tests to validate your setup and help you optimize your site.';
-
-    protected float $time_start;
-    protected float $time_total = 0;
 
     protected ValidationService $service;
 
@@ -32,6 +32,8 @@ class ValidateCommand extends Command
 
     public function handle(): int
     {
+        $this->startClock();
+
         $this->info('Running validation tests!');
 
         $this->newLine();
@@ -47,25 +49,21 @@ class ValidateCommand extends Command
 
     protected function check(string $check): void
     {
-        $this->time_start = microtime(true);
-
+        $timeStart = microtime(true);
         $result = $this->service->run($check);
 
-        $this->line($result->formattedMessage($this->time()));
+        $this->line($result->formattedMessage($this->time($timeStart)));
 
         $this->newline();
     }
 
-    protected function time(): string
+    protected function time(float $timeStart): string
     {
-        $time = (microtime(true) - $this->time_start) * 1000;
-        $this->time_total += $time;
-
-        return number_format($time, 2);
+        return number_format((microtime(true) - $timeStart) * 1000, 2);
     }
 
     protected function timeTotal(): string
     {
-        return'<fg=gray>Ran '.sizeof(ValidationService::checks()).' checks in '.number_format($this->time_total, 2).'ms</>';
+        return'<fg=gray>Ran '.sizeof(ValidationService::checks()).' checks in '.$this->getExecutionTimeString().'</>';
     }
 }
