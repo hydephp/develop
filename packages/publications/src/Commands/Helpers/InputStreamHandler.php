@@ -18,9 +18,14 @@ use function trim;
  *
  * @see \Hyde\Framework\Testing\Unit\InputStreamHandlerTest
  */
-class InputStreamHandler extends InvokableAction
+class InputStreamHandler
 {
     private static ?array $mockedStreamBuffer = null;
+
+    public static function call(): array
+    {
+        return (new self())->__invoke();
+    }
 
     public function __invoke(): array
     {
