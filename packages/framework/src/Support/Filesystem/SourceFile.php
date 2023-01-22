@@ -21,7 +21,7 @@ class SourceFile extends ProjectFile
      */
     public readonly string $model;
 
-    public static function make(string $path, string $pageClass = HydePage::class): static
+    public static function make(string $path, string $pageClass = HydePage::class): self
     {
         return new self($path, $pageClass);
     }
