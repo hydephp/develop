@@ -18,8 +18,8 @@
 */
 
 return [
-    'name'              => env('SITE_NAME', 'HydePHP Canary Preview'),
-    'url'               => env('SITE_URL', 'http://localhost'),
+    'name'              => env('SITE_NAME', 'HydePHP Upcoming Documentation'),
+    'url'               => env('SITE_URL', 'https://hydephp.github.io/develop/master/dev-docs/'),
     'pretty_urls'       => false,
     'generate_sitemap'  => true,
     'generate_rss_feed' => true,

@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'name' => $siteName = env('SITE_NAME', 'HydePHP Canary Preview'),
+    'name' => $siteName = env('SITE_NAME', 'HydePHP Upcoming Documentation'),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
     |
     */
 
-    'site_url' => env('SITE_URL', null),
+    'site_url' => env('SITE_URL', 'https://hydephp.github.io/develop/master/dev-docs/'),
 
     'pretty_urls' => false,
 
@@ -164,7 +164,7 @@ return [
     |
     */
 
-    'footer' => require_once('_includes/footer.php'),
+    'footer' => '',
 
     /*
     |--------------------------------------------------------------------------
