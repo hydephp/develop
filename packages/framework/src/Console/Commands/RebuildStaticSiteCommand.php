@@ -55,7 +55,7 @@ class RebuildStaticSiteCommand extends Command
 
         $this->info(sprintf(
             'Created %s in %s seconds. (%sms)',
-            Command::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
+            static::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
             number_format(
                 $execution_time,
                 2

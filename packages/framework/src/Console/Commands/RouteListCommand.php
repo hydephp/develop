@@ -55,7 +55,7 @@ class RouteListCommand extends Command
 
     protected function formatSourcePath(string $path): string
     {
-        return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
+        return $this->clickablePathLink(static::createClickableFilepath(Hyde::path($path)), $path);
     }
 
     protected function formatOutputPath(string $path): string
@@ -64,7 +64,7 @@ class RouteListCommand extends Command
             return "_site/$path";
         }
 
-        return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
+        return $this->clickablePathLink(static::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
     }
 
     protected function clickablePathLink(string $link, string $path): string

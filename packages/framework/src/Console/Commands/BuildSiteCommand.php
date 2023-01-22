@@ -114,7 +114,7 @@ class BuildSiteCommand extends Command
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
             'Your new homepage is stored here -> '.
-            Command::createClickableFilepath(Hyde::sitePath('index.html'))
+            static::createClickableFilepath(Hyde::sitePath('index.html'))
         );
     }
 
