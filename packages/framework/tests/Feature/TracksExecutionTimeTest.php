@@ -49,11 +49,12 @@ class TracksExecutionTimeTest extends TestCase
 
         $this->assertIsString($class->getExecutionTimeString());
         $this->assertTrue(str_starts_with($class->getExecutionTimeString(), '0.0'));
-        $this->assertTrue(str_ends_with( $class->getExecutionTimeString(), 'ms'));
+        $this->assertTrue(str_ends_with($class->getExecutionTimeString(), 'ms'));
     }
 }
 
-class TracksExecutionTimeTestClass {
+class TracksExecutionTimeTestClass
+{
     use TracksExecutionTime;
 
     public function __call(string $name, array $arguments)
