@@ -22,15 +22,15 @@
         <div class="col-xl-10 mx-auto">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0">Project Versions</h2>
+                    <h2 class="h5 mb-0">Project Information</h2>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach($dashboard->getVersions() as $type => $version)
+                            @foreach($dashboard->getProjectInformation() as $type => $info)
                                 <td>
                                     <strong class="h6">{{ $type }}</strong>
-                                    <span class="card-text">{{ $version }}</span>
+                                    <span class="card-text">{{ $info }}</span>
                                 </td>
                             @endforeach
                         </tr>

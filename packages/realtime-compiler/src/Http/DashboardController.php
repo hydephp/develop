@@ -45,7 +45,7 @@ class DashboardController
         return str_starts_with($version, 'dev-') ? $version : "v$version";
     }
 
-    public function getVersions(): array
+    public function getProjectInformation(): array
     {
         return [
             'Git Version:' => app('git.version'),
