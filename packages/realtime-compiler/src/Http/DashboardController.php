@@ -9,6 +9,8 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
+use Illuminate\Support\HtmlString;
+
 use function app;
 use function array_merge;
 use function class_basename;
@@ -51,10 +53,10 @@ class DashboardController
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                'Page Type' => $this->formatPageType($route->getPageClass()),
-                'Source File' => $this->formatSourcePath($route->getSourcePath()),
-                'Output File' => $this->formatOutputPath($route->getOutputPath()),
-                'Route Key' => $route->getRouteKey(),
+                'Page Type' => new HtmlString('<code title="\\'.$route->getPageClass().'">'.$this->formatPageType($route->getPageClass()).'</code>'),
+                'Source File' => new HtmlString($this->formatSourcePath($route->getSourcePath())),
+                'Output File' => new HtmlString($this->formatOutputPath($route->getOutputPath())),
+                'Route Key' => new HtmlString('<a href="'.$route->getLink().'">'.$route->getRouteKey().'</a>'),
             ];
         }
 
@@ -82,6 +84,6 @@ class DashboardController
 
     protected function clickablePathLink(string $link, string $path): string
     {
-        return "<href=$link>$path</>";
+        return "<a href=\"$link\">$path</a>";
     }
 }
