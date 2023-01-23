@@ -46,34 +46,9 @@ class DashboardController
         ];
     }
 
-    /** @see \Hyde\Console\Commands\RouteListCommand */
+    /** @return array<string, \Hyde\Support\Models\Route> */
     public function getPageList(): array
     {
-        $routes = [];
-        /** @var \Hyde\Support\Models\Route $route */
-        foreach (Hyde::routes() as $route) {
-            $routes[] = [
-                'type' => [$route->getPageClass(), $this->formatPageType($route->getPageClass())],
-                'route' => [$route->getLink(), $this->formatPageType($route->getRouteKey())],
-                'source' => ([Hyde::path($route->getSourcePath()), $route->getSourcePath()]),
-                'output' => ($this->formatOutputPath($route->getOutputPath())),
-            ];
-        }
-
-        return $routes;
-    }
-
-    protected function formatPageType(string $class): string
-    {
-        return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
-    }
-
-    protected function formatOutputPath(string $path): array
-    {
-        if (! file_exists(Hyde::sitePath($path))) {
-            return [null, "_site/$path"];
-        }
-
-        return [Hyde::sitePath($path), "_site/$path"];
+        return Hyde::routes()->all();
     }
 }

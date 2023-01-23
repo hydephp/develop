@@ -55,19 +55,19 @@
                         @foreach($controller->getPageList() as $route)
                             <tr>
                                 <td>
-                                    <code title="\{{ $route['type'][0] }}">{{ $route['type'][1] }}</code>
+                                    <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
                                 </td>
                                 <td>
-                                    <a href="{{ $route['route'][0] }}">{{ $route['route'][1] }}</a>
+                                    <a href="{{ $route->getLink() }}">{{ $route->getRouteKey() }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ $route['source'][0] }}">{{ $route['source'][1] }}</a>
+                                    <a href="{{ Hyde::path($route->getSourcePath()) }}">{{ $route->getSourcePath() }}</a>
                                 </td>
                                 <td>
-                                    @if($route['output'][0] !== null)
-                                        <a href="{{ $route['output'][0] }}">{{ $route['output'][1] }}</a>
+                                    @if(file_exists(Hyde::sitePath($route->getOutputPath())))
+                                        <a href="{{ Hyde::sitePath($route->getOutputPath()) }}">{{ $route->getOutputPath() }}</a>
                                     @else
-                                        {{ $route['output'][1] }}
+                                        _site/{{ $route->getOutputPath() }}
                                     @endif
                                 </td>
                             </tr>
