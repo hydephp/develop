@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
+                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier', 'Actions'] as $header)
                                 <th>{{ $header }}</th>
                             @endforeach
                         </tr>
