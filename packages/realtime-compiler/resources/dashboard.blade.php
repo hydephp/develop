@@ -54,9 +54,10 @@
                         </tr>
                         @foreach($controller->getPageList() as $route)
                             <tr>
-                                @foreach ($route as $data)
-                                    <td>{{ $data }}</td>
-                                @endforeach
+                                <td>{{ $route['Page Type'] }}</td>
+                                <td>{{ $route['Source File'] }}</td>
+                                <td>{{ $route['Output File'] }}</td>
+                                <td>{{ $route['Route Key'] }}</td>
                             </tr>
                         @endforeach
                     </table>
