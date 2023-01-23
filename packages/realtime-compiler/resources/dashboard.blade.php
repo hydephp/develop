@@ -69,7 +69,7 @@
                                 <td>
                                     {{ $route->getPageIdentifier() }}
                                 </td>
-                                <td>
+                                <td class="text-end">
                                     <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm">View</a>
                                 </td>
                             </tr>
