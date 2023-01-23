@@ -55,7 +55,7 @@ class DashboardApiController
         } else {
             $params = [];
         }
-        return $params;
+        return (array) $params;
     }
 
     protected function preventUnauthorizedRequests(): void
