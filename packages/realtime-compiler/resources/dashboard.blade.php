@@ -17,6 +17,27 @@
             </div>
         </header>
     </div>
+    <section>
+        <div class="col-xl-10 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="h5 mb-0">Project Versions</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            @foreach($controller->getVersions() as $type => $version)
+                                <td>
+                                    <strong class="h6">{{ $type }}</strong>
+                                    <span class="card-text">{{ $version }}</span>
+                                </td>
+                            @endforeach
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 <footer class="bg-light text-center py-3 mt-3">
     <div class="container d-flex align-items-center justify-content-center">

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use Composer\InstalledVersions;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
+
+use function app;
 
 class DashboardController
 {
@@ -26,5 +29,14 @@ class DashboardController
             (array) $this,
             ['controller' => $this],
         )))->__invoke();
+    }
+
+    public function getVersions(): array
+    {
+        return [
+            'Git Version:' => app('git.version'),
+            'Hyde Version:' => InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased',
+            'Framework Version:' => InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased',
+        ];
     }
 }
