@@ -52,4 +52,9 @@ class DashboardController
     {
         return Hyde::routes()->all();
     }
+
+    public function getEditLink(string $projectFilePath): string
+    {
+        return "/dashboard-api?action=openFileInEditor&path=$projectFilePath";
+    }
 }

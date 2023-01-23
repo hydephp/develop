@@ -62,6 +62,11 @@
                                 </td>
                                 <td>
                                     <a href="{{ Hyde::path($route->getSourcePath()) }}">{{ $route->getSourcePath() }}</a>
+                                    @if($dashboard->isEnhanced())
+                                        <form action="{{ $dashboard->getEditLink($route->getSourcePath()) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary" title="Open in system editor">✏</button>
+                                        </form>
+                                    @endif
                                 </td>
                                 <td>
                                     @if(file_exists(Hyde::sitePath($route->getOutputPath())))
