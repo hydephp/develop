@@ -53,10 +53,10 @@ class DashboardController
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                'Page Type' => new HtmlString('<code title="\\'.$route->getPageClass().'">'.$this->formatPageType($route->getPageClass()).'</code>'),
-                'Source File' => new HtmlString($this->formatSourcePath($route->getSourcePath())),
-                'Output File' => new HtmlString($this->formatOutputPath($route->getOutputPath())),
-                'Route Key' => new HtmlString('<a href="'.$route->getLink().'">'.$route->getRouteKey().'</a>'),
+                'type' => new HtmlString('<code title="\\'.$route->getPageClass().'">'.$this->formatPageType($route->getPageClass()).'</code>'),
+                'source' => new HtmlString($this->formatSourcePath($route->getSourcePath())),
+                'output' => new HtmlString($this->formatOutputPath($route->getOutputPath())),
+                'route' => new HtmlString('<a href="'.$route->getLink().'">'.$route->getRouteKey().'</a>'),
             ];
         }
 
