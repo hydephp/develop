@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use function app;
+use function array_merge;
 use Composer\InstalledVersions;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
-
 use Illuminate\Support\HtmlString;
-
-use function app;
-use function array_merge;
 use function php_uname;
 use function str_contains;
 use function str_starts_with;
@@ -28,7 +26,7 @@ class DashboardController
     {
         $this->bootApplication();
 
-        $this->title = config('site.name') . ' - Dashboard';
+        $this->title = config('site.name').' - Dashboard';
     }
 
     public function show(): string
@@ -47,6 +45,7 @@ class DashboardController
     public function getVersion(): string
     {
         $version = InstalledVersions::getPrettyVersion('hyde/realtime-compiler');
+
         return str_starts_with($version, 'dev-') ? $version : "v$version";
     }
 
@@ -56,7 +55,7 @@ class DashboardController
             'Git Version:' => app('git.version'),
             'Hyde Version:' => InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased',
             'Framework Version:' => InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased',
-            'Project Path:' => $this->getProjectPathLink()
+            'Project Path:' => $this->getProjectPathLink(),
         ];
     }
 
@@ -80,7 +79,7 @@ class DashboardController
         $os = strtolower(php_uname('s'));
         if (str_contains($os, 'darwin')) {
             $fileManager = 'Finder';
-        } else if (str_contains($os, 'win')) {
+        } elseif (str_contains($os, 'win')) {
             $fileManager = 'File Explorer';
         }
 

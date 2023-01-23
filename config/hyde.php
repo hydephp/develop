@@ -41,7 +41,7 @@ return [
 
             // You can optionally specify your preferred editor for code files.
             // Specify the executable path. or leave blank to use the system's default program.
-            'editor' => env('DEFAULT_EDITOR', '')
+            'editor' => env('DEFAULT_EDITOR', ''),
         ],
     ],
 

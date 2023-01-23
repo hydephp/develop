@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use BadMethodCallException;
+use function basename;
+use function call_user_func;
+use function config;
 use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
-
 use Illuminate\Support\Str;
-
-use function basename;
-use function call_user_func;
-use function config;
 use function in_array;
 use function shell_exec;
 
@@ -57,7 +55,6 @@ class DashboardApiController
     {
         $path = $params['path'] ?? throw new BadMethodCallException('Missing path parameter');
         $path = realpath(Hyde::path($path)) ?: throw new BadMethodCallException('Invalid path parameter');
-
         // Extra security precaution (using custom logic to get extension to support Blade files)
         if (! in_array(Str::after(basename($path), '.'), ['md', 'blade.php'])) {
             throw new BadMethodCallException('Invalid file type');
@@ -66,7 +63,7 @@ class DashboardApiController
         // Shell execs are scary, which is exactly why this API is only to be used for local development
         if (filled(config('hyde.server.dashboard.editor'))) {
             // If there is a custom editor configured, use that
-            shell_exec(config('hyde.server.dashboard.editor') . ' ' . $path);
+            shell_exec(config('hyde.server.dashboard.editor').' '.$path);
         } else {
             // Otherwise this defaults to the system's default editor
             shell_exec($path);
@@ -79,14 +76,13 @@ class DashboardApiController
     {
         $path = $params['path'] ?? throw new BadMethodCallException('Missing path parameter');
         $path = realpath(Hyde::path($path)) ?: throw new BadMethodCallException('Invalid path parameter');
-
         if (! is_dir($path)) {
             throw new BadMethodCallException('Invalid directory');
         }
 
         $command = str_contains(strtolower(php_uname()), 'windows') ? 'explorer' : 'open';
 
-        shell_exec($command.' '. $path);
+        shell_exec($command.' '.$path);
 
         return $this->redirectToDashboard();
     }
@@ -104,7 +100,8 @@ class DashboardApiController
 
     protected function parseParams(array $data): array
     {
-        unset ($data['action']);
+        unset($data['action']);
+
         return $data;
     }
 
