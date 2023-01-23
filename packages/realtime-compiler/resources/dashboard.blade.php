@@ -10,7 +10,7 @@
 <body>
 <main class="container py-4">
     <nav class="navbar navbar-dark bg-dark flex-md-nowrap col-xl-10 mx-auto p-0">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/dashboard">{{ $title }}</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
         <div class="navbar-nav">
             <div class="nav-item text-nowrap">
                 <a class="nav-link px-3" href="/">Back to site</a>
