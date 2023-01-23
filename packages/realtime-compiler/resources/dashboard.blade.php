@@ -21,7 +21,7 @@
         </div>
     </nav>
     <div class="col-xl-10 mx-auto">
-        <header class="px-4 py-5 my-5 text-center bg-light">
+        <header class="px-4 py-5 my-4 text-center bg-light">
             <h1 class="display-6 fw-bold">{{ $title }}</h1>
             <div class="mx-auto">
                 <h2 class="h4">Welcome to the dashboard for your HydePHP site.</h2>
