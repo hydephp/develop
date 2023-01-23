@@ -9,20 +9,15 @@ use function array_merge;
 use Composer\InstalledVersions;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
-use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Illuminate\Support\HtmlString;
 use function str_starts_with;
 
 class DashboardController
 {
-    use InteractsWithLaravel;
-
     public string $title;
 
     public function __construct()
     {
-        $this->bootApplication();
-
         $this->title = config('site.name').' - Dashboard';
     }
 
