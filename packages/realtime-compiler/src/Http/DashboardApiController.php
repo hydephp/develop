@@ -25,7 +25,8 @@ class DashboardApiController
 
     const ACTIONS = [
         'ping',
-        'openFileInEditor'
+        'openFileInEditor',
+        'openDirectory',
     ];
 
     public function __construct()
@@ -70,6 +71,22 @@ class DashboardApiController
             // Otherwise this defaults to the system's default editor
             shell_exec($path);
         }
+
+        return $this->redirectToDashboard();
+    }
+
+    public function openDirectory(array $params): Response
+    {
+        $path = $params['path'] ?? throw new BadMethodCallException('Missing path parameter');
+        $path = realpath(Hyde::path($path)) ?: throw new BadMethodCallException('Invalid path parameter');
+
+        if (! is_dir($path)) {
+            throw new BadMethodCallException('Invalid directory');
+        }
+
+        $command = str_contains(strtolower(php_uname()), 'windows') ? 'explorer' : 'open';
+
+        shell_exec($command.' '. $path);
 
         return $this->redirectToDashboard();
     }

@@ -9,9 +9,14 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
+use Illuminate\Support\HtmlString;
+
 use function app;
 use function array_merge;
+use function php_uname;
+use function str_contains;
 use function str_starts_with;
+use function strtolower;
 
 class DashboardController
 {
@@ -51,6 +56,7 @@ class DashboardController
             'Git Version:' => app('git.version'),
             'Hyde Version:' => InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased',
             'Framework Version:' => InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased',
+            'Project Path:' => $this->getProjectPathLink()
         ];
     }
 
@@ -63,5 +69,27 @@ class DashboardController
     public function getEditLink(string $projectFilePath): string
     {
         return "/dashboard-api?action=openFileInEditor&path=$projectFilePath";
+    }
+
+    protected function getProjectPathLink(): HtmlString
+    {
+        $path = Hyde::path();
+
+        $fileManager = 'file manager';
+
+        $os = strtolower(php_uname('s'));
+        if (str_contains($os, 'darwin')) {
+            $fileManager = 'Finder';
+        } else if (str_contains($os, 'win')) {
+            $fileManager = 'File Explorer';
+        }
+
+        return new HtmlString(<<<HTML
+            <form action="/dashboard-api?action=openDirectory&path=" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-sm p-0" title="Open in $fileManager">
+                    <code>$path</code>
+                </button>
+            </form>
+        HTML);
     }
 }
