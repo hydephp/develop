@@ -41,4 +41,9 @@ class DashboardApiController
             exit;
         }
     }
+
+    public static function enabled(): bool
+    {
+        return $_SERVER['REMOTE_ADDR'] === '::1' && env('DASHBOARD_API', false) === true;
+    }
 }
