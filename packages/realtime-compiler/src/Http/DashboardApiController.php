@@ -16,7 +16,9 @@ class DashboardApiController
 {
     use InteractsWithLaravel;
 
-    const ACTIONS = [];
+    const ACTIONS = [
+        'ping'
+    ];
 
     public function __construct()
     {
@@ -34,6 +36,12 @@ class DashboardApiController
         } catch (BadMethodCallException $exception) {
             return new JsonResponse(400, 'Bad Request', ['body' => $exception->getMessage()]);
         }
+    }
+
+    /** @internal */
+    public function ping(array $params): JsonResponse
+    {
+        return new JsonResponse(200, 'OK', ['body' => 'pong', 'params' => $params]);
     }
 
     protected function parseAction(array $data): array
