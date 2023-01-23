@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
 class CodeIntelController
@@ -17,6 +18,6 @@ class CodeIntelController
 
     public function show(): string
     {
-        return 'Hello World';
+        return (new AnonymousViewCompiler(__DIR__.'/../resources/dashboard.blade.php'))->__invoke();
     }
 }
