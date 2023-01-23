@@ -54,10 +54,18 @@
                         </tr>
                         @foreach($controller->getPageList() as $route)
                             <tr>
-                                <td>{{ $route['type'] }}</td>
-                                <td>{{ $route['source'] }}</td>
-                                <td>{{ $route['output'] }}</td>
-                                <td>{{ $route['route'] }}</td>
+                                <td>
+                                    {{ $route['type'] }}
+                                </td>
+                                <td>
+                                    {{ $route['source'] }}
+                                </td>
+                                <td>
+                                    {{ $route['output'] }}
+                                </td>
+                                <td>
+                                    {{ $route['route'] }}
+                                </td>
                             </tr>
                         @endforeach
                     </table>
