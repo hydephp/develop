@@ -14,6 +14,8 @@ class DashboardApiController
 {
     use InteractsWithLaravel;
 
+    const ACTIONS = [];
+
     public function __construct()
     {
         $this->bootApplication();
@@ -36,7 +38,7 @@ class DashboardApiController
     {
         $action = $data['action'] ?? throw new BadMethodCallException('No action provided');
 
-        if (method_exists($this, $action)) {
+        if (in_array($action, self::ACTIONS)) {
             return [$action, $data['params'] ?? []];
         }
 
