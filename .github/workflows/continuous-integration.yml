@@ -274,7 +274,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: 'dev-docs'
-          path: '_site/docs'
+          path: '_site/dev-docs'
 
 
   build-preview-site:
