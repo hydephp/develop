@@ -38,6 +38,33 @@
             </div>
         </div>
     </section>
+    <section>
+        <div class="col-xl-10 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="h5 mb-0">Site Routes</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Page Type</th>
+                            <th>Source File</th>
+                            <th>Output File</th>
+                            <th>Route Key</th>
+                        </tr>
+                        @foreach($controller->getRouteList() as $route)
+                            <tr>
+                                <td>{{ $route['Page Type'] }}</td>
+                                <td>{{ $route['Source File'] }}</td>
+                                <td>{{ $route['Output File'] }}</td>
+                                <td>{{ $route['Route Key'] }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 <footer class="bg-light text-center py-3 mt-3">
     <div class="container d-flex align-items-center justify-content-center">
