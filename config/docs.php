@@ -62,7 +62,7 @@ return [
     */
 
     // 'source_file_location_base' => 'https://github.com/<user>/<repo>/<[blob/edit]>/<branch>',
-    'edit_source_link_text' => 'Edit Source',
+    'edit_source_link_text'     => 'Edit Source',
     'edit_source_link_position' => 'footer', // 'header', 'footer', or 'both'
 
     /*
@@ -99,7 +99,7 @@ return [
     */
 
     'table_of_contents' => [
-        'enabled' => true,
+        'enabled'           => true,
         'min_heading_level' => 2,
         'max_heading_level' => 4,
     ],
