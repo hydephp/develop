@@ -39,7 +39,7 @@ class DashboardApiController
         $action = $data['action'] ?? throw new BadMethodCallException('No action provided');
 
         if (in_array($action, self::ACTIONS)) {
-            return [$action, $data['params'] ?? []];
+            return [[self::class, $action], $data['params'] ?? []];
         }
 
         throw new BadMethodCallException('Invalid action provided');
