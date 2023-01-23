@@ -7,7 +7,7 @@ namespace Hyde\RealtimeCompiler\Http;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
-class CodeIntelController
+class DashboardController
 {
     use InteractsWithLaravel;
 
