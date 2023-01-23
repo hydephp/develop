@@ -48,9 +48,10 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier', 'Actions'] as $header)
+                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
                                 <th>{{ $header }}</th>
                             @endforeach
+                            <th class="text-end">Actions</th>
                         </tr>
                         @foreach($dashboard->getPageList() as $route)
                             <tr>
