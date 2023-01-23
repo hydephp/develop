@@ -53,10 +53,10 @@ class DashboardController
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                'type' => new HtmlString('<code title="\\'.$route->getPageClass().'">'.$this->formatPageType($route->getPageClass()).'</code>'),
-                'source' => new HtmlString($this->formatSourcePath($route->getSourcePath())),
-                'output' => new HtmlString($this->formatOutputPath($route->getOutputPath())),
-                'route' => new HtmlString('<a href="'.$route->getLink().'">'.$route->getRouteKey().'</a>'),
+                'type' => [$route->getPageClass(), $this->formatPageType($route->getPageClass())],
+                'source' => ($this->formatSourcePath($route->getSourcePath())),
+                'output' => ($this->formatOutputPath($route->getOutputPath())),
+                'route' => [$route->getLink(), $this->formatPageType($route->getRouteKey())],
             ];
         }
 
@@ -68,22 +68,17 @@ class DashboardController
         return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
-    protected function formatSourcePath(string $path): string
+    protected function formatSourcePath(string $path): array
     {
-        return $this->clickablePathLink(Hyde::path($path), $path);
+        return [Hyde::path($path), $path];
     }
 
-    protected function formatOutputPath(string $path): string
+    protected function formatOutputPath(string $path): array
     {
         if (! file_exists(Hyde::sitePath($path))) {
-            return "_site/$path";
+            return [null, "_site/$path"];
         }
 
-        return $this->clickablePathLink(Hyde::sitePath($path), "_site/$path");
-    }
-
-    protected function clickablePathLink(string $link, string $path): string
-    {
-        return "<a href=\"$link\">$path</a>";
+        return [Hyde::sitePath($path), "_site/$path"];
     }
 }

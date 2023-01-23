@@ -55,16 +55,20 @@
                         @foreach($controller->getPageList() as $route)
                             <tr>
                                 <td>
-                                    {{ $route['type'] }}
+                                    <code title="\{{ $route['type'][0] }}">{{ $route['type'][1] }}</code>
                                 </td>
                                 <td>
-                                    {{ $route['source'] }}
+                                    <a href="{{ $route['source'][0] }}">{{ $route['source'][1] }}</a>
                                 </td>
                                 <td>
-                                    {{ $route['output'] }}
+                                    @if($route['output'][0] !== null)
+                                        <a href="{{ $route['output'][0] }}">{{ $route['output'][1] }}</a>
+                                    @else
+                                        {{ $route['output'][1] }}
+                                    @endif
                                 </td>
                                 <td>
-                                    {{ $route['route'] }}
+                                    <a href="{{ $route['route'][0] }}">{{ $route['route'][1] }}</a>
                                 </td>
                             </tr>
                         @endforeach
