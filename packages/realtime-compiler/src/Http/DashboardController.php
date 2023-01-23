@@ -9,6 +9,7 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
 use function app;
+use function array_merge;
 
 class DashboardController
 {
