@@ -86,7 +86,11 @@
                 Lorem ipsum dolor sit amet.
             </p>
         </div>
-        <div class="col-lg-3"></div>
+        <div class="col-lg-3">
+            @if(\Hyde\RealtimeCompiler\Http\DashboardApiController::enabled())
+                <span class="badge bg-success">Enhanced Mode Enabled</span>
+            @endif
+        </div>
     </div>
 </footer>
 </body>
