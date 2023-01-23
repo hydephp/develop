@@ -96,11 +96,7 @@
                 HydePHP Realtime Compiler <span class="text-muted">{{ $dashboard->getVersion() }}</span>
             </p>
         </div>
-        <div class="col-lg-3">
-            @if($dashboard->isEnhanced())
-                <a href="" class="badge bg-success text-decoration-none" title="You will be able to use this dashboard to interact with the filesystem" onclick="alert('You will be able to use this dashboard to interact with the filesystem. This can be disabled by setting `DASHBOARD_API` to `false` in your `.env` file.\n\nWarning: This feature should only ever be enabled when accessing a site locally!'); return false;">Enhanced Mode Enabled</a>
-            @endif
-        </div>
+        <div class="col-lg-3"></div>
     </div>
 </footer>
 </body>
