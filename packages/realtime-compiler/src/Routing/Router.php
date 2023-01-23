@@ -47,9 +47,12 @@ class Router
             }
 
             if ($this->request->path === '/dashboard') {
-                return new HtmlResponse(200, 'OK', [
-                    'body' => (new DashboardController())->show(),
-                ]);
+                // If a dashboard page file exists, we just continue with the default handling
+                if (! file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && ! file_exists(BASE_PATH.'/_pages/dashboard.md')) {
+                    return new HtmlResponse(200, 'OK', [
+                        'body' => (new DashboardController())->show(),
+                    ]);
+                }
             }
         }
 
