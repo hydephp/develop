@@ -9,12 +9,8 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
-use Illuminate\Support\HtmlString;
-
 use function app;
 use function array_merge;
-use function class_basename;
-use function file_exists;
 
 class DashboardController
 {
