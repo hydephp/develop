@@ -13,7 +13,7 @@
             <h1 class="display-6 fw-bold">{{ $title }}</h1>
             <div class="mx-auto">
                 <h2 class="h4">Welcome to the dashboard for your HydePHP site.</h2>
-                <p class="lead mb-4">This page is accessible through the Hyde Realtime Compiler and will not be saved to your static site.</p>
+                <p class="lead mb-0">This page is accessible through the Hyde Realtime Compiler and will not be saved to your static site.</p>
             </div>
         </header>
     </div>
