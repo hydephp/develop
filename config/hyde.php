@@ -28,6 +28,17 @@ return [
 
     'server' => [
         'port' => env('SERVER_PORT', 8080),
+
+        // Hyde Realtime Compiler v3 comes with a project dashboard that can be configured here.
+        'dashboard' => [
+            // The dashboard is enabled by default, but you can disable it here.
+            'enabled' => env('SERVER_DASHBOARD', true),
+
+            // You can also enable the enhanced dashboard, which allows for filesystem interactions.
+            // WARNING: This should only ever be enabled in a development environment on a closed port,
+            // as it is not designed to be secure, and allows for filesystem manipulation and code execution.
+            'enhanced_api' => env('DASHBOARD_API', false),
+        ],
     ],
 
     /*
