@@ -78,6 +78,15 @@ class DashboardApiController
         }
     }
 
+    protected function redirectToDashboard(): Response
+    {
+        return (new Response(302, 'Found', [
+            'Location' => '/dashboard',
+        ]))->withHeaders([
+            'Location' => '/dashboard',
+        ]);
+    }
+
     public static function enabled(): bool
     {
         return $_SERVER['REMOTE_ADDR'] === '::1' && config('hyde.server.dashboard.enhanced_api', false) === true;
