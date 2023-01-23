@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use BadMethodCallException;
 use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
@@ -22,7 +23,11 @@ class DashboardApiController
 
     public function handle(Request $request): Response
     {
-        return new JsonResponse(200, 'OK');
+        try {
+            return new JsonResponse(200, 'OK');
+        } catch (BadMethodCallException $exception) {
+            return new JsonResponse(400, 'Bad Request: ' . $exception->getMessage());
+        }
     }
 
     protected function preventUnauthorizedRequests(): void
