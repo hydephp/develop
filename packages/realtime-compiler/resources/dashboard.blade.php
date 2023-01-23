@@ -88,7 +88,7 @@
         </div>
         <div class="col-lg-3">
             @if(\Hyde\RealtimeCompiler\Http\DashboardApiController::enabled())
-                <span class="badge bg-success">Enhanced Mode Enabled</span>
+                <a href="" class="badge bg-success">Enhanced Mode Enabled</a>
             @endif
         </div>
     </div>
