@@ -80,7 +80,7 @@ class DashboardApiController
 
     protected function redirectToDashboard(): Response
     {
-        return (new Response(302, 'Found', [
+        return (new Response(303, 'See Other', [
             'Location' => '/dashboard',
         ]))->withHeaders([
             'Location' => '/dashboard',
