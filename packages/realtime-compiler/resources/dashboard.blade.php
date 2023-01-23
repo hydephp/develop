@@ -93,7 +93,7 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
             <p class="mb-1">
-                Lorem ipsum dolor sit amet.
+                HydePHP Realtime Compiler <span class="text-muted">{{ $dashboard->getVersion() }}</span>
             </p>
         </div>
         <div class="col-lg-3">

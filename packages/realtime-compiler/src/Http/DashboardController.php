@@ -11,6 +11,7 @@ use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
 use function app;
 use function array_merge;
+use function str_starts_with;
 
 class DashboardController
 {
@@ -36,6 +37,12 @@ class DashboardController
     public function isEnhanced(): bool
     {
         return DashboardApiController::enabled();
+    }
+
+    public function getVersion(): string
+    {
+        $version = InstalledVersions::getPrettyVersion('hyde/realtime-compiler');
+        return str_starts_with($version, 'dev-') ? $version : "v$version";
     }
 
     public function getVersions(): array
