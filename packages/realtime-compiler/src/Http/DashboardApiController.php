@@ -15,7 +15,9 @@ use Illuminate\Support\Str;
 
 use function basename;
 use function call_user_func;
+use function config;
 use function in_array;
+use function shell_exec;
 
 class DashboardApiController
 {
