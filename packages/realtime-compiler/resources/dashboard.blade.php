@@ -88,7 +88,7 @@
         </div>
         <div class="col-lg-3">
             @if(\Hyde\RealtimeCompiler\Http\DashboardApiController::enabled())
-                <a href="" class="badge bg-success" title="You will be able to use this dashboard to interact with the filesystem" onclick="alert('You will be able to use this dashboard to interact with the filesystem. This can be disabled by setting `DASHBOARD_API` to `false` in your `.env` file.\n\nWarning: This feature should only ever be enabled when accessing a site locally!')">Enhanced Mode Enabled</a>
+                <a href="" class="badge bg-success text-decoration-none" title="You will be able to use this dashboard to interact with the filesystem" onclick="alert('You will be able to use this dashboard to interact with the filesystem. This can be disabled by setting `DASHBOARD_API` to `false` in your `.env` file.\n\nWarning: This feature should only ever be enabled when accessing a site locally!')">Enhanced Mode Enabled</a>
             @endif
         </div>
     </div>
