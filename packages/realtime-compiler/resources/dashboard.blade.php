@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File'] as $header)
+                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
                                 <th>{{ $header }}</th>
                             @endforeach
                         </tr>
@@ -76,6 +76,9 @@
                                     @else
                                         _site/{{ $route->getOutputPath() }}
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $route->getPageIdentifier() }}
                                 </td>
                             </tr>
                         @endforeach
