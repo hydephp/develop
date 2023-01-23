@@ -29,7 +29,7 @@ class DashboardController
     {
         return (new AnonymousViewCompiler(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
             (array) $this,
-            ['controller' => $this],
+            ['dashboard' => $this],
         )))->__invoke();
     }
 

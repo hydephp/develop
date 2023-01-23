@@ -1,4 +1,4 @@
-@php /** @var \Hyde\RealtimeCompiler\Http\DashboardController $controller */ @endphp
+@php /** @var \Hyde\RealtimeCompiler\Http\DashboardController $dashboard */ @endphp
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach($controller->getVersions() as $type => $version)
+                            @foreach($dashboard->getVersions() as $type => $version)
                                 <td>
                                     <strong class="h6">{{ $type }}</strong>
                                     <span class="card-text">{{ $version }}</span>
@@ -52,7 +52,7 @@
                                 <th>{{ $header }}</th>
                             @endforeach
                         </tr>
-                        @foreach($controller->getPageList() as $route)
+                        @foreach($dashboard->getPageList() as $route)
                             <tr>
                                 <td>
                                     <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
