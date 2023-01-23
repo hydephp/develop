@@ -88,7 +88,7 @@
         </div>
         <div class="col-lg-3">
             @if(\Hyde\RealtimeCompiler\Http\DashboardApiController::enabled())
-                <a href="" class="badge bg-success">Enhanced Mode Enabled</a>
+                <a href="" class="badge bg-success" title="You will be able to use this dashboard to interact with the filesystem">Enhanced Mode Enabled</a>
             @endif
         </div>
     </div>
