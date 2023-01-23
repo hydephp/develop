@@ -119,6 +119,6 @@ class Router
     protected function canRenderDashboard(): bool
     {
         // If a dashboard page file exists, we just continue with the default handling
-        return !file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && !file_exists(BASE_PATH.'/_pages/dashboard.md');
+        return ! file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && ! file_exists(BASE_PATH.'/_pages/dashboard.md');
     }
 }
