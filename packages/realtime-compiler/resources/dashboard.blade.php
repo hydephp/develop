@@ -8,15 +8,15 @@
     <title>{{ $title }}</title>
 </head>
 <body>
-<main class="container py-4">
-    <nav class="navbar navbar-dark bg-dark flex-md-nowrap col-xl-10 mx-auto p-0">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
-        <div class="navbar-nav">
-            <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="/">Back to site</a>
-            </div>
+<nav class="navbar navbar-dark bg-dark flex-md-nowrap col-xl-10 mx-auto p-0">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="/">Back to site</a>
         </div>
-    </nav>
+    </div>
+</nav>
+<main class="container py-4">
     <div class="col-xl-10 mx-auto">
         <header class="px-4 py-5 my-4 text-center bg-light">
             <h1 class="display-6 fw-bold">{{ $title }}</h1>
