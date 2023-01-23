@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach(['Page Type', 'Source File', 'Output File', 'Route Key'] as $header)
+                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File'] as $header)
                                 <th>{{ $header }}</th>
                             @endforeach
                         </tr>
@@ -56,6 +56,9 @@
                             <tr>
                                 <td>
                                     <code title="\{{ $route['type'][0] }}">{{ $route['type'][1] }}</code>
+                                </td>
+                                <td>
+                                    <a href="{{ $route['route'][0] }}">{{ $route['route'][1] }}</a>
                                 </td>
                                 <td>
                                     <a href="{{ $route['source'][0] }}">{{ $route['source'][1] }}</a>
@@ -66,9 +69,6 @@
                                     @else
                                         {{ $route['output'][1] }}
                                     @endif
-                                </td>
-                                <td>
-                                    <a href="{{ $route['route'][0] }}">{{ $route['route'][1] }}</a>
                                 </td>
                             </tr>
                         @endforeach

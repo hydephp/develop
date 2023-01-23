@@ -54,9 +54,9 @@ class DashboardController
         foreach (Hyde::routes() as $route) {
             $routes[] = [
                 'type' => [$route->getPageClass(), $this->formatPageType($route->getPageClass())],
-                'source' => ($this->formatSourcePath($route->getSourcePath())),
-                'output' => ($this->formatOutputPath($route->getOutputPath())),
                 'route' => [$route->getLink(), $this->formatPageType($route->getRouteKey())],
+                'source' => ([Hyde::path($route->getSourcePath()), $route->getSourcePath()]),
+                'output' => ($this->formatOutputPath($route->getOutputPath())),
             ];
         }
 
@@ -66,11 +66,6 @@ class DashboardController
     protected function formatPageType(string $class): string
     {
         return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
-    }
-
-    protected function formatSourcePath(string $path): array
-    {
-        return [Hyde::path($path), $path];
     }
 
     protected function formatOutputPath(string $path): array
