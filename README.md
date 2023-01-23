@@ -28,6 +28,7 @@
 
 ## Projects in this monorepo
 
+[![Upcoming Documentation](https://img.shields.io/badge/-Upcoming%20Documentation-525252)](https://hydephp.github.io/develop/master/dev-docs/)
 [![API Documentation](https://img.shields.io/badge/-API%20Documentation-525252)](https://hydephp.github.io/develop/master/api-docs/)
 [![HTML Code Coverage](https://img.shields.io/badge/-HTML%20Code%20Coverage-525252)](https://hydephp.github.io/develop/master/coverage/)
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/9d5269d1/hydephp)

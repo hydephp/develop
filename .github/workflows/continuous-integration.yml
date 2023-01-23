@@ -229,6 +229,54 @@ jobs:
           path: 'build/api-documentation'
 
 
+  build-upcoming-documentation:
+    environment:
+      name: dev-docs
+      url: https://hydephp.github.io/develop/master/dev-docs/
+
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Download configuration
+        run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config-dev-docs -O config.zip
+
+      - name: Unzip configuration
+        run: unzip config.zip -d temp
+
+      - name: Copy configuration to root
+        run: cp -r temp/hydephp-develop-*/* .
+
+      - name: Move documentation files
+        run: rm -rf _docs && mv -f docs _docs
+
+      - name: Compile the static site
+        run: php hyde build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: 'dev-docs'
+          path: '_site/dev-docs'
+
+
   build-preview-site:
     environment:
       name: live-preview-site
@@ -335,6 +383,7 @@ jobs:
       - run-smoke-tests
       - build-test-coverage
       - build-api-documentation
+      - build-upcoming-documentation
       - build-preview-site
       - build-test-fixture-docs
 
@@ -346,6 +395,7 @@ jobs:
       - name: Reset output directories
         run: |
           rm -rf master/coverage && mkdir master/coverage
+          rm -rf master/dev-docs && mkdir master/dev-docs
           rm -rf master/api-docs && mkdir master/api-docs
           rm -rf master/preview && mkdir master/preview
           rm -rf master/test-fixtures && mkdir master/test-fixtures
@@ -355,6 +405,12 @@ jobs:
         with:
           name: html-coverage
           path: master/coverage
+
+      - name: Download upcoming documentation artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dev-docs
+          path: master/dev-docs
 
       - name: Download API documentation artifact
         uses: actions/download-artifact@v3
