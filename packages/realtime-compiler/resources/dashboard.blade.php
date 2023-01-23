@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach(array_keys($controller->getPageList()[0]) as $header)
+                            @foreach(['Page Type', 'Source File', 'Output File', 'Route Key'] as $header)
                                 <th>{{ $header }}</th>
                             @endforeach
                         </tr>
