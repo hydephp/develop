@@ -26,7 +26,7 @@ class DashboardApiController
         try {
             return new JsonResponse(200, 'OK');
         } catch (BadMethodCallException $exception) {
-            return new JsonResponse(400, 'Bad Request: ' . $exception->getMessage());
+            return new JsonResponse(400, 'Bad Request', ['body' => $exception->getMessage()]);
         }
     }
 
