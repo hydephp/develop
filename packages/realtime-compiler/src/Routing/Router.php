@@ -8,6 +8,7 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Actions\RendersSearchPage;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\DashboardApiController;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Models\FileObject;
@@ -50,6 +51,10 @@ class Router
                 return new HtmlResponse(200, 'OK', [
                     'body' => (new DashboardController())->show(),
                 ]);
+            }
+
+            if ($this->request->path === '/dashboard-api') {
+                return (new DashboardApiController())->handle($this->request);
             }
         }
 
@@ -108,6 +113,7 @@ class Router
     {
         $routes = [
             '/dashboard',
+            '/dashboard-api',
             '/ping',
             '/docs',
             '/docs/search',
