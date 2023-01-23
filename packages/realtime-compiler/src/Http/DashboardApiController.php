@@ -11,7 +11,6 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
 use function call_user_func;
-use function json_decode;
 
 class DashboardApiController
 {
@@ -42,20 +41,16 @@ class DashboardApiController
         $action = $data['action'] ?? throw new BadMethodCallException('No action provided');
 
         if (in_array($action, self::ACTIONS)) {
-            return [[self::class, $action], $this->parseParams($data['params'])];
+            return [[self::class, $action], $this->parseParams($data)];
         }
 
         throw new BadMethodCallException('Invalid action provided');
     }
 
-    protected function parseParams(?string $params): array
+    protected function parseParams(array $data): array
     {
-        if ($params) {
-            $params = json_decode($params, true) ?? throw new BadMethodCallException('Malformed JSON params provided');
-        } else {
-            $params = [];
-        }
-        return (array) $params;
+        unset ($data['action']);
+        return $data;
     }
 
     protected function preventUnauthorizedRequests(): void
