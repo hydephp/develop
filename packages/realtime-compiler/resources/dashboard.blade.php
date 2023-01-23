@@ -47,10 +47,9 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th>Page Type</th>
-                            <th>Source File</th>
-                            <th>Output File</th>
-                            <th>Route Key</th>
+                            @foreach(array_keys($controller->getRouteList()[0]) as $header)
+                                <th>{{ $header }}</th>
+                            @endforeach
                         </tr>
                         @foreach($controller->getRouteList() as $route)
                             <tr>
