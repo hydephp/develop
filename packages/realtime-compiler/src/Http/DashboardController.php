@@ -22,6 +22,9 @@ class DashboardController
 
     public function show(): string
     {
-        return (new AnonymousViewCompiler(__DIR__.'/../../resources/dashboard.blade.php', (array) $this))->__invoke();
+        return (new AnonymousViewCompiler(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
+            (array) $this,
+            ['controller' => $this],
+        )))->__invoke();
     }
 }
