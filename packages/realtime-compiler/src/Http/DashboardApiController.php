@@ -51,7 +51,7 @@ class DashboardApiController
     protected function parseParams(?string $params): array
     {
         if ($params) {
-            $params = json_decode($params, true);
+            $params = json_decode($params, true) ?? throw new BadMethodCallException('Malformed JSON params provided');
         } else {
             $params = [];
         }
