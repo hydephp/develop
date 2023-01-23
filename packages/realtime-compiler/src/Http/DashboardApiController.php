@@ -24,10 +24,23 @@ class DashboardApiController
     public function handle(Request $request): Response
     {
         try {
+            $action = $this->parseAction($request->data);
+
             return new JsonResponse(200, 'OK');
         } catch (BadMethodCallException $exception) {
             return new JsonResponse(400, 'Bad Request', ['body' => $exception->getMessage()]);
         }
+    }
+
+    protected function parseAction(array $data): array
+    {
+        $action = $data['action'] ?? throw new BadMethodCallException('No action provided');
+
+        if (method_exists($this, $action)) {
+            return [$action, $data['params'] ?? []];
+        }
+
+        throw new BadMethodCallException('Invalid action provided');
     }
 
     protected function preventUnauthorizedRequests(): void
