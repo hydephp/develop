@@ -17,6 +17,16 @@ class DashboardApiController
     {
         $this->bootApplication();
 
+        $this->preventUnauthorizedRequests();
+    }
+
+    public function handle(Request $request): Response
+    {
+        return new JsonResponse(200, 'OK');
+    }
+
+    protected function preventUnauthorizedRequests(): void
+    {
         if ($_SERVER['REMOTE_ADDR'] !== '::1') {
             header('HTTP/1.1 403 Forbidden');
             echo '<h1>HTTP/1.1 403 - Access Denied</h1>';
@@ -30,10 +40,5 @@ class DashboardApiController
             echo '<p>You must set the <code>DASHBOARD_API</code> environment variable to <code>true</code> to enable this page. Refusing to serve request.</p>';
             exit;
         }
-    }
-
-    public function handle(Request $request): Response
-    {
-        return new JsonResponse(200, 'OK');
     }
 }
