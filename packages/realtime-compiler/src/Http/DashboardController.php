@@ -10,7 +10,6 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
-use Illuminate\Support\HtmlString;
 use function str_starts_with;
 
 class DashboardController
@@ -47,7 +46,7 @@ class DashboardController
             'Git Version:' => app('git.version'),
             'Hyde Version:' => InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased',
             'Framework Version:' => InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased',
-            'Project Path:' => new HtmlString('<code>'.Hyde::path().'</code>'),
+            'Project Path:' => Hyde::path(),
         ];
     }
 
