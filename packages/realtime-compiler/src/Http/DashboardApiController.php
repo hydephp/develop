@@ -10,6 +10,8 @@ use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
+use function call_user_func;
+
 class DashboardApiController
 {
     use InteractsWithLaravel;
@@ -28,7 +30,7 @@ class DashboardApiController
         try {
             $action = $this->parseAction($request->data);
 
-            return new JsonResponse(200, 'OK');
+            return call_user_func(...$action);
         } catch (BadMethodCallException $exception) {
             return new JsonResponse(400, 'Bad Request', ['body' => $exception->getMessage()]);
         }
