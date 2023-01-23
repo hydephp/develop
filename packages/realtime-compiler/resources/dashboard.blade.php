@@ -58,7 +58,7 @@
                                     <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
                                 </td>
                                 <td>
-                                    <a href="{{ $route->getLink() }}">{{ $route->getRouteKey() }}</a>
+                                    {{ $route->getRouteKey() }}
                                 </td>
                                 <td>
                                     {{ $route->getSourcePath() }}
