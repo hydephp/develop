@@ -1,3 +1,4 @@
+@php /** @var \Hyde\RealtimeCompiler\Http\DashboardController $controller */ @endphp
 <!doctype html>
 <html lang="en">
 <head>
