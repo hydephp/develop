@@ -28,7 +28,6 @@ return [
 
     'server' => [
         'port' => env('SERVER_PORT', 8080),
-        'dashboard' => env('SERVER_DASHBOARD', false),
     ],
 
     /*

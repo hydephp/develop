@@ -7,7 +7,6 @@ use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Actions\RendersSearchPage;
-use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
@@ -16,7 +15,6 @@ use Hyde\RealtimeCompiler\Models\FileObject;
 class Router
 {
     use SendsErrorResponses;
-    use InteractsWithLaravel;
 
     protected Request $request;
 
@@ -49,15 +47,9 @@ class Router
             }
 
             if ($this->request->path === '/dashboard') {
-                // Application must be booted so we can access the configuration
-                $this->bootApplication();
-
-                // If the dashboard feature is disabled, we just continue with the default handling
-                if (config('hyde.server.dashboard', true) === true) {
-                    return new HtmlResponse(200, 'OK', [
-                        'body' => (new DashboardController())->show(),
-                    ]);
-                }
+                return new HtmlResponse(200, 'OK', [
+                    'body' => (new DashboardController())->show(),
+                ]);
             }
         }
 
