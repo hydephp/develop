@@ -6,5 +6,8 @@ namespace Hyde\RealtimeCompiler\Http;
 
 class CodeIntelController
 {
-    //
+    public function show(): string
+    {
+        return 'Hello World';
+    }
 }
