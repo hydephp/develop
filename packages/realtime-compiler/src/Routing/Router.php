@@ -46,7 +46,7 @@ class Router
                 ]);
             }
 
-            if ($this->request->path === '/code-intel') {
+            if ($this->request->path === '/dashboard') {
                 return new HtmlResponse(200, 'OK', [
                     'body' => (new DashboardController())->show(),
                 ]);
@@ -107,7 +107,7 @@ class Router
     protected function shouldRenderSpecial(Request $request): bool
     {
         $routes = [
-            '/code-intel',
+            '/dashboard',
             '/ping',
             '/docs',
             '/docs/search',
