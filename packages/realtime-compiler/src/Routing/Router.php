@@ -8,6 +8,7 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Actions\RendersSearchPage;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\CodeIntelController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Models\FileObject;
 
@@ -42,6 +43,12 @@ class Router
             if ($this->request->path === '/ping') {
                 return new JsonResponse(200, 'OK', [
                     'server' => 'Hyde/RealtimeCompiler',
+                ]);
+            }
+
+            if ($this->request->path === '/code-intel') {
+                return new HtmlResponse(200, 'OK', [
+                    'body' => (new CodeIntelController())->show(),
                 ]);
             }
         }
@@ -100,6 +107,7 @@ class Router
     protected function shouldRenderSpecial(Request $request): bool
     {
         $routes = [
+            '/code-intel',
             '/ping',
             '/docs',
             '/docs/search',
