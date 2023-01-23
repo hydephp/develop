@@ -38,6 +38,10 @@ return [
             // WARNING: This should only ever be enabled in a development environment on a closed port,
             // as it is not designed to be secure, and allows for filesystem manipulation and code execution.
             'enhanced_api' => env('DASHBOARD_API', false),
+
+            // You can optionally specify your preferred editor for code files.
+            // Specify the executable path. or leave blank to use the system's default program.
+            'editor' => env('DEFAULT_EDITOR', '')
         ],
     ],
 

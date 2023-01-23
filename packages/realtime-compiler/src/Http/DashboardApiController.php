@@ -63,7 +63,13 @@ class DashboardApiController
         }
 
         // Shell execs are scary, which is exactly why this API is only to be used for local development
-        shell_exec($path);
+        if (filled(config('hyde.server.dashboard.editor'))) {
+            // If there is a custom editor configured, use that
+            shell_exec(config('hyde.server.dashboard.editor') . ' ' . $path);
+        } else {
+            // Otherwise this defaults to the system's default editor
+            shell_exec($path);
+        }
 
         return $this->redirectToDashboard();
     }
