@@ -11,10 +11,7 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Illuminate\Support\HtmlString;
-use function php_uname;
-use function str_contains;
 use function str_starts_with;
-use function strtolower;
 
 class DashboardController
 {
