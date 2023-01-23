@@ -61,14 +61,10 @@
                                     <a href="{{ $route->getLink() }}">{{ $route->getRouteKey() }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ Hyde::path($route->getSourcePath()) }}">{{ $route->getSourcePath() }}</a>
+                                    {{ $route->getSourcePath() }}
                                 </td>
                                 <td>
-                                    @if(file_exists(Hyde::sitePath($route->getOutputPath())))
-                                        <a href="{{ Hyde::sitePath($route->getOutputPath()) }}">{{ $route->getOutputPath() }}</a>
-                                    @else
-                                        _site/{{ $route->getOutputPath() }}
-                                    @endif
+                                    {{ $route->getOutputPath() }}
                                 </td>
                                 <td>
                                     {{ $route->getPageIdentifier() }}
