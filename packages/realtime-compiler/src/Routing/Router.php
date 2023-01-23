@@ -46,13 +46,10 @@ class Router
                 ]);
             }
 
-            if ($this->request->path === '/dashboard') {
-                // If a dashboard page file exists, we just continue with the default handling
-                if (! file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && ! file_exists(BASE_PATH.'/_pages/dashboard.md')) {
-                    return new HtmlResponse(200, 'OK', [
-                        'body' => (new DashboardController())->show(),
-                    ]);
-                }
+            if ($this->request->path === '/dashboard' && $this->canRenderDashboard()) {
+                return new HtmlResponse(200, 'OK', [
+                    'body' => (new DashboardController())->show(),
+                ]);
             }
         }
 
@@ -117,5 +114,11 @@ class Router
         ];
 
         return in_array($request->path, $routes);
+    }
+
+    protected function canRenderDashboard(): bool
+    {
+        // If a dashboard page file exists, we just continue with the default handling
+        return !file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && !file_exists(BASE_PATH.'/_pages/dashboard.md');
     }
 }
