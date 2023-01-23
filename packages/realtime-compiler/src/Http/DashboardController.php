@@ -11,11 +11,13 @@ class DashboardController
 {
     use InteractsWithLaravel;
 
-    public string $title = 'Dashboard';
+    public string $title;
 
     public function __construct()
     {
         $this->bootApplication();
+
+        $this->title = config('site.name') . ' - Dashboard';
     }
 
     public function show(): string
