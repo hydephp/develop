@@ -50,7 +50,7 @@ class DashboardController
             'Git Version:' => app('git.version'),
             'Hyde Version:' => InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased',
             'Framework Version:' => InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased',
-            'Project Path:' => $this->getProjectPathLink(),
+            'Project Path:' => new HtmlString('<code>'.Hyde::path().'</code>'),
         ];
     }
 
@@ -58,27 +58,5 @@ class DashboardController
     public function getPageList(): array
     {
         return Hyde::routes()->all();
-    }
-
-    protected function getProjectPathLink(): HtmlString
-    {
-        $path = Hyde::path();
-
-        $fileManager = 'file manager';
-
-        $os = strtolower(php_uname('s'));
-        if (str_contains($os, 'darwin')) {
-            $fileManager = 'Finder';
-        } elseif (str_contains($os, 'win')) {
-            $fileManager = 'File Explorer';
-        }
-
-        return new HtmlString(<<<HTML
-            <form action="/dashboard-api?action=openDirectory&path=" method="POST" class="d-inline">
-                <button type="submit" class="btn btn-sm p-0" title="Open in $fileManager">
-                    <code>$path</code>
-                </button>
-            </form>
-        HTML);
     }
 }
