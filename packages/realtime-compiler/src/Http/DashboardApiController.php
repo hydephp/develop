@@ -60,6 +60,7 @@ class DashboardApiController
             throw new BadMethodCallException('Invalid file type');
         }
 
+        // Shell execs are scary, which is exactly why this API is only to be used for local development
         shell_exec($path);
 
         return $this->redirectToDashboard();
