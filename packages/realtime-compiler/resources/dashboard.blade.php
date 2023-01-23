@@ -16,7 +16,7 @@
         </div>
     </div>
 </nav>
-<main class="container py-4">
+<main class="container py-4 mb-auto">
     <div class="col-xl-10 mx-auto">
         <header class="px-4 py-5 my-4 text-center bg-light">
             <h1 class="display-6 fw-bold">{{ $title }}</h1>
