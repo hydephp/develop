@@ -8,7 +8,7 @@
     <title>{{ $title }}</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark flex-md-nowrap col-xl-10 mx-auto p-2">
+<nav class="navbar navbar-dark bg-dark flex-md-nowrap p-2">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
