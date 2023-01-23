@@ -43,16 +43,16 @@
         <div class="col-xl-10 mx-auto">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0">Site Routes</h2>
+                    <h2 class="h5 mb-0">Site Pages & Routes</h2>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            @foreach(array_keys($controller->getRouteList()[0]) as $header)
+                            @foreach(array_keys($controller->getPageList()[0]) as $header)
                                 <th>{{ $header }}</th>
                             @endforeach
                         </tr>
-                        @foreach($controller->getRouteList() as $route)
+                        @foreach($controller->getPageList() as $route)
                             <tr>
                                 @foreach ($route as $data)
                                     <td>{{ $data }}</td>

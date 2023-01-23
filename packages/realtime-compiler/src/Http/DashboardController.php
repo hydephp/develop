@@ -47,7 +47,7 @@ class DashboardController
     }
 
     /** @see \Hyde\Console\Commands\RouteListCommand */
-    public function getRouteList(): array
+    public function getPageList(): array
     {
         $routes = [];
         /** @var \Hyde\Support\Models\Route $route */
