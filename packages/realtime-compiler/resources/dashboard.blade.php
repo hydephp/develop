@@ -69,6 +69,9 @@
                                 <td>
                                     {{ $route->getPageIdentifier() }}
                                 </td>
+                                <td>
+                                    <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm">View</a>
+                                </td>
                             </tr>
                         @endforeach
                     </table>
