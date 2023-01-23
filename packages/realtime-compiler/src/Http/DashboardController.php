@@ -11,6 +11,8 @@ class DashboardController
 {
     use InteractsWithLaravel;
 
+    public string $title = 'Dashboard';
+
     public function __construct()
     {
         $this->bootApplication();
