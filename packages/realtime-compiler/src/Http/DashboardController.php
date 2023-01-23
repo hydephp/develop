@@ -37,11 +37,6 @@ class DashboardController
         )))->__invoke();
     }
 
-    public function isEnhanced(): bool
-    {
-        return DashboardApiController::enabled();
-    }
-
     public function getVersion(): string
     {
         $version = InstalledVersions::getPrettyVersion('hyde/realtime-compiler');
