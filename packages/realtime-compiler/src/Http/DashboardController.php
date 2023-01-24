@@ -67,6 +67,8 @@ class DashboardController
     {
         $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
 
+        // TODO Now that we can access the config we can check if the dashboard is enabled
+
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
             $contents = str_replace("</div>\n            <!-- End Main Hero Content -->",
