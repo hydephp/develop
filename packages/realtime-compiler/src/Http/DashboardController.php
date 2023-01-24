@@ -131,7 +131,7 @@ class DashboardController
                                     text-transform: uppercase;
                                     font-weight: 600;
                                 ">New</span> When using the Realtime Compiler, you now have a content dashboard!<br>
-                                Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
+                                Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!
                             </p>
                             
                             <a href="#dashboard" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'}); return false;">
