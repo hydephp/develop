@@ -62,7 +62,19 @@ class DashboardController
         return true;
     }
 
-    public static function button(): string
+    public static function renderIndexPage(HydePage $page): string
+    {
+
+        $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
+        return str_contains($contents, 'This is the default homepage') ? self::injectDashboardButton($contents) : $contents;
+    }
+
+    protected static function injectDashboardButton(string $contents): string
+    {
+        return str_replace('</body>', sprintf('%s</body>', DashboardController::button()), $contents);
+    }
+
+    protected static function button(): string
     {
         return <<<'HTML'
             <style>
@@ -91,17 +103,5 @@ class DashboardController
             </style>
             <a href="/dashboard" class="dashboard-btn">Dashboard</a>
         HTML;
-    }
-
-    public static function renderIndexPage(HydePage $page): string
-    {
-
-        $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
-        return str_contains($contents, 'This is the default homepage') ? self::injectDashboardButton($contents) : $contents;
-    }
-
-    protected static function injectDashboardButton(string $contents): string
-    {
-        return str_replace('</body>', sprintf('%s</body>', DashboardController::button()), $contents);
     }
 }
