@@ -118,8 +118,10 @@ class DashboardController
             <!-- Dashboard Component -->
                         <section class="prose">
                             <hr class="text-white">
-                            New! When using the Realtime Compiler, you now have a content dashboard!
-                            Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
+                            <p>
+                                New! When using the Realtime Compiler, you now have a content dashboard!
+                                Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
+                            </p>
                         </section>
                         <!-- End Dashboard Component -->
         HTML;
