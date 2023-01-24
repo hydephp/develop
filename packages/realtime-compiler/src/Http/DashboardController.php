@@ -116,4 +116,30 @@ class DashboardController
             <a href="/dashboard" class="dashboard-btn">Dashboard</a>
         HTML;
     }
+
+    protected static function welcomeComponent(): string
+    {
+        return <<<'HTML'
+            <!-- Dashboard Component -->
+            <section class="prose">
+                <hr class="text-white">
+                New! When using the Realtime Compiler, you now have a content dashboard!
+                Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
+            </section>
+            <!-- End Dashboard Component -->
+        HTML;
+    }
+
+    protected static function welcomeFrame(): string
+    {
+        return <<<'HTML'
+            <aside>
+                <iframe src="/dashboard" frameborder="0" style="
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+                "></iframe>
+            </aside>
+        HTML;
+    }
 }
