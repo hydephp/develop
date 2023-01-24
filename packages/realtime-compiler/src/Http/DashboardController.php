@@ -12,6 +12,10 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
+use function config;
+use function file_get_contents;
+use function sprintf;
+use function str_replace;
 use function str_starts_with;
 
 class DashboardController
