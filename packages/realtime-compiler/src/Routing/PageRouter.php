@@ -55,11 +55,22 @@ class PageRouter
 
     protected function getHtml(HydePage $page): string
     {
+        if ($page->identifier === 'index') {
+            return $this->injectDashboardLink(file_get_contents((new StaticPageBuilder($page))->__invoke()));
+        }
+
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
     }
 
     public static function handle(Request $request): Response
     {
         return (new self($request))->handlePageRequest();
+    }
+
+    protected function injectDashboardLink(string $contents): string
+    {
+        $link = '<a href="/dashboard" style="position: absolute; top: 0; right: 0; padding: 10px; background: #000; color: #fff; font-size: 12px; text-decoration: none;">Dashboard</a>';
+
+        return str_replace('</body>', $link . '</body>', $contents);
     }
 }
