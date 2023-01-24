@@ -118,15 +118,15 @@ class DashboardController
     {
         return <<<'HTML'
             <!-- Dashboard Component -->
-                        <section>
-                            <hr class="text-white" style="border-width: 1px;">
+                        <section class="text-white">
+                            <hr style="border-width: 1px;">
                             <p>
                                 New! When using the Realtime Compiler, you now have a content dashboard!
                                 Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
                             </p>
                             
                             <a href="#dashboard" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'}); return false;">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                             </a>
                         </section>
                         <!-- End Dashboard Component -->
