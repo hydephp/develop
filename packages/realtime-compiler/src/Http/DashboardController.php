@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
-use Hyde\Pages\VirtualPage;
+use Desilva\Microserve\Request;
 use function app;
 use function array_merge;
 use Composer\InstalledVersions;
@@ -30,7 +30,7 @@ class DashboardController
     public function show(): string
     {
         return AnonymousViewCompiler::call(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this],
+            (array) $this, ['dashboard' => $this, 'request' => Request::capture()],
         ));
     }
 
