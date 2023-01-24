@@ -119,7 +119,7 @@ class DashboardController
         return <<<'HTML'
             <!-- Dashboard Component -->
                         <section>
-                            <hr class="text-white">
+                            <hr class="text-white" style="border-width: 1px;">
                             <p>
                                 New! When using the Realtime Compiler, you now have a content dashboard!
                                 Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
