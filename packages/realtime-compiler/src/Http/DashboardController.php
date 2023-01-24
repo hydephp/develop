@@ -55,6 +55,11 @@ class DashboardController
         return Hyde::routes()->all();
     }
 
+    public static function enabled(): bool
+    {
+        return true;
+    }
+
     public static function button(): string
     {
         return <<<'HTML'

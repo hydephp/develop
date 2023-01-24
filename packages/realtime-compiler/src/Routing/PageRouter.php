@@ -58,7 +58,7 @@ class PageRouter
 
     protected function getHtml(HydePage $page): string
     {
-        if ($page->identifier === 'index') {
+        if ($page->identifier === 'index' && DashboardController::enabled()) {
             $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
             return str_contains($contents, 'This is the default homepage') ? $this->injectDashboardButton($contents) : $contents;
         }
