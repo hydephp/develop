@@ -59,7 +59,7 @@ class DashboardController
 
     public static function enabled(): bool
     {
-        return true;
+        return config('hyde.server.dashboard', true);
     }
 
     // This method is called from the PageRouter and allows us to serve a dynamic welcome page
