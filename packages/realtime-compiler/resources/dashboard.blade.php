@@ -14,7 +14,7 @@
     <div class="navbar-nav">
         @if($request->embedded)
             <div class="nav-item text-nowrap pe-4">
-                <a class="nav-link px-3" href="/">Back to site</a>
+                <a class="nav-link px-3" href="/dashboard">Open full page dashboard</a>
             </div>
         @else
         <div class="nav-item text-nowrap">
