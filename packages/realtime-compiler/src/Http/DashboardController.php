@@ -27,10 +27,10 @@ class DashboardController
 
     public function show(): string
     {
-        return (new AnonymousViewCompiler(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
+        return AnonymousViewCompiler::call(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
             (array) $this,
             ['dashboard' => $this],
-        )))->__invoke();
+        ));
     }
 
     public function getVersion(): string
