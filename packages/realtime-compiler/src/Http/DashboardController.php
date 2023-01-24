@@ -13,21 +13,16 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use function sprintf;
 use function str_replace;
 use function str_starts_with;
 
 class DashboardController
 {
-    use InteractsWithLaravel;
-
     public string $title;
 
     public function __construct()
     {
-        $this->bootApplication();
-
         $this->title = config('site.name').' - Dashboard';
     }
 
