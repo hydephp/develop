@@ -125,9 +125,12 @@ class DashboardController
                                     background: #1FA2FF;
                                     background: -webkit-linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
                                     background: linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
-                                    -webkit-background-clip: text;
-                                    -webkit-text-fill-color: transparent;
-                                ">New!</span> When using the Realtime Compiler, you now have a content dashboard!<br>
+                                    padding: 3px 8px;
+                                    border-radius: 25px;
+                                    font-size: 12px;
+                                    text-transform: uppercase;
+                                    font-weight: 600;
+                                ">New</span> When using the Realtime Compiler, you now have a content dashboard!<br>
                                 Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
                             </p>
                             
