@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Pages\Concerns\HydePage;
 use function app;
 use function array_merge;
 use Composer\InstalledVersions;
@@ -89,5 +91,17 @@ class DashboardController
             </style>
             <a href="/dashboard" class="dashboard-btn">Dashboard</a>
         HTML;
+    }
+
+    public static function renderIndexPage(HydePage $page): string
+    {
+
+        $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
+        return str_contains($contents, 'This is the default homepage') ? self::injectDashboardButton($contents) : $contents;
+    }
+
+    protected static function injectDashboardButton(string $contents): string
+    {
+        return str_replace('</body>', sprintf('%s</body>', DashboardController::button()), $contents);
     }
 }

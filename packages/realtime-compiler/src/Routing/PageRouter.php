@@ -59,8 +59,7 @@ class PageRouter
     protected function getHtml(HydePage $page): string
     {
         if ($page->identifier === 'index' && DashboardController::enabled()) {
-            $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
-            return str_contains($contents, 'This is the default homepage') ? $this->injectDashboardButton($contents) : $contents;
+            return DashboardController::renderIndexPage($page);
         }
 
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
@@ -69,10 +68,5 @@ class PageRouter
     public static function handle(Request $request): Response
     {
         return (new self($request))->handlePageRequest();
-    }
-
-    protected function injectDashboardButton(string $contents): string
-    {
-        return str_replace('</body>', sprintf("%s</body>", DashboardController::button()), $contents);
     }
 }
