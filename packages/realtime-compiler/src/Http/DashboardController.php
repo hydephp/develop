@@ -122,6 +122,10 @@ class DashboardController
                                 New! When using the Realtime Compiler, you now have a content dashboard!
                                 Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
                             </p>
+                            
+                            <a href="#dashboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                            </a>
                         </section>
                         <!-- End Dashboard Component -->
         HTML;
@@ -131,7 +135,7 @@ class DashboardController
     {
         return <<<'HTML'
             <aside>
-                <iframe src="/dashboard" frameborder="0" style="width: 100vw; height: 100vh; position: absolute;"></iframe>
+                <iframe id="dashboard" src="/dashboard" frameborder="0" style="width: 100vw; height: 100vh; position: absolute;"></iframe>
             </aside>
         HTML;
     }
