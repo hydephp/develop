@@ -121,7 +121,13 @@ class DashboardController
                         <section class="text-white">
                             <hr style="border-width: 1px; max-width: 240px; opacity: .75; margin-top: 30px; margin-bottom: 24px">
                             <p style="margin-bottom: 8px;">
-                                New! When using the Realtime Compiler, you now have a content dashboard!<br>
+                                <span style="
+                                    background: #1FA2FF;
+                                    background: -webkit-linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
+                                    background: linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
+                                    -webkit-background-clip: text;
+                                    -webkit-text-fill-color: transparent;
+                                ">New!</span> When using the Realtime Compiler, you now have a content dashboard!<br>
                                 Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
                             </p>
                             
