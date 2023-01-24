@@ -69,7 +69,9 @@ class DashboardController
 
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
-            $contents = str_replace("</div>\n            <!-- End Main Hero Content -->", sprintf("%s\n            </div>\n            <!-- End Main Hero Content -->", self::welcomeComponent()), $contents);
+            $contents = str_replace("</div>\n            <!-- End Main Hero Content -->",
+                sprintf("%s\n            </div>\n            <!-- End Main Hero Content -->", self::welcomeComponent()),
+            $contents);
             $contents = str_replace('</body>', sprintf("%s\n</body>", self::welcomeFrame()), $contents);
         }
 
