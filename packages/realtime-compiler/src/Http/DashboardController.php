@@ -28,8 +28,7 @@ class DashboardController
     public function show(): string
     {
         return AnonymousViewCompiler::call(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this,
-            ['dashboard' => $this],
+            (array) $this, ['dashboard' => $this],
         ));
     }
 
