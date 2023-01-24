@@ -10,6 +10,8 @@ use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\Support\Models\Route;
 
+use function str_contains;
+
 /**
  * Handle routing for a web page request.
  */
@@ -57,7 +59,11 @@ class PageRouter
     {
         if ($page->identifier === 'index') {
             $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
-            return $this->injectDashboardLink($contents);
+            if (str_contains($contents, 'This is the default homepage stored as index.blade.php')) {
+                return $this->injectDashboardLink($contents);
+            } else {
+                return $contents;
+            }
         }
 
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
