@@ -70,7 +70,7 @@ class DashboardController
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
             $contents = str_replace("</div>\n            <!-- End Main Hero Content -->",
-                sprintf("%s\n            </div>\n            <!-- End Main Hero Content -->", self::welcomeComponent()),
+                sprintf("%s\n</div>\n<!-- End Main Hero Content -->", self::welcomeComponent()),
             $contents);
             $contents = str_replace('</body>', sprintf("%s\n</body>", self::welcomeFrame()), $contents);
         }
@@ -118,27 +118,27 @@ class DashboardController
     {
         return <<<'HTML'
             <!-- Dashboard Component -->
-                        <section class="text-white">
-                            <hr style="border-width: 1px; max-width: 240px; opacity: .75; margin-top: 30px; margin-bottom: 24px">
-                            <p style="margin-bottom: 8px;">
-                                <span style="
-                                    background: #1FA2FF;
-                                    background: -webkit-linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
-                                    background: linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
-                                    padding: 3px 8px;
-                                    border-radius: 25px;
-                                    font-size: 12px;
-                                    text-transform: uppercase;
-                                    font-weight: 600;
-                                ">New</span> When using the Realtime Compiler, you now have a content dashboard!<br>
-                                Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!
-                            </p>
-                            
-                            <a href="#dashboard" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'}); return false;">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-                            </a>
-                        </section>
-                        <!-- End Dashboard Component -->
+            <section class="text-white">
+                <hr style="border-width: 1px; max-width: 240px; opacity: .75; margin-top: 30px; margin-bottom: 24px">
+                <p style="margin-bottom: 8px;">
+                    <span style="
+                        background: #1FA2FF;
+                        background: -webkit-linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
+                        background: linear-gradient(to right, #1FA2FF, #12D8FA, #1FA2FF);
+                        padding: 3px 8px;
+                        border-radius: 25px;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                    ">New</span> When using the Realtime Compiler, you now have a content dashboard!<br>
+                    Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!
+                </p>
+                
+                <a href="#dashboard" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'}); return false;">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </a>
+            </section>
+            <!-- End Dashboard Component -->
         HTML;
     }
 
