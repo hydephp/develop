@@ -125,7 +125,13 @@ class DashboardController
 
     protected static function welcomeComponent(): string
     {
-        return <<<'HTML'
+        if (config('hyde.server.dashboard.welcome-dashboard', true)) {
+            $dashboardMessage = '<br>Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!';
+        } else {
+            $dashboardMessage = '';
+        }
+
+        return <<<HTML
             <!-- Dashboard Component -->
             <section class="text-white">
                 <hr style="border-width: 1px; max-width: 240px; opacity: .75; margin-top: 30px; margin-bottom: 24px">
@@ -139,8 +145,8 @@ class DashboardController
                         font-size: 12px;
                         text-transform: uppercase;
                         font-weight: 600;
-                    ">New</span> When using the Realtime Compiler, you now have a content dashboard!<br>
-                    Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!
+                    ">New</span> When using the Realtime Compiler, you now have a content dashboard!
+                    $dashboardMessage
                 </p>
                 
                 <a href="#dashboard" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'}); return false;">
