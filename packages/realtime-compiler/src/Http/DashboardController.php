@@ -69,8 +69,8 @@ class DashboardController
 
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
-            $contents = str_replace("</div>\n            <!-- End Main Hero Content -->", sprintf("%s</div>\n            <!-- End Main Hero Content -->", self::welcomeComponent()), $contents);
-            $contents = str_replace('</body>', sprintf('%s</body>', self::welcomeFrame()), $contents);
+            $contents = str_replace("</div>\n            <!-- End Main Hero Content -->", sprintf("%s\n            </div>\n            <!-- End Main Hero Content -->", self::welcomeComponent()), $contents);
+            $contents = str_replace('</body>', sprintf("%s\n</body>", self::welcomeFrame()), $contents);
         }
 
         return $contents;
@@ -116,12 +116,12 @@ class DashboardController
     {
         return <<<'HTML'
             <!-- Dashboard Component -->
-            <section class="prose">
-                <hr class="text-white">
-                New! When using the Realtime Compiler, you now have a content dashboard!
-                Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
-            </section>
-            <!-- End Dashboard Component -->
+                        <section class="prose">
+                            <hr class="text-white">
+                            New! When using the Realtime Compiler, you now have a content dashboard!
+                            Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
+                        </section>
+                        <!-- End Dashboard Component -->
         HTML;
     }
 
@@ -129,11 +129,7 @@ class DashboardController
     {
         return <<<'HTML'
             <aside>
-                <iframe src="/dashboard" frameborder="0" style="
-                width: 100vw;
-                height: 100vh;
-                position: absolute;
-                "></iframe>
+                <iframe src="/dashboard" frameborder="0" style="width: 100vw; height: 100vh; position: absolute;"></iframe>
             </aside>
         HTML;
     }
