@@ -11,8 +11,6 @@ use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\Support\Models\Route;
 
-use function str_contains;
-
 /**
  * Handle routing for a web page request.
  */

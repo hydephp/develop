@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Pages\Concerns\HydePage;
 use function app;
 use function array_merge;
 use Composer\InstalledVersions;
-use Hyde\Framework\Actions\AnonymousViewCompiler;
-use Hyde\Hyde;
-use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use function config;
 use function file_get_contents;
+use Hyde\Framework\Actions\AnonymousViewCompiler;
+use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
+use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use function sprintf;
 use function str_replace;
 use function str_starts_with;
@@ -68,8 +68,8 @@ class DashboardController
 
     public static function renderIndexPage(HydePage $page): string
     {
-
         $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
+
         return str_contains($contents, 'This is the default homepage') ? self::injectDashboardButton($contents) : $contents;
     }
 
