@@ -61,7 +61,7 @@ class PageRouter
         if ($page->identifier === 'index') {
             $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
             if (str_contains($contents, 'This is the default homepage stored as index.blade.php')) {
-                return $this->injectDashboardLink($contents);
+                return $this->injectDashboardButton($contents);
             } else {
                 return $contents;
             }
@@ -75,7 +75,7 @@ class PageRouter
         return (new self($request))->handlePageRequest();
     }
 
-    protected function injectDashboardLink(string $contents): string
+    protected function injectDashboardButton(string $contents): string
     {
         return str_replace('</body>', sprintf("%s</body>", DashboardController::button()), $contents);
     }
