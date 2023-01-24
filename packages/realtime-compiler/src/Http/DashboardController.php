@@ -119,9 +119,9 @@ class DashboardController
         return <<<'HTML'
             <!-- Dashboard Component -->
                         <section class="text-white">
-                            <hr style="border-width: 1px; max-width: 240px; opacity: .75; margin-top: 30px; margin-bottom: 20px">
-                            <p>
-                                New! When using the Realtime Compiler, you now have a content dashboard!
+                            <hr style="border-width: 1px; max-width: 240px; opacity: .75; margin-top: 30px; margin-bottom: 24px">
+                            <p style="margin-bottom: 8px;">
+                                New! When using the Realtime Compiler, you now have a content dashboard!<br>
                                 Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
                             </p>
                             
