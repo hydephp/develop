@@ -72,12 +72,7 @@ class PageRouter
 
     protected function canRenderDashboard(): bool
     {
-        if (! DashboardController::enabled()) {
-            return false;
-        }
-
-        // If a dashboard page file exists, we just continue with the default handling
-        return ! file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && ! file_exists(BASE_PATH.'/_pages/dashboard.md');
+        return DashboardController::enabled();
     }
 
     public static function handle(Request $request): Response
