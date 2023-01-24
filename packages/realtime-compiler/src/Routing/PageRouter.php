@@ -8,6 +8,8 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\DashboardController;
+use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\Support\Models\Route;
 
 /**
@@ -28,6 +30,12 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
+        if ($this->request->path === '/dashboard' && DashboardController::enabled()) {
+            return new HtmlResponse(200, 'OK', [
+                'body' => (new DashboardController())->show(),
+            ]);
+        }
+
         $html = $this->getHtml(Route::getOrFail($this->normalizePath($this->request->path))->getPage());
 
         return (new Response(200, 'OK', [
@@ -55,6 +63,10 @@ class PageRouter
 
     protected function getHtml(HydePage $page): string
     {
+        if ($page->identifier === 'index' && DashboardController::enabled()) {
+            return DashboardController::renderIndexPage($page);
+        }
+
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
     }
 
