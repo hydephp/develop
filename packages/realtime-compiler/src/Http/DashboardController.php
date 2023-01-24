@@ -135,7 +135,7 @@ class DashboardController
     {
         return <<<'HTML'
             <aside>
-                <iframe id="dashboard" src="/dashboard" frameborder="0" style="width: 100vw; height: 100vh; position: absolute;"></iframe>
+                <iframe id="dashboard" src="/dashboard?embedded=true" frameborder="0" style="width: 100vw; height: 100vh; position: absolute;"></iframe>
             </aside>
         HTML;
     }
