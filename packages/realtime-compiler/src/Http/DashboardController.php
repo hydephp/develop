@@ -129,11 +129,8 @@ class DashboardController
 
     protected static function welcomeComponent(): string
     {
-        if (config('hyde.server.dashboard.welcome-dashboard', true)) {
-            $dashboardMessage = '<br>Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!';
-        } else {
-            $dashboardMessage = '';
-        }
+        $dashboardMessage = config('hyde.server.dashboard.welcome-dashboard', true)
+            ? '<br>Scroll down to see it, or visit <a href="/dashboard" style="color: #1FA2FF;">/dashboard</a> at any time!' : '';
 
         return <<<HTML
             <!-- Dashboard Component -->
