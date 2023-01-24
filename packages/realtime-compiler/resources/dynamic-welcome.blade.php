@@ -77,11 +77,27 @@
                         </li>
                     </ul>
                 </div>
+
+                <!-- Dashboard Component -->
+                <section class="prose">
+                    <hr class="text-white">
+
+                    New! When using the Realtime Compiler, you now have a content dashboard!
+                    Scroll down to see it, or visit <a href="/dashboard">/dashboard</a> at any time!
+                </section>
+                <!-- End Dashboard Component -->
             </div>
         </div>
         <!-- End Main Hero Content -->
     </div>
 </main>
-</body>
 
+<aside>
+    <iframe src="/dashboard" frameborder="0" style="
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    "></iframe>
+</aside>
+</body>
 </html>
