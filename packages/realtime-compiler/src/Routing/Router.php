@@ -45,12 +45,6 @@ class Router
                     'server' => 'Hyde/RealtimeCompiler',
                 ]);
             }
-
-            if ($this->request->path === '/dashboard' && $this->canRenderDashboard()) {
-                return new HtmlResponse(200, 'OK', [
-                    'body' => (new DashboardController())->show(),
-                ]);
-            }
         }
 
         return PageRouter::handle($this->request);
@@ -107,18 +101,11 @@ class Router
     protected function shouldRenderSpecial(Request $request): bool
     {
         $routes = [
-            '/dashboard',
             '/ping',
             '/docs',
             '/docs/search',
         ];
 
         return in_array($request->path, $routes);
-    }
-
-    protected function canRenderDashboard(): bool
-    {
-        // If a dashboard page file exists, we just continue with the default handling
-        return ! file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && ! file_exists(BASE_PATH.'/_pages/dashboard.md');
     }
 }
