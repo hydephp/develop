@@ -77,8 +77,6 @@ class PageRouter
 
     protected function injectDashboardLink(string $contents): string
     {
-        $link = DashboardController::button();
-
-        return str_replace('</body>', $link . '</body>', $contents);
+        return str_replace('</body>', DashboardController::button(). '</body>', $contents);
     }
 }
