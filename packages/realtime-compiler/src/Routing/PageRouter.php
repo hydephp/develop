@@ -77,7 +77,31 @@ class PageRouter
     protected function injectDashboardLink(string $contents): string
     {
         $link = <<<'HTML'
-            <a href="/dashboard" style="position: absolute; top: 0; right: 0; padding: 10px; background: #000; color: #fff; font-size: 12px; text-decoration: none;">Dashboard</a>
+            <style>
+                 .dashboard-btn {
+                    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%);
+                    margin: 10px;
+                    padding: .5rem 1rem;
+                    text-align: center;
+                    transition: 0.5s;
+                    background-size: 200% auto;
+                    background-position: left center;
+                    color: white;            
+                    box-shadow: 0 0 20px #162134;
+                    border-radius: 10px;
+                    display: block;
+                    position: absolute;
+                    right: 1rem;
+                    top: 1rem
+                 }
+        
+                 .dashboard-btn:hover {
+                    background-position: right center;
+                    color: #fff;
+                    text-decoration: none;
+                }
+            </style>
+            <a href="/dashboard" class="dashboard-btn">Dashboard</a>
         HTML;
 
         return str_replace('</body>', $link . '</body>', $contents);
