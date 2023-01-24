@@ -72,6 +72,8 @@ class PageRouter
 
     protected function canRenderDashboard(): bool
     {
+        // TODO Now that we can access the config we can check if the dashboard is enabled
+
         // If a dashboard page file exists, we just continue with the default handling
         return ! file_exists(BASE_PATH.'/_pages/dashboard.blade.php') && ! file_exists(BASE_PATH.'/_pages/dashboard.md');
     }
