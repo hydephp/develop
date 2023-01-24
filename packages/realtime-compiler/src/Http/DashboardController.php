@@ -73,6 +73,8 @@ class DashboardController
                 sprintf("%s\n</div>\n<!-- End Main Hero Content -->", self::welcomeComponent()),
             $contents);
             $contents = str_replace('</body>', sprintf("%s\n</body>", self::welcomeFrame()), $contents);
+
+            $contents = self::injectDashboardButton($contents);
         }
 
         return $contents;
