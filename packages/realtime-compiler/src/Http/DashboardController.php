@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use Hyde\Pages\VirtualPage;
 use function app;
 use function array_merge;
 use Composer\InstalledVersions;
@@ -61,11 +62,23 @@ class DashboardController
         return true;
     }
 
+    // This method is called from the PageRouter and allows us to serve a dynamic welcome page
     public static function renderIndexPage(HydePage $page): string
     {
+        // We still compile the welcome page for two reasons: one, so we can check if it's the default homepage (as we don't want to override it)
+        // and two, because we still want to save the normal welcome page without any of the dynamic dashboard content.
         $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
 
-        return str_contains($contents, 'This is the default homepage') ? self::injectDashboardButton($contents) : $contents;
+        // If the page is the default welcome page we render the dynamic welcome page, otherwise we just return the contents
+        return str_contains($contents, 'This is the default homepage') ? self::renderDynamicWelcomePage() : $contents;
+    }
+
+    protected static function renderDynamicWelcomePage(): string
+    {
+        return (new VirtualPage('index', [
+            'title' => 'Welcome to HydePHP!',
+            'dashboard' => new self(),
+        ], view: __DIR__.'/../../resources/dynamic-welcome.blade.php'))->compile();
     }
 
     protected static function injectDashboardButton(string $contents): string
