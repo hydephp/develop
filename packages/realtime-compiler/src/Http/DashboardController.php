@@ -20,7 +20,7 @@ use function str_starts_with;
 
 /**
  * @internal
- * @experimental 
+ * @experimental
  */
 class DashboardController
 {
