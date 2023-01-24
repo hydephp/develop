@@ -56,7 +56,8 @@ class PageRouter
     protected function getHtml(HydePage $page): string
     {
         if ($page->identifier === 'index') {
-            return $this->injectDashboardLink(file_get_contents((new StaticPageBuilder($page))->__invoke()));
+            $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
+            return $this->injectDashboardLink($contents);
         }
 
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
