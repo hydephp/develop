@@ -8,6 +8,7 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\Support\Models\Route;
 
 use function str_contains;
@@ -76,33 +77,7 @@ class PageRouter
 
     protected function injectDashboardLink(string $contents): string
     {
-        $link = <<<'HTML'
-            <style>
-                 .dashboard-btn {
-                    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%);
-                    margin: 10px;
-                    padding: .5rem 1rem;
-                    text-align: center;
-                    transition: 0.5s;
-                    background-size: 200% auto;
-                    background-position: right center;
-                    color: white;            
-                    box-shadow: 0 0 20px #162134;
-                    border-radius: 10px;
-                    display: block;
-                    position: absolute;
-                    right: 1rem;
-                    top: 1rem
-                 }
-        
-                 .dashboard-btn:hover {
-                    background-position: left center;
-                    color: #fff;
-                    text-decoration: none;
-                }
-            </style>
-            <a href="/dashboard" class="dashboard-btn">Dashboard</a>
-        HTML;
+        $link = DashboardController::button();
 
         return str_replace('</body>', $link . '</body>', $contents);
     }
