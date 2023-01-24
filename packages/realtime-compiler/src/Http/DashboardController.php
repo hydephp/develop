@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
-use Desilva\Microserve\Request;
 use function app;
 use function array_merge;
 use Composer\InstalledVersions;
 use function config;
+use Desilva\Microserve\Request;
 use function file_get_contents;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Actions\StaticPageBuilder;

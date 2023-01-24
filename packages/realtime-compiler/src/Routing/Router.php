@@ -8,7 +8,6 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Actions\RendersSearchPage;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
-use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Models\FileObject;
 
