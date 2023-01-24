@@ -76,7 +76,9 @@ class PageRouter
 
     protected function injectDashboardLink(string $contents): string
     {
-        $link = '<a href="/dashboard" style="position: absolute; top: 0; right: 0; padding: 10px; background: #000; color: #fff; font-size: 12px; text-decoration: none;">Dashboard</a>';
+        $link = <<<'HTML'
+            <a href="/dashboard" style="position: absolute; top: 0; right: 0; padding: 10px; background: #000; color: #fff; font-size: 12px; text-decoration: none;">Dashboard</a>
+        HTML;
 
         return str_replace('</body>', $link . '</body>', $contents);
     }
