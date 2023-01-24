@@ -60,11 +60,7 @@ class PageRouter
     {
         if ($page->identifier === 'index') {
             $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
-            if (str_contains($contents, 'This is the default homepage stored as index.blade.php')) {
-                return $this->injectDashboardButton($contents);
-            } else {
-                return $contents;
-            }
+            return str_contains($contents, 'This is the default homepage') ? $this->injectDashboardButton($contents) : $contents;
         }
 
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
