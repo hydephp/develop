@@ -71,7 +71,7 @@ class DashboardController
 
     protected static function injectDashboardButton(string $contents): string
     {
-        return str_replace('</body>', sprintf('%s</body>', DashboardController::button()), $contents);
+        return str_replace('</body>', sprintf('%s</body>', self::button()), $contents);
     }
 
     protected static function button(): string
