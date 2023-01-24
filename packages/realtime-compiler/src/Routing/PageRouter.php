@@ -85,7 +85,7 @@ class PageRouter
                     text-align: center;
                     transition: 0.5s;
                     background-size: 200% auto;
-                    background-position: left center;
+                    background-position: right center;
                     color: white;            
                     box-shadow: 0 0 20px #162134;
                     border-radius: 10px;
@@ -96,7 +96,7 @@ class PageRouter
                  }
         
                  .dashboard-btn:hover {
-                    background-position: right center;
+                    background-position: left center;
                     color: #fff;
                     text-decoration: none;
                 }
