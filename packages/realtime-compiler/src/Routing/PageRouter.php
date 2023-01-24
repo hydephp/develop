@@ -30,7 +30,7 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-        if ($this->request->path === '/dashboard' && $this->canRenderDashboard()) {
+        if ($this->request->path === '/dashboard' && DashboardController::enabled()) {
             return new HtmlResponse(200, 'OK', [
                 'body' => (new DashboardController())->show(),
             ]);
@@ -68,11 +68,6 @@ class PageRouter
         }
 
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
-    }
-
-    protected function canRenderDashboard(): bool
-    {
-        return DashboardController::enabled();
     }
 
     public static function handle(Request $request): Response
