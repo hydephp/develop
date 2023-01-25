@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Console;
 
-use Illuminate\Support\ServiceProvider;
-
 use Illuminate\Console\Application as Artisan;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Register the HydeCLI console commands.
