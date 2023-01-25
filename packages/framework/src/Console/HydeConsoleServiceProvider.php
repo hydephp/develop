@@ -6,6 +6,8 @@ namespace Hyde\Console;
 
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Console\Application as Artisan;
+
 /**
  * Register the HydeCLI console commands.
  */
@@ -36,5 +38,23 @@ class HydeConsoleServiceProvider extends ServiceProvider
             Commands\ServeCommand::class,
             Commands\DebugCommand::class,
         ]);
+
+        Artisan::starting(function (Artisan $artisan): void {
+            $artisan->setName(self::logo());
+        });
+    }
+
+    protected static function logo(): string
+    {
+        return <<<ASCII
+        
+        \033[34m     __ __        __   \033[33m ___  __ _____
+        \033[34m    / // /_ _____/ /__ \033[33m/ _ \/ // / _ \
+        \033[34m   / _  / // / _  / -_)\033[33m ___/ _  / ___/
+        \033[34m  /_//_/\_, /\_,_/\__/\033[33m_/  /_//_/_/
+        \033[34m       /___/
+            
+        \033[0m
+        ASCII;
     }
 }
