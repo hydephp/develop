@@ -1,6 +1,7 @@
 ---
-label: "Advanced Markdown"
-priority: 26
+navigation:
+    label: "Advanced Markdown"
+    priority: 26
 ---
 
 # Advanced Markdown

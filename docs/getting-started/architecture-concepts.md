@@ -1,5 +1,6 @@
 ---
-priority: 10
+navigation:
+    priority: 10
 ---
 
 # Key HydePHP Concepts

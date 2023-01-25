@@ -1,6 +1,7 @@
 ---
-label: "Advanced Customization"
-priority: 30
+navigation:
+    label: "Advanced Customization"
+    priority: 30
 ---
 
 # Advanced Customization
