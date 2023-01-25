@@ -21,10 +21,8 @@ class Application extends \LaravelZero\Framework\Application
 
     /**
      * Get the path to the cached packages.php file.
-     *
-     * @return string
      */
-    public function getCachedPackagesPath()
+    public function getCachedPackagesPath(): string
     {
         // Since we have a custom path for the cache directory, we need to return it here.
         return 'storage/framework/cache/packages.php';
