@@ -1,5 +1,6 @@
 ---
-priority: 5
+navigation:
+    priority: 5
 ---
 
 # Console Commands

@@ -1,6 +1,7 @@
 ---
-label: Documentation Pages
-priority: 12
+navigation:
+    label: Documentation Pages
+    priority: 12
 ---
 
 # Creating Documentation Pages

@@ -1,6 +1,7 @@
 ---
-priority: 11
-label: "Markdown & Blade Pages"
+navigation:
+    priority: 11
+    label: "Markdown & Blade Pages"
 ---
 
 # Creating Static Pages

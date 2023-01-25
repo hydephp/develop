@@ -1,6 +1,7 @@
 ---
-label: "Customizing your Site"
-priority: 25
+navigation:
+    label: "Customizing your Site"
+    priority: 25
 ---
 
 # Customizing your Site
