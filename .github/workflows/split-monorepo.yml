@@ -178,7 +178,6 @@ jobs:
         git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
-        echo "No changes to this package. Exiting gracefully."
 
   hydefront:
     runs-on: ubuntu-latest
@@ -227,7 +226,6 @@ jobs:
         git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
-        echo "No changes to this package. Exiting gracefully."
 
   docs:
     runs-on: ubuntu-latest
@@ -330,7 +328,6 @@ jobs:
         git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
-        echo "No changes to this package. Exiting gracefully."
 
   ui-kit:
     runs-on: ubuntu-latest
