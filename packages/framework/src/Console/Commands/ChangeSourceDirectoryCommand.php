@@ -49,7 +49,7 @@ class ChangeSourceDirectoryCommand extends Command
         $this->comment('Moving source directories');
 
         foreach ($directories as $directory) {
-            Filesystem::moveDirectory($directory, "$name/$directory");
+            Filesystem::moveDirectory($directory, "$name/".basename($directory));
         }
 
         
