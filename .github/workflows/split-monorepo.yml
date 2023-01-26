@@ -67,7 +67,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd hyde
-        if true; then
+        if ! git diff-index --quiet HEAD --; then
           echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
@@ -116,7 +116,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd framework
-        if true; then
+        if ! git diff-index --quiet HEAD --; then
           echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
@@ -165,7 +165,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd realtime-compiler
-        if true; then
+        if ! git diff-index --quiet HEAD --; then
           echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
@@ -213,7 +213,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd hydefront
-        if true; then
+        if ! git diff-index --quiet HEAD --; then
           echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
@@ -266,7 +266,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd website
-        if true; then
+        if ! git diff-index --quiet HEAD --; then
           echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
@@ -315,7 +315,7 @@ jobs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd testing
-        if true; then
+        if ! git diff-index --quiet HEAD --; then
           echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
@@ -364,7 +364,7 @@ jobs:
         run: |
           cd ui-kit
           
-          if true; then
+          if ! git diff-index --quiet HEAD --; then
             echo "No changes to this package. Exiting gracefully.";
             exit 0;
           fi
