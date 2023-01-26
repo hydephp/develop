@@ -364,7 +364,7 @@ jobs:
         run: |
           cd ui-kit
           
-          if true;  then;
+          if true; then
             echo "No changes to this package. Exiting gracefully.";
             exit 0;
           fi
