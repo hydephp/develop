@@ -371,8 +371,14 @@ jobs:
           git config user.email github-actions@github.com
           git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
 
-          git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          if ! git diff-index --quiet HEAD --; then
 
-          git push upstream master
+            git add .
+            git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+
+            git push upstream master
+          else
+              echo "No changes to this package. Exiting gracefully."
+              exit 0;
+          fi
 
