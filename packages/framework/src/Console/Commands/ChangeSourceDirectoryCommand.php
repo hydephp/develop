@@ -46,6 +46,7 @@ class ChangeSourceDirectoryCommand extends Command
 
         $config = Filesystem::getContents('config/hyde.php');
         if (! str_contains($config, "'source_root' => '',")) {
+            // We could also inject the current source root value and check if the setting is even present, but we're keeping it simple for now
             $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '. "'$name'". ' in `config/hyde.php`');
         } else {
             $config = str_replace("'source_root' => '',", "'source_root' => '$name',", $config);
