@@ -7,7 +7,7 @@ namespace Hyde\Foundation\Internal;
 /**
  * @internal
  */
-class Kernel extends \Illuminate\Foundation\Console\Kernel
+class Kernel extends \LaravelZero\Framework\Kernel
 {
     /**
      * Get the bootstrap classes for the application.
