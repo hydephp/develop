@@ -25,7 +25,13 @@ class ChangeSourceDirectoryCommand extends Command
         $name = $this->argument('name');
         $this->infoComment("Setting", $name, "as the project source directory!");
 
-        $directories = ['_pages', '_posts', '_docs'];
+        $directories = array_unique([
+            \Hyde\Pages\HtmlPage::$sourceDirectory,
+            \Hyde\Pages\BladePage::$sourceDirectory,
+            \Hyde\Pages\MarkdownPage::$sourceDirectory,
+            \Hyde\Pages\MarkdownPost::$sourceDirectory,
+            \Hyde\Pages\DocumentationPage::$sourceDirectory,
+        ]);
 
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             $this->error('Directory already exists!');
