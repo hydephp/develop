@@ -74,7 +74,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream develop
         else
@@ -123,7 +123,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream develop
         else
@@ -172,7 +172,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
         else
@@ -221,7 +221,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
         else
@@ -275,7 +275,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream upcoming
         else
@@ -324,7 +324,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
         else
@@ -374,7 +374,7 @@ jobs:
           if ! git diff-index --quiet HEAD --; then
 
             git add .
-            git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+            git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
             git push upstream master
           else
