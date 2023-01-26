@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use LaravelZero\Framework\Commands\Command;
+use Hyde\Facades\Filesystem;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
@@ -21,7 +22,14 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
-        //
+        $name = $this->argument('name');
+
+        if (Filesystem::isDirectory($name)) {
+            $this->error('Directory already exists!');
+            return Command::FAILED;
+        }
+
+        Filesystem::ensureDirectoryExists($name);
 
         return Command::SUCCESS;
     }
