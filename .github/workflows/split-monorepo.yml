@@ -65,7 +65,7 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ ! git diff-index --quiet HEAD -- }}
+      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd hyde
         git config user.name github-actions
@@ -110,7 +110,7 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ ! git diff-index --quiet HEAD -- }}
+      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd framework
         git config user.name github-actions
@@ -155,7 +155,7 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ ! git diff-index --quiet HEAD -- }}
+      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd realtime-compiler
         git config user.name github-actions
@@ -200,7 +200,7 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ ! git diff-index --quiet HEAD -- }}
+      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd hydefront
         git config user.name github-actions
@@ -250,7 +250,7 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ ! git diff-index --quiet HEAD -- }}
+      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd website
         git config user.name github-actions
@@ -295,7 +295,7 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ ! git diff-index --quiet HEAD -- }}
+      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd testing
         git config user.name github-actions
@@ -340,7 +340,7 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        if: ${{ ! git diff-index --quiet HEAD -- }}
+        if: ${{ $(! git diff-index --quiet HEAD --) }}
         run: |
           cd ui-kit
           
