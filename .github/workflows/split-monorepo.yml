@@ -68,6 +68,7 @@ jobs:
       run: |
         cd hyde
         if git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
 
@@ -116,6 +117,7 @@ jobs:
       run: |
         cd framework
         if git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
 
@@ -164,6 +166,7 @@ jobs:
       run: |
         cd realtime-compiler
         if git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
 
@@ -212,6 +215,7 @@ jobs:
       run: |
         cd hydefront
         if git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
 
@@ -265,6 +269,7 @@ jobs:
       run: |
         cd website
         if git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
 
@@ -313,6 +318,7 @@ jobs:
       run: |
         cd testing
         if git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
           exit 0;
         fi
 
@@ -362,6 +368,7 @@ jobs:
           cd ui-kit
           
           if git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
             exit 0;
           fi
 
