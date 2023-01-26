@@ -16,6 +16,9 @@ class Kernel extends \Illuminate\Foundation\Console\Kernel
      */
     protected function bootstrappers()
     {
-        return $this->bootstrappers;
+        $array = array_combine(parent::bootstrappers(), parent::bootstrappers());
+        $array[\Illuminate\Foundation\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
+
+        return array_values($array);
     }
 }
