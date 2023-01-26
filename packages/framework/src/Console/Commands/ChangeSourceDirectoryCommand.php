@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
 class ChangeSourceDirectoryCommand extends Command
 {
     /** @var string */
-    protected $signature = 'change:sourceDirectory';
+    protected $signature = 'change:sourceDirectory {name : The new source directory name }';
 
     /** @var string */
     protected $description = 'Change the source directory for your project.';
