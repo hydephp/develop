@@ -70,11 +70,15 @@ jobs:
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
 
-        git add .
-        git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+        if ! git diff-index --quiet HEAD --; then
+          git add .
+          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-        git push upstream develop
-
+          git push upstream develop
+        else
+            echo "No changes to this package. Exiting gracefully."
+            exit 0;
+        fi
 
   framework:
     runs-on: ubuntu-latest
@@ -113,11 +117,15 @@ jobs:
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
-        git add .
-        git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+        if ! git diff-index --quiet HEAD --; then
+          git add .
+          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-        git push upstream develop
-
+          git push upstream develop
+        else
+            echo "No changes to this package. Exiting gracefully."
+            exit 0;
+        fi
 
   realtime-compiler:
     runs-on: ubuntu-latest
@@ -156,11 +164,15 @@ jobs:
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
-        git add .
-        git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+        if ! git diff-index --quiet HEAD --; then
+          git add .
+          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-        git push upstream master
-
+          git push upstream master
+        else
+            echo "No changes to this package. Exiting gracefully."
+            exit 0;
+        fi
 
   hydefront:
     runs-on: ubuntu-latest
@@ -199,11 +211,15 @@ jobs:
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
 
-        git add .
-        git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+        if ! git diff-index --quiet HEAD --; then
+          git add .
+          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-        git push upstream master
-
+          git push upstream master
+        else
+            echo "No changes to this package. Exiting gracefully."
+            exit 0;
+        fi
 
   docs:
     runs-on: ubuntu-latest
@@ -247,11 +263,15 @@ jobs:
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
 
-        git add .
-        git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+        if ! git diff-index --quiet HEAD --; then
+          git add .
+          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-        git push upstream upcoming
-
+          git push upstream upcoming
+        else
+            echo "No changes to this package. Exiting gracefully."
+            exit 0;
+        fi
 
   testing:
     runs-on: ubuntu-latest
@@ -290,11 +310,15 @@ jobs:
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
 
-        git add .
-        git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+        if ! git diff-index --quiet HEAD --; then
+          git add .
+          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-        git push upstream master
-
+          git push upstream master
+        else
+            echo "No changes to this package. Exiting gracefully."
+            exit 0;
+        fi
 
   ui-kit:
     runs-on: ubuntu-latest
