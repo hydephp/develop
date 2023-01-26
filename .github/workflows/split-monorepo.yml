@@ -70,7 +70,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
         git push upstream develop
 
@@ -112,7 +112,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
         git push upstream develop
 
@@ -154,7 +154,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
         git push upstream master
 
@@ -196,7 +196,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
         git push upstream master
 
@@ -243,7 +243,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
         git push upstream upcoming
 
@@ -285,7 +285,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
         git push upstream master
 
@@ -327,7 +327,7 @@ jobs:
           git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
 
           git add .
-          git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+          git commit -m '${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}' || true
 
           git push upstream master
 
