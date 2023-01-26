@@ -16,6 +16,7 @@ jobs:
 
   hyde:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/hyde
       url: https://github.com/hydephp/hyde/tree/master
@@ -70,13 +71,14 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream develop
 
 
   framework:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/framework
       url: https://github.com/hydephp/framework/tree/master
@@ -112,13 +114,14 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream develop
 
 
   realtime-compiler:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/realtime-compiler
       url: https://github.com/realtime-compiler/hyde/tree/master
@@ -154,13 +157,14 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
 
 
   hydefront:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/hydefront
       url: https://github.com/hydephp/hydefront/tree/master
@@ -196,13 +200,14 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
 
 
   docs:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/docs
       url: https://github.com/hydephp/hydephp.com/tree/upcoming
@@ -243,13 +248,14 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream upcoming
 
 
   testing:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/testing
       url: https://github.com/hydephp/testing/tree/master
@@ -285,13 +291,14 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
 
 
   ui-kit:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/ui-kit
       url: https://github.com/hydephp/ui-kit/tree/master
@@ -327,7 +334,7 @@ jobs:
           git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
 
           git add .
-          git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+          git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
 
