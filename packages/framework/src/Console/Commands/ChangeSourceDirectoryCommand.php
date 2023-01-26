@@ -53,6 +53,9 @@ class ChangeSourceDirectoryCommand extends Command
             Filesystem::putContents('config/hyde.php', $config);
         }
 
+
+        $this->info('All done!');
+
         return Command::SUCCESS;
     }
 }
