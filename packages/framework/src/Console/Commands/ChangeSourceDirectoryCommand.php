@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
 
 /**
