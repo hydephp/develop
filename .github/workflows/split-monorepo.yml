@@ -79,7 +79,6 @@ jobs:
           git push upstream develop
         else
             echo "No changes to this package. Exiting gracefully."
-            exit 0;
         fi
 
   framework:
@@ -128,7 +127,6 @@ jobs:
           git push upstream develop
         else
             echo "No changes to this package. Exiting gracefully."
-            exit 0;
         fi
 
   realtime-compiler:
@@ -177,7 +175,6 @@ jobs:
           git push upstream master
         else
             echo "No changes to this package. Exiting gracefully."
-            exit 0;
         fi
 
   hydefront:
@@ -226,7 +223,6 @@ jobs:
           git push upstream master
         else
             echo "No changes to this package. Exiting gracefully."
-            exit 0;
         fi
 
   docs:
@@ -280,7 +276,6 @@ jobs:
           git push upstream upcoming
         else
             echo "No changes to this package. Exiting gracefully."
-            exit 0;
         fi
 
   testing:
@@ -329,7 +324,6 @@ jobs:
           git push upstream master
         else
             echo "No changes to this package. Exiting gracefully."
-            exit 0;
         fi
 
   ui-kit:
@@ -379,6 +373,5 @@ jobs:
             git push upstream master
           else
               echo "No changes to this package. Exiting gracefully."
-              exit 0;
           fi
 
