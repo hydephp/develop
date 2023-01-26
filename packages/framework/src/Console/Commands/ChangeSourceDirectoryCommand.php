@@ -34,8 +34,12 @@ class ChangeSourceDirectoryCommand extends Command
         ]);
 
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
-            $this->error('Directory already exists!');
-            return Command::FAILURE;
+            foreach ($directories as $directory) {
+                if (Filesystem::isDirectory($directory) && ! Filesystem::isEmptyDirectory($directory)) {
+                    $this->error('Directory already exists!');
+                    return Command::FAILURE;
+                }
+            }
         }
 
         $this->comment('Creating directory');
