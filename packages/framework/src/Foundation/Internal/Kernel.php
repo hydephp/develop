@@ -17,7 +17,7 @@ class Kernel extends \LaravelZero\Framework\Kernel
     protected function bootstrappers()
     {
         $array = array_combine(parent::bootstrappers(), parent::bootstrappers());
-        $array[\Illuminate\Foundation\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
+        $array[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
 
         return array_values($array);
     }
