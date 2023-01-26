@@ -64,6 +64,7 @@ class ChangeSourceDirectoryCommand extends Command
             Filesystem::putContents('config/hyde.php', $config);
         }
 
+        // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
 
         $this->info('All done!');
 
