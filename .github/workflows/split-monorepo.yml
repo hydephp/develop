@@ -65,9 +65,12 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd hyde
+        if true; then; echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
+
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
@@ -110,9 +113,12 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd framework
+        if true; then; echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
+
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
@@ -155,9 +161,12 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd realtime-compiler
+        if true; then; echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
+
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
@@ -200,9 +209,12 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd hydefront
+        if true; then; echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
+
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
@@ -250,9 +262,12 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd website
+        if true; then; echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
+
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
@@ -295,9 +310,12 @@ jobs:
     - name: Commit and push changes
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      if: ${{ $(! git diff-index --quiet HEAD --) }}
       run: |
         cd testing
+        if true; then; echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
+
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
@@ -340,10 +358,13 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        if: ${{ $(! git diff-index --quiet HEAD --) }}
         run: |
           cd ui-kit
           
+          if true; then; echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+
           git config user.name github-actions
           git config user.email github-actions@github.com
           git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
