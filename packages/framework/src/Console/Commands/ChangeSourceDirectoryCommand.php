@@ -41,6 +41,13 @@ class ChangeSourceDirectoryCommand extends Command
             Filesystem::moveDirectory($directory, "$name/$directory");
         }
 
+        
+        $this->comment('Updating configuration file');
+
+        $config = Filesystem::getContents('config/hyde.php');
+        $config = str_replace("'source_root' => '',", "'source_root' => '$name',", $config);
+        Filesystem::putContents('config/hyde.php', $config);
+
         return Command::SUCCESS;
     }
 }
