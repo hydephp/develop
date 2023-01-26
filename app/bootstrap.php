@@ -28,7 +28,7 @@ $app = new \Hyde\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    LaravelZero\Framework\Kernel::class
+    Hyde\Foundation\Internal\Kernel::class
 );
 
 $app->singleton(
