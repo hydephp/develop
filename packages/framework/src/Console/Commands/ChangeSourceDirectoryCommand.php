@@ -23,6 +23,7 @@ class ChangeSourceDirectoryCommand extends Command
     public function handle(): int
     {
         $name = $this->argument('name');
+        $this->info("Setting $name as the project source directory!");
 
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             $this->error('Directory already exists!');
