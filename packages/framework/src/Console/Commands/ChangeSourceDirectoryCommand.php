@@ -33,6 +33,14 @@ class ChangeSourceDirectoryCommand extends Command
         $this->comment('Creating directory');
         Filesystem::ensureDirectoryExists($name);
 
+
+        $this->comment('Moving source directories');
+
+        $directories = ['_pages', '_posts', '_docs'];
+        foreach ($directories as $directory) {
+            Filesystem::moveDirectory($directory, "$name/$directory");
+        }
+
         return Command::SUCCESS;
     }
 }
