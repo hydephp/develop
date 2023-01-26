@@ -1,6 +1,7 @@
 ---
-priority: 35
-label: "File-based Collections"
+navigation:
+    priority: 35
+    label: "File-based Collections"
 ---
 
 # File-based Collections

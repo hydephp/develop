@@ -1,5 +1,6 @@
 ---
-priority: 35
+navigation:
+    priority: 35
 ---
 
 # Updating Hyde
