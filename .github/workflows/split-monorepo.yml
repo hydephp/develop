@@ -63,6 +63,8 @@ jobs:
         rm hyde/rector.php -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd hyde
 
@@ -72,7 +74,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream develop
         else
@@ -110,6 +112,8 @@ jobs:
       run: cp -rf develop/packages/framework/. framework -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd framework
 
@@ -119,7 +123,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream develop
         else
@@ -157,6 +161,8 @@ jobs:
       run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd realtime-compiler
 
@@ -166,7 +172,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
         else
@@ -204,6 +210,8 @@ jobs:
       run: cp -rf develop/packages/hydefront/. hydefront -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd hydefront
 
@@ -213,7 +221,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
         else
@@ -256,6 +264,8 @@ jobs:
         rm website/_docs/README.markdown
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd website
 
@@ -265,7 +275,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream upcoming
         else
@@ -303,6 +313,8 @@ jobs:
       run: cp -rf develop/packages/testing/. testing -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd testing
 
@@ -312,7 +324,7 @@ jobs:
 
         if ! git diff-index --quiet HEAD --; then
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
         else
@@ -350,6 +362,8 @@ jobs:
         run: cp -rf develop/packages/ui-kit/. ui-kit -v
 
       - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           cd ui-kit
 
@@ -358,7 +372,7 @@ jobs:
           git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
 
           git add .
-          git diff --exit-code || git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git diff --exit-code || git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
 
