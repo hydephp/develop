@@ -24,7 +24,7 @@ class ChangeSourceDirectoryCommand extends Command
     {
         $name = $this->argument('name');
 
-        if (Filesystem::isDirectory($name)) {
+        if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             $this->error('Directory already exists!');
             return Command::FAILED;
         }
