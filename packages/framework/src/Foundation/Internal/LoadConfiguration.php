@@ -25,4 +25,19 @@ class LoadConfiguration extends \Illuminate\Foundation\Bootstrap\LoadConfigurati
             $repository->set($key, require $path);
         }
     }
+
+    /**
+     * Get all of the configuration files for the application.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return array
+     */
+    protected function getConfigurationFiles(Application $app)
+    {
+        $files = parent::getConfigurationFiles($app);
+
+        $files['app'] = $app->basePath().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'config.php';
+
+        return $files;
+    }
 }
