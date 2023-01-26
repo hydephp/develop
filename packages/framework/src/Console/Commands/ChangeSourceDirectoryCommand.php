@@ -30,6 +30,7 @@ class ChangeSourceDirectoryCommand extends Command
             return Command::FAILED;
         }
 
+        $this->comment('Creating directory');
         Filesystem::ensureDirectoryExists($name);
 
         return Command::SUCCESS;
