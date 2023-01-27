@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use ArgumentCountError;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
-use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -28,7 +27,9 @@ class DataCollectionTest extends TestCase
         parent::setUp();
 
         config(['hyde.features' => [Features::dataCollections()]]);
-        (new DataCollectionServiceProvider($this->app))->boot();
+        if (! is_dir(Hyde::path('resources/collections'))) {
+            mkdir(Hyde::path('resources/collections'));
+        }
     }
 
     public function test_constructor_creates_new_data_collection_instance()
