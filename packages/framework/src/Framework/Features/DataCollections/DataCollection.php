@@ -18,7 +18,7 @@ class DataCollection extends Collection
 {
     public string $key;
 
-    public static string $sourceDirectory = '_data';
+    public static string $sourceDirectory = 'resources/collections';
 
     public function __construct(string $key)
     {
@@ -40,10 +40,10 @@ class DataCollection extends Collection
     }
 
     /**
-     * Get a collection of Markdown documents in the _data/<$key> directory.
+     * Get a collection of Markdown documents in the resources/collections/<$key> directory.
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @param  string  $key  for a subdirectory of the _data directory
+     * @param  string  $key  for a subdirectory of the resources/collections directory
      * @return DataCollection<\Hyde\Markdown\Models\MarkdownDocument>
      */
     public static function markdown(string $key): static

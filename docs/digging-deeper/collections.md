@@ -35,13 +35,13 @@ You may need to enable the module by adding the feature to your Hyde configurati
 
 To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections. Follow these conventions and creating dynamic static sites will be a breeze.
 
-1. Collections are stored in the new `_data` directory.
+1. Collections are stored in the new `resources/collections` directory.
 2. Each subdirectory in here can be a collection. 
 3. Data collections are automatically generated when you use the Facade you will learn about below.
 4. When using one of the facades, you need to specify the collection name, this name is the name of the subdirectory.
 5. Each subdirectory should probably only have the same filetype to prevent developer confusion, but this is not enforced.
 6. Unlike Markdown pages, files starting with underscores are not ignored.
-7. You can customize the base `_data` directory through a service provider.
+7. You can customize the base `resources/collections` directory through a service provider.
 
 
 ### Markdown Collections - Hands on Guide
@@ -57,7 +57,7 @@ In it we will place Markdown files. Each file will be a testimonial. The Markdow
 Here is the sample Markdown we will use:
 
 ```blade
-// filepath: _data/testimonials/1.md
+// filepath: resources/collections/testimonials/1.md
 ---
 author: John Doe
 ---
@@ -68,7 +68,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 Let's take a look at our directory structure. I just copied the same file a few times. You can name the files anything you want, I kept it simple and just numbered them.
 
 ```tree
-_data
+resources/collections
 └── testimonials
     ├── 1.md
     ├── 2.md
