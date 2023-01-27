@@ -57,6 +57,27 @@
       <code>BuildSitemapCommand</code>
     </PropertyNotSetInConstructor>
   </file>
+  <file src="packages/framework/src/Console/Commands/ChangeSourceDirectoryCommand.php">
+    <MixedArgument occurrences="1">
+      <code>config('hyde.source_root', '')</code>
+    </MixedArgument>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$description</code>
+    </NonInvariantDocblockPropertyType>
+    <PossiblyInvalidCast occurrences="3">
+      <code>$this-&gt;argument('name')</code>
+      <code>config('hyde.source_root', '')</code>
+      <code>config('hyde.source_root', '')</code>
+    </PossiblyInvalidCast>
+    <PropertyNotSetInConstructor occurrences="6">
+      <code>ChangeSourceDirectoryCommand</code>
+      <code>ChangeSourceDirectoryCommand</code>
+      <code>ChangeSourceDirectoryCommand</code>
+      <code>ChangeSourceDirectoryCommand</code>
+      <code>ChangeSourceDirectoryCommand</code>
+      <code>ChangeSourceDirectoryCommand</code>
+    </PropertyNotSetInConstructor>
+  </file>
   <file src="packages/framework/src/Console/Commands/DebugCommand.php">
     <MixedAssignment occurrences="1">
       <code>$feature</code>
