@@ -80,12 +80,6 @@ class Features implements SerializableContract
         return static::enabled(static::documentationPages());
     }
 
-    /** @deprecated Will be considered enabled whenever there are files */
-    public static function hasDataCollections(): bool
-    {
-        return static::enabled(static::dataCollections());
-    }
-
     public static function hasDocumentationSearch(): bool
     {
         return static::enabled(static::documentationSearch())
