@@ -23,7 +23,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
-        $name = $this->argument('name');
+        $name = (string) $this->argument('name');
         if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
             $this->error("The directory '$name' is already set as the project source root!");
 
