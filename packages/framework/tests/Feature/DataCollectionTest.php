@@ -163,30 +163,6 @@ class DataCollectionTest extends TestCase
         $this->assertContains(MarkdownCollection::class, AliasLoader::getInstance()->getAliases());
     }
 
-    public function test_data_collection_service_provider_creates_the__data_directory_if_it_does_not_exist_and_feature_is_enabled()
-    {
-        config(['hyde.features' => [Features::dataCollections()]]);
-
-        File::deleteDirectory(Hyde::path('resources/collections'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
-
-        (new DataCollectionServiceProvider($this->app))->boot();
-
-        $this->assertFileExists(Hyde::path('resources/collections'));
-    }
-
-    public function test_data_collection_service_provider_does_not_create_the_collections_directory_feature_is_disabled()
-    {
-        File::deleteDirectory(Hyde::path('resources/collections'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
-
-        config(['hyde.features' => []]);
-        $this->app['config']->set('hyde.data_collection.enabled', false);
-        (new HydeServiceProvider($this->app))->boot();
-
-        $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
-    }
-
     public function test_class_has_static_source_directory_property()
     {
         $this->assertEquals('resources/collections', DataCollection::$sourceDirectory);
