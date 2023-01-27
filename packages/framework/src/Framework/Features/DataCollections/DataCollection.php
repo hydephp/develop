@@ -21,6 +21,7 @@ class DataCollection extends Collection
 
     public string $key;
 
+    /** @deprecated as the value added is limited here */
     public float $parseTimeInMs;
 
     public static string $sourceDirectory = '_data';
