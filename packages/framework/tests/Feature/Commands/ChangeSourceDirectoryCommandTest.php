@@ -57,4 +57,16 @@ class ChangeSourceDirectoryCommandTest extends TestCase
             ->expectsOutput("The directory '/' is already set as the project source root!")
             ->assertExitCode(409);
     }
+
+    public function test_with_existing_directory()
+    {
+        $this->directory('test');
+        $this->directory('test/_pages');
+        $this->file('test/_pages/foo');
+
+        $this->artisan('change:sourceDirectory test')
+            ->expectsOutput('Setting [test] as the project source directory!')
+            ->expectsOutput('Directory already exists!')
+            ->assertExitCode(1);
+    }
 }
