@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\DataCollections;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 
@@ -17,17 +16,12 @@ use Illuminate\Support\Collection;
  */
 class DataCollection extends Collection
 {
-    use TracksExecutionTime;
-
     public string $key;
-
-    public float $parseTimeInMs;
 
     public static string $sourceDirectory = '_data';
 
     public function __construct(string $key)
     {
-        $this->startClock();
         $this->key = $key;
 
         parent::__construct();
@@ -35,9 +29,6 @@ class DataCollection extends Collection
 
     public function getCollection(): static
     {
-        $this->parseTimeInMs = $this->stopClock();
-        unset($this->timeStart);
-
         return $this;
     }
 
