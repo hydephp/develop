@@ -65,11 +65,11 @@ class ChangeSourceDirectoryCommand extends Command
         $search = "'source_root' => '$current',";
 
         $config = Filesystem::getContents('config/hyde.php');
-        if (! str_contains($config, $search)) {
-            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$name'".' in `config/hyde.php`');
-        } else {
+        if (str_contains($config, $search)) {
             $config = str_replace($search, "'source_root' => '$name',", $config);
             Filesystem::putContents('config/hyde.php', $config);
+        } else {
+            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$name'".' in `config/hyde.php`');
         }
 
         // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
