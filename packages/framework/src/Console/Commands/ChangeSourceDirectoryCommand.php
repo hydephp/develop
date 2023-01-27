@@ -22,8 +22,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
-        $name = $this->argument('name');
-        $this->infoComment("Setting", $name, "as the project source directory!");
+        $name = $this->getDirectoryName();
 
         $directories = array_unique([
             \Hyde\Pages\HtmlPage::$sourceDirectory,
@@ -61,6 +60,13 @@ class ChangeSourceDirectoryCommand extends Command
         $this->info('All done!');
 
         return Command::SUCCESS;
+    }
+
+    protected function getDirectoryName(): string
+    {
+        $name = $this->argument('name');
+        $this->infoComment("Setting", $name, "as the project source directory!");
+        return $name;
     }
 
     protected function updateConfigurationFile(string $name): void
