@@ -174,7 +174,7 @@ class DataCollectionTest extends TestCase
         $this->assertFileExists(Hyde::path('resources/collections'));
     }
 
-    public function test_data_collection_service_provider_does_not_create_the__data_directory_feature_is_disabled()
+    public function test_data_collection_service_provider_does_not_create_the_collections_directory_feature_is_disabled()
     {
         File::deleteDirectory(Hyde::path('resources/collections'));
         $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
