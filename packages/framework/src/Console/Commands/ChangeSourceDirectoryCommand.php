@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
@@ -23,7 +24,7 @@ class ChangeSourceDirectoryCommand extends Command
     public function handle(): int
     {
         $name = $this->argument('name');
-        if ($name === config('hyde.source_root', '')) {
+        if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
             $this->error("The directory '$name' is already set as the project source root!");
             return 409;
         }
