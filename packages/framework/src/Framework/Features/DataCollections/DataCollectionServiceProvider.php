@@ -11,6 +11,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
 /**
+ * @deprecated (Deprecation Candidate) If the ensureDirectoryExists method is removed, so can this provider, as the only function left is an alias which could be handled in the app config.
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
 class DataCollectionServiceProvider extends ServiceProvider
