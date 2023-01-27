@@ -33,6 +33,8 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('test/_docs'));
 
         $this->assertFileExists(Hyde::path('test/_pages/tracker.txt'));
-        $this->assertSame('This should be moved to the new location', file_get_contents(Hyde::path('test/_pages/tracker.txt')));
+        $this->assertSame('This should be moved to the new location',
+            file_get_contents(Hyde::path('test/_pages/tracker.txt'))
+        );
     }
 }
