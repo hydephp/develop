@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use ArgumentCountError;
-use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
@@ -25,7 +24,6 @@ class DataCollectionTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.features' => [Features::dataCollections()]]);
         if (! is_dir(Hyde::path('resources/collections'))) {
             mkdir(Hyde::path('resources/collections'));
         }
