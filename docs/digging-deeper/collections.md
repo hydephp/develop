@@ -8,7 +8,6 @@ navigation:
 
 >info This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
 
->warning This feature was added in v0.43.0-beta.
 
 ## Introduction to Hyde Data Collections
 
