@@ -40,8 +40,8 @@ class ChangeSourceDirectoryCommand extends Command
 
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             foreach ($directories as $directory) {
-                $directory = basename($directory);
                 if (Filesystem::isDirectory($directory) && ! Filesystem::isEmptyDirectory($directory)) {
+                $directory = "$name/".basename($directory);
                     $this->error('Directory already exists!');
                     return Command::FAILURE;
                 }
