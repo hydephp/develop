@@ -37,11 +37,11 @@ To make collections easy to use and understand, Hyde makes a few assumptions abo
 
 1. Collections are stored in the new `resources/collections` directory.
 2. Each subdirectory in here can be a collection. 
-3. Data collections are automatically generated when you use the Facade you will learn about below.
+3. Data collections are automatically generated from the source files when you use the Facade you will learn about below.
 4. When using one of the facades, you need to specify the collection name, this name is the name of the subdirectory.
 5. Each subdirectory should probably only have the same filetype to prevent developer confusion, but this is not enforced.
 6. Unlike Markdown pages, files starting with underscores are not ignored.
-7. You can customize the base `resources/collections` directory through a service provider.
+7. You can customize the source directory for collections through a service provider.
 
 
 ### Markdown Collections - Hands on Guide
@@ -52,7 +52,7 @@ I think the best way to explain DataCollections is through examples. Let's creat
 
 We start by setting up our directory structure. We will create a `testimonials` subdirectory, which will be the collection name.
 
-In it we will place Markdown files. Each file will be a testimonial. The Markdown will be parsed into a MarkdownDocument object which parses any optional YAML front matter. 
+In it we will place Markdown files. Each file will be a testimonial. The Markdown will be parsed into a `MarkdownDocument` object which parses any optional YAML front matter. 
 
 Here is the sample Markdown we will use:
 
@@ -79,7 +79,7 @@ resources/collections
 
 #### Using the Facade to Access the Collections
 
-Now for the fun part! We will use the `MarkdownCollection` facade to access all our files into a convenient object. The class is already aliased to the facade, so you don't need to use any namespaces.
+Now for the fun part! We will use the `MarkdownCollection` facade to access all our files into a convenient object. The class is registered with an alias, so you don't need to include any namespaces when in a Blade file.
 
 The general syntax to use the facade is as follows:
 
