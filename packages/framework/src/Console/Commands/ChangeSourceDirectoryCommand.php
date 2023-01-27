@@ -61,7 +61,7 @@ class ChangeSourceDirectoryCommand extends Command
 
         $this->comment('Updating configuration file');
 
-        $current = config('hyde.source_root', '');
+        $current = (string) config('hyde.source_root', '');
         $search = "'source_root' => '$current',";
 
         $config = Filesystem::getContents('config/hyde.php');
