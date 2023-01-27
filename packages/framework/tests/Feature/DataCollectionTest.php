@@ -56,13 +56,6 @@ class DataCollectionTest extends TestCase
         $this->assertSame($class, $class->getCollection());
     }
 
-    public function test_get_collection_method_sets_parse_time_in_ms()
-    {
-        $class = new DataCollection('foo');
-        $class->getCollection();
-        $this->assertIsFloat($class->parseTimeInMs);
-    }
-
     public function test_get_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
         $class = new DataCollection('foo');

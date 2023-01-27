@@ -17,18 +17,12 @@ use Illuminate\Support\Collection;
  */
 class DataCollection extends Collection
 {
-    use TracksExecutionTime;
-
     public string $key;
-
-    /** @deprecated as the value added is limited here */
-    public float $parseTimeInMs;
 
     public static string $sourceDirectory = '_data';
 
     public function __construct(string $key)
     {
-        $this->startClock();
         $this->key = $key;
 
         parent::__construct();
@@ -36,9 +30,6 @@ class DataCollection extends Collection
 
     public function getCollection(): static
     {
-        $this->parseTimeInMs = $this->stopClock();
-        unset($this->timeStart);
-
         return $this;
     }
 
