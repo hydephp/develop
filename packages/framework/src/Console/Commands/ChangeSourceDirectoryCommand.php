@@ -45,7 +45,7 @@ class ChangeSourceDirectoryCommand extends Command
                 if (self::isNonEmptyDirectory(Hyde::path($directory))) {
                     $this->error('Directory already exists!');
 
-                    return Command::FAILURE;
+                    return 409;
                 }
             }
         }

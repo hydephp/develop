@@ -67,6 +67,6 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
             ->expectsOutput('Directory already exists!')
-            ->assertExitCode(1);
+            ->assertExitCode(409);
     }
 }
