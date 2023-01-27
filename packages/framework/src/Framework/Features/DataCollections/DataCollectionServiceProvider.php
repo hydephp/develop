@@ -27,9 +27,9 @@ class DataCollectionServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (Features::hasDataCollections()) {
-            // Create the _data directory if it doesn't exist
-            if (! is_dir(Hyde::path('_data'))) {
-                mkdir(Hyde::path('_data'));
+            // Create the resources/collections directory if it doesn't exist
+            if (! is_dir(Hyde::path('resources/collections'))) {
+                mkdir(Hyde::path('resources/collections'));
             }
         }
     }
