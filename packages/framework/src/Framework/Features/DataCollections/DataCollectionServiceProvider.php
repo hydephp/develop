@@ -26,6 +26,11 @@ class DataCollectionServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->ensureDirectoryExists();
+    }
+
+    protected function ensureDirectoryExists(): void
+    {
         // Create the resources/collections directory if it doesn't exist
         if (! is_dir(Hyde::path('resources/collections'))) {
             mkdir(Hyde::path('resources/collections'));
