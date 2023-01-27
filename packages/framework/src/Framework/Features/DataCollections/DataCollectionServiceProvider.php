@@ -29,6 +29,7 @@ class DataCollectionServiceProvider extends ServiceProvider
         $this->ensureDirectoryExists();
     }
 
+    /** @deprecated Since this runs on each application lifecycle, we might not want to do this here. Instead it could be created when scaffolding a data file. */
     protected function ensureDirectoryExists(): void
     {
         // Create the resources/collections directory if it doesn't exist
