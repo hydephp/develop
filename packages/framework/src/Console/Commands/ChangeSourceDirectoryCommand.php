@@ -66,8 +66,8 @@ class ChangeSourceDirectoryCommand extends Command
     {
         $this->comment('Updating configuration file');
 
-        // We could also inject the current source root value and check if the setting is even present, but we're keeping it simple for now
-        $search = "'source_root' => '',";
+        $current = config('hyde.source_root', '');
+        $search = "'source_root' => '$current',";
 
         $config = Filesystem::getContents('config/hyde.php');
         if (! str_contains($config, $search)) {
