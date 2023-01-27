@@ -36,5 +36,9 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->assertSame('This should be moved to the new location',
             file_get_contents(Hyde::path('test/_pages/tracker.txt'))
         );
+
+        $this->assertStringContainsString("'source_root' => 'test',",
+            file_get_contents(Hyde::path('config/hyde.php'))
+        );
     }
 }
