@@ -52,6 +52,18 @@ public function register(): void
 }
 ```
 
+## Custom source root directory 🧪
+
+HydePHP will by default look for the underscored source directories in the root of your project.
+If you're not happy with this, it's easy to change! For example, you might want everything in a 'src'
+subdirectory. That's easy enough, just set the value of the `source_root` setting in config/hyde.php to `'src'`!
+
+### Automatic change 🧪
+You can even make this change automatically with the `php hyde change:sourceDirectory` command!
+
+When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist, then move all source directories into it.
+
+
 ## Customizing the output directory ⚠
 
 >danger Hyde deletes all files in the output directory before compiling the site. Don't set this path to a directory that contains important files!
