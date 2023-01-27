@@ -8,6 +8,7 @@ use ArgumentCountError;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -181,7 +182,7 @@ class DataCollectionTest extends TestCase
 
         config(['hyde.features' => []]);
         $this->app['config']->set('hyde.data_collection.enabled', false);
-        (new DataCollectionServiceProvider($this->app))->boot();
+        (new HydeServiceProvider($this->app))->boot();
 
         $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
     }
