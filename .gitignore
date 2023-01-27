@@ -14,6 +14,8 @@
 
 # Monorepo Rules
 
+.DS_Store
+
 !/.idea
 
 /tests/fixtures/example-sites/*/vendor
