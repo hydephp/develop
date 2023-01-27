@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\DataCollections;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 
