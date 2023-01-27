@@ -82,7 +82,7 @@ class ChangeSourceDirectoryCommand extends Command
     protected static function isNonEmptyDirectory(string $directory): bool
     {
         if (is_file($directory)) {
-            return false;
+            return true;
         }
 
         return is_dir($directory) && (count(scandir($directory)) > 2);
