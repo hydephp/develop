@@ -84,6 +84,6 @@ class ChangeSourceDirectoryCommand extends Command
         if (is_file($directory)) {
             return false;
         }
-        return ((is_dir($directory) && (count(scandir($directory)) > 2)));
+        return (is_dir($directory) && (count(scandir($directory)) > 2));
     }
 }
