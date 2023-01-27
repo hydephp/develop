@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Testing\TestCase;
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 
 /**
@@ -40,5 +41,13 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->assertStringContainsString("'source_root' => 'test',",
             file_get_contents(Hyde::path('config/hyde.php'))
         );
+
+        Filesystem::moveDirectory('test/_pages', '_pages');
+        Filesystem::moveDirectory('test/_posts', '_posts');
+        Filesystem::moveDirectory('test/_docs', '_docs');
+
+        $config = Filesystem::getContents('config/hyde.php');
+        $config = str_replace("'source_root' => 'test',", "'source_root' => '',", $config);
+        Filesystem::putContents('config/hyde.php', $config);
     }
 }
