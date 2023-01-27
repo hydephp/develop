@@ -40,8 +40,8 @@ class ChangeSourceDirectoryCommand extends Command
 
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             foreach ($directories as $directory) {
-                if (Filesystem::isDirectory($directory) && ! Filesystem::isEmptyDirectory($directory)) {
                 $directory = "$name/".basename($directory);
+                if (self::isNonEmptyDirectory(Hyde::path($directory))) {
                     $this->error('Directory already exists!');
                     return Command::FAILURE;
                 }
@@ -77,5 +77,13 @@ class ChangeSourceDirectoryCommand extends Command
         $this->info('All done!');
 
         return Command::SUCCESS;
+    }
+
+    protected static function isNonEmptyDirectory(string $directory): bool
+    {
+        if (is_file($directory)) {
+            return false;
+        }
+        return ((is_dir($directory) && (count(scandir($directory)) > 2)));
     }
 }
