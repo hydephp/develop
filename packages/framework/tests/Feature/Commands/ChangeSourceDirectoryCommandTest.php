@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Testing\TestCase;
+use Hyde\Hyde;
 
 /**
  * @covers \Hyde\Console\Commands\ChangeSourceDirectoryCommand
@@ -20,5 +21,13 @@ class ChangeSourceDirectoryCommandTest extends TestCase
             ->expectsOutput('Updating configuration file')
             ->expectsOutput('All done!')
             ->assertExitCode(0);
+
+        $this->assertDirectoryDoesNotExist(Hyde::path('_pages'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('_posts'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('_docs'));
+
+        $this->assertDirectoryExists(Hyde::path('test/_pages'));
+        $this->assertDirectoryExists(Hyde::path('test/_posts'));
+        $this->assertDirectoryExists(Hyde::path('test/_docs'));
     }
 }
