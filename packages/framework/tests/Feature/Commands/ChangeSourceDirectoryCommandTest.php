@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\ChangeSourceDirectoryCommand
