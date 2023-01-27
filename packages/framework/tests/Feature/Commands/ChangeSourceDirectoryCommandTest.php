@@ -50,4 +50,11 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $config = str_replace("'source_root' => 'test',", "'source_root' => '',", $config);
         Filesystem::putContents('config/hyde.php', $config);
     }
+
+    public function test_with_name_matching_current_value()
+    {
+        $this->artisan('change:sourceDirectory /')
+            ->expectsOutput("The directory '/' is already set as the project source root!")
+            ->assertExitCode(409);
+    }
 }
