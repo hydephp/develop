@@ -53,6 +53,17 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         
+        $this->updateConfigurationFile($name);
+
+        // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
+
+        $this->info('All done!');
+
+        return Command::SUCCESS;
+    }
+
+    protected function updateConfigurationFile(string $name): void
+    {
         $this->comment('Updating configuration file');
 
         $config = Filesystem::getContents('config/hyde.php');
@@ -63,11 +74,5 @@ class ChangeSourceDirectoryCommand extends Command
             $config = str_replace("'source_root' => '',", "'source_root' => '$name',", $config);
             Filesystem::putContents('config/hyde.php', $config);
         }
-
-        // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
-
-        $this->info('All done!');
-
-        return Command::SUCCESS;
     }
 }
