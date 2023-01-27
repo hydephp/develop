@@ -9,7 +9,6 @@ use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
-use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
