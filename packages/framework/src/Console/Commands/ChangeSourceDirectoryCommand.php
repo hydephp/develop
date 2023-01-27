@@ -26,9 +26,10 @@ class ChangeSourceDirectoryCommand extends Command
         $name = $this->argument('name');
         if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
             $this->error("The directory '$name' is already set as the project source root!");
+
             return 409;
         }
-        $this->infoComment("Setting", $name, "as the project source directory!");
+        $this->infoComment('Setting', $name, 'as the project source directory!');
 
         $directories = array_unique([
             \Hyde\Pages\HtmlPage::$sourceDirectory,
@@ -43,6 +44,7 @@ class ChangeSourceDirectoryCommand extends Command
                 $directory = "$name/".basename($directory);
                 if (self::isNonEmptyDirectory(Hyde::path($directory))) {
                     $this->error('Directory already exists!');
+
                     return Command::FAILURE;
                 }
             }
@@ -51,14 +53,12 @@ class ChangeSourceDirectoryCommand extends Command
         $this->comment('Creating directory');
         Filesystem::ensureDirectoryExists($name);
 
-
         $this->comment('Moving source directories');
 
         foreach ($directories as $directory) {
             Filesystem::moveDirectory($directory, "$name/".basename($directory));
         }
 
-        
         $this->comment('Updating configuration file');
 
         $current = config('hyde.source_root', '');
@@ -66,7 +66,7 @@ class ChangeSourceDirectoryCommand extends Command
 
         $config = Filesystem::getContents('config/hyde.php');
         if (! str_contains($config, $search)) {
-            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '. "'$name'". ' in `config/hyde.php`');
+            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$name'".' in `config/hyde.php`');
         } else {
             $config = str_replace($search, "'source_root' => '$name',", $config);
             Filesystem::putContents('config/hyde.php', $config);
@@ -84,6 +84,7 @@ class ChangeSourceDirectoryCommand extends Command
         if (is_file($directory)) {
             return false;
         }
-        return (is_dir($directory) && (count(scandir($directory)) > 2));
+
+        return is_dir($directory) && (count(scandir($directory)) > 2);
     }
 }
