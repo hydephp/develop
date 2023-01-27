@@ -14,6 +14,8 @@ class ChangeSourceDirectoryCommandTest extends TestCase
 {
     public function test_command_moves_source_directories_to_new_supplied_directory_and_updates_the_configuration_file()
     {
+        $this->file('_pages/tracker.txt', 'This should be moved to the new location');
+
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
             ->expectsOutput('Creating directory')
@@ -29,5 +31,8 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('test/_pages'));
         $this->assertDirectoryExists(Hyde::path('test/_posts'));
         $this->assertDirectoryExists(Hyde::path('test/_docs'));
+
+        $this->assertFileExists(Hyde::path('test/_pages/tracker.txt'));
+        $this->assertSame('This should be moved to the new location', file_get_contents(Hyde::path('test/_pages/tracker.txt')));
     }
 }
