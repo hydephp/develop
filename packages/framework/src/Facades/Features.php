@@ -80,6 +80,7 @@ class Features implements SerializableContract
         return static::enabled(static::documentationPages());
     }
 
+    /** @deprecated Will be considered enabled whenever there are files */
     public static function hasDataCollections(): bool
     {
         return static::enabled(static::dataCollections());
@@ -142,6 +143,7 @@ class Features implements SerializableContract
         return 'documentation-search';
     }
 
+    /** @deprecated Will be considered enabled whenever there are files */
     public static function dataCollections(): string
     {
         return 'data-collections';
