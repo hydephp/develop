@@ -458,11 +458,23 @@ jobs:
       - name: Check coding syntax/standards (PHP CodeSniffer)
         run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
 
+
+  run-static-analysis-psalm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+      - uses: actions/checkout@v3
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+     
       - name: Run static analysis (Psalm/Shepherd)
         run: vendor/bin/psalm --shepherd || true
 
 
-  run-static-analysis:
+  run-static-analysis-phpstan:
     runs-on: ubuntu-latest
     steps:
       - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
