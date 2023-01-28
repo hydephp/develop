@@ -93,7 +93,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->isInstanceOf(MarkdownPost::class)
             || $this->searchForHiddenInFrontMatter()
             || in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))
-            || ! $this->isInstanceOf(DocumentationPage::class) && $this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden');
+            || ($this->isInstanceOf(DocumentationPage::class) && $this->determineIfDocumentationPageIsHidden());
     }
 
     protected function makePriority(): int
@@ -185,6 +185,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function getSubdirectoryConfiguration(): string
     {
         return config('hyde.navigation.subdirectories', 'hidden');
+    }
+
+    protected function determineIfDocumentationPageIsHidden(): bool
+    {
+        return $this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden');
     }
 
     protected function isInstanceOf(string $class): bool
