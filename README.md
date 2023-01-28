@@ -57,7 +57,7 @@ The two most important components are **Hyde** and **Framework**. We also use **
 *The Hyde/Hyde project is stored in the monorepo root and works a bit differently from the others. Before pushing to the readonly repository, we apply persisted changes in the [`packages/hyde`](https://github.com/hydephp/develop/tree/master/packages/hyde) directory, then remove monorepo specific files.
 
 
-## How the monorepo works
+### How the monorepo works
 
 Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop/master` branches of the readonly repositories seen in the table above. These branches could be unstable.
 
