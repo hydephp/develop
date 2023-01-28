@@ -184,6 +184,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function determineIfDocumentationPageIsHiddenFromSidebar(): bool
     {
+        if ($this->isInstanceOf(DocumentationPage::class) && $this->page->identifier === 'docs/index') {
+            return true;
+        }
+
         return ! $this->isInstanceOf(DocumentationPage::class) && $this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden');
     }
 
