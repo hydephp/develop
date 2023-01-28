@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use ArgumentCountError;
-use Hyde\Facades\Features;
 use Hyde\Framework\Features\DataCollections\DataCollection;
-use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -18,7 +16,6 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\DataCollections\DataCollection
- * @covers \Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider
  * @covers \Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection
  */
 class DataCollectionTest extends TestCase
@@ -27,8 +24,9 @@ class DataCollectionTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.features' => [Features::dataCollections()]]);
-        (new DataCollectionServiceProvider($this->app))->boot();
+        if (! is_dir(Hyde::path('resources/collections'))) {
+            mkdir(Hyde::path('resources/collections'));
+        }
     }
 
     public function test_constructor_creates_new_data_collection_instance()
@@ -160,30 +158,6 @@ class DataCollectionTest extends TestCase
     {
         $this->assertArrayHasKey('MarkdownCollection', AliasLoader::getInstance()->getAliases());
         $this->assertContains(MarkdownCollection::class, AliasLoader::getInstance()->getAliases());
-    }
-
-    public function test_data_collection_service_provider_creates_the__data_directory_if_it_does_not_exist_and_feature_is_enabled()
-    {
-        config(['hyde.features' => [Features::dataCollections()]]);
-
-        File::deleteDirectory(Hyde::path('resources/collections'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
-
-        (new DataCollectionServiceProvider($this->app))->boot();
-
-        $this->assertFileExists(Hyde::path('resources/collections'));
-    }
-
-    public function test_data_collection_service_provider_does_not_create_the__data_directory_feature_is_disabled()
-    {
-        File::deleteDirectory(Hyde::path('resources/collections'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
-
-        config(['hyde.features' => []]);
-        $this->app['config']->set('hyde.data_collection.enabled', false);
-        (new DataCollectionServiceProvider($this->app))->boot();
-
-        $this->assertFileDoesNotExist(Hyde::path('resources/collections'));
     }
 
     public function test_class_has_static_source_directory_property()
