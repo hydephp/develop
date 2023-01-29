@@ -38,7 +38,7 @@ class ChangeSourceDirectoryCommand extends Command
     public function handle(): int
     {
         try {
-            $name = $this->getValidatedName((string) $this->argument('name'));
+            $newDirectoryName = $this->getValidatedName((string) $this->argument('name'));
         } catch (InvalidArgumentException $exception) {
             $this->error($exception->getMessage());
 
@@ -46,12 +46,12 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         $this->comment('Creating directory');
-        Filesystem::ensureDirectoryExists($name);
+        Filesystem::ensureDirectoryExists($newDirectoryName);
 
         $this->comment('Moving source directories');
 
         foreach ($this->getPageDirectories() as $directory) {
-            Filesystem::moveDirectory($directory, $this->assembleSubdirectoryPath($name, $directory));
+            Filesystem::moveDirectory($directory, $this->assembleSubdirectoryPath($newDirectoryName, $directory));
         }
 
         $this->comment('Updating configuration file');
@@ -61,10 +61,10 @@ class ChangeSourceDirectoryCommand extends Command
 
         $config = Filesystem::getContents('config/hyde.php');
         if (str_contains($config, $search)) {
-            $config = str_replace($search, "'source_root' => '$name',", $config);
+            $config = str_replace($search, "'source_root' => '$newDirectoryName',", $config);
             Filesystem::putContents('config/hyde.php', $config);
         } else {
-            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$name'".' in `config/hyde.php`');
+            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$newDirectoryName'".' in `config/hyde.php`');
         }
 
         // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
