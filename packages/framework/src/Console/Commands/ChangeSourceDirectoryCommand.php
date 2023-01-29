@@ -78,13 +78,18 @@ class ChangeSourceDirectoryCommand extends Command
     protected function getNameInput(): string
     {
         $name = (string) $this->argument('name');
-        if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
-            throw new InvalidArgumentException("The directory '$name' is already set as the project source root!");
-        }
+        $this->validateName($name);
         $this->infoComment('Setting', $name, 'as the project source directory!');
 
         $this->validateDirectory($name, $this->getPageDirectories());
         return $name;
+    }
+
+    protected function validateName(string $name): void
+    {
+        if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
+            throw new InvalidArgumentException("The directory '$name' is already set as the project source root!");
+        }
     }
 
     protected function validateDirectory(string $name, array $pageDirectories): void
