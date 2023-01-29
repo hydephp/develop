@@ -61,7 +61,7 @@ class ChangeSourceDirectoryCommand extends Command
         $this->comment('Moving source directories');
 
         foreach ($directories as $directory) {
-            Filesystem::moveDirectory($directory, "$name/".basename($directory));
+            Filesystem::moveDirectory($directory, $this->assembleNewSubdirectoryPath($name, $directory));
         }
 
         $this->comment('Updating configuration file');
@@ -107,11 +107,16 @@ class ChangeSourceDirectoryCommand extends Command
     {
         if (Filesystem::isDirectory($name) && !Filesystem::isEmptyDirectory($name)) {
             foreach ($directories as $directory) {
-                $directory = "$name/".basename($directory);
+                $directory = $this->assembleNewSubdirectoryPath($name, $directory);
                 if (self::isNonEmptyDirectory(Hyde::path($directory))) {
                     throw new FileConflictException(message: 'Directory already exists!');
                 }
             }
         }
+    }
+
+    protected function assembleNewSubdirectoryPath(string $name, string $subdirectory): string
+    {
+        return "$name/".basename($subdirectory);
     }
 }
