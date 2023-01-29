@@ -113,7 +113,7 @@ class ChangeSourceDirectoryCommand extends Command
             // If any of the subdirectories we want to move already exist, we need to abort as we don't want to overwrite any existing files
             // The reason we check these individually is mainly so that the change can be reverted (by setting the $name to '/')
             foreach ($pageDirectories as $directory) {
-                if ($this->directoryContainsFiles($this->assembleSubdirectoryPath($name, $directory))) {
+                if (is_file($this->assembleSubdirectoryPath($name, $directory)) || $this->directoryContainsFiles($this->assembleSubdirectoryPath($name, $directory))) {
                     throw new InvalidArgumentException('Directory already exists!');
                 }
             }
@@ -127,6 +127,6 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function directoryContainsFiles(string $subdirectory): bool
     {
-        return is_file($subdirectory) || (is_dir($subdirectory) && (count(scandir($subdirectory)) > 2));
+        return is_dir($subdirectory) && (count(scandir($subdirectory)) > 2);
     }
 }
