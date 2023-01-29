@@ -101,7 +101,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
     {
         $this->directory('test');
         $this->directory('test/_pages');
-        $this->file('test/_pages/foo');
+        $this->file('test/foo');
 
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
@@ -111,8 +111,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
 
     public function test_with_target_being_file()
     {
-        $this->directory('test');
-        $this->file('test/_pages');
+        $this->file('test');
 
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
