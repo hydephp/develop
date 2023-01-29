@@ -40,8 +40,8 @@ class ChangeSourceDirectoryCommand extends Command
     {
         try {
             $name = $this->getNameInput();
-        } catch (FileConflictException|InvalidArgumentException $e) {
-            $this->error($e->getMessage());
+        } catch (FileConflictException|InvalidArgumentException $exception) {
+            $this->error($exception->getMessage());
 
             return 409;
         }
