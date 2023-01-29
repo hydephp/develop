@@ -99,8 +99,7 @@ class ChangeSourceDirectoryCommand extends Command
         if (Filesystem::isDirectory($name) && !Filesystem::isEmptyDirectory($name)) {
             // If any of the subdirectories we want to move already exist, we need to abort
             foreach ($directories as $directory) {
-                $directory = $this->assembleNewSubdirectoryPath($name, $directory);
-                if ($this->directoryContainsFiles(Hyde::path($directory))) {
+                if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
                     throw new FileConflictException(message: 'Directory already exists!');
                 }
             }
