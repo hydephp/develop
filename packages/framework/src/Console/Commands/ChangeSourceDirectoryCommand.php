@@ -55,7 +55,7 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         $this->comment('Updating configuration file');
-        $this->updateConfigurationFile($newDirectoryName);
+        $this->updateConfigurationFile($newDirectoryName, (string) config('hyde.source_root', ''));
 
         // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
 
@@ -120,10 +120,9 @@ class ChangeSourceDirectoryCommand extends Command
         return is_dir($subdirectory) && (count(scandir($subdirectory)) > 2);
     }
 
-    protected function updateConfigurationFile(string $newDirectoryName): void
+    protected function updateConfigurationFile(string $newDirectoryName, string $currentDirectoryName): void
     {
-        $current = (string) config('hyde.source_root', '');
-        $search = "'source_root' => '$current',";
+        $search = "'source_root' => '$currentDirectoryName',";
 
         $config = Filesystem::getContents('config/hyde.php');
         if (str_contains($config, $search)) {
