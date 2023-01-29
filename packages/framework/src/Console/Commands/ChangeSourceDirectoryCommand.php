@@ -74,6 +74,18 @@ class ChangeSourceDirectoryCommand extends Command
         return Command::SUCCESS;
     }
 
+    /** @return string[] */
+    protected function getPageDirectories(): array
+    {
+        return array_unique([
+            HtmlPage::$sourceDirectory,
+            BladePage::$sourceDirectory,
+            MarkdownPage::$sourceDirectory,
+            MarkdownPost::$sourceDirectory,
+            DocumentationPage::$sourceDirectory,
+        ]);
+    }
+
     protected function validatedName(string $name): string
     {
         $this->validateName($name);
@@ -111,17 +123,5 @@ class ChangeSourceDirectoryCommand extends Command
     protected function directoryContainsFiles(string $directory): bool
     {
         return is_file($directory) || (is_dir($directory) && (count(scandir($directory)) > 2));
-    }
-
-    /** @return string[] */
-    protected function getPageDirectories(): array
-    {
-        return array_unique([
-            HtmlPage::$sourceDirectory,
-            BladePage::$sourceDirectory,
-            MarkdownPage::$sourceDirectory,
-            MarkdownPost::$sourceDirectory,
-            DocumentationPage::$sourceDirectory,
-        ]);
     }
 }
