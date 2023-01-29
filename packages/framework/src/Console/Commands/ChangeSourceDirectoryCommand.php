@@ -79,7 +79,7 @@ class ChangeSourceDirectoryCommand extends Command
     {
         $name = (string) $this->argument('name');
         if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
-            throw new InvalidArgumentException(message: "The directory '$name' is already set as the project source root!");
+            throw new InvalidArgumentException("The directory '$name' is already set as the project source root!");
         }
         $this->infoComment('Setting', $name, 'as the project source directory!');
 
@@ -93,7 +93,7 @@ class ChangeSourceDirectoryCommand extends Command
             // If any of the subdirectories we want to move already exist, we need to abort
             foreach ($pageDirectories as $directory) {
                 if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
-                    throw new InvalidArgumentException(message: 'Directory already exists!');
+                    throw new InvalidArgumentException('Directory already exists!');
                 }
             }
         }
