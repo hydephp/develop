@@ -75,6 +75,7 @@ class ChangeSourceDirectoryCommand extends Command
         return Command::SUCCESS;
     }
 
+    /** @throws \Hyde\Framework\Exceptions\FileConflictException */
     protected function getNameInput(): string
     {
         $name = (string) $this->argument('name');
