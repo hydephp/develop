@@ -39,8 +39,6 @@ class ChangeSourceDirectoryCommand extends Command
     {
         try {
             $name = $this->getNameInput();
-
-            $this->validateDirectory($name, $this->getPageDirectories());
         } catch (FileConflictException $e) {
             $this->error($e->getMessage());
 
@@ -83,6 +81,8 @@ class ChangeSourceDirectoryCommand extends Command
             throw new FileConflictException(message: "The directory '$name' is already set as the project source root!");
         }
         $this->infoComment('Setting', $name, 'as the project source directory!');
+
+        $this->validateDirectory($name, $this->getPageDirectories());
         return $name;
     }
 
