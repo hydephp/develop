@@ -130,7 +130,7 @@ class ChangeSourceDirectoryCommand extends Command
             $config = str_replace($search, "'source_root' => '$newDirectoryName',", $config);
             Filesystem::putContents('config/hyde.php', $config);
         } else {
-            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$newDirectoryName'".' in `config/hyde.php`');
+            $this->error("Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '$newDirectoryName' in `config/hyde.php`");
         }
     }
 }
