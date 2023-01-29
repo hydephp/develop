@@ -55,17 +55,7 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         $this->comment('Updating configuration file');
-
-        $current = (string) config('hyde.source_root', '');
-        $search = "'source_root' => '$current',";
-
-        $config = Filesystem::getContents('config/hyde.php');
-        if (str_contains($config, $search)) {
-            $config = str_replace($search, "'source_root' => '$newDirectoryName',", $config);
-            Filesystem::putContents('config/hyde.php', $config);
-        } else {
-            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$newDirectoryName'".' in `config/hyde.php`');
-        }
+        $this->updateConfigurationFile($newDirectoryName);
 
         // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
 
@@ -128,5 +118,19 @@ class ChangeSourceDirectoryCommand extends Command
     protected function directoryContainsFiles(string $subdirectory): bool
     {
         return is_dir($subdirectory) && (count(scandir($subdirectory)) > 2);
+    }
+
+    protected function updateConfigurationFile(string $newDirectoryName): void
+    {
+        $current = (string) config('hyde.source_root', '');
+        $search = "'source_root' => '$current',";
+
+        $config = Filesystem::getContents('config/hyde.php');
+        if (str_contains($config, $search)) {
+            $config = str_replace($search, "'source_root' => '$newDirectoryName',", $config);
+            Filesystem::putContents('config/hyde.php', $config);
+        } else {
+            $this->error('Automatic configuration update failed, to finalize the change, please set the `source_root` setting to '."'$newDirectoryName'".' in `config/hyde.php`');
+        }
     }
 }
