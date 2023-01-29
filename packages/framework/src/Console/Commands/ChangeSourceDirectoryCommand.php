@@ -105,6 +105,10 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function validateDirectoryCanBeUsed(string $name, array $pageDirectories): void
     {
+        if (Filesystem::isFile($name)) {
+            throw new InvalidArgumentException('A file already exists at this path!');
+        }
+
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             // If any of the subdirectories we want to move already exist, we need to abort as we don't want to overwrite any existing files
             // The reason we check these individually is mainly so that the change can be reverted (by setting the $name to '/')

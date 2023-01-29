@@ -109,7 +109,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
             ->assertExitCode(409);
     }
 
-    public function test_with_target_being_file()
+    public function test_with_target_containing_subdirectory_file()
     {
         $this->directory('test');
         $this->file('test/_pages');
@@ -117,6 +117,16 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
             ->expectsOutput('Directory already exists!')
+            ->assertExitCode(409);
+    }
+
+    public function test_with_target_being_file()
+    {
+        $this->file('test');
+
+        $this->artisan('change:sourceDirectory test')
+            ->expectsOutput('Setting [test] as the project source directory!')
+            ->expectsOutput('A file already exists at this path!')
             ->assertExitCode(409);
     }
 }
