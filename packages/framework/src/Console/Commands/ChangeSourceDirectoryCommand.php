@@ -51,7 +51,7 @@ class ChangeSourceDirectoryCommand extends Command
         $this->comment('Moving source directories');
 
         foreach ($this->getPageDirectories() as $directory) {
-            Filesystem::moveDirectory($directory, $this->assembleNewSubdirectoryPath($name, $directory));
+            Filesystem::moveDirectory($directory, $this->assembleSubdirectoryPath($name, $directory));
         }
 
         $this->comment('Updating configuration file');
@@ -109,14 +109,14 @@ class ChangeSourceDirectoryCommand extends Command
             // If any of the subdirectories we want to move already exist, we need to abort as we don't want to overwrite any existing files
             // The reason we check these individually is mainly so that the change can be reverted (by setting the $name to '/')
             foreach ($pageDirectories as $directory) {
-                if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
+                if ($this->directoryContainsFiles(Hyde::path($this->assembleSubdirectoryPath($name, $directory)))) {
                     throw new InvalidArgumentException('Directory already exists!');
                 }
             }
         }
     }
 
-    protected function assembleNewSubdirectoryPath(string $name, string $subdirectory): string
+    protected function assembleSubdirectoryPath(string $name, string $subdirectory): string
     {
         return "$name/".basename($subdirectory);
     }
