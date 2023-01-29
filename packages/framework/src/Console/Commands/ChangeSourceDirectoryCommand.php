@@ -19,6 +19,7 @@ use InvalidArgumentException;
 use function is_dir;
 use function is_file;
 use function realpath;
+use function rmdir;
 use function scandir;
 use function str_replace;
 
@@ -52,6 +53,10 @@ class ChangeSourceDirectoryCommand extends Command
 
         foreach ($this->getPageDirectories() as $directory) {
             Filesystem::moveDirectory($directory, $this->assembleSubdirectoryPath($newDirectoryName, $directory));
+        }
+
+        if (! $this->directoryContainsFiles(Hyde::path((string) config('hyde.source_root', '')))) {
+            rmdir(Hyde::path((string) config('hyde.source_root', '')));
         }
 
         $this->comment('Updating configuration file');
