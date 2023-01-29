@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -37,31 +38,33 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
-        $name = (string) $this->argument('name');
-        if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
-            $this->error("The directory '$name' is already set as the project source root!");
+        try {
+            $name = (string) $this->argument('name');
+            if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
+                throw new FileConflictException(message: "The directory '$name' is already set as the project source root!");
+            }
+            $this->infoComment('Setting', $name, 'as the project source directory!');
 
-            return 409;
-        }
-        $this->infoComment('Setting', $name, 'as the project source directory!');
+            $directories = array_unique([
+                HtmlPage::$sourceDirectory,
+                BladePage::$sourceDirectory,
+                MarkdownPage::$sourceDirectory,
+                MarkdownPost::$sourceDirectory,
+                DocumentationPage::$sourceDirectory,
+            ]);
 
-        $directories = array_unique([
-            HtmlPage::$sourceDirectory,
-            BladePage::$sourceDirectory,
-            MarkdownPage::$sourceDirectory,
-            MarkdownPost::$sourceDirectory,
-            DocumentationPage::$sourceDirectory,
-        ]);
-
-        if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
-            foreach ($directories as $directory) {
-                $directory = "$name/".basename($directory);
-                if (self::isNonEmptyDirectory(Hyde::path($directory))) {
-                    $this->error('Directory already exists!');
-
-                    return 409;
+            if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
+                foreach ($directories as $directory) {
+                    $directory = "$name/".basename($directory);
+                    if (self::isNonEmptyDirectory(Hyde::path($directory))) {
+                        throw new FileConflictException(message: 'Directory already exists!');
+                    }
                 }
             }
+        } catch (FileConflictException $e) {
+            $this->error($e->getMessage());
+
+            return 409;
         }
 
         $this->comment('Creating directory');
