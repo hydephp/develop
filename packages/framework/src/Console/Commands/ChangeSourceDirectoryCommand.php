@@ -94,11 +94,11 @@ class ChangeSourceDirectoryCommand extends Command
         return $name;
     }
 
-    protected function validateDirectory(string $name, array $directories): void
+    protected function validateDirectory(string $name, array $pageDirectories): void
     {
         if (Filesystem::isDirectory($name) && !Filesystem::isEmptyDirectory($name)) {
             // If any of the subdirectories we want to move already exist, we need to abort
-            foreach ($directories as $directory) {
+            foreach ($pageDirectories as $directory) {
                 if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
                     throw new FileConflictException(message: 'Directory already exists!');
                 }
