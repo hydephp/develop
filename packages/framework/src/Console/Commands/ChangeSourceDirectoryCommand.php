@@ -125,8 +125,8 @@ class ChangeSourceDirectoryCommand extends Command
         return "$name/".basename($subdirectory);
     }
 
-    protected function directoryContainsFiles(string $directory): bool
+    protected function directoryContainsFiles(string $subdirectory): bool
     {
-        return is_file($directory) || (is_dir($directory) && (count(scandir($directory)) > 2));
+        return is_file($subdirectory) || (is_dir($subdirectory) && (count(scandir($subdirectory)) > 2));
     }
 }
