@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_unique;
+use function basename;
+use function config;
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileConflictException;
@@ -13,10 +16,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-
-use function array_unique;
-use function basename;
-use function config;
 use function is_dir;
 use function is_file;
 use function realpath;
