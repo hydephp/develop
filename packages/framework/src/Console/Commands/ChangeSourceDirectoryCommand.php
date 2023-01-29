@@ -89,9 +89,8 @@ class ChangeSourceDirectoryCommand extends Command
     protected function getValidatedName(string $name): string
     {
         $this->validateName($name);
-        $this->infoComment('Setting', $name, 'as the project source directory!');
-
         $this->validateDirectoryCanBeUsed($name, $this->getPageDirectories());
+        $this->infoComment('Setting', $name, 'as the project source directory!');
 
         return $name;
     }
