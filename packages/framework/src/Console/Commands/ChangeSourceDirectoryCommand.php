@@ -48,14 +48,7 @@ class ChangeSourceDirectoryCommand extends Command
                 DocumentationPage::$sourceDirectory,
             ]);
 
-            if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
-                foreach ($directories as $directory) {
-                    $directory = "$name/".basename($directory);
-                    if (self::isNonEmptyDirectory(Hyde::path($directory))) {
-                        throw new FileConflictException(message: 'Directory already exists!');
-                    }
-                }
-            }
+            $this->validateDirectory($name, $directories);
         } catch (FileConflictException $e) {
             $this->error($e->getMessage());
 
@@ -108,5 +101,17 @@ class ChangeSourceDirectoryCommand extends Command
         }
         $this->infoComment('Setting', $name, 'as the project source directory!');
         return $name;
+    }
+
+    protected function validateDirectory(string $name, array $directories): void
+    {
+        if (Filesystem::isDirectory($name) && !Filesystem::isEmptyDirectory($name)) {
+            foreach ($directories as $directory) {
+                $directory = "$name/".basename($directory);
+                if (self::isNonEmptyDirectory(Hyde::path($directory))) {
+                    throw new FileConflictException(message: 'Directory already exists!');
+                }
+            }
+        }
     }
 }
