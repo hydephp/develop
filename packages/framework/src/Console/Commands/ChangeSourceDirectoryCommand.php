@@ -111,7 +111,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function directoryContainsFiles(string $directory): bool
     {
-        return is_file($directory) ? true : is_dir($directory) && (count(scandir($directory)) > 2);
+        return is_file($directory) || is_dir($directory) && (count(scandir($directory)) > 2);
     }
 
     protected function getPageDirectories(): array
