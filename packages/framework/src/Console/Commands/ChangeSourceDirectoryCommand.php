@@ -91,7 +91,7 @@ class ChangeSourceDirectoryCommand extends Command
         $this->validateName($name);
         $this->infoComment('Setting', $name, 'as the project source directory!');
 
-        $this->validateDirectory($name, $this->getPageDirectories());
+        $this->validateDirectoryCanBeUsed($name, $this->getPageDirectories());
 
         return $name;
     }
@@ -103,7 +103,7 @@ class ChangeSourceDirectoryCommand extends Command
         }
     }
 
-    protected function validateDirectory(string $name, array $pageDirectories): void
+    protected function validateDirectoryCanBeUsed(string $name, array $pageDirectories): void
     {
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             // If any of the subdirectories we want to move already exist, we need to abort as we don't want to overwrite any existing files
