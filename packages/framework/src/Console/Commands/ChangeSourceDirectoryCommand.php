@@ -100,7 +100,7 @@ class ChangeSourceDirectoryCommand extends Command
             // If any of the subdirectories we want to move already exist, we need to abort
             foreach ($directories as $directory) {
                 $directory = $this->assembleNewSubdirectoryPath($name, $directory);
-                if (self::isNonEmptyDirectory(Hyde::path($directory))) {
+                if ($this->isNonEmptyDirectory(Hyde::path($directory))) {
                     throw new FileConflictException(message: 'Directory already exists!');
                 }
             }
@@ -112,7 +112,7 @@ class ChangeSourceDirectoryCommand extends Command
         return "$name/".basename($subdirectory);
     }
 
-    protected static function isNonEmptyDirectory(string $directory): bool
+    protected function isNonEmptyDirectory(string $directory): bool
     {
         if (is_file($directory)) {
             return true;
