@@ -10,6 +10,7 @@ use function config;
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileConflictException;
+use InvalidArgumentException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -39,7 +40,7 @@ class ChangeSourceDirectoryCommand extends Command
     {
         try {
             $name = $this->getNameInput();
-        } catch (FileConflictException $e) {
+        } catch (FileConflictException|InvalidArgumentException $e) {
             $this->error($e->getMessage());
 
             return 409;
@@ -78,7 +79,7 @@ class ChangeSourceDirectoryCommand extends Command
     {
         $name = (string) $this->argument('name');
         if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
-            throw new FileConflictException(message: "The directory '$name' is already set as the project source root!");
+            throw new InvalidArgumentException(message: "The directory '$name' is already set as the project source root!");
         }
         $this->infoComment('Setting', $name, 'as the project source directory!');
 
