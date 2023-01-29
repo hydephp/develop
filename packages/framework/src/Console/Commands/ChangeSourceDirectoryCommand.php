@@ -106,7 +106,7 @@ class ChangeSourceDirectoryCommand extends Command
     protected function validateDirectory(string $name, array $pageDirectories): void
     {
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
-            // If any of the subdirectories we want to move already exist, we need to abort
+            // If any of the subdirectories we want to move already exist, we need to abort as we don't want to overwrite any existing files
             // The reason we check these individually is mainly so that the change can be reverted (by setting the $name to '/')
             foreach ($pageDirectories as $directory) {
                 if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
