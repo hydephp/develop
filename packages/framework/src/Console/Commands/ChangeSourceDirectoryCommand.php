@@ -40,7 +40,7 @@ class ChangeSourceDirectoryCommand extends Command
         try {
             $name = $this->getNameInput();
 
-            $directories = array_unique([
+            $pageDirectories = array_unique([
                 HtmlPage::$sourceDirectory,
                 BladePage::$sourceDirectory,
                 MarkdownPage::$sourceDirectory,
@@ -48,7 +48,7 @@ class ChangeSourceDirectoryCommand extends Command
                 DocumentationPage::$sourceDirectory,
             ]);
 
-            $this->validateDirectory($name, $directories);
+            $this->validateDirectory($name, $pageDirectories);
         } catch (FileConflictException $e) {
             $this->error($e->getMessage());
 
@@ -60,7 +60,7 @@ class ChangeSourceDirectoryCommand extends Command
 
         $this->comment('Moving source directories');
 
-        foreach ($directories as $directory) {
+        foreach ($pageDirectories as $directory) {
             Filesystem::moveDirectory($directory, $this->assembleNewSubdirectoryPath($name, $directory));
         }
 
