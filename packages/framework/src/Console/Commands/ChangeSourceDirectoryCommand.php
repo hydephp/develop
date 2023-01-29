@@ -37,13 +37,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
-        $pageDirectories = array_unique([
-            HtmlPage::$sourceDirectory,
-            BladePage::$sourceDirectory,
-            MarkdownPage::$sourceDirectory,
-            MarkdownPost::$sourceDirectory,
-            DocumentationPage::$sourceDirectory,
-        ]);
+        $pageDirectories = $this->getPageDirectories();
 
         try {
             $name = $this->getNameInput();
@@ -118,5 +112,16 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         return is_dir($directory) && (count(scandir($directory)) > 2);
+    }
+
+    protected function getPageDirectories(): array
+    {
+        return array_unique([
+            HtmlPage::$sourceDirectory,
+            BladePage::$sourceDirectory,
+            MarkdownPage::$sourceDirectory,
+            MarkdownPost::$sourceDirectory,
+            DocumentationPage::$sourceDirectory,
+        ]);
     }
 }
