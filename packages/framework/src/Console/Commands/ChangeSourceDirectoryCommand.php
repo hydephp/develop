@@ -7,6 +7,11 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
@@ -32,11 +37,11 @@ class ChangeSourceDirectoryCommand extends Command
         $this->infoComment('Setting', $name, 'as the project source directory!');
 
         $directories = array_unique([
-            \Hyde\Pages\HtmlPage::$sourceDirectory,
-            \Hyde\Pages\BladePage::$sourceDirectory,
-            \Hyde\Pages\MarkdownPage::$sourceDirectory,
-            \Hyde\Pages\MarkdownPost::$sourceDirectory,
-            \Hyde\Pages\DocumentationPage::$sourceDirectory,
+            HtmlPage::$sourceDirectory,
+            BladePage::$sourceDirectory,
+            MarkdownPage::$sourceDirectory,
+            MarkdownPost::$sourceDirectory,
+            DocumentationPage::$sourceDirectory,
         ]);
 
         if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
