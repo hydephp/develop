@@ -38,7 +38,7 @@ class ChangeSourceDirectoryCommand extends Command
     public function handle(): int
     {
         try {
-            $name = $this->validatedName((string) $this->argument('name'));
+            $name = $this->getValidatedName((string) $this->argument('name'));
         } catch (InvalidArgumentException $exception) {
             $this->error($exception->getMessage());
 
@@ -86,7 +86,7 @@ class ChangeSourceDirectoryCommand extends Command
         ]);
     }
 
-    protected function validatedName(string $name): string
+    protected function getValidatedName(string $name): string
     {
         $this->validateName($name);
         $this->infoComment('Setting', $name, 'as the project source directory!');
