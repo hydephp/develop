@@ -13,6 +13,15 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 
+use function array_unique;
+use function basename;
+use function config;
+use function is_dir;
+use function is_file;
+use function realpath;
+use function scandir;
+use function str_replace;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
  */
