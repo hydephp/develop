@@ -9,13 +9,13 @@ use function basename;
 use function config;
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
-use InvalidArgumentException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use InvalidArgumentException;
 use function is_dir;
 use function is_file;
 use function realpath;
@@ -81,6 +81,7 @@ class ChangeSourceDirectoryCommand extends Command
         $this->infoComment('Setting', $name, 'as the project source directory!');
 
         $this->validateDirectory($name, $this->getPageDirectories());
+
         return $name;
     }
 
@@ -93,7 +94,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function validateDirectory(string $name, array $pageDirectories): void
     {
-        if (Filesystem::isDirectory($name) && !Filesystem::isEmptyDirectory($name)) {
+        if (Filesystem::isDirectory($name) && ! Filesystem::isEmptyDirectory($name)) {
             // If any of the subdirectories we want to move already exist, we need to abort
             foreach ($pageDirectories as $directory) {
                 if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
