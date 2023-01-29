@@ -84,15 +84,6 @@ class ChangeSourceDirectoryCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected static function isNonEmptyDirectory(string $directory): bool
-    {
-        if (is_file($directory)) {
-            return true;
-        }
-
-        return is_dir($directory) && (count(scandir($directory)) > 2);
-    }
-
     protected function getNameInput(): string
     {
         $name = (string) $this->argument('name');
@@ -119,5 +110,14 @@ class ChangeSourceDirectoryCommand extends Command
     protected function assembleNewSubdirectoryPath(string $name, string $subdirectory): string
     {
         return "$name/".basename($subdirectory);
+    }
+
+    protected static function isNonEmptyDirectory(string $directory): bool
+    {
+        if (is_file($directory)) {
+            return true;
+        }
+
+        return is_dir($directory) && (count(scandir($directory)) > 2);
     }
 }
