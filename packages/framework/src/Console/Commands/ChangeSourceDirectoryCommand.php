@@ -37,12 +37,10 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
-        $pageDirectories = $this->getPageDirectories();
-
         try {
             $name = $this->getNameInput();
 
-            $this->validateDirectory($name, $pageDirectories);
+            $this->validateDirectory($name, $this->getPageDirectories());
         } catch (FileConflictException $e) {
             $this->error($e->getMessage());
 
@@ -54,7 +52,7 @@ class ChangeSourceDirectoryCommand extends Command
 
         $this->comment('Moving source directories');
 
-        foreach ($pageDirectories as $directory) {
+        foreach ($this->getPageDirectories() as $directory) {
             Filesystem::moveDirectory($directory, $this->assembleNewSubdirectoryPath($name, $directory));
         }
 
