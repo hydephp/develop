@@ -9,7 +9,6 @@ use function basename;
 use function config;
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Exceptions\FileConflictException;
 use InvalidArgumentException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -41,7 +40,7 @@ class ChangeSourceDirectoryCommand extends Command
     {
         try {
             $name = $this->getNameInput();
-        } catch (FileConflictException|InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->error($exception->getMessage());
 
             return 409;
@@ -76,7 +75,6 @@ class ChangeSourceDirectoryCommand extends Command
         return Command::SUCCESS;
     }
 
-    /** @throws \Hyde\Framework\Exceptions\FileConflictException */
     protected function getNameInput(): string
     {
         $name = (string) $this->argument('name');
@@ -95,7 +93,7 @@ class ChangeSourceDirectoryCommand extends Command
             // If any of the subdirectories we want to move already exist, we need to abort
             foreach ($pageDirectories as $directory) {
                 if ($this->directoryContainsFiles(Hyde::path($this->assembleNewSubdirectoryPath($name, $directory)))) {
-                    throw new FileConflictException(message: 'Directory already exists!');
+                    throw new InvalidArgumentException(message: 'Directory already exists!');
                 }
             }
         }
