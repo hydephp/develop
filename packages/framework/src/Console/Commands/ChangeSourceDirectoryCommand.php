@@ -37,16 +37,16 @@ class ChangeSourceDirectoryCommand extends Command
 
     public function handle(): int
     {
+        $pageDirectories = array_unique([
+            HtmlPage::$sourceDirectory,
+            BladePage::$sourceDirectory,
+            MarkdownPage::$sourceDirectory,
+            MarkdownPost::$sourceDirectory,
+            DocumentationPage::$sourceDirectory,
+        ]);
+
         try {
             $name = $this->getNameInput();
-
-            $pageDirectories = array_unique([
-                HtmlPage::$sourceDirectory,
-                BladePage::$sourceDirectory,
-                MarkdownPage::$sourceDirectory,
-                MarkdownPost::$sourceDirectory,
-                DocumentationPage::$sourceDirectory,
-            ]);
 
             $this->validateDirectory($name, $pageDirectories);
         } catch (FileConflictException $e) {
