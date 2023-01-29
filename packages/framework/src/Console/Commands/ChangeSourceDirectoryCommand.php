@@ -113,7 +113,7 @@ class ChangeSourceDirectoryCommand extends Command
             // If any of the subdirectories we want to move already exist, we need to abort as we don't want to overwrite any existing files
             // The reason we check these individually is mainly so that the change can be reverted (by setting the $name to '/')
             foreach ($pageDirectories as $directory) {
-                if ($this->directoryContainsFiles(Hyde::path($this->assembleSubdirectoryPath($name, $directory)))) {
+                if ($this->directoryContainsFiles($this->assembleSubdirectoryPath($name, $directory))) {
                     throw new InvalidArgumentException('Directory already exists!');
                 }
             }
@@ -122,7 +122,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function assembleSubdirectoryPath(string $name, string $subdirectory): string
     {
-        return "$name/".basename($subdirectory);
+        return Hyde::path("$name/".basename($subdirectory));
     }
 
     protected function directoryContainsFiles(string $subdirectory): bool
