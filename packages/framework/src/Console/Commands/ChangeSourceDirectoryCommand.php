@@ -114,6 +114,7 @@ class ChangeSourceDirectoryCommand extends Command
         return is_file($directory) || (is_dir($directory) && (count(scandir($directory)) > 2));
     }
 
+    /** @return string[] */
     protected function getPageDirectories(): array
     {
         return array_unique([
