@@ -38,11 +38,7 @@ class ChangeSourceDirectoryCommand extends Command
     public function handle(): int
     {
         try {
-            $name = (string) $this->argument('name');
-            if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
-                throw new FileConflictException(message: "The directory '$name' is already set as the project source root!");
-            }
-            $this->infoComment('Setting', $name, 'as the project source directory!');
+            $name = $this->getNameInput();
 
             $directories = array_unique([
                 HtmlPage::$sourceDirectory,
@@ -102,5 +98,15 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         return is_dir($directory) && (count(scandir($directory)) > 2);
+    }
+
+    protected function getNameInput(): string
+    {
+        $name = (string) $this->argument('name');
+        if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
+            throw new FileConflictException(message: "The directory '$name' is already set as the project source root!");
+        }
+        $this->infoComment('Setting', $name, 'as the project source directory!');
+        return $name;
     }
 }
