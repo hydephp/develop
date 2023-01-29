@@ -33,7 +33,6 @@ class ChangeSourceDirectoryCommand extends Command
     /** @var string */
     protected $description = 'Change the source directory for your project.';
 
-    /** @var true */
     protected $hidden = true;
 
     public function handle(): int
