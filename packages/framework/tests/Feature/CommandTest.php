@@ -127,9 +127,14 @@ class CommandTest extends TestCase
         $command->handle();
     }
 
-    public function testSafeHandle()
+    public function testHandleCallsBaseSafeHandle()
     {
-        $this->assertSame(0, (new SafeTestCommand())->handle());
+        $this->assertSame(0, (new TestCommand())->handle());
+    }
+
+    public function testHandleCallsChildSafeHandle()
+    {
+        $this->assertSame(1, (new SafeHandleTestCommand())->handle());
     }
 
     public function testSafeHandleException()
@@ -211,9 +216,17 @@ class MockableTestCommand extends Command
     }
 }
 
-class SafeTestCommand extends Command
+class TestCommand extends Command
 {
     //
+}
+
+class SafeHandleTestCommand extends Command
+{
+    public function safeHandle(): int
+    {
+        return 1;
+    }
 }
 
 class SafeThrowingTestCommand extends Command
