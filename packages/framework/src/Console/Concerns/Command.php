@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
+use Exception;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 
@@ -13,6 +14,18 @@ use LaravelZero\Framework\Commands\Command as BaseCommand;
 abstract class Command extends BaseCommand
 {
     public const USER_EXIT = 130;
+
+    /**
+     * @return int The exit code.
+     */
+    public function handle(): int
+    {
+        try {
+            return $this->safeHandle();
+        } catch (Exception $exception) {
+            return $this->handleException($exception);
+        }
+    }
 
     /**
      * Create a filepath that can be opened in the browser from a terminal.
