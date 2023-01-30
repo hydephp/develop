@@ -9,7 +9,7 @@ use function array_merge;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use function in_array;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 use RuntimeException;
 use function str_ends_with;
 use function ucfirst;
