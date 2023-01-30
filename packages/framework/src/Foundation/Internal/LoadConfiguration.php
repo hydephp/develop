@@ -12,7 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 class LoadConfiguration extends \Illuminate\Foundation\Bootstrap\LoadConfiguration
 {
     /**
-     * Get all of the configuration files for the application.
+     * Get all the configuration files for the application.
      */
     protected function getConfigurationFiles(Application $app): array
     {
