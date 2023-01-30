@@ -22,10 +22,19 @@ abstract class Command extends BaseCommand
 
     /**
      * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
+     *
+     * Text in [brackets] will automatically be wrapped in <comment> tags.
      */
-    public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
+    public function infoComment(string $string): void
     {
-        $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
+        $replacements = [
+            '[' => '</info>[<comment>',
+            ']' => '</comment>]<info>',
+        ];
+
+        $string = str_replace(array_keys($replacements), array_values($replacements), $string);
+
+        $this->line("<info>$string</info>");
     }
 
     /** @experimental This method may change (or be removed) before the 1.0.0 release */

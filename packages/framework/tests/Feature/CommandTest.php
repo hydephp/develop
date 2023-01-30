@@ -37,12 +37,12 @@ class CommandTest extends TestCase
     {
         $command = new MockableTestCommand();
         $command->closure = function (Command $command) {
-            $command->infoComment('foo', 'bar');
+            $command->infoComment('foo [bar]');
         };
 
         $output = $this->mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo</info> [<comment>bar</comment>]';
+            return $message === '<info>foo </info>[<comment>bar</comment>]<info></info>';
         });
 
         $command->setMockedOutput($output);
@@ -53,12 +53,28 @@ class CommandTest extends TestCase
     {
         $command = new MockableTestCommand();
         $command->closure = function (Command $command) {
-            $command->infoComment('foo', 'bar', 'baz');
+            $command->infoComment('foo [bar] baz');
         };
 
         $output = $this->mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo</info> [<comment>bar</comment>] <info>baz</info>';
+            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz</info>';
+        });
+
+        $command->setMockedOutput($output);
+        $command->handle();
+    }
+
+    public function testInfoCommentWithExtraInfoAndComments()
+    {
+        $command = new MockableTestCommand();
+        $command->closure = function (Command $command) {
+            $command->infoComment('foo [bar] baz [qux]');
+        };
+
+        $output = $this->mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
+            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz </info>[<comment>qux</comment>]<info></info>';
         });
 
         $command->setMockedOutput($output);
