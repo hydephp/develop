@@ -113,7 +113,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function directoryContainsFiles(string $subdirectory): bool
     {
-        return ! Filesystem::isEmptyDirectory($subdirectory);
+        return Filesystem::isDirectory($subdirectory) && ! Filesystem::isEmptyDirectory($subdirectory);
     }
 
     protected function updateConfigurationFile(string $newDirectoryName, string $currentDirectoryName): void
