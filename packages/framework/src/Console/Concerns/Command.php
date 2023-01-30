@@ -22,6 +22,7 @@ abstract class Command extends BaseCommand
 
     /**
      * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
+     * @deprecated Use the dynamicInfoComment() method instead
      */
     public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
     {
