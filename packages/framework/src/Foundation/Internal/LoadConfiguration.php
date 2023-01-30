@@ -6,14 +6,10 @@ namespace Hyde\Foundation\Internal;
 
 use Illuminate\Contracts\Foundation\Application;
 
-/**
- * @internal
- */
+/** @internal */
 class LoadConfiguration extends \Illuminate\Foundation\Bootstrap\LoadConfiguration
 {
-    /**
-     * Get all the configuration files for the application.
-     */
+    /** Get all the configuration files for the application. */
     protected function getConfigurationFiles(Application $app): array
     {
         $files = parent::getConfigurationFiles($app);

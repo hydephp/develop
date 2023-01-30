@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
-/**
- * @internal
- */
+/** @internal */
 class Kernel extends \LaravelZero\Framework\Kernel
 {
-    /**
-     * Get the bootstrap classes for the application.
-     */
+    /** Get the bootstrap classes for the application. */
     protected function bootstrappers(): array
     {
         // Combine the parent bootstrappers into an associative array, so we can easily access them by class name.
