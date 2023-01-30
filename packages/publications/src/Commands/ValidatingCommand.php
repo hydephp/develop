@@ -17,8 +17,6 @@ use function ucfirst;
 /**
  * @internal An extended Command class that provides validation methods.
  *
- * @todo Refactor to extend our base command to reduce repeated code. Some code can also be moved to the base command.
- *
  * @see \Hyde\Framework\Testing\Feature\ValidatingCommandTest
  */
 class ValidatingCommand extends Command
