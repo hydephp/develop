@@ -11,10 +11,8 @@ class Kernel extends \LaravelZero\Framework\Kernel
 {
     /**
      * Get the bootstrap classes for the application.
-     *
-     * @return array
      */
-    protected function bootstrappers()
+    protected function bootstrappers(): array
     {
         // Combine the parent bootstrappers into an associative array, so we can easily access them by class name.
         $array = array_combine(parent::bootstrappers(), parent::bootstrappers());
