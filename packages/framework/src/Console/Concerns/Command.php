@@ -7,7 +7,6 @@ namespace Hyde\Console\Concerns;
 use function config;
 use Exception;
 use Hyde\Hyde;
-use JetBrains\PhpStorm\Deprecated;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 use function sprintf;
 
