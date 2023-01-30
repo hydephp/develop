@@ -103,7 +103,7 @@ class ChangeSourceDirectoryCommand extends Command
             // The reason we check these individually is mainly so that the change can be reverted (by setting the $name to '/')
             foreach ($this->getPageDirectories() as $directory) {
                 $subdirectoryPath = $this->assembleSubdirectoryPath($name, $directory);
-                if (is_file($subdirectoryPath) || $this->directoryContainsFiles($subdirectoryPath)) {
+                if (Filesystem::isFile($subdirectoryPath) || $this->directoryContainsFiles($subdirectoryPath)) {
                     throw new InvalidArgumentException('Directory already exists!');
                 }
             }
