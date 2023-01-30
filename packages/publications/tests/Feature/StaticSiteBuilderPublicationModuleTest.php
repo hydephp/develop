@@ -26,7 +26,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
     {
         parent::setUp();
 
-        config(['app.throw_on_console_exception' => true]);
+        $this->throwOnConsoleException();
     }
 
     public function testCompilingWithPublicationTypeWithSeededFilesContainingAllFieldTypes()
