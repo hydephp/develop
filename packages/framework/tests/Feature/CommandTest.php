@@ -149,40 +149,10 @@ class CommandTest extends TestCase
         $this->assertSame(1, $code);
     }
 
-    public function testHandleException()
-    {
-        $command = new ThrowingTestCommand();
-        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>Error: This is a test</error>';
-        });
-
-        $command->setOutput($output);
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
-    }
-
-    public function testHandleExceptionWithErrorLocation()
-    {
-        $command = new ThrowingTestCommand();
-        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>Error: This is a test at TestClass.php:10</error>';
-        });
-
-        $command->setOutput($output);
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
-    }
-
     public function testCanEnableThrowOnException()
     {
         $this->throwOnConsoleException();
-        $command = new ThrowingTestCommand();
+        $command = new SafeThrowingTestCommand();
 
         $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
 
@@ -231,17 +201,5 @@ class SafeThrowingTestCommand extends Command
     public function safeHandle(): int
     {
         throw new RuntimeException('This is a test');
-    }
-}
-
-class ThrowingTestCommand extends Command
-{
-    public function handle(): int
-    {
-        try {
-            throw new RuntimeException('This is a test');
-        } catch (RuntimeException $exception) {
-            return $this->handleException($exception);
-        }
     }
 }
