@@ -64,7 +64,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
             ->expectsOutput('Creating directory')
             ->expectsOutput('Moving source directories')
             ->expectsOutput('Updating configuration file')
-            ->expectsOutput("Automatic configuration update failed, to finalize the change, please set the `source_root` setting to 'test' in `config/hyde.php`")
+            ->expectsOutput("Warning: Automatic configuration update failed, to finalize the change, please set the `source_root` setting to 'test' in `config/hyde.php`")
             ->expectsOutput('All done!')
             ->assertExitCode(0);
 
