@@ -19,6 +19,11 @@ abstract class Command extends BaseCommand
     public const USER_EXIT = 130;
 
     /**
+     * The base handle method that can be overridden by child classes.
+     *
+     * Alternatively, implement the safeHandle method in your child class
+     * to utilize the automatic exception handling provided by this method.
+     *
      * @return int The exit code.
      */
     public function handle(): int
