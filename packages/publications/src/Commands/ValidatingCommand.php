@@ -24,18 +24,6 @@ class ValidatingCommand extends Command
     /** @var int How many times can the validation loop run? It is high enough to not affect normal usage. */
     protected final const MAX_RETRIES = 30;
 
-
-    /**
-     * This method can be overridden by child classes to provide automatic exception handling.
-     * Existing code can be converted simply by renaming the handle() method to safeHandle().
-     *
-     * @return int The exit code.
-     */
-    protected function safeHandle(): int
-    {
-        return Command::SUCCESS;
-    }
-
     /**
      * Ask for a CLI input value until we pass validation rules.
      *

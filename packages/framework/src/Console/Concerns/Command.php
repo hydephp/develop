@@ -28,6 +28,17 @@ abstract class Command extends BaseCommand
     }
 
     /**
+     * This method can be overridden by child classes to provide automatic exception handling.
+     * Existing code can be converted simply by renaming the handle() method to safeHandle().
+     *
+     * @return int The exit code.
+     */
+    protected function safeHandle(): int
+    {
+        return Command::SUCCESS;
+    }
+
+    /**
      * Create a filepath that can be opened in the browser from a terminal.
      */
     public static function createClickableFilepath(string $filepath): string
