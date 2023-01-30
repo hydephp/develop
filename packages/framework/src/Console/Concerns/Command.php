@@ -6,6 +6,7 @@ namespace Hyde\Console\Concerns;
 
 use Exception;
 use Hyde\Hyde;
+use JetBrains\PhpStorm\Deprecated;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 
 use function config;
@@ -53,7 +54,7 @@ abstract class Command extends BaseCommand
      * @param  string|null  $file  The file where the exception occurred. Leave null to auto-detect.
      * @return int The exit code
      */
-    public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
+    public function handleException(Exception $exception, #[Deprecated(reason: 'Only used in tests')]?string $file = null, #[Deprecated(reason: 'Only used in tests')]?int $line = null): int
     {
         // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
         if (config('app.throw_on_console_exception', false)) {
