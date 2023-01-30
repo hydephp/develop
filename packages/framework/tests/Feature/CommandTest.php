@@ -65,6 +65,22 @@ class CommandTest extends TestCase
         $command->handle();
     }
 
+    public function testInfoCommentWithExtraInfoAndComments()
+    {
+        $command = new MockableTestCommand();
+        $command->closure = function (Command $command) {
+            $command->infoComment('foo [bar] baz [qux]');
+        };
+
+        $output = $this->mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
+            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz </info>[<comment>qux</comment>]<info></info>';
+        });
+
+        $command->setMockedOutput($output);
+        $command->handle();
+    }
+
     public function testGray()
     {
         $command = new MockableTestCommand();
