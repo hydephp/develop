@@ -13,8 +13,6 @@ class LoadConfiguration extends \Illuminate\Foundation\Bootstrap\LoadConfigurati
 {
     /**
      * Get all of the configuration files for the application.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
      */
     protected function getConfigurationFiles(Application $app): array
     {
