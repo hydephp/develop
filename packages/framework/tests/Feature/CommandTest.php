@@ -174,7 +174,7 @@ class CommandTest extends TestCase
         });
 
         $command->setOutput($output);
-        $code = $command->handle('TestClass.php', 10);
+        $code = $command->handle();
 
         $this->assertSame(1, $code);
     }
@@ -236,12 +236,12 @@ class SafeThrowingTestCommand extends Command
 
 class ThrowingTestCommand extends Command
 {
-    public function handle(?string $file = 'TestCommand.php', ?int $line = null): int
+    public function handle(): int
     {
         try {
             throw new RuntimeException('This is a test');
         } catch (RuntimeException $exception) {
-            return $this->handleException($exception, $file, $line);
+            return $this->handleException($exception);
         }
     }
 }
