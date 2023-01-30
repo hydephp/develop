@@ -28,7 +28,7 @@ abstract class Command extends BaseCommand
     #[Deprecated('Use the dynamicInfoComment() method instead', replacement: '$this->dynamicInfoComment("%parameter0% [%parameter1%] %parameter2%")' )]
     public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
     {
-        $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
+        $moreInfo ? $this->dynamicInfoComment("$info [$comment] $moreInfo") : $this->dynamicInfoComment("$info [$comment]");
     }
 
     /**
