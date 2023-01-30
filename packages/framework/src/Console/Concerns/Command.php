@@ -25,7 +25,7 @@ abstract class Command extends BaseCommand
      * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
      * @deprecated Use the dynamicInfoComment() method instead
      */
-    #[Deprecated('Use the dynamicInfoComment() method instead', replacement: '$this->dynamicInfoComment("$info [$comment] $moreInfo")' )]
+    #[Deprecated('Use the dynamicInfoComment() method instead', replacement: '$this->dynamicInfoComment("%parameter0% [%parameter1%] %parameter2%")' )]
     public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
     {
         $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
