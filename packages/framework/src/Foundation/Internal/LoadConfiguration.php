@@ -21,6 +21,7 @@ class LoadConfiguration extends \Illuminate\Foundation\Bootstrap\LoadConfigurati
     {
         $files = parent::getConfigurationFiles($app);
 
+        // Inject our custom config file which is stored in `app/config.php`.
         $files['app'] = $app->basePath().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'config.php';
 
         return $files;
