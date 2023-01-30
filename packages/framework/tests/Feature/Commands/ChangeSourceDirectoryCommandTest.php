@@ -19,9 +19,9 @@ class ChangeSourceDirectoryCommandTest extends TestCase
 
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
-            ->expectsOutput('Creating directory')
-            ->expectsOutput('Moving source directories')
-            ->expectsOutput('Updating configuration file')
+            ->expectsOutput(' > Creating directory')
+            ->expectsOutput(' > Moving source directories')
+            ->expectsOutput(' > Updating configuration file')
             ->expectsOutput('All done!')
             ->assertExitCode(0);
 
@@ -61,10 +61,10 @@ class ChangeSourceDirectoryCommandTest extends TestCase
 
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
-            ->expectsOutput('Creating directory')
-            ->expectsOutput('Moving source directories')
-            ->expectsOutput('Updating configuration file')
-            ->expectsOutput("Automatic configuration update failed, to finalize the change, please set the `source_root` setting to 'test' in `config/hyde.php`")
+            ->expectsOutput(' > Creating directory')
+            ->expectsOutput(' > Moving source directories')
+            ->expectsOutput(' > Updating configuration file')
+            ->expectsOutput("Warning: Automatic configuration update failed, to finalize the change, please set the `source_root` setting to 'test' in `config/hyde.php`")
             ->expectsOutput('All done!')
             ->assertExitCode(0);
 
@@ -104,19 +104,26 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         $this->file('test/_pages/foo');
 
         $this->artisan('change:sourceDirectory test')
-            ->expectsOutput('Setting [test] as the project source directory!')
+            ->expectsOutput('Directory already exists!')
+            ->assertExitCode(409);
+    }
+
+    public function test_with_target_containing_subdirectory_file()
+    {
+        $this->directory('test');
+        $this->file('test/_pages');
+
+        $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Directory already exists!')
             ->assertExitCode(409);
     }
 
     public function test_with_target_being_file()
     {
-        $this->directory('test');
-        $this->file('test/_pages');
+        $this->file('test');
 
         $this->artisan('change:sourceDirectory test')
-            ->expectsOutput('Setting [test] as the project source directory!')
-            ->expectsOutput('Directory already exists!')
+            ->expectsOutput('A file already exists at this path!')
             ->assertExitCode(409);
     }
 }
