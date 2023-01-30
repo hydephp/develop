@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
+use function config;
 use Exception;
 use Hyde\Hyde;
 use JetBrains\PhpStorm\Deprecated;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
-
-use function config;
 use function sprintf;
 
 /**

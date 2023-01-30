@@ -6,12 +6,10 @@ namespace Hyde\Publications\Commands;
 
 use function __;
 use function array_merge;
-use Exception;
 use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Validator;
 use function in_array;
 use RuntimeException;
-use function str_ends_with;
 use function ucfirst;
 
 /**
