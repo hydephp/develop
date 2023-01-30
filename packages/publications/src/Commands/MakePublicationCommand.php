@@ -155,7 +155,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $tagGroup = $field->tagGroup ?? throw new InvalidArgumentException("Tag field '$field->name' is missing the 'tagGroup' property");
-        $this->infoComment("Select a tag for field [$field->name] from the $tagGroup group");
+        $this->infoComment(/** @lang Text */ "Select a tag for field [$field->name] from the $tagGroup group");
 
         $options = PublicationService::getValuesForTagName($tagGroup);
         if ($options->isEmpty()) {
