@@ -15,6 +15,8 @@ use Hyde\Hyde;
  * Hyde Command to build a single static site file.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\RebuildStaticSiteCommandTest
+ *
+ * @todo Refactor to use newer helpers
  */
 class RebuildStaticSiteCommand extends Command
 {

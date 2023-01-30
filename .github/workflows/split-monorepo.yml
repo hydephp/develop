@@ -16,6 +16,7 @@ jobs:
 
   hyde:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/hyde
       url: https://github.com/hydephp/hyde/tree/master
@@ -56,26 +57,34 @@ jobs:
         rm -rf hyde/monorepo -v
         rm hyde/CHANGELOG.md -v
         rm hyde/phpunit.dusk.xml -v
+        rm hyde/phpunit.xml.dist -v
         rm hyde/psalm.xml -v
         rm hyde/psalm-baseline.xml -v
         rm hyde/rector.php -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd hyde
+        if ! git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
 
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream develop
-
+        echo "No changes to this package. Exiting gracefully."
 
   framework:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/framework
       url: https://github.com/hydephp/framework/tree/master
@@ -103,21 +112,28 @@ jobs:
       run: cp -rf develop/packages/framework/. framework -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd framework
+        if ! git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
 
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream develop
-
+        echo "No changes to this package. Exiting gracefully."
 
   realtime-compiler:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/realtime-compiler
       url: https://github.com/realtime-compiler/hyde/tree/master
@@ -145,21 +161,27 @@ jobs:
       run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd realtime-compiler
+        if ! git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
 
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
 
-
   hydefront:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/hydefront
       url: https://github.com/hydephp/hydefront/tree/master
@@ -187,21 +209,27 @@ jobs:
       run: cp -rf develop/packages/hydefront/. hydefront -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd hydefront
+        if ! git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
 
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
 
-
   docs:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/docs
       url: https://github.com/hydephp/hydephp.com/tree/upcoming
@@ -234,21 +262,28 @@ jobs:
         rm website/_docs/README.markdown
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd website
+        if ! git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
 
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream upcoming
-
+        echo "No changes to this package. Exiting gracefully."
 
   testing:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/testing
       url: https://github.com/hydephp/testing/tree/master
@@ -276,21 +311,27 @@ jobs:
       run: cp -rf develop/packages/testing/. testing -v
 
     - name: Commit and push changes
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         cd testing
+        if ! git diff-index --quiet HEAD --; then
+          echo "No changes to this package. Exiting gracefully.";
+          exit 0;
+        fi
 
         git config user.name github-actions
         git config user.email github-actions@github.com
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
         git push upstream master
 
-
   ui-kit:
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: hydephp/ui-kit
       url: https://github.com/hydephp/ui-kit/tree/master
@@ -318,15 +359,19 @@ jobs:
         run: cp -rf develop/packages/ui-kit/. ui-kit -v
 
       - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           cd ui-kit
+          
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
 
           git config user.name github-actions
           git config user.email github-actions@github.com
           git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
 
           git add .
-          git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
-
-          git push upstream master
-
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
