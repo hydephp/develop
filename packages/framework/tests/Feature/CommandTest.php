@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Closure;
+use function config;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Mockery;
 use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
-
-use function config;
 
 /**
  * @covers \Hyde\Console\Concerns\Command
@@ -196,7 +195,6 @@ class CommandTest extends TestCase
 
         $this->assertSame(1, $code);
     }
-
 }
 
 class MockableTestCommand extends Command
