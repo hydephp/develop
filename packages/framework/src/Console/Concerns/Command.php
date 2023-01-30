@@ -50,10 +50,9 @@ abstract class Command extends BaseCommand
     /**
      * Handle an exception that occurred during command execution.
      *
-     * @param  string|null  $file  The file where the exception occurred. Leave null to auto-detect.
      * @return int The exit code
      */
-    public function handleException(Exception $exception, #[Deprecated(reason: 'Only used in tests')]?string $file = null, #[Deprecated(reason: 'Only used in tests')]?int $line = null): int
+    public function handleException(Exception $exception): int
     {
         // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
         if (config('app.throw_on_console_exception', false)) {
@@ -61,11 +60,11 @@ abstract class Command extends BaseCommand
         }
 
         // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
-        if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
+        if (str_ends_with($exception->getFile(), 'Command.php')) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
             $this->error("Error: {$exception->getMessage()} at ".sprintf('%s:%s',
-                $file ?? $exception->getFile(), $line ?? $exception->getLine()
+                $exception->getFile(), $exception->getLine()
             ));
         }
 
