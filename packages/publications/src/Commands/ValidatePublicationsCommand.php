@@ -122,7 +122,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
     protected function displayResults(): void
     {
         foreach ($this->results as $publicationTypeName => $publications) {
-            $this->infoComment('Validating publication type', $publicationTypeName);
+            $this->infoComment("Validating publication type [$publicationTypeName]");
             foreach ($publications ?? [] as $publicationName => $errors) {
                 $this->displayPublicationResults($publicationName, $errors);
             }

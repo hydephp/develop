@@ -81,7 +81,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
     protected function displayResults(): void
     {
         foreach ($this->results as $name => $errors) {
-            $this->infoComment('Validating schema file for', $name);
+            $this->infoComment("Validating schema file for [$name]");
 
             $schemaErrors = $errors['schema'];
             if (empty($schemaErrors)) {

@@ -243,38 +243,6 @@ class ValidatingCommandTest extends TestCase
         $this->assertSame(1, $code);
     }
 
-    public function testInfoComment()
-    {
-        $command = new DynamicValidatingTestCommand();
-        $command->closure = function (ValidatingCommand $command) {
-            $command->infoComment('foo', 'bar');
-        };
-        $output = Mockery::mock(OutputStyle::class);
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<info>foo</info> [<comment>bar</comment>]';
-        });
-
-        $command->setOutput($output);
-        $command->handle();
-    }
-
-    public function testInfoCommentWithExtraInfo()
-    {
-        $command = new DynamicValidatingTestCommand();
-        $command->closure = function (ValidatingCommand $command) {
-            $command->infoComment('foo', 'bar', 'baz');
-        };
-        $output = Mockery::mock(OutputStyle::class);
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<info>foo</info> [<comment>bar</comment>] <info>baz</info>';
-        });
-
-        $command->setOutput($output);
-        $command->handle();
-    }
-
     protected function assertEqualsAsBoolean($expected, $question): bool
     {
         try {
