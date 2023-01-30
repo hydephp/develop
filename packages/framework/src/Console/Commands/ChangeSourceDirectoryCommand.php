@@ -112,7 +112,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function assembleSubdirectoryPath(string $name, string $subdirectory): string
     {
-        return Hyde::path("$name/".basename($subdirectory));
+        return "$name/".basename($subdirectory);
     }
 
     protected function directoryContainsFiles(string $subdirectory): bool
