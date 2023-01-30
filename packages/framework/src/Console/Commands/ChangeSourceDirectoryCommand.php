@@ -46,7 +46,6 @@ class ChangeSourceDirectoryCommand extends Command
         Filesystem::ensureDirectoryExists($newDirectoryName);
 
         $this->comment('Moving source directories');
-
         foreach ($this->getPageDirectories() as $directory) {
             Filesystem::moveDirectory($directory, $this->assembleSubdirectoryPath($newDirectoryName, $directory));
         }
