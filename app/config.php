@@ -98,6 +98,7 @@ return [
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
         'DocumentationPage' => \Hyde\Pages\DocumentationPage::class,
         'Filesystem' => \Hyde\Facades\Filesystem::class,
+        'MarkdownCollection' => \Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection::class,
     ],
 
 ];

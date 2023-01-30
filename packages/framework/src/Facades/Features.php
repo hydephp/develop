@@ -80,11 +80,6 @@ class Features implements SerializableContract
         return static::enabled(static::documentationPages());
     }
 
-    public static function hasDataCollections(): bool
-    {
-        return static::enabled(static::dataCollections());
-    }
-
     public static function hasDocumentationSearch(): bool
     {
         return static::enabled(static::documentationSearch())
@@ -140,11 +135,6 @@ class Features implements SerializableContract
     public static function documentationSearch(): string
     {
         return 'documentation-search';
-    }
-
-    public static function dataCollections(): string
-    {
-        return 'data-collections';
     }
 
     public static function darkmode(): string
