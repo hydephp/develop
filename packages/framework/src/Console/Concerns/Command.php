@@ -60,7 +60,7 @@ abstract class Command extends BaseCommand
         }
 
         // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
-        $location = str_ends_with($exception->getFile(), 'Command.php') ? '' : " at ".sprintf('%s:%s',
+        $location = str_ends_with($exception->getFile(), 'Command.php') ? '' : sprintf(' at %s:%s',
                 $exception->getFile(), $exception->getLine()
             );
         $this->error("Error: {$exception->getMessage()}".$location);
