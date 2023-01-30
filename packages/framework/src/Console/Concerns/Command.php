@@ -28,6 +28,21 @@ abstract class Command extends BaseCommand
         $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
     }
 
+    /**
+     * Dynamically create an infoComment from a single string.
+     */
+    public function dynamicInfoComment(string $string): void
+    {
+        $replacements = [
+            '[' => '</info>[<comment>',
+            ']' => '</comment>]<info>',
+        ];
+
+        $string = str_replace(array_keys($replacements), array_values($replacements), $string);
+
+        $this->line("<info>$string</info>");
+    }
+
     /** @experimental This method may change (or be removed) before the 1.0.0 release */
     public function gray(string $string): void
     {
