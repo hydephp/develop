@@ -76,7 +76,7 @@ class ChangeSourceDirectoryCommand extends Command
     {
         $this->validateName($name);
         $this->validateDirectoryCanBeUsed($name);
-        $this->dynamicInfoComment("Setting [$name] as the project source directory!");
+        $this->infoComment("Setting [$name] as the project source directory!");
 
         return $name;
     }
