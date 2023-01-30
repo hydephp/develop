@@ -8,6 +8,9 @@ use Exception;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 
+use function config;
+use function sprintf;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\CommandTest
  */
@@ -36,6 +39,29 @@ abstract class Command extends BaseCommand
     protected function safeHandle(): int
     {
         return Command::SUCCESS;
+    }
+
+    /**
+     * Handle an exception that occurred during command execution.
+     *
+     * @param  string|null  $file  The file where the exception occurred. Leave null to auto-detect.
+     * @return int The exit code
+     */
+    public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
+    {
+        // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
+        if (config('app.throw_on_console_exception', false)) {
+            throw $exception;
+        }
+
+        // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
+        if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
+            $this->error("Error: {$exception->getMessage()}");
+        } else {
+            $this->error(sprintf('Error: %s at ', $exception->getMessage()).sprintf('%s:%s', $file ?? $exception->getFile(), $line ?? $exception->getLine()));
+        }
+
+        return Command::FAILURE;
     }
 
     /**
