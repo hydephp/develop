@@ -20,25 +20,6 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
  */
 class ValidatingCommandTest extends TestCase
 {
-    public function testSafeHandle()
-    {
-        $this->assertSame(0, (new SafeValidatingTestCommand())->handle());
-    }
-
-    public function testSafeHandleException()
-    {
-        $command = new SafeThrowingValidatingTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
-        });
-        $command->setOutput($output);
-
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
-    }
-
     public function testAskWithValidationCapturesInput()
     {
         $command = new ValidationTestCommand();
@@ -197,52 +178,6 @@ class ValidatingCommandTest extends TestCase
         $command->handle();
     }
 
-    public function testHandleException()
-    {
-        $command = new ThrowingValidatingTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>Error: This is a test</error>';
-        });
-
-        $command->setOutput($output);
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
-    }
-
-    public function testHandleExceptionWithErrorLocation()
-    {
-        $command = new ThrowingValidatingTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>Error: This is a test at TestClass.php:10</error>';
-        });
-
-        $command->setOutput($output);
-        $code = $command->handle('TestClass.php', 10);
-
-        $this->assertSame(1, $code);
-    }
-
-    public function testCanEnableThrowOnException()
-    {
-        config(['app.throw_on_console_exception' => true]);
-        $command = new ThrowingValidatingTestCommand();
-
-        $output = Mockery::mock(OutputStyle::class);
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('This is a test');
-
-        $command->setOutput($output);
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
-    }
-
     protected function assertEqualsAsBoolean($expected, $question): bool
     {
         try {
@@ -255,19 +190,6 @@ class ValidatingCommandTest extends TestCase
     }
 }
 
-class SafeValidatingTestCommand extends ValidatingCommand
-{
-    //
-}
-
-class SafeThrowingValidatingTestCommand extends ValidatingCommand
-{
-    public function safeHandle(): int
-    {
-        throw new RuntimeException('This is a test');
-    }
-}
-
 class ValidationTestCommand extends ValidatingCommand
 {
     public function handle(): int
@@ -276,18 +198,6 @@ class ValidationTestCommand extends ValidatingCommand
         $this->output->writeln("Hello $name!");
 
         return 0;
-    }
-}
-
-class ThrowingValidatingTestCommand extends ValidatingCommand
-{
-    public function handle(?string $file = 'TestCommand.php', ?int $line = null): int
-    {
-        try {
-            throw new RuntimeException('This is a test');
-        } catch (RuntimeException $exception) {
-            return $this->handleException($exception, $file, $line);
-        }
     }
 }
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Testing\Feature;
 
 use function array_merge;
-use function config;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Facades\Filesystem;
@@ -24,7 +23,7 @@ class MakePublicationCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        config(['app.throw_on_console_exception' => true]);
+        $this->throwOnConsoleException();
 
         Filesystem::makeDirectory('test-publication');
         Carbon::setTestNow(Carbon::create(2022));
@@ -54,7 +53,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_no_publication_types()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
@@ -167,7 +166,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_invalid_publication_type_passed_as_argument()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->makeSchemaFile();
 
         $this->artisan('make:publication foo')
@@ -376,7 +375,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_media_input_with_no_images()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -427,7 +426,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_tag_input_with_no_tags()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -480,7 +479,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_tag_input_for_field_without_tagGroup_specified()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -499,7 +498,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_handleEmptyOptionsCollection_for_required_field()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[

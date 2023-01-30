@@ -16,12 +16,12 @@ class ValidatePublicationTypesCommandTest extends TestCase
     {
         parent::setUp();
 
-        config(['app.throw_on_console_exception' => true]);
+        $this->throwOnConsoleException();
     }
 
     public function testWithNoPublicationTypes()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
 
         $this->artisan('validate:publicationTypes')
             ->expectsOutputToContain('Validating publication schemas!')
@@ -31,7 +31,7 @@ class ValidatePublicationTypesCommandTest extends TestCase
 
     public function testWithValidSchemaFile()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
 
         $this->directory('test-publication');
         $publicationType = new PublicationType('test-publication', fields: [

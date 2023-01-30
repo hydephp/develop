@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function config;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
@@ -26,7 +25,7 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         parent::setUp();
 
-        config(['app.throw_on_console_exception' => true]);
+        $this->throwOnConsoleException();
     }
 
     protected function tearDown(): void
@@ -171,7 +170,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
     public function test_with_existing_file_of_the_same_name()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
 
         $this->file('test-publication');
 
@@ -182,7 +181,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
     public function test_with_existing_publication_of_the_same_name()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
 
         $this->directory('test-publication');
         $this->file('test-publication/foo');
@@ -242,7 +241,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
     public function testWithTagFieldInputButNoTags()
     {
-        config(['app.throw_on_console_exception' => false]);
+        $this->throwOnConsoleException(false);
         $this->directory('test-publication');
 
         $this->artisan('make:publicationType "Test Publication"')

@@ -6,12 +6,10 @@ namespace Hyde\Publications\Commands;
 
 use function __;
 use function array_merge;
-use Exception;
 use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Validator;
 use function in_array;
 use RuntimeException;
-use function str_ends_with;
 use function ucfirst;
 
 /**
@@ -21,33 +19,8 @@ use function ucfirst;
  */
 class ValidatingCommand extends Command
 {
-    public const USER_EXIT = 130;
-
     /** @var int How many times can the validation loop run? It is high enough to not affect normal usage. */
     protected final const MAX_RETRIES = 30;
-
-    /**
-     * @return int The exit code.
-     */
-    public function handle(): int
-    {
-        try {
-            return $this->safeHandle();
-        } catch (Exception $exception) {
-            return $this->handleException($exception);
-        }
-    }
-
-    /**
-     * This method can be overridden by child classes to provide automatic exception handling.
-     * Existing code can be converted simply by renaming the handle() method to safeHandle().
-     *
-     * @return int The exit code.
-     */
-    protected function safeHandle(): int
-    {
-        return Command::SUCCESS;
-    }
 
     /**
      * Ask for a CLI input value until we pass validation rules.
@@ -92,29 +65,6 @@ class ValidatingCommand extends Command
         } while (in_array($reloadMessage, (array) $selection));
 
         return $selection;
-    }
-
-    /**
-     * Handle an exception that occurred during command execution.
-     *
-     * @param  string|null  $file  The file where the exception occurred. Leave null to auto-detect.
-     * @return int The exit code
-     */
-    public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
-    {
-        // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
-        if (config('app.throw_on_console_exception', false)) {
-            throw $exception;
-        }
-
-        // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
-        if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
-            $this->error("Error: {$exception->getMessage()}");
-        } else {
-            $this->error(sprintf('Error: %s at ', $exception->getMessage()).sprintf('%s:%s', $file ?? $exception->getFile(), $line ?? $exception->getLine()));
-        }
-
-        return Command::FAILURE;
     }
 
     protected function translate(string $name, string $error): string
