@@ -7,9 +7,9 @@ namespace Hyde\Publications\Commands;
 use function __;
 use function array_merge;
 use Exception;
+use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Validator;
 use function in_array;
-use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use function str_ends_with;
 use function ucfirst;
@@ -117,14 +117,6 @@ class ValidatingCommand extends Command
         }
 
         return Command::FAILURE;
-    }
-
-    /**
-     * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
-     */
-    public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
-    {
-        $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
     }
 
     protected function translate(string $name, string $error): string

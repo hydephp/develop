@@ -54,7 +54,7 @@ class MakePublicationTagCommand extends ValidatingCommand
     protected function getTagNameFromArgument(?string $value): ?string
     {
         if ($value) {
-            $this->infoComment('Using tag name', $value, 'from command line argument');
+            $this->infoComment("Using tag name [$value] from command line argument");
             $this->newLine();
 
             return $value;
@@ -87,9 +87,9 @@ class MakePublicationTagCommand extends ValidatingCommand
 
     protected function saveTagsToDisk(): void
     {
-        $this->infoComment('Saving tag data to',
+        $this->infoComment(sprintf('Saving tag data to [%s]',
             \Hyde\Console\Concerns\Command::createClickableFilepath('tags.yml')
-        );
+        ));
 
         (new PublicationTags)->addTagGroups($this->tags)->save();
     }
