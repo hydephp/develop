@@ -21,8 +21,6 @@ use function ucfirst;
  */
 class ValidatingCommand extends Command
 {
-    public const USER_EXIT = 130;
-
     /** @var int How many times can the validation loop run? It is high enough to not affect normal usage. */
     protected final const MAX_RETRIES = 30;
 
