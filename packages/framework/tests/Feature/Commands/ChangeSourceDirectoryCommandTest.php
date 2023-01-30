@@ -19,9 +19,9 @@ class ChangeSourceDirectoryCommandTest extends TestCase
 
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
-            ->expectsOutput('Creating directory')
-            ->expectsOutput('Moving source directories')
-            ->expectsOutput('Updating configuration file')
+            ->expectsOutput(' > Creating directory')
+            ->expectsOutput(' > Moving source directories')
+            ->expectsOutput(' > Updating configuration file')
             ->expectsOutput('All done!')
             ->assertExitCode(0);
 
@@ -61,9 +61,9 @@ class ChangeSourceDirectoryCommandTest extends TestCase
 
         $this->artisan('change:sourceDirectory test')
             ->expectsOutput('Setting [test] as the project source directory!')
-            ->expectsOutput('Creating directory')
-            ->expectsOutput('Moving source directories')
-            ->expectsOutput('Updating configuration file')
+            ->expectsOutput(' > Creating directory')
+            ->expectsOutput(' > Moving source directories')
+            ->expectsOutput(' > Updating configuration file')
             ->expectsOutput("Warning: Automatic configuration update failed, to finalize the change, please set the `source_root` setting to 'test' in `config/hyde.php`")
             ->expectsOutput('All done!')
             ->assertExitCode(0);
