@@ -8,7 +8,11 @@ use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Mockery;
+use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
+
+use function config;
 
 /**
  * @covers \Hyde\Console\Concerns\Command
@@ -122,6 +126,72 @@ class CommandTest extends TestCase
         $command->setMockedOutput($output);
         $command->handle();
     }
+
+    public function testSafeHandle()
+    {
+        $this->assertSame(0, (new SafeTestCommand())->handle());
+    }
+
+    public function testSafeHandleException()
+    {
+        $command = new SafeThrowingTestCommand();
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
+        });
+        $command->setOutput($output);
+
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testHandleException()
+    {
+        $command = new ThrowingTestCommand();
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test</error>';
+        });
+
+        $command->setOutput($output);
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testHandleExceptionWithErrorLocation()
+    {
+        $command = new ThrowingTestCommand();
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test at TestClass.php:10</error>';
+        });
+
+        $command->setOutput($output);
+        $code = $command->handle('TestClass.php', 10);
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testCanEnableThrowOnException()
+    {
+        config(['app.throw_on_console_exception' => true]);
+        $command = new ThrowingTestCommand();
+
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('This is a test');
+
+        $command->setOutput($output);
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
 }
 
 class MockableTestCommand extends Command
@@ -138,5 +208,30 @@ class MockableTestCommand extends Command
     public function setMockedOutput($output)
     {
         $this->output = $output;
+    }
+}
+
+class SafeTestCommand extends Command
+{
+    //
+}
+
+class SafeThrowingTestCommand extends Command
+{
+    public function safeHandle(): int
+    {
+        throw new RuntimeException('This is a test');
+    }
+}
+
+class ThrowingTestCommand extends Command
+{
+    public function handle(?string $file = 'TestCommand.php', ?int $line = null): int
+    {
+        try {
+            throw new RuntimeException('This is a test');
+        } catch (RuntimeException $exception) {
+            return $this->handleException($exception, $file, $line);
+        }
     }
 }
