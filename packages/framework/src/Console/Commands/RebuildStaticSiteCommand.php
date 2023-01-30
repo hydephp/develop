@@ -47,7 +47,7 @@ class RebuildStaticSiteCommand extends Command
         try {
             $this->validate();
         } catch (Exception $exception) {
-            return $this->customHandleException($exception);
+            return $this->handleException($exception);
         }
 
         (new RebuildService($this->path))->execute();
@@ -100,11 +100,9 @@ class RebuildStaticSiteCommand extends Command
     /**
      * Output the contents of an exception.
      *
-     * @fixme Refactor to use new base command helpers
-     *
      * @return int Error code
      */
-    public function customHandleException(Exception $exception): int
+    public function handleException(Exception $exception): int
     {
         $this->error('Something went wrong!');
         $this->warn($exception->getMessage());
