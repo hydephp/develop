@@ -54,7 +54,7 @@ class MakePublicationTagCommand extends ValidatingCommand
     protected function getTagNameFromArgument(?string $value): ?string
     {
         if ($value) {
-            $this->infoComment('Using tag name', $value, 'from command line argument');
+            $this->infoComment("Using tag name [$value] from command line argument");
             $this->newLine();
 
             return $value;

@@ -62,7 +62,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
         $creator->create();
 
-        $this->infoComment('All done! Created file', $creator->getOutputPath());
+        $this->infoComment("All done! Created file [{$creator->getOutputPath()}]");
 
         return Command::SUCCESS;
     }
@@ -128,21 +128,21 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationFieldDefinition $field): PublicationFieldValue
     {
-        $this->infoComment('Enter lines for field', $field->name, '</>(end with an empty line)');
+        $this->infoComment("Enter lines for field [$field->name]");
 
         return new PublicationFieldValue(PublicationFieldTypes::Text, implode("\n", InputStreamHandler::call()));
     }
 
     protected function captureArrayFieldInput(PublicationFieldDefinition $field): PublicationFieldValue
     {
-        $this->infoComment('Enter values for field', $field->name, '</>(end with an empty line)');
+        $this->infoComment("Enter values for field [$field->name]");
 
         return new PublicationFieldValue(PublicationFieldTypes::Array, InputStreamHandler::call());
     }
 
     protected function captureMediaFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $this->infoComment('Select file for image field', $field->name);
+        $this->infoComment("Select file for image field [$field->name]");
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
