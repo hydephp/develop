@@ -42,15 +42,15 @@ class ChangeSourceDirectoryCommand extends Command
             return 409;
         }
 
-        $this->comment('Creating directory');
+        $this->gray(' > Creating directory');
         Filesystem::ensureDirectoryExists($newDirectoryName);
 
-        $this->comment('Moving source directories');
+        $this->gray(' > Moving source directories');
         foreach ($this->getPageDirectories() as $directory) {
             Filesystem::moveDirectory($directory, $this->assembleSubdirectoryPath($newDirectoryName, $directory));
         }
 
-        $this->comment('Updating configuration file');
+        $this->gray(' > Updating configuration file');
         $this->updateConfigurationFile($newDirectoryName, (string) config('hyde.source_root', ''));
 
         // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
