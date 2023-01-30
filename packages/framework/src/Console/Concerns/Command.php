@@ -12,6 +12,8 @@ use LaravelZero\Framework\Commands\Command as BaseCommand;
  */
 abstract class Command extends BaseCommand
 {
+    public const USER_EXIT = 130;
+
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      */
