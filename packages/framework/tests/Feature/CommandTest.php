@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Closure;
-use function config;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -182,7 +181,7 @@ class CommandTest extends TestCase
 
     public function testCanEnableThrowOnException()
     {
-        config(['app.throw_on_console_exception' => true]);
+        $this->throwOnConsoleException();
         $command = new ThrowingTestCommand();
 
         $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
