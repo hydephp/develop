@@ -16,10 +16,7 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use InvalidArgumentException;
-use function is_dir;
-use function is_file;
 use function realpath;
-use function scandir;
 use function str_replace;
 
 /**
