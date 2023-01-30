@@ -60,7 +60,7 @@ class VirtualPage extends HydePage implements DynamicPage
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           this will be passed to the view.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
-     * @param  string  $view  The view key for the view to use to render the page contents.
+     * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      */
     public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {

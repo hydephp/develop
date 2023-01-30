@@ -18,18 +18,18 @@ class DiscoveryServiceTest extends TestCase
 {
     public function createContentSourceTestFiles()
     {
-        Hyde::touch((DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md'));
-        Hyde::touch((DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md'));
-        Hyde::touch((DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md'));
-        Hyde::touch((DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php'));
+        Hyde::touch(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md');
+        Hyde::touch(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md');
+        Hyde::touch(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md');
+        Hyde::touch(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php');
     }
 
     public function deleteContentSourceTestFiles()
     {
-        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md'));
-        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md'));
-        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md'));
-        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php'));
+        Hyde::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md');
+        Hyde::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md');
+        Hyde::unlink(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md');
+        Hyde::unlink(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php');
     }
 
     public function test_get_file_extension_for_model_files()
@@ -48,23 +48,6 @@ class DiscoveryServiceTest extends TestCase
         $this->assertEquals('_pages', DiscoveryService::getModelSourceDirectory(BladePage::class));
     }
 
-    public function test_create_clickable_filepath_creates_link_for_existing_file()
-    {
-        $filename = 'be2329d7-3596-48f4-b5b8-deff352246a9';
-        touch($filename);
-        $output = DiscoveryService::createClickableFilepath($filename);
-        $this->assertStringContainsString('file://', $output);
-        $this->assertStringContainsString($filename, $output);
-        unlink($filename);
-    }
-
-    public function test_create_clickable_filepath_falls_back_to_returning_input_if_file_does_not_exist()
-    {
-        $filename = 'be2329d7-3596-48f4-b5b8-deff352246a9';
-        $output = DiscoveryService::createClickableFilepath($filename);
-        $this->assertSame($filename, $output);
-    }
-
     public function test_get_source_file_list_for_blade_page()
     {
         $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
@@ -72,23 +55,23 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_get_source_file_list_for_markdown_page()
     {
-        Hyde::touch(('_pages/foo.md'));
+        Hyde::touch('_pages/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getMarkdownPageFiles());
-        unlink(Hyde::path('_pages/foo.md'));
+        Hyde::unlink('_pages/foo.md');
     }
 
     public function test_get_source_file_list_for_markdown_post()
     {
-        Hyde::touch(('_posts/foo.md'));
+        Hyde::touch('_posts/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getMarkdownPostFiles());
-        unlink(Hyde::path('_posts/foo.md'));
+        Hyde::unlink('_posts/foo.md');
     }
 
     public function test_get_source_file_list_for_documentation_page()
     {
-        Hyde::touch(('_docs/foo.md'));
+        Hyde::touch('_docs/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getDocumentationPageFiles());
-        unlink(Hyde::path('_docs/foo.md'));
+        Hyde::unlink('_docs/foo.md');
     }
 
     public function test_get_source_file_list_for_markdown_page_model()
@@ -267,30 +250,30 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
-        Hyde::touch(('_pages/_foo.blade.php'));
+        Hyde::touch('_pages/_foo.blade.php');
         $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
-        unlink(Hyde::path('_pages/_foo.blade.php'));
+        Hyde::unlink('_pages/_foo.blade.php');
     }
 
     public function test_markdown_page_files_starting_with_underscore_are_ignored()
     {
-        Hyde::touch(('_pages/_foo.md'));
+        Hyde::touch('_pages/_foo.md');
         $this->assertEquals([], DiscoveryService::getMarkdownPageFiles());
-        unlink(Hyde::path('_pages/_foo.md'));
+        Hyde::unlink('_pages/_foo.md');
     }
 
     public function test_post_files_starting_with_underscore_are_ignored()
     {
-        Hyde::touch(('_posts/_foo.md'));
+        Hyde::touch('_posts/_foo.md');
         $this->assertEquals([], DiscoveryService::getMarkdownPostFiles());
-        unlink(Hyde::path('_posts/_foo.md'));
+        Hyde::unlink('_posts/_foo.md');
     }
 
     public function test_documentation_page_files_starting_with_underscore_are_ignored()
     {
-        Hyde::touch(('_docs/_foo.md'));
+        Hyde::touch('_docs/_foo.md');
         $this->assertEquals([], DiscoveryService::getDocumentationPageFiles());
-        unlink(Hyde::path('_docs/_foo.md'));
+        Hyde::unlink('_docs/_foo.md');
     }
 
     public function test_path_to_identifier_helper_formats_path_to_identifier()
@@ -306,18 +289,18 @@ class DiscoveryServiceTest extends TestCase
         $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier(BladePage::class, 'foo/bar.blade.php'));
 
         $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, Hyde::path('_pages/foo.blade.php')));
-        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, ('_pages/foo.blade.php')));
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, '_pages/foo.blade.php'));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
     {
-        Hyde::touch(($path));
+        Hyde::touch($path);
         Hyde::boot(); // Reboot to rediscover new pages
 
         $expected = $expected ?? basename($path, '.md');
 
         $this->assertEquals([$expected], DiscoveryService::getSourceFileListForModel($model));
 
-        unlink(Hyde::path($path));
+        Hyde::unlink($path);
     }
 }

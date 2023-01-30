@@ -28,6 +28,7 @@ return [
 
     'server' => [
         'port' => env('SERVER_PORT', 8080),
+        'dashboard' => env('SERVER_DASHBOARD', true),
     ],
 
     /*
@@ -85,7 +86,6 @@ return [
         Features::bladePages(),
         Features::markdownPages(),
         Features::documentationPages(),
-        // Features::dataCollections(),
 
         // Frontend Features
         Features::darkmode(),

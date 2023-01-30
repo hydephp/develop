@@ -91,8 +91,8 @@ class StylesComponentViewTest extends TestCase
 
     public function test_component_does_not_render_cdn_link_when_a_local_file_exists()
     {
-        Hyde::touch(('_media/hyde.css'));
+        Hyde::touch('_media/hyde.css');
         $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
-        unlink(Hyde::path('_media/hyde.css'));
+        Hyde::unlink('_media/hyde.css');
     }
 }

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to run the Build Process.
@@ -37,7 +36,7 @@ class BuildSiteCommand extends Command
 
     public function handle(): int
     {
-        $time_start = microtime(true);
+        $timeStart = microtime(true);
 
         $this->title('Building your static site!');
 
@@ -53,7 +52,7 @@ class BuildSiteCommand extends Command
 
         $this->runPostBuildActions();
 
-        $this->printFinishMessage($time_start);
+        $this->printFinishMessage($timeStart);
 
         return Command::SUCCESS;
     }
@@ -63,7 +62,7 @@ class BuildSiteCommand extends Command
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
-            $config = config('hyde.features');
+            $config = (array) config('hyde.features');
             unset($config[array_search('torchlight', $config)]);
             Config::set(['hyde.features' => $config]);
         }
@@ -102,20 +101,20 @@ class BuildSiteCommand extends Command
         $service->runPostBuildTasks();
     }
 
-    protected function printFinishMessage(float $time_start): void
+    protected function printFinishMessage(float $timeStart): void
     {
-        $execution_time = (microtime(true) - $time_start);
+        $executionTime = (microtime(true) - $timeStart);
         $this->info(sprintf(
             "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
-            number_format($execution_time, 2),
-            number_format($execution_time * 1000, 2),
+            number_format($executionTime, 2),
+            number_format($executionTime * 1000, 2),
             number_format(memory_get_peak_usage() / 1024 / 1024, 2)
         ));
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
             'Your new homepage is stored here -> '.
-            DiscoveryService::createClickableFilepath(Hyde::sitePath('index.html'))
+            static::createClickableFilepath(Hyde::sitePath('index.html'))
         );
     }
 

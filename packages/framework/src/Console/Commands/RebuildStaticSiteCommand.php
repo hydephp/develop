@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
+use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to build a single static site file.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\RebuildStaticSiteCommandTest
+ *
+ * @todo Refactor to use newer helpers
  */
 class RebuildStaticSiteCommand extends Command
 {
@@ -56,7 +57,7 @@ class RebuildStaticSiteCommand extends Command
 
         $this->info(sprintf(
             'Created %s in %s seconds. (%sms)',
-            DiscoveryService::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
+            static::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
             number_format(
                 $execution_time,
                 2

@@ -1,6 +1,7 @@
 ---
-priority: 25
-label: "Compile & Deploy"
+navigation:
+    priority: 25
+    label: "Compile & Deploy"
 ---
 
 # Compile and Deploy your site

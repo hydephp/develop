@@ -5,12 +5,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="app" />
         <directory name="packages/framework/src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <file name="packages/framework/src/Support/Contracts/FilesystemContract.php" />
+            <file name="packages/framework/src/Framework/Concerns/Internal/ForwardsIlluminateFilesystem.php" />
         </ignoreFiles>
     </projectFiles>
 </psalm>

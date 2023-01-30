@@ -11,17 +11,10 @@ trait ResetsApplication
 {
     protected function resetApplication(): void
     {
-        $this->resetMedia();
         $this->resetPages();
         $this->resetPosts();
         $this->resetDocs();
         $this->resetSite();
-    }
-
-    /** @deprecated unless applicable usages are found */
-    protected function resetMedia(): void
-    {
-        //
     }
 
     protected function resetPages(): void

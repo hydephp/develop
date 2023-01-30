@@ -28,6 +28,7 @@
 
 ## Projects in this monorepo
 
+[![Upcoming Documentation](https://img.shields.io/badge/-Upcoming%20Documentation-525252)](https://hydephp.github.io/develop/master/dev-docs/)
 [![API Documentation](https://img.shields.io/badge/-API%20Documentation-525252)](https://hydephp.github.io/develop/master/api-docs/)
 [![HTML Code Coverage](https://img.shields.io/badge/-HTML%20Code%20Coverage-525252)](https://hydephp.github.io/develop/master/coverage/)
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/9d5269d1/hydephp)
@@ -56,7 +57,7 @@ The two most important components are **Hyde** and **Framework**. We also use **
 *The Hyde/Hyde project is stored in the monorepo root and works a bit differently from the others. Before pushing to the readonly repository, we apply persisted changes in the [`packages/hyde`](https://github.com/hydephp/develop/tree/master/packages/hyde) directory, then remove monorepo specific files.
 
 
-## How the monorepo works
+### How the monorepo works
 
 Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop/master` branches of the readonly repositories seen in the table above. These branches could be unstable.
 

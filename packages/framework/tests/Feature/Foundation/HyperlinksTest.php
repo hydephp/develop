@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Hyperlinks;
 use Hyde\Testing\TestCase;
 
 /**
@@ -12,13 +13,13 @@ use Hyde\Testing\TestCase;
  */
 class HyperlinksTest extends TestCase
 {
-    protected \Hyde\Foundation\Hyperlinks $class;
+    protected Hyperlinks $class;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->class = new \Hyde\Foundation\Hyperlinks(HydeKernel::getInstance());
+        $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
     public function test_image_helper_gets_relative_web_link_to_image_stored_in_site_media_folder()

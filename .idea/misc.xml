@@ -68,6 +68,16 @@
       <entry_point TYPE="phpClass" FQNAME="\Hyde\Console\Commands\ValidateCommand" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\ValidateCommand __construct" />
       <entry_point TYPE="phpClass" FQNAME="\Hyde\Console\Commands\PackageDiscoverCommand" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\MakePostCommand createPostFile" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\MakePostCommand displaySelections" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\RouteListCommand getRoutes" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\MakePostCommand getSelections" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\MakePostCommand getTitle" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\BuildSiteCommand printFinishMessage" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\PublishViewsCommand promptForCategory" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\PublishViewsCommand publishOption" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\BuildSiteCommand runPreBuildActions" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\MakePageCommand validateOptions" />
     </entry_point>
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
     <pattern value="\Hyde\Framework\Services\ValidationService" />
@@ -134,5 +144,15 @@
     <pattern value="\Hyde\Console\Commands\ValidateCommand" />
     <pattern value="\Hyde\Console\Commands\ValidateCommand" member="__construct" />
     <pattern value="\Hyde\Console\Commands\PackageDiscoverCommand" />
+    <pattern value="\Hyde\Console\Commands\MakePostCommand" member="createPostFile" />
+    <pattern value="\Hyde\Console\Commands\MakePostCommand" member="displaySelections" />
+    <pattern value="\Hyde\Console\Commands\RouteListCommand" member="getRoutes" />
+    <pattern value="\Hyde\Console\Commands\MakePostCommand" member="getSelections" />
+    <pattern value="\Hyde\Console\Commands\MakePostCommand" member="getTitle" />
+    <pattern value="\Hyde\Console\Commands\BuildSiteCommand" member="printFinishMessage" />
+    <pattern value="\Hyde\Console\Commands\PublishViewsCommand" member="promptForCategory" />
+    <pattern value="\Hyde\Console\Commands\PublishViewsCommand" member="publishOption" />
+    <pattern value="\Hyde\Console\Commands\BuildSiteCommand" member="runPreBuildActions" />
+    <pattern value="\Hyde\Console\Commands\MakePageCommand" member="validateOptions" />
   </component>
 </project>

@@ -54,7 +54,7 @@ class DocumentationSidebarTest extends TestCase
     public function test_index_page_is_removed_from_sidebar()
     {
         $this->createTestFiles();
-        Hyde::touch(('_docs/index.md'));
+        Hyde::touch('_docs/index.md');
 
         $sidebar = DocumentationSidebar::create();
         $this->assertCount(5, $sidebar->items);
@@ -72,9 +72,9 @@ class DocumentationSidebarTest extends TestCase
     public function test_sidebar_is_ordered_alphabetically_when_no_order_is_set_in_config()
     {
         Config::set('docs.sidebar_order', []);
-        Hyde::touch(('_docs/a.md'));
-        Hyde::touch(('_docs/b.md'));
-        Hyde::touch(('_docs/c.md'));
+        Hyde::touch('_docs/a.md');
+        Hyde::touch('_docs/b.md');
+        Hyde::touch('_docs/c.md');
 
         $this->assertEquals(
             collect([
@@ -93,9 +93,9 @@ class DocumentationSidebarTest extends TestCase
             'b',
             'a',
         ]);
-        Hyde::touch(('_docs/a.md'));
-        Hyde::touch(('_docs/b.md'));
-        Hyde::touch(('_docs/c.md'));
+        Hyde::touch('_docs/a.md');
+        Hyde::touch('_docs/b.md');
+        Hyde::touch('_docs/c.md');
 
         $this->assertEquals(
             collect([
@@ -130,8 +130,8 @@ class DocumentationSidebarTest extends TestCase
             'third',
             'second',
         ]);
-        Hyde::touch(('_docs/first.md'));
-        Hyde::touch(('_docs/second.md'));
+        Hyde::touch('_docs/first.md');
+        Hyde::touch('_docs/second.md');
         file_put_contents(Hyde::path('_docs/third.md'),
             (new ConvertsArrayToFrontMatter)->execute(['navigation.priority' => 250 + 300])
         );

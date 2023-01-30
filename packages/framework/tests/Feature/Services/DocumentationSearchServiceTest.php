@@ -112,7 +112,7 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_excluded_pages_are_not_present_in_the_search_index()
     {
-        Filesystem::touch(('_docs/excluded.md'));
+        Filesystem::touch('_docs/excluded.md');
         config(['docs.exclude_from_search' => ['excluded']]);
 
         $this->assertStringNotContainsString('excluded',

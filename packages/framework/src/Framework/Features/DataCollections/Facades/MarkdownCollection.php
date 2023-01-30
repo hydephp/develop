@@ -8,6 +8,7 @@ use Hyde\Framework\Features\DataCollections\DataCollection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
+ * @deprecated Since this class is so simple, it could easily be inlined.
  */
 class MarkdownCollection
 {

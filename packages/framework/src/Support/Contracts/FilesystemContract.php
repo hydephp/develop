@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Contracts;
 
 /**
- * Interface for the Illuminate Filesystem class, but with static methods and strong types inferred from the PHPDocs.
+ * @internal Interface for the Illuminate Filesystem class, but with static methods and strong types inferred from the PHPDocs.
  *
  * @see \Illuminate\Filesystem\Filesystem
  */

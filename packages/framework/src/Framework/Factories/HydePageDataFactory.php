@@ -69,7 +69,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         return $this->getCanonicalUrl();
     }
 
-    protected function makeNavigation(): ?NavigationData
+    protected function makeNavigation(): NavigationData
     {
         return NavigationData::make((new NavigationDataFactory($this->pageData, $this->title))->toArray());
     }
