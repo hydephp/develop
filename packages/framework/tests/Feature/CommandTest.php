@@ -42,7 +42,7 @@ class CommandTest extends TestCase
 
         $output = $this->mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo</info> [<comment>bar</comment>]';
+            return $message === '<info>foo </info>[<comment>bar</comment>]<info></info>';
         });
 
         $command->setMockedOutput($output);
@@ -58,7 +58,7 @@ class CommandTest extends TestCase
 
         $output = $this->mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo</info> [<comment>bar</comment>] <info>baz</info>';
+            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz</info>';
         });
 
         $command->setMockedOutput($output);
