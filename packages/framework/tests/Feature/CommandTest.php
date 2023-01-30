@@ -8,7 +8,6 @@ use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use JetBrains\PhpStorm\Deprecated;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
@@ -38,7 +37,7 @@ class CommandTest extends TestCase
     {
         $command = new MockableTestCommand();
         $command->closure = function (Command $command) {
-            $command->infoComment("foo [bar]");
+            $command->infoComment('foo [bar]');
         };
 
         $output = $this->mock(OutputStyle::class);
@@ -54,7 +53,7 @@ class CommandTest extends TestCase
     {
         $command = new MockableTestCommand();
         $command->closure = function (Command $command) {
-            $command->infoComment("foo [bar] baz");
+            $command->infoComment('foo [bar] baz');
         };
 
         $output = $this->mock(OutputStyle::class);

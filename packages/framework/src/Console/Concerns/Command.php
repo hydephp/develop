@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Hyde\Hyde;
-use JetBrains\PhpStorm\Deprecated;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 
 /**
