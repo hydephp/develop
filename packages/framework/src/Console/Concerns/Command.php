@@ -64,7 +64,8 @@ abstract class Command extends BaseCommand
         if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
-            $this->error(sprintf('Error: %s at ', $exception->getMessage()).sprintf('%s:%s', $file ?? $exception->getFile(), $line ?? $exception->getLine()));
+            $location = sprintf('%s:%s', $file ?? $exception->getFile(), $line ?? $exception->getLine());
+            $this->error(sprintf('Error: %s at ', $exception->getMessage()).$location);
         }
 
         return Command::FAILURE;
