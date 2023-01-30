@@ -37,6 +37,7 @@ abstract class Command extends BaseCommand
 
     /**
      * This method can be overridden by child classes to provide automatic exception handling.
+     *
      * Existing code can be converted simply by renaming the handle() method to safeHandle().
      *
      * @return int The exit code.
