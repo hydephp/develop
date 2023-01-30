@@ -24,17 +24,6 @@ class ValidatingCommand extends Command
     /** @var int How many times can the validation loop run? It is high enough to not affect normal usage. */
     protected final const MAX_RETRIES = 30;
 
-    /**
-     * @return int The exit code.
-     */
-    public function handle(): int
-    {
-        try {
-            return $this->safeHandle();
-        } catch (Exception $exception) {
-            return $this->handleException($exception);
-        }
-    }
 
     /**
      * This method can be overridden by child classes to provide automatic exception handling.
