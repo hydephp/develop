@@ -201,22 +201,10 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         3. Third item
         4. Fourth item
         
-        5. First item
-        6. Second item
-        7. Third item
-        8. Fourth item
-        
-        9. First item
-        10. Second item
-        11. Third item
-        12. Fourth item
-        
-        13. First item
-        14. Second item
-        15. Third item
+        15. Fifth item
             1. Indented item
             2. Indented item
-        16. Fourth item
+        16. Sixth item
         MD;
 
         $text = <<<'TXT'
@@ -225,22 +213,10 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         3. Third item
         4. Fourth item
         
-        5. First item
-        6. Second item
-        7. Third item
-        8. Fourth item
-        
-        9. First item
-        10. Second item
-        11. Third item
-        12. Fourth item
-        
-        13. First item
-        14. Second item
-        15. Third item
+        15. Fifth item
             1. Indented item
             2. Indented item
-        16. Fourth item
+        16. Sixth item
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
