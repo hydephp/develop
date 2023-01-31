@@ -38,42 +38,42 @@ class ConvertsMarkdownToPlainText
 
         $patterns = [
             // Headers
-            $this->headers(),
+            static::headers(),
             // Fenced codeblocks
-            $this->fencedCodeblocks(),
+            static::fencedCodeblocks(),
             // Strikethrough
-            $this->Strikethrough(),
+            static::Strikethrough(),
             // Fenced codeblocks
-            $this->fencedCodeblocks2(),
+            static::fencedCodeblocks2(),
             // Fenced end tags
-            $this->fencedEndTags(),
+            static::fencedEndTags(),
             // Remove HTML tags
-            $this->htmlTags(),
+            static::htmlTags(),
             // Remove setext-style headers
-            $this->setextHeaders(),
+            static::setextHeaders(),
             // Remove footnotes
-            $this->footnotes(),
+            static::footnotes(),
             // Remove images
-            $this->images(),
+            static::images(),
             // Remove inline links
-            $this->inlineLinks(),
+            static::inlineLinks(),
             // Remove blockquotes
-            $this->blockquotes(),
+            static::blockquotes(),
             // Remove reference-style links
-            $this->referenceLinks(),
+            static::referenceLinks(),
             // Remove atx-style headers
-            $this->atxHeaders(),
+            static::atxHeaders(),
             // Remove horizontal rules
-            $this->horizontalRules(),
+            static::horizontalRules(),
             // Remove emphasis (repeat the line to remove double emphasis)
-            $this->emphasis(),
-            $this->doubleEmphasis(),
+            static::emphasis(),
+            static::doubleEmphasis(),
             // Remove code blocks
-            $this->codeBlocks2(),
+            static::codeBlocks2(),
             // Remove inline code
-            $this->inlineCode(),
+            static::inlineCode(),
             // Replace two or more newlines with exactly two
-            $this->repeatedNewlines(),
+            static::repeatedNewlines(),
         ];
 
         foreach ($patterns as $pattern) {
@@ -106,97 +106,97 @@ class ConvertsMarkdownToPlainText
         return implode("\n", $lines);
     }
 
-    protected function headers(): array
+    protected static function headers(): array
     {
         return ['/\n={2,}/' => "\n"];
     }
 
-    protected function fencedCodeblocks(): array
+    protected static function fencedCodeblocks(): array
     {
         return ['/~{3}.*\n/' => ''];
     }
 
-    protected function Strikethrough(): array
+    protected static function Strikethrough(): array
     {
         return ['/~~/' => ''];
     }
 
-    protected function fencedCodeblocks2(): array
+    protected static function fencedCodeblocks2(): array
     {
         return ['/`{3}.*\n/' => ''];
     }
 
-    protected function fencedEndTags(): array
+    protected static function fencedEndTags(): array
     {
         return ['/`{3}/' => ''];
     }
 
-    protected function htmlTags(): array
+    protected static function htmlTags(): array
     {
         return ['/<[^>]*>/' => ''];
     }
 
-    protected function setextHeaders(): array
+    protected static function setextHeaders(): array
     {
         return ['/^[=\-]{2,}\s*$/' => ''];
     }
 
-    protected function footnotes(): array
+    protected static function footnotes(): array
     {
         return ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
     }
 
-    protected function images(): array
+    protected static function images(): array
     {
         return ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
     }
 
-    protected function inlineLinks(): array
+    protected static function inlineLinks(): array
     {
         return ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
     }
 
-    protected function blockquotes(): array
+    protected static function blockquotes(): array
     {
         return ['/^\s{0,3}>\s?/' => ''];
     }
 
-    protected function referenceLinks(): array
+    protected static function referenceLinks(): array
     {
         return ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
     }
 
-    protected function atxHeaders(): array
+    protected static function atxHeaders(): array
     {
         return ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
     }
 
-    protected function horizontalRules(): array
+    protected static function horizontalRules(): array
     {
         return ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
     }
 
-    protected function emphasis(): array
+    protected static function emphasis(): array
     {
         return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
     }
 
-    protected function doubleEmphasis(): array
+    protected static function doubleEmphasis(): array
     {
         return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
     }
 
-    protected function codeBlocks2(): array
+    protected static function codeBlocks2(): array
     {
         return ['/(`{3,})(.*?)\1/m' => '$2'];
     }
 
-    protected function inlineCode(): array
+    protected static function inlineCode(): array
     {
         return ['/`(.+?)`/' => '$1'];
     }
 
-    protected function repeatedNewlines(): array
+    protected static function repeatedNewlines(): array
     {
         return ['/\n{2,}/' => "\n\n"];
     }
