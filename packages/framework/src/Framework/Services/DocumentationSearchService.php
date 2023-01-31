@@ -8,8 +8,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-
 use function strip_tags;
 
 /**
@@ -193,6 +191,7 @@ final class DocumentationSearchService
             }
             $lines[$line] = $newContents;
         }
+
         return implode("\n", $lines);
     }
 }
