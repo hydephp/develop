@@ -14,6 +14,9 @@ use function strip_tags;
  * Converts Markdown to plain text.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\ConvertsMarkdownToPlainTextTest
+ *
+ * @experimental This class is experimental and does not have a stable API yet.
+ * @internal This class is experimental and should not be used outside HydePHP.
  */
 class ConvertsMarkdownToPlainText
 {
