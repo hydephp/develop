@@ -79,12 +79,12 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_it_generates_a_valid_JSON()
     {
-        Filesystem::putContents('_docs/foo.md', "# Bar\n\nHello World");
+        Filesystem::putContents('_docs/foo.md', "# Bar\nHello World");
         Filesystem::putContents('_docs/bar.md', "# Foo\n\nHello World");
 
         $this->assertSame(
             '[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},'.
-            '{"slug":"foo","title":"Bar","content":"Bar\n\nHello World","destination":"foo.html"}]',
+            '{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]',
             json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
         );
 
