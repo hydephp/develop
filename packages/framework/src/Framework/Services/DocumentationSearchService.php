@@ -149,6 +149,8 @@ final class DocumentationSearchService
             '/~~/' => '',
             // Fenced codeblocks
             '/`{3}.*\n/' => '',
+            // Fenced end tags
+            '/`{3}/' => '',
             // Remove HTML tags
             '/<[^>]*>/' => '',
             // Remove setext-style headers
