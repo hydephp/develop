@@ -17,4 +17,9 @@ class ConvertsMarkdownToPlainText
     {
         $this->markdown = $markdown;
     }
+
+    public function execute(): string
+    {
+        //
+    }
 }
