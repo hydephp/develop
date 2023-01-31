@@ -404,6 +404,22 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
+    public function testItRemovesFencedCodeBlocksAlternate()
+    {
+        $markdown = <<<'MD'
+        ~~~php
+        echo 'Hello World';
+        ~~~
+        MD;
+
+        $text = <<<'TXT'
+        echo 'Hello World';
+        
+        TXT;
+
+        $this->assertSame($text, $this->convert($markdown));
+    }
+
     public function testItRemovesTables()
     {
         $markdown = <<<'MD'
