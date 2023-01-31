@@ -109,7 +109,7 @@ final class DocumentationSearchService
      * computing time.
      *
      * The current function is benchmarked on the official Hyde docs and takes
-     * around 230ms to generate the search index for all page files.
+     * around 140ms to generate the search index for all page files.
      */
     protected function getSearchContentForDocument(DocumentationPage $page): string
     {
