@@ -88,117 +88,117 @@ class ConvertsMarkdownToPlainText
         return implode("\n", $lines);
     }
 
+    /** Headers */
     protected static function headers(): array
     {
-        // Headers
         return ['/\n={2,}/' => "\n"];
     }
 
+    /** Fenced codeblocks */
     protected static function fencedCodeblocks(): array
     {
-        // Fenced codeblocks
         return ['/~{3}.*\n/' => ''];
     }
 
+    /** Strikethrough */
     protected static function Strikethrough(): array
     {
-        // Strikethrough
         return ['/~~/' => ''];
     }
 
+    /** Fenced codeblocks */
     protected static function fencedCodeblocks2(): array
     {
-        // Fenced codeblocks
         return ['/`{3}.*\n/' => ''];
     }
 
+    /** Fenced end tags */
     protected static function fencedEndTags(): array
     {
-        // Fenced end tags
         return ['/`{3}/' => ''];
     }
 
+    /** Remove HTML tags */
     protected static function htmlTags(): array
     {
-        // Remove HTML tags
         return ['/<[^>]*>/' => ''];
     }
 
+    /** Remove setext-style headers */
     protected static function setextHeaders(): array
     {
-        // Remove setext-style headers
         return ['/^[=\-]{2,}\s*$/' => ''];
     }
 
+    /** Remove footnotes */
     protected static function footnotes(): array
     {
-        // Remove footnotes
         return ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
     }
 
+    /** Remove images */
     protected static function images(): array
     {
-        // Remove images
         return ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
     }
 
+    /** Remove inline links */
     protected static function inlineLinks(): array
     {
-        // Remove inline links
         return ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
     }
 
+    /** Remove blockquotes */
     protected static function blockquotes(): array
     {
-        // Remove blockquotes
         return ['/^\s{0,3}>\s?/' => ''];
     }
 
+    /** Remove reference-style links */
     protected static function referenceLinks(): array
     {
-        // Remove reference-style links
         return ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
     }
 
+    /** Remove atx-style headers */
     protected static function atxHeaders(): array
     {
-        // Remove atx-style headers
         return ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
     }
 
+    /** Remove horizontal rules */
     protected static function horizontalRules(): array
     {
-        // Remove horizontal rules
         return ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
     }
 
+    /** Remove emphasis (repeat the line to remove double emphasis) */
     protected static function emphasis(): array
     {
-        // Remove emphasis (repeat the line to remove double emphasis)
         return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
     }
 
+    /** Remove emphasis (repeat the line to remove double emphasis) */
     protected static function doubleEmphasis(): array
     {
-        // Remove emphasis (repeat the line to remove double emphasis)
         return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
     }
 
+    /** Remove code blocks */
     protected static function codeBlocks2(): array
     {
-        // Remove code blocks
         return ['/(`{3,})(.*?)\1/m' => '$2'];
     }
 
+    /** Remove inline code */
     protected static function inlineCode(): array
     {
-        // Remove inline code
         return ['/`(.+?)`/' => '$1'];
     }
 
+    /** Replace two or more newlines with exactly two */
     protected static function repeatedNewlines(): array
     {
-        // Replace two or more newlines with exactly two
         return ['/\n{2,}/' => "\n\n"];
     }
 }
