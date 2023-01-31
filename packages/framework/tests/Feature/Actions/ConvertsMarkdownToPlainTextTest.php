@@ -16,6 +16,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         //
     }
 
+    /** @noinspection all */
     protected function getMarkdown(): string
     {
         return <<<MARKDOWN
