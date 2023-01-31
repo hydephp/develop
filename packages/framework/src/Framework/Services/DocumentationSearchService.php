@@ -114,7 +114,7 @@ final class DocumentationSearchService
         // This is compiles the Markdown body into HTML, and then strips out all
         // HTML tags to get a plain text version of the body. This takes a long
         // site, but is the simplest implementation I've found so far.
-        return preg_replace('/<(.|\n)*?>/', ' ', Str::markdown($page->markdown));
+        return $this->convertMarkdownToPlainText($page->markdown->body());
     }
 
     public function getDestinationForSlug(string $slug): string
@@ -124,5 +124,58 @@ final class DocumentationSearchService
         }
 
         return $slug.'.html';
+    }
+
+    /**
+     * Regex based on https://github.com/stiang/remove-markdown, licensed under MIT.
+     */
+    protected function convertMarkdownToPlainText(string $markdown): string
+    {
+        $options = [
+            'useImgAltText' => true,
+        ];
+
+        $patterns = [
+            // Headers
+            '/\n={2,}/' => "\n",
+            // Fenced codeblocks
+            '/~{3}.*\n/' => '',
+            // Strikethrough
+            '/~~/' => '',
+            // Fenced codeblocks
+            '/`{3}.*\n/' => '',
+            // Remove HTML tags
+            '/<[^>]*>/' => '',
+            // Remove setext-style headers
+            '/^[=\-]{2,}\s*$/' => '',
+            // Remove footnotes?
+            '/\[\^.+?\](\: .*?$)?/' => '',
+            '/\s{0,2}\[.*?\]: .*?$/' => '',
+            // Remove images
+            '/\!\[(.*?)\][\[\(].*?[\]\)]/' => $options['useImgAltText'] ? '$1' : '',
+            // Remove inline links
+            '/\[(.*?)\][\[\(].*?[\]\)]/' => '$1',
+            // Remove blockquotes
+            '/^\s{0,3}>\s?/' => '',
+            // Remove reference-style links?
+            '/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => '',
+            // Remove atx-style headers
+            '/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3',
+            // Remove emphasis (repeat the line to remove double emphasis)
+            '/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2',
+            '/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2',
+            // Remove code blocks
+            '/(`{3,})(.*?)\1/m' => '$2',
+            // Remove inline code
+            '/`(.+?)`/' => '$1',
+            // Replace two or more newlines with exactly two
+            '/\n{2,}/' => "\n\n",
+        ];
+
+        foreach ($patterns as $pattern => $replacement) {
+            $markdown = preg_replace($pattern, $replacement, $markdown);
+        }
+
+        return $markdown;
     }
 }
