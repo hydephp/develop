@@ -423,6 +423,16 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
+    public function testWithEmptyString()
+    {
+        $this->assertSame('', $this->convert(''));
+    }
+
+    public function testWithOnlyEmptyLines()
+    {
+        $this->assertSame("\n", $this->convert("\n\n\n"));
+    }
+
     protected function convert(string $markdown): string
     {
         return (new ConvertsMarkdownToPlainText($markdown))->execute();
