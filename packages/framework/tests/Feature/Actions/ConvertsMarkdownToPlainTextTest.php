@@ -416,8 +416,8 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $text = <<<'TXT'
         Syntax      Description
         ----------- -----------
-        Header      Title      
-        Paragraph   Text       
+        Header      Title
+        Paragraph   Text
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));

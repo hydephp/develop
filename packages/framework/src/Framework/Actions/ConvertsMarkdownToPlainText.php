@@ -88,7 +88,7 @@ class ConvertsMarkdownToPlainText
             }
             // Remove tables (cells)
             if (str_starts_with($newContents, '| ') && str_ends_with($newContents, '|')) {
-                $newContents = str_replace(['| ', ' | ', ' |'], ['', '', ''], $newContents);
+                $newContents = rtrim(str_replace(['| ', ' | ', ' |'], ['', '', ''], $newContents), ' ');
             }
 
             // Remove blockquotes
