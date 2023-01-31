@@ -48,6 +48,9 @@ class ConvertsMarkdownToPlainText
     /** Fenced end tags */
     protected const FENCED_END_TAGS = ['/`{3}/' => ''];
 
+    /** Fenced end tags */
+    protected const FENCED_END_TAGS_ALT = ['/~{3}/' => ''];
+
     /** Remove inline code */
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
@@ -103,6 +106,7 @@ class ConvertsMarkdownToPlainText
             static::FENCED_CODEBLOCKS,
             static::FENCED_CODEBLOCKS_ALT,
             static::FENCED_END_TAGS,
+            static::FENCED_END_TAGS_ALT,
             static::INLINE_CODE,
             static::IMAGES,
             static::INLINE_LINKS,
