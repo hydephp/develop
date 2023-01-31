@@ -8,6 +8,8 @@ use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Mockery;
+use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
@@ -122,6 +124,46 @@ class CommandTest extends TestCase
         $command->setMockedOutput($output);
         $command->handle();
     }
+
+    public function testHandleCallsBaseSafeHandle()
+    {
+        $this->assertSame(0, (new TestCommand())->handle());
+    }
+
+    public function testHandleCallsChildSafeHandle()
+    {
+        $this->assertSame(1, (new SafeHandleTestCommand())->handle());
+    }
+
+    public function testSafeHandleException()
+    {
+        $command = new SafeThrowingTestCommand();
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
+        });
+        $command->setOutput($output);
+
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testCanEnableThrowOnException()
+    {
+        $this->throwOnConsoleException();
+        $command = new SafeThrowingTestCommand();
+
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('This is a test');
+
+        $command->setOutput($output);
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
 }
 
 class MockableTestCommand extends Command
@@ -138,5 +180,26 @@ class MockableTestCommand extends Command
     public function setMockedOutput($output)
     {
         $this->output = $output;
+    }
+}
+
+class TestCommand extends Command
+{
+    //
+}
+
+class SafeHandleTestCommand extends Command
+{
+    public function safeHandle(): int
+    {
+        return 1;
+    }
+}
+
+class SafeThrowingTestCommand extends Command
+{
+    public function safeHandle(): int
+    {
+        throw new RuntimeException('This is a test');
     }
 }
