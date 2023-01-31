@@ -423,6 +423,135 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
+    public function test_benchmark()
+    {
+        \Illuminate\Support\Benchmark::dd(function () {
+            $markdown = <<<'MD'
+            # Markdown
+            
+            ## Headers
+            
+            # This is an H1
+            ## This is an H2
+            ### This is an H3
+            #### This is an H4
+            ##### This is an H5
+            ###### This is an H6
+            
+            ## Emphasis
+            
+            *This text will be italic*
+            _This will also be italic_
+            
+            **This text will be bold**
+            __This will also be bold__
+            
+            _You **can** combine them_
+            
+            ## Lists
+            
+            Unordered
+            
+            * Item 1
+            * Item 2
+              * Item 2a
+              * Item 2b
+            
+            Ordered
+            
+            1. Item 1
+            2. Item 2
+            3. Item 3
+               * Item 3a
+               * Item 3b
+            
+            ## Images
+            
+            ![GitHub Logo](/images/logo.png)
+            Format: ![Alt Text](url)
+            
+            ## Links
+            
+            http://github.com - automatic!
+            [GitHub](http://github.com)
+            
+            ## Blockquotes
+            
+            As Kanye West said:
+            
+            > We're living the future so
+            > the present is our past.
+            
+            ## Inline code
+            
+            I think you should use an
+            `<addr>` element here instead.
+            
+            ## Syntax highlighting
+            
+            ```javascript
+            function fancyAlert(arg) {
+              if(arg) {
+                $.facebox({div:'#foo'})
+              }
+            }
+            ```
+            
+            ## Task lists
+            
+            - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+            - [x] list syntax required (any unordered or ordered list supported)
+            - [x] this is a complete item
+            - [ ] this is an incomplete item
+            
+            ## Tables
+            
+            | Syntax      | Description |
+            | ----------- | ----------- |
+            | Header      | Title       |
+            | Paragraph   | Text        |
+            
+            ## SHA references
+            
+            Any reference to a commit’s SHA-1 hash will be automatically converted into a link to that commit on GitHub.
+            
+            ## Issue references within a repository
+            
+            Any number that refers to an Issue or Pull Request will be automatically converted into a link.
+            
+            ## Username @mentions
+
+            Typing an `@` symbol, followed by a username, will notify that person to come and view the comment. This is called an “@mention”, because you’re mentioning the individual. You can also @mention teams within an organization.
+            
+            ## Automatic linking for URLs
+            
+            Any URL (like http://www.github.com/) will be automatically converted into a clickable link.
+            
+            ## Strikethrough
+            
+            Any word wrapped with two tildes (like ~~this~~) will appear crossed out.
+            
+            ## Emoji
+            
+            GitHub supports emoji!
+            To see a list of every image we support, check out the Emoji Cheat Sheet.
+            
+            ## Task Lists
+            
+            - [x] This is a complete item
+            - [ ] This is an incomplete item
+            
+            ## Nested Lists
+            
+            1. First list item
+               - First nested list item
+                 - Second nested list item
+            MD;
+
+            return ($this->convert($markdown));
+        }, 10000);
+    }
+
     protected function convert(string $markdown): string
     {
         return (new ConvertsMarkdownToPlainText($markdown))->execute();
