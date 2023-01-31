@@ -9,6 +9,8 @@ namespace Hyde\Foundation;
  */
 class Application extends \LaravelZero\Framework\Application
 {
+    protected $storagePath = 'app/storage';
+
     /**
      * {@inheritdoc}
      */
