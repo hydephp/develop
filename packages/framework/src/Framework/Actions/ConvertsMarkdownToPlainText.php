@@ -43,7 +43,7 @@ class ConvertsMarkdownToPlainText
     protected const FENCED_CODEBLOCKS = ['/`{3}.*\n/' => ''];
 
     /** Fenced codeblocks (~~~) */
-    protected const FENCED_CODEBLOCKS_2 = ['/~{3}.*\n/' => ''];
+    protected const FENCED_CODEBLOCKS_ALT = ['/~{3}.*\n/' => ''];
 
     /** Fenced end tags */
     protected const FENCED_END_TAGS = ['/`{3}/' => ''];
@@ -101,7 +101,7 @@ class ConvertsMarkdownToPlainText
             static::HTML_TAGS,
             static::CODE_BLOCKS,
             static::FENCED_CODEBLOCKS,
-            static::FENCED_CODEBLOCKS_2,
+            static::FENCED_CODEBLOCKS_ALT,
             static::FENCED_END_TAGS,
             static::INLINE_CODE,
             static::IMAGES,
