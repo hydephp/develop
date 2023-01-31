@@ -38,42 +38,42 @@ class ConvertsMarkdownToPlainText
 
         $patterns = [
             // Headers
-            ['/\n={2,}/' => "\n"],
+            $this->headers(),
             // Fenced codeblocks
-            ['/~{3}.*\n/' => ''],
+            $this->fencedCodeblocks(),
             // Strikethrough
-            ['/~~/' => ''],
+            $this->Strikethrough(),
             // Fenced codeblocks
-            ['/`{3}.*\n/' => ''],
+            $this->fencedCodeblocks2(),
             // Fenced end tags
-            ['/`{3}/' => ''],
+            $this->fencedEndTags(),
             // Remove HTML tags
-            ['/<[^>]*>/' => ''],
+            $this->htmlTags(),
             // Remove setext-style headers
-            ['/^[=\-]{2,}\s*$/' => ''],
+            $this->setextHeaders(),
             // Remove footnotes
-            ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''],
+            $this->footnotes(),
             // Remove images
-            ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'],
+            $this->images(),
             // Remove inline links
-            ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'],
+            $this->inlineLinks(),
             // Remove blockquotes
-            ['/^\s{0,3}>\s?/' => ''],
+            $this->blockquotes(),
             // Remove reference-style links
-            ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''],
+            $this->referenceLinks(),
             // Remove atx-style headers
-            ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'],
+            $this->atxHeaders(),
             // Remove horizontal rules
-            ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''],
+            $this->horizontalRules(),
             // Remove emphasis (repeat the line to remove double emphasis)
-            ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'],
-            ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'],
+            $this->emphasis(),
+            $this->doubleEmphasis(),
             // Remove code blocks
-            ['/(`{3,})(.*?)\1/m' => '$2'],
+            $this->codeBlocks2(),
             // Remove inline code
-            ['/`(.+?)`/' => '$1'],
+            $this->inlineCode(),
             // Replace two or more newlines with exactly two
-            ['/\n{2,}/' => "\n\n"],
+            $this->repeatedNewlines(),
         ];
 
         foreach ($patterns as $pattern) {
@@ -104,5 +104,100 @@ class ConvertsMarkdownToPlainText
         }
 
         return implode("\n", $lines);
+    }
+
+    protected function headers(): array
+    {
+        return ['/\n={2,}/' => "\n"];
+    }
+
+    protected function fencedCodeblocks(): array
+    {
+        return ['/~{3}.*\n/' => ''];
+    }
+
+    protected function Strikethrough(): array
+    {
+        return ['/~~/' => ''];
+    }
+
+    protected function fencedCodeblocks2(): array
+    {
+        return ['/`{3}.*\n/' => ''];
+    }
+
+    protected function fencedEndTags(): array
+    {
+        return ['/`{3}/' => ''];
+    }
+
+    protected function htmlTags(): array
+    {
+        return ['/<[^>]*>/' => ''];
+    }
+
+    protected function setextHeaders(): array
+    {
+        return ['/^[=\-]{2,}\s*$/' => ''];
+    }
+
+    protected function footnotes(): array
+    {
+        return ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
+    }
+
+    protected function images(): array
+    {
+        return ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
+    }
+
+    protected function inlineLinks(): array
+    {
+        return ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
+    }
+
+    protected function blockquotes(): array
+    {
+        return ['/^\s{0,3}>\s?/' => ''];
+    }
+
+    protected function referenceLinks(): array
+    {
+        return ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
+    }
+
+    protected function atxHeaders(): array
+    {
+        return ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
+    }
+
+    protected function horizontalRules(): array
+    {
+        return ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
+    }
+
+    protected function emphasis(): array
+    {
+        return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
+    }
+
+    protected function doubleEmphasis(): array
+    {
+        return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
+    }
+
+    protected function codeBlocks2(): array
+    {
+        return ['/(`{3,})(.*?)\1/m' => '$2'];
+    }
+
+    protected function inlineCode(): array
+    {
+        return ['/`(.+?)`/' => '$1'];
+    }
+
+    protected function repeatedNewlines(): array
+    {
+        return ['/\n{2,}/' => "\n\n"];
     }
 }
