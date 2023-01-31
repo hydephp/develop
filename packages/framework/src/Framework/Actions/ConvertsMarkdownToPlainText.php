@@ -90,6 +90,15 @@ class ConvertsMarkdownToPlainText
             if (str_starts_with($newContents, '| ') && str_ends_with($newContents, '|')) {
                 $newContents = str_replace(['| ', ' | ', ' |'], ['', '', ''], $newContents);
             }
+
+            // Remove blockquotes
+            if (str_starts_with($newContents, '> ')) {
+                $newContents = substr($newContents, 2);
+            }
+            // Remove multiline blockquotes
+            if (str_starts_with($newContents, '>')) {
+                $newContents = substr($newContents, 1);
+            }
             $lines[$line] = $newContents;
         }
 
