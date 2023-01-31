@@ -10,6 +10,8 @@ use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function strip_tags;
+
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
  *
@@ -131,6 +133,9 @@ final class DocumentationSearchService
      */
     protected function convertMarkdownToPlainText(string $markdown): string
     {
+        // Remove any HTML tags
+        $markdown = strip_tags($markdown);
+
         $options = [
             'useImgAltText' => true,
         ];
