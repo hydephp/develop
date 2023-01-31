@@ -39,10 +39,10 @@ class ConvertsMarkdownToPlainText
     /** Remove code blocks */
     protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
 
-    /** Fenced codeblocks */
+    /** Fenced codeblocks (~~~) */
     protected const FENCED_CODEBLOCKS = ['/~{3}.*\n/' => ''];
 
-    /** Fenced codeblocks */
+    /** Fenced codeblocks (```) */
     protected const FENCED_CODEBLOCKS_2 = ['/`{3}.*\n/' => ''];
 
     /** Fenced end tags */
