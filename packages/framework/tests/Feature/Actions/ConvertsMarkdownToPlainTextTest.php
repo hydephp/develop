@@ -14,28 +14,28 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 {
     public function test_should_leave_a_string_alone_without_markdown()
     {
-        $string = 'Javascript Developers are the best.';
+        $string = 'PHP developers are the best.';
         $this->assertSame($string, $this->removeMd($string));
     }
 
     public function test_should_strip_out_remaining_markdown()
     {
-        $string = '*Javascript* developers are the _best_.';
-        $expected = 'Javascript developers are the best.';
+        $string = '*PHP* developers are the _best_.';
+        $expected = 'PHP developers are the best.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
     public function test_should_leave_non_matching_markdown_markdown()
     {
-        $string = '*Javascript* developers* are the _best_.';
-        $expected = 'Javascript developers* are the best.';
+        $string = '*PHP* developers* are the _best_.';
+        $expected = 'PHP developers* are the best.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
     public function test_should_leave_non_matching_markdown_but_strip_empty_anchors()
     {
-        $string = '*Javascript* [developers]()* are the _best_.';
-        $expected = 'Javascript developers* are the best.';
+        $string = '*PHP* [developers]()* are the _best_.';
+        $expected = 'PHP developers* are the best.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
@@ -48,15 +48,15 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
     public function test_should_strip_anchors()
     {
-        $string = '*Javascript* [developers](https://engineering.condenast.io/)* are the _best_.';
-        $expected = 'Javascript developers* are the best.';
+        $string = '*PHP* [developers](https://engineering.condenast.io/)* are the _best_.';
+        $expected = 'PHP developers* are the best.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
     public function test_should_strip_img_tags()
     {
-        $string = '![](https://placebear.com/640/480)*Javascript* developers are the _best_.';
-        $expected = 'Javascript developers are the best.';
+        $string = '![](https://placebear.com/640/480)*PHP* developers are the _best_.';
+        $expected = 'PHP developers are the best.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
