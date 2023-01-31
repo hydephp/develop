@@ -24,19 +24,19 @@ class ConvertsMarkdownToPlainText
     /** Headers */
     protected const HEADERS = ['/\n={2,}/' => "\n"];
 
-    /** atx-style headers */
+    /** Atx-style headers */
     protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
 
-    /** setext-style headers */
+    /** Setext-style headers */
     protected const SETEXT_HEADERS = ['/^[=\-]{2,}\s*$/' => ''];
 
-    /** horizontal rules */
+    /** Horizontal rules */
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
 
     /** HTML tags */
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
 
-    /** code blocks */
+    /** Code blocks */
     protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
 
     /** Fenced codeblocks (```) */
@@ -51,31 +51,31 @@ class ConvertsMarkdownToPlainText
     /** Fenced end tags */
     protected const FENCED_END_TAGS_ALT = ['/~{3}/' => ''];
 
-    /** inline code */
+    /** Inline code */
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
-    /** images */
+    /** Images */
     protected const IMAGES = ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** inline links */
+    /** Inline links */
     protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** reference-style links */
+    /** Reference-style links */
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
 
-    /** emphasis (repeat the line to remove double emphasis) */
+    /** Emphasis (repeat the line to remove double emphasis) */
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Strikethrough */
     protected const STRIKETHROUGH = ['/~~/' => ''];
 
-    /** emphasis (repeat the line to remove double emphasis) */
+    /** Emphasis (repeat the line to remove double emphasis) */
     protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
-    /** blockquotes */
+    /** Blockquotes */
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
-    /** footnotes */
+    /** Footnotes */
     protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
 
     /** Replace two or more newlines with exactly two */
