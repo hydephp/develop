@@ -363,6 +363,40 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
+    public function testItRemovesFootnotes()
+    {
+        $markdown = <<<'MD'
+        Here's a sentence with a footnote.[^1]
+        
+        [^1]: This is the footnote.
+        MD;
+
+        $text = <<<'TXT'
+        Here's a sentence with a footnote.
+        
+        
+        TXT;
+
+        $this->assertSame($text, $this->convert($markdown));
+    }
+
+    public function testItRemovesFootnotesAlternate()
+    {
+        $markdown = <<<'MD'
+        Here's a sentence with a footnote.[^note]
+        
+        [^note]: This is the footnote.
+        MD;
+
+        $text = <<<'TXT'
+        Here's a sentence with a footnote.
+        
+        
+        TXT;
+
+        $this->assertSame($text, $this->convert($markdown));
+    }
+
     public function testItReplacesConsecutivelyOccurringNewlines()
     {
         $markdown = <<<'MD'
