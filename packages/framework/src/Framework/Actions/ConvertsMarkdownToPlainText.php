@@ -56,7 +56,7 @@ class ConvertsMarkdownToPlainText
 
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
-    protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
+    protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => ''];
 
     /** Replace two or more newlines with exactly two */
     protected const REPEATED_NEWLINES = ['/\n{2,}/' => "\n\n"];
