@@ -175,6 +175,8 @@ final class DocumentationSearchService
             '/`(.+?)`/' => '$1',
             // Replace two or more newlines with exactly two
             '/\n{2,}/' => "\n\n",
+            // Remove horizontal rules
+            '/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => '',
         ];
 
         foreach ($patterns as $pattern => $replacement) {
