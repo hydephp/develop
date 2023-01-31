@@ -65,12 +65,12 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_generate_page_entry_method_generates_a_page_entry()
     {
-        Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
+        Filesystem::putContents('_docs/foo.md', "# Bar\nHello World");
 
         $this->assertSame([
             'slug' => 'foo',
             'title' => 'Bar',
-            'content' => "Bar \n Hello World",
+            'content' => "Bar\nHello World",
             'destination' => 'foo.html',
         ], (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo')));
 
@@ -79,12 +79,12 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_it_generates_a_valid_JSON()
     {
-        Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
-        Filesystem::putContents('_docs/bar.md', "# Foo\n\n Hello World");
+        Filesystem::putContents('_docs/foo.md', "# Bar\n\nHello World");
+        Filesystem::putContents('_docs/bar.md', "# Foo\n\nHello World");
 
         $this->assertSame(
-            '[{"slug":"bar","title":"Foo","content":"Foo \n Hello World","destination":"bar.html"},'.
-            '{"slug":"foo","title":"Bar","content":"Bar \n Hello World","destination":"foo.html"}]',
+            '[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},'.
+            '{"slug":"foo","title":"Bar","content":"Bar\n\nHello World","destination":"foo.html"}]',
             json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
         );
 
