@@ -63,6 +63,8 @@ class ConvertsMarkdownToPlainText
             ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''],
             // Remove atx-style headers
             ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'],
+            // Remove horizontal rules
+            ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''],
             // Remove emphasis (repeat the line to remove double emphasis)
             ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'],
             ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'],
@@ -72,8 +74,6 @@ class ConvertsMarkdownToPlainText
             ['/`(.+?)`/' => '$1'],
             // Replace two or more newlines with exactly two
             ['/\n{2,}/' => "\n\n"],
-            // Remove horizontal rules
-            ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''],
         ];
 
         foreach ($patterns as $pattern) {
