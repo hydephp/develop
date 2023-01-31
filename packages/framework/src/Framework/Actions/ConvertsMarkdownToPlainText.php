@@ -30,13 +30,10 @@ class ConvertsMarkdownToPlainText
     /** Setext-style headers */
     protected const SETEXT_HEADERS = ['/^[=\-]{2,}\s*$/' => ''];
 
-    /** Horizontal rules */
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
 
-    /** HTML tags */
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
 
-    /** Code blocks */
     protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
 
     /** Fenced codeblocks (```) */
@@ -51,13 +48,10 @@ class ConvertsMarkdownToPlainText
     /** Fenced end tags */
     protected const FENCED_END_TAGS_ALT = ['/~{3}/' => ''];
 
-    /** Inline code */
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
-    /** Images */
     protected const IMAGES = ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** Inline links */
     protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
     /** Reference-style links */
@@ -66,16 +60,13 @@ class ConvertsMarkdownToPlainText
     /** Emphasis (repeat the line to remove double emphasis) */
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
-    /** Strikethrough */
     protected const STRIKETHROUGH = ['/~~/' => ''];
 
     /** Emphasis (repeat the line to remove double emphasis) */
     protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
-    /** Blockquotes */
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
-    /** Footnotes */
     protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
 
     /** Replace two or more newlines with exactly two */
