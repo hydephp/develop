@@ -37,25 +37,25 @@ class ConvertsMarkdownToPlainText
         $markdown = strip_tags($this->markdown);
 
         $patterns = [
-            static::headers(),
-            static::fencedCodeblocks(),
-            static::Strikethrough(),
-            static::fencedCodeblocks2(),
-            static::fencedEndTags(),
-            static::htmlTags(),
-            static::setextHeaders(),
-            static::footnotes(),
-            static::images(),
-            static::inlineLinks(),
-            static::blockquotes(),
-            static::referenceLinks(),
-            static::atxHeaders(),
-            static::horizontalRules(),
-            static::emphasis(),
-            static::doubleEmphasis(),
-            static::codeBlocks2(),
-            static::inlineCode(),
-            static::repeatedNewlines(),
+            static::HEADERS,
+            static::FENCED_CODEBLOCKS,
+            static::STRIKETHROUGH,
+            static::FENCED_CODEBLOCKS_2,
+            static::FENCED_END_TAGS,
+            static::HTML_TAGS,
+            static::SETEXT_HEADERS,
+            static::FOOTNOTES,
+            static::IMAGES,
+            static::INLINE_LINKS,
+            static::BLOCKQUOTES,
+            static::REFERENCE_LINKS,
+            static::ATX_HEADERS,
+            static::HORIZONTAL_RULES,
+            static::EMPHASIS,
+            static::DOUBLE_EMPHASIS,
+            static::CODE_BLOCKS_2,
+            static::INLINE_CODE,
+            static::REPEATED_NEWLINES,
         ];
 
         foreach ($patterns as $pattern) {
@@ -89,116 +89,59 @@ class ConvertsMarkdownToPlainText
     }
 
     /** Headers */
-    protected static function headers(): array
-    {
-        return ['/\n={2,}/' => "\n"];
-    }
+    protected const HEADERS = ['/\n={2,}/' => "\n"];
 
     /** Fenced codeblocks */
-    protected static function fencedCodeblocks(): array
-    {
-        return ['/~{3}.*\n/' => ''];
-    }
+    protected const FENCED_CODEBLOCKS = ['/~{3}.*\n/' => ''];
 
     /** Strikethrough */
-    protected static function Strikethrough(): array
-    {
-        return ['/~~/' => ''];
-    }
+    protected const STRIKETHROUGH = ['/~~/' => ''];
 
     /** Fenced codeblocks */
-    protected static function fencedCodeblocks2(): array
-    {
-        return ['/`{3}.*\n/' => ''];
-    }
+    protected const FENCED_CODEBLOCKS_2 = ['/`{3}.*\n/' => ''];
 
     /** Fenced end tags */
-    protected static function fencedEndTags(): array
-    {
-        return ['/`{3}/' => ''];
-    }
+    protected const FENCED_END_TAGS = ['/`{3}/' => ''];
 
     /** Remove HTML tags */
-    protected static function htmlTags(): array
-    {
-        return ['/<[^>]*>/' => ''];
-    }
+    protected const HTML_TAGS = ['/<[^>]*>/' => ''];
 
     /** Remove setext-style headers */
-    protected static function setextHeaders(): array
-    {
-        return ['/^[=\-]{2,}\s*$/' => ''];
-    }
+    protected const SETEXT_HEADERS = ['/^[=\-]{2,}\s*$/' => ''];
 
     /** Remove footnotes */
-    protected static function footnotes(): array
-    {
-        return ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
-    }
+    protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
 
     /** Remove images */
-    protected static function images(): array
-    {
-        return ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
-    }
+    protected const IMAGES = ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
     /** Remove inline links */
-    protected static function inlineLinks(): array
-    {
-        return ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
-    }
+    protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
     /** Remove blockquotes */
-    protected static function blockquotes(): array
-    {
-        return ['/^\s{0,3}>\s?/' => ''];
-    }
+    protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
     /** Remove reference-style links */
-    protected static function referenceLinks(): array
-    {
-        return ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
-    }
+    protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
 
     /** Remove atx-style headers */
-    protected static function atxHeaders(): array
-    {
-        return ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
-    }
+    protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
 
     /** Remove horizontal rules */
-    protected static function horizontalRules(): array
-    {
-        return ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
-    }
+    protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
 
     /** Remove emphasis (repeat the line to remove double emphasis) */
-    protected static function emphasis(): array
-    {
-        return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
-    }
+    protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Remove emphasis (repeat the line to remove double emphasis) */
-    protected static function doubleEmphasis(): array
-    {
-        return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
-    }
+    protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Remove code blocks */
-    protected static function codeBlocks2(): array
-    {
-        return ['/(`{3,})(.*?)\1/m' => '$2'];
-    }
+    protected const CODE_BLOCKS_2 = ['/(`{3,})(.*?)\1/m' => '$2'];
 
     /** Remove inline code */
-    protected static function inlineCode(): array
-    {
-        return ['/`(.+?)`/' => '$1'];
-    }
+    protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
     /** Replace two or more newlines with exactly two */
-    protected static function repeatedNewlines(): array
-    {
-        return ['/\n{2,}/' => "\n\n"];
-    }
+    protected const REPEATED_NEWLINES = ['/\n{2,}/' => "\n\n"];
 }
