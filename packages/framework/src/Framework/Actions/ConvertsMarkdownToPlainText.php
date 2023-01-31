@@ -21,9 +21,6 @@ use function strip_tags;
  */
 class ConvertsMarkdownToPlainText
 {
-    /** Classic headers */
-    protected const HEADERS = ['/\n={2,}/' => "\n"];
-
     /** Atx-style headers */
     protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
 
@@ -88,7 +85,6 @@ class ConvertsMarkdownToPlainText
         $markdown = strip_tags($this->markdown);
 
         $patterns = [
-            static::HEADERS,
             static::ATX_HEADERS,
             static::SETEXT_HEADERS,
             static::HORIZONTAL_RULES,
