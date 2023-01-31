@@ -182,7 +182,7 @@ final class DocumentationSearchService
 
         $lines = explode("\n", $markdown);
         foreach ($lines as $line => $contents) {
-            $newContents = ltrim($contents, '# ');
+            $newContents = $contents;
             // Remove tables (dividers)
             if (str_starts_with($newContents, '|--') && str_ends_with($newContents, '--|')) {
                 $newContents = str_replace(['|', '-'], ['', ''], $newContents);
