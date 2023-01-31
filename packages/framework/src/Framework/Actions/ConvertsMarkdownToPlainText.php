@@ -43,16 +43,16 @@ class ConvertsMarkdownToPlainText
 
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
 
-    protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
-
-    /** Emphasis (repeat the line to remove double emphasis) */
-    protected const DOUBLE_EMPHASIS = self::EMPHASIS;
-
     protected const STRIKETHROUGH = ['/~~/' => ''];
 
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
     protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => ''];
+
+    protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
+
+    /** Emphasis (repeat the line to remove double emphasis) */
+    protected const DOUBLE_EMPHASIS = self::EMPHASIS;
 
     /** Replace two or more newlines with exactly two */
     protected const REPEATED_NEWLINES = ['/\n{2,}/' => "\n\n"];
@@ -84,11 +84,11 @@ class ConvertsMarkdownToPlainText
             static::IMAGES,
             static::INLINE_LINKS,
             static::REFERENCE_LINKS,
-            static::EMPHASIS,
-            static::DOUBLE_EMPHASIS,
             static::STRIKETHROUGH,
             static::BLOCKQUOTES,
             static::FOOTNOTES,
+            static::EMPHASIS,
+            static::DOUBLE_EMPHASIS,
             static::REPEATED_NEWLINES,
         ];
 
