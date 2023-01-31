@@ -11,8 +11,5 @@ use Hyde\Testing\TestCase;
  */
 class ConvertsMarkdownToPlainTextTest extends TestCase
 {
-    public function testActionConvertsMarkdownToPlainText()
-    {
-        //
-    }
+    //
 }
