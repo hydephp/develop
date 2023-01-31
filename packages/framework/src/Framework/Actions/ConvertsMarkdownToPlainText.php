@@ -58,6 +58,7 @@ class ConvertsMarkdownToPlainText
         // Remove any HTML tags
         $markdown = strip_tags($this->markdown);
 
+        /** @var array<array-key, array<string, string>> $patterns */
         $patterns = [
             static::ATX_HEADERS,
             static::SETEXT_HEADERS,
