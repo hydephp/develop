@@ -188,7 +188,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
     public function test_should_handle_paragraphs_with_markdown()
     {
-        $paragraph = "\n## This is a heading ##\n\nThis is a paragraph with [a link](http://www.disney.com/).\n\n### This is another heading\n\nIn `Getting Started` we set up `something` foo.\n\n  * Some list\n  * With items\n    * Even indented";
+        $paragraph = "\n## This is a heading ##\n\nThis is a paragraph with [a link](https://www.disney.com/).\n\n### This is another heading\n\nIn `Getting Started` we set up `something` foo.\n\n  * Some list\n  * With items\n    * Even indented";
         $expected = "\nThis is a heading\n\nThis is a paragraph with a link.\n\nThis is another heading\n\nIn Getting Started we set up something foo.\n\n  Some list\n  With items\n    Even indented";
         $this->assertSame($expected, $this->removeMd($paragraph));
     }
