@@ -83,15 +83,15 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
     public function test_should_remove_emphasis()
     {
-        $string = 'italicized an *I* anit _made_ me *sad*.';
-        $expected = 'italicized an I anit made me sad.';
+        $string = 'Italicized an *I* _made_ me *sad*.';
+        $expected = 'Italicized an I made me sad.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
     public function test_should_remove_emphasis_only_if_there_is_no_space_between_word_and_emphasis_characters()
     {
-        $string = 'There should be no _space_, *before* *closing * _ephasis character _.';
-        $expected = 'There should be no space, before *closing * _ephasis character _.';
+        $string = 'There should be no _space_, *before* *closing * _emphasis character _.';
+        $expected = 'There should be no space, before *closing * _emphasis character _.';
         $this->assertSame($expected, $this->removeMd($string));
     }
 
@@ -152,8 +152,8 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
     public function test_should_remove_blockquotes_over_multiple_lines()
     {
-        $string = "> I am a blockquote firstline  \n>I am a blockquote secondline";
-        $expected = "I am a blockquote firstline\nI am a blockquote secondline";
+        $string = "> I am a blockquote first line  \n>I am a blockquote second line";
+        $expected = "I am a blockquote first line\nI am a blockquote second line";
         $this->assertSame($expected, $this->removeMd($string));
     }
 
@@ -174,22 +174,22 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
     public function test_should_strip_unordered_list_leaders()
     {
-        $string = "Some text on a line\n\n* A lisItem\n* Another lisitem";
-        $expected = "Some text on a line\n\nA lisItem\nAnother lisitem";
+        $string = "Some text on a line\n\n* A lisItem\n* Another list item";
+        $expected = "Some text on a line\n\nA lisItem\nAnother list item";
         $this->assertSame($expected, $this->removeMd($string));
     }
 
     public function test_should_strip_ordered_list_leaders()
     {
-        $string = "Some text on a line\n\n9. A lisItem\n10. Another lisitem";
-        $expected = "Some text on a line\n\nA lisItem\nAnother lisitem";
+        $string = "Some text on a line\n\n9. A lisItem\n10. Another list item";
+        $expected = "Some text on a line\n\nA lisItem\nAnother list item";
         $this->assertSame($expected, $this->removeMd($string));
     }
 
     public function test_should_handle_paragraphs_with_markdown()
     {
-        $paragraph = "\n## This is a heading ##\n\nThis is a paragraph with [a link](http://www.disney.com/).\n\n### This is another heading\n\nIn `Getting Started` we set up `something` foo.\n\n  * Some list\n  * Wititems\n    * Even indented";
-        $expected = "\nThis is a heading\n\nThis is a paragraph with a link.\n\nThis is another heading\n\nIn Getting Started we set up something foo.\n\n  Some list\n  Wititems\n    Even indented";
+        $paragraph = "\n## This is a heading ##\n\nThis is a paragraph with [a link](http://www.disney.com/).\n\n### This is another heading\n\nIn `Getting Started` we set up `something` foo.\n\n  * Some list\n  * With items\n    * Even indented";
+        $expected = "\nThis is a heading\n\nThis is a paragraph with a link.\n\nThis is another heading\n\nIn Getting Started we set up something foo.\n\n  Some list\n  With items\n    Even indented";
         $this->assertSame($expected, $this->removeMd($paragraph));
     }
 
