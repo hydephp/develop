@@ -407,17 +407,17 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     public function testItRemovesTables()
     {
         $markdown = <<<'MD'
-        | Syntax      | Description |
-        | ----------- | ----------- |
-        | Header      | Title       |
-        | Paragraph   | Text        |
+        | Syntax    | Description |
+        |-----------|-------------|
+        | Header    | Title       |
+        | Paragraph | Text        |
         MD;
 
         $text = <<<'TXT'
-        Syntax      Description
-        ----------- -----------
-        Header      Title
-        Paragraph   Text
+        Syntax    Description
+
+        Header    Title
+        Paragraph Text
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
