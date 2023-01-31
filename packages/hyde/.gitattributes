@@ -9,3 +9,5 @@
 .github/ export-ignore
 tests/ export-ignore
 CHANGELOG.md export-ignore
+LICENSE.md export-ignore
+SECURITY.md export-ignore
