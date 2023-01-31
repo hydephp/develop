@@ -21,10 +21,8 @@ use function strip_tags;
  */
 class ConvertsMarkdownToPlainText
 {
-    /** Atx-style headers */
     protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
 
-    /** Setext-style headers */
     protected const SETEXT_HEADERS = ['/\n={2,}/' => "\n"];
 
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
@@ -51,7 +49,6 @@ class ConvertsMarkdownToPlainText
 
     protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** Reference-style links */
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
 
     /** Emphasis (repeat the line to remove double emphasis) */
