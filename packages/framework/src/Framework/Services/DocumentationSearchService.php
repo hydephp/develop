@@ -106,10 +106,8 @@ final class DocumentationSearchService
      * in the document. This would however add complexity as well as extra
      * computing time.
      *
-     * Benchmarks: (for official Hyde docs)
-     *
-     * Returning $document->body as is: 500ms
-     * Returning $document->body as Str::markdown(): 920ms + 10ms for regex
+     * The current function is benchmarked on the official Hyde docs and takes
+     * around 230ms to generate the search index for all page files.
      */
     protected function getSearchContentForDocument(DocumentationPage $page): string
     {
