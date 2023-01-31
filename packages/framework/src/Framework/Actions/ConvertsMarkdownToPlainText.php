@@ -37,7 +37,7 @@ class ConvertsMarkdownToPlainText
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
 
     /** Remove code blocks */
-    protected const CODE_BLOCKS_2 = ['/(`{3,})(.*?)\1/m' => '$2'];
+    protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
 
     /** Fenced codeblocks */
     protected const FENCED_CODEBLOCKS = ['/~{3}.*\n/' => ''];
@@ -99,7 +99,7 @@ class ConvertsMarkdownToPlainText
             static::SETEXT_HEADERS,
             static::HORIZONTAL_RULES,
             static::HTML_TAGS,
-            static::CODE_BLOCKS_2,
+            static::CODE_BLOCKS,
             static::FENCED_CODEBLOCKS,
             static::FENCED_CODEBLOCKS_2,
             static::FENCED_END_TAGS,
