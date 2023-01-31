@@ -24,11 +24,23 @@ class ConvertsMarkdownToPlainText
     /** Headers */
     protected const HEADERS = ['/\n={2,}/' => "\n"];
 
+    /** Remove atx-style headers */
+    protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
+
+    /** Remove setext-style headers */
+    protected const SETEXT_HEADERS = ['/^[=\-]{2,}\s*$/' => ''];
+
+    /** Remove horizontal rules */
+    protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
+
+    /** Remove HTML tags */
+    protected const HTML_TAGS = ['/<[^>]*>/' => ''];
+
+    /** Remove code blocks */
+    protected const CODE_BLOCKS_2 = ['/(`{3,})(.*?)\1/m' => '$2'];
+
     /** Fenced codeblocks */
     protected const FENCED_CODEBLOCKS = ['/~{3}.*\n/' => ''];
-
-    /** Strikethrough */
-    protected const STRIKETHROUGH = ['/~~/' => ''];
 
     /** Fenced codeblocks */
     protected const FENCED_CODEBLOCKS_2 = ['/`{3}.*\n/' => ''];
@@ -36,14 +48,8 @@ class ConvertsMarkdownToPlainText
     /** Fenced end tags */
     protected const FENCED_END_TAGS = ['/`{3}/' => ''];
 
-    /** Remove HTML tags */
-    protected const HTML_TAGS = ['/<[^>]*>/' => ''];
-
-    /** Remove setext-style headers */
-    protected const SETEXT_HEADERS = ['/^[=\-]{2,}\s*$/' => ''];
-
-    /** Remove footnotes */
-    protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
+    /** Remove inline code */
+    protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
     /** Remove images */
     protected const IMAGES = ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
@@ -51,29 +57,23 @@ class ConvertsMarkdownToPlainText
     /** Remove inline links */
     protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** Remove blockquotes */
-    protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
-
     /** Remove reference-style links */
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
-
-    /** Remove atx-style headers */
-    protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
-
-    /** Remove horizontal rules */
-    protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
 
     /** Remove emphasis (repeat the line to remove double emphasis) */
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
+    /** Strikethrough */
+    protected const STRIKETHROUGH = ['/~~/' => ''];
+
     /** Remove emphasis (repeat the line to remove double emphasis) */
     protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
-    /** Remove code blocks */
-    protected const CODE_BLOCKS_2 = ['/(`{3,})(.*?)\1/m' => '$2'];
+    /** Remove blockquotes */
+    protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
-    /** Remove inline code */
-    protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
+    /** Remove footnotes */
+    protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
 
     /** Replace two or more newlines with exactly two */
     protected const REPEATED_NEWLINES = ['/\n{2,}/' => "\n\n"];
