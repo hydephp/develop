@@ -57,10 +57,10 @@ class ConvertsMarkdownToPlainText
     /** Emphasis (repeat the line to remove double emphasis) */
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
-    protected const STRIKETHROUGH = ['/~~/' => ''];
-
     /** Emphasis (repeat the line to remove double emphasis) */
     protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
+
+    protected const STRIKETHROUGH = ['/~~/' => ''];
 
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
@@ -99,8 +99,8 @@ class ConvertsMarkdownToPlainText
             static::INLINE_LINKS,
             static::REFERENCE_LINKS,
             static::EMPHASIS,
-            static::STRIKETHROUGH,
             static::DOUBLE_EMPHASIS,
+            static::STRIKETHROUGH,
             static::BLOCKQUOTES,
             static::FOOTNOTES,
             static::REPEATED_NEWLINES,
