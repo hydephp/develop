@@ -57,7 +57,7 @@ class GenerateBuildManifest extends BuildTask
     {
         return Hyde::path(config(
             'hyde.build_manifest_path',
-            'storage/framework/cache/build-manifest.json'
+            'app/storage/framework/cache/build-manifest.json'
         ));
     }
 
