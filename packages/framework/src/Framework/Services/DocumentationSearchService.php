@@ -168,8 +168,7 @@ final class DocumentationSearchService
             '/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => '',
             // Remove atx-style headers
             '/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3',
-            // Remove emphasis (repeat the line to remove double emphasis)
-            '/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2',
+            // Remove emphasis
             '/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2',
             // Remove code blocks
             '/(`{3,})(.*?)\1/m' => '$2',
