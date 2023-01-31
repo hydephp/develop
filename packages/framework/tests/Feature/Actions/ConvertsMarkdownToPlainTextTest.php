@@ -363,6 +363,31 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
+    public function testItReplacesConsecutivelyOccurringNewlines()
+    {
+        $markdown = <<<'MD'
+        Start
+        
+        
+        Break
+        
+        
+        
+        
+        End
+        MD;
+
+        $text = <<<'TXT'
+        Start
+        
+        Break
+        
+        End
+        TXT;
+
+        $this->assertSame($text, $this->convert($markdown));
+    }
+
     protected function convert(string $markdown): string
     {
         return (new ConvertsMarkdownToPlainText($markdown))->execute();
