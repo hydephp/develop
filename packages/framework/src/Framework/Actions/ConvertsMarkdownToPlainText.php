@@ -51,7 +51,6 @@ class ConvertsMarkdownToPlainText
 
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
 
-    /** Emphasis (repeat the line to remove double emphasis) */
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Emphasis (repeat the line to remove double emphasis) */
