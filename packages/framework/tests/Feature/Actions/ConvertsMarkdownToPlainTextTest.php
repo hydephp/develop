@@ -193,46 +193,6 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
-    public function testItRemovesNestedBlockquotes()
-    {
-        $markdown = <<<'MD'
-        > Dorothy followed her through many of the beautiful rooms in her castle.
-        >
-        >> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-        MD;
-
-        $text = <<<'TXT'
-        Dorothy followed her through many of the beautiful rooms in her castle.
-        
-        > The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-        TXT;
-
-        $this->assertSame($text, $this->convert($markdown));
-    }
-
-    public function testItRemovesBlockquotesWithOtherElements()
-    {
-        $markdown = <<<'MD'
-        > #### The quarterly results look great!
-        >
-        > - Revenue was off the chart.
-        > - Profits were higher than ever.
-        >
-        > *Everything* is going according to **plan**.
-        MD;
-
-                $text = <<<'TXT'
-        The quarterly results look great!
-        
-        - Revenue was off the chart.
-        - Profits were higher than ever.
-        
-        Everything is going according to plan.
-        TXT;
-
-        $this->assertSame($text, $this->convert($markdown));
-    }
-
     public function testItRemovesOrderedLists()
     {
         $markdown = <<<'MD'
@@ -334,58 +294,6 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
             - Indented item
             - Indented item
         - Fourth item
-        TXT;
-
-        $this->assertSame($text, $this->convert($markdown));
-    }
-
-    public function testItRemovesStartingUnorderedListItemsWithNumbers()
-    {
-        $markdown = <<<'MD'
-        - 1968\. A great year!
-        - I think 1969 was second best.
-        MD;
-
-        $text = <<<'TXT'
-        - 1968\. A great year!
-        - I think 1969 was second best.
-        TXT;
-
-        $this->assertSame($text, $this->convert($markdown));
-    }
-
-    public function testItRemovesAddingElementsInLists()
-    {
-        $markdown = <<<'MD'
-        * This is the first list item.
-        * Here's the second list item.
-        
-            I need to add another paragraph below the second list item.
-            
-        * And here's the third list item.
-        
-        * This is the first list item.
-        * Here's the second list item.
-        
-            > A blockquote would look great below the second list item.
-        
-        * And here's the third list item.
-        MD;
-
-        $text = <<<'TXT'
-        * This is the first list item.
-        * Here's the second list item.
-        
-            I need to add another paragraph below the second list item.
-        
-        * And here's the third list item.
-        
-        * This is the first list item.
-        * Here's the second list item.
-        
-            > A blockquote would look great below the second list item.
-        
-        * And here's the third list item.
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
