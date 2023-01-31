@@ -136,10 +136,6 @@ final class DocumentationSearchService
         // Remove any HTML tags
         $markdown = strip_tags($markdown);
 
-        $options = [
-            'useImgAltText' => true,
-        ];
-
         $patterns = [
             // Headers
             '/\n={2,}/' => "\n",
@@ -159,7 +155,7 @@ final class DocumentationSearchService
             '/\[\^.+?\](\: .*?$)?/' => '',
             '/\s{0,2}\[.*?\]: .*?$/' => '',
             // Remove images
-            '/\!\[(.*?)\][\[\(].*?[\]\)]/' => $options['useImgAltText'] ? '$1' : '',
+            '/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1',
             // Remove inline links
             '/\[(.*?)\][\[\(].*?[\]\)]/' => '$1',
             // Remove blockquotes
