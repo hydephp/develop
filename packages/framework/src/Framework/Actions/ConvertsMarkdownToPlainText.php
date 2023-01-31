@@ -22,33 +22,19 @@ use function strip_tags;
 class ConvertsMarkdownToPlainText
 {
     protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
-
     protected const SETEXT_HEADERS = ['/\n={2,}/' => "\n"];
-
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
-
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
-
     protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
-
     protected const FENCED_CODEBLOCKS = ['/`{3}.*\n/' => '', '/`{3}/' => ''];
-
     protected const TILDE_FENCED_CODEBLOCKS = ['/~{3}.*\n/' => '', '/~{3}/' => ''];
-
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
-
     protected const IMAGES = ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
-
     protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
-
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
-
     protected const STRIKETHROUGH = ['/~~/' => ''];
-
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
-
     protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => ''];
-
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Emphasis (repeat the line to remove double emphasis) */
