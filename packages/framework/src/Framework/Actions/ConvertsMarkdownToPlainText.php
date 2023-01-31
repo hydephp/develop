@@ -37,10 +37,8 @@ class ConvertsMarkdownToPlainText
     /** Fenced codeblocks (~~~) */
     protected const FENCED_CODEBLOCKS_ALT = ['/~{3}.*\n/' => ''];
 
-    /** Fenced end tags */
     protected const FENCED_END_TAGS = ['/`{3}/' => ''];
 
-    /** Fenced end tags */
     protected const FENCED_END_TAGS_ALT = ['/~{3}/' => ''];
 
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
