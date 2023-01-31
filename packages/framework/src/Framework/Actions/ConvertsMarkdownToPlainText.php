@@ -11,5 +11,10 @@ namespace Hyde\Framework\Actions;
  */
 class ConvertsMarkdownToPlainText
 {
-    //
+    protected string $markdown;
+
+    public function __construct(string $markdown)
+    {
+        $this->markdown = $markdown;
+    }
 }
