@@ -76,8 +76,8 @@ class ConvertsMarkdownToPlainText
             ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''],
         ];
 
-        foreach ($patterns as $pattern => $replacement) {
-            $markdown = preg_replace($pattern, $replacement, $markdown) ?? $markdown;
+        foreach ($patterns as $pattern) {
+            $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown) ?? $markdown;
         }
 
         $lines = explode("\n", $markdown);
