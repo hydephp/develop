@@ -37,42 +37,24 @@ class ConvertsMarkdownToPlainText
         $markdown = strip_tags($this->markdown);
 
         $patterns = [
-            // Headers
             static::headers(),
-            // Fenced codeblocks
             static::fencedCodeblocks(),
-            // Strikethrough
             static::Strikethrough(),
-            // Fenced codeblocks
             static::fencedCodeblocks2(),
-            // Fenced end tags
             static::fencedEndTags(),
-            // Remove HTML tags
             static::htmlTags(),
-            // Remove setext-style headers
             static::setextHeaders(),
-            // Remove footnotes
             static::footnotes(),
-            // Remove images
             static::images(),
-            // Remove inline links
             static::inlineLinks(),
-            // Remove blockquotes
             static::blockquotes(),
-            // Remove reference-style links
             static::referenceLinks(),
-            // Remove atx-style headers
             static::atxHeaders(),
-            // Remove horizontal rules
             static::horizontalRules(),
-            // Remove emphasis (repeat the line to remove double emphasis)
             static::emphasis(),
             static::doubleEmphasis(),
-            // Remove code blocks
             static::codeBlocks2(),
-            // Remove inline code
             static::inlineCode(),
-            // Replace two or more newlines with exactly two
             static::repeatedNewlines(),
         ];
 
@@ -108,96 +90,115 @@ class ConvertsMarkdownToPlainText
 
     protected static function headers(): array
     {
+        // Headers
         return ['/\n={2,}/' => "\n"];
     }
 
     protected static function fencedCodeblocks(): array
     {
+        // Fenced codeblocks
         return ['/~{3}.*\n/' => ''];
     }
 
     protected static function Strikethrough(): array
     {
+        // Strikethrough
         return ['/~~/' => ''];
     }
 
     protected static function fencedCodeblocks2(): array
     {
+        // Fenced codeblocks
         return ['/`{3}.*\n/' => ''];
     }
 
     protected static function fencedEndTags(): array
     {
+        // Fenced end tags
         return ['/`{3}/' => ''];
     }
 
     protected static function htmlTags(): array
     {
+        // Remove HTML tags
         return ['/<[^>]*>/' => ''];
     }
 
     protected static function setextHeaders(): array
     {
+        // Remove setext-style headers
         return ['/^[=\-]{2,}\s*$/' => ''];
     }
 
     protected static function footnotes(): array
     {
+        // Remove footnotes
         return ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
     }
 
     protected static function images(): array
     {
+        // Remove images
         return ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
     }
 
     protected static function inlineLinks(): array
     {
+        // Remove inline links
         return ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
     }
 
     protected static function blockquotes(): array
     {
+        // Remove blockquotes
         return ['/^\s{0,3}>\s?/' => ''];
     }
 
     protected static function referenceLinks(): array
     {
+        // Remove reference-style links
         return ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
     }
 
     protected static function atxHeaders(): array
     {
+        // Remove atx-style headers
         return ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
     }
 
     protected static function horizontalRules(): array
     {
+        // Remove horizontal rules
         return ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
     }
 
     protected static function emphasis(): array
     {
+        // Remove emphasis (repeat the line to remove double emphasis)
         return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
     }
 
     protected static function doubleEmphasis(): array
     {
+        // Remove emphasis (repeat the line to remove double emphasis)
         return ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
     }
 
     protected static function codeBlocks2(): array
     {
+        // Remove code blocks
         return ['/(`{3,})(.*?)\1/m' => '$2'];
     }
 
     protected static function inlineCode(): array
     {
+        // Remove inline code
         return ['/`(.+?)`/' => '$1'];
     }
 
     protected static function repeatedNewlines(): array
     {
+        // Replace two or more newlines with exactly two
         return ['/\n{2,}/' => "\n\n"];
     }
 }
