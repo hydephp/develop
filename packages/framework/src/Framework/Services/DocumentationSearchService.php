@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
@@ -114,7 +115,7 @@ final class DocumentationSearchService
         // This is compiles the Markdown body into HTML, and then strips out all
         // HTML tags to get a plain text version of the body. This takes a long
         // site, but is the simplest implementation I've found so far.
-        return $this->convertMarkdownToPlainText($page->markdown->body());
+        return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
     public function getDestinationForSlug(string $slug): string
@@ -124,74 +125,5 @@ final class DocumentationSearchService
         }
 
         return $slug.'.html';
-    }
-
-    /**
-     * Regex based on https://github.com/stiang/remove-markdown, licensed under MIT.
-     */
-    protected function convertMarkdownToPlainText(string $markdown): string
-    {
-        // Remove any HTML tags
-        $markdown = strip_tags($markdown);
-
-        $patterns = [
-            // Headers
-            '/\n={2,}/' => "\n",
-            // Fenced codeblocks
-            '/~{3}.*\n/' => '',
-            // Strikethrough
-            '/~~/' => '',
-            // Fenced codeblocks
-            '/`{3}.*\n/' => '',
-            // Fenced end tags
-            '/`{3}/' => '',
-            // Remove HTML tags
-            '/<[^>]*>/' => '',
-            // Remove setext-style headers
-            '/^[=\-]{2,}\s*$/' => '',
-            // Remove footnotes?
-            '/\[\^.+?\](\: .*?$)?/' => '',
-            '/\s{0,2}\[.*?\]: .*?$/' => '',
-            // Remove images
-            '/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1',
-            // Remove inline links
-            '/\[(.*?)\][\[\(].*?[\]\)]/' => '$1',
-            // Remove blockquotes
-            '/^\s{0,3}>\s?/' => '',
-            // Remove reference-style links?
-            '/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => '',
-            // Remove atx-style headers
-            '/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3',
-            // Remove emphasis
-            '/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2',
-            // Remove code blocks
-            '/(`{3,})(.*?)\1/m' => '$2',
-            // Remove inline code
-            '/`(.+?)`/' => '$1',
-            // Replace two or more newlines with exactly two
-            '/\n{2,}/' => "\n\n",
-            // Remove horizontal rules
-            '/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => '',
-        ];
-
-        foreach ($patterns as $pattern => $replacement) {
-            $markdown = preg_replace($pattern, $replacement, $markdown) ?? $markdown;
-        }
-
-        $lines = explode("\n", $markdown);
-        foreach ($lines as $line => $contents) {
-            $newContents = $contents;
-            // Remove tables (dividers)
-            if (str_starts_with($newContents, '|--') && str_ends_with($newContents, '--|')) {
-                $newContents = str_replace(['|', '-'], ['', ''], $newContents);
-            }
-            // Remove tables (cells)
-            if (str_starts_with($newContents, '| ') && str_ends_with($newContents, '|')) {
-                $newContents = str_replace(['| ', ' | ', ' |'], ['', '', ''], $newContents);
-            }
-            $lines[$line] = $newContents;
-        }
-
-        return implode("\n", $lines);
     }
 }
