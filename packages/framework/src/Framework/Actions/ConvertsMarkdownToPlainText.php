@@ -54,7 +54,7 @@ class ConvertsMarkdownToPlainText
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Emphasis (repeat the line to remove double emphasis) */
-    protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
+    protected const DOUBLE_EMPHASIS = self::EMPHASIS;
 
     protected const STRIKETHROUGH = ['/~~/' => ''];
 
