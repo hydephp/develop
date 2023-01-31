@@ -112,9 +112,6 @@ final class DocumentationSearchService
      */
     protected function getSearchContentForDocument(DocumentationPage $page): string
     {
-        // This is compiles the Markdown body into HTML, and then strips out all
-        // HTML tags to get a plain text version of the body. This takes a long
-        // site, but is the simplest implementation I've found so far.
         return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
