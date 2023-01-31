@@ -24,19 +24,19 @@ class ConvertsMarkdownToPlainText
     /** Headers */
     protected const HEADERS = ['/\n={2,}/' => "\n"];
 
-    /** Remove atx-style headers */
+    /** atx-style headers */
     protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
 
-    /** Remove setext-style headers */
+    /** setext-style headers */
     protected const SETEXT_HEADERS = ['/^[=\-]{2,}\s*$/' => ''];
 
-    /** Remove horizontal rules */
+    /** horizontal rules */
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
 
-    /** Remove HTML tags */
+    /** HTML tags */
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
 
-    /** Remove code blocks */
+    /** code blocks */
     protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
 
     /** Fenced codeblocks (```) */
@@ -51,31 +51,31 @@ class ConvertsMarkdownToPlainText
     /** Fenced end tags */
     protected const FENCED_END_TAGS_ALT = ['/~{3}/' => ''];
 
-    /** Remove inline code */
+    /** inline code */
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
-    /** Remove images */
+    /** images */
     protected const IMAGES = ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** Remove inline links */
+    /** inline links */
     protected const INLINE_LINKS = ['/\[(.*?)\][\[\(].*?[\]\)]/' => '$1'];
 
-    /** Remove reference-style links */
+    /** reference-style links */
     protected const REFERENCE_LINKS = ['/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => ''];
 
-    /** Remove emphasis (repeat the line to remove double emphasis) */
+    /** emphasis (repeat the line to remove double emphasis) */
     protected const EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
     /** Strikethrough */
     protected const STRIKETHROUGH = ['/~~/' => ''];
 
-    /** Remove emphasis (repeat the line to remove double emphasis) */
+    /** emphasis (repeat the line to remove double emphasis) */
     protected const DOUBLE_EMPHASIS = ['/([\*_]{1,3})(\S.*?\S{0,1})\1/' => '$2'];
 
-    /** Remove blockquotes */
+    /** blockquotes */
     protected const BLOCKQUOTES = ['/^\s{0,3}>\s?/' => ''];
 
-    /** Remove footnotes */
+    /** footnotes */
     protected const FOOTNOTES = ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''];
 
     /** Replace two or more newlines with exactly two */
