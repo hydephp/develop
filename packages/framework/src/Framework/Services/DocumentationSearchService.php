@@ -9,7 +9,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
-use function strip_tags;
 
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
