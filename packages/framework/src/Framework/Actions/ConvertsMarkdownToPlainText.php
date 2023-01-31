@@ -31,13 +31,9 @@ class ConvertsMarkdownToPlainText
 
     protected const CODE_BLOCKS = ['/(`{3,})(.*?)\1/m' => '$2'];
 
-    protected const FENCED_CODEBLOCKS = ['/`{3}.*\n/' => ''];
+    protected const FENCED_CODEBLOCKS = ['/`{3}.*\n/' => '', '/`{3}/' => ''];
 
-    protected const FENCED_END_TAGS = ['/`{3}/' => ''];
-
-    protected const TILDE_FENCED_CODEBLOCKS = ['/~{3}.*\n/' => ''];
-
-    protected const TILDE_FENCED_END_TAGS = ['/~{3}/' => ''];
+    protected const TILDE_FENCED_CODEBLOCKS = ['/~{3}.*\n/' => '', '/~{3}/' => ''];
 
     protected const INLINE_CODE = ['/`(.+?)`/' => '$1'];
 
@@ -83,9 +79,7 @@ class ConvertsMarkdownToPlainText
             static::HTML_TAGS,
             static::CODE_BLOCKS,
             static::FENCED_CODEBLOCKS,
-            static::FENCED_END_TAGS,
             static::TILDE_FENCED_CODEBLOCKS,
-            static::TILDE_FENCED_END_TAGS,
             static::INLINE_CODE,
             static::IMAGES,
             static::INLINE_LINKS,
