@@ -21,7 +21,7 @@ use function strip_tags;
  */
 class ConvertsMarkdownToPlainText
 {
-    /** Headers */
+    /** Classic headers */
     protected const HEADERS = ['/\n={2,}/' => "\n"];
 
     /** Atx-style headers */
