@@ -155,8 +155,8 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $text = <<<'TXT'
         This text is really important.
         This text is really important.
-        This text is *really important*.
-        This text is _really important_.
+        This text is really important.
+        This text is really important.
         This is reallyveryimportant text.
         TXT;
 
