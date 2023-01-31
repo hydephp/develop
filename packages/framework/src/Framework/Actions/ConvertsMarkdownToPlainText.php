@@ -52,8 +52,7 @@ class ConvertsMarkdownToPlainText
             // Remove setext-style headers
             ['/^[=\-]{2,}\s*$/' => ''],
             // Remove footnotes
-            ['/\[\^.+?\](\: .*?$)?/' => ''],
-            ['/\s{0,2}\[.*?\]: .*?$/' => ''],
+            ['/\[\^.+?\](\: .*?$)?/' => '', '/\s{0,2}\[.*?\]: .*?$/' => ''],
             // Remove images
             ['/\!\[(.*?)\][\[\(].*?[\]\)]/' => '$1'],
             // Remove inline links
