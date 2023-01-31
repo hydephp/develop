@@ -47,7 +47,7 @@ class ConvertsMarkdownToPlainText
             '/<[^>]*>/' => '',
             // Remove setext-style headers
             '/^[=\-]{2,}\s*$/' => '',
-            // Remove footnotes?
+            // Remove footnotes
             '/\[\^.+?\](\: .*?$)?/' => '',
             '/\s{0,2}\[.*?\]: .*?$/' => '',
             // Remove images
@@ -56,7 +56,7 @@ class ConvertsMarkdownToPlainText
             '/\[(.*?)\][\[\(].*?[\]\)]/' => '$1',
             // Remove blockquotes
             '/^\s{0,3}>\s?/' => '',
-            // Remove reference-style links?
+            // Remove reference-style links
             '/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/' => '',
             // Remove atx-style headers
             '/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3',
