@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Str;
 
 /**
  * @covers \Hyde\Framework\Actions\ConvertsMarkdownToPlainText
@@ -550,11 +549,11 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
             MD;
 
             return ($this->convert($markdown));
-        }, 1000);
+        }, 10000);
     }
 
     protected function convert(string $markdown): string
     {
-        return preg_replace('/<(.|\n)*?>/', ' ', Str::markdown($markdown));
+        return (new ConvertsMarkdownToPlainText($markdown))->execute();
     }
 }
