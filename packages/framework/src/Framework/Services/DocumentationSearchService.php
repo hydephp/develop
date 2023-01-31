@@ -178,7 +178,7 @@ final class DocumentationSearchService
         ];
 
         foreach ($patterns as $pattern => $replacement) {
-            $markdown = preg_replace($pattern, $replacement, $markdown);
+            $markdown = preg_replace($pattern, $replacement, $markdown) ?? $markdown;
         }
 
         return $markdown;
