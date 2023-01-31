@@ -193,8 +193,6 @@ final class DocumentationSearchService
             }
             $lines[$line] = $newContents;
         }
-        $markdown = implode("\n", $lines);
-
-        return $markdown;
+        return implode("\n", $lines);
     }
 }
