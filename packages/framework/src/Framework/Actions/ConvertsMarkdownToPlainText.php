@@ -92,8 +92,13 @@ class ConvertsMarkdownToPlainText
             }
 
             // Remove blockquotes
-            $newContents = preg_replace('/^> /', '', $newContents);
-            $newContents = preg_replace('/^>/', '', $newContents);
+            if (str_starts_with($newContents, '> ')) {
+                $newContents = substr($newContents, 2);
+            }
+            // Remove multiline blockquotes
+            if (str_starts_with($newContents, '>')) {
+                $newContents = substr($newContents, 1);
+            }
             $lines[$line] = $newContents;
         }
 
