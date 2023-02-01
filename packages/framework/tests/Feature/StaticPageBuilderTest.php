@@ -144,7 +144,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_site_directory_can_be_customized()
     {
-        Site::$outputPath = 'foo';
+        Site::setOutputPath('foo');
 
         new StaticPageBuilder(MarkdownPage::make('foo'), true);
 
@@ -156,7 +156,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_site_directory_can_be_customized_with_nested_pages()
     {
-        Site::$outputPath = 'foo';
+        Site::setOutputPath('foo');
 
         new StaticPageBuilder(MarkdownPost::make('foo'), true);
 
