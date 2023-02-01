@@ -63,7 +63,28 @@ class ConvertsMarkdownToPlainText
 
     protected function applyRegexTransformations(string $markdown): string
     {
-        foreach ($this->getPatterns() as $pattern) {
+        /** @var array<array-key, array<string, string>> $patterns */
+        $patterns = [
+            static::ATX_HEADERS,
+            static::SETEXT_HEADERS,
+            static::HORIZONTAL_RULES,
+            static::HTML_TAGS,
+            static::CODE_BLOCKS,
+            static::FENCED_CODEBLOCKS,
+            static::TILDE_FENCED_CODEBLOCKS,
+            static::INLINE_CODE,
+            static::IMAGES,
+            static::INLINE_LINKS,
+            static::REFERENCE_LINKS,
+            static::STRIKETHROUGH,
+            static::BLOCKQUOTES,
+            static::FOOTNOTES,
+            static::EMPHASIS,
+            static::DOUBLE_EMPHASIS,
+            static::REPEATED_NEWLINES,
+        ];
+
+        foreach ($patterns as $pattern) {
             $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown);
         }
 
@@ -109,29 +130,5 @@ class ConvertsMarkdownToPlainText
         }
 
         return $contents;
-    }
-
-    /** @return array<array-key, array<string, string>> */
-    protected function getPatterns(): array
-    {
-        return [
-            static::ATX_HEADERS,
-            static::SETEXT_HEADERS,
-            static::HORIZONTAL_RULES,
-            static::HTML_TAGS,
-            static::CODE_BLOCKS,
-            static::FENCED_CODEBLOCKS,
-            static::TILDE_FENCED_CODEBLOCKS,
-            static::INLINE_CODE,
-            static::IMAGES,
-            static::INLINE_LINKS,
-            static::REFERENCE_LINKS,
-            static::STRIKETHROUGH,
-            static::BLOCKQUOTES,
-            static::FOOTNOTES,
-            static::EMPHASIS,
-            static::DOUBLE_EMPHASIS,
-            static::REPEATED_NEWLINES,
-        ];
     }
 }
