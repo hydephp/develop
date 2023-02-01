@@ -41,4 +41,14 @@ final class Site
     {
         return GlobalMetadataBag::make();
     }
+
+    public static function getOutputPath(): string
+    {
+        return self::$outputPath;
+    }
+
+    public static function setOutputPath(string $outputPath): void
+    {
+        self::$outputPath = $outputPath;
+    }
 }
