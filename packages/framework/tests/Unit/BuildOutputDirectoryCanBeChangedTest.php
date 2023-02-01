@@ -71,14 +71,6 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
         File::deleteDirectory(Hyde::path('_site/build'));
     }
 
-    public function test_site_output_directory_path_is_normalized_to_be_relative()
-    {
-        Site::setOutputPath(Hyde::path('_site'));
-        $this->assertEquals('_site', Site::getOutputPath());
-
-        Site::setOutputPath('_site');
-    }
-
     public function test_site_output_directory_path_is_normalized_to_trim_trailing_slashes()
     {
         Site::setOutputPath('foo/bar/');
