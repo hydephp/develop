@@ -85,7 +85,7 @@ class ConvertsMarkdownToPlainText
         ];
 
         foreach ($patterns as $pattern) {
-            $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown);
+            $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown) ?? $markdown;
         }
 
         return $markdown;
