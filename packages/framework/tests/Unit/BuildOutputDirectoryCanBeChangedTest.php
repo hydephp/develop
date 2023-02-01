@@ -75,7 +75,5 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         Site::setOutputPath('foo/bar/');
         $this->assertEquals('foo/bar', Site::getOutputPath());
-
-        Site::setOutputPath('_site');
     }
 }
