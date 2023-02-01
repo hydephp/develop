@@ -44,6 +44,8 @@ class HydeKernel implements SerializableContract
     use Serializable;
     use Macroable;
 
+    final public const VERSION = '1.0.0-dev';
+
     protected static self $instance;
 
     protected string $basePath;
@@ -61,8 +63,6 @@ class HydeKernel implements SerializableContract
 
     protected array $pageClasses = [];
     protected array $extensions = [];
-
-    final public const VERSION = '1.0.0-dev';
 
     public function __construct(?string $basePath = null, #[Deprecated(reason: 'This does not seem to be used anywhere, use the setter instead')]string $sourceRoot = '')
     {
