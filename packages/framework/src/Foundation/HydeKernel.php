@@ -8,6 +8,7 @@ use Hyde\Facades\Features;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Traits\Macroable;
+use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -62,7 +63,7 @@ class HydeKernel implements SerializableContract
 
     final public const VERSION = '1.0.0-dev';
 
-    public function __construct(?string $basePath = null, string $sourceRoot = '')
+    public function __construct(?string $basePath = null, #[Deprecated(reason: 'This does not seem to be used anywhere, use the setter instead')]string $sourceRoot = '')
     {
         $this->setBasePath($basePath ?? getcwd());
         $this->setSourceRoot($sourceRoot);
