@@ -82,7 +82,7 @@ final class DocumentationSearchService
 
     protected function save(): self
     {
-        $this->needsDirectory(Hyde::path(dirname(self::$filePath)));
+        $this->needsParentDirectory(Hyde::path(self::$filePath));
 
         file_put_contents(Hyde::path(self::$filePath), $this->searchIndex->toJson());
 
