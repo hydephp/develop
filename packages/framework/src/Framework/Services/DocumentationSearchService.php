@@ -94,11 +94,7 @@ final class DocumentationSearchService
 
     public function formatDestination(string $page): string
     {
-        if (config('site.pretty_urls', false) === true) {
-            return $page !== 'index' ? $page : '';
-        }
-
-        return $page.'.html';
+        return Hyde::formatLink($page);
     }
 
     public static function getFilePath(): string
