@@ -74,7 +74,7 @@ final class DocumentationSearchService
             'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
-            'destination' => $this->formatDestination(basename($page->identifier)),
+            'destination' => basename($this->formatDestination($page->identifier)),
         ];
     }
 
