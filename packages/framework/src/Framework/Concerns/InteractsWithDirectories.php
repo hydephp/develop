@@ -14,7 +14,7 @@ trait InteractsWithDirectories
     /**
      * Ensure the supplied directory exist by creating it if it does not.
      *
-     * @param  string  $directory  absolute file path to the directory
+     * @param  string  $directory  relative file path to the directory
      */
     public static function needsDirectory(string $directory): void
     {
@@ -26,7 +26,7 @@ trait InteractsWithDirectories
     /**
      * Ensure the supplied directories exist by creating them if they don't.
      *
-     * @param  array<string>  $directories  array with absolute file paths to the directories
+     * @param  array<string>  $directories  array with relative file paths to the directories
      */
     public static function needsDirectories(array $directories): void
     {

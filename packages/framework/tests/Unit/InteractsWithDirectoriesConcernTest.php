@@ -34,41 +34,41 @@ class InteractsWithDirectoriesConcernTest extends TestCase
 
     public function test_methods_can_be_called_statically()
     {
-        static::needsDirectory(Hyde::path('foo'));
+        static::needsDirectory('foo');
         $this->assertDirectoryExists(Hyde::path('foo'));
 
-        static::needsDirectories([Hyde::path('foo')]);
+        static::needsDirectories(['foo']);
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
     public function test_needs_directory_creates_the_directory()
     {
-        $this->needsDirectory(Hyde::path('foo'));
+        $this->needsDirectory('foo');
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
     public function test_needs_directory_creates_the_directory_recursively()
     {
-        $this->needsDirectory(Hyde::path('foo/bar/baz'));
+        $this->needsDirectory('foo/bar/baz');
         $this->assertDirectoryExists(Hyde::path('foo/bar/baz'));
     }
 
     public function test_needs_directory_handles_existing_directory()
     {
-        $this->needsDirectory(Hyde::path('foo'));
-        $this->needsDirectory(Hyde::path('foo'));
+        $this->needsDirectory('foo');
+        $this->needsDirectory('foo');
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
     public function test_needs_directories_creates_single_directory()
     {
-        $this->needsDirectories([Hyde::path('foo')]);
+        $this->needsDirectories(['foo']);
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
     public function test_needs_directories_creates_multiple_directories()
     {
-        $this->needsDirectories([Hyde::path('foo'), Hyde::path('bar')]);
+        $this->needsDirectories(['foo', 'bar']);
         $this->assertDirectoryExists(Hyde::path('foo'));
         $this->assertDirectoryExists(Hyde::path('bar'));
 
