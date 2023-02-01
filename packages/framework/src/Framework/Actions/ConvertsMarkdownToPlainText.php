@@ -85,26 +85,38 @@ class ConvertsMarkdownToPlainText
 
         $lines = explode("\n", $markdown);
         foreach ($lines as $line => $contents) {
-            // Remove tables (dividers)
-            if (str_starts_with($contents, '|--') && str_ends_with($contents, '--|')) {
-                $contents = str_replace(['|', '-'], ['', ''], $contents);
-            }
-            // Remove tables (cells)
-            if (str_starts_with($contents, '| ') && str_ends_with($contents, '|')) {
-                $contents = rtrim(str_replace(['| ', ' | ', ' |'], ['', '', ''], $contents), ' ');
-            }
+            $contents = $this->removeTables($contents);
+            $contents = $this->removeBlockquotes($contents);
 
-            // Remove blockquotes
-            if (str_starts_with($contents, '> ')) {
-                $contents = substr($contents, 2);
-            }
-            // Remove multiline blockquotes
-            if (str_starts_with($contents, '>')) {
-                $contents = substr($contents, 1);
-            }
             $lines[$line] = $contents;
         }
 
         return implode("\n", $lines);
+    }
+
+    protected function removeTables(string $contents): string
+    {
+        // Remove dividers
+        if (str_starts_with($contents, '|--') && str_ends_with($contents, '--|')) {
+            $contents = str_replace(['|', '-'], ['', ''], $contents);
+        }
+        // Remove cells
+        if (str_starts_with($contents, '| ') && str_ends_with($contents, '|')) {
+            $contents = rtrim(str_replace(['| ', ' | ', ' |'], ['', '', ''], $contents), ' ');
+        }
+        return $contents;
+    }
+
+    protected function removeBlockquotes(string $contents): string
+    {
+        // Remove blockquotes
+        if (str_starts_with($contents, '> ')) {
+            $contents = substr($contents, 2);
+        }
+        // Remove multiline blockquotes
+        if (str_starts_with($contents, '>')) {
+            $contents = substr($contents, 1);
+        }
+        return $contents;
     }
 }
