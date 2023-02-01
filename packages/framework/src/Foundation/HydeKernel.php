@@ -44,7 +44,7 @@ class HydeKernel implements SerializableContract
     use Serializable;
     use Macroable;
 
-    protected static HydeKernel $instance;
+    protected static self $instance;
 
     protected string $basePath;
     protected string $sourceRoot = '';
