@@ -79,4 +79,9 @@ class Hyde extends Facade
     {
         return HydeKernel::getInstance();
     }
+
+    public static function kernel(): HydeKernel
+    {
+        return HydeKernel::getInstance();
+    }
 }
