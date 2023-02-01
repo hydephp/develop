@@ -110,6 +110,7 @@ class ConvertsMarkdownToPlainText
 
     /**
      * Regex based on https://github.com/stiang/remove-markdown, licensed under MIT.
+     *
      * @return array<array-key, array<string, string>>
      */
     protected function getPatterns(): array
