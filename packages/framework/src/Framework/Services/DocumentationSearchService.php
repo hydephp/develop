@@ -20,8 +20,7 @@ final class DocumentationSearchService
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
-    /** @deprecated Not sure what value this adds from being a static property */
-    public static string $filePath;
+    protected string $filePath;
 
     public static function generate(): self
     {
@@ -44,9 +43,7 @@ final class DocumentationSearchService
     public function __construct()
     {
         $this->searchIndex = new Collection();
-        if (! isset(self::$filePath)) {
-            self::$filePath = $this->getFilePath();
-        }
+        $this->filePath = $this->getFilePath();
     }
 
     public function execute(): self
@@ -83,9 +80,9 @@ final class DocumentationSearchService
 
     protected function save(): self
     {
-        $this->needsParentDirectory(Hyde::path(self::$filePath));
+        $this->needsParentDirectory(Hyde::path($this->filePath));
 
-        file_put_contents(Hyde::path(self::$filePath), $this->searchIndex->toJson());
+        file_put_contents(Hyde::path($this->filePath), $this->searchIndex->toJson());
 
         return $this;
     }
