@@ -74,7 +74,7 @@ final class DocumentationSearchService
             'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
-            'destination' => basename($this->formatDestination(DocumentationPage::$outputDirectory.'/'.$page->identifier)),
+            'destination' => basename($this->formatDestination(DocumentationPage::$outputDirectory."/$page->identifier.html")),
         ];
     }
 
@@ -94,11 +94,7 @@ final class DocumentationSearchService
 
     protected function formatDestination(string $page): string
     {
-        if ($page === 'index') {
-            return DocumentationPage::$outputDirectory . '/' . Hyde::formatLink('index.html');
-        }
-
-        return Hyde::formatLink("$page.html");
+        return Hyde::formatLink($page);
     }
 
     public static function getFilePath(): string
