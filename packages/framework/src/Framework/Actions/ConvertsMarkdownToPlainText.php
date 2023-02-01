@@ -63,7 +63,7 @@ class ConvertsMarkdownToPlainText
         return $markdown;
     }
 
-    protected function applyRegexTransformations(mixed $markdown): string
+    protected function applyRegexTransformations(string $markdown): string
     {
         /** @var array<array-key, array<string, string>> $patterns */
         $patterns = [
