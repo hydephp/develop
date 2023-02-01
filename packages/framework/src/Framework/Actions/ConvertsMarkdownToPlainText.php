@@ -57,7 +57,14 @@ class ConvertsMarkdownToPlainText
     {
         // Remove any HTML tags
         $markdown = strip_tags($this->markdown);
+        $markdown = $this->applyRegexTransformations($markdown);
+        $markdown = $this->applyStringTransformations($markdown);
 
+        return $markdown;
+    }
+
+    protected function applyRegexTransformations(mixed $markdown): string
+    {
         /** @var array<array-key, array<string, string>> $patterns */
         $patterns = [
             static::ATX_HEADERS,
@@ -82,7 +89,11 @@ class ConvertsMarkdownToPlainText
         foreach ($patterns as $pattern) {
             $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown);
         }
+        return $markdown;
+    }
 
+    protected function applyStringTransformations(string $markdown): string
+    {
         $lines = explode("\n", $markdown);
         foreach ($lines as $line => $contents) {
             $contents = $this->removeTables($contents);
