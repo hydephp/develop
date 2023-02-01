@@ -33,7 +33,7 @@ class GenerateSearch extends BuildTask
 
     public function then(): void
     {
-        $this->createdSiteFile(DocumentationSearchService::$filePath)->withExecutionTime();
+        $this->createdSiteFile(DocumentationSearchService::getFilePath())->withExecutionTime();
     }
 
     /**

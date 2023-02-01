@@ -17,7 +17,7 @@ class DocumentationSearchServiceTest extends TestCase
 {
     public function test_it_generates_a_json_file_with_a_search_index()
     {
-        Filesystem::touch('_docs/foo.md');
+        $this->file('_docs/foo.md');
 
         DocumentationSearchService::generate();
 
@@ -26,30 +26,23 @@ class DocumentationSearchServiceTest extends TestCase
             'title' => 'Foo',
             'content' => '',
             'destination' => 'foo.html',
-        ]]), file_get_contents(DocumentationSearchService::$filePath));
-
-        Filesystem::unlink('_docs/foo.md');
-        Filesystem::unlink('_site/docs/search.json');
+        ]]), file_get_contents('_site/docs/search.json'));
     }
 
     public function test_it_adds_all_files_to_search_index()
     {
-        Filesystem::touch('_docs/foo.md');
-        Filesystem::touch('_docs/bar.md');
-        Filesystem::touch('_docs/baz.md');
+        $this->file('_docs/foo.md');
+        $this->file('_docs/bar.md');
+        $this->file('_docs/baz.md');
 
         $this->assertCount(3, (new DocumentationSearchService())->run()->searchIndex);
-
-        Filesystem::unlink('_docs/foo.md');
-        Filesystem::unlink('_docs/bar.md');
-        Filesystem::unlink('_docs/baz.md');
     }
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
     {
         DocumentationSearchService::generate();
 
-        $this->assertSame('[]', file_get_contents(DocumentationSearchService::$filePath));
+        $this->assertSame('[]', file_get_contents('_site/docs/search.json'));
 
         Filesystem::unlink('_site/docs/search.json');
     }
@@ -65,7 +58,7 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_generate_page_entry_method_generates_a_page_entry()
     {
-        Filesystem::putContents('_docs/foo.md', "# Bar\nHello World");
+        $this->file('_docs/foo.md', "# Bar\nHello World");
 
         $this->assertSame([
             'slug' => 'foo',
@@ -73,35 +66,28 @@ class DocumentationSearchServiceTest extends TestCase
             'content' => "Bar\nHello World",
             'destination' => 'foo.html',
         ], (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo')));
-
-        Filesystem::unlink('_docs/foo.md');
     }
 
     public function test_it_generates_a_valid_JSON()
     {
-        Filesystem::putContents('_docs/foo.md', "# Bar\nHello World");
-        Filesystem::putContents('_docs/bar.md', "# Foo\n\nHello World");
+        $this->file('_docs/foo.md', "# Bar\nHello World");
+        $this->file('_docs/bar.md', "# Foo\n\nHello World");
 
         $this->assertSame(
             '[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]',
             json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
         );
-
-        Filesystem::unlink('_docs/foo.md');
-        Filesystem::unlink('_docs/bar.md');
     }
 
     public function test_it_strips_markdown()
     {
-        Filesystem::putContents('_docs/foo.md', "# Foo Bar\n**Hello** _World_");
+        $this->file('_docs/foo.md', "# Foo Bar\n**Hello** _World_");
 
         $this->assertSame(
             "Foo Bar\nHello World",
             ((new DocumentationSearchService())->run()->searchIndex->toArray())[0]['content']
         );
-
-        Filesystem::unlink('_docs/foo.md');
     }
 
     public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
@@ -124,25 +110,21 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_excluded_pages_are_not_present_in_the_search_index()
     {
-        Filesystem::touch('_docs/excluded.md');
+        $this->file('_docs/excluded.md');
         config(['docs.exclude_from_search' => ['excluded']]);
 
         $this->assertStringNotContainsString('excluded',
             json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
         );
-
-        Filesystem::unlink('_docs/excluded.md');
     }
 
     public function test_nested_source_files_do_not_retain_directory_name_in_search_index()
     {
-        Filesystem::makeDirectory(Hyde::path('_docs/foo'));
-        Filesystem::touch('_docs/foo/bar.md');
+        $this->directory(Hyde::path('_docs/foo'));
+        $this->file('_docs/foo/bar.md');
 
         $this->assertStringNotContainsString('foo',
             json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
         );
-
-        Filesystem::deleteDirectory('_docs/foo');
     }
 }
