@@ -8,7 +8,6 @@ use function explode;
 use function implode;
 use function preg_replace;
 use function str_replace;
-use function strip_tags;
 
 /**
  * Converts Markdown to plain text.
@@ -58,7 +57,7 @@ class ConvertsMarkdownToPlainText
         $markdown = $this->markdown;
         $markdown = $this->applyRegexTransformations($markdown);
         $markdown = $this->applyStringTransformations($markdown);
-        return strip_tags($markdown);
+        return $markdown;
     }
 
     protected function applyRegexTransformations(string $markdown): string
