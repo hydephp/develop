@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
+use Hyde\Facades\Filesystem;
+
 /**
  * @see \Hyde\Framework\Testing\Unit\InteractsWithDirectoriesConcernTest
  */
@@ -16,8 +18,8 @@ trait InteractsWithDirectories
      */
     public static function needsDirectory(string $directory): void
     {
-        if (! file_exists($directory)) {
-            mkdir($directory, recursive: true);
+        if (! Filesystem::exists($directory)) {
+            Filesystem::makeDirectory($directory, recursive: true);
         }
     }
 
