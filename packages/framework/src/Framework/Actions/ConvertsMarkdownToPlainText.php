@@ -58,10 +58,7 @@ class ConvertsMarkdownToPlainText
      */
     public function execute(): string
     {
-        $markdown = $this->markdown;
-        $markdown = $this->applyRegexTransformations($markdown);
-        $markdown = $this->applyStringTransformations($markdown);
-        return $markdown;
+        return $this->applyStringTransformations($this->applyRegexTransformations($this->markdown));
     }
 
     protected function applyRegexTransformations(string $markdown): string
