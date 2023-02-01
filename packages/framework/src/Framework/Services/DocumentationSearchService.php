@@ -74,7 +74,7 @@ final class DocumentationSearchService
             'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
-            'destination' => $this->getDestinationForSlug(basename($page->identifier)),
+            'destination' => $this->formatDestination(basename($page->identifier)),
         ];
     }
 
@@ -92,13 +92,13 @@ final class DocumentationSearchService
         return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
-    public function getDestinationForSlug(string $slug): string
+    protected function formatDestination(string $slug): string
     {
         if (config('site.pretty_urls', false) === true) {
-            return $slug !== 'index' ? $slug : '';
+            return $slug === 'index' ? '' : $slug;
         }
 
-        return $slug.'.html';
+        return "$slug.html";
     }
 
     public static function getFilePath(): string
