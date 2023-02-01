@@ -92,13 +92,13 @@ final class DocumentationSearchService
         return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
-    public function formatDestination(string $slug): string
+    public function formatDestination(string $page): string
     {
         if (config('site.pretty_urls', false) === true) {
-            return $slug !== 'index' ? $slug : '';
+            return $page !== 'index' ? $page : '';
         }
 
-        return $slug.'.html';
+        return $page.'.html';
     }
 
     public static function getFilePath(): string
