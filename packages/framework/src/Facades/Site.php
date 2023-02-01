@@ -6,7 +6,6 @@ namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Hyde;
-
 use function unslash;
 
 /**
