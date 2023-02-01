@@ -57,12 +57,12 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
     public function test_site_output_directory_can_be_changed_in_configuration()
     {
-        $this->assertEquals('_site', Site::$outputPath);
+        $this->assertEquals('_site', Site::getOutputPath());
 
         config(['site.output_directory' => '_site/build']);
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('_site/build', Site::$outputPath);
+        $this->assertEquals('_site/build', Site::getOutputPath());
 
         $this->file('_posts/test-post.md');
         (new RebuildService('_posts/test-post.md'))->execute();
