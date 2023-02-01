@@ -26,7 +26,7 @@ class DocumentationSearchServiceTest extends TestCase
             'title' => 'Foo',
             'content' => '',
             'destination' => 'foo.html',
-        ]]), file_get_contents(DocumentationSearchService::$filePath));
+        ]]), file_get_contents('_site/docs/search.json'));
 
         Filesystem::unlink('_docs/foo.md');
         Filesystem::unlink('_site/docs/search.json');
@@ -49,7 +49,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         DocumentationSearchService::generate();
 
-        $this->assertSame('[]', file_get_contents(DocumentationSearchService::$filePath));
+        $this->assertSame('[]', file_get_contents('_site/docs/search.json'));
 
         Filesystem::unlink('_site/docs/search.json');
     }
