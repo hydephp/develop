@@ -7,6 +7,8 @@ namespace Hyde\Facades;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Hyde;
 
+use function unslash;
+
 /**
  * Object representation for the HydePHP site and its configuration.
  *
@@ -43,6 +45,6 @@ final class Site
 
     public static function setOutputPath(string $outputPath): void
     {
-        self::$outputPath = Hyde::pathToRelative($outputPath);
+        self::$outputPath = Hyde::pathToRelative(unslash($outputPath));
     }
 }
