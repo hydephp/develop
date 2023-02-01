@@ -43,9 +43,11 @@ final class DocumentationSearchService
     public function __construct()
     {
         $this->searchIndex = new Collection();
-        self::$filePath = Hyde::pathToRelative(Hyde::sitePath(
-            DocumentationPage::outputDirectory().'/search.json'
-        ));
+        if (! isset(self::$filePath)) {
+            self::$filePath = Hyde::pathToRelative(Hyde::sitePath(
+                DocumentationPage::outputDirectory().'/search.json'
+            ));
+        }
     }
 
     public function execute(): self
