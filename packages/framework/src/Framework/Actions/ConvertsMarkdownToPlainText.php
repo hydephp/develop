@@ -85,25 +85,24 @@ class ConvertsMarkdownToPlainText
 
         $lines = explode("\n", $markdown);
         foreach ($lines as $line => $contents) {
-            $newContents = $contents;
             // Remove tables (dividers)
-            if (str_starts_with($newContents, '|--') && str_ends_with($newContents, '--|')) {
-                $newContents = str_replace(['|', '-'], ['', ''], $newContents);
+            if (str_starts_with($contents, '|--') && str_ends_with($contents, '--|')) {
+                $contents = str_replace(['|', '-'], ['', ''], $contents);
             }
             // Remove tables (cells)
-            if (str_starts_with($newContents, '| ') && str_ends_with($newContents, '|')) {
-                $newContents = rtrim(str_replace(['| ', ' | ', ' |'], ['', '', ''], $newContents), ' ');
+            if (str_starts_with($contents, '| ') && str_ends_with($contents, '|')) {
+                $contents = rtrim(str_replace(['| ', ' | ', ' |'], ['', '', ''], $contents), ' ');
             }
 
             // Remove blockquotes
-            if (str_starts_with($newContents, '> ')) {
-                $newContents = substr($newContents, 2);
+            if (str_starts_with($contents, '> ')) {
+                $contents = substr($contents, 2);
             }
             // Remove multiline blockquotes
-            if (str_starts_with($newContents, '>')) {
-                $newContents = substr($newContents, 1);
+            if (str_starts_with($contents, '>')) {
+                $contents = substr($contents, 1);
             }
-            $lines[$line] = $newContents;
+            $lines[$line] = $contents;
         }
 
         return implode("\n", $lines);
