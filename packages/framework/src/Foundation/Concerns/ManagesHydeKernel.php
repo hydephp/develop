@@ -29,24 +29,24 @@ trait ManagesHydeKernel
         static::$instance = $instance;
     }
 
-    public function setBasePath(string $basePath): void
-    {
-        $this->basePath = rtrim($basePath, '/\\');
-    }
-
     public function getBasePath(): string
     {
         return $this->basePath;
     }
 
-    public function setSourceRoot(string $sourceRoot): void
+    public function setBasePath(string $basePath): void
     {
-        $this->sourceRoot = rtrim($sourceRoot, '/\\');
+        $this->basePath = rtrim($basePath, '/\\');
     }
 
     public function getSourceRoot(): string
     {
         return $this->sourceRoot;
+    }
+
+    public function setSourceRoot(string $sourceRoot): void
+    {
+        $this->sourceRoot = rtrim($sourceRoot, '/\\');
     }
 
     /**
