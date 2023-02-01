@@ -14,7 +14,7 @@ use Hyde\Hyde;
  */
 final class Site
 {
-    protected static string $outputPath;
+    protected static string $outputPath = '_site';
 
     public static function url(): ?string
     {
