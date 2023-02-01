@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
+use Hyde\Hyde;
 
 /**
  * Object representation for the HydePHP site and its configuration.
@@ -13,7 +14,6 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
  */
 final class Site
 {
-    /** The relative path to the output directory */
     protected static string $outputPath;
 
     public static function url(): ?string
@@ -43,6 +43,6 @@ final class Site
 
     public static function setOutputPath(string $outputPath): void
     {
-        self::$outputPath = \Hyde\unslash($outputPath);
+        self::$outputPath = \Hyde\unslash(Hyde::pathToRelative($outputPath));
     }
 }
