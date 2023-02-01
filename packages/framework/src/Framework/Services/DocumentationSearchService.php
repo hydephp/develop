@@ -96,7 +96,7 @@ final class DocumentationSearchService
 
     protected function getDestination(HydePage $page): string
     {
-        Render::setPage(DocumentationPage::home());
+        Render::share('currentPage', DocumentationPage::$outputDirectory.'/index');
 
         return $page->getRoute()->getLink();
     }
