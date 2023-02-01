@@ -7,6 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 
@@ -74,7 +75,7 @@ final class DocumentationSearchService
             'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
-            'destination' => basename($this->formatDestination(DocumentationPage::$outputDirectory."/$page->identifier.html")),
+            'destination' => $this->getDestination($page),
         ];
     }
 
@@ -92,9 +93,9 @@ final class DocumentationSearchService
         return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
-    protected function formatDestination(string $page): string
+    protected function getDestination(HydePage $page): string
     {
-        return Hyde::formatLink($page);
+        return $page->getRoute()->getLink();
     }
 
     public static function getFilePath(): string
