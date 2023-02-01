@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
-use Hyde\Hyde;
-use function unslash;
 
 /**
  * Object representation for the HydePHP site and its configuration.
@@ -15,8 +14,6 @@ use function unslash;
  */
 final class Site
 {
-    protected static string $outputPath = '_site';
-
     public static function url(): ?string
     {
         return config('site.url');
@@ -39,11 +36,11 @@ final class Site
 
     public static function getOutputPath(): string
     {
-        return self::$outputPath;
+        return HydeKernel::getInstance()->getOutputPath();
     }
 
     public static function setOutputPath(string $outputPath): void
     {
-        self::$outputPath = unslash(Hyde::pathToRelative($outputPath));
+        HydeKernel::getInstance()->setOutputPath($outputPath);
     }
 }
