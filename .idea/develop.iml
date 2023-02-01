@@ -25,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/path-util" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jetbrains/phpstorm-attributes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

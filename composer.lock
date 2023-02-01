@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c703c6518902a7956420ec9113eb9e3",
+    "content-hash": "cc2dbfd4ec5be151733ef07a8c263e61",
     "packages": [
         {
             "name": "brick/math",
@@ -830,7 +830,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "6d64cb61b879f53097eda4cf1ae4ad9845ba7390"
+                "reference": "d798597286187fa0bb7163f498909f1a0b976f24"
             },
             "require": {
                 "illuminate/support": "^9.5",
@@ -6843,7 +6843,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "26180f50d68466f8a256fbf61b5386be830ecc54"
+                "reference": "905709e5320f7bfc053dea8e5eac64ebd8ec320f"
             },
             "require": {
                 "desilva/microserve": "^1.0",
@@ -6923,6 +6923,48 @@
             "transport-options": {
                 "relative": true
             }
+        },
+        {
+            "name": "jetbrains/phpstorm-attributes",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JetBrains/phpstorm-attributes.git",
+                "reference": "a7a83ae5df4dd3c0875484483de19de8edf60a9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-attributes/zipball/a7a83ae5df4dd3c0875484483de19de8edf60a9f",
+                "reference": "a7a83ae5df4dd3c0875484483de19de8edf60a9f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JetBrains\\PhpStorm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "JetBrains",
+                    "homepage": "https://www.jetbrains.com"
+                }
+            ],
+            "description": "PhpStorm specific attributes",
+            "keywords": [
+                "attributes",
+                "jetbrains",
+                "phpstorm"
+            ],
+            "support": {
+                "issues": "https://youtrack.jetbrains.com/newIssue?project=WI",
+                "source": "https://github.com/JetBrains/phpstorm-attributes/tree/1.0"
+            },
+            "time": "2020-11-17T11:09:47+00:00"
         },
         {
             "name": "laravel/dusk",
