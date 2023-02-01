@@ -48,7 +48,7 @@ class HydeKernel implements SerializableContract
 
     protected string $basePath;
     protected string $sourceRoot = '';
-    protected string $outputPath;
+    protected string $outputPath = '_site';
 
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
