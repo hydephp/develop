@@ -93,18 +93,20 @@ class DocumentationSearchServiceTest extends TestCase
     public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
         config(['site.pretty_urls' => true]);
+        $this->file('_docs/index.md');
 
         $this->assertSame('',
-            (new DocumentationSearchService())->getDestinationForSlug('index')
+            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
         );
     }
 
     public function test_get_destination_for_slug_returns_pretty_url_when_enabled()
     {
         config(['site.pretty_urls' => true]);
+        $this->file('_docs/foo.md');
 
         $this->assertSame('foo',
-            (new DocumentationSearchService())->getDestinationForSlug('foo')
+            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
         );
     }
 
