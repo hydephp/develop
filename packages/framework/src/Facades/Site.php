@@ -38,13 +38,13 @@ final class Site
 
     public static function getOutputPath(): string
     {
-        return Hyde::getOutputPath();
+        return Hyde::kernel()->getOutputPath();
     }
 
     /** @deprecated Call the Kernel method directly instead */
     #[Deprecated(reason: 'Call the Kernel method directly instead', replacement: 'Hyde::setOutputPath(%parameter0%)')]
     public static function setOutputPath(string $outputPath): void
     {
-        Hyde::setOutputPath($outputPath);
+        Hyde::kernel()->setOutputPath($outputPath);
     }
 }
