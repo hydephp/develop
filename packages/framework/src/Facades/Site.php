@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Hyde;
 use JetBrains\PhpStorm\Deprecated;
