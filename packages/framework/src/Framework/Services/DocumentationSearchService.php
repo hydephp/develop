@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
@@ -106,17 +106,12 @@ final class DocumentationSearchService
      * in the document. This would however add complexity as well as extra
      * computing time.
      *
-     * Benchmarks: (for official Hyde docs)
-     *
-     * Returning $document->body as is: 500ms
-     * Returning $document->body as Str::markdown(): 920ms + 10ms for regex
+     * The current function is benchmarked on the official Hyde docs and takes
+     * around 140ms to generate the search index for all page files.
      */
     protected function getSearchContentForDocument(DocumentationPage $page): string
     {
-        // This is compiles the Markdown body into HTML, and then strips out all
-        // HTML tags to get a plain text version of the body. This takes a long
-        // site, but is the simplest implementation I've found so far.
-        return preg_replace('/<(.|\n)*?>/', ' ', Str::markdown($page->markdown));
+        return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
     public function getDestinationForSlug(string $slug): string
