@@ -55,7 +55,8 @@ class ConvertsMarkdownToPlainText
      */
     public function execute(): string
     {
-        $markdown = strip_tags($this->markdown);
+        $markdown = $this->markdown;
+        $markdown = strip_tags($markdown);
         $markdown = $this->applyRegexTransformations($markdown);
         $markdown = $this->applyStringTransformations($markdown);
 
