@@ -30,7 +30,7 @@ final class DocumentationSearchService
     public static function generateSearchPage(): string
     {
         $outputDirectory = Hyde::sitePath(DocumentationPage::outputDirectory());
-        self::needsDirectory(($outputDirectory));
+        self::needsDirectory($outputDirectory);
 
         file_put_contents(
             "$outputDirectory/search.html",
