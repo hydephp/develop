@@ -56,14 +56,14 @@ class ConvertsMarkdownToPlainText
     public function execute(): string
     {
         // Remove any HTML tags
-        $markdown = strip_tags($this->markdown);
-        $markdown = $this->applyRegexTransformations($markdown);
-        $markdown = $this->applyStringTransformations($markdown);
+        $this->markdown = strip_tags($this->markdown);
+        $this->applyRegexTransformations();
+        $this->applyStringTransformations();
 
-        return $markdown;
+        return $this->markdown;
     }
 
-    protected function applyRegexTransformations(mixed $markdown): string
+    protected function applyRegexTransformations(): void
     {
         /** @var array<array-key, array<string, string>> $patterns */
         $patterns = [
@@ -87,14 +87,13 @@ class ConvertsMarkdownToPlainText
         ];
 
         foreach ($patterns as $pattern) {
-            $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown);
+            $this->markdown = preg_replace(array_keys($pattern), array_values($pattern), $this->markdown);
         }
-        return $markdown;
     }
 
-    protected function applyStringTransformations(string $markdown): string
+    protected function applyStringTransformations(): void
     {
-        $lines = explode("\n", $markdown);
+        $lines = explode("\n", $this->markdown);
         foreach ($lines as $line => $contents) {
             $contents = $this->removeTables($contents);
             $contents = $this->removeBlockquotes($contents);
@@ -102,7 +101,7 @@ class ConvertsMarkdownToPlainText
             $lines[$line] = $contents;
         }
 
-        return implode("\n", $lines);
+        $this->markdown = implode("\n", $lines);
     }
 
     protected function removeTables(string $contents): string
