@@ -71,7 +71,6 @@ final class DocumentationSearchService
     public function generatePageEntry(DocumentationPage $page): array
     {
         return [
-            // TODO: Slug will be renamed to identifier, paired with the next major HydeSearch version.
             'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
