@@ -14,7 +14,7 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 final class Site
 {
     /** The relative path to the output directory */
-    public static string $outputPath;
+    protected static string $outputPath;
 
     public static function url(): ?string
     {
