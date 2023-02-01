@@ -89,26 +89,6 @@ final class DocumentationSearchService
         return $this;
     }
 
-    /**
-     * There are a few ways we could go about this. The goal is to allow the user
-     * to run a free-text search to find relevant documentation pages.
-     *
-     * The easiest way to do this is by adding the Markdown body to the search index.
-     * But this is of course not ideal as it may take an incredible amount of space
-     * for large documentation sites. The Hyde docs weight around 80kb of JSON.
-     *
-     * Another option is to assemble all the headings in a document and use that
-     * for the search basis. A truncated version of the body could also be included.
-     *
-     * A third option which might be the most space efficient (besides from just
-     * adding titles, which doesn't offer much help to the user since it is just
-     * a filterable sidebar at that point), would be to search for keywords
-     * in the document. This would however add complexity as well as extra
-     * computing time.
-     *
-     * The current function is benchmarked on the official Hyde docs and takes
-     * around 140ms to generate the search index for all page files.
-     */
     protected function getSearchContentForDocument(DocumentationPage $page): string
     {
         return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
