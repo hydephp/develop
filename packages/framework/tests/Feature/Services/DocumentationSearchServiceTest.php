@@ -92,6 +92,18 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::unlink('_docs/bar.md');
     }
 
+    public function test_it_strips_markdown()
+    {
+        Filesystem::putContents('_docs/foo.md', "# Foo Bar\n**Hello** _World_");
+
+        $this->assertSame(
+            "Foo Bar\nHello World",
+            ((new DocumentationSearchService())->run()->searchIndex->toArray())[0]['content']
+        );
+
+        Filesystem::unlink('_docs/foo.md');
+    }
+
     public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
         config(['site.pretty_urls' => true]);
