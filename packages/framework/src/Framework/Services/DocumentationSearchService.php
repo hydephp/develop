@@ -95,7 +95,7 @@ final class DocumentationSearchService
     public function getDestinationForSlug(string $slug): string
     {
         if (config('site.pretty_urls', false) === true) {
-            return $slug !== 'index' ? $slug : '';
+            return $slug === 'index' ? '' : $slug;
         }
 
         return "$slug.html";
