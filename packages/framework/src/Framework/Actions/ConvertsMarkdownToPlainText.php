@@ -58,9 +58,7 @@ class ConvertsMarkdownToPlainText
         $markdown = $this->markdown;
         $markdown = $this->applyRegexTransformations($markdown);
         $markdown = $this->applyStringTransformations($markdown);
-        $markdown = strip_tags($markdown);
-
-        return $markdown;
+        return strip_tags($markdown);
     }
 
     protected function applyRegexTransformations(string $markdown): string
