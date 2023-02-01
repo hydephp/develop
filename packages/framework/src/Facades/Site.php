@@ -13,7 +13,11 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
  */
 final class Site
 {
-    /** The relative path to the output directory */
+    /**
+     * The relative path to the output directory
+     *
+     * @deprecated This property should be made protected, and getter/setter methods should be used instead as that will ensure a consistent and predictable state.
+     */
     public static string $outputPath;
 
     public static function url(): ?string
