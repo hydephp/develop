@@ -98,7 +98,7 @@ final class DocumentationSearchService
             return $slug !== 'index' ? $slug : '';
         }
 
-        return $slug.'.html';
+        return "$slug.html";
     }
 
     public static function getFilePath(): string
