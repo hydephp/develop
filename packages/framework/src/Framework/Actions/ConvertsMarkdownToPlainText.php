@@ -87,6 +87,7 @@ class ConvertsMarkdownToPlainText
         foreach ($patterns as $pattern) {
             $markdown = preg_replace(array_keys($pattern), array_values($pattern), $markdown);
         }
+
         return $markdown;
     }
 
@@ -113,6 +114,7 @@ class ConvertsMarkdownToPlainText
         if (str_starts_with($contents, '| ') && str_ends_with($contents, '|')) {
             $contents = rtrim(str_replace(['| ', ' | ', ' |'], ['', '', ''], $contents), ' ');
         }
+
         return $contents;
     }
 
@@ -126,6 +128,7 @@ class ConvertsMarkdownToPlainText
         if (str_starts_with($contents, '>')) {
             $contents = substr($contents, 1);
         }
+
         return $contents;
     }
 }
