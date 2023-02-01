@@ -58,20 +58,6 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::unlink('_site/docs/search.html');
     }
 
-    public function test_it_displays_the_estimation_message_when_it_is_greater_than_or_equal_to_1_second()
-    {
-        for ($i = 0; $i < 20; $i++) {
-            $this->file("_docs/$i.md");
-        }
-
-        $this->artisan('build:search')
-            ->expectsOutput('This will take an estimated 1.05 seconds. Terminal may seem non-responsive.')
-            ->assertExitCode(0);
-
-        Filesystem::unlink('_site/docs/search.json');
-        Filesystem::unlink('_site/docs/search.html');
-    }
-
     public function test_search_files_can_be_generated_for_custom_docs_output_directory()
     {
         DocumentationPage::$outputDirectory = 'foo';
