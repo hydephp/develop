@@ -308,6 +308,17 @@ class HydeKernelTest extends TestCase
         $this->assertEquals('foo', Hyde::getSourceRoot());
     }
 
+    public function test_can_get_output_path()
+    {
+        $this->assertEquals('_site', Hyde::getOutputPath());
+    }
+
+    public function test_can_set_output_path()
+    {
+        Hyde::setOutputPath('foo');
+        $this->assertEquals('foo', Hyde::getOutputPath());
+    }
+
     public function test_can_access_kernel_fluently_using_the_facade()
     {
         $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
