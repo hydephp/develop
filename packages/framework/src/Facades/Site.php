@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
-use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Object representation for the HydePHP site and its configuration.
@@ -14,12 +13,7 @@ use JetBrains\PhpStorm\Deprecated;
  */
 final class Site
 {
-    /**
-     * The relative path to the output directory
-     *
-     * @deprecated This property should be made protected, and getter/setter methods should be used instead as that will ensure a consistent and predictable state.
-     */
-    #[Deprecated(reason: 'Use the getter/setter methods instead.', replacement: 'Site::getOutputPath()')]
+    /** The relative path to the output directory */
     public static string $outputPath;
 
     public static function url(): ?string
