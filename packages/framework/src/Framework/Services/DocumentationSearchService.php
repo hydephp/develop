@@ -20,6 +20,7 @@ final class DocumentationSearchService
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
+    /** @deprecated Not sure what value this adds from being a static property */
     public static string $filePath;
 
     public static function generate(): self
