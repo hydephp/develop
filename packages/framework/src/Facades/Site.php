@@ -43,6 +43,6 @@ final class Site
 
     public static function setOutputPath(string $outputPath): void
     {
-        self::$outputPath = \Hyde\unslash(Hyde::pathToRelative($outputPath));
+        self::$outputPath = Hyde::pathToRelative($outputPath);
     }
 }
