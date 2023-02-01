@@ -90,21 +90,21 @@ class DocumentationSearchServiceTest extends TestCase
         );
     }
 
-    public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
+    public function test_format_destination_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
         config(['site.pretty_urls' => true]);
 
         $this->assertSame('',
-            (new DocumentationSearchService())->getDestinationForSlug('index')
+            (new DocumentationSearchService())->formatDestination('index')
         );
     }
 
-    public function test_get_destination_for_slug_returns_pretty_url_when_enabled()
+    public function test_format_destination_returns_pretty_url_when_enabled()
     {
         config(['site.pretty_urls' => true]);
 
         $this->assertSame('foo',
-            (new DocumentationSearchService())->getDestinationForSlug('foo')
+            (new DocumentationSearchService())->formatDestination('foo')
         );
     }
 
