@@ -17,11 +17,6 @@ class GenerateSearch extends BuildTask
 
     public function run(): void
     {
-        $expected = $this->guesstimateGenerationTime();
-        if ($expected >= 1) {
-            $this->line("<fg=gray>This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
-        }
-
         DocumentationSearchService::generate();
 
         if (config('docs.create_search_page', true)) {
@@ -34,15 +29,5 @@ class GenerateSearch extends BuildTask
     public function then(): void
     {
         $this->createdSiteFile(DocumentationSearchService::getFilePath())->withExecutionTime();
-    }
-
-    /**
-     * Estimated processing time per file in ms.
-     */
-    protected static float $guesstimationFactor = 52.5;
-
-    protected function guesstimateGenerationTime(): int|float
-    {
-        return (int) round(count(DiscoveryService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;
     }
 }
