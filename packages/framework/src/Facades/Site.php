@@ -6,6 +6,7 @@ namespace Hyde\Facades;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
+use Hyde\Hyde;
 use JetBrains\PhpStorm\Deprecated;
 
 /**
@@ -37,13 +38,13 @@ final class Site
 
     public static function getOutputPath(): string
     {
-        return HydeKernel::getInstance()->getOutputPath();
+        return Hyde::getOutputPath();
     }
 
     /** @deprecated Call the Kernel method directly instead */
     #[Deprecated(reason: 'Call the Kernel method directly instead', replacement: 'Hyde::setOutputPath(%parameter0%)')]
     public static function setOutputPath(string $outputPath): void
     {
-        HydeKernel::getInstance()->setOutputPath($outputPath);
+        Hyde::setOutputPath($outputPath);
     }
 }
