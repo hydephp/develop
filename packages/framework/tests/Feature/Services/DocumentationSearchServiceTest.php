@@ -93,18 +93,20 @@ class DocumentationSearchServiceTest extends TestCase
     public function test_format_destination_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
         config(['site.pretty_urls' => true]);
+        $this->file('_docs/index.md');
 
         $this->assertSame('',
-            (new DocumentationSearchService())->formatDestination('index')
+            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
         );
     }
 
     public function test_format_destination_returns_pretty_url_when_enabled()
     {
         config(['site.pretty_urls' => true]);
+        $this->file('_docs/foo.md');
 
         $this->assertSame('foo',
-            (new DocumentationSearchService())->formatDestination('foo')
+            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
         );
     }
 

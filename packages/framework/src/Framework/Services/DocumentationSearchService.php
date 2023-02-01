@@ -92,7 +92,7 @@ final class DocumentationSearchService
         return (new ConvertsMarkdownToPlainText($page->markdown->body()))->execute();
     }
 
-    public function formatDestination(string $page): string
+    protected function formatDestination(string $page): string
     {
         if ($page === 'index') {
             return DocumentationPage::$outputDirectory . '/' . Hyde::formatLink('index.html');
