@@ -94,6 +94,10 @@ final class DocumentationSearchService
 
     public function formatDestination(string $page): string
     {
+        if ($page === 'index') {
+            return DocumentationPage::home()->getLink();
+        }
+
         return Hyde::formatLink("$page.html");
     }
 
