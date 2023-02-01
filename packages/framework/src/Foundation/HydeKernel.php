@@ -45,6 +45,7 @@ class HydeKernel implements SerializableContract
     use Macroable;
 
     protected static self $instance;
+    protected bool $booted = false;
 
     protected string $basePath;
     protected string $sourceRoot = '';
@@ -56,8 +57,6 @@ class HydeKernel implements SerializableContract
     protected FileCollection $files;
     protected PageCollection $pages;
     protected RouteCollection $routes;
-
-    protected bool $booted = false;
 
     protected array $pageClasses = [];
     protected array $extensions = [];
