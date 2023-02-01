@@ -20,7 +20,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
 
-        Site::$outputPath = '_site/build';
+        Site::setOutputPath('_site/build');
 
         $this->artisan('build');
 
@@ -35,7 +35,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
 
-        Site::$outputPath = '_site/build';
+        Site::setOutputPath('_site/build');
 
         (new RebuildService('_posts/test-post.md'))->execute();
 
@@ -48,7 +48,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
         File::deleteDirectory(Hyde::path('_site/build/foo'));
-        Site::$outputPath = '_site/build/foo';
+        Site::setOutputPath('_site/build/foo');
         (new RebuildService('_posts/test-post.md'))->execute();
 
         $this->assertFileExists(Hyde::path('_site/build/foo/posts/test-post.html'));
@@ -57,17 +57,33 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
     public function test_site_output_directory_can_be_changed_in_configuration()
     {
-        $this->assertEquals('_site', Site::$outputPath);
+        $this->assertEquals('_site', Site::getOutputPath());
 
         config(['site.output_directory' => '_site/build']);
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('_site/build', Site::$outputPath);
+        $this->assertEquals('_site/build', Site::getOutputPath());
 
         $this->file('_posts/test-post.md');
         (new RebuildService('_posts/test-post.md'))->execute();
         $this->assertFileExists(Hyde::path('_site/build/posts/test-post.html'));
 
         File::deleteDirectory(Hyde::path('_site/build'));
+    }
+
+    public function test_site_output_directory_path_is_normalized_to_be_relative()
+    {
+        Site::setOutputPath(Hyde::path('_site'));
+        $this->assertEquals('_site', Site::getOutputPath());
+
+        Site::setOutputPath('_site');
+    }
+
+    public function test_site_output_directory_path_is_normalized_to_trim_trailing_slashes()
+    {
+        Site::setOutputPath('foo/bar/');
+        $this->assertEquals('foo/bar', Site::getOutputPath());
+
+        Site::setOutputPath('_site');
     }
 }

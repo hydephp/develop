@@ -93,12 +93,12 @@ class Filesystem
     public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(Site::$outputPath);
+            return Hyde::path(Site::getOutputPath());
         }
 
         $path = unslash($path);
 
-        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Site::getOutputPath().DIRECTORY_SEPARATOR.$path);
     }
 
     /**

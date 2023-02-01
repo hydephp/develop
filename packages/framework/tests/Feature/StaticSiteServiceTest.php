@@ -230,7 +230,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_aborts_when_non_standard_directory_is_emptied()
     {
-        Site::$outputPath = 'foo';
+        Site::setOutputPath('foo');
 
         mkdir(Hyde::path('foo'));
         Hyde::touch('foo/keep.html');

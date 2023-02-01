@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
+use Hyde\Hyde;
+use function unslash;
 
 /**
- * Object representation for the HydePHP site.
+ * Object representation for the HydePHP site and its configuration.
  *
  * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
 final class Site
 {
-    /** @var string The relative path to the output directory */
-    public static string $outputPath;
+    protected static string $outputPath = '_site';
 
     public static function url(): ?string
     {
@@ -34,5 +35,15 @@ final class Site
     public static function metadata(): GlobalMetadataBag
     {
         return GlobalMetadataBag::make();
+    }
+
+    public static function getOutputPath(): string
+    {
+        return self::$outputPath;
+    }
+
+    public static function setOutputPath(string $outputPath): void
+    {
+        self::$outputPath = unslash(Hyde::pathToRelative($outputPath));
     }
 }
