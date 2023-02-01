@@ -9,6 +9,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 
 /**
@@ -95,6 +96,8 @@ final class DocumentationSearchService
 
     protected function getDestination(HydePage $page): string
     {
+        Render::setPage(DocumentationPage::home());
+
         return $page->getRoute()->getLink();
     }
 
