@@ -94,7 +94,7 @@ final class DocumentationSearchService
 
     public function formatDestination(string $page): string
     {
-        return Hyde::formatLink($page);
+        return Hyde::formatLink("$page.html");
     }
 
     public static function getFilePath(): string
