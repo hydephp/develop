@@ -49,6 +49,16 @@ trait ManagesHydeKernel
         $this->sourceRoot = rtrim($sourceRoot, '/\\');
     }
 
+    public function getOutputPath(): string
+    {
+        return $this->outputPath;
+    }
+
+    public function setOutputPath(string $outputPath): void
+    {
+        $this->outputPath = rtrim($outputPath, '/\\');
+    }
+
     /**
      * Developer Information.
      *
