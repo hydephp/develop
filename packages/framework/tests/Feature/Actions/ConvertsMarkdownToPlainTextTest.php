@@ -354,10 +354,24 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         This **word** is bold. This <em>word</em> is italic.
+
+        <footer class="footer">
+            <div>
+                <p>&copy; My Company</p>
+            </div>
+        </footer>
+
+        <title>Hello World</title>
         MD;
 
         $text = <<<'TXT'
         This word is bold. This word is italic.
+
+            
+                &copy; My Company
+            
+
+        Hello World
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
