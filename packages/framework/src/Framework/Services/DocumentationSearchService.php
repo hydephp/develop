@@ -20,7 +20,7 @@ final class DocumentationSearchService
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
-    public static string $filePath = '_site/docs/search.json';
+    public static string $filePath;
 
     public static function generate(): self
     {
