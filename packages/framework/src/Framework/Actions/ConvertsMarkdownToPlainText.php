@@ -53,9 +53,6 @@ class ConvertsMarkdownToPlainText
         $this->markdown = $markdown;
     }
 
-    /**
-     * Regex based on https://github.com/stiang/remove-markdown, licensed under MIT.
-     */
     public function execute(): string
     {
         return $this->applyStringTransformations($this->applyRegexTransformations($this->markdown));
@@ -111,7 +108,10 @@ class ConvertsMarkdownToPlainText
         return $contents;
     }
 
-    /** @return array<array-key, array<string, string>> */
+    /**
+     * Regex based on https://github.com/stiang/remove-markdown, licensed under MIT.
+     * @return array<array-key, array<string, string>>
+     */
     protected function getPatterns(): array
     {
         return [
