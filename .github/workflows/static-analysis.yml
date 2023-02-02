@@ -26,7 +26,7 @@ jobs:
           echo EXIT_CODE=$? >> $GITHUB_OUTPUT
 
       - name: Return gracefully
-        run: exit 0;
+        run: echo "Exiting with code $GITHUB_OUTPUT" && exit 0;
 
 
   # Since GitHub Actions for some reason doesn't support exiting with warnings, we work around this by
