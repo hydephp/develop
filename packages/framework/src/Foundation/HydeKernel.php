@@ -8,7 +8,6 @@ use Hyde\Facades\Features;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Traits\Macroable;
-use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -64,10 +63,9 @@ class HydeKernel implements SerializableContract
     protected array $pageClasses = [];
     protected array $extensions = [];
 
-    public function __construct(?string $basePath = null, #[Deprecated(reason: 'This does not seem to be used anywhere, use the setter instead')]string $sourceRoot = '')
+    public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
-        $this->setSourceRoot($sourceRoot);
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
     }
