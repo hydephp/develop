@@ -46,7 +46,7 @@ trait ManagesHydeKernel
 
     public function setSourceRoot(string $sourceRoot): void
     {
-        $this->sourceRoot = rtrim($sourceRoot, '/\\');
+        $this->sourceRoot = $this->normalizeSourcePath($sourceRoot);
     }
 
     public function getOutputDirectory(): string
@@ -56,7 +56,7 @@ trait ManagesHydeKernel
 
     public function setOutputDirectory(string $outputDirectory): void
     {
-        $this->outputDirectory = rtrim($outputDirectory, '/\\');
+        $this->outputDirectory = $this->normalizeSourcePath($outputDirectory);
     }
 
     /**
@@ -114,5 +114,10 @@ trait ManagesHydeKernel
     public function getRegisteredExtensions(): array
     {
         return $this->extensions;
+    }
+
+    protected function normalizeSourcePath(string $outputDirectory): string
+    {
+        return rtrim($outputDirectory, '/\\');
     }
 }
