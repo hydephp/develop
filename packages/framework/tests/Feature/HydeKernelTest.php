@@ -250,23 +250,6 @@ class HydeKernelTest extends TestCase
 
     public function test_to_array_method()
     {
-        $array = Hyde::toArray();
-
-        $this->assertTrue(is_array($array));
-        $this->assertCount(5, $array);
-
-        $this->assertArrayHasKey('basePath', $array);
-        $this->assertArrayHasKey('features', $array);
-        $this->assertArrayHasKey('files', $array);
-        $this->assertArrayHasKey('pages', $array);
-        $this->assertArrayHasKey('routes', $array);
-
-        $this->assertSame(Hyde::getBasePath(), $array['basePath']);
-        $this->assertEquals(Hyde::features(), $array['features']);
-        $this->assertSame(Hyde::files(), $array['files']);
-        $this->assertSame(Hyde::pages(), $array['pages']);
-        $this->assertSame(Hyde::routes(), $array['routes']);
-
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
             'features' => Hyde::features(),
