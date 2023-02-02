@@ -36,11 +36,11 @@ final class Site
 
     public static function getOutputPath(): string
     {
-        return Hyde::kernel()->getOutputPath();
+        return Hyde::kernel()->getOutputDirectory();
     }
 
     public static function setOutputPath(string $outputPath): void
     {
-        Hyde::kernel()->setOutputPath($outputPath);
+        Hyde::kernel()->setOutputDirectory($outputPath);
     }
 }

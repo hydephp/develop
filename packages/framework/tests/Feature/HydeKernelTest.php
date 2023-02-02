@@ -254,7 +254,7 @@ class HydeKernelTest extends TestCase
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
-            'outputPath' => Hyde::getOutputPath(),
+            'outputDirectory' => Hyde::getOutputDirectory(),
             'features' => Hyde::features(),
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),
@@ -306,13 +306,13 @@ class HydeKernelTest extends TestCase
 
     public function test_can_get_output_path()
     {
-        $this->assertSame('_site', Hyde::getOutputPath());
+        $this->assertSame('_site', Hyde::getOutputDirectory());
     }
 
     public function test_can_set_output_path()
     {
-        Hyde::setOutputPath('foo');
-        $this->assertSame('foo', Hyde::getOutputPath());
+        Hyde::setOutputDirectory('foo');
+        $this->assertSame('foo', Hyde::getOutputDirectory());
     }
 
     public function test_can_access_kernel_fluently_using_the_facade()

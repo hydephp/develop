@@ -49,7 +49,7 @@ class HydeKernel implements SerializableContract
 
     protected string $basePath;
     protected string $sourceRoot = '';
-    protected string $outputPath = '_site';
+    protected string $outputDirectory = '_site';
 
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
@@ -93,7 +93,7 @@ class HydeKernel implements SerializableContract
         return [
             'basePath' => $this->basePath,
             'sourceRoot' => $this->sourceRoot,
-            'outputPath' => $this->outputPath,
+            'outputDirectory' => $this->outputDirectory,
             'features' => $this->features(),
             'files' => $this->files(),
             'pages' => $this->pages(),

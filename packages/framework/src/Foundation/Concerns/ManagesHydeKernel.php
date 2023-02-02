@@ -49,14 +49,14 @@ trait ManagesHydeKernel
         $this->sourceRoot = rtrim($sourceRoot, '/\\');
     }
 
-    public function getOutputPath(): string
+    public function getOutputDirectory(): string
     {
-        return $this->outputPath;
+        return $this->outputDirectory;
     }
 
-    public function setOutputPath(string $outputPath): void
+    public function setOutputDirectory(string $outputDirectory): void
     {
-        $this->outputPath = rtrim($outputPath, '/\\');
+        $this->outputDirectory = rtrim($outputDirectory, '/\\');
     }
 
     /**
