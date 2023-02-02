@@ -29,24 +29,34 @@ trait ManagesHydeKernel
         static::$instance = $instance;
     }
 
-    public function setBasePath(string $basePath): void
-    {
-        $this->basePath = rtrim($basePath, '/\\');
-    }
-
     public function getBasePath(): string
     {
         return $this->basePath;
     }
 
-    public function setSourceRoot(string $sourceRoot): void
+    public function setBasePath(string $basePath): void
     {
-        $this->sourceRoot = rtrim($sourceRoot, '/\\');
+        $this->basePath = rtrim($basePath, '/\\');
     }
 
     public function getSourceRoot(): string
     {
         return $this->sourceRoot;
+    }
+
+    public function setSourceRoot(string $sourceRoot): void
+    {
+        $this->sourceRoot = $this->normalizeSourcePath($sourceRoot);
+    }
+
+    public function getOutputDirectory(): string
+    {
+        return $this->outputDirectory;
+    }
+
+    public function setOutputDirectory(string $outputDirectory): void
+    {
+        $this->outputDirectory = $this->normalizeSourcePath($outputDirectory);
     }
 
     /**
@@ -104,5 +114,10 @@ trait ManagesHydeKernel
     public function getRegisteredExtensions(): array
     {
         return $this->extensions;
+    }
+
+    protected function normalizeSourcePath(string $outputDirectory): string
+    {
+        return $this->pathToRelative(rtrim($outputDirectory, '/\\'));
     }
 }

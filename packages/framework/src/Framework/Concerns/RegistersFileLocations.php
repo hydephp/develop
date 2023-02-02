@@ -74,6 +74,6 @@ trait RegistersFileLocations
      */
     protected function storeCompiledSiteIn(string $directory): void
     {
-        Site::$outputPath = unslash($directory);
+        Site::setOutputDirectory($directory);
     }
 }
