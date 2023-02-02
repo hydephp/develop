@@ -45,7 +45,7 @@ Since HydePHP is based on Laravel we also have a few configuration files related
 
 | Config File                                                                                                            | Description                                                             |
 |------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| <a href="https://github.com/hydephp/hyde/blob/master/config/app.php" rel="nofollow noopener">app.php</a>               | Configures the underlying Laravel application.                          |
+| <a href="https://github.com/hydephp/hyde/blob/master/app/config.php" rel="nofollow noopener">app.php</a>               | Configures the underlying Laravel application.                          |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/commands.php" rel="nofollow noopener">commands.php</a>     | Configures the Laravel Zero commands for the HydeCLI.                   |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/cache.php" rel="nofollow noopener">cache.php</a>           | Configures the cache driver and cache path locations.                   |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/view.php" rel="nofollow noopener">view.php</a>             | Configures the paths for the Blade View compiler.                       |
