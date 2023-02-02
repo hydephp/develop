@@ -43,10 +43,13 @@ class HydeKernel implements SerializableContract
     use Serializable;
     use Macroable;
 
-    protected static HydeKernel $instance;
+    final public const VERSION = '1.0.0-dev';
+
+    protected static self $instance;
 
     protected string $basePath;
-    protected string $sourceRoot;
+    protected string $sourceRoot = '';
+    protected string $outputDirectory = '_site';
 
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
@@ -56,16 +59,13 @@ class HydeKernel implements SerializableContract
     protected RouteCollection $routes;
 
     protected bool $booted = false;
-    protected array $pageClasses = [];
 
+    protected array $pageClasses = [];
     protected array $extensions = [];
 
-    final public const VERSION = '1.0.0-dev';
-
-    public function __construct(?string $basePath = null, string $sourceRoot = '')
+    public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
-        $this->setSourceRoot($sourceRoot);
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
     }
@@ -85,14 +85,13 @@ class HydeKernel implements SerializableContract
         return Features::enabled($feature);
     }
 
-    /**
-     * @inheritDoc
-     * @psalm-return array{basePath: string, features: \Hyde\Facades\Features, pages: \Hyde\Foundation\PageCollection, routes: \Hyde\Foundation\RouteCollection}
-     */
+    /** @inheritDoc */
     public function toArray(): array
     {
         return [
             'basePath' => $this->basePath,
+            'sourceRoot' => $this->sourceRoot,
+            'outputDirectory' => $this->outputDirectory,
             'features' => $this->features(),
             'files' => $this->files(),
             'pages' => $this->pages(),
