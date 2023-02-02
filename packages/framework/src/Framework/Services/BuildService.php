@@ -114,7 +114,7 @@ class BuildService
         return $this->confirm(sprintf(
             'The configured output directory (%s) is potentially unsafe to empty. '.
             'Are you sure you want to continue?',
-            Site::getOutputPath()
+            Site::getOutputDirectory()
         ));
     }
 

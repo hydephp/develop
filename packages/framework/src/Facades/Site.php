@@ -34,13 +34,13 @@ final class Site
         return GlobalMetadataBag::make();
     }
 
-    public static function getOutputPath(): string
+    public static function getOutputDirectory(): string
     {
         return Hyde::kernel()->getOutputDirectory();
     }
 
-    public static function setOutputPath(string $outputPath): void
+    public static function setOutputDirectory(string $outputDirectory): void
     {
-        Hyde::kernel()->setOutputDirectory($outputPath);
+        Hyde::kernel()->setOutputDirectory($outputDirectory);
     }
 }
