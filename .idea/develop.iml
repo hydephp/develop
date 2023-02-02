@@ -25,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
       <excludeFolder url="file://$MODULE_DIR$/app/storage/framework" />
       <excludeFolder url="file://$MODULE_DIR$/app/storage/app" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jetbrains/phpstorm-attributes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
