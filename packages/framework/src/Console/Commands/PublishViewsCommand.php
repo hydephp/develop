@@ -10,6 +10,8 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Publish the Hyde Blade views.
+ *
+ * @deprecated May be replaced by vendor:publish in the future.
  */
 class PublishViewsCommand extends Command
 {
