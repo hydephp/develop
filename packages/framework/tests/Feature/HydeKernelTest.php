@@ -260,6 +260,11 @@ class HydeKernelTest extends TestCase
         ], Hyde::toArray());
     }
 
+    public function test_json_serialize_method()
+    {
+        $this->assertEquals(Hyde::kernel()->jsonSerialize(), Hyde::toArray());
+    }
+
     public function test_version_constant_is_a_valid_semver_string()
     {
         // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-stringd
