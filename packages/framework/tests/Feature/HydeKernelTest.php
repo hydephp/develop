@@ -310,12 +310,6 @@ class HydeKernelTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
-    public function test_can_set_source_root_to_absolute_path_outside_project()
-    {
-        Hyde::setSourceRoot(sys_get_temp_dir());
-        $this->assertSame(sys_get_temp_dir(), Hyde::getSourceRoot());
-    }
-
     public function test_can_get_output_path()
     {
         $this->assertSame('_site', Hyde::getOutputDirectory());
@@ -332,12 +326,7 @@ class HydeKernelTest extends TestCase
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
         $this->assertSame('foo', Hyde::getOutputDirectory());
-    }
-
-    public function test_can_set_output_path_to_absolute_path_outside_project()
-    {
-        Hyde::setOutputDirectory(sys_get_temp_dir());
-        $this->assertSame(sys_get_temp_dir(), Hyde::getOutputDirectory());
+        $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
     public function test_can_access_kernel_fluently_using_the_facade()
