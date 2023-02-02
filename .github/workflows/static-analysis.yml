@@ -1,0 +1,20 @@
+name: 🔎 Static Analysis
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  psalm:
+    name: Psalm Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run Psalm
+        run: vendor/bin/psalm
