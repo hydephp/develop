@@ -64,10 +64,9 @@ class HydeKernel implements SerializableContract
     protected array $pageClasses = [];
     protected array $extensions = [];
 
-    public function __construct(?string $basePath = null, #[Deprecated(reason: 'This does not seem to be used anywhere, use the setter instead')]string $sourceRoot = '')
+    public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
-        $this->setSourceRoot($sourceRoot);
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
     }
