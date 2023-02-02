@@ -8,7 +8,6 @@ use Hyde\Facades\Features;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Traits\Macroable;
-use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
