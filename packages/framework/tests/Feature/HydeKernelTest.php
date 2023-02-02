@@ -250,6 +250,7 @@ class HydeKernelTest extends TestCase
 
     public function test_to_array_method()
     {
+        // AssertSame cannot be used as features is reinstantiated on each call
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
             'features' => Hyde::features(),
