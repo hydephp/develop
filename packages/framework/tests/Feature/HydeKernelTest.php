@@ -252,6 +252,8 @@ class HydeKernelTest extends TestCase
     {
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
+            'sourceRoot' => Hyde::getSourceRoot(),
+            'outputPath' => Hyde::getOutputPath(),
             'features' => Hyde::features(),
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),
