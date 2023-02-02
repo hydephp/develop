@@ -85,9 +85,7 @@ class HydeKernel implements SerializableContract
         return Features::enabled($feature);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public function toArray(): array
     {
         return [
