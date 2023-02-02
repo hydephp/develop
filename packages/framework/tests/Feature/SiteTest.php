@@ -57,4 +57,16 @@ class SiteTest extends TestCase
         $this->assertSame(Hyde::sitePath(), Site::path());
         $this->assertSame(Hyde::sitePath('foo'), Site::path('foo'));
     }
+
+    public function testGetOutputDirectory()
+    {
+        $this->assertSame(Hyde::kernel()->getOutputDirectory(), Site::getOutputDirectory());
+    }
+
+    public function testSetOutputDirectory()
+    {
+        $this->assertSame(Hyde::kernel()->getOutputDirectory(), Site::getOutputDirectory());
+        Site::setOutputDirectory('foo');
+        $this->assertSame('foo', Site::getOutputDirectory());
+    }
 }
