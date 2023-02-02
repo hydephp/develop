@@ -89,7 +89,6 @@ class HydeKernel implements SerializableContract
      * @todo Add source root and output path to the array?
      *
      * @inheritDoc
-     * @psalm-return array{basePath: string, features: \Hyde\Facades\Features, pages: \Hyde\Foundation\PageCollection, routes: \Hyde\Foundation\RouteCollection}
      */
     public function toArray(): array
     {
