@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console;
 
+use Illuminate\Foundation\Console\VendorPublishCommand;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -38,5 +39,7 @@ class HydeConsoleServiceProvider extends ServiceProvider
 
             Commands\ChangeSourceDirectoryCommand::class,
         ]);
+        
+        $this->commands(VendorPublishCommand::class);
     }
 }
