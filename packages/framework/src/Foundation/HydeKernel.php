@@ -87,7 +87,6 @@ class HydeKernel implements SerializableContract
 
     /**
      * @inheritDoc
-     * @psalm-return array{basePath: string, sourceRoot: string, outputPath: string, features: \Hyde\Facades\Features, pages: \Hyde\Foundation\PageCollection, routes: \Hyde\Foundation\RouteCollection}
      */
     public function toArray(): array
     {
