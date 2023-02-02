@@ -118,6 +118,6 @@ trait ManagesHydeKernel
 
     protected function normalizeSourcePath(string $outputDirectory): string
     {
-        return rtrim($outputDirectory, '/\\');
+        return $this->pathToRelative(rtrim($outputDirectory, '/\\'));
     }
 }
