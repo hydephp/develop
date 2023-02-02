@@ -38,4 +38,4 @@ jobs:
     if: needs.psalm.outputs.exit-code == 0
     steps:
       - name: Report analysis passed
-        run: exit 0;
+        run: echo "Got code ${{ needs.psalm.outputs.exit-code }}" && exit 0;
