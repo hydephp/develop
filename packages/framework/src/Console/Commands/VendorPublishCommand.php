@@ -59,11 +59,6 @@ class VendorPublishCommand extends BaseCommand
 
         $to = ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($to))), '/\\');
 
-        $this->components->task(sprintf(
-            'Copying %s [%s] to [%s]',
-            $type,
-            $from,
-            $to,
-        ));
+        $this->components->task(sprintf('Copying %s [%s] to [%s]', $type, $from, $to));
     }
 }
