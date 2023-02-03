@@ -22,8 +22,15 @@ class VendorPublishCommand extends BaseCommand
 
     protected function withoutProvider(array $array, string $provider): array
     {
-        $provider = "<fg=gray>Provider:</> $provider";
-        unset($array[array_search($provider, $array)]);
+        return $this->unsetByValue($array, "<fg=gray>Provider:</> $provider");
+    }
+
+    protected function unsetByValue(array &$array, string $value): array
+    {
+        $key = array_search($value, $array);
+        if ($key !== false) {
+            unset($array[$key]);
+        }
         return $array;
     }
 }
