@@ -26,7 +26,7 @@ class VendorPublishCommand extends BaseCommand
      * @param  string  $type
      * @return void
      */
-    protected function status($from, $to, $type)
+    protected function status($from, $to, $type): void
     {
         $from = str_replace(base_path().'/', '', realpath($from));
 
