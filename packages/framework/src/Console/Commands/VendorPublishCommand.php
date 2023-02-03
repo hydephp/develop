@@ -16,7 +16,8 @@ class VendorPublishCommand extends BaseCommand
 {
     protected function publishableChoices(): array
     {
-        return $this->withoutProvider(parent::publishableChoices(), LaravelConsoleSummaryServiceProvider::class);
+        $array = parent::publishableChoices();
+        return $this->withoutProvider($array, LaravelConsoleSummaryServiceProvider::class);
     }
 
     protected function withoutProvider(array $array, string $provider): array
