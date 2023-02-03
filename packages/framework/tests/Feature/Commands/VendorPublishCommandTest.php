@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Testing\TestCase;
 use Illuminate\Support\ServiceProvider;
+use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 
 /**
  * @covers \Hyde\Console\Commands\VendorPublishCommand
@@ -28,5 +29,18 @@ class VendorPublishCommandTest extends TestCase
                 '<fg=gray>Tag:</> example-configs',
             ])
             ->assertExitCode(0);
+    }
+
+    public function test_unhelpful_publishers_are_removed()
+    {
+        ServiceProvider::$publishes = [
+            LaravelConsoleSummaryServiceProvider::class => '',
+        ];
+        ServiceProvider::$publishGroups = [];
+
+        $this->artisan('vendor:publish')
+            ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: example-configs', [
+                '<comment>Publish files from all providers and tags listed below</comment>',
+            ])->assertExitCode(0);
     }
 }
