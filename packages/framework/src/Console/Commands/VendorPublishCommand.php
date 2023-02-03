@@ -14,6 +14,11 @@ use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
  */
 class VendorPublishCommand extends BaseCommand
 {
+    public function handle(): void
+    {
+        parent::handle();
+    }
+
     protected function publishableChoices(): array
     {
         $array = parent::publishableChoices();
