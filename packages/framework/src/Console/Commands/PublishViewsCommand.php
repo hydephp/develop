@@ -44,7 +44,7 @@ class PublishViewsCommand extends Command
         Artisan::call('vendor:publish', [
             '--tag' => PublishesHydeViews::$options[$selected]['group'],
             '--force' => true,
-        ]);
+        ], $this->output);
     }
 
     protected function promptForCategory(): string
