@@ -22,6 +22,12 @@ class VendorPublishCommand extends BaseCommand
 
         unset(ServiceProvider::$publishes[LaravelConsoleSummaryServiceProvider::class]);
 
+        // Rename the config group to be more helpful
+        if (isset(ServiceProvider::$publishGroups['config'])) {
+            ServiceProvider::$publishGroups['vendor-configs'] = ServiceProvider::$publishGroups['config'];
+            unset(ServiceProvider::$publishGroups['config']);
+        }
+
         parent::handle();
 
         ServiceProvider::$publishes = $originalPublishers;
