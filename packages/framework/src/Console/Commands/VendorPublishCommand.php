@@ -15,6 +15,9 @@ use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
  */
 class VendorPublishCommand extends BaseCommand
 {
+    /**
+     * Our child method filters the options available to the parent method.
+     */
     public function handle(): void
     {
         $originalPublishers = ServiceProvider::$publishes;
