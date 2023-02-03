@@ -29,7 +29,7 @@ class UpdateConfigsCommand extends Command
             '--force' => true,
         ], $this->output);
 
-        $this->line(sprintf('<info>Published config files to</info> <comment>%s</comment>', Hyde::path('config')));
+        $this->infoComment(sprintf('Published config files to [%s]', Hyde::path('config')));
 
         return Command::SUCCESS;
     }
