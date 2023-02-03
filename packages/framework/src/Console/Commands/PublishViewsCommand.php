@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Publish the Hyde Blade views.
