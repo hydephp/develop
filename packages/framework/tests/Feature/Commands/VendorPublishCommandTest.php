@@ -43,4 +43,18 @@ class VendorPublishCommandTest extends TestCase
                 '<comment>Publish files from all providers and tags listed below</comment>',
             ])->assertExitCode(0);
     }
+
+    public function test_config_group_is_renamed_to_be_more_helpful()
+    {
+        ServiceProvider::$publishes = [];
+        ServiceProvider::$publishGroups = [
+            'config' => [],
+        ];
+
+        $this->artisan('vendor:publish')
+            ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: example-configs', [
+                '<comment>Publish files from all providers and tags listed below</comment>',
+                '<fg=gray>Tag:</> config (Vendor Configs)',
+            ])->assertExitCode(0);
+    }
 }

@@ -17,6 +17,9 @@ class VendorPublishCommand extends BaseCommand
     protected function publishableChoices(): array
     {
         $array = parent::publishableChoices();
+
+        $array = $this->replaceByValue($array, '<fg=gray>Tag:</> config', '<fg=gray>Tag:</> config (Vendor Configs)');
+
         return $this->withoutProvider($array, LaravelConsoleSummaryServiceProvider::class);
     }
 
@@ -30,6 +33,15 @@ class VendorPublishCommand extends BaseCommand
         $key = array_search($value, $array);
         if ($key !== false) {
             unset($array[$key]);
+        }
+        return $array;
+    }
+
+    protected function replaceByValue(array &$array, string $value, string $newValue): array
+    {
+        $key = array_search($value, $array);
+        if ($key !== false) {
+            $array[$key] = $newValue;
         }
         return $array;
     }
