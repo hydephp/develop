@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Hyde;
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
 
 /**
@@ -20,6 +21,23 @@ class VendorPublishCommand extends BaseCommand
         $this->components = $this->voidComponents();
 
         parent::handle();
+    }
+
+    /**
+     * Write a status message to the console.
+     *
+     * @param  string  $from
+     * @param  string  $to
+     * @param  string  $type
+     * @return void
+     */
+    protected function status($from, $to, $type): void
+    {
+        $from = ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($from))), '/\\');
+
+        $to = ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($to))), '/\\');
+
+        $this->line('<info>Copied '.$type.'</info> <comment>['.$from.']</comment> <info>To</info> <comment>['.$to.']</comment>');
     }
 
     /**
