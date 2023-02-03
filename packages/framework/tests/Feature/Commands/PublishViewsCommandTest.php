@@ -17,7 +17,7 @@ class PublishViewsCommandTest extends TestCase
     public function test_command_publishes_views()
     {
         $this->artisan('publish:views all')
-            // TODO: Decide if we should keep the old output: ->expectsOutput('Copied [vendor/hyde/framework/resources/views/pages/404.blade.php] to [_pages/404.blade.php]')
+            ->expectsOutput('Copying file [vendor/hyde/framework/resources/views/pages/404.blade.php] to [_pages/404.blade.php]')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
@@ -41,7 +41,7 @@ class PublishViewsCommandTest extends TestCase
     public function test_can_select_view()
     {
         $this->artisan('publish:views 404')
-            // TODO: Decide if we should keep the old output: ->expectsOutput('Copied [vendor/hyde/framework/resources/views/pages/404.blade.php] to [_pages/404.blade.php]')
+            ->expectsOutput('Copying file [vendor/hyde/framework/resources/views/pages/404.blade.php] to [_pages/404.blade.php]')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
