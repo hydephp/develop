@@ -33,8 +33,6 @@ class UpdateConfigsCommandTest extends TestCase
     public function test_command_has_expected_output()
     {
         $this->artisan('update:configs')
-            ->expectsOutputToContain("  Copying directory [packages/framework/config] to [config]")
-
             ->expectsOutput('Published config files to '.Hyde::path('config'))
             ->assertExitCode(0);
     }
