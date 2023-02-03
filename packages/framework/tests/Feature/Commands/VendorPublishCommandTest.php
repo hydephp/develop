@@ -13,6 +13,22 @@ use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
  */
 class VendorPublishCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->originalPublishers = ServiceProvider::$publishes;
+        $this->originalGroups = ServiceProvider::$publishGroups;
+    }
+
+    protected function tearDown(): void
+    {
+        ServiceProvider::$publishes = $this->originalPublishers;
+        ServiceProvider::$publishGroups = $this->originalGroups;
+
+        parent::tearDown();
+    }
+
     public function test_command_prompts_for_provider_or_tag()
     {
         ServiceProvider::$publishes = [
