@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Framework\Actions\PublishesHydeViews;
 use Hyde\Hyde;
+use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -40,7 +41,10 @@ class PublishViewsCommand extends Command
 
     protected function publishOption(string $selected): void
     {
-        (new PublishesHydeViews($selected))->execute();
+        Artisan::call('vendor:publish', [
+            '--tag' => PublishesHydeViews::$options[$selected]['group'],
+            '--force' => true,
+        ]);
     }
 
     protected function promptForCategory(): string
