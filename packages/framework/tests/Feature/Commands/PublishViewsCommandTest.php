@@ -42,7 +42,7 @@ class PublishViewsCommandTest extends TestCase
     public function test_can_select_view()
     {
         $path = str_replace('\\', '/', Hyde::pathToRelative(realpath(Hyde::vendorPath('resources/views/pages/404.blade.php'))));
-        $this->artisan('publish:views 404')
+        $this->artisan('publish:views page-404')
             ->expectsOutputToContain("Copying file [$path] to [_pages/404.blade.php]")
             ->assertExitCode(0);
 

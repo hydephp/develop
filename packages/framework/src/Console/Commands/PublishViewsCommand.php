@@ -33,7 +33,7 @@ class PublishViewsCommand extends Command
             'description' => 'More or less self contained components, extracted for customizability and DRY code.',
             'group' => 'hyde-components',
         ],
-        '404' => [
+        'page-404' => [
             'name' => '404 Page',
             'description' => 'A beautiful 404 error page by the Laravel Collective.',
             'group' => 'hyde-page-404',
