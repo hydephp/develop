@@ -85,8 +85,8 @@ class PublishViewsCommand extends Command
     protected function formatPublishableChoices(): array
     {
         $keys = ['Publish all categories listed below'];
-        foreach ($this->options as $key => $value) {
-            $keys[] = "<comment>$key</comment>: {$value['description']}";
+        foreach ($this->options as $key => $option) {
+            $keys[] = "<comment>$key</comment>: {$option['description']}";
         }
 
         return $keys;
