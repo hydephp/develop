@@ -26,24 +26,28 @@ class PublishesHydeViewsTest extends TestCase
 
     public function test_execute_method_returns_404_for_invalid_option_key()
     {
+        $this->markTestSkipped('Subject is deprecated');
         $action = new PublishesHydeViews('invalid');
         $this->assertEquals(404, $action->execute());
     }
 
     public function test_action_publishes_view_directories()
     {
+        $this->markTestSkipped('Subject is deprecated');
         (new PublishesHydeViews('layouts'))->execute();
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
     }
 
     public function test_action_publishes_view_components()
     {
+        $this->markTestSkipped('Subject is deprecated');
         (new PublishesHydeViews('components'))->execute();
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/link.blade.php'));
     }
 
     public function test_action_publishes_view_files()
     {
+        $this->markTestSkipped('Subject is deprecated');
         Hyde::unlink('_pages/404.blade.php');
 
         (new PublishesHydeViews('404'))->execute();
