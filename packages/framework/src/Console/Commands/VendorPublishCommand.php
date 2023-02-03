@@ -49,7 +49,6 @@ class VendorPublishCommand extends BaseCommand
      * @param  string  $from
      * @param  string  $to
      * @param  string  $type
-     * @return void
      */
     protected function status($from, $to, $type): void
     {
