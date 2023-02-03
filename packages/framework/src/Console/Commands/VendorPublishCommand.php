@@ -17,9 +17,15 @@ class VendorPublishCommand extends BaseCommand
 {
     public function handle(): void
     {
+        $originalPublishers = ServiceProvider::$publishes;
+        $originalGroups = ServiceProvider::$publishGroups;
+
         unset(ServiceProvider::$publishes[LaravelConsoleSummaryServiceProvider::class]);
 
         parent::handle();
+
+        ServiceProvider::$publishes = $originalPublishers;
+        ServiceProvider::$publishGroups = $originalGroups;
     }
 
     protected function publishableChoices(): array
