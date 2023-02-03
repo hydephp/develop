@@ -8,8 +8,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use function is_dir;
-use function is_dir as is_dir1;
-use function is_dir as is_dir2;
 
 /**
  * @covers \Hyde\Console\Commands\PublishViewsCommand
@@ -24,7 +22,7 @@ class PublishViewsCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
 
-        if (is_dir2(Hyde::path('resources/views/vendor/hyde'))) {
+        if (is_dir(Hyde::path('resources/views/vendor/hyde'))) {
             File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
         }
     }
@@ -35,7 +33,7 @@ class PublishViewsCommandTest extends TestCase
             ->expectsQuestion('Which category do you want to publish?', 'all')
             ->assertExitCode(0);
 
-        if (is_dir1(Hyde::path('resources/views/vendor/hyde'))) {
+        if (is_dir(Hyde::path('resources/views/vendor/hyde'))) {
             File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
         }
     }
