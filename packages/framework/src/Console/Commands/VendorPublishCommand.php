@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
+use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 
 /**
  * Publish any publishable assets from vendor packages.
@@ -16,7 +17,7 @@ class VendorPublishCommand extends BaseCommand
     protected function publishableChoices(): array
     {
         $array = parent::publishableChoices();
-        return $this->withoutProvider($array, 'NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider');
+        return $this->withoutProvider($array, LaravelConsoleSummaryServiceProvider::class);
     }
 
     protected function withoutProvider(array $array, string $provider): array
