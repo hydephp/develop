@@ -52,9 +52,9 @@ class VendorPublishCommandTest extends TestCase
         ];
 
         $this->artisan('vendor:publish')
-            ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: example-configs', [
+            ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: vendor-configs', [
                 '<comment>Publish files from all providers and tags listed below</comment>',
-                '<fg=gray>Tag:</> config (Vendor Configs)',
+                '<fg=gray>Tag:</> vendor-configs',
             ])->assertExitCode(0);
     }
 }
