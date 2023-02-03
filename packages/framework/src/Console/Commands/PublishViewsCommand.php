@@ -74,7 +74,7 @@ class PublishViewsCommand extends Command
 
         $choice = $this->parseChoiceIntoKey($choice);
 
-        $this->infoComment(sprintf("Selected category [%s]\n", empty($choice) ? 'all' : $choice));
+        $this->infoComment(sprintf("Selected category [%s]\n", !empty($choice) ? $choice : 'all'));
 
         return $choice;
     }
