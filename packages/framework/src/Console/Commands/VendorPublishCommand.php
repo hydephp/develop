@@ -13,7 +13,7 @@ class VendorPublishCommand extends BaseCommand
      *
      * @return void
      */
-    protected function promptForProviderOrTag()
+    protected function promptForProviderOrTag(): void
     {
         $choice = $this->choice(
             "Which provider or tag's files would you like to publish?",
