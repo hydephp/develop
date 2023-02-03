@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
+use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 
 /**
@@ -16,6 +17,8 @@ class VendorPublishCommand extends BaseCommand
 {
     public function handle(): void
     {
+        unset(ServiceProvider::$publishes[LaravelConsoleSummaryServiceProvider::class]);
+
         parent::handle();
     }
 
