@@ -15,24 +15,6 @@ use Illuminate\Support\Facades\Artisan;
  */
 class PublishesHydeViews
 {
-    public static array $options = [
-        'layouts' => [
-            'name' => 'Blade Layouts',
-            'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
-            'group' => 'hyde-layouts',
-        ],
-        'components' => [
-            'name' => 'Blade Components',
-            'description' => 'More or less self contained components, extracted for customizability and DRY code.',
-            'group' => 'hyde-components',
-        ],
-        '404' => [
-            'name' => '404 Page',
-            'description' => 'A beautiful 404 error page by the Laravel Collective.',
-            'group' => 'hyde-page-404',
-        ],
-    ];
-
     protected string $selected;
 
     public function __construct(string $selected)

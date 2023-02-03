@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PublishesHydeViews;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
@@ -24,12 +23,30 @@ class PublishViewsCommand extends Command
 
     protected string $selected;
 
+    public static array $options = [
+        'layouts' => [
+            'name' => 'Blade Layouts',
+            'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
+            'group' => 'hyde-layouts',
+        ],
+        'components' => [
+            'name' => 'Blade Components',
+            'description' => 'More or less self contained components, extracted for customizability and DRY code.',
+            'group' => 'hyde-components',
+        ],
+        '404' => [
+            'name' => '404 Page',
+            'description' => 'A beautiful 404 error page by the Laravel Collective.',
+            'group' => 'hyde-page-404',
+        ],
+    ];
+
     public function handle(): int
     {
         $this->selected = $this->argument('category') ?? $this->promptForCategory();
 
         if ($this->selected === 'all' || $this->selected === '') {
-            foreach (PublishesHydeViews::$options as $key => $value) {
+            foreach (static::$options as $key => $value) {
                 $this->publishOption((string) $key);
             }
         } else {
@@ -42,7 +59,7 @@ class PublishViewsCommand extends Command
     protected function publishOption(string $selected): void
     {
         Artisan::call('vendor:publish', [
-            '--tag' => PublishesHydeViews::$options[$selected]['group'],
+            '--tag' => static::$options[$selected]['group'],
             '--force' => true,
         ], $this->output);
     }
@@ -70,7 +87,7 @@ class PublishViewsCommand extends Command
     {
         $keys = [];
         $keys[] = 'Publish all categories listed below';
-        foreach (PublishesHydeViews::$options as $key => $value) {
+        foreach (static::$options as $key => $value) {
             $keys[] = "<comment>$key</comment>: {$value['description']}";
         }
 
