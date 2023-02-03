@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Artisan;
  * Publish one or more of the Hyde Blade views.
  *
  * @deprecated Command is being refactored to inline the action.
- *
  * @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
  */
 class PublishesHydeViews
