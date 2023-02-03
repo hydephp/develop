@@ -22,7 +22,7 @@ class PublishViewsCommand extends Command
 
     protected string $selected;
 
-    protected static array $options = [
+    protected array $options = [
         'layouts' => [
             'name' => 'Blade Layouts',
             'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
@@ -45,7 +45,7 @@ class PublishViewsCommand extends Command
         $this->selected = $this->argument('category') ?? $this->promptForCategory();
 
         if ($this->selected === 'all' || $this->selected === '') {
-            foreach (static::$options as $key => $value) {
+            foreach ($this->options as $key => $value) {
                 $this->publishOption($key);
             }
         } else {
@@ -58,7 +58,7 @@ class PublishViewsCommand extends Command
     protected function publishOption(string $selected): void
     {
         Artisan::call('vendor:publish', [
-            '--tag' => static::$options[$selected]['group'],
+            '--tag' => $this->options[$selected]['group'],
             '--force' => true,
         ], $this->output);
     }
@@ -86,7 +86,7 @@ class PublishViewsCommand extends Command
     {
         $keys = [];
         $keys[] = 'Publish all categories listed below';
-        foreach (static::$options as $key => $value) {
+        foreach ($this->options as $key => $value) {
             $keys[] = "<comment>$key</comment>: {$value['description']}";
         }
 
