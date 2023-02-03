@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -39,22 +40,11 @@ class PublishesHydeViews
         $this->selected = $selected;
     }
 
-    public function execute(): bool|int
+    public function execute(): int
     {
-        if (! array_key_exists($this->selected, static::$options)) {
-            return 404;
-        }
-
-        if (is_dir(Hyde::vendorPath(static::$options[$this->selected]['path']))) {
-            return File::copyDirectory(
-                Hyde::vendorPath(static::$options[$this->selected]['path']),
-                Hyde::path(static::$options[$this->selected]['destination'])
-            );
-        }
-
-        return File::copy(
-            Hyde::vendorPath(static::$options[$this->selected]['path']),
-            Hyde::path(static::$options[$this->selected]['destination'])
-        );
+        return Artisan::call('vendor:publish', [
+            '--tag' => self::$options[$this->selected]['group'],
+            '--force' => true,
+        ]);
     }
 }
