@@ -53,7 +53,10 @@ class VendorPublishCommand extends BaseCommand
      */
     protected function status($from, $to, $type): void
     {
-        $this->components->task(sprintf('Copying %s [%s] to [%s]', $type, $this->normalizePath($from), $this->normalizePath($to)));
+        $this->components->task(sprintf('Copying %s [%s] to [%s]', $type,
+            $this->normalizePath($from),
+            $this->normalizePath($to)
+        ));
     }
 
     protected function normalizePath(string $path): string
