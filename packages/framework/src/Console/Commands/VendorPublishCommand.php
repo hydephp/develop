@@ -13,5 +13,11 @@ use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
  */
 class VendorPublishCommand extends BaseCommand
 {
-    //
+    protected function publishableChoices(): array
+    {
+        $array = parent::publishableChoices();
+        $provider = "<fg=gray>Provider:</> NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider";
+        unset($array[array_search($provider, $array)]);
+        return $array;
+    }
 }
