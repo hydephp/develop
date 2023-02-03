@@ -9,6 +9,8 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Publish the Hyde Blade views.
+ *
+ * @see \Hyde\Framework\Testing\Feature\Commands\PublishViewsCommandTest
  */
 class PublishViewsCommand extends Command
 {
