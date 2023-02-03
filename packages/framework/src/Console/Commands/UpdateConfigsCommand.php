@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Publish the Hyde Config Files.
