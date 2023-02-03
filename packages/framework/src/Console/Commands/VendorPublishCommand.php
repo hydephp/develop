@@ -62,6 +62,6 @@ class VendorPublishCommand extends BaseCommand
 
     protected function normalizePath(string $path): string
     {
-        return str_replace('\\', '/', ltrim(Hyde::pathToRelative(realpath($path)), '/\\'));
+        return ltrim(str_replace('\\', '/', Hyde::pathToRelative(realpath($path))), '/\\');
     }
 }
