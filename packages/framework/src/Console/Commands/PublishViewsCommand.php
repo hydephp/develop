@@ -22,7 +22,7 @@ class PublishViewsCommand extends Command
 
     protected string $selected;
 
-    public static array $options = [
+    protected static array $options = [
         'layouts' => [
             'name' => 'Blade Layouts',
             'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
