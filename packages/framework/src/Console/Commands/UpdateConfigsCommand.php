@@ -6,7 +6,6 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
