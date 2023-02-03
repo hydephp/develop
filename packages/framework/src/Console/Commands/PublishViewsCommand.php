@@ -41,13 +41,6 @@ class PublishViewsCommand extends Command
     protected function publishOption(string $selected): void
     {
         (new PublishesHydeViews($selected))->execute();
-
-        $from = Hyde::vendorPath(PublishesHydeViews::$options[$selected]['path']);
-        $from = substr($from, strpos($from, 'vendor'));
-
-        $to = (PublishesHydeViews::$options[$selected]['destination']);
-
-        $this->line("<info>Copied</info> [<comment>$from</comment>] <info>to</info> [<comment>$to</comment>]");
     }
 
     protected function promptForCategory(): string
