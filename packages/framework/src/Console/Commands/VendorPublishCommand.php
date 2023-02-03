@@ -54,10 +54,15 @@ class VendorPublishCommand extends BaseCommand
      */
     protected function status($from, $to, $type): void
     {
-        $from = str_replace('\\', '/', ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($from))), '/\\'));
+        $from = $this->normalizePath($from);
 
-        $to = str_replace('\\', '/', ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($to))), '/\\'));
+        $to = $this->normalizePath($to);
 
         $this->components->task(sprintf('Copying %s [%s] to [%s]', $type, $from, $to));
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        return str_replace('\\', '/', ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($path))), '/\\'));
     }
 }
