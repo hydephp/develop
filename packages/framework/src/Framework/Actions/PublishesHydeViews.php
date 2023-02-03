@@ -20,18 +20,21 @@ class PublishesHydeViews
             'path' => 'resources/views/layouts',
             'destination' => 'resources/views/vendor/hyde/layouts',
             'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
+            'group' => 'hyde-layouts'
         ],
         'components' => [
             'name' => 'Blade Components',
             'path' => 'resources/views/components',
             'destination' => 'resources/views/vendor/hyde/components',
             'description' => 'More or less self contained components, extracted for customizability and DRY code.',
+            'group' => 'hyde-components'
         ],
         '404' => [
             'name' => '404 Page',
             'path' => 'resources/views/pages/404.blade.php',
             'destination' => '_pages/404.blade.php',
             'description' => 'A beautiful 404 error page by the Laravel Collective.',
+            'group' => 'hyde-page-404'
         ],
     ];
 
