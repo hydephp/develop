@@ -24,13 +24,9 @@ class UpdateConfigsCommand extends Command
 
     public function handle(): int
     {
-        Artisan::call('vendor:publish', [
+        return Artisan::call('vendor:publish', [
             '--tag' => 'configs',
             '--force' => true,
         ], $this->output);
-
-        $this->line('<info>Published config files to</info> <comment>'.Hyde::path('config').'</comment>');
-
-        return Command::SUCCESS;
     }
 }
