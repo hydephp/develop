@@ -72,11 +72,11 @@ class PublishViewsCommand extends Command
             0
         );
 
-        $choice = $this->parseChoiceIntoKey($choice);
+        $selection = $this->parseChoiceIntoKey($choice);
 
-        $this->infoComment(sprintf("Selected category [%s]\n", $choice ?: 'all'));
+        $this->infoComment(sprintf("Selected category [%s]\n", $selection ?: 'all'));
 
-        return $choice;
+        return $selection;
     }
 
     protected function formatPublishableChoices(): array
