@@ -15,7 +15,7 @@ class VendorPublishCommand extends BaseCommand
      */
     protected function promptForProviderOrTag()
     {
-        $choice = $this->components->choice(
+        $choice = $this->choice(
             "Which provider or tag's files would you like to publish?",
             $choices = $this->publishableChoices()
         );
