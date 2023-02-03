@@ -46,7 +46,7 @@ class PublishViewsCommand extends Command
 
         if ($this->selected === 'all' || $this->selected === '') {
             foreach (static::$options as $key => $value) {
-                $this->publishOption((string) $key);
+                $this->publishOption($key);
             }
         } else {
             $this->publishOption($this->selected);
