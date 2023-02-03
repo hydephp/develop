@@ -6,7 +6,6 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 
 /**
  * Publish one or more of the Hyde Blade views.
@@ -19,17 +18,17 @@ class PublishesHydeViews
         'layouts' => [
             'name' => 'Blade Layouts',
             'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
-            'group' => 'hyde-layouts'
+            'group' => 'hyde-layouts',
         ],
         'components' => [
             'name' => 'Blade Components',
             'description' => 'More or less self contained components, extracted for customizability and DRY code.',
-            'group' => 'hyde-components'
+            'group' => 'hyde-components',
         ],
         '404' => [
             'name' => '404 Page',
             'description' => 'A beautiful 404 error page by the Laravel Collective.',
-            'group' => 'hyde-page-404'
+            'group' => 'hyde-page-404',
         ],
     ];
 
