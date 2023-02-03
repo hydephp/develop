@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
 use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
-use function base_path;
 use function ltrim;
 use function realpath;
 use function sprintf;
@@ -63,6 +62,6 @@ class VendorPublishCommand extends BaseCommand
 
     protected function normalizePath(string $path): string
     {
-        return str_replace('\\', '/', ltrim(Hyde::pathToRelative(str_replace(base_path(), '', realpath($path))), '/\\'));
+        return str_replace('\\', '/', ltrim(Hyde::pathToRelative(realpath($path)), '/\\'));
     }
 }
