@@ -65,11 +65,10 @@ class PublishHomepageCommand extends Command
             '--force' => true, // Todo add force state dynamically depending on existing file state
         ], $this->output);
 
-        if ($exitCode === 0) {
-            $this->line("<info>Published page</info> [<comment>$selected</comment>]");
+        // Todo only show if called command was successful
+        $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
-            $this->askToRebuildSite();
-        }
+        $this->askToRebuildSite();
 
         return Command::SUCCESS;
     }
