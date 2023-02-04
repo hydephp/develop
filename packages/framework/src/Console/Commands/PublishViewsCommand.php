@@ -56,7 +56,7 @@ class PublishViewsCommand extends Command
     protected function publishOption(string $selected): void
     {
         Artisan::call('vendor:publish', [
-            '--tag' => $this->options[$selected]['group'],
+            '--tag' => $this->options[$selected]['group'] ?? $selected,
             '--force' => true,
         ], $this->output);
     }
