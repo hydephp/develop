@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Console\Commands\VendorPublishCommand;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Console\View\Components\Factory;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 
@@ -72,5 +76,30 @@ class VendorPublishCommandTest extends TestCase
                 '<comment>Publish files from all providers and tags listed below</comment>',
                 '<fg=gray>Tag:</> vendor-configs',
             ])->assertExitCode(0);
+    }
+
+    public function test_status_method()
+    {
+        $command = new StatusMethodTestClass($this->createMock(Filesystem::class));
+
+        $components = $this->mock(Factory::class);
+        $components->shouldReceive('task')
+            ->once()->with('Copying config [config/hyde.php] to [config/hyde.php]');
+
+        $command->setMockObject($components);
+        $command->status(Hyde::path('config/hyde.php'), 'config/hyde.php', 'config');
+    }
+}
+
+class StatusMethodTestClass extends VendorPublishCommand
+{
+    public function status($from, $to, $type): void
+    {
+        parent::status($from, $to, $type);
+    }
+
+    public function setMockObject($mock)
+    {
+        $this->components = $mock;
     }
 }

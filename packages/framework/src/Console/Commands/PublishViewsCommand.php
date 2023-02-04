@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PublishesHydeViews;
-use Hyde\Hyde;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
+use Illuminate\Support\Facades\Artisan;
 
 /**
  * Publish the Hyde Blade views.
  *
- * @deprecated May be replaced by vendor:publish in the future.
+ * @see \Hyde\Framework\Testing\Feature\Commands\PublishViewsCommandTest
  */
 class PublishViewsCommand extends Command
 {
@@ -23,13 +22,31 @@ class PublishViewsCommand extends Command
 
     protected string $selected;
 
+    protected array $options = [
+        'layouts' => [
+            'name' => 'Blade Layouts',
+            'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
+            'group' => 'hyde-layouts',
+        ],
+        'components' => [
+            'name' => 'Blade Components',
+            'description' => 'More or less self contained components, extracted for customizability and DRY code.',
+            'group' => 'hyde-components',
+        ],
+        'page-404' => [
+            'name' => '404 Page',
+            'description' => 'A beautiful 404 error page by the Laravel Collective.',
+            'group' => 'hyde-page-404',
+        ],
+    ];
+
     public function handle(): int
     {
         $this->selected = $this->argument('category') ?? $this->promptForCategory();
 
         if ($this->selected === 'all' || $this->selected === '') {
-            foreach (PublishesHydeViews::$options as $key => $value) {
-                $this->publishOption((string) $key);
+            foreach ($this->options as $key => $value) {
+                $this->publishOption($key);
             }
         } else {
             $this->publishOption($this->selected);
@@ -40,14 +57,10 @@ class PublishViewsCommand extends Command
 
     protected function publishOption(string $selected): void
     {
-        (new PublishesHydeViews($selected))->execute();
-
-        $from = Hyde::vendorPath(PublishesHydeViews::$options[$selected]['path']);
-        $from = substr($from, strpos($from, 'vendor'));
-
-        $to = (PublishesHydeViews::$options[$selected]['destination']);
-
-        $this->line("<info>Copied</info> [<comment>$from</comment>] <info>to</info> [<comment>$to</comment>]");
+        Artisan::call('vendor:publish', [
+            '--tag' => $this->options[$selected]['group'],
+            '--force' => true,
+        ], $this->output);
     }
 
     protected function promptForCategory(): string
@@ -59,22 +72,18 @@ class PublishViewsCommand extends Command
             0
         );
 
-        $choice = $this->parseChoiceIntoKey($choice);
+        $selection = $this->parseChoiceIntoKey($choice);
 
-        $this->line(sprintf(
-            "<info>Selected category</info> [<comment>%s</comment>]\n",
-            empty($choice) ? 'all' : $choice
-        ));
+        $this->infoComment(sprintf("Selected category [%s]\n", $selection ?: 'all'));
 
-        return $choice;
+        return $selection;
     }
 
     protected function formatPublishableChoices(): array
     {
-        $keys = [];
-        $keys[] = 'Publish all categories listed below';
-        foreach (PublishesHydeViews::$options as $key => $value) {
-            $keys[] = "<comment>$key</comment>: {$value['description']}";
+        $keys = ['Publish all categories listed below'];
+        foreach ($this->options as $key => $option) {
+            $keys[] = "<comment>$key</comment>: {$option['description']}";
         }
 
         return $keys;
