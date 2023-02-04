@@ -82,7 +82,7 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): Collection
     {
-        return Homepages::options()->map(fn (PublishableContract $page): array => $page::toArray());
+        return Homepages::options();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
