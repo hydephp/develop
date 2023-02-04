@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +23,7 @@ class VendorPublishCommand extends BaseCommand
     /**
      * Our child method filters the options available to the parent method.
      */
-    public function handle(): int
+    public function handle(): void
     {
         $originalPublishers = ServiceProvider::$publishes;
         $originalGroups = ServiceProvider::$publishGroups;
@@ -42,8 +41,6 @@ class VendorPublishCommand extends BaseCommand
 
         ServiceProvider::$publishes = $originalPublishers;
         ServiceProvider::$publishGroups = $originalGroups;
-
-        return Command::SUCCESS;
     }
 
     /**
