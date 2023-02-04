@@ -9,7 +9,6 @@ use Illuminate\Support\LazyCollection;
 use ReflectionMethod;
 use ReflectionParameter;
 use Symfony\Component\Finder\SplFileInfo;
-
 use function array_keys;
 use function array_map;
 use function forward_static_call_array;
@@ -84,7 +83,7 @@ trait ForwardsIlluminateFilesystem
 
     protected static function getParameterNames(string $name): array
     {
-        return array_map(fn(ReflectionParameter $parameter): string => $parameter->getName(),
+        return array_map(fn (ReflectionParameter $parameter): string => $parameter->getName(),
             (new ReflectionMethod(Filesystem::class, $name))->getParameters()
         );
     }
@@ -94,7 +93,7 @@ trait ForwardsIlluminateFilesystem
         return array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
             $pathsToQualify = [
                 'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
-                'secondFile', 'target', 'to'
+                'secondFile', 'target', 'to',
             ];
 
             return in_array($parameterNames[$index], $pathsToQualify) && (is_string($argumentValue) || is_array($argumentValue))
