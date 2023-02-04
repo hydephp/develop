@@ -95,12 +95,12 @@ trait ForwardsIlluminateFilesystem
                 return [$key => $argumentValue];
             }
 
-            $pathsToQualify = [
+            $argumentsToQualify = [
                 'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
                 'secondFile', 'target', 'to',
             ];
 
-            if (in_array($parameterNames[$key], $pathsToQualify) && (is_string($argumentValue) || is_array($argumentValue))) {
+            if (in_array($parameterNames[$key], $argumentsToQualify) && (is_string($argumentValue) || is_array($argumentValue))) {
                 $argumentValue = self::absolutePath($argumentValue);
             }
 
