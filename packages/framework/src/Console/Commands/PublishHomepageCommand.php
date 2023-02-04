@@ -71,7 +71,7 @@ class PublishHomepageCommand extends Command
         ], ! $tagExists ? $this->output : null);
 
         if ($tagExists) {
-            $this->line("<info>Published page</info> [<comment>$selected</comment>]");
+            $this->infoComment("Published page [$selected]");
 
             $this->askToRebuildSite();
         }
