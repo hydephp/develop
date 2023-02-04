@@ -12,6 +12,7 @@ use Hyde\Hyde;
 {
     protected static string $name;
     protected static string $description;
+    /** @deprecated */
     protected static string $path;
     protected static ?string $outputPath;
 
