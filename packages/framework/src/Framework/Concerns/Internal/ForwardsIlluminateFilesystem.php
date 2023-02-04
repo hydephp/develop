@@ -78,11 +78,7 @@ trait ForwardsIlluminateFilesystem
     public static function __callStatic(string $name, array $arguments): mixed
     {
         // Get the names of the arguments called
-        $reflection = new ReflectionMethod(Filesystem::class, $name);
-        $parameters = $reflection->getParameters();
-        $parameterNames = array_map(function (ReflectionParameter $parameter): string {
-            return $parameter->getName();
-        }, $parameters);
+        $parameterNames = self::getParameterNames($name);
         // Replace values for all arguments that are paths
         $arguments = array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
             $pathsToQualify = [
@@ -105,5 +101,14 @@ trait ForwardsIlluminateFilesystem
         }, $arguments, array_keys($arguments));
 
         return forward_static_call_array([self::filesystem(), $name], $arguments);
+    }
+
+    protected static function getParameterNames(string $name): array
+    {
+        $reflection = new ReflectionMethod(Filesystem::class, $name);
+        $parameters = $reflection->getParameters();
+        return array_map(function (ReflectionParameter $parameter): string {
+            return $parameter->getName();
+        }, $parameters);
     }
 }
