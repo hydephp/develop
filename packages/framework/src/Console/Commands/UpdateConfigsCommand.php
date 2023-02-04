@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
-use Illuminate\Support\Facades\File;
-use LaravelZero\Framework\Commands\Command;
+use Illuminate\Support\Facades\Artisan;
 
 /**
  * Publish the Hyde Config Files.
  *
+ * @deprecated May be replaced by vendor:publish in the future.
  * @see \Hyde\Framework\Testing\Feature\Commands\UpdateConfigsCommandTest
  */
 class UpdateConfigsCommand extends Command
@@ -23,9 +24,12 @@ class UpdateConfigsCommand extends Command
 
     public function handle(): int
     {
-        File::copyDirectory(Hyde::vendorPath('config'), Hyde::path('config'));
+        Artisan::call('vendor:publish', [
+            '--tag' => 'configs',
+            '--force' => true,
+        ], $this->output);
 
-        $this->line('<info>Published config files to</info> <comment>'.Hyde::path('config').'</comment>');
+        $this->infoComment(sprintf('Published config files to [%s]', Hyde::path('config')));
 
         return Command::SUCCESS;
     }

@@ -26,6 +26,7 @@ class HydeConsoleServiceProvider extends ServiceProvider
             Commands\MakePageCommand::class,
             Commands\MakePostCommand::class,
 
+            Commands\VendorPublishCommand::class,
             Commands\PublishHomepageCommand::class,
             Commands\PublishViewsCommand::class,
             Commands\UpdateConfigsCommand::class,

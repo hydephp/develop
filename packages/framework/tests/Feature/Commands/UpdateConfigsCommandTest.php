@@ -33,7 +33,7 @@ class UpdateConfigsCommandTest extends TestCase
     public function test_command_has_expected_output()
     {
         $this->artisan('update:configs')
-            ->expectsOutput('Published config files to '.Hyde::path('config'))
+            ->expectsOutput(sprintf('Published config files to [%s]', Hyde::path('config')))
             ->assertExitCode(0);
     }
 
