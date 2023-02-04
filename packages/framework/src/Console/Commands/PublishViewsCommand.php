@@ -20,8 +20,6 @@ class PublishViewsCommand extends Command
     /** @var string */
     protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten.';
 
-    protected string $selected;
-
     protected array $options = [
         'layouts' => [
             'name' => 'Blade Layouts',
@@ -42,14 +40,14 @@ class PublishViewsCommand extends Command
 
     public function handle(): int
     {
-        $this->selected = $this->argument('category') ?? $this->promptForCategory();
+        $selected = $this->argument('category') ?? $this->promptForCategory();
 
-        if ($this->selected === 'all' || $this->selected === '') {
+        if ($selected === 'all' || $selected === '') {
             foreach ($this->options as $key => $value) {
                 $this->publishOption($key);
             }
         } else {
-            $this->publishOption($this->selected);
+            $this->publishOption($selected);
         }
 
         return Command::SUCCESS;
