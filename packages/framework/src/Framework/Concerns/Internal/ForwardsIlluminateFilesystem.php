@@ -13,7 +13,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use function array_map;
 use function collect;
 use function in_array;
-use function is_string;
+use function is_int;
 
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
@@ -90,7 +90,7 @@ trait ForwardsIlluminateFilesystem
     protected static function qualifyArguments(array $parameterNames, array $arguments): Collection
     {
         return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
-            if (!is_string($key)) {
+            if (is_int($key)) {
                 // If the argument is not named, we'll retrieve it from the reflection data
                 $key = $parameterNames[$key];
             }
