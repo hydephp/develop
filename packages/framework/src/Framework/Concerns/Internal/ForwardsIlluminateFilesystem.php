@@ -28,12 +28,12 @@ trait ForwardsIlluminateFilesystem
         $parameterNames = array_map(function (ReflectionParameter $parameter): string {
             return $parameter->getName();
         }, $parameters);
-        $pathsToQualify = [
-            'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
-            'secondFile', 'target', 'to'
-        ];
         // Replace values for all arguments that are paths
-        $arguments = array_map(function (string|array|int|bool $argumentValue, int $index) use ($pathsToQualify, $parameterNames): string|array|int|bool {
+        $arguments = array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
+            $pathsToQualify = [
+                'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
+                'secondFile', 'target', 'to'
+            ];
 
             if (in_array($parameterNames[$index], $pathsToQualify)) {
                 if (is_string($argumentValue)) {
