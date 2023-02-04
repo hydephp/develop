@@ -89,7 +89,7 @@ trait ForwardsIlluminateFilesystem
 
     protected static function qualifyArguments(array $parameterNames, array $arguments): array
     {
-        $callback = function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
+        return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
             if (is_string($key)) {
                 // Named argument is already defined.
             } else {
@@ -106,8 +106,6 @@ trait ForwardsIlluminateFilesystem
             }
 
             return [$key => $argumentValue];
-        };
-
-        return collect($arguments)->mapWithKeys($callback)->all();
+        })->all();
     }
 }
