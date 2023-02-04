@@ -16,23 +16,7 @@ final class Homepages
 {
     public static function options(): Collection
     {
-        return new Collection([
-            'welcome'=> [
-                'name' => 'Welcome',
-                'description' => 'The default welcome page.',
-                'group' => 'hyde-welcome-page',
-            ],
-            'posts'=> [
-                'name' => 'Posts Feed',
-                'description' => 'A feed of your latest posts. Perfect for a blog site!',
-                'group' => 'hyde-posts-page',
-            ],
-            'blank'=>  [
-                'name' => 'Blank Starter',
-                'description' => 'A blank Blade template with just the base layout.',
-                'group' => 'hyde-blank-page',
-            ]
-        ]);
+        return new Collection();
     }
 
     public static function exists(string $page): bool

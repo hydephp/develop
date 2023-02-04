@@ -31,8 +31,23 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
-    // Todo: Add information from Homepages class to added command $options array
-    protected array $options = [];
+    protected array $options = [
+        'welcome'=> [
+            'name' => 'Welcome',
+            'description' => 'The default welcome page.',
+            'group' => 'hyde-welcome-page',
+        ],
+        'posts'=> [
+            'name' => 'Posts Feed',
+            'description' => 'A feed of your latest posts. Perfect for a blog site!',
+            'group' => 'hyde-posts-page',
+        ],
+        'blank'=>  [
+            'name' => 'Blank Starter',
+            'description' => 'A blank Blade template with just the base layout.',
+            'group' => 'hyde-blank-page',
+        ]
+    ];
 
     public function handle(): int
     {
@@ -82,7 +97,7 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): Collection
     {
-        return Homepages::options();
+        return new Collection($this->options);
     }
 
     protected function parseChoiceIntoKey(string $choice): string
