@@ -52,4 +52,11 @@ class PublishViewsCommandTest extends TestCase
             File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
         }
     }
+
+    public function test_with_invalid_supplied_tag()
+    {
+        $this->artisan('publish:views invalid')
+            ->expectsOutputToContain('No publishable resources for tag [invalid].')
+            ->assertExitCode(0);
+    }
 }
