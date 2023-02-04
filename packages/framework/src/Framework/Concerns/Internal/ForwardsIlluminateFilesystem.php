@@ -80,7 +80,23 @@ trait ForwardsIlluminateFilesystem
         // Get the names of the arguments called
         $parameterNames = self::getParameterNames($name);
         // Replace values for all arguments that are paths
-        $arguments = array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
+        $arguments = self::qualifyArguments($parameterNames, $arguments);
+
+        return forward_static_call_array([self::filesystem(), $name], $arguments);
+    }
+
+    protected static function getParameterNames(string $name): array
+    {
+        $reflection = new ReflectionMethod(Filesystem::class, $name);
+        $parameters = $reflection->getParameters();
+        return array_map(function (ReflectionParameter $parameter): string {
+            return $parameter->getName();
+        }, $parameters);
+    }
+
+    protected static function qualifyArguments(array $parameterNames, array $arguments): array
+    {
+        return array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
             $pathsToQualify = [
                 'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
                 'secondFile', 'target', 'to'
@@ -99,16 +115,5 @@ trait ForwardsIlluminateFilesystem
 
             return $argumentValue;
         }, $arguments, array_keys($arguments));
-
-        return forward_static_call_array([self::filesystem(), $name], $arguments);
-    }
-
-    protected static function getParameterNames(string $name): array
-    {
-        $reflection = new ReflectionMethod(Filesystem::class, $name);
-        $parameters = $reflection->getParameters();
-        return array_map(function (ReflectionParameter $parameter): string {
-            return $parameter->getName();
-        }, $parameters);
     }
 }
