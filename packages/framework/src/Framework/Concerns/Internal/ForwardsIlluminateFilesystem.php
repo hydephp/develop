@@ -91,7 +91,7 @@ trait ForwardsIlluminateFilesystem
     {
         $callback = function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
             if (is_string($key)) {
-                // Named argument is already qualified.
+                // Named argument is already defined.
             } else {
                 $key = $parameterNames[$key];
             }
