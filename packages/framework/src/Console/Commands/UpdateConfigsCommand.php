@@ -21,6 +21,9 @@ class UpdateConfigsCommand extends Command
     /** @var string */
     protected $description = 'Publish the default configuration files';
 
+    /** @var bool */
+    protected $hidden = true;
+    
     public function handle(): int
     {
         Artisan::call('vendor:publish', [
