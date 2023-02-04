@@ -54,7 +54,7 @@ class PublishableViewTest extends TestCase
 class PublishableTestView extends PublishableView
 {
     protected static string $name = 'Test View';
-    protected static string $desc = 'A test view';
+    protected static string $description = 'A test view';
     protected static string $path = 'input.md';
     protected static ?string $outputPath = 'output.md';
 }
@@ -62,7 +62,7 @@ class PublishableTestView extends PublishableView
 class PublishableTestViewWithNoOutputPath extends PublishableView
 {
     protected static string $name = 'Test View';
-    protected static string $desc = 'A test view';
+    protected static string $description = 'A test view';
     protected static string $path = 'input.md';
 }
 

@@ -11,7 +11,7 @@ use Hyde\Hyde;
  */abstract class PublishableView implements PublishableContract
 {
     protected static string $name;
-    protected static string $desc;
+    protected static string $description;
     protected static string $path;
     protected static ?string $outputPath;
 
@@ -33,7 +33,7 @@ use Hyde\Hyde;
 
     public static function getDescription(): string
     {
-        return static::$desc;
+        return static::$description;
     }
 
     public static function getOutputPath(): string
