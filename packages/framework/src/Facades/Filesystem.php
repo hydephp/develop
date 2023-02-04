@@ -39,7 +39,7 @@ class Filesystem
      * @param  string  $path
      * @return string
      */
-    public static function absolutePath(string $path): string
+    public static function absolutePath(string|array $path): string|array
     {
         return self::kernel()->pathToAbsolute(self::relativePath($path));
     }
@@ -50,7 +50,7 @@ class Filesystem
      * @param  string  $path
      * @return string
      */
-    public static function relativePath(string $path): string
+    public static function relativePath(string|array $path): string|array
     {
         return self::kernel()->pathToRelative($path);
     }
