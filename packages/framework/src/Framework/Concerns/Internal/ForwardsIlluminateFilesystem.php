@@ -91,8 +91,8 @@ trait ForwardsIlluminateFilesystem
     {
         return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
             if (is_string($key)) {
-                // Named argument is already defined.
             } else {
+                // If the argument is not named, we'll retrieve it from the reflection data
                 $key = $parameterNames[$key];
             }
 
