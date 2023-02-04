@@ -10,7 +10,6 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\PublishHomepageCommand
- * @covers \Hyde\Framework\Features\Templates\Homepages
  * @covers \Hyde\Console\Concerns\AsksToRebuildSite
  */
 class PublishHomepageCommandTest extends TestCase
