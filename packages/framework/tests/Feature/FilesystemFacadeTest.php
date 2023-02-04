@@ -410,6 +410,22 @@ class FilesystemFacadeTest extends TestCase
         Filesystem::cleanDirectory('directory');
     }
 
+    public function test_method_without_mocking()
+    {
+        $this->assertSame(3, Filesystem::put('foo', 'bar'));
+        $this->assertFileExists(Hyde::path('foo'));
+
+        unlink(Hyde::path('foo'));
+    }
+
+    public function test_method_with_named_arguments()
+    {
+        $this->assertSame(3, Filesystem::put(path: 'foo', contents: 'bar'));
+        $this->assertFileExists(Hyde::path('foo'));
+
+        unlink(Hyde::path('foo'));
+    }
+
     protected function createExpectation(string $method, mixed $returns, ...$args): void
     {
         File::shouldReceive($method)->withArgs($args)->once()->andReturn($returns);
