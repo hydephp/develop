@@ -14,6 +14,7 @@ use Hyde\Hyde;
     protected static string $description;
     /** @deprecated */
     protected static string $path;
+    /** @deprecated */
     protected static ?string $outputPath;
 
     public static function publish(bool $force = false): bool
