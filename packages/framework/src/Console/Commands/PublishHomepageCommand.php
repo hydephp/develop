@@ -15,7 +15,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Publish one of the default homepages.
  *
- * @todo Refactor to use vendor:publish
+ * @todo Refactor to use vendor:publish and to use code similar to {@see \Hyde\Console\Commands\PublishViewsCommand}
  *
  * @deprecated May be replaced by vendor:publish in the future.
  * @see \Hyde\Framework\Testing\Feature\Commands\PublishHomepageCommandTest
