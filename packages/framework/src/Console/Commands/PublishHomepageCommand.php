@@ -71,7 +71,7 @@ class PublishHomepageCommand extends Command
             $this->askToRebuildSite();
         }
 
-        return $exitCode;
+        return Command::SUCCESS;
     }
 
     protected function parseSelection(): string
