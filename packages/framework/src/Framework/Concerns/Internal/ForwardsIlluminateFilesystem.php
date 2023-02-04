@@ -100,11 +100,12 @@ trait ForwardsIlluminateFilesystem
                 'secondFile', 'target', 'to',
             ];
 
-            if (in_array($parameterNames[$key], $argumentsToQualify) && (is_string($argumentValue) || is_array($argumentValue))) {
+            $key = $parameterNames[$key];
+            if (in_array($key, $argumentsToQualify) && (is_string($argumentValue) || is_array($argumentValue))) {
                 $argumentValue = self::absolutePath($argumentValue);
             }
 
-            return [$parameterNames[$key] => $argumentValue];
+            return [$key => $argumentValue];
         };
 
         return collect($arguments)->mapWithKeys($callback)->all();
