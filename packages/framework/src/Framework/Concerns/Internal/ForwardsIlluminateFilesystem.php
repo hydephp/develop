@@ -94,7 +94,6 @@ trait ForwardsIlluminateFilesystem
 
             if (is_string($key)) {
                 // Named argument is already qualified.
-                return [$key => $argumentValue];
             }
 
             $argumentsToQualify = [
