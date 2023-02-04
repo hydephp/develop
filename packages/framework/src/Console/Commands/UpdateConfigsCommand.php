@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Artisan;
 /**
  * Publish the Hyde Config Files.
  *
- * @deprecated May be replaced by vendor:publish in the future.
  * @see \Hyde\Framework\Testing\Feature\Commands\UpdateConfigsCommandTest
  */
 class UpdateConfigsCommand extends Command
@@ -21,6 +20,9 @@ class UpdateConfigsCommand extends Command
 
     /** @var string */
     protected $description = 'Publish the default configuration files';
+
+    /** @var bool */
+    protected $hidden = true;
 
     public function handle(): int
     {
