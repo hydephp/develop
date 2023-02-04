@@ -78,7 +78,7 @@ class PublishHomepageCommand extends Command
             $this->askToRebuildSite();
         }
 
-        return ! $tagExists ? 404 : Command::SUCCESS;
+        return $tagExists ? Command::SUCCESS : 404;
     }
 
     protected function parseSelection(): string
