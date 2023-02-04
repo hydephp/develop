@@ -77,19 +77,16 @@ trait ForwardsIlluminateFilesystem
      */
     public static function __callStatic(string $name, array $arguments): mixed
     {
-        $parameterNames = self::getParameterNames($name);
-        $arguments = self::qualifyArguments($parameterNames, $arguments);
+        $arguments = self::qualifyArguments(self::getParameterNames($name), $arguments);
 
         return forward_static_call_array([self::filesystem(), $name], $arguments);
     }
 
     protected static function getParameterNames(string $name): array
     {
-        $reflection = new ReflectionMethod(Filesystem::class, $name);
-        $parameters = $reflection->getParameters();
         return array_map(function (ReflectionParameter $parameter): string {
             return $parameter->getName();
-        }, $parameters);
+        }, (new ReflectionMethod(Filesystem::class, $name))->getParameters());
     }
 
     protected static function qualifyArguments(array $parameterNames, array $arguments): array
