@@ -84,9 +84,9 @@ trait ForwardsIlluminateFilesystem
 
     protected static function getParameterNames(string $name): array
     {
-        return array_map(function (ReflectionParameter $parameter): string {
-            return $parameter->getName();
-        }, (new ReflectionMethod(Filesystem::class, $name))->getParameters());
+        return array_map(fn(ReflectionParameter $parameter): string => $parameter->getName(),
+            (new ReflectionMethod(Filesystem::class, $name))->getParameters()
+        );
     }
 
     protected static function qualifyArguments(array $parameterNames, array $arguments): array
