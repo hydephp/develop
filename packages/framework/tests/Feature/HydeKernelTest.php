@@ -310,19 +310,19 @@ class HydeKernelTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
-    public function test_can_get_output_path()
+    public function test_can_get_output_directory()
     {
         $this->assertSame('_site', Hyde::getOutputDirectory());
     }
 
-    public function test_can_set_output_path()
+    public function test_can_set_output_directory()
     {
         Hyde::setOutputDirectory('foo');
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
-    public function test_can_set_output_path_to_absolute_project_path()
+    public function test_can_set_output_directory_to_absolute_project_path()
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
         $this->assertSame('foo', Hyde::getOutputDirectory());
