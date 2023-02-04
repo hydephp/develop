@@ -23,24 +23,18 @@ final class Homepages
                 protected static string $name = 'Welcome';
                 protected static string $description = 'The default welcome page.';
                 protected static string $group = 'hyde-welcome-page';
-                protected static string $path = 'resources/views/homepages/welcome.blade.php';
-                protected static ?string $outputPath = 'index.blade.php';
             },
             'posts' => new class extends PublishableView
             {
                 protected static string $name = 'Posts Feed';
                 protected static string $description = 'A feed of your latest posts. Perfect for a blog site!';
                 protected static string $group = 'hyde-posts-page';
-                protected static string $path = 'resources/views/homepages/post-feed.blade.php';
-                protected static ?string $outputPath = 'index.blade.php';
             },
             'blank' => new class extends PublishableView
             {
                 protected static string $name = 'Blank Starter';
                 protected static string $description = 'A blank Blade template with just the base layout.';
                 protected static string $group = 'hyde-blank-page';
-                protected static string $path = 'resources/views/homepages/blank.blade.php';
-                protected static ?string $outputPath = 'index.blade.php';
             },
         ]);
     }
