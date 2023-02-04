@@ -31,6 +31,8 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
+    protected array $options = [];
+
     public function handle(): int
     {
         $selected = $this->parseSelection();
