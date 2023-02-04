@@ -60,7 +60,7 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        $exitCode = Artisan::call('vendor:publish', [
+        Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
             '--force' => true, // Todo add force state dynamically depending on existing file state
         ], $this->output);
