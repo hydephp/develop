@@ -90,8 +90,7 @@ trait ForwardsIlluminateFilesystem
     protected static function qualifyArguments(array $parameterNames, array $arguments): Collection
     {
         return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
-            if (is_string($key)) {
-            } else {
+            if (!is_string($key)) {
                 // If the argument is not named, we'll retrieve it from the reflection data
                 $key = $parameterNames[$key];
             }
