@@ -67,4 +67,35 @@ class VendorPublishCommand extends BaseCommand
     {
         return ltrim(str_replace('\\', '/', Hyde::pathToRelative(realpath($path))), '/\\');
     }
+
+    /**
+     * Publish the file to the given path.
+     *
+     * @param  string  $from
+     * @param  string  $to
+     * @return void
+     */
+    protected function publishFile($from, $to)
+    {
+        if ((! $this->option('existing') && (! $this->files->exists($to) || $this->option('force')))
+            || ($this->option('existing') && $this->files->exists($to))) {
+            $this->createParentDirectory(dirname($to));
+
+            $this->files->copy($from, $to);
+
+            $this->status($from, $to, 'file');
+        } else {
+            if ($this->option('existing')) {
+                $this->components->twoColumnDetail(sprintf(
+                    'ProjectFile [%s] does not exist',
+                    str_replace(base_path().'/', '', $to),
+                ), '<fg=yellow;options=bold>SKIPPED</>');
+            } else {
+                $this->components->twoColumnDetail(sprintf(
+                    'ProjectFile [%s] already exists',
+                    str_replace(base_path().'/', '', realpath($to)),
+                ), '<fg=yellow;options=bold>SKIPPED</>');
+            }
+        }
+    }
 }
