@@ -90,7 +90,12 @@ trait ForwardsIlluminateFilesystem
 
     protected static function qualifyArguments(array $parameterNames, array $arguments): array
     {
-        return array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
+        return array_map(function (string|array|int|bool $argumentValue, int|string $index) use ($parameterNames): string|array|int|bool {
+            if (is_string($index)) {
+                // Named argument is already qualified.
+                return $argumentValue;
+            }
+
             $pathsToQualify = [
                 'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
                 'secondFile', 'target', 'to',
