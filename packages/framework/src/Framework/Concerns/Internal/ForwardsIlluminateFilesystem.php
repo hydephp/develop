@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\LazyCollection;
 use ReflectionMethod;
 use ReflectionParameter;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
@@ -21,7 +23,7 @@ use ReflectionParameter;
  * @method static string sharedGet(string $path)
  * @method static mixed getRequire(string $path, array $data = [])
  * @method static mixed requireOnce(string $path, array $data = [])
- * @method static \Illuminate\Support\LazyCollection lines(string $path)
+ * @method static LazyCollection lines(string $path)
  * @method static string hash(string $path, string $algorithm = 'md5')
  * @method static int|bool put(string $path, string $contents, bool $lock = false)
  * @method static void replace(string $path, string $content)
@@ -50,8 +52,8 @@ use ReflectionParameter;
  * @method static bool hasSameHash(string $firstFile, string $secondFile)
  * @method static bool isFile(string $file)
  * @method static array glob(string $pattern, int $flags = 0)
- * @method static \Symfony\Component\Finder\SplFileInfo[] files(string $directory, bool $hidden = false)
- * @method static \Symfony\Component\Finder\SplFileInfo[] allFiles(string $directory, bool $hidden = false)
+ * @method static SplFileInfo[] files(string $directory, bool $hidden = false)
+ * @method static SplFileInfo[] allFiles(string $directory, bool $hidden = false)
  * @method static array directories(string $directory)
  * @method static void ensureDirectoryExists(string $path, int $mode = 0755, bool $recursive = true)
  * @method static bool makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false)
