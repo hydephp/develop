@@ -95,9 +95,9 @@ class PublishHomepageCommand extends Command
         })->values()->toArray();
     }
 
-    protected function getTemplateOptions(): Collection
+    protected function getTemplateOptions(): array
     {
-        return new Collection($this->options);
+        return $this->options;
     }
 
     protected function parseChoiceIntoKey(string $choice): string
