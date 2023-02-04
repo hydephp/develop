@@ -59,6 +59,16 @@ trait ManagesHydeKernel
         $this->outputDirectory = $this->normalizeSourcePath($outputDirectory);
     }
 
+    public function getMediaDirectory(): string
+    {
+        return $this->mediaDirectory;
+    }
+
+    public function setMediaDirectory(string $mediaDirectory): void
+    {
+        $this->mediaDirectory = $this->normalizeSourcePath($mediaDirectory);
+    }
+
     /**
      * Developer Information.
      *
