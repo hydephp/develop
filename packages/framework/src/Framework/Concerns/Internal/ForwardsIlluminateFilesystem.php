@@ -6,6 +6,7 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Illuminate\Support\LazyCollection;
 use Illuminate\Filesystem\Filesystem;
+use ReflectionMethod;
 
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
@@ -22,7 +23,7 @@ trait ForwardsIlluminateFilesystem
     public static function __callStatic(string $name, array $arguments)
     {
         // Get the names of the arguments called
-        $reflection = new \ReflectionMethod(Filesystem::class, $name);
+        $reflection = new ReflectionMethod(Filesystem::class, $name);
         $parameters = $reflection->getParameters();
         $parameterNames = array_map(function ($parameter) {
             return $parameter->getName();
