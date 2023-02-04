@@ -53,12 +53,6 @@ class PublishHomepageCommand extends Command
     {
         $selected = $this->parseSelection();
 
-        if (! Homepages::exists($selected)) {
-            $this->error("Homepage $selected does not exist.");
-
-            return 404;
-        }
-
         if (! $this->canExistingFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
 
