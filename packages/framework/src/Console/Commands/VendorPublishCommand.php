@@ -74,6 +74,7 @@ class VendorPublishCommand extends BaseCommand
      * @param  string  $from
      * @param  string  $to
      * @return void
+     * @codeCoverageIgnore - This is a copy of the parent method with a few tweaks
      */
     protected function publishFile($from, $to)
     {
