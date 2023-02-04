@@ -104,6 +104,8 @@ class VendorPublishCommand extends BaseCommand
 
     protected function setExitCode(int $code): void
     {
-        $this->exitCode = $code;
+        if ($code > $this->exitCode) {
+            $this->exitCode = $code;
+        }
     }
 }
