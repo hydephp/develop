@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\File;
  * @see \Illuminate\Filesystem\Filesystem
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
-class Filesystem implements FilesystemContract
+class Filesystem
 {
     use ForwardsIlluminateFilesystem;
 
