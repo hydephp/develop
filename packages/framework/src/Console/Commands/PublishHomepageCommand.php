@@ -31,6 +31,7 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
+    // Todo: Add information from Homepages class to added command $options array
     protected array $options = [];
 
     public function handle(): int
