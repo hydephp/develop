@@ -23,7 +23,7 @@ class UpdateConfigsCommand extends Command
 
     /** @var bool */
     protected $hidden = true;
-    
+
     public function handle(): int
     {
         Artisan::call('vendor:publish', [
