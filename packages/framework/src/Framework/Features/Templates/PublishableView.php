@@ -6,7 +6,9 @@ namespace Hyde\Framework\Features\Templates;
 
 use Hyde\Hyde;
 
-abstract class PublishableView implements PublishableContract
+/**
+ * @deprecated as implementation is deprecated.
+ */abstract class PublishableView implements PublishableContract
 {
     protected static string $title;
     protected static string $desc;
