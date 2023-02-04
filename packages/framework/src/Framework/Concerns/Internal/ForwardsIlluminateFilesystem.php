@@ -6,6 +6,7 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Illuminate\Filesystem\Filesystem;
 use ReflectionMethod;
+use ReflectionParameter;
 
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
@@ -24,7 +25,7 @@ trait ForwardsIlluminateFilesystem
         // Get the names of the arguments called
         $reflection = new ReflectionMethod(Filesystem::class, $name);
         $parameters = $reflection->getParameters();
-        $parameterNames = array_map(function ($parameter) {
+        $parameterNames = array_map(function (ReflectionParameter $parameter): string {
             return $parameter->getName();
         }, $parameters);
         // Replace values for all arguments that are paths
