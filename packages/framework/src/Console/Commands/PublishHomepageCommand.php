@@ -62,7 +62,7 @@ class PublishHomepageCommand extends Command
 
         Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
-            '--force' => true,
+            '--force' => true, // Todo add force state dynamically depending on existing file state
         ], $this->output);
 
         $this->line("<info>Published page</info> [<comment>$selected</comment>]");
