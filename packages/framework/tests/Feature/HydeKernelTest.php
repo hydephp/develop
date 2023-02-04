@@ -329,6 +329,17 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
+    public function test_can_get_media_directory()
+    {
+        $this->assertSame('_media', Hyde::getMediaDirectory());
+    }
+
+    public function test_can_set_media_directory()
+    {
+        Hyde::setMediaDirectory('foo');
+        $this->assertSame('foo', Hyde::getMediaDirectory());
+    }
+
     public function test_can_access_kernel_fluently_using_the_facade()
     {
         $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
