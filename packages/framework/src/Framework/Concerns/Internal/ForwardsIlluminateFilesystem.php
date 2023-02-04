@@ -93,7 +93,7 @@ trait ForwardsIlluminateFilesystem
         $callback = function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
             if (is_string($key)) {
                 // Named argument is already qualified.
-                return $argumentValue;
+                return [$key => $argumentValue];
             }
 
             $pathsToQualify = [
@@ -105,7 +105,7 @@ trait ForwardsIlluminateFilesystem
                 $argumentValue = self::kernel()->pathToAbsolute($argumentValue);
             }
 
-            return $argumentValue;
+            return [$parameterNames[$key] => $argumentValue];
         };
 
         return collect($arguments)->mapWithKeys($callback)->all();
