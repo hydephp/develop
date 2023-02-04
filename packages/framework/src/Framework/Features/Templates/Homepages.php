@@ -16,26 +16,22 @@ final class Homepages
 {
     public static function options(): Collection
     {
-        /** Todo: Unwrap classes to multidimensional array */
         return new Collection([
-            'welcome' => new class extends PublishableView
-            {
-                protected static string $name = 'Welcome';
-                protected static string $description = 'The default welcome page.';
-                protected static string $group = 'hyde-welcome-page';
-            },
-            'posts' => new class extends PublishableView
-            {
-                protected static string $name = 'Posts Feed';
-                protected static string $description = 'A feed of your latest posts. Perfect for a blog site!';
-                protected static string $group = 'hyde-posts-page';
-            },
-            'blank' => new class extends PublishableView
-            {
-                protected static string $name = 'Blank Starter';
-                protected static string $description = 'A blank Blade template with just the base layout.';
-                protected static string $group = 'hyde-blank-page';
-            },
+            'welcome'=> [
+                'name' => 'Welcome',
+                'description' => 'The default welcome page.',
+                'group' => 'hyde-welcome-page',
+            ],
+            'posts'=> [
+                'name' => 'Posts Feed',
+                'description' => 'A feed of your latest posts. Perfect for a blog site!',
+                'group' => 'hyde-posts-page',
+            ],
+            'blank'=>  [
+                'name' => 'Blank Starter',
+                'description' => 'A blank Blade template with just the base layout.',
+                'group' => 'hyde-blank-page',
+            ]
         ]);
     }
 
