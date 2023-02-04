@@ -98,10 +98,7 @@ trait ForwardsIlluminateFilesystem
             ];
 
             if (in_array($parameterNames[$index], $pathsToQualify)) {
-                if (is_string($argumentValue)) {
-                    return self::kernel()->pathToAbsolute($argumentValue);
-                }
-                if (is_array($argumentValue)) {
+                if (is_string($argumentValue) || is_array($argumentValue)) {
                     return self::kernel()->pathToAbsolute($argumentValue);
                 }
             }
