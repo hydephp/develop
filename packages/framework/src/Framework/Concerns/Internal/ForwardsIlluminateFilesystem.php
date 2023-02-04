@@ -11,7 +11,6 @@ use ReflectionParameter;
 use Symfony\Component\Finder\SplFileInfo;
 use function array_map;
 use function collect;
-use function forward_static_call_array;
 use function in_array;
 use function is_array;
 use function is_string;
@@ -78,7 +77,7 @@ trait ForwardsIlluminateFilesystem
     {
         $arguments = self::qualifyArguments(self::getParameterNames($name), $arguments);
 
-        return forward_static_call_array([self::filesystem(), $name], $arguments);
+        return self::filesystem()->{$name}(...$arguments);
     }
 
     protected static function getParameterNames(string $name): array
