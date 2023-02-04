@@ -21,8 +21,6 @@ use function str_replace;
  */
 class VendorPublishCommand extends BaseCommand
 {
-    protected int $exitCode = Command::SUCCESS;
-
     /**
      * Our child method filters the options available to the parent method.
      */
@@ -45,7 +43,7 @@ class VendorPublishCommand extends BaseCommand
         ServiceProvider::$publishes = $originalPublishers;
         ServiceProvider::$publishGroups = $originalGroups;
 
-        return $this->exitCode;
+        return Command::SUCCESS;
     }
 
     /**
@@ -66,46 +64,5 @@ class VendorPublishCommand extends BaseCommand
     protected function normalizePath(string $path): string
     {
         return ltrim(str_replace('\\', '/', Hyde::pathToRelative(realpath($path))), '/\\');
-    }
-
-    /**
-     * Publish the file to the given path.
-     *
-     * @param  string  $from
-     * @param  string  $to
-     * @return void
-     * @codeCoverageIgnore - This is a copy of the parent method with a few tweaks
-     */
-    protected function publishFile($from, $to)
-    {
-        if ((! $this->option('existing') && (! $this->files->exists($to) || $this->option('force')))
-            || ($this->option('existing') && $this->files->exists($to))) {
-            $this->createParentDirectory(dirname($to));
-
-            $this->files->copy($from, $to);
-
-            $this->status($from, $to, 'file');
-        } else {
-            if ($this->option('existing')) {
-                $this->components->twoColumnDetail(sprintf(
-                    'ProjectFile [%s] does not exist',
-                    str_replace(base_path().'/', '', $to),
-                ), '<fg=yellow;options=bold>SKIPPED</>');
-                $this->setExitCode(404);
-            } else {
-                $this->components->twoColumnDetail(sprintf(
-                    'ProjectFile [%s] already exists',
-                    str_replace(base_path().'/', '', realpath($to)),
-                ), '<fg=yellow;options=bold>SKIPPED</>');
-                $this->setExitCode(409);
-            }
-        }
-    }
-
-    protected function setExitCode(int $code): void
-    {
-        if ($code > $this->exitCode) {
-            $this->exitCode = $code;
-        }
     }
 }
