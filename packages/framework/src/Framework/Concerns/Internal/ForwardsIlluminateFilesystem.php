@@ -90,7 +90,7 @@ trait ForwardsIlluminateFilesystem
 
     protected static function qualifyArguments(array $parameterNames, array $arguments): array
     {
-        return array_map(function (string|array|int|bool $argumentValue, int|string $index) use ($parameterNames): string|array|int|bool {
+        $callback = function (string|array|int|bool $argumentValue, int|string $index) use ($parameterNames): string|array|int|bool {
             if (is_string($index)) {
                 // Named argument is already qualified.
                 return $argumentValue;
@@ -101,9 +101,12 @@ trait ForwardsIlluminateFilesystem
                 'secondFile', 'target', 'to',
             ];
 
-            return in_array($parameterNames[$index], $pathsToQualify) && (is_string($argumentValue) || is_array($argumentValue))
+            return in_array($parameterNames[$index],
+                $pathsToQualify) && (is_string($argumentValue) || is_array($argumentValue))
                 ? self::kernel()->pathToAbsolute($argumentValue)
                 : $argumentValue;
-        }, $arguments, array_keys($arguments));
+        };
+
+        return array_map($callback, $arguments, array_keys($arguments));
     }
 }
