@@ -97,11 +97,9 @@ trait ForwardsIlluminateFilesystem
                 'secondFile', 'target', 'to'
             ];
 
-            if (in_array($parameterNames[$index], $pathsToQualify) && (is_string($argumentValue) || is_array($argumentValue))) {
-                return self::kernel()->pathToAbsolute($argumentValue);
-            }
-
-            return $argumentValue;
+            return in_array($parameterNames[$index], $pathsToQualify) && (is_string($argumentValue) || is_array($argumentValue))
+                ? self::kernel()->pathToAbsolute($argumentValue)
+                : $argumentValue;
         }, $arguments, array_keys($arguments));
     }
 }
