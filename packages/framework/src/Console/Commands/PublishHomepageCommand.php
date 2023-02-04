@@ -65,14 +65,14 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        $willSucceed = array_key_exists($selected, $this->options);
+        $willConflict = ! array_key_exists($selected, $this->options);
 
         Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
             '--force' => true, // Todo add force state dynamically depending on existing file state
         ], $this->output);
 
-        if ($willSucceed) {
+        if (! $willConflict) {
             $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
             $this->askToRebuildSite();
