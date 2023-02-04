@@ -91,11 +91,13 @@ class VendorPublishCommand extends BaseCommand
                     'ProjectFile [%s] does not exist',
                     str_replace(base_path().'/', '', $to),
                 ), '<fg=yellow;options=bold>SKIPPED</>');
+                $this->exitCode = 404;
             } else {
                 $this->components->twoColumnDetail(sprintf(
                     'ProjectFile [%s] already exists',
                     str_replace(base_path().'/', '', realpath($to)),
                 ), '<fg=yellow;options=bold>SKIPPED</>');
+                $this->exitCode = 409;
             }
         }
     }
