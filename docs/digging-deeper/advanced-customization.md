@@ -63,6 +63,14 @@ You can even make this change automatically with the `php hyde change:sourceDire
 
 When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist, then move all source directories into it.
 
+## Custom media directory 🧪
+
+The media directory houses assets like images and stylesheets. The default directory is `_media`, and upon building the site, 
+Hyde will copy all files in this directory to `_site/media` (or whatever your configured output and media directories are).
+
+You can change the path to this directory by setting the `media_directory` setting in `config/site.php`.
+Note that this change will affect both the source and output directories. For example, if you set the value to 'assets',
+all files from 'assets' will be copied to '_site/assets'. If the setting starts with an underscore, that will be removed from the output directory.
 
 ## Customizing the output directory ⚠
 
