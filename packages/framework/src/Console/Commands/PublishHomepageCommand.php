@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Templates\PublishableContract;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -59,7 +60,10 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        Homepages::get($selected)->publish(true);
+        Artisan::call('vendor:publish', [
+            '--tag' => $this->options[$selected]['group'] ?? $selected,
+            '--force' => true,
+        ], $this->output);
 
         $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
