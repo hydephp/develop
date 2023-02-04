@@ -6,7 +6,6 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Console\Concerns\Command;
-use Hyde\Framework\Features\Templates\Homepages;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
