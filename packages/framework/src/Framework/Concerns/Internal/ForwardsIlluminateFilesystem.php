@@ -90,10 +90,10 @@ trait ForwardsIlluminateFilesystem
     protected static function qualifyArguments(array $parameterNames, array $arguments): array
     {
         $callback = function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
-            $key = $parameterNames[$key];
-
             if (is_string($key)) {
                 // Named argument is already qualified.
+            } else {
+                $key = $parameterNames[$key];
             }
 
             $argumentsToQualify = [
