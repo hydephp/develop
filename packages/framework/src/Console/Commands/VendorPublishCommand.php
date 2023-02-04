@@ -21,6 +21,8 @@ use function str_replace;
  */
 class VendorPublishCommand extends BaseCommand
 {
+    protected int $exitCode = Command::SUCCESS;
+
     /**
      * Our child method filters the options available to the parent method.
      */
@@ -43,7 +45,7 @@ class VendorPublishCommand extends BaseCommand
         ServiceProvider::$publishes = $originalPublishers;
         ServiceProvider::$publishGroups = $originalGroups;
 
-        return Command::SUCCESS;
+        return $this->exitCode;
     }
 
     /**
