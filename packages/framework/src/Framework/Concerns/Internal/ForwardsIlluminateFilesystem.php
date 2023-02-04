@@ -28,7 +28,7 @@ trait ForwardsIlluminateFilesystem
             return $parameter->getName();
         }, $parameters);
         // Replace values for all arguments that are paths
-        $arguments = array_map(function (mixed $argumentValue, int $index) use ($parameterNames): mixed {
+        $arguments = array_map(function (string|array|int|bool $argumentValue, int $index) use ($parameterNames): string|array|int|bool {
             if (in_array($parameterNames[$index], ['destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern', 'secondFile', 'target', 'to'])) {
                 if (is_string($argumentValue)) {
                     return self::absolutePath($argumentValue);
