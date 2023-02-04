@@ -101,7 +101,7 @@ trait ForwardsIlluminateFilesystem
                 'secondFile', 'target', 'to',
             ];
 
-            if (in_array($key, $argumentsToQualify) && (is_string($argumentValue) || is_array($argumentValue))) {
+            if (in_array($key, $argumentsToQualify)) {
                 $argumentValue = self::absolutePath($argumentValue);
             }
 
