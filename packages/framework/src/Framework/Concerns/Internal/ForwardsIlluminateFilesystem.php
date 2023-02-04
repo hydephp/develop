@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Illuminate\Support\LazyCollection;
 use Illuminate\Filesystem\Filesystem;
 use ReflectionMethod;
 
