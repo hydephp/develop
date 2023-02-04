@@ -426,6 +426,22 @@ class FilesystemFacadeTest extends TestCase
         unlink(Hyde::path('foo'));
     }
 
+    public function test_method_with_mixed_sequential_and_named_arguments()
+    {
+        $this->assertSame(3, Filesystem::put('foo', contents: 'bar'));
+        $this->assertFileExists(Hyde::path('foo'));
+
+        unlink(Hyde::path('foo'));
+    }
+
+    public function test_method_with_mixed_sequential_and_named_arguments_skipping_middle_one()
+    {
+        Filesystem::makeDirectory('foo', recursive: true);
+        $this->assertDirectoryExists(Hyde::path('foo'));
+
+        rmdir(Hyde::path('foo'));
+    }
+
     protected function createExpectation(string $method, mixed $returns, ...$args): void
     {
         File::shouldReceive($method)->withArgs($args)->once()->andReturn($returns);
