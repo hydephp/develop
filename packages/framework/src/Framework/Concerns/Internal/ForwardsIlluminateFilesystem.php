@@ -20,7 +20,7 @@ trait ForwardsIlluminateFilesystem
     /**
      * Forward calls to the Laravel File facade, but turn all paths into absolute paths.
      */
-    public static function __callStatic(string $name, array $arguments)
+    public static function __callStatic(string $name, array $arguments): mixed
     {
         // Get the names of the arguments called
         $reflection = new ReflectionMethod(Filesystem::class, $name);
