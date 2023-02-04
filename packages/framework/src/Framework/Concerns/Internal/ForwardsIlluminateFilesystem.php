@@ -108,6 +108,6 @@ trait ForwardsIlluminateFilesystem
                 : $argumentValue;
         };
 
-        return collect($arguments)->map($callback)->all();
+        return collect($arguments)->mapWithKeys($callback)->all();
     }
 }
