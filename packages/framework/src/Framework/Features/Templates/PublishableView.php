@@ -10,7 +10,7 @@ use Hyde\Hyde;
  * @deprecated as implementation is deprecated.
  */abstract class PublishableView implements PublishableContract
 {
-    protected static string $title;
+    protected static string $name;
     protected static string $desc;
     protected static string $path;
     protected static ?string $outputPath;
@@ -26,9 +26,9 @@ use Hyde\Hyde;
         return copy(static::getSourcePath(), $path);
     }
 
-    public static function getTitle(): string
+    public static function getName(): string
     {
-        return static::$title;
+        return static::$name;
     }
 
     public static function getDescription(): string
@@ -55,7 +55,7 @@ use Hyde\Hyde;
     public static function toArray(): array
     {
         return [
-            'name' => static::getTitle(),
+            'name' => static::getName(),
             'description' => static::getDescription(),
         ];
     }

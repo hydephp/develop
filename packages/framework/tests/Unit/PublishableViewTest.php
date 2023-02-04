@@ -15,14 +15,14 @@ class PublishableViewTest extends TestCase
 {
     public function testPublishableView(): void
     {
-        $this->assertSame('Test View', PublishableTestView::getTitle());
+        $this->assertSame('Test View', PublishableTestView::getName());
         $this->assertSame('A test view', PublishableTestView::getDescription());
         $this->assertSame(Hyde::path('_pages'.DIRECTORY_SEPARATOR.'output.md'), PublishableTestView::getOutputPath());
     }
 
     public function testPublishableViewWithNoOutputPath(): void
     {
-        $this->assertSame('Test View', PublishableTestViewWithNoOutputPath::getTitle());
+        $this->assertSame('Test View', PublishableTestViewWithNoOutputPath::getName());
         $this->assertSame('A test view', PublishableTestViewWithNoOutputPath::getDescription());
         $this->assertSame(Hyde::path('_pages'.DIRECTORY_SEPARATOR.'input.md'), PublishableTestViewWithNoOutputPath::getOutputPath());
     }
@@ -53,7 +53,7 @@ class PublishableViewTest extends TestCase
 
 class PublishableTestView extends PublishableView
 {
-    protected static string $title = 'Test View';
+    protected static string $name = 'Test View';
     protected static string $desc = 'A test view';
     protected static string $path = 'input.md';
     protected static ?string $outputPath = 'output.md';
@@ -61,7 +61,7 @@ class PublishableTestView extends PublishableView
 
 class PublishableTestViewWithNoOutputPath extends PublishableView
 {
-    protected static string $title = 'Test View';
+    protected static string $name = 'Test View';
     protected static string $desc = 'A test view';
     protected static string $path = 'input.md';
 }

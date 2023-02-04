@@ -11,7 +11,7 @@ interface PublishableContract
 {
     public static function publish(bool $force = false): bool;
 
-    public static function getTitle(): string;
+    public static function getName(): string;
 
     public static function getDescription(): string;
 
