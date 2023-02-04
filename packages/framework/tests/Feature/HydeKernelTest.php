@@ -295,38 +295,38 @@ class HydeKernelTest extends TestCase
 
     public function test_can_get_source_root()
     {
-        $this->assertSame('', Hyde::kernel()->getSourceRoot());
+        $this->assertSame('', Hyde::getSourceRoot());
     }
 
     public function test_can_set_source_root()
     {
-        Hyde::kernel()->setSourceRoot('foo');
-        $this->assertSame('foo', Hyde::kernel()->getSourceRoot());
+        Hyde::setSourceRoot('foo');
+        $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
     public function test_can_set_source_root_to_absolute_project_path()
     {
-        Hyde::kernel()->setSourceRoot(Hyde::path('foo'));
-        $this->assertSame('foo', Hyde::kernel()->getSourceRoot());
+        Hyde::setSourceRoot(Hyde::path('foo'));
+        $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
     public function test_can_get_output_directory()
     {
-        $this->assertSame('_site', Hyde::kernel()->getOutputDirectory());
+        $this->assertSame('_site', Hyde::getOutputDirectory());
     }
 
     public function test_can_set_output_directory()
     {
-        Hyde::kernel()->setOutputDirectory('foo');
-        $this->assertSame('foo', Hyde::kernel()->getOutputDirectory());
-        $this->assertSame(Hyde::path('foo'), Hyde::kernel()->sitePath());
+        Hyde::setOutputDirectory('foo');
+        $this->assertSame('foo', Hyde::getOutputDirectory());
+        $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
     public function test_can_set_output_directory_to_absolute_project_path()
     {
-        Hyde::kernel()->setOutputDirectory(Hyde::path('foo'));
-        $this->assertSame('foo', Hyde::kernel()->getOutputDirectory());
-        $this->assertSame(Hyde::path('foo'), Hyde::kernel()->sitePath());
+        Hyde::setOutputDirectory(Hyde::path('foo'));
+        $this->assertSame('foo', Hyde::getOutputDirectory());
+        $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
     public function test_can_access_kernel_fluently_using_the_facade()
