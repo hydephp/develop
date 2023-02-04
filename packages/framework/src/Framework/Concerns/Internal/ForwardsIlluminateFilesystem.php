@@ -10,6 +10,13 @@ use ReflectionMethod;
 use ReflectionParameter;
 use Symfony\Component\Finder\SplFileInfo;
 
+use function array_keys;
+use function array_map;
+use function forward_static_call_array;
+use function in_array;
+use function is_array;
+use function is_string;
+
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
  *
