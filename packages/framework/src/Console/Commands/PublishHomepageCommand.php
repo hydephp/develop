@@ -78,7 +78,7 @@ class PublishHomepageCommand extends Command
             $this->askToRebuildSite();
         }
 
-        return Command::SUCCESS;
+        return $willConflict ? 404 : Command::SUCCESS;
     }
 
     protected function parseSelection(): string
