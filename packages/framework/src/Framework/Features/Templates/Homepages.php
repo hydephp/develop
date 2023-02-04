@@ -16,6 +16,7 @@ final class Homepages
 {
     public static function options(): Collection
     {
+        /** Todo: Unwrap classes to multidimensional array */
         return new Collection([
             'welcome' => new class extends PublishableView {
                 protected static string $name = 'Welcome';
