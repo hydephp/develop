@@ -11,6 +11,7 @@ use ReflectionParameter;
 use Symfony\Component\Finder\SplFileInfo;
 use function array_keys;
 use function array_map;
+use function collect;
 use function forward_static_call_array;
 use function in_array;
 use function is_array;
@@ -107,6 +108,6 @@ trait ForwardsIlluminateFilesystem
                 : $argumentValue;
         };
 
-        return array_map($callback, $arguments, array_keys($arguments));
+        return collect($arguments)->map($callback)->all();
     }
 }
