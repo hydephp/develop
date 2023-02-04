@@ -13,6 +13,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
+use function array_key_exists;
+use function file_exists;
+use function str_replace;
+use function strstr;
+
 /**
  * Publish one of the default homepages.
  *
