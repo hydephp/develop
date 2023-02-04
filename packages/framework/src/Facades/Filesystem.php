@@ -6,7 +6,6 @@ namespace Hyde\Facades;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem;
-use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
