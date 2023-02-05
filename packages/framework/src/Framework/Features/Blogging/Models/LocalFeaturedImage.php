@@ -21,7 +21,7 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
     {
-        $mediaDirectoryName = '_media';
+        $mediaDirectoryName = Hyde::getMediaDirectory();
         if (! str_starts_with($source, "$mediaDirectoryName/")) {
             // Throwing an exception here ensures we have a super predictable state.
             throw new InvalidArgumentException("LocalFeaturedImage source must start with the configured media directory name ($mediaDirectoryName/)");
