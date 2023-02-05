@@ -101,14 +101,20 @@ trait ForwardsIlluminateFilesystem
             ];
 
             if (in_array($key, $argumentsToQualify)) {
-                if (is_array($argumentValue)) {
-                    $argumentValue = array_map(fn (string $path): string => self::absolutePath($path), $argumentValue);
-                } else {
-                    $argumentValue = self::absolutePath($argumentValue);
-                }
+                $argumentValue = self::qualifyPathArgument($argumentValue);
             }
 
             return [$key => $argumentValue];
         });
+    }
+
+    protected static function qualifyPathArgument(array|string $argumentValue): string|array
+    {
+        if (is_array($argumentValue)) {
+            $argumentValue = array_map(fn(string $path): string => self::absolutePath($path), $argumentValue);
+        } else {
+            $argumentValue = self::absolutePath($argumentValue);
+        }
+        return $argumentValue;
     }
 }
