@@ -17,7 +17,7 @@ class HeadComponentViewTest extends TestCase
 {
     protected function renderTestView(): string
     {
-        return Blade::render($this->mockIncludes(file_get_contents(Hyde::vendorPath('resources/views/layouts/head.blade.php'))));
+        return Blade::render($this->escapeIncludes(file_get_contents(Hyde::vendorPath('resources/views/layouts/head.blade.php'))));
     }
 
     public function testComponentCanBeRendered()
@@ -67,7 +67,7 @@ class HeadComponentViewTest extends TestCase
         $this->assertStringContainsString("@include('hyde::layouts.styles')", $this->renderTestView());
     }
 
-    protected function mockIncludes(string $contents): string
+    protected function escapeIncludes(string $contents): string
     {
         return str_replace('@include', '@@include', $contents);
     }
