@@ -49,7 +49,7 @@ class LocalFeaturedImage extends FeaturedImage
 
     protected function storagePath(): string
     {
-        return Hyde::path($this->source);
+        return Hyde::path("_media/$this->source");
     }
 
     protected function validatedStoragePath(): string
