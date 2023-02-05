@@ -174,6 +174,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
     }
 
+    public function test_image_helper_supports_custom_media_directories()
+    {
+        Hyde::setMediaDirectory('_assets');
+        $this->assertSame('assets/foo.jpg', Hyde::image('foo.jpg'));
+    }
+
     public function test_has_site_url_helper_returns_boolean_value_for_when_config_setting_is_set()
     {
         Config::set('site.url', 'https://example.com');
