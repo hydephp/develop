@@ -139,9 +139,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         }
 
         if (str_starts_with($path, "media/")) {
-            return '_'.$path;
+            return "_$path";
         }
 
-        return '_media/'.$path;
+        return "_media/$path";
     }
 }
