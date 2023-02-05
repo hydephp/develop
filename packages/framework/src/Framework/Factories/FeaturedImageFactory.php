@@ -60,6 +60,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             'copyrightText' => $this->copyrightText,
             'licenseName' => $this->licenseName,
             'licenseUrl' => $this->licenseUrl,
+            'type' => $this->isRemote ? 'remote' : 'local',
         ];
     }
 
