@@ -6,8 +6,7 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use function str_starts_with;
-use function substr;
+use Illuminate\Support\Str;
 
 /**
  * A featured image object, for a file stored locally.
@@ -22,9 +21,7 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
     {
-        if (str_starts_with($source, Hyde::getMediaDirectory().'/')) {
-            $source = substr($source, strlen(Hyde::getMediaDirectory()) + 1);
-        }
+        $source = Str::after($source, Hyde::getMediaDirectory().'/');
 
         // We could also validate the file exists here if we want. We might also want to just send a warning.
 
