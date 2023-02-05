@@ -24,4 +24,9 @@ class HeadComponentViewTest extends TestCase
             Hyde::vendorPath('resources/views/layouts/head.blade.php')
         ));
     }
+
+    public function test_component_can_be_rendered()
+    {
+        $this->assertStringContainsString('<meta charset="utf-8">', $this->renderTestView());
+    }
 }
