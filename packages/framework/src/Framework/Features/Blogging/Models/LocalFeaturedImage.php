@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Blogging\Models;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use InvalidArgumentException;
+use function basename;
 use function str_starts_with;
 
 /**
@@ -34,7 +35,8 @@ class LocalFeaturedImage extends FeaturedImage
     public function getSource(): string
     {
         // Return value must be relative to the site's root.
-        return Hyde::relativeLink(ltrim($this->source, '_'));
+        // Using basename, until d1ddd6df9dc36467b785287ce30be5b90659beac is fixed.
+        return Hyde::relativeLink(ltrim(basename($this->source), '_'));
     }
 
     public function getContentLength(): int
