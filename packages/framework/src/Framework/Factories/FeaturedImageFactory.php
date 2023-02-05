@@ -131,8 +131,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected static function normalizeLocalImagePath(string $path): string
     {
-        // TODO: Consider storing the value without the media directory as that can be assembled at output
-
         $path = Hyde::pathToRelative($path);
 
         $media = Hyde::getMediaDirectory();
