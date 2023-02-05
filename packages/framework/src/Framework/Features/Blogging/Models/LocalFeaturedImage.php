@@ -8,7 +8,6 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use InvalidArgumentException;
 use function str_starts_with;
-use function substr;
 
 /**
  * A featured image object, for a file stored locally.
