@@ -24,8 +24,7 @@ class LocalFeaturedImage extends FeaturedImage
     protected function setSource(string $source): string
     {
         if (! str_starts_with($source, '_media/')) {
-            // Throwing an exception here ensures we have a super predictable state.
-            throw new InvalidArgumentException('LocalFeaturedImage source must start with _media/');
+            //
         }
 
         // We could also validate the file exists here if we want. We might also want to just send a warning.

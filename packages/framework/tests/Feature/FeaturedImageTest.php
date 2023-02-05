@@ -135,14 +135,6 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals('media/foo', $image->getSource());
     }
 
-    public function testCannotConstructLocalFeaturedImageWithInvalidSource()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('LocalFeaturedImage source must start with _media/');
-
-        new LocalFeaturedImage('foo', ...$this->defaultArguments());
-    }
-
     public function testFeaturedImageGetContentLength()
     {
         $this->file('_media/foo', 'image');
