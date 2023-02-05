@@ -68,6 +68,11 @@ trait ForwardsFilesystem
         return $this->filesystem->getDocumentationPagePath($path);
     }
 
+    public function mediaPath(string $path = ''): string
+    {
+        return $this->filesystem->mediaPath($path);
+    }
+
     public function sitePath(string $path = ''): string
     {
         return $this->filesystem->sitePath($path);
