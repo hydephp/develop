@@ -74,7 +74,7 @@ trait ForwardsIlluminateFilesystem
     /**
      * Forward calls to the Laravel File facade, but turn all paths into absolute paths.
      */
-    public static function __callStatic(string $name, array $arguments): mixed
+    public static function __callStatic(string $name, array $arguments): string|array|int|bool|null|LazyCollection
     {
         return self::filesystem()->{$name}(...self::qualifyArguments(self::getParameterNames($name), $arguments));
     }
