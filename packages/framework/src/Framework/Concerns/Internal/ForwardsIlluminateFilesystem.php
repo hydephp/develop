@@ -94,8 +94,8 @@ trait ForwardsIlluminateFilesystem
             }
 
             $argumentsToQualify = [
-                'destination', 'directory', 'file', 'firstFile', 'from', 'link', 'path', 'paths', 'pattern',
-                'secondFile', 'target', 'to',
+                'path', 'paths', 'file', 'target', 'directory', 'destination', 'firstFile', 'secondFile',
+                'pattern', 'link', 'from', 'to'
             ];
 
             if (in_array($key, $argumentsToQualify)) {
