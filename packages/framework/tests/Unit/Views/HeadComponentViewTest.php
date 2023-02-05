@@ -22,9 +22,10 @@ class HeadComponentViewTest extends TestCase
         $this->mockPage($this->mockPage ?? new VirtualPage('foo'));
         $this->mockPage = null;
 
-        return Blade::render(file_get_contents(
+        $contents = file_get_contents(
             Hyde::vendorPath('resources/views/layouts/head.blade.php')
-        ));
+        );
+        return Blade::render($contents);
     }
 
     public function testComponentCanBeRendered()
