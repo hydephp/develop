@@ -88,6 +88,20 @@ class Filesystem
     }
 
     /**
+     * Get the absolute path to the media source directory, or a file within it.
+     */
+    public function mediaPath(string $path = ''): string
+    {
+        if (empty($path)) {
+            return Hyde::path(Hyde::getMediaDirectory());
+        }
+
+        $path = unslash($path);
+
+        return Hyde::path(Hyde::getMediaDirectory().DIRECTORY_SEPARATOR.$path);
+    }
+
+    /**
      * Get the absolute path to the compiled site directory, or a file within it.
      */
     public function sitePath(string $path = ''): string

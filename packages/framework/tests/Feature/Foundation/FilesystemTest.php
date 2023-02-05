@@ -242,6 +242,30 @@ class FilesystemTest extends TestCase
         );
     }
 
+    public function test_helper_for_media_output_path()
+    {
+        $this->assertEquals(
+            Hyde::path('_media'),
+            Hyde::mediaPath()
+        );
+    }
+
+    public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
+    {
+        $this->assertEquals(
+            Hyde::path('_media'.DIRECTORY_SEPARATOR.'foo.css'),
+            Hyde::mediaPath('foo.css')
+        );
+    }
+
+    public function test_get_media_output_path_returns_absolute_path()
+    {
+        $this->assertEquals(
+            Hyde::path('_media'),
+            Hyde::mediaPath()
+        );
+    }
+
     public function test_helper_for_site_output_path()
     {
         $this->assertEquals(
