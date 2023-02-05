@@ -21,7 +21,9 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
     {
-        // We could also validate the file exists here if we want. We might also want to just send a warning.
+        // We could also validate the file exists here if we want.
+        // We might also want to just send a warning. But for now,
+        // we'll just trim any leading path prefixes.
 
         return Str::after($source, Hyde::getMediaDirectory().'/');
     }
