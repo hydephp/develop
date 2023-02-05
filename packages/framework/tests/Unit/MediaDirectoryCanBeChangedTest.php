@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -15,5 +17,21 @@ use Hyde\Testing\TestCase;
  */
 class MediaDirectoryCanBeChangedTest extends TestCase
 {
-    //
+    public function test_media_output_directory_can_be_changed_for_site_builds()
+    {
+        Filesystem::deleteDirectory('_site');
+
+        $this->directory('_assets');
+        $this->file('_assets/app.css');
+
+        Hyde::setMediaDirectory('_assets');
+
+        $this->artisan('build');
+
+        $this->assertDirectoryDoesNotExist(Hyde::path('_site/media'));
+        $this->assertDirectoryExists(Hyde::path('_site/assets'));
+        $this->assertFileExists(Hyde::path('_site/assets/app.css'));
+
+        $this->resetSite();
+    }
 }
