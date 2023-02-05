@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Blade;
  */
 class HeadComponentViewTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->mockPage();
+    }
+
     protected function renderTestView(): string
     {
         return Blade::render($this->escapeIncludes(file_get_contents(Hyde::vendorPath('resources/views/layouts/head.blade.php'))));
@@ -37,8 +44,6 @@ class HeadComponentViewTest extends TestCase
 
     public function testLinkToFaviconIsNotAddedWhenFileDoesNotExist()
     {
-        $this->mockPage();
-
         $this->assertStringNotContainsString('favicon', $this->renderTestView());
     }
 
@@ -60,15 +65,11 @@ class HeadComponentViewTest extends TestCase
 
     public function testComponentIncludesMetaView()
     {
-        $this->mockPage();
-
         $this->assertStringContainsString("@include('hyde::layouts.meta')", $this->renderTestView());
     }
 
     public function testComponentIncludesStylesView()
     {
-        $this->mockPage();
-
         $this->assertStringContainsString("@include('hyde::layouts.styles')", $this->renderTestView());
     }
 
