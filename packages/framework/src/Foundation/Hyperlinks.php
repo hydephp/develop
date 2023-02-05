@@ -71,6 +71,16 @@ class Hyperlinks
     }
 
     /**
+     * Gets a relative web link to the given file stored in the _site/media folder.
+     *
+     * @todo Add default option that throws if file is not present in _site/media (or just) _media?
+     */
+    public function mediaLink(string $destination): string
+    {
+        return $this->relativeLink("media/$destination");
+    }
+
+    /**
      * Gets a relative web link to the given image stored in the _site/media folder.
      * If the image is remote (starts with http) it will be returned as is.
      *

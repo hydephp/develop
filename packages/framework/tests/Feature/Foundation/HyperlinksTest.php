@@ -73,4 +73,15 @@ class HyperlinksTest extends TestCase
         Hyde::setMediaDirectory('_assets');
         $this->assertEquals('assets/test.jpg', $this->class->image('test.jpg'));
     }
+
+    public function test_media_link_helper()
+    {
+        $this->assertSame('media/foo', $this->class->mediaLink('foo'));
+    }
+
+    public function test_media_link_helper_with_relative_path()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $this->assertSame('../media/foo', $this->class->mediaLink('foo'));
+    }
 }
