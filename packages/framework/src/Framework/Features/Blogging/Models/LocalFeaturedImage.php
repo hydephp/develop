@@ -22,8 +22,8 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
     {
-        if (str_starts_with($source, '_media/')) {
-            $source = substr($source, 7);
+        if (str_starts_with($source, Hyde::getMediaDirectory().'/')) {
+            $source = substr($source, strlen(Hyde::getMediaDirectory()) + 1);
         }
 
         // We could also validate the file exists here if we want. We might also want to just send a warning.
@@ -34,7 +34,7 @@ class LocalFeaturedImage extends FeaturedImage
     public function getSource(): string
     {
         // Return value is relative to the site's root.
-        return Hyde::relativeLink("media/$this->source");
+        return Hyde::relativeLink(Hyde::getMediaOutputDirectory()."/$this->source");
     }
 
     public function getContentLength(): int
@@ -44,7 +44,7 @@ class LocalFeaturedImage extends FeaturedImage
 
     protected function storagePath(): string
     {
-        return Hyde::path("_media/$this->source");
+        return Hyde::path(Hyde::getMediaDirectory()."/$this->source");
     }
 
     protected function validatedStoragePath(): string
