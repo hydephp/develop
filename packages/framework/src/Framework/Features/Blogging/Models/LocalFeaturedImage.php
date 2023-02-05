@@ -26,10 +26,6 @@ class LocalFeaturedImage extends FeaturedImage
             $source = substr($source, 7);
         }
 
-        if (str_starts_with($source, '_site/media/')) {
-            $source = substr($source, 12);
-        }
-
         // We could also validate the file exists here if we want. We might also want to just send a warning.
 
         return $source;
