@@ -23,6 +23,10 @@ class HeadComponentViewTest extends TestCase
         $this->mockPage = null;
 
         $contents = file_get_contents(Hyde::vendorPath('resources/views/layouts/head.blade.php'));
+
+        // Mock includes
+        $contents = str_replace('@include', '#include', $contents);
+
         return Blade::render($contents);
     }
 
