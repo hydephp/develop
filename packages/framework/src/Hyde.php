@@ -36,6 +36,7 @@ use Illuminate\Support\HtmlString;
  * @method static string sitePath(string $path = '')
  * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
+ * @method static string mediaLink(string $destination)
  * @method static string image(string $name, bool $preferQualifiedUrl = false)
  * @method static string url(string $path = '')
  * @method static string makeTitle(string $value)
