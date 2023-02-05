@@ -75,9 +75,7 @@ trait ForwardsIlluminateFilesystem
      */
     public static function __callStatic(string $name, array $arguments): mixed
     {
-        $arguments = self::qualifyArguments(self::getParameterNames($name), $arguments);
-
-        return self::filesystem()->{$name}(...$arguments);
+        return self::filesystem()->{$name}(...self::qualifyArguments(self::getParameterNames($name), $arguments));
     }
 
     protected static function getParameterNames(string $name): array
