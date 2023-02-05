@@ -143,6 +143,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return Str::after($path, Hyde::getMediaOutputDirectory().'/');
         }
 
-        return "$media/$path";
+        return $path;
     }
 }
