@@ -64,7 +64,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (str_starts_with((string) $data['source'], '_media')) {
+        if (str_starts_with((string) $data['source'], Hyde::getMediaDirectory())) {
             return new LocalFeaturedImage(...$data);
         }
 
