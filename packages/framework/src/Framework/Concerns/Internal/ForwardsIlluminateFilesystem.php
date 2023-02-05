@@ -72,7 +72,7 @@ use function is_int;
 trait ForwardsIlluminateFilesystem
 {
     /**
-     * Forward calls to the Laravel File facade, but turn all paths into absolute paths.
+     * Forward calls to the Laravel File facade, but turns all paths into absolute paths.
      */
     public static function __callStatic(string $name, array $arguments): string|array|int|bool|null|LazyCollection
     {
