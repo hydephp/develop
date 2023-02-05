@@ -116,6 +116,20 @@ class Filesystem
     }
 
     /**
+     * Get the absolute path to the compiled site's media directory, or a file within it.
+     */
+    public function siteMediaPath(string $path = ''): string
+    {
+        if (empty($path)) {
+            return Hyde::path(Hyde::getMediaOutputDirectory());
+        }
+
+        $path = unslash($path);
+
+        return Hyde::path(Hyde::getMediaOutputDirectory().DIRECTORY_SEPARATOR.$path);
+    }
+
+    /**
      * Works similarly to the path() function, but returns a file in the Framework package.
      */
     public function vendorPath(string $path = ''): string

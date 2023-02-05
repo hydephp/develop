@@ -242,7 +242,7 @@ class FilesystemTest extends TestCase
         );
     }
 
-    public function test_helper_for_media_output_path()
+    public function test_helper_for_media_path()
     {
         $this->assertEquals(
             Hyde::path('_media'),
@@ -250,7 +250,7 @@ class FilesystemTest extends TestCase
         );
     }
 
-    public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
+    public function test_helper_for_media_path_returns_path_to_file_within_the_directory()
     {
         $this->assertEquals(
             Hyde::path('_media'.DIRECTORY_SEPARATOR.'foo.css'),
@@ -258,11 +258,35 @@ class FilesystemTest extends TestCase
         );
     }
 
-    public function test_get_media_output_path_returns_absolute_path()
+    public function test_get_media_path_returns_absolute_path()
     {
         $this->assertEquals(
             Hyde::path('_media'),
             Hyde::mediaPath()
+        );
+    }
+
+    public function test_helper_for_media_output_path()
+    {
+        $this->assertEquals(
+            Hyde::path('_site/media'),
+            Hyde::siteMediaPath()
+        );
+    }
+
+    public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
+    {
+        $this->assertEquals(
+            Hyde::path('_site/media'.DIRECTORY_SEPARATOR.'foo.css'),
+            Hyde::siteMediaPath('foo.css')
+        );
+    }
+
+    public function test_get_media_output_path_returns_absolute_path()
+    {
+        $this->assertEquals(
+            Hyde::path('_site/media'),
+            Hyde::siteMediaPath()
         );
     }
 
