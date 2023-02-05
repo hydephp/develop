@@ -73,9 +73,9 @@ class Hyperlinks
     /**
      * Gets a relative web link to the given file stored in the _site/media folder.
      */
-    public function mediaLink(string $file): string
+    public function mediaLink(string $destination): string
     {
-        return $this->relativeLink("media/$file");
+        return $this->relativeLink("media/$destination");
     }
 
     /**
