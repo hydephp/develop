@@ -97,7 +97,9 @@ class ValidationService
             return $result->pass('Your site has an app.css stylesheet');
         }
 
-        return $result->fail('Could not find an app.css file in the _site/media or _media directory!')
+        $siteMedia = '_site/media';
+        $media = '_media';
+        return $result->fail('Could not find an app.css file in the '.$siteMedia.' or '.$media.' directory!')
             ->withTip('You may need to run `npm run dev`.`');
     }
 
