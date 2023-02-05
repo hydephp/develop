@@ -34,7 +34,9 @@ class HeadComponentViewTest extends TestCase
     public function testTitleElementUsesPageHtmlTitle()
     {
         config(['site.name' => 'Site Name']);
-        $this->mockPage(new VirtualPage('foo', ['title' => 'Foo Bar']));
+        $page = $this->createMock(VirtualPage::class);
+        $page->method('htmlTitle')->willReturn('Foo Bar');
+        $this->mockPage($page);
         $this->assertStringContainsString('<title>Site Name - Foo Bar</title>', $this->renderTestView());
     }
 }
