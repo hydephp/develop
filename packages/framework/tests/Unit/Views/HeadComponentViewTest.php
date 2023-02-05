@@ -30,4 +30,11 @@ class HeadComponentViewTest extends TestCase
     {
         $this->assertStringContainsString('<meta charset="utf-8">', $this->renderTestView());
     }
+
+    public function testTitleElementUsesPageHtmlTitle()
+    {
+        config(['site.name' => 'Site Name']);
+        $this->mockPage(new VirtualPage('foo', ['title' => 'Foo Bar']));
+        $this->assertStringContainsString('<title>Site Name - Foo Bar</title>', $this->renderTestView());
+    }
 }
