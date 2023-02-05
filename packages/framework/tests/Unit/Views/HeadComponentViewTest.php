@@ -53,6 +53,20 @@ class HeadComponentViewTest extends TestCase
         $this->assertStringContainsString('<link rel="shortcut icon" href="../media/favicon.ico" type="image/x-icon">', $this->renderTestView());
     }
 
+    public function testComponentIncludesMetaView()
+    {
+        $this->mockPage();
+
+        $this->assertStringContainsString("#include('hyde::layouts.meta')", $this->renderTestView());
+    }
+
+    public function testComponentIncludesStylesView()
+    {
+        $this->mockPage();
+
+        $this->assertStringContainsString("#include('hyde::layouts.styles')", $this->renderTestView());
+    }
+
     protected function mockIncludes(string $contents): string
     {
         return str_replace('@include', '#include', $contents);
