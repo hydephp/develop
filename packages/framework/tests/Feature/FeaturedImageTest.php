@@ -138,7 +138,7 @@ class FeaturedImageTest extends TestCase
     public function testCannotConstructLocalFeaturedImageWithInvalidSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('LocalFeaturedImage source must start with _media/');
+        $this->expectExceptionMessage('LocalFeaturedImage source must start with the configured media directory name (_media/)');
 
         new LocalFeaturedImage('foo', ...$this->defaultArguments());
     }
