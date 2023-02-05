@@ -48,6 +48,7 @@ use Illuminate\Support\HtmlString;
  * @method static string getSourceRoot()
  * @method static string getOutputDirectory()
  * @method static string getMediaDirectory()
+ * @method static string getMediaOutputDirectory()
  * @method static Features features()
  * @method static FileCollection files()
  * @method static PageCollection pages()

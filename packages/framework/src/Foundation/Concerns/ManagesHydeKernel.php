@@ -69,6 +69,11 @@ trait ManagesHydeKernel
         $this->mediaDirectory = $this->normalizeSourcePath($mediaDirectory);
     }
 
+    public function getMediaOutputDirectory(): string
+    {
+        return $this->getOutputDirectory() . DIRECTORY_SEPARATOR . ltrim($this->getMediaDirectory(), '_');
+    }
+
     /**
      * Developer Information.
      *
