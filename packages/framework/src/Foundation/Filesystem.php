@@ -79,15 +79,9 @@ class Filesystem
 
     /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
-     *
-     * Input types are matched, meaning that if the input is a string so will the output be.
      */
-    public function pathToRelative(string|array $path): string|array
+    public function pathToRelative(string $path): string
     {
-        if (is_array($path)) {
-            return array_map(fn (string $path): string => $this->pathToRelative($path), $path);
-        }
-
         return str_starts_with($path, $this->path())
             ? unslash(str_replace($this->path(), '', $path))
             : $path;

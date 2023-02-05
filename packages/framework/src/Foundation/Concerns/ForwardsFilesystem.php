@@ -78,7 +78,7 @@ trait ForwardsFilesystem
         return $this->filesystem->pathToAbsolute($path);
     }
 
-    public function pathToRelative(string|array $path): string|array
+    public function pathToRelative(string $path): string
     {
         return $this->filesystem->pathToRelative($path);
     }
