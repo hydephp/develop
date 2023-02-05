@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Blogging\Models;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
+use ReturnTypeWillChange;
 
 /**
  * A featured image object, for a file stored locally.
@@ -28,6 +29,7 @@ class LocalFeaturedImage extends FeaturedImage
         return Str::after($source, Hyde::getMediaDirectory().'/');
     }
 
+    #[ReturnTypeWillChange /** Todo: I don't think this should return a relativeLink */]
     public function getSource(): string
     {
         // Return value is relative to the site's root.
