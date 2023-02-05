@@ -131,6 +131,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected static function normalizeLocalImagePath(string $path): string
     {
+        // FIXME support custom media directories
         $path = Hyde::pathToRelative($path);
 
         if (str_starts_with($path, '_media/')) {
