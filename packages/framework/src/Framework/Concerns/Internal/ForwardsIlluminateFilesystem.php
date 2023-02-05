@@ -17,7 +17,8 @@ use function is_array;
 use function is_int;
 
 /**
- * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
+ * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade,
+ * while turning all paths arguments into absolute project paths.
  *
  * @interal This trait is not covered by the backward compatibility promise.
  *
@@ -71,9 +72,6 @@ use function is_int;
  */
 trait ForwardsIlluminateFilesystem
 {
-    /**
-     * Forward calls to the Laravel File facade, but turns all paths into absolute project paths.
-     */
     public static function __callStatic(string $name, array $arguments): string|array|int|bool|null|LazyCollection
     {
         return self::filesystem()->{$name}(...self::qualifyArguments(self::getParameterNames($name), $arguments));
