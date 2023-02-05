@@ -11,6 +11,7 @@ use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Illuminate\Support\Str;
 use function is_string;
 use RuntimeException;
 use function str_starts_with;
@@ -135,11 +136,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
         $media = Hyde::getMediaDirectory();
         if (str_starts_with($path, "$media/")) {
-            return $path;
+            return Str::after($path, "$media/");
         }
 
         if (str_starts_with($path, Hyde::getMediaOutputDirectory().'/')) {
-            return "_$path";
+            return Str::after($path, Hyde::getMediaOutputDirectory().'/');
         }
 
         return "$media/$path";
