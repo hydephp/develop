@@ -15,25 +15,22 @@ use Illuminate\Support\Facades\Blade;
  */
 class HeadComponentViewTest extends TestCase
 {
-    protected ?HydePage $mockPage = null;
-
     protected function renderTestView(): string
     {
-        $this->mockPage($this->mockPage ?? new VirtualPage('foo'));
-        $this->mockPage = null;
-
         return Blade::render($this->mockIncludes(file_get_contents(Hyde::vendorPath('resources/views/layouts/head.blade.php'))));
     }
 
     public function testComponentCanBeRendered()
     {
+        $this->mockPage();
         $this->assertStringContainsString('<meta charset="utf-8">', $this->renderTestView());
     }
 
     public function testTitleElementUsesPageHtmlTitle()
     {
-        $this->mockPage = $this->createMock(VirtualPage::class);
-        $this->mockPage->method('htmlTitle')->willReturn('Foo Bar');
+        $page = $this->createMock(VirtualPage::class);
+        $page->method('htmlTitle')->willReturn('Foo Bar');
+        $this->mockPage($page);
 
         $this->assertStringContainsString('<title>Foo Bar</title>', $this->renderTestView());
     }
