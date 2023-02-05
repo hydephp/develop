@@ -99,7 +99,7 @@ class ValidationService
 
         $siteMedia = Hyde::pathToRelative(Hyde::siteMediaPath());
         $media = Hyde::getMediaDirectory();
-        return $result->fail('Could not find an app.css file in the '.$siteMedia.' or '.$media.' directory!')
+        return $result->fail("Could not find an app.css file in the $siteMedia or $media directory!")
             ->withTip('You may need to run `npm run dev`.`');
     }
 
