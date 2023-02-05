@@ -13,6 +13,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use function array_map;
 use function collect;
 use function in_array;
+use function is_array;
 use function is_int;
 
 /**
