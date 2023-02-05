@@ -50,7 +50,7 @@ use Illuminate\Support\HtmlString;
  * @method static string getSourceRoot() ''
  * @method static string getOutputDirectory() '_site'
  * @method static string getMediaDirectory() '_media'
- * @method static string getMediaOutputDirectory() '_site/media'
+ * @method static string getMediaOutputDirectory() 'media'
  * @method static Features features()
  * @method static FileCollection files()
  * @method static PageCollection pages()
