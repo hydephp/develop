@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
-use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 
 /**
