@@ -85,10 +85,10 @@ class Hyperlinks
         }
 
         if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url(Hyde::getMediaOutputDirectory().'/'.$name);
+            return $this->url(Hyde::getMediaOutputDirectory()."/$name");
         }
 
-        return $this->relativeLink(Hyde::getMediaOutputDirectory().'/'.$name);
+        return $this->relativeLink(Hyde::getMediaOutputDirectory()."/$name");
     }
 
     /**
