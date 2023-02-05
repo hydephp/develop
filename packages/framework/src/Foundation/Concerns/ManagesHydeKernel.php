@@ -71,7 +71,7 @@ trait ManagesHydeKernel
 
     public function getMediaOutputDirectory(): string
     {
-        return $this->getOutputDirectory() . DIRECTORY_SEPARATOR . ltrim($this->getMediaDirectory(), '_');
+        return $this->getOutputDirectory() . '/' . ltrim($this->getMediaDirectory(), '_');
     }
 
     /**
