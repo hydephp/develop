@@ -12,7 +12,6 @@ use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
-use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
