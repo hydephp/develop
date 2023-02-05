@@ -93,7 +93,7 @@ trait ForwardsIlluminateFilesystem
             ];
 
             if (is_int($key)) {
-                // If the argument is not named, we'll retrieve it from the reflection data
+                // If the argument is not named, we'll retrieve it from the reflection data.
                 $key = $parameterNames[$key];
             }
 
