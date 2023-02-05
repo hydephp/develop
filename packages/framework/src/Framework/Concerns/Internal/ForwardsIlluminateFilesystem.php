@@ -89,7 +89,7 @@ trait ForwardsIlluminateFilesystem
         return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
             $argumentsToQualify = [
                 'path', 'paths', 'file', 'target', 'directory', 'destination', 'firstFile', 'secondFile',
-                'pattern', 'link', 'from', 'to'
+                'pattern', 'link', 'from', 'to',
             ];
 
             if (is_int($key)) {
