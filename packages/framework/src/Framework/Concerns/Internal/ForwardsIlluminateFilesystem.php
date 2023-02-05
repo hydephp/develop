@@ -111,10 +111,9 @@ trait ForwardsIlluminateFilesystem
     protected static function qualifyPathArgument(array|string $argumentValue): string|array
     {
         if (is_array($argumentValue)) {
-            $argumentValue = array_map(fn(string $path): string => self::absolutePath($path), $argumentValue);
+            return array_map(fn(string $path): string => self::absolutePath($path), $argumentValue);
         } else {
-            $argumentValue = self::absolutePath($argumentValue);
+            return self::absolutePath($argumentValue);
         }
-        return $argumentValue;
     }
 }
