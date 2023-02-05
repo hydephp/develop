@@ -23,8 +23,8 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
     {
-        if (! str_starts_with($source, '_media/')) {
-            //
+        if (str_starts_with($source, '_media/')) {
+            $source = substr($source, 7);
         }
 
         // We could also validate the file exists here if we want. We might also want to just send a warning.
