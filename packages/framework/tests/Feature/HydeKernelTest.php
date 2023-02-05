@@ -154,6 +154,15 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../foo', Hyde::relativeLink('foo'));
     }
 
+    public function test_media_link_helper_returns_relative_link_to_destination()
+    {
+        Render::share('currentPage', 'bar');
+        $this->assertSame('media/foo', Hyde::mediaLink('foo'));
+
+        Render::share('currentPage', 'foo/bar');
+        $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
+    }
+
     public function test_image_helper_returns_image_path_for_given_name()
     {
         Render::share('currentPage', 'foo');
