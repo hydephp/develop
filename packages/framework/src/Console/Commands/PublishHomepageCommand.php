@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\AsksToRebuildSite;
-use Hyde\Framework\Features\Templates\Homepages;
-use Hyde\Framework\Features\Templates\PublishableContract;
+use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
-use LaravelZero\Framework\Commands\Command;
+use Illuminate\Support\Facades\Artisan;
+use function array_key_exists;
+use function file_exists;
+use function str_replace;
+use function strstr;
 
 /**
  * Publish one of the default homepages.
  *
- * @deprecated May be replaced by vendor:publish in the future.
  * @see \Hyde\Framework\Testing\Feature\Commands\PublishHomepageCommandTest
  */
 class PublishHomepageCommand extends Command
@@ -29,15 +31,27 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
+    protected array $options = [
+        'welcome'=> [
+            'name' => 'Welcome',
+            'description' => 'The default welcome page.',
+            'group' => 'hyde-welcome-page',
+        ],
+        'posts'=> [
+            'name' => 'Posts Feed',
+            'description' => 'A feed of your latest posts. Perfect for a blog site!',
+            'group' => 'hyde-posts-page',
+        ],
+        'blank'=>  [
+            'name' => 'Blank Starter',
+            'description' => 'A blank Blade template with just the base layout.',
+            'group' => 'hyde-blank-page',
+        ],
+    ];
+
     public function handle(): int
     {
         $selected = $this->parseSelection();
-
-        if (! Homepages::exists($selected)) {
-            $this->error("Homepage $selected does not exist.");
-
-            return 404;
-        }
 
         if (! $this->canExistingFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
@@ -45,13 +59,20 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        Homepages::get($selected)->publish(true);
+        $tagExists = array_key_exists($selected, $this->options);
 
-        $this->line("<info>Published page</info> [<comment>$selected</comment>]");
+        Artisan::call('vendor:publish', [
+            '--tag' => $this->options[$selected]['group'] ?? $selected,
+            '--force' => true, // Todo add force state dynamically depending on existing file state
+        ], ! $tagExists ? $this->output : null);
 
-        $this->askToRebuildSite();
+        if ($tagExists) {
+            $this->infoComment("Published page [$selected]");
 
-        return Command::SUCCESS;
+            $this->askToRebuildSite();
+        }
+
+        return $tagExists ? Command::SUCCESS : 404;
     }
 
     protected function parseSelection(): string
@@ -77,7 +98,7 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): Collection
     {
-        return Homepages::options()->map(fn (PublishableContract $page): array => $page::toArray());
+        return new Collection($this->options);
     }
 
     protected function parseChoiceIntoKey(string $choice): string

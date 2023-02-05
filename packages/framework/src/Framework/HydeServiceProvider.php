@@ -95,6 +95,14 @@ class HydeServiceProvider extends ServiceProvider
             Hyde::vendorPath('resources/views/homepages/welcome.blade.php') => Hyde::path('_pages/index.blade.php'),
         ], 'hyde-welcome-page');
 
+        $this->publishes([
+            Hyde::vendorPath('resources/views/homepages/post-feed.blade.php') => Hyde::path('_pages/index.blade.php'),
+        ], 'hyde-posts-page');
+
+        $this->publishes([
+            Hyde::vendorPath('resources/views/homepages/blank.blade.php') => Hyde::path('_pages/index.blade.php'),
+        ], 'hyde-blank-page');
+
         Blade::component('link', LinkComponent::class);
 
         HydeKernel::getInstance()->readyToBoot();
