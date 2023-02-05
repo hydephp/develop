@@ -94,13 +94,13 @@ class Hyperlinks
             return $name;
         }
 
-        $name = Str::after($name, "{$this->kernel->getMediaOutputDirectory()}/");
+        $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
         if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url("{$this->kernel->getMediaOutputDirectory()}/$name");
+            return $this->url($name);
         }
 
-        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$name");
+        return $this->relativeLink($name);
     }
 
     /**
