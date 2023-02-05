@@ -24,8 +24,7 @@ class HeadComponentViewTest extends TestCase
 
         $contents = file_get_contents(Hyde::vendorPath('resources/views/layouts/head.blade.php'));
 
-        // Mock includes
-        $contents = str_replace('@include', '#include', $contents);
+        $contents = $this->mockIncludes($contents);
 
         return Blade::render($contents);
     }
@@ -42,5 +41,10 @@ class HeadComponentViewTest extends TestCase
         $page->method('htmlTitle')->willReturn('Foo Bar');
         $this->mockPage = $page;
         $this->assertStringContainsString('<title>Site Name - Foo Bar</title>', $this->renderTestView());
+    }
+
+    protected function mockIncludes(string $contents): string
+    {
+        return str_replace('@include', '#include', $contents);
     }
 }
