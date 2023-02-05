@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Illuminate\Support\Str;
 use InvalidArgumentException;
 use function str_starts_with;
 use function substr;
@@ -36,7 +35,7 @@ class LocalFeaturedImage extends FeaturedImage
     public function getSource(): string
     {
         // Return value must be relative to the site's root.
-        $relativePath = Hyde::getMediaOutputDirectory().'/'.Str::after($this->source, Hyde::getMediaDirectory());
+        $relativePath = substr($this->source, 1);
         return Hyde::relativeLink($relativePath);
     }
 
