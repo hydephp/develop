@@ -24,15 +24,15 @@ use Illuminate\Support\HtmlString;
  * @copyright 2022 Caen De Silva
  * @license MIT License
  *
- * @method static string path(string $path = '')
+ * @method static string path(string $path = '') $basePath
  * @method static string vendorPath(string $path = '')
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
  * @method static string getModelSourcePath(string $model, string $path = '')
- * @method static string getBladePagePath(string $path = '')
- * @method static string getMarkdownPagePath(string $path = '')
- * @method static string getMarkdownPostPath(string $path = '')
- * @method static string getDocumentationPagePath(string $path = '')
+ * @method static string getBladePagePath(string $path = '') "$basePath/_pages"
+ * @method static string getMarkdownPagePath(string $path = '') "$basePath/_pages"
+ * @method static string getMarkdownPostPath(string $path = '') "$basePath/_posts"
+ * @method static string getDocumentationPagePath(string $path = '') "$basePath/_docs"
  * @method static string sitePath(string $path = '')
  * @method static string mediaPath(string $path = '')
  * @method static string siteMediaPath(string $path = '')
@@ -46,11 +46,11 @@ use Illuminate\Support\HtmlString;
  * @method static string trimSlashes(string $string)
  * @method static HtmlString markdown(string $text, bool $stripIndentation = false)
  * @method static string currentPage()
- * @method static string getBasePath()
- * @method static string getSourceRoot()
- * @method static string getOutputDirectory()
- * @method static string getMediaDirectory()
- * @method static string getMediaOutputDirectory()
+ * @method static string getBasePath() $basePath
+ * @method static string getSourceRoot() ''
+ * @method static string getOutputDirectory() '_site'
+ * @method static string getMediaDirectory() '_media'
+ * @method static string getMediaOutputDirectory() '_site/media'
  * @method static Features features()
  * @method static FileCollection files()
  * @method static PageCollection pages()
