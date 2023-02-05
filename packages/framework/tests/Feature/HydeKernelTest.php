@@ -174,6 +174,11 @@ class HydeKernelTest extends TestCase
         $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
     }
 
+    public function test_image_helper_trims_media_prefix()
+    {
+        $this->assertSame('media/foo.jpg', Hyde::image('media/foo.jpg'));
+    }
+
     public function test_image_helper_supports_custom_media_directories()
     {
         Hyde::setMediaDirectory('_assets');
