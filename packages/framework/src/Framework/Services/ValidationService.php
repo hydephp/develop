@@ -97,9 +97,8 @@ class ValidationService
             return $result->pass('Your site has an app.css stylesheet');
         }
 
-        $siteMedia = Hyde::pathToRelative(Hyde::siteMediaPath());
-        $media = Hyde::getMediaDirectory();
-        return $result->fail(sprintf('Could not find an app.css file in the %s or %s directory!', $siteMedia, $media))
+        return $result->fail(sprintf('Could not find an app.css file in the %s or %s directory!',
+            Hyde::pathToRelative(Hyde::siteMediaPath()), Hyde::getMediaDirectory()))
             ->withTip('You may need to run `npm run dev`.`');
     }
 
