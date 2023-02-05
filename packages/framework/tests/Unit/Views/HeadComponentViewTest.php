@@ -25,7 +25,7 @@ class HeadComponentViewTest extends TestCase
         ));
     }
 
-    public function test_component_can_be_rendered()
+    public function testComponentCanBeRendered()
     {
         $this->assertStringContainsString('<meta charset="utf-8">', $this->renderTestView());
     }
