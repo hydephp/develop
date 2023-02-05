@@ -84,4 +84,9 @@ class HyperlinksTest extends TestCase
         $this->mockCurrentPage('foo/bar');
         $this->assertSame('../media/foo', $this->class->mediaLink('foo'));
     }
+
+    public function test_media_link_helper_uses_configured_media_directory()
+    {
+        // todo
+    }
 }
