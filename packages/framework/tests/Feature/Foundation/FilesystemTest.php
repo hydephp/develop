@@ -269,7 +269,7 @@ class FilesystemTest extends TestCase
     public function test_helper_for_media_output_path()
     {
         $this->assertEquals(
-            Hyde::path('_site/media'),
+            Hyde::path('media'),
             Hyde::siteMediaPath()
         );
     }
@@ -277,7 +277,7 @@ class FilesystemTest extends TestCase
     public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
     {
         $this->assertEquals(
-            Hyde::path('_site/media'.DIRECTORY_SEPARATOR.'foo.css'),
+            Hyde::path('media'.DIRECTORY_SEPARATOR.'foo.css'),
             Hyde::siteMediaPath('foo.css')
         );
     }
@@ -285,7 +285,7 @@ class FilesystemTest extends TestCase
     public function test_get_media_output_path_returns_absolute_path()
     {
         $this->assertEquals(
-            Hyde::path('_site/media'),
+            Hyde::path('media'),
             Hyde::siteMediaPath()
         );
     }
