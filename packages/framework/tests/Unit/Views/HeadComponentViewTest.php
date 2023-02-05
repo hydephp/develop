@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
