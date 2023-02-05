@@ -36,7 +36,7 @@ class RebuildStaticSiteCommand extends Command
     {
         $time_start = microtime(true);
 
-        if ($this->argument('path') === '_media') {
+        if ($this->argument('path') === Hyde::getMediaDirectory()) {
             (new BuildService($this->getOutput()))->transferMediaAssets();
 
             return Command::SUCCESS;
