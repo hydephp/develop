@@ -35,6 +35,24 @@ class HeadComponentViewTest extends TestCase
         $this->assertStringContainsString('<title>Foo Bar</title>', $this->renderTestView());
     }
 
+    public function testLinkToFaviconIsAddedWhenFileExists()
+    {
+        $this->mockPage();
+
+        $this->assertStringNotContainsString('favicon', $this->renderTestView());
+        $this->file('_media/favicon.ico');
+
+        $this->assertStringContainsString('<link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon">', $this->renderTestView());
+    }
+
+    public function testLinkToFaviconUsesRelativeUrl()
+    {
+        $this->file('_media/favicon.ico');
+        $this->mockPage(currentPage: 'foo/bar');
+
+        $this->assertStringContainsString('<link rel="shortcut icon" href="../media/favicon.ico" type="image/x-icon">', $this->renderTestView());
+    }
+
     protected function mockIncludes(string $contents): string
     {
         return str_replace('@include', '#include', $contents);
