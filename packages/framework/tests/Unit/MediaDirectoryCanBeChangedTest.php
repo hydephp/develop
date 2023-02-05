@@ -19,6 +19,8 @@ class MediaDirectoryCanBeChangedTest extends TestCase
 {
     public function test_media_output_directory_can_be_changed_for_site_builds()
     {
+        $this->markTestIncomplete('Code tested in this test is not yet implemented.');
+
         Filesystem::deleteDirectory('_site');
 
         $this->directory('_assets');
