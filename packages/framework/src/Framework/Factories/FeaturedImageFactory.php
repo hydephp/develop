@@ -134,14 +134,16 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         // FIXME support custom media directories
         $path = Hyde::pathToRelative($path);
 
-        if (str_starts_with($path, "_media/")) {
+        $media = "_media";
+        $siteMedia = 'media';
+        if (str_starts_with($path, "$media/")) {
             return $path;
         }
 
-        if (str_starts_with($path, "media/")) {
+        if (str_starts_with($path, "$siteMedia/")) {
             return "_$path";
         }
 
-        return "_media/$path";
+        return "$media/$path";
     }
 }
