@@ -131,6 +131,19 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('assets/foo', ['image' => ['path' => '_assets/foo']]);
     }
 
+    public function testImagePathsAreNormalizedForCustomizedMediaDirectoryWithoutUnderscore()
+    {
+        Hyde::setMediaDirectory('assets');
+
+        $this->assertSourceIsSame('assets/foo', ['image' => 'foo']);
+        $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
+        $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
+
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
+    }
+
     protected function makeFromArray(array $matter): FeaturedImage
     {
         return FeaturedImageFactory::make(new FrontMatter($matter));
