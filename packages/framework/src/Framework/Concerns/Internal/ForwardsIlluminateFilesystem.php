@@ -108,10 +108,10 @@ trait ForwardsIlluminateFilesystem
         });
     }
 
-    protected static function qualifyPathArgument(array|string $argumentValue): string|array
+    protected static function qualifyPathArgument(array|string $path): string|array
     {
-        return is_array($argumentValue)
-            ? array_map(fn(string $path): string => self::qualifyPathArgument($path), $argumentValue)
-            : self::absolutePath($argumentValue);
+        return is_array($path)
+            ? array_map(fn(string $path): string => self::qualifyPathArgument($path), $path)
+            : self::absolutePath($path);
     }
 }
