@@ -101,7 +101,11 @@ trait ForwardsIlluminateFilesystem
             ];
 
             if (in_array($key, $argumentsToQualify)) {
-                $argumentValue = self::absolutePath($argumentValue);
+                if (is_array($argumentValue)) {
+                    $argumentValue = array_map(fn (string $path): string => self::absolutePath($path), $argumentValue);
+                } else {
+                    $argumentValue = self::absolutePath($argumentValue);
+                }
             }
 
             return [$key => $argumentValue];
