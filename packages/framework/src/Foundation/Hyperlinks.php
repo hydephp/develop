@@ -85,10 +85,10 @@ class Hyperlinks
         }
 
         if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url($this->kernel->getMediaOutputDirectory()."/$name");
+            return $this->url("{$this->kernel->getMediaOutputDirectory()}/$name");
         }
 
-        return $this->relativeLink($this->kernel->getMediaOutputDirectory()."/$name");
+        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$name");
     }
 
     /**
