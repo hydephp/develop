@@ -57,18 +57,18 @@ class HeadComponentViewTest extends TestCase
     {
         $this->mockPage();
 
-        $this->assertStringContainsString("#include('hyde::layouts.meta')", $this->renderTestView());
+        $this->assertStringContainsString("@include('hyde::layouts.meta')", $this->renderTestView());
     }
 
     public function testComponentIncludesStylesView()
     {
         $this->mockPage();
 
-        $this->assertStringContainsString("#include('hyde::layouts.styles')", $this->renderTestView());
+        $this->assertStringContainsString("@include('hyde::layouts.styles')", $this->renderTestView());
     }
 
     protected function mockIncludes(string $contents): string
     {
-        return str_replace('@include', '#include', $contents);
+        return str_replace('@include', '@@include', $contents);
     }
 }
