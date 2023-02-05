@@ -4,284 +4,111 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
+use ReflectionMethod;
+use ReflectionParameter;
+use Symfony\Component\Finder\SplFileInfo;
+use function array_map;
+use function collect;
+use function in_array;
+use function is_array;
+use function is_int;
 
 /**
- * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
+ * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade,
+ * while turning all paths arguments into absolute project paths.
  *
  * @interal This trait is not covered by the backward compatibility promise.
  *
  * @see \Hyde\Facades\Filesystem
+ *
+ * @method static bool exists(string $path)
+ * @method static bool missing(string $path)
+ * @method static string get(string $path, bool $lock = false)
+ * @method static string sharedGet(string $path)
+ * @method static mixed getRequire(string $path, array $data = [])
+ * @method static mixed requireOnce(string $path, array $data = [])
+ * @method static LazyCollection lines(string $path)
+ * @method static string hash(string $path, string $algorithm = 'md5')
+ * @method static int|bool put(string $path, string $contents, bool $lock = false)
+ * @method static void replace(string $path, string $content)
+ * @method static void replaceInFile(array|string $search, array|string $replace, string $path)
+ * @method static int prepend(string $path, string $data)
+ * @method static int append(string $path, string $data)
+ * @method static mixed chmod(string $path, int|null $mode = null)
+ * @method static bool delete(string|array $paths)
+ * @method static bool move(string $path, string $target)
+ * @method static bool copy(string $path, string $target)
+ * @method static void link(string $target, string $link)
+ * @method static void relativeLink(string $target, string $link)
+ * @method static string name(string $path)
+ * @method static string basename(string $path)
+ * @method static string dirname(string $path)
+ * @method static string extension(string $path)
+ * @method static string|null guessExtension(string $path)
+ * @method static string type(string $path)
+ * @method static string|false mimeType(string $path)
+ * @method static int size(string $path)
+ * @method static int lastModified(string $path)
+ * @method static bool isDirectory(string $directory)
+ * @method static bool isEmptyDirectory(string $directory, bool $ignoreDotFiles = false)
+ * @method static bool isReadable(string $path)
+ * @method static bool isWritable(string $path)
+ * @method static bool hasSameHash(string $firstFile, string $secondFile)
+ * @method static bool isFile(string $file)
+ * @method static array glob(string $pattern, int $flags = 0)
+ * @method static SplFileInfo[] files(string $directory, bool $hidden = false)
+ * @method static SplFileInfo[] allFiles(string $directory, bool $hidden = false)
+ * @method static array directories(string $directory)
+ * @method static void ensureDirectoryExists(string $path, int $mode = 0755, bool $recursive = true)
+ * @method static bool makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false)
+ * @method static bool moveDirectory(string $from, string $to, bool $overwrite = false)
+ * @method static bool copyDirectory(string $directory, string $destination, int|null $options = null)
+ * @method static bool deleteDirectory(string $directory, bool $preserve = false)
+ * @method static bool deleteDirectories(string $directory)
+ * @method static bool cleanDirectory(string $directory)
  */
 trait ForwardsIlluminateFilesystem
 {
-    /** @inheritDoc */
-    public static function exists(string $path): bool
+    public static function __callStatic(string $name, array $arguments): string|array|int|bool|null|LazyCollection
     {
-        return self::filesystem()->exists(self::absolutePath($path));
+        return self::filesystem()->{$name}(...self::qualifyArguments(self::getParameterNames($name), $arguments));
     }
 
-    /** @inheritDoc */
-    public static function missing(string $path): bool
+    protected static function getParameterNames(string $name): array
     {
-        return self::filesystem()->missing(self::absolutePath($path));
+        return array_map(fn (ReflectionParameter $parameter): string => $parameter->getName(),
+            (new ReflectionMethod(Filesystem::class, $name))->getParameters()
+        );
     }
 
-    /** @inheritDoc */
-    public static function get(string $path, bool $lock = false): string
+    protected static function qualifyArguments(array $parameterNames, array $arguments): Collection
     {
-        return self::filesystem()->get(self::absolutePath($path), $lock);
+        return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
+            $argumentsToQualify = [
+                'path', 'paths', 'file', 'target', 'directory', 'destination', 'firstFile', 'secondFile',
+                'pattern', 'link', 'from', 'to',
+            ];
+
+            if (is_int($key)) {
+                // If the argument is not named, we'll retrieve it from the reflection data.
+                $key = $parameterNames[$key];
+            }
+
+            if (in_array($key, $argumentsToQualify)) {
+                $argumentValue = self::qualifyPathArgument($argumentValue);
+            }
+
+            return [$key => $argumentValue];
+        });
     }
 
-    /** @inheritDoc */
-    public static function sharedGet(string $path): string
+    protected static function qualifyPathArgument(array|string $path): string|array
     {
-        return self::filesystem()->sharedGet(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function getRequire(string $path, array $data = []): mixed
-    {
-        return self::filesystem()->getRequire(self::absolutePath($path), $data);
-    }
-
-    /** @inheritDoc */
-    public static function requireOnce(string $path, array $data = []): mixed
-    {
-        return self::filesystem()->requireOnce(self::absolutePath($path), $data);
-    }
-
-    /** @inheritDoc */
-    public static function lines(string $path): LazyCollection
-    {
-        return self::filesystem()->lines(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function hash(string $path, string $algorithm = 'md5'): string
-    {
-        return self::filesystem()->hash(self::absolutePath($path), $algorithm);
-    }
-
-    /** @inheritDoc */
-    public static function put(string $path, string $contents, bool $lock = false): bool|int
-    {
-        return self::filesystem()->put(self::absolutePath($path), $contents, $lock);
-    }
-
-    /** @inheritDoc */
-    public static function replace(string $path, string $content): void
-    {
-        self::filesystem()->replace(self::absolutePath($path), $content);
-    }
-
-    /** @inheritDoc */
-    public static function replaceInFile(array|string $search, array|string $replace, string $path): void
-    {
-        self::filesystem()->replaceInFile($search, $replace, self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function prepend(string $path, string $data): int
-    {
-        return self::filesystem()->prepend(self::absolutePath($path), $data);
-    }
-
-    /** @inheritDoc */
-    public static function append(string $path, string $data): int
-    {
-        return self::filesystem()->append(self::absolutePath($path), $data);
-    }
-
-    /** @inheritDoc */
-    public static function chmod(string $path, int $mode = null): mixed
-    {
-        return self::filesystem()->chmod(self::absolutePath($path), $mode);
-    }
-
-    /** @inheritDoc */
-    public static function delete(array|string $paths): bool
-    {
-        return self::filesystem()->delete(self::kernel()->filesystem()->pathToAbsolute($paths));
-    }
-
-    /** @inheritDoc */
-    public static function move(string $path, string $target): bool
-    {
-        return self::filesystem()->move(self::absolutePath($path), self::absolutePath($target));
-    }
-
-    /** @inheritDoc */
-    public static function copy(string $path, string $target): bool
-    {
-        return self::filesystem()->copy(self::absolutePath($path), self::absolutePath($target));
-    }
-
-    /** @inheritDoc */
-    public static function link(string $target, string $link): void
-    {
-        self::filesystem()->link(self::absolutePath($target), self::absolutePath($link));
-    }
-
-    /** @inheritDoc */
-    public static function relativeLink(string $target, string $link): void
-    {
-        self::filesystem()->relativeLink(self::absolutePath($target), self::absolutePath($link));
-    }
-
-    /** @inheritDoc */
-    public static function name(string $path): string
-    {
-        return self::filesystem()->name(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function basename(string $path): string
-    {
-        return self::filesystem()->basename(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function dirname(string $path): string
-    {
-        return self::filesystem()->dirname(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function extension(string $path): string
-    {
-        return self::filesystem()->extension(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function guessExtension(string $path): ?string
-    {
-        return self::filesystem()->guessExtension(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function type(string $path): string
-    {
-        return self::filesystem()->type(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function mimeType(string $path): bool|string
-    {
-        return self::filesystem()->mimeType(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function size(string $path): int
-    {
-        return self::filesystem()->size(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function lastModified(string $path): int
-    {
-        return self::filesystem()->lastModified(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function isDirectory(string $directory): bool
-    {
-        return self::filesystem()->isDirectory(self::absolutePath($directory));
-    }
-
-    /** @inheritDoc */
-    public static function isEmptyDirectory(string $directory, bool $ignoreDotFiles = false): bool
-    {
-        return self::filesystem()->isEmptyDirectory(self::absolutePath($directory), $ignoreDotFiles);
-    }
-
-    /** @inheritDoc */
-    public static function isReadable(string $path): bool
-    {
-        return self::filesystem()->isReadable(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function isWritable(string $path): bool
-    {
-        return self::filesystem()->isWritable(self::absolutePath($path));
-    }
-
-    /** @inheritDoc */
-    public static function hasSameHash(string $firstFile, string $secondFile): bool
-    {
-        return self::filesystem()->hasSameHash(self::absolutePath($firstFile), self::absolutePath($secondFile));
-    }
-
-    /** @inheritDoc */
-    public static function isFile(string $file): bool
-    {
-        return self::filesystem()->isFile(self::absolutePath($file));
-    }
-
-    /** @inheritDoc */
-    public static function glob(string $pattern, int $flags = 0): array
-    {
-        return self::filesystem()->glob(self::absolutePath($pattern), $flags);
-    }
-
-    /** @inheritDoc */
-    public static function files(string $directory, bool $hidden = false): array
-    {
-        return self::filesystem()->files(self::absolutePath($directory), $hidden);
-    }
-
-    /** @inheritDoc */
-    public static function allFiles(string $directory, bool $hidden = false): array
-    {
-        return self::filesystem()->allFiles(self::absolutePath($directory), $hidden);
-    }
-
-    /** @inheritDoc */
-    public static function directories(string $directory): array
-    {
-        return self::filesystem()->directories(self::absolutePath($directory));
-    }
-
-    /** @inheritDoc */
-    public static function ensureDirectoryExists(string $path, int $mode = 0755, bool $recursive = true): void
-    {
-        self::filesystem()->ensureDirectoryExists(self::absolutePath($path), $mode, $recursive);
-    }
-
-    /** @inheritDoc */
-    public static function makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false): bool
-    {
-        return self::filesystem()->makeDirectory(self::absolutePath($path), $mode, $recursive, $force);
-    }
-
-    /** @inheritDoc */
-    public static function moveDirectory(string $from, string $to, bool $overwrite = false): bool
-    {
-        return self::filesystem()->moveDirectory(self::absolutePath($from), self::absolutePath($to), $overwrite);
-    }
-
-    /** @inheritDoc */
-    public static function copyDirectory(string $directory, string $destination, ?int $options = null): bool
-    {
-        return self::filesystem()->copyDirectory(self::absolutePath($directory), self::absolutePath($destination), $options);
-    }
-
-    /** @inheritDoc */
-    public static function deleteDirectory(string $directory, bool $preserve = false): bool
-    {
-        return self::filesystem()->deleteDirectory(self::absolutePath($directory), $preserve);
-    }
-
-    /** @inheritDoc */
-    public static function deleteDirectories(string $directory): bool
-    {
-        return self::filesystem()->deleteDirectories(self::absolutePath($directory));
-    }
-
-    /** @inheritDoc */
-    public static function cleanDirectory(string $directory): bool
-    {
-        return self::filesystem()->cleanDirectory(self::absolutePath($directory));
+        return is_array($path)
+            ? array_map(fn (string $path): string => self::qualifyPathArgument($path), $path)
+            : self::absolutePath($path);
     }
 }

@@ -6,7 +6,6 @@ namespace Hyde\Facades;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem;
-use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
@@ -20,7 +19,7 @@ use Illuminate\Support\Facades\File;
  * @see \Illuminate\Filesystem\Filesystem
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
-class Filesystem implements FilesystemContract
+class Filesystem
 {
     use ForwardsIlluminateFilesystem;
 
