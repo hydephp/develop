@@ -35,7 +35,11 @@ class LocalFeaturedImage extends FeaturedImage
     public function getSource(): string
     {
         // Return value must be relative to the site's root.
-        $relativePath = substr($this->source, 1);
+        if (str_starts_with(Hyde::getMediaDirectory(), '_')) {
+            $relativePath = substr($this->source, 1);
+        } else {
+            $relativePath = $this->source;
+        }
         return Hyde::relativeLink($relativePath);
     }
 
