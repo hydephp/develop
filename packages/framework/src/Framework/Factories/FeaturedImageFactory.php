@@ -31,8 +31,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
 
-    private bool $isRemote = false;
-
     public function __construct(
         private readonly FrontMatter $matter,
     ) {
@@ -78,7 +76,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         if (is_string($this->matter('image'))) {
             if (str_starts_with($this->matter('image'), 'http')) {
-                $this->isRemote = true;
                 return $this->matter('image');
             }
 
@@ -86,7 +83,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         }
 
         if ($this->matter('image.url') !== null) {
-            $this->isRemote = true;
             return $this->matter('image.url');
         }
 
