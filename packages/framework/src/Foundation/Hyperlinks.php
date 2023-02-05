@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
+use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 
 /**
@@ -84,10 +85,10 @@ class Hyperlinks
         }
 
         if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url('media/'.basename($name));
+            return $this->url(Hyde::getMediaOutputDirectory().'/'.basename($name));
         }
 
-        return $this->relativeLink('media/'.basename($name));
+        return $this->relativeLink(Hyde::getMediaOutputDirectory().'/'.basename($name));
     }
 
     /**
