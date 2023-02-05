@@ -65,7 +65,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (! str_starts_with((string) $data['source'], 'http')) {
+        if (self::isLocal($matter)) {
             return new LocalFeaturedImage(...$data);
         }
 
@@ -144,5 +144,10 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         }
 
         return $path;
+    }
+
+    protected static function isLocal(FrontMatter $matter): bool
+    {
+        return ! str_starts_with((string) $matter['source'], 'http');
     }
 }
