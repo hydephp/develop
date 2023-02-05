@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\VirtualPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
@@ -14,11 +15,11 @@ use Illuminate\Support\Facades\Blade;
  */
 class HeadComponentViewTest extends TestCase
 {
-    protected ?string $mockCurrentPage = null;
+    protected ?HydePage $mockPage = null;
 
     protected function renderTestView(): string
     {
-        $this->mockPage(new VirtualPage($this->mockCurrentPage ?? ''));
+        $this->mockPage($this->mockPage ?? new VirtualPage('foo'));
 
         return Blade::render(file_get_contents(
             Hyde::vendorPath('resources/views/layouts/head.blade.php')
