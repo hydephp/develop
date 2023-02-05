@@ -20,6 +20,7 @@ class HeadComponentViewTest extends TestCase
     protected function renderTestView(): string
     {
         $this->mockPage($this->mockPage ?? new VirtualPage('foo'));
+        $this->mockPage = null;
 
         return Blade::render(file_get_contents(
             Hyde::vendorPath('resources/views/layouts/head.blade.php')
