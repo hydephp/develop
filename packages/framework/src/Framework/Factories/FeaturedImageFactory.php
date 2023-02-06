@@ -160,10 +160,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return false;
         }
 
-        if ($matter->get('image.path') !== null) {
-            return true;
-        }
-
         return true;
     }
 }
