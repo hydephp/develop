@@ -8,11 +8,11 @@ The upgrade will be handled within Hyde/Framework and standard usage will not be
 Any third-party integrations will need to be handled manually. v1.0x will receive security fixes for the time being. 
 
 
-| Version | Supported          | Notes    |
-|---------|--------------------|----------|
-| 2.0.x   | :white_check_mark::test_tube:        | Latest |
-| 1.0.x   | :white_check_mark: | (LTS)    |
-| < 1.0   | :x:                | Alpha    |
+| Version | Supported                     | Notes  |
+|---------|-------------------------------|--------|
+| 2.0.x   | :white_check_mark::test_tube: | Latest |
+| 1.0.x   | :white_check_mark:            | (LTS)  |
+| < 1.0   | :x:                           | Alpha  |
 
 ## Reporting a Vulnerability
 
