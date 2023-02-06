@@ -65,7 +65,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (self::isLocal($matter)) {
+        if (! self::isRemote($matter)) {
             return new LocalFeaturedImage(...$data);
         }
 
@@ -146,16 +146,16 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         return $path;
     }
 
-    protected static function isLocal(FrontMatter $matter): bool
+    protected static function isRemote(FrontMatter $matter): bool
     {
         if ($matter->get('image.url') !== null) {
-            return false;
+            return true;
         }
 
         if (is_string($matter->get('image'))) {
-            return ! str_starts_with($matter->get('image'), 'http');
+            return str_starts_with($matter->get('image'), 'http');
         }
 
-        return true;
+        return false;
     }
 }
