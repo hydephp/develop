@@ -64,7 +64,7 @@ class BuildService
 
         $this->comment('Transferring Media Assets...');
         $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
-            $sitePath = Hyde::siteMediaPath('/'.unslash(Str::after($filepath, Hyde::mediaPath())));
+            $sitePath = Hyde::siteMediaPath(Str::after($filepath, Hyde::mediaPath()));
             $this->needsParentDirectory($sitePath);
             copy($filepath, $sitePath);
         });
