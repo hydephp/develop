@@ -76,7 +76,7 @@ If the setting starts with an underscore, that will be removed from the output d
 
 >info Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
 
-You will of course also need to copy over any existing files from the old directory to the new one.
+>info You will of course also need to copy over any existing files from the old directory to the new one.
 
 
 ## Customizing the output directory ⚠
