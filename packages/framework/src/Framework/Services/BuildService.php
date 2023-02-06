@@ -53,18 +53,18 @@ class BuildService
 
             if ($this->isItSafeToCleanOutputDirectory()) {
                 array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-                File::cleanDirectory(Hyde::sitePath('media'));
+                File::cleanDirectory(Hyde::siteMediaPath());
             }
         }
     }
 
     public function transferMediaAssets(): void
     {
-        $this->needsDirectory(Hyde::sitePath('media'));
+        $this->needsDirectory(Hyde::siteMediaPath());
 
         $this->comment('Transferring Media Assets...');
         $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
-            $sitePath = Hyde::sitePath('media/'.unslash(Str::after($filepath, Hyde::path('_media'))));
+            $sitePath = Hyde::siteMediaPath(Str::after($filepath, Hyde::mediaPath()));
             $this->needsParentDirectory($sitePath);
             copy($filepath, $sitePath);
         });

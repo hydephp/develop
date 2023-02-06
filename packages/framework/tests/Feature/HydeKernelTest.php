@@ -8,6 +8,7 @@ use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -174,6 +175,17 @@ class HydeKernelTest extends TestCase
         $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
     }
 
+    public function test_image_helper_trims_media_prefix()
+    {
+        $this->assertSame('media/foo.jpg', Hyde::image('media/foo.jpg'));
+    }
+
+    public function test_image_helper_supports_custom_media_directories()
+    {
+        Hyde::setMediaDirectory('_assets');
+        $this->assertSame('assets/foo.jpg', Hyde::image('foo.jpg'));
+    }
+
     public function test_has_site_url_helper_returns_boolean_value_for_when_config_setting_is_set()
     {
         Config::set('site.url', 'https://example.com');
@@ -245,11 +257,13 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('_docs'), Hyde::getModelSourcePath(DocumentationPage::class));
         $this->assertSame(Hyde::path('_pages'), Hyde::getModelSourcePath(BladePage::class));
 
+        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
         $this->assertSame(Hyde::path('_pages'), Hyde::getBladePagePath());
         $this->assertSame(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
         $this->assertSame(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
         $this->assertSame(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
         $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
+        $this->assertSame(Hyde::path('_site'.DIRECTORY_SEPARATOR.'media'), Hyde::siteMediaPath());
     }
 
     public function test_path_to_relative_helper_returns_relative_path_for_given_path()
@@ -319,6 +333,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
+    public function test_set_source_root_trims_trailing_slashes()
+    {
+        Hyde::setSourceRoot('/foo/');
+        $this->assertSame('/foo', Hyde::getSourceRoot());
+    }
+
     public function test_can_get_output_directory()
     {
         $this->assertSame('_site', Hyde::getOutputDirectory());
@@ -336,6 +356,68 @@ class HydeKernelTest extends TestCase
         Hyde::setOutputDirectory(Hyde::path('foo'));
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
+    }
+
+    public function test_set_output_directory_trims_trailing_slashes()
+    {
+        Hyde::setOutputDirectory('/foo/');
+        $this->assertSame('/foo', Hyde::getOutputDirectory());
+    }
+
+    public function test_can_get_media_directory()
+    {
+        $this->assertSame('_media', Hyde::getMediaDirectory());
+    }
+
+    public function test_can_set_media_directory()
+    {
+        Hyde::setMediaDirectory('foo');
+        $this->assertSame('foo', Hyde::getMediaDirectory());
+    }
+
+    public function test_set_media_directory_trims_trailing_slashes()
+    {
+        Hyde::setMediaDirectory('/foo/');
+        $this->assertSame('/foo', Hyde::getMediaDirectory());
+    }
+
+    public function test_can_get_media_output_directory_name()
+    {
+        $this->assertSame('media', Hyde::getMediaOutputDirectory());
+    }
+
+    public function test_get_media_output_directory_name_uses_trimmed_version_of_media_source_directory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame('foo', Hyde::getMediaOutputDirectory());
+    }
+
+    public function test_can_get_site_media_output_directory()
+    {
+        $this->assertSame(Hyde::path('_site'.DIRECTORY_SEPARATOR.'media'), Hyde::siteMediaPath());
+    }
+
+    public function test_get_site_media_output_directory_uses_trimmed_version_of_media_source_directory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame(Hyde::path('_site'.DIRECTORY_SEPARATOR.'foo'), Hyde::siteMediaPath());
+    }
+
+    public function test_get_site_media_output_directory_uses_configured_site_output_directory()
+    {
+        Hyde::setOutputDirectory(Hyde::path('foo'));
+        Hyde::setMediaDirectory('bar');
+        $this->assertSame(Hyde::path('foo'.DIRECTORY_SEPARATOR.'bar'), Hyde::siteMediaPath());
+    }
+
+    public function test_media_output_directory_can_be_changed_in_configuration()
+    {
+        $this->assertEquals('_media', Hyde::getMediaDirectory());
+
+        config(['site.media_directory' => '_assets']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $this->assertEquals('_assets', Hyde::getMediaDirectory());
     }
 
     public function test_can_access_kernel_fluently_using_the_facade()

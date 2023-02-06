@@ -6,8 +6,7 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use function str_starts_with;
-use function substr;
+use Illuminate\Support\Str;
 
 /**
  * A featured image object, for a file stored locally.
@@ -22,19 +21,17 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
     {
-        if (str_starts_with($source, '_media/')) {
-            $source = substr($source, 7);
-        }
+        // We could also validate the file exists here if we want.
+        // We might also want to just send a warning. But for now,
+        // we'll just trim any leading media path prefixes.
 
-        // We could also validate the file exists here if we want. We might also want to just send a warning.
-
-        return $source;
+        return Str::after($source, Hyde::getMediaDirectory().'/');
     }
 
     public function getSource(): string
     {
         // Return value is always resolvable from a compiled page in the _site directory.
-        return Hyde::relativeLink("media/$this->source");
+        return Hyde::mediaLink($this->source);
     }
 
     public function getContentLength(): int
@@ -44,15 +41,21 @@ class LocalFeaturedImage extends FeaturedImage
 
     protected function storagePath(): string
     {
-        return Hyde::path("_media/$this->source");
+        return Hyde::mediaPath($this->source);
     }
 
     protected function validatedStoragePath(): string
     {
         if (! file_exists($this->storagePath())) {
-            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($this->storagePath())));
+            throw new FileNotFoundException(sprintf('Image at %s does not exist', $this->replaceSlashes(Hyde::pathToRelative($this->storagePath()))));
         }
 
         return $this->storagePath();
+    }
+
+    /** @deprecated Slashes may be normalized before reaching here, see e3b121b4ad */
+    private function replaceSlashes(string $path): string
+    {
+        return str_replace('\\', '/', $path);
     }
 }

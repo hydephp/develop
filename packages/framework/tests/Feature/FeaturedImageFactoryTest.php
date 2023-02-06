@@ -8,6 +8,7 @@ use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
+use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use RuntimeException;
@@ -115,6 +116,32 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'foo']]);
         $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'media/foo']]);
         $this->assertSourceIsSame('media/foo', ['image' => ['path' => '_media/foo']]);
+    }
+
+    public function testImagePathsAreNormalizedForCustomizedMediaDirectory()
+    {
+        Hyde::setMediaDirectory('_assets');
+
+        $this->assertSourceIsSame('assets/foo', ['image' => 'foo']);
+        $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
+        $this->assertSourceIsSame('assets/foo', ['image' => '_assets/foo']);
+
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => '_assets/foo']]);
+    }
+
+    public function testImagePathsAreNormalizedForCustomizedMediaDirectoryWithoutUnderscore()
+    {
+        Hyde::setMediaDirectory('assets');
+
+        $this->assertSourceIsSame('assets/foo', ['image' => 'foo']);
+        $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
+        $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
+
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
     }
 
     protected function makeFromArray(array $matter): FeaturedImage

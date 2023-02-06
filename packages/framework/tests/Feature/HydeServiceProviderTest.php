@@ -165,6 +165,18 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', Site::getOutputDirectory());
     }
 
+    public function test_provider_registers_media_directory()
+    {
+        $this->assertEquals('_media', Hyde::getMediaDirectory());
+
+        config(['site.media_directory' => 'foo']);
+
+        $this->provider->register();
+
+        $this->assertEquals('foo', Hyde::getMediaDirectory());
+        $this->assertEquals('foo', Hyde::getMediaOutputDirectory());
+    }
+
     public function test_provider_registers_blade_view_discovery_location_for_configured_blade_view_path()
     {
         config(['view.paths' => []]);
