@@ -76,4 +76,12 @@ trait RegistersFileLocations
     {
         Site::setOutputDirectory($directory);
     }
+
+    /**
+     * The relative path to the directory used for storing media files.
+     */
+    protected function useMediaDirectory(string $directory): void
+    {
+        Hyde::setMediaDirectory($directory);
+    }
 }
