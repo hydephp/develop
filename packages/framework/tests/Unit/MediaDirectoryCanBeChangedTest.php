@@ -58,17 +58,25 @@ class MediaDirectoryCanBeChangedTest extends TestCase
     {
         Filesystem::moveDirectory('_media', '_assets');
         Hyde::setMediaDirectory('_assets');
+        $this->file('_assets/app.js');
 
         $this->file('_pages/foo.md');
         (new RebuildService('_pages/foo.md'))->execute();
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
+        $contents = file_get_contents(Hyde::path('_site/foo.html'));
         $this->assertStringContainsString(
             '<link rel="stylesheet" href="assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')).'">',
-            file_get_contents(Hyde::path('_site/foo.html'))
+            $contents
+        );
+
+        $this->assertStringContainsString(
+            '<script defer src="assets/app.js?v='.md5_file(Hyde::path('_assets/app.js')).'"></script>',
+            $contents
         );
 
         Filesystem::moveDirectory('_assets', '_media');
         Filesystem::delete('_site/foo.html');
+        Filesystem::delete('_media/app.js');
     }
 }
