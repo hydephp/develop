@@ -59,11 +59,6 @@ class PublicationsExtension extends HydeExtension
         }
     }
 
-    /**
-     * @deprecated This method will be removed before merging into master.
-     *
-     * @internal This method will be removed before merging into master.
-     */
     protected static function generatePublicationPaginatedListingPagesForType(PublicationType $type,
         PageCollection $instance
     ): void {
