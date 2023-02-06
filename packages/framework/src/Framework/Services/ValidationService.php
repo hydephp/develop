@@ -98,8 +98,8 @@ class ValidationService
         }
 
         return $result->fail(sprintf('Could not find an app.css file in the %s or %s directory!',
-            Hyde::pathToRelative(Hyde::siteMediaPath()), Hyde::getMediaDirectory()))
-            ->withTip('You may need to run `npm run dev`.`');
+            Hyde::pathToRelative(Hyde::siteMediaPath()), Hyde::getMediaDirectory()
+        ))->withTip('You may need to run `npm run dev`.`');
     }
 
     public function check_site_has_a_base_url_set(Result $result): Result
