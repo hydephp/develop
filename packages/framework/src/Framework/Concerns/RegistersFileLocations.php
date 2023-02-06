@@ -68,12 +68,20 @@ trait RegistersFileLocations
     }
 
     /**
-     * The relative path to the directory when the compiled site is stored.
+     * @param  string  $directory  The relative path to the directory when the compiled site is stored.
      *
      * Warning! This directory is emptied when compiling the site.
      */
     protected function storeCompiledSiteIn(string $directory): void
     {
         Site::setOutputDirectory($directory);
+    }
+
+    /**
+     * @param  string  $directory  The relative path to the directory used for storing media files.
+     */
+    protected function useMediaDirectory(string $directory): void
+    {
+        Hyde::setMediaDirectory($directory);
     }
 }

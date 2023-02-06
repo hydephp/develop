@@ -63,6 +63,8 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->storeCompiledSiteIn(config('site.output_directory', '_site'));
 
+        $this->useMediaDirectory(config('site.media_directory', '_media'));
+
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
 
         $this->registerModuleServiceProviders();

@@ -79,12 +79,28 @@ class Filesystem
 
     /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
+     *
+     * @todo Normalize slashes to forward slashes?
      */
     public function pathToRelative(string $path): string
     {
         return str_starts_with($path, $this->path())
             ? unslash(str_replace($this->path(), '', $path))
             : $path;
+    }
+
+    /**
+     * Get the absolute path to the media source directory, or a file within it.
+     */
+    public function mediaPath(string $path = ''): string
+    {
+        if (empty($path)) {
+            return Hyde::path(Hyde::getMediaDirectory());
+        }
+
+        $path = unslash($path);
+
+        return Hyde::path(Hyde::getMediaDirectory().DIRECTORY_SEPARATOR.$path);
     }
 
     /**
@@ -99,6 +115,20 @@ class Filesystem
         $path = unslash($path);
 
         return Hyde::path(Site::getOutputDirectory().DIRECTORY_SEPARATOR.$path);
+    }
+
+    /**
+     * Get the absolute path to the compiled site's media directory, or a file within it.
+     */
+    public function siteMediaPath(string $path = ''): string
+    {
+        if (empty($path)) {
+            return Hyde::sitePath(Hyde::getMediaOutputDirectory());
+        }
+
+        $path = unslash($path);
+
+        return Hyde::sitePath(Hyde::getMediaOutputDirectory().DIRECTORY_SEPARATOR.$path);
     }
 
     /**

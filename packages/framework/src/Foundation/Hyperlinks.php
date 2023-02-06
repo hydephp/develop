@@ -6,6 +6,7 @@ namespace Hyde\Foundation;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Pages\DocumentationPage;
+use Illuminate\Support\Str;
 
 /**
  * Contains helpers and logic for resolving web paths for compiled files.
@@ -77,7 +78,7 @@ class Hyperlinks
      */
     public function mediaLink(string $destination): string
     {
-        return $this->relativeLink("media/$destination");
+        return $this->relativeLink($this->kernel->getMediaOutputDirectory()."/$destination");
     }
 
     /**
@@ -93,11 +94,13 @@ class Hyperlinks
             return $name;
         }
 
+        $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
+
         if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url('media/'.basename($name));
+            return $this->url($name);
         }
 
-        return $this->relativeLink('media/'.basename($name));
+        return $this->relativeLink($name);
     }
 
     /**

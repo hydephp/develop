@@ -127,4 +127,17 @@ return [
 
     'output_directory' => '_site',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Media Directory
+    |--------------------------------------------------------------------------
+    |
+    | This setting specifies the directory where your media files are stored.
+    | Note that this affects both the source and output directories.
+    | The path is relative to the root of your project.
+    |
+    */
+
+    'media_directory' => '_media',
+
 ];

@@ -54,6 +54,17 @@ class AssetServiceTest extends TestCase
         $this->assertEquals('media/app.css', $path);
     }
 
+    public function test_media_link_supports_custom_media_directories()
+    {
+        $this->directory('_assets');
+        $this->file('_assets/app.css');
+        Hyde::setMediaDirectory('_assets');
+
+        $service = new AssetService();
+        $this->assertIsString($path = $service->mediaLink('app.css'));
+        $this->assertEquals('assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')), $path);
+    }
+
     public function test_inject_tailwind_config_returns_extracted_tailwind_config()
     {
         $service = new AssetService();
