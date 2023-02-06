@@ -66,4 +66,15 @@ class HyperlinksTest extends TestCase
     {
         $this->assertEquals('http://localhost/media/test.jpg', $this->class->image('http://localhost/media/test.jpg', true));
     }
+
+    public function test_media_link_helper()
+    {
+        $this->assertSame('media/foo', $this->class->mediaLink('foo'));
+    }
+
+    public function test_media_link_helper_with_relative_path()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $this->assertSame('../media/foo', $this->class->mediaLink('foo'));
+    }
 }
