@@ -44,12 +44,12 @@ class AssetService
 
     public function mediaLink(string $file): string
     {
-        return Hyde::relativeLink("media/$file").$this->getCacheBustKey($file);
+        return Hyde::mediaLink("$file").$this->getCacheBustKey($file);
     }
 
     public function hasMediaFile(string $file): bool
     {
-        return file_exists(Hyde::path('_media').'/'.$file);
+        return file_exists(Hyde::mediaPath().'/'.$file);
     }
 
     public function injectTailwindConfig(): string
@@ -71,6 +71,6 @@ class AssetService
             return '';
         }
 
-        return '?v='.md5_file(Hyde::path("_media/$file"));
+        return '?v='.md5_file(Hyde::mediaPath("$file"));
     }
 }

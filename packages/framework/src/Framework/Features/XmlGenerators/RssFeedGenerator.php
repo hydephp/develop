@@ -69,7 +69,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', Hyde::image($post->image->getSource(), true));
+            $image->addAttribute('url', Hyde::url($post->image->getSource(), true));
             $image->addAttribute('type', $this->getImageType($post));
             $image->addAttribute('length', $this->getImageLength($post));
         }

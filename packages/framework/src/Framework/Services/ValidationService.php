@@ -93,12 +93,13 @@ class ValidationService
 
     public function check_site_has_an_app_css_stylesheet(Result $result): Result
     {
-        if (file_exists(Hyde::sitePath('media/app.css')) || file_exists(Hyde::path('_media/app.css'))) {
+        if (file_exists(Hyde::siteMediaPath('/app.css')) || file_exists(Hyde::mediaPath('app.css'))) {
             return $result->pass('Your site has an app.css stylesheet');
         }
 
-        return $result->fail('Could not find an app.css file in the _site/media or _media directory!')
-            ->withTip('You may need to run `npm run dev`.`');
+        return $result->fail(sprintf('Could not find an app.css file in the %s or %s directory!',
+            Hyde::pathToRelative(Hyde::siteMediaPath()), Hyde::getMediaDirectory()
+        ))->withTip('You may need to run `npm run dev`.`');
     }
 
     public function check_site_has_a_base_url_set(Result $result): Result
