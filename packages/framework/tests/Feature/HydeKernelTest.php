@@ -332,6 +332,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
+    public function test_set_source_root_trims_trailing_slashes()
+    {
+        Hyde::setSourceRoot('/foo/');
+        $this->assertSame('/foo', Hyde::getSourceRoot());
+    }
+
     public function test_can_get_output_directory()
     {
         $this->assertSame('_site', Hyde::getOutputDirectory());
@@ -351,6 +357,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
+    public function test_set_output_directory_trims_trailing_slashes()
+    {
+        Hyde::setOutputDirectory('/foo/');
+        $this->assertSame('/foo', Hyde::getOutputDirectory());
+    }
+
     public function test_can_get_media_directory()
     {
         $this->assertSame('_media', Hyde::getMediaDirectory());
@@ -360,6 +372,12 @@ class HydeKernelTest extends TestCase
     {
         Hyde::setMediaDirectory('foo');
         $this->assertSame('foo', Hyde::getMediaDirectory());
+    }
+
+    public function test_set_media_directory_trims_trailing_slashes()
+    {
+        Hyde::setMediaDirectory('/foo/');
+        $this->assertSame('/foo', Hyde::getMediaDirectory());
     }
 
     public function test_can_get_media_output_directory_name()
