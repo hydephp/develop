@@ -55,7 +55,8 @@ class Router
      */
     protected function shouldProxy(Request $request): bool
     {
-        // Always proxy media files
+        // Always proxy media files. This condition is just to improve performance
+        // without having to check the file extension.
         if (str_starts_with($request->path, '/media/')) {
             return true;
         }
