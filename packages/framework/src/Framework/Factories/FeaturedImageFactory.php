@@ -152,6 +152,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return ! str_starts_with($matter->get('image'), 'http');
         }
 
-        return !($matter->get('image.url') !== null);
+        return $matter->get('image.url') === null;
     }
 }
