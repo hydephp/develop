@@ -53,7 +53,7 @@ class LocalFeaturedImage extends FeaturedImage
         return $this->storagePath();
     }
 
-    /** @deprecated Slashes will be normalized before reaching here */
+    /** @deprecated Slashes may be normalized before reaching here, see e3b121b4ad */
     private function replaceSlashes(string $path): string
     {
         return str_replace('\\', '/', $path);
