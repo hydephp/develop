@@ -148,10 +148,14 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected static function isLocal(FrontMatter $matter): bool
     {
+        if ($matter->get('image.url') !== null) {
+            return false;
+        }
+
         if (is_string($matter->get('image'))) {
             return ! str_starts_with($matter->get('image'), 'http');
         }
 
-        return $matter->get('image.url') === null;
+        return true;
     }
 }
