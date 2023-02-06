@@ -69,10 +69,10 @@ The media directory houses assets like images and stylesheets. The default direc
 Hyde will copy all files in this directory to `_site/media` (or whatever your configured output and media directories are).
 
 You can change the path to this directory by setting the `media_directory` setting in `config/site.php`.
-Note that this change will affect both the source and output directories. For example, if you set the value to 'assets',
-all files from 'assets' will be copied to '_site/assets'.
+Note that this change will affect both the source and output directories. For example, if you set the value to `assets`,
+all files from `assets` will be copied to `_site/assets`.
 
-If the setting starts with an underscore, that will be removed from the output directory, so files in '_assets' will be copied to '_site/assets'.
+If the setting starts with an underscore, that will be removed from the output directory, so files in `_assets` will be copied to `_site/assets`.
 
 >info Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
 
