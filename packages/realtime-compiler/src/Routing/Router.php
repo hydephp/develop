@@ -56,7 +56,6 @@ class Router
     protected function shouldProxy(Request $request): bool
     {
         // Always proxy media files
-        // FIXME Support custom media directories
         if (str_starts_with($request->path, '/media/')) {
             return true;
         }
