@@ -65,11 +65,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (! self::isRemote($matter)) {
-            return new LocalFeaturedImage(...$data);
+        if (self::isRemote($matter)) {
+            return new RemoteFeaturedImage(...$data);
         }
 
-        return new RemoteFeaturedImage(...$data);
+        return new LocalFeaturedImage(...$data);
     }
 
     protected function makeSource(): string
