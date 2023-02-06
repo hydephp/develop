@@ -47,7 +47,7 @@ class LocalFeaturedImage extends FeaturedImage
     protected function validatedStoragePath(): string
     {
         if (! file_exists($this->storagePath())) {
-            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($this->storagePath())));
+            throw new FileNotFoundException(sprintf('Image at %s does not exist', str_replace('\\', '/', Hyde::pathToRelative($this->storagePath()))));
         }
 
         return $this->storagePath();
