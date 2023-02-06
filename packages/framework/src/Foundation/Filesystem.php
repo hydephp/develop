@@ -79,6 +79,8 @@ class Filesystem
 
     /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
+     *
+     * @todo Normalize slashes to forward slashes?
      */
     public function pathToRelative(string $path): string
     {
