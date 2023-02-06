@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -51,5 +52,23 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/assets/app.css'));
 
         $this->resetSite();
+    }
+
+    public function test_compiled_pages_have_links_to_the_right_media_file_location()
+    {
+        Filesystem::moveDirectory('_media', '_assets');
+        Hyde::setMediaDirectory('_assets');
+
+        $this->file('_pages/foo.md');
+        (new RebuildService('_pages/foo.md'))->execute();
+
+        $this->assertFileExists(Hyde::path('_site/foo.html'));
+        $this->assertStringContainsString(
+            '<link rel="stylesheet" href="assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')).'">',
+            file_get_contents(Hyde::path('_site/foo.html'))
+        );
+
+        Filesystem::moveDirectory('_assets', '_media');
+        Filesystem::delete('_site/foo.html');
     }
 }
