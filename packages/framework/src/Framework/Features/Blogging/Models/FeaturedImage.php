@@ -46,6 +46,7 @@ abstract class FeaturedImage implements Stringable
      */
     abstract public function getSource(): string;
 
+    /** Called from constructor to allow child classes to validate and transform the value as needed before assignment. */
     protected function setSource(string $source): string
     {
         return $source;
