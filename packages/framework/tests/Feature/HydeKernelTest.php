@@ -8,6 +8,7 @@ use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -407,6 +408,16 @@ class HydeKernelTest extends TestCase
         Hyde::setOutputDirectory(Hyde::path('foo'));
         Hyde::setMediaDirectory('bar');
         $this->assertSame(Hyde::path('foo'.DIRECTORY_SEPARATOR.'bar'), Hyde::siteMediaPath());
+    }
+
+    public function test_media_output_directory_can_be_changed_in_configuration()
+    {
+        $this->assertEquals('_media', Hyde::getMediaDirectory());
+
+        config(['site.media_directory' => '_assets']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $this->assertEquals('_assets', Hyde::getMediaDirectory());
     }
 
     public function test_can_access_kernel_fluently_using_the_facade()
