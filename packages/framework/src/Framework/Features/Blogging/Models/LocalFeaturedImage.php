@@ -23,7 +23,7 @@ class LocalFeaturedImage extends FeaturedImage
     {
         // We could also validate the file exists here if we want.
         // We might also want to just send a warning. But for now,
-        // we'll just trim any leading path prefixes.
+        // we'll just trim any leading media path prefixes.
 
         return Str::after($source, Hyde::getMediaDirectory().'/');
     }
