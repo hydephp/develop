@@ -148,8 +148,8 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected static function isRemote(FrontMatter $matter): bool
     {
-        if (is_string($matter->get('image'))) {
-            return str_starts_with($matter->get('image'), 'http');
+        if (is_string($matter->get('image')) && str_starts_with($matter->get('image'), 'http')) {
+            return true;
         }
 
         if ($matter->get('image.url') !== null) {
