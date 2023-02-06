@@ -134,10 +134,10 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $path = Hyde::pathToRelative($path);
 
-        $path = Str::after($path, Hyde::getMediaDirectory().'/');
-        $path = Str::after($path, Hyde::getMediaOutputDirectory().'/');
+        $path = Str::after($path, Hyde::getMediaDirectory());
+        $path = Str::after($path, Hyde::getMediaOutputDirectory());
 
-        return $path;
+        return unslash($path);
     }
 
     protected static function isRemote(FrontMatter $matter): bool
