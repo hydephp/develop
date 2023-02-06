@@ -39,7 +39,6 @@ class LocalFeaturedImage extends FeaturedImage
         return filesize($this->validatedStoragePath());
     }
 
-    /** @todo Consider returning relative path */
     protected function storagePath(): string
     {
         return Hyde::path(Hyde::getMediaDirectory()."/$this->source");
