@@ -76,6 +76,9 @@ If the setting starts with an underscore, that will be removed from the output d
 
 >info Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
 
+You will of course also need to copy over any existing files from the old directory to the new one.
+
+
 ## Customizing the output directory ⚠
 
 >danger Hyde deletes all files in the output directory before compiling the site. Don't set this path to a directory that contains important files!
