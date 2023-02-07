@@ -45,7 +45,7 @@ class RebuildStaticSiteCommand extends Command
 
     protected function getNormalizedPathString(): string
     {
-        return str_replace('\\', '/', trim($this->argument('path'), '.\\/'));
+        return str_replace('\\', '/', trim($this->argument('path'), '\\/'));
     }
 
     protected function makeBuildTask(OutputStyle $output, string $path): BuildTask
