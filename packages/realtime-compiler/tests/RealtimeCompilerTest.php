@@ -126,6 +126,20 @@ test('docs uri path is rerouted to docs/index', function () {
     Filesystem::unlink('_site/docs/index.html');
 });
 
+test('docs/search renders search page', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/docs/search';
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
+
+    expect($response->body)->toContain('HydePHP Docs');
+});
+
 test('ping route returns ping response', function () {
     $_SERVER['REQUEST_METHOD'] = 'GET';
     $_SERVER['REQUEST_URI'] = '/ping';
