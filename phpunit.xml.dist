@@ -21,6 +21,9 @@
         <testsuite name="Publications">
             <directory suffix="Test.php">./packages/publications/tests</directory>
         </testsuite>
+        <testsuite name="Realtime Compiler">
+             <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
+        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
