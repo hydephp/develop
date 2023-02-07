@@ -12,8 +12,21 @@ class RendersSearchPage
 
     public function __invoke(): string
     {
-        $this->bootApplication();
+        $this->bootIfNotBooted();
 
         return Blade::render(file_get_contents(Hyde::vendorPath('resources/views/pages/documentation-search.blade.php')));
+    }
+
+    /**
+     * @internal
+     * @codeCoverageIgnore
+     */
+    private function bootIfNotBooted(): void
+    {
+        try {
+            Hyde::getInstance();
+        } catch (\Throwable) {
+            $this->bootApplication();
+        }
     }
 }
