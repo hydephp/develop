@@ -23,7 +23,7 @@ test('handle routes index page', function () {
     expect($response->body)->toContain('<title>Welcome to HydePHP!</title>');
 
     expect(hyde()->path('_site/index.html'))->toBeFile()
-        ->and(file_get_contents(hyde()->path('_site/index.html')))->toBe($response->body);
+        ->and(Filesystem::get('_site/index.html'))->toBe($response->body);
 
     Filesystem::unlink('_site/index.html');
 });
