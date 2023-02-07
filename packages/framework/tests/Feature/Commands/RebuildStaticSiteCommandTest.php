@@ -16,7 +16,7 @@ class RebuildStaticSiteCommandTest extends TestCase
     {
         $this->file('_pages/test-page.md', 'foo');
 
-        $this->artisan('rebuild '.'_pages/test-page.md')->assertExitCode(0);
+        $this->artisan('rebuild _pages/test-page.md')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/test-page.html'));
 
