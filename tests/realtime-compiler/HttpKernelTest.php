@@ -16,4 +16,8 @@ test('handle routes index page', function () {
     $response = $kernel->handle(new Request());
 
     expect($response)->toBeInstanceOf(Response::class);
+
+    expect($response->statusCode)->toBe(200);
+    expect($response->statusMessage)->toBe('OK');
+    expect($response->body)->toContain('<title>Welcome to HydePHP!</title>');
 });
