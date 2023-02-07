@@ -7,7 +7,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
-define('BASE_PATH', realpath(__DIR__.'/../../'));
+define('BASE_PATH', realpath(__DIR__ . '/../../../'));
 ob_start();
 
 test('handle routes index page', function () {
