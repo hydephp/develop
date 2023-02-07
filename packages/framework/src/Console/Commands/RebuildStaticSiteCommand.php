@@ -53,7 +53,7 @@ class RebuildStaticSiteCommand extends Command
     /**
      * Perform a basic normalization to strip trailing characters.
      */
-    public function normalizePathString(string $path): string
+    protected function normalizePathString(string $path): string
     {
         return str_replace('\\', '/', trim($path, '.\\/'));
     }
