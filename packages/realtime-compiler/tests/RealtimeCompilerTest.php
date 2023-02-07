@@ -18,8 +18,7 @@ ob_start();
 
 test('handle routes index page', function () {
     putenv('SERVER_DASHBOARD=false');
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/';
+    mockRoute('');
 
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
@@ -37,8 +36,7 @@ test('handle routes index page', function () {
 });
 
 test('handle routes custom pages', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/foo';
+    mockRoute('foo');
 
     Filesystem::put('_pages/foo.md', '# Hello World!');
 
@@ -56,8 +54,7 @@ test('handle routes custom pages', function () {
 });
 
 test('handle routes pages with .html extension', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/foo.html';
+    mockRoute('foo.html');
 
     Filesystem::put('_pages/foo.md', '# Hello World!');
 
@@ -75,8 +72,7 @@ test('handle routes pages with .html extension', function () {
 });
 
 test('handle routes static assets', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/media/app.css';
+    mockRoute('media/app.css');
 
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
@@ -89,16 +85,14 @@ test('handle routes static assets', function () {
 });
 
 test('handle throws route not found exception for missing route', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/missing';
+    mockRoute('missing');
 
     $kernel = new HttpKernel();
     $kernel->handle(new Request());
 })->throws(RouteNotFoundException::class, "Route not found: 'missing'");
 
 test('handle sends 404 error response for missing asset', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/missing.css';
+    mockRoute('missing.css');
 
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
@@ -109,8 +103,7 @@ test('handle sends 404 error response for missing asset', function () {
 });
 
 test('docs uri path is rerouted to docs/index', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/docs';
+    mockRoute('docs');
 
     Filesystem::put('_docs/index.md', '# Hello World!');
 
@@ -128,8 +121,7 @@ test('docs uri path is rerouted to docs/index', function () {
 });
 
 test('docs/search renders search page', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/docs/search';
+    mockRoute('docs/search');
 
     Blade::shouldReceive('render')->once()->andReturn('foo');
 
@@ -144,8 +136,7 @@ test('docs/search renders search page', function () {
 });
 
 test('ping route returns ping response', function () {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = '/ping';
+    mockRoute('ping');
 
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
@@ -154,3 +145,9 @@ test('ping route returns ping response', function () {
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK');
 });
+
+function mockRoute(string $route, $method = 'GET'): void
+{
+    $_SERVER['REQUEST_METHOD'] = $method;
+    $_SERVER['REQUEST_URI'] = "/$route";
+}
