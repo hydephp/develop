@@ -45,15 +45,15 @@ class RebuildStaticSiteCommand extends Command
             return Command::SUCCESS;
         }
 
-        $this->path = $this->sanitizePathString($this->argument('path'));
+        $this->path = $this->normalizePathString($this->argument('path'));
 
         return $this->makeBuildTask($this->output, $this->path)->handle() ?? Command::SUCCESS;
     }
 
     /**
-     * Perform a basic sanitation to strip trailing characters.
+     * Perform a basic normalization to strip trailing characters.
      */
-    public function sanitizePathString(string $path): string
+    public function normalizePathString(string $path): string
     {
         return str_replace('\\', '/', trim($path, '.\\/'));
     }
