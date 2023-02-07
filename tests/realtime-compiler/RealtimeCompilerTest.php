@@ -29,5 +29,20 @@ test('handle routes index page', function () {
 });
 
 test('handle routes custom pages', function () {
-    //
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/foo';
+
+    Filesystem::put('_pages/foo.md', '# Hello World!');
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
+
+    expect($response->body)->toContain('<h1>Hello World!</h1>');
+
+    Filesystem::unlink('_pages/foo.md');
+    Filesystem::unlink('_site/foo.html');
 });
