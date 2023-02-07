@@ -60,6 +60,7 @@ class RebuildStaticSiteCommand extends Command
         return new class($output, $path) extends BuildTask
         {
             public static string $description = 'Rebuilding page';
+
             protected string $path;
 
             public function __construct(OutputStyle $output, string $path)
