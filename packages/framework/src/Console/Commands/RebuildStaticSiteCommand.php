@@ -8,9 +8,11 @@ use Exception;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Framework\Concerns\TracksExecutionTime;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
+use Illuminate\Console\OutputStyle;
 
 /**
  * Hyde Command to build a single static site file.
@@ -54,15 +56,7 @@ class RebuildStaticSiteCommand extends Command
             return $this->withException($exception);
         }
 
-        (new RebuildService($this->path))->execute();
-
-        $this->infoComment(sprintf(
-            'Created [%s] in %s.',
-            static::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
-            $this->getExecutionTimeString()
-        ));
-
-        return Command::SUCCESS;
+        return $this->makeBuildTask($this->output, $this->path)->handle() ?? Command::SUCCESS;
     }
 
     /**
@@ -105,5 +99,32 @@ class RebuildStaticSiteCommand extends Command
         $this->warn($exception->getMessage());
 
         return (int) $exception->getCode();
+    }
+
+    protected function makeBuildTask(OutputStyle $output, string $path): BuildTask
+    {
+        return new class($output, $path) extends BuildTask
+        {
+            public static string $description = 'Rebuilding page';
+            protected string $path;
+
+            public function __construct(OutputStyle $output, string $path)
+            {
+                parent::__construct($output);
+                $this->path = $path;
+            }
+
+            public function run(): void
+            {
+                (new RebuildService($this->path))->execute();
+            }
+
+            public function then(): void
+            {
+                $this->createdSiteFile(Command::createClickableFilepath(
+                    PageCollection::getPage($this->path)->getOutputPath()
+                ))->withExecutionTime();
+            }
+        };
     }
 }
