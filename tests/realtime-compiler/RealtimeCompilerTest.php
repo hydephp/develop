@@ -7,7 +7,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
-define('BASE_PATH', realpath(__DIR__ . '/../../'));
+define('BASE_PATH', realpath(__DIR__.'/../../'));
 ob_start();
 
 test('handle routes index page', function () {
@@ -88,7 +88,6 @@ test('handle throws route not found exception for missing route', function () {
 
     $kernel = new HttpKernel();
     $kernel->handle(new Request());
-
 })->throws(RouteNotFoundException::class, "Route not found: 'missing'");
 
 test('handle sends 404 error response for missing asset', function () {
