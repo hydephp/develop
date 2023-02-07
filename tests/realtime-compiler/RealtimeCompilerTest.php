@@ -2,6 +2,7 @@
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Facades\Filesystem;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
 define('BASE_PATH', realpath(__DIR__ . '/../../'));
@@ -23,6 +24,8 @@ test('handle routes index page', function () {
 
     expect(hyde()->path('_site/index.html'))->toBeFile()
         ->and(file_get_contents(hyde()->path('_site/index.html')))->toBe($response->body);
+
+    Filesystem::unlink('_site/index.html');
 });
 
 test('handle routes custom pages', function () {
