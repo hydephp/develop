@@ -30,11 +30,6 @@ class RebuildStaticSiteCommand extends Command
     /** @var string */
     protected $description = 'Run the static site builder for a single file';
 
-    /**
-     * The source path.
-     */
-    protected string $path;
-
     public function handle(): int
     {
         if ($this->argument('path') === Hyde::getMediaDirectory()) {
@@ -45,9 +40,9 @@ class RebuildStaticSiteCommand extends Command
             return Command::SUCCESS;
         }
 
-        $this->path = $this->normalizePathString($this->argument('path'));
+        $path = $this->normalizePathString($this->argument('path'));
 
-        return $this->makeBuildTask($this->output, $this->path)->handle() ?? Command::SUCCESS;
+        return $this->makeBuildTask($this->output, $path)->handle() ?? Command::SUCCESS;
     }
 
     protected function normalizePathString(string $path): string
