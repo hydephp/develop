@@ -13,6 +13,10 @@ use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 
+use function file_exists;
+use function str_replace;
+use function unslash;
+
 /**
  * Hyde Command to build a single static site file.
  *
