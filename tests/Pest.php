@@ -16,7 +16,6 @@ declare(strict_types=1);
 use Hyde\Testing\TestCase;
 
 uses(TestCase::class)->in('Feature');
-uses(TestCase::class)->in('realtime-compiler');
 
 /*
 |--------------------------------------------------------------------------
