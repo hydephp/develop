@@ -5,6 +5,7 @@ use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
+use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 use Illuminate\Support\Facades\Blade;
@@ -145,6 +146,15 @@ test('ping route returns ping response', function () {
     expect($response)->toBeInstanceOf(JsonResponse::class)
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK');
+});
+
+test('exception handling', function () {
+    $exception = new Exception('foo');
+    $response = ExceptionHandler::handle($exception);
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(500)
+        ->and($response->statusMessage)->toBe('Internal Server Error');
 });
 
 function mockRoute(string $route, $method = 'GET'): void
