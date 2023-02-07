@@ -3,6 +3,7 @@
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
 define('BASE_PATH', realpath(__DIR__ . '/../../'));
@@ -78,4 +79,25 @@ test('handle routes static assets', function () {
         ->and($response->statusMessage)->toBe('OK');
 
     expect($response->body)->toContain('/*! HydeFront v2.0.0');
+});
+
+test('handle throws route not found exception for missing route', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/missing';
+
+    $kernel = new HttpKernel();
+    $kernel->handle(new Request());
+
+})->throws(RouteNotFoundException::class, "Route not found: 'missing'");
+
+test('handle sends 404 error response for missing asset', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/missing.css';
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(404)
+        ->and($response->statusMessage)->toBe('Not Found');
 });
