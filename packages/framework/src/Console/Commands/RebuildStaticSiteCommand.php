@@ -37,8 +37,6 @@ class RebuildStaticSiteCommand extends Command
 
     public function handle(): int
     {
-        $this->startClock();
-
         if ($this->argument('path') === Hyde::getMediaDirectory()) {
             (new BuildService($this->getOutput()))->transferMediaAssets();
 
