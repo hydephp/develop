@@ -5,6 +5,7 @@ use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
+use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 use Illuminate\Support\Facades\Blade;
 
@@ -128,7 +129,7 @@ test('docs/search renders search page', function () {
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
 
-    expect($response)->toBeInstanceOf(Response::class)
+    expect($response)->toBeInstanceOf(HtmlResponse::class)
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK');
 
