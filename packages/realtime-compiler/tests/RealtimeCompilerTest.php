@@ -8,6 +8,11 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
 define('BASE_PATH', realpath(__DIR__ . '/../../../'));
+
+if (BASE_PATH === false || ! file_exists(BASE_PATH . '/hyde')) {
+    throw new InvalidArgumentException('This test suite must be run from the root of the hydephp/develop monorepo.');
+}
+
 ob_start();
 
 test('handle routes index page', function () {
