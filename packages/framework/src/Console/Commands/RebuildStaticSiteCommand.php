@@ -40,6 +40,8 @@ class RebuildStaticSiteCommand extends Command
         if ($this->argument('path') === Hyde::getMediaDirectory()) {
             (new BuildService($this->getOutput()))->transferMediaAssets();
 
+            $this->info('All done!');
+
             return Command::SUCCESS;
         }
 
