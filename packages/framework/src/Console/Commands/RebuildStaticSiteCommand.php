@@ -12,7 +12,6 @@ use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
-
 use function dirname;
 use function file_exists;
 use function in_array;
