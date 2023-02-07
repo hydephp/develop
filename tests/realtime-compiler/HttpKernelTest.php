@@ -5,6 +5,7 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
 define('BASE_PATH', realpath(__DIR__ . '/../../'));
+ob_start();
 
 test('handle', function () {
     $kernel = new HttpKernel();
