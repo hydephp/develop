@@ -13,7 +13,9 @@ use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 
+use function dirname;
 use function file_exists;
+use function in_array;
 use function str_replace;
 use function unslash;
 
@@ -82,12 +84,17 @@ class RebuildStaticSiteCommand extends Command
 
             protected function validate(): void
             {
-                if (! (
-                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getBladePagePath())) ||
-                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPagePath())) ||
-                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath())) ||
-                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getDocumentationPagePath()))
-                )) {
+                $directory = Hyde::pathToRelative(dirname($this->path));
+
+                $directories = [
+                    Hyde::pathToRelative(Hyde::getBladePagePath()),
+                    Hyde::pathToRelative(Hyde::getBladePagePath()),
+                    Hyde::pathToRelative(Hyde::getMarkdownPagePath()),
+                    Hyde::pathToRelative(Hyde::getMarkdownPostPath()),
+                    Hyde::pathToRelative(Hyde::getDocumentationPagePath()),
+                ];
+
+                if (! in_array($directory, $directories)) {
                     throw new Exception("Path [$this->path] is not in a valid source directory.", 400);
                 }
 
