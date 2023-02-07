@@ -57,13 +57,13 @@ class RebuildStaticSiteCommand extends Command
         (new RebuildService($this->path))->execute();
 
         $this->infoComment(sprintf(
-            'Created [%s] in [%s] seconds. ',
+            'Created [%s] in [%s] seconds. (%s)',
             static::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
             number_format(
                 $this->getExecutionTimeInMs() / 1000,
                 2
-            ))
-            . $this->inlineGray("({$this->getExecutionTimeString()})"
+            ),
+            $this->getExecutionTimeString()
         ));
 
         return Command::SUCCESS;
