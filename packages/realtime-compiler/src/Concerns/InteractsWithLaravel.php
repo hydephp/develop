@@ -16,7 +16,7 @@ trait InteractsWithLaravel
 
     protected function createApplication(): void
     {
-        $this->laravel = require_once BASE_PATH.'/app/bootstrap.php';
+        $this->laravel = require BASE_PATH.'/app/bootstrap.php';
     }
 
     protected function bootApplication(): void
