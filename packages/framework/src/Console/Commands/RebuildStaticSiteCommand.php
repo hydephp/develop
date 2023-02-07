@@ -38,7 +38,7 @@ class RebuildStaticSiteCommand extends Command
 
     public function handle(): int
     {
-        $time_start = microtime(true);
+        $this->startClock();
 
         if ($this->argument('path') === Hyde::getMediaDirectory()) {
             (new BuildService($this->getOutput()))->transferMediaAssets();
@@ -56,17 +56,14 @@ class RebuildStaticSiteCommand extends Command
 
         (new RebuildService($this->path))->execute();
 
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start);
-
         $this->info(sprintf(
-            'Created %s in %s seconds. (%sms)',
+            'Created %s in %s seconds. (%s)',
             static::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
             number_format(
-                $execution_time,
+                $this->getExecutionTimeInMs() / 1000,
                 2
             ),
-            number_format(($execution_time * 1000), 2)
+            $this->getExecutionTimeString()
         ));
 
         return Command::SUCCESS;
