@@ -47,12 +47,6 @@ class RebuildStaticSiteCommand extends Command
 
         $this->path = $this->sanitizePathString($this->argument('path'));
 
-        try {
-            $this->validate();
-        } catch (Exception $exception) {
-            return $this->withException($exception);
-        }
-
         return $this->makeBuildTask($this->output, $this->path)->handle() ?? Command::SUCCESS;
     }
 
@@ -62,40 +56,6 @@ class RebuildStaticSiteCommand extends Command
     public function sanitizePathString(string $path): string
     {
         return str_replace('\\', '/', trim($path, '.\\/'));
-    }
-
-    /**
-     * Validate the path to catch common errors.
-     *
-     * @throws Exception
-     */
-    public function validate(): void
-    {
-        if (! (
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getBladePagePath())) ||
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPagePath())) ||
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath())) ||
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getDocumentationPagePath()))
-        )) {
-            throw new Exception("Path [$this->path] is not in a valid source directory.", 400);
-        }
-
-        if (! file_exists(Hyde::path($this->path))) {
-            throw new Exception("File [$this->path] not found.", 404);
-        }
-    }
-
-    /**
-     * Output the contents of an exception.
-     *
-     * @return int Error code
-     */
-    public function withException(Exception $exception): int
-    {
-        $this->error('Something went wrong!');
-        $this->warn($exception->getMessage());
-
-        return (int) $exception->getCode();
     }
 
     protected function makeBuildTask(OutputStyle $output, string $path): BuildTask
@@ -113,6 +73,8 @@ class RebuildStaticSiteCommand extends Command
 
             public function run(): void
             {
+                $this->validate();
+
                 (new RebuildService($this->path))->execute();
             }
 
@@ -121,6 +83,22 @@ class RebuildStaticSiteCommand extends Command
                 $this->createdSiteFile(Command::createClickableFilepath(
                     PageCollection::getPage($this->path)->getOutputPath()
                 ))->withExecutionTime();
+            }
+
+            protected function validate(): void
+            {
+                if (! (
+                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getBladePagePath())) ||
+                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPagePath())) ||
+                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath())) ||
+                    str_starts_with($this->path, Hyde::pathToRelative(Hyde::getDocumentationPagePath()))
+                )) {
+                    throw new Exception("Path [$this->path] is not in a valid source directory.", 400);
+                }
+
+                if (! file_exists(Hyde::path($this->path))) {
+                    throw new Exception("File [$this->path] not found.", 404);
+                }
             }
         };
     }
