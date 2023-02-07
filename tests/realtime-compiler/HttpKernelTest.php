@@ -7,7 +7,7 @@ use Hyde\RealtimeCompiler\Http\HttpKernel;
 define('BASE_PATH', realpath(__DIR__ . '/../../'));
 ob_start();
 
-test('handle', function () {
+test('handle routes index page', function () {
     $kernel = new HttpKernel();
 
     $_SERVER['REQUEST_METHOD'] = 'GET';
