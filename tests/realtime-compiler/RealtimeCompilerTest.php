@@ -1,5 +1,6 @@
 <?php
 
+use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
@@ -100,4 +101,49 @@ test('handle sends 404 error response for missing asset', function () {
     expect($response)->toBeInstanceOf(Response::class)
         ->and($response->statusCode)->toBe(404)
         ->and($response->statusMessage)->toBe('Not Found');
+});
+
+test('docs uri path is rerouted to docs/index', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/docs';
+
+    Filesystem::put('_docs/index.md', '# Hello World!');
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
+
+    expect($response->body)->toContain('HydePHP Docs');
+
+    Filesystem::unlink('_docs/index.md');
+    Filesystem::unlink('_site/docs/index.html');
+});
+
+test('docs/search renders search page', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/docs/search';
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
+
+    expect($response->body)->toContain('HydePHP Docs');
+});
+
+test('ping route returns ping response', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/ping';
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(JsonResponse::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
 });
