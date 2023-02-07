@@ -65,3 +65,17 @@ test('handle routes pages with .html extension', function () {
     Filesystem::unlink('_pages/foo.md');
     Filesystem::unlink('_site/foo.html');
 });
+
+test('handle routes static assets', function () {
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/media/app.css';
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
+
+    expect($response->body)->toContain('/*! HydeFront v2.0.0');
+});
