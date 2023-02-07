@@ -8,6 +8,8 @@ define('BASE_PATH', realpath(__DIR__ . '/../../'));
 ob_start();
 
 test('handle routes index page', function () {
+    config(['hyde.server.dashboard' => true]);
+
     $kernel = new HttpKernel();
 
     $_SERVER['REQUEST_METHOD'] = 'GET';
