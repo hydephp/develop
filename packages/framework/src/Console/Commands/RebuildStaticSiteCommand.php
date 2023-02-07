@@ -36,7 +36,7 @@ class RebuildStaticSiteCommand extends Command
     /**
      * The source path.
      */
-    public string $path;
+    protected string $path;
 
     public function handle(): int
     {
