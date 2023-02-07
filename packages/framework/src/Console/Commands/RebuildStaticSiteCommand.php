@@ -7,7 +7,6 @@ namespace Hyde\Console\Commands;
 use Exception;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\PageCollection;
-use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\RebuildService;
@@ -24,8 +23,6 @@ use Illuminate\Console\OutputStyle;
  */
 class RebuildStaticSiteCommand extends Command
 {
-    use TracksExecutionTime;
-
     /** @var string */
     protected $signature = 'rebuild
         {path : The relative file path (example: _posts/hello-world.md)}';
