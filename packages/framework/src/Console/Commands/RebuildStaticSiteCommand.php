@@ -17,6 +17,7 @@ use Hyde\Hyde;
  * @see \Hyde\Framework\Testing\Feature\Commands\RebuildStaticSiteCommandTest
  *
  * @todo Refactor to use newer helpers
+ * @todo Rename to RebuildStaticPageCommand since it only rebuilds a single page?
  */
 class RebuildStaticSiteCommand extends Command
 {
