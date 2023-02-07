@@ -9,12 +9,10 @@ ob_start();
 
 test('handle routes index page', function () {
     putenv('SERVER_DASHBOARD=false');
-
-    $kernel = new HttpKernel();
-
     $_SERVER['REQUEST_METHOD'] = 'GET';
     $_SERVER['REQUEST_URI'] = '/';
 
+    $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
 
     expect($response)->toBeInstanceOf(Response::class);
