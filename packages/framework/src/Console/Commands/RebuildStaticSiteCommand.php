@@ -40,7 +40,9 @@ class RebuildStaticSiteCommand extends Command
             return Command::SUCCESS;
         }
 
-        return $this->makeBuildTask($this->output, $this->normalizePathString($this->argument('path')))->handle() ?? Command::SUCCESS;
+        return $this->makeBuildTask($this->output,
+            $this->normalizePathString($this->argument('path'))
+        )->handle() ?? Command::SUCCESS;
     }
 
     protected function normalizePathString(string $path): string
