@@ -21,3 +21,7 @@ test('handle routes index page', function () {
     expect($response->statusMessage)->toBe('OK');
     expect($response->body)->toContain('<title>Welcome to HydePHP!</title>');
 });
+
+test('handle routes custom pages', function () {
+    //
+});
