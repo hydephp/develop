@@ -13,21 +13,19 @@ use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
 
 /**
- * A virtual page is a page that does not have a source file.
+ * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
  *
  * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
  *
- * This can be useful for creating pagination pages and the like.
- * When used in a package, it's on the package developer to ensure
- * that the virtual page is registered with Hyde, usually within the
- * boot method of the package's service provider so it can be compiled.
+ * When used in a package, it's on the package developer to ensure that the virtual page is registered with Hyde,
+ * usually within the boot method of the package's service provider, so it can be compiled. This is because
+ * these pages cannot be discovered by the auto discovery process since there's no source file to parse.
  *
- * This class is especially useful for one-off pages, but if your usage grows,
- * you may benefit from creating a custom page class instead to get full control.
- *
- * @todo Rename to AnonymousPage or InMemoryPage?
+ * This class is especially useful for one-off pages, like pagination pages and the like.
+ * But if your usage grows, or if you need file-based autodiscovery, you may benefit
+ * from creating a custom page class instead, as that will give you full control.
  */
-class VirtualPage extends HydePage implements DynamicPage
+class InMemoryPage extends HydePage implements DynamicPage
 {
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
