@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 
 /**
  * @see \Hyde\Publications\Models\PublicationPage
  * @see \Hyde\Publications\Testing\Feature\PublicationListPageTest
  */
-class PublicationListPage extends VirtualPage
+class PublicationListPage extends InMemoryPage
 {
     public PublicationType $type;
 

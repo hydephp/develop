@@ -6,7 +6,7 @@ namespace Hyde\Publications;
 
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\PageCollection;
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
@@ -70,7 +70,7 @@ class PublicationsExtension extends HydeExtension
             if (str_ends_with($listTemplate, '.blade.php')) {
                 $listTemplate = "{$type->getDirectory()}/$listTemplate";
             }
-            $listingPage = new VirtualPage("{$type->getDirectory()}/page-$page", [
+            $listingPage = new InMemoryPage("{$type->getDirectory()}/page-$page", [
                 'publicationType' => $type, 'paginatorPage' => $page,
                 'title' => $type->name.' - Page '.$page,
             ], view: $listTemplate);
