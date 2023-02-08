@@ -19,6 +19,8 @@ use function trim;
  */
 class InputStreamHandler
 {
+    protected const TERMINATION_SEQUENCE = '';
+
     private static ?array $mockedStreamBuffer = null;
 
     public static function call(): array
@@ -63,6 +65,6 @@ class InputStreamHandler
 
     protected function shouldTerminate(string $line): bool
     {
-        return $line === '';
+        return $line === self::TERMINATION_SEQUENCE;
     }
 }
