@@ -103,7 +103,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory().DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Hyde::getMediaDirectory().self::DIRECTORY_SEPARATOR.$path);
     }
 
     /**
@@ -117,7 +117,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Site::getOutputDirectory().DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Site::getOutputDirectory().self::DIRECTORY_SEPARATOR.$path);
     }
 
     /**
@@ -131,7 +131,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory().DIRECTORY_SEPARATOR.$path);
+        return Hyde::sitePath(Hyde::getMediaOutputDirectory().self::DIRECTORY_SEPARATOR.$path);
     }
 
     /**
