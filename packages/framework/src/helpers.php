@@ -108,6 +108,7 @@ namespace Hyde {
     }
 
     if (! function_exists('\Hyde\system_path_join')) {
+        /** @deprecated Use Unix directory separators */
         function system_path_join(string $directory, string ...$paths): string
         {
             return implode(DIRECTORY_SEPARATOR, array_merge([$directory], $paths));
