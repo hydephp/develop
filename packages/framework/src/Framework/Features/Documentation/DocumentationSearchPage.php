@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
 
+use Hyde\Facades\Filesystem;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Services\DocumentationSearchService;
+use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\VirtualPage;
@@ -40,5 +44,15 @@ class DocumentationSearchPage extends VirtualPage
     public static function enabled(): bool
     {
         return config('docs.create_search_page', true);
+    }
+
+    public static function generate(): string
+    {
+        $page = new static();
+        $path = Hyde::sitePath($page->getOutputPath());
+        Filesystem::ensureDirectoryExists(dirname($path));
+        Hyde::shareViewData($page);
+        Filesystem::putContents($path, $page->compile());
+        return $path;
     }
 }

@@ -20,9 +20,7 @@ class GenerateSearch extends BuildTask
         DocumentationSearchService::generate();
 
         if (DocumentationSearchPage::enabled()) {
-            $directory = DocumentationSearchService::generateSearchPage();
-
-            $this->createdSiteFile("$directory/search.html");
+            $this->createdSiteFile(DocumentationSearchPage::generate());
         }
     }
 
