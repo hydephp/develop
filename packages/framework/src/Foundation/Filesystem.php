@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use JetBrains\PhpStorm\Deprecated;
 use function array_map;
 use function collect;
 use function copy;
@@ -243,6 +244,7 @@ class Filesystem
      *
      * @deprecated Use system_path_join() instead.
      */
+    #[Deprecated(reason: 'Use system_path_join() instead.', replacement: '\hyde\system_path_join(%parametersList%)')]
     public static function implode(string $base, string ...$paths): string
     {
         return system_path_join($base, ...$paths);
