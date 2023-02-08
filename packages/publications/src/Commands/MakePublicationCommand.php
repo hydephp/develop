@@ -135,7 +135,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureArrayFieldInput(PublicationFieldDefinition $field): PublicationFieldValue
     {
-        $this->infoComment("Enter values for field [$field->name]");
+        $this->infoComment(sprintf("Enter values for field [$field->name] (%s)", InputStreamHandler::terminationMessage()));
 
         return new PublicationFieldValue(PublicationFieldTypes::Array, InputStreamHandler::call());
     }
