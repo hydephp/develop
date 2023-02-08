@@ -16,7 +16,7 @@ use function trim;
  *
  * @internal
  *
- * @see \Hyde\Framework\Testing\Unit\InputStreamHandlerTest
+ * @see \Hyde\Publications\Testing\Feature\InputStreamHandlerTest
  */
 class InputStreamHandler
 {
