@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
+ *
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
  */
 class DocumentationSearchPageTest extends TestCase
