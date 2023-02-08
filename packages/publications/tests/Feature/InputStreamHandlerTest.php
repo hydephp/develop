@@ -70,7 +70,7 @@ class InputStreamHandlerTest extends TestCase
         if (PHP_OS_FAMILY === 'Windows') {
             $base .= ' then <comment>Enter</comment>';
         }
-        $expected = $base . ' to finish';
+        $expected = "$base to finish";
 
         $this->assertSame($expected, InputStreamHandler::terminationMessage());
     }
