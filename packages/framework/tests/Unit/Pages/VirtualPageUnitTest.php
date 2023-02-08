@@ -18,7 +18,7 @@ require_once __DIR__.'/BaseHydePageUnitTest.php';
 /**
  * @covers \Hyde\Pages\VirtualPage
  *
- * @see \Hyde\Framework\Testing\Unit\VirtualPageTest
+ * @see \Hyde\Framework\Testing\Unit\Pages\VirtualPageTest
  */
 class VirtualPageUnitTest extends BaseHydePageUnitTest
 {
