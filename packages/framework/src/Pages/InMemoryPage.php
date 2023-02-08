@@ -24,10 +24,8 @@ use Illuminate\Support\Facades\View;
  * This class is especially useful for one-off pages, like pagination pages and the like.
  * But if your usage grows, or if you need file-based autodiscovery, you may benefit
  * from creating a custom page class instead, as that will give you full control.
- *
- * @todo Rename to AnonymousPage or InMemoryPage?
  */
-class VirtualPage extends HydePage implements DynamicPage
+class InMemoryPage extends HydePage implements DynamicPage
 {
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';

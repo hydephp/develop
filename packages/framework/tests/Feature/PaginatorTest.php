@@ -8,7 +8,7 @@ use function array_combine;
 use function collect;
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use function range;
@@ -194,11 +194,11 @@ class PaginatorTest extends TestCase
 
     public function testPreviousAndNextMethodsWithBaseRouteSet()
     {
-        $pages[1] = new VirtualPage('pages/page-1');
-        $pages[2] = new VirtualPage('pages/page-2');
-        $pages[3] = new VirtualPage('pages/page-3');
-        $pages[4] = new VirtualPage('pages/page-4');
-        $pages[5] = new VirtualPage('pages/page-5');
+        $pages[1] = new InMemoryPage('pages/page-1');
+        $pages[2] = new InMemoryPage('pages/page-2');
+        $pages[3] = new InMemoryPage('pages/page-3');
+        $pages[4] = new InMemoryPage('pages/page-4');
+        $pages[5] = new InMemoryPage('pages/page-5');
 
         foreach ($pages as $page) {
             Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
@@ -252,11 +252,11 @@ class PaginatorTest extends TestCase
 
     public function testGetPageLinksWithBaseRoute()
     {
-        $pages[1] = new VirtualPage('pages/page-1');
-        $pages[2] = new VirtualPage('pages/page-2');
-        $pages[3] = new VirtualPage('pages/page-3');
-        $pages[4] = new VirtualPage('pages/page-4');
-        $pages[5] = new VirtualPage('pages/page-5');
+        $pages[1] = new InMemoryPage('pages/page-1');
+        $pages[2] = new InMemoryPage('pages/page-2');
+        $pages[3] = new InMemoryPage('pages/page-3');
+        $pages[4] = new InMemoryPage('pages/page-4');
+        $pages[5] = new InMemoryPage('pages/page-5');
 
         foreach ($pages as $page) {
             Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
