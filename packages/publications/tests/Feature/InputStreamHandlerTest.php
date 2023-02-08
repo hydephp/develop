@@ -36,6 +36,13 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
+    public function testCanTerminateWithEndOfTransmissionSequence()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n\x04");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
     public function testCanCollectMultipleInputLines()
     {
         InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
@@ -55,6 +62,27 @@ class InputStreamHandlerTest extends TestCase
         InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
+    public function testTerminationMessage()
+    {
+        $message = 'Terminate with <comment><<<</comment> or press <comment>Ctrl+D</comment>';
+        if (PHP_OS_FAMILY === 'Windows') {
+            $message .= ' then <comment>Enter</comment>';
+        }
+        $expected = "$message to finish";
+
+        $this->assertSame($expected, InputStreamHandler::terminationMessage());
+    }
+
+    public function testTerminationSequenceConstant()
+    {
+        $this->assertSame('<<<', InputStreamHandler::TERMINATION_SEQUENCE);
+    }
+
+    public function testEndOfTransmissionConstant()
+    {
+        $this->assertSame("\x04", InputStreamHandler::END_OF_TRANSMISSION);
     }
 
     protected function makeCommand(array $expected): TestCommand

@@ -8,6 +8,7 @@ use function array_shift;
 use function explode;
 use function fgets;
 use Hyde\Hyde;
+use function str_contains;
 use function trim;
 
 /**
@@ -20,6 +21,7 @@ use function trim;
 class InputStreamHandler
 {
     public const TERMINATION_SEQUENCE = '<<<';
+    public const END_OF_TRANSMISSION = "\x04";
 
     private static ?array $mockedStreamBuffer = null;
 
@@ -49,7 +51,7 @@ class InputStreamHandler
 
     protected function shouldTerminate(string $line): bool
     {
-        return $line === self::TERMINATION_SEQUENCE;
+        return $line === self::TERMINATION_SEQUENCE || str_contains($line, self::END_OF_TRANSMISSION);
     }
 
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
@@ -59,12 +61,22 @@ class InputStreamHandler
             return array_shift(self::$mockedStreamBuffer) ?? '';
         }
 
-        return fgets(STDIN);
+        return fgets(STDIN) ?: self::END_OF_TRANSMISSION;
     }
 
     /** @internal Allows for mocking of the standard input stream */
     public static function mockInput(string $input): void
     {
         self::$mockedStreamBuffer = explode("\n", $input);
+    }
+
+    public static function terminationMessage(): string
+    {
+        return sprintf('Terminate with <comment>%s</comment> or press %s to finish', self::TERMINATION_SEQUENCE, self::getShortcut());
+    }
+
+    protected static function getShortcut(): string
+    {
+        return '<comment>Ctrl+D</comment>'.(PHP_OS_FAMILY === 'Windows' ? ' then <comment>Enter</comment>' : '');
     }
 }
