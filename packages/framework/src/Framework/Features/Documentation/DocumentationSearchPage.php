@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 
 /**
@@ -29,7 +30,7 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function enabled(): bool
     {
-        return config('docs.create_search_page', true);
+        return config('docs.create_search_page', true) && ! Hyde::pages()->has('_pages/docs/search.blade.php');
     }
 
     public static function generate(): string
