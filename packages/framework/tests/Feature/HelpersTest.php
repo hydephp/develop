@@ -149,4 +149,16 @@ class HelpersTest extends TestCase
             \Hyde\yaml_decode('foo: bar', 128)
         );
     }
+
+    /** @covers ::\Hyde\path_join */
+    public function test_hyde_path_join_function()
+    {
+        $this->assertSame('foo/bar', \Hyde\path_join('foo', 'bar'));
+    }
+
+    /** @covers ::\Hyde\path_join */
+    public function test_hyde_path_join_function_with_multiple_paths()
+    {
+        $this->assertSame('foo/bar/baz', \Hyde\path_join('foo', 'bar', 'baz'));
+    }
 }
