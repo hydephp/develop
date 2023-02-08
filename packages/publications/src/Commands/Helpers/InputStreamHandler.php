@@ -47,6 +47,11 @@ class InputStreamHandler
         return $lines;
     }
 
+    protected function shouldTerminate(string $line): bool
+    {
+        return $line === self::TERMINATION_SEQUENCE;
+    }
+
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
     protected function readInputStream(): string
     {
@@ -61,10 +66,5 @@ class InputStreamHandler
     public static function mockInput(string $input): void
     {
         self::$mockedStreamBuffer = explode("\n", $input);
-    }
-
-    protected function shouldTerminate(string $line): bool
-    {
-        return $line === self::TERMINATION_SEQUENCE;
     }
 }
