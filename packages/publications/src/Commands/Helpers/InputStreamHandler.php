@@ -61,11 +61,7 @@ class InputStreamHandler
             return array_shift(self::$mockedStreamBuffer) ?? '';
         }
 
-        if (feof(STDIN)) {
-            return self::END_OF_TRANSMISSION;
-        }
-
-        return fgets(STDIN);
+        return fgets(STDIN) ?: self::END_OF_TRANSMISSION;
     }
 
     /** @internal Allows for mocking of the standard input stream */
