@@ -108,15 +108,6 @@ namespace Hyde {
         }
     }
 
-    if (! function_exists('\Hyde\system_path_join')) {
-        /** @deprecated Use Unix directory separators */
-        #[Deprecated(reason: 'Use Unix directory separators', replacement: '\Hyde\path_join(%parametersList%)')]
-        function system_path_join(string $directory, string ...$paths): string
-        {
-            return implode(DIRECTORY_SEPARATOR, array_merge([$directory], $paths));
-        }
-    }
-
     if (! function_exists('\Hyde\normalize_slashes')) {
         function normalize_slashes(string $string): string
         {
