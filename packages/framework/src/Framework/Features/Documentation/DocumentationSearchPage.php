@@ -36,4 +36,9 @@ class DocumentationSearchPage extends VirtualPage
     {
         return false;
     }
+
+    public static function enabled(): bool
+    {
+        return config('docs.create_search_page', true);
+    }
 }
