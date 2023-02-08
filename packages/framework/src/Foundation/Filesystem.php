@@ -95,12 +95,12 @@ class Filesystem
     public function mediaPath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(Hyde::getMediaDirectory());
+            return $this->path(Hyde::getMediaDirectory());
         }
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory()."/$path");
+        return $this->path(Hyde::getMediaDirectory()."/$path");
     }
 
     /**
@@ -109,12 +109,12 @@ class Filesystem
     public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(Site::getOutputDirectory());
+            return $this->path(Site::getOutputDirectory());
         }
 
         $path = unslash($path);
 
-        return Hyde::path(Site::getOutputDirectory()."/$path");
+        return $this->path(Site::getOutputDirectory()."/$path");
     }
 
     /**
