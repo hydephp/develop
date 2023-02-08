@@ -20,6 +20,7 @@ use function trim;
 class InputStreamHandler
 {
     public const TERMINATION_SEQUENCE = '<<<';
+    public const END_OF_TRANSMISSION = "\x04";
 
     private static ?array $mockedStreamBuffer = null;
 
