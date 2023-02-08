@@ -9,7 +9,8 @@ namespace Hyde\Pages\Contracts;
  * (i.e. not based on a source file), or that have dynamic path information.
  *
  * These page classes are excluded by the Hyde Auto Discovery process,
- * they must therefore be added to the HydeKernel by the developer.
+ * they must therefore be added to the HydeKernel by the developer,
+ * as Hyde won't have the needed info to do so automatically.
  *
  * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
  */
