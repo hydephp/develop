@@ -72,7 +72,7 @@ class InputStreamHandler
 
     public static function terminationMessage(): string
     {
-        return sprintf("Terminate with <comment>%s</comment> or press %s to finish", self::TERMINATION_SEQUENCE, self::getShortcut());
+        return sprintf('Terminate with <comment>%s</comment> or press %s to finish', self::TERMINATION_SEQUENCE, self::getShortcut());
     }
 
     protected static function getShortcut(): string
