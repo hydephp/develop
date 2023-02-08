@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
+
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\VirtualPage;
