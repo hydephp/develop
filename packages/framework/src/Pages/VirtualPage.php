@@ -18,9 +18,8 @@ use Illuminate\Support\Facades\View;
  * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
  *
  * This can be useful for creating pagination pages and the like.
- * When used in a package, it's on the package developer to ensure
- * that the virtual page is registered with Hyde, usually within the
- * boot method of the package's service provider so it can be compiled.
+ * When used in a package, it's on the package developer to ensure that the virtual page is registered with Hyde,
+ * usually within the boot method of the package's service provider, so it can be compiled.
  *
  * This class is especially useful for one-off pages, but if your usage grows,
  * you may benefit from creating a custom page class instead to get full control.
