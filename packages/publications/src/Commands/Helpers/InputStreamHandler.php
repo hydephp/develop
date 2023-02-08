@@ -36,7 +36,7 @@ class InputStreamHandler
         $lines = [];
         do {
             $line = Hyde::stripNewlines($this->readInputStream());
-            if ($line === '') {
+            if ($this->shouldTerminate($line)) {
                 break;
             }
             $lines[] = trim($line);
@@ -59,5 +59,10 @@ class InputStreamHandler
     public static function mockInput(string $input): void
     {
         self::$mockedStreamBuffer = explode("\n", $input);
+    }
+
+    protected function shouldTerminate(string $line): bool
+    {
+        return $line === '';
     }
 }
