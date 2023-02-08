@@ -206,9 +206,7 @@ class Filesystem
             return $this->path(DiscoveryService::getModelSourceDirectory($model));
         }
 
-        $path = unslash($path);
-
-        return $this->path(path_join(DiscoveryService::getModelSourceDirectory($model), $path));
+        return $this->path(path_join(DiscoveryService::getModelSourceDirectory($model), unslash($path)));
     }
 
     public function getBladePagePath(string $path = ''): string
