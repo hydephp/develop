@@ -15,6 +15,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function Hyde\system_path_join;
 use function is_array;
 use function is_string;
 use function str_replace;
@@ -242,6 +243,6 @@ class Filesystem
      */
     public static function implode(string $base, string ...$paths): string
     {
-        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
+        return system_path_join($base, ...$paths);
     }
 }
