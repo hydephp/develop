@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 
@@ -67,10 +65,6 @@ final class PageCollection extends BaseFoundationCollection
         /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getRegisteredExtensions() as $extension) {
             $extension::discoverPages($this);
-        }
-
-        if (Features::hasDocumentationSearch() && config('docs.create_search_page', true)) {
-            $this->addPage(new DocumentationSearchPage());
         }
 
         return $this;
