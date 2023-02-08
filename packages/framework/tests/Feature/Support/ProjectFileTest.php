@@ -35,11 +35,6 @@ class ProjectFileTest extends TestCase
         $this->assertEquals('foo', ProjectFileTestClass::make(Hyde::path('foo'))->path);
     }
 
-    public function test_to_string_returns_path()
-    {
-        $this->assertSame('foo', (string) ProjectFileTestClass::make('foo'));
-    }
-
     public function test_get_name_returns_name_of_file()
     {
         $this->assertSame('foo.txt', ProjectFileTestClass::make('foo.txt')->getName());

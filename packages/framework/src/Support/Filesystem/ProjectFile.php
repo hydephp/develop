@@ -10,14 +10,13 @@ use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use function pathinfo;
-use Stringable;
 
 /**
  * Filesystem abstraction for a file stored in the project.
  *
  * @see \Hyde\Framework\Testing\Feature\Support\ProjectFileTest
  */
-abstract class ProjectFile implements SerializableContract, Stringable
+abstract class ProjectFile implements SerializableContract
 {
     use Serializable;
 
@@ -37,11 +36,6 @@ abstract class ProjectFile implements SerializableContract, Stringable
     public function __construct(string $path)
     {
         $this->path = Hyde::pathToRelative($path);
-    }
-
-    public function __toString(): string
-    {
-        return $this->path;
     }
 
     /**

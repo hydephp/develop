@@ -32,7 +32,7 @@ use Hyde\Foundation\RouteCollection;
 abstract class HydeExtension
 {
     /**
-     * If your extension adds new page classes, you should register them here.
+     * If your extension adds new discoverable page classes, you should register them here.
      *
      * Hyde will then automatically discover source files for the new page class,
      * generate routes, and compile the pages during the build process.

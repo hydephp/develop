@@ -54,11 +54,6 @@ class SourceFileTest extends TestCase
         $this->assertEquals('foo', SourceFile::make(Hyde::path('foo'))->path);
     }
 
-    public function test_to_string_returns_path()
-    {
-        $this->assertSame('foo', (string) SourceFile::make('foo'));
-    }
-
     public function test_get_name_returns_name_of_file()
     {
         $this->assertSame('foo.txt', SourceFile::make('foo.txt')->getName());

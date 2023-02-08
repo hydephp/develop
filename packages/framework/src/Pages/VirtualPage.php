@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\View;
  *
  * This class is especially useful for one-off pages, but if your usage grows,
  * you may benefit from creating a custom page class instead to get full control.
+ *
+ * @todo Rename to AnonymousPage or InMemoryPage?
  */
 class VirtualPage extends HydePage implements DynamicPage
 {
@@ -89,9 +91,9 @@ class VirtualPage extends HydePage implements DynamicPage
             return $this->__call('compile', []);
         }
 
-        if (! $this->contents && $this->view) {
+        if (! $this->getContents() && $this->getBladeView()) {
             if (str_ends_with($this->view, '.blade.php')) {
-                return AnonymousViewCompiler::call($this->view, $this->matter->toArray());
+                return AnonymousViewCompiler::call($this->getBladeView(), $this->matter->toArray());
             }
 
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
