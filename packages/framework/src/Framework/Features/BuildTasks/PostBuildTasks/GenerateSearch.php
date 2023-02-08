@@ -17,6 +17,12 @@ class GenerateSearch extends BuildTask
     public function run(): void
     {
         DocumentationSearchService::generate();
+
+        if (config('docs.create_search_page', true)) {
+            $directory = DocumentationSearchService::generateSearchPage();
+
+            $this->createdSiteFile("$directory/search.html");
+        }
     }
 
     public function then(): void
