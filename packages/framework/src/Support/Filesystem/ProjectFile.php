@@ -10,7 +10,6 @@ use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use function pathinfo;
-use Stringable;
 
 /**
  * Filesystem abstraction for a file stored in the project.
