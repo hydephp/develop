@@ -10,6 +10,8 @@ namespace Hyde\Pages\Contracts;
  *
  * These page classes are excluded by the Hyde Auto Discovery process,
  * they must therefore be added to the HydeKernel by the developer.
+ *
+ * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
  */
 interface DynamicPage
 {
