@@ -19,6 +19,8 @@ use function trim;
  */
 class InputStreamHandler
 {
+    public const TERMINATION_SEQUENCE = '<<<';
+
     private static ?array $mockedStreamBuffer = null;
 
     public static function call(): array
@@ -36,13 +38,18 @@ class InputStreamHandler
         $lines = [];
         do {
             $line = Hyde::stripNewlines($this->readInputStream());
-            if ($line === '') {
+            if ($this->shouldTerminate($line)) {
                 break;
             }
             $lines[] = trim($line);
         } while (true);
 
         return $lines;
+    }
+
+    protected function shouldTerminate(string $line): bool
+    {
+        return $line === self::TERMINATION_SEQUENCE;
     }
 
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */

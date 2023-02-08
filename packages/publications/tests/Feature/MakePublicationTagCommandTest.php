@@ -24,7 +24,7 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCanCreateNewPublicationTag()
     {
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationTag')
             ->expectsQuestion('Tag name', 'foo')
@@ -49,7 +49,7 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCanCreateNewPublicationTagWithTagNameArgument()
     {
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationTag foo')
             ->expectsOutput('Using tag name [foo] from command line argument')
@@ -74,12 +74,12 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCommandFailsIfTagNameIsAlreadySet()
     {
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationTag foo')
              ->assertExitCode(0);
 
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationTag foo')
             ->expectsOutput('Error: Tag [foo] already exists')
