@@ -62,31 +62,31 @@ class FilesystemTest extends TestCase
     public function test_path_method_returns_path_relative_to_base_path_when_supplied_with_argument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo'.'/'.'foo/bar.php', $this->filesystem->path('foo/bar.php'));
+        $this->assertEquals('/foo/foo/bar.php', $this->filesystem->path('foo/bar.php'));
     }
 
     public function test_path_method_returns_qualified_file_path_when_supplied_with_argument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo'.'/'.'file.php', $this->filesystem->path('file.php'));
+        $this->assertEquals('/foo/file.php', $this->filesystem->path('file.php'));
     }
 
     public function test_path_method_returns_expected_value_for_nested_path_arguments()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo'.'/'.'directory/file.php', $this->filesystem->path('directory/file.php'));
+        $this->assertEquals('/foo/directory/file.php', $this->filesystem->path('directory/file.php'));
     }
 
     public function test_path_method_strips_trailing_directory_separators_from_argument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo'.'/'.'file.php', $this->filesystem->path('\\/file.php/'));
+        $this->assertEquals('/foo/file.php', $this->filesystem->path('\\/file.php/'));
     }
 
     public function test_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo'.'/'.'bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
+        $this->assertEquals('/foo/bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
     }
 
     public function test_vendor_path_method_exists()
@@ -107,7 +107,7 @@ class FilesystemTest extends TestCase
     public function test_vendor_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo'.'/'.'vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
+        $this->assertEquals('/foo/vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 
     public function test_copy_method()
@@ -190,22 +190,22 @@ class FilesystemTest extends TestCase
     public function test_get_model_source_path_method_returns_path_to_file_for_model_classes()
     {
         $this->assertEquals(
-            Hyde::path('_posts'.'/'.'foo.md'),
+            Hyde::path('_posts/foo.md'),
             Hyde::getModelSourcePath(MarkdownPost::class, 'foo.md')
         );
 
         $this->assertEquals(
-            Hyde::path('_pages'.'/'.'foo.md'),
+            Hyde::path('_pages/foo.md'),
             Hyde::getModelSourcePath(MarkdownPage::class, 'foo.md')
         );
 
         $this->assertEquals(
-            Hyde::path('_docs'.'/'.'foo.md'),
+            Hyde::path('_docs/foo.md'),
             Hyde::getModelSourcePath(DocumentationPage::class, 'foo.md')
         );
 
         $this->assertEquals(
-            Hyde::path('_pages'.'/'.'foo.md'),
+            Hyde::path('_pages/foo.md'),
             Hyde::getModelSourcePath(BladePage::class, 'foo.md')
         );
     }
@@ -253,7 +253,7 @@ class FilesystemTest extends TestCase
     public function test_helper_for_media_path_returns_path_to_file_within_the_directory()
     {
         $this->assertEquals(
-            Hyde::path('_media'.'/'.'foo.css'),
+            Hyde::path('_media/foo.css'),
             Hyde::mediaPath('foo.css')
         );
     }
@@ -269,7 +269,7 @@ class FilesystemTest extends TestCase
     public function test_helper_for_media_output_path()
     {
         $this->assertEquals(
-            Hyde::path('_site'.'/'.'media'),
+            Hyde::path('_site/media'),
             Hyde::siteMediaPath()
         );
     }
@@ -277,7 +277,7 @@ class FilesystemTest extends TestCase
     public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
     {
         $this->assertEquals(
-            Hyde::path('_site'.'/'.'media'.'/'.'foo.css'),
+            Hyde::path('_site/media/foo.css'),
             Hyde::siteMediaPath('foo.css')
         );
     }
@@ -285,7 +285,7 @@ class FilesystemTest extends TestCase
     public function test_get_media_output_path_returns_absolute_path()
     {
         $this->assertEquals(
-            Hyde::path('_site'.'/'.'media'),
+            Hyde::path('_site/media'),
             Hyde::siteMediaPath()
         );
     }
@@ -301,7 +301,7 @@ class FilesystemTest extends TestCase
     public function test_helper_for_site_output_path_returns_path_to_file_within_the_directory()
     {
         $this->assertEquals(
-            Hyde::path('_site'.'/'.'foo.html'),
+            Hyde::path('_site/foo.html'),
             Hyde::sitePath('foo.html')
         );
     }
@@ -317,7 +317,7 @@ class FilesystemTest extends TestCase
     public function test_site_output_path_helper_ignores_trailing_slashes()
     {
         $this->assertEquals(
-            Hyde::path('_site'.'/'.'foo.html'),
+            Hyde::path('_site/foo.html'),
             Hyde::sitePath('/foo.html/')
         );
     }
