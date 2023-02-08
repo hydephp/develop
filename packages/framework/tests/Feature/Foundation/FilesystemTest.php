@@ -381,12 +381,7 @@ class FilesystemTest extends TestCase
         ];
 
         foreach ($testStrings as $testString) {
-            $this->assertEquals(
-                $testString,
-                Hyde::pathToRelative(
-                    $testString
-                )
-            );
+            $this->assertEquals($testString, Hyde::pathToRelative($testString));
         }
     }
 }
