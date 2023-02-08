@@ -13,6 +13,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\BuildSearchCommand
  * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch
+ * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
  */
 class BuildSearchCommandTest extends TestCase
 {
