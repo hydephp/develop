@@ -19,6 +19,8 @@ class DocumentationSearchPage extends VirtualPage
 {
     public function __construct()
     {
-        parent::__construct(DocumentationPage::outputDirectory().'/search', ['title' => 'Search'], view: 'hyde::pages.documentation-search');
+        parent::__construct(DocumentationPage::outputDirectory().'/search', [
+            'title' => 'Search',
+        ], view: 'hyde::pages.documentation-search');
     }
 }
