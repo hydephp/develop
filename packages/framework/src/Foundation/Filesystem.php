@@ -35,6 +35,8 @@ class Filesystem
 {
     protected HydeKernel $kernel;
 
+    const DIRECTORY_SEPARATOR = '/';
+
     public function __construct(HydeKernel $kernel)
     {
         $this->kernel = $kernel;
