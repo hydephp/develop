@@ -30,5 +30,7 @@ class DocumentationSearchPageTest extends TestCase
 
         $page = new DocumentationSearchPage();
         $this->assertSame('foo/search', $page->identifier);
+
+        DocumentationPage::$outputDirectory = 'docs';
     }
 }
