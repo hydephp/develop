@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
-
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\VirtualPage;
 
 /**
@@ -13,6 +13,6 @@ class DocumentationSearchPage extends VirtualPage
 {
     public function __construct()
     {
-        parent::__construct('docs/search');
+        parent::__construct(DocumentationPage::outputDirectory().'/search');
     }
 }
