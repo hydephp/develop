@@ -123,12 +123,12 @@ class Filesystem
     public function siteMediaPath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::sitePath(Hyde::getMediaOutputDirectory());
+            return $this->sitePath(Hyde::getMediaOutputDirectory());
         }
 
         $path = unslash($path);
 
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory()."/$path");
+        return $this->sitePath(Hyde::getMediaOutputDirectory()."/$path");
     }
 
     /**
