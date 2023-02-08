@@ -66,11 +66,11 @@ class InputStreamHandlerTest extends TestCase
 
     public function testTerminationMessage()
     {
-        $base = 'Terminate with <comment><<<</comment> or press <comment>Ctrl+D</comment>';
+        $message = 'Terminate with <comment><<<</comment> or press <comment>Ctrl+D</comment>';
         if (PHP_OS_FAMILY === 'Windows') {
-            $base .= ' then <comment>Enter</comment>';
+            $message .= ' then <comment>Enter</comment>';
         }
-        $expected = "$base to finish";
+        $expected = "$message to finish";
 
         $this->assertSame($expected, InputStreamHandler::terminationMessage());
     }
