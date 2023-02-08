@@ -18,7 +18,7 @@ use function str_contains;
  */
 class SemanticDocumentationArticle
 {
-    protected DocumentationPage $page;
+    protected DocumentationPage|DocumentationSearchPage $page;
     protected string $html;
 
     protected string $header = '';
@@ -28,15 +28,15 @@ class SemanticDocumentationArticle
     /**
      * Create a new SemanticDocumentationArticle instance, process, and return it.
      *
-     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object to process.
+     * @param  \Hyde\Pages\DocumentationPage|\Hyde\Framework\Features\Documentation\DocumentationSearchPage  $page  The source page object to process.
      * @return static new processed instance
      */
-    public static function create(DocumentationPage $page): static
+    public static function create(DocumentationPage|DocumentationSearchPage $page): static
     {
         return new self($page);
     }
 
-    public function __construct(DocumentationPage $page)
+    public function __construct(DocumentationPage|DocumentationSearchPage $page)
     {
         $this->page = $page;
         $this->html = $page->markdown->compile($page::class);
