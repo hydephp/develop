@@ -100,7 +100,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory().'/'.$path);
+        return Hyde::path(Hyde::getMediaDirectory()."/$path");
     }
 
     /**
@@ -114,7 +114,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Site::getOutputDirectory().'/'.$path);
+        return Hyde::path(Site::getOutputDirectory()."/$path");
     }
 
     /**
@@ -128,7 +128,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory().'/'.$path);
+        return Hyde::sitePath(Hyde::getMediaOutputDirectory()."/$path");
     }
 
     /**
