@@ -382,16 +382,11 @@ class FilesystemTest extends TestCase
 
         foreach ($testStrings as $testString) {
             $this->assertEquals(
-                $this->systemPath($testString),
+                $testString,
                 Hyde::pathToRelative(
-                    $this->systemPath($testString)
+                    $testString
                 )
             );
         }
-    }
-
-    protected function systemPath(string $path): string
-    {
-        return str_replace('/', '/', $path);
     }
 }
