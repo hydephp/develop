@@ -19,6 +19,7 @@ abstract class BuildTask
     use InteractsWithIO;
     use TracksExecutionTime;
 
+    /** @todo Consider renaming to $message */
     protected static string $description = 'Generic build task';
 
     /**
