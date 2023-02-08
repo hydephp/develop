@@ -349,12 +349,11 @@ class FilesystemTest extends TestCase
 
     public function test_path_to_relative_helper_decodes_hyde_path_into_relative()
     {
-        $s = '/';
         $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('foo')));
         $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('/foo/')));
         $this->assertEquals('foo.md', Hyde::pathToRelative(Hyde::path('foo.md')));
-        $this->assertEquals("foo{$s}bar", Hyde::pathToRelative(Hyde::path("foo{$s}bar")));
-        $this->assertEquals("foo{$s}bar.md", Hyde::pathToRelative(Hyde::path("foo{$s}bar.md")));
+        $this->assertEquals('foo/bar', Hyde::pathToRelative(Hyde::path('foo/bar')));
+        $this->assertEquals('foo/bar.md', Hyde::pathToRelative(Hyde::path('foo/bar.md')));
     }
 
     public function test_path_to_relative_helper_does_not_modify_already_relative_paths()
