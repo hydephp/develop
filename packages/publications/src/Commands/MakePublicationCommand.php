@@ -128,7 +128,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationFieldDefinition $field): PublicationFieldValue
     {
-        $this->infoComment("Enter lines for field [$field->name]");
+        $this->infoComment("Enter lines for field [$field->name] <fg=gray>(terminate with '<<<')</>");
 
         return new PublicationFieldValue(PublicationFieldTypes::Text, implode("\n", InputStreamHandler::call()));
     }
