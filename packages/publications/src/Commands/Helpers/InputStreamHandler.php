@@ -8,6 +8,7 @@ use function array_shift;
 use function explode;
 use function fgets;
 use Hyde\Hyde;
+use function str_contains;
 use function trim;
 
 /**
@@ -50,7 +51,7 @@ class InputStreamHandler
 
     protected function shouldTerminate(string $line): bool
     {
-        return $line === self::TERMINATION_SEQUENCE;
+        return $line === self::TERMINATION_SEQUENCE || str_contains($line, self::END_OF_TRANSMISSION);
     }
 
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
