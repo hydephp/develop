@@ -113,4 +113,11 @@ namespace Hyde {
             return implode(DIRECTORY_SEPARATOR, array_merge([$directory], $paths));
         }
     }
+
+    if (! function_exists('\Hyde\normalize_slashes')) {
+        function normalize_slashes(string $string): string
+        {
+            return str_replace('\\', '/', $string);
+        }
+    }
 }

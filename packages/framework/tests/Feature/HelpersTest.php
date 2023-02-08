@@ -173,4 +173,12 @@ class HelpersTest extends TestCase
     {
         $this->assertSame('foo'.DIRECTORY_SEPARATOR.'bar'.DIRECTORY_SEPARATOR.'baz', \Hyde\system_path_join('foo', 'bar', 'baz'));
     }
+
+    /** @covers ::\Hyde\normalize_slashes */
+    public function test_hyde_normalize_slashes_function()
+    {
+        $this->assertSame('foo/bar', \Hyde\normalize_slashes('foo'.DIRECTORY_SEPARATOR.'bar'));
+        $this->assertSame('foo/bar', \Hyde\normalize_slashes('foo\\bar'));
+        $this->assertSame('foo/bar', \Hyde\normalize_slashes('foo/bar'));
+    }
 }
