@@ -15,6 +15,8 @@ use Hyde\Pages\VirtualPage;
  * then this class will not be applied.
  *
  * @see \Hyde\Framework\Testing\Feature\DocumentationSearchPageTest
+ *
+ * @internal
  */
 class DocumentationSearchPage extends VirtualPage
 {
