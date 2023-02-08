@@ -6,7 +6,7 @@ namespace Hyde\Pages\Contracts;
 
 /**
  * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
-
+ *
  * This interface is used to mark page classes that are dynamically generated,
  * (i.e. not based on a source file), or that have dynamic path information.
  *
