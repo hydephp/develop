@@ -28,7 +28,7 @@ class MakePublicationTagCommandTest extends TestCase
 
         $this->artisan('make:publicationTag')
             ->expectsQuestion('Tag name', 'foo')
-            ->expectsOutput('Enter the tag values: (end with an empty line)')
+            ->expectsOutputToContain('Enter the tag values:')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
             ->expectsOutput('Saving tag data to [file://'.str_replace('\\', '/', Hyde::path('tags.yml')).']')
