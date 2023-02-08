@@ -11,9 +11,9 @@ use Hyde\Pages\DocumentationPage;
 /**
  * This page is used to render the search page for the documentation.
  *
- * It is not based on a source file, but is dynamically generated when Search is enabled.
- * If you want to override the search page, you can create a file at: `_pages/docs/search.blade.php`,
- * then this class will not be applied.
+ * It is not based on a source file, but is dynamically generated when the Search feature is enabled.
+ * If you want to override this page, you can create a page with the route key "docs/search",
+ * then this class will not be applied. For example, `_pages/docs/search.blade.php`.
  *
  * @see \Hyde\Framework\Testing\Feature\DocumentationSearchPageTest
  *
