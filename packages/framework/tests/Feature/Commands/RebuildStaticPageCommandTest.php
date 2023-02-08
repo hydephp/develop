@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\RebuildStaticPageCommand
  */
-class RebuildStaticSiteCommandTest extends TestCase
+class RebuildStaticPageCommandTest extends TestCase
 {
     public function test_handle_is_successful_with_valid_path()
     {
