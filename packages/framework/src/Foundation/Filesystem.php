@@ -15,7 +15,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
-use function Hyde\system_path_join;
+use function Hyde\path_join;
 use function is_array;
 use function is_string;
 use function str_replace;
@@ -61,7 +61,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return system_path_join($this->getBasePath(), $path);
+        return path_join($this->getBasePath(), $path);
     }
 
     /**
@@ -209,7 +209,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->path(system_path_join(DiscoveryService::getModelSourceDirectory($model), $path));
+        return $this->path(path_join(DiscoveryService::getModelSourceDirectory($model), $path));
     }
 
     public function getBladePagePath(string $path = ''): string
