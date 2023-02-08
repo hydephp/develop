@@ -17,7 +17,7 @@ use Stringable;
  *
  * @see \Hyde\Framework\Testing\Feature\Support\ProjectFileTest
  */
-abstract class ProjectFile implements SerializableContract, Stringable
+abstract class ProjectFile implements SerializableContract
 {
     use Serializable;
 
@@ -37,11 +37,6 @@ abstract class ProjectFile implements SerializableContract, Stringable
     public function __construct(string $path)
     {
         $this->path = Hyde::pathToRelative($path);
-    }
-
-    public function __toString(): string
-    {
-        return $this->path;
     }
 
     /**
