@@ -36,11 +36,6 @@ class MediaFileTest extends TestCase
         $this->assertEquals('foo', MediaFile::make(Hyde::path('foo'))->path);
     }
 
-    public function test_to_string_returns_path()
-    {
-        $this->assertSame('foo', (string) MediaFile::make('foo'));
-    }
-
     public function test_get_name_returns_name_of_file()
     {
         $this->assertSame('foo.txt', MediaFile::make('foo.txt')->getName());
