@@ -12,5 +12,8 @@ use Hyde\Testing\TestCase;
  */
 class DocumentationSearchPageTest extends TestCase
 {
-    //
+    public function testCanCreateDocumentationSearchPageInstance()
+    {
+        $this->assertInstanceOf(DocumentationSearchPage::class, new DocumentationSearchPage());
+    }
 }

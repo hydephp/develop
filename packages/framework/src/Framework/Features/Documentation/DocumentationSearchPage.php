@@ -11,5 +11,8 @@ use Hyde\Pages\VirtualPage;
  */
 class DocumentationSearchPage extends VirtualPage
 {
-    //
+    public function __construct()
+    {
+        parent::__construct('docs/search');
+    }
 }
