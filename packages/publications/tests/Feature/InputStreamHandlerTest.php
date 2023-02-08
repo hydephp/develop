@@ -75,6 +75,16 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame($expected, InputStreamHandler::terminationMessage());
     }
 
+    public function testTerminationSequenceConstant()
+    {
+        $this->assertSame('<<<', InputStreamHandler::TERMINATION_SEQUENCE);
+    }
+
+    public function testEndOfTransmissionConstant()
+    {
+        $this->assertSame("\x04", InputStreamHandler::END_OF_TRANSMISSION);
+    }
+
     protected function makeCommand(array $expected): TestCommand
     {
         $command = new TestCommand;
