@@ -240,6 +240,8 @@ class Filesystem
 
     /**
      * Implode path components into a string with directory separators.
+     *
+     * @deprecated Use system_path_join() instead.
      */
     public static function implode(string $base, string ...$paths): string
     {
