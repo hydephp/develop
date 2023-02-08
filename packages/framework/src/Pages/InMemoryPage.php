@@ -13,7 +13,7 @@ use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
 
 /**
- * A virtual page is a page that does not have a source file.
+ * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
  *
  * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
  *
