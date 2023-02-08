@@ -28,10 +28,10 @@ class HydePathHelperTest extends TestCase
     public function test_returned_directory_contains_content_expected_to_be_in_the_project_directory()
     {
         $this->assertTrue(
-            file_exists(Hyde::path().'/'.'hyde') &&
-                file_exists(Hyde::path().'/'.'_pages') &&
-                file_exists(Hyde::path().'/'.'_posts') &&
-                file_exists(Hyde::path().'/'.'_site')
+            file_exists(Hyde::path().'/hyde') &&
+                file_exists(Hyde::path().'/_pages') &&
+                file_exists(Hyde::path().'/_posts') &&
+                file_exists(Hyde::path().'/_site')
         );
     }
 }
