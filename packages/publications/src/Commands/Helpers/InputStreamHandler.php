@@ -69,4 +69,9 @@ class InputStreamHandler
     {
         self::$mockedStreamBuffer = explode("\n", $input);
     }
+
+    public static function terminationMessage(): string
+    {
+        return 'terminate with <comment><<<</comment> or press <comment>Ctrl+D</comment> to finish';
+    }
 }
