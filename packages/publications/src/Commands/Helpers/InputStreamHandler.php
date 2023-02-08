@@ -77,6 +77,6 @@ class InputStreamHandler
 
     protected static function getShortcut(): string
     {
-        return '<comment>Ctrl+D</comment>' . (PHP_OS_FAMILY === 'Windows' ? ' then <comment>Enter</comment>' : '');
+        return '<comment>Ctrl+D</comment>'.(PHP_OS_FAMILY === 'Windows' ? ' then <comment>Enter</comment>' : '');
     }
 }
