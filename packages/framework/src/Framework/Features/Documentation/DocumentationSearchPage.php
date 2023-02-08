@@ -30,7 +30,7 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function enabled(): bool
     {
-        return config('docs.create_search_page', true) && ! Hyde::pages()->has('_pages/docs/search.blade.php');
+        return config('docs.create_search_page', true) && ! Hyde::routes()->has('docs/search');
     }
 
     public static function generate(): string
