@@ -12,6 +12,8 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
+use function Hyde\normalize_slashes;
+
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Filesystem
@@ -381,7 +383,7 @@ class FilesystemTest extends TestCase
         ];
 
         foreach ($testStrings as $testString) {
-            $this->assertEquals($testString, Hyde::pathToRelative($testString));
+            $this->assertEquals(normalize_slashes($testString), Hyde::pathToRelative($testString));
         }
     }
 }

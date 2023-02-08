@@ -15,6 +15,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function is_array;
 use function is_string;
@@ -80,14 +81,12 @@ class Filesystem
 
     /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
-     *
-     * @todo Normalize slashes to forward slashes?
      */
     public function pathToRelative(string $path): string
     {
-        return str_starts_with($path, $this->path())
+        return normalize_slashes(str_starts_with($path, $this->path())
             ? unslash(str_replace($this->path(), '', $path))
-            : $path;
+            : $path);
     }
 
     /**
