@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
 
-use Hyde\Facades\Filesystem;
-use Hyde\Hyde;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Pages\DocumentationPage;
 
 /**
@@ -35,13 +34,7 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function generate(): string
     {
-        $page = new static();
-        $path = Hyde::sitePath($page->getOutputPath());
-        Filesystem::ensureDirectoryExists(dirname($path));
-        Hyde::shareViewData($page);
-        Filesystem::putContents($path, $page->compile());
-
-        return $path;
+        return (new StaticPageBuilder(new static()))->__invoke();
     }
 
     public function compile(): string
