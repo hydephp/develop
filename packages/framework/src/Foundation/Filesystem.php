@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use JetBrains\PhpStorm\Deprecated;
 use function array_map;
 use function collect;
 use function copy;
@@ -62,7 +61,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->implode($this->getBasePath(), $path);
+        return \hyde\system_path_join($this->getBasePath(), $path);
     }
 
     /**
@@ -210,7 +209,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->path($this->implode(DiscoveryService::getModelSourceDirectory($model), $path));
+        return $this->path(system_path_join(DiscoveryService::getModelSourceDirectory($model), $path));
     }
 
     public function getBladePagePath(string $path = ''): string
@@ -237,16 +236,5 @@ class Filesystem
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
             ->map(fn (string $path): string => $this->pathToRelative($path));
-    }
-
-    /**
-     * Implode path components into a string with directory separators.
-     *
-     * @deprecated Use system_path_join() instead.
-     */
-    #[Deprecated(reason: 'Use system_path_join() instead.', replacement: '\hyde\system_path_join(%parametersList%)')]
-    public static function implode(string $base, string ...$paths): string
-    {
-        return system_path_join($base, ...$paths);
     }
 }
