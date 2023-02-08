@@ -26,8 +26,7 @@ use function unslash;
 class RebuildStaticPageCommand extends Command
 {
     /** @var string */
-    protected $signature = 'rebuild
-        {path : The relative file path (example: _posts/hello-world.md)}';
+    protected $signature = 'rebuild {path : The relative file path (example: _posts/hello-world.md)}';
 
     /** @var string */
     protected $description = 'Run the static site builder for a single file';
