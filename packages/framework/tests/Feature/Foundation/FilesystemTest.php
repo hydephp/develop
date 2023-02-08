@@ -11,7 +11,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-
 use function Hyde\normalize_slashes;
 
 /**
