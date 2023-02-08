@@ -64,6 +64,17 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
+    public function testTerminationMessage()
+    {
+        $base = 'Terminate with <comment><<<</comment> or press <comment>Ctrl+D</comment>';
+        if (PHP_OS_FAMILY === 'Windows') {
+            $base .= ' then <comment>Enter</comment>';
+        }
+        $expected = $base . ' to finish';
+
+        $this->assertSame($expected, InputStreamHandler::terminationMessage());
+    }
+
     protected function makeCommand(array $expected): TestCommand
     {
         $command = new TestCommand;
