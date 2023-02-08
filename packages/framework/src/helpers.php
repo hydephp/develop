@@ -29,6 +29,7 @@ namespace {
 namespace Hyde {
     use Hyde\Foundation\HydeKernel;
     use Illuminate\Contracts\Support\Arrayable;
+    use JetBrains\PhpStorm\Deprecated;
     use Symfony\Component\Yaml\Yaml;
 
     if (! function_exists('\Hyde\hyde')) {
@@ -109,6 +110,7 @@ namespace Hyde {
 
     if (! function_exists('\Hyde\system_path_join')) {
         /** @deprecated Use Unix directory separators */
+        #[Deprecated(reason: 'Use Unix directory separators', replacement: '\Hyde\path_join(%parametersList%)')]
         function system_path_join(string $directory, string ...$paths): string
         {
             return implode(DIRECTORY_SEPARATOR, array_merge([$directory], $paths));
