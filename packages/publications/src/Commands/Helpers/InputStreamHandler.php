@@ -72,6 +72,6 @@ class InputStreamHandler
 
     public static function terminationMessage(): string
     {
-        return 'Terminate with <comment><<<</comment> or press <comment>Ctrl+D</comment> to finish';
+        return sprintf("Terminate with <comment>%s</comment> or press <comment>Ctrl+D</comment> to finish", self::TERMINATION_SEQUENCE);
     }
 }
