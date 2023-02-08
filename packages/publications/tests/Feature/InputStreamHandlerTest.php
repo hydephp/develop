@@ -17,28 +17,42 @@ class InputStreamHandlerTest extends TestCase
 {
     public function testCanCollectInput()
     {
-        InputStreamHandler::mockInput('foo');
+        InputStreamHandler::mockInput("foo\n<<<");
 
         $this->assertSame(0, $this->makeCommand(['foo'])->handle());
     }
 
+    public function testCanTerminateWithHereSequence()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
+    public function testCanTerminateWithHereSequenceAfterCarriageReturns()
+    {
+        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n<<<");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
     public function testCanCollectMultipleInputLines()
     {
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
-    public function testCanTerminateWithCarriageReturns()
+    public function testCanEnterMultipleCarriageReturns()
     {
-        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n");
+        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n<<<");
 
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
-    public function testCanTerminateWithUnixEndings()
+    public function testCanEnterMultipleUnixEndings()
     {
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }

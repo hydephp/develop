@@ -217,7 +217,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_text_input()
     {
-        InputStreamHandler::mockInput("Hello\nWorld");
+        InputStreamHandler::mockInput("Hello\nWorld\n<<<");
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -256,7 +256,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_array_input()
     {
-        InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
+        InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag\n<<<");
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[

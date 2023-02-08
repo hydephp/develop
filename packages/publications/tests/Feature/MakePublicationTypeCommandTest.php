@@ -260,7 +260,7 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->directory('test-publication');
         $this->cleanUpWhenDone('tags.yml');
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
