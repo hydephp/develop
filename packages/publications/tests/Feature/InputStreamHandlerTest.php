@@ -36,6 +36,13 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
+    public function testCanTerminateWithEndOfTransmissionSequence()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n\x04");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
     public function testCanCollectMultipleInputLines()
     {
         InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
