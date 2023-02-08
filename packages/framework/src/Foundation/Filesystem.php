@@ -15,6 +15,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function Hyde\system_path_join;
 use function is_array;
 use function is_string;
 use function str_replace;
@@ -60,7 +61,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->implode($this->getBasePath(), $path);
+        return system_path_join($this->getBasePath(), $path);
     }
 
     /**
@@ -208,7 +209,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->path($this->implode(DiscoveryService::getModelSourceDirectory($model), $path));
+        return $this->path(system_path_join(DiscoveryService::getModelSourceDirectory($model), $path));
     }
 
     public function getBladePagePath(string $path = ''): string
@@ -235,13 +236,5 @@ class Filesystem
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
             ->map(fn (string $path): string => $this->pathToRelative($path));
-    }
-
-    /**
-     * Implode path components into a string with directory separators.
-     */
-    public static function implode(string $base, string ...$paths): string
-    {
-        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
     }
 }
