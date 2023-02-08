@@ -61,7 +61,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return \hyde\system_path_join($this->getBasePath(), $path);
+        return system_path_join($this->getBasePath(), $path);
     }
 
     /**
