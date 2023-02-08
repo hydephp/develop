@@ -184,7 +184,7 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals([Hyde::path('_pages')], config('view.paths'));
+        $this->assertEquals([realpath(Hyde::path('_pages'))], config('view.paths'));
     }
 
     public function test_blade_view_locations_are_only_registered_once_per_key()
@@ -195,7 +195,7 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
         $this->provider->register();
 
-        $this->assertEquals([Hyde::path('_pages')], config('view.paths'));
+        $this->assertEquals([realpath(Hyde::path('_pages'))], config('view.paths'));
     }
 
     public function test_provider_registers_console_commands()
