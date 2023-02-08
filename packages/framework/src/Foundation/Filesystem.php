@@ -35,8 +35,6 @@ class Filesystem
 {
     protected HydeKernel $kernel;
 
-    const DIRECTORY_SEPARATOR = '/';
-
     public function __construct(HydeKernel $kernel)
     {
         $this->kernel = $kernel;
@@ -103,7 +101,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory().self::DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Hyde::getMediaDirectory().'/'.$path);
     }
 
     /**
@@ -117,7 +115,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Site::getOutputDirectory().self::DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Site::getOutputDirectory().'/'.$path);
     }
 
     /**
@@ -131,7 +129,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory().self::DIRECTORY_SEPARATOR.$path);
+        return Hyde::sitePath(Hyde::getMediaOutputDirectory().'/'.$path);
     }
 
     /**
