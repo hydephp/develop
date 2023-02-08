@@ -23,10 +23,6 @@ use function touch;
 use function unlink;
 use function unslash;
 
-const UNIX_DIRECTORY_SEPARATOR = '/';
-
-use const Hyde\Foundation\UNIX_DIRECTORY_SEPARATOR as DIRECTORY_SEPARATOR;
-
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
  *
@@ -38,6 +34,8 @@ use const Hyde\Foundation\UNIX_DIRECTORY_SEPARATOR as DIRECTORY_SEPARATOR;
 class Filesystem
 {
     protected HydeKernel $kernel;
+
+    const DIRECTORY_SEPARATOR = '/';
 
     public function __construct(HydeKernel $kernel)
     {
@@ -105,7 +103,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory().DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Hyde::getMediaDirectory().self::DIRECTORY_SEPARATOR.$path);
     }
 
     /**
@@ -119,7 +117,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Site::getOutputDirectory().DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Site::getOutputDirectory().self::DIRECTORY_SEPARATOR.$path);
     }
 
     /**
@@ -133,7 +131,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory().DIRECTORY_SEPARATOR.$path);
+        return Hyde::sitePath(Hyde::getMediaOutputDirectory().self::DIRECTORY_SEPARATOR.$path);
     }
 
     /**
