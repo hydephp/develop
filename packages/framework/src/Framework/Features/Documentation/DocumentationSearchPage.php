@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
+use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\VirtualPage;
 
@@ -17,10 +18,19 @@ use Hyde\Pages\VirtualPage;
  */
 class DocumentationSearchPage extends VirtualPage
 {
+    public Markdown $markdown;
+
     public function __construct()
     {
         parent::__construct(DocumentationPage::outputDirectory().'/search', [
             'title' => 'Search',
         ], view: 'hyde::pages.documentation-search');
+
+        $this->markdown = new Markdown();
+    }
+
+    public function getOnlineSourcePath(): string|false
+    {
+        return false;
     }
 }
