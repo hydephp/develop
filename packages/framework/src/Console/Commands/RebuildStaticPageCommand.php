@@ -26,7 +26,7 @@ use function unslash;
  * @todo Refactor to use newer helpers
  * @todo Rename to RebuildStaticPageCommand since it only rebuilds a single page?
  */
-class RebuildStaticSiteCommand extends Command
+class RebuildStaticPageCommand extends Command
 {
     /** @var string */
     protected $signature = 'rebuild

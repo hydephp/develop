@@ -21,7 +21,7 @@ class HydeConsoleServiceProvider extends ServiceProvider
             Commands\BuildSearchCommand::class,
             Commands\BuildSiteCommand::class,
             Commands\BuildSitemapCommand::class,
-            Commands\RebuildStaticSiteCommand::class,
+            Commands\RebuildStaticPageCommand::class,
 
             Commands\MakePageCommand::class,
             Commands\MakePostCommand::class,
