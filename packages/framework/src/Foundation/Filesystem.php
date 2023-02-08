@@ -100,7 +100,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory().'/'.$path);
+        return Hyde::path(path_join(Hyde::getMediaDirectory(), $path));
     }
 
     /**
