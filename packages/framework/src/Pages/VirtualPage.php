@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\View;
  *
  * This class is especially useful for one-off pages, but if your usage grows,
  * you may benefit from creating a custom page class instead to get full control.
+ *
+ * @todo Rename to AnonymousPage or InMemoryPage?
  */
 class VirtualPage extends HydePage implements DynamicPage
 {
