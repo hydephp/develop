@@ -14,7 +14,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
@@ -78,7 +78,7 @@ class HydeKernelDynamicPageClassesTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The specified class must not be a subclass of DynamicPage.');
-        app(HydeKernel::class)->registerPageClass(VirtualPage::class);
+        app(HydeKernel::class)->registerPageClass(InMemoryPage::class);
     }
 
     public function test_register_page_class_method_throws_exception_when_collection_is_already_booted()

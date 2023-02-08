@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Hyde;
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
@@ -42,7 +42,7 @@ class RouteListCommandTest extends TestCase
 
     public function testWithDynamicPages()
     {
-        Hyde::routes()->put('foo', new Route(new VirtualPage('foo')));
+        Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
 
         $this->artisan('route:list')
             ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [
@@ -59,7 +59,7 @@ class RouteListCommandTest extends TestCase
                     'index',
                 ],
                 [
-                    'VirtualPage',
+                    'InMemoryPage',
                     '<fg=yellow>dynamic</>',
                     '_site/foo.html',
                     'foo',
