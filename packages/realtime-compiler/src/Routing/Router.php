@@ -18,12 +18,11 @@ class Router
     protected Request $request;
 
     protected array $pathRewrites = [
-        //
+        '/docs' => '/docs/index',
     ];
 
     protected array $virtualRoutes = [
         '/ping',
-        '/docs',
         '/docs/search',
     ];
 
