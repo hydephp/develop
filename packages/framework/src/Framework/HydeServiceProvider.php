@@ -33,7 +33,7 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerProviders([ConfigurationServiceProvider::class]);
+        $this->app->register(ConfigurationServiceProvider::class);
 
         $this->initializeConfiguration();
 
@@ -156,12 +156,5 @@ class HydeServiceProvider extends ServiceProvider
     protected function getConfigurationProvider(): ServiceProvider|ConfigurationServiceProvider
     {
         return $this->app->getProvider(ConfigurationServiceProvider::class);
-    }
-
-    protected function registerProviders(array $providers): void
-    {
-        foreach ($providers as $provider) {
-            $this->app->register($provider);
-        }
     }
 }
