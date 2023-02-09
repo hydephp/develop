@@ -34,7 +34,7 @@ class Router
             return $this->proxyStatic();
         }
 
-        if ($this->shouldRenderSpecial($this->request)) {
+        if (in_array($this->request->path, $this->virtualRoutes)) {
             if ($this->request->path === '/docs') {
                 $this->request->path = '/docs/index';
             }
@@ -99,13 +99,5 @@ class Router
             'Content-Type'   => $file->getMimeType(),
             'Content-Length' => $file->getContentLength(),
         ]);
-    }
-
-    /**
-     * If the request is for a special page, we handle it here.
-     */
-    protected function shouldRenderSpecial(Request $request): bool
-    {
-        return in_array($request->path, $this->virtualRoutes);
     }
 }
