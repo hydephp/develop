@@ -25,7 +25,7 @@ use Illuminate\Support\HtmlString;
  * @license MIT License
  *
  * @method static string path(string $path = '') $basePath
- * @method static string vendorPath(string $path = '')
+ * @method static string vendorPath(string $path = '', string $package = 'framework')
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
  * @method static string getModelSourcePath(string $model, string $path = '')
