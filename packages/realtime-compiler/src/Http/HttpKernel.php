@@ -14,7 +14,7 @@ use Hyde\RealtimeCompiler\Routing\Router;
  */
 class HttpKernel extends BaseHttpKernel
 {
-    /** @var array<callable(Request): Request> $middleware */
+    /** @var array<callable(Request): Request> */
     protected array $middleware = [
         //
     ];
