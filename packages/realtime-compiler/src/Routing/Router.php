@@ -106,8 +106,6 @@ class Router
      */
     protected function shouldRenderSpecial(Request $request): bool
     {
-        $routes = $this->virtualRoutes;
-
-        return in_array($request->path, $routes);
+        return in_array($request->path, $this->virtualRoutes);
     }
 }
