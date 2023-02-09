@@ -8,7 +8,6 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
-use Illuminate\Support\Facades\Blade;
 
 define('BASE_PATH', realpath(__DIR__.'/../../../'));
 
@@ -125,8 +124,6 @@ test('docs uri path is rerouted to docs/index', function () {
 test('docs/search renders search page', function () {
     mockRoute('docs/search');
 
-    Blade::shouldReceive('render')->once()->andReturn('foo');
-
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
 
@@ -134,7 +131,9 @@ test('docs/search renders search page', function () {
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK');
 
-    expect($response->body)->toBe('foo');
+    expect($response->body)->toContain('Search the documentation site');
+
+    Filesystem::unlink('_site/docs/search.html');
 });
 
 test('ping route returns ping response', function () {

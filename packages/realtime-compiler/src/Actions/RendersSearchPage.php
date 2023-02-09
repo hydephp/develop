@@ -4,7 +4,7 @@ namespace Hyde\RealtimeCompiler\Actions;
 
 use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
-use Illuminate\Support\Facades\Blade;
+use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 
 class RendersSearchPage
 {
@@ -14,7 +14,7 @@ class RendersSearchPage
     {
         $this->bootIfNotBooted();
 
-        return Blade::render(file_get_contents(Hyde::vendorPath('resources/views/pages/documentation-search.blade.php')));
+        return file_get_contents(DocumentationSearchPage::generate());
     }
 
     /**
