@@ -53,6 +53,8 @@ Since HydePHP is based on Laravel we also have a few configuration files related
 
 {.align-top}
 
+If any of these files are missing, you can run `php hyde update:configs` to copy the default files to your project.
+
 
 ## Configuration Options
 
