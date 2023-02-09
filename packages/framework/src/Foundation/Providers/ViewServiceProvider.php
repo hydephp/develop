@@ -18,14 +18,14 @@ class ViewServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'hyde');
+        $this->loadViewsFrom(__DIR__.'/../../../resources/views', 'hyde');
 
         $this->publishes([
-            __DIR__.'/../../resources/views/layouts' => resource_path('views/vendor/hyde/layouts'),
+            __DIR__.'/../../../resources/views/layouts' => resource_path('views/vendor/hyde/layouts'),
         ], 'hyde-layouts');
 
         $this->publishes([
-            __DIR__.'/../../resources/views/components' => resource_path('views/vendor/hyde/components'),
+            __DIR__.'/../../../resources/views/components' => resource_path('views/vendor/hyde/components'),
         ], 'hyde-components');
 
         $this->publishes([
