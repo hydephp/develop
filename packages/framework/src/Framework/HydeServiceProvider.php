@@ -8,6 +8,7 @@ use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Providers\ConfigurationServiceProvider;
+use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Views\Components\LinkComponent;
@@ -150,6 +151,7 @@ class HydeServiceProvider extends ServiceProvider
     protected function registerModuleServiceProviders(): void
     {
         $this->app->register(HydeConsoleServiceProvider::class);
+        $this->app->register(ViewServiceProvider::class);
     }
 
     protected function getConfigurationProvider(): ServiceProvider|ConfigurationServiceProvider
