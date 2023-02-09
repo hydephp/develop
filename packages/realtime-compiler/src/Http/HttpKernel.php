@@ -14,7 +14,7 @@ use Hyde\RealtimeCompiler\Routing\Router;
  */
 class HttpKernel extends BaseHttpKernel
 {
-    /** @var array<callable(Request): Request> */
+    /** @var class-string[]|array<callable(Request): Request> */
     protected array $middleware = [
         //
     ];
@@ -24,7 +24,9 @@ class HttpKernel extends BaseHttpKernel
         header('X-Server: Hyde/RealtimeCompiler');
 
         foreach ($this->middleware as $middleware) {
-            $request = $middleware($request);
+            $request = is_string($middleware)
+                ? (new $middleware())($request)
+                : $middleware($request);
         }
 
         return (new Router($request))->handle();
