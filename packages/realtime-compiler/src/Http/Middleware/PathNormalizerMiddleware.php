@@ -15,11 +15,11 @@ class PathNormalizerMiddleware
 
     public function __invoke(Request $request): Request
     {
+        $request->path = rtrim($request->path, '/');
+
         if (array_key_exists($request->path, $this->pathRewrites)) {
             $request->path = $this->pathRewrites[$request->path];
         }
-
-        $request->path = rtrim($request->path, '/');
 
         return $request;
     }
