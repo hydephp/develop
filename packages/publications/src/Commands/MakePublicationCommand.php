@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Publications\Commands;
 
 use Closure;
+use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationPage;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -146,7 +147,11 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyOptionsCollection($field, 'media file', "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
+            return $this->handleEmptyOptionsCollection($field, 'media file',
+                sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
+                    $this->publicationType->getIdentifier()
+                )
+            );
         }
 
         return new PublicationFieldValue(PublicationFieldTypes::Media, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));

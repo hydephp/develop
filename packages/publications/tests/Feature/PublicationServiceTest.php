@@ -145,6 +145,23 @@ class PublicationServiceTest extends TestCase
         File::deleteDirectory(Hyde::path('_media/test-publication'));
     }
 
+    public function testGetMediaForPubTypeWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('_assets');
+        $this->createPublicationType();
+        mkdir(Hyde::path('_assets/test-publication'), recursive: true);
+        file_put_contents(Hyde::path('_assets/test-publication/image.png'), '');
+
+        $this->assertEquals(
+            new Collection([
+                '_assets/test-publication/image.png',
+            ]),
+            PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
+        );
+
+        File::deleteDirectory(Hyde::path('_assets/test-publication'));
+    }
+
     public function testParsePublicationFile()
     {
         $this->createPublicationType();
