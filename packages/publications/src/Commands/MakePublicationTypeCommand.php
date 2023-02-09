@@ -72,7 +72,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function validateStorageDirectory(string $directoryName): void
     {
-        if (is_file(Hyde::path($directoryName)) || (is_dir(Hyde::path($directoryName)) && (count(scandir($directoryName)) > 2))) {
+        if (is_file(Hyde::path($directoryName)) || (is_dir(Hyde::path($directoryName)) && (count(scandir(Hyde::path($directoryName))) > 2))) {
             throw new InvalidArgumentException("Storage path [$directoryName] already exists");
         }
     }
