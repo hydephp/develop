@@ -17,6 +17,12 @@ class Router
 
     protected Request $request;
 
+    protected array $customRoutes = [
+        '/ping',
+        '/docs',
+        '/docs/search',
+    ];
+
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -100,11 +106,7 @@ class Router
      */
     protected function shouldRenderSpecial(Request $request): bool
     {
-        $routes = [
-            '/ping',
-            '/docs',
-            '/docs/search',
-        ];
+        $routes = $this->customRoutes;
 
         return in_array($request->path, $routes);
     }
