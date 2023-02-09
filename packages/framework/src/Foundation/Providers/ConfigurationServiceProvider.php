@@ -21,7 +21,10 @@ class ConfigurationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        //
+        $this->mergeConfigFrom(__DIR__ . '/../../../config/hyde.php', 'hyde');
+        $this->mergeConfigFrom(__DIR__ . '/../../../config/docs.php', 'docs');
+        $this->mergeConfigFrom(__DIR__ . '/../../../config/site.php', 'site');
+        $this->mergeConfigFrom(__DIR__ . '/../../../config/markdown.php', 'markdown');
     }
 
     public function boot(): void
