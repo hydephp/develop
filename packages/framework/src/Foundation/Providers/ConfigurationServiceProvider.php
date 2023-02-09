@@ -30,6 +30,7 @@ class ConfigurationServiceProvider extends ServiceProvider
         // Illuminate Configuration Files
         $this->mergeConfigFrom(__DIR__.'/../../../config/view.php', 'view');
         $this->mergeConfigFrom(__DIR__.'/../../../config/cache.php', 'cache');
+        $this->mergeConfigFrom(__DIR__.'/../../../config/torchlight.php', 'torchlight');
     }
 
     public function boot(): void
