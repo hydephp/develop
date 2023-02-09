@@ -74,7 +74,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         $this->publishes([
             __DIR__.'/../../config' => config_path(),
         ], 'configs');
