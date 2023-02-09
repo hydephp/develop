@@ -16,7 +16,7 @@ class ConsoleKernel extends Kernel
         // LoadConfiguration bootstrapper with our own. Finally, we
         // return the bootstrappers without the added keys.
 
-        return array_values(tap(array_combine(parent::bootstrappers(), parent::bootstrappers()), function (array &$array) {
+        return array_values(tap(array_combine(parent::bootstrappers(), parent::bootstrappers()), function (array &$array): void {
             $array[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
         }));
     }
