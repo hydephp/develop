@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-class ConsoleKernel
+use LaravelZero\Framework\Kernel;
+
+class ConsoleKernel extends Kernel
 {
     //
 }
