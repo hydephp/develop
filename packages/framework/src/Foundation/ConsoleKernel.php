@@ -11,6 +11,9 @@ class ConsoleKernel extends Kernel
     /** Get the bootstrap classes for the application. */
     protected function bootstrappers(): array
     {
+        // Since we store our application config in `app/config.php`, we need to replace
+        // the default LoadConfiguration bootstrapper class with our implementation.
+
         // First, we combine the parent bootstrappers into an associative array,
         // so we can easily access them by class name. Then we replace the
         // LoadConfiguration bootstrapper with our own. Finally, we
