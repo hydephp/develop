@@ -15,6 +15,10 @@ class PathNormalizerMiddleware
 
     public function __invoke(Request $request): Request
     {
+        if (array_key_exists($request->path, $this->pathRewrites)) {
+            $request->path = $this->pathRewrites[$request->path];
+        }
+
         return $request;
     }
 }

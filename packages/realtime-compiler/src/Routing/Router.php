@@ -33,10 +33,6 @@ class Router
             return $this->proxyStatic();
         }
 
-        if (array_key_exists($this->request->path, $this->pathRewrites)) {
-            $this->request->path = $this->pathRewrites[$this->request->path];
-        }
-
         if (in_array($this->request->path, $this->virtualRoutes)) {
             if ($this->request->path === '/docs/search') {
                 return new HtmlResponse(200, 'OK', [
