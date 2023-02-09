@@ -25,7 +25,6 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use Hyde\Markdown\MarkdownConverter;
 use Illuminate\Support\Facades\Artisan;
 use function is_subclass_of;
 use function method_exists;
@@ -75,12 +74,6 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertTrue($this->app->bound(AssetService::class));
         $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
-    }
-
-    public function test_provider_registers_markdown_converter_singleton()
-    {
-        $this->assertTrue($this->app->bound(MarkdownConverter::class));
-        $this->assertInstanceOf(MarkdownConverter::class, $this->app->make(MarkdownConverter::class));
     }
 
     public function test_provider_registers_source_directories()
