@@ -9,7 +9,6 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Framework\Views\Components\LinkComponent;
 use Hyde\Hyde;
 use Hyde\Markdown\MarkdownConverter;
@@ -112,9 +111,7 @@ class HydeServiceProvider extends ServiceProvider
 
     protected function initializeConfiguration(): void
     {
-        if (YamlConfigurationService::hasFile()) {
-            YamlConfigurationService::boot();
-        }
+        //
     }
 
     /**
