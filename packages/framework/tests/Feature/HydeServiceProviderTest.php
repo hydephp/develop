@@ -34,6 +34,7 @@ use function str_starts_with;
  * @covers \Hyde\Framework\HydeServiceProvider
  * @covers \Hyde\Framework\Concerns\RegistersFileLocations
  * @covers \Hyde\Foundation\Providers\ConfigurationServiceProvider
+ * @covers \Hyde\Foundation\Providers\ViewServiceProvider
  */
 class HydeServiceProviderTest extends TestCase
 {
