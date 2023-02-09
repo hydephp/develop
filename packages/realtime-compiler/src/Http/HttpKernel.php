@@ -14,6 +14,10 @@ use Hyde\RealtimeCompiler\Routing\Router;
  */
 class HttpKernel extends BaseHttpKernel
 {
+    protected array $middleware = [
+        //
+    ];
+
     public function handle(Request $request): Response
     {
         header('X-Server: Hyde/RealtimeCompiler');
