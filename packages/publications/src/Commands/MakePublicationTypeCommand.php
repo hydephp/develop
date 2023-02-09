@@ -101,7 +101,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $fieldType = $this->getFieldType();
 
-        // TODO: Here we could collect other data like the "rules" array for the field.
+        // TODO: Here we could collect other data like the "rules" array for the field. https://github.com/hydephp/publications/issues/5
 
         if ($fieldType === PublicationFieldTypes::Tag) {
             $tagGroup = $this->getTagGroup();
