@@ -74,7 +74,6 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertTrue($this->app->bound(AssetService::class));
         $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
-        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
     }
 
     public function test_provider_registers_source_directories()
