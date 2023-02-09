@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Internal;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 /** @internal */
-class LoadConfiguration extends \Illuminate\Foundation\Bootstrap\LoadConfiguration
+class LoadConfiguration extends BaseLoadConfiguration
 {
     /** Get all the configuration files for the application. */
     protected function getConfigurationFiles(Application $app): array
