@@ -7,6 +7,7 @@ namespace Hyde\Framework;
 use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Views\Components\LinkComponent;
@@ -111,7 +112,7 @@ class HydeServiceProvider extends ServiceProvider
 
     protected function initializeConfiguration(): void
     {
-        //
+        $this->app->register(ConfigurationServiceProvider::class);
     }
 
     /**
