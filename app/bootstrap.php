@@ -28,7 +28,7 @@ $app = new \Hyde\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    Hyde\Foundation\Internal\ConsoleKernel::class
+    \Hyde\Foundation\ConsoleKernel::class
 );
 
 $app->singleton(

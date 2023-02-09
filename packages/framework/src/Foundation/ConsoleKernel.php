@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Foundation\Internal;
+namespace Hyde\Foundation;
 
-/** @internal */
-class ConsoleKernel extends \LaravelZero\Framework\Kernel
+use LaravelZero\Framework\Kernel;
+
+class ConsoleKernel extends Kernel
 {
     /** Get the bootstrap classes for the application. */
     protected function bootstrappers(): array
