@@ -33,6 +33,8 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->register(ConfigurationServiceProvider::class);
+
         $this->initializeConfiguration();
 
         $this->app->singleton(AssetService::class, AssetService::class);
@@ -112,7 +114,6 @@ class HydeServiceProvider extends ServiceProvider
 
     protected function initializeConfiguration(): void
     {
-        $this->app->register(ConfigurationServiceProvider::class);
         $this->getConfigurationProvider()->initialize();
     }
 
