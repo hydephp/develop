@@ -113,7 +113,7 @@ class HydeServiceProvider extends ServiceProvider
     protected function initializeConfiguration(): void
     {
         $this->app->register(ConfigurationServiceProvider::class);
-        $this->app->getProvider(ConfigurationServiceProvider::class)->initialize();
+        $this->getConfigurationProvider()->initialize();
     }
 
     /**
@@ -150,5 +150,10 @@ class HydeServiceProvider extends ServiceProvider
     protected function registerModuleServiceProviders(): void
     {
         $this->app->register(HydeConsoleServiceProvider::class);
+    }
+
+    protected function getConfigurationProvider(): ServiceProvider|ConfigurationServiceProvider
+    {
+        return $this->app->getProvider(ConfigurationServiceProvider::class);
     }
 }
