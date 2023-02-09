@@ -11,7 +11,6 @@ use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Markdown\MarkdownConverter;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
@@ -38,8 +37,6 @@ class HydeServiceProvider extends ServiceProvider
         $this->kernel = HydeKernel::getInstance();
 
         $this->app->singleton(AssetService::class, AssetService::class);
-
-        $this->app->singleton(MarkdownConverter::class, fn (): MarkdownConverter => new MarkdownConverter());
 
         $this->kernel->setSourceRoot(config('hyde.source_root', ''));
 
