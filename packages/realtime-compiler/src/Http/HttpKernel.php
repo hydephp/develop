@@ -22,6 +22,10 @@ class HttpKernel extends BaseHttpKernel
     {
         header('X-Server: Hyde/RealtimeCompiler');
 
+        foreach ($this->middleware as $middleware) {
+            $request = $middleware($request);
+        }
+
         return (new Router($request))->handle();
     }
 }
