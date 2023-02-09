@@ -134,9 +134,9 @@ class Filesystem
     /**
      * Works similarly to the path() function, but returns a file in the Framework package.
      */
-    public function vendorPath(string $path = ''): string
+    public function vendorPath(string $path = '', string $package = 'framework'): string
     {
-        return $this->path('vendor/hyde/framework/'.unslash($path));
+        return $this->path("vendor/hyde/$package/".unslash($path));
     }
 
     /**

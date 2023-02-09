@@ -23,9 +23,9 @@ trait ForwardsFilesystem
         return $this->filesystem->path($path);
     }
 
-    public function vendorPath(string $path = ''): string
+    public function vendorPath(string $path = '', string $package = 'framework'): string
     {
-        return $this->filesystem->vendorPath($path);
+        return $this->filesystem->vendorPath($path, $package);
     }
 
     public function copy(string $from, string $to): bool

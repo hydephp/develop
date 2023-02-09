@@ -111,6 +111,12 @@ class FilesystemTest extends TestCase
         $this->assertEquals('/foo/vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 
+    public function test_vendor_path_can_specify_which_hyde_package_to_use()
+    {
+        $this->assertDirectoryExists(Hyde::vendorPath(package: 'realtime-compiler'));
+        $this->assertFileExists(Hyde::vendorPath('composer.json', 'realtime-compiler'));
+    }
+
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
