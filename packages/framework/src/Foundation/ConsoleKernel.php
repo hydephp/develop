@@ -11,13 +11,13 @@ class ConsoleKernel extends Kernel
     /** Get the bootstrap classes for the application. */
     protected function bootstrappers(): array
     {
-        // Combine the parent bootstrappers into an associative array, so we can easily access them by class name.
-        $array = array_combine(parent::bootstrappers(), parent::bootstrappers());
-        $array = tap($array, function (array &$array) {
-            // Replace the LoadConfiguration bootstrapper with our own.
+        // First, we combine the parent bootstrappers into an associative array,
+        // so we can easily access them by class name. Then we replace the
+        // LoadConfiguration bootstrapper with our own. Finally, we
+        // return the bootstrappers without the added keys.
+
+        return array_values(tap(array_combine(parent::bootstrappers(), parent::bootstrappers()), function (array &$array) {
             $array[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
-        });
-        // Return the bootstrappers without the added keys.
-        return array_values($array);
+        }));
     }
 }
