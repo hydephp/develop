@@ -7,9 +7,9 @@ namespace Hyde\Framework;
 use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Framework\Views\Components\LinkComponent;
 use Hyde\Hyde;
 use Hyde\Markdown\MarkdownConverter;
@@ -112,9 +112,8 @@ class HydeServiceProvider extends ServiceProvider
 
     protected function initializeConfiguration(): void
     {
-        if (YamlConfigurationService::hasFile()) {
-            YamlConfigurationService::boot();
-        }
+        $this->app->register(ConfigurationServiceProvider::class);
+        $this->getConfigurationProvider()->initialize();
     }
 
     /**
@@ -151,5 +150,10 @@ class HydeServiceProvider extends ServiceProvider
     protected function registerModuleServiceProviders(): void
     {
         $this->app->register(HydeConsoleServiceProvider::class);
+    }
+
+    protected function getConfigurationProvider(): ServiceProvider|ConfigurationServiceProvider
+    {
+        return $this->app->getProvider(ConfigurationServiceProvider::class);
     }
 }
