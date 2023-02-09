@@ -1392,7 +1392,7 @@
       <code>static::all()-&gt;sortByDesc('matter.date')</code>
     </TooManyTemplateParams>
   </file>
-  <file src="packages/framework/src/Pages/VirtualPage.php">
+  <file src="packages/framework/src/Pages/InMemoryPage.php">
     <MixedInferredReturnType occurrences="1">
       <code>string</code>
     </MixedInferredReturnType>
@@ -1403,7 +1403,7 @@
       <code>$macro(...$parameters)</code>
     </PossiblyInvalidFunctionCall>
     <PropertyNotSetInConstructor occurrences="1">
-      <code>VirtualPage</code>
+      <code>InMemoryPage</code>
     </PropertyNotSetInConstructor>
     <UnsafeInstantiation occurrences="1">
       <code>new static($identifier, $matter, $contents, $view)</code>

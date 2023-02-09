@@ -10,23 +10,23 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 
 require_once __DIR__.'/BaseHydePageUnitTest.php';
 
 /**
- * @covers \Hyde\Pages\VirtualPage
+ * @covers \Hyde\Pages\InMemoryPage
  *
- * @see \Hyde\Framework\Testing\Unit\VirtualPageTest
+ * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageTest
  */
-class VirtualPageUnitTest extends BaseHydePageUnitTest
+class InMemoryPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()
     {
         $this->assertSame(
             '',
-            VirtualPage::sourceDirectory()
+            InMemoryPage::sourceDirectory()
         );
     }
 
@@ -34,7 +34,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             '',
-            VirtualPage::outputDirectory()
+            InMemoryPage::outputDirectory()
         );
     }
 
@@ -42,7 +42,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             '',
-            VirtualPage::fileExtension()
+            InMemoryPage::fileExtension()
         );
     }
 
@@ -50,7 +50,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'hello-world',
-            VirtualPage::sourcePath('hello-world')
+            InMemoryPage::sourcePath('hello-world')
         );
     }
 
@@ -58,7 +58,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'hello-world.html',
-            VirtualPage::outputPath('hello-world')
+            InMemoryPage::outputPath('hello-world')
         );
     }
 
@@ -66,7 +66,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             Hyde::path('hello-world'),
-            VirtualPage::path('hello-world')
+            InMemoryPage::path('hello-world')
         );
     }
 
@@ -74,7 +74,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'hello-world',
-            (new VirtualPage('hello-world'))->getSourcePath()
+            (new InMemoryPage('hello-world'))->getSourcePath()
         );
     }
 
@@ -82,7 +82,7 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'hello-world.html',
-            (new VirtualPage('hello-world'))->getOutputPath()
+            (new InMemoryPage('hello-world'))->getOutputPath()
         );
     }
 
@@ -90,119 +90,119 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'hello-world.html',
-            (new VirtualPage('hello-world'))->getLink()
+            (new InMemoryPage('hello-world'))->getLink()
         );
     }
 
     public function testMake()
     {
-        $this->assertEquals(VirtualPage::make('foo'), new VirtualPage('foo'));
+        $this->assertEquals(InMemoryPage::make('foo'), new InMemoryPage('foo'));
     }
 
     public function testMakeWithData()
     {
         $this->assertEquals(
-            VirtualPage::make('foo', ['foo' => 'bar']),
-            new VirtualPage('foo', matter: ['foo' => 'bar'])
+            InMemoryPage::make('foo', ['foo' => 'bar']),
+            new InMemoryPage('foo', matter: ['foo' => 'bar'])
         );
     }
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new VirtualPage('foo'))->showInNavigation());
+        $this->assertTrue((new InMemoryPage('foo'))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new VirtualPage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new InMemoryPage('foo'))->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
     {
-        $this->assertSame('Foo', (new VirtualPage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new InMemoryPage('foo'))->navigationMenuLabel());
     }
 
     public function testNavigationMenuGroup()
     {
-        $this->assertNull((new VirtualPage('foo'))->navigationMenuGroup());
+        $this->assertNull((new InMemoryPage('foo'))->navigationMenuGroup());
     }
 
     public function testGetBladeView()
     {
-        $this->assertSame('foo', (new VirtualPage('foo', view: 'foo'))->getBladeView());
+        $this->assertSame('foo', (new InMemoryPage('foo', view: 'foo'))->getBladeView());
     }
 
     public function testFiles()
     {
-        $this->assertSame([], VirtualPage::files());
+        $this->assertSame([], InMemoryPage::files());
     }
 
     public function testData()
     {
-        $this->assertSame('foo', (new VirtualPage('foo'))->data('identifier'));
+        $this->assertSame('foo', (new InMemoryPage('foo'))->data('identifier'));
     }
 
     public function testGet()
     {
-        $page = new VirtualPage('foo');
+        $page = new InMemoryPage('foo');
         HydeKernel::getInstance()->pages()->put('foo', $page);
-        $this->assertSame($page, VirtualPage::get('foo'));
+        $this->assertSame($page, InMemoryPage::get('foo'));
     }
 
     public function testParse()
     {
-        $this->file(VirtualPage::sourcePath('foo'));
-        $this->assertInstanceOf(VirtualPage::class, VirtualPage::parse('foo'));
+        $this->file(InMemoryPage::sourcePath('foo'));
+        $this->assertInstanceOf(InMemoryPage::class, InMemoryPage::parse('foo'));
     }
 
     public function testGetRouteKey()
     {
-        $this->assertSame('foo', (new VirtualPage('foo'))->getRouteKey());
+        $this->assertSame('foo', (new InMemoryPage('foo'))->getRouteKey());
     }
 
     public function testHtmlTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new VirtualPage('foo'))->htmlTitle());
+        $this->assertSame('HydePHP - Foo', (new InMemoryPage('foo'))->htmlTitle());
     }
 
     public function testAll()
     {
-        $this->assertInstanceOf(PageCollection::class, VirtualPage::all());
+        $this->assertInstanceOf(PageCollection::class, InMemoryPage::all());
     }
 
     public function testMetadata()
     {
-        $this->assertInstanceOf(PageMetadataBag::class, (new VirtualPage('foo'))->metadata());
+        $this->assertInstanceOf(PageMetadataBag::class, (new InMemoryPage('foo'))->metadata());
     }
 
     public function test__construct()
     {
-        $this->assertInstanceOf(VirtualPage::class, new VirtualPage('foo'));
+        $this->assertInstanceOf(InMemoryPage::class, new InMemoryPage('foo'));
     }
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new VirtualPage('foo'))->getRoute());
+        $this->assertInstanceOf(Route::class, (new InMemoryPage('foo'))->getRoute());
     }
 
     public function testGetIdentifier()
     {
-        $this->assertSame('foo', (new VirtualPage('foo'))->getIdentifier());
+        $this->assertSame('foo', (new InMemoryPage('foo'))->getIdentifier());
     }
 
     public function testHas()
     {
-        $this->assertTrue((new VirtualPage('foo'))->has('identifier'));
+        $this->assertTrue((new InMemoryPage('foo'))->has('identifier'));
     }
 
     public function testToCoreDataObject()
     {
-        $this->assertInstanceOf(CoreDataObject::class, (new VirtualPage('foo'))->toCoreDataObject());
+        $this->assertInstanceOf(CoreDataObject::class, (new InMemoryPage('foo'))->toCoreDataObject());
     }
 
     public function testConstructFactoryData()
     {
-        (new VirtualPage('foo'))->constructFactoryData($this->mockPageDataFactory());
+        (new InMemoryPage('foo'))->constructFactoryData($this->mockPageDataFactory());
         $this->assertTrue(true);
     }
 
@@ -210,13 +210,13 @@ class VirtualPageUnitTest extends BaseHydePageUnitTest
     {
         $this->file('_pages/foo.html');
 
-        $page = new VirtualPage('foo');
+        $page = new InMemoryPage('foo');
         Hyde::shareViewData($page);
-        $this->assertIsString(VirtualPage::class, $page->compile());
+        $this->assertIsString(InMemoryPage::class, $page->compile());
     }
 
     public function testMatter()
     {
-        $this->assertInstanceOf(FrontMatter::class, (new VirtualPage('404'))->matter());
+        $this->assertInstanceOf(FrontMatter::class, (new InMemoryPage('404'))->matter());
     }
 }

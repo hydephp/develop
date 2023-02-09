@@ -8,15 +8,15 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\RebuildStaticSiteCommand
+ * @covers \Hyde\Console\Commands\RebuildStaticPageCommand
  */
-class RebuildStaticSiteCommandTest extends TestCase
+class RebuildStaticPageCommandTest extends TestCase
 {
     public function test_handle_is_successful_with_valid_path()
     {
         $this->file('_pages/test-page.md', 'foo');
 
-        $this->artisan('rebuild '.'_pages/test-page.md')->assertExitCode(0);
+        $this->artisan('rebuild _pages/test-page.md')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/test-page.html'));
 

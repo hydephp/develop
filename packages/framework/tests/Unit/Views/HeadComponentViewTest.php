@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Hyde;
-use Hyde\Pages\VirtualPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
@@ -34,7 +34,7 @@ class HeadComponentViewTest extends TestCase
 
     public function testTitleElementUsesPageHtmlTitle()
     {
-        $page = $this->createMock(VirtualPage::class);
+        $page = $this->createMock(InMemoryPage::class);
         $page->method('htmlTitle')->willReturn('Foo Bar');
         $this->mockPage($page);
 

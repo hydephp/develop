@@ -15,6 +15,8 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function Hyde\normalize_slashes;
+use function Hyde\path_join;
 use function is_array;
 use function is_string;
 use function str_replace;
@@ -60,7 +62,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->implode($this->getBasePath(), $path);
+        return path_join($this->getBasePath(), $path);
     }
 
     /**
@@ -79,14 +81,12 @@ class Filesystem
 
     /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
-     *
-     * @todo Normalize slashes to forward slashes?
      */
     public function pathToRelative(string $path): string
     {
-        return str_starts_with($path, $this->path())
+        return normalize_slashes(str_starts_with($path, $this->path())
             ? unslash(str_replace($this->path(), '', $path))
-            : $path;
+            : $path);
     }
 
     /**
@@ -95,12 +95,12 @@ class Filesystem
     public function mediaPath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(Hyde::getMediaDirectory());
+            return $this->path(Hyde::getMediaDirectory());
         }
 
         $path = unslash($path);
 
-        return Hyde::path(Hyde::getMediaDirectory().DIRECTORY_SEPARATOR.$path);
+        return $this->path(Hyde::getMediaDirectory()."/$path");
     }
 
     /**
@@ -109,12 +109,12 @@ class Filesystem
     public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(Site::getOutputDirectory());
+            return $this->path(Site::getOutputDirectory());
         }
 
         $path = unslash($path);
 
-        return Hyde::path(Site::getOutputDirectory().DIRECTORY_SEPARATOR.$path);
+        return $this->path(Site::getOutputDirectory()."/$path");
     }
 
     /**
@@ -123,12 +123,12 @@ class Filesystem
     public function siteMediaPath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::sitePath(Hyde::getMediaOutputDirectory());
+            return $this->sitePath(Hyde::getMediaOutputDirectory());
         }
 
         $path = unslash($path);
 
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory().DIRECTORY_SEPARATOR.$path);
+        return $this->sitePath(Hyde::getMediaOutputDirectory()."/$path");
     }
 
     /**
@@ -206,9 +206,7 @@ class Filesystem
             return $this->path(DiscoveryService::getModelSourceDirectory($model));
         }
 
-        $path = unslash($path);
-
-        return $this->path($this->implode(DiscoveryService::getModelSourceDirectory($model), $path));
+        return $this->path(path_join(DiscoveryService::getModelSourceDirectory($model), unslash($path)));
     }
 
     public function getBladePagePath(string $path = ''): string
@@ -235,13 +233,5 @@ class Filesystem
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
             ->map(fn (string $path): string => $this->pathToRelative($path));
-    }
-
-    /**
-     * Implode path components into a string with directory separators.
-     */
-    public static function implode(string $base, string ...$paths): string
-    {
-        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
     }
 }
