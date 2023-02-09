@@ -27,7 +27,7 @@ class ConfigurationServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../../../config/site.php', 'site');
         $this->mergeConfigFrom(__DIR__.'/../../../config/markdown.php', 'markdown');
 
-        // Illuminate Configuration Files
+        // Illuminate/Vendor Configuration Files
         $this->mergeConfigFrom(__DIR__.'/../../../config/view.php', 'view');
         $this->mergeConfigFrom(__DIR__.'/../../../config/cache.php', 'cache');
         $this->mergeConfigFrom(__DIR__.'/../../../config/torchlight.php', 'torchlight');
