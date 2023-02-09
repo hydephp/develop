@@ -40,9 +40,7 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->app->singleton(AssetService::class, AssetService::class);
 
-        $this->app->singleton(MarkdownConverter::class, function (): MarkdownConverter {
-            return new MarkdownConverter();
-        });
+        $this->app->singleton(MarkdownConverter::class, fn(): MarkdownConverter => new MarkdownConverter());
 
         $this->kernel->setSourceRoot(config('hyde.source_root', ''));
 
