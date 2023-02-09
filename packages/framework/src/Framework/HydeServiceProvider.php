@@ -11,7 +11,6 @@ use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Hyde;
 use Hyde\Markdown\MarkdownConverter;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -27,6 +26,8 @@ class HydeServiceProvider extends ServiceProvider
 {
     use RegistersFileLocations;
 
+    protected HydeKernel $kernel;
+
     /**
      * Register any application services.
      */
@@ -34,13 +35,13 @@ class HydeServiceProvider extends ServiceProvider
     {
         $this->initializeConfiguration();
 
+        $this->kernel = HydeKernel::getInstance();
+
         $this->app->singleton(AssetService::class, AssetService::class);
 
-        $this->app->singleton(MarkdownConverter::class, function (): MarkdownConverter {
-            return new MarkdownConverter();
-        });
+        $this->app->singleton(MarkdownConverter::class, fn (): MarkdownConverter => new MarkdownConverter());
 
-        Hyde::setSourceRoot(config('hyde.source_root', ''));
+        $this->kernel->setSourceRoot(config('hyde.source_root', ''));
 
         $this->registerPageModels();
 
@@ -74,7 +75,7 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        HydeKernel::getInstance()->readyToBoot();
+        $this->kernel->readyToBoot();
     }
 
     protected function initializeConfiguration(): void
@@ -90,23 +91,23 @@ class HydeServiceProvider extends ServiceProvider
         // TODO use the hyde facade once it gets the method annotations
 
         if (Features::hasHtmlPages()) {
-            HydeKernel::getInstance()->registerPageClass(HtmlPage::class);
+            $this->kernel->registerPageClass(HtmlPage::class);
         }
 
         if (Features::hasBladePages()) {
-            HydeKernel::getInstance()->registerPageClass(BladePage::class);
+            $this->kernel->registerPageClass(BladePage::class);
         }
 
         if (Features::hasMarkdownPages()) {
-            HydeKernel::getInstance()->registerPageClass(MarkdownPage::class);
+            $this->kernel->registerPageClass(MarkdownPage::class);
         }
 
         if (Features::hasMarkdownPosts()) {
-            HydeKernel::getInstance()->registerPageClass(MarkdownPost::class);
+            $this->kernel->registerPageClass(MarkdownPost::class);
         }
 
         if (Features::hasDocumentationPages()) {
-            HydeKernel::getInstance()->registerPageClass(DocumentationPage::class);
+            $this->kernel->registerPageClass(DocumentationPage::class);
         }
     }
 
