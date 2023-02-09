@@ -9,11 +9,16 @@ use Illuminate\Support\ServiceProvider;
 
 class ConfigurationServiceProvider extends ServiceProvider
 {
-    public function register(): void
+    public function initialize(): void
     {
         if (YamlConfigurationService::hasFile()) {
             YamlConfigurationService::boot();
         }
+    }
+
+    public function register(): void
+    {
+        //
     }
 
     public function boot(): void
