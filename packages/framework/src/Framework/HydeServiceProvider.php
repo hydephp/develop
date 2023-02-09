@@ -11,7 +11,6 @@ use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Hyde;
 use Hyde\Markdown\MarkdownConverter;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
