@@ -5,6 +5,7 @@ namespace Hyde\RealtimeCompiler\Http;
 use Desilva\Microserve\HttpKernel as BaseHttpKernel;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\RealtimeCompiler\Http\Middleware\PathNormalizerMiddleware;
 use Hyde\RealtimeCompiler\Routing\Router;
 
 /**
@@ -16,7 +17,7 @@ class HttpKernel extends BaseHttpKernel
 {
     /** @var array<class-string<callable>>|array<callable(Request): Request> */
     protected array $middleware = [
-        //
+        PathNormalizerMiddleware::class,
     ];
 
     public function handle(Request $request): Response
