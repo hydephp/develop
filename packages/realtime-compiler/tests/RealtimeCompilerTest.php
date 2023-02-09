@@ -103,6 +103,24 @@ test('handle sends 404 error response for missing asset', function () {
         ->and($response->statusMessage)->toBe('Not Found');
 });
 
+test('trailing slashes are normalized from route', function () {
+    mockRoute('foo/');
+
+    Filesystem::put('_pages/foo.md', '# Hello World!');
+
+    $kernel = new HttpKernel();
+    $response = $kernel->handle(new Request());
+
+    expect($response)->toBeInstanceOf(Response::class)
+        ->and($response->statusCode)->toBe(200)
+        ->and($response->statusMessage)->toBe('OK');
+
+    expect($response->body)->toContain('<h1>Hello World!</h1>');
+
+    Filesystem::unlink('_pages/foo.md');
+    Filesystem::unlink('_site/foo.html');
+});
+
 test('docs uri path is rerouted to docs/index', function () {
     mockRoute('docs');
 
