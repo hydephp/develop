@@ -9,6 +9,9 @@ use Illuminate\Support\ServiceProvider;
 
 class ConfigurationServiceProvider extends ServiceProvider
 {
+    /**
+     * Run any logic before the Hyde Service Provider is registered.
+     */
     public function initialize(): void
     {
         if (YamlConfigurationService::hasFile()) {
