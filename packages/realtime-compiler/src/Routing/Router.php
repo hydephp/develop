@@ -17,7 +17,7 @@ class Router
 
     protected Request $request;
 
-    protected array $customRoutes = [
+    protected array $virtualRoutes = [
         '/ping',
         '/docs',
         '/docs/search',
@@ -106,7 +106,7 @@ class Router
      */
     protected function shouldRenderSpecial(Request $request): bool
     {
-        $routes = $this->customRoutes;
+        $routes = $this->virtualRoutes;
 
         return in_array($request->path, $routes);
     }
