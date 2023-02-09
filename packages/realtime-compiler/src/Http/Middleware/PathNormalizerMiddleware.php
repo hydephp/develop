@@ -19,6 +19,8 @@ class PathNormalizerMiddleware
             $request->path = $this->pathRewrites[$request->path];
         }
 
+        $request->path = rtrim($request->path, '/');
+
         return $request;
     }
 }
