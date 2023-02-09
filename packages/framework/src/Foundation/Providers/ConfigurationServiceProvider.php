@@ -25,6 +25,8 @@ class ConfigurationServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../../../config/docs.php', 'docs');
         $this->mergeConfigFrom(__DIR__.'/../../../config/site.php', 'site');
         $this->mergeConfigFrom(__DIR__.'/../../../config/markdown.php', 'markdown');
+
+        $this->mergeConfigFrom(__DIR__.'/../../../config/view.php', 'view');
     }
 
     public function boot(): void
