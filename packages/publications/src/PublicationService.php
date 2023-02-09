@@ -101,6 +101,6 @@ class PublicationService
 
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
     {
-        return glob(Hyde::path("_media/$directory/*.$extensions"), GLOB_BRACE);
+        return glob(Hyde::mediaPath("$directory/*.$extensions"), GLOB_BRACE);
     }
 }
