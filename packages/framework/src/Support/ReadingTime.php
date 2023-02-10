@@ -39,7 +39,7 @@ class ReadingTime
 
     public function getMinutes(): int
     {
-        // TODO: Implement getMinutes() method
+        return (int) ($this->seconds / 60);
     }
 
     public function getFormatted(): string
