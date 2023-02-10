@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 /**
+ * Calculate the estimated reading time for a text.
+ *
  * @see \Hyde\Framework\Testing\Feature\ReadingTimeTest
  */
 class ReadingTime
