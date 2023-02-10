@@ -3,3 +3,5 @@ name: Deploy Documentation Preview
 on:
   pull_request:
     branches: [ "master" ]
+    paths:
+      - 'docs/**'
