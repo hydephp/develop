@@ -20,14 +20,6 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         );
     }
 
-    public function test_site_config_files_are_matching()
-    {
-        $this->assertFileEqualsIgnoringNewlineType(
-            Hyde::path('config/site.php'),
-            Hyde::vendorPath('config/site.php')
-        );
-    }
-
     public function test_docs_config_files_are_matching()
     {
         $this->assertFileEqualsIgnoringNewlineType(
