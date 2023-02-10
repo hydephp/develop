@@ -77,7 +77,8 @@ class ReadingTime
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        [$baseMinutes, $secondsOver] = ([$this->getMinutes(), $this->getSecondsOver()]);
+        $baseMinutes = $this->getMinutes();
+        $secondsOver = $this->getSecondsOver();
 
         return sprintf($format, $baseMinutes, $secondsOver);
     }
@@ -85,7 +86,8 @@ class ReadingTime
     /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */
     public function formatUsingClosure(Closure $closure): string
     {
-        [$baseMinutes, $secondsOver] = ([$this->getMinutes(), $this->getSecondsOver()]);
+        $baseMinutes = $this->getMinutes();
+        $secondsOver = $this->getSecondsOver();
 
         return $closure($baseMinutes, $secondsOver);
     }
