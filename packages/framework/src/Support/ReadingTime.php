@@ -9,6 +9,9 @@ namespace Hyde\Support;
  */
 class ReadingTime
 {
+    /**
+     * @var int
+     */
     protected const WORDS_PER_MINUTE = 200;
 
     protected readonly string $text;
