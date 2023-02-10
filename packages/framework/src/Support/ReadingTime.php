@@ -10,7 +10,7 @@ namespace Hyde\Support;
 class ReadingTime
 {
     /**
-     * @var int
+     * @var int How many words per minute is read. Inversely proportional. Increase for a shorter reading time.
      */
     protected const WORDS_PER_MINUTE = 200;
 
