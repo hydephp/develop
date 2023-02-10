@@ -51,14 +51,14 @@ class ReadingTime
         return $this->wordCount;
     }
 
-    public function getSeconds(): int
-    {
-        return $this->seconds;
-    }
-
     public function getMinutes(): int
     {
         return (int) $this->getMinutesAsFloat();
+    }
+
+    public function getSeconds(): int
+    {
+        return $this->seconds;
     }
 
     protected function getMinutesAsFloat(): float
