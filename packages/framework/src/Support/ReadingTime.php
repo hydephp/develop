@@ -45,6 +45,11 @@ class ReadingTime
         // TODO: Implement getFormatted() method
     }
 
+    public function getWordCount(): int
+    {
+        return $this->wordCount;
+    }
+
     protected function generate(): void
     {
         // TODO: Implement generate() method
