@@ -69,6 +69,7 @@ class ReadingTime
         return sprintf($format, $fMin, $fSec);
     }
 
+    /** @param  \Closure(float, float): string $closure */
     public function formatUsingClosure(Closure $closure): string
     {
         $minutes = $this->getMinutesAsFloat();
