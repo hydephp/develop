@@ -14,7 +14,7 @@ use Hyde\Facades\Filesystem;
 class ReadingTime
 {
     /** @var int How many words per minute is read. Inversely proportional. Increase for a shorter reading time. */
-    protected const WORDS_PER_MINUTE = 260;
+    protected const WORDS_PER_MINUTE = 240;
 
     /** @var string The text to calculate the reading time for. */
     protected readonly string $text;
