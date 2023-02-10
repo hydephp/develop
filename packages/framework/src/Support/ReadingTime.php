@@ -96,7 +96,7 @@ class ReadingTime
     protected function getTokenized(): array
     {
         $minutes = $this->getMinutesAsFloat();
-        $fMin = (int) floor($minutes);
+        $fMin = $this->getMinutes();
         $fSec = (int) floor(($minutes - $fMin) * 60);
 
         return [$fMin, $fSec];
