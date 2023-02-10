@@ -73,6 +73,18 @@ class ReadingTimeTest extends TestCase
         $this->assertSame('1:30', (new ReadingTime($this->words(360)))->getFormatted('%d:%02d'));
     }
 
+    public function test_formatUsingClosure()
+    {
+        $closure = function (float $minutes, float $seconds): string {
+            return "$minutes minutes, $seconds seconds";
+        };
+
+        $this->assertSame('0 minutes, 0 seconds', (new ReadingTime($this->words(0)))->formatUsingClosure($closure));
+        $this->assertSame('0 minutes, 30 seconds', (new ReadingTime($this->words(120)))->formatUsingClosure($closure));
+        $this->assertSame('1 minutes, 0 seconds', (new ReadingTime($this->words(240)))->formatUsingClosure($closure));
+        $this->assertSame('1 minutes, 30 seconds', (new ReadingTime($this->words(360)))->formatUsingClosure($closure));
+    }
+
     protected function words(int $words): string
     {
         return implode(' ', array_fill(0, $words, 'word'));

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
+use Closure;
 use Hyde\Facades\Filesystem;
+
+use function floor;
 
 /**
  * Calculate the estimated reading time for a text.
@@ -64,6 +67,15 @@ class ReadingTime
         $fSec = ($minutes - $fMin) * 60;
 
         return sprintf($format, $fMin, $fSec);
+    }
+
+    public function formatUsingClosure(Closure $closure): string
+    {
+        $minutes = $this->getMinutesAsFloat();
+        $fMin = floor($minutes);
+        $fSec = ($minutes - $fMin) * 60;
+
+        return $closure($fMin, $fSec);
     }
 
     protected function generate(): void
