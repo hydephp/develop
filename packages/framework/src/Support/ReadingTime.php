@@ -34,7 +34,7 @@ class ReadingTime
 
     public function getSeconds(): int
     {
-        // TODO: Implement getSeconds() method
+        return (int) $this->seconds;
     }
 
     public function getMinutes(): int
