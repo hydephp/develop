@@ -70,7 +70,8 @@ class ReadingTime
     {
         $minutes = $this->getMinutesAsFloat();
         $baseMinutes = $this->getMinutes();
-        return (int) floor(($minutes - $baseMinutes) * 60);
+        $minuteDiff = $minutes - $baseMinutes;
+        return (int) floor(($minuteDiff) * 60);
     }
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
