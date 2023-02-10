@@ -68,7 +68,7 @@ class ReadingTime
 
     public function getSecondsOver(): int
     {
-        return (int) floor(($this->getMinutesAsFloat() - $this->getMinutes()) * 60);
+        return (int) round(($this->getMinutesAsFloat() - $this->getMinutes()) * 60);
     }
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
