@@ -77,7 +77,7 @@ class ReadingTime
         return sprintf($format, $fMin, $fSec);
     }
 
-    /** @param  \Closure(float, float): string $closure The closure will receive the minutes and seconds as floats and should return a string. */
+    /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */
     public function formatUsingClosure(Closure $closure): string
     {
         list($fMin, $fSec) = $this->getTokenized();
@@ -96,12 +96,13 @@ class ReadingTime
         $this->seconds = $seconds;
     }
 
-    /** @return array<int, float> The minutes and seconds as floats. */
+    /** @return array<int, int> The minutes and seconds as integers. */
     protected function getTokenized(): array
     {
         $minutes = $this->getMinutesAsFloat();
-        $fMin = floor($minutes);
-        $fSec = ($minutes - $fMin) * 60;
+        $fMin = (int) floor($minutes);
+        $fSec = (int) floor(($minutes - $fMin) * 60);
+
         return array($fMin, $fSec);
     }
 }
