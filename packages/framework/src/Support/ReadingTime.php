@@ -77,7 +77,7 @@ class ReadingTime
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        [$baseMinutes, $secondsOver] = $this->getTokenized();
+        [$baseMinutes, $secondsOver] = ([$this->getMinutes(), $this->getSecondsOver()]);
 
         return sprintf($format, $baseMinutes, $secondsOver);
     }
@@ -85,7 +85,7 @@ class ReadingTime
     /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */
     public function formatUsingClosure(Closure $closure): string
     {
-        [$baseMinutes, $secondsOver] = $this->getTokenized();
+        [$baseMinutes, $secondsOver] = ([$this->getMinutes(), $this->getSecondsOver()]);
 
         return $closure($baseMinutes, $secondsOver);
     }
@@ -99,11 +99,5 @@ class ReadingTime
 
         $this->wordCount = $wordCount;
         $this->seconds = $seconds;
-    }
-
-    /** @return array<int, int> The minutes and seconds as integers. */
-    protected function getTokenized(): array
-    {
-        return [$this->getMinutes(), $this->getSecondsOver()];
     }
 }
