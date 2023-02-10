@@ -35,7 +35,7 @@ class ReadingTime
 
     public static function fromFile(string $path): static
     {
-        return new static(Filesystem::getContents($path));
+        return static::fromString(Filesystem::getContents($path));
     }
 
     public function __construct(string $text)
