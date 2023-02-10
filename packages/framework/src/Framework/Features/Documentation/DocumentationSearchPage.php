@@ -33,11 +33,16 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function enabled(): bool
     {
-        return config('docs.create_search_page', true) && ! Hyde::routes()->has('docs/search');
+        return config('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
     }
 
     public static function generate(): string
     {
         return (new StaticPageBuilder(new static()))->__invoke();
+    }
+
+    public static function routeKey(): string
+    {
+        return 'docs/search';
     }
 }
