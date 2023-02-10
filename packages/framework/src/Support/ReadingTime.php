@@ -71,6 +71,7 @@ class ReadingTime
         $minutes = $this->getMinutesAsFloat();
         $baseMinutes = $this->getMinutes();
         $minuteDiff = $minutes - $baseMinutes;
+
         return (int) floor(($minuteDiff) * 60);
     }
 
