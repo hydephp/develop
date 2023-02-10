@@ -22,8 +22,8 @@ class ReadingTime
     /** @var int The number of words in the text. */
     protected int $wordCount;
 
-    /** @var int The number of seconds it takes to read the text. */
-    protected int $seconds;
+    /** @var float The number of seconds it takes to read the text. */
+    protected float $seconds;
 
     public function __construct(string $text)
     {
