@@ -26,6 +26,11 @@ class DocumentationSearchPage extends DocumentationPage
         ]);
     }
 
+    public function compile(): string
+    {
+        return view('hyde::pages.documentation-search')->render();
+    }
+
     public static function enabled(): bool
     {
         return config('docs.create_search_page', true) && ! Hyde::routes()->has('docs/search');
@@ -34,10 +39,5 @@ class DocumentationSearchPage extends DocumentationPage
     public static function generate(): string
     {
         return (new StaticPageBuilder(new static()))->__invoke();
-    }
-
-    public function compile(): string
-    {
-        return view('hyde::pages.documentation-search')->render();
     }
 }
