@@ -21,14 +21,19 @@ class DocumentationSearchPage extends DocumentationPage
 {
     public function __construct()
     {
-        parent::__construct(DocumentationPage::outputDirectory().'/search', [
+        parent::__construct('search', [
             'title' => 'Search',
         ]);
     }
 
+    public function compile(): string
+    {
+        return view('hyde::pages.documentation-search')->render();
+    }
+
     public static function enabled(): bool
     {
-        return config('docs.create_search_page', true) && ! Hyde::routes()->has('docs/search');
+        return config('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
     }
 
     public static function generate(): string
@@ -36,8 +41,8 @@ class DocumentationSearchPage extends DocumentationPage
         return (new StaticPageBuilder(new static()))->__invoke();
     }
 
-    public function compile(): string
+    public static function routeKey(): string
     {
-        return view('hyde::pages.documentation-search')->render();
+        return parent::$outputDirectory.'/search';
     }
 }
