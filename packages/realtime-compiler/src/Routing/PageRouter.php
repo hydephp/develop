@@ -36,7 +36,7 @@ class PageRouter
             ]);
         }
 
-        $html = $this->getHtml(Route::getOrFail($this->normalizePath($this->request->path))->getPage());
+        $html = $this->getHtml($this->getPageFromRoute());
 
         return (new Response(200, 'OK', [
             'body' => $html,
@@ -73,5 +73,10 @@ class PageRouter
     public static function handle(Request $request): Response
     {
         return (new self($request))->handlePageRequest();
+    }
+
+    protected function getPageFromRoute(): HydePage
+    {
+        return Route::getOrFail($this->normalizePath($this->request->path))->getPage();
     }
 }
