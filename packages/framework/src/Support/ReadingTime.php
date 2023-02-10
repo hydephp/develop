@@ -32,6 +32,11 @@ class ReadingTime
         $this->generate();
     }
 
+    public function getWordCount(): int
+    {
+        return $this->wordCount;
+    }
+
     public function getSeconds(): int
     {
         return (int) $this->getSecondsAsFloat();
@@ -59,11 +64,6 @@ class ReadingTime
         $fSec = ($minutes - $fMin) * 60;
 
         return sprintf($format, $fMin, $fSec);
-    }
-
-    public function getWordCount(): int
-    {
-        return $this->wordCount;
     }
 
     protected function generate(): void

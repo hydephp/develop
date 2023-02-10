@@ -17,6 +17,14 @@ class ReadingTimeTest extends TestCase
         $this->assertInstanceOf(ReadingTime::class, new ReadingTime('Hello world'));
     }
 
+    public function test_getWordCount()
+    {
+        $this->assertSame(0, (new ReadingTime($this->words(0)))->getWordCount());
+        $this->assertSame(120, (new ReadingTime($this->words(120)))->getWordCount());
+        $this->assertSame(240, (new ReadingTime($this->words(240)))->getWordCount());
+        $this->assertSame(360, (new ReadingTime($this->words(360)))->getWordCount());
+    }
+
     public function test_getSeconds()
     {
         $this->assertSame(0, (new ReadingTime($this->words(0)))->getSeconds());
@@ -39,14 +47,6 @@ class ReadingTimeTest extends TestCase
         $this->assertSame('0min, 30sec', (new ReadingTime($this->words(120)))->getFormatted());
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(240)))->getFormatted());
         $this->assertSame('1min, 30sec', (new ReadingTime($this->words(360)))->getFormatted());
-    }
-
-    public function test_getWordCount()
-    {
-        $this->assertSame(0, (new ReadingTime($this->words(0)))->getWordCount());
-        $this->assertSame(120, (new ReadingTime($this->words(120)))->getWordCount());
-        $this->assertSame(240, (new ReadingTime($this->words(240)))->getWordCount());
-        $this->assertSame(360, (new ReadingTime($this->words(360)))->getWordCount());
     }
 
     protected function words(int $words): string
