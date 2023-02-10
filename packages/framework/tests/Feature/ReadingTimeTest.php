@@ -12,5 +12,8 @@ use Hyde\Testing\TestCase;
  */
 class ReadingTimeTest extends TestCase
 {
-    //
+    protected function words(int $words): string
+    {
+        return implode(' ', array_fill(0, $words, 'word'));
+    }
 }
