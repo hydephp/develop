@@ -43,6 +43,6 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function routeKey(): string
     {
-        return 'docs/search';
+        return parent::$outputDirectory.'/search';
     }
 }
