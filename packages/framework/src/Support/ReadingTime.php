@@ -28,6 +28,16 @@ class ReadingTime
     /** @var float The number of seconds it takes to read the text. */
     protected float $seconds;
 
+    public static function fromString(string $text): static
+    {
+        return new static($text);
+    }
+
+    public static function fromFile(string $path): static
+    {
+        return new static(Filesystem::getContents($path));
+    }
+
     public function __construct(string $text)
     {
         $this->text = $text;
@@ -88,15 +98,5 @@ class ReadingTime
 
         $this->wordCount = $wordCount;
         $this->seconds = $seconds;
-    }
-
-    public static function fromString(string $text): static
-    {
-        return new static($text);
-    }
-
-    public static function fromFile(string $path): static
-    {
-        return new static(Filesystem::getContents($path));
     }
 }
