@@ -33,4 +33,9 @@ class ReadingTime
     {
         // TODO: Implement getFormatted() method
     }
+
+    protected function generate(): void
+    {
+        // TODO: Implement generate() method
+    }
 }
