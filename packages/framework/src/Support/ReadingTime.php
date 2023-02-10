@@ -61,7 +61,7 @@ class ReadingTime
         return (int) $this->getMinutesAsFloat();
     }
 
-    public function getMinutesAsFloat(): float
+    protected function getMinutesAsFloat(): float
     {
         return $this->seconds / 60;
     }
