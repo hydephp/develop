@@ -54,7 +54,11 @@ class ReadingTime
 
     public function getFormatted(): string
     {
-        // TODO: Implement getFormatted() method
+        $minutes = $this->getMinutesAsFloat();
+        $fMin = floor($minutes);
+        $fSec = ($minutes - $fMin) * 60;
+
+        return sprintf('%dmin, %dsec', $fMin, $fSec);
     }
 
     public function getWordCount(): int
