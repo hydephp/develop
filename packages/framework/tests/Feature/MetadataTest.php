@@ -28,10 +28,10 @@ class MetadataTest extends TestCase
     {
         parent::setUp();
 
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         config(['hyde.meta' => []]);
         config(['hyde.generate_rss_feed' => false]);
-        config(['site.generate_sitemap' => false]);
+        config(['hyde.generate_sitemap' => false]);
     }
 
     protected function assertPageHasMetadata(HydePage $page, string $metadata)
@@ -197,7 +197,7 @@ class MetadataTest extends TestCase
 
     public function test_does_not_add_canonical_link_when_base_url_is_not_set()
     {
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         $page = MarkdownPage::make('bar');
 
         $this->assertStringNotContainsString('<link rel="canonical"', $page->metadata->render());
@@ -205,7 +205,7 @@ class MetadataTest extends TestCase
 
     public function test_does_not_add_canonical_link_when_identifier_is_not_set()
     {
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         $page = MarkdownPage::make();
 
         $this->assertStringNotContainsString('<link rel="canonical"', $page->metadata->render());
@@ -213,7 +213,7 @@ class MetadataTest extends TestCase
 
     public function test_adds_canonical_link_when_base_url_and_identifier_is_set()
     {
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         $page = MarkdownPage::make('bar');
 
         $this->assertStringContainsString('<link rel="canonical" href="foo/bar.html">', $page->metadata->render());
@@ -221,8 +221,8 @@ class MetadataTest extends TestCase
 
     public function test_canonical_link_uses_clean_url_setting()
     {
-        config(['site.url' => 'foo']);
-        config(['site.pretty_urls' => true]);
+        config(['hyde.url' => 'foo']);
+        config(['hyde.pretty_urls' => true]);
         $page = MarkdownPage::make('bar');
 
         $this->assertStringContainsString('<link rel="canonical" href="foo/bar">', $page->metadata->render());
@@ -230,7 +230,7 @@ class MetadataTest extends TestCase
 
     public function test_can_override_canonical_link_with_front_matter()
     {
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         $page = MarkdownPage::make('bar', [
             'canonicalUrl' => 'canonical',
         ]);

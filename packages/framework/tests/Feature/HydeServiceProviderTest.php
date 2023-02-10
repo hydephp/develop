@@ -64,10 +64,10 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_applies_yaml_configuration_when_present()
     {
-        $this->assertEquals('HydePHP', config('site.name'));
+        $this->assertEquals('HydePHP', config('hyde.name'));
         $this->file('hyde.yml', 'name: Foo');
         $this->provider->register();
-        $this->assertEquals('Foo', config('site.name'));
+        $this->assertEquals('Foo', config('hyde.name'));
     }
 
     public function test_provider_registers_asset_service_contract()
@@ -159,7 +159,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertEquals('_site', Site::getOutputDirectory());
 
-        config(['site.output_directory' => 'foo']);
+        config(['hyde.output_directory' => 'foo']);
 
         $this->provider->register();
 
@@ -170,7 +170,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertEquals('_media', Hyde::getMediaDirectory());
 
-        config(['site.media_directory' => 'foo']);
+        config(['hyde.media_directory' => 'foo']);
 
         $this->provider->register();
 

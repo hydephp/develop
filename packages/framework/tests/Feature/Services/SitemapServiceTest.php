@@ -96,8 +96,8 @@ class SitemapServiceTest extends TestCase
 
     public function test_url_item_is_generated_correctly()
     {
-        config(['site.pretty_urls' => false]);
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.pretty_urls' => false]);
+        config(['hyde.url' => 'https://example.com']);
         Hyde::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
@@ -113,8 +113,8 @@ class SitemapServiceTest extends TestCase
 
     public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
-        config(['site.pretty_urls' => true]);
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.pretty_urls' => true]);
+        config(['hyde.url' => 'https://example.com']);
         Hyde::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
@@ -128,7 +128,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_all_route_types_are_discovered()
     {
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         Hyde::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
 
         $files = [

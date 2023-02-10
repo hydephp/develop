@@ -27,7 +27,7 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_build_command_can_run_post_build_tasks()
     {
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
 
         $this->artisan('build')
             ->expectsOutputToContain('Generating sitemap')

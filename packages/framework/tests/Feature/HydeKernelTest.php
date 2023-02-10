@@ -137,11 +137,11 @@ class HydeKernelTest extends TestCase
 
     public function test_format_html_path_helper_formats_path_according_to_config_rules()
     {
-        Config::set('site.pretty_urls', false);
+        Config::set('hyde.pretty_urls', false);
         $this->assertSame('foo.html', Hyde::formatLink('foo.html'));
         $this->assertSame('index.html', Hyde::formatLink('index.html'));
 
-        Config::set('site.pretty_urls', true);
+        Config::set('hyde.pretty_urls', true);
         $this->assertSame('foo', Hyde::formatLink('foo.html'));
         $this->assertSame('/', Hyde::formatLink('index.html'));
     }
@@ -188,24 +188,24 @@ class HydeKernelTest extends TestCase
 
     public function test_has_site_url_helper_returns_boolean_value_for_when_config_setting_is_set()
     {
-        Config::set('site.url', 'https://example.com');
+        Config::set('hyde.url', 'https://example.com');
         $this->assertTrue(Hyde::hasSiteUrl());
 
-        Config::set('site.url', null);
+        Config::set('hyde.url', null);
         $this->assertFalse(Hyde::hasSiteUrl());
     }
 
     public function test_url_returns_qualified_url_paths()
     {
-        Config::set('site.url', 'https://example.com');
+        Config::set('hyde.url', 'https://example.com');
         $this->assertSame('https://example.com', Hyde::url());
         $this->assertSame('https://example.com/foo', Hyde::url('foo'));
 
-        Config::set('site.pretty_urls', false);
+        Config::set('hyde.pretty_urls', false);
         $this->assertSame('https://example.com/foo.html', Hyde::url('foo.html'));
         $this->assertSame('https://example.com/index.html', Hyde::url('index.html'));
 
-        Config::set('site.pretty_urls', true);
+        Config::set('hyde.pretty_urls', true);
         $this->assertSame('https://example.com/foo', Hyde::url('foo.html'));
         $this->assertSame('https://example.com', Hyde::url('index.html'));
     }
@@ -414,7 +414,7 @@ class HydeKernelTest extends TestCase
     {
         $this->assertEquals('_media', Hyde::getMediaDirectory());
 
-        config(['site.media_directory' => '_assets']);
+        config(['hyde.media_directory' => '_assets']);
         (new HydeServiceProvider($this->app))->register();
 
         $this->assertEquals('_assets', Hyde::getMediaDirectory());

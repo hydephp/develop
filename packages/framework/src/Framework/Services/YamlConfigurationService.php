@@ -16,8 +16,8 @@ class YamlConfigurationService
     public static function boot(): void
     {
         if (static::hasFile()) {
-            Config::set('site', array_merge(
-                Config::get('site', []),
+            Config::set('hyde', array_merge(
+                Config::get('hyde', []),
                 static::getYaml()
             ));
         }
