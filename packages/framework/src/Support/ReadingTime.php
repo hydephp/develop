@@ -12,7 +12,10 @@ class ReadingTime
     /** @var int How many words per minute is read. Inversely proportional. Increase for a shorter reading time. */
     protected const WORDS_PER_MINUTE = 200;
 
+    /** @var string The text to calculate the reading time for. */
     protected readonly string $text;
+
+    /** @var int The number of seconds it takes to read the text. */
     protected int $seconds;
 
     public function __construct(string $text)
