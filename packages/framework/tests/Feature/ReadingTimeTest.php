@@ -75,6 +75,11 @@ class ReadingTimeTest extends TestCase
 
     public function test_formatUsingClosure()
     {
+        /**
+         * @param  float  $minutes
+         * @param  float  $seconds
+         * @return string
+         */
         $closure = function (float $minutes, float $seconds): string {
             return "$minutes minutes, $seconds seconds";
         };
