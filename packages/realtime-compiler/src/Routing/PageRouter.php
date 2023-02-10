@@ -5,6 +5,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
@@ -77,6 +78,10 @@ class PageRouter
 
     protected function getPageFromRoute(): HydePage
     {
+        if ($this->request->path === '/docs/search') {
+            return (new DocumentationSearchPage());
+        }
+
         return Route::getOrFail($this->normalizePath($this->request->path))->getPage();
     }
 }
