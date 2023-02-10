@@ -203,7 +203,7 @@ return [
         // Meta::name('description', 'My Hyde Blog'),
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
         Meta::name('generator', 'HydePHP '.Hyde\Hyde::version()),
-        Meta::property('site_name', config('hyde.name', 'HydePHP')),
+        Meta::property('site_name', env('SITE_NAME', 'HydePHP')),
     ],
 
     /*
