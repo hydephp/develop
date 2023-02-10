@@ -39,11 +39,8 @@ class PageRouter
 
         $html = $this->getHtml($this->getPageFromRoute());
 
-        return (new Response(200, 'OK', [
+        return new HtmlResponse(200, 'OK', [
             'body' => $html,
-        ]))->withHeaders([
-            'Content-Type'   => 'text/html',
-            'Content-Length' => strlen($html),
         ]);
     }
 
