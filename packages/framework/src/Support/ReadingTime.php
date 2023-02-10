@@ -17,6 +17,9 @@ class ReadingTime
     /** @var string The text to calculate the reading time for. */
     protected readonly string $text;
 
+    /** @var int The number of words in the text. */
+    protected int $wordCount;
+
     /** @var int The number of seconds it takes to read the text. */
     protected int $seconds;
 
