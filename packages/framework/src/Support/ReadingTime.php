@@ -7,6 +7,8 @@ namespace Hyde\Support;
 use Closure;
 use Hyde\Facades\Filesystem;
 use function floor;
+use function sprintf;
+use function str_word_count;
 
 /**
  * Calculate the estimated reading time for a text.
