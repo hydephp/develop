@@ -43,6 +43,14 @@ class ReadingTimeTest extends TestCase
         $this->assertSame(90, (new ReadingTime($this->words(360)))->getSeconds());
     }
 
+    public function test_getSecondsOver()
+    {
+        $this->assertSame(0, (new ReadingTime($this->words(0)))->getSecondsOver());
+        $this->assertSame(30, (new ReadingTime($this->words(120)))->getSecondsOver());
+        $this->assertSame(0, (new ReadingTime($this->words(240)))->getSecondsOver());
+        $this->assertSame(30, (new ReadingTime($this->words(360)))->getSecondsOver());
+    }
+
     public function test_getFormatted()
     {
         $this->assertSame('0min, 0sec', (new ReadingTime($this->words(0)))->getFormatted());

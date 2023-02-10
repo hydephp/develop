@@ -66,6 +66,13 @@ class ReadingTime
         return $this->seconds / 60;
     }
 
+    public function getSecondsOver(): int
+    {
+        $minutes = $this->getMinutesAsFloat();
+        $baseMinutes = $this->getMinutes();
+        return (int) floor(($minutes - $baseMinutes) * 60);
+    }
+
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
         [$baseMinutes, $secondsOver] = $this->getTokenized();
@@ -95,9 +102,8 @@ class ReadingTime
     /** @return array<int, int> The minutes and seconds as integers. */
     protected function getTokenized(): array
     {
-        $minutes = $this->getMinutesAsFloat();
         $baseMinutes = $this->getMinutes();
-        $secondsOver = (int) floor(($minutes - $baseMinutes) * 60);
+        $secondsOver = $this->getSecondsOver();
 
         return [$baseMinutes, $secondsOver];
     }
