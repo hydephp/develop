@@ -54,7 +54,13 @@ class ReadingTime
 
     protected function generate(): void
     {
-        // TODO: Implement generate() method
+        $wordCount = str_word_count($this->text);
+
+        $minutes = $wordCount / static::WORDS_PER_MINUTE;
+        $seconds = $minutes * 60;
+
+        $this->wordCount = $wordCount;
+        $this->seconds = $seconds;
     }
 
     public static function fromString(string $text): static
