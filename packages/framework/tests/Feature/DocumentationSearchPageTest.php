@@ -59,4 +59,9 @@ class DocumentationSearchPageTest extends TestCase
         Hyde::routes()->put('docs/search', new InMemoryPage('docs/search'));
         $this->assertFalse(DocumentationSearchPage::enabled());
     }
+
+    public function testStaticRouteKeyHelper()
+    {
+        $this->assertSame('docs/search', DocumentationSearchPage::routeKey());
+    }
 }
