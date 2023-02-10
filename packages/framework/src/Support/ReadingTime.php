@@ -52,13 +52,13 @@ class ReadingTime
         return $this->seconds / 60;
     }
 
-    public function getFormatted(): string
+    public function getFormatted(string $format = '%dmin, %dsec'): string
     {
         $minutes = $this->getMinutesAsFloat();
         $fMin = floor($minutes);
         $fSec = ($minutes - $fMin) * 60;
 
-        return sprintf('%dmin, %dsec', $fMin, $fSec);
+        return sprintf($format, $fMin, $fSec);
     }
 
     public function getWordCount(): int
