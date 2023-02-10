@@ -68,17 +68,17 @@ class ReadingTime
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        [$fMin, $fSec] = $this->getTokenized();
+        [$baseMinutes, $secondsOver] = $this->getTokenized();
 
-        return sprintf($format, $fMin, $fSec);
+        return sprintf($format, $baseMinutes, $secondsOver);
     }
 
     /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */
     public function formatUsingClosure(Closure $closure): string
     {
-        [$fMin, $fSec] = $this->getTokenized();
+        [$baseMinutes, $secondsOver] = $this->getTokenized();
 
-        return $closure($fMin, $fSec);
+        return $closure($baseMinutes, $secondsOver);
     }
 
     protected function generate(): void
@@ -96,9 +96,9 @@ class ReadingTime
     protected function getTokenized(): array
     {
         $minutes = $this->getMinutesAsFloat();
-        $fMin = $this->getMinutes();
-        $fSec = (int) floor(($minutes - $fMin) * 60);
+        $baseMinutes = $this->getMinutes();
+        $secondsOver = (int) floor(($minutes - $baseMinutes) * 60);
 
-        return [$fMin, $fSec];
+        return [$baseMinutes, $secondsOver];
     }
 }
