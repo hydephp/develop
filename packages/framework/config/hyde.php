@@ -19,7 +19,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Build-in Server
+    | Built-in Server
     |--------------------------------------------------------------------------
     |
     | Here you can configure settings for the built-in realtime compiler server.
