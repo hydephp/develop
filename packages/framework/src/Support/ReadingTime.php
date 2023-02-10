@@ -24,8 +24,8 @@ class ReadingTime
     /** @var int The number of words in the text. */
     protected int $wordCount;
 
-    /** @var float The number of seconds it takes to read the text. */
-    protected float $seconds;
+    /** @var int The number of seconds it takes to read the text. */
+    protected int $seconds;
 
     public static function fromString(string $text): static
     {
@@ -51,17 +51,12 @@ class ReadingTime
 
     public function getSeconds(): int
     {
-        return (int) $this->getSecondsAsFloat();
+        return $this->seconds;
     }
 
     public function getMinutes(): int
     {
         return (int) $this->getMinutesAsFloat();
-    }
-
-    public function getSecondsAsFloat(): float
-    {
-        return $this->seconds;
     }
 
     public function getMinutesAsFloat(): float
@@ -89,7 +84,7 @@ class ReadingTime
         $wordCount = str_word_count($this->text);
 
         $minutes = $wordCount / static::WORDS_PER_MINUTE;
-        $seconds = $minutes * 60;
+        $seconds = (int) round($minutes * 60);
 
         $this->wordCount = $wordCount;
         $this->seconds = $seconds;
