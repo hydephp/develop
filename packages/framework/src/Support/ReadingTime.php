@@ -53,7 +53,7 @@ class ReadingTime
 
     public function getMinutes(): int
     {
-        return (int) $this->getMinutesAsFloat();
+        return (int) floor($this->getMinutesAsFloat());
     }
 
     public function getSeconds(): int
