@@ -52,7 +52,7 @@ class ReadingTime
         return $this->seconds / 60;
     }
 
-    public function getFormatted(string $format = '%dmin, %dsec'): string
+    public function getFormatted(string $format = '%d:%d'): string
     {
         $minutes = $this->getMinutesAsFloat();
         $fMin = floor($minutes);
