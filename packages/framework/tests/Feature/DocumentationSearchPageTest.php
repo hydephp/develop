@@ -22,18 +22,18 @@ class DocumentationSearchPageTest extends TestCase
         $this->assertInstanceOf(DocumentationSearchPage::class, new DocumentationSearchPage());
     }
 
-    public function testIdentifierIsSetToDocumentationOutputDirectory()
+    public function testRouteKeyIsSetToDocumentationOutputDirectory()
     {
         $page = new DocumentationSearchPage();
-        $this->assertSame('docs/search', $page->identifier);
+        $this->assertSame('docs/search', $page->routeKey);
     }
 
-    public function testIdentifierIsSetToConfiguredDocumentationOutputDirectory()
+    public function testRouteKeyIsSetToConfiguredDocumentationOutputDirectory()
     {
         DocumentationPage::$outputDirectory = 'foo';
 
         $page = new DocumentationSearchPage();
-        $this->assertSame('foo/search', $page->identifier);
+        $this->assertSame('foo/search', $page->routeKey);
     }
 
     public function testEnabledDefaultsToTrue()

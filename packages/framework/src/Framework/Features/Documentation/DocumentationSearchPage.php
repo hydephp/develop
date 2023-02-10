@@ -21,7 +21,7 @@ class DocumentationSearchPage extends DocumentationPage
 {
     public function __construct()
     {
-        parent::__construct(DocumentationPage::outputDirectory().'/search', [
+        parent::__construct('search', [
             'title' => 'Search',
         ]);
     }
