@@ -9,5 +9,5 @@ namespace Hyde\Support;
  */
 class ReadingTime
 {
-    //
+    protected const WORDS_PER_MINUTE = 200;
 }
