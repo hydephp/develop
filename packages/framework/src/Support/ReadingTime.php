@@ -104,9 +104,6 @@ class ReadingTime
     /** @return array<int, int> The minutes and seconds as integers. */
     protected function getTokenized(): array
     {
-        $baseMinutes = $this->getMinutes();
-        $secondsOver = $this->getSecondsOver();
-
-        return [$baseMinutes, $secondsOver];
+        return [$this->getMinutes(), $this->getSecondsOver()];
     }
 }
