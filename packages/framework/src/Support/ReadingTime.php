@@ -11,6 +11,6 @@ class ReadingTime
 {
     protected const WORDS_PER_MINUTE = 200;
 
-    protected string $text;
+    protected readonly string $text;
     protected int $seconds;
 }
