@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Support\ReadingTime;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Support\ReadingTime
@@ -88,6 +90,20 @@ class ReadingTimeTest extends TestCase
         $this->assertSame('0 minutes, 30 seconds', (new ReadingTime($this->words(120)))->formatUsingClosure($closure));
         $this->assertSame('1 minutes, 0 seconds', (new ReadingTime($this->words(240)))->formatUsingClosure($closure));
         $this->assertSame('1 minutes, 30 seconds', (new ReadingTime($this->words(360)))->formatUsingClosure($closure));
+    }
+
+    public function test_fromString()
+    {
+        $this->assertInstanceOf(ReadingTime::class, ReadingTime::fromString('Hello world'));
+        $this->assertEquals(new ReadingTime('Hello world'), ReadingTime::fromString('Hello world'));
+    }
+
+    public function test_fromFile()
+    {
+        File::shouldReceive('get')->with(Hyde::path('foo.md'), false)->andReturn('Hello world');
+
+        $this->assertInstanceOf(ReadingTime::class, ReadingTime::fromFile('foo.md'));
+        $this->assertEquals(new ReadingTime('Hello world'), ReadingTime::fromFile('foo.md'));
     }
 
     protected function words(int $words): string
