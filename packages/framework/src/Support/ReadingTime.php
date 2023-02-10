@@ -72,9 +72,7 @@ class ReadingTime
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        $minutes = $this->getMinutesAsFloat();
-        $fMin = floor($minutes);
-        $fSec = ($minutes - $fMin) * 60;
+        list($fMin, $fSec) = $this->getTokenized();
 
         return sprintf($format, $fMin, $fSec);
     }
@@ -82,9 +80,7 @@ class ReadingTime
     /** @param  \Closure(float, float): string $closure The closure will receive the minutes and seconds as floats and should return a string. */
     public function formatUsingClosure(Closure $closure): string
     {
-        $minutes = $this->getMinutesAsFloat();
-        $fMin = floor($minutes);
-        $fSec = ($minutes - $fMin) * 60;
+        list($fMin, $fSec) = $this->getTokenized();
 
         return $closure($fMin, $fSec);
     }
@@ -98,5 +94,14 @@ class ReadingTime
 
         $this->wordCount = $wordCount;
         $this->seconds = $seconds;
+    }
+
+    /** @return array<int, float> The minutes and seconds as floats. */
+    protected function getTokenized(): array
+    {
+        $minutes = $this->getMinutesAsFloat();
+        $fMin = floor($minutes);
+        $fSec = ($minutes - $fMin) * 60;
+        return array($fMin, $fSec);
     }
 }
