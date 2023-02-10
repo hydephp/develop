@@ -24,7 +24,6 @@ class ConfigurationServiceProvider extends ServiceProvider
         // Hyde Configuration Files
         $this->mergeConfigFrom(__DIR__.'/../../../config/hyde.php', 'hyde');
         $this->mergeConfigFrom(__DIR__.'/../../../config/docs.php', 'docs');
-        $this->mergeConfigFrom(__DIR__.'/../../../config/site.php', 'site');
         $this->mergeConfigFrom(__DIR__.'/../../../config/markdown.php', 'markdown');
 
         // Illuminate/Vendor Configuration Files
