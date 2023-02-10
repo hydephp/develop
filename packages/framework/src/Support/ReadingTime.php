@@ -47,6 +47,11 @@ class ReadingTime
         return $this->seconds;
     }
 
+    public function getMinutesAsFloat(): float
+    {
+        return $this->seconds / 60;
+    }
+
     public function getFormatted(): string
     {
         // TODO: Implement getFormatted() method
