@@ -17,6 +17,8 @@ class ReadingTime
     public function __construct(string $text)
     {
         $this->text = $text;
+
+        $this->generate();
     }
 
     public function getSeconds(): int
