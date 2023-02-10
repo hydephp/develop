@@ -18,4 +18,19 @@ class ReadingTime
     {
         $this->text = $text;
     }
+
+    public function getSeconds(): int
+    {
+        // TODO: Implement getSeconds() method
+    }
+
+    public function getMinutes(): int
+    {
+        // TODO: Implement getMinutes() method
+    }
+
+    public function getFormatted(): string
+    {
+        // TODO: Implement getFormatted() method
+    }
 }
