@@ -6,7 +6,6 @@ namespace Hyde\Support;
 
 use Closure;
 use Hyde\Facades\Filesystem;
-
 use function floor;
 
 /**
@@ -72,7 +71,7 @@ class ReadingTime
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        list($fMin, $fSec) = $this->getTokenized();
+        [$fMin, $fSec] = $this->getTokenized();
 
         return sprintf($format, $fMin, $fSec);
     }
@@ -80,7 +79,7 @@ class ReadingTime
     /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */
     public function formatUsingClosure(Closure $closure): string
     {
-        list($fMin, $fSec) = $this->getTokenized();
+        [$fMin, $fSec] = $this->getTokenized();
 
         return $closure($fMin, $fSec);
     }
@@ -103,6 +102,6 @@ class ReadingTime
         $fMin = (int) floor($minutes);
         $fSec = (int) floor(($minutes - $fMin) * 60);
 
-        return array($fMin, $fSec);
+        return [$fMin, $fSec];
     }
 }
