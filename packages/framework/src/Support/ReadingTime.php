@@ -13,4 +13,9 @@ class ReadingTime
 
     protected readonly string $text;
     protected int $seconds;
+
+    public function __construct(string $text)
+    {
+        $this->text = $text;
+    }
 }
