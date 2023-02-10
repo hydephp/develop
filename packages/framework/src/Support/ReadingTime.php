@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
+use Hyde\Facades\Filesystem;
+
 /**
  * Calculate the estimated reading time for a text.
  *
@@ -53,5 +55,15 @@ class ReadingTime
     protected function generate(): void
     {
         // TODO: Implement generate() method
+    }
+
+    public static function fromString(string $text): static
+    {
+        return new static($text);
+    }
+
+    public static function fromFile(string $path): static
+    {
+        return new static(Filesystem::getContents($path));
     }
 }
