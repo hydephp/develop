@@ -111,7 +111,7 @@ test('html responses contain the correct headers', function () {
     $kernel = new HttpKernel();
     $response = $kernel->handle(new Request());
 
-    expect($response)->toBeInstanceOf(Response::class)
+    expect($response)->toBeInstanceOf(HtmlResponse::class)
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK')
         ->and($response->headers)->toContain('Content-Type', 'text/html')
