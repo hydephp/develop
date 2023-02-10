@@ -34,12 +34,12 @@ class ReadingTime
 
     public function getSeconds(): int
     {
-        return (int) $this->seconds;
+        return (int) $this->getSecondsAsFloat();
     }
 
     public function getMinutes(): int
     {
-        return (int) ($this->seconds / 60);
+        return (int) $this->getMinutesAsFloat();
     }
 
     public function getSecondsAsFloat(): float
