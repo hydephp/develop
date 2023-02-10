@@ -37,10 +37,8 @@ class PageRouter
             ]);
         }
 
-        $html = $this->getHtml($this->getPageFromRoute());
-
         return new HtmlResponse(200, 'OK', [
-            'body' => $html,
+            'body' => $this->getHtml($this->getPageFromRoute()),
         ]);
     }
 
