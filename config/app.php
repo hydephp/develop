@@ -81,7 +81,7 @@ return [
         Hyde\Framework\HydeServiceProvider::class,
         Hyde\Foundation\Providers\ViewServiceProvider::class,
         Hyde\Foundation\Providers\ConfigurationServiceProvider::class,
-        Hyde\Console\HydeConsoleServiceProvider::class,
+        Hyde\Console\ConsoleServiceProvider::class,
     ],
 
     /*

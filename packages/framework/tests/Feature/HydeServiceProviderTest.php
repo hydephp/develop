@@ -13,7 +13,7 @@ use function config;
 use function get_class;
 use function get_declared_classes;
 use function glob;
-use Hyde\Console\HydeConsoleServiceProvider;
+use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Facades\Site;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
@@ -212,7 +212,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->provider->register();
 
-        $this->assertArrayHasKey(HydeConsoleServiceProvider::class, $this->app->getLoadedProviders());
+        $this->assertArrayHasKey(ConsoleServiceProvider::class, $this->app->getLoadedProviders());
     }
 
     public function test_provider_registers_all_page_model_source_paths()

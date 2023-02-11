@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Register the HydeCLI console commands.
  */
-class HydeConsoleServiceProvider extends ServiceProvider
+class ConsoleServiceProvider extends ServiceProvider
 {
     /**
      * Register any console services.
