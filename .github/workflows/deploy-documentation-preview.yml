@@ -70,7 +70,7 @@ jobs:
                 </header>
                 <p class="prose dark:prose-invert">
                   You are browsing the documentation for a user-contributed pull request.<br>
-                  <small>The contents of this page may be inaccurate, incomplete, or outdated, and may not reflect the views of the organization.</small><br>
+                  <small>Contents may be inaccurate or incomplete, and not representative of the organization.</small><br>
                  </p>
               </div>
             </aside>
