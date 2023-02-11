@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
-use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Providers\ViewServiceProvider;
@@ -103,7 +102,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerModuleServiceProviders(): void
     {
-        $this->app->register(HydeConsoleServiceProvider::class);
         $this->app->register(ViewServiceProvider::class);
     }
 }
