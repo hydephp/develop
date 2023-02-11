@@ -45,6 +45,7 @@ jobs:
       - name: Update configuration files
         run: |
           sed -i "s/'use_play_cdn' => false/'use_play_cdn' => true/g" config/hyde.php
+          sed -i "s/'load_app_styles_from_cdn' => false/'load_app_styles_from_cdn' => true/g" config/hyde.php
           sed -i "s/'output_directory' => 'dev-docs'/'output_directory' => 'dev-docs-preview'/g" config/docs.php
           sed -i "s/'header_title' => config('site.name', 'HydePHP').' Docs'/'header_title' => 'PR #${{ github.event.pull_request.number }} - Docs'/g" config/docs.php
 
