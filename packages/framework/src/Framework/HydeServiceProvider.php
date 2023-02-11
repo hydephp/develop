@@ -7,7 +7,6 @@ namespace Hyde\Framework;
 use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
@@ -32,8 +31,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->initializeConfiguration();
-
         $this->kernel = HydeKernel::getInstance();
 
         $this->app->singleton(AssetService::class, AssetService::class);
@@ -73,12 +70,6 @@ class HydeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->kernel->readyToBoot();
-    }
-
-    /** @deprecated Todo: Move this to app.php */
-    protected function initializeConfiguration(): void
-    {
-        $this->app->register(ConfigurationServiceProvider::class);
     }
 
     /**
