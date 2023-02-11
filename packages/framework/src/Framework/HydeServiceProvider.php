@@ -32,7 +32,7 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->register(ConfigurationServiceProvider::class);
+        $this->initializeConfiguration();
 
         $this->kernel = HydeKernel::getInstance();
 
@@ -73,6 +73,11 @@ class HydeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->kernel->readyToBoot();
+    }
+
+    protected function initializeConfiguration(): void
+    {
+        $this->app->register(ConfigurationServiceProvider::class);
     }
 
     /**
