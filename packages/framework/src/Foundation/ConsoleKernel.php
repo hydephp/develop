@@ -15,7 +15,9 @@ class ConsoleKernel extends Kernel
      */
     protected function bootstrappers(): array
     {
-        return array_merge($this->bootstrappers, [
+        $bootstrappers = $this->bootstrappers;
+
+        return array_merge($bootstrappers, [
             \Hyde\Foundation\Services\LoadYamlConfiguration::class,
         ]);
     }
