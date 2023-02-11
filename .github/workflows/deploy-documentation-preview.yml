@@ -62,8 +62,10 @@ jobs:
                   <small class="opacity-75">(#<a href="https://github.com/hydephp/develop/commit/${{ github.event.pull_request.head.sha }}"><span style=" display: inline-flex; font-family: monospace; width: 7ch; white-space: nowrap; overflow: hidden; text-overflow: clip;">${{ github.event.pull_request.head.sha }}</span></a>)</small>
                 </h3>
                 <p class="prose dark:prose-invert">
-                  You are browsing the documentation for a user-contributed pull request. 
-                   <small>The contents of this page may be inaccurate, incomplete, or outdated, and may not reflect the views of the organization.</small>
+                  You are browsing the documentation for a user-contributed pull request.<br>
+                  <small>The contents of this page may be inaccurate, incomplete, or outdated, and may not reflect the views of the organization.</small><br>
+                  <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">Back to PR</a>
+                  <a href="${{ github.event.pull_request.html_url }}/files?file-filters%5B%5D=.md" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">View Diff</a>
                  </p>
               </div>
             </aside>
