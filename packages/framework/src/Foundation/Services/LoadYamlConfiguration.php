@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Services;
 
+use Hyde\Framework\Services\YamlConfigurationService;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 
@@ -18,6 +19,8 @@ class LoadYamlConfiguration implements BoostrapperContract
      */
     public function bootstrap(Application $app): void
     {
-        // TODO: Implement bootstrap() method.
+        if (YamlConfigurationService::hasFile()) {
+            YamlConfigurationService::boot();
+        }
     }
 }

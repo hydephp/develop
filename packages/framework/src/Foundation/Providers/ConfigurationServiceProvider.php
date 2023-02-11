@@ -15,9 +15,7 @@ class ConfigurationServiceProvider extends ServiceProvider
      */
     public function initialize(): void
     {
-        if (YamlConfigurationService::hasFile()) {
-            YamlConfigurationService::boot();
-        }
+        //
     }
 
     public function register(): void
