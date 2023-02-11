@@ -31,6 +31,12 @@ class LoadYamlConfiguration
         }
     }
 
+    protected function hasFile(): bool
+    {
+        return file_exists(Hyde::path('hyde.yml'))
+            || file_exists(Hyde::path('hyde.yaml'));
+    }
+
     protected function boot(): void
     {
         if ($this->hasFile()) {
@@ -39,12 +45,6 @@ class LoadYamlConfiguration
                 $this->getYaml()
             ));
         }
-    }
-
-    protected function hasFile(): bool
-    {
-        return file_exists(Hyde::path('hyde.yml'))
-            || file_exists(Hyde::path('hyde.yaml'));
     }
 
     protected function getFile(): string
