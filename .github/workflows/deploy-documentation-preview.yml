@@ -42,8 +42,10 @@ jobs:
       - name: Copy configuration to root
         run: cp -r temp/hydephp-develop-*/* .
 
-      - name: Update config to load styles from CDN
-        run: sed -i "s/'use_play_cdn' => false/'use_play_cdn' => true/g" config/hyde.php
+      - name: Update configuration files
+        run: |
+          sed -i "s/'use_play_cdn' => false/'use_play_cdn' => true/g" config/hyde.php
+          sed -i "s/'header_title' => config('site.name', 'HydePHP').' Docs'/'header_title' => 'PR #${{ github.event.pull_request.number }} - Docs'/g" config/docs.php
 
       - name: Remove published article component
         run: rm resources/views/vendor/hyde/components/docs/documentation-article.blade.php
