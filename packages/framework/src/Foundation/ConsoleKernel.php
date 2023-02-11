@@ -13,7 +13,7 @@ class ConsoleKernel extends Kernel
      *
      * @return array
      */
-    protected function bootstrappers()
+    protected function bootstrappers(): array
     {
         return $this->bootstrappers;
     }
