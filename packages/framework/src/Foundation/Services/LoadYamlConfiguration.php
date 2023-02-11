@@ -47,17 +47,17 @@ class LoadYamlConfiguration
         }
     }
 
-    protected function getFile(): string
-    {
-        return file_exists(Hyde::path('hyde.yml'))
-            ? Hyde::path('hyde.yml')
-            : Hyde::path('hyde.yaml');
-    }
-
     protected function getYaml(): array
     {
         $yaml = Yaml::parse(file_get_contents($this->getFile()));
 
         return is_array($yaml) ? $yaml : [];
+    }
+
+    protected function getFile(): string
+    {
+        return file_exists(Hyde::path('hyde.yml'))
+            ? Hyde::path('hyde.yml')
+            : Hyde::path('hyde.yaml');
     }
 }
