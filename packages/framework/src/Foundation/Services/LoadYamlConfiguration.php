@@ -6,13 +6,12 @@ namespace Hyde\Foundation\Services;
 
 use Hyde\Framework\Services\YamlConfigurationService;
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
 
 /**
  * @internal
  * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
  */
-class LoadYamlConfiguration implements BoostrapperContract
+class LoadYamlConfiguration
 {
     /**
      * Performs a core task that needs to be performed on
