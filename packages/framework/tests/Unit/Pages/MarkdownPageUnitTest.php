@@ -36,6 +36,14 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         );
     }
 
+    public function testBaseRouteKey()
+    {
+        $this->assertSame(
+            '',
+            MarkdownPage::baseRouteKey()
+        );
+    }
+
     public function testFileExtension()
     {
         $this->assertSame(

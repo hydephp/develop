@@ -35,6 +35,14 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         );
     }
 
+    public function testBaseRouteKey()
+    {
+        $this->assertSame(
+            '',
+            HtmlPage::baseRouteKey()
+        );
+    }
+
     public function testFileExtension()
     {
         $this->assertSame(
