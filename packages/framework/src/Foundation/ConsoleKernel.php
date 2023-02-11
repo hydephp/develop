@@ -6,6 +6,8 @@ namespace Hyde\Foundation;
 
 use LaravelZero\Framework\Kernel;
 
+use function array_merge;
+
 class ConsoleKernel extends Kernel
 {
     /**
@@ -13,6 +15,8 @@ class ConsoleKernel extends Kernel
      */
     protected function bootstrappers(): array
     {
-        return $this->bootstrappers;
+        return array_merge($this->bootstrappers, [
+            \Hyde\Foundation\Services\LoadYamlConfiguration::class,
+        ]);
     }
 }
