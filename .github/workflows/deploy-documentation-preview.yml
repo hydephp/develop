@@ -58,9 +58,11 @@ jobs:
           cat <<- HTML >> resources/views/vendor/hyde/layouts/docs.blade.php
             <aside class="fixed bottom-4 right-4 z-50 hidden md:block">
               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
-                <h3 class="text-lg font-bold mb-2">Documentation preview for <a href="https://github.com/hydephp/develop/pull/${{ github.event.pull_request.number }}" class="text-indigo-500 hover:text-indigo-600">PR #${{ github.event.pull_request.number }}</a></h3>
-                  <p class="text-gray-600 dark:text-gray-400">
-                  <a href="${{ github.event.pull_request.html_url }}" class="text-indigo-500 hover:text-indigo-600">Back to PR</a>
+                <h3 class="text-lg font-bold mb-2">Documentation preview for <a href="https://github.com/hydephp/develop/pull/${{ github.event.pull_request.number }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">PR #${{ github.event.pull_request.number }}</a></h3>
+                <p class="text-gray-600 dark:text-gray-400 prose">
+                  You are browsing the documentation for a <code>hydephp/develop</code> pull request to <code>${{ github.event.pull_request.head.ref }}</code> branch.<br>
+                  This page was generated for commit <code>${{ github.event.pull_request.head.sha }}</code> on pull request <code>${{ github.event.pull_request.number }}</code>.
+                  <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">Back to PR</a>
                 </p>
               </div>
             </aside>
