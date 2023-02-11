@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Services\LoadYamlConfiguration;
-use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
