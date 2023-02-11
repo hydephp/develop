@@ -58,12 +58,12 @@ jobs:
           cat <<- HTML >> resources/views/vendor/hyde/layouts/docs.blade.php
             <aside class="fixed bottom-4 right-4 z-50 hidden md:block">
               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
-                <h3 class="text-lg font-bold mb-2 flex">Documentation preview for&nbsp; <a href="https://github.com/hydephp/develop/pull/${{ github.event.pull_request.number }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">PR #${{ github.event.pull_request.number }}</a> &nbsp;
+                <h3 class="text-lg font-bold mb-2 flex">Documentation preview for&nbsp; <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">PR #${{ github.event.pull_request.number }}</a> &nbsp;
                   <small class="opacity-75">(#<a href="https://github.com/hydephp/develop/commit/${{ github.event.pull_request.head.sha }}"><span style=" display: inline-flex; font-family: monospace; width: 7ch; white-space: nowrap; overflow: hidden; text-overflow: clip;">${{ github.event.pull_request.head.sha }}</span></a>)</small>
                 </h3>
                 <p class="prose dark:prose-invert">
-                   <small>You are browsing the documentation for a user-contributed pull request. The contents of this page may be inaccurate, incomplete, or outdated, and may not reflect the views of the organization.</small>
-                   <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">Back to PR</a>
+                  You are browsing the documentation for a user-contributed pull request. 
+                   <small>The contents of this page may be inaccurate, incomplete, or outdated, and may not reflect the views of the organization.</small>
                  </p>
               </div>
             </aside>
