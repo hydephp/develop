@@ -26,18 +26,18 @@ class LoadYamlConfiguration
      */
     public function bootstrap(Application $app): void
     {
-        if ($this->hasFile()) {
-            $this->boot();
+        if ($this->hasYamlConfigFile()) {
+            $this->mergeParsedConfiguration();
         }
     }
 
-    protected function hasFile(): bool
+    protected function hasYamlConfigFile(): bool
     {
         return file_exists(Hyde::path('hyde.yml'))
             || file_exists(Hyde::path('hyde.yaml'));
     }
 
-    protected function boot(): void
+    protected function mergeParsedConfiguration(): void
     {
         Config::set('site', array_merge(
             Config::get('site', []),
