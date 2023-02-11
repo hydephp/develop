@@ -2,21 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| The HydePHP Configuration File
-|--------------------------------------------------------------------------
-|
-| This configuration file lets you change and customize the behaviour
-| of your HydePHP site. To customize the presentation options, like
-| the site name, please see the new config/site.php file instead.
-|
-*/
-
-use Hyde\Facades\Author;
-use Hyde\Facades\Features;
-use Hyde\Facades\Meta;
-
-/*
-|--------------------------------------------------------------------------
 |      __ __        __    ___  __ _____
 |     / // /_ _____/ /__ / _ \/ // / _ \
 |    / _  / // / _  / -_) ___/ _  / ___/
@@ -31,10 +16,15 @@ use Hyde\Facades\Meta;
 | change the options to personalize your site and make it your own!
 |
 | Tip: The settings here can also be overridden by creating a hyde.yml file
-| in the root of your project directory. Note that these cannot reference
-| environment variables, and their values override any made here.
+| in the root of your project directory. Note that these cannot call any
+| PHP functions, so you can't use env() or similar helpers. Also, note
+| that any settings in the yml file will override settings here.
 |
 */
+
+use Hyde\Facades\Author;
+use Hyde\Facades\Features;
+use Hyde\Facades\Meta;
 
 return [
 
