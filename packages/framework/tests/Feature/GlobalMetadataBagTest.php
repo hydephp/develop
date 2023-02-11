@@ -39,8 +39,8 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
-        config(['site.generate_sitemap' => true]);
+        config(['hyde.url' => 'foo']);
+        config(['hyde.generate_sitemap' => true]);
 
         $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
@@ -49,8 +49,8 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'bar']);
-        config(['site.generate_sitemap' => true]);
+        config(['hyde.url' => 'bar']);
+        config(['hyde.generate_sitemap' => true]);
 
         $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
@@ -59,7 +59,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
@@ -70,7 +70,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'bar']);
+        config(['hyde.url' => 'bar']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
@@ -81,8 +81,8 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
-        config(['site.name' => 'Site']);
+        config(['hyde.url' => 'foo']);
+        config(['hyde.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
@@ -93,7 +93,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         config(['hyde.rss_filename' => 'posts.rss']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
@@ -142,9 +142,9 @@ class GlobalMetadataBagTest extends TestCase
 
     protected function emptyConfig(): void
     {
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         config(['hyde.meta' => []]);
         config(['hyde.generate_rss_feed' => false]);
-        config(['site.generate_sitemap' => false]);
+        config(['hyde.generate_sitemap' => false]);
     }
 }

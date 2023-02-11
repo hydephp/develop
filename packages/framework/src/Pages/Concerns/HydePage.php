@@ -267,7 +267,7 @@ abstract class HydePage implements PageSchema
      */
     public function htmlTitle(): string
     {
-        return config('site.name', 'HydePHP').' - '.$this->title;
+        return config('hyde.name', 'HydePHP').' - '.$this->title;
     }
 
     public function metadata(): PageMetadataBag

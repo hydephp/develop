@@ -70,7 +70,7 @@ class BuildSiteCommand extends Command
         if ($this->option('pretty-urls')) {
             $this->info('Generating site with pretty URLs');
             $this->newLine();
-            Config::set(['site.pretty_urls' => true]);
+            Config::set(['hyde.pretty_urls' => true]);
         }
     }
 

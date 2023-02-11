@@ -39,6 +39,7 @@ These are changes that break backwards compatibility and that are likely to conc
 
 - HydePHP now requires PHP 8.1 or higher.
 - Almost all namespaces in the framework have been changed and restructured.
+- The `config/site.php` file has been merged into `config/hyde.php`. See https://github.com/hydephp/develop/pull/964 for the upgrade guide.
 
 #### Breaking internal changes
 These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.

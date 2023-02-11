@@ -18,7 +18,7 @@ class MetadataHelperTest extends TestCase
         parent::setUp();
 
         config(['hyde.meta' => []]);
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
     }
 
     public function test_name_method_returns_a_valid_html_meta_string()

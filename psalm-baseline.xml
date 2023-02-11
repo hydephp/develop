@@ -363,9 +363,9 @@
       <code>?string</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="3">
-      <code>config('site.language')</code>
-      <code>config('site.name')</code>
-      <code>config('site.url')</code>
+      <code>config('hyde.language')</code>
+      <code>config('hyde.name')</code>
+      <code>config('hyde.url')</code>
     </MixedReturnStatement>
   </file>
   <file src="packages/framework/src/Foundation/Application.php">
@@ -449,7 +449,7 @@
   </file>
   <file src="packages/framework/src/Foundation/Hyperlinks.php">
     <PossiblyInvalidCast occurrences="1">
-      <code>config('site.url')</code>
+      <code>config('hyde.url')</code>
     </PossiblyInvalidCast>
   </file>
   <file src="packages/framework/src/Foundation/PageCollection.php">
@@ -972,7 +972,7 @@
     <MixedArgument occurrences="3">
       <code>$channel</code>
       <code>$item</code>
-      <code>config('site.language', 'en')</code>
+      <code>config('hyde.language', 'en')</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>each</code>
@@ -998,7 +998,7 @@
       <code>config('hyde.rss_filename', 'feed.xml')</code>
     </MixedReturnStatement>
     <PossiblyInvalidCast occurrences="1">
-      <code>config('site.language', 'en')</code>
+      <code>config('hyde.language', 'en')</code>
     </PossiblyInvalidCast>
     <PossiblyNullArgument occurrences="3">
       <code>$post-&gt;description</code>
@@ -1029,11 +1029,11 @@
     </DeprecatedMethod>
     <MixedArgument occurrences="2">
       <code>config('hyde.source_root', '')</code>
-      <code>config('site.output_directory', '_site')</code>
+      <code>config('hyde.output_directory', '_site')</code>
     </MixedArgument>
     <PossiblyInvalidCast occurrences="2">
       <code>config('hyde.source_root', '')</code>
-      <code>config('site.output_directory', '_site')</code>
+      <code>config('hyde.output_directory', '_site')</code>
     </PossiblyInvalidCast>
   </file>
   <file src="packages/framework/src/Framework/Services/BuildService.php">
@@ -1162,7 +1162,7 @@
   </file>
   <file src="packages/framework/src/Framework/Services/YamlConfigurationService.php">
     <MixedArgument occurrences="1">
-      <code>Config::get('site', [])</code>
+      <code>Config::get('hyde', [])</code>
     </MixedArgument>
     <MixedAssignment occurrences="1">
       <code>$yaml</code>
@@ -1312,7 +1312,7 @@
       <code>string</code>
     </MixedInferredReturnType>
     <MixedOperand occurrences="1">
-      <code>config('site.name', 'HydePHP')</code>
+      <code>config('hyde.name', 'HydePHP')</code>
     </MixedOperand>
     <MixedReturnStatement occurrences="3">
       <code>$this-&gt;navigation['group']</code>

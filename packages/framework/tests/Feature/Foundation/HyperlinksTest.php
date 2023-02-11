@@ -59,7 +59,7 @@ class HyperlinksTest extends TestCase
 
     public function test_image_helper_returns_default_relative_path_when_qualified_absolute_uri_is_requested_but_site_has_no_base_url()
     {
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         $this->assertEquals('media/test.jpg', $this->class->image('test.jpg', true));
     }
 
