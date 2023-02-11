@@ -10,8 +10,6 @@ class ConsoleKernel extends Kernel
 {
     /**
      * Get the bootstrap classes for the application.
-     *
-     * @return array
      */
     protected function bootstrappers(): array
     {
