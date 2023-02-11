@@ -1,0 +1,127 @@
+name: Deploy Documentation Preview
+
+on:
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'docs/**'
+
+jobs:
+
+  build-documentation-preview:
+    environment:
+      name: pr-documentation-${{ github.event.pull_request.number }}
+      url: https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Download configuration
+        run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config-dev-docs -O config.zip
+
+      - name: Unzip configuration
+        run: unzip config.zip -d temp
+
+      - name: Copy configuration to root
+        run: cp -r temp/hydephp-develop-*/* .
+
+      - name: Update configuration files
+        run: |
+          sed -i "s/'output_directory' => 'dev-docs'/'output_directory' => 'dev-docs-preview'/g" config/docs.php
+          sed -i "s/'header_title' => config('site.name', 'HydePHP').' Docs'/'header_title' => 'PR #${{ github.event.pull_request.number }} - Docs'/g" config/docs.php
+
+      - name: Remove published article component
+        run: rm resources/views/vendor/hyde/components/docs/documentation-article.blade.php
+
+      - name: Create component to add an information badge
+        # TODO 1. Extract to component. 2. Add feature to hide card which is stored in local session storage for the duration of the visit (so it's reset on next PR page visit)
+        run: |
+          mkdir -p resources/views/vendor/hyde/layouts
+          cp vendor/hyde/framework/resources/views/layouts/docs.blade.php resources/views/vendor/hyde/layouts/docs.blade.php
+          cat <<- HTML >> resources/views/vendor/hyde/layouts/docs.blade.php
+            <style>.fixed{position:fixed}.bottom-4{bottom:1rem}.right-4{right:1rem}.z-50{z-index:50}.mx-0{margin-left:0;margin-right:0}.mx-0\.5{margin-left:.125rem;margin-right:.125rem}.mx-4{margin-left:1rem;margin-right:1rem}.mx-8{margin-left:2rem;margin-right:2rem}.mb-2{margin-bottom:.5rem}.mr-3{margin-right:.75rem}.flex{display:flex}.hidden{display:none}.flex-row{flex-direction:row}.items-center{align-items:center}.justify-between{justify-content:space-between}.rounded-lg{border-radius:.5rem}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.p-4{padding:1rem}.text-center{text-align:center}.text-right{text-align:right}.text-lg{font-size:1.125rem;line-height:1.75rem}.font-bold{font-weight:700}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.text-indigo-500{--tw-text-opacity:1;color:rgb(89 86 235 / var(--tw-text-opacity))}.opacity-75{opacity:.75}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.dark .dark\:prose-invert{--tw-prose-body:var(--tw-prose-invert-body);--tw-prose-headings:var(--tw-prose-invert-headings);--tw-prose-lead:var(--tw-prose-invert-lead);--tw-prose-links:var(--tw-prose-invert-links);--tw-prose-bold:var(--tw-prose-invert-bold);--tw-prose-counters:var(--tw-prose-invert-counters);--tw-prose-bullets:var(--tw-prose-invert-bullets);--tw-prose-hr:var(--tw-prose-invert-hr);--tw-prose-quotes:var(--tw-prose-invert-quotes);--tw-prose-quote-borders:var(--tw-prose-invert-quote-borders);--tw-prose-captions:var(--tw-prose-invert-captions);--tw-prose-code:var(--tw-prose-invert-code);--tw-prose-pre-code:var(--tw-prose-invert-pre-code);--tw-prose-pre-bg:var(--tw-prose-invert-pre-bg);--tw-prose-th-borders:var(--tw-prose-invert-th-borders);--tw-prose-td-borders:var(--tw-prose-invert-td-borders)}.dark .dark\:prose-invert :where(a):not(:where([class~=not-prose]*)){color:#818cf8}.dark .dark\:prose-invert :where(a):not(:where([class~=not-prose]*)):hover{color:#6366f1}.hover\:text-indigo-600:hover{--tw-text-opacity:1;color:rgb(79 70 229 / var(--tw-text-opacity))}.dark .dark\:bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity))}.dark .dark\:text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity))}@media (min-width:768px){.md\:block{display:block}}</style>
+            <aside class="fixed bottom-4 right-4 z-50 hidden md:block">
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
+                <header class="flex flex-row nowrap items-center justify-between">
+                    <h3 class="text-lg font-bold mb-2 mr-3 flex">Documentation preview for&nbsp; <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">PR #${{ github.event.pull_request.number }}</a> &nbsp;
+                        <small class="opacity-75">(#<a href="https://github.com/hydephp/develop/commit/${{ github.event.pull_request.head.sha }}"><span style=" display: inline-flex; font-family: monospace; width: 7ch; white-space: nowrap; overflow: hidden; text-overflow: clip;">${{ github.event.pull_request.head.sha }}</span></a>)</small>
+                    </h3>
+                    <small class="mb-2">
+                        <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">Back to PR</a>
+                        <span class="text-gray-400 mx-0.5">|</span>
+                        <a href="${{ github.event.pull_request.html_url }}/files?file-filters%5B%5D=.md" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">View Diff</a>
+                    </small>
+                </header>
+                <p class="prose dark:prose-invert">
+                  You are browsing the documentation for a user-contributed pull request.<br>
+                  <small>Contents may be inaccurate or incomplete, and not representative of the organization.</small><br>
+                 </p>
+              </div>
+            </aside>
+          
+            <!-- Hotpatch for https://github.com/hydephp/develop/issues/968 -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/develop@master/_media/app.css">
+          HTML
+
+      - name: Configure environment variables
+        run: |
+          echo 'SITE_NAME="HydePHP Documentation Preview"' >> .env
+          echo 'SITE_URL="https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview"' >> .env
+
+      - name: Move documentation files
+        run: rm -rf _docs && mv -f docs _docs
+
+      - name: Compile the static site
+        run: php hyde build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: 'preview-docs'
+          path: '_site/dev-docs-preview'
+
+
+  upload-generated-site:
+
+    runs-on: ubuntu-latest
+    needs:
+      - build-documentation-preview
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+
+      - name: Reset output directories
+        run: |
+          rm -rf pr-${{ github.event.pull_request.number }}/dev-docs-preview
+          mkdir -p pr-${{ github.event.pull_request.number }}/dev-docs-preview
+
+      - name: Download documentation artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: preview-docs
+          path: pr-${{ github.event.pull_request.number }}/dev-docs-preview
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'pr-${{ github.event.pull_request.number }}/dev-docs-preview'
+          message: 'Upload documentation preview for PR #${{ github.event.pull_request.number }}'
