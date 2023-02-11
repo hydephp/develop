@@ -9,6 +9,7 @@ use LaravelZero\Framework\Application;
 
 /**
  * @internal
+ *
  * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
  */
 class LoadYamlConfiguration

@@ -16,7 +16,7 @@ class ConsoleKernel extends Kernel
     {
         $bootstrappers = $this->bootstrappers;
 
-        array_splice($bootstrappers, 5, 0,  LoadYamlConfiguration::class);
+        array_splice($bootstrappers, 5, 0, LoadYamlConfiguration::class);
 
         return $bootstrappers;
     }

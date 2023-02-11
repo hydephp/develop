@@ -12,7 +12,9 @@ use Symfony\Component\Yaml\Yaml;
  * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
  *
  * @internal
+ *
  * @deprecated Merge into LoadYamlConfiguration
+ *
  * @todo Merge into LoadYamlConfiguration
  */
 class YamlConfigurationService
