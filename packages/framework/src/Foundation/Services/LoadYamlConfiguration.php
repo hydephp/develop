@@ -39,12 +39,10 @@ class LoadYamlConfiguration
 
     protected function boot(): void
     {
-        if ($this->hasFile()) {
-            Config::set('site', array_merge(
-                Config::get('site', []),
-                $this->getYaml()
-            ));
-        }
+        Config::set('site', array_merge(
+            Config::get('site', []),
+            $this->getYaml()
+        ));
     }
 
     protected function getYaml(): array
