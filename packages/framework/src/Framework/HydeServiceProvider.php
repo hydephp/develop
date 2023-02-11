@@ -6,7 +6,6 @@ namespace Hyde\Framework;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Pages\BladePage;
@@ -102,6 +101,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerModuleServiceProviders(): void
     {
-        $this->app->register(ViewServiceProvider::class);
+        //
     }
 }
