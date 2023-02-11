@@ -213,7 +213,9 @@ abstract class HydePage implements PageSchema
      *
      * For example, if the compiled page will be saved to _site/docs/index.html,
      * then this method will return 'docs/index'. Route keys are used to
-     * identify pages, similar to how named routes work in Laravel.
+     * identify pages, similar to how named routes work in Laravel,
+     * only that here the name is not just arbitrary,
+     * but also defines the output location.
      *
      * @return string The page's route key.
      */
