@@ -26,6 +26,8 @@ abstract class BaseHydePageUnitTest extends TestCase
 
     abstract public function testPath();
 
+    abstract public function testBaseRouteKey();
+
     abstract public function testGetBladeView();
 
     abstract public function testSourcePath();
