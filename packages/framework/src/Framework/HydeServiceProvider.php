@@ -85,8 +85,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerPageModels(): void
     {
-        // TODO use the hyde facade once it gets the method annotations
-
         if (Features::hasHtmlPages()) {
             $this->kernel->registerPageClass(HtmlPage::class);
         }
