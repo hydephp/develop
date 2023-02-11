@@ -172,6 +172,14 @@ abstract class HydePage implements PageSchema
     }
 
     /**
+     * Get the route key base for the page model.
+     */
+    public static function baseRouteKey(): string
+    {
+        return static::outputDirectory();
+    }
+
+    /**
      * Compile the page into static HTML.
      *
      * @return string The compiled HTML for the page.
