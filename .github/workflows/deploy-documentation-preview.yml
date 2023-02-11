@@ -45,6 +45,9 @@ jobs:
       - name: Update config to load styles from CDN
         run: sed -i "s/'use_play_cdn' => false/'use_play_cdn' => true/g" config/hyde.php
 
+      - name: Remove published article component
+        run: rm resources/views/vendor/hyde/components/docs/documentation-article.blade.php
+
       - name: Configure environment variables
         run: |
           echo 'SITE_NAME="HydePHP Documentation Preview"' >> .env
