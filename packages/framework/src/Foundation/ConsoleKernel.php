@@ -15,7 +15,7 @@ class ConsoleKernel extends Kernel
     {
         $bootstrappers = $this->bootstrappers;
 
-        array_splice($bootstrappers, 3, 0,  \Hyde\Foundation\Services\LoadYamlConfiguration::class);
+        array_splice($bootstrappers, 5, 0,  \Hyde\Foundation\Services\LoadYamlConfiguration::class);
 
         return $bootstrappers;
     }
