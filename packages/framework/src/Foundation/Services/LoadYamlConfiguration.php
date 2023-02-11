@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Services;
 
-use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Application;
