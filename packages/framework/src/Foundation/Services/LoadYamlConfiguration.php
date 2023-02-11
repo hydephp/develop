@@ -10,6 +10,7 @@ use LaravelZero\Framework\Contracts\BoostrapperContract;
 
 /**
  * @internal
+ * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
  */
 class LoadYamlConfiguration implements BoostrapperContract
 {
