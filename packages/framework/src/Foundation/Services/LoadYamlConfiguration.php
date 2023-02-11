@@ -26,37 +26,37 @@ class LoadYamlConfiguration
      */
     public function bootstrap(Application $app): void
     {
-        if (static::hasFile()) {
-            static::boot();
+        if ($this->hasFile()) {
+            $this->boot();
         }
     }
 
-    public static function boot(): void
+    public function boot(): void
     {
-        if (static::hasFile()) {
+        if ($this->hasFile()) {
             Config::set('site', array_merge(
                 Config::get('site', []),
-                static::getYaml()
+                $this->getYaml()
             ));
         }
     }
 
-    public static function hasFile(): bool
+    public function hasFile(): bool
     {
         return file_exists(Hyde::path('hyde.yml'))
             || file_exists(Hyde::path('hyde.yaml'));
     }
 
-    protected static function getFile(): string
+    protected function getFile(): string
     {
         return file_exists(Hyde::path('hyde.yml'))
             ? Hyde::path('hyde.yml')
             : Hyde::path('hyde.yaml');
     }
 
-    protected static function getYaml(): array
+    protected function getYaml(): array
     {
-        $yaml = Yaml::parse(file_get_contents(static::getFile()));
+        $yaml = Yaml::parse(file_get_contents($this->getFile()));
 
         return is_array($yaml) ? $yaml : [];
     }
