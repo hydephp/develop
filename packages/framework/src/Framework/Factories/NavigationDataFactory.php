@@ -131,7 +131,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return Arr::get(config('hyde.navigation.labels', [
             'index' => 'Home',
-            'docs/index' => 'Docs',
+            DocumentationPage::baseRouteKey().'/index' => 'Docs',
         ]), $this->routeKey);
     }
 
