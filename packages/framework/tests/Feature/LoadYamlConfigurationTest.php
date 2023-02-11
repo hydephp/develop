@@ -28,7 +28,7 @@ class LoadYamlConfigurationTest extends TestCase
     {
         $this->assertEquals('HydePHP', Config::get('site.name'));
         $this->file('hyde.yml', 'name: Foo');
-        YamlConfigurationService::boot();
+        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
         $this->assertEquals('Foo', Config::get('site.name'));
     }
 
@@ -36,20 +36,20 @@ class LoadYamlConfigurationTest extends TestCase
     {
         $this->assertEquals('HydePHP', Config::get('site.name'));
         $this->file('hyde.yaml', 'name: Foo');
-        YamlConfigurationService::boot();
+        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
         $this->assertEquals('Foo', Config::get('site.name'));
     }
 
     public function test_service_gracefully_handles_missing_file()
     {
-        YamlConfigurationService::boot();
+        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
         $this->assertEquals('HydePHP', Config::get('site.name'));
     }
 
     public function test_service_gracefully_handles_empty_file()
     {
         $this->file('hyde.yml', '');
-        YamlConfigurationService::boot();
+        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
         $this->assertEquals('HydePHP', Config::get('site.name'));
     }
 }
