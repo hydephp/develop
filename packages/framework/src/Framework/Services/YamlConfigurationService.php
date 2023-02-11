@@ -10,6 +10,8 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
+ *
+ * @internal
  */
 class YamlConfigurationService
 {
