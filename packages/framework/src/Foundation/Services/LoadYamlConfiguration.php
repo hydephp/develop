@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Application;
 use Symfony\Component\Yaml\Yaml;
-
 use function array_merge;
 use function file_exists;
 use function file_get_contents;

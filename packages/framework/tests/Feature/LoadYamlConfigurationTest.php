@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\Services\LoadYamlConfiguration;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
-
 use function config;
 
 /**
