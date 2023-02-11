@@ -31,7 +31,7 @@ class LoadYamlConfiguration
         }
     }
 
-    public function boot(): void
+    protected function boot(): void
     {
         if ($this->hasFile()) {
             Config::set('site', array_merge(
@@ -41,7 +41,7 @@ class LoadYamlConfiguration
         }
     }
 
-    public function hasFile(): bool
+    protected function hasFile(): bool
     {
         return file_exists(Hyde::path('hyde.yml'))
             || file_exists(Hyde::path('hyde.yaml'));
