@@ -58,8 +58,6 @@ class HydeServiceProvider extends ServiceProvider
         $this->useMediaDirectory(config('site.media_directory', '_media'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
-
-        $this->registerModuleServiceProviders();
     }
 
     /**
@@ -94,13 +92,5 @@ class HydeServiceProvider extends ServiceProvider
         if (Features::hasDocumentationPages()) {
             $this->kernel->registerPageClass(DocumentationPage::class);
         }
-    }
-
-    /**
-     * Register module service providers.
-     */
-    protected function registerModuleServiceProviders(): void
-    {
-        //
     }
 }
