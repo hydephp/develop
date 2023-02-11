@@ -430,7 +430,6 @@ jobs:
           name: test-fixture-docs
           path: master/test-fixtures/docs
 
-
       - name: Create README.md
         run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
 
