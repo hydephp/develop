@@ -75,9 +75,10 @@ class HydeServiceProvider extends ServiceProvider
         $this->kernel->readyToBoot();
     }
 
+    /** @deprecated Todo: Move this to app.php */
     protected function initializeConfiguration(): void
     {
-        $this->app->register(ConfigurationServiceProvider::class)->initialize();
+        $this->app->register(ConfigurationServiceProvider::class);
     }
 
     /**
