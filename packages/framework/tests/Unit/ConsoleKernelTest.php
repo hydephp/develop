@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Illuminate\Contracts\Console\Kernel;
 use Hyde\Foundation\ConsoleKernel;
 use Hyde\Testing\TestCase;
+use ReflectionMethod;
 
 /**
  * @covers \Hyde\Foundation\ConsoleKernel
@@ -21,5 +22,13 @@ class ConsoleKernelTest extends TestCase
     public function testClassImplementsKernelInterface()
     {
         $this->assertInstanceOf(Kernel::class, app(ConsoleKernel::class));
+    }
+
+    public function testBootstrappers()
+    {
+        $kernel = app(ConsoleKernel::class);
+        $bootstrappers = (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
+
+        $this->assertIsArray($bootstrappers);
     }
 }
