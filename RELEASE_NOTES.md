@@ -33,6 +33,10 @@ If any of these statements are true, you will probably need to make changes to y
 
 In all cases, you will most definitely need to republish the configuration files and update the `app/bootstrap.php` file.
 
+### Upgrade guide
+
+The easiest way to upgrade your project is to copy over your content (source files, etc.) to a new project.
+
 #### Major breaking changes
 
 These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
