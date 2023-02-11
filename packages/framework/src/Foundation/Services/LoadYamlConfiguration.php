@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Services;
 
-class LoadYamlConfiguration
+use LaravelZero\Framework\Contracts\BoostrapperContract;
+
+class LoadYamlConfiguration implements BoostrapperContract
 {
     //
 }
