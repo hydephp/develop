@@ -8,15 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ConfigurationServiceProvider extends ServiceProvider
 {
-    /**
-     * @deprecated Move to bootstrapper so this class can be registered in app.php so users can override it.
-     * Run any logic before the Hyde Service Provider is registered.
-     */
-    public function initialize(): void
-    {
-        //
-    }
-
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../../../config/hyde.php', 'hyde');
