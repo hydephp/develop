@@ -45,6 +45,11 @@ jobs:
       - name: Update config to load styles from CDN
         run: sed -i "s/'use_play_cdn' => false/'use_play_cdn' => true/g" config/hyde.php
 
+      - name: Configure environment variables
+        run: |
+          echo 'SITE_NAME="HydePHP Documentation Preview"' >> .env
+          echo 'SITE_URL="https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview"' >> .env
+
       - name: Move documentation files
         run: rm -rf _docs && mv -f docs _docs
 
