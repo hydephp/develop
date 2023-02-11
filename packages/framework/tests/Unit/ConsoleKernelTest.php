@@ -32,5 +32,16 @@ class ConsoleKernelTest extends TestCase
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
+
+        $this->assertSame([
+            0 => 'LaravelZero\Framework\Bootstrap\CoreBindings',
+            1 => 'LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables',
+            2 => 'LaravelZero\Framework\Bootstrap\LoadConfiguration',
+            3 => 'Illuminate\Foundation\Bootstrap\HandleExceptions',
+            4 => 'LaravelZero\Framework\Bootstrap\RegisterFacades',
+            5 => 'Hyde\Foundation\Services\LoadYamlConfiguration',
+            6 => 'LaravelZero\Framework\Bootstrap\RegisterProviders',
+            7 => 'Illuminate\Foundation\Bootstrap\BootProviders',
+        ], $bootstrappers);
     }
 }
