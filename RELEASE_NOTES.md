@@ -39,6 +39,7 @@ These are changes that break backwards compatibility and that are likely to conc
 
 - HydePHP now requires PHP 8.1 or higher.
 - Almost all namespaces in the framework have been changed and restructured.
+- Many of the internal underling Laravel application files have been moved, this means your `app/` directory will look a bit different. See [`#873`](https://github.com/hydephp/develop/pull/873)
 - The `config/site.php` file has been merged into `config/hyde.php`. See https://github.com/hydephp/develop/pull/964 for the upgrade guide.
 
 #### Breaking internal changes
