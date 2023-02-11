@@ -144,6 +144,19 @@ class DocumentationPageTest extends TestCase
         File::deleteDirectory(Hyde::path('foo'));
     }
 
+    public function test_home_route_name_method_returns_output_directory_slash_index()
+    {
+        $this->assertSame('docs/index', DocumentationPage::homeRouteName());
+    }
+
+    public function test_home_route_name_method_returns_customized_output_directory_slash_index()
+    {
+        config(['docs.output_directory' => 'foo/bar']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $this->assertSame('foo/bar/index', DocumentationPage::homeRouteName());
+    }
+
     public function test_has_table_of_contents()
     {
         $this->assertIsBool(DocumentationPage::hasTableOfContents());

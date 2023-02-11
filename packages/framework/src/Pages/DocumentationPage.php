@@ -26,7 +26,12 @@ class DocumentationPage extends BaseMarkdownPage
 
     public static function home(): ?Route
     {
-        return Route::get(static::$outputDirectory.'/index');
+        return Route::get(static::homeRouteName());
+    }
+
+    public static function homeRouteName(): string
+    {
+        return static::baseRouteKey().'/index';
     }
 
     /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
