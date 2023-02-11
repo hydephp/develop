@@ -59,7 +59,7 @@ jobs:
         run: echo "ENV=testing" > .env
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
-        run: vendor/bin/pest --coverage --coverage-clover clover.xml
+        run: vendor/bin/pest --coverage --coverage-clover clover.xml --testdox-text testdox.txt
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v3
