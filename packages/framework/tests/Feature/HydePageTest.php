@@ -85,6 +85,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testBaseRouteKey()
+    {
+        $this->assertSame(
+            TestPage::outputDirectory(),
+            TestPage::baseRouteKey()
+        );
+    }
+
     public function testGetSourcePath()
     {
         $this->assertSame(

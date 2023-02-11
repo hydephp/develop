@@ -38,6 +38,14 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         );
     }
 
+    public function testBaseRouteKey()
+    {
+        $this->assertSame(
+            '',
+            InMemoryPage::baseRouteKey()
+        );
+    }
+
     public function testFileExtension()
     {
         $this->assertSame(

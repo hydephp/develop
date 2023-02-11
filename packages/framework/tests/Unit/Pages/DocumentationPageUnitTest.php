@@ -30,6 +30,11 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertSame('docs', DocumentationPage::outputDirectory());
     }
 
+    public function testBaseRouteKey()
+    {
+        $this->assertSame('docs', DocumentationPage::baseRouteKey());
+    }
+
     public function testFileExtension()
     {
         $this->assertSame('.md', DocumentationPage::fileExtension());
