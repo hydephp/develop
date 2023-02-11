@@ -16,7 +16,7 @@ use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Register and bootstrap Hyde application services.
+ * Register and bootstrap core Hyde application services.
  */
 class HydeServiceProvider extends ServiceProvider
 {
@@ -24,9 +24,6 @@ class HydeServiceProvider extends ServiceProvider
 
     protected HydeKernel $kernel;
 
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->kernel = HydeKernel::getInstance();
@@ -60,17 +57,11 @@ class HydeServiceProvider extends ServiceProvider
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $this->kernel->readyToBoot();
     }
 
-    /**
-     * Register the page model classes that Hyde should use.
-     */
     protected function registerPageModels(): void
     {
         if (Features::hasHtmlPages()) {

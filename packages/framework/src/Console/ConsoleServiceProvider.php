@@ -11,9 +11,6 @@ use Illuminate\Support\ServiceProvider;
  */
 class ConsoleServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any console services.
-     */
     public function register(): void
     {
         $this->commands([
@@ -39,5 +36,10 @@ class ConsoleServiceProvider extends ServiceProvider
 
             Commands\ChangeSourceDirectoryCommand::class,
         ]);
+    }
+
+    public function boot(): void
+    {
+        //
     }
 }
