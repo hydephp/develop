@@ -28,10 +28,15 @@ class ConsoleKernelTest extends TestCase
     public function testBootstrappers()
     {
         $kernel = app(ConsoleKernel::class);
+
+        // Normally, protected code does not need to be unit tested, but since this array is so vital, we want to inspect it.
         $bootstrappers = (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
+
+        // Another assertion that is usually a no-no, testing vendor code, especially those which are marked as internal.
+        // We do this here however, so we get a heads-up if the vendor code changes as that could break our code.
 
         $this->assertSame([
             0 => 'LaravelZero\Framework\Bootstrap\CoreBindings',
