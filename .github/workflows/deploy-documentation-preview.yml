@@ -43,7 +43,7 @@ jobs:
         run: cp -r temp/hydephp-develop-*/* .
 
       - name: Update config to load styles from CDN
-        run: sed -i "s/'load_app_styles_from_cdn' => false/'load_app_styles_from_cdn' => true/g" config/hyde.php
+        run: sed -i "s/'use_play_cdn' => false/'use_play_cdn' => true/g" config/hyde.php
 
       - name: Move documentation files
         run: rm -rf _docs && mv -f docs _docs
