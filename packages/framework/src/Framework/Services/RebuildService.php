@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Foundation\Facades\PageCollection;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
 
 /**
@@ -42,7 +42,7 @@ class RebuildService
     public function execute(): StaticPageBuilder
     {
         return $this->builder = (new StaticPageBuilder(
-            PageCollection::getPage($this->filepath),
+            Pages::getPage($this->filepath),
             true
         ));
     }
