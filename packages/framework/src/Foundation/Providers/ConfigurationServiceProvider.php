@@ -20,5 +20,11 @@ class ConfigurationServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../../config' => config_path(),
         ], 'configs');
+
+        $this->publishes([
+            __DIR__.'/../../../config/hyde.php' => config_path('hyde.php'),
+            __DIR__.'/../../../config/docs.php' => config_path('docs.php'),
+            __DIR__.'/../../../config/markdown.php' => config_path('markdown.php'),
+        ], 'hyde-configs');
     }
 }
