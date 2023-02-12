@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Foundation\Concerns\HydeExtension;
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
