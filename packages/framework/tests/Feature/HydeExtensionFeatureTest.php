@@ -15,7 +15,12 @@ use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
@@ -119,6 +124,43 @@ class HydeExtensionFeatureTest extends TestCase
         $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
 
         app(HydeKernel::class)->registerExtension(stdClass::class);
+    }
+
+    public function test_get_registered_page_classes_returns_core_extension_classes()
+    {
+        $this->assertSame(HydeCoreExtension::getPageClasses(), $this->kernel->getRegisteredPageClasses());
+    }
+
+    public function test_get_registered_page_classes_merges_all_extension_classes()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertSame(
+            array_merge(HydeCoreExtension::getPageClasses(), HydeTestExtension::getPageClasses()),
+            $this->kernel->getRegisteredPageClasses()
+        );
+    }
+
+    public function test_merged_registered_page_classes_array_contents()
+    {
+        $this->assertSame([
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ], $this->kernel->getRegisteredPageClasses());
+
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertSame([
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+            HydeExtensionTestPage::class,
+        ], $this->kernel->getRegisteredPageClasses());
     }
 
     public function test_register_extension_method_does_not_register_already_registered_classes()
