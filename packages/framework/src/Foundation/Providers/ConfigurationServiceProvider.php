@@ -10,7 +10,6 @@ class ConfigurationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Hyde Configuration Files
         $this->mergeConfigFrom(__DIR__.'/../../../config/hyde.php', 'hyde');
         $this->mergeConfigFrom(__DIR__.'/../../../config/docs.php', 'docs');
         $this->mergeConfigFrom(__DIR__.'/../../../config/markdown.php', 'markdown');
