@@ -25,9 +25,14 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $repository->set('view', array_merge(
-            require __DIR__.'/../../../config/view.php',
-            $repository->get('view', [])
+        $this->mergeConfigurationFile($repository, 'view');
+    }
+
+    protected function mergeConfigurationFile(RepositoryContract $repository, string $key): void
+    {
+        $repository->set($key, array_merge(
+            require __DIR__."/../../../config/$key.php",
+            $repository->get($key, [])
         ));
     }
 }
