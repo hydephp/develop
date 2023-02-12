@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
 use function in_array;
 use InvalidArgumentException;
@@ -93,7 +94,7 @@ trait ManagesHydeKernel
      */
     public function getRegisteredPageClasses(): array
     {
-        return $this->pageClasses;
+        return HydeCoreExtension::getPageClasses();
     }
 
     /**
