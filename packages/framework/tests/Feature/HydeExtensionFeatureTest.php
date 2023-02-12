@@ -15,7 +15,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
-
 use function app;
 use function func_get_args;
 
