@@ -26,11 +26,12 @@ class UpdateConfigsCommand extends Command
 
     public function handle(): int
     {
-        $tag = $this->choice('Which configuration files do you want to publish?', [
+        $options = [
             'All configs',
             '<comment>hyde-configs</comment>: Main configuration files',
             '<comment>support-configs</comment>: Laravel and package configuration files',
-        ], 'All configs');
+        ];
+        $tag = $this->choice('Which configuration files do you want to publish?', $options, 'All configs');
 
         Artisan::call('vendor:publish', [
             '--tag' => $tag,
