@@ -28,7 +28,6 @@ use Illuminate\Support\HtmlString;
  * @covers \Hyde\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
- * @see \Hyde\Framework\Testing\Feature\HydeKernelDynamicPageClassesTest
  */
 class HydeKernelTest extends TestCase
 {
@@ -278,6 +277,7 @@ class HydeKernelTest extends TestCase
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
             'outputDirectory' => Hyde::getOutputDirectory(),
+            'extensions' => Hyde::getRegisteredExtensions(),
             'features' => Hyde::features(),
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),

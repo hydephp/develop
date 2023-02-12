@@ -43,6 +43,11 @@ class BaseFoundationCollectionTestClass extends BaseFoundationCollection
         return $this;
     }
 
+    protected function runExtensionCallbacks(): self
+    {
+        return $this;
+    }
+
     public function isDiscovered(): bool
     {
         return $this->discovered;
