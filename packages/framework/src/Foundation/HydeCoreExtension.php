@@ -11,5 +11,8 @@ use Hyde\Foundation\Concerns\HydeExtension;
  */
 class HydeCoreExtension extends HydeExtension
 {
-    //
+    public static function getPageClasses(): array
+    {
+        return parent::getPageClasses();
+    }
 }

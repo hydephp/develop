@@ -22,4 +22,9 @@ class HydeCoreExtensionTest extends TestCase
     {
         $this->assertContains(HydeCoreExtension::class, HydeKernel::getInstance()->getRegisteredExtensions());
     }
+
+    public function testGetPageClasses()
+    {
+        $this->assertSame([], HydeCoreExtension::getPageClasses());
+    }
 }
