@@ -92,13 +92,11 @@ abstract class Command extends BaseCommand
         $this->line("<info>$string</info>");
     }
 
-    /** @experimental This method may change (or be removed) before the 1.0.0 release */
     public function gray(string $string): void
     {
         $this->line($this->inlineGray($string));
     }
 
-    /** @experimental This method may change (or be removed) before the 1.0.0 release */
     public function inlineGray(string $string): string
     {
         return "<fg=gray>$string</>";
