@@ -25,7 +25,7 @@ final class FileCollection extends BaseFoundationCollection
 {
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile>
+     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
      */
     public function getSourceFiles(?string $pageClass = null): self
     {
@@ -34,20 +34,20 @@ final class FileCollection extends BaseFoundationCollection
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile>
+     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
      */
     public function getSourceFilesFor(string $pageClass): self
     {
         return $this->getAllSourceFiles()->where(fn (SourceFile $file): bool => $file->model === $pageClass);
     }
 
-    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
+    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
     public function getAllSourceFiles(): self
     {
         return $this->where(fn (ProjectFile $file): bool => $file instanceof SourceFile);
     }
 
-    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
+    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
     public function getMediaFiles(): self
     {
         return $this->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
