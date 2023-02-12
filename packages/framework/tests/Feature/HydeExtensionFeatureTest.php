@@ -226,6 +226,9 @@ class InspectableTestExtension extends HydeExtension
 
 class HydeExtensionTestPage extends HydePage
 {
+    public static string $sourceDirectory = '';
+    public static string $fileExtension = '';
+
     public function compile(): string
     {
         return '';
