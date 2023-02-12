@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 class PublishConfigsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'update:configs';
+    protected $signature = 'publish:configs';
 
     /** @var string */
     protected $description = 'Publish the default configuration files';
