@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
 use function in_array;
 use InvalidArgumentException;
@@ -70,6 +71,18 @@ trait ManagesHydeKernel
     public function getMediaOutputDirectory(): string
     {
         return ltrim($this->getMediaDirectory(), '_');
+    }
+
+    /**
+     * @deprecated
+     *
+     * @internal
+     *
+     * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
+     */
+    public function getRegisteredPageClasses(): array
+    {
+        return HydeCoreExtension::getPageClasses();
     }
 
     /**

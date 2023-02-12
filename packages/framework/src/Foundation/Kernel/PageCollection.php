@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
@@ -59,7 +58,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        foreach (HydeCoreExtension::getPageClasses() as $pageClass) {
+        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverPagesFor($pageClass);
         }
 

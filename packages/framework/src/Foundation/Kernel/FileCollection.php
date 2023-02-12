@@ -59,7 +59,7 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        foreach ($this->getClasses() as $pageClass) {
+        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverFilesFor($pageClass);
         }
 
