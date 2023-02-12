@@ -39,6 +39,8 @@ class UpdateConfigsCommand extends Command
             'support-configs',
         ];
 
+        $tag = $tags[array_search($selection, $options)];
+
         Artisan::call('vendor:publish', [
             '--tag' => $tag,
             '--force' => true,
