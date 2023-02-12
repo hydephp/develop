@@ -7,17 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
- * @covers \Hyde\Foundation\Kernel\FileCollection
- * @covers \Hyde\Foundation\Kernel\PageCollection
- */
-class HydeKernelDynamicPageClassesTest extends TestCase
-{
-    //
-}
-
 abstract class TestPageClass extends HydePage
 {
     //
