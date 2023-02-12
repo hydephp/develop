@@ -13,7 +13,7 @@ use function config;
 use function get_class;
 use function get_declared_classes;
 use function glob;
-use Hyde\Console\HydeConsoleServiceProvider;
+use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Facades\Site;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
@@ -60,14 +60,6 @@ class HydeServiceProviderTest extends TestCase
     public function test_provider_has_boot_method()
     {
         $this->assertTrue(method_exists($this->provider, 'boot'));
-    }
-
-    public function test_provider_applies_yaml_configuration_when_present()
-    {
-        $this->assertEquals('HydePHP', config('hyde.name'));
-        $this->file('hyde.yml', 'name: Foo');
-        $this->provider->register();
-        $this->assertEquals('Foo', config('hyde.name'));
     }
 
     public function test_provider_registers_asset_service_contract()
@@ -220,7 +212,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->provider->register();
 
-        $this->assertArrayHasKey(HydeConsoleServiceProvider::class, $this->app->getLoadedProviders());
+        $this->assertArrayHasKey(ConsoleServiceProvider::class, $this->app->getLoadedProviders());
     }
 
     public function test_provider_registers_all_page_model_source_paths()

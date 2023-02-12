@@ -71,6 +71,9 @@ return [
     'providers' => [
         App\Providers\AppServiceProvider::class,
         Hyde\Framework\HydeServiceProvider::class,
+        Hyde\Foundation\Providers\ViewServiceProvider::class,
+        Hyde\Foundation\Providers\ConfigurationServiceProvider::class,
+        Hyde\Console\ConsoleServiceProvider::class,
     ],
 
     /*

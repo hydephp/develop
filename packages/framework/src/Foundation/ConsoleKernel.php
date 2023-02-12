@@ -5,12 +5,19 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use LaravelZero\Framework\Kernel;
+use Hyde\Foundation\Services\LoadYamlConfiguration;
 
 class ConsoleKernel extends Kernel
 {
-    /** Get the bootstrap classes for the application. */
+    /**
+     * Get the bootstrap classes for the application.
+     */
     protected function bootstrappers(): array
     {
+        $bootstrappers = $this->bootstrappers;
+
+        array_splice($bootstrappers, 5, 0, LoadYamlConfiguration::class);
+
         // Since we store our application config in `app/config.php`, we need to replace
         // the default LoadConfiguration bootstrapper class with our implementation.
 
@@ -19,7 +26,7 @@ class ConsoleKernel extends Kernel
         // LoadConfiguration bootstrapper with our own. Finally, we
         // return the bootstrappers without the added keys.
 
-        return array_values(tap(array_combine(parent::bootstrappers(), parent::bootstrappers()), function (array &$array): void {
+        return array_values(tap(array_combine($bootstrappers, $bootstrappers), function (array &$array): void {
             $array[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
         }));
     }
