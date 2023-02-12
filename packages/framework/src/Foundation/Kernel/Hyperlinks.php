@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Foundation;
+namespace Hyde\Foundation\Kernel;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Str;

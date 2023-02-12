@@ -11,9 +11,9 @@ use Illuminate\Support\Collection;
 /**
  * Base class for the kernel auto-discovery collections.
  *
- * @see \Hyde\Foundation\FileCollection
- * @see \Hyde\Foundation\PageCollection
- * @see \Hyde\Foundation\RouteCollection
+ * @see \Hyde\Foundation\Kernel\FileCollection
+ * @see \Hyde\Foundation\Kernel\PageCollection
+ * @see \Hyde\Foundation\Kernel\RouteCollection
  * @see \Hyde\Framework\Testing\Unit\BaseFoundationCollectionTest
  */
 abstract class BaseFoundationCollection extends Collection

@@ -6,8 +6,8 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
-use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;

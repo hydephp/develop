@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Foundation\Facades\Router;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use function str_replace;
 use Stringable;
+use function str_replace;
 
 /**
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages

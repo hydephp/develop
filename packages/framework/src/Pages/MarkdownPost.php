@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
@@ -31,7 +31,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?PostAuthor $author;
     public ?FeaturedImage $image;
 
-    /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
+    /** @return \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');

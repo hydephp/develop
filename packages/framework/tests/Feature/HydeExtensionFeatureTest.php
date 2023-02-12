@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use function func_get_args;
 use Hyde\Foundation\Concerns\HydeExtension;
-use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\PageCollection;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
+use function func_get_args;
 
 /**
  * @covers \Hyde\Foundation\Concerns\HydeExtension
  * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
  * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\FileCollection
- * @covers \Hyde\Foundation\PageCollection
- * @covers \Hyde\Foundation\RouteCollection
+ * @covers \Hyde\Foundation\Kernel\FileCollection
+ * @covers \Hyde\Foundation\Kernel\PageCollection
+ * @covers \Hyde\Foundation\Kernel\RouteCollection
  */
 class HydeExtensionFeatureTest extends TestCase
 {
