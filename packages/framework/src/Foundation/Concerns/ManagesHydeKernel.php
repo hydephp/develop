@@ -73,18 +73,6 @@ trait ManagesHydeKernel
     }
 
     /**
-     * @deprecated
-     *
-     * @internal This method is not part of the public API and should not be used outside the HydePHP framework.
-     */
-    public function registerPageClass(string $pageClass): void
-    {
-        if (! in_array($pageClass, $this->pageClasses, true)) {
-            $this->pageClasses[] = $pageClass;
-        }
-    }
-
-    /**
      * Register a HydePHP extension within the HydeKernel.
      *
      * Typically, you would call this method in the register method of a service provider.
