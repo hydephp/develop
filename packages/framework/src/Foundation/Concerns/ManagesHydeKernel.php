@@ -117,7 +117,9 @@ trait ManagesHydeKernel
         return $this->pageClasses;
     }
 
-    /** @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension */
+    /**
+     * @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
+     */
     public function registerExtension(string $extension): void
     {
         if (! in_array($extension, $this->extensions, true)) {
