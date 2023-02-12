@@ -8,7 +8,6 @@ use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use JetBrains\PhpStorm\Deprecated;
 use Throwable;
 
 /**
