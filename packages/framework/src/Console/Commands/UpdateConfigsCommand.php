@@ -47,11 +47,7 @@ class UpdateConfigsCommand extends Command
 
     protected function parseTagFromSelection(string $selection, array $options): string
     {
-        $tags = [
-            'configs',
-            'hyde-configs',
-            'support-configs',
-        ];
+        $tags = ['configs', 'hyde-configs', 'support-configs'];
 
         return $tags[array_search($selection, $options)];
     }
