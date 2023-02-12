@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @mixin \Hyde\Foundation\Kernel\RouteCollection
  */
-class Router extends Facade
+class Routes extends Facade
 {
     public static function getFacadeRoot(): RouteCollection
     {
