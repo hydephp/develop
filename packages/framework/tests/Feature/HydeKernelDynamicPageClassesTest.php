@@ -116,8 +116,8 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->directory('foo');
         $this->file('foo/bar.txt');
         app(HydeKernel::class)->registerPageClass(TestPageClassWithSourceInformation::class);
-        $this->assertArrayHasKey('foo/bar', Facades\Router::all());
-        $this->assertEquals(new Route(new TestPageClassWithSourceInformation('bar')), Facades\Router::get('foo/bar'));
+        $this->assertArrayHasKey('foo/bar', Facades\Routes::all());
+        $this->assertEquals(new Route(new TestPageClassWithSourceInformation('bar')), Facades\Routes::get('foo/bar'));
     }
 }
 

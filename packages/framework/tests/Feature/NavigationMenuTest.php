@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use BadMethodCallException;
 use function collect;
 use function config;
-use Hyde\Foundation\Facades\Router;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -393,8 +393,8 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
-        Router::push((new MarkdownPage('foo'))->getRoute());
-        Router::push((new MarkdownPage('bar/baz'))->getRoute());
+        Routes::push((new MarkdownPage('foo'))->getRoute());
+        Routes::push((new MarkdownPage('bar/baz'))->getRoute());
         $menu = NavigationMenu::create();
 
         $this->assertCount(3, $menu->items);
