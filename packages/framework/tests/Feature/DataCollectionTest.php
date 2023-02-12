@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\DataCollections\DataCollection
- * @covers \Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection
  */
 class DataCollectionTest extends TestCase
 {
