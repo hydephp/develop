@@ -19,12 +19,6 @@ use function is_subclass_of;
  */
 trait ManagesExtensions
 {
-    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
-    public function getRegisteredPageClasses(): array
-    {
-        return array_unique(array_merge(...array_map(fn (string $extension): array => $extension::getPageClasses(), $this->getRegisteredExtensions())));
-    }
-
     /**
      * Register a HydePHP extension within the HydeKernel.
      *
@@ -60,5 +54,11 @@ trait ManagesExtensions
     public function getRegisteredExtensions(): array
     {
         return $this->extensions;
+    }
+
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    public function getRegisteredPageClasses(): array
+    {
+        return array_unique(array_merge(...array_map(fn (string $extension): array => $extension::getPageClasses(), $this->getRegisteredExtensions())));
     }
 }
