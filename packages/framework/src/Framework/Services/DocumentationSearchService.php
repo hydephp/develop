@@ -81,7 +81,7 @@ final class DocumentationSearchService
 
     protected function formatDestination(string $slug): string
     {
-        if (config('site.pretty_urls', false) === true) {
+        if (config('hyde.pretty_urls', false) === true) {
             return $slug === 'index' ? '' : $slug;
         }
 

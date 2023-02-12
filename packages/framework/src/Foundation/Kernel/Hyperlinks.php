@@ -32,7 +32,7 @@ class Hyperlinks
      */
     public function formatLink(string $destination): string
     {
-        if (config('site.pretty_urls', false) === true) {
+        if (config('hyde.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';
@@ -109,7 +109,7 @@ class Hyperlinks
      */
     public function hasSiteUrl(): bool
     {
-        return ! blank(config('site.url'));
+        return ! blank(config('hyde.url'));
     }
 
     /**
@@ -124,7 +124,7 @@ class Hyperlinks
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim((string) config('site.url'), '/')."/$path", '/');
+            return rtrim(rtrim((string) config('hyde.url'), '/')."/$path", '/');
         }
 
         throw new BaseUrlNotSetException();

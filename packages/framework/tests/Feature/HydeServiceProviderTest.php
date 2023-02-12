@@ -151,7 +151,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertEquals('_site', Site::getOutputDirectory());
 
-        config(['site.output_directory' => 'foo']);
+        config(['hyde.output_directory' => 'foo']);
 
         $this->provider->register();
 
@@ -162,7 +162,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertEquals('_media', Hyde::getMediaDirectory());
 
-        config(['site.media_directory' => 'foo']);
+        config(['hyde.media_directory' => 'foo']);
 
         $this->provider->register();
 

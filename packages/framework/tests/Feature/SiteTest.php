@@ -18,10 +18,10 @@ class SiteTest extends TestCase
     {
         $this->assertSame('http://localhost', Site::url());
 
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         $this->assertNull(Site::url());
 
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $this->assertSame('https://example.com', Site::url());
     }
 
@@ -29,10 +29,10 @@ class SiteTest extends TestCase
     {
         $this->assertSame('HydePHP', Site::name());
 
-        config(['site.name' => null]);
+        config(['hyde.name' => null]);
         $this->assertNull(Site::name());
 
-        config(['site.name' => 'foo']);
+        config(['hyde.name' => 'foo']);
         $this->assertSame('foo', Site::name());
     }
 
@@ -40,10 +40,10 @@ class SiteTest extends TestCase
     {
         $this->assertSame('en', Site::language());
 
-        config(['site.language' => null]);
+        config(['hyde.language' => null]);
         $this->assertNull(Site::language());
 
-        config(['site.language' => 'foo']);
+        config(['hyde.language' => 'foo']);
         $this->assertSame('foo', Site::language());
     }
 
