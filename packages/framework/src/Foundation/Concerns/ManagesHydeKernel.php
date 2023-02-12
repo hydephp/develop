@@ -74,10 +74,7 @@ trait ManagesHydeKernel
     }
 
     /**
-     * @deprecated
-     *
-     * @internal
-     *
+     * @deprecated 
      * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
      */
     public function getRegisteredPageClasses(): array
