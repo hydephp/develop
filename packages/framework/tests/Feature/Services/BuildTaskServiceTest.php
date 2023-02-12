@@ -186,7 +186,7 @@ class BuildTaskServiceTest extends TestCase
         File::makeDirectory(Hyde::path('app/Actions'));
         Hyde::touch('app/Actions/FooBuildTask.php');
 
-        $this->assertEquals(['App\Actions\FooBuildTask'], BuildTaskService::findTasksInAppDirectory());
+        $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getPostBuildTasks());
         File::deleteDirectory(Hyde::path('app/Actions'));
     }
 

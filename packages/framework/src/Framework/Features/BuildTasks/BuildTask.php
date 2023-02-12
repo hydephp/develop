@@ -8,7 +8,6 @@ use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use JetBrains\PhpStorm\Deprecated;
 use Throwable;
 
 /**
@@ -58,19 +57,12 @@ abstract class BuildTask
 
     public function then(): void
     {
-        $this->writeln('<fg=gray>Done in '.$this->getExecutionTime().'</>');
+        $this->writeln('<fg=gray>Done in '.$this->getExecutionTimeString().'</>');
     }
 
     public function getDescription(): string
     {
         return static::$description;
-    }
-
-    /**  @deprecated Will be removed before 1.0.0 - Use $this->getExecutionTimeString() instead */
-    #[Deprecated(reason: 'Use getExecutionTimeString() instead', replacement: '$this->getExecutionTimeString()')]
-    public function getExecutionTime(): string
-    {
-        return $this->getExecutionTimeString();
     }
 
     public function write(string $message): void
