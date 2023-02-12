@@ -6,11 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use ArgumentCountError;
 use Hyde\Framework\Features\DataCollections\DataCollection;
-use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
