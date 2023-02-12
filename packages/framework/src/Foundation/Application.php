@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\PackageManifest;
-
 /**
  * @property self $app
  */
 class Application extends \LaravelZero\Framework\Application
 {
+    protected $storagePath = 'app/storage';
+
     /**
      * {@inheritdoc}
      */
     protected function registerBaseBindings(): void
     {
-        parent::registerBaseBindings();
+        // Laravel Zero disables auto-discovery, but we want to use it,
+        // so we'll call the grandparent's method instead of the parent's.
+        \Illuminate\Foundation\Application::registerBaseBindings();
+    }
 
-        /*
-         * Enable package auto-discovery.
-         */
-        $this->app->singleton(PackageManifest::class, function (): PackageManifest {
-            return new PackageManifest(
-                new Filesystem,
-                $this->basePath(),
-                $this->basePath('storage/framework/cache/packages.php')
-            );
-        });
+    /**
+     * Get the path to the cached packages.php file.
+     */
+    public function getCachedPackagesPath(): string
+    {
+        // Since we have a custom path for the cache directory, we need to return it here.
+        return 'app/storage/framework/cache/packages.php';
     }
 }

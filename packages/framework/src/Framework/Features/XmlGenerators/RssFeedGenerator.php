@@ -82,7 +82,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->addChild($channel, 'title', Site::name());
         $this->addChild($channel, 'link', Site::url());
         $this->addChild($channel, 'description', $this->getDescription());
-        $this->addChild($channel, 'language', config('site.language', 'en'));
+        $this->addChild($channel, 'language', config('hyde.language', 'en'));
         $this->addChild($channel, 'generator', 'HydePHP '.Hyde::version());
         $this->addChild($channel, 'lastBuildDate', date(DATE_RSS));
     }

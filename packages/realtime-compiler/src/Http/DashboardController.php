@@ -28,7 +28,7 @@ class DashboardController
 
     public function __construct()
     {
-        $this->title = config('site.name').' - Dashboard';
+        $this->title = config('hyde.name').' - Dashboard';
     }
 
     public function show(): string

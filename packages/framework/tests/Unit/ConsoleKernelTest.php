@@ -41,7 +41,7 @@ class ConsoleKernelTest extends TestCase
         $this->assertSame([
             0 => 'LaravelZero\Framework\Bootstrap\CoreBindings',
             1 => 'LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables',
-            2 => 'LaravelZero\Framework\Bootstrap\LoadConfiguration',
+            2 => 'Hyde\Foundation\Internal\LoadConfiguration',
             3 => 'Illuminate\Foundation\Bootstrap\HandleExceptions',
             4 => 'LaravelZero\Framework\Bootstrap\RegisterFacades',
             5 => 'Hyde\Foundation\Services\LoadYamlConfiguration',

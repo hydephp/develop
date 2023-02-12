@@ -18,7 +18,7 @@ class PackageDiscoverCommand extends BaseCommand
 
     public function handle(PackageManifest $manifest): void
     {
-        $manifest->manifestPath = Hyde::path('storage/framework/cache/packages.php');
+        $manifest->manifestPath = Hyde::path('app/storage/framework/cache/packages.php');
         parent::handle($manifest);
     }
 }

@@ -530,7 +530,7 @@ class HydePageTest extends TestCase
 
     public function test_html_title_uses_configured_site_name()
     {
-        config(['site.name' => 'Foo Bar']);
+        config(['hyde.name' => 'Foo Bar']);
         $this->assertEquals('Foo Bar - Foo', (new MarkdownPage('Foo'))->htmlTitle());
     }
 
@@ -725,7 +725,7 @@ class HydePageTest extends TestCase
 
     public function test_get_canonical_url_returns_url_for_top_level_page()
     {
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo');
 
         $this->assertEquals('https://example.com/foo.html', $page->canonicalUrl);
@@ -733,8 +733,8 @@ class HydePageTest extends TestCase
 
     public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
     {
-        config(['site.url' => 'https://example.com']);
-        config(['site.pretty_urls' => true]);
+        config(['hyde.url' => 'https://example.com']);
+        config(['hyde.pretty_urls' => true]);
         $page = new MarkdownPage('foo');
 
         $this->assertEquals('https://example.com/foo', $page->canonicalUrl);
@@ -742,7 +742,7 @@ class HydePageTest extends TestCase
 
     public function test_get_canonical_url_returns_url_for_nested_page()
     {
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo/bar');
 
         $this->assertEquals('https://example.com/foo/bar.html', $page->canonicalUrl);
@@ -750,7 +750,7 @@ class HydePageTest extends TestCase
 
     public function test_get_canonical_url_returns_url_for_deeply_nested_page()
     {
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo/bar/baz');
 
         $this->assertEquals('https://example.com/foo/bar/baz.html', $page->canonicalUrl);
@@ -758,7 +758,7 @@ class HydePageTest extends TestCase
 
     public function test_canonical_url_is_not_set_when_identifier_is_null()
     {
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage();
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
@@ -769,7 +769,7 @@ class HydePageTest extends TestCase
 
     public function test_canonical_url_is_not_set_when_site_url_is_null()
     {
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         $page = new MarkdownPage('foo');
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
@@ -780,7 +780,7 @@ class HydePageTest extends TestCase
 
     public function test_custom_canonical_link_can_be_set_in_front_matter()
     {
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $page = MarkdownPage::make(matter: ['canonicalUrl' => 'foo/bar']);
         $this->assertEquals('foo/bar', $page->canonicalUrl);
         $this->assertStringContainsString(
@@ -950,7 +950,7 @@ class HydePageTest extends TestCase
 
     public function testGetLinkWithPrettyUrls()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $this->assertEquals('output/hello-world',
             (new TestPage('hello-world'))->getLink()
         );

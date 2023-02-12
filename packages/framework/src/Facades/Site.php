@@ -16,17 +16,17 @@ final class Site
 {
     public static function url(): ?string
     {
-        return config('site.url');
+        return config('hyde.url');
     }
 
     public static function name(): ?string
     {
-        return config('site.name');
+        return config('hyde.name');
     }
 
     public static function language(): ?string
     {
-        return config('site.language');
+        return config('hyde.language');
     }
 
     public static function metadata(): GlobalMetadataBag

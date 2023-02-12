@@ -43,20 +43,20 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
     {
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         $this->assertTrue(Features::sitemap());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
     {
-        config(['site.url' => '']);
+        config(['hyde.url' => '']);
         $this->assertFalse(Features::sitemap());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
     {
-        config(['site.url' => 'foo']);
-        config(['site.generate_sitemap' => false]);
+        config(['hyde.url' => 'foo']);
+        config(['hyde.generate_sitemap' => false]);
         $this->assertFalse(Features::sitemap());
     }
 

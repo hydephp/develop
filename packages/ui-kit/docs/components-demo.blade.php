@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('site.language', 'en') }}">
+<html lang="{{ config('hyde.language', 'en') }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

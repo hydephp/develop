@@ -11,7 +11,7 @@ navigation:
 Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuration">"Convention over Configuration"</a>
 and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable if you need it. This page guides you through the many options available!
 
-When referencing configuration options, we often use "dot notation" to specify the configuration file. For example, <code>config('site.name')</code> means that we are looking for the <code>name</code> option in the <code>config/site.php</code> file.
+When referencing configuration options, we often use "dot notation" to specify the configuration file. For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.
 
 If you want to reference these configuration options in your Blade views, or other integrations, please take a look at the [Laravel Documentation](https://laravel.com/docs/9.x/configuration).
 
@@ -29,15 +29,14 @@ Below are two tables over the different configuration files. Click on a file nam
 
 These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP.
 
-| Config File                                                                                                        | Description                                                                         |
-|--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| <a href="https://github.com/hydephp/hyde/blob/master/config/site.php" rel="nofollow noopener">site.php</a>         | Configuration file for the site presentation settings, like site name and base URL. |
-| <a href="https://github.com/hydephp/hyde/blob/master/config/hyde.php" rel="nofollow noopener">hyde.php</a>         | HydePHP Framework settings, like what features to enable, and navigation menus.     |
-| <a href="https://github.com/hydephp/hyde/blob/master/config/docs.php" rel="nofollow noopener">docs.php</a>         | Options for the HydePHP documentation site generator module.                        |
-| <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.   |
+| Config File                                                                                                        | Description                                                                                                                           |
+|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| <a href="https://github.com/hydephp/hyde/blob/master/config/hyde.php" rel="nofollow noopener">hyde.php</a>         | Main HydePHP configuration file. Used for things ranging from site name and base URL to navigation menus and what features to enable. |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/docs.php" rel="nofollow noopener">docs.php</a>         | Options for the HydePHP documentation site generator module.                                                                          |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.                                                     |
 {.align-top}
 
->info Tip: The values in site.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
+>info Tip: The values in hyde.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
 
 ### Laravel & Package Configuration Files
 
@@ -45,13 +44,15 @@ Since HydePHP is based on Laravel we also have a few configuration files related
 
 | Config File                                                                                                            | Description                                                             |
 |------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| <a href="https://github.com/hydephp/hyde/blob/master/config/app.php" rel="nofollow noopener">app.php</a>               | Configures the underlying Laravel application.                          |
+| <a href="https://github.com/hydephp/hyde/blob/master/app/config.php" rel="nofollow noopener">app.php</a>               | Configures the underlying Laravel application.                          |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/commands.php" rel="nofollow noopener">commands.php</a>     | Configures the Laravel Zero commands for the HydeCLI.                   |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/cache.php" rel="nofollow noopener">cache.php</a>           | Configures the cache driver and cache path locations.                   |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/view.php" rel="nofollow noopener">view.php</a>             | Configures the paths for the Blade View compiler.                       |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/torchlight.php" rel="nofollow noopener">torchlight.php</a> | Configures settings for the Torchlight syntax highlighting integration. |
 
 {.align-top}
+
+If any of these files are missing, you can run `php hyde update:configs` to copy the default files to your project.
 
 
 ## Configuration Options
@@ -313,11 +314,12 @@ In the same file you can also change the config to be passed to the CommonMark e
 
 ## YAML Configuration
 
-As a relatively new and experimental feature, the settings in the config/site.php can also be overridden by creating
-a hyde.yml file in the root of your project directory. Note that these cannot reference environment variables, 
-and their values override any made in the PHP config.
+The settings in the config/hyde.php file can also be overridden by creating a hyde.yml file in the root of your project directory.
 
-Here is an example hyde.yml file matching the default site.yml:
+Note that these cannot reference environment variables and you cannot interact with objects and services.
+But that doesn't stop you from using both files if you want to. Just keep in mind that any values in yhe YAML file override any made in the PHP config.
+
+Here is an example hyde.yml file showing some of the available options in the normal hyde.php file.
 
 ```yaml
 # filepath hyde.yml

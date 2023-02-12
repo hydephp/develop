@@ -156,7 +156,7 @@ class Features implements SerializableContract
     public static function sitemap(): bool
     {
         return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
-            && config('site.generate_sitemap', true)
+            && config('hyde.generate_sitemap', true)
             && extension_loaded('simplexml');
     }
 
