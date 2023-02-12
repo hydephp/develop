@@ -7,6 +7,9 @@ namespace Hyde\Foundation\Concerns;
 use BadMethodCallException;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
+use function array_map;
+use function array_merge;
+use function array_unique;
 use function in_array;
 use InvalidArgumentException;
 use function is_subclass_of;
@@ -76,7 +79,7 @@ trait ManagesHydeKernel
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
-        return HydeCoreExtension::getPageClasses();
+        return array_unique(array_merge(...array_map(fn(string $extension): array => $extension::getPageClasses(), $this->getRegisteredExtensions())));
     }
 
     /**
