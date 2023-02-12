@@ -59,11 +59,8 @@ trait ManagesExtensions
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
-        return array_unique(array_merge(...array_map(
-            /** @param  <class-string<\Hyde\Foundation\Concerns\HydeExtension>>  $extension */
-            function (string $extension): array {
-                return $extension::getPageClasses();
-            },
-        $this->getRegisteredExtensions())));
+        return array_unique(array_merge(...array_map(function (string $extension): array {
+            return $extension::getPageClasses();
+        }, $this->getRegisteredExtensions())));
     }
 }
