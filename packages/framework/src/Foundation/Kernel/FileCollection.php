@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
-
 use function array_merge;
 use function array_unique;
 
@@ -93,6 +91,6 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function getClasses(): array
     {
-        return array_unique(array_merge(...array_map(fn(string $extension): array => $extension::getPageClasses(), $this->kernel->getRegisteredExtensions())));
+        return array_unique(array_merge(...array_map(fn (string $extension): array => $extension::getPageClasses(), $this->kernel->getRegisteredExtensions())));
     }
 }

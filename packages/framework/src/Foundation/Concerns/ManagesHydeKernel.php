@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
-use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
 use function array_map;
 use function array_merge;
@@ -79,7 +78,7 @@ trait ManagesHydeKernel
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
-        return array_unique(array_merge(...array_map(fn(string $extension): array => $extension::getPageClasses(), $this->getRegisteredExtensions())));
+        return array_unique(array_merge(...array_map(fn (string $extension): array => $extension::getPageClasses(), $this->getRegisteredExtensions())));
     }
 
     /**
