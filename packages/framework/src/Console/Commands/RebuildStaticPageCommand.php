@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Concerns\Command;
-use Hyde\Foundation\Facades\PageCollection;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\RebuildService;
@@ -73,7 +73,7 @@ class RebuildStaticPageCommand extends Command
             public function then(): void
             {
                 $this->createdSiteFile(Command::createClickableFilepath(
-                    PageCollection::getPage($this->path)->getOutputPath()
+                    Pages::getPage($this->path)->getOutputPath()
                 ))->withExecutionTime();
             }
 

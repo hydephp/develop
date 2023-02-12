@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @mixin \Hyde\Foundation\Kernel\PageCollection
  */
-class PageCollection extends Facade
+class Pages extends Facade
 {
     public static function getFacadeRoot(): \Hyde\Foundation\Kernel\PageCollection
     {
