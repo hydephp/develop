@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
