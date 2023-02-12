@@ -280,17 +280,17 @@
       <code>ServeCommand</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="packages/framework/src/Console/Commands/UpdateConfigsCommand.php">
+  <file src="packages/framework/src/Console/Commands/PublishConfigsCommand.php">
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$description</code>
     </NonInvariantDocblockPropertyType>
     <PropertyNotSetInConstructor occurrences="6">
-      <code>UpdateConfigsCommand</code>
-      <code>UpdateConfigsCommand</code>
-      <code>UpdateConfigsCommand</code>
-      <code>UpdateConfigsCommand</code>
-      <code>UpdateConfigsCommand</code>
-      <code>UpdateConfigsCommand</code>
+      <code>PublishConfigsCommand</code>
+      <code>PublishConfigsCommand</code>
+      <code>PublishConfigsCommand</code>
+      <code>PublishConfigsCommand</code>
+      <code>PublishConfigsCommand</code>
+      <code>PublishConfigsCommand</code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="packages/framework/src/Console/Commands/ValidateCommand.php">
