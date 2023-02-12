@@ -30,9 +30,9 @@ final class PageCollection extends BaseFoundationCollection
 
     public function getPages(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this : $this->filter(function (HydePage $page) use ($pageClass): bool {
+        return $pageClass ? $this->filter(function (HydePage $page) use ($pageClass): bool {
             return $page instanceof $pageClass;
-        });
+        }) : $this;
     }
 
     /**
