@@ -21,6 +21,7 @@ abstract class BaseFoundationCollection extends Collection
     protected HydeKernel $kernel;
 
     abstract protected function runDiscovery(): self;
+
     abstract protected function runExtensionCallbacks(): self;
 
     public static function boot(HydeKernel $kernel): static
