@@ -31,7 +31,7 @@ use function func_get_args;
 
 /**
  * @covers \Hyde\Foundation\Concerns\HydeExtension
- * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
+ * @covers \Hyde\Foundation\Concerns\ManagesExtensions
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\FileCollection
  * @covers \Hyde\Foundation\Kernel\PageCollection
