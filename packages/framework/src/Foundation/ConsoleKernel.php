@@ -21,11 +21,7 @@ class ConsoleKernel extends Kernel
 
         // Since we store our application config in `app/config.php`, we need to replace
         // the default LoadConfiguration bootstrapper class with our implementation.
-
-        // First, we combine the parent bootstrappers into an associative array,
-        // so we can easily access them by class name. Then we replace the
-        // LoadConfiguration bootstrapper with our own. Finally, we
-        // return the bootstrappers without the added keys.
+        // We do this by swapping out the LoadConfiguration class with our own.
 
         return array_values(tap(array_combine($bootstrappers, $bootstrappers), function (array &$array): void {
             $array[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
