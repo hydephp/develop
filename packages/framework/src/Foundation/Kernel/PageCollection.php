@@ -62,17 +62,17 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor($pageClass);
         }
 
-        /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
-        foreach ($this->kernel->getRegisteredExtensions() as $extension) {
-            $extension::discoverPages($this);
-        }
+        $this->runExtensionCallbacks();
 
         return $this;
     }
 
     protected function runExtensionCallbacks(): self
     {
-        // TODO: Implement runExtensionCallbacks() method.
+        /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
+        foreach ($this->kernel->getRegisteredExtensions() as $extension) {
+            $extension::discoverPages($this);
+        }
 
         return $this;
     }

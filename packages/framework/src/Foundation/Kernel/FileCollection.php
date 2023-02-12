@@ -59,10 +59,7 @@ final class FileCollection extends BaseFoundationCollection
             $this->discoverFilesFor($pageClass);
         }
 
-        /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
-        foreach ($this->kernel->getRegisteredExtensions() as $extension) {
-            $extension::discoverFiles($this);
-        }
+        $this->runExtensionCallbacks();
 
         $this->discoverMediaAssetFiles();
 
@@ -71,7 +68,10 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runExtensionCallbacks(): self
     {
-        // TODO: Implement runExtensionCallbacks() method.
+        /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
+        foreach ($this->kernel->getRegisteredExtensions() as $extension) {
+            $extension::discoverFiles($this);
+        }
 
         return $this;
     }
