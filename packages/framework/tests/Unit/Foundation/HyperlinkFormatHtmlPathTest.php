@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Foundation\Hyperlinks::formatLink
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks::formatLink
  */
 class HyperlinkFormatHtmlPathTest extends TestCase
 {
