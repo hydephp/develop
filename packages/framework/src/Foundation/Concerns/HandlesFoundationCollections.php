@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\Kernel\FileCollection;
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\RouteCollection;
 
 /**

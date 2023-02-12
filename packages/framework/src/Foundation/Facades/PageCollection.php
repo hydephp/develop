@@ -8,11 +8,11 @@ use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @mixin \Hyde\Foundation\PageCollection
+ * @mixin \Hyde\Foundation\Kernel\PageCollection
  */
 class PageCollection extends Facade
 {
-    public static function getFacadeRoot(): \Hyde\Foundation\PageCollection
+    public static function getFacadeRoot(): \Hyde\Foundation\Kernel\PageCollection
     {
         return HydeKernel::getInstance()->pages();
     }

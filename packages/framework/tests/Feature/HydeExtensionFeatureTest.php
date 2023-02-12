@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
@@ -19,7 +19,7 @@ use function func_get_args;
  * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\FileCollection
- * @covers \Hyde\Foundation\PageCollection
+ * @covers \Hyde\Foundation\Kernel\PageCollection
  * @covers \Hyde\Foundation\RouteCollection
  */
 class HydeExtensionFeatureTest extends TestCase

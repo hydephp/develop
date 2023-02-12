@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Hyde\Foundation\Facades;
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\HasFactory;
@@ -114,7 +114,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Foundation\PageCollection<\Hyde\Pages\Concerns\HydePage>
+     * @return \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\Concerns\HydePage>
      */
     public static function all(): PageCollection
     {

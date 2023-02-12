@@ -8,7 +8,7 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;

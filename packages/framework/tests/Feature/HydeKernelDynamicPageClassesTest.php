@@ -25,7 +25,7 @@ use function app;
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
  * @covers \Hyde\Foundation\Kernel\FileCollection
- * @covers \Hyde\Foundation\PageCollection
+ * @covers \Hyde\Foundation\Kernel\PageCollection
  */
 class HydeKernelDynamicPageClassesTest extends TestCase
 {

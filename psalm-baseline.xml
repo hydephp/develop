@@ -1342,7 +1342,7 @@
       <code>$title</code>
     </PropertyNotSetInConstructor>
     <TooManyTemplateParams occurrences="1">
-      <code>\Hyde\Foundation\PageCollection&lt;\Hyde\Pages\Concerns\HydePage&gt;</code>
+      <code>\Hyde\Foundation\Kernel\PageCollection&lt;\Hyde\Pages\Concerns\HydePage&gt;</code>
     </TooManyTemplateParams>
     <UnsafeInstantiation occurrences="1">
       <code>new static($identifier, $matter)</code>
@@ -1377,7 +1377,7 @@
       <code>static::all()-&gt;sortByDesc('matter.date')</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
-      <code>\Hyde\Foundation\PageCollection&lt;\Hyde\Pages\MarkdownPost&gt;</code>
+      <code>\Hyde\Foundation\Kernel\PageCollection&lt;\Hyde\Pages\MarkdownPost&gt;</code>
     </MoreSpecificReturnType>
     <PropertyNotSetInConstructor occurrences="6">
       <code>$author</code>
@@ -1388,7 +1388,7 @@
       <code>MarkdownPost</code>
     </PropertyNotSetInConstructor>
     <TooManyTemplateParams occurrences="2">
-      <code>\Hyde\Foundation\PageCollection&lt;\Hyde\Pages\MarkdownPost&gt;</code>
+      <code>\Hyde\Foundation\Kernel\PageCollection&lt;\Hyde\Pages\MarkdownPost&gt;</code>
       <code>static::all()-&gt;sortByDesc('matter.date')</code>
     </TooManyTemplateParams>
   </file>
