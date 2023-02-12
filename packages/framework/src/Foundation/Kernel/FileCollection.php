@@ -12,6 +12,9 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 
+use function array_merge;
+use function array_unique;
+
 /**
  * The FileCollection contains all the discovered source and media files,
  * and thus has an integral role in the Hyde Auto Discovery process.
@@ -90,6 +93,6 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function getClasses(): array
     {
-        return HydeCoreExtension::getPageClasses();
+        return array_unique(array_merge(...array_map(fn(string $extension): array => $extension::getPageClasses(), $this->kernel->getRegisteredExtensions())));
     }
 }
