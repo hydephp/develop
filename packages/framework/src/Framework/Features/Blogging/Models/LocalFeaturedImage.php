@@ -47,15 +47,9 @@ class LocalFeaturedImage extends FeaturedImage
     protected function validatedStoragePath(): string
     {
         if (! file_exists($this->storagePath())) {
-            throw new FileNotFoundException(sprintf('Image at %s does not exist', $this->replaceSlashes(Hyde::pathToRelative($this->storagePath()))));
+            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($this->storagePath())));
         }
 
         return $this->storagePath();
-    }
-
-    /** @deprecated Slashes may be normalized before reaching here, see e3b121b4ad */
-    private function replaceSlashes(string $path): string
-    {
-        return str_replace('\\', '/', $path);
     }
 }
