@@ -10,9 +10,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Console\Commands\UpdateConfigsCommand
+ * @covers \Hyde\Console\Commands\PublishConfigsCommand
  */
-class UpdateConfigsCommandTest extends TestCase
+class PublishConfigsCommandTest extends TestCase
 {
     public function setUp(): void
     {

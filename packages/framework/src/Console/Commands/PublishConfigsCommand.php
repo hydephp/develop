@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Artisan;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\UpdateConfigsCommandTest
  */
-class UpdateConfigsCommand extends Command
+class PublishConfigsCommand extends Command
 {
     /** @var string */
     protected $signature = 'update:configs';
