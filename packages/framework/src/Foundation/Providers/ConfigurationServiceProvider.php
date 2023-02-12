@@ -6,6 +6,9 @@ namespace Hyde\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @deprecated Simplified class can now be inlined in the HydeServiceProvider.
+ */
 class ConfigurationServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -14,12 +17,6 @@ class ConfigurationServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../../../config/hyde.php', 'hyde');
         $this->mergeConfigFrom(__DIR__.'/../../../config/docs.php', 'docs');
         $this->mergeConfigFrom(__DIR__.'/../../../config/markdown.php', 'markdown');
-
-        // Illuminate/Vendor Configuration Files
-        $this->mergeConfigFrom(__DIR__.'/../../../config/view.php', 'view');
-        $this->mergeConfigFrom(__DIR__.'/../../../config/cache.php', 'cache');
-        $this->mergeConfigFrom(__DIR__.'/../../../config/commands.php', 'commands');
-        $this->mergeConfigFrom(__DIR__.'/../../../config/torchlight.php', 'torchlight');
     }
 
     public function boot(): void
