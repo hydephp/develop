@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
+use Hyde\Markdown\Models\Markdown;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\ColoredBlockquoteShortcodesTest
@@ -30,7 +31,7 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
         return sprintf(
             '<blockquote class="%s">%s</blockquote>',
             static::getClassNameFromSignature(static::signature()),
-            trim(substr($input, strlen(static::signature())), ' ')
+            trim(Markdown::render(trim(substr($input, strlen(static::signature())), ' ')))
         );
     }
 
