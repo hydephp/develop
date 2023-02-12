@@ -69,6 +69,13 @@ final class FileCollection extends BaseFoundationCollection
         return $this;
     }
 
+    protected function runExtensionCallbacks(): self
+    {
+        // TODO: Implement runExtensionCallbacks() method.
+
+        return $this;
+    }
+
     /** @param class-string<HydePage> $pageClass */
     protected function discoverFilesFor(string $pageClass): void
     {

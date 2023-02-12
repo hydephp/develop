@@ -85,4 +85,11 @@ final class RouteCollection extends BaseFoundationCollection
 
         return $this;
     }
+
+    protected function runExtensionCallbacks(): self
+    {
+        // TODO: Implement runExtensionCallbacks() method.
+
+        return $this;
+    }
 }

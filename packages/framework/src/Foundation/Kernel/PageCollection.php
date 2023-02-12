@@ -70,6 +70,13 @@ final class PageCollection extends BaseFoundationCollection
         return $this;
     }
 
+    protected function runExtensionCallbacks(): self
+    {
+        // TODO: Implement runExtensionCallbacks() method.
+
+        return $this;
+    }
+
     protected function discoverPagesFor(string $pageClass): void
     {
         $this->parsePagesFor($pageClass)->each(function (HydePage $page): void {
