@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * File abstraction for a project source file.
  *
- * @see \Hyde\Foundation\FileCollection
+ * @see \Hyde\Foundation\Kernel\FileCollection
  */
 class SourceFile extends ProjectFile
 {

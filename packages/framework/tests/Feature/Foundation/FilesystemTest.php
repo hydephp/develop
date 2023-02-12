@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
-use Hyde\Foundation\Filesystem;
+use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -15,7 +15,7 @@ use function Hyde\normalize_slashes;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Filesystem
+ * @covers \Hyde\Foundation\Kernel\Filesystem
  */
 class FilesystemTest extends TestCase
 {

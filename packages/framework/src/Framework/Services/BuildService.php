@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use function collect;
 use Hyde\Facades\Site;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
@@ -16,6 +15,7 @@ use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use function collect;
 
 /**
  * Moves logic from the build command to a service.

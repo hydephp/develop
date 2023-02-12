@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Hyperlinks;
+use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Foundation\Hyperlinks
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks
  */
 class HyperlinksTest extends TestCase
 {

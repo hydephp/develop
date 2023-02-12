@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 
 /**
  * Provides an easy way to access the Hyde pseudo-router.
@@ -35,7 +35,7 @@ class Route
     /**
      * Get all routes from the route index.
      *
-     * @return \Hyde\Foundation\RouteCollection<\Hyde\Support\Models\Route>
+     * @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route>
      */
     public static function all(): RouteCollection
     {

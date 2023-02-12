@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Foundation;
+namespace Hyde\Foundation\Kernel;
 
-use function array_map;
-use function collect;
-use function copy;
 use Hyde\Facades\Site;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -15,6 +13,9 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function array_map;
+use function collect;
+use function copy;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function is_array;
