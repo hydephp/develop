@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Facades;
 
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\PageCollection;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Pages extends Facade
 {
-    public static function getFacadeRoot(): \Hyde\Foundation\Kernel\PageCollection
+    public static function getFacadeRoot(): PageCollection
     {
         return HydeKernel::getInstance()->pages();
     }
