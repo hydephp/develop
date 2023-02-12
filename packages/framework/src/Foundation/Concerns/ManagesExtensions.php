@@ -9,7 +9,7 @@ namespace Hyde\Foundation\Concerns;
  *
  * @see \Hyde\Foundation\HydeKernel
  */
-trait ManagesKernelExtensions
+trait ManagesExtensions
 {
     //
 }
