@@ -18,10 +18,6 @@ use function sprintf;
 use function str_replace;
 use function str_starts_with;
 
-/**
- * @internal
- * @experimental
- */
 class DashboardController
 {
     public string $title;
