@@ -16,6 +16,7 @@ class ConsoleKernel extends Kernel
     {
         $bootstrappers = $this->bootstrappers;
 
+        // Insert our bootstrapper between load configuration and register provider bootstrappers.
         array_splice($bootstrappers, 5, 0, LoadYamlConfiguration::class);
 
         // Since we store our application config in `app/config.php`, we need to replace
