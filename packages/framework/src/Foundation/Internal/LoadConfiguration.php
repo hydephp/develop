@@ -25,7 +25,14 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $this->mergeConfigurationFile($repository, 'view');
+        $this->mergeConfigurationFiles($repository, ['view']);
+    }
+
+    protected function mergeConfigurationFiles(RepositoryContract $repository, array $keys): void
+    {
+        foreach ($keys as $key) {
+            $this->mergeConfigurationFile($repository, $key);
+        }
     }
 
     protected function mergeConfigurationFile(RepositoryContract $repository, string $key): void
