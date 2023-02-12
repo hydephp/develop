@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
-use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Providers\ConfigurationServiceProvider;
-use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Pages\BladePage;
@@ -19,7 +16,7 @@ use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Register and bootstrap Hyde application services.
+ * Register and bootstrap core Hyde application services.
  */
 class HydeServiceProvider extends ServiceProvider
 {
@@ -27,13 +24,8 @@ class HydeServiceProvider extends ServiceProvider
 
     protected HydeKernel $kernel;
 
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        $this->initializeConfiguration();
-
         $this->kernel = HydeKernel::getInstance();
 
         $this->app->singleton(AssetService::class, AssetService::class);
@@ -63,27 +55,13 @@ class HydeServiceProvider extends ServiceProvider
         $this->useMediaDirectory(config('site.media_directory', '_media'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
-
-        $this->registerModuleServiceProviders();
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $this->kernel->readyToBoot();
     }
 
-    /** @deprecated Todo: Move this to app.php */
-    protected function initializeConfiguration(): void
-    {
-        $this->app->register(ConfigurationServiceProvider::class);
-    }
-
-    /**
-     * Register the page model classes that Hyde should use.
-     */
     protected function registerPageModels(): void
     {
         if (Features::hasHtmlPages()) {
@@ -105,14 +83,5 @@ class HydeServiceProvider extends ServiceProvider
         if (Features::hasDocumentationPages()) {
             $this->kernel->registerPageClass(DocumentationPage::class);
         }
-    }
-
-    /**
-     * Register module service providers.
-     */
-    protected function registerModuleServiceProviders(): void
-    {
-        $this->app->register(HydeConsoleServiceProvider::class);
-        $this->app->register(ViewServiceProvider::class);
     }
 }
