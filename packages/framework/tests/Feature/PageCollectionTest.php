@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Foundation\PageCollection
+ * @covers \Hyde\Foundation\Kernel\PageCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
  */
 class PageCollectionTest extends TestCase

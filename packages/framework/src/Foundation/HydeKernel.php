@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Traits\Macroable;

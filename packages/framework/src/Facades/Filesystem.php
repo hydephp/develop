@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\File;
  * For maximum compatability and interoperability, all path references in HydePHP are relative to the root of the project.
  * The helpers here will then prepend the project root to the path before actually interacting with the filesystem.
  *
- * @see \Hyde\Foundation\Filesystem
+ * @see \Hyde\Foundation\Kernel\Filesystem
  * @see \Illuminate\Filesystem\Filesystem
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */

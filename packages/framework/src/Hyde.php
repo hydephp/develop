@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde;
 
 use Hyde\Facades\Features;
-use Hyde\Foundation\FileCollection;
-use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\PageCollection;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
