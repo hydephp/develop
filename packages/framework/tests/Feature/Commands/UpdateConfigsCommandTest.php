@@ -33,6 +33,7 @@ class UpdateConfigsCommandTest extends TestCase
     public function test_command_has_expected_output()
     {
         $this->artisan('update:configs')
+            ->expectsChoice('Which configuration files do you want to publish?', 'configs', ['configs', 'hyde-configs', 'support-configs'])
             ->expectsOutput(sprintf('Published config files to [%s]', Hyde::path('config')))
             ->assertExitCode(0);
     }
@@ -41,7 +42,9 @@ class UpdateConfigsCommandTest extends TestCase
     {
         $this->assertDirectoryDoesNotExist(Hyde::path('config'));
 
-        $this->artisan('update:configs')->assertExitCode(0);
+        $this->artisan('update:configs')
+            ->expectsChoice('Which configuration files do you want to publish?', 'configs', ['configs', 'hyde-configs', 'support-configs'])
+            ->assertExitCode(0);
 
         $this->assertFileEquals(Hyde::vendorPath('config/hyde.php'), Hyde::path('config/hyde.php'));
 
@@ -53,7 +56,9 @@ class UpdateConfigsCommandTest extends TestCase
         File::makeDirectory(Hyde::path('config'));
         File::put(Hyde::path('config/hyde.php'), 'foo');
 
-        $this->artisan('update:configs')->assertExitCode(0);
+        $this->artisan('update:configs')
+            ->expectsChoice('Which configuration files do you want to publish?', 'configs', ['configs', 'hyde-configs', 'support-configs'])
+            ->assertExitCode(0);
 
         $this->assertNotEquals('foo', File::get(Hyde::path('config/hyde.php')));
     }

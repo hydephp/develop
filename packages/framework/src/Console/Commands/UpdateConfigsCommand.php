@@ -26,8 +26,14 @@ class UpdateConfigsCommand extends Command
 
     public function handle(): int
     {
+        $tag = $this->choice('Which configuration files do you want to publish?', [
+            'configs',
+            'hyde-configs',
+            'support-configs',
+        ], 'configs');
+
         Artisan::call('vendor:publish', [
-            '--tag' => 'configs',
+            '--tag' => $tag,
             '--force' => true,
         ], $this->output);
 
