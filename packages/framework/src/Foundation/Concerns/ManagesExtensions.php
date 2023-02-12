@@ -60,6 +60,7 @@ trait ManagesExtensions
     public function getRegisteredPageClasses(): array
     {
         return array_unique(array_merge(...array_map(function (string $extension): array {
+            /** @var <class-string<\Hyde\Foundation\Concerns\HydeExtension>> $extension */
             return $extension::getPageClasses();
         }, $this->getRegisteredExtensions())));
     }
