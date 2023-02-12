@@ -6,8 +6,6 @@ namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\Contracts\DynamicPage;
 use function in_array;
 use InvalidArgumentException;
 use function is_subclass_of;
