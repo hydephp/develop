@@ -13,6 +13,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Foundation\Facades\Files
+ * @covers \Hyde\Foundation\Facades\Pages
+ * @covers \Hyde\Foundation\Facades\Routes
  */
 class FoundationFacadesTest extends TestCase
 {
