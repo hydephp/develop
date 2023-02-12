@@ -6,7 +6,6 @@ namespace Hyde\Framework;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Pages\BladePage;
@@ -28,8 +27,6 @@ class HydeServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->kernel = HydeKernel::getInstance();
-
-        $this->app->register(ConfigurationServiceProvider::class);
 
         $this->app->singleton(AssetService::class, AssetService::class);
 
