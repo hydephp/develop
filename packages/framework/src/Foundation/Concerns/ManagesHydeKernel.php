@@ -124,7 +124,7 @@ trait ManagesHydeKernel
      * If your package uses the standard Laravel (Composer) package discovery feature,
      * the extension will automatically be enabled when the package is installed.
      *
-     * @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
+     * @param  class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
      */
     public function registerExtension(string $extension): void
     {
