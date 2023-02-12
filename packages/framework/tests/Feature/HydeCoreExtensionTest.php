@@ -6,6 +6,11 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -25,6 +30,12 @@ class HydeCoreExtensionTest extends TestCase
 
     public function testGetPageClasses()
     {
-        $this->assertSame([], HydeCoreExtension::getPageClasses());
+        $this->assertSame([
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ], HydeCoreExtension::getPageClasses());
     }
 }
