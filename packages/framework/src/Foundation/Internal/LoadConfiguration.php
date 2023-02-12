@@ -25,6 +25,9 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $repository->set('view', require __DIR__.'/../../../config/view.php');
+        $repository->set('view', array_merge(
+            require __DIR__.'/../../../config/view.php',
+            $repository->get('view', [])
+        ));
     }
 }
