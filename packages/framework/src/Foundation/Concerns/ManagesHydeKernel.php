@@ -80,7 +80,7 @@ trait ManagesHydeKernel
         }
     }
 
-    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    /** @internal @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
         return $this->pageClasses;
