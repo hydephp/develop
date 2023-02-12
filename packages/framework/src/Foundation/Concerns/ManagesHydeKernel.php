@@ -73,10 +73,7 @@ trait ManagesHydeKernel
         return ltrim($this->getMediaDirectory(), '_');
     }
 
-    /**
-     * @deprecated 
-     * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
-     */
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
         return HydeCoreExtension::getPageClasses();
