@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
@@ -18,12 +19,12 @@ class HydeCoreExtension extends HydeExtension
 {
     public static function getPageClasses(): array
     {
-        return [
-            HtmlPage::class,
-            BladePage::class,
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-        ];
+        return array_keys(array_filter([
+            HtmlPage::class => Features::hasHtmlPages(),
+            BladePage::class => Features::hasBladePages(),
+            MarkdownPage::class => Features::hasMarkdownPages(),
+            MarkdownPost::class => Features::hasMarkdownPosts(),
+            DocumentationPage::class => Features::hasDocumentationPages(),
+        ], fn (bool $value): bool => $value));
     }
 }
