@@ -13,6 +13,9 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
+use stdClass;
+
 use function app;
 use function func_get_args;
 
@@ -103,6 +106,14 @@ class HydeExtensionFeatureTest extends TestCase
 
         app(HydeKernel::class)->boot();
         app(HydeKernel::class)->registerExtension(HydeTestExtension::class);
+    }
+
+    public function test_register_extension_method_only_accepts_instances_of_hyde_extension()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+
+        app(HydeKernel::class)->registerExtension(stdClass::class);
     }
 
     protected function markTestSuccessful(): void
