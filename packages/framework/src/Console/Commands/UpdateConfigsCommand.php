@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 class UpdateConfigsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'update:configs';
+    protected $signature = 'update:configs {tag?}';
 
     /** @var string */
     protected $description = 'Publish the default configuration files';
@@ -26,7 +26,7 @@ class UpdateConfigsCommand extends Command
 
     public function handle(): int
     {
-        $tag = $this->choice('Which configuration files do you want to publish?', [
+        $tag = $this->argument('tag') ?? $this->choice('Which configuration files do you want to publish?', [
             'configs',
             'hyde-configs',
             'support-configs',
