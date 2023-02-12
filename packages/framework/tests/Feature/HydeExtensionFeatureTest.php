@@ -76,26 +76,26 @@ class HydeExtensionFeatureTest extends TestCase
 
     public function testFileHandlerDependencyInjection()
     {
-        $this->kernel->registerExtension(SpyableTestExtension::class);
+        $this->kernel->registerExtension(InspectableTestExtension::class);
         $this->kernel->boot();
 
-        $this->assertInstanceOf(FileCollection::class, ...SpyableTestExtension::getCalled('files'));
+        $this->assertInstanceOf(FileCollection::class, ...InspectableTestExtension::getCalled('files'));
     }
 
     public function testPageHandlerDependencyInjection()
     {
-        $this->kernel->registerExtension(SpyableTestExtension::class);
+        $this->kernel->registerExtension(InspectableTestExtension::class);
         $this->kernel->boot();
 
-        $this->assertInstanceOf(PageCollection::class, ...SpyableTestExtension::getCalled('pages'));
+        $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('pages'));
     }
 
     public function testRouteHandlerDependencyInjection()
     {
-        $this->kernel->registerExtension(SpyableTestExtension::class);
+        $this->kernel->registerExtension(InspectableTestExtension::class);
         $this->kernel->boot();
 
-        $this->assertInstanceOf(RouteCollection::class, ...SpyableTestExtension::getCalled('routes'));
+        $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
     }
 
     public function test_register_extension_method_throws_exception_when_kernel_is_already_booted()
@@ -157,7 +157,7 @@ class HydeTestExtension extends HydeExtension
     }
 }
 
-class SpyableTestExtension extends HydeExtension
+class InspectableTestExtension extends HydeExtension
 {
     private static array $callCache = [];
 
