@@ -128,6 +128,14 @@ trait ManagesHydeKernel
      */
     public function registerExtension(string $extension): void
     {
+        if ($this->booted) {
+            // We throw an exception here to prevent the developer from registering aa extension after the Kernel has been booted.
+            // The reason we do this is because at this point all the source files have already been discovered and parsed.
+            // If we allowed new classes after this point, we would have to reboot everything which adds complexity.
+
+            throw new BadMethodCallException('Cannot register an extension after the Kernel has been booted.');
+        }
+
         if (! in_array($extension, $this->extensions, true)) {
             $this->extensions[] = $extension;
         }

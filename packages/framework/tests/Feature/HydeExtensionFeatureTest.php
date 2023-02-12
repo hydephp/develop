@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -12,6 +13,7 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
+use function app;
 use function func_get_args;
 
 /**
@@ -92,6 +94,15 @@ class HydeExtensionFeatureTest extends TestCase
         $this->kernel->boot();
 
         $this->assertInstanceOf(RouteCollection::class, ...SpyableTestExtension::getCalled('routes'));
+    }
+
+    public function test_register_extension_method_throws_exception_when_kernel_is_already_booted()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot register an extension after the Kernel has been booted.');
+
+        app(HydeKernel::class)->boot();
+        app(HydeKernel::class)->registerExtension(HydeTestExtension::class);
     }
 
     protected function markTestSuccessful(): void
