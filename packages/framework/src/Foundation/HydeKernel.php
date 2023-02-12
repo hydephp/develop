@@ -74,6 +74,8 @@ class HydeKernel implements SerializableContract
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+
+        // Todo: load extensions from config
     }
 
     public static function version(): string
