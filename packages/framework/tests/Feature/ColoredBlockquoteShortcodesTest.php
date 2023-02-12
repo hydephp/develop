@@ -16,7 +16,7 @@ class ColoredBlockquoteShortcodesTest extends TestCase
 {
     public function test_resolve_method()
     {
-        $this->assertEquals('<blockquote class="color">foo</blockquote>',
+        $this->assertEquals('<blockquote class="color"><p>foo</p></blockquote>',
             ColoredBlockquotes::resolve('>color foo'));
     }
 
