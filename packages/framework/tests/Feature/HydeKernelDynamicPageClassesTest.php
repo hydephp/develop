@@ -98,8 +98,8 @@ class HydeKernelDynamicPageClassesTest extends TestCase
         $this->file('foo/bar.txt');
         app(HydeKernel::class)->registerPageClass(TestPageClassWithSourceInformation::class);
 
-        $this->assertArrayHasKey('foo/bar.txt', Facades\FileCollection::all());
-        $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\FileCollection::get('foo/bar.txt'));
+        $this->assertArrayHasKey('foo/bar.txt', Facades\Files::all());
+        $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClassWithSourceInformation::class), Facades\Files::get('foo/bar.txt'));
     }
 
     public function test_custom_registered_pages_are_discovered_by_the_page_collection_class()

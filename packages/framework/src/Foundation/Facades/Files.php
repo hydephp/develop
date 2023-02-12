@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @mixin \Hyde\Foundation\Kernel\FileCollection
  */
-class FileCollection extends Facade
+class Files extends Facade
 {
     public static function getFacadeRoot(): \Hyde\Foundation\Kernel\FileCollection
     {
