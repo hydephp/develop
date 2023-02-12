@@ -33,6 +33,12 @@ class UpdateConfigsCommand extends Command
         ];
         $selection = $this->choice('Which configuration files do you want to publish?', $options, 'All configs');
 
+        $tags = [
+            'configs',
+            'hyde-configs',
+            'support-configs',
+        ];
+
         Artisan::call('vendor:publish', [
             '--tag' => $tag,
             '--force' => true,
