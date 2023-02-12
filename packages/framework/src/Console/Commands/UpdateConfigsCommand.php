@@ -31,7 +31,7 @@ class UpdateConfigsCommand extends Command
             '<comment>hyde-configs</comment>: Main configuration files',
             '<comment>support-configs</comment>: Laravel and package configuration files',
         ];
-        $tag = $this->choice('Which configuration files do you want to publish?', $options, 'All configs');
+        $selection = $this->choice('Which configuration files do you want to publish?', $options, 'All configs');
 
         Artisan::call('vendor:publish', [
             '--tag' => $tag,
