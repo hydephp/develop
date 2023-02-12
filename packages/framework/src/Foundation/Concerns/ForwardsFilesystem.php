@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
-use Hyde\Foundation\Filesystem;
+use Hyde\Foundation\Kernel\Filesystem;
 
 /**
  * @internal Single-use trait for the HydeKernel class.

@@ -6,8 +6,8 @@ namespace Hyde;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\FileCollection;
-use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;

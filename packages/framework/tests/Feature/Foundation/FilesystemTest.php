@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
-use Hyde\Foundation\Filesystem;
+use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -15,7 +15,7 @@ use function Hyde\normalize_slashes;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Filesystem
+ * @covers \Hyde\Foundation\Kernel\Filesystem
  */
 class FilesystemTest extends TestCase
 {
@@ -28,7 +28,7 @@ class FilesystemTest extends TestCase
         parent::setUp();
 
         $this->originalBasePath = Hyde::getBasePath();
-        $this->filesystem = new Filesystem(Hyde::getInstance());
+        $this->filesystem = new \Hyde\Foundation\Kernel\Filesystem(Hyde::getInstance());
     }
 
     protected function tearDown(): void
@@ -46,7 +46,7 @@ class FilesystemTest extends TestCase
 
     public function test_path_method_exists()
     {
-        $this->assertTrue(method_exists(Filesystem::class, 'path'));
+        $this->assertTrue(method_exists(\Hyde\Foundation\Kernel\Filesystem::class, 'path'));
     }
 
     public function test_path_method_returns_string()
@@ -92,7 +92,7 @@ class FilesystemTest extends TestCase
 
     public function test_vendor_path_method_exists()
     {
-        $this->assertTrue(method_exists(Filesystem::class, 'vendorPath'));
+        $this->assertTrue(method_exists(\Hyde\Foundation\Kernel\Filesystem::class, 'vendorPath'));
     }
 
     public function test_vendor_path_method_returns_string()
@@ -120,7 +120,7 @@ class FilesystemTest extends TestCase
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
-        $this->assertTrue(method_exists(Filesystem::class, 'copy'));
+        $this->assertTrue(method_exists(\Hyde\Foundation\Kernel\Filesystem::class, 'copy'));
         $this->assertTrue(Hyde::copy('foo', 'bar'));
         $this->assertFileExists(Hyde::path('bar'));
         Hyde::unlink('foo');
