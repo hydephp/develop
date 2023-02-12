@@ -12,6 +12,8 @@ use function array_merge;
 use function array_unique;
 use function in_array;
 use function is_subclass_of;
+use function ltrim;
+use function rtrim;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
