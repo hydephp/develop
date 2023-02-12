@@ -98,6 +98,7 @@ class HydeKernel implements SerializableContract
             'basePath' => $this->basePath,
             'sourceRoot' => $this->sourceRoot,
             'outputDirectory' => $this->outputDirectory,
+            'extensions' => $this->extensions,
             'features' => $this->features(),
             'files' => $this->files(),
             'pages' => $this->pages(),

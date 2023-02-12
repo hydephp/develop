@@ -278,6 +278,7 @@ class HydeKernelTest extends TestCase
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
             'outputDirectory' => Hyde::getOutputDirectory(),
+            'extensions' => Hyde::getRegisteredExtensions(),
             'features' => Hyde::features(),
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),
