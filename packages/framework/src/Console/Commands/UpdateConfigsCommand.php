@@ -33,13 +33,7 @@ class UpdateConfigsCommand extends Command
         ];
         $selection = $this->choice('Which configuration files do you want to publish?', $options, 'All configs');
 
-        $tags = [
-            'configs',
-            'hyde-configs',
-            'support-configs',
-        ];
-
-        $tag = $tags[array_search($selection, $options)];
+        $tag = $this->parseTagFromSelection($selection, $options);
 
         Artisan::call('vendor:publish', [
             '--tag' => $tag,
@@ -49,5 +43,16 @@ class UpdateConfigsCommand extends Command
         $this->infoComment(sprintf('Published config files to [%s]', Hyde::path('config')));
 
         return Command::SUCCESS;
+    }
+
+    protected function parseTagFromSelection(string $selection, array $options): string
+    {
+        $tags = [
+            'configs',
+            'hyde-configs',
+            'support-configs',
+        ];
+
+        return $tags[array_search($selection, $options)];
     }
 }
