@@ -86,18 +86,6 @@ trait ManagesHydeKernel
     }
 
     /**
-     * @deprecated
-     *
-     * @internal
-     *
-     * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
-     */
-    public function getRegisteredPageClasses(): array
-    {
-        return HydeCoreExtension::getPageClasses();
-    }
-
-    /**
      * Register a HydePHP extension within the HydeKernel.
      *
      * Typically, you would call this method in the register method of a service provider.
