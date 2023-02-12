@@ -66,8 +66,6 @@ class HydeKernel implements SerializableContract
 
     protected bool $booted = false;
 
-    /** @deprecated */
-    protected array $pageClasses = [];
     protected array $extensions = [HydeCoreExtension::class];
 
     public function __construct(?string $basePath = null)
