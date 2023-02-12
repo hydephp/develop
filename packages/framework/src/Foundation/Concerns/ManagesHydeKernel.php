@@ -6,11 +6,11 @@ namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
+use InvalidArgumentException;
 use function array_map;
 use function array_merge;
 use function array_unique;
 use function in_array;
-use InvalidArgumentException;
 use function is_subclass_of;
 
 /**
