@@ -9,11 +9,8 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Register the HydeCLI console commands.
  */
-class HydeConsoleServiceProvider extends ServiceProvider
+class ConsoleServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any console services.
-     */
     public function register(): void
     {
         $this->commands([
@@ -39,5 +36,10 @@ class HydeConsoleServiceProvider extends ServiceProvider
 
             Commands\ChangeSourceDirectoryCommand::class,
         ]);
+    }
+
+    public function boot(): void
+    {
+        //
     }
 }

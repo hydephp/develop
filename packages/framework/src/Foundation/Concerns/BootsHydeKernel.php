@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
-use Hyde\Foundation\FileCollection;
-use Hyde\Foundation\PageCollection;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 
 /**
  * @internal Single-use trait for the HydeKernel class.

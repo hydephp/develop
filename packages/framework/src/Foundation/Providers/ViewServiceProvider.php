@@ -9,6 +9,9 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Register the Hyde view components.
+ */
 class ViewServiceProvider extends ServiceProvider
 {
     public function register(): void
