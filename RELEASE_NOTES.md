@@ -47,6 +47,7 @@ These are changes that break backwards compatibility and that are likely to conc
 - The `config/site.php` file has been merged into `config/hyde.php`. See [`#964`](https://github.com/hydephp/develop/pull/964) for the upgrade guide.
 
 #### Breaking internal changes
+
 These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
 Instead, these changes will likely only concern those who write custom code and integrations using the HydePHP framework.
 
