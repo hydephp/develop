@@ -67,7 +67,9 @@ class HydeKernel implements SerializableContract
 
     protected bool $booted = false;
 
-    protected array $extensions = [HydeCoreExtension::class];
+    protected array $extensions = [
+        HydeCoreExtension::class,
+    ];
 
     public function __construct(?string $basePath = null)
     {
@@ -98,6 +100,7 @@ class HydeKernel implements SerializableContract
             'basePath' => $this->basePath,
             'sourceRoot' => $this->sourceRoot,
             'outputDirectory' => $this->outputDirectory,
+            'mediaDirectory' => $this->mediaDirectory,
             'extensions' => $this->extensions,
             'features' => $this->features(),
             'files' => $this->files(),
