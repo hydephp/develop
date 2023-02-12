@@ -6,17 +6,14 @@ namespace Hyde\Framework\Testing\Feature;
 
 use ArgumentCountError;
 use Hyde\Framework\Features\DataCollections\DataCollection;
-use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\DataCollections\DataCollection
- * @covers \Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection
  */
 class DataCollectionTest extends TestCase
 {
@@ -143,21 +140,6 @@ class DataCollectionTest extends TestCase
         Hyde::touch('resources/collections/foo/_bar.md');
         $this->assertCount(2, DataCollection::markdown('foo'));
         File::deleteDirectory(Hyde::path('resources/collections/foo'));
-    }
-
-    public function test_markdown_facade_returns_same_result_as_static_markdown_helper()
-    {
-        $expected = DataCollection::markdown('foo');
-        $actual = MarkdownCollection::get('foo');
-        unset($expected->parseTimeInMs);
-        unset($actual->parseTimeInMs);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function test_data_collection_service_provider_registers_the_facade_as_an_alias()
-    {
-        $this->assertArrayHasKey('MarkdownCollection', AliasLoader::getInstance()->getAliases());
-        $this->assertContains(MarkdownCollection::class, AliasLoader::getInstance()->getAliases());
     }
 
     public function test_class_has_static_source_directory_property()
