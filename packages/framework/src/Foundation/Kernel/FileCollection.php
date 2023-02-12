@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\MediaFile;
@@ -56,7 +55,7 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        foreach (HydeCoreExtension::getPageClasses() as $pageClass) {
+        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverFilesFor($pageClass);
         }
 
