@@ -32,7 +32,7 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
         $signature = static::getClassNameFromSignature(static::signature());
         $value = trim(substr($input, strlen(static::signature())), ' ');
 
-        $value = Markdown::render($value);
+        $value = trim(Markdown::render($value));
 
         return sprintf(
             $template,
