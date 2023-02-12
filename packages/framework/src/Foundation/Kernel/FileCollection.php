@@ -10,8 +10,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
-use function array_merge;
-use function array_unique;
 
 /**
  * The FileCollection contains all the discovered source and media files,
