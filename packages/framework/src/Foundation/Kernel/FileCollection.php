@@ -88,9 +88,4 @@ final class FileCollection extends BaseFoundationCollection
             $this->put($this->kernel->pathToRelative($filepath), MediaFile::make($filepath));
         }
     }
-
-    protected function getClasses(): array
-    {
-        return array_unique(array_merge(...array_map(fn (string $extension): array => $extension::getPageClasses(), $this->kernel->getRegisteredExtensions())));
-    }
 }
