@@ -59,6 +59,7 @@ use Illuminate\Support\HtmlString;
  * @method static Route|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static Filesystem filesystem()
+ * @method static array getRegisteredExtensions()
  * @method static bool hasFeature(string $feature)
  * @method static bool hasSiteUrl()
  * @method static bool copy(string $from, string $to)
