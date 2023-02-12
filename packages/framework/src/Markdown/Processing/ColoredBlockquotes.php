@@ -27,10 +27,14 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
 
     protected static function expand(string $input): string
     {
+        $template = '<blockquote class="%s">%s</blockquote>';
+        $signature = static::getClassNameFromSignature(static::signature());
+        $value = trim(substr($input, strlen(static::signature())), ' ');
+
         return sprintf(
-            '<blockquote class="%s">%s</blockquote>',
-            static::getClassNameFromSignature(static::signature()),
-            trim(substr($input, strlen(static::signature())), ' ')
+            $template,
+            $signature,
+            $value
         );
     }
 
