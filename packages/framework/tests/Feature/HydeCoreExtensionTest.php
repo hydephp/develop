@@ -12,5 +12,8 @@ use Hyde\Testing\TestCase;
  */
 class HydeCoreExtensionTest extends TestCase
 {
-    //
+    public function testClassExtendsExtensionClass()
+    {
+        $this->assertInstanceOf(HydeCoreExtension::class, new HydeCoreExtension());
+    }
 }
