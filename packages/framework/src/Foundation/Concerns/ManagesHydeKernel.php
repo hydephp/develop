@@ -120,6 +120,10 @@ trait ManagesHydeKernel
     /**
      * Register a HydePHP extension within the HydeKernel.
      *
+     * Typically, you would call this method in the register method of a service provider.
+     * If your package uses the standard Laravel (Composer) package discovery feature,
+     * the extension will automatically be enabled when the package is installed.
+     *
      * @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
      */
     public function registerExtension(string $extension): void
