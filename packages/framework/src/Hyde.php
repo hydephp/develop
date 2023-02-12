@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde;
 
 use Hyde\Facades\Features;
-use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;

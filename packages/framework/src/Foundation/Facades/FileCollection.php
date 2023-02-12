@@ -8,11 +8,11 @@ use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @mixin \Hyde\Foundation\FileCollection
+ * @mixin \Hyde\Foundation\Kernel\FileCollection
  */
 class FileCollection extends Facade
 {
-    public static function getFacadeRoot(): \Hyde\Foundation\FileCollection
+    public static function getFacadeRoot(): \Hyde\Foundation\Kernel\FileCollection
     {
         return HydeKernel::getInstance()->files();
     }

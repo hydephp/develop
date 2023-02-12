@@ -408,10 +408,10 @@
     </RedundantCast>
     <TooManyTemplateParams occurrences="5">
       <code>$this-&gt;getAllSourceFiles()-&gt;where(fn (SourceFile $file): bool =&gt; $file-&gt;model === $pageClass)</code>
-      <code>\Hyde\Foundation\FileCollection&lt;\Hyde\Support\Filesystem\MediaFile&gt;</code>
-      <code>\Hyde\Foundation\FileCollection&lt;\Hyde\Support\Filesystem\SourceFile&gt;</code>
-      <code>\Hyde\Foundation\FileCollection&lt;\Hyde\Support\Filesystem\SourceFile&gt;</code>
-      <code>\Hyde\Foundation\FileCollection&lt;\Hyde\Support\Filesystem\SourceFile&gt;</code>
+      <code>\Hyde\Foundation\Kernel\FileCollection&lt;\Hyde\Support\Filesystem\MediaFile&gt;</code>
+      <code>\Hyde\Foundation\Kernel\FileCollection&lt;\Hyde\Support\Filesystem\SourceFile&gt;</code>
+      <code>\Hyde\Foundation\Kernel\FileCollection&lt;\Hyde\Support\Filesystem\SourceFile&gt;</code>
+      <code>\Hyde\Foundation\Kernel\FileCollection&lt;\Hyde\Support\Filesystem\SourceFile&gt;</code>
     </TooManyTemplateParams>
     <UnnecessaryVarAnnotation occurrences="1">
       <code>class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt;</code>

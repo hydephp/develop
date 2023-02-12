@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use function app;
 use BadMethodCallException;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
@@ -12,19 +11,20 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
+use function app;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Concerns\ManagesHydeKernel
- * @covers \Hyde\Foundation\FileCollection
+ * @covers \Hyde\Foundation\Kernel\FileCollection
  * @covers \Hyde\Foundation\PageCollection
  */
 class HydeKernelDynamicPageClassesTest extends TestCase
