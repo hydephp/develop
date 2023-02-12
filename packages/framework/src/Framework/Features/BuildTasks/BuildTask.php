@@ -58,7 +58,7 @@ abstract class BuildTask
 
     public function then(): void
     {
-        $this->writeln('<fg=gray>Done in '.$this->getExecutionTime().'</>');
+        $this->writeln('<fg=gray>Done in '.$this->getExecutionTimeString().'</>');
     }
 
     public function getDescription(): string
