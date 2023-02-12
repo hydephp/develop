@@ -6,6 +6,9 @@ namespace Hyde\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @deprecated Simplified class can now be inlined in the HydeServiceProvider.
+ */
 class ConfigurationServiceProvider extends ServiceProvider
 {
     public function register(): void
