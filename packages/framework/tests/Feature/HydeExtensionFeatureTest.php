@@ -115,6 +115,14 @@ class HydeExtensionFeatureTest extends TestCase
         app(HydeKernel::class)->registerExtension(stdClass::class);
     }
 
+    public function test_register_extension_method_does_not_register_already_registered_classes()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertSame([HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
+
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);
