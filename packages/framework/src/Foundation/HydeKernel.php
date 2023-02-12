@@ -42,6 +42,7 @@ class HydeKernel implements SerializableContract
     use Concerns\ForwardsHyperlinks;
     use Concerns\ForwardsFilesystem;
     use Concerns\ManagesHydeKernel;
+    use Concerns\ManagesExtensions;
     use Concerns\ManagesViewData;
     use Concerns\BootsHydeKernel;
 
@@ -66,8 +67,7 @@ class HydeKernel implements SerializableContract
 
     protected bool $booted = false;
 
-    protected array $pageClasses = [];
-    protected array $extensions = [];
+    protected array $extensions = [HydeCoreExtension::class];
 
     public function __construct(?string $basePath = null)
     {
@@ -98,6 +98,7 @@ class HydeKernel implements SerializableContract
             'basePath' => $this->basePath,
             'sourceRoot' => $this->sourceRoot,
             'outputDirectory' => $this->outputDirectory,
+            'extensions' => $this->extensions,
             'features' => $this->features(),
             'files' => $this->files(),
             'pages' => $this->pages(),
