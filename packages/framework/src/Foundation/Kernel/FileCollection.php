@@ -56,7 +56,7 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        foreach (HydeCoreExtension::getPageClasses() as $pageClass) {
+        foreach ($this->getClasses() as $pageClass) {
             $this->discoverFilesFor($pageClass);
         }
 
@@ -86,5 +86,10 @@ final class FileCollection extends BaseFoundationCollection
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
             $this->put($this->kernel->pathToRelative($filepath), MediaFile::make($filepath));
         }
+    }
+
+    protected function getClasses(): array
+    {
+        return HydeCoreExtension::getPageClasses();
     }
 }
