@@ -74,6 +74,7 @@ trait ManagesHydeKernel
 
     /**
      * @deprecated
+     *
      * @internal This method is not part of the public API and should not be used outside the HydePHP framework.
      */
     public function registerPageClass(string $pageClass): void
@@ -85,7 +86,9 @@ trait ManagesHydeKernel
 
     /**
      * @deprecated
+     *
      * @internal
+     *
      * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
      */
     public function getRegisteredPageClasses(): array
