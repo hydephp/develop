@@ -6,6 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
 use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\Facades\Files;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -13,6 +16,8 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Filesystem\SourceFile;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
@@ -124,6 +129,42 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
+    public function test_custom_registered_pages_are_discovered_by_the_file_collection_class()
+    {
+        app(HydeKernel::class)->registerExtension(TestPageExtension::class);
+        FileCollection::boot(app(HydeKernel::class));
+
+        $this->directory('foo');
+        $this->file('foo/bar.txt');
+
+        $this->assertArrayHasKey('foo/bar.txt', Files::all());
+        $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClass::class), Files::get('foo/bar.txt'));
+    }
+
+    public function test_custom_registered_pages_are_discovered_by_the_page_collection_class()
+    {
+        $this->directory('foo');
+        $this->file('foo/bar.txt');
+
+        app(HydeKernel::class)->registerExtension(TestPageExtension::class);
+        PageCollection::boot(app(HydeKernel::class));
+
+        $this->assertArrayHasKey('foo/bar.txt', Pages::all());
+        $this->assertEquals(new TestPageClass('bar'), Pages::get('foo/bar.txt'));
+    }
+
+    public function test_custom_registered_pages_are_discovered_by_the_route_collection_class()
+    {
+        $this->directory('foo');
+        $this->file('foo/bar.txt');
+
+        app(HydeKernel::class)->registerExtension(TestPageExtension::class);
+        RouteCollection::boot(app(HydeKernel::class));
+
+        $this->assertArrayHasKey('foo/bar', Routes::all());
+        $this->assertEquals(new Route(new TestPageClass('bar')), Routes::get('foo/bar'));
+    }
+
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);
@@ -188,5 +229,27 @@ class HydeExtensionTestPage extends HydePage
     public function compile(): string
     {
         return '';
+    }
+}
+
+class TestPageClass extends HydePage
+{
+    public static string $sourceDirectory = 'foo';
+    public static string $outputDirectory = 'foo';
+    public static string $fileExtension = '.txt';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class TestPageExtension extends HydeExtension
+{
+    public static function getPageClasses(): array
+    {
+        return [
+            TestPageClass::class,
+        ];
     }
 }
