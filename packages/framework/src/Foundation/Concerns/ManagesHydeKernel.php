@@ -118,6 +118,8 @@ trait ManagesHydeKernel
     }
 
     /**
+     * Register a HydePHP extension within the HydeKernel.
+     *
      * @param class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
      */
     public function registerExtension(string $extension): void
