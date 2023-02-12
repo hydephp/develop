@@ -144,21 +144,6 @@ class DataCollectionTest extends TestCase
         File::deleteDirectory(Hyde::path('resources/collections/foo'));
     }
 
-    public function test_markdown_facade_returns_same_result_as_static_markdown_helper()
-    {
-        $expected = DataCollection::markdown('foo');
-        $actual = MarkdownCollection::get('foo');
-        unset($expected->parseTimeInMs);
-        unset($actual->parseTimeInMs);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function test_data_collection_service_provider_registers_the_facade_as_an_alias()
-    {
-        $this->assertArrayHasKey('MarkdownCollection', AliasLoader::getInstance()->getAliases());
-        $this->assertContains(MarkdownCollection::class, AliasLoader::getInstance()->getAliases());
-    }
-
     public function test_class_has_static_source_directory_property()
     {
         $this->assertEquals('resources/collections', DataCollection::$sourceDirectory);
