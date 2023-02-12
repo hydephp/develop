@@ -18,7 +18,7 @@ use Hyde\Support\Filesystem\SourceFile;
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
  *
- * @see \Hyde\Foundation\Facades\FileCollection
+ * @see \Hyde\Foundation\Facades\Files
  * @see \Hyde\Hyde::files()
  */
 final class FileCollection extends BaseFoundationCollection

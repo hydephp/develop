@@ -118,7 +118,7 @@ abstract class HydePage implements PageSchema
      */
     public static function all(): PageCollection
     {
-        return Facades\PageCollection::getPages(static::class);
+        return Facades\Pages::getPages(static::class);
     }
 
     // Section: Filesystem

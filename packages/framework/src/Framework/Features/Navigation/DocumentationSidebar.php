@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Foundation\Facades\Router;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
@@ -18,7 +18,7 @@ class DocumentationSidebar extends BaseNavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        Router::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
+        Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
             $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
         });
 

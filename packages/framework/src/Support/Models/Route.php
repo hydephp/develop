@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-use Hyde\Foundation\Facades\Router;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
@@ -112,7 +112,7 @@ class Route implements Stringable, SerializableContract
 
     public static function get(string $routeKey): ?Route
     {
-        return Router::get(str_replace('.', '/', $routeKey));
+        return Routes::get(str_replace('.', '/', $routeKey));
     }
 
     public static function getOrFail(string $routeKey): Route
@@ -132,6 +132,6 @@ class Route implements Stringable, SerializableContract
 
     public static function exists(string $routeKey): bool
     {
-        return Router::has($routeKey);
+        return Routes::has($routeKey);
     }
 }

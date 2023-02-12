@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Foundation\Facades\FileCollection;
-use Hyde\Foundation\Facades\PageCollection;
-use Hyde\Foundation\Facades\Router;
+use Hyde\Foundation\Facades\Files;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Foundation\Facades\FileCollection
+ * @covers \Hyde\Foundation\Facades\Files
+ * @covers \Hyde\Foundation\Facades\Pages
+ * @covers \Hyde\Foundation\Facades\Routes
  */
 class FoundationFacadesTest extends TestCase
 {
@@ -20,12 +22,12 @@ class FoundationFacadesTest extends TestCase
     {
         $this->assertSame(
             HydeKernel::getInstance()->files(),
-            FileCollection::getInstance()
+            Files::getInstance()
         );
 
         $this->assertEquals(
             Hyde::files()->getSourceFiles(),
-            FileCollection::getSourceFiles()
+            Files::getSourceFiles()
         );
     }
 
@@ -33,12 +35,12 @@ class FoundationFacadesTest extends TestCase
     {
         $this->assertSame(
             HydeKernel::getInstance()->pages(),
-            PageCollection::getInstance()
+            Pages::getInstance()
         );
 
         $this->assertEquals(
             Hyde::pages()->getPages(),
-            PageCollection::getPages()
+            Pages::getPages()
         );
     }
 
@@ -46,19 +48,19 @@ class FoundationFacadesTest extends TestCase
     {
         $this->assertSame(
             HydeKernel::getInstance()->routes(),
-            Router::getInstance()
+            Routes::getInstance()
         );
 
         $this->assertEquals(
             Hyde::routes()->getRoutes(),
-            Router::getRoutes()
+            Routes::getRoutes()
         );
     }
 
     public function test_facade_roots()
     {
-        $this->assertSame(FileCollection::getInstance(), FileCollection::getFacadeRoot());
-        $this->assertSame(PageCollection::getInstance(), PageCollection::getFacadeRoot());
-        $this->assertSame(Router::getInstance(), Router::getFacadeRoot());
+        $this->assertSame(Files::getInstance(), Files::getFacadeRoot());
+        $this->assertSame(Pages::getInstance(), Pages::getFacadeRoot());
+        $this->assertSame(Routes::getInstance(), Routes::getFacadeRoot());
     }
 }
