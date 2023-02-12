@@ -353,7 +353,7 @@
   </file>
   <file src="packages/framework/src/Facades/Route.php">
     <TooManyTemplateParams occurrences="1">
-      <code>\Hyde\Foundation\RouteCollection&lt;\Hyde\Support\Models\Route&gt;</code>
+      <code>\Hyde\Foundation\Kernel\RouteCollection&lt;\Hyde\Support\Models\Route&gt;</code>
     </TooManyTemplateParams>
   </file>
   <file src="packages/framework/src/Facades/Site.php">

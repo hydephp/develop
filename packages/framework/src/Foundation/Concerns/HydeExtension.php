@@ -6,7 +6,7 @@ namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 
 /**
  * When creating a HydePHP extension, you should create a class that extends this one.
