@@ -20,4 +20,4 @@ See the [Security Policy](https://github.com/hydephp/realtime-compiler/security/
 | 1.x     | :shield:           | (LTS*)   |
 | < 1.0   | :x:                | Alpha    |
 
-*1.x LTS receives security fixes only
+*1.x LTS receives security fixes only (End of Life: 2023-03-01)
