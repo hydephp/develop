@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
 use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -58,7 +59,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->kernel = HydeKernel::getInstance();
         $this->kernel->registerExtension(HydeTestExtension::class);
 
-        $this->assertSame([HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
     public function testHandlerMethodsAreCalledByDiscovery()
@@ -120,7 +121,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->kernel->registerExtension(HydeTestExtension::class);
         $this->kernel->registerExtension(HydeTestExtension::class);
 
-        $this->assertSame([HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
     protected function markTestSuccessful(): void
