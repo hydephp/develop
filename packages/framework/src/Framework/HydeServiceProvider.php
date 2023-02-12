@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
-use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
@@ -32,8 +31,6 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->kernel->setSourceRoot(config('hyde.source_root', ''));
 
-        $this->registerPageModels();
-
         $this->registerSourceDirectories([
             HtmlPage::class => '_pages',
             BladePage::class => '_pages',
@@ -60,28 +57,5 @@ class HydeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->kernel->readyToBoot();
-    }
-
-    protected function registerPageModels(): void
-    {
-        if (Features::hasHtmlPages()) {
-            $this->kernel->registerPageClass(HtmlPage::class);
-        }
-
-        if (Features::hasBladePages()) {
-            $this->kernel->registerPageClass(BladePage::class);
-        }
-
-        if (Features::hasMarkdownPages()) {
-            $this->kernel->registerPageClass(MarkdownPage::class);
-        }
-
-        if (Features::hasMarkdownPosts()) {
-            $this->kernel->registerPageClass(MarkdownPost::class);
-        }
-
-        if (Features::hasDocumentationPages()) {
-            $this->kernel->registerPageClass(DocumentationPage::class);
-        }
     }
 }

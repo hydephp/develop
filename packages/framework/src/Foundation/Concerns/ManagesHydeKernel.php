@@ -72,20 +72,6 @@ trait ManagesHydeKernel
         return ltrim($this->getMediaDirectory(), '_');
     }
 
-    /** @internal This method is not part of the public API and should not be used outside the HydePHP framework. */
-    public function registerPageClass(string $pageClass): void
-    {
-        if (! in_array($pageClass, $this->pageClasses, true)) {
-            $this->pageClasses[] = $pageClass;
-        }
-    }
-
-    /** @internal @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
-    public function getRegisteredPageClasses(): array
-    {
-        return $this->pageClasses;
-    }
-
     /**
      * Register a HydePHP extension within the HydeKernel.
      *
