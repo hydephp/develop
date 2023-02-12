@@ -13,16 +13,13 @@ use Illuminate\Support\Facades\Artisan;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\UpdateConfigsCommandTest
  */
-class UpdateConfigsCommand extends Command
+class PublishConfigsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'update:configs';
+    protected $signature = 'publish:configs';
 
     /** @var string */
     protected $description = 'Publish the default configuration files';
-
-    /** @var bool */
-    protected $hidden = true;
 
     public function handle(): int
     {
