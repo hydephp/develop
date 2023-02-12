@@ -436,6 +436,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
+          pull: 'origin gh-pages'
           add: 'master'
           message: 'Upload live reports from test suite run ${{ github.sha }}'
 
