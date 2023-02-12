@@ -51,6 +51,7 @@ The two most important components are **Hyde** and **Framework**. We also use **
 | **Hyde**              | [Root directory](https://github.com/hydephp/develop)*    | [hydephp/hyde](https://github.com/hydephp/hyde)                           | [hyde/hyde](https://packagist.org/packages/hyde/hyde)                           |
 | **Framework**         | [packages/framework](packages/framework)                 | [hydephp/framework](https://github.com/hydephp/framework)                 | [hyde/framework](https://packagist.org/packages/hyde/framework)                 |
 | **Realtime Compiler** | [packages/realtime-compiler](packages/realtime-compiler) | [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler) | [hyde/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler) |
+| **Publications**      | [packages/publications](packages/publications)           | [hydephp/publications](https://github.com/hydephp/publications)           | [hyde/publications](https://packagist.org/packages/hyde/publications)           |
 | **HydeFront**         | [packages/hydefront](packages/hydefront)                 | [hydephp/hydefront](https://github.com/hydephp/hydefront)                 | [npm@hydefront](https://www.npmjs.com/package/hydefront)                        |
 
 
