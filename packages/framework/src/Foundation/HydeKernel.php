@@ -42,6 +42,7 @@ class HydeKernel implements SerializableContract
     use Concerns\ForwardsHyperlinks;
     use Concerns\ForwardsFilesystem;
     use Concerns\ManagesHydeKernel;
+    use Concerns\ManagesKernelExtensions;
     use Concerns\ManagesViewData;
     use Concerns\BootsHydeKernel;
 
