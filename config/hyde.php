@@ -174,6 +174,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Source Directories
+    |--------------------------------------------------------------------------
+    |
+    | The directories you place your content in are important. The directory
+    | will be used to determine the proper page type and the templates used.
+    | If you are not happy with these defaults, you can change them here.
+    | Note that these are relative to the `source_root` setting above.
+    |
+    */
+
+    'source_directories' => [
+        \Hyde\Pages\HtmlPage::class => '_pages',
+        \Hyde\Pages\BladePage::class => '_pages',
+        \Hyde\Pages\MarkdownPage::class => '_pages',
+        \Hyde\Pages\MarkdownPost::class => '_posts',
+        \Hyde\Pages\DocumentationPage::class => '_docs',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Global Site Meta Tags
     |--------------------------------------------------------------------------
     |
