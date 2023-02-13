@@ -8,7 +8,6 @@ use ErrorException;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use TypeError;
-
 use function config;
 
 /**
