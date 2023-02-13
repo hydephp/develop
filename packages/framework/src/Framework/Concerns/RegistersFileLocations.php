@@ -92,8 +92,8 @@ trait RegistersFileLocations
             return config("hyde.source_directories.$class");
         } else {
             $kebab = Str::kebab(class_basename($class));
-            if (config("hyde.source_directories.$kebab")) {
-                return config("hyde.source_directories.$kebab");
+            if (config('hyde.source_directories.'.$kebab)) {
+                return config('hyde.source_directories.'.$kebab);
             }
 
             return $default;
