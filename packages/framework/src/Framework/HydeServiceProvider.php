@@ -40,11 +40,11 @@ class HydeServiceProvider extends ServiceProvider
         ]);
 
         $this->registerOutputDirectories([
-            HtmlPage::class => '',
-            BladePage::class => '',
-            MarkdownPage::class => '',
-            MarkdownPost::class => 'posts',
-            DocumentationPage::class => config('docs.output_directory', 'docs'),
+            HtmlPage::class => $this->getOutputDirectoryConfiguration(HtmlPage::class, ''),
+            BladePage::class => $this->getOutputDirectoryConfiguration(BladePage::class, ''),
+            MarkdownPage::class => $this->getOutputDirectoryConfiguration(MarkdownPage::class, ''),
+            MarkdownPost::class => $this->getOutputDirectoryConfiguration(MarkdownPost::class, 'posts'),
+            DocumentationPage::class => $this->getOutputDirectoryConfiguration(DocumentationPage::class, 'docs'),
         ]);
 
         $this->storeCompiledSiteIn(config('hyde.output_directory', '_site'));
