@@ -11,11 +11,11 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 
 test('default source directories values are defined', function () {
-    test()->assertArrayHasKey('source_directories', getConfig());
+    expect(getConfig())->toHaveKey('source_directories');
 });
 
 test('default source directories values match declared values', function () {
-    test()->assertSame(getConfig()['source_directories'], [
+    expect(getConfig()['source_directories'])->toBe([
         HtmlPage::class => '_pages',
         BladePage::class => '_pages',
         MarkdownPage::class => '_pages',
@@ -25,7 +25,7 @@ test('default source directories values match declared values', function () {
 });
 
 test('default source directories values cover all core extension classes', function () {
-    test()->assertSame(getConfig()['source_directories'], collect(HydeCoreExtension::getPageClasses())
+    expect(getConfig()['source_directories'])->toBe(collect(HydeCoreExtension::getPageClasses())
         ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
         ->toArray()
     );
