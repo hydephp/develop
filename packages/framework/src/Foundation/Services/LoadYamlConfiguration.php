@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Services;
 
 use Hyde\Hyde;
-use Illuminate\Support\Facades\Config;
+use Hyde\Facades\Config;
 use LaravelZero\Framework\Application;
 use Symfony\Component\Yaml\Yaml;
 use function array_merge;
