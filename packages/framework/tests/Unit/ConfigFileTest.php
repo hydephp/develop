@@ -20,7 +20,7 @@ class ConfigFileTest extends TestCase
 {
     public function test_default_source_directories_values_match_declared_values()
     {
-        $config = require Hyde::path('config/hyde.php');
+        $config = $this->getConfig();
 
         $expected = [
             HtmlPage::class => '_pages',
@@ -35,12 +35,17 @@ class ConfigFileTest extends TestCase
 
     public function test_default_source_directories_values_cover_all_core_extension_classes()
     {
-        $config = require Hyde::path('config/hyde.php');
+        $config = $this->getConfig();
 
         $expected = collect(HydeCoreExtension::getPageClasses())
             ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
             ->toArray();
 
         $this->assertSame($config['source_directories'], $expected);
+    }
+
+    protected function getConfig(): array
+    {
+        return require Hyde::path('config/hyde.php');
     }
 }
