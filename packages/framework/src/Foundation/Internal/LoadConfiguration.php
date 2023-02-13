@@ -29,7 +29,7 @@ class LoadConfiguration extends BaseLoadConfiguration
     }
 
     /** @param array<string> $files */
-    protected function mergeConfigurationFiles(RepositoryContract $repository, array $files): void
+    private function mergeConfigurationFiles(RepositoryContract $repository, array $files): void
     {
         // These files do commonly not need to be customized by the user, so to get them out of the way,
         // we don't include them in the default project install.
@@ -39,7 +39,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         }
     }
 
-    protected function mergeConfigurationFile(RepositoryContract $repository, string $file): void
+    private function mergeConfigurationFile(RepositoryContract $repository, string $file): void
     {
         // We of course want the user to be able to customize the config files,
         // if they're present, so we'll merge their changes here.
