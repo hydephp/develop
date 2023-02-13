@@ -20,28 +20,21 @@ class ConfigFileTest extends TestCase
 {
     public function test_default_source_directories_values_match_declared_values()
     {
-        $config = $this->getConfig();
-
-        $expected = [
+        $this->assertSame($this->getConfig()['source_directories'], [
             HtmlPage::class => '_pages',
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
             DocumentationPage::class => '_docs',
-        ];
-
-        $this->assertSame($config['source_directories'], $expected);
+        ]);
     }
 
     public function test_default_source_directories_values_cover_all_core_extension_classes()
     {
-        $config = $this->getConfig();
-
-        $expected = collect(HydeCoreExtension::getPageClasses())
+        $this->assertSame($this->getConfig()['source_directories'], collect(HydeCoreExtension::getPageClasses())
             ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
-            ->toArray();
-
-        $this->assertSame($config['source_directories'], $expected);
+            ->toArray()
+        );
     }
 
     protected function getConfig(): array
