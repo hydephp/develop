@@ -95,6 +95,8 @@ trait RegistersFileLocations
 
     protected function getOutputDirectoryConfiguration(string $class, string $default): string
     {
-        return config("hyde.output_directories.$class", $default);
+        return config("hyde.output_directories.$class")
+            ?? config('hyde.output_directories.'.Str::kebab(class_basename($class)))
+            ?? $default;
     }
 }
