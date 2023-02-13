@@ -75,7 +75,10 @@ abstract class HydePage implements PageSchema
 
     // Section: State
 
-    
+    public static function isDiscoverable(): bool
+    {
+        // TODO: Implement isDiscoverable() method.
+    }
 
     // Section: Query
 

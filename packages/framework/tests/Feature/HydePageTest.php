@@ -93,6 +93,11 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testIsDiscoverable()
+    {
+        $this->assertTrue(TestPage::isDiscoverable());
+    }
+
     public function testGetSourcePath()
     {
         $this->assertSame(
@@ -1030,6 +1035,16 @@ class HydePageTest extends TestCase
         $page = MarkdownPage::make('foo/bar');
         $this->assertTrue($page->showInNavigation());
         $this->assertEquals('foo', $page->navigationMenuGroup());
+    }
+
+    public function test_is_discoverable_method_returns_true_for_discoverable_pages()
+    {
+        //
+    }
+
+    public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
+    {
+        //
     }
 
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
