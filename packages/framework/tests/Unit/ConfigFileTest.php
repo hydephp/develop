@@ -39,6 +39,6 @@ class ConfigFileTest extends TestCase
 
     protected function getConfig(): array
     {
-        return require Hyde::path('config/hyde.php');
+        return require Hyde::vendorPath('config/hyde.php');
     }
 }
