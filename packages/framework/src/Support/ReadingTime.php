@@ -86,7 +86,7 @@ class ReadingTime
     {
         $wordCount = (int) str_word_count($this->text);
 
-        $minutes = (float) $wordCount / static::WORDS_PER_MINUTE;
+        $minutes = $wordCount / static::WORDS_PER_MINUTE;
         $seconds = (int) floor($minutes * 60);
 
         $this->wordCount = $wordCount;
