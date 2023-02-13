@@ -41,211 +41,157 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetArrayWithArray()
     {
-        config(['foo' => ['bar' => 'baz']]);
-
-        $this->assertSame(['bar' => 'baz'], Config::getArray('foo'));
+        $this->runUnitTest(['bar' => 'baz'], ['bar' => 'baz'], Config::getArray(...));
     }
 
     public function testGetArrayWithNull()
     {
-        config(['foo' => null]);
-
-        $this->assertSame([], Config::getArray('foo'));
+        $this->runUnitTest(null, [], Config::getArray(...));
     }
 
     public function testGetArrayWithString()
     {
-        config(['foo' => 'bar']);
-
-        $this->assertSame(['bar'], Config::getArray('foo'));
+        $this->runUnitTest('bar', ['bar'], Config::getArray(...));
     }
 
     public function testGetArrayWithBool()
     {
-        config(['foo' => true]);
-
-        $this->assertSame([true], Config::getArray('foo'));
+        $this->runUnitTest(true, [true], Config::getArray(...));
     }
 
     public function testGetArrayWithInt()
     {
-        config(['foo' => 1]);
-
-        $this->assertSame([1], Config::getArray('foo'));
+        $this->runUnitTest(1, [1], Config::getArray(...));
     }
 
     public function testGetArrayWithFloat()
     {
-        config(['foo' => 1.1]);
-
-        $this->assertSame([1.1], Config::getArray('foo'));
+        $this->runUnitTest(1.1, [1.1], Config::getArray(...));
     }
 
     public function testGetStringWithArray()
     {
-        config(['foo' => ['bar' => 'baz']]);
-
-        $this->assertSame('Array', Config::getString('foo'));
+        $this->runUnitTest(['bar' => 'baz'], 'Array', Config::getString(...));
     }
 
     public function testGetStringWithNull()
     {
-        config(['foo' => null]);
-
-        $this->assertSame('', Config::getString('foo'));
+        $this->runUnitTest(null, '', Config::getString(...));
     }
 
     public function testGetStringWithString()
     {
-        config(['foo' => 'bar']);
-
-        $this->assertSame('bar', Config::getString('foo'));
+        $this->runUnitTest('bar', 'bar', Config::getString(...));
     }
 
     public function testGetStringWithBool()
     {
-        config(['foo' => true]);
-
-        $this->assertSame('1', Config::getString('foo'));
+        $this->runUnitTest(true, '1', Config::getString(...));
     }
 
     public function testGetStringWithInt()
     {
-        config(['foo' => 1]);
-
-        $this->assertSame('1', Config::getString('foo'));
+        $this->runUnitTest(1, '1', Config::getString(...));
     }
 
     public function testGetStringWithFloat()
     {
-        config(['foo' => 1.1]);
-
-        $this->assertSame('1.1', Config::getString('foo'));
+        $this->runUnitTest(1.1, '1.1', Config::getString(...));
     }
 
     public function testGetBoolWithArray()
     {
-        config(['foo' => ['bar' => 'baz']]);
-
-        $this->assertTrue(Config::getBool('foo'));
+        $this->runUnitTest(['bar' => 'baz'], true, Config::getBool(...));
     }
 
     public function testGetBoolWithNull()
     {
-        config(['foo' => null]);
-
-        $this->assertFalse(Config::getBool('foo'));
+        $this->runUnitTest(null, false, Config::getBool(...));
     }
 
     public function testGetBoolWithString()
     {
-        config(['foo' => 'bar']);
-
-        $this->assertTrue(Config::getBool('foo'));
+        $this->runUnitTest('bar', true, Config::getBool(...));
     }
 
     public function testGetBoolWithBool()
     {
-        config(['foo' => true]);
-
-        $this->assertTrue(Config::getBool('foo'));
+        $this->runUnitTest(true, true, Config::getBool(...));
     }
 
     public function testGetBoolWithInt()
     {
-        config(['foo' => 1]);
-
-        $this->assertTrue(Config::getBool('foo'));
+        $this->runUnitTest(1, true, Config::getBool(...));
     }
 
     public function testGetBoolWithFloat()
     {
-        config(['foo' => 1.1]);
-
-        $this->assertTrue(Config::getBool('foo'));
+        $this->runUnitTest(1.1, true, Config::getBool(...));
     }
 
     public function testGetIntWithArray()
     {
-        config(['foo' => ['bar' => 'baz']]);
-
-        $this->assertSame(0, Config::getInt('foo'));
+        $this->runUnitTest(['bar' => 'baz'], 0, Config::getInt(...));
     }
 
     public function testGetIntWithNull()
     {
-        config(['foo' => null]);
-
-        $this->assertSame(0, Config::getInt('foo'));
+        $this->runUnitTest(null, 0, Config::getInt(...));
     }
 
     public function testGetIntWithString()
     {
-        config(['foo' => 'bar']);
-
-        $this->assertSame(0, Config::getInt('foo'));
+        $this->runUnitTest('bar', 0, Config::getInt(...));
     }
 
     public function testGetIntWithBool()
     {
-        config(['foo' => true]);
-
-        $this->assertSame(1, Config::getInt('foo'));
+        $this->runUnitTest(true, 1, Config::getInt(...));
     }
 
     public function testGetIntWithInt()
     {
-        config(['foo' => 1]);
-
-        $this->assertSame(1, Config::getInt('foo'));
+        $this->runUnitTest(1, 1, Config::getInt(...));
     }
 
     public function testGetIntWithFloat()
     {
-        config(['foo' => 1.1]);
-
-        $this->assertSame(1, Config::getInt('foo'));
+        $this->runUnitTest(1.1, 1, Config::getInt(...));
     }
 
     public function testGetFloatWithArray()
     {
-        config(['foo' => ['bar' => 'baz']]);
-
-        $this->assertSame(0.0, Config::getFloat('foo'));
+        $this->runUnitTest(['bar' => 'baz'], 0.0, Config::getFloat(...));
     }
 
     public function testGetFloatWithNull()
     {
-        config(['foo' => null]);
-
-        $this->assertSame(0.0, Config::getFloat('foo'));
+        $this->runUnitTest(null, 0.0, Config::getFloat(...));
     }
 
     public function testGetFloatWithString()
     {
-        config(['foo' => 'bar']);
-
-        $this->assertSame(0.0, Config::getFloat('foo'));
+        $this->runUnitTest('bar', 0.0, Config::getFloat(...));
     }
 
     public function testGetFloatWithBool()
     {
-        config(['foo' => true]);
-
-        $this->assertSame(1.0, Config::getFloat('foo'));
+        $this->runUnitTest(true, 1.0, Config::getFloat(...));
     }
 
     public function testGetFloatWithInt()
     {
-        config(['foo' => 1]);
-
-        $this->assertSame(1.0, Config::getFloat('foo'));
+        $this->runUnitTest(1, 1.0, Config::getFloat(...));
     }
 
     public function testGetFloatWithFloat()
     {
-        config(['foo' => 1.1]);
+        $this->runUnitTest(1.1, 1.1, Config::getFloat(...));
+    }
 
-        $this->assertSame(1.1, Config::getFloat('foo'));
+    protected function runUnitTest($actual, $expected, $method): void
+    {
+        config(['foo' => $actual]);
+        $this->assertSame($expected, $method('foo'));
     }
 }
