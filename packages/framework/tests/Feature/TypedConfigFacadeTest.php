@@ -39,6 +39,31 @@ class TypedConfigFacadeTest extends TestCase
         $this->assertIsFloat(Config::getFloat('foo'));
     }
 
+    public function testGetArrayWithDefaultValue()
+    {
+        $this->assertSame(['bar'], Config::getArray('foo', ['bar']));
+    }
+
+    public function testGetStringWithDefaultValue()
+    {
+        $this->assertSame('bar', Config::getString('foo', 'bar'));
+    }
+
+    public function testGetBoolWithDefaultValue()
+    {
+        $this->assertSame(true, Config::getBool('foo', true));
+    }
+
+    public function testGetIntWithDefaultValue()
+    {
+        $this->assertSame(10, Config::getInt('foo', 10));
+    }
+
+    public function testGetFloatWithDefaultValue()
+    {
+        $this->assertSame(10.0, Config::getFloat('foo', 10.0));
+    }
+
     public function testGetArrayWithArray()
     {
         $this->runUnitTest(['bar' => 'baz'], ['bar' => 'baz'], Config::getArray(...));
