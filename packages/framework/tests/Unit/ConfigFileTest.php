@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Hyde\Facades\Features;
 use Hyde\Facades\Site;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Hyde;
@@ -38,6 +39,10 @@ test('default source directories values cover all core extension classes', funct
         ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
         ->toArray()
     );
+});
+
+test('features array matches default features', function () {
+    expect(getConfig()['features'])->toBe(Features::defaultFeatures());
 });
 
 function getConfig(): array
