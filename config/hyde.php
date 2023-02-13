@@ -270,4 +270,12 @@ return [
     'url'               => env('SITE_URL', 'https://hydephp.github.io/develop/master/dev-docs/'),
     'generate_rss_feed' => true,
     'rss_filename'      => 'feed.xml',
+
+    'output_directories' => [
+        \Hyde\Pages\HtmlPage::class => '',
+        \Hyde\Pages\BladePage::class => '',
+        \Hyde\Pages\MarkdownPage::class => '',
+        \Hyde\Pages\MarkdownPost::class => 'posts',
+        \Hyde\Pages\DocumentationPage::class => 'dev-docs',
+    ],
 ];
