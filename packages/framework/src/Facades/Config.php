@@ -10,6 +10,7 @@ namespace Hyde\Facades;
  *
  * @see \Illuminate\Support\Facades\Config
  * @see \Illuminate\Config\Repository
+ * @see \Hyde\Framework\Testing\Feature\TypedConfigFacadeTest
  */
 class Config extends \Illuminate\Support\Facades\Config
 {
