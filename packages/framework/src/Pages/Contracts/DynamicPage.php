@@ -13,6 +13,8 @@ namespace Hyde\Pages\Contracts;
  * These page classes are excluded by the Hyde Auto Discovery process,
  * they must therefore be added to the HydeKernel by the developer,
  * as Hyde won't have the needed info to do so automatically.
+ *
+ * @todo See if we can make source/destination directories and file extension optional and use that to determine if a page is dynamic or not.
  */
 interface DynamicPage
 {
