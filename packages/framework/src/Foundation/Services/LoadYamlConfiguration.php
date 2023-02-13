@@ -11,7 +11,6 @@ use Symfony\Component\Yaml\Yaml;
 use function array_merge;
 use function file_exists;
 use function file_get_contents;
-use function is_array;
 
 /**
  * @internal
@@ -47,9 +46,7 @@ class LoadYamlConfiguration
 
     protected function getYaml(): array
     {
-        $yaml = Yaml::parse(file_get_contents($this->getFile()));
-
-        return is_array($yaml) ? $yaml : [];
+        return (array) Yaml::parse(file_get_contents($this->getFile()));
     }
 
     protected function getFile(): string
