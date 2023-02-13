@@ -276,6 +276,25 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
     }
 
+    public function test_provider_registers_output_directories_using_options_in_configuration()
+    {
+        config(['hyde.output_directories' => [
+            HtmlPage::class => 'foo',
+            BladePage::class => 'foo',
+            MarkdownPage::class => 'foo',
+            MarkdownPost::class => 'foo',
+            DocumentationPage::class => 'foo',
+        ]]);
+
+        $this->provider->register();
+
+        $this->assertEquals('foo', HtmlPage::$outputDirectory);
+        $this->assertEquals('foo', BladePage::$outputDirectory);
+        $this->assertEquals('foo', MarkdownPage::$outputDirectory);
+        $this->assertEquals('foo', MarkdownPost::$outputDirectory);
+        // TODO: $this->assertEquals('foo', DocumentationPage::$outputDirectory);
+    }
+
     protected function getDeclaredPages(): array
     {
         return array_values(array_filter(get_declared_classes(), function ($class) {
