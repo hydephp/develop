@@ -25,23 +25,27 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $this->mergeConfigurationFiles($repository, ['view', 'cache', 'commands', 'torchlight']);
+        $this->mergeConfigurationFiles($repository);
     }
 
-    /** These files do commonly not need to be customized by the user, so to get them out of the way, we don't include them in the default project install. */
-    protected function mergeConfigurationFiles(RepositoryContract $repository, array $keys): void
+    private function mergeConfigurationFiles(RepositoryContract $repository): void
     {
-        foreach ($keys as $key) {
-            $this->mergeConfigurationFile($repository, $key);
+        // These files do commonly not need to be customized by the user, so to get them out of the way,
+        // we don't include them in the default project install.
+
+        foreach (['view', 'cache', 'commands', 'torchlight'] as $file) {
+            $this->mergeConfigurationFile($repository, $file);
         }
     }
 
-    /** We of course want the user to be able to customize the config files, if they're present, so we'll merge their changes here. */
-    protected function mergeConfigurationFile(RepositoryContract $repository, string $key): void
+    private function mergeConfigurationFile(RepositoryContract $repository, string $file): void
     {
-        $repository->set($key, array_merge(
-            require __DIR__."/../../../config/$key.php",
-            $repository->get($key, [])
+        // We of course want the user to be able to customize the config files,
+        // if they're present, so we'll merge their changes here.
+
+        $repository->set($file, array_merge(
+            require __DIR__."/../../../config/$file.php",
+            (array) $repository->get($file, [])
         ));
     }
 }
