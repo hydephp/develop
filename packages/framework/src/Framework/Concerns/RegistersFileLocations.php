@@ -87,6 +87,10 @@ trait RegistersFileLocations
 
     protected function getSourceDirectoryConfiguration(string $class, string $default): string
     {
-        return config("hyde.source_directories.$class") ?? $default;
+        if (config("hyde.source_directories.$class")) {
+            return config("hyde.source_directories.$class");
+        } else {
+            return $default;
+        }
     }
 }
