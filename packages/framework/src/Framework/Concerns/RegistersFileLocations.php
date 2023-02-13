@@ -88,14 +88,8 @@ trait RegistersFileLocations
 
     protected function getSourceDirectoryConfiguration(string $class, string $default): string
     {
-        if (config("hyde.source_directories.$class")) {
-            return config("hyde.source_directories.$class");
-        } else {
-            if (config('hyde.source_directories.'.Str::kebab(class_basename($class)))) {
-                return config('hyde.source_directories.'.Str::kebab(class_basename($class)));
-            }
-
-            return $default;
-        }
+        return config("hyde.source_directories.$class")
+            ?? config('hyde.source_directories.'.Str::kebab(class_basename($class)))
+            ?? $default;
     }
 }
