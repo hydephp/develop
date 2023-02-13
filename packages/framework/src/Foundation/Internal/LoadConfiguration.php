@@ -41,7 +41,7 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         $repository->set($file, array_merge(
             require __DIR__."/../../../config/$file.php",
-            $repository->get($file, [])
+            (array) $repository->get($file, [])
         ));
     }
 }
