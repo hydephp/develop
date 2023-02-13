@@ -136,18 +136,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
-    /** @deprecated  */
-    public function test_provider_registers_configured_documentation_output_directory()
-    {
-        $this->assertEquals('docs', DocumentationPage::outputDirectory());
-
-        config(['hyde.output_directories.Hyde\Pages\DocumentationPage' => 'foo']);
-
-        $this->provider->register();
-
-        $this->assertEquals('foo', DocumentationPage::outputDirectory());
-    }
-
     public function test_provider_registers_site_output_directory()
     {
         $this->assertEquals('_site', Site::getOutputDirectory());
@@ -293,7 +281,7 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', BladePage::$outputDirectory);
         $this->assertEquals('foo', MarkdownPage::$outputDirectory);
         $this->assertEquals('foo', MarkdownPost::$outputDirectory);
-        // TODO: $this->assertEquals('foo', DocumentationPage::$outputDirectory);
+        $this->assertEquals('foo', DocumentationPage::$outputDirectory);
     }
 
     protected function getDeclaredPages(): array
