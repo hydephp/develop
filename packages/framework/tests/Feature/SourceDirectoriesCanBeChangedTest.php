@@ -54,9 +54,8 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
     public function test_autodiscovery_discovers_posts_in_changed_directory()
     {
-        // Using a subdirectory in a directory we know exists, to make cleanup easier.
-        mkdir(Hyde::path('_posts/test'));
-        Hyde::touch('_posts/test/test.md');
+        $this->directory('_posts/test');
+        $this->file('_posts/test/test.md');
 
         MarkdownPost::$sourceDirectory = '_posts/test';
 
@@ -64,8 +63,5 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
             ['test'],
             DiscoveryService::getSourceFileListForModel(MarkdownPost::class)
         );
-
-        Hyde::unlink('_posts/test/test.md');
-        rmdir(Hyde::path('_posts/test'));
     }
 }
