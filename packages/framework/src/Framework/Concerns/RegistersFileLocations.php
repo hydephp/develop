@@ -98,8 +98,8 @@ trait RegistersFileLocations
 
     private function getPageConfiguration(string $option, string $class, string $default): string
     {
-        return config("hyde.$option.$class")
-            ?? config("hyde.$option.".Str::kebab(class_basename($class)))
+        return config("hyde.$option.".Str::kebab(class_basename($class)))
+            ?? config("hyde.$option.$class")
             ?? $default;
     }
 }
