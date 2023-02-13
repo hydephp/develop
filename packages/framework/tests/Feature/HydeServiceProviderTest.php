@@ -141,7 +141,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertEquals('docs', DocumentationPage::outputDirectory());
 
-        config(['docs.output_directory' => 'foo']);
+        config(['hyde.output_directories.Hyde\Pages\DocumentationPage' => 'foo']);
 
         $this->provider->register();
 
