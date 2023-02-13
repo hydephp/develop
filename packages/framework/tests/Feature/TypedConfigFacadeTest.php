@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Feature;
 use ErrorException;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
+use TypeError;
+
 use function config;
 
 /**
@@ -62,6 +64,61 @@ class TypedConfigFacadeTest extends TestCase
     public function testGetFloatWithDefaultValue()
     {
         $this->assertSame(10.0, Config::getFloat('foo', 10.0));
+    }
+
+    public function testGetArrayWithStrictMode()
+    {
+        $this->runUnitTestStrict(['bar'], ['bar'], Config::getArray(...));
+    }
+
+    public function testGetStringWithStrictMode()
+    {
+        $this->runUnitTestStrict('bar', 'bar', Config::getString(...));
+    }
+
+    public function testGetBoolWithStrictMode()
+    {
+        $this->runUnitTestStrict(true, true, Config::getBool(...));
+    }
+
+    public function testGetIntWithStrictMode()
+    {
+        $this->runUnitTestStrict(10, 10, Config::getInt(...));
+    }
+
+    public function testGetFloatWithStrictMode()
+    {
+        $this->runUnitTestStrict(10.0, 10.0, Config::getFloat(...));
+    }
+
+    public function testGetArrayWithFailingStrictMode()
+    {
+        $this->expectException(TypeError::class);
+        $this->runUnitTestStrict(null, null, Config::getArray(...));
+    }
+
+    public function testGetStringWithFailingStrictMode()
+    {
+        $this->expectException(TypeError::class);
+        $this->runUnitTestStrict(null, null, Config::getString(...));
+    }
+
+    public function testGetBoolWithFailingStrictMode()
+    {
+        $this->expectException(TypeError::class);
+        $this->runUnitTestStrict(null, null, Config::getBool(...));
+    }
+
+    public function testGetIntWithFailingStrictMode()
+    {
+        $this->expectException(TypeError::class);
+        $this->runUnitTestStrict(null, null, Config::getInt(...));
+    }
+
+    public function testGetFloatWithFailingStrictMode()
+    {
+        $this->expectException(TypeError::class);
+        $this->runUnitTestStrict(null, null, Config::getFloat(...));
     }
 
     public function testGetArrayWithArray()
@@ -219,5 +276,11 @@ class TypedConfigFacadeTest extends TestCase
     {
         config(['foo' => $actual]);
         $this->assertSame($expected, $method('foo'));
+    }
+
+    protected function runUnitTestStrict($actual, $expected, $method): void
+    {
+        config(['foo' => $actual]);
+        $this->assertSame($expected, $method('foo', strict: true));
     }
 }
