@@ -77,7 +77,7 @@ abstract class HydePage implements PageSchema
 
     public static function isDiscoverable(): bool
     {
-        return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension);
+        return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
     }
 
     // Section: Query

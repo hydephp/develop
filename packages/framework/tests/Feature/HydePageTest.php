@@ -1052,6 +1052,11 @@ class HydePageTest extends TestCase
         $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
     }
 
+    public function test_is_discoverable_method_requires_source_directory_to_be_filled()
+    {
+        $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
+    }
+
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
     {
         $this->assertSame(
@@ -1085,7 +1090,7 @@ class TestPage extends HydePage
 
 class DiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory = '';
+    public static string $sourceDirectory = 'foo';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 
@@ -1109,9 +1114,21 @@ class NonDiscoverablePage extends HydePage
 
 class PartiallyDiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory = '';
+    public static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
     public static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverablePageWithInvalidSourceDirectory extends HydePage
+{
+    public static string $sourceDirectory = '';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '';
 
     public function compile(): string
     {
