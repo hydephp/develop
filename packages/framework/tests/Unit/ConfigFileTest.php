@@ -10,10 +10,6 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 
-test('default source directories values are defined', function () {
-    expect(getConfig())->toHaveKey('source_directories');
-});
-
 test('default source directories values match declared values', function () {
     expect(getConfig()['source_directories'])->toBe([
         HtmlPage::class => '_pages',
