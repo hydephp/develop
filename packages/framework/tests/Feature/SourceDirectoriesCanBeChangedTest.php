@@ -52,7 +52,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         );
     }
 
-    public function test_autodiscovery_discovers_posts_in_changed_directory()
+    public function test_autodiscovery_discovers_posts_in_custom_directory()
     {
         $this->directory('_posts/test');
         $this->file('_posts/test/test.md');
