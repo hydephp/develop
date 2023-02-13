@@ -41,6 +41,23 @@ test('default source directories values cover all core extension classes', funct
     );
 });
 
+test('default output directories values match declared values', function () {
+    expect(getConfig('output_directories'))->toBe([
+        HtmlPage::class => '',
+        BladePage::class => '',
+        MarkdownPage::class => '',
+        MarkdownPost::class => 'posts',
+        DocumentationPage::class => 'docs',
+    ]);
+});
+
+test('default output directories values cover all core extension classes', function () {
+    expect(getConfig('output_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
+        ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$outputDirectory])
+        ->toArray()
+    );
+});
+
 test('default features array matches default features', function () {
     expect(getConfig('features'))->toBe(
         (new ReflectionClass(Features::class))

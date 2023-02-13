@@ -25,26 +25,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Documentation Site Output Directory
-    |--------------------------------------------------------------------------
-    |
-    | If you want to store the compiled documentation pages in a different
-    | directory than the default 'docs' directory, for example to set the
-    | specified version, you can specify the directory here.
-    |
-    | Note that you need to take care as to not set it to something that
-    | may conflict with other parts, such as media or posts directories.
-    |
-    | The default value is 'docs'. For easy versioning you can do what
-    | HydePHP.com does, setting it to 'docs/master'.
-    |
-    */
-
-    /** @deprecated Will be replaced by `hyde.output_directories.docs` */
-    'output_directory' => 'docs',
-
-    /*
-    |--------------------------------------------------------------------------
     | Collaborative Source Editing Location
     |--------------------------------------------------------------------------
     |

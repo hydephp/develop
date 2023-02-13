@@ -136,17 +136,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
-    public function test_provider_registers_configured_documentation_output_directory()
-    {
-        $this->assertEquals('docs', DocumentationPage::outputDirectory());
-
-        config(['docs.output_directory' => 'foo']);
-
-        $this->provider->register();
-
-        $this->assertEquals('foo', DocumentationPage::outputDirectory());
-    }
-
     public function test_provider_registers_site_output_directory()
     {
         $this->assertEquals('_site', Site::getOutputDirectory());
@@ -293,6 +282,44 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', MarkdownPage::$sourceDirectory);
         $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
         $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
+    }
+
+    public function test_provider_registers_output_directories_using_options_in_configuration()
+    {
+        config(['hyde.output_directories' => [
+            HtmlPage::class => 'foo',
+            BladePage::class => 'foo',
+            MarkdownPage::class => 'foo',
+            MarkdownPost::class => 'foo',
+            DocumentationPage::class => 'foo',
+        ]]);
+
+        $this->provider->register();
+
+        $this->assertEquals('foo', HtmlPage::$outputDirectory);
+        $this->assertEquals('foo', BladePage::$outputDirectory);
+        $this->assertEquals('foo', MarkdownPage::$outputDirectory);
+        $this->assertEquals('foo', MarkdownPost::$outputDirectory);
+        $this->assertEquals('foo', DocumentationPage::$outputDirectory);
+    }
+
+    public function test_output_directories_can_be_set_using_kebab_case_class_names()
+    {
+        config(['hyde.output_directories' => [
+            'html-page' => 'foo',
+            'blade-page' => 'foo',
+            'markdown-page' => 'foo',
+            'markdown-post' => 'foo',
+            'documentation-page' => 'foo',
+        ]]);
+
+        $this->provider->register();
+
+        $this->assertEquals('foo', HtmlPage::$outputDirectory);
+        $this->assertEquals('foo', BladePage::$outputDirectory);
+        $this->assertEquals('foo', MarkdownPage::$outputDirectory);
+        $this->assertEquals('foo', MarkdownPost::$outputDirectory);
+        $this->assertEquals('foo', DocumentationPage::$outputDirectory);
     }
 
     protected function getDeclaredPages(): array

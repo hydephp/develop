@@ -180,12 +180,18 @@ including the documentation pages. Here is a high level overview for quick refer
 ### Output directory
 
 If you want to store the compiled documentation pages in a different directory than the default 'docs' directory,
-for example to specify a version like the Hyde docs does, you can specify the output directory in the Docs configuration file.
+for example to specify a version like the Hyde docs does, you can specify the output directory in the Hyde configuration file.
+The path is relative to the site output, typically `_site`.
 
 ```php
-'output_directory' => 'docs' // default
-'output_directory' => 'docs/master' // What the Hyde docs use
+// filepath: _config/hyde.php
+'output_directories' => [
+    \Hyde\Pages\DocumentationPage::class => 'docs' // default
+    \Hyde\Pages\DocumentationPage::class => 'docs/master' // What the Hyde docs use
+]
 ```
+
+Note that you need to take care as to not set it to something that may conflict with other parts, such as media or posts directories.
 
 ### Automatic navigation menu
 
