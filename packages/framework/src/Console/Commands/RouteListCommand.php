@@ -54,6 +54,7 @@ class RouteListCommand extends Command
         return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
     protected function formatSourcePath(string $path, string $class): string
     {
         if (is_a($class, DynamicPage::class, true)) {
