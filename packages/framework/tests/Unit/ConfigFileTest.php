@@ -18,6 +18,11 @@ use Hyde\Testing\TestCase;
  */
 class ConfigFileTest extends TestCase
 {
+    public function test_default_source_directories_values_are_defined()
+    {
+        $this->assertArrayHasKey('source_directories', $this->getConfig());
+    }
+
     public function test_default_source_directories_values_match_declared_values()
     {
         $this->assertSame($this->getConfig()['source_directories'], [
