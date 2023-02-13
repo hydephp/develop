@@ -41,6 +41,25 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         $this->assertEquals('.source/docs', DocumentationPage::$sourceDirectory);
     }
 
+    public function test_source_directories_can_be_changed_in_config()
+    {
+        config([
+            'source_directories' => [
+                HtmlPage::class => '.source/pages',
+                BladePage::class => '.source/pages',
+                MarkdownPage::class => '.source/pages',
+                MarkdownPost::class => '.source/posts',
+                DocumentationPage::class => '.source/docs',
+            ],
+        ]);
+
+        $this->assertEquals('.source/pages', HtmlPage::$sourceDirectory);
+        $this->assertEquals('.source/pages', BladePage::$sourceDirectory);
+        $this->assertEquals('.source/pages', MarkdownPage::$sourceDirectory);
+        $this->assertEquals('.source/posts', MarkdownPost::$sourceDirectory);
+        $this->assertEquals('.source/docs', DocumentationPage::$sourceDirectory);
+    }
+
     public function test_build_service_recognizes_changed_directory()
     {
         MarkdownPost::$sourceDirectory = '_source/posts';
