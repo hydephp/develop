@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use ErrorException;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 
@@ -71,6 +72,7 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetStringWithArray()
     {
+        $this->expectException(ErrorException::class);
         $this->runUnitTest(['bar' => 'baz'], 'Array', Config::getString(...));
     }
 
@@ -131,7 +133,7 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetIntWithArray()
     {
-        $this->runUnitTest(['bar' => 'baz'], 0, Config::getInt(...));
+        $this->runUnitTest(0, 0, Config::getInt(...));
     }
 
     public function testGetIntWithNull()
@@ -161,7 +163,7 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetFloatWithArray()
     {
-        $this->runUnitTest(['bar' => 'baz'], 0.0, Config::getFloat(...));
+        $this->runUnitTest(['bar' => 'baz'], 1.0, Config::getFloat(...));
     }
 
     public function testGetFloatWithNull()
