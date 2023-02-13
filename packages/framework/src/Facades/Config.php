@@ -19,6 +19,7 @@ namespace Hyde\Facades;
  */
 class Config extends \Illuminate\Support\Facades\Config
 {
+    /** @var false */
     protected const STRICT_DEFAULT = false;
 
     public static function getArray(array|string $key, array $default = null, bool $strict = self::STRICT_DEFAULT): array
