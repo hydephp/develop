@@ -1039,12 +1039,12 @@ class HydePageTest extends TestCase
 
     public function test_is_discoverable_method_returns_true_for_discoverable_pages()
     {
-        //
+        $this->assertTrue(DiscoverablePage::isDiscoverable());
     }
 
     public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
     {
-        //
+        $this->assertFalse(NonDiscoverablePage::isDiscoverable());
     }
 
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
@@ -1071,6 +1071,30 @@ class TestPage extends HydePage
     public static string $outputDirectory = 'output';
     public static string $fileExtension = '.md';
     public static string $template = 'template';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverablePage extends HydePage
+{
+    public static string $sourceDirectory = '';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class NonDiscoverablePage extends HydePage
+{
+    public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
 
     public function compile(): string
     {
