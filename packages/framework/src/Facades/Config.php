@@ -7,6 +7,9 @@ namespace Hyde\Facades;
 /**
  * An extension of the Laravel Config facade with extra
  * accessors that ensure the types of the returned values.
+ *
+ * @see \Illuminate\Support\Facades\Config
+ * @see \Illuminate\Config\Repository
  */
 class Config extends \Illuminate\Support\Facades\Config
 {
