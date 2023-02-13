@@ -9,6 +9,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * Test that the framework configuration files are matching the published ones.
+ *
+ * @see \Hyde\Framework\Testing\Unit\ConfigFileTest
  */
 class HydeConfigFilesAreMatchingTest extends TestCase
 {
