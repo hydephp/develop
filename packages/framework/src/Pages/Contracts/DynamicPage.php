@@ -15,6 +15,8 @@ namespace Hyde\Pages\Contracts;
  * as Hyde won't have the needed info to do so automatically.
  *
  * @todo See if we can make source/destination directories and file extension optional and use that to determine if a page is dynamic or not.
+ *
+ * @deprecated Pages without path information will automatically be considered dynamic.
  */
 interface DynamicPage
 {
