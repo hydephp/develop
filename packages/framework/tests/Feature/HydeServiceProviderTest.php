@@ -136,6 +136,7 @@ class HydeServiceProviderTest extends TestCase
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
+    /** @deprecated  */
     public function test_provider_registers_configured_documentation_output_directory()
     {
         $this->assertEquals('docs', DocumentationPage::outputDirectory());
