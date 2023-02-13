@@ -88,15 +88,18 @@ trait RegistersFileLocations
 
     protected function getSourceDirectoryConfiguration(string $class, string $default): string
     {
-        return config("hyde.source_directories.$class")
-            ?? config('hyde.source_directories.'.Str::kebab(class_basename($class)))
-            ?? $default;
+        return $this->getClassLocationConfiguration('source_directories', $class, $default);
     }
 
     protected function getOutputDirectoryConfiguration(string $class, string $default): string
     {
-        return config("hyde.output_directories.$class")
-            ?? config('hyde.output_directories.'.Str::kebab(class_basename($class)))
+        return $this->getClassLocationConfiguration('output_directories', $class, $default);
+    }
+
+    protected function getClassLocationConfiguration(string $option, string $class, string $default): string
+    {
+        return config("hyde.$option.$class")
+            ?? config("hyde.$option.".Str::kebab(class_basename($class)))
             ?? $default;
     }
 }
