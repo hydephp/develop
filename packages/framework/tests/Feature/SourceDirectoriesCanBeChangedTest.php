@@ -8,6 +8,7 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -19,6 +20,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 {
     public function test_baselines()
     {
+        $this->assertEquals('_pages', HtmlPage::$sourceDirectory);
         $this->assertEquals('_pages', BladePage::$sourceDirectory);
         $this->assertEquals('_pages', MarkdownPage::$sourceDirectory);
         $this->assertEquals('_posts', MarkdownPost::$sourceDirectory);
@@ -27,11 +29,13 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
     public function test_source_directories_can_be_changed_programmatically()
     {
+        HtmlPage::$sourceDirectory = '.source/pages';
         BladePage::$sourceDirectory = '.source/pages';
         MarkdownPage::$sourceDirectory = '.source/pages';
         MarkdownPost::$sourceDirectory = '.source/posts';
         DocumentationPage::$sourceDirectory = '.source/docs';
 
+        $this->assertEquals('.source/pages', HtmlPage::$sourceDirectory);
         $this->assertEquals('.source/pages', BladePage::$sourceDirectory);
         $this->assertEquals('.source/pages', MarkdownPage::$sourceDirectory);
         $this->assertEquals('.source/posts', MarkdownPost::$sourceDirectory);
