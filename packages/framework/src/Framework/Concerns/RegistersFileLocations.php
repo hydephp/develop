@@ -89,4 +89,9 @@ trait RegistersFileLocations
     {
         return config("hyde.source_directories.$class", $default);
     }
+
+    protected function getOutputDirectoryConfiguration(string $class, string $default): string
+    {
+        return config("hyde.output_directories.$class", $default);
+    }
 }
