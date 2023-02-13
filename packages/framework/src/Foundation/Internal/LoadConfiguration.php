@@ -25,16 +25,15 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $this->mergeConfigurationFiles($repository, ['view', 'cache', 'commands', 'torchlight']);
+        $this->mergeConfigurationFiles($repository);
     }
 
-    /** @param array<string> $files */
-    private function mergeConfigurationFiles(RepositoryContract $repository, array $files): void
+    private function mergeConfigurationFiles(RepositoryContract $repository): void
     {
         // These files do commonly not need to be customized by the user, so to get them out of the way,
         // we don't include them in the default project install.
 
-        foreach ($files as $file) {
+        foreach (['view', 'cache', 'commands', 'torchlight'] as $file) {
             $this->mergeConfigurationFile($repository, $file);
         }
     }
