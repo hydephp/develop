@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/app/storage/app" />
       <excludeFolder url="file://$MODULE_DIR$/app/storage/framework" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
       <excludeFolder url="file://$MODULE_DIR$/packages/realtime-compiler/vendor/hyde" />
