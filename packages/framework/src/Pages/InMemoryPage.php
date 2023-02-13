@@ -27,11 +27,8 @@ use Illuminate\Support\Facades\View;
  */
 class InMemoryPage extends HydePage implements DynamicPage
 {
-    /** @todo See if we can remove these as they cannot be used */
     public static string $sourceDirectory = '';
-    /** @todo See if we can remove these as they cannot be used */
     public static string $outputDirectory = '';
-    /** @todo See if we can remove these as they cannot be used */
     public static string $fileExtension = '';
 
     protected string $contents;
