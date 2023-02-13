@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-class Config
+class Config extends \Illuminate\Support\Facades\Config
 {
     //
 }
