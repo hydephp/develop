@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
@@ -1055,6 +1056,13 @@ class HydePageTest extends TestCase
     public function test_is_discoverable_method_requires_source_directory_to_be_filled()
     {
         $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
+    }
+
+    public function test_all_core_extension_pages_are_discoverable()
+    {
+        foreach (HydeCoreExtension::getPageClasses() as $page) {
+            $this->assertTrue($page::isDiscoverable());
+        }
     }
 
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
