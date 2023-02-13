@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -52,6 +53,8 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
                 DocumentationPage::class => '.source/docs',
             ],
         ]);
+
+        (new HydeServiceProvider($this->app))->register();
 
         $this->assertEquals('.source/pages', HtmlPage::$sourceDirectory);
         $this->assertEquals('.source/pages', BladePage::$sourceDirectory);
