@@ -276,6 +276,25 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
     }
 
+    public function test_source_directories_can_be_set_using_kebab_case_class_names()
+    {
+        config(['hyde.source_directories' => [
+            'html-page' => 'foo',
+            'blade-page' => 'foo',
+            'markdown-page' => 'foo',
+            'markdown-post' => 'foo',
+            'documentation-page' => 'foo',
+        ]]);
+
+        $this->provider->register();
+
+        $this->assertEquals('foo', HtmlPage::$sourceDirectory);
+        $this->assertEquals('foo', BladePage::$sourceDirectory);
+        $this->assertEquals('foo', MarkdownPage::$sourceDirectory);
+        $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
+        $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
+    }
+    
     protected function getDeclaredPages(): array
     {
         return array_values(array_filter(get_declared_classes(), function ($class) {

@@ -7,6 +7,7 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
+use Illuminate\Support\Str;
 
 /**
  * This trait registers the file paths for important Hyde locations.
@@ -90,6 +91,11 @@ trait RegistersFileLocations
         if (config("hyde.source_directories.$class")) {
             return config("hyde.source_directories.$class");
         } else {
+            $kebab = Str::kebab(class_basename($class));
+            if (config("hyde.source_directories.$kebab")) {
+                return config("hyde.source_directories.$kebab");
+            }
+
             return $default;
         }
     }
