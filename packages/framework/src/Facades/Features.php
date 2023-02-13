@@ -33,22 +33,7 @@ class Features implements SerializableContract
      */
     public static function enabled(string $feature): bool
     {
-        return static::resolveMockedInstance($feature) ?? in_array($feature, config('hyde.features', [
-            // Page Modules
-            static::htmlPages(),
-            static::markdownPosts(),
-            static::bladePages(),
-            static::markdownPages(),
-            static::documentationPages(),
-            // static::dataCollections(),
-
-            // Frontend Features
-            static::darkmode(),
-            static::documentationSearch(),
-
-            // Integrations
-            static::torchlight(),
-        ]));
+        return static::resolveMockedInstance($feature) ?? in_array($feature, config('hyde.features', self::getDefaultOptions()));
     }
 
     // ================================================
@@ -184,5 +169,25 @@ class Features implements SerializableContract
             ->mapWithKeys(fn (string $method): array => [
                 Str::kebab(substr($method, 3)) => (static::{$method}()),
             ])->toArray();
+    }
+
+    protected static function getDefaultOptions(): array
+    {
+        return [
+            // Page Modules
+            static::htmlPages(),
+            static::markdownPosts(),
+            static::bladePages(),
+            static::markdownPages(),
+            static::documentationPages(),
+            // static::dataCollections(),
+
+            // Frontend Features
+            static::darkmode(),
+            static::documentationSearch(),
+
+            // Integrations
+            static::torchlight(),
+        ];
     }
 }
