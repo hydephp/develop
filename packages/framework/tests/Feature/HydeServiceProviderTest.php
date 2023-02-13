@@ -294,7 +294,7 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
         $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
     }
-    
+
     protected function getDeclaredPages(): array
     {
         return array_values(array_filter(get_declared_classes(), function ($class) {
