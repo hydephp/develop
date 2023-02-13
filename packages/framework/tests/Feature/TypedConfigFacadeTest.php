@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use ErrorException;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
-
 use function config;
 
 /**
