@@ -8,7 +8,7 @@
     errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
-        <!-- <directory name="app" /> -->
+        <directory name="app" />
         <directory name="packages/framework/src" />
         <ignoreFiles>
             <directory name="vendor" />
