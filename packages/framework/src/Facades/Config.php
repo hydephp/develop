@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+/**
+ * An extension of the Laravel Config facade with extra
+ * accessors that ensure the types of the returned values.
+ */
 class Config extends \Illuminate\Support\Facades\Config
 {
     public static function getArray(array|string $key, array $default = null): array
