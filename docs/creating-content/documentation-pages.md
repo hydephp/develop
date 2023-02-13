@@ -183,8 +183,11 @@ If you want to store the compiled documentation pages in a different directory t
 for example to specify a version like the Hyde docs does, you can specify the output directory in the Docs configuration file.
 
 ```php
-'output_directory' => 'docs' // default
-'output_directory' => 'docs/master' // What the Hyde docs use
+// filepath: _config/hyde.php
+'output_directories' => [
+    \Hyde\Pages\DocumentationPage::class => 'docs' // default
+    \Hyde\Pages\DocumentationPage::class => 'docs/master' // What the Hyde docs use
+]
 ```
 
 ### Automatic navigation menu
