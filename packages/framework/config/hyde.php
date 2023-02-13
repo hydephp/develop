@@ -25,11 +25,6 @@
 use Hyde\Facades\Author;
 use Hyde\Facades\Features;
 use Hyde\Facades\Meta;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\HtmlPage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 
 return [
 
@@ -190,11 +185,11 @@ return [
     */
 
     'source_directories' => [
-        HtmlPage::class => '_pages',
-        BladePage::class => '_pages',
-        MarkdownPage::class => '_pages',
-        MarkdownPost::class => '_posts',
-        DocumentationPage::class => '_docs',
+        \Hyde\Pages\HtmlPage::class => '_pages',
+        \Hyde\Pages\BladePage::class => '_pages',
+        \Hyde\Pages\MarkdownPage::class => '_pages',
+        \Hyde\Pages\MarkdownPost::class => '_posts',
+        \Hyde\Pages\DocumentationPage::class => '_docs',
     ],
 
     /*
