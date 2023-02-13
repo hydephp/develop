@@ -17,6 +17,7 @@ use Hyde\Pages\DocumentationPage;
  */
 class HydeCoreExtension extends HydeExtension
 {
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {
         return array_keys(array_filter([
