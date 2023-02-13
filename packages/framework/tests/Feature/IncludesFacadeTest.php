@@ -43,7 +43,7 @@ class IncludesFacadeTest extends TestCase
         $expected = 'foo bar';
         file_put_contents(Hyde::path('resources/_includes/foo.txt'), $expected);
         $this->assertEquals($expected, Includes::get('foo.txt'));
-        unlink(Hyde::path('resources/_includes/foo.txt'));
+        Hyde::unlink('resources/_includes/foo.txt');
     }
 
     public function test_get_returns_default_value_when_not_found()
@@ -57,7 +57,7 @@ class IncludesFacadeTest extends TestCase
         $expected = "<h1>foo bar</h1>\n";
         file_put_contents(Hyde::path('resources/_includes/foo.md'), '# foo bar');
         $this->assertEquals($expected, Includes::markdown('foo.md'));
-        unlink(Hyde::path('resources/_includes/foo.md'));
+        Hyde::unlink('resources/_includes/foo.md');
     }
 
     public function test_markdown_returns_rendered_default_value_when_not_found()
@@ -71,7 +71,7 @@ class IncludesFacadeTest extends TestCase
         $expected = 'foo bar';
         file_put_contents(Hyde::path('resources/_includes/foo.blade.php'), '{{ "foo bar" }}');
         $this->assertEquals($expected, Includes::blade('foo.blade.php'));
-        unlink(Hyde::path('resources/_includes/foo.blade.php'));
+        Hyde::unlink('resources/_includes/foo.blade.php');
     }
 
     public function test_blade_returns_rendered_default_value_when_not_found()

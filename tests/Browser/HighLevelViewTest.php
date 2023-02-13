@@ -36,7 +36,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->storeSourceAsHtml('welcome_homepage');
         });
 
-        unlink(Hyde::path('_site/index.html'));
+        Hyde::unlink(('_site/index.html'));
     }
 
     public function test_404_page()
@@ -49,7 +49,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->storeSourceAsHtml('404_page');
         });
 
-        unlink(Hyde::path('_site/404.html'));
+        Hyde::unlink(('_site/404.html'));
     }
 
     public function test_blank_homepage()
@@ -65,7 +65,7 @@ class HighLevelViewTest extends DuskTestCase
         });
 
         $this->artisan('publish:homepage welcome -n');
-        unlink(Hyde::path('_site/index.html'));
+        Hyde::unlink(('_site/index.html'));
     }
 
     public function test_posts_homepage()
@@ -82,7 +82,7 @@ class HighLevelViewTest extends DuskTestCase
         });
 
         $this->artisan('publish:homepage welcome -n');
-        unlink(Hyde::path('_site/index.html'));
+        Hyde::unlink(('_site/index.html'));
     }
 
     public function test_posts_homepage_with_posts()
@@ -110,8 +110,8 @@ date: 2022-01-01 12:00
         });
 
         $this->artisan('publish:homepage welcome -n');
-        unlink(Hyde::path('_posts/my-new-post.md'));
-        unlink(Hyde::path('_site/index.html'));
+        Hyde::unlink(('_posts/my-new-post.md'));
+        Hyde::unlink(('_site/index.html'));
     }
 
     public function test_documentation_index()
@@ -130,8 +130,8 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('docs/index');
         });
 
-        unlink(Hyde::path('_docs/index.md'));
-        unlink(Hyde::path('_site/docs/index.html'));
+        Hyde::unlink(('_docs/index.md'));
+        Hyde::unlink(('_site/docs/index.html'));
     }
 
     public function test_documentation_site_with_pages()
@@ -156,10 +156,10 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('docs/with_sidebar_pages');
         });
 
-        unlink(Hyde::path('_docs/page1.md'));
-        unlink(Hyde::path('_docs/page2.md'));
-        unlink(Hyde::path('_docs/page3.md'));
-        unlink(Hyde::path('_site/docs/page1.html'));
+        Hyde::unlink(('_docs/page1.md'));
+        Hyde::unlink(('_docs/page2.md'));
+        Hyde::unlink(('_docs/page3.md'));
+        Hyde::unlink(('_site/docs/page1.html'));
     }
 
     public function test_documentation_site_with_grouped_pages()
@@ -186,10 +186,10 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
         });
 
-        unlink(Hyde::path('_docs/page1.md'));
-        unlink(Hyde::path('_docs/page2.md'));
-        unlink(Hyde::path('_docs/page3.md'));
-        unlink(Hyde::path('_site/docs/page1.html'));
+        Hyde::unlink(('_docs/page1.md'));
+        Hyde::unlink(('_docs/page2.md'));
+        Hyde::unlink(('_docs/page3.md'));
+        Hyde::unlink(('_site/docs/page1.html'));
     }
 
     public function test_blog_post_pages()
@@ -237,11 +237,11 @@ date: 2022-01-01 12:00
 
         $this->artisan('publish:homepage welcome -n');
 
-        unlink(Hyde::path('_posts/typography-simple.md'));
-        unlink(Hyde::path('_posts/typography-front-matter.md'));
-        unlink(Hyde::path('_site/posts/typography-simple.html'));
-        unlink(Hyde::path('_site/posts/typography-front-matter.html'));
-        unlink(Hyde::path('_site/index.html'));
+        Hyde::unlink(('_posts/typography-simple.md'));
+        Hyde::unlink(('_posts/typography-front-matter.md'));
+        Hyde::unlink(('_site/posts/typography-simple.html'));
+        Hyde::unlink(('_site/posts/typography-front-matter.html'));
+        Hyde::unlink(('_site/index.html'));
     }
 
     protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false): string

@@ -32,10 +32,10 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
      *
      * Note that this class does not add the title, as that is already added to all pages.
      */
-    public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
+    final public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
 
-    private FrontMatter $matter;
-    private Markdown $markdown;
+    private readonly FrontMatter $matter;
+    private readonly Markdown $markdown;
 
     protected readonly ?string $description;
     protected readonly ?string $category;
@@ -55,6 +55,9 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         $this->image = $this->makeImage();
     }
 
+    /**
+     * @return array{description: string|null, category: string|null, date: \Hyde\Support\Models\DateString|null, author: \Hyde\Framework\Features\Blogging\Models\PostAuthor|null, image: \Hyde\Framework\Features\Blogging\Models\FeaturedImage|null}
+     */
     public function toArray(): array
     {
         return [

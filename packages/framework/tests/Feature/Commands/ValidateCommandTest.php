@@ -17,6 +17,9 @@ class ValidateCommandTest extends TestCase
 {
     public function test_validate_command_can_run()
     {
+        // Ensure the environment is clean to prevent false positives
+        config(['torchlight.token' => null]);
+
         $this->artisan('validate')
             ->expectsOutput('Running validation tests!')
             ->expectsOutputToContain('PASS')

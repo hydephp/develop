@@ -21,6 +21,11 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->relativeLink($destination);
     }
 
+    public function mediaLink(string $destination): string
+    {
+        return $this->hyperlinks->mediaLink($destination);
+    }
+
     public function image(string $name, bool $preferQualifiedUrl = false): string
     {
         return $this->hyperlinks->image($name, $preferQualifiedUrl);

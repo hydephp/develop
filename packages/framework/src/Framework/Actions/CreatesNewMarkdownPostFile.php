@@ -83,6 +83,8 @@ class CreatesNewMarkdownPostFile
      * Get the class data as an array.
      *
      * The identifier property is removed from the array as it can't be set in the front matter.
+     *
+     * @return array{title: string, description: string, category: string, author: string, date: string}
      */
     public function toArray(): array
     {

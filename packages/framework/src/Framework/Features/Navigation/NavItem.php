@@ -29,11 +29,6 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item.
-     *
-     * @param  \Hyde\Support\Models\Route|null  $route
-     * @param  string  $label
-     * @param  int  $priority
-     * @param  bool  $hidden
      */
     public function __construct(?Route $route, string $label, int $priority = 500, bool $hidden = false)
     {
@@ -124,7 +119,12 @@ class NavItem implements Stringable
 
     public function getGroup(): ?string
     {
-        return $this->normalizeGroupKey($this->route->getPage()->get('navigation.group'));
+        return $this->normalizeGroupKey($this->route->getPage()->data('navigation.group'));
+    }
+
+    public function getRoute(): ?Route
+    {
+        return $this->route ?? null;
     }
 
     protected function normalizeGroupKey(?string $group): ?string

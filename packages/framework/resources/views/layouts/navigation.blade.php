@@ -38,7 +38,11 @@
         <ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
             @foreach ($navigation->items as $item)
                 <li class="md:mx-2">
-                    @include('hyde::components.navigation.navigation-link')
+                    @if($item instanceof \Hyde\Framework\Features\Navigation\DropdownNavItem)
+                        <x-hyde::navigation.dropdown :label="\Hyde\Hyde::makeTitle($item->name)" :items="$item->items"/>
+                    @else
+                        @include('hyde::components.navigation.navigation-link')
+                    @endif
                 </li>
             @endforeach
         </ul>

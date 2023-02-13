@@ -7,8 +7,8 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Meta;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\View;
 
 /**
  * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
@@ -39,8 +39,8 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
-        config(['site.generate_sitemap' => true]);
+        config(['hyde.url' => 'foo']);
+        config(['hyde.generate_sitemap' => true]);
 
         $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
@@ -49,8 +49,8 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'bar']);
-        config(['site.generate_sitemap' => true]);
+        config(['hyde.url' => 'bar']);
+        config(['hyde.generate_sitemap' => true]);
 
         $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
@@ -59,7 +59,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
@@ -70,7 +70,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'bar']);
+        config(['hyde.url' => 'bar']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
@@ -81,8 +81,8 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
-        config(['site.name' => 'Site']);
+        config(['hyde.url' => 'foo']);
+        config(['hyde.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
@@ -93,7 +93,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        config(['site.url' => 'foo']);
+        config(['hyde.url' => 'foo']);
         config(['hyde.rss_filename' => 'posts.rss']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
@@ -119,8 +119,8 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add($duplicate);
 
-        View::share('currentPage', 'foo');
-        View::share('page', $page);
+        Render::share('currentPage', 'foo');
+        Render::share('page', $page);
 
         $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
     }
@@ -134,17 +134,17 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add(Meta::name('foo', 'baz'));
 
-        View::share('currentPage', 'foo');
-        View::share('page', $page);
+        Render::share('currentPage', 'foo');
+        Render::share('page', $page);
 
         $this->assertEquals([], GlobalMetadataBag::make()->get());
     }
 
     protected function emptyConfig(): void
     {
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         config(['hyde.meta' => []]);
         config(['hyde.generate_rss_feed' => false]);
-        config(['site.generate_sitemap' => false]);
+        config(['hyde.generate_sitemap' => false]);
     }
 }

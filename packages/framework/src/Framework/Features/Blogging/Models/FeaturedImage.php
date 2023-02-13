@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use function method_exists;
 use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
+    protected readonly string $source;
+
     protected readonly ?string $altText;
     protected readonly ?string $titleText;
 
@@ -21,6 +22,8 @@ abstract class FeaturedImage implements Stringable
 
     public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
     {
+        $this->source = $this->setSource($source);
+
         $this->altText = $altText;
         $this->titleText = $titleText;
         $this->authorName = $authorName;
@@ -28,10 +31,6 @@ abstract class FeaturedImage implements Stringable
         $this->copyrightText = $copyrightText;
         $this->licenseName = $licenseName;
         $this->licenseUrl = $licenseUrl;
-
-        if (method_exists($this, 'setSource')) {
-            $this->setSource($source);
-        }
     }
 
     public function __toString(): string
@@ -46,6 +45,12 @@ abstract class FeaturedImage implements Stringable
      * @return string The image's url or path
      */
     abstract public function getSource(): string;
+
+    /** Called from constructor to allow child classes to validate and transform the value as needed before assignment. */
+    protected function setSource(string $source): string
+    {
+        return $source;
+    }
 
     abstract public function getContentLength(): int;
 
@@ -122,7 +127,7 @@ abstract class FeaturedImage implements Stringable
     /**
      * Used in resources/views/components/post/image.blade.php to add meta tags with itemprop attributes.
      *
-     * @return array
+     * @return array{text?: string|null, name?: string|null, url: string, contentUrl: string}
      */
     public function getMetadataArray(): array
     {

@@ -246,7 +246,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages7()
     {
         $expect = '';
-        $image = $this->make([]);
+        $image = $this->make();
 
         $this->assertSame(
             $this->stripWhitespace($expect),

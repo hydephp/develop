@@ -27,7 +27,7 @@ class PageMetadataBag extends MetadataBag
     protected function addDynamicPageMetadata(HydePage $page): void
     {
         if ($page->has('canonicalUrl')) {
-            $this->add(Meta::link('canonical', $page->get('canonicalUrl')));
+            $this->add(Meta::link('canonical', $page->data('canonicalUrl')));
         }
 
         if ($page->has('title')) {
@@ -48,7 +48,7 @@ class PageMetadataBag extends MetadataBag
         $this->addPostMetadataIfExists($page, 'canonicalUrl', 'url');
 
         if ($page->has('canonicalUrl')) {
-            $this->add(Meta::property('url', $page->get('canonicalUrl')));
+            $this->add(Meta::property('url', $page->data('canonicalUrl')));
         }
 
         if ($page->has('date')) {
@@ -56,7 +56,7 @@ class PageMetadataBag extends MetadataBag
         }
 
         if ($page->has('image')) {
-            $this->add(Meta::property('image', $this->resolveImageLink((string) $page->get('image'))));
+            $this->add(Meta::property('image', $this->resolveImageLink((string) $page->data('image'))));
         }
 
         $this->add(Meta::property('type', 'article'));
@@ -65,7 +65,7 @@ class PageMetadataBag extends MetadataBag
     protected function addPostMetadataIfExists(MarkdownPost $page, string $property, ?string $name = null): void
     {
         if ($page->has($property)) {
-            $this->add(Meta::name($name ?? $property, (string) $page->get($property)));
+            $this->add(Meta::name($name ?? $property, (string) $page->data($property)));
         }
     }
 

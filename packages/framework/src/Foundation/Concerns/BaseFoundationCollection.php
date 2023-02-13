@@ -9,11 +9,11 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
 /**
- * @internal Base class for the kernel auto-discovery collections.
+ * Base class for the kernel auto-discovery collections.
  *
- * @see \Hyde\Foundation\FileCollection
- * @see \Hyde\Foundation\PageCollection
- * @see \Hyde\Foundation\RouteCollection
+ * @see \Hyde\Foundation\Kernel\FileCollection
+ * @see \Hyde\Foundation\Kernel\PageCollection
+ * @see \Hyde\Foundation\Kernel\RouteCollection
  * @see \Hyde\Framework\Testing\Unit\BaseFoundationCollectionTest
  */
 abstract class BaseFoundationCollection extends Collection
@@ -21,6 +21,8 @@ abstract class BaseFoundationCollection extends Collection
     protected HydeKernel $kernel;
 
     abstract protected function runDiscovery(): self;
+
+    abstract protected function runExtensionCallbacks(): self;
 
     public static function boot(HydeKernel $kernel): static
     {

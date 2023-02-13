@@ -69,7 +69,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', Hyde::image($post->image->getSource(), true));
+            $image->addAttribute('url', Hyde::url($post->image->getSource(), true));
             $image->addAttribute('type', $this->getImageType($post));
             $image->addAttribute('length', $this->getImageLength($post));
         }
@@ -82,7 +82,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->addChild($channel, 'title', Site::name());
         $this->addChild($channel, 'link', Site::url());
         $this->addChild($channel, 'description', $this->getDescription());
-        $this->addChild($channel, 'language', config('site.language', 'en'));
+        $this->addChild($channel, 'language', config('hyde.language', 'en'));
         $this->addChild($channel, 'generator', 'HydePHP '.Hyde::version());
         $this->addChild($channel, 'lastBuildDate', date(DATE_RSS));
     }
@@ -101,6 +101,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 
+    /** @return numeric-string */
     protected function getImageLength(MarkdownPost $post): string
     {
         /** @todo We might want to add a build warning if the length is zero */

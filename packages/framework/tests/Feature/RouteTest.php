@@ -8,6 +8,7 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\TestCase;
@@ -116,14 +117,14 @@ class RouteTest extends TestCase
     public function test_get_link_returns_correct_path_for_nested_current_page()
     {
         $route = new Route(new MarkdownPage('foo'));
-        view()->share('currentPage', 'foo/bar');
+        Render::share('currentPage', 'foo/bar');
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_pretty_url_if_enabled()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
@@ -138,7 +139,7 @@ class RouteTest extends TestCase
     public function test_current_returns_current_route()
     {
         $route = new Route(new MarkdownPage('foo'));
-        view()->share('currentRoute', $route);
+        Render::share('currentRoute', $route);
         $this->assertEquals($route, Route::current());
     }
 

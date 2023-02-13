@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
-use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 
@@ -17,7 +16,7 @@ use Hyde\Support\Models\Route;
  *
  * @see https://hydephp.com/docs/master/documentation-pages
  */
-class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSchema
+class DocumentationPage extends BaseMarkdownPage
 {
     use Concerns\UsesFlattenedOutputPaths;
 
@@ -27,7 +26,12 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
 
     public static function home(): ?Route
     {
-        return Route::get(static::$outputDirectory.'/index');
+        return Route::get(static::homeRouteName());
+    }
+
+    public static function homeRouteName(): string
+    {
+        return static::baseRouteKey().'/index';
     }
 
     /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
@@ -37,7 +41,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
             return false;
         }
 
-        return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
+        return trim((string) config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
     public static function hasTableOfContents(): bool

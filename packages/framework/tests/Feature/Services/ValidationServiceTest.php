@@ -113,20 +113,19 @@ class ValidationServiceTest extends TestCase
     public function test_check_site_has_an_app_css_stylesheet_can_fail()
     {
         rename(Hyde::path('_media/app.css'), Hyde::path('_media/app.css.bak'));
-        unlinkIfExists(Hyde::path('_site/media/app.css'));
         $this->test('check_site_has_an_app_css_stylesheet', 2);
         rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
     }
 
     public function test_check_site_has_a_base_url_set_can_pass()
     {
-        config(['site.url' => 'https://example.com']);
+        config(['hyde.url' => 'https://example.com']);
         $this->test('check_site_has_a_base_url_set', 0);
     }
 
     public function test_check_site_has_a_base_url_set_can_fail()
     {
-        config(['site.url' => null]);
+        config(['hyde.url' => null]);
         $this->test('check_site_has_a_base_url_set', 2);
     }
 
@@ -155,9 +154,9 @@ class ValidationServiceTest extends TestCase
 
     public function test_check_for_conflicts_between_blade_and_markdown_pages_can_fail()
     {
-        Hyde::touch(('_pages/index.md'));
+        Hyde::touch('_pages/index.md');
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 2);
-        unlink(Hyde::path('_pages/index.md'));
+        Hyde::unlink('_pages/index.md');
     }
 
     // Some unit tests

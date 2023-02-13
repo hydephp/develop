@@ -12,7 +12,6 @@ use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
-use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
@@ -133,14 +132,6 @@ class FeaturedImageTest extends TestCase
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('media/foo', $image->getSource());
-    }
-
-    public function testCannotConstructLocalFeaturedImageWithInvalidSource()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('LocalFeaturedImage source must start with _media/');
-
-        new LocalFeaturedImage('foo', ...$this->defaultArguments());
     }
 
     public function testFeaturedImageGetContentLength()

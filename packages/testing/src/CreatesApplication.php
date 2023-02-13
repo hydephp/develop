@@ -18,9 +18,9 @@ trait CreatesApplication
     {
         $app = require file_exists(__DIR__.'/../../../app/bootstrap.php') ? __DIR__.'/../../../app/bootstrap.php' : getcwd().'/app/bootstrap.php';
 
-        $app->make(Kernel::class)->bootstrap();
-
         HydeKernel::setInstance(new HydeKernel(Hyde::path()));
+
+        $app->make(Kernel::class)->bootstrap();
 
         return $app;
     }

@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PublishesHomepageView;
+use Hyde\Console\Concerns\AsksToRebuildSite;
+use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Commands\Command;
+use function array_key_exists;
+use function file_exists;
+use function str_replace;
+use function strstr;
 
 /**
  * Publish one of the default homepages.
@@ -17,6 +22,8 @@ use LaravelZero\Framework\Commands\Command;
  */
 class PublishHomepageCommand extends Command
 {
+    use AsksToRebuildSite;
+
     /** @var string */
     protected $signature = 'publish:homepage {homepage? : The name of the page to publish}
                                 {--force : Overwrite any existing files}';
@@ -24,57 +31,74 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
-    protected string $selected;
+    protected array $options = [
+        'welcome'=> [
+            'name' => 'Welcome',
+            'description' => 'The default welcome page.',
+            'group' => 'hyde-welcome-page',
+        ],
+        'posts'=> [
+            'name' => 'Posts Feed',
+            'description' => 'A feed of your latest posts. Perfect for a blog site!',
+            'group' => 'hyde-posts-page',
+        ],
+        'blank'=>  [
+            'name' => 'Blank Starter',
+            'description' => 'A blank Blade template with just the base layout.',
+            'group' => 'hyde-blank-page',
+        ],
+    ];
 
     public function handle(): int
     {
-        $this->selected = $this->argument('homepage') ?? $this->promptForHomepage();
+        $selected = $this->parseSelection();
 
-        if (! $this->canExistingIndexFileBeOverwritten()) {
+        if (! $this->canExistingFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
 
             return 409;
         }
 
-        $returnValue = (new PublishesHomepageView(
-            $this->selected
-        ))->execute();
+        $tagExists = array_key_exists($selected, $this->options);
 
-        if (is_numeric($returnValue)) {
-            if ($returnValue == 404) {
-                $this->error('Homepage '.$this->selected.' does not exist.');
+        Artisan::call('vendor:publish', [
+            '--tag' => $this->options[$selected]['group'] ?? $selected,
+            '--force' => true, // Todo add force state dynamically depending on existing file state
+        ], ! $tagExists ? $this->output : null);
 
-                return 404;
-            }
+        if ($tagExists) {
+            $this->infoComment("Published page [$selected]");
+
+            $this->askToRebuildSite();
         }
 
-        $this->line("<info>Published page</info> [<comment>$this->selected</comment>]");
+        return $tagExists ? Command::SUCCESS : 404;
+    }
 
-        $this->askToRebuildSite();
-
-        return Command::SUCCESS;
+    protected function parseSelection(): string
+    {
+        return $this->argument('homepage') ?? $this->parseChoiceIntoKey($this->promptForHomepage());
     }
 
     protected function promptForHomepage(): string
     {
-        /** @var string $choice */
-        $choice = $this->choice(
+        return $this->choice(
             'Which homepage do you want to publish?',
             $this->formatPublishableChoices(),
             0
         );
-
-        return $this->parseChoiceIntoKey($choice);
     }
 
     protected function formatPublishableChoices(): array
     {
-        $keys = [];
-        foreach (PublishesHomepageView::$homePages as $key => $value) {
-            $keys[] = "<comment>$key</comment>: {$value['description']}";
-        }
+        return $this->getTemplateOptions()->map(function (array $option, string $key): string {
+            return  "<comment>$key</comment>: {$option['description']}";
+        })->values()->toArray();
+    }
 
-        return $keys;
+    protected function getTemplateOptions(): Collection
+    {
+        return new Collection($this->options);
     }
 
     protected function parseChoiceIntoKey(string $choice): string
@@ -82,29 +106,23 @@ class PublishHomepageCommand extends Command
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true);
     }
 
-    protected function canExistingIndexFileBeOverwritten(): bool
+    protected function canExistingFileBeOverwritten(): bool
     {
-        if (! file_exists(Hyde::getBladePagePath('index.blade.php')) || $this->option('force')) {
+        if ($this->option('force')) {
             return true;
         }
 
-        return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
-            Hyde::getBladePagePath('index.blade.php')
-        )) || $this->option('force');
+        if (! file_exists(Hyde::getBladePagePath('index.blade.php'))) {
+            return true;
+        }
+
+        return $this->isTheExistingFileADefaultOne();
     }
 
-    protected function askToRebuildSite(): void
+    protected function isTheExistingFileADefaultOne(): bool
     {
-        if ($this->option('no-interaction')) {
-            return;
-        }
-
-        if ($this->confirm('Would you like to rebuild the site?', 'Yes')) {
-            $this->line('Okay, building site!');
-            Artisan::call('build');
-            $this->info('Site is built!');
-        } else {
-            $this->line('Okay, you can always run the build later!');
-        }
+        return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
+            Hyde::getBladePagePath('index.blade.php')
+        ));
     }
 }

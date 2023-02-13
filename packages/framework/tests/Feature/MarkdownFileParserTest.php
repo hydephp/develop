@@ -28,7 +28,7 @@ This is a post stub used in the automated tests
 
     protected function tearDown(): void
     {
-        unlink(Hyde::path('_posts/test-post.md'));
+        Hyde::unlink('_posts/test-post.md');
 
         parent::tearDown();
     }
@@ -37,7 +37,7 @@ This is a post stub used in the automated tests
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
 
-        $document = (new MarkdownFileParser(('_posts/test-post.md')))->get();
+        $document = (new MarkdownFileParser('_posts/test-post.md'))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals('Foo bar', $document->markdown);
@@ -47,7 +47,7 @@ This is a post stub used in the automated tests
     {
         $this->makeTestPost();
 
-        $document = (new MarkdownFileParser(('_posts/test-post.md')))->get();
+        $document = (new MarkdownFileParser('_posts/test-post.md'))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals(FrontMatter::fromArray([
@@ -56,9 +56,11 @@ This is a post stub used in the automated tests
             'author' => 'Mr. Hyde',
         ]), $document->matter);
 
-        $this->assertEquals(
-            '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', (string) $document->markdown)
+        $this->assertEquals(str_replace("\r", '',
+                '# My New Post
+
+This is a post stub used in the automated tests'),
+            (string) $document->markdown
         );
     }
 
@@ -66,33 +68,26 @@ This is a post stub used in the automated tests
     {
         $this->makeTestPost();
 
-        $post = (new MarkdownFileParser(('_posts/test-post.md')))->get();
+        $post = (new MarkdownFileParser('_posts/test-post.md'))->get();
         $this->assertEquals('My New Post', $post->matter('title'));
         $this->assertEquals('Mr. Hyde', $post->matter('author'));
         $this->assertEquals('blog', $post->matter('category'));
-    }
-
-    public function test_parsed_front_matter_does_not_contain_slug_key()
-    {
-        file_put_contents(Hyde::path('_posts/test-post.md'), "---\nslug: foo\n---\n");
-
-        $post = (new MarkdownFileParser(('_posts/test-post.md')))->get();
-        $this->assertNull($post->matter('slug'));
-        $this->assertEquals(FrontMatter::fromArray([]), $post->matter);
     }
 
     public function test_static_parse_shorthand()
     {
         $this->makeTestPost();
 
-        $post = MarkdownFileParser::parse(('_posts/test-post.md'));
+        $post = MarkdownFileParser::parse('_posts/test-post.md');
         $this->assertEquals('My New Post', $post->matter('title'));
         $this->assertEquals('Mr. Hyde', $post->matter('author'));
         $this->assertEquals('blog', $post->matter('category'));
 
-        $this->assertEquals(
-            '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', (string) $post->markdown)
+        $this->assertEquals(str_replace("\r", '',
+                '# My New Post
+
+This is a post stub used in the automated tests'),
+            (string) $post->markdown
         );
     }
 }

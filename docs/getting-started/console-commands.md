@@ -1,5 +1,6 @@
 ---
-priority: 5
+navigation:
+    priority: 5
 ---
 
 # Console Commands
@@ -225,7 +226,7 @@ Note that when a view is updated in the framework you will need to republish the
 
 ### Republish the configuration files
 ```bash
-php hyde update:configs   
+php hyde publish:configs   
 ```
 
 When updating Hyde to a new version (or if you mess up your config files),

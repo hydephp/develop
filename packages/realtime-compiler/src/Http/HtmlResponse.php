@@ -2,7 +2,9 @@
 
 namespace Hyde\RealtimeCompiler\Http;
 
-class HtmlResponse extends \Desilva\Microserve\Response
+use Desilva\Microserve\Response;
+
+class HtmlResponse extends Response
 {
     public function send(): void
     {

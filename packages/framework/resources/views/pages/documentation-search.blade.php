@@ -1,9 +1,3 @@
-@php
-    // Emulate a page object
-    Hyde::shareViewData(\Hyde\Pages\DocumentationPage::make('search', ['title' => 'Search']));
-    $markdown = '';
-@endphp
-
 @extends('hyde::layouts.docs')
 @section('content')
     <h1>Search the documentation site</h1>

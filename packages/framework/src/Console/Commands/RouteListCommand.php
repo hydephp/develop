@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Pages\Contracts\DynamicPage;
 
 /**
  * Hyde command to display the list of site routes.
@@ -40,7 +40,7 @@ class RouteListCommand extends Command
         foreach (Hyde::routes() as $route) {
             $routes[] = [
                 $this->formatPageType($route->getPageClass()),
-                $this->formatSourcePath($route->getSourcePath()),
+                $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
                 $this->formatOutputPath($route->getOutputPath()),
                 $route->getRouteKey(),
             ];
@@ -51,12 +51,16 @@ class RouteListCommand extends Command
 
     protected function formatPageType(string $class): string
     {
-        return str_replace('Hyde\\Pages\\', '', $class);
+        return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
-    protected function formatSourcePath(string $path): string
+    protected function formatSourcePath(string $path, string $class): string
     {
-        return $this->clickablePathLink(DiscoveryService::createClickableFilepath(Hyde::path($path)), $path);
+        if (is_a($class, DynamicPage::class, true)) {
+            return '<fg=yellow>dynamic</>';
+        }
+
+        return $this->clickablePathLink(static::createClickableFilepath(Hyde::path($path)), $path);
     }
 
     protected function formatOutputPath(string $path): string
@@ -65,7 +69,7 @@ class RouteListCommand extends Command
             return "_site/$path";
         }
 
-        return $this->clickablePathLink(DiscoveryService::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
+        return $this->clickablePathLink(static::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
     }
 
     protected function clickablePathLink(string $link, string $path): string

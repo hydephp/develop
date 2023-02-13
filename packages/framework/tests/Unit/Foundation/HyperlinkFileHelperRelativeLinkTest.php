@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Foundation\Hyperlinks::relativeLink
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks::relativeLink
  */
 class HyperlinkFileHelperRelativeLinkTest extends TestCase
 {
@@ -65,28 +65,28 @@ class HyperlinkFileHelperRelativeLinkTest extends TestCase
 
     public function test_helper_returns_pretty_url_if_enabled_and_destination_is_a_html_file()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $this->mockCurrentPage('foo/bar.html');
         $this->assertEquals('../foo', Hyde::relativeLink('foo.html'));
     }
 
     public function test_helper_method_does_not_require_current_path_to_be_html_to_use_pretty_urls()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $this->mockCurrentPage('foo/bar');
         $this->assertEquals('../foo', Hyde::relativeLink('foo.html'));
     }
 
     public function test_helper_returns_does_not_return_pretty_url_if_when_enabled_but_and_destination_is_not_a_html_file()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $this->mockCurrentPage('foo/bar.html');
         $this->assertEquals('../foo.png', Hyde::relativeLink('foo.png'));
     }
 
     public function test_helper_rewrites_index_when_using_pretty_urls()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $this->mockCurrentPage('foo.html');
         $this->assertEquals('/', Hyde::relativeLink('index.html'));
         $this->mockCurrentPage('foo/bar.html');
@@ -97,7 +97,7 @@ class HyperlinkFileHelperRelativeLinkTest extends TestCase
 
     public function test_helper_does_not_rewrite_index_when_not_using_pretty_urls()
     {
-        config(['site.pretty_urls' => false]);
+        config(['hyde.pretty_urls' => false]);
         $this->mockCurrentPage('foo.html');
         $this->assertEquals('index.html', Hyde::relativeLink('index.html'));
         $this->mockCurrentPage('foo/bar.html');
@@ -108,7 +108,7 @@ class HyperlinkFileHelperRelativeLinkTest extends TestCase
 
     public function test_helper_rewrites_documentation_page_index_when_using_pretty_urls()
     {
-        config(['site.pretty_urls' => true]);
+        config(['hyde.pretty_urls' => true]);
         $this->mockCurrentPage('foo.html');
         $this->assertEquals('docs/', Hyde::relativeLink('docs/index.html'));
         $this->mockCurrentPage('docs.html');
@@ -121,7 +121,7 @@ class HyperlinkFileHelperRelativeLinkTest extends TestCase
 
     public function test_helper_does_not_rewrite_documentation_page_index_when_not_using_pretty_urls()
     {
-        config(['site.pretty_urls' => false]);
+        config(['hyde.pretty_urls' => false]);
         $this->mockCurrentPage('foo.html');
         $this->assertEquals('docs/index.html', Hyde::relativeLink('docs/index.html'));
         $this->mockCurrentPage('docs.html');

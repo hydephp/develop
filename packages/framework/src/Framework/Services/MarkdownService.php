@@ -83,8 +83,8 @@ class MarkdownService
     protected function runPreProcessing(): void
     {
         /** @var PreProcessor $processor */
-        foreach ($this->preprocessors as $processor) {
-            $this->markdown = $processor::preprocess($this->markdown);
+        foreach ($this->preprocessors as $preprocessor) {
+            $this->markdown = $preprocessor::preprocess($this->markdown);
         }
     }
 
@@ -94,13 +94,10 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        /** @var PostProcessor $processor */
-        foreach ($this->postprocessors as $processor) {
-            $this->html = $processor::postprocess($this->html);
+        /** @var PostProcessor $postprocessor */
+        foreach ($this->postprocessors as $postprocessor) {
+            $this->html = $postprocessor::postprocess($this->html);
         }
-
-        // Remove any Hyde annotations (everything between `// HYDE!` and `HYDE! //`) (must be done last)
-        $this->html = preg_replace('/ \/\/ HYDE!.*HYDE! \/\//s', '', $this->html);
     }
 
     public function getExtensions(): array
@@ -208,5 +205,45 @@ class MarkdownService
                 'disallowed_tags' => [],
             ],
         ], $this->config);
+    }
+
+    /**
+     * Normalize indentation for an un-compiled Markdown string.
+     */
+    public static function normalizeIndentationLevel(string $string): string
+    {
+        $lines = self::getNormalizedLines($string);
+
+        [$startNumber, $indentationLevel] = self::findLineContentPositions($lines);
+
+        foreach ($lines as $lineNumber => $line) {
+            if ($lineNumber >= $startNumber) {
+                $lines[$lineNumber] = substr($line, $indentationLevel);
+            }
+        }
+
+        return implode("\n", $lines);
+    }
+
+    protected static function getNormalizedLines(string $string): array
+    {
+        return explode("\n", str_replace(["\t", "\r\n"], ['    ', "\n"], $string));
+    }
+
+    /** @return int[]  Find the indentation level and position of the first line that has content */
+    protected static function findLineContentPositions(array $lines): array
+    {
+        foreach ($lines as $lineNumber => $line) {
+            if (filled(trim($line))) {
+                $lineLen = strlen($line);
+                $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
+
+                if ($lineLen !== $stripLen) {
+                    return [$lineNumber, $lineLen - $stripLen];
+                }
+            }
+        }
+
+        return [0, 0];
     }
 }

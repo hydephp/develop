@@ -11,6 +11,7 @@ use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Illuminate\Support\Str;
 use function is_string;
 use RuntimeException;
 use function str_starts_with;
@@ -19,7 +20,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 {
     use InteractsWithFrontMatter;
 
-    public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
+    final public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
     protected readonly string $source;
     protected readonly ?string $altText;
@@ -43,6 +44,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $this->licenseUrl = $this->makeLicenseUrl();
     }
 
+    /**
+     * @return array{source: string, altText: string|null, titleText: string|null, authorName: string|null, authorUrl: string|null, copyrightText: string|null, licenseName: string|null, licenseUrl: string|null}
+     */
     public function toArray(): array
     {
         return [
@@ -61,11 +65,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (str_starts_with($data['source'], '_media')) {
-            return new LocalFeaturedImage(...$data);
+        if (self::isRemote($matter)) {
+            return new RemoteFeaturedImage(...$data);
         }
 
-        return new RemoteFeaturedImage(...$data);
+        return new LocalFeaturedImage(...$data);
     }
 
     protected function makeSource(): string
@@ -130,14 +134,18 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $path = Hyde::pathToRelative($path);
 
-        if (str_starts_with($path, '_media/')) {
-            return $path;
+        $path = Str::after($path, Hyde::getMediaDirectory());
+        $path = Str::after($path, Hyde::getMediaOutputDirectory());
+
+        return unslash($path);
+    }
+
+    protected static function isRemote(FrontMatter $matter): bool
+    {
+        if (is_string($matter->get('image')) && str_starts_with($matter->get('image'), 'http')) {
+            return true;
         }
 
-        if (str_starts_with($path, 'media/')) {
-            return '_'.$path;
-        }
-
-        return '_media/'.$path;
+        return $matter->get('image.url') !== null;
     }
 }

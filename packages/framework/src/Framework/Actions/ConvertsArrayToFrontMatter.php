@@ -18,12 +18,12 @@ class ConvertsArrayToFrontMatter
      *
      * @return string $yaml front matter
      */
-    public function execute(array $array): string
+    public function execute(array $array, int $flags = 0): string
     {
         if (empty($array)) {
             return '';
         }
 
-        return "---\n".Yaml::dump($array)."---\n";
+        return "---\n".Yaml::dump($array, flags: $flags)."---\n";
     }
 }

@@ -10,9 +10,9 @@ use Hyde\Pages\MarkdownPost;
 
 trait HasFactory
 {
-    public function constructFactoryData(PageDataFactory $data): void
+    public function constructFactoryData(PageDataFactory $factory): void
     {
-        foreach ($data->toArray() as $key => $value) {
+        foreach ($factory->toArray() as $key => $value) {
             $this->{$key} = $value;
         }
     }

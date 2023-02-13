@@ -28,8 +28,10 @@
 
 ## Projects in this monorepo
 
+[![Upcoming Documentation](https://img.shields.io/badge/-Upcoming%20Documentation-525252)](https://hydephp.github.io/develop/master/dev-docs/)
 [![API Documentation](https://img.shields.io/badge/-API%20Documentation-525252)](https://hydephp.github.io/develop/master/api-docs/)
 [![HTML Code Coverage](https://img.shields.io/badge/-HTML%20Code%20Coverage-525252)](https://hydephp.github.io/develop/master/coverage/)
+[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/9d5269d1/hydephp)
 
 **HydePHP consists of a few core components, the development of which is done in this monorepo.**
 
@@ -49,15 +51,17 @@ The two most important components are **Hyde** and **Framework**. We also use **
 | **Hyde**              | [Root directory](https://github.com/hydephp/develop)*    | [hydephp/hyde](https://github.com/hydephp/hyde)                           | [hyde/hyde](https://packagist.org/packages/hyde/hyde)                           |
 | **Framework**         | [packages/framework](packages/framework)                 | [hydephp/framework](https://github.com/hydephp/framework)                 | [hyde/framework](https://packagist.org/packages/hyde/framework)                 |
 | **Realtime Compiler** | [packages/realtime-compiler](packages/realtime-compiler) | [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler) | [hyde/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler) |
+| **Testing**           | [packages/testing](packages/testing)                     | [hydephp/testing](https://github.com/hydephp/testing)                     | [hyde/testing](https://packagist.org/packages/hyde/testing)                     |
+| **UI Kit**            | [packages/ui-kit](packages/ui-kit)                       | [hydephp/ui-kit](https://github.com/hydephp/ui-kit)                       | [hyde/ui-kit](https://packagist.org/packages/hyde/ui-kit)                       |
 | **HydeFront**         | [packages/hydefront](packages/hydefront)                 | [hydephp/hydefront](https://github.com/hydephp/hydefront)                 | [npm@hydefront](https://www.npmjs.com/package/hydefront)                        |
 
 
 *The Hyde/Hyde project is stored in the monorepo root and works a bit differently from the others. Before pushing to the readonly repository, we apply persisted changes in the [`packages/hyde`](https://github.com/hydephp/develop/tree/master/packages/hyde) directory, then remove monorepo specific files.
 
 
-## How the monorepo works
+### How the monorepo works
 
-Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop/master` branches of the readonly repositories seen in the table above. These branches could be unstable.
+Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop` or `master` branches of the readonly repositories seen in the table above. These branches could be unstable.
 
 This monorepo project is still new, and the internal structure of it may be changed without notice.
 

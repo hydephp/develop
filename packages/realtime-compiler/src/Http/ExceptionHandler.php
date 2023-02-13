@@ -3,6 +3,7 @@
 namespace Hyde\RealtimeCompiler\Http;
 
 use Desilva\Microserve\Response;
+use Throwable;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
@@ -12,7 +13,7 @@ use Whoops\Run;
  */
 class ExceptionHandler
 {
-    public static function handle(\Throwable $exception): Response
+    public static function handle(Throwable $exception): Response
     {
         $whoops = new Run();
         $whoops->allowQuit(false);

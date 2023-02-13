@@ -43,7 +43,7 @@ class MakePostCommand extends Command
         return $this->createPostFile($creator);
     }
 
-    protected function getTitle(): mixed
+    protected function getTitle(): string
     {
         $this->line($this->argument('title')
                 ? '<info>Selected title: '.$this->argument('title')."</info>\n"

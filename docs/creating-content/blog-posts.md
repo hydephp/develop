@@ -1,6 +1,7 @@
 ---
-label: "Creating Blog Posts"
-priority: 11
+navigation:
+    label: "Creating Blog Posts"
+    priority: 11
 ---
 
 # Creating Blog Posts

@@ -1,33 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Testing;
 
+use function config;
+use function file_get_contents;
 use Hyde\Facades\Features;
-use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Support\Models\Route;
+use function Hyde\normalize_newlines;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
-use function strip_newlines;
-
-require_once __DIR__.'/helpers.php';
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use ResetsApplication;
+    use CreatesTemporaryFiles;
+    use InteractsWithPages;
 
     protected static bool $booted = false;
 
-    protected array $fileMemory = [];
-
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,20 +32,12 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    /**
-     * Clean up the testing environment before the next test.
-     *
-     * @return void
-     */
     protected function tearDown(): void
     {
-        if (sizeof($this->fileMemory) > 0) {
-            Hyde::unlink($this->fileMemory);
-            $this->fileMemory = [];
-        }
+        $this->cleanUpFilesystem();
 
-        if (method_exists(\Illuminate\View\Component::class, 'flushCache')) {
-            /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
+        if (method_exists(Component::class, 'flushCache')) {
+            /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the view cache ourselves */
             Component::flushCache();
             Component::forgetComponentsResolver();
             Component::forgetFactory();
@@ -63,53 +48,22 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
-    /** @internal */
-    protected function mockRoute(?Route $route = null)
+    protected function assertFileEqualsString(string $string, string $path, bool $strict = false): void
     {
-        view()->share('currentRoute', $route ?? (new Route(new MarkdownPage())));
-    }
-
-    /** @internal */
-    protected function mockPage(?HydePage $page = null, ?string $currentPage = null)
-    {
-        view()->share('page', $page ?? new MarkdownPage());
-        view()->share('currentPage', $currentPage ?? 'PHPUnit');
-    }
-
-    /** @internal */
-    protected function mockCurrentPage(string $currentPage)
-    {
-        view()->share('currentPage', $currentPage);
-    }
-
-    /**
-     * Create a temporary file in the project directory.
-     * The TestCase will automatically remove the file when the test is completed.
-     */
-    protected function file(string $path, ?string $contents = null): void
-    {
-        if ($contents) {
-            file_put_contents(Hyde::path($path), $contents);
+        if ($strict) {
+            $this->assertSame($string, file_get_contents(Hyde::path($path)));
         } else {
-            Hyde::touch($path);
+            $this->assertEquals(normalize_newlines($string), normalize_newlines(file_get_contents(Hyde::path($path))));
         }
-
-        $this->fileMemory[] = $path;
     }
 
     /**
-     * Create a temporary Markdown+FrontMatter file in the project directory.
+     * Disable the throwing of exceptions on console commands for the duration of the test.
+     *
+     * Note that this only affects commands using the {@see \Hyde\Console\Concerns\Command::safeHandle()} method.
      */
-    protected function markdown(string $path, string $contents = '', array $matter = []): void
+    protected function throwOnConsoleException(bool $throw = true): void
     {
-        $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
-    }
-
-    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
-    {
-        $this->assertEquals(
-            strip_newlines($expected, true),
-            strip_newlines($actual, true),
-        );
+        config(['app.throw_on_console_exception' => $throw]);
     }
 }

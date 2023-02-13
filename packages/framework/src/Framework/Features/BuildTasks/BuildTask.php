@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\BuildTasks;
 
+use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -15,20 +16,23 @@ use Throwable;
 abstract class BuildTask
 {
     use InteractsWithIO;
+    use TracksExecutionTime;
 
+    /** @todo Consider renaming to $message */
     protected static string $description = 'Generic build task';
-
-    protected float $timeStart;
 
     /**
      * @todo Consider setting default value to 0
      */
     protected ?int $exitCode = null;
 
+    /** @var \Illuminate\Console\OutputStyle|null */
+    protected $output;
+
     public function __construct(?OutputStyle $output = null)
     {
+        $this->startClock();
         $this->output = $output;
-        $this->timeStart = microtime(true);
     }
 
     public function handle(): ?int
@@ -53,17 +57,12 @@ abstract class BuildTask
 
     public function then(): void
     {
-        $this->writeln('<fg=gray>Done in '.$this->getExecutionTime().'</>');
+        $this->writeln('<fg=gray>Done in '.$this->getExecutionTimeString().'</>');
     }
 
     public function getDescription(): string
     {
         return static::$description;
-    }
-
-    public function getExecutionTime(): string
-    {
-        return number_format((microtime(true) - $this->timeStart) * 1000, 2).'ms';
     }
 
     public function write(string $message): void
@@ -88,7 +87,7 @@ abstract class BuildTask
 
     public function withExecutionTime(): static
     {
-        $this->write(" in {$this->getExecutionTime()}");
+        $this->write(" in {$this->getExecutionTimeString()}");
 
         return $this;
     }

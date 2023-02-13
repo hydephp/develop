@@ -10,7 +10,9 @@ use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
- * @internal Sets up the Markdown converter for the Markdown service.
+ * Sets up the Markdown converter for the Markdown service.
+ *
+ * @internal This trait is not covered by the backward compatibility promise.
  *
  * @see \Hyde\Framework\Services\MarkdownService
  */

@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
@@ -22,7 +23,7 @@ class DocumentationPageTest extends TestCase
 {
     public function test_can_generate_table_of_contents()
     {
-        $page = DocumentationPage::make(body: '# Foo');
+        $page = DocumentationPage::make(markdown: '# Foo');
         $this->assertIsString($page->getTableOfContents());
     }
 
@@ -143,6 +144,19 @@ class DocumentationPageTest extends TestCase
         File::deleteDirectory(Hyde::path('foo'));
     }
 
+    public function test_home_route_name_method_returns_output_directory_slash_index()
+    {
+        $this->assertSame('docs/index', DocumentationPage::homeRouteName());
+    }
+
+    public function test_home_route_name_method_returns_customized_output_directory_slash_index()
+    {
+        config(['docs.output_directory' => 'foo/bar']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $this->assertSame('foo/bar/index', DocumentationPage::homeRouteName());
+    }
+
     public function test_has_table_of_contents()
     {
         $this->assertIsBool(DocumentationPage::hasTableOfContents());
@@ -171,7 +185,7 @@ class DocumentationPageTest extends TestCase
         $page = DocumentationPage::parse('foo');
         $this->assertNotNull($page->matter());
         $this->assertNotEmpty($page->matter());
-        $this->assertEquals($expected, $page->matter());
+        $this->assertEquals(new FrontMatter($expected), $page->matter());
     }
 
     public function test_page_can_be_hidden_from_sidebar_using_front_matter()

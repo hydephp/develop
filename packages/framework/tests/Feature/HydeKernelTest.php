@@ -7,15 +7,18 @@ namespace Hyde\Framework\Testing\Feature;
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\HtmlString;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
@@ -67,94 +70,160 @@ class HydeKernelTest extends TestCase
 
     public function test_has_feature_helper_calls_method_on_features_class()
     {
-        $this->assertEquals(Features::enabled('foo'), Hyde::hasFeature('foo'));
+        $this->assertSame(Features::enabled('foo'), Hyde::hasFeature('foo'));
     }
 
     public function test_current_page_helper_returns_current_page_name()
     {
-        View::share('currentPage', 'foo');
-        $this->assertEquals('foo', Hyde::currentPage());
+        Render::share('currentPage', 'foo');
+        $this->assertSame('foo', Hyde::currentPage());
     }
 
     public function test_current_route_helper_returns_current_route_object()
     {
         $expected = new Route(new MarkdownPage());
-        View::share('currentRoute', $expected);
+        Render::share('currentRoute', $expected);
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
-        $this->assertEquals($expected, Hyde::currentRoute());
+        $this->assertSame($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }
 
     public function test_make_title_helper_returns_title_from_page_slug()
     {
-        $this->assertEquals('Foo Bar', Hyde::makeTitle('foo-bar'));
+        $this->assertSame('Foo Bar', Hyde::makeTitle('foo-bar'));
+    }
+
+    public function test_normalize_newlines_replaces_carriage_returns_with_unix_endings()
+    {
+        $this->assertSame("foo\nbar\nbaz", Hyde::normalizeNewlines("foo\nbar\r\nbaz"));
+    }
+
+    public function test_strip_newlines_helper_removes_all_newlines()
+    {
+        $this->assertSame('foo bar baz', Hyde::stripNewlines("foo\n bar\r\n baz"));
+    }
+
+    public function test_trimSlashes_function_trims_trailing_slashes()
+    {
+        $tests = ['foo',  '/foo',  'foo/',  '/foo/',  '\foo\\',  '\\/foo/\\'];
+
+        foreach ($tests as $test) {
+            $this->assertSame('foo', Hyde::trimSlashes($test));
+        }
+
+        $tests = ['',  '/',  '\\',  '/\\'];
+
+        foreach ($tests as $test) {
+            $this->assertSame('', Hyde::trimSlashes($test));
+        }
+
+        $tests = ['foo/bar',  'foo/bar/',  'foo/bar\\',  '\\/foo/bar/\\'];
+
+        foreach ($tests as $test) {
+            $this->assertSame('foo/bar', Hyde::trimSlashes($test));
+        }
+    }
+
+    public function test_markdown_helper_converts_markdown_to_html()
+    {
+        $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('foo'));
+    }
+
+    public function test_markdown_helper_converts_indented_markdown_to_html()
+    {
+        $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('    foo', true));
     }
 
     public function test_format_html_path_helper_formats_path_according_to_config_rules()
     {
-        Config::set('site.pretty_urls', false);
-        $this->assertEquals('foo.html', Hyde::formatLink('foo.html'));
-        $this->assertEquals('index.html', Hyde::formatLink('index.html'));
+        Config::set('hyde.pretty_urls', false);
+        $this->assertSame('foo.html', Hyde::formatLink('foo.html'));
+        $this->assertSame('index.html', Hyde::formatLink('index.html'));
 
-        Config::set('site.pretty_urls', true);
-        $this->assertEquals('foo', Hyde::formatLink('foo.html'));
-        $this->assertEquals('/', Hyde::formatLink('index.html'));
+        Config::set('hyde.pretty_urls', true);
+        $this->assertSame('foo', Hyde::formatLink('foo.html'));
+        $this->assertSame('/', Hyde::formatLink('index.html'));
     }
 
     public function test_relative_link_helper_returns_relative_link_to_destination()
     {
-        View::share('currentPage', 'bar');
-        $this->assertEquals('foo', Hyde::relativeLink('foo'));
+        Render::share('currentPage', 'bar');
+        $this->assertSame('foo', Hyde::relativeLink('foo'));
 
-        View::share('currentPage', 'foo/bar');
-        $this->assertEquals('../foo', Hyde::relativeLink('foo'));
+        Render::share('currentPage', 'foo/bar');
+        $this->assertSame('../foo', Hyde::relativeLink('foo'));
+    }
+
+    public function test_media_link_helper_returns_relative_link_to_destination()
+    {
+        Render::share('currentPage', 'bar');
+        $this->assertSame('media/foo', Hyde::mediaLink('foo'));
+
+        Render::share('currentPage', 'foo/bar');
+        $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
     }
 
     public function test_image_helper_returns_image_path_for_given_name()
     {
-        View::share('currentPage', 'foo');
-        $this->assertEquals('media/foo.jpg', Hyde::image('foo.jpg'));
-        $this->assertEquals('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
+        Render::share('currentPage', 'foo');
+        $this->assertSame('media/foo.jpg', Hyde::image('foo.jpg'));
+        $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
 
-        View::share('currentPage', 'foo/bar');
-        $this->assertEquals('../media/foo.jpg', Hyde::image('foo.jpg'));
-        $this->assertEquals('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
+        Render::share('currentPage', 'foo/bar');
+        $this->assertSame('../media/foo.jpg', Hyde::image('foo.jpg'));
+        $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
+    }
+
+    public function test_image_helper_trims_media_prefix()
+    {
+        $this->assertSame('media/foo.jpg', Hyde::image('media/foo.jpg'));
+    }
+
+    public function test_image_helper_supports_custom_media_directories()
+    {
+        Hyde::setMediaDirectory('_assets');
+        $this->assertSame('assets/foo.jpg', Hyde::image('foo.jpg'));
     }
 
     public function test_has_site_url_helper_returns_boolean_value_for_when_config_setting_is_set()
     {
-        Config::set('site.url', 'https://example.com');
+        Config::set('hyde.url', 'https://example.com');
         $this->assertTrue(Hyde::hasSiteUrl());
 
-        Config::set('site.url', null);
+        Config::set('hyde.url', null);
         $this->assertFalse(Hyde::hasSiteUrl());
     }
 
     public function test_url_returns_qualified_url_paths()
     {
-        Config::set('site.url', 'https://example.com');
-        $this->assertEquals('https://example.com', Hyde::url());
-        $this->assertEquals('https://example.com/foo', Hyde::url('foo'));
+        Config::set('hyde.url', 'https://example.com');
+        $this->assertSame('https://example.com', Hyde::url());
+        $this->assertSame('https://example.com/foo', Hyde::url('foo'));
 
-        Config::set('site.pretty_urls', false);
-        $this->assertEquals('https://example.com/foo.html', Hyde::url('foo.html'));
-        $this->assertEquals('https://example.com/index.html', Hyde::url('index.html'));
+        Config::set('hyde.pretty_urls', false);
+        $this->assertSame('https://example.com/foo.html', Hyde::url('foo.html'));
+        $this->assertSame('https://example.com/index.html', Hyde::url('index.html'));
 
-        Config::set('site.pretty_urls', true);
-        $this->assertEquals('https://example.com/foo', Hyde::url('foo.html'));
-        $this->assertEquals('https://example.com', Hyde::url('index.html'));
+        Config::set('hyde.pretty_urls', true);
+        $this->assertSame('https://example.com/foo', Hyde::url('foo.html'));
+        $this->assertSame('https://example.com', Hyde::url('index.html'));
+    }
+
+    public function test_filesystem_helper_returns_the_kernel_filesystem_instance()
+    {
+        $this->assertInstanceOf(Filesystem::class, Hyde::filesystem());
     }
 
     public function test_path_returns_qualified_path_for_given_path()
     {
-        $this->assertEquals(Hyde::getBasePath(), Hyde::path());
-        $this->assertEquals(Hyde::getBasePath().DIRECTORY_SEPARATOR.'foo', Hyde::path('foo'));
+        $this->assertSame(Hyde::getBasePath(), Hyde::path());
+        $this->assertSame(Hyde::getBasePath().'/foo', Hyde::path('foo'));
     }
 
     public function test_vendor_path_returns_qualified_path_for_given_path()
     {
-        $this->assertEquals(Hyde::getBasePath().DIRECTORY_SEPARATOR.'vendor/hyde/framework', Hyde::vendorPath());
-        $this->assertEquals(Hyde::getBasePath().DIRECTORY_SEPARATOR.'vendor/hyde/framework/foo', Hyde::vendorPath('foo'));
+        $this->assertSame(Hyde::getBasePath().'/vendor/hyde/framework', Hyde::vendorPath());
+        $this->assertSame(Hyde::getBasePath().'/vendor/hyde/framework/foo', Hyde::vendorPath('foo'));
     }
 
     public function test_copy_helper_copies_file_from_given_path_to_given_path()
@@ -182,49 +251,49 @@ class HydeKernelTest extends TestCase
 
     public function test_fluent_model_source_path_helpers()
     {
-        $this->assertEquals(Hyde::path('_posts'), Hyde::getModelSourcePath(MarkdownPost::class));
-        $this->assertEquals(Hyde::path('_pages'), Hyde::getModelSourcePath(MarkdownPage::class));
-        $this->assertEquals(Hyde::path('_docs'), Hyde::getModelSourcePath(DocumentationPage::class));
-        $this->assertEquals(Hyde::path('_pages'), Hyde::getModelSourcePath(BladePage::class));
+        $this->assertSame(Hyde::path('_posts'), Hyde::getModelSourcePath(MarkdownPost::class));
+        $this->assertSame(Hyde::path('_pages'), Hyde::getModelSourcePath(MarkdownPage::class));
+        $this->assertSame(Hyde::path('_docs'), Hyde::getModelSourcePath(DocumentationPage::class));
+        $this->assertSame(Hyde::path('_pages'), Hyde::getModelSourcePath(BladePage::class));
 
-        $this->assertEquals(Hyde::path('_pages'), Hyde::getBladePagePath());
-        $this->assertEquals(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
-        $this->assertEquals(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
-        $this->assertEquals(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
-        $this->assertEquals(Hyde::path('_site'), Hyde::sitePath());
+        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
+        $this->assertSame(Hyde::path('_pages'), Hyde::getBladePagePath());
+        $this->assertSame(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
+        $this->assertSame(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
+        $this->assertSame(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
+        $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
+        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
     public function test_path_to_relative_helper_returns_relative_path_for_given_path()
     {
-        $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('foo')));
+        $this->assertSame('foo', Hyde::pathToRelative(Hyde::path('foo')));
     }
 
     public function test_to_array_method()
     {
-        $array = Hyde::toArray();
-
-        $this->assertTrue(is_array($array));
-        $this->assertCount(5, $array);
-
-        $this->assertArrayHasKey('basePath', $array);
-        $this->assertArrayHasKey('features', $array);
-        $this->assertArrayHasKey('files', $array);
-        $this->assertArrayHasKey('pages', $array);
-        $this->assertArrayHasKey('routes', $array);
-
-        $this->assertEquals(Hyde::getBasePath(), $array['basePath']);
-        $this->assertEquals(Hyde::features(), $array['features']);
-        $this->assertEquals(Hyde::files(), $array['files']);
-        $this->assertEquals(Hyde::pages(), $array['pages']);
-        $this->assertEquals(Hyde::routes(), $array['routes']);
-
+        // AssertSame cannot be used as features is reinstantiated on each call
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
+            'sourceRoot' => Hyde::getSourceRoot(),
+            'outputDirectory' => Hyde::getOutputDirectory(),
+            'mediaDirectory' => Hyde::getMediaDirectory(),
+            'extensions' => Hyde::getRegisteredExtensions(),
             'features' => Hyde::features(),
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),
             'routes' => Hyde::routes(),
         ], Hyde::toArray());
+    }
+
+    public function test_json_serialize_method()
+    {
+        $this->assertEquals(Hyde::kernel()->jsonSerialize(), Hyde::toArray());
+    }
+
+    public function test_to_json_method()
+    {
+        $this->assertEquals(Hyde::kernel()->toJson(), json_encode(Hyde::toArray()));
     }
 
     public function test_version_constant_is_a_valid_semver_string()
@@ -250,12 +319,112 @@ class HydeKernelTest extends TestCase
 
     public function test_can_get_source_root()
     {
-        $this->assertEquals('', Hyde::getSourceRoot());
+        $this->assertSame('', Hyde::getSourceRoot());
     }
 
     public function test_can_set_source_root()
     {
         Hyde::setSourceRoot('foo');
-        $this->assertEquals('foo', Hyde::getSourceRoot());
+        $this->assertSame('foo', Hyde::getSourceRoot());
+    }
+
+    public function test_can_set_source_root_to_absolute_project_path()
+    {
+        Hyde::setSourceRoot(Hyde::path('foo'));
+        $this->assertSame('foo', Hyde::getSourceRoot());
+    }
+
+    public function test_set_source_root_trims_trailing_slashes()
+    {
+        Hyde::setSourceRoot('/foo/');
+        $this->assertSame('/foo', Hyde::getSourceRoot());
+    }
+
+    public function test_can_get_output_directory()
+    {
+        $this->assertSame('_site', Hyde::getOutputDirectory());
+    }
+
+    public function test_can_set_output_directory()
+    {
+        Hyde::setOutputDirectory('foo');
+        $this->assertSame('foo', Hyde::getOutputDirectory());
+        $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
+    }
+
+    public function test_can_set_output_directory_to_absolute_project_path()
+    {
+        Hyde::setOutputDirectory(Hyde::path('foo'));
+        $this->assertSame('foo', Hyde::getOutputDirectory());
+        $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
+    }
+
+    public function test_set_output_directory_trims_trailing_slashes()
+    {
+        Hyde::setOutputDirectory('/foo/');
+        $this->assertSame('/foo', Hyde::getOutputDirectory());
+    }
+
+    public function test_can_get_media_directory()
+    {
+        $this->assertSame('_media', Hyde::getMediaDirectory());
+    }
+
+    public function test_can_set_media_directory()
+    {
+        Hyde::setMediaDirectory('foo');
+        $this->assertSame('foo', Hyde::getMediaDirectory());
+    }
+
+    public function test_set_media_directory_trims_trailing_slashes()
+    {
+        Hyde::setMediaDirectory('/foo/');
+        $this->assertSame('/foo', Hyde::getMediaDirectory());
+    }
+
+    public function test_can_get_media_output_directory_name()
+    {
+        $this->assertSame('media', Hyde::getMediaOutputDirectory());
+    }
+
+    public function test_get_media_output_directory_name_uses_trimmed_version_of_media_source_directory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame('foo', Hyde::getMediaOutputDirectory());
+    }
+
+    public function test_can_get_site_media_output_directory()
+    {
+        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
+    }
+
+    public function test_get_site_media_output_directory_uses_trimmed_version_of_media_source_directory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame(Hyde::path('_site/foo'), Hyde::siteMediaPath());
+    }
+
+    public function test_get_site_media_output_directory_uses_configured_site_output_directory()
+    {
+        Hyde::setOutputDirectory(Hyde::path('foo'));
+        Hyde::setMediaDirectory('bar');
+        $this->assertSame(Hyde::path('foo/bar'), Hyde::siteMediaPath());
+    }
+
+    public function test_media_output_directory_can_be_changed_in_configuration()
+    {
+        $this->assertEquals('_media', Hyde::getMediaDirectory());
+
+        config(['hyde.media_directory' => '_assets']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $this->assertEquals('_assets', Hyde::getMediaDirectory());
+    }
+
+    public function test_can_access_kernel_fluently_using_the_facade()
+    {
+        $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
+        $this->assertSame(HydeKernel::getInstance(), Hyde::kernel());
+        $this->assertSame(HydeKernel::VERSION, Hyde::kernel()->version());
     }
 }

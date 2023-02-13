@@ -7,7 +7,7 @@ namespace Hyde\Framework\Services;
 use function class_exists;
 use function config;
 use function glob;
-use Hyde\Foundation\Facades\FileCollection;
+use Hyde\Foundation\Facades\Files;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -15,12 +15,11 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\File;
+use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
 use function implode;
 use function is_array;
 use function is_subclass_of;
-use function realpath;
 use function sprintf;
 use function str_replace;
 use function unslash;
@@ -36,7 +35,7 @@ use function unslash;
  */
 class DiscoveryService
 {
-    public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+    final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
     public static function getBladePageFiles(): array
     {
@@ -62,6 +61,7 @@ class DiscoveryService
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
+     * @return array<string>
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *
@@ -74,7 +74,7 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        return FileCollection::getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
+        return Files::getSourceFiles($model)->flatten()->map(function (SourceFile $file) use ($model): string {
             return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
         })->toArray();
     }
@@ -89,18 +89,6 @@ class DiscoveryService
     public static function getModelSourceDirectory(string $model): string
     {
         return $model::sourceDirectory();
-    }
-
-    /**
-     * Create a filepath that can be opened in the browser from a terminal.
-     */
-    public static function createClickableFilepath(string $filepath): string
-    {
-        if (realpath($filepath) === false) {
-            return $filepath;
-        }
-
-        return 'file://'.str_replace('\\', '/', realpath($filepath));
     }
 
     /**
@@ -132,7 +120,7 @@ class DiscoveryService
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf('_media/*.{%s}', static::parseConfiguredMediaExtensions(
+        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', static::parseConfiguredMediaExtensions(
             config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
     }

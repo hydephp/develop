@@ -10,9 +10,9 @@ namespace Hyde\Support\Models;
  */
 class ValidationResult
 {
-    public const PASSED = 0;
-    public const SKIPPED = 1;
-    public const FAILED = 2;
+    final public const PASSED = 0;
+    final public const SKIPPED = 1;
+    final public const FAILED = 2;
 
     public string $message;
     public string $tip;
@@ -92,7 +92,7 @@ class ValidationResult
 
     public function formattedMessage(?string $withTimeString = null): string
     {
-        $string = '  '.$this->formatResult($this->message).$this->formatTimeString($withTimeString);
+        $string = "  {$this->formatResult($this->message)} {$this->formatTimeString($withTimeString)}";
         if ($this->tip()) {
             $string .= "\n".str_repeat(' ', 9).$this->formatTip($this->tip);
         }
@@ -126,7 +126,7 @@ class ValidationResult
 
     protected function formatTimeString(string $time): string
     {
-        return "<fg=gray> ({$time}ms)</>";
+        return "<fg=gray>({$time}ms)</>";
     }
 
     protected function formatTip(string $tip): string

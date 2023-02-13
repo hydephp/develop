@@ -33,14 +33,21 @@ If any of these statements are true, you will probably need to make changes to y
 
 In all cases, you will most definitely need to republish the configuration files and update the `app/bootstrap.php` file.
 
+### Upgrade guide
+
+The easiest way to upgrade your project is to copy over your content (source files, etc.) to a new project.
+
 #### Major breaking changes
 
 These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
 
 - HydePHP now requires PHP 8.1 or higher.
 - Almost all namespaces in the framework have been changed and restructured.
+- Many of the internal underling Laravel application files have been moved, this means your `app/` directory will look a bit different. See [`#873`](https://github.com/hydephp/develop/pull/873)
+- The `config/site.php` file has been merged into `config/hyde.php`. See [`#964`](https://github.com/hydephp/develop/pull/964) for the upgrade guide.
 
 #### Breaking internal changes
+
 These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
 Instead, these changes will likely only concern those who write custom code and integrations using the HydePHP framework.
 

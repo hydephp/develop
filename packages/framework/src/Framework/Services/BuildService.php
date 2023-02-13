@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Closure;
 use Hyde\Facades\Site;
-use Hyde\Foundation\RouteCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use function collect;
 
 /**
  * Moves logic from the build command to a service.
@@ -39,7 +41,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        $this->getDiscoveredModels()->each(function (string $pageClass) {
+        collect($this->getPageTypes())->each(function (string $pageClass): void {
             $this->compilePagesForClass($pageClass);
         });
     }
@@ -51,60 +53,42 @@ class BuildService
 
             if ($this->isItSafeToCleanOutputDirectory()) {
                 array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-                File::cleanDirectory(Hyde::sitePath('media'));
+                File::cleanDirectory(Hyde::siteMediaPath());
             }
         }
     }
 
     public function transferMediaAssets(): void
     {
-        $this->needsDirectory(Hyde::sitePath('media'));
+        $this->needsDirectory(Hyde::siteMediaPath());
 
-        $collection = DiscoveryService::getMediaAssetFiles();
         $this->comment('Transferring Media Assets...');
+        $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
+            $sitePath = Hyde::siteMediaPath(Str::after($filepath, Hyde::mediaPath()));
+            $this->needsParentDirectory($sitePath);
+            copy($filepath, $sitePath);
+        });
 
-        $this->withProgressBar(
-            $collection,
-            function ($filepath) {
-                copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
-            }
-        );
         $this->newLine(2);
     }
 
     /**
-     * @return \Hyde\Foundation\RouteCollection<array-key, class-string<\Hyde\Pages\Concerns\HydePage>>
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
-    protected function getDiscoveredModels(): RouteCollection
-    {
-        return $this->router->getRoutes()->map(function (Route $route) {
-            return $route->getPageClass();
-        })->unique();
-    }
-
     protected function compilePagesForClass(string $pageClass): void
     {
-        $this->comment("Creating {$this->getModelPluralName($pageClass)}...");
+        $this->comment("Creating {$this->getClassPluralName($pageClass)}...");
 
         $collection = $this->router->getRoutes($pageClass);
 
-        $this->withProgressBar(
-            $collection,
-            $this->compileRoute()
-        );
+        $this->withProgressBar($collection, function (Route $route): void {
+            (new StaticPageBuilder($route->getPage()))->__invoke();
+        });
 
         $this->newLine(2);
     }
 
-    /** @psalm-return \Closure(\Hyde\Support\Models\Route):string */
-    protected function compileRoute(): Closure
-    {
-        return function (Route $route) {
-            return (new StaticPageBuilder($route->getPage()))->__invoke();
-        };
-    }
-
-    protected function getModelPluralName(string $pageClass): string
+    protected function getClassPluralName(string $pageClass): string
     {
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
     }
@@ -122,10 +106,7 @@ class BuildService
 
     protected function isOutputDirectoryWhitelisted(): bool
     {
-        return in_array(
-            basename(Hyde::sitePath()),
-            config('hyde.safe_output_directories', ['_site', 'docs', 'build'])
-        );
+        return in_array(basename(Hyde::sitePath()), $this->safeOutputDirectories());
     }
 
     protected function askIfUnsafeDirectoryShouldBeEmptied(): bool
@@ -133,7 +114,20 @@ class BuildService
         return $this->confirm(sprintf(
             'The configured output directory (%s) is potentially unsafe to empty. '.
             'Are you sure you want to continue?',
-            Site::$outputPath
+            Site::getOutputDirectory()
         ));
+    }
+
+    protected function safeOutputDirectories(): array
+    {
+        return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
+    }
+
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    protected function getPageTypes(): array
+    {
+        return Hyde::pages()->map(function (HydePage $page): string {
+            return $page::class;
+        })->unique()->values()->toArray();
     }
 }

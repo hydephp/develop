@@ -18,9 +18,9 @@ class GenerateBuildManifestTest extends TestCase
     {
         (new GenerateBuildManifest())->run();
 
-        $this->assertFileExists(Hyde::path('storage/framework/cache/build-manifest.json'));
+        $this->assertFileExists(Hyde::path('app/storage/framework/cache/build-manifest.json'));
 
-        $manifest = json_decode(file_get_contents(Hyde::path('storage/framework/cache/build-manifest.json')), true);
+        $manifest = json_decode(file_get_contents(Hyde::path('app/storage/framework/cache/build-manifest.json')), true);
 
         $this->assertIsArray($manifest);
 

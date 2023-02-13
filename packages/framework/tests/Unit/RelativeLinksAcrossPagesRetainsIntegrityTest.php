@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use function config;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -18,6 +19,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         parent::setUp();
 
         config(['hyde.cache_busting' => false]);
+        config(['hyde.navigation.subdirectories' => 'flat']);
 
         $this->needsDirectory('_pages/nested');
         $this->file('_pages/root.md');
