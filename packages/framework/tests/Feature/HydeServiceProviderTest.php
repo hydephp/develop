@@ -5,30 +5,25 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use function app;
-use function array_filter;
 use function array_map;
-use function array_values;
 use function basename;
 use function config;
 use function get_class;
-use function get_declared_classes;
 use function glob;
 use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Facades\Site;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\Contracts\DynamicPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
-use function is_subclass_of;
 use function method_exists;
-use function str_starts_with;
 
 /**
  * @covers \Hyde\Framework\HydeServiceProvider
@@ -207,7 +202,7 @@ class HydeServiceProviderTest extends TestCase
     public function test_provider_registers_all_page_model_source_paths()
     {
         // Find all classes in the Hyde\Pages namespace that are not abstract
-        $pages = $this->getDeclaredPages();
+        $pages = HydeCoreExtension::getPageClasses();
 
         // Assert we are testing all page models
         $this->assertEquals([
@@ -232,7 +227,7 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_all_page_model_output_paths()
     {
-        $pages = $this->getDeclaredPages();
+        $pages = HydeCoreExtension::getPageClasses();
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
@@ -320,14 +315,5 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', MarkdownPage::$outputDirectory);
         $this->assertEquals('foo', MarkdownPost::$outputDirectory);
         $this->assertEquals('foo', DocumentationPage::$outputDirectory);
-    }
-
-    protected function getDeclaredPages(): array
-    {
-        return array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages')
-                && (! str_starts_with($class, 'Hyde\Pages\Concerns')
-                    && ! is_subclass_of($class, DynamicPage::class));
-        }));
     }
 }
