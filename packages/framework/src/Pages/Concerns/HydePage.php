@@ -73,6 +73,13 @@ abstract class HydePage implements PageSchema
         $this->metadata = new PageMetadataBag($this);
     }
 
+    // Section: State
+
+    public static function isDiscoverable(): bool
+    {
+        return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
+    }
+
     // Section: Query
 
     /**

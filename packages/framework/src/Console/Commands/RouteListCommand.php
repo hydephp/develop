@@ -6,7 +6,6 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
-use Hyde\Pages\Contracts\DynamicPage;
 
 /**
  * Hyde command to display the list of site routes.
@@ -54,9 +53,10 @@ class RouteListCommand extends Command
         return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
     protected function formatSourcePath(string $path, string $class): string
     {
-        if (is_a($class, DynamicPage::class, true)) {
+        if (! $class::isDiscoverable()) {
             return '<fg=yellow>dynamic</>';
         }
 

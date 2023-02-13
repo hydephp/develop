@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
@@ -91,6 +92,11 @@ class HydePageTest extends TestCase
             TestPage::outputDirectory(),
             TestPage::baseRouteKey()
         );
+    }
+
+    public function testIsDiscoverable()
+    {
+        $this->assertTrue(TestPage::isDiscoverable());
     }
 
     public function testGetSourcePath()
@@ -1032,6 +1038,34 @@ class HydePageTest extends TestCase
         $this->assertEquals('foo', $page->navigationMenuGroup());
     }
 
+    public function test_is_discoverable_method_returns_true_for_discoverable_pages()
+    {
+        $this->assertTrue(DiscoverablePage::isDiscoverable());
+    }
+
+    public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
+    {
+        $this->assertFalse(NonDiscoverablePage::isDiscoverable());
+    }
+
+    public function test_is_discoverable_method_requires_all_required_data_to_be_present()
+    {
+        $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
+    }
+
+    public function test_is_discoverable_method_requires_source_directory_to_be_filled()
+    {
+        $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
+    }
+
+    public function test_all_core_extension_pages_are_discoverable()
+    {
+        /** @var class-string<HydePage> $page */
+        foreach (HydeCoreExtension::getPageClasses() as $page) {
+            $this->assertTrue($page::isDiscoverable());
+        }
+    }
+
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
     {
         $this->assertSame(
@@ -1056,6 +1090,54 @@ class TestPage extends HydePage
     public static string $outputDirectory = 'output';
     public static string $fileExtension = '.md';
     public static string $template = 'template';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverablePage extends HydePage
+{
+    public static string $sourceDirectory = 'foo';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class NonDiscoverablePage extends HydePage
+{
+    public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class PartiallyDiscoverablePage extends HydePage
+{
+    public static string $sourceDirectory = 'foo';
+    public static string $outputDirectory;
+    public static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverablePageWithInvalidSourceDirectory extends HydePage
+{
+    public static string $sourceDirectory = '';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '';
 
     public function compile(): string
     {

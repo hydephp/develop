@@ -9,7 +9,6 @@ use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\Contracts\DynamicPage;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -25,7 +24,7 @@ use Illuminate\Support\Facades\View;
  * But if your usage grows, or if you need file-based autodiscovery, you may benefit
  * from creating a custom page class instead, as that will give you full control.
  */
-class InMemoryPage extends HydePage implements DynamicPage
+class InMemoryPage extends HydePage
 {
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
