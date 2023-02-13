@@ -10,6 +10,7 @@ namespace Hyde\Facades;
  *
  * @internal This facade is not meant to be used by the end user.
  * @experimental This facade is experimental and may change in the future.
+ *
  * @todo If class is kept internal, the facade alias should be removed from config.
  *
  * @see \Illuminate\Config\Repository
