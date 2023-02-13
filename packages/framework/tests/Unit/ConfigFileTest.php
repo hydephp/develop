@@ -42,7 +42,10 @@ test('default source directories values cover all core extension classes', funct
 });
 
 test('features array matches default features', function () {
-    expect(getConfig()['features'])->toBe(Features::defaultFeatures());
+    expect(getConfig()['features'])->toBe(
+        (new ReflectionClass(Features::class))
+            ->getMethod('getDefaultOptions')->invoke(null)
+    );
 });
 
 function getConfig(): array
