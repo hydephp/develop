@@ -28,6 +28,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         $this->mergeConfigurationFiles($repository, ['view', 'cache', 'commands', 'torchlight']);
     }
 
+    /** @param array<string> $files */
     protected function mergeConfigurationFiles(RepositoryContract $repository, array $files): void
     {
         // These files do commonly not need to be customized by the user, so to get them out of the way,
