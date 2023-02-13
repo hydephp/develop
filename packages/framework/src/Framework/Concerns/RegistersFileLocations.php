@@ -96,7 +96,7 @@ trait RegistersFileLocations
         return $this->getClassLocationConfiguration('output_directories', $class, $default);
     }
 
-    protected function getClassLocationConfiguration(string $option, string $class, string $default): string
+    private function getClassLocationConfiguration(string $option, string $class, string $default): string
     {
         return config("hyde.$option.$class")
             ?? config("hyde.$option.".Str::kebab(class_basename($class)))
