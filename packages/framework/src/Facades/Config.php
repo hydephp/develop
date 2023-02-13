@@ -8,6 +8,9 @@ namespace Hyde\Facades;
  * An extension of the Laravel Config facade with extra
  * accessors that ensure the types of the returned values.
  *
+ * @internal This facade is not meant to be used by the end user.
+ * @experimental This facade is experimental and may change in the future.
+ *
  * @see \Illuminate\Config\Repository
  * @see \Illuminate\Support\Facades\Config
  * @see \Hyde\Framework\Testing\Feature\TypedConfigFacadeTest
