@@ -40,6 +40,7 @@ return [
     |
     */
 
+    /** @deprecated Use `hyde.output_directories.docs` instead */
     'output_directory' => 'docs',
 
     /*
