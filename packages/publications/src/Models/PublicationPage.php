@@ -9,7 +9,6 @@ use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\Concerns;
-use Hyde\Pages\Contracts\DynamicPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 use Illuminate\Support\Str;
 use function str_starts_with;
@@ -20,7 +19,7 @@ use function str_starts_with;
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationPageTest
  */
-class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
+class PublicationPage extends Concerns\BaseMarkdownPage
 {
     use ValidatesExistence;
 
