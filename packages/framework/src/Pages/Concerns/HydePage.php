@@ -73,6 +73,10 @@ abstract class HydePage implements PageSchema
         $this->metadata = new PageMetadataBag($this);
     }
 
+    // Section: State
+
+    
+
     // Section: Query
 
     /**
