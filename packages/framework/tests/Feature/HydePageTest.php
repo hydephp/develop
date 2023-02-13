@@ -1047,6 +1047,11 @@ class HydePageTest extends TestCase
         $this->assertFalse(NonDiscoverablePage::isDiscoverable());
     }
 
+    public function test_is_discoverable_method_requires_all_required_data_to_be_present()
+    {
+        $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
+    }
+
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
     {
         $this->assertSame(
@@ -1093,6 +1098,18 @@ class DiscoverablePage extends HydePage
 class NonDiscoverablePage extends HydePage
 {
     public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class PartiallyDiscoverablePage extends HydePage
+{
+    public static string $sourceDirectory = '';
     public static string $outputDirectory;
     public static string $fileExtension;
 
