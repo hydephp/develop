@@ -44,15 +44,13 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
     public function test_source_directories_can_be_changed_in_config()
     {
-        config([
-            'source_directories' => [
-                HtmlPage::class => '.source/pages',
-                BladePage::class => '.source/pages',
-                MarkdownPage::class => '.source/pages',
-                MarkdownPost::class => '.source/posts',
-                DocumentationPage::class => '.source/docs',
-            ],
-        ]);
+        config(['source_directories' => [
+            HtmlPage::class => '.source/pages',
+            BladePage::class => '.source/pages',
+            MarkdownPage::class => '.source/pages',
+            MarkdownPost::class => '.source/posts',
+            DocumentationPage::class => '.source/docs',
+        ]]);
 
         (new HydeServiceProvider($this->app))->register();
 
