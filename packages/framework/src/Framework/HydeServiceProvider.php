@@ -58,9 +58,4 @@ class HydeServiceProvider extends ServiceProvider
     {
         $this->kernel->readyToBoot();
     }
-
-    protected function getSourceDirectoryConfiguration(string $class, string $default): string
-    {
-        return config("hyde.source_directories.$class", $default);
-    }
 }
