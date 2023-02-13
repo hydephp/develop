@@ -1060,6 +1060,7 @@ class HydePageTest extends TestCase
 
     public function test_all_core_extension_pages_are_discoverable()
     {
+        /** @var class-string<HydePage> $page */
         foreach (HydeCoreExtension::getPageClasses() as $page) {
             $this->assertTrue($page::isDiscoverable());
         }
