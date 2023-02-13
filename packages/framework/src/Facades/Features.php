@@ -182,7 +182,6 @@ class Features implements SerializableContract
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
-            // static::dataCollections(),
 
             // Frontend Features
             static::darkmode(),
