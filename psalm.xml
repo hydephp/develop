@@ -12,6 +12,7 @@
         <directory name="packages/framework/src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="app/storage" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
