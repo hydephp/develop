@@ -32,11 +32,11 @@ class HydeServiceProvider extends ServiceProvider
         $this->kernel->setSourceRoot(config('hyde.source_root', ''));
 
         $this->registerSourceDirectories([
-            HtmlPage::class => config('hyde.source_directories.'.HtmlPage::class, '_pages'),
-            BladePage::class => config('hyde.source_directories.'.BladePage::class, '_pages'),
-            MarkdownPage::class => config('hyde.source_directories.'.MarkdownPage::class, '_pages'),
-            MarkdownPost::class => config('hyde.source_directories.'.MarkdownPost::class, '_posts'),
-            DocumentationPage::class => config('hyde.source_directories.'.DocumentationPage::class, '_docs'),
+            HtmlPage::class => $this->getSourceDirectoryConfiguration(HtmlPage::class, '_pages'),
+            BladePage::class => $this->getSourceDirectoryConfiguration(BladePage::class, '_pages'),
+            MarkdownPage::class => $this->getSourceDirectoryConfiguration(MarkdownPage::class, '_pages'),
+            MarkdownPost::class => $this->getSourceDirectoryConfiguration(MarkdownPost::class, '_posts'),
+            DocumentationPage::class => $this->getSourceDirectoryConfiguration(DocumentationPage::class, '_docs'),
         ]);
 
         $this->registerOutputDirectories([
@@ -57,5 +57,10 @@ class HydeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->kernel->readyToBoot();
+    }
+
+    protected function getSourceDirectoryConfiguration(string $class, string $default): string
+    {
+        return config('hyde.source_directories.'.$class, $default);
     }
 }
