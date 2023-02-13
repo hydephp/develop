@@ -132,7 +132,7 @@ class StaticPageBuilderTest extends TestCase
     {
         $page = DocumentationPage::make('foo');
 
-        Config::set('hyde.output_directories.Hyde\Pages\DocumentationPage', 'docs/foo');
+        Config::set('hyde.output_directories.documentation-page', 'docs/foo');
         (new HydeServiceProvider($this->app))->register(); // Re-register the service provider to pick up the new config.
 
         new StaticPageBuilder($page, true);
