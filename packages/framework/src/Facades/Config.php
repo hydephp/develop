@@ -29,7 +29,7 @@ class Config extends \Illuminate\Support\Facades\Config
         $value = static::get($key, $default);
 
         if ($strict && ! is_array($value)) {
-            throw new TypeError(sprintf("%s(): Config value %s must be of type array, %s given", __METHOD__, $key, gettype($value)));
+            self::throwTypeError('array', $key, $value);
         }
 
         return (array) $value;
@@ -40,7 +40,7 @@ class Config extends \Illuminate\Support\Facades\Config
         $value = static::get($key, $default);
 
         if ($strict && ! is_string($value)) {
-            throw new TypeError(sprintf("%s(): Config value %s must be of type string, %s given", __METHOD__, $key, gettype($value)));
+            self::throwTypeError('string', $key, $value);
         }
 
         return (string) $value;
@@ -51,7 +51,7 @@ class Config extends \Illuminate\Support\Facades\Config
         $value = static::get($key, $default);
 
         if ($strict && ! is_int($value)) {
-            throw new TypeError(sprintf("%s(): Config value %s must be of type int, %s given", __METHOD__, $key, gettype($value)));
+            self::throwTypeError('int', $key, $value);
         }
 
         return (int) $value;
@@ -62,7 +62,7 @@ class Config extends \Illuminate\Support\Facades\Config
         $value = static::get($key, $default);
 
         if ($strict && ! is_bool($value)) {
-            throw new TypeError(sprintf("%s(): Config value %s must be of type bool, %s given", __METHOD__, $key, gettype($value)));
+            self::throwTypeError('bool', $key, $value);
         }
 
         return (bool) $value;
@@ -73,9 +73,14 @@ class Config extends \Illuminate\Support\Facades\Config
         $value = static::get($key, $default);
 
         if ($strict && ! is_float($value)) {
-            throw new TypeError(sprintf("%s(): Config value %s must be of type float, %s given", __METHOD__, $key, gettype($value)));
+            self::throwTypeError('float', $key, $value);
         }
 
         return (float) $value;
+    }
+
+    protected static function throwTypeError(string $type, string $key, mixed $value): void
+    {
+        throw new TypeError(sprintf("%s(): Config value %s must be of type %s, %s given", __METHOD__, $key, $type, gettype($value)));
     }
 }
