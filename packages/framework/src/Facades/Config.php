@@ -26,37 +26,27 @@ class Config extends \Illuminate\Support\Facades\Config
 
     public static function getArray(string $key, array $default = null, bool $strict = self::STRICT_DEFAULT): array
     {
-        self::validated(static::get($key, $default), 'array', $key, $strict);
-
-        return (array) (static::get($key, $default));
+        return (array) self::validated(static::get($key, $default), 'array', $key, $strict);
     }
 
     public static function getString(string $key, string $default = null, bool $strict = self::STRICT_DEFAULT): string
     {
-        self::validated(static::get($key, $default), 'string', $key, $strict);
-
-        return (string) (static::get($key, $default));
+        return (string) self::validated(static::get($key, $default), 'string', $key, $strict);
     }
 
     public static function getInt(string $key, int $default = null, bool $strict = self::STRICT_DEFAULT): int
     {
-        self::validated(static::get($key, $default), 'int', $key, $strict);
-
-        return (int) (static::get($key, $default));
+        return (int) self::validated(static::get($key, $default), 'int', $key, $strict);
     }
 
     public static function getBool(string $key, bool $default = null, bool $strict = self::STRICT_DEFAULT): bool
     {
-        self::validated(static::get($key, $default), 'bool', $key, $strict);
-
-        return (bool) (static::get($key, $default));
+        return (bool) self::validated(static::get($key, $default), 'bool', $key, $strict);
     }
 
     public static function getFloat(string $key, float $default = null, bool $strict = self::STRICT_DEFAULT): float
     {
-        self::validated(static::get($key, $default), 'float', $key, $strict);
-
-        return (float) (static::get($key, $default));
+        return (float) self::validated(static::get($key, $default), 'float', $key, $strict);
     }
 
     protected static function validated(mixed $value, string $type, string $key, bool $strict): mixed
