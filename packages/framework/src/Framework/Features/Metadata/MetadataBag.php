@@ -80,6 +80,7 @@ class MetadataBag implements Htmlable
     {
         $array = [];
 
+        /** @var MetadataElementContract $element */
         foreach ($this->{$type} as $key => $element) {
             $array["$type:$key"] = $element;
         }
