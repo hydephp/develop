@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
-use function config;
+use Hyde\Facades\Config;
 use function date;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
@@ -82,7 +82,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->addChild($channel, 'title', Site::name());
         $this->addChild($channel, 'link', Site::url());
         $this->addChild($channel, 'description', $this->getDescription());
-        $this->addChild($channel, 'language', config('hyde.language', 'en'));
+        $this->addChild($channel, 'language', Config::getString('hyde.language', 'en'));
         $this->addChild($channel, 'generator', 'HydePHP '.Hyde::version());
         $this->addChild($channel, 'lastBuildDate', date(DATE_RSS));
     }
@@ -110,11 +110,11 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public static function getFilename(): string
     {
-        return config('hyde.rss_filename', 'feed.xml');
+        return Config::getString('hyde.rss_filename', 'feed.xml');
     }
 
     public static function getDescription(): string
     {
-        return config('hyde.rss_description', Site::name().' RSS Feed');
+        return Config::getString('hyde.rss_description', Site::name().' RSS Feed');
     }
 }
