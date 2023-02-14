@@ -18,8 +18,6 @@ use function str_starts_with;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {
-    use InteractsWithFrontMatter;
-
     final public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
     protected readonly string $source;
