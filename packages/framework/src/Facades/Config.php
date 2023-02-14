@@ -76,7 +76,7 @@ class Config extends \Illuminate\Support\Facades\Config
 
     protected static function validate(mixed $value, string $type, string $key, bool $strict): void
     {
-        if ($strict && !("is_$type")($value)) {
+        if ($strict && ! ("is_$type")($value)) {
             self::throwTypeError($type, $key, $value);
         }
     }
