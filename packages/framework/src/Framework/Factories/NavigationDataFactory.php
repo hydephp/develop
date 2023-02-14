@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Facades\Config;
 use function array_flip;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
@@ -92,7 +93,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->isInstanceOf(MarkdownPost::class)
             || $this->searchForHiddenInFrontMatter()
-            || in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))
+            || in_array($this->routeKey, Config::getArray('hyde.navigation.exclude', ['404']))
             || ! $this->isInstanceOf(DocumentationPage::class) && $this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden');
     }
 
@@ -129,7 +130,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfig(): ?string
     {
-        return Arr::get(config('hyde.navigation.labels', [
+        return Arr::get(Config::getArray('hyde.navigation.labels', [
             'index' => 'Home',
             DocumentationPage::homeRouteName() => 'Docs',
         ]), $this->routeKey);
@@ -151,7 +152,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // This is all to make it easier to mix ways of adding priorities.
 
         return $this->offset(Arr::get(
-            array_flip(config('docs.sidebar_order', [])), $this->identifier),
+            array_flip(Config::getArray('docs.sidebar_order', [])), $this->identifier),
             self::CONFIG_OFFSET
         );
     }
@@ -184,7 +185,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function getSubdirectoryConfiguration(): string
     {
-        return config('hyde.navigation.subdirectories', 'hidden');
+        return Config::getString('hyde.navigation.subdirectories', 'hidden');
     }
 
     protected function isInstanceOf(string $class): bool
