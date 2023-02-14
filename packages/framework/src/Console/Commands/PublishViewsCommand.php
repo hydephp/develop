@@ -20,6 +20,7 @@ class PublishViewsCommand extends Command
     /** @var string */
     protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten.';
 
+    /** @var array<string, array<string, string>> $options */
     protected array $options = [
         'layouts' => [
             'name' => 'Blade Layouts',
