@@ -62,6 +62,7 @@ class DebugCommand extends Command
         return Command::SUCCESS;
     }
 
+    /** @return array<string> */
     protected function enabledFeatures(): array
     {
         return Config::getArray('hyde.features');
