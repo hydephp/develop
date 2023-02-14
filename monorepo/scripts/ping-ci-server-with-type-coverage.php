@@ -28,7 +28,7 @@ function getCoverage(string $contents): string
 $data = [
     'commit' => $commit,
     'coverage' => getCoverage(file_get_contents('psalmout.txt')),
-    'time' => microtime(true) - TIME_START,
+    'time_ms' => (microtime(true) - TIME_START) * 1000,
 ];
 
 $url = 'https://ci.hydephp.se/api/github/actions/type-coverage';
