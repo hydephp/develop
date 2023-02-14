@@ -23,7 +23,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 {
     public function generate(): static
     {
-        MarkdownPost::getLatestPosts()->each(function (MarkdownPost $post) {
+        MarkdownPost::getLatestPosts()->each(function (MarkdownPost $post): void {
             $this->addItem($post);
         });
 
