@@ -18,7 +18,7 @@ use function str_word_count;
 class ReadingTime
 {
     /** @var int How many words per minute is read. Inversely proportional. Increase for a shorter reading time. */
-    protected final const WORDS_PER_MINUTE = 240;
+    protected static int $wordsPerMinute = 240;
 
     /** @var string The text to calculate the reading time for. */
     protected readonly string $text;
@@ -86,7 +86,7 @@ class ReadingTime
     {
         $wordCount = str_word_count($this->text);
 
-        $minutes = $wordCount / static::WORDS_PER_MINUTE;
+        $minutes = $wordCount / static::$wordsPerMinute;
         $seconds = (int) floor($minutes * 60);
 
         $this->wordCount = $wordCount;
