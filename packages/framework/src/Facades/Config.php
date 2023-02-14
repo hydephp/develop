@@ -24,26 +24,46 @@ class Config extends \Illuminate\Support\Facades\Config
 
     public static function getArray(array|string $key, array $default = null, bool $strict = self::STRICT_DEFAULT): array
     {
-        return $strict ? static::get($key, $default) : (array) static::get($key, $default);
+        if ($strict) {
+            return static::get($key, $default);
+        } else {
+            return (array) static::get($key, $default);
+        }
     }
 
     public static function getString(string $key, string $default = null, bool $strict = self::STRICT_DEFAULT): string
     {
-        return $strict ? static::get($key, $default) : (string) static::get($key, $default);
+        if ($strict) {
+            return static::get($key, $default);
+        } else {
+            return (string) static::get($key, $default);
+        }
     }
 
     public static function getInt(string $key, int $default = null, bool $strict = self::STRICT_DEFAULT): int
     {
-        return $strict ? static::get($key, $default) : (int) static::get($key, $default);
+        if ($strict) {
+            return static::get($key, $default);
+        } else {
+            return (int) static::get($key, $default);
+        }
     }
 
     public static function getBool(string $key, bool $default = null, bool $strict = self::STRICT_DEFAULT): bool
     {
-        return $strict ? static::get($key, $default) : (bool) static::get($key, $default);
+        if ($strict) {
+            return static::get($key, $default);
+        } else {
+            return (bool) static::get($key, $default);
+        }
     }
 
     public static function getFloat(string $key, float $default = null, bool $strict = self::STRICT_DEFAULT): float
     {
-        return $strict ? static::get($key, $default) : (float) static::get($key, $default);
+        if ($strict) {
+            return static::get($key, $default);
+        } else {
+            return (float) static::get($key, $default);
+        }
     }
 }
