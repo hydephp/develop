@@ -5,7 +5,7 @@ define('TIME_START', microtime(true));
 /**
  * @internal This script is used to ping the CI server with the type coverage results.
  *
- * @example php __FILE__ ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }}
+ * @example php __FILE__ ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }} ${{ github.head_ref }}
  *
  * @uses vendor/bin/psalm > psalmout.txt
  */
@@ -13,6 +13,7 @@ echo "Pinging CI server\n";
 
 $token = $argv[1] ?? exit(400);
 $commit = $argv[2] ?? exit(400);
+$branch = $argv[3] ?? 'master';
 
 // Very inefficient, but it works fine for our purposes.
 function getCoverage(string $contents): float
