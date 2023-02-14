@@ -55,10 +55,15 @@ class DebugCommand extends Command
         $this->newLine();
 
         $this->line('Enabled features:');
-        foreach (Config::getArray('hyde.features') as $feature) {
+        foreach ($this->enabledFeatures() as $feature) {
             $this->line(" - $feature");
         }
 
         return Command::SUCCESS;
+    }
+
+    protected function enabledFeatures(): array
+    {
+        return Config::getArray('hyde.features');
     }
 }
