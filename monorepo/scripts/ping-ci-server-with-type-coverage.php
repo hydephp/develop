@@ -29,9 +29,7 @@ function getCoverage(string $contents): float
 
 $data = [
     'commit' => $commit,
-    'coverage' => getCoverage(file_get_contents('psalmout.txt')),
-    'time_ms' => (microtime(true) - TIME_START) * 1000,
-    'json' => file_get_contents('type-coverage.json'),
+    'report' => file_get_contents('type-coverage.json'),
 ];
 
 $url = 'https://ci.hydephp.se/api/github/actions/type-coverage';
