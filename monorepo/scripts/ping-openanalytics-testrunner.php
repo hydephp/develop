@@ -8,8 +8,8 @@
 
 echo "Pinging statistics server\n";
 
-$runner = $argv[1];
-$token = $argv[2];
+$runner = $argv[1] ?? exit(400);
+$token = $argv[2] ?? exit(400);
 
 $url = 'https://analytics.hydephp.se/api/test_runs';
 
