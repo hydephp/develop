@@ -44,7 +44,7 @@ class PublishViewsCommand extends Command
         $selected = $this->argument('category') ?? $this->promptForCategory();
 
         if ($selected === 'all' || $selected === '') {
-            foreach ($this->options as $key => $value) {
+            foreach ($this->options as $key => $_ignored) {
                 $this->publishOption($key);
             }
         } else {
