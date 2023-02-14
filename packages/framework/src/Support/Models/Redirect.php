@@ -16,6 +16,8 @@ use Illuminate\Contracts\Support\Renderable;
  * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
+ *
+ * @todo Extend InMemoryPage?
  */
 class Redirect implements Renderable
 {
