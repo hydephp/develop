@@ -8,7 +8,7 @@ namespace Hyde\Facades;
  * An extension of the Laravel Config facade with extra
  * accessors that ensure the types of the returned values.
  *
- * @internal This facade is not meant to be used by the end user.
+ * @internal This facade is not (yet) meant to be used by the end user.
  * @experimental This facade is experimental and may change in the future.
  *
  * @todo If class is kept internal, the facade alias should be removed from config.
