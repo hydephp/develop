@@ -14,12 +14,12 @@ $token = $argv[1] ?? exit(400);
 $commit = $argv[2] ?? exit(400);
 
 // Very inefficient, but it works fine for our purposes.
-function getCoverage(string $contents): string
+function getCoverage(string $contents): float
 {
     $lines = explode(PHP_EOL, $contents);
     foreach ($lines as $line) {
         if (str_starts_with($line, 'Psalm was able to infer types for ') && str_ends_with($line, '% of the codebase')) {
-            return substr($line, 34, -16);
+            return (float) substr($line, 34, -16);
         }
     }
     throw new \Exception('Could not find coverage in Psalm output');
