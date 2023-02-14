@@ -28,7 +28,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        self::validate($value, 'array', $key, $strict);
+        self::validated($value, 'array', $key, $strict);
 
         return (array) $value;
     }
@@ -37,7 +37,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        self::validate($value, 'string', $key, $strict);
+        self::validated($value, 'string', $key, $strict);
 
         return (string) $value;
     }
@@ -46,7 +46,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        self::validate($value, 'int', $key, $strict);
+        self::validated($value, 'int', $key, $strict);
 
         return (int) $value;
     }
@@ -55,7 +55,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        self::validate($value, 'bool', $key, $strict);
+        self::validated($value, 'bool', $key, $strict);
 
         return (bool) $value;
     }
@@ -64,12 +64,12 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        self::validate($value, 'float', $key, $strict);
+        self::validated($value, 'float', $key, $strict);
 
         return (float) $value;
     }
 
-    protected static function validate(mixed $value, string $type, string $key, bool $strict): mixed
+    protected static function validated(mixed $value, string $type, string $key, bool $strict): mixed
     {
         if ($strict && ! ("is_$type")($value)) {
             throw new TypeError(sprintf('%s(): Config value %s must be of type %s, %s given', __METHOD__, $key, $type, gettype($value)));
