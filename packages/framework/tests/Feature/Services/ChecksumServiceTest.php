@@ -114,11 +114,8 @@ class ChecksumServiceTest extends TestCase
     public function test_method_returns_same_value_when_loaded_from_file_using_shorthand()
     {
         $string = "foo\nbar\r\nbaz\r\n";
-        $file = tempnam(sys_get_temp_dir(), 'foo');
-        file_put_contents($file, $string);
+        $this->file('foo', $string);
 
-        $this->assertEquals(ChecksumService::unixsum($string), ChecksumService::unixsumFile($file));
-
-        unlink($file);
+        $this->assertEquals(ChecksumService::unixsum($string), ChecksumService::unixsumFile('foo'));
     }
 }
