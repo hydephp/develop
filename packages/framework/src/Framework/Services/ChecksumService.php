@@ -13,6 +13,8 @@ use function str_replace;
 use function unslash;
 
 /**
+ * @internal This class may be refactored to better suit its intended purpose.
+ *
  * Helper methods to interact with the virtual filecache that is used to compare
  * published Blade views with the original Blade views in the Hyde Framework
  * so the user can be warned before overwriting their customizations.
