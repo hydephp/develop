@@ -69,10 +69,12 @@ class Config extends \Illuminate\Support\Facades\Config
         return (float) $value;
     }
 
-    protected static function validate(mixed $value, string $type, string $key, bool $strict): void
+    protected static function validate(mixed $value, string $type, string $key, bool $strict): mixed
     {
         if ($strict && ! ("is_$type")($value)) {
             throw new TypeError(sprintf('%s(): Config value %s must be of type %s, %s given', __METHOD__, $key, $type, gettype($value)));
         }
+
+        return $value;
     }
 }
