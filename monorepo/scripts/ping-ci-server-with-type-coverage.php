@@ -4,10 +4,11 @@ define('TIME_START', microtime(true));
 
 /**
  * @internal This script is used to ping the CI server with the type coverage results.
+ *
  * @example php __FILE__ ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }}
+ *
  * @uses vendor/bin/psalm > psalmout.txt
  */
-
 echo "Pinging CI server\n";
 
 $token = $argv[1] ?? exit(400);
@@ -38,11 +39,11 @@ curl_setopt($curl, CURLOPT_URL, $url);
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-$headers = array(
+$headers = [
     'Accept: application/json',
     "Authorization: Bearer $token",
     'Content-Type: application/json',
-);
+];
 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
