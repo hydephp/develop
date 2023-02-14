@@ -81,6 +81,6 @@ class Config extends \Illuminate\Support\Facades\Config
 
     protected static function throwTypeError(string $type, string $key, mixed $value): void
     {
-        throw new TypeError(sprintf("%s(): Config value %s must be of type %s, %s given", __METHOD__, $key, $type, gettype($value)));
+        throw new TypeError(sprintf('%s(): Config value %s must be of type %s, %s given', __METHOD__, $key, $type, gettype($value)));
     }
 }
