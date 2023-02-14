@@ -51,17 +51,18 @@ class MakePostCommand extends Command
         );
 
         return $this->argument('title')
-            ?? $this->ask('What is the title of the post?')
+            ?? $this->askForString('What is the title of the post?')
             ?? 'My New Post';
     }
 
+    /** @return array<?string> */
     protected function getSelections(): array
     {
         $this->line('Tip: You can just hit return to use the defaults.');
 
-        $description = $this->ask('Write a short post excerpt/description');
-        $author = $this->ask('What is your (the author\'s) name?');
-        $category = $this->ask('What is the primary category of the post?');
+        $description = $this->askForString('Write a short post excerpt/description');
+        $author = $this->askForString('What is your (the author\'s) name?');
+        $category = $this->askForString('What is the primary category of the post?');
 
         return [$description, $author, $category];
     }
@@ -94,5 +95,10 @@ class MakePostCommand extends Command
 
             return (int) $exception->getCode();
         }
+    }
+
+    protected function askForString(string $question, ?string $default = null): ?string
+    {
+        return is_string($answer = $this->output->ask($question, $default)) ? $answer : null;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Stringable;
 
@@ -72,7 +73,7 @@ class PostAuthor implements Stringable
 
     public static function all(): Collection
     {
-        return new Collection(config('hyde.authors', []));
+        return new Collection(Config::getArray('hyde.authors', []));
     }
 
     public function __toString(): string
