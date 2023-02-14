@@ -55,6 +55,7 @@ class MakePostCommand extends Command
             ?? 'My New Post';
     }
 
+    /** @return array<?string> */
     protected function getSelections(): array
     {
         $this->line('Tip: You can just hit return to use the defaults.');
