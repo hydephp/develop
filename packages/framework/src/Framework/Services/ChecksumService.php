@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use function file_get_contents;
+use Hyde\Facades\Filesystem;
 use function glob;
 use Hyde\Hyde;
 use function in_array;
@@ -71,6 +71,6 @@ class ChecksumService
      */
     public static function unixsumFile(string $file): string
     {
-        return static::unixsum(file_get_contents($file));
+        return static::unixsum(Filesystem::getContents($file));
     }
 }
