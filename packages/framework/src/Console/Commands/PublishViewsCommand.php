@@ -41,7 +41,7 @@ class PublishViewsCommand extends Command
 
     public function handle(): int
     {
-        $selected = $this->argument('category') ?? $this->promptForCategory();
+        $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
         if ($selected === 'all' || $selected === '') {
             foreach ($this->options as $key => $_ignored) {
