@@ -26,44 +26,44 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         if ($strict) {
             return static::get($key, $default);
-        } else {
-            return (array) static::get($key, $default);
         }
+
+        return (array) static::get($key, $default);
     }
 
     public static function getString(string $key, string $default = null, bool $strict = self::STRICT_DEFAULT): string
     {
         if ($strict) {
             return static::get($key, $default);
-        } else {
-            return (string) static::get($key, $default);
         }
+
+        return (string) static::get($key, $default);
     }
 
     public static function getInt(string $key, int $default = null, bool $strict = self::STRICT_DEFAULT): int
     {
         if ($strict) {
             return static::get($key, $default);
-        } else {
-            return (int) static::get($key, $default);
         }
+
+        return (int) static::get($key, $default);
     }
 
     public static function getBool(string $key, bool $default = null, bool $strict = self::STRICT_DEFAULT): bool
     {
         if ($strict) {
             return static::get($key, $default);
-        } else {
-            return (bool) static::get($key, $default);
         }
+
+        return (bool) static::get($key, $default);
     }
 
     public static function getFloat(string $key, float $default = null, bool $strict = self::STRICT_DEFAULT): float
     {
         if ($strict) {
             return static::get($key, $default);
-        } else {
-            return (float) static::get($key, $default);
         }
+
+        return (float) static::get($key, $default);
     }
 }
