@@ -23,6 +23,7 @@ class ChecksumService
 {
     /**
      * @deprecated Will be renamed to getViewFileCache or similar
+     * @return array<string, array{unixsum: string}>
      */
     public static function getFilecache(): array
     {
