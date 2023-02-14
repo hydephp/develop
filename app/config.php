@@ -96,6 +96,7 @@ return [
         'Author' => \Hyde\Facades\Author::class,
         'Includes' => \Hyde\Facades\Includes::class,
         'Features' => \Hyde\Facades\Features::class,
+        'Config' => \Hyde\Facades\Config::class,
         'BladePage' => \Hyde\Pages\BladePage::class,
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
