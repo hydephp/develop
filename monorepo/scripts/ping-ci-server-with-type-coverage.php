@@ -50,4 +50,10 @@ curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
 $resp = curl_exec($curl);
 curl_close($curl);
+
+if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200) {
+    echo 'Type coverage report failed to send';
+    exit(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+}
+
 var_dump($resp);
