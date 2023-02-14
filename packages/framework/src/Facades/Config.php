@@ -28,9 +28,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        if ($strict && ! is_array($value)) {
-            self::throwTypeError('array', $key, $value);
-        }
+        self::validate($value, 'array', $key, $strict);
 
         return (array) $value;
     }
@@ -39,9 +37,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        if ($strict && ! is_string($value)) {
-            self::throwTypeError('string', $key, $value);
-        }
+        self::validate($value, 'string', $key, $strict);
 
         return (string) $value;
     }
@@ -50,9 +46,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        if ($strict && ! is_int($value)) {
-            self::throwTypeError('int', $key, $value);
-        }
+        self::validate($value, 'int', $key, $strict);
 
         return (int) $value;
     }
@@ -61,9 +55,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        if ($strict && ! is_bool($value)) {
-            self::throwTypeError('bool', $key, $value);
-        }
+        self::validate($value, 'bool', $key, $strict);
 
         return (bool) $value;
     }
@@ -72,9 +64,7 @@ class Config extends \Illuminate\Support\Facades\Config
     {
         $value = static::get($key, $default);
 
-        if ($strict && ! is_float($value)) {
-            self::throwTypeError('float', $key, $value);
-        }
+        self::validate($value, 'float', $key, $strict);
 
         return (float) $value;
     }
@@ -82,5 +72,12 @@ class Config extends \Illuminate\Support\Facades\Config
     protected static function throwTypeError(string $type, string $key, mixed $value): void
     {
         throw new TypeError(sprintf('%s(): Config value %s must be of type %s, %s given', __METHOD__, $key, $type, gettype($value)));
+    }
+
+    protected static function validate(mixed $value, string $type, string $key, bool $strict): void
+    {
+        if ($strict && !("is_$type")($value)) {
+            self::throwTypeError($type, $key, $value);
+        }
     }
 }
