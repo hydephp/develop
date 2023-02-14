@@ -68,9 +68,6 @@ class ChecksumService
 
     /**
      * Shorthand for {@see static::unixsum()} but loads a file.
-     *
-     * Note that unlink most filesystem methods, the file path is expected
-     * to be absolute as the file might not be in the project directory.
      */
     public static function unixsumFile(string $file): string
     {
