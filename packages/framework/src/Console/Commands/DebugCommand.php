@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Composer\InstalledVersions;
+use Hyde\Facades\Config;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
 
@@ -54,7 +55,7 @@ class DebugCommand extends Command
         $this->newLine();
 
         $this->line('Enabled features:');
-        foreach (config('hyde.features') as $feature) {
+        foreach (Config::getArray('hyde.features') as $feature) {
             $this->line(" - $feature");
         }
 
