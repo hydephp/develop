@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @internal This script is used to ping the OpenAnalytics server with the test results.
+ * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }}
+ * @uses vendor/bin/pest --stop-on-failure --testdox-text testdox.txt
+ */
+
 echo "Pinging statistics server\n";
 
 $runner = $argv[1];
