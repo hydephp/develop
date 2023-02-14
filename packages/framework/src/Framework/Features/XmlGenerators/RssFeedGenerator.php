@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\XmlGenerators;
 
 use Hyde\Facades\Config;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use function date;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
@@ -71,8 +72,8 @@ class RssFeedGenerator extends BaseXmlGenerator
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
             $image->addAttribute('url', Hyde::url($post->image->getSource()));
-            $image->addAttribute('type', $this->getImageType($post));
-            $image->addAttribute('length', $this->getImageLength($post));
+            $image->addAttribute('type', $this->getImageType($post->image));
+            $image->addAttribute('length', $this->getImageLength($post->image));
         }
     }
 
@@ -96,17 +97,17 @@ class RssFeedGenerator extends BaseXmlGenerator
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
 
-    protected function getImageType(MarkdownPost $post): string
+    protected function getImageType(FeaturedImage $image): string
     {
         /** @todo Add support for more types */
-        return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
+        return str_ends_with($image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 
     /** @return numeric-string */
-    protected function getImageLength(MarkdownPost $post): string
+    protected function getImageLength(FeaturedImage $image): string
     {
         /** @todo We might want to add a build warning if the length is zero */
-        return (string) $post->image->getContentLength();
+        return (string) $image->getContentLength();
     }
 
     public static function getFilename(): string
