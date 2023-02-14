@@ -1,5 +1,7 @@
 <?php
 
+define('TIME_START', microtime(true));
+
 /**
  * @internal This script is used to ping the CI server with the type coverage results.
  * @example php __FILE__ ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }}
@@ -26,6 +28,7 @@ function getCoverage(string $contents): string
 $data = [
     'commit' => $commit,
     'coverage' => getCoverage(file_get_contents('psalmout.txt')),
+    'time' => microtime(true) - TIME_START,
 ];
 
 $url = 'https://ci.hydephp.se/api/github/actions/type-coverage';
