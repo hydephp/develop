@@ -21,6 +21,9 @@ use function unslash;
  */
 class ChecksumService
 {
+    /**
+     * @deprecated Will be renamed to getViewFileCache or similar
+     */
     public static function getFilecache(): array
     {
         $filecache = [];
