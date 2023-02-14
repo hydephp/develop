@@ -26,47 +26,37 @@ class Config extends \Illuminate\Support\Facades\Config
 
     public static function getArray(string $key, array $default = null, bool $strict = self::STRICT_DEFAULT): array
     {
-        $value = static::get($key, $default);
+        self::validated(static::get($key, $default), 'array', $key, $strict);
 
-        self::validated($value, 'array', $key, $strict);
-
-        return (array) $value;
+        return (array) (static::get($key, $default));
     }
 
     public static function getString(string $key, string $default = null, bool $strict = self::STRICT_DEFAULT): string
     {
-        $value = static::get($key, $default);
+        self::validated(static::get($key, $default), 'string', $key, $strict);
 
-        self::validated($value, 'string', $key, $strict);
-
-        return (string) $value;
+        return (string) (static::get($key, $default));
     }
 
     public static function getInt(string $key, int $default = null, bool $strict = self::STRICT_DEFAULT): int
     {
-        $value = static::get($key, $default);
+        self::validated(static::get($key, $default), 'int', $key, $strict);
 
-        self::validated($value, 'int', $key, $strict);
-
-        return (int) $value;
+        return (int) (static::get($key, $default));
     }
 
     public static function getBool(string $key, bool $default = null, bool $strict = self::STRICT_DEFAULT): bool
     {
-        $value = static::get($key, $default);
+        self::validated(static::get($key, $default), 'bool', $key, $strict);
 
-        self::validated($value, 'bool', $key, $strict);
-
-        return (bool) $value;
+        return (bool) (static::get($key, $default));
     }
 
     public static function getFloat(string $key, float $default = null, bool $strict = self::STRICT_DEFAULT): float
     {
-        $value = static::get($key, $default);
+        self::validated(static::get($key, $default), 'float', $key, $strict);
 
-        self::validated($value, 'float', $key, $strict);
-
-        return (float) $value;
+        return (float) (static::get($key, $default));
     }
 
     protected static function validated(mixed $value, string $type, string $key, bool $strict): mixed
