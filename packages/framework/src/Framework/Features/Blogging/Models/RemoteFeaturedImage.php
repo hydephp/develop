@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use function array_flip;
 use function array_key_exists;
-use function config;
+use Hyde\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use function key;
 
@@ -27,7 +27,7 @@ class RemoteFeaturedImage extends FeaturedImage
     public function getContentLength(): int
     {
         $headers = Http::withHeaders([
-            'User-Agent' => config('hyde.http_user_agent', 'RSS Request Client'),
+            'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
         ])->head($this->getSource())->headers();
 
         if (array_key_exists('Content-Length', $headers)) {
