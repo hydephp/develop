@@ -69,7 +69,7 @@ trait BootsHydeKernel
      * You can use this to run any logic after discovery has completed.
      * The kernel instance will be passed to your callback.
      *
-     * @param  callable(\Hyde\Foundation\HydeKernel): void   $callback
+     * @param  callable(\Hyde\Foundation\HydeKernel): void  $callback
      */
     public function booted(callable $callback): void
     {
