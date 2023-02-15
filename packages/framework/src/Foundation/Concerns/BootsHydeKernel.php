@@ -32,9 +32,17 @@ trait BootsHydeKernel
 
         $this->booting = true;
 
+        foreach ($this->bootingCallbacks as $callback) {
+            $callback($this);
+        }
+
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
+
+        foreach ($this->bootedCallbacks as $callback) {
+            $callback($this);
+        }
 
         $this->booting = false;
         $this->booted = true;
