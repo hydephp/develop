@@ -37,11 +37,11 @@ class RedirectTest extends TestCase
                 </body>
             </html>
             
-            HTML), str_replace("\r", '', $redirect->render())
+            HTML), str_replace("\r", '', $redirect->compile())
         );
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
-        $this->assertSame($redirect->render(), file_get_contents(Hyde::path('_site/foo.html')));
+        $this->assertSame($redirect->compile(), file_get_contents(Hyde::path('_site/foo.html')));
 
         Hyde::unlink('_site/foo.html');
     }
@@ -58,9 +58,9 @@ class RedirectTest extends TestCase
     public function test_text_can_be_disabled()
     {
         $redirect = Redirect::create('foo', 'bar');
-        $this->assertStringContainsString('Redirecting to <a href=', $redirect->render());
+        $this->assertStringContainsString('Redirecting to <a href=', $redirect->compile());
 
         $redirect = Redirect::create('foo', 'bar', false);
-        $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->render());
+        $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->compile());
     }
 }
