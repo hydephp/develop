@@ -128,6 +128,9 @@ jobs:
       - name: Build assets for production
         run: npm run prod
 
+      - name: Copy compiled app.css file to HydeFront dist folder
+        run: cp _media/app.css packages/hydefront/dist/app.css
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
