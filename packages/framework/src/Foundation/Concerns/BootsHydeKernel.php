@@ -47,7 +47,7 @@ trait BootsHydeKernel
      * You can use this to register your own routes, pages, etc.
      * The kernel instance will be passed to your callback.
      *
-     * @param  callable  $callback
+     * @param  callable(\Hyde\Foundation\HydeKernel): void  $callback
      * @return void
      */
     public function booting(callable $callback): void
@@ -62,7 +62,7 @@ trait BootsHydeKernel
      * You can use this to run any logic after discovery has completed.
      * The kernel instance will be passed to your callback.
      *
-     * @param  callable  $callback
+     * @param  callable(\Hyde\Foundation\HydeKernel): void   $callback
      * @return void
      */
     public function booted(callable $callback): void
