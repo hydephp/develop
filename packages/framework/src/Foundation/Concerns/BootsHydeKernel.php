@@ -48,7 +48,6 @@ trait BootsHydeKernel
      * The kernel instance will be passed to your callback.
      *
      * @param  callable(\Hyde\Foundation\HydeKernel): void  $callback
-     * @return void
      */
     public function booting(callable $callback): void
     {
@@ -63,7 +62,6 @@ trait BootsHydeKernel
      * The kernel instance will be passed to your callback.
      *
      * @param  callable(\Hyde\Foundation\HydeKernel): void   $callback
-     * @return void
      */
     public function booted(callable $callback): void
     {
