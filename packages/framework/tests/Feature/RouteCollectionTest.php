@@ -23,7 +23,7 @@ class RouteCollectionTest extends TestCase
 {
     public function test_boot_method_discovers_all_pages()
     {
-        $collection = RouteCollection::boot(Hyde::getInstance());
+        $collection = RouteCollection::init(Hyde::getInstance())->boot();
 
         $this->assertInstanceOf(RouteCollection::class, $collection);
         $this->assertInstanceOf(Collection::class, $collection);

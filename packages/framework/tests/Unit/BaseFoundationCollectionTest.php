@@ -13,9 +13,9 @@ use Hyde\Testing\TestCase;
  */
 class BaseFoundationCollectionTest extends TestCase
 {
-    public function test_boot()
+    public function test_init()
     {
-        $booted = BaseFoundationCollectionTestClass::boot(HydeKernel::getInstance());
+        $booted = BaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
 
         $this->assertInstanceOf(BaseFoundationCollection::class, $booted);
         $this->assertInstanceOf(BaseFoundationCollectionTestClass::class, $booted);
@@ -26,7 +26,7 @@ class BaseFoundationCollectionTest extends TestCase
 
     public function test_get_instance()
     {
-        $booted = BaseFoundationCollectionTestClass::boot(HydeKernel::getInstance());
+        $booted = BaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
 
         $this->assertSame($booted, $booted->getInstance());
     }
