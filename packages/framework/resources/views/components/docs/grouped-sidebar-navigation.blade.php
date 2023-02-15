@@ -3,7 +3,7 @@
 	@foreach ($sidebar->getGroups() as $group)
 	<li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem" x-data="{ groupOpen: {{ $page->navigationMenuGroup() === $group ? 'true' : 'false' }} }">
 		<header class="sidebar-group-header flex justify-between items-center mb-2" @click="groupOpen = ! groupOpen">
-            <h4 class="sidebar-group-heading text-base font-semibold -ml-1">{{ Hyde::makeTitle($group) }}</h4>
+            <h4 class="sidebar-group-heading text-base font-semibold -ml-1 cursor-pointer">{{ Hyde::makeTitle($group) }}</h4>
             <button class="sidebar-group-toggle">
                 <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
