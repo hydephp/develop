@@ -49,11 +49,23 @@ trait BootsHydeKernel
         $this->readyToBoot = true;
     }
 
+    /**
+     * Register a new boot listener.
+     *
+     * @param  callable  $callback
+     * @return void
+     */
     public function booting(callable $callback): void
     {
         $this->bootingCallbacks[] = $callback;
     }
 
+    /**
+     * Register a new "booted" listener.
+     *
+     * @param  callable  $callback
+     * @return void
+     */
     public function booted(callable $callback): void
     {
         $this->bootedCallbacks[] = $callback;
