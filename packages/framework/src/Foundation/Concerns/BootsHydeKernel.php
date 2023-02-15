@@ -18,6 +18,9 @@ trait BootsHydeKernel
     private bool $readyToBoot = false;
     private bool $booting = false;
 
+    protected array $bootingCallbacks = [];
+    protected array $bootedCallbacks = [];
+
     public function boot(): void
     {
         if (! $this->readyToBoot || $this->booting) {
