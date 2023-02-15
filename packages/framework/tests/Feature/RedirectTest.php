@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Support\Models\Redirect;
 use Hyde\Testing\TestCase;
@@ -62,5 +63,19 @@ class RedirectTest extends TestCase
 
         $redirect = Redirect::create('foo', 'bar', false);
         $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->compile());
+    }
+
+    public function test_redirect_pages_can_be_compilable_by_static_site_though_manual_discovery()
+    {
+        $redirect = new Redirect('foo', 'bar');
+
+        Hyde::pages()->addPage($redirect);
+
+        (new StaticPageBuilder($redirect))->__invoke();
+
+        $this->assertFileExists(Hyde::path('_site/foo.html'));
+        $this->assertSame($redirect->compile(), file_get_contents(Hyde::path('_site/foo.html')));
+
+        Hyde::unlink('_site/foo.html');
     }
 }
