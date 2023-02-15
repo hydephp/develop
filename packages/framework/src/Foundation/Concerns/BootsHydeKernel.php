@@ -26,9 +26,13 @@ trait BootsHydeKernel
 
         $this->booting = true;
 
-        $this->files = FileCollection::boot($this);
-        $this->pages = PageCollection::boot($this);
-        $this->routes = RouteCollection::boot($this);
+        $this->files = FileCollection::init($this);
+        $this->pages = PageCollection::init($this);
+        $this->routes = RouteCollection::init($this);
+
+        $this->files->boot();
+        $this->pages->boot();
+        $this->routes->boot();
 
         $this->booting = false;
         $this->booted = true;
