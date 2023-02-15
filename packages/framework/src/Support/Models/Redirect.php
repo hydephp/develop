@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\View;
  * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
  * If you want, you can however add the pages to the HydeKernel route index by adding it
  * in the boot method of your AppServiceProvider, or any other suitable location.
+ * That way, your redirect will be saved by the standard build command.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
  */
