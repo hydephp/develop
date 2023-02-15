@@ -24,6 +24,9 @@ trait BootsHydeKernel
     /** @var array<callable> */
     protected array $bootedCallbacks = [];
 
+    /**
+     * Boot the Hyde Kernel and run the Auto-Discovery Process.
+     */
     public function boot(): void
     {
         if (! $this->readyToBoot || $this->booting) {
