@@ -29,6 +29,11 @@ abstract class BaseFoundationCollection extends Collection
         return (new static())->setKernel($kernel)->runDiscovery();
     }
 
+    public function boot(): static
+    {
+        //
+    }
+
     protected function __construct(array|Arrayable|null $items = [])
     {
         parent::__construct($items);
