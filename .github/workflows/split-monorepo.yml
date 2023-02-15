@@ -199,7 +199,6 @@ jobs:
         repository: hydephp/hydefront
         path: hydefront
         ref: master
-        fetch-depth: 0
         persist-credentials: false
 
     - name: Empty the destination directory
