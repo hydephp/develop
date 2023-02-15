@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
@@ -36,6 +37,11 @@ use Hyde\Support\Models\Route;
  */
 final class RouteCollection extends BaseFoundationCollection
 {
+    public function getRoute(string $routeKey): Route
+    {
+        return $this->items[$routeKey] ?? throw new RouteNotFoundException($routeKey.' in route collection');
+    }
+
     public function getRoutes(?string $pageClass = null): self
     {
         return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass): bool {

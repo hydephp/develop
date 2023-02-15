@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -100,5 +101,16 @@ class RouteCollectionTest extends TestCase
         $collection->addRoute(new Route(new BladePage('new')));
         $this->assertCount(3, $collection);
         $this->assertEquals(new Route(new BladePage('new')), $collection->last());
+    }
+
+    public function test_get_route()
+    {
+        $this->assertEquals(new Route(new BladePage('index')), Hyde::routes()->getRoute('index'));
+    }
+    
+    public function test_get_route_with_non_existing_route()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        Hyde::routes()->getRoute('non-existing');
     }
 }
