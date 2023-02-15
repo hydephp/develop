@@ -427,4 +427,24 @@ class HydeKernelTest extends TestCase
         $this->assertSame(HydeKernel::getInstance(), Hyde::kernel());
         $this->assertSame(HydeKernel::VERSION, Hyde::kernel()->version());
     }
+
+    public function test_can_register_booting_callback_closure()
+    {
+        //
+    }
+
+    public function test_can_register_booting_callback_callable()
+    {
+        //
+    }
+
+    public function test_can_register_booted_callback_closure()
+    {
+        //
+    }
+
+    public function test_can_register_booted_callback_callable()
+    {
+        //
+    }
 }
