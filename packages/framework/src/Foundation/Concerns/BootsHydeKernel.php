@@ -18,7 +18,10 @@ trait BootsHydeKernel
     private bool $readyToBoot = false;
     private bool $booting = false;
 
+    /** @var array<callable> */
     protected array $bootingCallbacks = [];
+
+    /** @var array<callable> */
     protected array $bootedCallbacks = [];
 
     public function boot(): void
