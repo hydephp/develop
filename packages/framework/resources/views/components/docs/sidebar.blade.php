@@ -10,7 +10,11 @@
         @endphp
 
         @if($sidebar->hasGroups())
-            @include('hyde::components.docs.grouped-sidebar-navigation')
+            @if(config('docs.sidebar_collapsible', false))
+                @include('hyde::components.docs.collapsible-grouped-sidebar-navigation')
+            @else
+                @include('hyde::components.docs.grouped-sidebar-navigation')
+            @endif
         @else
             @include('hyde::components.docs.sidebar-navigation')
         @endif

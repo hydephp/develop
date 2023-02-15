@@ -1,7 +1,7 @@
 @php /** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */ @endphp
 <ul id="sidebar-navigation-items" role="list">
 	@foreach ($sidebar->getGroups() as $group)
-	<li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem" x-data="{ groupOpen: {{ config('sidebar_collapsible', false) === false ? 'true' : (($page->navigationMenuGroup() === $group) ? 'true' : 'false') }} }">
+        <li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem" x-data="{ groupOpen: {{ $page->navigationMenuGroup() === $group ? 'true' : 'false' }} }">
 		<header class="sidebar-group-header flex justify-between items-center group mb-2" @click="groupOpen = ! groupOpen">
             <h4 class="sidebar-group-heading text-base font-semibold -ml-1 cursor-pointer dark:group-hover:text-white">{{ Hyde::makeTitle($group) }}</h4>
             <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
