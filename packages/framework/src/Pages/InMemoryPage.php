@@ -93,7 +93,7 @@ class InMemoryPage extends HydePage
         }
 
         if (! $this->getContents() && $this->getBladeView()) {
-            if (str_ends_with($this->view, '.blade.php')) {
+            if (str_ends_with($this->getBladeView(), '.blade.php')) {
                 return AnonymousViewCompiler::call($this->getBladeView(), $this->matter->toArray());
             }
 
