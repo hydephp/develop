@@ -10,7 +10,7 @@
                 </svg>
             </button>
         </header>
-		<ul class="sidebar-group-list ml-4" role="list">
+		<ul class="sidebar-group-list ml-4" role="list" x-show="groupOpen">
 			@foreach ($sidebar->getItemsInGroup($group) as $item)
 				<x-hyde::docs.grouped-sidebar-item :item="$item" :active="$item->route->getRouteKey() === $currentRoute->getRouteKey()" />
 			@endforeach
