@@ -20,9 +20,8 @@ use Illuminate\Support\Facades\View;
  * usually within the boot method of the package's service provider, or a page collection callback in an extension.
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
- * This class is especially useful for one-off pages, like pagination pages and the like.
- * But if your usage grows, or if you need file-based autodiscovery, you may benefit
- * from creating a custom page class instead, as that will give you full control.
+ * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize
+ * Hyde autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.
  */
 class InMemoryPage extends HydePage
 {
