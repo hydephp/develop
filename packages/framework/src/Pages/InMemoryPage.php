@@ -102,6 +102,7 @@ class InMemoryPage extends HydePage
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 
+        // If there's no macro or view configured, we'll just return the contents as-is.
         return $this->getContents();
     }
 
