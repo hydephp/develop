@@ -26,12 +26,12 @@ abstract class BaseFoundationCollection extends Collection
 
     public static function init(HydeKernel $kernel): static
     {
-        return (new static())->setKernel($kernel)->runDiscovery();
+        return (new static())->setKernel($kernel);
     }
 
     public function boot(): static
     {
-        //
+        return $this->runDiscovery();
     }
 
     protected function __construct(array|Arrayable|null $items = [])
