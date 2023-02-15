@@ -447,12 +447,12 @@ class HydePageTest extends TestCase
 
     public function test_abstract_markdown_page_has_markdown_document_property()
     {
-        $this->assertClassHasAttribute('markdown', BaseMarkdownPage::class);
+        $this->assertTrue(property_exists(BaseMarkdownPage::class, 'markdown'));
     }
 
     public function test_abstract_markdown_page_has_file_extension_property()
     {
-        $this->assertClassHasAttribute('fileExtension', BaseMarkdownPage::class);
+        $this->assertTrue(property_exists(BaseMarkdownPage::class, 'fileExtension'));
     }
 
     public function test_abstract_markdown_page_file_extension_property_is_set_to_md()
