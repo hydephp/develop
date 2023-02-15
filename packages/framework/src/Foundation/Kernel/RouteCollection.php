@@ -12,6 +12,8 @@ use Hyde\Support\Models\Route;
 /**
  * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
  *
+ * @property array<string, Route> $items The routes in the collection.
+ *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
  *

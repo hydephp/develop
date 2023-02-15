@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 /**
  * The PageCollection contains all the instantiated pages.
  *
+ * @property array<string, HydePage> $items The pages in the collection.
+ *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
  *
