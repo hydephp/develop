@@ -4,7 +4,7 @@
         @include('hyde::components.docs.sidebar-brand')
     </header>
     <nav id="sidebar-navigation"
-         class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
+        @class(['p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533]', config('docs.sidebar_footer', true) ? 'h-[calc(100vh_-_8rem)]': 'h-[calc(100vh_-_4rem)]'])>
         @php
             $sidebar = \Hyde\Framework\Features\Navigation\DocumentationSidebar::create();
         @endphp
@@ -15,7 +15,9 @@
             @include('hyde::components.docs.sidebar-navigation')
         @endif
     </nav>
-    <footer id="sidebar-footer" class="h-16 absolute p-4 w-full bottom-0 left-0 text-center leading-8">
-        @include('hyde::components.docs.sidebar-footer')
-    </footer>
+    @if(config('docs.sidebar_footer', true))
+        <footer id="sidebar-footer" class="h-16 absolute p-4 w-full bottom-0 left-0 text-center leading-8">
+            @include('hyde::components.docs.sidebar-footer')
+        </footer>
+    @endif
 </aside>

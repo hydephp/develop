@@ -25,6 +25,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Sidebar Footer
+    |--------------------------------------------------------------------------
+    |
+    | By default, there is a small footer in the sidebar that links to your home page.
+    | If this is not your cup of tea, you can disable it by setting the option below to false.
+    |
+    */
+
+    'sidebar_footer' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Collaborative Source Editing Location
     |--------------------------------------------------------------------------
     |
