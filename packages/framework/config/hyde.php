@@ -378,5 +378,5 @@ return [
      | your Tailwind configuration file will be injected into the HTML.
      */
 
-    'use_play_cdn' => false,
+    'use_play_cdn' => true,
 ];
