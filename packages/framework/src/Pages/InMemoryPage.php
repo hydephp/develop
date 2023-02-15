@@ -45,9 +45,9 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Create a new virtual page instance.
+     * Create a new in-memory/virtual page instance.
      *
-     * The virtual page class offers two content options. You can either pass a string to the $contents parameter,
+     * The in-memory page class offers two content options. You can either pass a string to the $contents parameter,
      * Hyde will then save that literally as the page's contents. Alternatively, you can pass a view name to the $view parameter,
      * and Hyde will use that view to render the page contents with the supplied front matter during the static site build process.
      *
@@ -55,7 +55,8 @@ class InMemoryPage extends HydePage
      * You can also register a macro with the name 'compile' to overload the default compile method.
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
-     *                              If the identifier for a virtual page is "foo/bar" the page will be saved to "_site/foo/bar.html".
+     *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
+     *                              You can then also use the route helper to get a link to it by using the route key "foo/bar".
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           this will be passed to the view.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
