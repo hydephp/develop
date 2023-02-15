@@ -15,7 +15,6 @@ $token = $argv[1] ?? exit(400);
 $commit = $argv[2] ?? exit(400);
 $branch = $argv[3] ?? 'master';
 
-
 $data = [
     'commit' => $commit,
     'report' => file_get_contents('type-coverage.json') ?? exit(404),
