@@ -4,6 +4,7 @@
 	<li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem">
 		<header class="sidebar-group-header">
             <h4 class="sidebar-group-heading text-base font-semibold mb-2 -ml-1">{{ Hyde::makeTitle($group) }}</h4>
+            <button class="sidebar-group-toggle"></button>
         </header>
 		<ul class="sidebar-group-list ml-4" role="list">
 			@foreach ($sidebar->getItemsInGroup($group) as $item)
