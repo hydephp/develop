@@ -81,6 +81,10 @@ class InMemoryPage extends HydePage
 
     /**
      * Get the contents that will be saved to disk for this page.
+     *
+     * In order to make your virtual page easy to use we provide a few options for how the page can be compiled.
+     * If you want even more control, you can register a macro with the name 'compile' to overload the method,
+     * or simply extend the class and override the method yourself, either in a standard or anonymous class.
      */
     public function compile(): string
     {
