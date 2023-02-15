@@ -1,7 +1,7 @@
 @php /** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */ @endphp
 <ul id="sidebar-navigation-items" role="list">
 	@foreach ($sidebar->getGroups() as $group)
-	<li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem">
+	<li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem" x-data="{ groupOpen: false }">
 		<header class="sidebar-group-header flex justify-between items-center mb-2">
             <h4 class="sidebar-group-heading text-base font-semibold -ml-1">{{ Hyde::makeTitle($group) }}</h4>
             <button class="sidebar-group-toggle">
