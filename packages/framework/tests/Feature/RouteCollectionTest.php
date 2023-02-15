@@ -107,7 +107,7 @@ class RouteCollectionTest extends TestCase
     {
         $this->assertEquals(new Route(new BladePage('index')), Hyde::routes()->getRoute('index'));
     }
-    
+
     public function test_get_route_with_non_existing_route()
     {
         $this->expectException(RouteNotFoundException::class);
