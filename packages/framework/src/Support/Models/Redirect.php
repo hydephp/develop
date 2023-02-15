@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\View;
 
@@ -17,10 +18,8 @@ use Illuminate\Support\Facades\View;
  * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
- *
- * @todo Extend InMemoryPage?
  */
-class Redirect implements Renderable
+class Redirect extends InMemoryPage implements Renderable
 {
     public readonly string $path;
     public readonly string $destination;
