@@ -10,23 +10,24 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" packagePrefix="Hyde\Framework\Testing\Feature\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" packagePrefix="Hyde\Framework\Testing\Unit\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/app/storage/app" />
-      <excludeFolder url="file://$MODULE_DIR$/app/storage/framework" />
       <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
       <excludeFolder url="file://$MODULE_DIR$/packages/realtime-compiler/vendor/hyde" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/_laravel_idea" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/amp" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/openlss/lib-array2xml" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/advanced-json-rpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/path-util" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jetbrains/phpstorm-attributes" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/_laravel_idea" />
+      <excludeFolder url="file://$MODULE_DIR$/app/storage/app" />
+      <excludeFolder url="file://$MODULE_DIR$/app/storage/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/path-util" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/openlss/lib-array2xml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/uri-template" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
