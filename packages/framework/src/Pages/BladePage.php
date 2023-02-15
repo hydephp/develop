@@ -6,6 +6,7 @@ namespace Hyde\Pages;
 
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
+use Illuminate\Support\Facades\View;
 
 /**
  * Page class for Blade pages.
@@ -42,6 +43,6 @@ class BladePage extends HydePage
     /** @inheritDoc */
     public function compile(): string
     {
-        return view($this->getBladeView())->render();
+        return View::make($this->getBladeView())->render();
     }
 }

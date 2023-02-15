@@ -6,6 +6,7 @@ namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\View;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
@@ -16,6 +17,8 @@ use Illuminate\Contracts\Support\Renderable;
  * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
+ *
+ * @todo Extend InMemoryPage?
  */
 class Redirect implements Renderable
 {
@@ -43,7 +46,7 @@ class Redirect implements Renderable
 
     public function render(): string
     {
-        return view('hyde::pages.redirect', [
+        return View::make('hyde::pages.redirect', [
             'destination' => $this->destination,
             'showText' => $this->showText,
         ])->render();

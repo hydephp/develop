@@ -29,8 +29,7 @@ function getCoverage(string $contents): float
 
 $data = [
     'commit' => $commit,
-    'coverage' => getCoverage(file_get_contents('psalmout.txt')),
-    'time_ms' => (microtime(true) - TIME_START) * 1000,
+    'report' => file_get_contents('type-coverage.json'),
 ];
 
 $url = 'https://ci.hydephp.se/api/github/actions/type-coverage';
@@ -52,3 +51,8 @@ curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 $resp = curl_exec($curl);
 curl_close($curl);
 var_dump($resp);
+
+if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200) {
+    echo 'Type coverage report failed to send';
+    exit(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+}

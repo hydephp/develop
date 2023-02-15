@@ -7,7 +7,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
-use function config;
+use Hyde\Facades\Config;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use function date;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
@@ -23,8 +24,9 @@ class RssFeedGenerator extends BaseXmlGenerator
 {
     public function generate(): static
     {
-        MarkdownPost::getLatestPosts()
-            ->each(fn (MarkdownPost $post) => $this->addItem($post));
+        MarkdownPost::getLatestPosts()->each(function (MarkdownPost $post): void {
+            $this->addItem($post);
+        });
 
         return $this;
     }
@@ -69,9 +71,9 @@ class RssFeedGenerator extends BaseXmlGenerator
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', Hyde::url($post->image->getSource(), true));
-            $image->addAttribute('type', $this->getImageType($post));
-            $image->addAttribute('length', $this->getImageLength($post));
+            $image->addAttribute('url', Hyde::url($post->image->getSource()));
+            $image->addAttribute('type', $this->getImageType($post->image));
+            $image->addAttribute('length', $this->getImageLength($post->image));
         }
     }
 
@@ -82,7 +84,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->addChild($channel, 'title', Site::name());
         $this->addChild($channel, 'link', Site::url());
         $this->addChild($channel, 'description', $this->getDescription());
-        $this->addChild($channel, 'language', config('hyde.language', 'en'));
+        $this->addChild($channel, 'language', Config::getString('hyde.language', 'en'));
         $this->addChild($channel, 'generator', 'HydePHP '.Hyde::version());
         $this->addChild($channel, 'lastBuildDate', date(DATE_RSS));
     }
@@ -95,26 +97,26 @@ class RssFeedGenerator extends BaseXmlGenerator
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
 
-    protected function getImageType(MarkdownPost $post): string
+    protected function getImageType(FeaturedImage $image): string
     {
         /** @todo Add support for more types */
-        return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
+        return str_ends_with($image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 
     /** @return numeric-string */
-    protected function getImageLength(MarkdownPost $post): string
+    protected function getImageLength(FeaturedImage $image): string
     {
         /** @todo We might want to add a build warning if the length is zero */
-        return (string) $post->image->getContentLength();
+        return (string) $image->getContentLength();
     }
 
     public static function getFilename(): string
     {
-        return config('hyde.rss_filename', 'feed.xml');
+        return Config::getString('hyde.rss_filename', 'feed.xml');
     }
 
     public static function getDescription(): string
     {
-        return config('hyde.rss_description', Site::name().' RSS Feed');
+        return Config::getString('hyde.rss_description', Site::name().' RSS Feed');
     }
 }
