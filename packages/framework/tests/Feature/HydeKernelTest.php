@@ -12,6 +12,7 @@ use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
@@ -494,6 +495,22 @@ class HydeKernelTest extends TestCase
 
         $kernel->readyToBoot();
         $kernel->boot();
+    }
+
+    public function test_can_use_booting_callbacks_to_inject_custom_pages()
+    {
+        $kernel = new HydeKernel();
+
+        $page = new InMemoryPage('foo');
+        $kernel->booting(function (HydeKernel $kernel) use ($page): void {
+            $kernel->pages()->addPage($page);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+
+        $this->assertSame($page, $kernel->pages()->getPage('foo'));
+        $this->assertEquals($page->getRoute(), $kernel->routes()->getRoute('foo'));
     }
 }
 
