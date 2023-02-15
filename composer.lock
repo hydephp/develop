@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae6db011e36e164d5e8eda11375c111c",
+    "content-hash": "f1e4892647c2f0d4e5b18715f8923aa5",
     "packages": [
         {
             "name": "brick/math",
@@ -9940,6 +9940,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hyde/framework": 20,
+        "hyde/publications": 20,
         "hyde/ui-kit": 20,
         "hyde/realtime-compiler": 20,
         "hyde/testing": 20,
@@ -9951,5 +9952,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
