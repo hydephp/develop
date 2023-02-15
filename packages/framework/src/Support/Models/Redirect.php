@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\View;
  *
  * @example `Redirect::make('foo', 'bar')->store();`
  */
-class Redirect extends InMemoryPage implements Renderable
+class Redirect extends InMemoryPage
 {
     public readonly string $path;
     public readonly string $destination;
