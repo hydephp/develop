@@ -39,9 +39,13 @@ trait BootsHydeKernel
             $callback($this);
         }
 
-        $this->files = FileCollection::boot($this);
-        $this->pages = PageCollection::boot($this);
-        $this->routes = RouteCollection::boot($this);
+        $this->files = FileCollection::init($this);
+        $this->pages = PageCollection::init($this);
+        $this->routes = RouteCollection::init($this);
+
+        $this->files->boot();
+        $this->pages->boot();
+        $this->routes->boot();
 
         foreach ($this->bootedCallbacks as $callback) {
             $callback($this);
