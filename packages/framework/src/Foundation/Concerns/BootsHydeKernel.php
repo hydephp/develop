@@ -40,15 +40,6 @@ trait BootsHydeKernel
         $this->booted = true;
     }
 
-    /** @internal */
-    public function readyToBoot(): void
-    {
-        // To give package developers ample time to register their services,
-        // don't want to boot the kernel until all providers have been registered.
-
-        $this->readyToBoot = true;
-    }
-
     /**
      * Register a new boot listener.
      *
@@ -69,5 +60,14 @@ trait BootsHydeKernel
     public function booted(callable $callback): void
     {
         $this->bootedCallbacks[] = $callback;
+    }
+
+    /** @internal */
+    public function readyToBoot(): void
+    {
+        // To give package developers ample time to register their services,
+        // don't want to boot the kernel until all providers have been registered.
+
+        $this->readyToBoot = true;
     }
 }
