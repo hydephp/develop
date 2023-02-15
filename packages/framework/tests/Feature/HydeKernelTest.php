@@ -456,7 +456,8 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
 
-        $kernel->booting(new class($this) {
+        $kernel->booting(new class($this)
+        {
             private TestCase $test;
 
             public function __construct($test)
@@ -478,7 +479,8 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
 
-        $kernel->booted(new class($this) {
+        $kernel->booted(new class($this)
+        {
             private TestCase $test;
 
             public function __construct($test)
