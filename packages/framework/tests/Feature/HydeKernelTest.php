@@ -12,6 +12,7 @@ use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
@@ -426,5 +427,104 @@ class HydeKernelTest extends TestCase
         $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
         $this->assertSame(HydeKernel::getInstance(), Hyde::kernel());
         $this->assertSame(HydeKernel::VERSION, Hyde::kernel()->version());
+    }
+
+    public function test_can_register_booting_callback_closure()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booting(function () {
+            $this->assertTrue(true);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_can_register_booted_callback_closure()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booted(function () {
+            $this->assertTrue(true);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_can_register_booting_callback_callable()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booting(new CallableClass($this));
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_can_register_booted_callback_callable()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booted(new CallableClass($this));
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_booting_callback_receives_kernel_instance()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booting(function ($_kernel) use ($kernel) {
+            $this->assertSame($kernel, $_kernel);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_booted_callback_receives_kernel_instance()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booted(function ($_kernel) use ($kernel) {
+            $this->assertSame($kernel, $_kernel);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_can_use_booting_callbacks_to_inject_custom_pages()
+    {
+        $kernel = new HydeKernel();
+
+        $page = new InMemoryPage('foo');
+        $kernel->booting(function (HydeKernel $kernel) use ($page): void {
+            $kernel->pages()->addPage($page);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+
+        $this->assertSame($page, $kernel->pages()->getPage('foo'));
+        $this->assertEquals($page->getRoute(), $kernel->routes()->getRoute('foo'));
+    }
+}
+
+class CallableClass
+{
+    private TestCase $test;
+
+    public function __construct($test)
+    {
+        $this->test = $test;
+    }
+
+    public function __invoke(): void
+    {
+        $this->test->assertTrue(true);
     }
 }
