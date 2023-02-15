@@ -471,6 +471,30 @@ class HydeKernelTest extends TestCase
         $kernel->readyToBoot();
         $kernel->boot();
     }
+
+    public function test_booting_callback_receives_kernel_instance()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booting(function ($_kernel) use ($kernel) {
+            $this->assertSame($kernel, $_kernel);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
+    public function test_booted_callback_receives_kernel_instance()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booted(function ($_kernel) use ($kernel) {
+            $this->assertSame($kernel, $_kernel);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
 }
 
 class CallableClass
