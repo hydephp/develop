@@ -38,6 +38,8 @@ class Redirect extends InMemoryPage implements Renderable
         $this->path = $this->normalizePath($path);
         $this->destination = $destination;
         $this->showText = $showText;
+
+        parent::__construct($this->path);
     }
 
     public static function create(string $path, string $destination, bool $showText = true): static
