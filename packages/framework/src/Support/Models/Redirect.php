@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\View;
  * Once viewed in a web browser a meta refresh will redirect the user to the new location.
  *
  * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
+ * If you want, you can however add the pages to the HydeKernel route index by adding it
+ * in the boot method of your AppServiceProvider, or any other suitable location.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
  */
