@@ -6,7 +6,6 @@ namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\View;
 
 /**
