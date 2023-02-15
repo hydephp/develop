@@ -456,20 +456,7 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
 
-        $kernel->booting(new class($this)
-        {
-            private TestCase $test;
-
-            public function __construct($test)
-            {
-                $this->test = $test;
-            }
-
-            public function __invoke(): void
-            {
-                $this->test->assertTrue(true);
-            }
-        });
+        $kernel->booting(new CallableClass($this));
 
         $kernel->readyToBoot();
         $kernel->boot();
@@ -479,22 +466,24 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
 
-        $kernel->booted(new class($this)
-        {
-            private TestCase $test;
-
-            public function __construct($test)
-            {
-                $this->test = $test;
-            }
-
-            public function __invoke(): void
-            {
-                $this->test->assertTrue(true);
-            }
-        });
+        $kernel->booted(new CallableClass($this));
 
         $kernel->readyToBoot();
         $kernel->boot();
+    }
+}
+
+class CallableClass
+{
+    private TestCase $test;
+
+    public function __construct($test)
+    {
+        $this->test = $test;
+    }
+
+    public function __invoke(): void
+    {
+        $this->test->assertTrue(true);
     }
 }
