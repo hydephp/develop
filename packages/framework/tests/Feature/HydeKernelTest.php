@@ -430,21 +430,69 @@ class HydeKernelTest extends TestCase
 
     public function test_can_register_booting_callback_closure()
     {
-        //
+        $kernel = new HydeKernel();
+
+        $kernel->booting(function () {
+            $this->assertTrue(true);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
     }
 
     public function test_can_register_booting_callback_callable()
     {
-        //
+        $kernel = new HydeKernel();
+
+        $kernel->booting(new class($this) {
+            private TestCase $test;
+
+            public function __construct($test)
+            {
+                $this->test = $test;
+            }
+
+            public function __invoke(): void
+            {
+                $this->test->assertTrue(true);
+            }
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
     }
 
     public function test_can_register_booted_callback_closure()
     {
-        //
+        $kernel = new HydeKernel();
+
+        $kernel->booted(function () {
+            $this->assertTrue(true);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
     }
 
     public function test_can_register_booted_callback_callable()
     {
-        //
+        $kernel = new HydeKernel();
+
+        $kernel->booted(new class($this) {
+            private TestCase $test;
+
+            public function __construct($test)
+            {
+                $this->test = $test;
+            }
+
+            public function __invoke(): void
+            {
+                $this->test->assertTrue(true);
+            }
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
     }
 }
