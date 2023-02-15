@@ -43,6 +43,10 @@ trait BootsHydeKernel
     /**
      * Register a new boot listener.
      *
+     * Your callback will be called before the kernel is booted.
+     * You can use this to register your own routes, pages, etc.
+     * The kernel instance will be passed to your callback.
+     *
      * @param  callable  $callback
      * @return void
      */
@@ -53,6 +57,10 @@ trait BootsHydeKernel
 
     /**
      * Register a new "booted" listener.
+     *
+     * Your callback will be called after the kernel is booted.
+     * You can use this to run any logic after discovery has completed.
+     * The kernel instance will be passed to your callback.
      *
      * @param  callable  $callback
      * @return void
