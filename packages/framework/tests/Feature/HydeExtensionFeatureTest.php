@@ -178,7 +178,7 @@ class HydeExtensionFeatureTest extends TestCase
     public function test_custom_registered_pages_are_discovered_by_the_file_collection_class()
     {
         app(HydeKernel::class)->registerExtension(TestPageExtension::class);
-        FileCollection::boot(app(HydeKernel::class));
+        FileCollection::init(app(HydeKernel::class))->boot();
 
         $this->directory('foo');
         $this->file('foo/bar.txt');
@@ -193,7 +193,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->file('foo/bar.txt');
 
         app(HydeKernel::class)->registerExtension(TestPageExtension::class);
-        PageCollection::boot(app(HydeKernel::class));
+        PageCollection::init(app(HydeKernel::class))->boot();
 
         $this->assertArrayHasKey('foo/bar.txt', Pages::all());
         $this->assertEquals(new TestPageClass('bar'), Pages::get('foo/bar.txt'));
@@ -205,7 +205,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->file('foo/bar.txt');
 
         app(HydeKernel::class)->registerExtension(TestPageExtension::class);
-        RouteCollection::boot(app(HydeKernel::class));
+        RouteCollection::init(app(HydeKernel::class))->boot();
 
         $this->assertArrayHasKey('foo/bar', Routes::all());
         $this->assertEquals(new Route(new TestPageClass('bar')), Routes::get('foo/bar'));

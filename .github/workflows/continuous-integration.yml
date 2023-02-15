@@ -128,6 +128,9 @@ jobs:
       - name: Build assets for production
         run: npm run prod
 
+      - name: Copy compiled app.css file to HydeFront dist folder
+        run: cp _media/app.css packages/hydefront/dist/app.css
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -137,9 +140,10 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: '_media/app.css'
+          add: '["_media/app.css", "packages/hydefront/dist/app.css"]'
           message: 'Compile TailwindCSS for production'
           new_branch: compile-tailwindcss
+          # Todo create PR or just push to master?
 
 
   build-test-coverage:

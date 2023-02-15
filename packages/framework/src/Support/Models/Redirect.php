@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
-use Illuminate\Contracts\Support\Renderable;
+use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\View;
  * Once viewed in a web browser a meta refresh will redirect the user to the new location.
  *
  * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
+ * If you want, you can however add the pages to the HydeKernel route index by adding it
+ * in the boot method of your AppServiceProvider, or any other suitable location.
+ * That way, your redirect will be saved by the standard build command.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
- *
- * @todo Extend InMemoryPage?
  */
-class Redirect implements Renderable
+class Redirect extends InMemoryPage
 {
     public readonly string $path;
     public readonly string $destination;
@@ -37,14 +38,16 @@ class Redirect implements Renderable
         $this->path = $this->normalizePath($path);
         $this->destination = $destination;
         $this->showText = $showText;
+
+        parent::__construct($this->path);
     }
 
-    public static function make(string $path, string $destination, bool $showText = true): static
+    public static function create(string $path, string $destination, bool $showText = true): static
     {
         return (new static($path, $destination, $showText))->store();
     }
 
-    public function render(): string
+    public function compile(): string
     {
         return View::make('hyde::pages.redirect', [
             'destination' => $this->destination,
@@ -54,7 +57,7 @@ class Redirect implements Renderable
 
     public function store(): static
     {
-        file_put_contents(Hyde::sitePath("$this->path.html"), $this->render());
+        file_put_contents(Hyde::sitePath("$this->path.html"), $this->compile());
 
         return $this;
     }
