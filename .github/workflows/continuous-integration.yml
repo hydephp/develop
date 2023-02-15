@@ -474,7 +474,7 @@ jobs:
         run: vendor/bin/psalm --shepherd || true
 
       - name: Ping CI server with coverage results
-        run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }} master
+        run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.sha }} master
 
 
   run-static-analysis-phpstan:
