@@ -15,7 +15,7 @@ class RedirectTest extends TestCase
 {
     public function test_can_create_a_redirect()
     {
-        $redirect = Redirect::make('foo', 'bar');
+        $redirect = Redirect::create('foo', 'bar');
 
         $this->assertInstanceOf(Redirect::class, $redirect);
         $this->assertEquals(new Redirect('foo', 'bar'), $redirect);
@@ -48,7 +48,7 @@ class RedirectTest extends TestCase
 
     public function test_path_parameter_is_normalized()
     {
-        $redirect = Redirect::make('foo.html', 'bar');
+        $redirect = Redirect::create('foo.html', 'bar');
 
         $this->assertSame('foo', $redirect->path);
 
@@ -57,10 +57,10 @@ class RedirectTest extends TestCase
 
     public function test_text_can_be_disabled()
     {
-        $redirect = Redirect::make('foo', 'bar');
+        $redirect = Redirect::create('foo', 'bar');
         $this->assertStringContainsString('Redirecting to <a href=', $redirect->render());
 
-        $redirect = Redirect::make('foo', 'bar', false);
+        $redirect = Redirect::create('foo', 'bar', false);
         $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->render());
     }
 }

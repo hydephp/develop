@@ -40,7 +40,7 @@ class Redirect extends InMemoryPage implements Renderable
         $this->showText = $showText;
     }
 
-    public static function make(string $path, string $destination, bool $showText = true): static
+    public static function create(string $path, string $destination, bool $showText = true): static
     {
         return (new static($path, $destination, $showText))->store();
     }
