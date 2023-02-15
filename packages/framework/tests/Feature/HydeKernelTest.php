@@ -440,6 +440,18 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
+    public function test_can_register_booted_callback_closure()
+    {
+        $kernel = new HydeKernel();
+
+        $kernel->booted(function () {
+            $this->assertTrue(true);
+        });
+
+        $kernel->readyToBoot();
+        $kernel->boot();
+    }
+
     public function test_can_register_booting_callback_callable()
     {
         $kernel = new HydeKernel();
@@ -456,18 +468,6 @@ class HydeKernelTest extends TestCase
             {
                 $this->test->assertTrue(true);
             }
-        });
-
-        $kernel->readyToBoot();
-        $kernel->boot();
-    }
-
-    public function test_can_register_booted_callback_closure()
-    {
-        $kernel = new HydeKernel();
-
-        $kernel->booted(function () {
-            $this->assertTrue(true);
         });
 
         $kernel->readyToBoot();
