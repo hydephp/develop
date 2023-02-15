@@ -24,6 +24,7 @@ return [
 
     'header_title' => env('SITE_NAME', 'HydePHP').' Docs',
     'sidebar_footer' => true,
+    'sidebar_collapsible' => false,
 
     /*
     |--------------------------------------------------------------------------
