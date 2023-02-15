@@ -40,6 +40,11 @@ class Redirect extends InMemoryPage implements Renderable
         $this->showText = $showText;
     }
 
+    public static function make(string $path, string $destination, bool $showText = true): static
+    {
+        return (new static($path, $destination, $showText))->store();
+    }
+
     public function render(): string
     {
         return View::make('hyde::pages.redirect', [
