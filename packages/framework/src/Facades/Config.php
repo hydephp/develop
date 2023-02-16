@@ -21,9 +21,6 @@ use TypeError;
  */
 class Config extends \Illuminate\Support\Facades\Config
 {
-    /** @var true */
-    protected const STRICT_DEFAULT = true;
-
     public static function getArray(string $key, array $default = null): array
     {
         return (array) self::validated(static::get($key, $default), 'array', $key);
