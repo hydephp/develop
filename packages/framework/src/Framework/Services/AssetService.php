@@ -47,9 +47,6 @@ class AssetService
         return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
     }
 
-    /**
-     * Alias for constructCdnPath.
-     */
     public function cdnLink(string $file): string
     {
         return $this->constructCdnPath($file);
