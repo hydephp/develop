@@ -40,6 +40,7 @@ class DocumentationSidebar extends BaseNavigationMenu
         })->unique()->toArray();
     }
 
+    /** @return Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItemsInGroup(?string $group): Collection
     {
         return $this->items->filter(function (NavItem $item) use ($group): bool {
