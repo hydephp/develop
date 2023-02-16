@@ -21,8 +21,8 @@ use TypeError;
  */
 class Config extends \Illuminate\Support\Facades\Config
 {
-    /** @var false {@todo Consider setting to true} */
-    protected const STRICT_DEFAULT = false;
+    /** @var true */
+    protected const STRICT_DEFAULT = true;
 
     public static function getArray(string $key, array $default = null, bool $strict = self::STRICT_DEFAULT): array
     {
