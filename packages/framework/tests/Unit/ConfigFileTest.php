@@ -45,12 +45,12 @@ class ConfigFileTest extends TestCase
             MarkdownPost::class => '_posts',
             DocumentationPage::class => '_docs',
         ]);
-}
+    }
 
     public function default_source_directories_values_cover_all_core_extension_classes()
     {
         expect($this->getConfig('source_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
-            ->mapWithKeys(fn($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
+            ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
             ->toArray()
         );
     }
