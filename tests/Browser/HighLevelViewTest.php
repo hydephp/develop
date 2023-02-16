@@ -162,7 +162,7 @@ date: 2022-01-01 12:00
         Hyde::unlink(('_site/docs/page1.html'));
     }
 
-    public function test_documentation_site_with_grouped_pages()
+    public function test_documentation_site_with_collapsible_grouped_pages()
     {
         $this->makeDocumentationTestPage('Page1', ['navigation.group' => 'Group 1'], true);
         $this->makeDocumentationTestPage('Page2', ['navigation.group' => 'Group 1']);
@@ -177,7 +177,7 @@ date: 2022-01-01 12:00
                 ->assertSee('HydePHP Docs')
                 ->assertSee('Page1')
                 ->assertSee('Page2')
-                ->assertSee('Page3')
+                ->assertDontSee('Page3')
                 ->assertAttributeContains('#sidebar-navigation-items > li', 'class', 'sidebar-group')
                 ->assertSeeIn('#sidebar-navigation-items > li:nth-child(1) > header > h4.sidebar-group-heading', 'Group 1')
                 ->assertAriaAttribute('#sidebar-navigation-items > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
