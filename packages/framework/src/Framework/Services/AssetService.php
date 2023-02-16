@@ -24,6 +24,11 @@ class AssetService
      */
     public string $version = 'v2.0';
 
+    public function __construct()
+    {
+        //
+    }
+
     public function version(): string
     {
         return $this->version;
