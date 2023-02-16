@@ -176,6 +176,7 @@ date: 2022-01-01 12:00
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/docs/page1')
+                ->assertNotPresent('button.sidebar-group-toggle')
                 ->assertSee('HydePHP Docs')
                 ->assertSee('Page1')
                 ->assertSee('Page2')
