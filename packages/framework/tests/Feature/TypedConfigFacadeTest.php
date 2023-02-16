@@ -158,6 +158,6 @@ class TypedConfigFacadeTest extends TestCase
     protected function runUnitTestStrict($actual, $expected, $method): void
     {
         config(['foo' => $actual]);
-        $this->assertSame($expected, $method('foo', strict: true));
+        $this->assertSame($expected, $method('foo'));
     }
 }
