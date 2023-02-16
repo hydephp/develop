@@ -30,6 +30,7 @@ class DocumentationSidebar extends BaseNavigationMenu
         return (count($this->getGroups()) >= 1) && ($this->getGroups() !== ['other']);
     }
 
+    /** @return array<string> */
     public function getGroups(): array
     {
         return $this->items->map(function (NavItem $item): string {
