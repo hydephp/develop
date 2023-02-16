@@ -22,65 +22,65 @@ jobs:
       url: https://github.com/hydephp/hyde/tree/master
 
     steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
 
-    - name: Checkout hydephp/hyde
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/hyde
-        path: hyde
-        ref: develop
-        fetch-depth: 0
-        persist-credentials: false
+      - name: Checkout hydephp/hyde
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/hyde
+          path: hyde
+          ref: develop
+          fetch-depth: 0
+          persist-credentials: false
 
-    - name: Download base files
-      run: wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
+      - name: Download base files
+        run: wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
 
-    - name: Unzip archive
-      run: unzip hyde.zip
+      - name: Unzip archive
+        run: unzip hyde.zip
 
-    - name: Empty the hyde directory
-      run: rm -rf hyde/*
+      - name: Empty the hyde directory
+        run: rm -rf hyde/*
 
-    - name: Copy over base files
-      run: cp -rf hydephp-develop-*/* hyde -v
+      - name: Copy over base files
+        run: cp -rf hydephp-develop-*/* hyde -v
 
-    - name: Copy over persisted files
-      run: cp -rf develop/packages/hyde/. hyde -v
+      - name: Copy over persisted files
+        run: cp -rf develop/packages/hyde/. hyde -v
 
-    - name: Remove monorepo support files
-      run: |
-        rm -rf hyde/monorepo -v
-        rm hyde/CHANGELOG.md -v
-        rm hyde/phpunit.dusk.xml -v
-        rm hyde/phpunit.xml.dist -v
-        rm hyde/psalm.xml -v
-        rm hyde/psalm-baseline.xml -v
-        rm hyde/rector.php -v
+      - name: Remove monorepo support files
+        run: |
+          rm -rf hyde/monorepo -v
+          rm hyde/CHANGELOG.md -v
+          rm hyde/phpunit.dusk.xml -v
+          rm hyde/phpunit.xml.dist -v
+          rm hyde/psalm.xml -v
+          rm hyde/psalm-baseline.xml -v
+          rm hyde/rector.php -v
 
-    - name: Commit and push changes
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        cd hyde
-        if ! git diff-index --quiet HEAD --; then
-          echo "No changes to this package. Exiting gracefully.";
-          exit 0;
-        fi
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
-
-        git add .
-        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
-
-        git push upstream develop
-        echo "No changes to this package. Exiting gracefully."
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          cd hyde
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+          
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          
+          git push upstream develop
+          echo "No changes to this package. Exiting gracefully."
 
   framework:
     runs-on: ubuntu-latest
@@ -90,46 +90,46 @@ jobs:
       url: https://github.com/hydephp/framework/tree/master
 
     steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
 
-    - name: Checkout hydephp/framework
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/framework
-        path: framework
-        ref: develop
-        fetch-depth: 0
-        persist-credentials: false
+      - name: Checkout hydephp/framework
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/framework
+          path: framework
+          ref: develop
+          fetch-depth: 0
+          persist-credentials: false
 
-    - name: Empty the destination directory
-      run: rm -rf framework/*
+      - name: Empty the destination directory
+        run: rm -rf framework/*
 
-    - name: Copy over files
-      run: cp -rf develop/packages/framework/. framework -v
+      - name: Copy over files
+        run: cp -rf develop/packages/framework/. framework -v
 
-    - name: Commit and push changes
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        cd framework
-        if ! git diff-index --quiet HEAD --; then
-          echo "No changes to this package. Exiting gracefully.";
-          exit 0;
-        fi
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
-
-        git add .
-        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
-
-        git push upstream develop
-        echo "No changes to this package. Exiting gracefully."
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          cd framework
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+          
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          
+          git push upstream develop
+          echo "No changes to this package. Exiting gracefully."
 
   realtime-compiler:
     runs-on: ubuntu-latest
@@ -139,45 +139,45 @@ jobs:
       url: https://github.com/realtime-compiler/hyde/tree/master
 
     steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
 
-    - name: Checkout hydephp/realtime-compiler
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/realtime-compiler
-        path: realtime-compiler
-        ref: master
-        fetch-depth: 0
-        persist-credentials: false
+      - name: Checkout hydephp/realtime-compiler
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/realtime-compiler
+          path: realtime-compiler
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
 
-    - name: Empty the destination directory
-      run: rm -rf realtime-compiler/*
+      - name: Empty the destination directory
+        run: rm -rf realtime-compiler/*
 
-    - name: Copy over files
-      run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
+      - name: Copy over files
+        run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
 
-    - name: Commit and push changes
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        cd realtime-compiler
-        if ! git diff-index --quiet HEAD --; then
-          echo "No changes to this package. Exiting gracefully.";
-          exit 0;
-        fi
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
-
-        git add .
-        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
-
-        git push upstream master
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          cd realtime-compiler
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+          
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          
+          git push upstream master
 
   hydefront:
     runs-on: ubuntu-latest
@@ -187,45 +187,45 @@ jobs:
       url: https://github.com/hydephp/hydefront/tree/master
 
     steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
 
-    - name: Checkout hydephp/hydefront
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/hydefront
-        path: hydefront
-        ref: master
-        fetch-depth: 0
-        persist-credentials: false
+      - name: Checkout hydephp/hydefront
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/hydefront
+          path: hydefront
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
 
-    - name: Empty the destination directory
-      run: rm -rf hydefront/*
+      - name: Empty the destination directory
+        run: rm -rf hydefront/*
 
-    - name: Copy over files
-      run: cp -rf develop/packages/hydefront/. hydefront -v
+      - name: Copy over files
+        run: cp -rf develop/packages/hydefront/. hydefront -v
 
-    - name: Commit and push changes
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        cd hydefront
-        if ! git diff-index --quiet HEAD --; then
-          echo "No changes to this package. Exiting gracefully.";
-          exit 0;
-        fi
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
-
-        git add .
-        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
-
-        git push upstream master
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          cd hydefront
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+          
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          
+          git push upstream master
 
   docs:
     runs-on: ubuntu-latest
@@ -235,51 +235,51 @@ jobs:
       url: https://github.com/hydephp/hydephp.com/tree/upcoming
 
     steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
 
-    - name: Checkout hydephp/hydephp.com
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/hydephp.com
-        path: website
-        ref: upcoming
-        fetch-depth: 0
-        persist-credentials: false
+      - name: Checkout hydephp/hydephp.com
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/hydephp.com
+          path: website
+          ref: upcoming
+          fetch-depth: 0
+          persist-credentials: false
 
-    - name: Empty the destination directory
-      run: rm -rf website/_docs/*
+      - name: Empty the destination directory
+        run: rm -rf website/_docs/*
 
-    - name: Copy over files
-      run: cp -rf develop/docs/. website/_docs/ -v
+      - name: Copy over files
+        run: cp -rf develop/docs/. website/_docs/ -v
 
-    - name: Remove internal docs
-      run: |
-        rm -rf website/_docs/internal
-        rm website/_docs/README.markdown
+      - name: Remove internal docs
+        run: |
+          rm -rf website/_docs/internal
+          rm website/_docs/README.markdown
 
-    - name: Commit and push changes
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        cd website
-        if ! git diff-index --quiet HEAD --; then
-          echo "No changes to this package. Exiting gracefully.";
-          exit 0;
-        fi
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
-
-        git add .
-        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
-
-        git push upstream upcoming
-        echo "No changes to this package. Exiting gracefully."
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          cd website
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+          
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydephp.com.git
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          
+          git push upstream upcoming
+          echo "No changes to this package. Exiting gracefully."
 
   testing:
     runs-on: ubuntu-latest
@@ -289,45 +289,45 @@ jobs:
       url: https://github.com/hydephp/testing/tree/master
 
     steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
 
-    - name: Checkout hydephp/testing
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/testing
-        path: testing
-        ref: master
-        fetch-depth: 0
-        persist-credentials: false
+      - name: Checkout hydephp/testing
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/testing
+          path: testing
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
 
-    - name: Empty the destination directory
-      run: rm -rf testing/*
+      - name: Empty the destination directory
+        run: rm -rf testing/*
 
-    - name: Copy over files
-      run: cp -rf develop/packages/testing/. testing -v
+      - name: Copy over files
+        run: cp -rf develop/packages/testing/. testing -v
 
-    - name: Commit and push changes
-      env:
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        cd testing
-        if ! git diff-index --quiet HEAD --; then
-          echo "No changes to this package. Exiting gracefully.";
-          exit 0;
-        fi
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
-
-        git add .
-        git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
-
-        git push upstream master
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          cd testing
+          if ! git diff-index --quiet HEAD --; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+          
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          
+          git push upstream master
 
   ui-kit:
     runs-on: ubuntu-latest
