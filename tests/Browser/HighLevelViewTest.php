@@ -162,10 +162,8 @@ date: 2022-01-01 12:00
         Hyde::unlink(('_site/docs/page1.html'));
     }
 
-    public function test_documentation_site_with_un_collapsible_grouped_pages()
+    public function test_documentation_site_with_grouped_pages()
     {
-        config(['docs.sidebar.collapsible' => false]);
-
         $this->makeDocumentationTestPage('Page1', ['navigation.group' => 'Group 1'], true);
         $this->makeDocumentationTestPage('Page2', ['navigation.group' => 'Group 1']);
         $this->makeDocumentationTestPage('Page3');
