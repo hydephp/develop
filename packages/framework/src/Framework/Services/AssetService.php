@@ -24,6 +24,13 @@ class AssetService
      */
     public string $version = 'v2.0';
 
+    public function __construct()
+    {
+        if (config('hyde.hydefront_version')) {
+            $this->version = config('hyde.hydefront_version');
+        }
+    }
+
     public function version(): string
     {
         return $this->version;
