@@ -32,6 +32,13 @@ class AssetServiceTest extends TestCase
         $this->assertEquals($service->version, $service->version());
     }
 
+    public function test_version_can_be_set_in_config()
+    {
+        config(['hyde.hydefront_version' => '1.0.0']);
+        $service = new AssetService();
+        $this->assertEquals('1.0.0', $service->version());
+    }
+
     public function test_cdn_path_constructor_returns_cdn_uri()
     {
         $service = new AssetService();
