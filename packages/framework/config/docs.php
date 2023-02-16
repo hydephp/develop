@@ -22,6 +22,12 @@ return [
     |
     */
 
+    'sidebar' => [
+        'title' => env('SITE_NAME', 'HydePHP').' Docs',
+        'collapsible' => false,
+        'footer' => true,
+    ],
+
     'header_title' => env('SITE_NAME', 'HydePHP').' Docs',
     'sidebar_footer' => true,
     'sidebar_collapsible' => false,
