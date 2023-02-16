@@ -42,7 +42,7 @@ class AssetService
         return $this->version;
     }
 
-    public function constructCdnPath(string $file): string
+    protected function constructCdnPath(string $file): string
     {
         return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
     }
