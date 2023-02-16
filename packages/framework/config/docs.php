@@ -33,8 +33,6 @@ return [
         'footer' => true,
     ],
 
-    'sidebar_footer' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Sidebar Page Order
