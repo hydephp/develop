@@ -10,8 +10,6 @@ use TypeError;
  * An extension of the Laravel Config facade with extra
  * accessors that ensure the types of the returned values.
  *
- * @todo If class is kept internal, the facade alias should be removed from config.
- *
  * @see \Illuminate\Config\Repository
  * @see \Illuminate\Support\Facades\Config
  * @see \Hyde\Framework\Testing\Feature\TypedConfigFacadeTest
