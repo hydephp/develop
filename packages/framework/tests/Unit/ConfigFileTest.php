@@ -77,7 +77,7 @@ class ConfigFileTest extends TestCase
     public function default_features_array_matches_default_features()
     {
         expect($this->getConfig('features'))
-            ->toBe(new ReflectionClass(Features::class))->getMethod('getDefaultOptions')->invoke(null);
+            ->toBe((new ReflectionClass(Features::class))->getMethod('getDefaultOptions')->invoke(null));
     }
 
     protected function getConfig(string $option): mixed
