@@ -24,7 +24,7 @@ return [
 
     'sidebar' => [
         // The title in the sidebar header
-        'title' => env('SITE_NAME', 'HydePHP').' Docs',
+        'header' => env('SITE_NAME', 'HydePHP').' Docs',
 
         // When using a grouped sidebar, should the groups be collapsible?
         'collapsible' => false,
