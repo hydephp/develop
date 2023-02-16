@@ -50,7 +50,7 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     public function isGroupActive(string $group): bool
     {
-        return Render::getPage()->navigationMenuGroup() === Hyde::makeTitle($group);
+        return Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
     }
 
     protected static function shouldItemBeHidden(NavItem $item): bool
