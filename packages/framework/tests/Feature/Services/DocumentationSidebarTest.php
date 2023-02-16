@@ -8,6 +8,8 @@ use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
@@ -275,6 +277,24 @@ class DocumentationSidebarTest extends TestCase
             collect([NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999)]),
             DocumentationSidebar::create()->items
         );
+    }
+
+    public function test_is_group_active_returns_false_when_supplied_group_is_not_active()
+    {
+        Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
+        $this->assertFalse(DocumentationSidebar::create()->isGroupActive('bar'));
+    }
+
+    public function test_is_group_active_returns_true_when_supplied_group_is_active()
+    {
+        Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
+        $this->assertTrue(DocumentationSidebar::create()->isGroupActive('foo'));
+    }
+
+    public function test_is_group_active_returns_true_for_differing_casing()
+    {
+        Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'Foo Bar']));
+        $this->assertTrue(DocumentationSidebar::create()->isGroupActive('foo-bar'));
     }
 
     protected function createTestFiles(int $count = 5): void
