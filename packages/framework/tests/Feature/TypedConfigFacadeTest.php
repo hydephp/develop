@@ -71,57 +71,57 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetArrayWithStrictMode()
     {
-        $this->runUnitTestStrict(['bar'], ['bar'], Config::getArray(...));
+        $this->runUnitTest(['bar'], ['bar'], Config::getArray(...));
     }
 
     public function testGetStringWithStrictMode()
     {
-        $this->runUnitTestStrict('bar', 'bar', Config::getString(...));
+        $this->runUnitTest('bar', 'bar', Config::getString(...));
     }
 
     public function testGetBoolWithStrictMode()
     {
-        $this->runUnitTestStrict(true, true, Config::getBool(...));
+        $this->runUnitTest(true, true, Config::getBool(...));
     }
 
     public function testGetIntWithStrictMode()
     {
-        $this->runUnitTestStrict(10, 10, Config::getInt(...));
+        $this->runUnitTest(10, 10, Config::getInt(...));
     }
 
     public function testGetFloatWithStrictMode()
     {
-        $this->runUnitTestStrict(10.0, 10.0, Config::getFloat(...));
+        $this->runUnitTest(10.0, 10.0, Config::getFloat(...));
     }
 
     public function testGetArrayWithFailingStrictMode()
     {
         $this->expectException(TypeError::class);
-        $this->runUnitTestStrict(null, null, Config::getArray(...));
+        $this->runUnitTest(null, null, Config::getArray(...));
     }
 
     public function testGetStringWithFailingStrictMode()
     {
         $this->expectException(TypeError::class);
-        $this->runUnitTestStrict(null, null, Config::getString(...));
+        $this->runUnitTest(null, null, Config::getString(...));
     }
 
     public function testGetBoolWithFailingStrictMode()
     {
         $this->expectException(TypeError::class);
-        $this->runUnitTestStrict(null, null, Config::getBool(...));
+        $this->runUnitTest(null, null, Config::getBool(...));
     }
 
     public function testGetIntWithFailingStrictMode()
     {
         $this->expectException(TypeError::class);
-        $this->runUnitTestStrict(null, null, Config::getInt(...));
+        $this->runUnitTest(null, null, Config::getInt(...));
     }
 
     public function testGetFloatWithFailingStrictMode()
     {
         $this->expectException(TypeError::class);
-        $this->runUnitTestStrict(null, null, Config::getFloat(...));
+        $this->runUnitTest(null, null, Config::getFloat(...));
     }
 
     public function testGetArrayWithArray()
@@ -150,12 +150,6 @@ class TypedConfigFacadeTest extends TestCase
     }
 
     protected function runUnitTest($actual, $expected, $method): void
-    {
-        config(['foo' => $actual]);
-        $this->assertSame($expected, $method('foo'));
-    }
-
-    protected function runUnitTestStrict($actual, $expected, $method): void
     {
         config(['foo' => $actual]);
         $this->assertSame($expected, $method('foo'));
