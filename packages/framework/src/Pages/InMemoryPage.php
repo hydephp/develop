@@ -20,9 +20,8 @@ use Illuminate\Support\Facades\View;
  * usually within the boot method of the package's service provider, or a page collection callback in an extension.
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
- * This class is especially useful for one-off pages, like pagination pages and the like.
- * But if your usage grows, or if you need file-based autodiscovery, you may benefit
- * from creating a custom page class instead, as that will give you full control.
+ * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize
+ * Hyde autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.
  */
 class InMemoryPage extends HydePage
 {
@@ -45,9 +44,9 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Create a new virtual page instance.
+     * Create a new in-memory/virtual page instance.
      *
-     * The virtual page class offers two content options. You can either pass a string to the $contents parameter,
+     * The in-memory page class offers two content options. You can either pass a string to the $contents parameter,
      * Hyde will then save that literally as the page's contents. Alternatively, you can pass a view name to the $view parameter,
      * and Hyde will use that view to render the page contents with the supplied front matter during the static site build process.
      *
@@ -55,9 +54,10 @@ class InMemoryPage extends HydePage
      * You can also register a macro with the name 'compile' to overload the default compile method.
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
-     *                              If the identifier for a virtual page is "foo/bar" the page will be saved to "_site/foo/bar.html".
+     *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
+     *                              You can then also use the route helper to get a link to it by using the route key "foo/bar".
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
-     *                                                           this will be passed to the view.
+     *                                                           all this data will be passed to the view rendering engine.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      */
@@ -81,6 +81,10 @@ class InMemoryPage extends HydePage
 
     /**
      * Get the contents that will be saved to disk for this page.
+     *
+     * In order to make your virtual page easy to use we provide a few options for how the page can be compiled.
+     * If you want even more control, you can register a macro with the name 'compile' to overload the method,
+     * or simply extend the class and override the method yourself, either in a standard or anonymous class.
      */
     public function compile(): string
     {
@@ -89,13 +93,16 @@ class InMemoryPage extends HydePage
         }
 
         if (! $this->getContents() && $this->getBladeView()) {
-            if (str_ends_with($this->view, '.blade.php')) {
+            if (str_ends_with($this->getBladeView(), '.blade.php')) {
+                // If the view key is for a Blade file path, we'll use the anonymous view compiler to compile it.
+                // This allows you to use any arbitrary file, without needing to register its namespace or directory.
                 return AnonymousViewCompiler::call($this->getBladeView(), $this->matter->toArray());
             }
 
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 
+        // If there's no macro or view configured, we'll just return the contents as-is.
         return $this->getContents();
     }
 

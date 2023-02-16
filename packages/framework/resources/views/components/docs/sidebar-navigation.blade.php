@@ -1,5 +1,5 @@
 @php /** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */ @endphp
-<ul id="sidebar-navigation" role="list">
+<ul id="sidebar-navigation" role="list" class="pl-2">
 	@foreach ($sidebar->items as $item)
 	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->route->getRouteKey() === $currentRoute->getRouteKey()])>
 		@if($item->route->getRouteKey() === $currentRoute->getRouteKey())

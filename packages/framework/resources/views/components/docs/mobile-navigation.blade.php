@@ -2,10 +2,10 @@
     <strong class="px-2 mr-auto">
         @if(DocumentationPage::home() !== null)
             <a href="{{ DocumentationPage::home() }}">
-                {{ config('docs.header_title', 'Documentation') }}
+                {{ config('docs.sidebar.header', 'Documentation') }}
             </a>
         @else
-            {{ config('docs.header_title', 'Documentation') }}
+            {{ config('docs.sidebar.header', 'Documentation') }}
         @endif
     </strong>
     <ul class="flex items-center">
