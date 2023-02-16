@@ -42,7 +42,7 @@ class AssetServiceTest extends TestCase
     public function test_cdn_path_constructor_returns_cdn_uri()
     {
         $service = new AssetService();
-        $this->assertIsString($path = $service->constructCdnPath('styles.css'));
+        $this->assertIsString($path = $service->cdnLink('styles.css'));
         $this->assertStringContainsString('styles.css', $path);
     }
 
@@ -50,7 +50,6 @@ class AssetServiceTest extends TestCase
     {
         config(['hyde.hydefront_url' => 'https://example.com']);
         $service = new AssetService();
-        $this->assertSame('https://example.com', $service->constructCdnPath('styles.css'));
         $this->assertSame('https://example.com', $service->cdnLink('styles.css'));
     }
 

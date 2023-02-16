@@ -42,14 +42,6 @@ class AssetService
         return $this->version;
     }
 
-    public function constructCdnPath(string $file): string
-    {
-        return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
-    }
-
-    /**
-     * Alias for constructCdnPath.
-     */
     public function cdnLink(string $file): string
     {
         return $this->constructCdnPath($file);
@@ -76,6 +68,11 @@ class AssetService
         }
 
         return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n".rtrim($config, ",\n\r"));
+    }
+
+    protected function constructCdnPath(string $file): string
+    {
+        return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
     }
 
     protected function getCacheBustKey(string $file): string
