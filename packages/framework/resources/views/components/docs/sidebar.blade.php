@@ -10,7 +10,7 @@
         @endphp
 
         @if($sidebar->hasGroups())
-            @if(config('docs.sidebar_collapsible', false))
+            @if(config('docs.sidebar.collapsible', false))
                 @include('hyde::components.docs.collapsible-grouped-sidebar-navigation')
             @else
                 @include('hyde::components.docs.grouped-sidebar-navigation')
@@ -19,7 +19,7 @@
             @include('hyde::components.docs.sidebar-navigation')
         @endif
     </nav>
-    @if(config('docs.sidebar_footer', true))
+    @if(config('docs.sidebar.footer', true))
         <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
             @include('hyde::components.docs.sidebar-footer')
         </footer>

@@ -22,9 +22,16 @@ return [
     |
     */
 
-    'header_title' => env('SITE_NAME', 'HydePHP').' Docs',
-    'sidebar_footer' => true,
-    'sidebar_collapsible' => false,
+    'sidebar' => [
+        // The title in the sidebar header
+        'header' => env('SITE_NAME', 'HydePHP').' Docs',
+
+        // When using a grouped sidebar, should the groups be collapsible?
+        'collapsible' => false,
+
+        // Should the sidebar footer be shown?
+        'footer' => true,
+    ],
 
     /*
     |--------------------------------------------------------------------------
