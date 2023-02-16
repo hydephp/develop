@@ -24,10 +24,16 @@ class AssetService
      */
     public string $version = 'v2.0';
 
+    protected ?string $hydefrontUrl = null;
+
     public function __construct()
     {
         if (config('hyde.hydefront_version')) {
             $this->version = config('hyde.hydefront_version');
+        }
+
+        if (config('hyde.hydefront_url')) {
+            $this->hydefrontUrl = config('hyde.hydefront_url');
         }
     }
 
@@ -38,7 +44,7 @@ class AssetService
 
     public function constructCdnPath(string $file): string
     {
-        return 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
+        return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
     }
 
     /**
