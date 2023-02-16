@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use ErrorException;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use TypeError;
