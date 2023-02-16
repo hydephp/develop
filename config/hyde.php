@@ -251,7 +251,7 @@ return [
     |
     */
 
-    'load_app_styles_from_cdn' => false,
+    'load_app_styles_from_cdn' => true,
 
     /*
      |--------------------------------------------------------------------------
