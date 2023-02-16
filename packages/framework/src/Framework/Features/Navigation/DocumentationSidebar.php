@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -43,6 +45,11 @@ class DocumentationSidebar extends BaseNavigationMenu
         return $this->items->filter(function (NavItem $item) use ($group): bool {
             return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
         })->sortBy('navigation.priority')->values();
+    }
+
+    public function isGroupActive(string $group): bool
+    {
+        return Render::getPage()->navigationMenuGroup() === Hyde::makeTitle($group);
     }
 
     protected static function shouldItemBeHidden(NavItem $item): bool
