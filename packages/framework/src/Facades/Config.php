@@ -52,7 +52,7 @@ class Config extends \Illuminate\Support\Facades\Config
 
     protected static function validated(mixed $value, string $type, string $key, #[Deprecated] bool $strict): mixed
     {
-        if (true && ! ("is_$type")($value)) {
+        if (! ("is_$type")($value)) {
             throw new TypeError(sprintf('%s(): Config value %s must be of type %s, %s given', __METHOD__, $key, $type, gettype($value)));
         }
 
