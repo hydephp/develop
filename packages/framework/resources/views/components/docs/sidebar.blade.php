@@ -19,7 +19,7 @@
             @include('hyde::components.docs.sidebar-navigation')
         @endif
     </nav>
-    @if(config('docs.sidebar_footer', true))
+    @if(config('docs.sidebar.footer', true))
         <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
             @include('hyde::components.docs.sidebar-footer')
         </footer>
