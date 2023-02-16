@@ -179,9 +179,9 @@ date: 2022-01-01 12:00
                 ->assertSee('Page2')
                 ->assertSee('Page3')
                 ->assertAttributeContains('#sidebar-navigation-items > li', 'class', 'sidebar-group')
-                ->assertSeeIn('#sidebar-navigation-items > li:nth-child(1) > h4.sidebar-group-heading', 'Group 1')
+                ->assertSeeIn('#sidebar-navigation-items > li:nth-child(1) > header > h4.sidebar-group-heading', 'Group 1')
                 ->assertAriaAttribute('#sidebar-navigation-items > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
-                ->assertSeeIn('#sidebar-navigation-items > li:nth-child(2) > h4.sidebar-group-heading', 'Other')
+                ->assertSeeIn('#sidebar-navigation-items > li:nth-child(2) > header > h4.sidebar-group-heading', 'Other')
                 ->screenshot('docs/with_grouped_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
         });

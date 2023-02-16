@@ -2,10 +2,10 @@
 	<strong class="px-2">
 		@if(DocumentationPage::home() !== null)
 			<a href="{{ DocumentationPage::home() }}">
-				{{ config('docs.header_title', 'Documentation') }}
+				{{ config('docs.sidebar.header', 'Documentation') }}
 			</a>
 		@else
-			{{ config('docs.header_title', 'Documentation') }}
+			{{ config('docs.sidebar.header', 'Documentation') }}
 		@endif
 	</strong>
 	<x-hyde::navigation.theme-toggle-button class="opacity-75 hover:opacity-100"/>

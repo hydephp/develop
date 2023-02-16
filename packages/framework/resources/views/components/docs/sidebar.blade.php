@@ -4,18 +4,22 @@
         @include('hyde::components.docs.sidebar-brand')
     </header>
     <nav id="sidebar-navigation"
-        class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
         @php
             $sidebar = \Hyde\Framework\Features\Navigation\DocumentationSidebar::create();
         @endphp
 
         @if($sidebar->hasGroups())
-            @include('hyde::components.docs.grouped-sidebar-navigation')
+            @if(config('docs.sidebar.collapsible', false))
+                @include('hyde::components.docs.collapsible-grouped-sidebar-navigation')
+            @else
+                @include('hyde::components.docs.grouped-sidebar-navigation')
+            @endif
         @else
             @include('hyde::components.docs.sidebar-navigation')
         @endif
     </nav>
-    @if(config('docs.sidebar_footer', true))
+    @if(config('docs.sidebar.footer', true))
         <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
             @include('hyde::components.docs.sidebar-footer')
         </footer>
