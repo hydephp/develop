@@ -134,7 +134,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     /**
      * Get the directory in where source files are stored.
      */
-    final public static function sourceDirectory(): string
+    public static function sourceDirectory(): string
     {
         return unslash(static::$sourceDirectory);
     }
@@ -142,7 +142,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     /**
      * Get the output subdirectory to store compiled HTML.
      */
-    final public static function outputDirectory(): string
+    public static function outputDirectory(): string
     {
         return unslash(static::$outputDirectory);
     }
@@ -150,7 +150,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     /**
      * Get the file extension of the source files.
      */
-    final public static function fileExtension(): string
+    public static function fileExtension(): string
     {
         return rtrim('.'.ltrim(static::$fileExtension, '.'), '.');
     }
