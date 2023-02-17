@@ -21,7 +21,7 @@ class DocumentationPage extends BaseMarkdownPage
     use Concerns\UsesFlattenedOutputPaths;
 
     protected static string $sourceDirectory = '_docs';
-    protected static string $outputDirectory = 'docs';
+    public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
     public static function home(): ?Route

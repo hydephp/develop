@@ -1097,7 +1097,7 @@ class HydePageTest extends TestCase
 class TestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 {
     protected static string $sourceDirectory = 'source';
-    protected static string $outputDirectory = 'output';
+    public static string $outputDirectory = 'output';
     protected static string $fileExtension = '.md';
     public static string $template = 'template';
 
@@ -1110,7 +1110,7 @@ class TestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 class ConfigurableSourcesTestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 {
     protected static string $sourceDirectory;
-    protected static string $outputDirectory;
+    public static string $outputDirectory;
     protected static string $fileExtension;
     public static string $template;
 
@@ -1124,7 +1124,7 @@ class ConfigurableSourcesTestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 class DiscoverablePage extends HydePage
 {
     protected static string $sourceDirectory = 'foo';
-    protected static string $outputDirectory = '';
+    public static string $outputDirectory = '';
     protected static string $fileExtension = '';
 
     public function compile(): string

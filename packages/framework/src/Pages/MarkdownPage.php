@@ -17,6 +17,6 @@ use Hyde\Pages\Concerns\BaseMarkdownPage;
 class MarkdownPage extends BaseMarkdownPage
 {
     protected static string $sourceDirectory = '_pages';
-    protected static string $outputDirectory = '';
+    public static string $outputDirectory = '';
     public static string $template = 'hyde::layouts/page';
 }

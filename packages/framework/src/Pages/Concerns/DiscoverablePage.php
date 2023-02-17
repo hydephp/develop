@@ -20,7 +20,7 @@ abstract class DiscoverablePage extends HydePage implements DiscoverableContract
     /**
      * @var string The output subdirectory to store compiled page HTML. Relative to the _site directory.
      */
-    protected static string $outputDirectory;
+    public static string $outputDirectory;
 
     /**
      * @var string The file extension of the source files. Normalized to include a leading dot.
