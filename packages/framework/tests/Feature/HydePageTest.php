@@ -10,7 +10,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
-use Hyde\Pages\Concerns\DiscoverablePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
@@ -1104,7 +1103,7 @@ class HydePageTest extends TestCase
     }
 }
 
-class TestPage extends DiscoverablePage
+class TestPage extends HydePage
 {
     protected static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
@@ -1117,7 +1116,7 @@ class TestPage extends DiscoverablePage
     }
 }
 
-class ConfigurableSourcesTestPage extends DiscoverablePage
+class ConfigurableSourcesTestPage extends HydePage
 {
     protected static string $sourceDirectory;
     public static string $outputDirectory;
