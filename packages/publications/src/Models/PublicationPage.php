@@ -38,42 +38,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     {
         $this->type = $type;
 
-        parent::__construct(static::normalizeIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
-    }
-
-    public function compile(): string
-    {
-        return $this->renderComponent();
-    }
-
-    public static function parse(string $identifier): self
-    {
-        static::validateExistence(static::class, $identifier);
-
-        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
-        $document = MarkdownFileParser::parse(
-            PublicationPage::sourcePath($identifier)
-        );
-
-        return new PublicationPage(
-            identifier: $identifier,
-            matter: $document->matter,
-            markdown: $document->markdown,
-            type: PublicationType::get(Str::before($identifier, '/'))
-        );
-    }
-
-    protected function renderComponent(): string
-    {
-        return PublicationPageCompiler::call($this);
-    }
-
-    protected static function normalizeIdentifier(string $directory, string $identifier): string
-    {
-        if (str_starts_with("$identifier/", $directory)) {
-            return $identifier;
-        }
-
-        return "$directory/$identifier";
+        parent::__construct($identifier, $matter, $markdown);
     }
 }
