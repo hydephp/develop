@@ -26,7 +26,7 @@ use Hyde\Testing\TestCase;
  * since it's the simplest implementation.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Pages\Concerns\Discoverable
+ * @covers \Hyde\Pages\Concerns\DiscoverablePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
@@ -1094,7 +1094,7 @@ class HydePageTest extends TestCase
     }
 }
 
-class TestPage extends HydePage
+class TestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 {
     protected static string $sourceDirectory = 'source';
     protected static string $outputDirectory = 'output';
@@ -1107,7 +1107,7 @@ class TestPage extends HydePage
     }
 }
 
-class ConfigurableSourcesTestPage extends HydePage
+class ConfigurableSourcesTestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 {
     protected static string $sourceDirectory;
     protected static string $outputDirectory;
