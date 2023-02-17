@@ -168,7 +168,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
-        static::$sourceDirectory = $sourceDirectory;
+        static::$sourceDirectory = unslash($sourceDirectory);
     }
 
     /**
@@ -176,7 +176,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
-        static::$outputDirectory = $outputDirectory;
+        static::$outputDirectory = unslash($outputDirectory);
     }
 
     /**
@@ -184,7 +184,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
      */
     public static function setFileExtension(string $fileExtension): void
     {
-        static::$fileExtension = $fileExtension;
+        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
     }
 
     /**
