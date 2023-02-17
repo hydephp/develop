@@ -73,6 +73,10 @@ use Hyde\Publications\Models\PublicationPage;
 class {$className} extends PublicationPage
 {
     protected static string \$publicationType = '{$type->getIdentifier()}';
+    
+    public static string \$sourceDirectory = '{$type->getIdentifier()}';
+    public static string \$outputDirectory = '{$type->getIdentifier()}';
+    public static string \$template = '{$type->detailTemplate}';
 
     public function getPublicationType(): string
     {
