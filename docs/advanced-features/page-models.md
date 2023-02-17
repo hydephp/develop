@@ -34,7 +34,7 @@ Don't worry if you don't understand everything yet, we'll talk more about these 
 class MarkdownPost extends BaseMarkdownPage
 {
     protected static string $sourceDirectory = '_posts';
-    public static string $outputDirectory = 'posts';
+    protected static string $outputDirectory = 'posts';
     public static string $fileExtension = '.md';
     public static string $template = 'post';
     
@@ -61,7 +61,7 @@ Let's again take the simplified `MarkdownPost` class as an example, this time on
 class MarkdownPost extends BaseMarkdownPage
 {
     protected static string $sourceDirectory = '_posts';
-    public static string $outputDirectory = 'posts';
+    protected static string $outputDirectory = 'posts';
     public static string $fileExtension = '.md';
     public static string $template = 'post';
 }
