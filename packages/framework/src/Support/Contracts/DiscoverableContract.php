@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Pages\Concerns;
+namespace Hyde\Support\Contracts;
 
 interface DiscoverableContract
 {
