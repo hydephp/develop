@@ -1098,6 +1098,19 @@ class TestPage extends HydePage
     }
 }
 
+class ConfigurableSourcesTestPage extends HydePage
+{
+    public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
+    public static string $template;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
 /** @deprecated */
 class DiscoverablePage extends HydePage
 {
