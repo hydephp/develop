@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Pages\Concerns\DiscoverablePage;
+use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\View;
  * @see https://hydephp.com/docs/master/static-pages#creating-blade-pages
  * @see https://laravel.com/docs/master/blade
  */
-class BladePage extends DiscoverablePage
+class BladePage extends HydePage
 {
     protected static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';

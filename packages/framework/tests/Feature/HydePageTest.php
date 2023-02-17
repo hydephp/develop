@@ -10,7 +10,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
-use Hyde\Pages\Concerns\DiscoverablePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
@@ -27,7 +26,6 @@ use Hyde\Testing\TestCase;
  * since it's the simplest implementation.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Pages\Concerns\DiscoverablePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
@@ -1068,6 +1066,17 @@ class HydePageTest extends TestCase
         $this->assertFalse(NonDiscoverableTestPage::isDiscoverable());
     }
 
+    public function test_is_discoverable_method_requires_all_required_data_to_be_present()
+    {
+        $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
+    }
+
+    /** @deprecated */
+    public function test_is_discoverable_method_requires_source_directory_to_be_filled()
+    {
+        $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
+    }
+
     public function test_all_core_extension_pages_are_discoverable()
     {
         /** @var class-string<HydePage> $page */
@@ -1094,7 +1103,7 @@ class HydePageTest extends TestCase
     }
 }
 
-class TestPage extends DiscoverablePage
+class TestPage extends HydePage
 {
     protected static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
@@ -1107,7 +1116,7 @@ class TestPage extends DiscoverablePage
     }
 }
 
-class ConfigurableSourcesTestPage extends DiscoverablePage
+class ConfigurableSourcesTestPage extends HydePage
 {
     protected static string $sourceDirectory;
     public static string $outputDirectory;
@@ -1120,11 +1129,11 @@ class ConfigurableSourcesTestPage extends DiscoverablePage
     }
 }
 
-class DiscoverableTestPage extends DiscoverablePage
+class DiscoverableTestPage extends HydePage
 {
-    protected static string $sourceDirectory;
-    public static string $outputDirectory;
-    protected static string $fileExtension;
+    protected static string $sourceDirectory = 'foo';
+    public static string $outputDirectory = 'bar';
+    protected static string $fileExtension = 'baz';
     public static string $template;
 
     public function compile(): string
@@ -1135,7 +1144,31 @@ class DiscoverableTestPage extends DiscoverablePage
 
 class NonDiscoverableTestPage extends HydePage
 {
+    protected static string $sourceDirectory;
+    public static string $outputDirectory;
+    protected static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class PartiallyDiscoverablePage extends HydePage
+{
     protected static string $sourceDirectory = 'foo';
+    public static string $outputDirectory;
+    protected static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverablePageWithInvalidSourceDirectory extends HydePage
+{
+    protected static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     protected static string $fileExtension = '';
 
