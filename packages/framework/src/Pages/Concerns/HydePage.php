@@ -15,6 +15,7 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Support\Contracts\DiscoverableContract;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use function unslash;
