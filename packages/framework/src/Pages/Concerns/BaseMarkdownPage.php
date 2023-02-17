@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Support\Contracts\DiscoverableContract;
 
 /**
  * The base class for all Markdown-based page models.
@@ -19,10 +18,8 @@ use Hyde\Support\Contracts\DiscoverableContract;
  * @see \Hyde\Pages\Concerns\HydePage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract, DiscoverableContract
+abstract class BaseMarkdownPage extends DiscoverablePage implements MarkdownDocumentContract
 {
-    use Discoverable;
-
     public Markdown $markdown;
 
     protected static string $fileExtension = '.md';

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\Concerns;
 
+use Hyde\Support\Contracts\DiscoverableContract;
+
 /**
- * This trait implements the DiscoverableContract interface,
+ * This class implements the DiscoverableContract interface,
  * and is used by auto-discoverable HydePage classes.
  */
-trait Discoverable
+abstract class DiscoverablePage extends HydePage implements DiscoverableContract
 {
     /**
      * @var non-empty-string The directory in where source files are stored. Relative to the Hyde root directory.
