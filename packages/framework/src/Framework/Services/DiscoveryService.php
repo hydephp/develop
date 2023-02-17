@@ -103,7 +103,7 @@ class DiscoveryService
     {
         return unslash(Str::between(Hyde::pathToRelative($filepath),
             $model::sourceDirectory().'/',
-            $model::$fileExtension)
+            $model::fileExtension())
         );
     }
 

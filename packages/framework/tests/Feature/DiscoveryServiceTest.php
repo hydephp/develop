@@ -111,7 +111,7 @@ class DiscoveryServiceTest extends TestCase
             // Setup
             @mkdir(Hyde::path('foo'));
             $sourceDirectoryBackup = $model::sourceDirectory();
-            $fileExtensionBackup = $model::$fileExtension;
+            $fileExtensionBackup = $model::fileExtension();
 
             // Test baseline
             $this->unitTestMarkdownBasedPageList($model, $model::sourceDirectory().'/foo.md');

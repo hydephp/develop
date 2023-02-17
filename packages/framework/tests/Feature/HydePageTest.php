@@ -449,7 +449,7 @@ class HydePageTest extends TestCase
         ];
 
         foreach ($pages as $page => $expected) {
-            $this->assertEquals($expected, $page::$fileExtension);
+            $this->assertEquals($expected, $page::fileExtension());
         }
     }
 
@@ -475,7 +475,7 @@ class HydePageTest extends TestCase
 
     public function test_abstract_markdown_page_file_extension_property_is_set_to_md()
     {
-        $this->assertEquals('.md', BaseMarkdownPage::$fileExtension);
+        $this->assertEquals('.md', BaseMarkdownPage::fileExtension());
     }
 
     public function test_abstract_markdown_page_constructor_arguments_are_optional()
