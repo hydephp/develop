@@ -51,7 +51,7 @@ trait RegistersFileLocations
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var HydePage $class */
-            $class::$outputDirectory = unslash($location);
+            $class::setOutputDirectory(unslash($location));
         }
     }
 

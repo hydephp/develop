@@ -191,14 +191,14 @@ class HydePageTest extends TestCase
 
     public function test_get_output_directory_returns_static_property()
     {
-        MarkdownPage::$outputDirectory = 'foo';
+        MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_output_directory_trims_trailing_slashes()
     {
-        MarkdownPage::$outputDirectory = '/foo/\\';
+        MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
     }
@@ -338,14 +338,14 @@ class HydePageTest extends TestCase
 
     public function test_get_output_location_returns_the_configured_location()
     {
-        MarkdownPage::$outputDirectory = 'foo';
+        MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_output_location_trims_trailing_slashes_from_directory_setting()
     {
-        MarkdownPage::$outputDirectory = '/foo/\\';
+        MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
         $this->resetDirectoryConfiguration();
     }
@@ -363,7 +363,7 @@ class HydePageTest extends TestCase
 
     public function test_get_current_page_path_returns_output_directory_and_basename_for_configured_directory()
     {
-        MarkdownPage::$outputDirectory = 'foo';
+        MarkdownPage::setOutputDirectory('foo');
         $page = new MarkdownPage('bar');
         $this->assertEquals('foo/bar', $page->getRouteKey());
         $this->resetDirectoryConfiguration();
@@ -371,7 +371,7 @@ class HydePageTest extends TestCase
 
     public function test_get_current_page_path_trims_trailing_slashes_from_directory_setting()
     {
-        MarkdownPage::$outputDirectory = '/foo/\\';
+        MarkdownPage::setOutputDirectory('/foo/\\');
         $page = new MarkdownPage('bar');
         $this->assertEquals('foo/bar', $page->getRouteKey());
         $this->resetDirectoryConfiguration();

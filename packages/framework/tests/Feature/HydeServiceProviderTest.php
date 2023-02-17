@@ -85,10 +85,10 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_output_directories()
     {
-        BladePage::$outputDirectory = 'foo';
-        MarkdownPage::$outputDirectory = 'foo';
-        MarkdownPost::$outputDirectory = 'foo';
-        DocumentationPage::$outputDirectory = 'foo';
+        BladePage::setOutputDirectory('foo');
+        MarkdownPage::setOutputDirectory('foo');
+        MarkdownPost::setOutputDirectory('foo');
+        DocumentationPage::setOutputDirectory('foo');
 
         $this->assertEquals('foo', BladePage::outputDirectory());
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
@@ -231,7 +231,7 @@ class HydeServiceProviderTest extends TestCase
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
-            $page::$outputDirectory = 'foo';
+            $page::setOutputDirectory('foo');
         }
 
         $this->provider->register();
