@@ -1105,9 +1105,9 @@ class HydePageTest extends TestCase
 
 class TestPage extends HydePage
 {
-    public static string $sourceDirectory = 'source';
-    public static string $outputDirectory = 'output';
-    public static string $fileExtension = '.md';
+    protected static string $sourceDirectory = 'source';
+    protected static string $outputDirectory = 'output';
+    protected static string $fileExtension = '.md';
     public static string $template = 'template';
 
     public function compile(): string
@@ -1118,9 +1118,9 @@ class TestPage extends HydePage
 
 class ConfigurableSourcesTestPage extends HydePage
 {
-    public static string $sourceDirectory;
-    public static string $outputDirectory;
-    public static string $fileExtension;
+    protected static string $sourceDirectory;
+    protected static string $outputDirectory;
+    protected static string $fileExtension;
     public static string $template;
 
     public function compile(): string
