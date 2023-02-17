@@ -144,6 +144,8 @@ abstract class HydePage implements PageSchema, DiscoverableContract
      */
     public static function sourceDirectory(): string
     {
+        // Todo: This will no longer be normalized here
+
         return unslash(static::$sourceDirectory);
     }
 
@@ -152,6 +154,8 @@ abstract class HydePage implements PageSchema, DiscoverableContract
      */
     public static function outputDirectory(): string
     {
+        // Todo: This will no longer be normalized here
+
         return unslash(static::$outputDirectory);
     }
 
@@ -160,6 +164,8 @@ abstract class HydePage implements PageSchema, DiscoverableContract
      */
     public static function fileExtension(): string
     {
+        // Todo: This will no longer be normalized here
+
         return rtrim('.'.ltrim(static::$fileExtension, '.'), '.');
     }
 
