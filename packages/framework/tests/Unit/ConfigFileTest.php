@@ -50,7 +50,7 @@ class ConfigFileTest extends TestCase
     public function test_default_source_directories_values_cover_all_core_extension_classes()
     {
         expect($this->getConfig('source_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
-            ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
+            ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::sourceDirectory()])
             ->toArray()
         );
     }

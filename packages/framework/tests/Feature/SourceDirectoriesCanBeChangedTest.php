@@ -20,11 +20,11 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 {
     public function test_baselines()
     {
-        $this->assertEquals('_pages', HtmlPage::$sourceDirectory);
-        $this->assertEquals('_pages', BladePage::$sourceDirectory);
-        $this->assertEquals('_pages', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('_posts', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('_docs', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('_pages', HtmlPage::sourceDirectory());
+        $this->assertEquals('_pages', BladePage::sourceDirectory());
+        $this->assertEquals('_pages', MarkdownPage::sourceDirectory());
+        $this->assertEquals('_posts', MarkdownPost::sourceDirectory());
+        $this->assertEquals('_docs', DocumentationPage::sourceDirectory());
     }
 
     public function test_source_directories_can_be_changed_programmatically()
@@ -35,11 +35,11 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         MarkdownPost::setSourceDirectory('.source/posts');
         DocumentationPage::setSourceDirectory('.source/docs');
 
-        $this->assertEquals('.source/pages', HtmlPage::$sourceDirectory);
-        $this->assertEquals('.source/pages', BladePage::$sourceDirectory);
-        $this->assertEquals('.source/pages', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('.source/posts', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('.source/docs', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('.source/pages', HtmlPage::sourceDirectory());
+        $this->assertEquals('.source/pages', BladePage::sourceDirectory());
+        $this->assertEquals('.source/pages', MarkdownPage::sourceDirectory());
+        $this->assertEquals('.source/posts', MarkdownPost::sourceDirectory());
+        $this->assertEquals('.source/docs', DocumentationPage::sourceDirectory());
     }
 
     public function test_source_directories_can_be_changed_in_config()
@@ -54,11 +54,11 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('.source/pages', HtmlPage::$sourceDirectory);
-        $this->assertEquals('.source/pages', BladePage::$sourceDirectory);
-        $this->assertEquals('.source/pages', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('.source/posts', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('.source/docs', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('.source/pages', HtmlPage::sourceDirectory());
+        $this->assertEquals('.source/pages', BladePage::sourceDirectory());
+        $this->assertEquals('.source/pages', MarkdownPage::sourceDirectory());
+        $this->assertEquals('.source/posts', MarkdownPost::sourceDirectory());
+        $this->assertEquals('.source/docs', DocumentationPage::sourceDirectory());
     }
 
     public function test_build_service_recognizes_changed_directory()

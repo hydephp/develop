@@ -421,7 +421,7 @@ class HydePageTest extends TestCase
         ];
 
         foreach ($pages as $page => $expected) {
-            $this->assertEquals($expected, $page::$sourceDirectory);
+            $this->assertEquals($expected, $page::sourceDirectory());
         }
     }
 

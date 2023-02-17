@@ -144,7 +144,7 @@ class DataCollectionTest extends TestCase
 
     public function test_class_has_static_source_directory_property()
     {
-        $this->assertEquals('resources/collections', DataCollection::$sourceDirectory);
+        $this->assertEquals('resources/collections', DataCollection::sourceDirectory());
     }
 
     public function test_source_directory_can_be_changed()

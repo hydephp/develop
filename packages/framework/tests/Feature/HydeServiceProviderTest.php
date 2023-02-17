@@ -221,7 +221,7 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
 
         foreach ($pages as $page) {
-            $this->assertNotEquals('foo', $page::$sourceDirectory, "Source directory for $page was not set");
+            $this->assertNotEquals('foo', $page::sourceDirectory(), "Source directory for $page was not set");
         }
     }
 
@@ -253,11 +253,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::$sourceDirectory);
-        $this->assertEquals('foo', BladePage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('foo', HtmlPage::sourceDirectory());
+        $this->assertEquals('foo', BladePage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPost::sourceDirectory());
+        $this->assertEquals('foo', DocumentationPage::sourceDirectory());
     }
 
     public function test_source_directories_can_be_set_using_kebab_case_class_names()
@@ -272,11 +272,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::$sourceDirectory);
-        $this->assertEquals('foo', BladePage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('foo', HtmlPage::sourceDirectory());
+        $this->assertEquals('foo', BladePage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPost::sourceDirectory());
+        $this->assertEquals('foo', DocumentationPage::sourceDirectory());
     }
 
     public function test_provider_registers_output_directories_using_options_in_configuration()
