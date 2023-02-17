@@ -43,6 +43,8 @@ abstract class HydePage implements PageSchema
     use InteractsWithFrontMatter;
     use HasFactory;
 
+    protected static string $sourceDirectory;
+    protected static string $fileExtension;
     public static string $outputDirectory;
     public static string $template;
 
@@ -128,11 +130,19 @@ abstract class HydePage implements PageSchema
 
     // Section: Filesystem
 
+    /**
+     * Get the directory in where source files are stored.
+     *
+     * @return non-empty-string
+     */
     public static function sourceDirectory(): string
     {
         return static::$sourceDirectory ?? Hyde::getSourceRoot();
     }
 
+    /**
+     * Get the file extension of the source files.
+     */
     public static function fileExtension(): string
     {
         return static::$fileExtension ?? '';
@@ -144,6 +154,24 @@ abstract class HydePage implements PageSchema
     public static function outputDirectory(): string
     {
         return static::$outputDirectory;
+    }
+
+    /**
+     * Set the output directory for the HydePage class.
+     *
+     * @param  non-empty-string  $sourceDirectory
+     */
+    public static function setSourceDirectory(string $sourceDirectory): void
+    {
+        static::$sourceDirectory = unslash($sourceDirectory);
+    }
+
+    /**
+     * Set the file extension for the HydePage class.
+     */
+    public static function setFileExtension(string $fileExtension): void
+    {
+        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
     }
 
     /**
