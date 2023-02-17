@@ -177,49 +177,49 @@ class HydePageTest extends TestCase
 
     public function test_get_source_directory_returns_static_property()
     {
-        MarkdownPage::$sourceDirectory = 'foo';
+        MarkdownPage::setSourceDirectory('foo');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_source_directory_trims_trailing_slashes()
     {
-        MarkdownPage::$sourceDirectory = '/foo/\\';
+        MarkdownPage::setSourceDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_output_directory_returns_static_property()
     {
-        MarkdownPage::$outputDirectory = 'foo';
+        MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_output_directory_trims_trailing_slashes()
     {
-        MarkdownPage::$outputDirectory = '/foo/\\';
+        MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_file_extension_returns_static_property()
     {
-        MarkdownPage::$fileExtension = '.foo';
+        MarkdownPage::setFileExtension('.foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_file_extension_forces_leading_period()
     {
-        MarkdownPage::$fileExtension = 'foo';
+        MarkdownPage::setFileExtension('foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_file_extension_removes_trailing_period()
     {
-        MarkdownPage::$fileExtension = 'foo.';
+        MarkdownPage::setFileExtension('foo.');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
@@ -304,8 +304,8 @@ class HydePageTest extends TestCase
 
     public function test_qualify_basename_uses_the_static_properties()
     {
-        MarkdownPage::$sourceDirectory = 'foo';
-        MarkdownPage::$fileExtension = 'txt';
+        MarkdownPage::setSourceDirectory('foo');
+        MarkdownPage::setFileExtension('txt');
         $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
         $this->resetDirectoryConfiguration();
     }
@@ -338,14 +338,14 @@ class HydePageTest extends TestCase
 
     public function test_get_output_location_returns_the_configured_location()
     {
-        MarkdownPage::$outputDirectory = 'foo';
+        MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_output_location_trims_trailing_slashes_from_directory_setting()
     {
-        MarkdownPage::$outputDirectory = '/foo/\\';
+        MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
         $this->resetDirectoryConfiguration();
     }
@@ -363,7 +363,7 @@ class HydePageTest extends TestCase
 
     public function test_get_current_page_path_returns_output_directory_and_basename_for_configured_directory()
     {
-        MarkdownPage::$outputDirectory = 'foo';
+        MarkdownPage::setOutputDirectory('foo');
         $page = new MarkdownPage('bar');
         $this->assertEquals('foo/bar', $page->getRouteKey());
         $this->resetDirectoryConfiguration();
@@ -371,7 +371,7 @@ class HydePageTest extends TestCase
 
     public function test_get_current_page_path_trims_trailing_slashes_from_directory_setting()
     {
-        MarkdownPage::$outputDirectory = '/foo/\\';
+        MarkdownPage::setOutputDirectory('/foo/\\');
         $page = new MarkdownPage('bar');
         $this->assertEquals('foo/bar', $page->getRouteKey());
         $this->resetDirectoryConfiguration();
@@ -421,7 +421,7 @@ class HydePageTest extends TestCase
         ];
 
         foreach ($pages as $page => $expected) {
-            $this->assertEquals($expected, $page::$sourceDirectory);
+            $this->assertEquals($expected, $page::sourceDirectory());
         }
     }
 
@@ -435,7 +435,7 @@ class HydePageTest extends TestCase
         ];
 
         foreach ($pages as $page => $expected) {
-            $this->assertEquals($expected, $page::$outputDirectory);
+            $this->assertEquals($expected, $page::outputDirectory());
         }
     }
 
@@ -449,7 +449,7 @@ class HydePageTest extends TestCase
         ];
 
         foreach ($pages as $page => $expected) {
-            $this->assertEquals($expected, $page::$fileExtension);
+            $this->assertEquals($expected, $page::fileExtension());
         }
     }
 
@@ -475,7 +475,7 @@ class HydePageTest extends TestCase
 
     public function test_abstract_markdown_page_file_extension_property_is_set_to_md()
     {
-        $this->assertEquals('.md', BaseMarkdownPage::$fileExtension);
+        $this->assertEquals('.md', BaseMarkdownPage::fileExtension());
     }
 
     public function test_abstract_markdown_page_constructor_arguments_are_optional()
@@ -1095,19 +1095,19 @@ class HydePageTest extends TestCase
 
     protected function resetDirectoryConfiguration(): void
     {
-        BladePage::$sourceDirectory = '_pages';
-        MarkdownPage::$sourceDirectory = '_pages';
-        MarkdownPost::$sourceDirectory = '_posts';
-        DocumentationPage::$sourceDirectory = '_docs';
-        MarkdownPage::$fileExtension = '.md';
+        BladePage::setSourceDirectory('_pages');
+        MarkdownPage::setSourceDirectory('_pages');
+        MarkdownPost::setSourceDirectory('_posts');
+        DocumentationPage::setSourceDirectory('_docs');
+        MarkdownPage::setFileExtension('.md');
     }
 }
 
 class TestPage extends HydePage
 {
-    public static string $sourceDirectory = 'source';
-    public static string $outputDirectory = 'output';
-    public static string $fileExtension = '.md';
+    protected static string $sourceDirectory = 'source';
+    protected static string $outputDirectory = 'output';
+    protected static string $fileExtension = '.md';
     public static string $template = 'template';
 
     public function compile(): string
@@ -1118,9 +1118,9 @@ class TestPage extends HydePage
 
 class ConfigurableSourcesTestPage extends HydePage
 {
-    public static string $sourceDirectory;
-    public static string $outputDirectory;
-    public static string $fileExtension;
+    protected static string $sourceDirectory;
+    protected static string $outputDirectory;
+    protected static string $fileExtension;
     public static string $template;
 
     public function compile(): string
@@ -1132,9 +1132,9 @@ class ConfigurableSourcesTestPage extends HydePage
 /** @deprecated */
 class DiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory = 'foo';
-    public static string $outputDirectory = '';
-    public static string $fileExtension = '';
+    protected static string $sourceDirectory = 'foo';
+    protected static string $outputDirectory = '';
+    protected static string $fileExtension = '';
 
     public function compile(): string
     {
@@ -1145,9 +1145,9 @@ class DiscoverablePage extends HydePage
 /** @deprecated */
 class NonDiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory;
-    public static string $outputDirectory;
-    public static string $fileExtension;
+    protected static string $sourceDirectory;
+    protected static string $outputDirectory;
+    protected static string $fileExtension;
 
     public function compile(): string
     {
@@ -1158,9 +1158,9 @@ class NonDiscoverablePage extends HydePage
 /** @deprecated */
 class PartiallyDiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory = 'foo';
-    public static string $outputDirectory;
-    public static string $fileExtension;
+    protected static string $sourceDirectory = 'foo';
+    protected static string $outputDirectory;
+    protected static string $fileExtension;
 
     public function compile(): string
     {
@@ -1171,9 +1171,9 @@ class PartiallyDiscoverablePage extends HydePage
 /** @deprecated */
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
-    public static string $sourceDirectory = '';
-    public static string $outputDirectory = '';
-    public static string $fileExtension = '';
+    protected static string $sourceDirectory = '';
+    protected static string $outputDirectory = '';
+    protected static string $fileExtension = '';
 
     public function compile(): string
     {

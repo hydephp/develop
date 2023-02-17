@@ -25,9 +25,9 @@ use Illuminate\Support\Facades\View;
  */
 class InMemoryPage extends HydePage
 {
-    public static string $sourceDirectory = '';
-    public static string $outputDirectory = '';
-    public static string $fileExtension = '';
+    protected static string $sourceDirectory = '';
+    protected static string $outputDirectory = '';
+    protected static string $fileExtension = '';
 
     protected string $contents;
     protected string $view;
