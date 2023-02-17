@@ -15,6 +15,8 @@ interface DiscoverableContract
 {
     /**
      * Get the source directory for the HydePage class.
+     *
+     * @return non-empty-string
      */
     public static function sourceDirectory(): string;
 
@@ -30,6 +32,8 @@ interface DiscoverableContract
 
     /**
      * Set the source directory for the HydePage class.
+     *
+     * @param non-empty-string $sourceDirectory
      */
     public static function setSourceDirectory(string $sourceDirectory): void;
 
