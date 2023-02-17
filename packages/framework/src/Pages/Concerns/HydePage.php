@@ -84,6 +84,8 @@ abstract class HydePage implements PageSchema, DiscoverableContract
 
     public static function isDiscoverable(): bool
     {
+        // TODO: Check if static implements DiscoverableContract
+
         return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
     }
 
