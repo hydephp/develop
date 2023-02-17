@@ -11,7 +11,6 @@ use Hyde\Publications\Providers\TranslationServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationServiceProvider;
-
 use function storage_path;
 
 class PublicationsServiceProvider extends ServiceProvider
@@ -49,6 +48,7 @@ class PublicationsServiceProvider extends ServiceProvider
             });
         });
     }
+
     /**
      * Register additional service providers.
      */
