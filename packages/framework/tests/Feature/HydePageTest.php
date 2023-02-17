@@ -1097,6 +1097,7 @@ class TestPage extends HydePage
     }
 }
 
+/** @deprecated */
 class DiscoverablePage extends HydePage
 {
     public static string $sourceDirectory = 'foo';
@@ -1109,6 +1110,7 @@ class DiscoverablePage extends HydePage
     }
 }
 
+/** @deprecated */
 class NonDiscoverablePage extends HydePage
 {
     public static string $sourceDirectory;
@@ -1121,6 +1123,7 @@ class NonDiscoverablePage extends HydePage
     }
 }
 
+/** @deprecated */
 class PartiallyDiscoverablePage extends HydePage
 {
     public static string $sourceDirectory = 'foo';
@@ -1133,6 +1136,7 @@ class PartiallyDiscoverablePage extends HydePage
     }
 }
 
+/** @deprecated */
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
     public static string $sourceDirectory = '';
