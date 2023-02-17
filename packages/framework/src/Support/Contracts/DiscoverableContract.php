@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Contracts;
 
 /**
- * Interface for discoverable HydePage classes.
+ * @deprecated Interface for discoverable HydePage classes.
  *
  * @property string $sourceDirectory (static)
  * @property string $fileExtension (static)
