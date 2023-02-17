@@ -44,9 +44,15 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     use InteractsWithFrontMatter;
     use HasFactory;
 
+    /** @internal Will be made protected */
     public static string $sourceDirectory;
+
+    /** @internal Will be made protected */
     public static string $outputDirectory;
+
+    /** @internal Will be made protected */
     public static string $fileExtension;
+
     public static string $template;
 
     public string $identifier;
