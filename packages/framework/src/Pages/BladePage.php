@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\View;
 class BladePage extends DiscoverablePage
 {
     protected static string $sourceDirectory = '_pages';
-    protected static string $outputDirectory = '';
+    public static string $outputDirectory = '';
     protected static string $fileExtension = '.blade.php';
 
     /**

@@ -17,7 +17,7 @@ use Hyde\Pages\Concerns\DiscoverablePage;
 class HtmlPage extends DiscoverablePage
 {
     protected static string $sourceDirectory = '_pages';
-    protected static string $outputDirectory = '';
+    public static string $outputDirectory = '';
     protected static string $fileExtension = '.html';
 
     public function contents(): string
