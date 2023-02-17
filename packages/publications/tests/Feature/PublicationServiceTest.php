@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Testing\Feature;
 
 use function file_put_contents;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
@@ -146,7 +145,7 @@ class PublicationServiceTest extends TestCase
         $this->createPublication();
         $this->assertEquals(
             new Collection([
-               Hyde::pages()->get('test-publication/foo.md')
+                Hyde::pages()->get('test-publication/foo.md'),
             ]),
             PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
         );
