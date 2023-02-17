@@ -44,6 +44,7 @@ abstract class HydePage implements PageSchema
     use InteractsWithFrontMatter;
     use HasFactory;
 
+    public static string $outputDirectory;
     public static string $template;
 
     public string $identifier;
@@ -127,6 +128,22 @@ abstract class HydePage implements PageSchema
     }
 
     // Section: Filesystem
+
+    /**
+     * Get the output subdirectory to store compiled HTML.
+     */
+    public static function outputDirectory(): string
+    {
+        return static::$outputDirectory;
+    }
+
+    /**
+     * Set the source directory for the HydePage class.
+     */
+    public static function setOutputDirectory(string $outputDirectory): void
+    {
+        static::$outputDirectory = unslash($outputDirectory);
+    }
 
     /**
      * Qualify a page identifier into a local file path for the page source file relative to the project root.

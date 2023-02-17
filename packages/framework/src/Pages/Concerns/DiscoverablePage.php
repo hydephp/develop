@@ -18,11 +18,6 @@ abstract class DiscoverablePage extends HydePage implements DiscoverableContract
     protected static string $sourceDirectory;
 
     /**
-     * @var string The output subdirectory to store compiled page HTML. Relative to the _site directory.
-     */
-    public static string $outputDirectory;
-
-    /**
      * @var string The file extension of the source files. Normalized to include a leading dot.
      */
     protected static string $fileExtension;
@@ -35,14 +30,6 @@ abstract class DiscoverablePage extends HydePage implements DiscoverableContract
     public static function sourceDirectory(): string
     {
         return static::$sourceDirectory;
-    }
-
-    /**
-     * Get the output subdirectory to store compiled HTML.
-     */
-    public static function outputDirectory(): string
-    {
-        return static::$outputDirectory;
     }
 
     /**
@@ -61,14 +48,6 @@ abstract class DiscoverablePage extends HydePage implements DiscoverableContract
     public static function setSourceDirectory(string $sourceDirectory): void
     {
         static::$sourceDirectory = unslash($sourceDirectory);
-    }
-
-    /**
-     * Set the source directory for the HydePage class.
-     */
-    public static function setOutputDirectory(string $outputDirectory): void
-    {
-        static::$outputDirectory = unslash($outputDirectory);
     }
 
     /**
