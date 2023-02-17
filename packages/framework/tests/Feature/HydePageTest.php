@@ -205,21 +205,21 @@ class HydePageTest extends TestCase
 
     public function test_get_file_extension_returns_static_property()
     {
-        MarkdownPage::$fileExtension = '.foo';
+        MarkdownPage::setFileExtension('.foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_file_extension_forces_leading_period()
     {
-        MarkdownPage::$fileExtension = 'foo';
+        MarkdownPage::setFileExtension('foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_file_extension_removes_trailing_period()
     {
-        MarkdownPage::$fileExtension = 'foo.';
+        MarkdownPage::setFileExtension('foo.');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
@@ -305,7 +305,7 @@ class HydePageTest extends TestCase
     public function test_qualify_basename_uses_the_static_properties()
     {
         MarkdownPage::setSourceDirectory('foo');
-        MarkdownPage::$fileExtension = 'txt';
+        MarkdownPage::setFileExtension('txt');
         $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
         $this->resetDirectoryConfiguration();
     }
@@ -1099,7 +1099,7 @@ class HydePageTest extends TestCase
         MarkdownPage::setSourceDirectory('_pages');
         MarkdownPost::setSourceDirectory('_posts');
         DocumentationPage::setSourceDirectory('_docs');
-        MarkdownPage::$fileExtension = '.md';
+        MarkdownPage::setFileExtension('.md');
     }
 }
 

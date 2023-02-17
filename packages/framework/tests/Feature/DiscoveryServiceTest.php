@@ -123,7 +123,7 @@ class DiscoveryServiceTest extends TestCase
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.md');
 
             // Set file extension to a custom value
-            $model::$fileExtension = '.foo';
+            $model::setFileExtension('.foo');
 
             // Test customized file extension
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
@@ -131,7 +131,7 @@ class DiscoveryServiceTest extends TestCase
             // Cleanup
             File::deleteDirectory(Hyde::path('foo'));
             $model::setSourceDirectory($sourceDirectoryBackup);
-            $model::$fileExtension = $fileExtensionBackup;
+            $model::setFileExtension($fileExtensionBackup);
         }
     }
 
