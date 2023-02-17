@@ -18,13 +18,16 @@ use function str_ends_with;
  */
 class PublicationsExtension extends HydeExtension
 {
+    /** @internal */
+    public static array $pageClasses = [
+        PublicationPage::class,
+        PublicationListPage::class,
+    ];
+
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {
-        return [
-            PublicationPage::class,
-            PublicationListPage::class,
-        ];
+        return static::$pageClasses;
     }
 
     public static function discoverPages(PageCollection $collection): void
