@@ -129,6 +129,16 @@ abstract class HydePage implements PageSchema
 
     // Section: Filesystem
 
+    public static function sourceDirectory(): string
+    {
+        return static::$sourceDirectory ?? Hyde::getSourceRoot();
+    }
+
+    public static function fileExtension(): string
+    {
+        return static::$fileExtension ?? '';
+    }
+
     /**
      * Get the output subdirectory to store compiled HTML.
      */
