@@ -45,9 +45,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     use HasFactory;
 
     protected static string $sourceDirectory;
-
-    /** @internal Will be made protected */
-    public static string $outputDirectory;
+    protected static string $outputDirectory;
 
     /** @internal Will be made protected */
     public static string $fileExtension;
