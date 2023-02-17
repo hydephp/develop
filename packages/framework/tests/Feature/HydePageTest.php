@@ -230,17 +230,20 @@ class HydePageTest extends TestCase
         $this->assertEquals('foo', $page->getIdentifier());
     }
 
-    public function test_set_source_directory() {
+    public function test_set_source_directory()
+    {
         ConfigurableSourcesTestPage::setSourceDirectory('foo');
         $this->assertEquals('foo', ConfigurableSourcesTestPage::sourceDirectory());
     }
 
-    public function test_set_output_directory() {
+    public function test_set_output_directory()
+    {
         ConfigurableSourcesTestPage::setOutputDirectory('foo');
         $this->assertEquals('foo', ConfigurableSourcesTestPage::outputDirectory());
     }
 
-    public function test_set_file_extension() {
+    public function test_set_file_extension()
+    {
         ConfigurableSourcesTestPage::setFileExtension('.foo');
         $this->assertEquals('.foo', ConfigurableSourcesTestPage::fileExtension());
     }
