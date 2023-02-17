@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
+use Hyde\Pages\Concerns\HydePage;
 use function glob;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
@@ -31,6 +32,18 @@ class PublicationService
 
             return [$publicationType->getDirectory() => $publicationType];
         });
+    }
+
+    /**
+     * Return all publications for a given publication type.
+     */
+    public static function getPublicationsForPubType(PublicationType $pubType): Collection
+    {
+        return collect(Hyde::pages()->where(function (HydePage $page) use ($pubType): bool {
+            return $page instanceof PublicationPage && $page::$publicationType === $pubType->getDirectory();
+        })->sortBy(function (PublicationPage $page) use ($pubType): mixed {
+            return $page->matter($pubType->sortField);
+        }, descending: ! $pubType->sortAscending)->values());
     }
 
     /**
