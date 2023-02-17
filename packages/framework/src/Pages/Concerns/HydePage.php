@@ -43,6 +43,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
 {
     use InteractsWithFrontMatter;
     use HasFactory;
+    use Discoverable;
 
     protected static string $sourceDirectory;
     protected static string $outputDirectory;
