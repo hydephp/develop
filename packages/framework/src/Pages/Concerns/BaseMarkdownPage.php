@@ -19,7 +19,7 @@ use Hyde\Support\Contracts\DiscoverableContract;
  * @see \Hyde\Pages\Concerns\HydePage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract, DiscoverableContract
+abstract class BaseMarkdownPage extends DiscoverablePage implements MarkdownDocumentContract, DiscoverableContract
 {
     public Markdown $markdown;
 
