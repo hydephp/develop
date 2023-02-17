@@ -23,20 +23,22 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 {
     use ValidatesExistence;
 
+    // Identifier
+    public static string $publicationType;
     public PublicationType $type;
 
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $template = '__dynamic';
 
-    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Markdown $markdown = '', ?PublicationType $type = null): static
+    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Markdown $markdown = ''): static
     {
-        return new static($identifier, $matter, $markdown, $type);
+        return new static($identifier, $matter, $markdown);
     }
 
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '', ?PublicationType $type = null)
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '')
     {
-        $this->type = $type;
+        $this->type = PublicationType::get(static::$publicationType);
 
         parent::__construct($identifier, $matter, $markdown);
     }
