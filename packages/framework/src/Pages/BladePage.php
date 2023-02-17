@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\Concerns\DiscoverablePage;
 use Hyde\Support\Contracts\DiscoverableContract;
 use Illuminate\Support\Facades\View;
 
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\View;
  * @see https://hydephp.com/docs/master/static-pages#creating-blade-pages
  * @see https://laravel.com/docs/master/blade
  */
-class BladePage extends HydePage implements DiscoverableContract
+class BladePage extends DiscoverablePage implements DiscoverableContract
 {
     protected static string $sourceDirectory = '_pages';
     protected static string $outputDirectory = '';
