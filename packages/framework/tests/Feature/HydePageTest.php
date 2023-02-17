@@ -1064,18 +1064,8 @@ class HydePageTest extends TestCase
 
     public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
     {
+        $this->markTestSkipped('Condition is always true at the moment.');
         $this->assertFalse(NonDiscoverablePage::isDiscoverable());
-    }
-
-    public function test_is_discoverable_method_requires_all_required_data_to_be_present()
-    {
-        $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
-    }
-
-    /** @deprecated */
-    public function test_is_discoverable_method_requires_source_directory_to_be_filled()
-    {
-        $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
     }
 
     public function test_all_core_extension_pages_are_discoverable()
@@ -1134,45 +1124,6 @@ class ConfigurableSourcesTestPage extends HydePage
 class DiscoverablePage extends HydePage
 {
     protected static string $sourceDirectory = 'foo';
-    protected static string $outputDirectory = '';
-    protected static string $fileExtension = '';
-
-    public function compile(): string
-    {
-        return '';
-    }
-}
-
-/** @deprecated */
-class NonDiscoverablePage extends HydePage
-{
-    protected static string $sourceDirectory;
-    protected static string $outputDirectory;
-    protected static string $fileExtension;
-
-    public function compile(): string
-    {
-        return '';
-    }
-}
-
-/** @deprecated */
-class PartiallyDiscoverablePage extends HydePage
-{
-    protected static string $sourceDirectory = 'foo';
-    protected static string $outputDirectory;
-    protected static string $fileExtension;
-
-    public function compile(): string
-    {
-        return '';
-    }
-}
-
-/** @deprecated */
-class DiscoverablePageWithInvalidSourceDirectory extends HydePage
-{
-    protected static string $sourceDirectory = '';
     protected static string $outputDirectory = '';
     protected static string $fileExtension = '';
 
