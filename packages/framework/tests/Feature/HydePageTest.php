@@ -1145,7 +1145,7 @@ class DiscoverablePage extends HydePage
 /** @deprecated */
 class NonDiscoverablePage extends HydePage
 {
-    protected static string $sourceDirectory ;
+    protected static string $sourceDirectory;
     protected static string $outputDirectory;
     protected static string $fileExtension;
 
