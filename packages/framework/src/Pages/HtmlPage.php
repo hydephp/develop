@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Contracts\DiscoverableContract;
 
 /**
  * Page class for HTML pages.
@@ -14,7 +15,7 @@ use Hyde\Pages\Concerns\HydePage;
  *
  * @see https://hydephp.com/docs/master/static-pages#bonus-creating-html-pages
  */
-class HtmlPage extends HydePage
+class HtmlPage extends HydePage implements DiscoverableContract
 {
     protected static string $sourceDirectory = '_pages';
     protected static string $outputDirectory = '';
