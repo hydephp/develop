@@ -10,5 +10,7 @@ namespace Hyde\Pages\Concerns;
  */
 trait Discoverable
 {
-    //
+    protected static string $sourceDirectory;
+    protected static string $outputDirectory;
+    protected static string $fileExtension;
 }
