@@ -164,7 +164,7 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     }
 
     /**
-     * Get the output directory for the HydePage class.
+     * Set the output directory for the HydePage class.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
