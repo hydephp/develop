@@ -21,8 +21,6 @@ use Hyde\Support\Contracts\DiscoverableContract;
  */
 abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract, DiscoverableContract
 {
-    use Discoverable;
-
     public Markdown $markdown;
 
     protected static string $fileExtension = '.md';
