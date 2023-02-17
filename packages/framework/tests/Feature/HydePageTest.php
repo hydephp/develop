@@ -182,7 +182,7 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_source_directory_trims_trailing_slashes()
+    public function test_set_source_directory_trims_trailing_slashes()
     {
         MarkdownPage::setSourceDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
@@ -196,7 +196,7 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_output_directory_trims_trailing_slashes()
+    public function test_set_output_directory_trims_trailing_slashes()
     {
         MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
@@ -210,14 +210,14 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_file_extension_forces_leading_period()
+    public function test_set_file_extension_forces_leading_period()
     {
         MarkdownPage::setFileExtension('foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_file_extension_removes_trailing_period()
+    public function test_set_file_extension_removes_trailing_period()
     {
         MarkdownPage::setFileExtension('foo.');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
