@@ -18,7 +18,7 @@ class DataCollection extends Collection
 {
     public string $key;
 
-    protected static string $sourceDirectory = 'resources/collections';
+    public static string $sourceDirectory = 'resources/collections';
 
     public function __construct(string $key)
     {
@@ -35,7 +35,7 @@ class DataCollection extends Collection
     public function getMarkdownFiles(): array
     {
         return glob(Hyde::path(
-            static::sourceDirectory().'/'.$this->key.'/*.md'
+            static::$sourceDirectory.'/'.$this->key.'/*.md'
         ));
     }
 
