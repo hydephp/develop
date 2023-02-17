@@ -21,22 +21,22 @@ use ReflectionClass;
  */
 class ConfigFileTest extends TestCase
 {
-    public function default_output_directory_value_matches_declared_value()
+    public function test_default_output_directory_value_matches_declared_value()
     {
         expect($this->getConfig('output_directory'))->toBe(Site::getOutputDirectory());
     }
 
-    public function default_media_directory_value_matches_declared_value()
+    public function test_default_media_directory_value_matches_declared_value()
     {
         expect($this->getConfig('media_directory'))->toBe(Hyde::getMediaDirectory());
     }
 
-    public function default_source_root_value_matches_declared_value()
+    public function test_default_source_root_value_matches_declared_value()
     {
         expect($this->getConfig('source_root'))->toBe(Hyde::getSourceRoot());
     }
 
-    public function default_source_directories_values_match_declared_values()
+    public function test_default_source_directories_values_match_declared_values()
     {
         expect($this->getConfig('source_directories'))->toBe([
             HtmlPage::class => '_pages',
@@ -47,7 +47,7 @@ class ConfigFileTest extends TestCase
         ]);
     }
 
-    public function default_source_directories_values_cover_all_core_extension_classes()
+    public function test_default_source_directories_values_cover_all_core_extension_classes()
     {
         expect($this->getConfig('source_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
             ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$sourceDirectory])
@@ -55,7 +55,7 @@ class ConfigFileTest extends TestCase
         );
     }
 
-    public function default_output_directories_values_match_declared_values()
+    public function test_default_output_directories_values_match_declared_values()
     {
         expect($this->getConfig('output_directories'))->toBe([
             HtmlPage::class => '',
@@ -66,7 +66,7 @@ class ConfigFileTest extends TestCase
         ]);
     }
 
-    public function default_output_directories_values_cover_all_core_extension_classes()
+    public function test_default_output_directories_values_cover_all_core_extension_classes()
     {
         expect($this->getConfig('output_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
             ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::$outputDirectory])
@@ -74,10 +74,10 @@ class ConfigFileTest extends TestCase
         );
     }
 
-    public function default_features_array_matches_default_features()
+    public function test_default_features_array_matches_default_features()
     {
         expect($this->getConfig('features'))
-            ->toBe(new ReflectionClass(Features::class))->getMethod('getDefaultOptions')->invoke(null);
+            ->toBe((new ReflectionClass(Features::class))->getMethod('getDefaultOptions')->invoke(null));
     }
 
     protected function getConfig(string $option): mixed

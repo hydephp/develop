@@ -42,8 +42,15 @@ class AssetServiceTest extends TestCase
     public function test_cdn_path_constructor_returns_cdn_uri()
     {
         $service = new AssetService();
-        $this->assertIsString($path = $service->constructCdnPath('styles.css'));
+        $this->assertIsString($path = $service->cdnLink('styles.css'));
         $this->assertStringContainsString('styles.css', $path);
+    }
+
+    public function test_can_set_custom_cdn_uri_in_config()
+    {
+        config(['hyde.hydefront_url' => 'https://example.com']);
+        $service = new AssetService();
+        $this->assertSame('https://example.com', $service->cdnLink('styles.css'));
     }
 
     public function test_media_link_returns_media_path_with_cache_key()
