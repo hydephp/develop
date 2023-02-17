@@ -117,7 +117,7 @@ class DiscoveryServiceTest extends TestCase
             $this->unitTestMarkdownBasedPageList($model, $model::$sourceDirectory.'/foo.md');
 
             // Set the source directory to a custom value
-            $model::$sourceDirectory = 'foo';
+            $model::setSourceDirectory('foo');
 
             // Test customized source directory
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.md');
@@ -130,7 +130,7 @@ class DiscoveryServiceTest extends TestCase
 
             // Cleanup
             File::deleteDirectory(Hyde::path('foo'));
-            $model::$sourceDirectory = $sourceDirectoryBackup;
+            $model::setSourceDirectory($sourceDirectoryBackup);
             $model::$fileExtension = $fileExtensionBackup;
         }
     }

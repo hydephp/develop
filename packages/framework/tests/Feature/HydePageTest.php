@@ -177,14 +177,14 @@ class HydePageTest extends TestCase
 
     public function test_get_source_directory_returns_static_property()
     {
-        MarkdownPage::$sourceDirectory = 'foo';
+        MarkdownPage::setSourceDirectory('foo');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
     }
 
     public function test_get_source_directory_trims_trailing_slashes()
     {
-        MarkdownPage::$sourceDirectory = '/foo/\\';
+        MarkdownPage::setSourceDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
     }
@@ -304,7 +304,7 @@ class HydePageTest extends TestCase
 
     public function test_qualify_basename_uses_the_static_properties()
     {
-        MarkdownPage::$sourceDirectory = 'foo';
+        MarkdownPage::setSourceDirectory('foo');
         MarkdownPage::$fileExtension = 'txt';
         $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
         $this->resetDirectoryConfiguration();
@@ -1095,10 +1095,10 @@ class HydePageTest extends TestCase
 
     protected function resetDirectoryConfiguration(): void
     {
-        BladePage::$sourceDirectory = '_pages';
-        MarkdownPage::$sourceDirectory = '_pages';
-        MarkdownPost::$sourceDirectory = '_posts';
-        DocumentationPage::$sourceDirectory = '_docs';
+        BladePage::setSourceDirectory('_pages');
+        MarkdownPage::setSourceDirectory('_pages');
+        MarkdownPost::setSourceDirectory('_posts');
+        DocumentationPage::setSourceDirectory('_docs');
         MarkdownPage::$fileExtension = '.md';
     }
 }

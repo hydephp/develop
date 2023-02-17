@@ -149,7 +149,7 @@ class DataCollectionTest extends TestCase
 
     public function test_source_directory_can_be_changed()
     {
-        DataCollection::$sourceDirectory = 'foo';
+        DataCollection::setSourceDirectory('foo');
         mkdir(Hyde::path('foo/bar'), recursive: true);
         Hyde::touch('foo/bar/foo.md');
         $this->assertEquals([

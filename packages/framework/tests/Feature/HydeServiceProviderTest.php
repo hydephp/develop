@@ -215,7 +215,7 @@ class HydeServiceProviderTest extends TestCase
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
-            $page::$sourceDirectory = 'foo';
+            $page::setSourceDirectory('foo');
         }
 
         $this->provider->register();
