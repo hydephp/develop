@@ -18,7 +18,7 @@ class DataCollection extends Collection
 {
     public string $key;
 
-    public static string $sourceDirectory = 'resources/collections';
+    protected static string $sourceDirectory = 'resources/collections';
 
     public function __construct(string $key)
     {

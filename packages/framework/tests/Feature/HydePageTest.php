@@ -1132,7 +1132,7 @@ class ConfigurableSourcesTestPage extends HydePage
 /** @deprecated */
 class DiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory = 'foo';
+    protected static string $sourceDirectory = 'foo';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 
@@ -1145,7 +1145,7 @@ class DiscoverablePage extends HydePage
 /** @deprecated */
 class NonDiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory;
+    protected static string $sourceDirectory ;
     public static string $outputDirectory;
     public static string $fileExtension;
 
@@ -1158,7 +1158,7 @@ class NonDiscoverablePage extends HydePage
 /** @deprecated */
 class PartiallyDiscoverablePage extends HydePage
 {
-    public static string $sourceDirectory = 'foo';
+    protected static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
     public static string $fileExtension;
 
@@ -1171,7 +1171,7 @@ class PartiallyDiscoverablePage extends HydePage
 /** @deprecated */
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
-    public static string $sourceDirectory = '';
+    protected static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
 

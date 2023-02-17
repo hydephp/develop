@@ -268,7 +268,7 @@ class InspectableTestExtension extends HydeExtension
 
 class HydeExtensionTestPage extends HydePage
 {
-    public static string $sourceDirectory = 'foo';
+    protected static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'foo';
     public static string $fileExtension = '.txt';
 
@@ -280,7 +280,7 @@ class HydeExtensionTestPage extends HydePage
 
 class TestPageClass extends HydePage
 {
-    public static string $sourceDirectory = 'foo';
+    protected static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'foo';
     public static string $fileExtension = '.txt';
 
