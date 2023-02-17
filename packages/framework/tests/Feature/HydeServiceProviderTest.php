@@ -65,10 +65,10 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_source_directories()
     {
-        BladePage::$sourceDirectory = '';
-        MarkdownPage::$sourceDirectory = '';
-        MarkdownPost::$sourceDirectory = '';
-        DocumentationPage::$sourceDirectory = '';
+        BladePage::setSourceDirectory('');
+        MarkdownPage::setSourceDirectory('');
+        MarkdownPost::setSourceDirectory('');
+        DocumentationPage::setSourceDirectory('');
 
         $this->assertEquals('', BladePage::sourceDirectory());
         $this->assertEquals('', MarkdownPage::sourceDirectory());
