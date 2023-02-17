@@ -27,6 +27,8 @@ trait Discoverable
 
     /**
      * Get the directory in where source files are stored.
+     *
+     * @return non-empty-string
      */
     public static function sourceDirectory(): string
     {
@@ -51,6 +53,8 @@ trait Discoverable
 
     /**
      * Set the output directory for the HydePage class.
+     *
+     * @param  non-empty-string  $sourceDirectory
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
