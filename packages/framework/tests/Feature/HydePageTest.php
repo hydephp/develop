@@ -26,6 +26,7 @@ use Hyde\Testing\TestCase;
  * since it's the simplest implementation.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
+ * @covers \Hyde\Pages\Concerns\Discoverable
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
