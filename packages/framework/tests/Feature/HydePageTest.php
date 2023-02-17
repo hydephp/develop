@@ -1060,7 +1060,7 @@ class HydePageTest extends TestCase
 
     public function test_is_discoverable_method_returns_true_for_discoverable_pages()
     {
-        $this->assertTrue(DiscoverablePage::isDiscoverable());
+        $this->assertTrue(DiscoverableTestPage::isDiscoverable());
     }
 
     public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
@@ -1108,6 +1108,19 @@ class TestPage extends DiscoverablePage
 }
 
 class ConfigurableSourcesTestPage extends DiscoverablePage
+{
+    protected static string $sourceDirectory;
+    public static string $outputDirectory;
+    protected static string $fileExtension;
+    public static string $template;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverableTestPage extends DiscoverablePage
 {
     protected static string $sourceDirectory;
     public static string $outputDirectory;
