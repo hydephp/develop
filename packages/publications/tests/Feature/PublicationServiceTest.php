@@ -49,76 +49,6 @@ class PublicationServiceTest extends TestCase
         ]), PublicationService::getPublicationTypes());
     }
 
-    public function testGetPublicationsForPubType()
-    {
-        $this->createPublicationType();
-
-        $this->assertEquals(
-            new Collection(),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
-        );
-    }
-
-    public function testGetPublicationsForPubTypeWithPublications()
-    {
-        $this->createPublicationType();
-        $this->createPublication();
-
-        $this->assertEquals(
-            new Collection([
-                PublicationService::parsePublicationFile('test-publication/foo.md'),
-            ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
-        );
-    }
-
-    public function testGetPublicationsForPubTypeOnlyContainsInstancesOfPublicationPage()
-    {
-        $this->createPublicationType();
-        $this->createPublication();
-
-        $this->assertContainsOnlyInstancesOf(
-            PublicationPage::class,
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
-        );
-    }
-
-    public function testGetPublicationsForPubTypeSortsPublicationsBySortField()
-    {
-        (new PublicationType('test-publication', sortField: 'order'))->save();
-
-        $this->markdown('test-publication/one.md', matter: ['order' => 1]);
-        $this->markdown('test-publication/two.md', matter: ['order' => 2]);
-        $this->markdown('test-publication/three.md', matter: ['order' => 3]);
-
-        $this->assertEquals(
-            new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-            ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
-        );
-    }
-
-    public function testGetPublicationsForPubTypeSortsPublicationsWithSpecifiedDirection()
-    {
-        (new PublicationType('test-publication', sortField: 'order', sortAscending: false))->save();
-
-        $this->markdown('test-publication/one.md', matter: ['order' => 1]);
-        $this->markdown('test-publication/two.md', matter: ['order' => 2]);
-        $this->markdown('test-publication/three.md', matter: ['order' => 3]);
-
-        $this->assertEquals(
-            new Collection([
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-            ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
-        );
-    }
-
     public function testGetMediaForPubType()
     {
         $this->createPublicationType();
@@ -160,37 +90,6 @@ class PublicationServiceTest extends TestCase
         );
 
         File::deleteDirectory(Hyde::path('_assets/test-publication'));
-    }
-
-    public function testParsePublicationFile()
-    {
-        $this->createPublicationType();
-        $this->createPublication();
-
-        $file = PublicationService::parsePublicationFile('test-publication/foo');
-        $this->assertInstanceOf(PublicationPage::class, $file);
-        $this->assertEquals('test-publication/foo', $file->getIdentifier());
-    }
-
-    public function testParsePublicationFileWithFileExtension()
-    {
-        $this->createPublicationType();
-        $this->createPublication();
-
-        $this->assertEquals(
-            PublicationService::parsePublicationFile('test-publication/foo'),
-            PublicationService::parsePublicationFile('test-publication/foo.md')
-        );
-    }
-
-    public function testParsePublicationFileWithNonExistentFile()
-    {
-        $this->createPublicationType();
-
-        $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [test-publication/foo.md] not found.');
-
-        PublicationService::parsePublicationFile('test-publication/foo');
     }
 
     public function testPublicationTypeExists()

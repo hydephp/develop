@@ -38,17 +38,7 @@ class PublicationsExtension extends HydeExtension
     protected static function discoverPublicationPages(PageCollection $instance): void
     {
         PublicationService::getPublicationTypes()->each(function (PublicationType $type) use ($instance): void {
-            // static::discoverPublicationPagesForType($type, $instance);
             static::generatePublicationListingPageForType($type, $instance);
-        });
-    }
-
-    protected static function discoverPublicationPagesForType(PublicationType $type, PageCollection $instance): void
-    {
-        PublicationService::getPublicationsForPubType($type)->each(function (PublicationPage $publication) use (
-            $instance
-        ): void {
-            $instance->addPage($publication);
         });
     }
 

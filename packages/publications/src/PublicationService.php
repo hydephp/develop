@@ -34,18 +34,6 @@ class PublicationService
     }
 
     /**
-     * Return all publications for a given publication type.
-     */
-    public static function getPublicationsForPubType(PublicationType $pubType): Collection
-    {
-        return Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
-            return static::parsePublicationFile(Hyde::pathToRelative($file));
-        })->sortBy(function (PublicationPage $page) use ($pubType): mixed {
-            return $page->matter($pubType->sortField);
-        }, descending: ! $pubType->sortAscending)->values();
-    }
-
-    /**
      * Return all media items for a given publication type.
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
@@ -72,16 +60,6 @@ class PublicationService
     }
 
     /**
-     * Parse a publication Markdown source file and return a PublicationPage object.
-     *
-     * @param  string  $identifier  Example: my-publication/hello.md or my-publication/hello
-     */
-    public static function parsePublicationFile(string $identifier): PublicationPage
-    {
-        return PublicationPage::parse(Str::replaceLast('.md', '', $identifier));
-    }
-
-    /**
      * Check whether a given publication type exists.
      */
     public static function publicationTypeExists(string $pubTypeName): bool
@@ -92,11 +70,6 @@ class PublicationService
     protected static function getSchemaFiles(): array
     {
         return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
-    }
-
-    protected static function getPublicationFiles(string $directory): array
-    {
-        return glob(Hyde::path("$directory/*.md"));
     }
 
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
