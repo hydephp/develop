@@ -15,6 +15,7 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Support\Contracts\DiscoverableContract;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use function unslash;
@@ -38,7 +39,7 @@ use function unslash;
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class HydePage implements PageSchema
+abstract class HydePage implements PageSchema, DiscoverableContract
 {
     use InteractsWithFrontMatter;
     use HasFactory;
@@ -133,7 +134,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get the directory in where source files are stored.
      */
-    final public static function sourceDirectory(): string
+    public static function sourceDirectory(): string
     {
         return unslash(static::$sourceDirectory);
     }
@@ -141,7 +142,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get the output subdirectory to store compiled HTML.
      */
-    final public static function outputDirectory(): string
+    public static function outputDirectory(): string
     {
         return unslash(static::$outputDirectory);
     }
@@ -149,9 +150,33 @@ abstract class HydePage implements PageSchema
     /**
      * Get the file extension of the source files.
      */
-    final public static function fileExtension(): string
+    public static function fileExtension(): string
     {
         return rtrim('.'.ltrim(static::$fileExtension, '.'), '.');
+    }
+
+    /**
+     * Get the output directory for the HydePage class.
+     */
+    public static function setSourceDirectory(string $sourceDirectory): void
+    {
+        static::$sourceDirectory = $sourceDirectory;
+    }
+
+    /**
+     * Set the source directory for the HydePage class.
+     */
+    public static function setOutputDirectory(string $outputDirectory): void
+    {
+        static::$outputDirectory = $outputDirectory;
+    }
+
+    /**
+     * Set the file extension for the HydePage class.
+     */
+    public static function setFileExtension(string $fileExtension): void
+    {
+        static::$fileExtension = $fileExtension;
     }
 
     /**
