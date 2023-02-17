@@ -13,5 +13,9 @@ namespace Hyde\Support\Contracts;
  */
 interface DiscoverableContract
 {
-    //
+    public static function getSourceDirectory(): string;
+
+    public static function getOutputDirectory(): string;
+
+    public static function getFileExtension(): string;
 }
