@@ -1104,7 +1104,7 @@ class HydePageTest extends TestCase
     }
 }
 
-class TestPage extends HydePage
+class TestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 {
     protected static string $sourceDirectory = 'source';
     protected static string $outputDirectory = 'output';
@@ -1117,7 +1117,7 @@ class TestPage extends HydePage
     }
 }
 
-class ConfigurableSourcesTestPage extends HydePage
+class ConfigurableSourcesTestPage extends \Hyde\Pages\Concerns\DiscoverablePage
 {
     protected static string $sourceDirectory;
     protected static string $outputDirectory;
