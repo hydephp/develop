@@ -270,7 +270,7 @@ class HydeExtensionTestPage extends HydePage
 {
     protected static string $sourceDirectory = 'foo';
     protected static string $outputDirectory = 'foo';
-    public static string $fileExtension = '.txt';
+    protected static string $fileExtension = '.txt';
 
     public function compile(): string
     {
@@ -282,7 +282,7 @@ class TestPageClass extends HydePage
 {
     protected static string $sourceDirectory = 'foo';
     protected static string $outputDirectory = 'foo';
-    public static string $fileExtension = '.txt';
+    protected static string $fileExtension = '.txt';
 
     public function compile(): string
     {

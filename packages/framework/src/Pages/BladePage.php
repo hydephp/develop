@@ -21,7 +21,7 @@ class BladePage extends HydePage
 {
     protected static string $sourceDirectory = '_pages';
     protected static string $outputDirectory = '';
-    public static string $fileExtension = '.blade.php';
+    protected static string $fileExtension = '.blade.php';
 
     /**
      * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.
