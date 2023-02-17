@@ -10,6 +10,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
+use Hyde\Pages\Concerns\DiscoverablePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
@@ -1064,8 +1065,7 @@ class HydePageTest extends TestCase
 
     public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
     {
-        $this->markTestSkipped('Condition is always true at the moment.');
-        $this->assertFalse(NonDiscoverablePage::isDiscoverable());
+        $this->assertFalse(NonDiscoverableTestPage::isDiscoverable());
     }
 
     public function test_all_core_extension_pages_are_discoverable()
@@ -1094,7 +1094,7 @@ class HydePageTest extends TestCase
     }
 }
 
-class TestPage extends \Hyde\Pages\Concerns\DiscoverablePage
+class TestPage extends DiscoverablePage
 {
     protected static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
@@ -1107,7 +1107,7 @@ class TestPage extends \Hyde\Pages\Concerns\DiscoverablePage
     }
 }
 
-class ConfigurableSourcesTestPage extends \Hyde\Pages\Concerns\DiscoverablePage
+class ConfigurableSourcesTestPage extends DiscoverablePage
 {
     protected static string $sourceDirectory;
     public static string $outputDirectory;
@@ -1120,8 +1120,7 @@ class ConfigurableSourcesTestPage extends \Hyde\Pages\Concerns\DiscoverablePage
     }
 }
 
-/** @deprecated */
-class DiscoverablePage extends HydePage
+class NonDiscoverableTestPage extends HydePage
 {
     protected static string $sourceDirectory = 'foo';
     public static string $outputDirectory = '';
