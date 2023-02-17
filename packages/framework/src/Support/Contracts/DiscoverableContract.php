@@ -16,17 +16,17 @@ interface DiscoverableContract
     /**
      * Get the source directory for the HydePage class.
      */
-    public static function getSourceDirectory(): string;
+    public static function sourceDirectory(): string;
 
     /**
      * Get the output directory for the HydePage class.
      */
-    public static function getOutputDirectory(): string;
+    public static function outputDirectory(): string;
 
     /**
      * Get the file extension for the HydePage class.
      */
-    public static function getFileExtension(): string;
+    public static function fileExtension(): string;
 
     /**
      * Set the source directory for the HydePage class.
