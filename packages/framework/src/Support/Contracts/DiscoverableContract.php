@@ -33,7 +33,7 @@ interface DiscoverableContract
     /**
      * Set the source directory for the HydePage class.
      *
-     * @param non-empty-string $sourceDirectory
+     * @param  non-empty-string  $sourceDirectory
      */
     public static function setSourceDirectory(string $sourceDirectory): void;
 
