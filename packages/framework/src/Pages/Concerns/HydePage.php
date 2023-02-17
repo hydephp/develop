@@ -156,14 +156,6 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     }
 
     /**
-     * Qualify a page identifier into a local file path for the page source file relative to the project root.
-     */
-    public static function sourcePath(string $identifier): string
-    {
-        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::fileExtension());
-    }
-
-    /**
      * Get the source directory for the HydePage class.
      */
     public static function getSourceDirectory(): string
@@ -209,6 +201,14 @@ abstract class HydePage implements PageSchema, DiscoverableContract
     public static function setFileExtension(string $fileExtension): void
     {
         static::$fileExtension = $fileExtension;
+    }
+
+    /**
+     * Qualify a page identifier into a local file path for the page source file relative to the project root.
+     */
+    public static function sourcePath(string $identifier): string
+    {
+        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::fileExtension());
     }
 
     /**
