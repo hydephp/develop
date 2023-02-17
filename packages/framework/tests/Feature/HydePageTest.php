@@ -1068,6 +1068,17 @@ class HydePageTest extends TestCase
         $this->assertFalse(NonDiscoverableTestPage::isDiscoverable());
     }
 
+    public function test_is_discoverable_method_requires_all_required_data_to_be_present()
+    {
+        $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
+    }
+
+    /** @deprecated */
+    public function test_is_discoverable_method_requires_source_directory_to_be_filled()
+    {
+        $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
+    }
+
     public function test_all_core_extension_pages_are_discoverable()
     {
         /** @var class-string<HydePage> $page */
@@ -1120,11 +1131,11 @@ class ConfigurableSourcesTestPage extends DiscoverablePage
     }
 }
 
-class DiscoverableTestPage extends DiscoverablePage
+class DiscoverableTestPage extends HydePage
 {
-    protected static string $sourceDirectory;
-    public static string $outputDirectory;
-    protected static string $fileExtension;
+    protected static string $sourceDirectory = 'foo';
+    public static string $outputDirectory = 'bar';
+    protected static string $fileExtension = 'baz';
     public static string $template;
 
     public function compile(): string
@@ -1135,7 +1146,31 @@ class DiscoverableTestPage extends DiscoverablePage
 
 class NonDiscoverableTestPage extends HydePage
 {
+    protected static string $sourceDirectory;
+    public static string $outputDirectory;
+    protected static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class PartiallyDiscoverablePage extends HydePage
+{
     protected static string $sourceDirectory = 'foo';
+    public static string $outputDirectory;
+    protected static string $fileExtension;
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class DiscoverablePageWithInvalidSourceDirectory extends HydePage
+{
+    protected static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     protected static string $fileExtension = '';
 

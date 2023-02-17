@@ -15,7 +15,6 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Support\Contracts\DiscoverableContract;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use function unslash;
@@ -76,7 +75,7 @@ abstract class HydePage implements PageSchema
 
     public static function isDiscoverable(): bool
     {
-        return in_array(DiscoverableContract::class, class_implements(static::class));
+        return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
     }
 
     // Section: Query
