@@ -163,6 +163,36 @@ abstract class HydePage implements PageSchema, DiscoverableContract
         return unslash(static::sourceDirectory().'/'.unslash($identifier).static::fileExtension());
     }
 
+    public static function getSourceDirectory(): string
+    {
+        return static::$sourceDirectory;
+    }
+
+    public static function setSourceDirectory(string $sourceDirectory): void
+    {
+        static::$sourceDirectory = $sourceDirectory;
+    }
+
+    public static function getOutputDirectory(): string
+    {
+        return static::$outputDirectory;
+    }
+
+    public static function setOutputDirectory(string $outputDirectory): void
+    {
+        static::$outputDirectory = $outputDirectory;
+    }
+
+    public static function getFileExtension(): string
+    {
+        return static::$fileExtension;
+    }
+
+    public static function setFileExtension(string $fileExtension): void
+    {
+        static::$fileExtension = $fileExtension;
+    }
+
     /**
      * Qualify a page identifier into a target output file path relative to the _site output directory.
      */
