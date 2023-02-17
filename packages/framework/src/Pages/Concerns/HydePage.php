@@ -42,7 +42,6 @@ abstract class HydePage implements PageSchema
 {
     use InteractsWithFrontMatter;
     use HasFactory;
-    use Discoverable;
 
     public static string $template;
 
