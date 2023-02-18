@@ -133,25 +133,49 @@ abstract class HydePage implements PageSchema
     /**
      * Get the directory in where source files are stored.
      */
-    final public static function sourceDirectory(): string
+    public static function sourceDirectory(): string
     {
-        return unslash(static::$sourceDirectory);
+        return static::$sourceDirectory ?? Hyde::getSourceRoot();
     }
 
     /**
      * Get the output subdirectory to store compiled HTML.
      */
-    final public static function outputDirectory(): string
+    public static function outputDirectory(): string
     {
-        return unslash(static::$outputDirectory);
+        return static::$outputDirectory ?? '';
     }
 
     /**
      * Get the file extension of the source files.
      */
-    final public static function fileExtension(): string
+    public static function fileExtension(): string
     {
-        return rtrim('.'.ltrim(static::$fileExtension, '.'), '.');
+        return static::$fileExtension ?? '';
+    }
+
+    /**
+     * Set the output directory for the HydePage class.
+     */
+    public static function setSourceDirectory(string $sourceDirectory): void
+    {
+        static::$sourceDirectory = unslash($sourceDirectory);
+    }
+
+    /**
+     * Set the source directory for the HydePage class.
+     */
+    public static function setOutputDirectory(string $outputDirectory): void
+    {
+        static::$outputDirectory = unslash($outputDirectory);
+    }
+
+    /**
+     * Set the file extension for the HydePage class.
+     */
+    public static function setFileExtension(string $fileExtension): void
+    {
+        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
     }
 
     /**
