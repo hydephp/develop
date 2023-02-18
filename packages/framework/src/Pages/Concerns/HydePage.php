@@ -145,7 +145,7 @@ abstract class HydePage implements PageSchema
      */
     public static function outputDirectory(): string
     {
-        return static::$outputDirectory;
+        return static::$outputDirectory ?? '';
     }
 
     /**
