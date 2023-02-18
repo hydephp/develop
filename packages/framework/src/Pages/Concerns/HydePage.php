@@ -44,8 +44,8 @@ abstract class HydePage implements PageSchema
     use HasFactory;
 
     public static string $sourceDirectory;
-    public static string $fileExtension;
     public static string $outputDirectory;
+    public static string $fileExtension;
     public static string $template;
 
     public string $identifier;
@@ -141,19 +141,19 @@ abstract class HydePage implements PageSchema
     }
 
     /**
-     * Get the file extension of the source files.
-     */
-    public static function fileExtension(): string
-    {
-        return static::$fileExtension ?? '';
-    }
-
-    /**
      * Get the output subdirectory to store compiled HTML.
      */
     public static function outputDirectory(): string
     {
         return static::$outputDirectory;
+    }
+
+    /**
+     * Get the file extension of the source files.
+     */
+    public static function fileExtension(): string
+    {
+        return static::$fileExtension ?? '';
     }
 
     /**
@@ -167,19 +167,19 @@ abstract class HydePage implements PageSchema
     }
 
     /**
-     * Set the file extension for the HydePage class.
-     */
-    public static function setFileExtension(string $fileExtension): void
-    {
-        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
-    }
-
-    /**
      * Set the source directory for the HydePage class.
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
         static::$outputDirectory = unslash($outputDirectory);
+    }
+
+    /**
+     * Set the file extension for the HydePage class.
+     */
+    public static function setFileExtension(string $fileExtension): void
+    {
+        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
     }
 
     /**
