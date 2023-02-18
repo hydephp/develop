@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  */
 class CoreDataObjectTest extends TestCase
 {
-    public function testCoreDataObjectHydePage()
+    public function testCoreDataObjectWithHydePage()
     {
         $this->assertInstanceOf(
             CoreDataObject::class,
