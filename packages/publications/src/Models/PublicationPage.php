@@ -13,7 +13,7 @@ use Hyde\Publications\Actions\PublicationPageCompiler;
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationPageTest
  */
-abstract class PublicationPage extends BaseMarkdownPage
+class PublicationPage extends BaseMarkdownPage
 {
     /** @var string ($publicationType->identifier) */
     public static string $publicationType;
