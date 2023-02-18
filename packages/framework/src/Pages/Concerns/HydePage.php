@@ -43,7 +43,7 @@ abstract class HydePage implements PageSchema
     use InteractsWithFrontMatter;
     use HasFactory;
 
-    protected static string $sourceDirectory;
+    public static string $sourceDirectory;
     protected static string $fileExtension;
     public static string $outputDirectory;
     public static string $template;
