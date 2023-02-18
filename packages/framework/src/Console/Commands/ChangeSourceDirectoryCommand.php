@@ -64,11 +64,11 @@ class ChangeSourceDirectoryCommand extends Command
     protected function getPageDirectories(): array
     {
         return array_unique([
-            HtmlPage::$sourceDirectory,
-            BladePage::$sourceDirectory,
-            MarkdownPage::$sourceDirectory,
-            MarkdownPost::$sourceDirectory,
-            DocumentationPage::$sourceDirectory,
+            HtmlPage::sourceDirectory(),
+            BladePage::sourceDirectory(),
+            MarkdownPage::sourceDirectory(),
+            MarkdownPost::sourceDirectory(),
+            DocumentationPage::sourceDirectory(),
         ]);
     }
 

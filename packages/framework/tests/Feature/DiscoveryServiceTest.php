@@ -110,28 +110,28 @@ class DiscoveryServiceTest extends TestCase
         foreach ($matrix as $model) {
             // Setup
             @mkdir(Hyde::path('foo'));
-            $sourceDirectoryBackup = $model::$sourceDirectory;
-            $fileExtensionBackup = $model::$fileExtension;
+            $sourceDirectoryBackup = $model::sourceDirectory();
+            $fileExtensionBackup = $model::fileExtension();
 
             // Test baseline
-            $this->unitTestMarkdownBasedPageList($model, $model::$sourceDirectory.'/foo.md');
+            $this->unitTestMarkdownBasedPageList($model, $model::sourceDirectory().'/foo.md');
 
             // Set the source directory to a custom value
-            $model::$sourceDirectory = 'foo';
+            $model::setSourceDirectory('foo');
 
             // Test customized source directory
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.md');
 
             // Set file extension to a custom value
-            $model::$fileExtension = '.foo';
+            $model::setFileExtension('.foo');
 
             // Test customized file extension
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
 
             // Cleanup
             File::deleteDirectory(Hyde::path('foo'));
-            $model::$sourceDirectory = $sourceDirectoryBackup;
-            $model::$fileExtension = $fileExtensionBackup;
+            $model::setSourceDirectory($sourceDirectoryBackup);
+            $model::setFileExtension($fileExtensionBackup);
         }
     }
 

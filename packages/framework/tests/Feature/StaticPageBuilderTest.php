@@ -53,7 +53,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_can_build_blade_page()
     {
-        file_put_contents(BladePage::$sourceDirectory.'/foo.blade.php', 'bar');
+        file_put_contents(BladePage::sourceDirectory().'/foo.blade.php', 'bar');
 
         $page = new BladePage('foo');
 
@@ -62,7 +62,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
 
-        unlink(BladePage::$sourceDirectory.'/foo.blade.php');
+        unlink(BladePage::sourceDirectory().'/foo.blade.php');
         Hyde::unlink('_site/foo.html');
     }
 
