@@ -36,7 +36,70 @@ use Hyde\Testing\TestCase;
  */
 class HydePageTest extends TestCase
 {
-    // Section: Baseline tests
+    // Section: Baseline tests (Abstract class)
+
+    public function testBaseSourceDirectory()
+    {
+        $this->assertSame(
+            '',
+            HydePage::sourceDirectory()
+        );
+    }
+
+    public function testBaseOutputDirectory()
+    {
+        $this->assertSame(
+            '',
+            HydePage::outputDirectory()
+        );
+    }
+
+    public function testBaseFileExtension()
+    {
+        $this->assertSame(
+            '',
+            HydePage::fileExtension()
+        );
+    }
+
+    public function testBaseSourcePath()
+    {
+        $this->assertSame(
+            'hello-world',
+            HydePage::sourcePath('hello-world')
+        );
+    }
+
+    public function testBaseOutputPath()
+    {
+        $this->assertSame(
+            'hello-world.html',
+            HydePage::outputPath('hello-world')
+        );
+    }
+
+    public function testBasePath()
+    {
+        $this->assertSame(
+            Hyde::path('hello-world'),
+            HydePage::path('hello-world')
+        );
+    }
+
+    public function testBaseBaseRouteKey()
+    {
+        $this->assertSame(
+            HydePage::outputDirectory(),
+            HydePage::baseRouteKey()
+        );
+    }
+
+    public function testBaseIsDiscoverable()
+    {
+        $this->assertFalse(HydePage::isDiscoverable());
+    }
+
+    // Section: Baseline tests (Basic child class)
 
     public function testSourceDirectory()
     {
