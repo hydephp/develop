@@ -27,7 +27,7 @@ class InMemoryPage extends HydePage
 {
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
-    protected static string $fileExtension = '';
+    public static string $fileExtension = '';
 
     protected string $contents;
     protected string $view;
