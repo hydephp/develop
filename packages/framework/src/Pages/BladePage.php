@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\View;
  */
 class BladePage extends HydePage
 {
-    protected static string $sourceDirectory = '_pages';
+    public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
     protected static string $fileExtension = '.blade.php';
 

@@ -1105,7 +1105,7 @@ class HydePageTest extends TestCase
 
 class TestPage extends HydePage
 {
-    protected static string $sourceDirectory = 'source';
+    public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
     protected static string $fileExtension = '.md';
     public static string $template = 'template';
@@ -1118,7 +1118,7 @@ class TestPage extends HydePage
 
 class ConfigurableSourcesTestPage extends HydePage
 {
-    protected static string $sourceDirectory;
+    public static string $sourceDirectory;
     public static string $outputDirectory;
     protected static string $fileExtension;
     public static string $template;
@@ -1131,7 +1131,7 @@ class ConfigurableSourcesTestPage extends HydePage
 
 class DiscoverableTestPage extends HydePage
 {
-    protected static string $sourceDirectory = 'foo';
+    public static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'bar';
     protected static string $fileExtension = 'baz';
     public static string $template;
@@ -1144,7 +1144,7 @@ class DiscoverableTestPage extends HydePage
 
 class NonDiscoverableTestPage extends HydePage
 {
-    protected static string $sourceDirectory;
+    public static string $sourceDirectory;
     public static string $outputDirectory;
     protected static string $fileExtension;
 
@@ -1156,7 +1156,7 @@ class NonDiscoverableTestPage extends HydePage
 
 class PartiallyDiscoverablePage extends HydePage
 {
-    protected static string $sourceDirectory = 'foo';
+    public static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
     protected static string $fileExtension;
 
@@ -1168,7 +1168,7 @@ class PartiallyDiscoverablePage extends HydePage
 
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
-    protected static string $sourceDirectory = '';
+    public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     protected static string $fileExtension = '';
 

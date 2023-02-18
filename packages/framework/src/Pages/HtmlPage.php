@@ -16,7 +16,7 @@ use Hyde\Pages\Concerns\HydePage;
  */
 class HtmlPage extends HydePage
 {
-    protected static string $sourceDirectory = '_pages';
+    public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
     protected static string $fileExtension = '.html';
 

@@ -21,7 +21,7 @@ use Hyde\Support\Models\DateString;
  */
 class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
 {
-    protected static string $sourceDirectory = '_posts';
+    public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
