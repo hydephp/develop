@@ -69,11 +69,13 @@ class InMemoryPage extends HydePage
         $this->view = $view;
     }
 
+    /** Get the contents of the page. This will be saved as-is to the output file when this strategy is used. */
     public function getContents(): string
     {
         return $this->contents;
     }
 
+    /** Get the view key or Blade file for the view to use to render the page contents when this strategy is used. */
     public function getBladeView(): string
     {
         return $this->view;
