@@ -155,10 +155,10 @@ class PageCollectionTest extends TestCase
 
     public function test_pages_with_custom_source_directories_are_discovered_properly()
     {
-        BladePage::$sourceDirectory = '.source/pages';
-        MarkdownPage::$sourceDirectory = '.source/pages';
-        MarkdownPost::$sourceDirectory = '.source/posts';
-        DocumentationPage::$sourceDirectory = '.source/docs';
+        BladePage::setSourceDirectory('.source/pages');
+        MarkdownPage::setSourceDirectory('.source/pages');
+        MarkdownPost::setSourceDirectory('.source/posts');
+        DocumentationPage::setSourceDirectory('.source/docs');
 
         mkdir(Hyde::path('.source'));
         mkdir(Hyde::path('.source/pages'));

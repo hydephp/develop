@@ -65,10 +65,10 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_source_directories()
     {
-        BladePage::$sourceDirectory = '';
-        MarkdownPage::$sourceDirectory = '';
-        MarkdownPost::$sourceDirectory = '';
-        DocumentationPage::$sourceDirectory = '';
+        BladePage::setSourceDirectory('');
+        MarkdownPage::setSourceDirectory('');
+        MarkdownPost::setSourceDirectory('');
+        DocumentationPage::setSourceDirectory('');
 
         $this->assertEquals('', BladePage::sourceDirectory());
         $this->assertEquals('', MarkdownPage::sourceDirectory());
@@ -85,10 +85,10 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_output_directories()
     {
-        BladePage::$outputDirectory = 'foo';
-        MarkdownPage::$outputDirectory = 'foo';
-        MarkdownPost::$outputDirectory = 'foo';
-        DocumentationPage::$outputDirectory = 'foo';
+        BladePage::setOutputDirectory('foo');
+        MarkdownPage::setOutputDirectory('foo');
+        MarkdownPost::setOutputDirectory('foo');
+        DocumentationPage::setOutputDirectory('foo');
 
         $this->assertEquals('foo', BladePage::outputDirectory());
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
@@ -215,13 +215,13 @@ class HydeServiceProviderTest extends TestCase
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
-            $page::$sourceDirectory = 'foo';
+            $page::setSourceDirectory('foo');
         }
 
         $this->provider->register();
 
         foreach ($pages as $page) {
-            $this->assertNotEquals('foo', $page::$sourceDirectory, "Source directory for $page was not set");
+            $this->assertNotEquals('foo', $page::sourceDirectory(), "Source directory for $page was not set");
         }
     }
 
@@ -231,13 +231,13 @@ class HydeServiceProviderTest extends TestCase
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
-            $page::$outputDirectory = 'foo';
+            $page::setOutputDirectory('foo');
         }
 
         $this->provider->register();
 
         foreach ($pages as $page) {
-            $this->assertNotEquals('foo', $page::$outputDirectory, "Output directory for $page was not set");
+            $this->assertNotEquals('foo', $page::outputDirectory(), "Output directory for $page was not set");
         }
     }
 
@@ -253,11 +253,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::$sourceDirectory);
-        $this->assertEquals('foo', BladePage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('foo', HtmlPage::sourceDirectory());
+        $this->assertEquals('foo', BladePage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPost::sourceDirectory());
+        $this->assertEquals('foo', DocumentationPage::sourceDirectory());
     }
 
     public function test_source_directories_can_be_set_using_kebab_case_class_names()
@@ -272,11 +272,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::$sourceDirectory);
-        $this->assertEquals('foo', BladePage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPage::$sourceDirectory);
-        $this->assertEquals('foo', MarkdownPost::$sourceDirectory);
-        $this->assertEquals('foo', DocumentationPage::$sourceDirectory);
+        $this->assertEquals('foo', HtmlPage::sourceDirectory());
+        $this->assertEquals('foo', BladePage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
+        $this->assertEquals('foo', MarkdownPost::sourceDirectory());
+        $this->assertEquals('foo', DocumentationPage::sourceDirectory());
     }
 
     public function test_provider_registers_output_directories_using_options_in_configuration()
@@ -291,11 +291,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::$outputDirectory);
-        $this->assertEquals('foo', BladePage::$outputDirectory);
-        $this->assertEquals('foo', MarkdownPage::$outputDirectory);
-        $this->assertEquals('foo', MarkdownPost::$outputDirectory);
-        $this->assertEquals('foo', DocumentationPage::$outputDirectory);
+        $this->assertEquals('foo', HtmlPage::outputDirectory());
+        $this->assertEquals('foo', BladePage::outputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
+        $this->assertEquals('foo', MarkdownPost::outputDirectory());
+        $this->assertEquals('foo', DocumentationPage::outputDirectory());
     }
 
     public function test_output_directories_can_be_set_using_kebab_case_class_names()
@@ -310,10 +310,10 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::$outputDirectory);
-        $this->assertEquals('foo', BladePage::$outputDirectory);
-        $this->assertEquals('foo', MarkdownPage::$outputDirectory);
-        $this->assertEquals('foo', MarkdownPost::$outputDirectory);
-        $this->assertEquals('foo', DocumentationPage::$outputDirectory);
+        $this->assertEquals('foo', HtmlPage::outputDirectory());
+        $this->assertEquals('foo', BladePage::outputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
+        $this->assertEquals('foo', MarkdownPost::outputDirectory());
+        $this->assertEquals('foo', DocumentationPage::outputDirectory());
     }
 }
