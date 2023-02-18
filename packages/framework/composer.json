@@ -23,8 +23,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "illuminate/support": "^9.5",
-        "illuminate/view": "^9.0",
+        "illuminate/support": "^10.0",
+        "illuminate/view": "^10.0",
         "symfony/yaml": "^6.0",
         "league/commonmark": "^2.2",
         "spatie/yaml-front-matter": "^2.0.7",
@@ -33,6 +33,6 @@
     "suggest": {
         "hyde/hyde" : "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project.",
         "ext-simplexml": "Required to generate sitemaps and RSS feeds.",
-        "laravel-zero/framework": "^9.1"
+        "laravel-zero/framework": "^10.0"
     }
 }
