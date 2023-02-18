@@ -22,7 +22,7 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
 {
     public Markdown $markdown;
 
-    protected static string $fileExtension = '.md';
+    public static string $fileExtension = '.md';
 
     public static function make(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = ''): static
     {

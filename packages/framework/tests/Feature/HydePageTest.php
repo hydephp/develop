@@ -1105,9 +1105,9 @@ class HydePageTest extends TestCase
 
 class TestPage extends HydePage
 {
-    protected static string $sourceDirectory = 'source';
+    public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
-    protected static string $fileExtension = '.md';
+    public static string $fileExtension = '.md';
     public static string $template = 'template';
 
     public function compile(): string
@@ -1118,9 +1118,9 @@ class TestPage extends HydePage
 
 class ConfigurableSourcesTestPage extends HydePage
 {
-    protected static string $sourceDirectory;
+    public static string $sourceDirectory;
     public static string $outputDirectory;
-    protected static string $fileExtension;
+    public static string $fileExtension;
     public static string $template;
 
     public function compile(): string
@@ -1131,9 +1131,9 @@ class ConfigurableSourcesTestPage extends HydePage
 
 class DiscoverableTestPage extends HydePage
 {
-    protected static string $sourceDirectory = 'foo';
+    public static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'bar';
-    protected static string $fileExtension = 'baz';
+    public static string $fileExtension = 'baz';
     public static string $template;
 
     public function compile(): string
@@ -1144,9 +1144,9 @@ class DiscoverableTestPage extends HydePage
 
 class NonDiscoverableTestPage extends HydePage
 {
-    protected static string $sourceDirectory;
+    public static string $sourceDirectory;
     public static string $outputDirectory;
-    protected static string $fileExtension;
+    public static string $fileExtension;
 
     public function compile(): string
     {
@@ -1156,9 +1156,9 @@ class NonDiscoverableTestPage extends HydePage
 
 class PartiallyDiscoverablePage extends HydePage
 {
-    protected static string $sourceDirectory = 'foo';
+    public static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
-    protected static string $fileExtension;
+    public static string $fileExtension;
 
     public function compile(): string
     {
@@ -1168,9 +1168,9 @@ class PartiallyDiscoverablePage extends HydePage
 
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
-    protected static string $sourceDirectory = '';
+    public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
-    protected static string $fileExtension = '';
+    public static string $fileExtension = '';
 
     public function compile(): string
     {
