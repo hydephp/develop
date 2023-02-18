@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Hyde\Framework\Concerns\ValidatesExistence;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\Concerns;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 
 /**
@@ -16,36 +13,46 @@ use Hyde\Publications\Actions\PublicationPageCompiler;
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationPageTest
  */
-class PublicationPage extends Concerns\BaseMarkdownPage
+abstract class PublicationPage extends BaseMarkdownPage
 {
-    use ValidatesExistence;
-
-    // Identifier
+    /** @var string ($publicationType->identifier) */
     public static string $publicationType;
-    public PublicationType $type;
 
-    public static string $sourceDirectory = '';
-    public static string $outputDirectory = '';
-    public static string $template = '__dynamic';
+    /** @var string ($publicationType->identifier) */
+    public static string $sourceDirectory;
 
-    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Markdown $markdown = '', ?PublicationType $type = null): static
+    /** @var string ($publicationType->identifier) */
+    public static string $outputDirectory;
+
+    /** @var string ($publicationType->detail) */
+    public static string $template;
+
+    public static function getPublicationType(): PublicationType
     {
-        return new static($identifier, $matter, $markdown, $type);
+        return PublicationType::get(static::$publicationType);
     }
 
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '', ?PublicationType $type = null)
+    public static function sourceDirectory(): string
     {
-        $this->type = $type ?? PublicationType::get(static::$publicationType);
+        return static::getPublicationType()->getIdentifier();
+    }
 
-        parent::__construct($identifier, $matter, $markdown);
+    public static function outputDirectory(): string
+    {
+        return static::getPublicationType()->getIdentifier();
+    }
+
+    public static function getTemplate(): string
+    {
+        return static::getPublicationType()->detailTemplate;
+    }
+
+    public function getBladeView(): string
+    {
+        return static::getPublicationType()->detailTemplate;
     }
 
     public function compile(): string
-    {
-        return $this->renderComponent();
-    }
-
-    protected function renderComponent(): string
     {
         return PublicationPageCompiler::call($this);
     }
