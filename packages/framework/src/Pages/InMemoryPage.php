@@ -110,6 +110,9 @@ class InMemoryPage extends HydePage
 
     /**
      * Register a macro for the instance.
+     *
+     * Unlike most macros you might be used to, these are not static, meaning they belong to the instance.
+     * If you have the need for a macro to be used for multiple pages, you should create a custom page class instead.
      */
     public function macro(string $name, callable $macro): void
     {
@@ -117,7 +120,7 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Dynamically handle calls to the class.
+     * Dynamically handle macro calls to the class.
      */
     public function __call(string $method, array $parameters): mixed
     {
