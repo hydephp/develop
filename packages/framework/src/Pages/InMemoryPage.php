@@ -125,8 +125,11 @@ class InMemoryPage extends HydePage
             ));
         }
 
-        $macro = $this->macros[$method];
+        return $this->callMacro($this->macros[$method], $parameters);
+    }
 
+    protected function callMacro(callable $macro, array $parameters): mixed
+    {
         if ($macro instanceof Closure) {
             $macro = $macro->bindTo($this, static::class);
         }
