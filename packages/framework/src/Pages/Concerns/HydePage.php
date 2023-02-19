@@ -310,7 +310,7 @@ abstract class HydePage implements PageSchema
      */
     public function htmlTitle(): string
     {
-        return config('hyde.name', 'HydePHP').' - '.$this->title;
+        return $this->pageTitle();
     }
 
     /**
