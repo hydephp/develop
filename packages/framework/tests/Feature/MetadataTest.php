@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
 use Hyde\Framework\Features\Metadata\MetadataBag;
+use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -375,6 +376,45 @@ class MetadataTest extends TestCase
         ]);
 
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/foo.jpg">');
+    }
+
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative_for_nested_posts()
+    {
+        $page = MarkdownPost::make('foo/bar', matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../media/foo.jpg">');
+    }
+
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative_for_nested_output_directories()
+    {
+        MarkdownPost::setOutputDirectory('_posts/foo');
+        $page = MarkdownPost::make(matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../media/foo.jpg">');
+    }
+
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative_for_nested_posts_and_nested_output_directories()
+    {
+        MarkdownPost::setOutputDirectory('_posts/foo');
+        $page = MarkdownPost::make('bar/baz', matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../../media/foo.jpg">');
+    }
+
+    public function test_dynamic_post_meta_properties_contains_image_link_that_uses_the_configured_media_directory()
+    {
+        Hyde::setMediaDirectory('assets');
+        $page = MarkdownPost::make(matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../assets/foo.jpg">');
     }
 
     public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_path()
