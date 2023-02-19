@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 
@@ -165,9 +166,10 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertSame('foo', (new MarkdownPage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testPageTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new MarkdownPage('foo'))->htmlTitle());
+        $markdownPage = new MarkdownPage('foo');
+        $this->assertSame('HydePHP - Foo', $markdownPage->pageTitle());
     }
 
     public function testAll()

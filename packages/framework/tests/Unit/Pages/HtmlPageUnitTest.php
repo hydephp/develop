@@ -9,6 +9,7 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Support\Models\Route;
 
@@ -164,9 +165,10 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('foo', (new HtmlPage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testPageTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new HtmlPage('foo'))->htmlTitle());
+        $htmlPage = new HtmlPage('foo');
+        $this->assertSame('HydePHP - Foo', $htmlPage->pageTitle());
     }
 
     public function testAll()

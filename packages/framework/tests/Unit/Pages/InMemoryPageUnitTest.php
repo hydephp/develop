@@ -10,6 +10,7 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 
@@ -168,9 +169,10 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('foo', (new InMemoryPage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testPageTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new InMemoryPage('foo'))->htmlTitle());
+        $inMemoryPage = new InMemoryPage('foo');
+        $this->assertSame('HydePHP - Foo', $inMemoryPage->pageTitle());
     }
 
     public function testAll()

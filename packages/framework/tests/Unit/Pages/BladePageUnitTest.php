@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
 require_once __DIR__.'/BaseHydePageUnitTest.php';
@@ -130,9 +131,10 @@ class BladePageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('foo', (new BladePage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testPageTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new BladePage('foo'))->htmlTitle());
+        $bladePage = new BladePage('foo');
+        $this->assertSame('HydePHP - Foo', $bladePage->pageTitle());
     }
 
     public function testAll()
