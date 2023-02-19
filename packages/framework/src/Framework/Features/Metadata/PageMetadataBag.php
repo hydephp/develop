@@ -71,9 +71,9 @@ class PageMetadataBag extends MetadataBag
 
     protected function resolveImageLink(string $image): string
     {
-        // Since this is run before the page is rendered, we don't have the currentPage property
-        // but since we know that this is for a blog post we know what the property will be
-        // since Hyde does not currently support custom Blog post output directories.
-        return str_starts_with($image, 'http') ? $image : "../$image";
+        // Since this is run before the page is rendered, we don't have the currentPage property.
+        // So we need to run some of the same calculations here to resolve the image path link.
+        return str_starts_with($image, 'http') ? $image
+            : str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/')).$image;
     }
 }

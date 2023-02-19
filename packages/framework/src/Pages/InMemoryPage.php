@@ -25,9 +25,9 @@ use Illuminate\Support\Facades\View;
  */
 class InMemoryPage extends HydePage
 {
-    public static string $sourceDirectory = '';
-    public static string $outputDirectory = '';
-    public static string $fileExtension = '';
+    public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
 
     protected string $contents;
     protected string $view;
@@ -69,11 +69,13 @@ class InMemoryPage extends HydePage
         $this->view = $view;
     }
 
+    /** Get the contents of the page. This will be saved as-is to the output file when this strategy is used. */
     public function getContents(): string
     {
         return $this->contents;
     }
 
+    /** Get the view key or Blade file for the view to use to render the page contents when this strategy is used. */
     public function getBladeView(): string
     {
         return $this->view;
@@ -92,7 +94,7 @@ class InMemoryPage extends HydePage
             return $this->__call('compile', []);
         }
 
-        if (! $this->getContents() && $this->getBladeView()) {
+        if ($this->getBladeView() && ! $this->getContents()) {
             if (str_ends_with($this->getBladeView(), '.blade.php')) {
                 // If the view key is for a Blade file path, we'll use the anonymous view compiler to compile it.
                 // This allows you to use any arbitrary file, without needing to register its namespace or directory.
@@ -108,6 +110,9 @@ class InMemoryPage extends HydePage
 
     /**
      * Register a macro for the instance.
+     *
+     * Unlike most macros you might be used to, these are not static, meaning they belong to the instance.
+     * If you have the need for a macro to be used for multiple pages, you should create a custom page class instead.
      */
     public function macro(string $name, callable $macro): void
     {
@@ -115,7 +120,7 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Dynamically handle calls to the class.
+     * Dynamically handle macro calls to the class.
      */
     public function __call(string $method, array $parameters): mixed
     {
@@ -125,8 +130,11 @@ class InMemoryPage extends HydePage
             ));
         }
 
-        $macro = $this->macros[$method];
+        return $this->callMacro($this->macros[$method], $parameters);
+    }
 
+    protected function callMacro(callable $macro, array $parameters): mixed
+    {
         if ($macro instanceof Closure) {
             $macro = $macro->bindTo($this, static::class);
         }
