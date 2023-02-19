@@ -19,9 +19,7 @@ class LoadConfiguration extends BaseLoadConfiguration
             $files['app'] = $app->basePath().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'config.php';
 
             // If we're running in a Phar and no config directory exists, we need to adjust the path to the config file.
-            if (\Phar::running() && (! is_dir($files['app']))) {
-                $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
-            }
+            $this->ensurePharSupport($files);
         });
     }
 
@@ -52,5 +50,12 @@ class LoadConfiguration extends BaseLoadConfiguration
             require __DIR__."/../../../config/$file.php",
             (array) $repository->get($file, [])
         ));
+    }
+
+    private static function ensurePharSupport(array &$files): void
+    {
+        if (\Phar::running() && (!is_dir($files['app']))) {
+            $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
+        }
     }
 }
