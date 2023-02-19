@@ -378,6 +378,35 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/foo.jpg">');
     }
 
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative_for_nested_posts()
+    {
+        $page = MarkdownPost::make('foo/bar', matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../media/foo.jpg">');
+    }
+
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative_for_nested_output_directories()
+    {
+        MarkdownPost::setOutputDirectory('_posts/foo');
+        $page = MarkdownPost::make(matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../media/foo.jpg">');
+    }
+
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative_for_nested_posts_and_nested_output_directories()
+    {
+        MarkdownPost::setOutputDirectory('_posts/foo');
+        $page = MarkdownPost::make('bar/baz', matter: [
+            'image' => 'foo.jpg',
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../../media/foo.jpg">');
+    }
+
     public function test_dynamic_post_meta_properties_contains_image_link_that_uses_the_configured_media_directory()
     {
         Hyde::setMediaDirectory('assets');
