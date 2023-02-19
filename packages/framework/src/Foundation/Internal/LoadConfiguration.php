@@ -55,6 +55,7 @@ class LoadConfiguration extends BaseLoadConfiguration
     /**
      * Provide support for running Hyde in a Phar archive.
      *
+     * @experimental
      * @codeCoverageIgnore
      */
     private static function ensurePharSupport(array &$files): void
