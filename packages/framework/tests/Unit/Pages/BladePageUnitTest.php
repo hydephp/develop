@@ -10,7 +10,6 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
 require_once __DIR__.'/BaseHydePageUnitTest.php';

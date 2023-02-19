@@ -10,7 +10,6 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 

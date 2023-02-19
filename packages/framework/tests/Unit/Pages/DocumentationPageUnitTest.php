@@ -10,7 +10,6 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 
