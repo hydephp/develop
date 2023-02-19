@@ -306,7 +306,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get the page title to display in HTML tags like <title> and <meta> tags.
      *
-     * @todo Rename to pageTitle()?
+     * @deprecated Use pageTitle() instead.
      */
     public function htmlTitle(): string
     {
