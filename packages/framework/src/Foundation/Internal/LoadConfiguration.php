@@ -17,6 +17,11 @@ class LoadConfiguration extends BaseLoadConfiguration
         return tap(parent::getConfigurationFiles($app), function (array &$files) use ($app): void {
             // Inject our custom config file which is stored in `app/config.php`.
             $files['app'] = $app->basePath().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'config.php';
+
+            // If we're running in a Phar and no config directory exists, we need to adjust the path to the config file.
+            if (\Phar::running() && (! is_dir($files['app']))) {
+                $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
+            }
         });
     }
 
