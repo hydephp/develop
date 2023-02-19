@@ -74,6 +74,6 @@ class PageMetadataBag extends MetadataBag
         // Since this is run before the page is rendered, we don't have the currentPage property.
         // So we need to run some of the same calculations here to resolve the image path link.
         return str_starts_with($image, 'http') ? $image
-            : str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/')) . $image;
+            : str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/')).$image;
     }
 }
