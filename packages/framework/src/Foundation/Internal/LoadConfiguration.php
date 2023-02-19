@@ -52,6 +52,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         ));
     }
 
+    /** @codeCoverageIgnore */
     private static function ensurePharSupport(array &$files): void
     {
         if (\Phar::running() && (!is_dir($files['app']))) {
