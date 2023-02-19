@@ -313,6 +313,14 @@ abstract class HydePage implements PageSchema
         return config('hyde.name', 'HydePHP').' - '.$this->title;
     }
 
+    /**
+     * Get the page title to display in HTML tags like <title> and <meta> tags.
+     */
+    public function pageTitle(): string
+    {
+        return config('hyde.name', 'HydePHP').' - '.$this->title;
+    }
+
     public function metadata(): PageMetadataBag
     {
         return $this->metadata;
