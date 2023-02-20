@@ -12,5 +12,8 @@ use Hyde\Testing\TestCase;
  */
 class PharSupportTest extends TestCase
 {
-    //
+    public function testActive()
+    {
+        $this->assertFalse(PharSupport::active());
+    }
 }
