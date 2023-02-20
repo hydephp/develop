@@ -35,12 +35,7 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
      */
-    public function __construct(
-        string $title,
-        ?string $description,
-        ?string $category,
-        ?string $author,
-    ) {
+    public function __construct(string $title, ?string $description, ?string $category, ?string $author) {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
         $this->category = $category ?? 'blog';
