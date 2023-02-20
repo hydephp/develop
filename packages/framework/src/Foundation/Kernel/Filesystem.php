@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Kernel;
 
 use Hyde\Facades\Site;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\PharSupport;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -139,7 +140,7 @@ class Filesystem
      */
     public function vendorPath(string $path = '', string $package = 'framework'): string
     {
-        if (\Phar::running() && ! is_dir($this->path('vendor'))) {
+        if (PharSupport::active() && ! is_dir($this->path('vendor'))) {
             if ($package !== 'framework') {
                 throw new \RuntimeException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
             }
