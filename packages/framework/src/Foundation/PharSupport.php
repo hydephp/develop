@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Hyde\Hyde;
 use Phar;
 use BadMethodCallException;
 
@@ -34,6 +35,11 @@ class PharSupport
     public static function running(): bool
     {
         return self::$mocks['running'] ?? Phar::running() !== '';
+    }
+
+    public static function hasVendorDirectory(): bool
+    {
+        return self::$mocks['hasVendorDirectory'] ?? is_dir(Hyde::path('vendor'));
     }
 
     public static function vendorPath(string $path = '', string $package = 'framework'): string

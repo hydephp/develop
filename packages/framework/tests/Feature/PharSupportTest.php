@@ -31,4 +31,17 @@ class PharSupportTest extends TestCase
         PharSupport::mock('running', false);
         $this->assertFalse(PharSupport::running());
     }
+
+    public function testHasVendorDirectory()
+    {
+        $this->assertTrue(PharSupport::hasVendorDirectory());
+    }
+
+    public function testMockHasVendorDirectory()
+    {
+        PharSupport::mock('hasVendorDirectory', true);
+        $this->assertTrue(PharSupport::hasVendorDirectory());
+        PharSupport::mock('hasVendorDirectory', false);
+        $this->assertFalse(PharSupport::hasVendorDirectory());
+    }
 }
