@@ -128,7 +128,7 @@ class CreatesNewPageSourceFile
 
     protected function failIfFileCannotBeSaved(string $path): void
     {
-        if (! $this->force && file_exists($path)) {
+        if ($this->force !== true && file_exists($path)) {
             throw new FileConflictException($path);
         }
     }
