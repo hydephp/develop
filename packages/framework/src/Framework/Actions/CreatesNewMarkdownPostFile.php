@@ -73,10 +73,8 @@ class CreatesNewMarkdownPostFile
             throw new FileConflictException($path);
         }
 
-        $contents = (new ConvertsArrayToFrontMatter)->execute($this->toArray()).
-            "\n## Write something awesome.\n\n";
-
-        file_put_contents($path, $contents);
+        $page = new MarkdownPost($this->identifier, $this->toArray(), "\n## Write something awesome.\n\n");
+        $page->save();
 
         return $path;
     }
