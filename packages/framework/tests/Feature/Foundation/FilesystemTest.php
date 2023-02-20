@@ -100,6 +100,11 @@ class FilesystemTest extends TestCase
         $this->assertIsString($this->filesystem->vendorPath());
     }
 
+    public function test_vendor_path_method_returns_the_vendor_path()
+    {
+        $this->assertSame(Hyde::path('vendor/hyde/framework'), $this->filesystem->vendorPath());
+    }
+
     public function test_vendor_path_method_returns_qualified_file_path_when_supplied_with_argument()
     {
         $this->assertEquals($this->filesystem->vendorPath('file.php'), $this->filesystem->vendorPath().'/file.php');
