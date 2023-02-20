@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
+use BadMethodCallException;
 use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -117,7 +119,31 @@ class FilesystemTest extends TestCase
         $this->assertFileExists(Hyde::vendorPath('composer.json', 'realtime-compiler'));
     }
 
-    // TODO Test vendorPath can run in Phar
+    public function test_vendor_path_can_run_in_phar()
+    {
+        PharSupport::mock('running', true);
+        PharSupport::mock('hasVendorDirectory', false);
+
+        $this->assertEquals(Hyde::path('vendor/hyde/framework'), $this->filesystem->vendorPath());
+    }
+
+    public function test_vendor_path_can_run_in_phar_with_path_argument()
+    {
+        PharSupport::mock('running', true);
+        PharSupport::mock('hasVendorDirectory', false);
+
+        $this->assertEquals(Hyde::path('vendor/hyde/framework/file.php'), $this->filesystem->vendorPath('file.php'));
+    }
+
+    public function test_vendor_path_can_run_in_phar_with_package_argument_but_throws()
+    {
+        PharSupport::mock('running', true);
+        PharSupport::mock('hasVendorDirectory', false);
+
+        $this->expectException(BadMethodCallException::class);
+        $this->filesystem->vendorPath(package: 'realtime-compiler');
+    }
+
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
