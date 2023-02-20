@@ -48,6 +48,6 @@ class PharSupport
             throw new BadMethodCallException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
         }
 
-        return dirname(__DIR__, 2).'/'.unslash($path);
+        return unslash(dirname(__DIR__, 2).'/'.unslash($path));
     }
 }
