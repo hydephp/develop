@@ -35,7 +35,6 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
      * @param  string|null  $date  The Publishing Date.
-     * @param  string|null  $identifier  The Post Identifier.
      */
     public function __construct(
         string $title,
@@ -43,7 +42,6 @@ class CreatesNewMarkdownPostFile
         ?string $category,
         ?string $author,
         ?string $date = null,
-        ?string $identifier = null
     ) {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
