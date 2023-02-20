@@ -49,23 +49,17 @@ class PharSupportTest extends TestCase
 
     public function test_vendor_path_can_run_in_phar()
     {
-        // Monorepo support for symlinked packages directory
-        $base = str_contains(realpath(Hyde::vendorPath() ?? ''), 'vendor') ? 'vendor/hyde' : 'packages';
-
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path($base.'/framework')), Hyde::vendorPath());
+        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path($this->getBaseVendorPath().'/framework')), Hyde::vendorPath());
     }
 
     public function test_vendor_path_can_run_in_phar_with_path_argument()
     {
-        // Monorepo support for symlinked packages directory
-        $base = str_contains(realpath(Hyde::vendorPath() ?? ''), 'vendor') ? 'vendor/hyde' : 'packages';
-
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
-        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path($base.'/framework/file.php')), Hyde::vendorPath('file.php'));
+        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path($this->getBaseVendorPath().'/framework/file.php')), Hyde::vendorPath('file.php'));
     }
 
     public function test_vendor_path_can_run_in_phar_with_package_argument_but_throws()
@@ -75,5 +69,11 @@ class PharSupportTest extends TestCase
 
         $this->expectException(BadMethodCallException::class);
         Hyde::vendorPath(package: 'realtime-compiler');
+    }
+
+    protected function getBaseVendorPath(): string
+    {
+        // Monorepo support for symlinked packages directory
+        return str_contains(realpath(Hyde::vendorPath() ?? ''), 'vendor') ? 'vendor/hyde' : 'packages';
     }
 }
