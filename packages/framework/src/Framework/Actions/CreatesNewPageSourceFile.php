@@ -30,7 +30,7 @@ class CreatesNewPageSourceFile
     protected string $slug;
     protected string $outputPath;
     protected string $subDir = '';
-    protected bool $force = false;
+    protected bool $force;
 
     public function __construct(string $title, string $type = MarkdownPage::class, bool $force = false)
     {
