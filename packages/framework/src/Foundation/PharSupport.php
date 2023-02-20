@@ -16,9 +16,17 @@ use Phar;
  */
 class PharSupport
 {
+    private static bool $mocksActive = false;
+
     /** Determine if the application is running in a Phar archive. */
     public static function active(): bool
     {
-        return Phar::running() !== '';
+        return self::$mocksActive || Phar::running() !== '';
+    }
+
+    /** @internal Mock the Phar active state. */
+    public static function mockActive(bool $active): void
+    {
+        self::$mocksActive = $active;
     }
 }
