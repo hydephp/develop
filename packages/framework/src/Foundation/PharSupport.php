@@ -26,7 +26,7 @@ class PharSupport
     }
 
     /** @internal Clear all Phar method mocks. */
-    public static function clearMocks()
+    public static function clearMocks(): void
     {
         self::$mocks = [];
     }
