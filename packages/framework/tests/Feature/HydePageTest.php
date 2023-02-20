@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
@@ -1001,6 +1002,19 @@ class HydePageTest extends TestCase
         Hyde::unlink('_pages/foo.md');
     }
 
+    public function test_save_method_creates_source_directory_if_it_does_not_exist()
+    {
+        $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
+
+        $page = new MissingSourceDirectoryMarkdownPage('bar');
+        $page->save();
+
+        $this->assertDirectoryExists(Hyde::path('foo'));
+        $this->assertFileExists(Hyde::path('foo/bar.md'));
+
+        Filesystem::deleteDirectory('foo');
+    }
+
     public function test_markdown_posts_can_be_saved()
     {
         $post = new MarkdownPost('foo');
@@ -1239,4 +1253,9 @@ class DiscoverablePageWithInvalidSourceDirectory extends HydePage
     {
         return '';
     }
+}
+
+class MissingSourceDirectoryMarkdownPage extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = 'foo';
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
@@ -59,6 +60,8 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
      */
     public function save(): static
     {
+        Filesystem::ensureDirectoryExists(static::sourceDirectory());
+
         file_put_contents(Hyde::path($this->getSourcePath()), ltrim("$this->matter\n$this->markdown"));
 
         return $this;
