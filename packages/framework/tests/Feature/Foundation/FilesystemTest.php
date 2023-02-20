@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
 use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -100,6 +101,11 @@ class FilesystemTest extends TestCase
         $this->assertIsString($this->filesystem->vendorPath());
     }
 
+    public function test_vendor_path_method_returns_the_vendor_path()
+    {
+        $this->assertSame(Hyde::path('vendor/hyde/framework'), $this->filesystem->vendorPath());
+    }
+
     public function test_vendor_path_method_returns_qualified_file_path_when_supplied_with_argument()
     {
         $this->assertEquals($this->filesystem->vendorPath('file.php'), $this->filesystem->vendorPath().'/file.php');
@@ -115,6 +121,20 @@ class FilesystemTest extends TestCase
     {
         $this->assertDirectoryExists(Hyde::vendorPath(package: 'realtime-compiler'));
         $this->assertFileExists(Hyde::vendorPath('composer.json', 'realtime-compiler'));
+    }
+
+    public function test_vendor_path_can_run_in_phar()
+    {
+        PharSupport::mock('running', true);
+        PharSupport::mock('hasVendorDirectory', false);
+
+        $this->assertContains($this->filesystem->vendorPath(), [
+            // Monorepo support for symlinked packages directory
+            str_replace('/', DIRECTORY_SEPARATOR, Hyde::path('packages/framework')),
+            str_replace('/', DIRECTORY_SEPARATOR, Hyde::path('vendor/hyde/framework')),
+        ]);
+
+        PharSupport::clearMocks();
     }
 
     public function test_copy_method()
