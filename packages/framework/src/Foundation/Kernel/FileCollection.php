@@ -57,8 +57,11 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
+        /** @var class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
-            $this->discoverFilesFor($pageClass);
+            if ($pageClass::isDiscoverable()) {
+                $this->discoverFilesFor($pageClass);
+            }
         }
 
         $this->runExtensionCallbacks();
