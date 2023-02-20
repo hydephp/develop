@@ -133,31 +133,6 @@ class FilesystemTest extends TestCase
         PharSupport::clearMocks();
     }
 
-    public function test_vendor_path_can_run_in_phar_with_path_argument()
-    {
-        PharSupport::mock('running', true);
-        PharSupport::mock('hasVendorDirectory', false);
-
-        $this->assertContains($this->filesystem->vendorPath('file.php'), [
-            // Monorepo support for symlinked packages directory
-            str_replace('/', DIRECTORY_SEPARATOR, Hyde::path('packages/framework/file.php')),
-            str_replace('/', DIRECTORY_SEPARATOR, Hyde::path('vendor/hyde/framework/file.php')),
-        ]);
-
-        PharSupport::clearMocks();
-    }
-
-    public function test_vendor_path_can_run_in_phar_with_package_argument_but_throws()
-    {
-        PharSupport::mock('running', true);
-        PharSupport::mock('hasVendorDirectory', false);
-
-        $this->expectException(BadMethodCallException::class);
-        $this->filesystem->vendorPath(package: 'realtime-compiler');
-
-        PharSupport::clearMocks();
-    }
-
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
