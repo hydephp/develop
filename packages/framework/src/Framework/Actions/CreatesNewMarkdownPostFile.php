@@ -56,7 +56,7 @@ class CreatesNewMarkdownPostFile
      */
     public function save(bool $force = false): string
     {
-        $page = new MarkdownPost($this->identifier, $this->toArray(), "## Write something awesome.\n\n");
+        $page = new MarkdownPost($this->identifier, $this->toArray(), "## Write something awesome.");
 
         if ($force !== true && Filesystem::exists($page->getSourcePath())) {
             throw new FileConflictException($page->getSourcePath());
