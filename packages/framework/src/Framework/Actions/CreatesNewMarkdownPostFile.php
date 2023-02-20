@@ -61,11 +61,11 @@ class CreatesNewMarkdownPostFile
      * Save the class object to a Markdown file.
      *
      * @param  bool  $force  Should the file be created even if a file with the same path already exists?
-     * @return string|false Returns the path to the file if successful, or false if the file could not be saved.
+     * @return string Returns the path to the created file.
      *
      * @throws FileConflictException if a file with the same identifier already exists and the force flag is not set.
      */
-    public function save(bool $force = false): string|false
+    public function save(bool $force = false): string
     {
         $path = Hyde::path(MarkdownPost::sourcePath($this->identifier));
 
@@ -76,7 +76,9 @@ class CreatesNewMarkdownPostFile
         $contents = (new ConvertsArrayToFrontMatter)->execute($this->toArray()).
             "\n## Write something awesome.\n\n";
 
-        return file_put_contents($path, $contents) ? $path : false;
+        file_put_contents($path, $contents);
+
+        return $path;
     }
 
     /**
