@@ -125,6 +125,8 @@ class FilesystemTest extends TestCase
         PharSupport::mock('hasVendorDirectory', false);
 
         $this->assertEquals(Hyde::path('vendor/hyde/framework'), $this->filesystem->vendorPath());
+
+        PharSupport::clearMocks();
     }
 
     public function test_vendor_path_can_run_in_phar_with_path_argument()
@@ -133,6 +135,8 @@ class FilesystemTest extends TestCase
         PharSupport::mock('hasVendorDirectory', false);
 
         $this->assertEquals(Hyde::path('vendor/hyde/framework/file.php'), $this->filesystem->vendorPath('file.php'));
+
+        PharSupport::clearMocks();
     }
 
     public function test_vendor_path_can_run_in_phar_with_package_argument_but_throws()
@@ -142,6 +146,8 @@ class FilesystemTest extends TestCase
 
         $this->expectException(BadMethodCallException::class);
         $this->filesystem->vendorPath(package: 'realtime-compiler');
+
+        PharSupport::clearMocks();
     }
 
     public function test_copy_method()
