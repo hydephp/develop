@@ -73,9 +73,7 @@ class CreatesNewMarkdownPostFile
             throw new FileConflictException($page->getSourcePath());
         }
 
-        $page->save();
-
-        return $page->getSourcePath();
+        return $page->save()->getSourcePath();
     }
 
     /**
