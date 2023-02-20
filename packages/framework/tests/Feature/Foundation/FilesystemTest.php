@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
-use BadMethodCallException;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
