@@ -31,7 +31,6 @@ class PharSupport
         self::$mocks = [];
     }
 
-    /** Determine if the application is running in a Phar archive. */
     public static function running(): bool
     {
         return self::$mocks['running'] ?? Phar::running() !== '';
