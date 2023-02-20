@@ -23,6 +23,7 @@ use function str_replace;
  */
 class PharSupport
 {
+    /** @var array<string, bool> */
     protected static array $mocks = [];
 
     public static function mock(string $method, bool $value): void
