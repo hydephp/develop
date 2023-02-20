@@ -182,7 +182,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $selection = $this->askForFieldData($field->name, $field->getRules());
         if (empty($selection)) {
-            return null;
+            return new PublicationFieldValue($field->type, $selection);
         }
 
         return new PublicationFieldValue($field->type, $selection);
