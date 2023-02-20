@@ -19,7 +19,7 @@ class LoadConfiguration extends BaseLoadConfiguration
             $files['app'] = $app->basePath().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'config.php';
 
             // Ensure support for running Hyde in a Phar archive.
-            $this->ensurePharSupport($files);
+            $this->providePharSupport($files);
         });
     }
 
@@ -58,7 +58,7 @@ class LoadConfiguration extends BaseLoadConfiguration
      * @experimental
      * @codeCoverageIgnore
      */
-    private static function ensurePharSupport(array &$files): void
+    private static function providePharSupport(array &$files): void
     {
         // If we're running in a Phar and no project config directory exists,
         // we need to adjust the path to use the bundled static Phar config file.
