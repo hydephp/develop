@@ -61,7 +61,7 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
     {
         Filesystem::ensureDirectoryExists(dirname($this->getSourcePath()));
 
-        Filesystem::putContents($this->getSourcePath(), ltrim(trim("$this->matter\n$this->markdown") . "\n"));
+        Filesystem::putContents($this->getSourcePath(), ltrim(trim("$this->matter\n$this->markdown")."\n"));
 
         return $this;
     }
