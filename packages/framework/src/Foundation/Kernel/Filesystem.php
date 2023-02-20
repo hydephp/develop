@@ -141,12 +141,7 @@ class Filesystem
     public function vendorPath(string $path = '', string $package = 'framework'): string
     {
         if (PharSupport::active() && ! is_dir($this->path('vendor'))) {
-            if ($package !== 'framework') {
-                throw new \RuntimeException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
-            }
-
-            // Return relative link to the Phar archive contents.
-            return dirname(__DIR__, 3).'/'.unslash($path);
+            return PharSupport::vendorPath($path, $package);
         }
 
         return $this->path("vendor/hyde/$package/".unslash($path));
