@@ -127,7 +127,7 @@ class FilesystemTest extends TestCase
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals(Hyde::path($base.'/framework'), $this->filesystem->vendorPath());
+        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path($base.'/framework')), $this->filesystem->vendorPath());
 
         PharSupport::clearMocks();
     }
@@ -140,7 +140,7 @@ class FilesystemTest extends TestCase
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals(Hyde::path($base.'/framework/file.php'), $this->filesystem->vendorPath('file.php'));
+        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path($base.'/framework/file.php')), $this->filesystem->vendorPath('file.php'));
 
         PharSupport::clearMocks();
     }
