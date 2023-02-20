@@ -63,7 +63,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         // If we're running in a Phar and no config directory exists,
         // we need to adjust the path to the config file.
 
-        if (\Phar::running() && (!is_dir($files['app']))) {
+        if (\Phar::running() && (! is_dir($files['app']))) {
             $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
         }
     }
