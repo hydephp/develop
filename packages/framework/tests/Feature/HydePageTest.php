@@ -1015,6 +1015,20 @@ class HydePageTest extends TestCase
         Filesystem::deleteDirectory('foo');
     }
 
+    public function test_save_method_creates_source_directory_recursively_if_it_does_not_exist()
+    {
+        $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
+
+        $page = new MissingSourceDirectoryMarkdownPage('bar/baz');
+        $page->save();
+
+        $this->assertDirectoryExists(Hyde::path('foo'));
+        $this->assertDirectoryExists(Hyde::path('foo/bar'));
+        $this->assertFileExists(Hyde::path('foo/bar/baz.md'));
+
+        Filesystem::deleteDirectory('foo');
+    }
+
     public function test_markdown_posts_can_be_saved()
     {
         $post = new MarkdownPost('foo');
