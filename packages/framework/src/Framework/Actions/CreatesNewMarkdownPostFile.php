@@ -50,12 +50,8 @@ class CreatesNewMarkdownPostFile
         $this->category = $category ?? 'blog';
         $this->author = $author ?? 'default';
 
-        if ($date === null) {
-            $this->date = date('Y-m-d H:i');
-        }
-        if ($identifier === null) {
-            $this->identifier = Str::slug($title);
-        }
+        $this->date = date('Y-m-d H:i');
+        $this->identifier = Str::slug($title);
     }
 
     /**
