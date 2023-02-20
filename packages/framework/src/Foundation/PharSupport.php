@@ -25,13 +25,11 @@ class PharSupport
 {
     protected static array $mocks = [];
 
-    /** @internal */
     public static function mock(string $method, bool $value): void
     {
         self::$mocks[$method] = $value;
     }
 
-    /** @internal */
     public static function clearMocks(): void
     {
         self::$mocks = [];
