@@ -67,16 +67,15 @@ class CreatesNewMarkdownPostFile
      */
     public function save(bool $force = false): string
     {
-        $path = Hyde::path(MarkdownPost::sourcePath($this->identifier));
+        $page = new MarkdownPost($this->identifier, $this->toArray(), "\n## Write something awesome.\n\n");
 
-        if ($force !== true && file_exists($path)) {
-            throw new FileConflictException($path);
+        if ($force !== true && file_exists(Hyde::path($page->getSourcePath()))) {
+            throw new FileConflictException($page->getSourcePath());
         }
 
-        $page = new MarkdownPost($this->identifier, $this->toArray(), "\n## Write something awesome.\n\n");
         $page->save();
 
-        return $path;
+        return $page->getSourcePath();
     }
 
     /**
