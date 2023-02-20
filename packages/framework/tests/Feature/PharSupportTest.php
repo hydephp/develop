@@ -52,14 +52,14 @@ class PharSupportTest extends TestCase
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path("{$this->getBaseVendorPath()}/framework")), Hyde::vendorPath());
+        $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework")), Hyde::vendorPath());
     }
 
     public function test_vendor_path_can_run_in_phar_with_path_argument()
     {
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
-        $this->assertEquals(str_replace('/', DIRECTORY_SEPARATOR, Hyde::path("{$this->getBaseVendorPath()}/framework/file.php")), Hyde::vendorPath('file.php'));
+        $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework/file.php")), Hyde::vendorPath('file.php'));
     }
 
     public function test_vendor_path_can_run_in_phar_with_package_argument_but_throws()
@@ -75,5 +75,10 @@ class PharSupportTest extends TestCase
     {
         // Monorepo support for symlinked packages directory
         return str_contains(realpath(Hyde::vendorPath() ?? ''), 'vendor') ? 'vendor/hyde' : 'packages';
+    }
+
+    protected function replaceSlashes(string $path): string
+    {
+        return str_replace('/', DIRECTORY_SEPARATOR, $path);
     }
 }
