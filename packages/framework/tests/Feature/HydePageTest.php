@@ -948,7 +948,7 @@ class HydePageTest extends TestCase
     public function test_save_method_converts_front_matter_array_to_yaml_block()
     {
         MarkdownPage::make('foo', matter: ['foo' => 'bar'])->save();
-        $this->assertEquals("---\nfoo: bar\n---\n\n",
+        $this->assertEquals("---\nfoo: bar\n---\n",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
         Hyde::unlink('_pages/foo.md');
@@ -957,7 +957,7 @@ class HydePageTest extends TestCase
     public function test_save_method_writes_page_body_to_file()
     {
         MarkdownPage::make('foo', markdown: 'foo')->save();
-        $this->assertEquals('foo',
+        $this->assertEquals("foo\n",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
         Hyde::unlink('_pages/foo.md');
@@ -966,7 +966,7 @@ class HydePageTest extends TestCase
     public function test_save_method_writes_page_body_to_file_with_front_matter()
     {
         MarkdownPage::make('foo', matter: ['foo' => 'bar'], markdown: 'foo bar')->save();
-        $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar",
+        $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar\n",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
         Hyde::unlink('_pages/foo.md');
@@ -978,7 +978,7 @@ class HydePageTest extends TestCase
         $page->save();
 
         $this->assertFileExists(Hyde::path('_pages/foo.md'));
-        $this->assertSame('', file_get_contents(Hyde::path('_pages/foo.md')));
+        $this->assertSame("\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
         Hyde::unlink('_pages/foo.md');
     }
@@ -988,7 +988,7 @@ class HydePageTest extends TestCase
         $page = new MarkdownPage('foo', markdown: 'bar');
         $page->save();
 
-        $this->assertSame('bar', file_get_contents(Hyde::path('_pages/foo.md')));
+        $this->assertSame("bar\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
         /** @var BaseMarkdownPage $parsed */
         $parsed = MarkdownPage::all()->getPage('_pages/foo.md');
@@ -997,7 +997,7 @@ class HydePageTest extends TestCase
         $parsed->markdown = new Markdown('baz');
         $parsed->save();
 
-        $this->assertSame('baz', file_get_contents(Hyde::path('_pages/foo.md')));
+        $this->assertSame("baz\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
         Hyde::unlink('_pages/foo.md');
     }
