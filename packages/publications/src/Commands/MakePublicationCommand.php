@@ -108,9 +108,9 @@ class MakePublicationCommand extends ValidatingCommand
             $fieldInput = $this->captureFieldInput($field);
             if (empty($fieldInput)) {
                 $this->line("<fg=gray> > Skipping field $field->name</>");
-            } else {
-                $this->fieldData->put($field->name, $fieldInput);
             }
+
+            $this->fieldData->put($field->name, $fieldInput);
         }
 
         $this->newLine();
