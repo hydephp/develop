@@ -134,6 +134,8 @@ class Filesystem
 
     /**
      * Works similarly to the path() function, but returns a file in the Framework package.
+     *
+     * @internal This is not intended to be used outside the HydePHP framework.
      */
     public function vendorPath(string $path = '', string $package = 'framework'): string
     {
