@@ -60,8 +60,8 @@ class LoadConfiguration extends BaseLoadConfiguration
      */
     private static function ensurePharSupport(array &$files): void
     {
-        // If we're running in a Phar and no config directory exists,
-        // we need to adjust the path to the config file.
+        // If we're running in a Phar and no project config directory exists,
+        // we need to adjust the path to use the bundled static Phar config file.
 
         if (\Phar::running() && (! is_dir($files['app']))) {
             $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
