@@ -9,6 +9,8 @@ namespace Hyde\Foundation;
  *
  * @experimental
  * @internal
+ *
+ * @see \Hyde\Framework\Testing\Feature\PharSupportTest
  */
 class PharSupport
 {
