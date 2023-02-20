@@ -121,20 +121,26 @@ class FilesystemTest extends TestCase
 
     public function test_vendor_path_can_run_in_phar()
     {
+        // Monorepo support for symlinked packages directory
+        $base = str_contains(realpath(Hyde::vendorPath()), 'packages') ? 'packages' : 'vendor/hyde';
+
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals(Hyde::path('vendor/hyde/framework'), $this->filesystem->vendorPath());
+        $this->assertEquals(Hyde::path($base.'/framework'), $this->filesystem->vendorPath());
 
         PharSupport::clearMocks();
     }
 
     public function test_vendor_path_can_run_in_phar_with_path_argument()
     {
+        // Monorepo support for symlinked packages directory
+        $base = str_contains(realpath(Hyde::vendorPath()), 'packages') ? 'packages' : 'vendor/hyde';
+
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals(Hyde::path('vendor/hyde/framework/file.php'), $this->filesystem->vendorPath('file.php'));
+        $this->assertEquals(Hyde::path($base.'/framework/file.php'), $this->filesystem->vendorPath('file.php'));
 
         PharSupport::clearMocks();
     }
