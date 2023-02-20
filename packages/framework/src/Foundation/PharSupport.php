@@ -8,6 +8,11 @@ use Hyde\Hyde;
 use Phar;
 use BadMethodCallException;
 
+use function dirname;
+use function is_dir;
+use function rtrim;
+use function str_replace;
+
 /**
  * Provides experimental support for running the HydeCLI in a standalone Phar archive.
  *
