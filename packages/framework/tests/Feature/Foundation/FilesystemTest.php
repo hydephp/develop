@@ -117,6 +117,7 @@ class FilesystemTest extends TestCase
         $this->assertFileExists(Hyde::vendorPath('composer.json', 'realtime-compiler'));
     }
 
+    // TODO Test vendorPath can run in Phar
     public function test_copy_method()
     {
         touch(Hyde::path('foo'));
