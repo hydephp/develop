@@ -17,18 +17,24 @@ use BadMethodCallException;
  */
 class PharSupport
 {
-    protected static bool $mocksActive = false;
+    protected static array $mocks = [];
+
+    /** @internal Mock the Phar method state. */
+    public static function mock(string $method, bool $value): void
+    {
+        self::$mocks[$method] = $value;
+    }
+
+    /** @internal Clear all Phar method mocks. */
+    public static function clearMocks()
+    {
+        self::$mocks = [];
+    }
 
     /** Determine if the application is running in a Phar archive. */
     public static function active(): bool
     {
-        return self::$mocksActive || Phar::running() !== '';
-    }
-
-    /** @internal Mock the Phar active state. */
-    public static function mockActive(bool $active = true): void
-    {
-        self::$mocksActive = $active;
+        return self::$mocks['active'] ?? false || Phar::running() !== '';
     }
 
     public static function vendorPath(string $path = '', string $package = 'framework'): string

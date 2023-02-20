@@ -12,6 +12,13 @@ use Hyde\Testing\TestCase;
  */
 class PharSupportTest extends TestCase
 {
+    public function tearDown(): void
+    {
+        PharSupport::clearMocks();
+
+        parent::tearDown();
+    }
+
     public function testActive()
     {
         $this->assertFalse(PharSupport::active());
@@ -19,9 +26,9 @@ class PharSupportTest extends TestCase
 
     public function testMockActive()
     {
-        PharSupport::mockActive();
+        PharSupport::mock('active', true);
         $this->assertTrue(PharSupport::active());
-        PharSupport::mockActive(false);
+        PharSupport::mock('active', false);
         $this->assertFalse(PharSupport::active());
     }
 }
