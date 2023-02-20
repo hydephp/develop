@@ -17,7 +17,7 @@ use BadMethodCallException;
  */
 class PharSupport
 {
-    private static bool $mocksActive = false;
+    protected static bool $mocksActive = false;
 
     /** Determine if the application is running in a Phar archive. */
     public static function active(): bool
