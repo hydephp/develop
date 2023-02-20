@@ -30,6 +30,7 @@ class PharSupportTest extends TestCase
     {
         PharSupport::mock('running', true);
         $this->assertTrue(PharSupport::running());
+
         PharSupport::mock('running', false);
         $this->assertFalse(PharSupport::running());
     }
@@ -43,6 +44,7 @@ class PharSupportTest extends TestCase
     {
         PharSupport::mock('hasVendorDirectory', true);
         $this->assertTrue(PharSupport::hasVendorDirectory());
+
         PharSupport::mock('hasVendorDirectory', false);
         $this->assertFalse(PharSupport::hasVendorDirectory());
     }
@@ -59,6 +61,7 @@ class PharSupportTest extends TestCase
     {
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
+
         $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework/file.php")), Hyde::vendorPath('file.php'));
     }
 
@@ -68,6 +71,7 @@ class PharSupportTest extends TestCase
         PharSupport::mock('hasVendorDirectory', false);
 
         $this->expectException(BadMethodCallException::class);
+
         Hyde::vendorPath(package: 'realtime-compiler');
     }
 
