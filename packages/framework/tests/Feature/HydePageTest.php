@@ -978,7 +978,7 @@ class HydePageTest extends TestCase
         $page->save();
 
         $this->assertFileExists(Hyde::path('_pages/foo.md'));
-        $this->assertSame("\n", file_get_contents(Hyde::path('_pages/foo.md')));
+        $this->assertSame('', file_get_contents(Hyde::path('_pages/foo.md')));
 
         Hyde::unlink('_pages/foo.md');
     }
