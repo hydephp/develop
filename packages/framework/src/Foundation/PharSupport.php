@@ -26,7 +26,7 @@ class PharSupport
     }
 
     /** @internal Mock the Phar active state. */
-    public static function mockActive(bool $active): void
+    public static function mockActive(bool $active = true): void
     {
         self::$mocksActive = $active;
     }
