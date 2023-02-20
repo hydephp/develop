@@ -37,7 +37,6 @@ class PharSupport
             throw new RuntimeException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
         }
 
-        // Return relative link to the Phar archive contents.
         return dirname(__DIR__, 2).'/'.unslash($path);
     }
 }
