@@ -72,9 +72,9 @@ class CreatesNewPageSourceFile
         return unslash('/'.rtrim(Str::beforeLast($title, '/').'/', '/\\'));
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     protected function makeOutputPath(string $pageClass): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $pageClass */
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
     }
 
