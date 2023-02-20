@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Phar;
+use RuntimeException;
 
 /**
  * Provides experimental support for running the HydeCLI in a standalone Phar archive.
@@ -33,7 +34,7 @@ class PharSupport
     public static function vendorPath(string $path = '', string $package = 'framework'): string
     {
         if ($package !== 'framework') {
-            throw new \RuntimeException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
+            throw new RuntimeException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
         }
 
         // Return relative link to the Phar archive contents.
