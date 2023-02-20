@@ -140,7 +140,7 @@ class Filesystem
      */
     public function vendorPath(string $path = '', string $package = 'framework'): string
     {
-        if (PharSupport::active() && ! is_dir($this->path('vendor'))) {
+        if (PharSupport::running() && ! is_dir($this->path('vendor'))) {
             return PharSupport::vendorPath($path, $package);
         }
 

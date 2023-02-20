@@ -21,14 +21,14 @@ class PharSupportTest extends TestCase
 
     public function testActive()
     {
-        $this->assertFalse(PharSupport::active());
+        $this->assertFalse(PharSupport::running());
     }
 
     public function testMockActive()
     {
-        PharSupport::mock('active', true);
-        $this->assertTrue(PharSupport::active());
-        PharSupport::mock('active', false);
-        $this->assertFalse(PharSupport::active());
+        PharSupport::mock('running', true);
+        $this->assertTrue(PharSupport::running());
+        PharSupport::mock('running', false);
+        $this->assertFalse(PharSupport::running());
     }
 }

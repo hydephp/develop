@@ -32,9 +32,9 @@ class PharSupport
     }
 
     /** Determine if the application is running in a Phar archive. */
-    public static function active(): bool
+    public static function running(): bool
     {
-        return self::$mocks['active'] ?? Phar::running() !== '';
+        return self::$mocks['running'] ?? Phar::running() !== '';
     }
 
     public static function vendorPath(string $path = '', string $package = 'framework'): string
