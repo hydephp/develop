@@ -27,6 +27,7 @@ namespace {
 }
 
 namespace Hyde {
+    use Hyde\Facades\Filesystem;
     use Hyde\Foundation\HydeKernel;
     use Illuminate\Contracts\Support\Arrayable;
     use Symfony\Component\Yaml\Yaml;
@@ -60,6 +61,16 @@ namespace Hyde {
         function unixsum(string $string): string
         {
             return md5(str_replace(["\r\n", "\r"], "\n", $string));
+        }
+    }
+
+    if (! function_exists('\Hyde\unixsum_file')) {
+        /**
+         * Shorthand for {@see unixsum()} but loads a file.
+         */
+        function unixsum_file(string $file): string
+        {
+            return \Hyde\unixsum(Filesystem::getContents($file));
         }
     }
 

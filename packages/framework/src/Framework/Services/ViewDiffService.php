@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Facades\Filesystem;
 use function glob;
 use Hyde\Hyde;
 use function in_array;
@@ -78,6 +77,6 @@ class ViewDiffService
      */
     public static function unixsumFile(string $file): string
     {
-        return static::unixsum(Filesystem::getContents($file));
+        return \Hyde\unixsum_file($file);
     }
 }

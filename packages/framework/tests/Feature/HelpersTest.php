@@ -90,6 +90,16 @@ class HelpersTest extends TestCase
         $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\r\n"));
     }
 
+    /** @covers ::\Hyde\unixsum_file */
+    public function test_unixsum_file_function()
+    {
+        $this->file('unix.txt', "foo\n");
+        $this->file('windows.txt', "foo\r\n");
+
+        $this->assertSame(md5("foo\n"), \Hyde\unixsum_file('unix.txt'));
+        $this->assertSame(md5("foo\n"), \Hyde\unixsum_file('windows.txt'));
+    }
+
     /** @covers ::\Hyde\make_title */
     public function test_hyde_make_title_function()
     {
