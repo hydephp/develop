@@ -41,7 +41,7 @@ class RebuildStaticPageCommand extends Command
             return Command::SUCCESS;
         }
 
-        return $this->makeBuildTask($this->output, $this->getNormalizedPathString())->handle() ?? Command::SUCCESS;
+        return $this->makeBuildTask($this->output, $this->getNormalizedPathString())->handle();
     }
 
     protected function getNormalizedPathString(): string
@@ -53,7 +53,7 @@ class RebuildStaticPageCommand extends Command
     {
         return new class($output, $path) extends BuildTask
         {
-            public static string $description = 'Rebuilding page';
+            public static string $message = 'Rebuilding page';
 
             protected string $path;
 

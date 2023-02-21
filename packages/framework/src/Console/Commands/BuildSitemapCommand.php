@@ -22,6 +22,6 @@ class BuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSitemap($this->output))->handle() ?? Command::SUCCESS;
+        return (new GenerateSitemap($this->output))->handle();
     }
 }

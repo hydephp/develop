@@ -13,7 +13,7 @@ class GenerateSearch extends BuildTask
 {
     use InteractsWithDirectories;
 
-    public static string $description = 'Generating search index';
+    public static string $message = 'Generating search index';
 
     public function run(): void
     {
