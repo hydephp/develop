@@ -254,11 +254,6 @@ class LocalImage extends FeaturedImage
         parent::__construct('source');
     }
 
-    public function getSource(): string
-    {
-        return 'source';
-    }
-
     public function getContentLength(): int
     {
         return 0;
@@ -270,11 +265,6 @@ class RemoteImage extends FeaturedImage
     public function __construct()
     {
         parent::__construct('https://example.com');
-    }
-
-    public function getSource(): string
-    {
-        return 'source';
     }
 
     public function getContentLength(): int
@@ -290,11 +280,6 @@ class NullImage extends FeaturedImage
         parent::__construct('source');
     }
 
-    public function getSource(): string
-    {
-        return 'source';
-    }
-
     public function getContentLength(): int
     {
         return 0;
@@ -306,11 +291,6 @@ class FilledImage extends FeaturedImage
     public function __construct()
     {
         parent::__construct('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
-    }
-
-    public function getSource(): string
-    {
-        return 'source';
     }
 
     public function getContentLength(): int
