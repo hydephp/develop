@@ -12,7 +12,7 @@ interface FeaturedImageSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
         'path'           => 'string',
-        'url'            => 'string',
+        'url'            => 'string', // Takes precedence over path
         'description'    => 'string',
         'title'          => 'string',
         'copyright'      => 'string',
