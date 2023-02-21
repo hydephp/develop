@@ -20,10 +20,7 @@ abstract class BuildTask
 
     protected static string $message = 'Running generic build task';
 
-    /**
-     * @todo Consider setting default value to 0
-     */
-    protected ?int $exitCode = null;
+    protected ?int $exitCode = 0;
 
     /** @var \Illuminate\Console\OutputStyle|null */
     protected $output;
