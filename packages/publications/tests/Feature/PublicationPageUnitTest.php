@@ -164,9 +164,9 @@ class PublicationPageUnitTest extends TestCase
         $this->assertSame('directory/foo', (new PublicationPage('foo', [], '', $this->pubType()))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new PublicationPage('foo', [], '', $this->pubType()))->htmlTitle());
+        $this->assertSame('HydePHP - Foo', (new PublicationPage('foo', [], '', $this->pubType()))->title());
     }
 
     public function testAll()
