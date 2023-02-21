@@ -31,7 +31,7 @@ abstract class BuildTask
         $this->output = $output;
     }
 
-    public function handle(): ?int
+    public function handle(): int
     {
         $this->write('<comment>'.$this->getDescription().'...</comment> ');
 
