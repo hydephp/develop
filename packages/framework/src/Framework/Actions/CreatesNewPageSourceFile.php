@@ -89,7 +89,9 @@ class CreatesNewPageSourceFile
 
     protected function createBladeFile(): void
     {
-        $this->createFile(<<<BLADE
+        $this->prepareOutputDirectory();
+
+        file_put_contents($this->outputPath, Hyde::normalizeNewlines(<<<BLADE
             @extends('hyde::layouts.app')
             @section('content')
             @php(\$title = "$this->title")
@@ -101,7 +103,7 @@ class CreatesNewPageSourceFile
             @endsection
 
             BLADE
-        );
+        ));
     }
 
     protected function createMarkdownFile(): void
@@ -141,12 +143,5 @@ class CreatesNewPageSourceFile
     {
         $this->needsParentDirectory($this->outputPath);
         $this->failIfFileCannotBeSaved($this->outputPath);
-    }
-
-    protected function createFile(string $contents): void
-    {
-        $this->prepareOutputDirectory();
-
-        file_put_contents($this->outputPath, Hyde::normalizeNewlines($contents));
     }
 }
