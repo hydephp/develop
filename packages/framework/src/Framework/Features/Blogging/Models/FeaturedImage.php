@@ -111,7 +111,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         if (Str::startsWith($name, 'get')) {
             $property = Str::camel(Str::after($name, 'get'));
 
-            return $this->$property;
+            return $this->$property ?? null;
         }
 
         throw new BadMethodCallException("Method '$name' does not exist on ".static::class);
