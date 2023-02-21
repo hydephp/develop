@@ -22,13 +22,10 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     protected const TYPE_REMOTE = 'remote';
 
     protected readonly string $source;
-
     protected readonly ?string $altText;
     protected readonly ?string $titleText;
-
     protected readonly ?string $authorName;
     protected readonly ?string $authorUrl;
-
     protected readonly ?string $copyrightText;
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
