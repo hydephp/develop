@@ -39,7 +39,8 @@ class ViewDiffServiceTest extends TestCase
     {
         $fileCacheService = new ViewDiffService();
 
-        $this->assertTrue($fileCacheService->checksumMatchesAny(unixsum_file(Hyde::vendorPath('resources/views/layouts/app.blade.php'))
+        $this->assertTrue($fileCacheService->checksumMatchesAny(
+            unixsum_file(Hyde::vendorPath('resources/views/layouts/app.blade.php'))
         ));
     }
 
