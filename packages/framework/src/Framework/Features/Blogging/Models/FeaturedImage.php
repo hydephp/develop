@@ -158,4 +158,9 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 
         return $metadata;
     }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
 }
