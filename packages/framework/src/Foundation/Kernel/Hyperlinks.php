@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 
@@ -75,11 +76,16 @@ class Hyperlinks
     /**
      * Gets a relative web link to the given file stored in the _site/media folder.
      *
-     * @todo Add default option that throws if file is not present in _site/media (or just) _media?
+     * An exception will be thrown if the file does not exist in the _media directory,
+     * and the second argument is set to true.
      */
-    public function mediaLink(string $destination): string
+    public function mediaLink(string $destination, bool $validate = false): string
     {
-        return $this->relativeLink($this->kernel->getMediaOutputDirectory()."/$destination");
+        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
+            throw new FileNotFoundException($sourcePath);
+        }
+
+        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
     }
 
     /**
