@@ -118,6 +118,6 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
             }
         }
 
-        throw new BadMethodCallException("Method '$name' does not exist on ".static::class);
+        throw new BadMethodCallException(sprintf("Method '$name' does not exist on %s", static::class));
     }
 }
