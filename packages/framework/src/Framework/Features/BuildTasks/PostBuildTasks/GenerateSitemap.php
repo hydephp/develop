@@ -10,7 +10,7 @@ use Hyde\Hyde;
 
 class GenerateSitemap extends BuildTask
 {
-    public static string $description = 'Generating sitemap';
+    public static string $message = 'Generating sitemap';
 
     public function run(): void
     {

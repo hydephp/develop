@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+use Symfony\Component\Console\Command\Command;
 use Throwable;
 
 /**
@@ -18,13 +19,9 @@ abstract class BuildTask
     use InteractsWithIO;
     use TracksExecutionTime;
 
-    /** @todo Consider renaming to $message */
-    protected static string $description = 'Generic build task';
+    protected static string $message = 'Running generic build task';
 
-    /**
-     * @todo Consider setting default value to 0
-     */
-    protected ?int $exitCode = null;
+    protected int $exitCode = Command::SUCCESS;
 
     /** @var \Illuminate\Console\OutputStyle|null */
     protected $output;
@@ -35,7 +32,7 @@ abstract class BuildTask
         $this->output = $output;
     }
 
-    public function handle(): ?int
+    public function handle(): int
     {
         $this->write('<comment>'.$this->getDescription().'...</comment> ');
 
@@ -62,7 +59,7 @@ abstract class BuildTask
 
     public function getDescription(): string
     {
-        return static::$description;
+        return static::$message;
     }
 
     public function write(string $message): void

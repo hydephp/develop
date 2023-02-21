@@ -17,7 +17,7 @@ use function Hyde\unixsum_file as unixsum_file1;
  */
 class GenerateBuildManifest extends BuildTask
 {
-    public static string $description = 'Generating build manifest';
+    public static string $message = 'Generating build manifest';
 
     public function __construct(?OutputStyle $output = null)
     {

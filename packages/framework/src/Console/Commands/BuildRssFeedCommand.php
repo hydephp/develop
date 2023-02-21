@@ -22,6 +22,6 @@ class BuildRssFeedCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateRssFeed($this->output))->handle() ?? Command::SUCCESS;
+        return (new GenerateRssFeed($this->output))->handle();
     }
 }
