@@ -6,6 +6,8 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Illuminate\Support\Str;
+use RuntimeException;
 use Stringable;
 
 /**
@@ -69,76 +71,6 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 
     abstract public function getContentLength(): int;
 
-    public function getAltText(): ?string
-    {
-        return $this->altText;
-    }
-
-    public function getTitleText(): ?string
-    {
-        return $this->titleText;
-    }
-
-    public function getAuthorName(): ?string
-    {
-        return $this->authorName;
-    }
-
-    public function getAuthorUrl(): ?string
-    {
-        return $this->authorUrl;
-    }
-
-    public function getCopyrightText(): ?string
-    {
-        return $this->copyrightText;
-    }
-
-    public function getLicenseName(): ?string
-    {
-        return $this->licenseName;
-    }
-
-    public function getLicenseUrl(): ?string
-    {
-        return $this->licenseUrl;
-    }
-
-    public function hasAltText(): bool
-    {
-        return $this->altText !== null;
-    }
-
-    public function hasTitleText(): bool
-    {
-        return $this->titleText !== null;
-    }
-
-    public function hasAuthorName(): bool
-    {
-        return $this->authorName !== null;
-    }
-
-    public function hasAuthorUrl(): bool
-    {
-        return $this->authorUrl !== null;
-    }
-
-    public function hasCopyrightText(): bool
-    {
-        return $this->copyrightText !== null;
-    }
-
-    public function hasLicenseName(): bool
-    {
-        return $this->licenseName !== null;
-    }
-
-    public function hasLicenseUrl(): bool
-    {
-        return $this->licenseUrl !== null;
-    }
-
     /** @return self::TYPE_* */
     public function getType(): string
     {
@@ -166,5 +98,20 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         $metadata['contentUrl'] = $this->getSource();
 
         return $metadata;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        if (Str::startsWith($name, 'has')) {
+            $property = Str::camel(Str::after($name, 'has'));
+
+            return $this->$property !== null;
+        }
+
+        if (Str::startsWith($name, 'get')) {
+            $property = Str::camel(Str::after($name, 'get'));
+
+            return $this->$property;
+        }
     }
 }
