@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Kernel;
 
 use Hyde\Facades\Site;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\PharSupport;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -134,9 +135,15 @@ class Filesystem
 
     /**
      * Works similarly to the path() function, but returns a file in the Framework package.
+     *
+     * @internal This is not intended to be used outside the HydePHP framework.
      */
     public function vendorPath(string $path = '', string $package = 'framework'): string
     {
+        if (PharSupport::running() && ! PharSupport::hasVendorDirectory()) {
+            return PharSupport::vendorPath($path, $package);
+        }
+
         return $this->path("vendor/hyde/$package/".unslash($path));
     }
 
