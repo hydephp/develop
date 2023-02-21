@@ -21,7 +21,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->relativeLink($destination);
     }
 
-    public function mediaLink(string $destination, bool $validate = true): string
+    public function mediaLink(string $destination, bool $validate = false): string
     {
         return $this->hyperlinks->mediaLink($destination, $validate);
     }
