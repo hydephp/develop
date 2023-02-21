@@ -11,6 +11,9 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * @see \Hyde\Framework\Testing\Unit\UnixsumTest for additional tests of the unixsum function
+ */
 class HelpersTest extends TestCase
 {
     /** @covers ::hyde */
