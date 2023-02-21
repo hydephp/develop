@@ -89,7 +89,8 @@ class CreatesNewPageSourceFile
 
     protected function createBladeFile(): void
     {
-        $this->prepareOutputDirectory();
+        $this->needsParentDirectory($this->outputPath);
+        $this->failIfFileCannotBeSaved($this->outputPath);
 
         file_put_contents($this->outputPath, Hyde::normalizeNewlines(<<<BLADE
             @extends('hyde::layouts.app')
@@ -137,11 +138,5 @@ class CreatesNewPageSourceFile
         if ($this->force !== true && file_exists($path)) {
             throw new FileConflictException($path);
         }
-    }
-
-    protected function prepareOutputDirectory(): void
-    {
-        $this->needsParentDirectory($this->outputPath);
-        $this->failIfFileCannotBeSaved($this->outputPath);
     }
 }
