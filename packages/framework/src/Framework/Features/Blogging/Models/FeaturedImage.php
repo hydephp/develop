@@ -30,6 +30,9 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
 
+    protected const TYPE_LOCAL = 'local';
+    protected const TYPE_REMOTE = 'remote';
+
     public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
     {
         $this->source = $this->setSource($source);
