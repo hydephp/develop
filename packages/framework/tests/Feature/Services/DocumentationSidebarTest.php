@@ -297,6 +297,32 @@ class DocumentationSidebarTest extends TestCase
         $this->assertTrue(DocumentationSidebar::create()->isGroupActive('foo-bar'));
     }
 
+    public function test_is_group_active_returns_true_first_group_of_index_page()
+    {
+        $this->makePage('index');
+        $this->makePage('foo', ['navigation.group' => 'foo']);
+        $this->makePage('bar', ['navigation.group' => 'bar']);
+        $this->makePage('baz', ['navigation.group' => 'baz']);
+
+        Render::setPage(DocumentationPage::get('index'));
+        $this->assertTrue(DocumentationSidebar::create()->isGroupActive('bar'));
+        $this->assertFalse(DocumentationSidebar::create()->isGroupActive('foo'));
+        $this->assertFalse(DocumentationSidebar::create()->isGroupActive('baz'));
+    }
+
+    public function test_is_group_active_returns_true_first_sorted_group_of_index_page()
+    {
+        $this->makePage('index');
+        $this->makePage('foo', ['navigation.group' => 'foo', 'navigation.priority' => 1]);
+        $this->makePage('bar', ['navigation.group' => 'bar', 'navigation.priority' => 2]);
+        $this->makePage('baz', ['navigation.group' => 'baz', 'navigation.priority' => 3]);
+
+        Render::setPage(DocumentationPage::get('index'));
+        $this->assertTrue(DocumentationSidebar::create()->isGroupActive('foo'));
+        $this->assertFalse(DocumentationSidebar::create()->isGroupActive('bar'));
+        $this->assertFalse(DocumentationSidebar::create()->isGroupActive('baz'));
+    }
+
     protected function createTestFiles(int $count = 5): void
     {
         for ($i = 0; $i < $count; $i++) {
