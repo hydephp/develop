@@ -39,7 +39,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->file('_pages/foo.md', 'foo');
 
         $this->expectException(FileConflictException::class);
-        $this->expectExceptionMessage('File already exists: '.Hyde::path('_pages/foo.md'));
+        $this->expectExceptionMessage('File already exists: _pages/foo.md');
         $this->expectExceptionCode(409);
 
         new CreatesNewPageSourceFile('foo');
@@ -61,7 +61,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->file('_pages/foo.blade.php', 'foo');
 
         $this->expectException(FileConflictException::class);
-        $this->expectExceptionMessage('File already exists: '.Hyde::path('_pages/foo.blade.php'));
+        $this->expectExceptionMessage('File already exists: _pages/foo.blade.php');
         $this->expectExceptionCode(409);
 
         new CreatesNewPageSourceFile('foo', BladePage::class);
@@ -74,7 +74,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->file('_docs/foo.md', 'foo');
 
         $this->expectException(FileConflictException::class);
-        $this->expectExceptionMessage('File already exists: '.Hyde::path('_docs/foo.md'));
+        $this->expectExceptionMessage('File already exists: _docs/foo.md');
         $this->expectExceptionCode(409);
 
         new CreatesNewPageSourceFile('foo', DocumentationPage::class);
