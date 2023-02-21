@@ -24,11 +24,9 @@ use function unslash;
 class ViewDiffService
 {
     /**
-     * @deprecated Will be renamed to getViewFileCache or similar
-     *
      * @return array<string, array{unixsum: string}>
      */
-    public static function getFilecache(): array
+    public static function getViewFileHashIndex(): array
     {
         $filecache = [];
 
@@ -45,7 +43,7 @@ class ViewDiffService
 
     public static function getChecksums(): array
     {
-        $cache = static::getFilecache();
+        $cache = static::getViewFileHashIndex();
 
         $checksums = [];
 

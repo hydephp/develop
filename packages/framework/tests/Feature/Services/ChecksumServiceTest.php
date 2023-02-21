@@ -16,7 +16,7 @@ class ChecksumServiceTest extends TestCase
     public function test_get_filecache()
     {
         $fileCacheService = new ViewDiffService();
-        $fileCache = $fileCacheService->getFilecache();
+        $fileCache = $fileCacheService->getViewFileHashIndex();
 
         $this->assertIsArray($fileCache);
         $this->assertArrayHasKey('resources/views/layouts/app.blade.php', $fileCache);
