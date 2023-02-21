@@ -115,7 +115,7 @@ class CreatesNewPageSourceFile
 
     protected function createDocumentationFile(): void
     {
-        (new DocumentationPage($this->formatIdentifier(), [], "# $this->title\n"))->save();
+        (new DocumentationPage($this->formatIdentifier(), [], "# $this->title"))->save();
     }
 
     protected function formatIdentifier(): string
