@@ -64,7 +64,6 @@ class ViewDiffService
      * @deprecated TODO: Move to helpers.php
      *
      * This function is not cryptographically secure.
-     *
      * @see https://github.com/hydephp/framework/issues/85
      */
     public static function unixsum(string $string): string
