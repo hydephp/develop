@@ -231,6 +231,42 @@ class FeaturedImageTest extends TestCase
     }
 }
 
+class LocalImage extends FeaturedImage
+{
+    public function __construct()
+    {
+        parent::__construct('source', null, null, null, null, null, null, null);
+    }
+
+    public function getSource(): string
+    {
+        return 'source';
+    }
+
+    public function getContentLength(): int
+    {
+        return 0;
+    }
+}
+
+class RemoteImage extends FeaturedImage
+{
+    public function __construct()
+    {
+        parent::__construct('https://example.com', null, null, null, null, null, null, null);
+    }
+
+    public function getSource(): string
+    {
+        return 'source';
+    }
+
+    public function getContentLength(): int
+    {
+        return 0;
+    }
+}
+
 class NullImage extends FeaturedImage
 {
     public function __construct()
