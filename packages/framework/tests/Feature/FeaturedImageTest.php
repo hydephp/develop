@@ -104,6 +104,12 @@ class FeaturedImageTest extends TestCase
         $this->assertTrue((new FilledImage)->hasLicenseUrl());
     }
 
+    public function testGetType()
+    {
+        $this->assertEquals('local', (new LocalImage)->getType());
+        $this->assertEquals('remote', (new RemoteImage)->getType());
+    }
+
     public function testGetMetadataArray()
     {
         $this->assertSame([
