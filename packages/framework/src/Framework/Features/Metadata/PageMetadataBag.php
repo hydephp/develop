@@ -31,8 +31,8 @@ class PageMetadataBag extends MetadataBag
         }
 
         if ($page->has('title')) {
-            $this->add(Meta::name('twitter:title', $page->htmlTitle()));
-            $this->add(Meta::property('title', $page->htmlTitle()));
+            $this->add(Meta::name('twitter:title', $page->title()));
+            $this->add(Meta::property('title', $page->title()));
         }
 
         if ($page instanceof MarkdownPost) {

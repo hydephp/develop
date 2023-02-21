@@ -32,10 +32,10 @@ class HeadComponentViewTest extends TestCase
         $this->assertStringContainsString('<meta charset="utf-8">', $this->renderTestView());
     }
 
-    public function testTitleElementUsesPageHtmlTitle()
+    public function testTitleElementUsesPageTitle()
     {
         $page = $this->createMock(InMemoryPage::class);
-        $page->method('htmlTitle')->willReturn('Foo Bar');
+        $page->method('title')->willReturn('Foo Bar');
         $this->mockPage($page);
 
         $this->assertStringContainsString('<title>Foo Bar</title>', $this->renderTestView());

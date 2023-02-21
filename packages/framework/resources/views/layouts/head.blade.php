@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ $page->htmlTitle() }}</title>
+<title>{{ $page->title() }}</title>
 
 @if (file_exists(Hyde::mediaPath('favicon.ico'))) 
 <link rel="shortcut icon" href="{{ Hyde::relativeLink('media/favicon.ico') }}" type="image/x-icon">
