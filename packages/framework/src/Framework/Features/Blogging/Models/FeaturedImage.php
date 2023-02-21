@@ -12,6 +12,8 @@ use Stringable;
  * While the object can of course be used for any other page type,
  * it is named "FeaturedImage" as it's only usage within Hyde
  * is for the featured image of a Markdown blog post.
+ *
+ * @see \Hyde\Framework\Factories\FeaturedImageFactory
  */
 abstract class FeaturedImage implements Stringable
 {
