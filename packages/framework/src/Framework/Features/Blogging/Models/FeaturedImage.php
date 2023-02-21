@@ -50,7 +50,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
      *
      * @return string The image's url or path
      */
-    abstract public function getSource(): string;
+    public function getSource(): string;
 
     /** Called from constructor to allow child classes to validate and transform the value as needed before assignment. */
     protected function setSource(string $source): string
