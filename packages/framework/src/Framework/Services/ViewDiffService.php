@@ -61,6 +61,8 @@ class ViewDiffService
     /**
      * A EOL agnostic wrapper for calculating MD5 checksums.
      *
+     * @deprecated TODO: Move to helpers.php
+     *
      * This function is not cryptographically secure.
      *
      * @see https://github.com/hydephp/framework/issues/85
@@ -72,6 +74,8 @@ class ViewDiffService
 
     /**
      * Shorthand for {@see static::unixsum()} but loads a file.
+     *
+     * @deprecated TODO: Move to helpers.php
      */
     public static function unixsumFile(string $file): string
     {
