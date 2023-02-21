@@ -39,6 +39,7 @@ class ViewDiffService
         return $filecache;
     }
 
+    /** @return array<string> */
     public static function getChecksums(): array
     {
         $cache = static::getViewFileHashIndex();
