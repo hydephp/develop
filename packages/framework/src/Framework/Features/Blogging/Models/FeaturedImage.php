@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Stringable;
 
@@ -52,7 +53,12 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
      */
     public function getSource(): string
     {
-        // TODO: Implement getSource() method.
+        if ($this->type === self::TYPE_LOCAL) {
+            // Return value is always resolvable from a compiled page in the _site directory.
+            return Hyde::mediaLink($this->source);
+        }
+
+        return $this->source;
     }
 
     /** Called from constructor to allow child classes to validate and transform the value as needed before assignment. */
