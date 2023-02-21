@@ -24,7 +24,7 @@ class SchemaContractsTest extends TestCase
         $this->assertEquals([
             'title'         => 'string',
             'navigation'    => 'array<navigation>',
-            'canonicalUrl'  => 'string|url',
+            'canonicalUrl'  => 'string(url)',
         ], PageSchema::PAGE_SCHEMA);
 
         $this->assertEquals([
@@ -46,7 +46,7 @@ class SchemaContractsTest extends TestCase
         $this->assertEquals([
             'name'      => 'string',
             'username'  => 'string',
-            'website'   => 'string|url',
+            'website'   => 'string(url)',
         ], BlogPostSchema::AUTHOR_SCHEMA);
 
         $this->assertEquals([

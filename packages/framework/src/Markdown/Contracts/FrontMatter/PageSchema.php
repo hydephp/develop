@@ -13,7 +13,7 @@ interface PageSchema extends NavigationSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',
-        'canonicalUrl'  => 'string|url',
+        'canonicalUrl'  => 'string(url)',
         'navigation'    => 'array<navigation>',
     ];
 }
