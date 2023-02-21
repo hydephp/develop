@@ -58,12 +58,12 @@ class DocumentationSidebar extends BaseNavigationMenu
         return parent::shouldItemBeHidden($item) || $item->getRoute()?->is(DocumentationPage::homeRouteName());
     }
 
-    protected function isPageIndexPage(): bool
+    private function isPageIndexPage(): bool
     {
         return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
     }
 
-    protected function shouldIndexPageBeActive(string $group): bool
+    private function shouldIndexPageBeActive(string $group): bool
     {
         return Render::getPage()->navigationMenuGroup() === 'other' && $group === collect($this->getGroups())->first();
     }
