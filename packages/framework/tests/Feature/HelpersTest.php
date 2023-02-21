@@ -11,6 +11,9 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Covers the helpers in helpers.php
+ */
 class HelpersTest extends TestCase
 {
     /** @covers ::hyde */
