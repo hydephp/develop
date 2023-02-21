@@ -64,7 +64,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/test-page.md'));
 
         $this->assertSame(
-            "---\ntitle: Test Page\n---\n\n# Test Page\n",
+            "---\ntitle: 'Test Page'\n---\n\n# Test Page\n",
             file_get_contents(Hyde::path('_pages/test-page.md'))
         );
         Filesystem::unlink('_pages/test-page.md');
