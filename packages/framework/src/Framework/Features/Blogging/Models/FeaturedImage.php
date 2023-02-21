@@ -6,6 +6,9 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Stringable;
 
+/**
+ * Object representation of a blog post's featured image.
+ */
 abstract class FeaturedImage implements Stringable
 {
     protected readonly string $source;
