@@ -21,7 +21,7 @@ use function unslash;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\ChecksumServiceTest
  */
-class ChecksumService
+class ViewDiffService
 {
     /**
      * @deprecated Will be renamed to getViewFileCache or similar

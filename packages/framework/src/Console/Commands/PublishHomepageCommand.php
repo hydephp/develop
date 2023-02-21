@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Console\Concerns\Command;
-use Hyde\Framework\Services\ChecksumService;
+use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
@@ -121,7 +121,7 @@ class PublishHomepageCommand extends Command
 
     protected function isTheExistingFileADefaultOne(): bool
     {
-        return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
+        return ViewDiffService::checksumMatchesAny(ViewDiffService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
         ));
     }
