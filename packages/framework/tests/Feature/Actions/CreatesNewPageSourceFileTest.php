@@ -81,7 +81,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertSame('foo', file_get_contents(Hyde::path('_docs/foo.md')));
         Filesystem::unlink('_docs/foo.md');
     }
-    
+
     public function test_that_a_markdown_file_can_be_created_and_contains_expected_content()
     {
         Filesystem::unlink('_pages/test-page.md');
