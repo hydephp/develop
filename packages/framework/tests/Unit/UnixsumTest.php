@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
 
