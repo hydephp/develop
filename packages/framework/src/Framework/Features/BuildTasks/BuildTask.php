@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+use Symfony\Component\Console\Command\Command;
 use Throwable;
 
 /**
@@ -20,7 +21,7 @@ abstract class BuildTask
 
     protected static string $message = 'Running generic build task';
 
-    protected int $exitCode = 0;
+    protected int $exitCode = Command::SUCCESS;
 
     /** @var \Illuminate\Console\OutputStyle|null */
     protected $output;
