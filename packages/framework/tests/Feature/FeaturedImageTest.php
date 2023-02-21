@@ -113,25 +113,25 @@ class FeaturedImageTest extends TestCase
     public function testGetMetadataArray()
     {
         $this->assertSame([
-            'url' => 'source',
-            'contentUrl' => 'source',
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
         ], (new NullImage)->getMetadataArray());
 
         $this->assertSame([
             'text' => 'alt',
             'name' => 'title',
-            'url' => 'source',
-            'contentUrl' => 'source',
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
         ], (new FilledImage)->getMetadataArray());
 
         $this->assertSame([
-            'url' => 'source',
-            'contentUrl' => 'source',
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
         ], (new LocalImage)->getMetadataArray());
 
         $this->assertSame([
-            'url' => 'source',
-            'contentUrl' => 'source',
+            'url' => 'https://example.com',
+            'contentUrl' => 'https://example.com',
         ], (new RemoteImage)->getMetadataArray());
     }
 
