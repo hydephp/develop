@@ -49,11 +49,22 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     public function isGroupActive(string $group): bool
     {
-        return Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
+        return Str::slug(Render::getPage()->navigationMenuGroup()) === $group
+            || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
     }
 
     protected static function shouldItemBeHidden(NavItem $item): bool
     {
         return parent::shouldItemBeHidden($item) || $item->getRoute()?->is(DocumentationPage::homeRouteName());
+    }
+
+    private function isPageIndexPage(): bool
+    {
+        return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
+    }
+
+    private function shouldIndexPageBeActive(string $group): bool
+    {
+        return Render::getPage()->navigationMenuGroup() === 'other' && $group === collect($this->getGroups())->first();
     }
 }
