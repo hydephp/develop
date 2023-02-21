@@ -49,9 +49,8 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     public function isGroupActive(string $group): bool
     {
-        $pageGroup = Render::getPage()->navigationMenuGroup();
-        return Str::slug($pageGroup) === $group
-            || Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName()) && $pageGroup === 'other' && $group === collect($this->getGroups())->first();
+        return Str::slug(Render::getPage()->navigationMenuGroup()) === $group
+            || Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName()) && Render::getPage()->navigationMenuGroup() === 'other' && $group === collect($this->getGroups())->first();
     }
 
     protected static function shouldItemBeHidden(NavItem $item): bool
