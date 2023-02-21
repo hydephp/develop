@@ -17,6 +17,21 @@ use Stringable;
  * it is named "FeaturedImage" as it's only usage within Hyde
  * is for the featured image of a Markdown blog post.
  *
+ * @method getAltText(): ?string
+ * @method getTitleText(): ?string
+ * @method getAuthorName(): ?string
+ * @method getAuthorUrl(): ?string
+ * @method getCopyrightText(): ?string
+ * @method getLicenseName(): ?string
+ * @method getLicenseUrl(): ?string
+ * @method hasAltText(): bool
+ * @method hasTitleText(): bool
+ * @method hasAuthorName(): bool
+ * @method hasAuthorUrl(): bool
+ * @method hasCopyrightText(): bool
+ * @method hasLicenseName(): bool
+ * @method hasLicenseUrl(): bool
+ *
  * @see \Hyde\Framework\Factories\FeaturedImageFactory
  */
 abstract class FeaturedImage implements Stringable, FeaturedImageSchema
