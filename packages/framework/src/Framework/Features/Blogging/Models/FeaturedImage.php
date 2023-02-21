@@ -18,6 +18,9 @@ use Stringable;
  */
 abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 {
+    protected const TYPE_LOCAL = 'local';
+    protected const TYPE_REMOTE = 'remote';
+
     protected readonly string $source;
 
     protected readonly ?string $altText;
@@ -29,9 +32,6 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     protected readonly ?string $copyrightText;
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
-
-    protected const TYPE_LOCAL = 'local';
-    protected const TYPE_REMOTE = 'remote';
 
     public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
     {
