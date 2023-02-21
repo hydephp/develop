@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\HydeKernel;
+use Illuminate\Filesystem\Filesystem;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use function Hyde\unixsum;
@@ -64,8 +66,10 @@ class UnixsumTest extends TestCase
     {
         $string = "foo\nbar\r\nbaz\r\n";
 
-        $mock = Mockery::mock('overload:Hyde\Facades\Filesystem');
-        $mock->shouldreceive('getContents')->andReturn($string);
+        HydeKernel::setInstance(new HydeKernel());
+        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem->shouldReceive('get')->andReturn($string);
+        app()->instance(Filesystem::class, $filesystem);
 
         $this->assertEquals(unixsum($string), unixsum_file('foo'));
     }
