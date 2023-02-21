@@ -106,12 +106,12 @@ class CreatesNewPageSourceFile
 
     protected function createMarkdownFile(): void
     {
-        $this->createFile("---\ntitle: $this->title\n---\n\n# $this->title\n");
+        $this->newCreateFile(MarkdownPage::class, ['title' => $this->title], "# $this->title");
     }
 
     protected function createDocumentationFile(): void
     {
-        $this->createFile("# $this->title\n");
+        $this->newCreateFile(DocumentationPage::class, [],"# $this->title\n");
     }
 
     protected function formatIdentifier(): string
@@ -144,5 +144,13 @@ class CreatesNewPageSourceFile
         $this->prepareOutputDirectory();
 
         file_put_contents($this->outputPath, Hyde::normalizeNewlines($contents));
+    }
+
+    /** @param  class-string<\Hyde\Pages\Concerns\BaseMarkdownPage>  $class */
+    protected function newCreateFile(string $class, array $matter, string $markdown): void
+    {
+        $this->failIfFileCannotBeSaved($this->outputPath);
+
+        (new $class($this->formatIdentifier(), $matter, $markdown))->save();
     }
 }
