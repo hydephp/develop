@@ -21,6 +21,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     protected const TYPE_LOCAL = 'local';
     protected const TYPE_REMOTE = 'remote';
 
+    protected readonly string $type;
     protected readonly string $source;
     protected readonly ?string $altText;
     protected readonly ?string $titleText;
