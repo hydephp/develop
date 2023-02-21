@@ -35,7 +35,7 @@ class HeadComponentViewTest extends TestCase
     public function testTitleElementUsesPageTitle()
     {
         $page = $this->createMock(InMemoryPage::class);
-        $page->method('pageTitle')->willReturn('Foo Bar');
+        $page->method('title')->willReturn('Foo Bar');
         $this->mockPage($page);
 
         $this->assertStringContainsString('<title>Foo Bar</title>', $this->renderTestView());

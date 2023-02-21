@@ -613,14 +613,14 @@ class HydePageTest extends TestCase
     public function test_html_title_returns_site_name_plus_page_title()
     {
         $make = MarkdownPage::make('', ['title' => 'Foo']);
-        $this->assertEquals('HydePHP - Foo', $make->pageTitle());
+        $this->assertEquals('HydePHP - Foo', $make->title());
     }
 
     public function test_html_title_uses_configured_site_name()
     {
         config(['hyde.name' => 'Foo Bar']);
         $markdownPage = new MarkdownPage('Foo');
-        $this->assertEquals('Foo Bar - Foo', $markdownPage->pageTitle());
+        $this->assertEquals('Foo Bar - Foo', $markdownPage->title());
     }
 
     public function test_body_helper_returns_markdown_document_body_in_markdown_pages()

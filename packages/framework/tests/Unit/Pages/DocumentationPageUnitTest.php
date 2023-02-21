@@ -137,10 +137,10 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertSame('docs/foo', (new DocumentationPage('foo'))->getRouteKey());
     }
 
-    public function testPageTitle()
+    public function testTitle()
     {
         $documentationPage = new DocumentationPage('foo');
-        $this->assertSame('HydePHP - Foo', $documentationPage->pageTitle());
+        $this->assertSame('HydePHP - Foo', $documentationPage->title());
     }
 
     public function testAll()

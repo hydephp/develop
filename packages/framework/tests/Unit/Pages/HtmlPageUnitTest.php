@@ -164,10 +164,10 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('foo', (new HtmlPage('foo'))->getRouteKey());
     }
 
-    public function testPageTitle()
+    public function testTitle()
     {
         $htmlPage = new HtmlPage('foo');
-        $this->assertSame('HydePHP - Foo', $htmlPage->pageTitle());
+        $this->assertSame('HydePHP - Foo', $htmlPage->title());
     }
 
     public function testAll()
