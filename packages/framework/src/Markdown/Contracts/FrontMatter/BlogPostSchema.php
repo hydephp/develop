@@ -23,6 +23,6 @@ interface BlogPostSchema extends FeaturedImageSchema
     public const AUTHOR_SCHEMA = [
         'name'      => 'string',
         'username'  => 'string',
-        'website'   => 'string|url',
+        'website'   => 'string(url)',
     ];
 }
