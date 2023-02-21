@@ -123,6 +123,16 @@ class FeaturedImageTest extends TestCase
             'url' => 'source',
             'contentUrl' => 'source',
         ], (new FilledImage)->getMetadataArray());
+
+        $this->assertSame([
+            'url' => 'source',
+            'contentUrl' => 'source',
+        ], (new LocalImage)->getMetadataArray());
+
+        $this->assertSame([
+            'url' => 'source',
+            'contentUrl' => 'source',
+        ], (new RemoteImage)->getMetadataArray());
     }
 
     public function testGetContentLength()
