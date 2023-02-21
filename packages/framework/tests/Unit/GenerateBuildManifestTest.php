@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use function Hyde\unixsum_file;
 
 /**
  * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest
@@ -38,7 +38,7 @@ class GenerateBuildManifestTest extends TestCase
         $this->assertEquals('404.html', $manifest['pages'][0]['output_path']);
         $this->assertEquals('index.html', $manifest['pages'][1]['output_path']);
 
-        $this->assertEquals(ChecksumService::unixsumFile(Hyde::path('_pages/404.blade.php')), $manifest['pages'][0]['source_hash']);
+        $this->assertEquals(unixsum_file(Hyde::path('_pages/404.blade.php')), $manifest['pages'][0]['source_hash']);
         $this->assertNull($manifest['pages'][0]['output_hash']);
     }
 }

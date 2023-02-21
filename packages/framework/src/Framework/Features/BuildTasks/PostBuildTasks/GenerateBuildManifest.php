@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
+use function Hyde\unixsum_file;
+use function Hyde\unixsum_file as unixsum_file1;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
@@ -45,12 +46,12 @@ class GenerateBuildManifest extends BuildTask
     {
         $path = Hyde::sitePath($page->getOutputPath());
 
-        return file_exists($path) ? ChecksumService::unixsumFile($path) : null;
+        return file_exists($path) ? unixsum_file1($path) : null;
     }
 
     protected function hashSourcePath(HydePage $page): string
     {
-        return ChecksumService::unixsumFile(Hyde::path($page->getSourcePath()));
+        return unixsum_file(Hyde::path($page->getSourcePath()));
     }
 
     protected function getManifestPath(): string

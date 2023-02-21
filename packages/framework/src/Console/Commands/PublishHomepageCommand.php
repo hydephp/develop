@@ -6,12 +6,13 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Console\Concerns\Command;
-use Hyde\Framework\Services\ChecksumService;
+use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use function array_key_exists;
 use function file_exists;
+use function Hyde\unixsum_file;
 use function str_replace;
 use function strstr;
 
@@ -121,8 +122,6 @@ class PublishHomepageCommand extends Command
 
     protected function isTheExistingFileADefaultOne(): bool
     {
-        return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
-            Hyde::getBladePagePath('index.blade.php')
-        ));
+        return ViewDiffService::checksumMatchesAny(unixsum_file(Hyde::getBladePagePath('index.blade.php')));
     }
 }
