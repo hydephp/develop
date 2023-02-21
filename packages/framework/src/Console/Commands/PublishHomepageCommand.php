@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use function array_key_exists;
 use function file_exists;
+use function Hyde\unixsum_file;
 use function str_replace;
 use function strstr;
 
@@ -121,8 +122,6 @@ class PublishHomepageCommand extends Command
 
     protected function isTheExistingFileADefaultOne(): bool
     {
-        return ViewDiffService::checksumMatchesAny(ViewDiffService::unixsumFile(
-            Hyde::getBladePagePath('index.blade.php')
-        ));
+        return ViewDiffService::checksumMatchesAny(unixsum_file(Hyde::getBladePagePath('index.blade.php')));
     }
 }

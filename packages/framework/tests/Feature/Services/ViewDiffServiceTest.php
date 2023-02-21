@@ -8,6 +8,9 @@ use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
+use function Hyde\unixsum;
+use function Hyde\unixsum_file;
+
 /**
  * @covers \Hyde\Framework\Services\ViewDiffService
  */
@@ -37,8 +40,7 @@ class ViewDiffServiceTest extends TestCase
     {
         $fileCacheService = new ViewDiffService();
 
-        $this->assertTrue($fileCacheService->checksumMatchesAny(ViewDiffService::unixsumFile(
-            Hyde::vendorPath('resources/views/layouts/app.blade.php'))
+        $this->assertTrue($fileCacheService->checksumMatchesAny(unixsum_file(Hyde::vendorPath('resources/views/layouts/app.blade.php'))
         ));
     }
 
@@ -46,8 +48,6 @@ class ViewDiffServiceTest extends TestCase
     {
         $fileCacheService = new ViewDiffService();
 
-        $this->assertFalse($fileCacheService->checksumMatchesAny(ViewDiffService::unixsum(
-            'foo'
-        )));
+        $this->assertFalse($fileCacheService->checksumMatchesAny(unixsum('foo')));
     }
 }

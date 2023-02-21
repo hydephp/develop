@@ -6,6 +6,7 @@ namespace Hyde\Framework\Services;
 
 use function glob;
 use Hyde\Hyde;
+use function Hyde\unixsum_file;
 use function in_array;
 use function md5;
 use function str_replace;
@@ -31,7 +32,7 @@ class ViewDiffService
 
         foreach ($files as $file) {
             $filecache[unslash(str_replace(Hyde::vendorPath(), '', (string) $file))] = [
-                'unixsum' => static::unixsumFile($file),
+                'unixsum' => unixsum_file($file),
             ];
         }
 
@@ -55,28 +56,5 @@ class ViewDiffService
     public static function checksumMatchesAny(string $checksum): bool
     {
         return in_array($checksum, static::getChecksums());
-    }
-
-    /**
-     * A EOL agnostic wrapper for calculating MD5 checksums.
-     *
-     * @deprecated Use \Hyde\unixsum() instead
-     *
-     * This function is not cryptographically secure.
-     * @see https://github.com/hydephp/framework/issues/85
-     */
-    public static function unixsum(string $string): string
-    {
-        return \Hyde\unixsum($string);
-    }
-
-    /**
-     * Shorthand for {@see static::unixsum()} but loads a file.
-     *
-     * @deprecated Use \Hyde\unixsum_file() instead
-     */
-    public static function unixsumFile(string $file): string
-    {
-        return \Hyde\unixsum_file($file);
     }
 }
