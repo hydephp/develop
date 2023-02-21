@@ -88,6 +88,8 @@ class Hyperlinks
      *
      * If true is passed as the second argument, and a base URL is set,
      * the image will be returned with a qualified absolute URL.
+     *
+     * @todo Rename to asset? Or just merge with mediaLink?
      */
     public function image(string $name, bool $preferQualifiedUrl = false): string
     {
