@@ -27,17 +27,17 @@ class CreatesNewPageSourceFile
     use InteractsWithDirectories;
 
     protected string $title;
-    protected string $slug;
+    protected string $filename;
     protected string $outputPath;
     protected string $subDir = '';
-    protected bool $force = false;
+    protected bool $force;
 
     public function __construct(string $title, string $type = MarkdownPage::class, bool $force = false)
     {
         $this->validateType($type);
 
         $this->title = $this->parseTitle($title);
-        $this->slug = $this->parseSlug($title);
+        $this->filename = $this->fileName($title);
         $this->force = $force;
 
         $this->outputPath = $this->makeOutputPath($type);
@@ -55,7 +55,7 @@ class CreatesNewPageSourceFile
         return Str::afterLast($title, '/');
     }
 
-    protected function parseSlug(string $title): string
+    protected function fileName(string $title): string
     {
         // If title contains a slash, it's a subdirectory
         if (str_contains($title, '/')) {
@@ -72,14 +72,16 @@ class CreatesNewPageSourceFile
         return unslash('/'.rtrim(Str::beforeLast($title, '/').'/', '/\\'));
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     protected function makeOutputPath(string $pageClass): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $pageClass */
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
     }
 
     protected function createPage(string $type): void
     {
+        $this->failIfFileCannotBeSaved($this->outputPath);
+
         match ($type) {
             BladePage::class => $this->createBladeFile(),
             MarkdownPage::class => $this->createMarkdownFile(),
@@ -89,7 +91,9 @@ class CreatesNewPageSourceFile
 
     protected function createBladeFile(): void
     {
-        $this->createFile(<<<BLADE
+        $this->needsParentDirectory($this->outputPath);
+
+        file_put_contents($this->outputPath, Hyde::normalizeNewlines(<<<BLADE
             @extends('hyde::layouts.app')
             @section('content')
             @php(\$title = "$this->title")
@@ -101,22 +105,22 @@ class CreatesNewPageSourceFile
             @endsection
 
             BLADE
-        );
+        ));
     }
 
     protected function createMarkdownFile(): void
     {
-        $this->createFile("---\ntitle: $this->title\n---\n\n# $this->title\n");
+        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], "# $this->title"))->save();
     }
 
     protected function createDocumentationFile(): void
     {
-        $this->createFile("# $this->title\n");
+        (new DocumentationPage($this->formatIdentifier(), [], "# $this->title"))->save();
     }
 
     protected function formatIdentifier(): string
     {
-        return "$this->subDir/$this->slug";
+        return "$this->subDir/$this->filename";
     }
 
     protected function validateType(string $pageClass): void
@@ -128,21 +132,8 @@ class CreatesNewPageSourceFile
 
     protected function failIfFileCannotBeSaved(string $path): void
     {
-        if (file_exists($path) && ! $this->force) {
+        if ($this->force !== true && file_exists($path)) {
             throw new FileConflictException($path);
         }
-    }
-
-    protected function prepareOutputDirectory(): void
-    {
-        $this->needsParentDirectory($this->outputPath);
-        $this->failIfFileCannotBeSaved($this->outputPath);
-    }
-
-    protected function createFile(string $contents): void
-    {
-        $this->prepareOutputDirectory();
-
-        file_put_contents($this->outputPath, Hyde::normalizeNewlines($contents));
     }
 }

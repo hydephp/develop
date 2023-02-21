@@ -56,6 +56,32 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
+    public function test_exception_is_thrown_for_conflicting_blade_pages()
+    {
+        $this->file('_pages/foo.blade.php', 'foo');
+
+        $this->expectException(FileConflictException::class);
+        $this->expectExceptionMessage('File already exists: '.Hyde::path('_pages/foo.blade.php'));
+        $this->expectExceptionCode(409);
+
+        new CreatesNewPageSourceFile('foo', BladePage::class);
+        $this->assertSame('foo', file_get_contents(Hyde::path('_pages/foo.blade.php')));
+        Filesystem::unlink('_pages/foo.blade.php');
+    }
+
+    public function test_exception_is_thrown_for_conflicting_documentation_pages()
+    {
+        $this->file('_docs/foo.md', 'foo');
+
+        $this->expectException(FileConflictException::class);
+        $this->expectExceptionMessage('File already exists: '.Hyde::path('_docs/foo.md'));
+        $this->expectExceptionCode(409);
+
+        new CreatesNewPageSourceFile('foo', DocumentationPage::class);
+        $this->assertSame('foo', file_get_contents(Hyde::path('_docs/foo.md')));
+        Filesystem::unlink('_docs/foo.md');
+    }
+
     public function test_that_a_markdown_file_can_be_created_and_contains_expected_content()
     {
         Filesystem::unlink('_pages/test-page.md');
@@ -64,7 +90,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/test-page.md'));
 
         $this->assertSame(
-            "---\ntitle: Test Page\n---\n\n# Test Page\n",
+            "---\ntitle: 'Test Page'\n---\n\n# Test Page\n",
             file_get_contents(Hyde::path('_pages/test-page.md'))
         );
         Filesystem::unlink('_pages/test-page.md');
