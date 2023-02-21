@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Testing\CreatesApplication;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 use function Hyde\unixsum;
@@ -12,8 +12,6 @@ use function Hyde\unixsum_file;
 
 class UnixsumTest extends TestCase
 {
-    use CreatesApplication;
-
     public function test_method_returns_string()
     {
         $this->assertIsString(unixsum('foo'));
@@ -76,13 +74,11 @@ class UnixsumTest extends TestCase
 
     public function test_method_returns_same_value_when_loaded_from_file_using_shorthand()
     {
-        $this->createApplication();
-
         $string = "foo\nbar\r\nbaz\r\n";
-        file_put_contents('foo', $string);
+
+        $mock = Mockery::mock('overload:Hyde\Facades\Filesystem');
+        $mock->shouldreceive('getContents')->andReturn($string);
 
         $this->assertEquals(unixsum($string), unixsum_file('foo'));
-
-        unlink('foo');
     }
 }
