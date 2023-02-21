@@ -27,9 +27,7 @@ class ViewDiffService
     {
         $filecache = [];
 
-        $files = glob(Hyde::vendorPath('resources/views/**/*.blade.php'));
-
-        foreach ($files as $file) {
+        foreach (glob(Hyde::vendorPath('resources/views/**/*.blade.php')) as $file) {
             $filecache[unslash(str_replace(Hyde::vendorPath(), '', (string) $file))] = [
                 'unixsum' => unixsum_file($file),
             ];
@@ -41,11 +39,9 @@ class ViewDiffService
     /** @return array<string> */
     public static function getChecksums(): array
     {
-        $cache = static::getViewFileHashIndex();
-
         $checksums = [];
 
-        foreach ($cache as $file) {
+        foreach (static::getViewFileHashIndex() as $file) {
             $checksums[] = $file['unixsum'];
         }
 
