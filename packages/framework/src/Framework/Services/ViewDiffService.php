@@ -8,7 +8,6 @@ use function glob;
 use Hyde\Hyde;
 use function Hyde\unixsum_file;
 use function in_array;
-use function md5;
 use function str_replace;
 use function unslash;
 

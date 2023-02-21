@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
 use function Hyde\unixsum_file;
 
 /**
