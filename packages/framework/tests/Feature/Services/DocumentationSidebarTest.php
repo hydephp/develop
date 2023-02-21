@@ -323,6 +323,14 @@ class DocumentationSidebarTest extends TestCase
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('baz'));
     }
 
+    public function test_is_group_active_for_index_page_with_no_groups()
+    {
+        $this->makePage('index');
+
+        Render::setPage(DocumentationPage::get('index'));
+        $this->assertFalse(DocumentationSidebar::create()->isGroupActive('foo'));
+    }
+
     protected function createTestFiles(int $count = 5): void
     {
         for ($i = 0; $i < $count; $i++) {
