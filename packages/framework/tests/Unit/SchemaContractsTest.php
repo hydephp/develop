@@ -39,7 +39,7 @@ class SchemaContractsTest extends TestCase
             'description'  => 'string',
             'category'     => 'string',
             'date'         => 'string',
-            'author'       => 'string|array<self.author>',
+            'author'       => 'string|array<blog_post.author>',
             'image'        => 'string|array<featured_image>',
         ], BlogPostSchema::MARKDOWN_POST_SCHEMA);
 
