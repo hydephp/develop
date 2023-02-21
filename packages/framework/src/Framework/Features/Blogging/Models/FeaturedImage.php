@@ -18,8 +18,8 @@ use Stringable;
  */
 abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 {
-    protected const TYPE_LOCAL = 'local';
-    protected const TYPE_REMOTE = 'remote';
+    protected final const TYPE_LOCAL = 'local';
+    protected final const TYPE_REMOTE = 'remote';
 
     protected readonly string $type;
     protected readonly string $source;
