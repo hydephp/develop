@@ -241,7 +241,7 @@ class LocalImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct('source', null, null, null, null, null, null, null);
+        parent::__construct('source');
     }
 
     public function getSource(): string
@@ -259,7 +259,7 @@ class RemoteImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct('https://example.com', null, null, null, null, null, null, null);
+        parent::__construct('https://example.com');
     }
 
     public function getSource(): string
@@ -277,7 +277,7 @@ class NullImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct('source', null, null, null, null, null, null, null);
+        parent::__construct('source');
     }
 
     public function getSource(): string

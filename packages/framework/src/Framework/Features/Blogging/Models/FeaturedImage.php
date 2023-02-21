@@ -32,14 +32,14 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     protected readonly ?string $licenseUrl;
 
     public function __construct(
-        string $source,
-        ?string $altText,
-        ?string $titleText,
-        ?string $authorName,
-        ?string $authorUrl,
-        ?string $copyrightText,
-        ?string $licenseName,
-        ?string $licenseUrl
+        string $source = null,
+        ?string $altText = null,
+        ?string $titleText = null,
+        ?string $authorName = null,
+        ?string $authorUrl = null,
+        ?string $copyrightText = null,
+        ?string $licenseName = null,
+        ?string $licenseUrl = null
     ) {
         $this->type = str_starts_with($source, 'http') ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
