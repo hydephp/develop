@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Services\ViewDiffService
  */
-class ChecksumServiceTest extends TestCase
+class ViewDiffServiceTest extends TestCase
 {
     public function test_get_filecache()
     {
