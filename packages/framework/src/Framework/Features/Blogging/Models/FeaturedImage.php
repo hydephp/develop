@@ -130,6 +130,12 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         return $this->licenseUrl !== null;
     }
 
+    /** @return self::TYPE_* */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     /**
      * Used in resources/views/components/post/image.blade.php to add meta tags with itemprop attributes.
      *
@@ -151,11 +157,5 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         $metadata['contentUrl'] = $this->getSource();
 
         return $metadata;
-    }
-
-    /** @return self::TYPE_* */
-    public function getType(): string
-    {
-        return $this->type;
     }
 }
