@@ -27,7 +27,7 @@ class CreatesNewPageSourceFile
     use InteractsWithDirectories;
 
     protected string $title;
-    protected string $slug;
+    protected string $filename;
     protected string $outputPath;
     protected string $subDir = '';
     protected bool $force;
@@ -37,7 +37,7 @@ class CreatesNewPageSourceFile
         $this->validateType($type);
 
         $this->title = $this->parseTitle($title);
-        $this->slug = $this->parseSlug($title);
+        $this->filename = $this->fileName($title);
         $this->force = $force;
 
         $this->outputPath = $this->makeOutputPath($type);
@@ -55,7 +55,7 @@ class CreatesNewPageSourceFile
         return Str::afterLast($title, '/');
     }
 
-    protected function parseSlug(string $title): string
+    protected function fileName(string $title): string
     {
         // If title contains a slash, it's a subdirectory
         if (str_contains($title, '/')) {
@@ -116,7 +116,7 @@ class CreatesNewPageSourceFile
 
     protected function formatIdentifier(): string
     {
-        return "$this->subDir/$this->slug";
+        return "$this->subDir/$this->filename";
     }
 
     protected function validateType(string $pageClass): void
