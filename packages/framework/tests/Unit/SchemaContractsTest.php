@@ -23,7 +23,7 @@ class SchemaContractsTest extends TestCase
     {
         $this->assertEquals([
             'title'         => 'string',
-            'navigation'    => 'array|navigation',
+            'navigation'    => 'array<navigation>',
             'canonicalUrl'  => 'string|url',
         ], PageSchema::PAGE_SCHEMA);
 
@@ -39,8 +39,8 @@ class SchemaContractsTest extends TestCase
             'description'  => 'string',
             'category'     => 'string',
             'date'         => 'string',
-            'author'       => 'string|array|author',
-            'image'        => 'string|array|featured_image',
+            'author'       => 'string|array<blog_post.author>',
+            'image'        => 'string|array<featured_image>',
         ], BlogPostSchema::MARKDOWN_POST_SCHEMA);
 
         $this->assertEquals([
