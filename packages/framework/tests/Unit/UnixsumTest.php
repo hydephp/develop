@@ -61,17 +61,6 @@ class UnixsumTest extends TestCase
             unixsum("foo\nbar\nbaz\n"));
     }
 
-    public function test_method_returns_same_value_when_loaded_from_file()
-    {
-        $string = "foo\nbar\r\nbaz\r\n";
-        $file = tempnam(sys_get_temp_dir(), 'foo');
-        file_put_contents($file, $string);
-
-        $this->assertEquals(unixsum($string), unixsum(file_get_contents($file)));
-
-        unlink($file);
-    }
-
     public function test_method_returns_same_value_when_loaded_from_file_using_shorthand()
     {
         $string = "foo\nbar\r\nbaz\r\n";
