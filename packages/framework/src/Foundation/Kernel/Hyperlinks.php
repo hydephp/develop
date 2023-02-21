@@ -81,11 +81,11 @@ class Hyperlinks
      */
     public function mediaLink(string $destination, bool $validate = false): string
     {
-        if ($validate && ! file_exists($sourcePath = $this->kernel->getMediaDirectory()."/$destination")) {
+        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
             throw new FileNotFoundException($sourcePath);
         }
 
-        return $this->relativeLink($this->kernel->getMediaOutputDirectory()."/$destination");
+        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
     }
 
     /**
