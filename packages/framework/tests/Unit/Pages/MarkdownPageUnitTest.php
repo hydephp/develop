@@ -165,9 +165,10 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertSame('foo', (new MarkdownPage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new MarkdownPage('foo'))->htmlTitle());
+        $markdownPage = new MarkdownPage('foo');
+        $this->assertSame('HydePHP - Foo', $markdownPage->title());
     }
 
     public function testAll()

@@ -52,7 +52,7 @@ abstract class BaseHydePageUnitTest extends TestCase
 
     abstract public function testGetRouteKey();
 
-    abstract public function testHtmlTitle();
+    abstract public function testTitle();
 
     abstract public function testAll();
 

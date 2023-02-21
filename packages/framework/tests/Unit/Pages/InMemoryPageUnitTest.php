@@ -168,9 +168,10 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('foo', (new InMemoryPage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new InMemoryPage('foo'))->htmlTitle());
+        $inMemoryPage = new InMemoryPage('foo');
+        $this->assertSame('HydePHP - Foo', $inMemoryPage->title());
     }
 
     public function testAll()

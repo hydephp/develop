@@ -130,9 +130,10 @@ class BladePageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('foo', (new BladePage('foo'))->getRouteKey());
     }
 
-    public function testHtmlTitle()
+    public function testTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new BladePage('foo'))->htmlTitle());
+        $bladePage = new BladePage('foo');
+        $this->assertSame('HydePHP - Foo', $bladePage->title());
     }
 
     public function testAll()
