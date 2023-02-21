@@ -20,6 +20,12 @@ class RemoteFeaturedImage extends FeaturedImage
         return $source;
     }
 
+    /** @deprecated */
+    public function getSource(): string
+    {
+        return $this->source;
+    }
+
     public function getContentLength(): int
     {
         $headers = Http::withHeaders([
