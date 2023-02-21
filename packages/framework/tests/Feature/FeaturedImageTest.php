@@ -245,7 +245,7 @@ class FeaturedImageTest extends TestCase
     public function testMagicCallResolverWithNonExistentGetProperty()
     {
         $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage("Method 'getFoo' does not exist on " . NullImage::class);
+        $this->expectExceptionMessage("Method 'getFoo' does not exist on ".NullImage::class);
 
         /** @noinspection PhpUndefinedMethodInspection */
         (new NullImage())->getFoo();
@@ -254,7 +254,7 @@ class FeaturedImageTest extends TestCase
     public function testMagicCallResolverWithNonExistentHasProperty()
     {
         $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage("Method 'hasFoo' does not exist on " . NullImage::class);
+        $this->expectExceptionMessage("Method 'hasFoo' does not exist on ".NullImage::class);
 
         /** @noinspection PhpUndefinedMethodInspection */
         (new NullImage())->hasFoo();
@@ -263,7 +263,7 @@ class FeaturedImageTest extends TestCase
     public function testMagicCallResolverWithNonExistentMethodPrefix()
     {
         $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage("Method 'foo' does not exist on " . NullImage::class);
+        $this->expectExceptionMessage("Method 'foo' does not exist on ".NullImage::class);
 
         /** @noinspection PhpUndefinedMethodInspection */
         (new NullImage())->foo();
