@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Covers the helpers in helpers.php
+ * Covers the helpers in helpers.php.
  * 
  * @see \Hyde\Framework\Testing\Unit\UnixsumTest for additional tests of the unixsum function
  */
