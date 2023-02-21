@@ -113,5 +113,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 
             return $this->$property;
         }
+
+        throw new RuntimeException("Method [$name] does not exist on " . static::class);
     }
 }
