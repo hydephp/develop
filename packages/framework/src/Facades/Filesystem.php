@@ -131,7 +131,7 @@ class Filesystem
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem
     {
-        return File::getFacadeRoot();
+        return app(\Illuminate\Filesystem\Filesystem::class);
     }
 
     protected static function kernel(): HydeKernel
