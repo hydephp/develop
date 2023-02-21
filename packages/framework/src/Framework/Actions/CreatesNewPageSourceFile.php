@@ -80,6 +80,8 @@ class CreatesNewPageSourceFile
 
     protected function createPage(string $type): void
     {
+        $this->failIfFileCannotBeSaved($this->outputPath);
+
         match ($type) {
             BladePage::class => $this->createBladeFile(),
             MarkdownPage::class => $this->createMarkdownFile(),
@@ -90,7 +92,6 @@ class CreatesNewPageSourceFile
     protected function createBladeFile(): void
     {
         $this->needsParentDirectory($this->outputPath);
-        $this->failIfFileCannotBeSaved($this->outputPath);
 
         file_put_contents($this->outputPath, Hyde::normalizeNewlines(<<<BLADE
             @extends('hyde::layouts.app')
@@ -109,15 +110,11 @@ class CreatesNewPageSourceFile
 
     protected function createMarkdownFile(): void
     {
-        $this->failIfFileCannotBeSaved($this->outputPath);
-
         (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], "# $this->title"))->save();
     }
 
     protected function createDocumentationFile(): void
     {
-        $this->failIfFileCannotBeSaved($this->outputPath);
-
         (new DocumentationPage($this->formatIdentifier(), [], "# $this->title\n"))->save();
     }
 
