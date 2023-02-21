@@ -7,7 +7,7 @@ namespace Hyde\Framework\Features\Blogging\Models;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\Str;
-use RuntimeException;
+use BadMethodCallException;
 use Stringable;
 
 /**
@@ -114,6 +114,6 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
             return $this->$property;
         }
 
-        throw new RuntimeException("Method [$name] does not exist on " . static::class);
+        throw new BadMethodCallException("Method '$name' does not exist on ".static::class);
     }
 }
