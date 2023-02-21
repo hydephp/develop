@@ -51,6 +51,18 @@ namespace Hyde {
         }
     }
 
+    if (! function_exists('\Hyde\unixsum')) {
+        /**
+         * A EOL agnostic wrapper for calculating MD5 checksums.
+         *
+         * This function is not cryptographically secure.
+         */
+        function unixsum(string $string): string
+        {
+            return md5(str_replace(["\r\n", "\r"], "\n", $string));
+        }
+    }
+
     if (! function_exists('\Hyde\make_title')) {
         function make_title(string $value): string
         {

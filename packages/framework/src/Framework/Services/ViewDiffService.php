@@ -68,7 +68,7 @@ class ViewDiffService
      */
     public static function unixsum(string $string): string
     {
-        return md5(str_replace(["\r\n", "\r"], "\n", $string));
+        return \Hyde\unixsum($string);
     }
 
     /**

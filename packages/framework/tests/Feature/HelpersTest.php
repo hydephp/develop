@@ -83,6 +83,13 @@ class HelpersTest extends TestCase
         $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
     }
 
+    /** @covers ::\Hyde\unixsum */
+    public function test_unixsum_function()
+    {
+        $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\n"));
+        $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\r\n"));
+    }
+
     /** @covers ::\Hyde\make_title */
     public function test_hyde_make_title_function()
     {
