@@ -16,8 +16,8 @@ interface BlogPostSchema extends FeaturedImageSchema
         'description'  => 'string',
         'category'     => 'string',
         'date'         => 'string',
-        'author'       => 'string|array|author',
-        'image'        => 'string|array|featured_image',
+        'author'       => 'string|array<blog_post.author>',
+        'image'        => 'string|array<featured_image>',
     ];
 
     public const AUTHOR_SCHEMA = [
