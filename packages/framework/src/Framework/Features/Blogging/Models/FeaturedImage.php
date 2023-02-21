@@ -100,7 +100,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         return $metadata;
     }
 
-    public function __call(string $name, array $arguments): mixed
+    public function __call(string $name, array $arguments): null|bool|string
     {
         if (Str::startsWith($name, 'get')) {
             $property = Str::camel(Str::after($name, 'get'));
