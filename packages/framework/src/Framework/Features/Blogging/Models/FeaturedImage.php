@@ -8,6 +8,10 @@ use Stringable;
 
 /**
  * Object representation of a blog post's featured image.
+ *
+ * While the object can of course be used for any other page type,
+ * it is named "FeaturedImage" as it's only usage within Hyde
+ * is for the featured image of a Markdown blog post.
  */
 abstract class FeaturedImage implements Stringable
 {
