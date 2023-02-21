@@ -6,8 +6,8 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\TestCase;
 
-use function hyde\unixsum;
-use function hyde\unixsum_file;
+use function Hyde\unixsum;
+use function Hyde\unixsum_file;
 
 class UnixsumTest extends TestCase
 {
