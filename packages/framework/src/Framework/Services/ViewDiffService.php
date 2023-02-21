@@ -23,9 +23,7 @@ use function unslash;
  */
 class ViewDiffService
 {
-    /**
-     * @return array<string, array{unixsum: string}>
-     */
+    /** @return array<string, array{unixsum: string}> */
     public static function getViewFileHashIndex(): array
     {
         $filecache = [];
