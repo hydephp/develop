@@ -53,7 +53,7 @@ class RebuildStaticPageCommand extends Command
     {
         return new class($output, $path) extends BuildTask
         {
-            public static string $description = 'Rebuilding page';
+            public static string $message = 'Rebuilding page';
 
             protected string $path;
 

@@ -18,8 +18,7 @@ abstract class BuildTask
     use InteractsWithIO;
     use TracksExecutionTime;
 
-    /** @todo Consider renaming to $message */
-    protected static string $description = 'Generic build task';
+    protected static string $message = 'Running generic build task';
 
     /**
      * @todo Consider setting default value to 0
@@ -62,7 +61,7 @@ abstract class BuildTask
 
     public function getDescription(): string
     {
-        return static::$description;
+        return static::$message;
     }
 
     public function write(string $message): void

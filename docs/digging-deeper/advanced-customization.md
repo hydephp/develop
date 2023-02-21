@@ -127,7 +127,7 @@ This will then output the following, where you can see that some extra output, i
 
 ### Full example
 
-You can also set the description, and an optional `then()` method to run after the main task has been executed. The then method is great if you want to display a status message.
+You can also set the message, and an optional `then()` method to run after the main task has been executed. The then method is great if you want to display a status message.
 
 ```php
 <?php
@@ -138,7 +138,7 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 
 class ExampleTask extends BuildTask
 {
-    public static string $description = 'Say hello';
+    public static string $message = 'Say hello';
 
     public function run(): void
     {

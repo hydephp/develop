@@ -10,7 +10,7 @@ use Hyde\Hyde;
 
 class GenerateRssFeed extends BuildTask
 {
-    public static string $description = 'Generating RSS feed';
+    public static string $message = 'Generating RSS feed';
 
     public function run(): void
     {
