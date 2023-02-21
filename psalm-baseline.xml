@@ -1078,7 +1078,7 @@
       <code>(string) $file</code>
     </RedundantCast>
   </file>
-  <file src="packages/framework/src/Framework/Services/ChecksumService.php">
+  <file src="packages/framework/src/Framework/Services/ViewDiffService.php">
     <MixedArrayAccess occurrences="1">
       <code>$file['unixsum']</code>
     </MixedArrayAccess>
