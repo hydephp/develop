@@ -23,34 +23,19 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected readonly string $type;
     protected readonly string $source;
-    protected readonly ?string $altText;
-    protected readonly ?string $titleText;
-    protected readonly ?string $authorName;
-    protected readonly ?string $authorUrl;
-    protected readonly ?string $copyrightText;
-    protected readonly ?string $licenseName;
-    protected readonly ?string $licenseUrl;
 
     public function __construct(
         string $source = null,
-        ?string $altText = null,
-        ?string $titleText = null,
-        ?string $authorName = null,
-        ?string $authorUrl = null,
-        ?string $copyrightText = null,
-        ?string $licenseName = null,
-        ?string $licenseUrl = null
+        protected readonly ?string $altText = null,
+        protected readonly ?string $titleText = null,
+        protected readonly ?string $authorName = null,
+        protected readonly ?string $authorUrl = null,
+        protected readonly ?string $copyrightText = null,
+        protected readonly ?string $licenseName = null,
+        protected readonly ?string $licenseUrl = null
     ) {
         $this->type = str_starts_with($source, 'http') ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
-
-        $this->altText = $altText;
-        $this->titleText = $titleText;
-        $this->authorName = $authorName;
-        $this->authorUrl = $authorUrl;
-        $this->copyrightText = $copyrightText;
-        $this->licenseName = $licenseName;
-        $this->licenseUrl = $licenseUrl;
     }
 
     public function __toString(): string
