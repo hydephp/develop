@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
@@ -239,6 +240,30 @@ class FeaturedImageTest extends TestCase
 
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image' => 'foo']))->getSource());
         $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image' => 'http']))->getSource());
+    }
+
+    public function testMagicCallResolverWithNonExistentGetProperty()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage("Method 'getFoo' does not exist on " . NullImage::class);
+
+        (new NullImage())->getFoo();
+    }
+
+    public function testMagicCallResolverWithNonExistentHasProperty()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage("Method 'hasFoo' does not exist on " . NullImage::class);
+
+        (new NullImage())->hasFoo();
+    }
+
+    public function testMagicCallResolverWithNonExistentMethodPrefix()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage("Method 'foo' does not exist on " . NullImage::class);
+
+        (new NullImage())->foo();
     }
 
     protected function defaultArguments(): array
