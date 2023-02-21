@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Stringable;
 
 /**
@@ -15,7 +16,7 @@ use Stringable;
  *
  * @see \Hyde\Framework\Factories\FeaturedImageFactory
  */
-abstract class FeaturedImage implements Stringable
+abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 {
     protected readonly string $source;
 
