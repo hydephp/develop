@@ -10,6 +10,7 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use function key;
 
+/** @deprecated Will be merged into FeaturedImage.php */
 class RemoteFeaturedImage extends FeaturedImage
 {
     protected function setSource(string $source): string
