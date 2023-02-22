@@ -44,7 +44,7 @@ use function sprintf;
  *
  * @see \Hyde\Framework\Factories\FeaturedImageFactory
  */
-abstract class FeaturedImage implements Stringable, FeaturedImageSchema
+class FeaturedImage implements Stringable, FeaturedImageSchema
 {
     /**
      * A featured image object, for a file stored locally.
