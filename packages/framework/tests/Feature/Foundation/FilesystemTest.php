@@ -137,16 +137,6 @@ class FilesystemTest extends TestCase
         PharSupport::clearMocks();
     }
 
-    public function test_copy_method()
-    {
-        touch(Hyde::path('foo'));
-        $this->assertTrue(method_exists(Filesystem::class, 'copy'));
-        $this->assertTrue(Hyde::copy('foo', 'bar'));
-        $this->assertFileExists(Hyde::path('bar'));
-        Hyde::unlink('foo');
-        Hyde::unlink('bar');
-    }
-
     public function test_touch_helper_creates_file_at_given_path()
     {
         $this->assertTrue(Hyde::touch('foo'));

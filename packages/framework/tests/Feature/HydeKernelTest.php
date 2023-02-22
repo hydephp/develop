@@ -227,15 +227,6 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::getBasePath().'/vendor/hyde/framework/foo', Hyde::vendorPath('foo'));
     }
 
-    public function test_copy_helper_copies_file_from_given_path_to_given_path()
-    {
-        touch('foo');
-        $this->assertTrue(Hyde::copy('foo', 'bar'));
-        $this->assertFileExists('bar');
-        unlink('foo');
-        unlink('bar');
-    }
-
     public function test_touch_helper_creates_file_at_given_path()
     {
         $this->assertTrue(Hyde::touch('foo'));
