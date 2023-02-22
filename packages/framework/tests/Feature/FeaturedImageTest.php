@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Http;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
+ *
  * @see \Hyde\Framework\Testing\Unit\FeaturedImageUnitTest
  */
 class FeaturedImageTest extends TestCase
