@@ -222,7 +222,7 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '_media/foo']))->getSource());
 
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
-        // TODO $this->assertEquals('//foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '//foo']))->getSource());
+        $this->assertEquals('//foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '//foo']))->getSource());
         $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'http']))->getSource());
 
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image' => 'foo']))->getSource());

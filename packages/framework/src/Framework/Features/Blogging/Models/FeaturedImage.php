@@ -201,6 +201,6 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function isRemote(string $source): bool
     {
-        return str_starts_with($source, 'http');
+        return str_starts_with($source, 'http') || str_starts_with($source, '//');
     }
 }
