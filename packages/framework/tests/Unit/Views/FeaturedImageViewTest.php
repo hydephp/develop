@@ -23,7 +23,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_the_view()
     {
         $component = $this->renderComponent([
-            'image.path' => 'foo.jpg',
+            'image.source' => 'foo.jpg',
             'image.description' => 'This is an image',
             'image.title' => 'FeaturedImage Title',
             'image.author' => 'John Doe',
@@ -264,7 +264,7 @@ class FeaturedImageViewTest extends TestCase
         return str_replace([' ', "\r", "\n"], '', $string);
     }
 
-    protected function renderComponent(FeaturedImage|array $data = ['image.path'=>'foo']): string
+    protected function renderComponent(FeaturedImage|array $data = ['image.source'=>'foo']): string
     {
         $image = $data instanceof FeaturedImage ? $data : $this->make($data);
 
@@ -280,7 +280,7 @@ class FeaturedImageViewTest extends TestCase
         $this->file("_media/$path");
 
         return FeaturedImageFactory::make(FrontMatter::fromArray(array_merge(
-            ['image.path' => $path],
+            ['image.source' => $path],
             $data,
         )));
     }
