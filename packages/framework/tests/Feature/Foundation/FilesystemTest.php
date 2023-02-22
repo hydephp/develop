@@ -139,14 +139,14 @@ class FilesystemTest extends TestCase
 
     public function test_touch_helper_creates_file_at_given_path()
     {
-        $this->assertTrue(Hyde::touch('foo'));
+        $this->assertTrue(\Hyde\Facades\Filesystem::touch('foo'));
         $this->assertFileExists(Hyde::path('foo'));
         Hyde::unlink('foo');
     }
 
     public function test_touch_helper_creates_multiple_files_at_given_paths()
     {
-        $this->assertTrue(Hyde::touch(['foo', 'bar']));
+        $this->assertTrue(\Hyde\Facades\Filesystem::touch(['foo', 'bar']));
         $this->assertFileExists(Hyde::path('foo'));
         $this->assertFileExists(Hyde::path('bar'));
         Hyde::unlink('foo');

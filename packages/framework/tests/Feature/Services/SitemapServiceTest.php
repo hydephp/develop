@@ -42,7 +42,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_markdown_pages_to_xml()
     {
-        Hyde::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -54,7 +54,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_markdown_posts_to_xml()
     {
-        Hyde::touch('_posts/foo.md');
+        \Hyde\Facades\Filesystem::touch('_posts/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -66,7 +66,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_documentation_pages_to_xml()
     {
-        Hyde::touch('_docs/foo.md');
+        \Hyde\Facades\Filesystem::touch('_docs/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -98,7 +98,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => false]);
         config(['hyde.url' => 'https://example.com']);
-        Hyde::touch('_pages/0-test.blade.php');
+        \Hyde\Facades\Filesystem::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -115,7 +115,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.url' => 'https://example.com']);
-        Hyde::touch('_pages/0-test.blade.php');
+        \Hyde\Facades\Filesystem::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -139,7 +139,7 @@ class SitemapServiceTest extends TestCase
             '_docs/doc.md',
         ];
 
-        Hyde::touch($files);
+        \Hyde\Facades\Filesystem::touch($files);
 
         $service = new SitemapGenerator();
         $service->generate();

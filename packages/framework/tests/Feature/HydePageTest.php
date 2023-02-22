@@ -325,7 +325,7 @@ class HydePageTest extends TestCase
 
     public function test_parse_parses_supplied_slug_into_a_page_model()
     {
-        Hyde::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
 
         $this->assertInstanceOf(MarkdownPage::class, $page = MarkdownPage::parse('foo'));
         $this->assertEquals('foo', $page->identifier);
@@ -335,14 +335,14 @@ class HydePageTest extends TestCase
 
     public function test_files_returns_array_of_source_files()
     {
-        Hyde::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
         $this->assertEquals(['foo'], MarkdownPage::files());
         Hyde::unlink('_pages/foo.md');
     }
 
     public function test_all_returns_collection_of_all_parsed_source_files_from_page_index()
     {
-        Hyde::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
         $this->assertEquals(
             Hyde::pages()->getPages(MarkdownPage::class),
             MarkdownPage::all()
@@ -1107,7 +1107,7 @@ class HydePageTest extends TestCase
             $this->assertEquals(new Route($page), $page->getRoute());
             $this->assertSame($page->getRoute()->getLink(), $page->getLink());
 
-            Hyde::touch($page::sourcePath('foo'));
+            \Hyde\Facades\Filesystem::touch($page::sourcePath('foo'));
             Hyde::boot();
 
             $this->assertArrayHasKey($page->getSourcePath(), Hyde::pages());

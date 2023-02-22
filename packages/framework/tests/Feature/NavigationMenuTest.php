@@ -83,7 +83,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_static_create_method_creates_new_processed_collection()
     {
-        Hyde::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
         $menu = NavigationMenu::create();
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
@@ -95,8 +95,8 @@ class NavigationMenuTest extends TestCase
 
     public function test_created_collection_is_sorted_by_navigation_menu_priority()
     {
-        Hyde::touch('_pages/foo.md');
-        Hyde::touch('_docs/index.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_docs/index.md');
 
         $menu = NavigationMenu::create();
 
@@ -115,7 +115,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_is_sorted_automatically_when_using_navigation_menu_create()
     {
-        Hyde::touch('_pages/foo.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo.md');
 
         $menu = NavigationMenu::create();
 
@@ -203,8 +203,8 @@ class NavigationMenuTest extends TestCase
 
     public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
     {
-        Hyde::touch('_docs/foo.md');
-        Hyde::touch('_docs/index.md');
+        \Hyde\Facades\Filesystem::touch('_docs/foo.md');
+        \Hyde\Facades\Filesystem::touch('_docs/index.md');
 
         $menu = NavigationMenu::create();
 
@@ -223,7 +223,7 @@ class NavigationMenuTest extends TestCase
     public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu()
     {
         $this->directory('_pages/foo');
-        Hyde::touch('_pages/foo/bar.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
         $expected = collect([NavItem::fromRoute(Route::get('index'))]);
@@ -236,7 +236,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'flat']);
         $this->directory('_pages/foo');
-        Hyde::touch('_pages/foo/bar.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
         $expected = collect([
@@ -252,7 +252,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $this->directory('_pages/foo');
-        Hyde::touch('_pages/foo/bar.md');
+        \Hyde\Facades\Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
         $expected = collect([

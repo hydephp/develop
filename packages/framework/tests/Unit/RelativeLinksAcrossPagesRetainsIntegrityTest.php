@@ -30,8 +30,8 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $this->needsDirectory('_pages/nested');
         $this->file('_pages/root.md');
         $this->file('_pages/root1.md');
-        Hyde::touch('_pages/nested/level1.md');
-        Hyde::touch('_pages/nested/level1b.md');
+        \Hyde\Facades\Filesystem::touch('_pages/nested/level1.md');
+        \Hyde\Facades\Filesystem::touch('_pages/nested/level1b.md');
 
         $this->file('_docs/index.md');
         $this->file('_docs/docs.md');

@@ -113,7 +113,7 @@ class DocumentationPageTest extends TestCase
 
     public function test_home_method_returns_docs_index_route_when_it_exists()
     {
-        Hyde::touch('_docs/index.md');
+        \Hyde\Facades\Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('docs/index'), DocumentationPage::home());
         Hyde::unlink('_docs/index.md');
@@ -124,7 +124,7 @@ class DocumentationPageTest extends TestCase
         config(['hyde.output_directories.documentation-page' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
         mkdir(Hyde::path('foo'));
-        Hyde::touch('_docs/index.md');
+        \Hyde\Facades\Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('foo/index'), DocumentationPage::home());
         Hyde::unlink('_docs/index.md');
@@ -137,7 +137,7 @@ class DocumentationPageTest extends TestCase
         (new HydeServiceProvider($this->app))->register();
         mkdir(Hyde::path('foo'));
         mkdir(Hyde::path('foo/bar'));
-        Hyde::touch('_docs/index.md');
+        \Hyde\Facades\Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('foo/bar/index'), DocumentationPage::home());
         Hyde::unlink('_docs/index.md');
