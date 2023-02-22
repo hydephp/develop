@@ -79,12 +79,12 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return self::normalizeLocalImagePath($this->getStringMatter('image'));
         }
 
-        if ($this->getStringMatter('image.url') !== null) {
-            return $this->getStringMatter('image.url');
-        }
+        if ($this->getStringMatter('image.source') !== null) {
+            if (str_starts_with($this->getStringMatter('image.source'), 'http')) {
+                return $this->getStringMatter('image.source');
+            }
 
-        if ($this->getStringMatter('image.path') !== null) {
-            return $this->normalizeLocalImagePath($this->getStringMatter('image.path'));
+            return $this->normalizeLocalImagePath($this->getStringMatter('image.source'));
         }
 
         // Todo, we might want to add a note about which file caused the error.

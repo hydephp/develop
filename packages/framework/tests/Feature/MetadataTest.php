@@ -421,7 +421,7 @@ class MetadataTest extends TestCase
     {
         $page = MarkdownPost::make(matter: [
             'image' => [
-                'path' => 'foo.jpg',
+                'source' => 'foo.jpg',
             ],
         ]);
 
@@ -432,7 +432,7 @@ class MetadataTest extends TestCase
     {
         $page = MarkdownPost::make(matter: [
             'image' => [
-                'url' => 'https://example.com/foo.jpg',
+                'source' => 'https://example.com/foo.jpg',
             ],
         ]);
 

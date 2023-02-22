@@ -50,8 +50,7 @@ class SchemaContractsTest extends TestCase
         ], BlogPostSchema::AUTHOR_SCHEMA);
 
         $this->assertEquals([
-            'path'           => 'string',
-            'url'            => 'string',
+            'source'         => 'string',
             'description'    => 'string',
             'title'          => 'string',
             'copyright'      => 'string',
