@@ -90,13 +90,4 @@ class Hyde extends Facade
     {
         return HydeKernel::getInstance();
     }
-
-    /**
-     * @deprecated
-     * @codeCoverageIgnore
-     */
-    public static function unlink(string|array $path): bool
-    {
-        return \Hyde\Facades\Filesystem::unlink($path);
-    }
 }
