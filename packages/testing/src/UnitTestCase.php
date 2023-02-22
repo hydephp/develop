@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
-class UnitTestCase
+class UnitTestCase extends \PHPUnit\Framework\TestCase
 {
     //
 }
