@@ -13,13 +13,6 @@ use function key;
 /** @deprecated Will be merged into FeaturedImage.php */
 class RemoteFeaturedImage extends FeaturedImage
 {
-    protected function setSource(string $source): string
-    {
-        // Here we can validate the source URL if we want.
-
-        return $source;
-    }
-
     public function getContentLength(): int
     {
         $headers = Http::withHeaders([
