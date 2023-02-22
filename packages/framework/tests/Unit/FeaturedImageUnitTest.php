@@ -7,6 +7,9 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Testing\UnitTestCase;
 
+/**
+ * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
+ */
 class FeaturedImageUnitTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void
