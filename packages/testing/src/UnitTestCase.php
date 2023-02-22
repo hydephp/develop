@@ -11,14 +11,14 @@ abstract class UnitTestCase extends BaseTestCase
 {
     protected static bool $hasSetUpKernel = false;
 
-    protected function needsKernel(): void
+    protected static function needsKernel(): void
     {
         if (! self::$hasSetUpKernel) {
-            $this->setupKernel();
+            self::setupKernel();
         }
     }
 
-    protected function setupKernel(): void
+    protected static function setupKernel(): void
     {
         HydeKernel::setInstance(new HydeKernel());
         self::$hasSetUpKernel = true;
