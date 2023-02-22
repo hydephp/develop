@@ -11,8 +11,7 @@ namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 interface FeaturedImageSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
-        'path'           => 'string',
-        'url'            => 'string', // Takes precedence over path
+        'source'         => 'string', // Filename in _media/ or a remote URL
         'description'    => 'string',
         'title'          => 'string',
         'copyright'      => 'string',

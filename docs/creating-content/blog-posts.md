@@ -186,11 +186,11 @@ will override all the values in the `authors` config entry.
 ### Image
 
 ```yaml
-image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically
-image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`)
+image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL for the built site
+image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) or `//` (protocol-relative)
 image:
-  path: image.jpg
-  url: https://cdn.example.com/image.jpg # Takes precedence over `path`
+  source: image.jpg # Same as above
+  source: https://cdn.example.com/image.jpg # Same as above
   description: "Alt text for image"
   title: "Tooltip title"
   copyright: "Copyright (c) 2022"
@@ -200,7 +200,10 @@ image:
   author: "John Doe"
 ```
 
-When supplying an image with a local image path, the image is expected to be stored in the `_media/` directory.
+When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
+Like all other media files, it will be copied to `_site/media/` when the site is built, so Hyde will resolve links accordingly.
+
+When supplying an image with a full URL, the image source will be used as-is, and no additional processing is done.
 
 The image will be used as the cover image, and any array data is constructed into a dynamic fluent caption,
 and injected into post and page metadata.

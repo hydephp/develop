@@ -6,8 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
@@ -21,8 +19,7 @@ class FeaturedImageFactoryTest extends TestCase
     public function testWithDataFromSchema()
     {
         $array = [
-            'image.path' => 'path',
-            'image.url' => 'url',
+            'image.source' => 'source',
             'image.description' => 'description',
             'image.title' => 'title',
             'image.copyright' => 'copyright',
@@ -33,7 +30,7 @@ class FeaturedImageFactoryTest extends TestCase
         ];
 
         $expected = [
-            'source' => 'url',
+            'source' => 'source',
             'altText' => 'description',
             'titleText' => 'title',
             'authorName' => 'author',
@@ -48,35 +45,14 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSame($expected, $factory->toArray());
     }
 
-    public function testMakeMethodCreatesLocalImageWhenPathIsSet()
+    public function testMakeMethodCreatesImageWhenPathIsSet()
     {
         $image = $this->makeFromArray([
-            'image.path' => 'path',
+            'image.source' => 'foo',
         ]);
 
-        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
-        $this->assertSame('media/path', $image->getSource());
-    }
-
-    public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
-    {
-        $image = $this->makeFromArray([
-            'image.url' => 'url',
-        ]);
-
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('url', $image->getSource());
-    }
-
-    public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
-    {
-        $image = $this->makeFromArray([
-            'image.url' => 'url',
-            'image.path' => 'path',
-        ]);
-
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('url', $image->getSource());
+        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertSame('media/foo', $image->getSource());
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
@@ -93,7 +69,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image' => 'foo',
         ]);
 
-        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('media/foo', $image->getSource());
     }
 
@@ -103,7 +79,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image' => 'https://example.com/foo',
         ]);
 
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('https://example.com/foo', $image->getSource());
     }
 
@@ -113,9 +89,9 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('media/foo', ['image' => 'media/foo']);
         $this->assertSourceIsSame('media/foo', ['image' => '_media/foo']);
 
-        $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'foo']]);
-        $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'media/foo']]);
-        $this->assertSourceIsSame('media/foo', ['image' => ['path' => '_media/foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['source' => 'media/foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['source' => '_media/foo']]);
     }
 
     public function testImagePathsAreNormalizedForCustomizedMediaDirectory()
@@ -126,9 +102,9 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => '_assets/foo']);
 
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => '_assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => '_assets/foo']]);
     }
 
     public function testImagePathsAreNormalizedForCustomizedMediaDirectoryWithoutUnderscore()
@@ -139,9 +115,9 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
 
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
     }
 
     protected function makeFromArray(array $matter): FeaturedImage
