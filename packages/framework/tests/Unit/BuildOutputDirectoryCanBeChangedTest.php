@@ -22,6 +22,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
         Site::setOutputDirectory('_site/build');
 
+        $this->withoutMockingConsoleOutput();
         $this->artisan('build');
 
         $this->assertFileExists(Hyde::path('_site/build/posts/test-post.html'));
