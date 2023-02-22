@@ -42,7 +42,6 @@ class FeaturedImageTest extends TestCase
         ], (new RemoteImage)->getMetadataArray());
     }
 
-
     public function testCanConstructFeaturedImage()
     {
         $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
