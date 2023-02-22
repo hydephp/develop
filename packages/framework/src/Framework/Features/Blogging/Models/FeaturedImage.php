@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\Str;
@@ -98,6 +99,16 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 
     public function getContentLength(): int
     {
+        if ($this->type === self::TYPE_LOCAL) {
+            $storagePath = Hyde::mediaPath($this->source);
+
+            if (! file_exists($storagePath)) {
+                throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
+            }
+
+            return filesize($storagePath);
+        }
+
         return 0;
     }
 

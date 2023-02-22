@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Hyde;
 
 /**
  * A featured image object, for a file stored locally.
@@ -20,14 +18,5 @@ use Hyde\Hyde;
  */
 class LocalFeaturedImage extends FeaturedImage
 {
-    public function getContentLength(): int
-    {
-        $storagePath = Hyde::mediaPath($this->source);
-
-        if (! file_exists($storagePath)) {
-            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
-        }
-
-        return filesize($storagePath);
-    }
+    //
 }
