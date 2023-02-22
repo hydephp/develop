@@ -85,7 +85,6 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         return $this->source;
     }
 
-    /** Called from constructor to allow child classes to validate and transform the value as needed before assignment. */
     protected function setSource(string $source): string
     {
         if ($this->type === self::TYPE_LOCAL) {
