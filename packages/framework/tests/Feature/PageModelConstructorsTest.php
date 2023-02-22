@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -60,7 +61,7 @@ class PageModelConstructorsTest extends TestCase
         $page = DocumentationPage::parse('foo/bar');
         $this->assertEquals('foo', $page->navigationMenuGroup());
 
-        Hyde::unlink('_docs/foo/bar.md');
+        Filesystem::unlink('_docs/foo/bar.md');
         rmdir(Hyde::path('_docs/foo'));
     }
 }

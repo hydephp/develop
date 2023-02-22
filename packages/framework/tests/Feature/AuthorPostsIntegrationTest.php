@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
@@ -58,8 +59,8 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        Hyde::unlink('_posts/test-2dcbb2c-post-with-undefined-author.md');
-        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-undefined-author.html');
+        Filesystem::unlink('_posts/test-2dcbb2c-post-with-undefined-author.md');
+        Filesystem::unlink('_site/posts/test-2dcbb2c-post-with-undefined-author.html');
     }
 
     /**
@@ -96,8 +97,8 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        Hyde::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
-        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
+        Filesystem::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
+        Filesystem::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
     }
 
     /**
@@ -140,7 +141,7 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        Hyde::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
-        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
+        Filesystem::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
+        Filesystem::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
     }
 }

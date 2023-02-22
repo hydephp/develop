@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Facades\Features;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -115,8 +116,8 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('image/jpeg', $item->enclosure->attributes()->type);
         $this->assertEquals('8', $item->enclosure->attributes()->length);
 
-        Hyde::unlink('_posts/rss.md');
-        Hyde::unlink('_media/rss-test.jpg');
+        Filesystem::unlink('_posts/rss.md');
+        Filesystem::unlink('_media/rss-test.jpg');
     }
 
     public function test_get_xml_method_returns_xml_string()

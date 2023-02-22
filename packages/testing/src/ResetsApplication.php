@@ -40,8 +40,8 @@ trait ResetsApplication
 
     protected function withoutDefaultPages(): void
     {
-        Hyde::unlink('_pages/404.blade.php');
-        Hyde::unlink('_pages/index.blade.php');
+        Filesystem::unlink('_pages/404.blade.php');
+        Filesystem::unlink('_pages/index.blade.php');
     }
 
     protected function restoreDefaultPages(): void

@@ -16,7 +16,6 @@ use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 use function array_map;
 use function collect;
-use function copy;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function is_array;
@@ -145,14 +144,6 @@ class Filesystem
         }
 
         return $this->path("vendor/hyde/$package/".unslash($path));
-    }
-
-    /**
-     * Wrapper for the copy function, but using project relative paths.
-     */
-    public function copy(string $from, string $to): bool
-    {
-        return copy($this->path($from), $this->path($to));
     }
 
     /**

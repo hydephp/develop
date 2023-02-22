@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -61,7 +61,7 @@ class MarkdownDocumentTest extends TestCase
         $this->assertInstanceOf(MarkdownDocument::class, $document);
         $this->assertEquals('Hello, world!', $document->markdown()->body());
         $this->assertEquals(FrontMatter::fromArray(['foo' => 'bar']), $document->matter());
-        Hyde::unlink('_pages/foo.md');
+        Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_to_array_method_returns_array_markdown_body_lines()
@@ -76,7 +76,7 @@ class MarkdownDocumentTest extends TestCase
         $markdown = Markdown::fromFile('_pages/foo.md');
         $this->assertInstanceOf(Markdown::class, $markdown);
         $this->assertEquals('Hello, world!', $markdown->body());
-        Hyde::unlink('_pages/foo.md');
+        Filesystem::unlink('_pages/foo.md');
     }
 
     public function end_of_markdown_body_is_trimmed()

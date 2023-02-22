@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -65,7 +66,7 @@ navigation:
 
         $this->artisan('rebuild _pages/foo.md');
         $this->assertStringContainsString('My custom label', file_get_contents(Hyde::path('_site/foo.html')));
-        Hyde::unlink('_site/foo.html');
+        Filesystem::unlink('_site/foo.html');
     }
 
     public function test_navigation_menu_label_can_be_changed_in_blade_matter()
@@ -79,6 +80,6 @@ BLADE
 
         $this->artisan('rebuild _pages/foo.blade.php');
         $this->assertStringContainsString('My custom label', file_get_contents(Hyde::path('_site/foo.html')));
-        Hyde::unlink('_site/foo.html');
+        Filesystem::unlink('_site/foo.html');
     }
 }
