@@ -149,6 +149,8 @@ class Filesystem
 
     /**
      * Wrapper for the copy function, but using project relative paths.
+     *
+     * @deprecated Use the facade Filesystem::copy() method instead.
      */
     public function copy(string $from, string $to): bool
     {
