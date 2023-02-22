@@ -88,9 +88,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     protected function setSource(string $source): string
     {
         if ($this->type === self::TYPE_LOCAL) {
-            // We could also validate the file exists here if we want.
-            // We might also want to just send a warning. But for now,
-            // we'll just trim any leading media path prefixes.
+            // Normalize away any leading media path prefixes.
 
             return Str::after($source, Hyde::getMediaDirectory().'/');
         }
