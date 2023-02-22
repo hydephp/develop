@@ -71,8 +71,8 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected function makeSource(): string
     {
-        $flatValue = $this->getStringMatter('image');
-        $arrayValue = $this->getStringMatter('image.source');
+        $flatValue = $this->getStringMatter('image') ?? $this->getStringMatter('image.source');
+        $arrayValue = $flatValue;
 
         if (is_string($flatValue)) {
             if (str_starts_with($flatValue, 'http')) {
