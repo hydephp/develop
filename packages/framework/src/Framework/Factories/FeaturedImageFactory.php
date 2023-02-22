@@ -72,6 +72,8 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected function makeSource(): string
     {
         $flatValue = $this->getStringMatter('image');
+        $arrayValue = $this->getStringMatter('image.source');
+
         if (is_string($flatValue)) {
             if (str_starts_with($flatValue, 'http')) {
                 return $flatValue;
@@ -80,7 +82,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return self::normalizeLocalImagePath($flatValue);
         }
 
-        $arrayValue = $this->getStringMatter('image.source');
         if ($arrayValue !== null) {
             if (str_starts_with($arrayValue, 'http')) {
                 return $arrayValue;
