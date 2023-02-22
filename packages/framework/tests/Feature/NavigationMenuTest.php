@@ -11,7 +11,6 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -109,8 +108,8 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
-        Hyde::unlink('_pages/foo.md');
-        Hyde::unlink('_docs/index.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/index.md');
     }
 
     public function test_is_sorted_automatically_when_using_navigation_menu_create()
@@ -127,7 +126,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_collection_only_contains_nav_items()
@@ -216,8 +215,8 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
-        Hyde::unlink('_docs/foo.md');
-        Hyde::unlink('_docs/index.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/index.md');
     }
 
     public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu()

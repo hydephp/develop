@@ -93,6 +93,6 @@ class StylesComponentViewTest extends TestCase
     {
         \Hyde\Facades\Filesystem::touch('_media/hyde.css');
         $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
-        Hyde::unlink('_media/hyde.css');
+        \Hyde\Facades\Filesystem::unlink('_media/hyde.css');
     }
 }

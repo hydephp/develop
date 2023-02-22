@@ -330,14 +330,14 @@ class HydePageTest extends TestCase
         $this->assertInstanceOf(MarkdownPage::class, $page = MarkdownPage::parse('foo'));
         $this->assertEquals('foo', $page->identifier);
 
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_files_returns_array_of_source_files()
     {
         \Hyde\Facades\Filesystem::touch('_pages/foo.md');
         $this->assertEquals(['foo'], MarkdownPage::files());
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_all_returns_collection_of_all_parsed_source_files_from_page_index()
@@ -353,7 +353,7 @@ class HydePageTest extends TestCase
             })],
             MarkdownPage::all()->toArray()
         );
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_qualify_basename_properly_expands_basename_for_the_model()
@@ -944,7 +944,7 @@ class HydePageTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->save();
         $this->assertFileExists(Hyde::path('_pages/foo.md'));
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_save_method_converts_front_matter_array_to_yaml_block()
@@ -953,7 +953,7 @@ class HydePageTest extends TestCase
         $this->assertEquals("---\nfoo: bar\n---\n",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_save_method_writes_page_body_to_file()
@@ -962,7 +962,7 @@ class HydePageTest extends TestCase
         $this->assertEquals("foo\n",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_save_method_writes_page_body_to_file_with_front_matter()
@@ -971,7 +971,7 @@ class HydePageTest extends TestCase
         $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar\n",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_new_markdown_pages_can_be_saved()
@@ -982,7 +982,7 @@ class HydePageTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/foo.md'));
         $this->assertSame('', file_get_contents(Hyde::path('_pages/foo.md')));
 
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_existing_parsed_markdown_pages_can_be_saved()
@@ -1001,7 +1001,7 @@ class HydePageTest extends TestCase
 
         $this->assertSame("baz\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_save_method_creates_source_directory_if_it_does_not_exist()
@@ -1036,7 +1036,7 @@ class HydePageTest extends TestCase
         $post = new MarkdownPost('foo');
         $post->save();
         $this->assertFileExists(Hyde::path('_posts/foo.md'));
-        Hyde::unlink('_posts/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/foo.md');
     }
 
     public function test_documentation_pages_can_be_saved()
@@ -1044,7 +1044,7 @@ class HydePageTest extends TestCase
         $page = new DocumentationPage('foo');
         $page->save();
         $this->assertFileExists(Hyde::path('_docs/foo.md'));
-        Hyde::unlink('_docs/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/foo.md');
     }
 
     public function test_get_method_can_access_data_from_page()

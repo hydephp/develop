@@ -58,8 +58,8 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        Hyde::unlink('_posts/test-2dcbb2c-post-with-undefined-author.md');
-        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-undefined-author.html');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-2dcbb2c-post-with-undefined-author.md');
+        \Hyde\Facades\Filesystem::unlink('_site/posts/test-2dcbb2c-post-with-undefined-author.html');
     }
 
     /**
@@ -96,8 +96,8 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        Hyde::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
-        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
+        \Hyde\Facades\Filesystem::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
     }
 
     /**
@@ -140,7 +140,7 @@ class AuthorPostsIntegrationTest extends TestCase
         );
 
         // Remove the test files
-        Hyde::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
-        Hyde::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-2dcbb2c-post-with-defined-author-with-name.md');
+        \Hyde\Facades\Filesystem::unlink('_site/posts/test-2dcbb2c-post-with-defined-author-with-name.html');
     }
 }

@@ -116,7 +116,7 @@ class DocumentationPageTest extends TestCase
         \Hyde\Facades\Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('docs/index'), DocumentationPage::home());
-        Hyde::unlink('_docs/index.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/index.md');
     }
 
     public function test_home_method_finds_docs_index_for_custom_output_directory()
@@ -127,7 +127,7 @@ class DocumentationPageTest extends TestCase
         \Hyde\Facades\Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('foo/index'), DocumentationPage::home());
-        Hyde::unlink('_docs/index.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
 
@@ -140,7 +140,7 @@ class DocumentationPageTest extends TestCase
         \Hyde\Facades\Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('foo/bar/index'), DocumentationPage::home());
-        Hyde::unlink('_docs/index.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
 

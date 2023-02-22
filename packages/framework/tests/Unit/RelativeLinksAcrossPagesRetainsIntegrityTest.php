@@ -42,8 +42,8 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
     protected function tearDown(): void
     {
         File::deleteDirectory(Hyde::path('_pages/nested'));
-        Hyde::unlink('_site/root.html');
-        Hyde::unlink('_site/root1.html');
+        \Hyde\Facades\Filesystem::unlink('_site/root.html');
+        \Hyde\Facades\Filesystem::unlink('_site/root1.html');
         $this->resetSite();
         $this->resetPosts();
 

@@ -38,7 +38,7 @@ class MakePostCommandTest extends TestCase
             file_get_contents(Hyde::path('_posts/test-post.md'))
         );
 
-        Hyde::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
     }
 
     public function test_that_files_are_not_overwritten_when_force_flag_is_not_set()
@@ -61,7 +61,7 @@ class MakePostCommandTest extends TestCase
             file_get_contents(Hyde::path('_posts/test-post.md'))
         );
 
-        Hyde::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
     }
 
     public function test_that_files_are_overwritten_when_force_flag_is_set()
@@ -86,7 +86,7 @@ class MakePostCommandTest extends TestCase
             file_get_contents(Hyde::path('_posts/test-post.md'))
         );
 
-        Hyde::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
     }
 
     public function test_that_title_can_be_specified_in_command_signature()
@@ -100,7 +100,7 @@ class MakePostCommandTest extends TestCase
 
             ->assertExitCode(0);
 
-        Hyde::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
     }
 
     public function test_that_command_can_be_canceled()

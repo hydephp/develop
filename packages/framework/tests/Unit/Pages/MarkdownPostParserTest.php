@@ -33,7 +33,7 @@ This is a post stub used in the automated tests
 
     protected function tearDown(): void
     {
-        Hyde::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
 
         parent::tearDown();
     }

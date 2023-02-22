@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -33,7 +32,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertIsArray($array);
         $this->assertEquals(['test-page'], $array);
 
-        Hyde::unlink('_pages/test-page.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/test-page.md');
     }
 
     public function test_markdown_post_get_helper_returns_markdown_post_array()
@@ -45,7 +44,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertIsArray($array);
         $this->assertEquals(['test-post'], $array);
 
-        Hyde::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
     }
 
     public function test_documentation_page_get_helper_returns_documentation_page_array()
@@ -57,6 +56,6 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertIsArray($array);
         $this->assertEquals(['test-page'], $array);
 
-        Hyde::unlink('_docs/test-page.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/test-page.md');
     }
 }

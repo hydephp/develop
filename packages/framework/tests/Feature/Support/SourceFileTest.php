@@ -117,7 +117,7 @@ class SourceFileTest extends TestCase
             'path' => 'foo/bar.txt',
             'model' => HydePage::class,
         ], SourceFile::make('foo/bar.txt')->toArray());
-        Hyde::unlink('foo/bar.txt');
+        \Hyde\Facades\Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
 

@@ -20,8 +20,8 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
 
-        Hyde::unlink('_posts/test-post.md');
-        Hyde::unlink('_site/posts/test-post.html');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_site/posts/test-post.html');
     }
 
     public function test_blog_post_feed_can_be_rendered_when_post_has_no_front_matter()
@@ -37,8 +37,8 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/feed-test.html'));
 
-        Hyde::unlink('_posts/test-post.md');
-        Hyde::unlink('_pages/feed-test.blade.php');
-        Hyde::unlink('_site/feed-test.html');
+        \Hyde\Facades\Filesystem::unlink('_posts/test-post.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/feed-test.blade.php');
+        \Hyde\Facades\Filesystem::unlink('_site/feed-test.html');
     }
 }

@@ -26,10 +26,10 @@ class DiscoveryServiceTest extends TestCase
 
     public function deleteContentSourceTestFiles()
     {
-        Hyde::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md');
-        Hyde::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md');
-        Hyde::unlink(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md');
-        Hyde::unlink(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php');
+        \Hyde\Facades\Filesystem::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md');
+        \Hyde\Facades\Filesystem::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md');
+        \Hyde\Facades\Filesystem::unlink(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md');
+        \Hyde\Facades\Filesystem::unlink(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php');
     }
 
     public function test_get_file_extension_for_model_files()
@@ -57,21 +57,21 @@ class DiscoveryServiceTest extends TestCase
     {
         \Hyde\Facades\Filesystem::touch('_pages/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getMarkdownPageFiles());
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_get_source_file_list_for_markdown_post()
     {
         \Hyde\Facades\Filesystem::touch('_posts/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getMarkdownPostFiles());
-        Hyde::unlink('_posts/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/foo.md');
     }
 
     public function test_get_source_file_list_for_documentation_page()
     {
         \Hyde\Facades\Filesystem::touch('_docs/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getDocumentationPageFiles());
-        Hyde::unlink('_docs/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/foo.md');
     }
 
     public function test_get_source_file_list_for_markdown_page_model()
@@ -203,9 +203,9 @@ class DiscoveryServiceTest extends TestCase
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Hyde::unlink('_media/test.1');
-        Hyde::unlink('_media/test.2');
-        Hyde::unlink('_media/test.3');
+        \Hyde\Facades\Filesystem::unlink('_media/test.1');
+        \Hyde\Facades\Filesystem::unlink('_media/test.2');
+        \Hyde\Facades\Filesystem::unlink('_media/test.3');
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
@@ -223,9 +223,9 @@ class DiscoveryServiceTest extends TestCase
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Hyde::unlink('_media/test.1');
-        Hyde::unlink('_media/test.2');
-        Hyde::unlink('_media/test.3');
+        \Hyde\Facades\Filesystem::unlink('_media/test.1');
+        \Hyde\Facades\Filesystem::unlink('_media/test.2');
+        \Hyde\Facades\Filesystem::unlink('_media/test.3');
     }
 
     public function test_media_asset_extensions_can_be_added_by_array()
@@ -243,37 +243,37 @@ class DiscoveryServiceTest extends TestCase
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Hyde::unlink('_media/test.1');
-        Hyde::unlink('_media/test.2');
-        Hyde::unlink('_media/test.3');
+        \Hyde\Facades\Filesystem::unlink('_media/test.1');
+        \Hyde\Facades\Filesystem::unlink('_media/test.2');
+        \Hyde\Facades\Filesystem::unlink('_media/test.3');
     }
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
         \Hyde\Facades\Filesystem::touch('_pages/_foo.blade.php');
         $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
-        Hyde::unlink('_pages/_foo.blade.php');
+        \Hyde\Facades\Filesystem::unlink('_pages/_foo.blade.php');
     }
 
     public function test_markdown_page_files_starting_with_underscore_are_ignored()
     {
         \Hyde\Facades\Filesystem::touch('_pages/_foo.md');
         $this->assertEquals([], DiscoveryService::getMarkdownPageFiles());
-        Hyde::unlink('_pages/_foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/_foo.md');
     }
 
     public function test_post_files_starting_with_underscore_are_ignored()
     {
         \Hyde\Facades\Filesystem::touch('_posts/_foo.md');
         $this->assertEquals([], DiscoveryService::getMarkdownPostFiles());
-        Hyde::unlink('_posts/_foo.md');
+        \Hyde\Facades\Filesystem::unlink('_posts/_foo.md');
     }
 
     public function test_documentation_page_files_starting_with_underscore_are_ignored()
     {
         \Hyde\Facades\Filesystem::touch('_docs/_foo.md');
         $this->assertEquals([], DiscoveryService::getDocumentationPageFiles());
-        Hyde::unlink('_docs/_foo.md');
+        \Hyde\Facades\Filesystem::unlink('_docs/_foo.md');
     }
 
     public function test_path_to_identifier_helper_formats_path_to_identifier()
@@ -301,6 +301,6 @@ class DiscoveryServiceTest extends TestCase
 
         $this->assertEquals([$expected], DiscoveryService::getSourceFileListForModel($model));
 
-        Hyde::unlink($path);
+        \Hyde\Facades\Filesystem::unlink($path);
     }
 }

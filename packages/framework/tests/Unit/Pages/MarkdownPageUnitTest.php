@@ -234,6 +234,6 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         $page = new MarkdownPage('foo');
         $this->assertSame($page, $page->save());
         $this->assertFileExists('_pages/foo.md');
-        Hyde::unlink('_pages/foo.md');
+        \Hyde\Facades\Filesystem::unlink('_pages/foo.md');
     }
 }
