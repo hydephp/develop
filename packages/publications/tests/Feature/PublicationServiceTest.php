@@ -179,7 +179,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection(),
-            PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
+            PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -193,7 +193,7 @@ class PublicationServiceTest extends TestCase
             new Collection([
                 '_media/test-publication/image.png',
             ]),
-            PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
+            PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
 
         File::deleteDirectory(Hyde::path('_media/test-publication'));
@@ -210,7 +210,7 @@ class PublicationServiceTest extends TestCase
             new Collection([
                 '_assets/test-publication/image.png',
             ]),
-            PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
+            PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
 
         File::deleteDirectory(Hyde::path('_assets/test-publication'));

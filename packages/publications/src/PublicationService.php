@@ -54,7 +54,7 @@ class PublicationService
     /**
      * Return all media items for a given publication type.
      */
-    public static function getMediaForPubType(PublicationType $pubType): Collection
+    public static function getMediaForType(PublicationType $pubType): Collection
     {
         return Collection::make(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
             return Hyde::pathToRelative($file);
