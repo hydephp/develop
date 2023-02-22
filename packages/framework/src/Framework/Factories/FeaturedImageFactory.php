@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
@@ -32,13 +30,13 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         private readonly FrontMatter $matter,
     ) {
         $this->source = $this->makeSource();
-        $this->altText = $this->makeAltText();
-        $this->titleText = $this->makeTitleText();
-        $this->authorName = $this->makeAuthorName();
-        $this->authorUrl = $this->makeAuthorUrl();
-        $this->copyrightText = $this->makeCopyrightText();
-        $this->licenseName = $this->makeLicenseName();
-        $this->licenseUrl = $this->makeLicenseUrl();
+        $this->altText = $this->getStringMatter('image.description');
+        $this->titleText = $this->getStringMatter('image.title');
+        $this->authorName = $this->getStringMatter('image.author');
+        $this->authorUrl = $this->getStringMatter('image.attributionUrl');
+        $this->copyrightText = $this->getStringMatter('image.copyright');
+        $this->licenseName = $this->getStringMatter('image.license');
+        $this->licenseUrl = $this->getStringMatter('image.licenseUrl');
     }
 
     /**
@@ -62,69 +60,24 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (self::isRemote($matter)) {
-            return new RemoteFeaturedImage(...$data);
-        }
-
-        return new LocalFeaturedImage(...$data);
+        return new FeaturedImage(...$data);
     }
 
     protected function makeSource(): string
     {
-        if (is_string($this->getStringMatter('image'))) {
-            if (str_starts_with($this->getStringMatter('image'), 'http')) {
-                return $this->getStringMatter('image');
-            }
+        $value = $this->getStringMatter('image') ?? $this->getStringMatter('image.source');
 
-            return self::normalizeLocalImagePath($this->getStringMatter('image'));
+        if (empty($value)) {
+            // Todo, we might want to add a note about which file caused the error.
+            // We could also check for these before calling the factory, and just ignore the image if it's not valid.
+            throw new RuntimeException('No featured image source was found');
         }
 
-        if ($this->getStringMatter('image.url') !== null) {
-            return $this->getStringMatter('image.url');
+        if (FeaturedImage::isRemote($value)) {
+            return $value;
         }
 
-        if ($this->getStringMatter('image.path') !== null) {
-            return $this->normalizeLocalImagePath($this->getStringMatter('image.path'));
-        }
-
-        // Todo, we might want to add a note about which file caused the error.
-        // We could also check for these before calling the factory, and just ignore the image if it's not valid.
-        throw new RuntimeException('No featured image source was found');
-    }
-
-    protected function makeAltText(): ?string
-    {
-        return $this->getStringMatter('image.description');
-    }
-
-    protected function makeTitleText(): ?string
-    {
-        return $this->getStringMatter('image.title');
-    }
-
-    protected function makeAuthorName(): ?string
-    {
-        return $this->getStringMatter('image.author');
-    }
-
-    protected function makeAuthorUrl(): ?string
-    {
-        return $this->getStringMatter('image.attributionUrl');
-    }
-
-    protected function makeCopyrightText(): ?string
-    {
-        return $this->getStringMatter('image.copyright');
-    }
-
-    protected function makeLicenseName(): ?string
-    {
-        return $this->getStringMatter('image.license');
-    }
-
-    protected function makeLicenseUrl(): ?string
-    {
-        return $this->getStringMatter('image.licenseUrl');
+        return self::normalizeLocalImagePath($value);
     }
 
     protected static function normalizeLocalImagePath(string $path): string
@@ -134,16 +87,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $path = Str::after($path, Hyde::getMediaDirectory());
         $path = Str::after($path, Hyde::getMediaOutputDirectory());
 
-        return unslash($path);
-    }
-
-    protected static function isRemote(FrontMatter $matter): bool
-    {
-        if (is_string($matter->get('image')) && str_starts_with($matter->get('image'), 'http')) {
-            return true;
-        }
-
-        return $matter->get('image.url') !== null;
+        return str_starts_with($path, '//') ? $path : unslash($path);
     }
 
     protected function getStringMatter(string $key): ?string
