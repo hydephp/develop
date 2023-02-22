@@ -5,7 +5,7 @@ category: information
 author: Mr Hyde
 date: 2022-06-08 18:34
 image: 
-  path: cover.png
+  source: cover.png
   author: Pixabay
   credit: https://pixabay.com/illustrations/banner-background-bright-design-1989514/
 ---
