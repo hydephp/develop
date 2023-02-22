@@ -139,24 +139,24 @@ class FilesystemTest extends TestCase
 
     public function test_touch_helper_creates_file_at_given_path()
     {
-        $this->assertTrue(\Hyde\Facades\Filesystem::touch('foo'));
+        $this->assertTrue($this->filesystem->touch('foo'));
         $this->assertFileExists(Hyde::path('foo'));
-        \Hyde\Facades\Filesystem::unlink('foo');
+        $this->filesystem->unlink('foo');
     }
 
     public function test_touch_helper_creates_multiple_files_at_given_paths()
     {
-        $this->assertTrue(\Hyde\Facades\Filesystem::touch(['foo', 'bar']));
+        $this->assertTrue($this->filesystem->touch(['foo', 'bar']));
         $this->assertFileExists(Hyde::path('foo'));
         $this->assertFileExists(Hyde::path('bar'));
-        \Hyde\Facades\Filesystem::unlink('foo');
-        \Hyde\Facades\Filesystem::unlink('bar');
+        $this->filesystem->unlink('foo');
+        $this->filesystem->unlink('bar');
     }
 
     public function test_unlink_helper_deletes_file_at_given_path()
     {
         touch(Hyde::path('foo'));
-        $this->assertTrue(\Hyde\Facades\Filesystem::unlink('foo'));
+        $this->assertTrue($this->filesystem->unlink('foo'));
         $this->assertFileDoesNotExist(Hyde::path('foo'));
     }
 
@@ -164,7 +164,7 @@ class FilesystemTest extends TestCase
     {
         touch(Hyde::path('foo'));
         touch(Hyde::path('bar'));
-        $this->assertTrue(\Hyde\Facades\Filesystem::unlink(['foo', 'bar']));
+        $this->assertTrue($this->filesystem->unlink(['foo', 'bar']));
         $this->assertFileDoesNotExist(Hyde::path('foo'));
         $this->assertFileDoesNotExist(Hyde::path('bar'));
     }
