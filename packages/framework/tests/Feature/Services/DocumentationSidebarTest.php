@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -56,7 +57,7 @@ class DocumentationSidebarTest extends TestCase
     public function test_index_page_is_removed_from_sidebar()
     {
         $this->createTestFiles();
-        Hyde::touch('_docs/index.md');
+        Filesystem::touch('_docs/index.md');
 
         $sidebar = DocumentationSidebar::create();
         $this->assertCount(5, $sidebar->items);
@@ -74,9 +75,9 @@ class DocumentationSidebarTest extends TestCase
     public function test_sidebar_is_ordered_alphabetically_when_no_order_is_set_in_config()
     {
         Config::set('docs.sidebar_order', []);
-        Hyde::touch('_docs/a.md');
-        Hyde::touch('_docs/b.md');
-        Hyde::touch('_docs/c.md');
+        Filesystem::touch('_docs/a.md');
+        Filesystem::touch('_docs/b.md');
+        Filesystem::touch('_docs/c.md');
 
         $this->assertEquals(
             collect([
@@ -95,9 +96,9 @@ class DocumentationSidebarTest extends TestCase
             'b',
             'a',
         ]);
-        Hyde::touch('_docs/a.md');
-        Hyde::touch('_docs/b.md');
-        Hyde::touch('_docs/c.md');
+        Filesystem::touch('_docs/a.md');
+        Filesystem::touch('_docs/b.md');
+        Filesystem::touch('_docs/c.md');
 
         $this->assertEquals(
             collect([
@@ -132,8 +133,8 @@ class DocumentationSidebarTest extends TestCase
             'third',
             'second',
         ]);
-        Hyde::touch('_docs/first.md');
-        Hyde::touch('_docs/second.md');
+        Filesystem::touch('_docs/first.md');
+        Filesystem::touch('_docs/second.md');
         file_put_contents(Hyde::path('_docs/third.md'),
             (new ConvertsArrayToFrontMatter)->execute(['navigation.priority' => 250 + 300])
         );
@@ -270,8 +271,8 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_does_not_include_docs_index()
     {
-        Hyde::touch('_docs/foo.md');
-        Hyde::touch('_docs/index.md');
+        Filesystem::touch('_docs/foo.md');
+        Filesystem::touch('_docs/index.md');
 
         $this->assertEquals(
             collect([NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999)]),
@@ -347,7 +348,7 @@ class DocumentationSidebarTest extends TestCase
     protected function createTestFiles(int $count = 5): void
     {
         for ($i = 0; $i < $count; $i++) {
-            Hyde::touch('_docs/test-'.$i.'.md');
+            Filesystem::touch('_docs/test-'.$i.'.md');
         }
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
@@ -39,7 +40,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
 
     protected function tearDown(): void
     {
-        Hyde::unlink('_site/posts/test-post.html');
+        Filesystem::unlink('_site/posts/test-post.html');
 
         parent::tearDown();
     }

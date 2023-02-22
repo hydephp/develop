@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Services\BuildService;
 use Illuminate\Console\OutputStyle;
@@ -30,8 +31,8 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $this->needsDirectory('_pages/nested');
         $this->file('_pages/root.md');
         $this->file('_pages/root1.md');
-        Hyde::touch('_pages/nested/level1.md');
-        Hyde::touch('_pages/nested/level1b.md');
+        Filesystem::touch('_pages/nested/level1.md');
+        Filesystem::touch('_pages/nested/level1b.md');
 
         $this->file('_docs/index.md');
         $this->file('_docs/docs.md');
@@ -42,8 +43,8 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
     protected function tearDown(): void
     {
         File::deleteDirectory(Hyde::path('_pages/nested'));
-        Hyde::unlink('_site/root.html');
-        Hyde::unlink('_site/root1.html');
+        Filesystem::unlink('_site/root.html');
+        Filesystem::unlink('_site/root1.html');
         $this->resetSite();
         $this->resetPosts();
 

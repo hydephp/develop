@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -42,38 +43,38 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_markdown_pages_to_xml()
     {
-        Hyde::touch('_pages/foo.md');
+        Filesystem::touch('_pages/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->getXmlElement()->url);
 
-        Hyde::unlink('_pages/foo.md');
+        Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_generate_adds_markdown_posts_to_xml()
     {
-        Hyde::touch('_posts/foo.md');
+        Filesystem::touch('_posts/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->getXmlElement()->url);
 
-        Hyde::unlink('_posts/foo.md');
+        Filesystem::unlink('_posts/foo.md');
     }
 
     public function test_generate_adds_documentation_pages_to_xml()
     {
-        Hyde::touch('_docs/foo.md');
+        Filesystem::touch('_docs/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->getXmlElement()->url);
 
-        Hyde::unlink('_docs/foo.md');
+        Filesystem::unlink('_docs/foo.md');
     }
 
     public function test_get_xml_returns_xml_string()
@@ -98,7 +99,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => false]);
         config(['hyde.url' => 'https://example.com']);
-        Hyde::touch('_pages/0-test.blade.php');
+        Filesystem::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -108,14 +109,14 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('daily', $url->changefreq);
         $this->assertTrue(isset($url->lastmod));
 
-        Hyde::unlink('_pages/0-test.blade.php');
+        Filesystem::unlink('_pages/0-test.blade.php');
     }
 
     public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.url' => 'https://example.com']);
-        Hyde::touch('_pages/0-test.blade.php');
+        Filesystem::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -123,13 +124,13 @@ class SitemapServiceTest extends TestCase
         $url = $service->getXmlElement()->url[0];
         $this->assertEquals('https://example.com/0-test', $url->loc);
 
-        Hyde::unlink('_pages/0-test.blade.php');
+        Filesystem::unlink('_pages/0-test.blade.php');
     }
 
     public function test_all_route_types_are_discovered()
     {
         config(['hyde.url' => 'foo']);
-        Hyde::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
+        Filesystem::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
 
         $files = [
             '_pages/blade.blade.php',
@@ -139,7 +140,7 @@ class SitemapServiceTest extends TestCase
             '_docs/doc.md',
         ];
 
-        Hyde::touch($files);
+        Filesystem::touch($files);
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -152,7 +153,7 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('foo/posts/post.html', $service->getXmlElement()->url[3]->loc);
         $this->assertEquals('foo/docs/doc.html', $service->getXmlElement()->url[4]->loc);
 
-        Hyde::unlink($files);
+        Filesystem::unlink($files);
 
         copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
         copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));

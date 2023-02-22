@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Support;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Testing\TestCase;
@@ -95,7 +96,7 @@ class ProjectFileTest extends TestCase
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
         ], ProjectFileTestClass::make('foo/bar.txt')->toArray());
-        Hyde::unlink('foo/bar.txt');
+        Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
 }

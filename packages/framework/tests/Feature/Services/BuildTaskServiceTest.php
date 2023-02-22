@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Exception;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
@@ -184,7 +185,7 @@ class BuildTaskServiceTest extends TestCase
     public function test_find_tasks_in_app_directory_method_discovers_tasks_in_app_directory()
     {
         File::makeDirectory(Hyde::path('app/Actions'));
-        Hyde::touch('app/Actions/FooBuildTask.php');
+        Filesystem::touch('app/Actions/FooBuildTask.php');
 
         $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getPostBuildTasks());
         File::deleteDirectory(Hyde::path('app/Actions'));

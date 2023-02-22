@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -23,7 +24,7 @@ class BuildRssFeedCommandTest extends TestCase
         $this->artisan('build:rss')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/feed.xml'));
-        Hyde::unlink('_site/feed.xml');
+        Filesystem::unlink('_site/feed.xml');
     }
 
     public function test_rss_filename_can_be_changed()
@@ -40,6 +41,6 @@ class BuildRssFeedCommandTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
         $this->assertFileExists(Hyde::path('_site/blog.xml'));
-        Hyde::unlink('_site/blog.xml');
+        Filesystem::unlink('_site/blog.xml');
     }
 }
