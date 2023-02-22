@@ -22,7 +22,7 @@ class FeaturedImageFactoryTest extends TestCase
     {
         $array = [
             'image.path' => 'path',
-            'image.url' => 'url',
+            'image.source' => 'source',
             'image.description' => 'description',
             'image.title' => 'title',
             'image.copyright' => 'copyright',
@@ -33,7 +33,7 @@ class FeaturedImageFactoryTest extends TestCase
         ];
 
         $expected = [
-            'source' => 'url',
+            'source' => 'source',
             'altText' => 'description',
             'titleText' => 'title',
             'authorName' => 'author',
@@ -61,22 +61,22 @@ class FeaturedImageFactoryTest extends TestCase
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
     {
         $image = $this->makeFromArray([
-            'image.url' => 'url',
+            'image.source' => 'source',
         ]);
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('url', $image->getSource());
+        $this->assertSame('source', $image->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
     {
         $image = $this->makeFromArray([
-            'image.url' => 'url',
+            'image.source' => 'source',
             'image.path' => 'path',
         ]);
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('url', $image->getSource());
+        $this->assertSame('source', $image->getSource());
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
