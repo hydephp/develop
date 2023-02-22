@@ -6,8 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
@@ -47,13 +45,13 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSame($expected, $factory->toArray());
     }
 
-    public function testMakeMethodCreatesLocalImageWhenPathIsSet()
+    public function testMakeMethodCreatesImageWhenPathIsSet()
     {
         $image = $this->makeFromArray([
             'image.source' => 'foo',
         ]);
 
-        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('media/foo', $image->getSource());
     }
 
@@ -71,7 +69,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image' => 'foo',
         ]);
 
-        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('media/foo', $image->getSource());
     }
 
@@ -81,7 +79,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image' => 'https://example.com/foo',
         ]);
 
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('https://example.com/foo', $image->getSource());
     }
 
