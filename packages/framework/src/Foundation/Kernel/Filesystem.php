@@ -149,6 +149,8 @@ class Filesystem
 
     /**
      * Wrapper for the copy function, but using project relative paths.
+     *
+     * @deprecated
      */
     public function copy(string $from, string $to): bool
     {
@@ -157,6 +159,8 @@ class Filesystem
 
     /**
      * Touch one or more files in the project's directory.
+     *
+     * @deprecated
      */
     public function touch(string|array $path): bool
     {
@@ -173,6 +177,8 @@ class Filesystem
 
     /**
      * Unlink one or more files in the project's directory.
+     *
+     * @deprecated
      */
     public function unlink(string|array $path): bool
     {
