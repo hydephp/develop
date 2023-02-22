@@ -77,7 +77,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         protected readonly ?string $licenseName = null,
         protected readonly ?string $licenseUrl = null
     ) {
-        $this->type = str_starts_with($source, 'http') ? self::TYPE_REMOTE : self::TYPE_LOCAL;
+        $this->type = $this->isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
     }
 
@@ -197,5 +197,10 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         // Here we could throw an exception if we want to be strict about this, or add a warning.
 
         return 0;
+    }
+
+    protected function isRemote(string $source): bool
+    {
+        return str_starts_with($source, 'http');
     }
 }
