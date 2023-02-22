@@ -119,6 +119,60 @@ class PublicationServiceTest extends TestCase
         );
     }
 
+    public function testGetPublicationsForPubTypeSortsPublicationsByNewSortField()
+    {
+        (new PublicationType('test-publication'))->save();
+
+        $this->markdown('test-publication/one.md', matter: ['readCount' => 1]);
+        $this->markdown('test-publication/two.md', matter: ['readCount' => 2]);
+        $this->markdown('test-publication/three.md', matter: ['readCount' => 3]);
+
+        $this->assertEquals(
+            new Collection([
+                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationService::parsePublicationFile('test-publication/two.md'),
+                PublicationService::parsePublicationFile('test-publication/three.md'),
+            ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), 'readCount')
+        );
+    }
+
+    public function testGetPublicationsForPubTypeSortsPublicationsByNewSortFieldDescending()
+    {
+        (new PublicationType('test-publication', sortField: 'order'))->save();
+
+        $this->markdown('test-publication/one.md', matter: ['readCount' => 1]);
+        $this->markdown('test-publication/two.md', matter: ['readCount' => 2]);
+        $this->markdown('test-publication/three.md', matter: ['readCount' => 3]);
+
+        $this->assertEquals(
+            new Collection([
+                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationService::parsePublicationFile('test-publication/two.md'),
+                PublicationService::parsePublicationFile('test-publication/one.md'),
+            ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), 'readCount', false)
+        );
+    }
+
+    public function testGetPublicationsForPubTypeWithInvalidSortField()
+    {
+        (new PublicationType('test-publication', sortField: 'order'))->save();
+
+        $this->markdown('test-publication/one.md', matter: ['readCount' => 1]);
+        $this->markdown('test-publication/two.md', matter: ['readCount' => 2]);
+        $this->markdown('test-publication/three.md', matter: ['readCount' => 3]);
+
+        $this->assertEquals(
+            new Collection([
+                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationService::parsePublicationFile('test-publication/two.md'),
+            ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), 'invalid')
+        );
+    }
+
     public function testGetMediaForPubType()
     {
         $this->createPublicationType();
