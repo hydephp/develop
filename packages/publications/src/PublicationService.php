@@ -36,7 +36,7 @@ class PublicationService
     /**
      * Return all publications for a given publication type.
      */
-    public static function getPublicationsForPubType(PublicationType $pubType): Collection
+    public static function getPublicationsForPubType(PublicationType $pubType, ?string $sortField = null, ?string $sortDirection = null): Collection
     {
         return Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
             return static::parsePublicationFile(Hyde::pathToRelative($file));
