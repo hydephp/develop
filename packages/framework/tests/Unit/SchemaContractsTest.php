@@ -23,8 +23,8 @@ class SchemaContractsTest extends TestCase
     {
         $this->assertSame([
             'title'         => 'string',
-            'navigation'    => 'array<navigation>',
             'canonicalUrl'  => 'string(url)',
+            'navigation'    => 'array<navigation>',
         ], PageSchema::PAGE_SCHEMA);
 
         $this->assertSame([
