@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
@@ -30,8 +31,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $this->file('_docs/index.md');
         $this->file('_docs/docs.md');
 
-        $this->mockConsoleOutput = false;
-        $this->artisan('make:post -n');
+        (new CreatesNewMarkdownPostFile('My New Post', null, null, null))->save();
     }
 
     protected function tearDown(): void
