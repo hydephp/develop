@@ -9,6 +9,7 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
+ * @see \Hyde\Framework\Testing\Feature\FeaturedImageTest
  */
 class FeaturedImageUnitTest extends UnitTestCase
 {
