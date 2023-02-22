@@ -10,14 +10,12 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use BadMethodCallException;
 use Stringable;
 use function array_flip;
 use function array_key_exists;
 use function file_exists;
 use function filesize;
 use function key;
-use function property_exists;
 use function sprintf;
 
 /**
