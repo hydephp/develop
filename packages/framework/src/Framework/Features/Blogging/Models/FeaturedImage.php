@@ -136,26 +136,74 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         return $metadata;
     }
 
-    /** @deprecated Original behaviour can be refactored to use protected ->get/->has forwarding */
-    public function __call(string $name, array $arguments): null|bool|string
+    public function getAltText(): ?string
     {
-        if (Str::startsWith($name, 'get')) {
-            $property = Str::camel(Str::after($name, 'get'));
+        return $this->altText;
+    }
 
-            if (property_exists($this, $property)) {
-                return $this->$property ?? null;
-            }
-        }
+    public function getTitleText(): ?string
+    {
+        return $this->titleText;
+    }
 
-        if (Str::startsWith($name, 'has')) {
-            $property = Str::camel(Str::after($name, 'has'));
+    public function getAuthorName(): ?string
+    {
+        return $this->authorName;
+    }
 
-            if (property_exists($this, $property)) {
-                return $this->$property !== null;
-            }
-        }
+    public function getAuthorUrl(): ?string
+    {
+        return $this->authorUrl;
+    }
 
-        throw new BadMethodCallException(sprintf("Method '$name' does not exist on %s", static::class));
+    public function getCopyrightText(): ?string
+    {
+        return $this->copyrightText;
+    }
+
+    public function getLicenseName(): ?string
+    {
+        return $this->licenseName;
+    }
+
+    public function getLicenseUrl(): ?string
+    {
+        return $this->licenseUrl;
+    }
+
+    public function hasAltText(): bool
+    {
+        return $this->altText !== null;
+    }
+
+    public function hasTitleText(): bool
+    {
+        return $this->titleText !== null;
+    }
+
+    public function hasAuthorName(): bool
+    {
+        return $this->authorName !== null;
+    }
+
+    public function hasAuthorUrl(): bool
+    {
+        return $this->authorUrl !== null;
+    }
+
+    public function hasCopyrightText(): bool
+    {
+        return $this->copyrightText !== null;
+    }
+
+    public function hasLicenseName(): bool
+    {
+        return $this->licenseName !== null;
+    }
+
+    public function hasLicenseUrl(): bool
+    {
+        return $this->licenseUrl !== null;
     }
 
     protected function getContentLengthForLocalImage(): int
