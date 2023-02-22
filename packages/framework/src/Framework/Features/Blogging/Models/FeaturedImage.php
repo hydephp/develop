@@ -46,10 +46,7 @@ use function sprintf;
  */
 abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 {
-    /** @deprecated Can be implicitly determined by source prefix */
     protected final const TYPE_LOCAL = 'local';
-
-    /** @deprecated Can be implicitly determined by source prefix */
     protected final const TYPE_REMOTE = 'remote';
 
     /**
