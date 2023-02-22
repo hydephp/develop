@@ -7,19 +7,20 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- * @covers \Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage
- * @covers \Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage
  */
 class FeaturedImageTest extends TestCase
 {
+    public function testCanConstruct()
+    {
+        $this->assertInstanceOf(FeaturedImage::class, new FeaturedImage('foo'));
+    }
+
     public function testGetAltText()
     {
         $this->assertNull((new NullImage)->getAltText());
@@ -104,19 +105,35 @@ class FeaturedImageTest extends TestCase
         $this->assertTrue((new FilledImage)->hasLicenseUrl());
     }
 
+    public function testGetType()
+    {
+        $this->assertEquals('local', (new LocalImage)->getType());
+        $this->assertEquals('remote', (new RemoteImage)->getType());
+    }
+
     public function testGetMetadataArray()
     {
         $this->assertSame([
-            'url' => 'source',
-            'contentUrl' => 'source',
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
         ], (new NullImage)->getMetadataArray());
 
         $this->assertSame([
             'text' => 'alt',
             'name' => 'title',
-            'url' => 'source',
-            'contentUrl' => 'source',
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
         ], (new FilledImage)->getMetadataArray());
+
+        $this->assertSame([
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
+        ], (new LocalImage)->getMetadataArray());
+
+        $this->assertSame([
+            'url' => 'https://example.com',
+            'contentUrl' => 'https://example.com',
+        ], (new RemoteImage)->getMetadataArray());
     }
 
     public function testGetContentLength()
@@ -125,10 +142,9 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals(0, (new FilledImage)->getContentLength());
     }
 
-    public function testCanConstructLocalFeaturedImage()
+    public function testCanConstructFeaturedImage()
     {
-        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('media/foo', $image->getSource());
@@ -138,7 +154,7 @@ class FeaturedImageTest extends TestCase
     {
         $this->file('_media/foo', 'image');
 
-        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
+        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(5, $image->getContentLength());
     }
 
@@ -147,32 +163,24 @@ class FeaturedImageTest extends TestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Image at _media/foo does not exist');
 
-        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
+        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
     }
 
-    public function testCanConstructRemoteFeaturedImage()
+    public function testCanConstructFeaturedImageWithRemoteSource()
     {
-        $image = new RemoteFeaturedImage('http/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $image = new FeaturedImage('http/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('http/foo', $image->getSource());
     }
 
-    public function testCanConstructRemoteFeaturedImageWithHttps()
+    public function testCanConstructFeaturedImageWithHttps()
     {
-        $image = new RemoteFeaturedImage('https/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $image = new FeaturedImage('https/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('https/foo', $image->getSource());
-    }
-
-    public function testCanConstructRemoteFeaturedImageWithInvalidSource()
-    {
-        $image = new RemoteFeaturedImage('foo', ...$this->defaultArguments());
-        $this->assertEquals('foo', $image->getSource());
     }
 
     public function testFeaturedImageGetContentLengthWithRemoteSource()
@@ -183,7 +191,7 @@ class FeaturedImageTest extends TestCase
             ]);
         });
 
-        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(16, $image->getContentLength());
     }
 
@@ -193,7 +201,7 @@ class FeaturedImageTest extends TestCase
             return Http::response(null, 404);
         });
 
-        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
     }
 
@@ -205,21 +213,21 @@ class FeaturedImageTest extends TestCase
             ]);
         });
 
-        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
     }
 
     public function testGetSourceMethod()
     {
-        $this->assertEquals('media/foo', (new LocalFeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
+        $this->assertEquals('media/foo', (new FeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
 
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.path' => 'foo']))->getSource());
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.path' => 'media/foo']))->getSource());
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.path' => '_media/foo']))->getSource());
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'media/foo']))->getSource());
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '_media/foo']))->getSource());
 
-        $this->assertEquals('foo', FeaturedImageFactory::make(new FrontMatter(['image.url' => 'foo']))->getSource());
-        $this->assertEquals('//foo', FeaturedImageFactory::make(new FrontMatter(['image.url' => '//foo']))->getSource());
-        $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image.url' => 'http']))->getSource());
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
+        $this->assertEquals('//foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '//foo']))->getSource());
+        $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'http']))->getSource());
 
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image' => 'foo']))->getSource());
         $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image' => 'http']))->getSource());
@@ -231,16 +239,37 @@ class FeaturedImageTest extends TestCase
     }
 }
 
+class LocalImage extends FeaturedImage
+{
+    public function __construct()
+    {
+        parent::__construct('source');
+    }
+
+    public function getContentLength(): int
+    {
+        return 0;
+    }
+}
+
+class RemoteImage extends FeaturedImage
+{
+    public function __construct()
+    {
+        parent::__construct('https://example.com');
+    }
+
+    public function getContentLength(): int
+    {
+        return 0;
+    }
+}
+
 class NullImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct('source', null, null, null, null, null, null, null);
-    }
-
-    public function getSource(): string
-    {
-        return 'source';
+        parent::__construct('source');
     }
 
     public function getContentLength(): int
@@ -254,11 +283,6 @@ class FilledImage extends FeaturedImage
     public function __construct()
     {
         parent::__construct('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
-    }
-
-    public function getSource(): string
-    {
-        return 'source';
     }
 
     public function getContentLength(): int
