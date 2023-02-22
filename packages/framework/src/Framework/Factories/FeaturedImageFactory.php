@@ -82,14 +82,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return self::normalizeLocalImagePath($flatValue);
         }
 
-        if ($arrayValue !== null) {
-            if (str_starts_with($arrayValue, 'http')) {
-                return $arrayValue;
-            }
-
-            return $this->normalizeLocalImagePath($arrayValue);
-        }
-
         // Todo, we might want to add a note about which file caused the error.
         // We could also check for these before calling the factory, and just ignore the image if it's not valid.
         throw new RuntimeException('No featured image source was found');
