@@ -150,6 +150,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         return $metadata;
     }
 
+    /** @deprecated Original behaviour can be refactored to use protected ->get/->has forwarding */
     public function __call(string $name, array $arguments): null|bool|string
     {
         if (Str::startsWith($name, 'get')) {
