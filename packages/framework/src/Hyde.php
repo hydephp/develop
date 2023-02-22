@@ -97,7 +97,7 @@ class Hyde extends Facade
      */
     public static function touch(string|array $path): bool
     {
-        return Facades\Filesystem::touch($path);
+        return \Hyde\Facades\Filesystem::touch($path);
     }
 
     /**
@@ -106,6 +106,6 @@ class Hyde extends Facade
      */
     public static function unlink(string|array $path): bool
     {
-        return Facades\Filesystem::unlink($path);
+        return \Hyde\Facades\Filesystem::unlink($path);
     }
 }
