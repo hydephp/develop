@@ -150,11 +150,6 @@ class LocalImage extends FeaturedImage
     {
         parent::__construct('source');
     }
-
-    public function getContentLength(): int
-    {
-        return 0;
-    }
 }
 
 class RemoteImage extends FeaturedImage
@@ -162,11 +157,6 @@ class RemoteImage extends FeaturedImage
     public function __construct()
     {
         parent::__construct('https://example.com');
-    }
-
-    public function getContentLength(): int
-    {
-        return 0;
     }
 }
 
