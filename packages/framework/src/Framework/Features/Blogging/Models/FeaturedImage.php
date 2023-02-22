@@ -89,7 +89,6 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     {
         if ($this->type === self::TYPE_LOCAL) {
             // Normalize away any leading media path prefixes.
-
             return Str::after($source, Hyde::getMediaDirectory().'/');
         }
 
