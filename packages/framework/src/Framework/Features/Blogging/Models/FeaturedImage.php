@@ -14,7 +14,11 @@ use BadMethodCallException;
 use Stringable;
 use function array_flip;
 use function array_key_exists;
+use function file_exists;
+use function filesize;
 use function key;
+use function property_exists;
+use function sprintf;
 
 /**
  * Object representation of a blog post's featured image.
