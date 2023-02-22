@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Http;
  */
 class FeaturedImageTest extends TestCase
 {
+    public function testCanConstruct()
+    {
+        $this->assertInstanceOf(FeaturedImage::class, new FeaturedImage('foo'));
+    }
+
     public function testGetAltText()
     {
         $this->assertNull((new NullImage)->getAltText());
