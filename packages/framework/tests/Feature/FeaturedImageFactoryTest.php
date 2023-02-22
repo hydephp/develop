@@ -22,7 +22,6 @@ class FeaturedImageFactoryTest extends TestCase
     {
         $array = [
             'image.source' => 'source',
-            'image.source' => 'source',
             'image.description' => 'description',
             'image.title' => 'title',
             'image.copyright' => 'copyright',
@@ -56,27 +55,6 @@ class FeaturedImageFactoryTest extends TestCase
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertSame('media/source', $image->getSource());
-    }
-
-    public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
-    {
-        $image = $this->makeFromArray([
-            'image.source' => 'source',
-        ]);
-
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('source', $image->getSource());
-    }
-
-    public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
-    {
-        $image = $this->makeFromArray([
-            'image.source' => 'source',
-            'image.source' => 'source',
-        ]);
-
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('source', $image->getSource());
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
