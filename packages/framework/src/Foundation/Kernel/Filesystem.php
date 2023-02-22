@@ -16,7 +16,6 @@ use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 use function array_map;
 use function collect;
-use function copy;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function is_array;
