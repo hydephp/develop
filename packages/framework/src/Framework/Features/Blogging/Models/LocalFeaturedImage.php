@@ -30,13 +30,6 @@ class LocalFeaturedImage extends FeaturedImage
         return Str::after($source, Hyde::getMediaDirectory().'/');
     }
 
-    /** @deprecated */
-    public function getSource(): string
-    {
-        // Return value is always resolvable from a compiled page in the _site directory.
-        return Hyde::mediaLink($this->source);
-    }
-
     public function getContentLength(): int
     {
         return filesize($this->validatedStoragePath());
