@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use BadMethodCallException;
 use Stringable;
+use function array_flip;
+use function array_key_exists;
+use function key;
 
 /**
  * Object representation of a blog post's featured image.
@@ -103,7 +108,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
             return $this->getContentLengthForLocalImage();
         }
 
-        return 0;
+        return $this->getContentLengthForRemoteImage();
     }
 
     /** @return self::TYPE_* */
@@ -165,5 +170,20 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         }
 
         return filesize($storagePath);
+    }
+
+    protected function getContentLengthForRemoteImage(): int
+    {
+        $headers = Http::withHeaders([
+            'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
+        ])->head($this->getSource())->headers();
+
+        if (array_key_exists('Content-Length', $headers)) {
+            return (int) key(array_flip($headers['Content-Length']));
+        }
+
+        // Here we could throw an exception if we want to be strict about this, or add a warning.
+
+        return 0;
     }
 }
