@@ -138,72 +138,82 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     public function getAltText(): ?string
     {
-        return $this->altText;
+        return $this->get('altText');
     }
 
     public function getTitleText(): ?string
     {
-        return $this->titleText;
+        return $this->get('titleText');
     }
 
     public function getAuthorName(): ?string
     {
-        return $this->authorName;
+        return $this->get('authorName');
     }
 
     public function getAuthorUrl(): ?string
     {
-        return $this->authorUrl;
+        return $this->get('authorUrl');
     }
 
     public function getCopyrightText(): ?string
     {
-        return $this->copyrightText;
+        return $this->get('copyrightText');
     }
 
     public function getLicenseName(): ?string
     {
-        return $this->licenseName;
+        return $this->get('licenseName');
     }
 
     public function getLicenseUrl(): ?string
     {
-        return $this->licenseUrl;
+        return $this->get('licenseUrl');
     }
 
     public function hasAltText(): bool
     {
-        return $this->altText !== null;
+        return $this->has('altText');
     }
 
     public function hasTitleText(): bool
     {
-        return $this->titleText !== null;
+        return $this->has('titleText');
     }
 
     public function hasAuthorName(): bool
     {
-        return $this->authorName !== null;
+        return $this->has('authorName');
     }
 
     public function hasAuthorUrl(): bool
     {
-        return $this->authorUrl !== null;
+        return $this->has('authorUrl');
     }
 
     public function hasCopyrightText(): bool
     {
-        return $this->copyrightText !== null;
+        return $this->has('copyrightText');
     }
 
     public function hasLicenseName(): bool
     {
-        return $this->licenseName !== null;
+        return $this->has('licenseName');
     }
 
     public function hasLicenseUrl(): bool
     {
-        return $this->licenseUrl !== null;
+        return $this->has('licenseUrl');
+    }
+
+    protected function get(string $property): ?string
+    {
+        return $this->$property ?? null;
+    }
+
+    protected function has(string $property): bool
+    {
+        return $this->$property !== null;
     }
 
     protected function getContentLengthForLocalImage(): int
