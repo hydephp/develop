@@ -36,13 +36,19 @@ class PublicationService
     /**
      * Return all publications for a given publication type.
      */
-    public static function getPublicationsForPubType(PublicationType $pubType): Collection
+    public static function getPublicationsForPubType(PublicationType $pubType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
-        return Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
+        /** @var Collection<PublicationPage> $publications */
+        $publications = Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
             return static::parsePublicationFile(Hyde::pathToRelative($file));
-        })->sortBy(function (PublicationPage $page) use ($pubType): mixed {
-            return $page->matter($pubType->sortField);
-        }, descending: ! $pubType->sortAscending)->values();
+        });
+
+        $sortAscending = $sortAscending !== null ? $sortAscending : $pubType->sortAscending;
+        $sortField = $sortField !== null ? $sortField : $pubType->sortField;
+
+        return $publications->sortBy(function (PublicationPage $page) use ($sortField): mixed {
+            return $page->matter($sortField);
+        }, descending: ! $sortAscending)->values();
     }
 
     /**
