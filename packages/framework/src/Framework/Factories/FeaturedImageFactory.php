@@ -143,7 +143,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return true;
         }
 
-        return $matter->get('image.url') !== null;
+        return $matter->get('image.source') !== null;
     }
 
     protected function getStringMatter(string $key): ?string
