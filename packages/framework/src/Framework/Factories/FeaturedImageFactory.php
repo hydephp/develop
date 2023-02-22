@@ -67,17 +67,17 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $value = $this->getStringMatter('image') ?? $this->getStringMatter('image.source');
 
-        if (is_string($value)) {
-            if (str_starts_with($value, 'http')) {
-                return $value;
-            }
-
-            return self::normalizeLocalImagePath($value);
+        if (is_null($value)) {
+            // Todo, we might want to add a note about which file caused the error.
+            // We could also check for these before calling the factory, and just ignore the image if it's not valid.
+            throw new RuntimeException('No featured image source was found');
         }
 
-        // Todo, we might want to add a note about which file caused the error.
-        // We could also check for these before calling the factory, and just ignore the image if it's not valid.
-        throw new RuntimeException('No featured image source was found');
+        if (str_starts_with($value, 'http')) {
+            return $value;
+        }
+
+        return self::normalizeLocalImagePath($value);
     }
 
     protected function makeAltText(): ?string
