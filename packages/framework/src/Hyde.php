@@ -95,15 +95,6 @@ class Hyde extends Facade
      * @deprecated
      * @codeCoverageIgnore
      */
-    public static function copy(string $from, string $to): bool
-    {
-        return Facades\Filesystem::copy($from, $to);
-    }
-
-    /**
-     * @deprecated
-     * @codeCoverageIgnore
-     */
     public static function touch(string|array $path): bool
     {
         return Facades\Filesystem::touch($path);
