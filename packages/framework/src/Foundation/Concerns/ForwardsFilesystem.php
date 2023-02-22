@@ -28,16 +28,19 @@ trait ForwardsFilesystem
         return $this->filesystem->vendorPath($path, $package);
     }
 
+    /** @deprecated */
     public function copy(string $from, string $to): bool
     {
         return $this->filesystem->copy($from, $to);
     }
 
+    /** @deprecated */
     public function touch(string|array $path): bool
     {
         return $this->filesystem->touch($path);
     }
 
+    /** @deprecated */
     public function unlink(string|array $path): bool
     {
         return $this->filesystem->unlink($path);
