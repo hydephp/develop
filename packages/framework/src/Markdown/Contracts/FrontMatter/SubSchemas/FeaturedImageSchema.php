@@ -11,7 +11,7 @@ namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 interface FeaturedImageSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
-        'path'           => 'string',
+        'path'           => 'string', // @deprecated
         'url'            => 'string',
         'description'    => 'string',
         'title'          => 'string',
