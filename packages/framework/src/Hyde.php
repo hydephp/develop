@@ -62,9 +62,6 @@ use Illuminate\Support\HtmlString;
  * @method static array getRegisteredExtensions()
  * @method static bool hasFeature(string $feature)
  * @method static bool hasSiteUrl()
- * @method static bool copy(string $from, string $to) (DEPRECATED)
- * @method static bool touch(array|string $path) (DEPRECATED)
- * @method static bool unlink(array|string $path) (DEPRECATED)
  * @method static void setInstance(HydeKernel $instance)
  * @method static void setBasePath(string $basePath)
  * @method static void setOutputDirectory(string $outputDirectory)
@@ -92,5 +89,23 @@ class Hyde extends Facade
     public static function kernel(): HydeKernel
     {
         return HydeKernel::getInstance();
+    }
+
+    /** @deprecated */
+    public static function copy(string $from, string $to): bool
+    {
+        return HydeKernel::getInstance()->filesystem()->copy($from, $to);
+    }
+
+    /** @deprecated */
+    public static function touch(string|array $path): bool
+    {
+        return HydeKernel::getInstance()->filesystem()->touch($path);
+    }
+
+    /** @deprecated */
+    public static function unlink(string|array $path): bool
+    {
+        return HydeKernel::getInstance()->filesystem()->unlink($path);
     }
 }
