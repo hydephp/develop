@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Illuminate\Support\Str;
 
 /**
  * A featured image object, for a file stored locally.
@@ -21,15 +20,6 @@ use Illuminate\Support\Str;
  */
 class LocalFeaturedImage extends FeaturedImage
 {
-    protected function setSource(string $source): string
-    {
-        // We could also validate the file exists here if we want.
-        // We might also want to just send a warning. But for now,
-        // we'll just trim any leading media path prefixes.
-
-        return Str::after($source, Hyde::getMediaDirectory().'/');
-    }
-
     public function getContentLength(): int
     {
         return filesize($this->validatedStoragePath());
