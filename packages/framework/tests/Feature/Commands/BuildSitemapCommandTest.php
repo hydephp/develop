@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -23,6 +24,6 @@ class BuildSitemapCommandTest extends TestCase
         $this->artisan('build:sitemap')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
 
-        Hyde::unlink('_site/sitemap.xml');
+        Filesystem::unlink('_site/sitemap.xml');
     }
 }

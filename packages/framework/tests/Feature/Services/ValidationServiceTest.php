@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\ValidationService;
 use Hyde\Hyde;
 use Hyde\Support\Models\ValidationResult;
@@ -154,9 +155,9 @@ class ValidationServiceTest extends TestCase
 
     public function test_check_for_conflicts_between_blade_and_markdown_pages_can_fail()
     {
-        Hyde::touch('_pages/index.md');
+        Filesystem::touch('_pages/index.md');
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 2);
-        Hyde::unlink('_pages/index.md');
+        Filesystem::unlink('_pages/index.md');
     }
 
     // Some unit tests

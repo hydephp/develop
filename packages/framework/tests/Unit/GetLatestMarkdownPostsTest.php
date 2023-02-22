@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -27,7 +28,7 @@ class GetLatestMarkdownPostsTest extends TestCase
         $this->assertEquals('new', $collection->first()->identifier);
         $this->assertEquals('old', $collection->last()->identifier);
 
-        Hyde::unlink('_posts/new.md');
-        Hyde::unlink('_posts/old.md');
+        Filesystem::unlink('_posts/new.md');
+        Filesystem::unlink('_posts/old.md');
     }
 }

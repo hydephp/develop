@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -20,8 +21,8 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
 
-        Hyde::unlink('_posts/test-post.md');
-        Hyde::unlink('_site/posts/test-post.html');
+        Filesystem::unlink('_posts/test-post.md');
+        Filesystem::unlink('_site/posts/test-post.html');
     }
 
     public function test_blog_post_feed_can_be_rendered_when_post_has_no_front_matter()
@@ -37,8 +38,8 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/feed-test.html'));
 
-        Hyde::unlink('_posts/test-post.md');
-        Hyde::unlink('_pages/feed-test.blade.php');
-        Hyde::unlink('_site/feed-test.html');
+        Filesystem::unlink('_posts/test-post.md');
+        Filesystem::unlink('_pages/feed-test.blade.php');
+        Filesystem::unlink('_site/feed-test.html');
     }
 }

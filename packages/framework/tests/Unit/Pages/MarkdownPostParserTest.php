@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
@@ -33,7 +34,7 @@ This is a post stub used in the automated tests
 
     protected function tearDown(): void
     {
-        Hyde::unlink('_posts/test-post.md');
+        Filesystem::unlink('_posts/test-post.md');
 
         parent::tearDown();
     }

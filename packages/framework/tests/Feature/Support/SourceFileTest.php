@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Support;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
@@ -117,7 +118,7 @@ class SourceFileTest extends TestCase
             'path' => 'foo/bar.txt',
             'model' => HydePage::class,
         ], SourceFile::make('foo/bar.txt')->toArray());
-        Hyde::unlink('foo/bar.txt');
+        Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
 

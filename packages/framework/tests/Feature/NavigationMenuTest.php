@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use Hyde\Facades\Filesystem;
 use function collect;
 use function config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -83,7 +83,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_static_create_method_creates_new_processed_collection()
     {
-        Hyde::touch('_pages/foo.md');
+        Filesystem::touch('_pages/foo.md');
         $menu = NavigationMenu::create();
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
@@ -95,8 +95,8 @@ class NavigationMenuTest extends TestCase
 
     public function test_created_collection_is_sorted_by_navigation_menu_priority()
     {
-        Hyde::touch('_pages/foo.md');
-        Hyde::touch('_docs/index.md');
+        Filesystem::touch('_pages/foo.md');
+        Filesystem::touch('_docs/index.md');
 
         $menu = NavigationMenu::create();
 
@@ -109,13 +109,13 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
-        Hyde::unlink('_pages/foo.md');
-        Hyde::unlink('_docs/index.md');
+        Filesystem::unlink('_pages/foo.md');
+        Filesystem::unlink('_docs/index.md');
     }
 
     public function test_is_sorted_automatically_when_using_navigation_menu_create()
     {
-        Hyde::touch('_pages/foo.md');
+        Filesystem::touch('_pages/foo.md');
 
         $menu = NavigationMenu::create();
 
@@ -127,7 +127,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
-        Hyde::unlink('_pages/foo.md');
+        Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_collection_only_contains_nav_items()
@@ -203,8 +203,8 @@ class NavigationMenuTest extends TestCase
 
     public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
     {
-        Hyde::touch('_docs/foo.md');
-        Hyde::touch('_docs/index.md');
+        Filesystem::touch('_docs/foo.md');
+        Filesystem::touch('_docs/index.md');
 
         $menu = NavigationMenu::create();
 
@@ -216,14 +216,14 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
-        Hyde::unlink('_docs/foo.md');
-        Hyde::unlink('_docs/index.md');
+        Filesystem::unlink('_docs/foo.md');
+        Filesystem::unlink('_docs/index.md');
     }
 
     public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu()
     {
         $this->directory('_pages/foo');
-        Hyde::touch('_pages/foo/bar.md');
+        Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
         $expected = collect([NavItem::fromRoute(Route::get('index'))]);
@@ -236,7 +236,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'flat']);
         $this->directory('_pages/foo');
-        Hyde::touch('_pages/foo/bar.md');
+        Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
         $expected = collect([
@@ -252,7 +252,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $this->directory('_pages/foo');
-        Hyde::touch('_pages/foo/bar.md');
+        Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
         $expected = collect([

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -27,37 +27,37 @@ class PageModelGetHelperTest extends TestCase
 
     public function test_markdown_page_get_helper_returns_markdown_page_collection()
     {
-        Hyde::touch('_pages/test-page.md');
+        Filesystem::touch('_pages/test-page.md');
 
         $collection = MarkdownPage::all();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPage::class, $collection);
 
-        Hyde::unlink('_pages/test-page.md');
+        Filesystem::unlink('_pages/test-page.md');
     }
 
     public function test_markdown_post_get_helper_returns_markdown_post_collection()
     {
-        Hyde::touch('_posts/test-post.md');
+        Filesystem::touch('_posts/test-post.md');
 
         $collection = MarkdownPost::all();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection);
 
-        Hyde::unlink('_posts/test-post.md');
+        Filesystem::unlink('_posts/test-post.md');
     }
 
     public function test_documentation_page_get_helper_returns_documentation_page_collection()
     {
-        Hyde::touch('_docs/test-page.md');
+        Filesystem::touch('_docs/test-page.md');
 
         $collection = DocumentationPage::all();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(DocumentationPage::class, $collection);
 
-        Hyde::unlink('_docs/test-page.md');
+        Filesystem::unlink('_docs/test-page.md');
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
@@ -206,6 +207,6 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
         $page = new DocumentationPage('foo');
         $this->assertSame($page, $page->save());
         $this->assertFileExists('_docs/foo.md');
-        Hyde::unlink('_docs/foo.md');
+        Filesystem::unlink('_docs/foo.md');
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Facades\Site;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\HydeServiceProvider;
@@ -63,7 +64,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
 
         unlink(BladePage::sourceDirectory().'/foo.blade.php');
-        Hyde::unlink('_site/foo.html');
+        Filesystem::unlink('_site/foo.html');
     }
 
     public function test_can_build_markdown_post()
@@ -87,7 +88,7 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/foo.html')));
-        Hyde::unlink('_site/foo.html');
+        Filesystem::unlink('_site/foo.html');
     }
 
     public function test_can_build_documentation_page()
@@ -109,7 +110,7 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
-        Hyde::unlink('_site/foo.html');
+        Filesystem::unlink('_site/foo.html');
     }
 
     public function test_can_build_nested_html_page()
@@ -123,8 +124,8 @@ class StaticPageBuilderTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/foo/bar.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo/bar.html'), 'baz');
 
-        Hyde::unlink('_site/foo/bar.html');
-        Hyde::unlink('_pages/foo/bar.html');
+        Filesystem::unlink('_site/foo/bar.html');
+        Filesystem::unlink('_pages/foo/bar.html');
         rmdir(Hyde::path('_pages/foo'));
     }
 
@@ -139,7 +140,7 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/docs/foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/docs/foo/foo.html')));
-        Hyde::unlink('_site/docs/foo/foo.html');
+        Filesystem::unlink('_site/docs/foo/foo.html');
     }
 
     public function test_site_directory_can_be_customized()
