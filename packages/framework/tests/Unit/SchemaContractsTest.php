@@ -51,7 +51,6 @@ class SchemaContractsTest extends TestCase
 
         $this->assertEquals([
             'source'         => 'string',
-            'path'           => 'string',
             'url'            => 'string',
             'description'    => 'string',
             'title'          => 'string',
