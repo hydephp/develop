@@ -30,13 +30,13 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         private readonly FrontMatter $matter,
     ) {
         $this->source = $this->makeSource();
-        $this->altText = $this->makeAltText();
-        $this->titleText = $this->makeTitleText();
-        $this->authorName = $this->makeAuthorName();
-        $this->authorUrl = $this->makeAuthorUrl();
-        $this->copyrightText = $this->makeCopyrightText();
-        $this->licenseName = $this->makeLicenseName();
-        $this->licenseUrl = $this->makeLicenseUrl();
+        $this->altText = $this->getStringMatter('image.description');
+        $this->titleText = $this->getStringMatter('image.title');
+        $this->authorName = $this->getStringMatter('image.author');
+        $this->authorUrl = $this->getStringMatter('image.attributionUrl');
+        $this->copyrightText = $this->getStringMatter('image.copyright');
+        $this->licenseName = $this->getStringMatter('image.license');
+        $this->licenseUrl = $this->getStringMatter('image.licenseUrl');
     }
 
     /**
@@ -78,41 +78,6 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         }
 
         return self::normalizeLocalImagePath($value);
-    }
-
-    protected function makeAltText(): ?string
-    {
-        return $this->getStringMatter('image.description');
-    }
-
-    protected function makeTitleText(): ?string
-    {
-        return $this->getStringMatter('image.title');
-    }
-
-    protected function makeAuthorName(): ?string
-    {
-        return $this->getStringMatter('image.author');
-    }
-
-    protected function makeAuthorUrl(): ?string
-    {
-        return $this->getStringMatter('image.attributionUrl');
-    }
-
-    protected function makeCopyrightText(): ?string
-    {
-        return $this->getStringMatter('image.copyright');
-    }
-
-    protected function makeLicenseName(): ?string
-    {
-        return $this->getStringMatter('image.license');
-    }
-
-    protected function makeLicenseUrl(): ?string
-    {
-        return $this->getStringMatter('image.licenseUrl');
     }
 
     protected static function normalizeLocalImagePath(string $path): string
