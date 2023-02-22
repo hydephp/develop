@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\Artisan;
 
 class BlogPostFrontMatterIsOptionalTest extends TestCase
 {
@@ -14,7 +16,7 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), '# My New Post');
 
-        Artisan::call('rebuild _posts/test-post.md');
+        new StaticPageBuilder(MarkdownPost::get('test-post'), true);
 
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
 
@@ -31,7 +33,7 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
             Hyde::path('_pages/feed-test.blade.php')
         );
 
-        Artisan::call('rebuild _pages/feed-test.blade.php');
+        new StaticPageBuilder(BladePage::get('feed-test'), true);
 
         $this->assertFileExists(Hyde::path('_site/feed-test.html'));
 

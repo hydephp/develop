@@ -6,15 +6,17 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
  */
-class BaseFoundationCollectionTest extends TestCase
+class BaseFoundationCollectionTest extends UnitTestCase
 {
     public function test_init()
     {
+        $this->needsKernel();
+
         $booted = BaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
 
         $this->assertInstanceOf(BaseFoundationCollection::class, $booted);

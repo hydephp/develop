@@ -21,20 +21,20 @@ class SchemaContractsTest extends TestCase
 {
     public function testSchemasAreNotAccidentallyChanged()
     {
-        $this->assertEquals([
+        $this->assertSame([
             'title'         => 'string',
-            'navigation'    => 'array<navigation>',
             'canonicalUrl'  => 'string(url)',
+            'navigation'    => 'array<navigation>',
         ], PageSchema::PAGE_SCHEMA);
 
-        $this->assertEquals([
+        $this->assertSame([
             'label'     => 'string',
             'group'     => 'string',
             'hidden'    => 'bool',
             'priority'  => 'int',
         ], NavigationSchema::NAVIGATION_SCHEMA);
 
-        $this->assertEquals([
+        $this->assertSame([
             'title'        => 'string',
             'description'  => 'string',
             'category'     => 'string',
@@ -43,13 +43,13 @@ class SchemaContractsTest extends TestCase
             'image'        => 'string|array<featured_image>',
         ], BlogPostSchema::MARKDOWN_POST_SCHEMA);
 
-        $this->assertEquals([
+        $this->assertSame([
             'name'      => 'string',
             'username'  => 'string',
             'website'   => 'string(url)',
         ], BlogPostSchema::AUTHOR_SCHEMA);
 
-        $this->assertEquals([
+        $this->assertSame([
             'source'         => 'string',
             'description'    => 'string',
             'title'          => 'string',

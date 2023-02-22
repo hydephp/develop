@@ -218,7 +218,7 @@ and injected into post and page metadata.
 To use images stored in the `_media/` directory, you can use the following syntax:
 
 ```markdown
-![Image Alt](../media/image.png "Image Title") # Note the relative path
+![Image Alt](../media/image.png "Image Title") # Note the relative path since the blog post is compiled to `posts/example.html`
 ```
 
 To learn more, check out the [chapter in managing assets](managing-assets#managing-images)

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Support\Contracts\SerializableContract;
-use Hyde\Testing\TestCase;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @see \Hyde\Support\Contracts\SerializableContract

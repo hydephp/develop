@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
+use Hyde\Framework\Services\BuildService;
+use Illuminate\Console\OutputStyle;
+use Mockery;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use Symfony\Component\Console\Helper\ProgressBar;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
@@ -30,8 +36,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $this->file('_docs/index.md');
         $this->file('_docs/docs.md');
 
-        $this->mockConsoleOutput = false;
-        $this->artisan('make:post -n');
+        (new CreatesNewMarkdownPostFile('My New Post', null, null, null))->save();
     }
 
     protected function tearDown(): void
@@ -62,7 +67,30 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
 
     public function test_relative_links_across_pages_retains_integrity()
     {
-        $this->artisan('build');
+        $service = new BuildService(Mockery::mock(OutputStyle::class, [
+            'getFormatter' => Mockery::mock(OutputFormatterInterface::class, [
+                'hasStyle' => false,
+                'setStyle' => null,
+            ]),
+            'createProgressBar' => new ProgressBar(Mockery::mock(OutputStyle::class, [
+                'isDecorated' => false,
+                'getVerbosity' => 0,
+                'write' => null,
+                'getFormatter' => Mockery::mock(OutputFormatterInterface::class, [
+                    'hasStyle' => false,
+                    'setStyle' => null,
+                    'isDecorated' => false,
+                    'setDecorated' => null,
+                    'format' => null,
+                ]),
+            ])),
+            'writeln' => null,
+            'newLine' => null,
+        ]));
+
+        $service->cleanOutputDirectory();
+        $service->transferMediaAssets();
+        $service->compileStaticPages();
 
         $this->assertSee('root', [
             '<link rel="stylesheet" href="media/app.css">',

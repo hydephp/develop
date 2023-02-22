@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class MarkdownConverterTest.
