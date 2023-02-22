@@ -73,7 +73,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             throw new RuntimeException('No featured image source was found');
         }
 
-        if (str_starts_with($value, 'http')) {
+        if (FeaturedImage::isRemote($value)) {
             return $value;
         }
 
