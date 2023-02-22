@@ -96,7 +96,10 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         return $source;
     }
 
-    abstract public function getContentLength(): int;
+    public function getContentLength(): int
+    {
+        return 0;
+    }
 
     /** @return self::TYPE_* */
     public function getType(): string
