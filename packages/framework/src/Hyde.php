@@ -100,13 +100,19 @@ class Hyde extends Facade
         return Facades\Filesystem::copy($from, $to);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
     public static function touch(string|array $path): bool
     {
         return HydeKernel::getInstance()->filesystem()->touch($path);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
     public static function unlink(string|array $path): bool
     {
         return HydeKernel::getInstance()->filesystem()->unlink($path);
