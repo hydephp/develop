@@ -64,6 +64,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     /** @var self::TYPE_* */
     protected readonly string $type;
+
     protected readonly string $source;
 
     public function __construct(
