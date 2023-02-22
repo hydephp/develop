@@ -81,9 +81,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
         if ($this->getStringMatter('image.source') !== null) {
             return $this->getStringMatter('image.source');
-        }
 
-        if ($this->getStringMatter('image.source') !== null) {
             return $this->normalizeLocalImagePath($this->getStringMatter('image.source'));
         }
 
