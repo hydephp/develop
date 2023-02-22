@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-
 /**
  * A featured image object, for a file stored locally.
  *
