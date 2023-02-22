@@ -6,7 +6,7 @@ namespace Hyde\Testing;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class UnitTestCase extends BaseTestCase
+abstract class UnitTestCase extends BaseTestCase
 {
     //
 }
