@@ -42,7 +42,11 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     /** @deprecated Can be implicitly determined by source prefix */
     protected final const TYPE_REMOTE = 'remote';
 
-    /** @var self::TYPE_* */
+    /**
+     * @deprecated Can be implicitly determined by source prefix
+     *
+     * @var self::TYPE_*
+     */
     protected readonly string $type;
     protected readonly string $source;
 
