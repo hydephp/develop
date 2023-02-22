@@ -148,16 +148,6 @@ class Filesystem
     }
 
     /**
-     * Wrapper for the copy function, but using project relative paths.
-     *
-     * @deprecated Use the facade Filesystem::copy() method instead.
-     */
-    public function copy(string $from, string $to): bool
-    {
-        return copy($this->path($from), $this->path($to));
-    }
-
-    /**
      * Touch one or more files in the project's directory.
      */
     public function touch(string|array $path): bool
