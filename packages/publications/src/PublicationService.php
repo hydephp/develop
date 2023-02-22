@@ -36,7 +36,7 @@ class PublicationService
     /**
      * Return all publications for a given publication type.
      */
-    public static function getPublicationsForPubType(PublicationType $pubType, ?string $sortField = null, ?bool $sortAscending = null): Collection
+    public static function getPublicationsForType(PublicationType $pubType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
         /** @var Collection<PublicationPage> $publications */
         $publications = Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {

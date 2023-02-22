@@ -168,7 +168,7 @@ class PublicationType implements SerializableContract
     /** @return \Illuminate\Support\Collection<\Hyde\Publications\Models\PublicationPage> */
     public function getPublications(): Collection
     {
-        return PublicationService::getPublicationsForPubType($this);
+        return PublicationService::getPublicationsForType($this);
     }
 
     public function getPaginator(int $currentPageNumber = null): Paginator

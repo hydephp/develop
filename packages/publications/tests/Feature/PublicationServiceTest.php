@@ -55,7 +55,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection(),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -68,7 +68,7 @@ class PublicationServiceTest extends TestCase
             new Collection([
                 PublicationService::parsePublicationFile('test-publication/foo.md'),
             ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -79,7 +79,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(
             PublicationPage::class,
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -97,7 +97,7 @@ class PublicationServiceTest extends TestCase
                 PublicationService::parsePublicationFile('test-publication/two.md'),
                 PublicationService::parsePublicationFile('test-publication/three.md'),
             ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -115,7 +115,7 @@ class PublicationServiceTest extends TestCase
                 PublicationService::parsePublicationFile('test-publication/two.md'),
                 PublicationService::parsePublicationFile('test-publication/one.md'),
             ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -133,7 +133,7 @@ class PublicationServiceTest extends TestCase
                 PublicationService::parsePublicationFile('test-publication/two.md'),
                 PublicationService::parsePublicationFile('test-publication/three.md'),
             ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), 'readCount')
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount')
         );
     }
 
@@ -151,7 +151,7 @@ class PublicationServiceTest extends TestCase
                 PublicationService::parsePublicationFile('test-publication/two.md'),
                 PublicationService::parsePublicationFile('test-publication/one.md'),
             ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), 'readCount', false)
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount', false)
         );
     }
 
@@ -169,7 +169,7 @@ class PublicationServiceTest extends TestCase
                 PublicationService::parsePublicationFile('test-publication/three.md'),
                 PublicationService::parsePublicationFile('test-publication/two.md'),
             ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), 'invalid')
+            PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'invalid')
         );
     }
 
