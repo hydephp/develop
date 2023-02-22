@@ -25,17 +25,14 @@ class LocalFeaturedImage extends FeaturedImage
         return filesize($this->validatedStoragePath());
     }
 
-    protected function storagePath(): string
-    {
-        return Hyde::mediaPath($this->source);
-    }
-
     protected function validatedStoragePath(): string
     {
-        if (! file_exists($this->storagePath())) {
-            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($this->storagePath())));
+        $storagePath = Hyde::mediaPath($this->source);
+
+        if (! file_exists($storagePath)) {
+            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
         }
 
-        return $this->storagePath();
+        return $storagePath;
     }
 }
