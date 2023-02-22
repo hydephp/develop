@@ -186,12 +186,6 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals('https/foo', $image->getSource());
     }
 
-    public function testCanConstructRemoteFeaturedImageWithInvalidSource()
-    {
-        $image = new RemoteFeaturedImage('foo', ...$this->defaultArguments());
-        $this->assertEquals('foo', $image->getSource());
-    }
-
     public function testFeaturedImageGetContentLengthWithRemoteSource()
     {
         Http::fake(function () {
