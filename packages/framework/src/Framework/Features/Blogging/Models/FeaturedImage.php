@@ -46,7 +46,20 @@ use function sprintf;
  */
 abstract class FeaturedImage implements Stringable, FeaturedImageSchema
 {
+    /**
+     * A featured image object, for a file stored locally.
+     *
+     * The internal data structure forces the image source to reference a file in the _media directory,
+     * and thus that is what is required for the input. However, when outputting data, the data will
+     * be used for the _site/media directory, so it will provide data relative to the site root.
+     *
+     * The source information is stored in $this->source, which is a file in the _media directory.
+     */
     protected final const TYPE_LOCAL = 'local';
+
+    /**
+     * A featured image object, for a file stored remotely.
+     */
     protected final const TYPE_REMOTE = 'remote';
 
     /** @var self::TYPE_* */
