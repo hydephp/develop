@@ -92,7 +92,6 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $service->transferMediaAssets();
         $service->compileStaticPages();
 
-
         $this->assertSee('root', [
             '<link rel="stylesheet" href="media/app.css">',
             '<a href="index.html"',
