@@ -139,12 +139,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected static function isRemote(FrontMatter $matter): bool
     {
-        $value = $matter->get('image') ?? $matter->get('image.source');
-        if (is_string($value) && str_starts_with($value, 'http')) {
+        if (is_string($matter->get('image')) && str_starts_with($matter->get('image'), 'http')) {
             return true;
         }
 
-        return $value !== null;
+        return $matter->get('image.url') !== null;
     }
 
     protected function getStringMatter(string $key): ?string
