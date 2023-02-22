@@ -83,8 +83,8 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return $this->getStringMatter('image.source');
         }
 
-        if ($this->getStringMatter('image.path') !== null) {
-            return $this->normalizeLocalImagePath($this->getStringMatter('image.path'));
+        if ($this->getStringMatter('image.source') !== null) {
+            return $this->normalizeLocalImagePath($this->getStringMatter('image.source'));
         }
 
         // Todo, we might want to add a note about which file caused the error.
