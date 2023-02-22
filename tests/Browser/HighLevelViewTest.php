@@ -37,7 +37,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->storeSourceAsHtml('welcome_homepage');
         });
 
-        Filesystem::unlink(('_site/index.html'));
+        Filesystem::unlink('_site/index.html');
     }
 
     public function test_404_page()
@@ -50,7 +50,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->storeSourceAsHtml('404_page');
         });
 
-        Filesystem::unlink(('_site/404.html'));
+        Filesystem::unlink('_site/404.html');
     }
 
     public function test_blank_homepage()
@@ -66,7 +66,7 @@ class HighLevelViewTest extends DuskTestCase
         });
 
         $this->artisan('publish:homepage welcome -n');
-        Filesystem::unlink(('_site/index.html'));
+        Filesystem::unlink('_site/index.html');
     }
 
     public function test_posts_homepage()
@@ -83,7 +83,7 @@ class HighLevelViewTest extends DuskTestCase
         });
 
         $this->artisan('publish:homepage welcome -n');
-        Filesystem::unlink(('_site/index.html'));
+        Filesystem::unlink('_site/index.html');
     }
 
     public function test_posts_homepage_with_posts()
@@ -111,8 +111,8 @@ date: 2022-01-01 12:00
         });
 
         $this->artisan('publish:homepage welcome -n');
-        Filesystem::unlink(('_posts/my-new-post.md'));
-        Filesystem::unlink(('_site/index.html'));
+        Filesystem::unlink('_posts/my-new-post.md');
+        Filesystem::unlink('_site/index.html');
     }
 
     public function test_documentation_index()
@@ -131,8 +131,8 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('docs/index');
         });
 
-        Filesystem::unlink(('_docs/index.md'));
-        Filesystem::unlink(('_site/docs/index.html'));
+        Filesystem::unlink('_docs/index.md');
+        Filesystem::unlink('_site/docs/index.html');
     }
 
     public function test_documentation_site_with_pages()
@@ -157,10 +157,10 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('docs/with_sidebar_pages');
         });
 
-        Filesystem::unlink(('_docs/page1.md'));
-        Filesystem::unlink(('_docs/page2.md'));
-        Filesystem::unlink(('_docs/page3.md'));
-        Filesystem::unlink(('_site/docs/page1.html'));
+        Filesystem::unlink('_docs/page1.md');
+        Filesystem::unlink('_docs/page2.md');
+        Filesystem::unlink('_docs/page3.md');
+        Filesystem::unlink('_site/docs/page1.html');
     }
 
     public function test_documentation_site_with_collapsible_grouped_pages()
@@ -187,10 +187,10 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
         });
 
-        Filesystem::unlink(('_docs/page1.md'));
-        Filesystem::unlink(('_docs/page2.md'));
-        Filesystem::unlink(('_docs/page3.md'));
-        Filesystem::unlink(('_site/docs/page1.html'));
+        Filesystem::unlink('_docs/page1.md');
+        Filesystem::unlink('_docs/page2.md');
+        Filesystem::unlink('_docs/page3.md');
+        Filesystem::unlink('_site/docs/page1.html');
     }
 
     public function test_blog_post_pages()
@@ -238,11 +238,11 @@ date: 2022-01-01 12:00
 
         $this->artisan('publish:homepage welcome -n');
 
-        Filesystem::unlink(('_posts/typography-simple.md'));
-        Filesystem::unlink(('_posts/typography-front-matter.md'));
-        Filesystem::unlink(('_site/posts/typography-simple.html'));
-        Filesystem::unlink(('_site/posts/typography-front-matter.html'));
-        Filesystem::unlink(('_site/index.html'));
+        Filesystem::unlink('_posts/typography-simple.md');
+        Filesystem::unlink('_posts/typography-front-matter.md');
+        Filesystem::unlink('_site/posts/typography-simple.html');
+        Filesystem::unlink('_site/posts/typography-front-matter.html');
+        Filesystem::unlink('_site/index.html');
     }
 
     protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false): string
