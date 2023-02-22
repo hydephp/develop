@@ -138,37 +138,37 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     public function getAltText(): ?string
     {
-        return $this->get('altText');
+        return $this->altText;
     }
 
     public function getTitleText(): ?string
     {
-        return $this->get('titleText');
+        return $this->titleText;
     }
 
     public function getAuthorName(): ?string
     {
-        return $this->get('authorName');
+        return $this->authorName;
     }
 
     public function getAuthorUrl(): ?string
     {
-        return $this->get('authorUrl');
+        return $this->authorUrl;
     }
 
     public function getCopyrightText(): ?string
     {
-        return $this->get('copyrightText');
+        return $this->copyrightText;
     }
 
     public function getLicenseName(): ?string
     {
-        return $this->get('licenseName');
+        return $this->licenseName;
     }
 
     public function getLicenseUrl(): ?string
     {
-        return $this->get('licenseUrl');
+        return $this->licenseUrl;
     }
 
     public function hasAltText(): bool
@@ -204,11 +204,6 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     public function hasLicenseUrl(): bool
     {
         return $this->has('licenseUrl');
-    }
-
-    protected function get(string $property): ?string
-    {
-        return $this->$property ?? null;
     }
 
     protected function has(string $property): bool
