@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
  */
