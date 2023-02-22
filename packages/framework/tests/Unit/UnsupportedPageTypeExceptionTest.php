@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
