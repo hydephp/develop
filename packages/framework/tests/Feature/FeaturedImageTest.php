@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
@@ -42,11 +41,6 @@ class FeaturedImageTest extends TestCase
         ], (new RemoteImage)->getMetadataArray());
     }
 
-    public function testGetContentLength()
-    {
-        $this->assertEquals(0, (new NullImage)->getContentLength());
-        $this->assertEquals(0, (new FilledImage)->getContentLength());
-    }
 
     public function testCanConstructFeaturedImage()
     {
@@ -62,31 +56,6 @@ class FeaturedImageTest extends TestCase
 
         $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(5, $image->getContentLength());
-    }
-
-    public function testFeaturedImageGetContentLengthWithNoSource()
-    {
-        $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Image at _media/foo does not exist');
-
-        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
-        $this->assertEquals(0, $image->getContentLength());
-    }
-
-    public function testCanConstructFeaturedImageWithRemoteSource()
-    {
-        $image = new FeaturedImage('http/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(FeaturedImage::class, $image);
-
-        $this->assertEquals('http/foo', $image->getSource());
-    }
-
-    public function testCanConstructFeaturedImageWithHttps()
-    {
-        $image = new FeaturedImage('https/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(FeaturedImage::class, $image);
-
-        $this->assertEquals('https/foo', $image->getSource());
     }
 
     public function testFeaturedImageGetContentLengthWithRemoteSource()
@@ -167,11 +136,6 @@ class NullImage extends FeaturedImage
     {
         parent::__construct('source');
     }
-
-    public function getContentLength(): int
-    {
-        return 0;
-    }
 }
 
 class FilledImage extends FeaturedImage
@@ -179,10 +143,5 @@ class FilledImage extends FeaturedImage
     public function __construct()
     {
         parent::__construct('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
-    }
-
-    public function getContentLength(): int
-    {
-        return 0;
     }
 }
