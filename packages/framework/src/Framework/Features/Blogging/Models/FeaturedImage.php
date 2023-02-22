@@ -51,7 +51,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     protected readonly string $source;
 
     public function __construct(
-        string $source = null,
+        string $source,
         protected readonly ?string $altText = null,
         protected readonly ?string $titleText = null,
         protected readonly ?string $authorName = null,
