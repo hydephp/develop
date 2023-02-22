@@ -22,17 +22,12 @@ class LocalFeaturedImage extends FeaturedImage
 {
     public function getContentLength(): int
     {
-        return filesize($this->validatedStoragePath());
-    }
-
-    protected function validatedStoragePath(): string
-    {
         $storagePath = Hyde::mediaPath($this->source);
 
         if (! file_exists($storagePath)) {
             throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
         }
 
-        return $storagePath;
+        return filesize($storagePath);
     }
 }
