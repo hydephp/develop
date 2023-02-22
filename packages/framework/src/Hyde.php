@@ -94,7 +94,7 @@ class Hyde extends Facade
     /** @deprecated */
     public static function copy(string $from, string $to): bool
     {
-        return HydeKernel::getInstance()->filesystem()->copy($from, $to);
+        return \Hyde\Facades\Filesystem::copy($from, $to);
     }
 
     /** @deprecated */
