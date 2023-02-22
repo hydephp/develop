@@ -8,7 +8,6 @@ use BadMethodCallException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
@@ -16,7 +15,6 @@ use Illuminate\Support\Facades\Http;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- * @covers \Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage
  * @covers \Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage
  */
 class FeaturedImageTest extends TestCase
@@ -142,10 +140,9 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals(0, (new FilledImage)->getContentLength());
     }
 
-    public function testCanConstructLocalFeaturedImage()
+    public function testCanConstructFeaturedImage()
     {
-        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('media/foo', $image->getSource());
@@ -155,7 +152,7 @@ class FeaturedImageTest extends TestCase
     {
         $this->file('_media/foo', 'image');
 
-        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
+        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(5, $image->getContentLength());
     }
 
@@ -164,7 +161,7 @@ class FeaturedImageTest extends TestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Image at _media/foo does not exist');
 
-        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
+        $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
     }
 
@@ -222,7 +219,7 @@ class FeaturedImageTest extends TestCase
 
     public function testGetSourceMethod()
     {
-        $this->assertEquals('media/foo', (new LocalFeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
+        $this->assertEquals('media/foo', (new FeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
 
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
         $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'media/foo']))->getSource());
