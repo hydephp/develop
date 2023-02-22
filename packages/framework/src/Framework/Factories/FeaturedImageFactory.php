@@ -71,20 +71,22 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected function makeSource(): string
     {
-        if (is_string($this->getStringMatter('image'))) {
-            if (str_starts_with($this->getStringMatter('image'), 'http')) {
-                return $this->getStringMatter('image');
+        $flatValue = $this->getStringMatter('image');
+        if (is_string($flatValue)) {
+            if (str_starts_with($flatValue, 'http')) {
+                return $flatValue;
             }
 
-            return self::normalizeLocalImagePath($this->getStringMatter('image'));
+            return self::normalizeLocalImagePath($flatValue);
         }
 
-        if ($this->getStringMatter('image.source') !== null) {
-            if (str_starts_with($this->getStringMatter('image.source'), 'http')) {
-                return $this->getStringMatter('image.source');
+        $arrayValue = $this->getStringMatter('image.source');
+        if ($arrayValue !== null) {
+            if (str_starts_with($arrayValue, 'http')) {
+                return $arrayValue;
             }
 
-            return $this->normalizeLocalImagePath($this->getStringMatter('image.source'));
+            return $this->normalizeLocalImagePath($arrayValue);
         }
 
         // Todo, we might want to add a note about which file caused the error.
