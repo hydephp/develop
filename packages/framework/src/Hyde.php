@@ -95,15 +95,6 @@ class Hyde extends Facade
      * @deprecated
      * @codeCoverageIgnore
      */
-    public static function touch(string|array $path): bool
-    {
-        return \Hyde\Facades\Filesystem::touch($path);
-    }
-
-    /**
-     * @deprecated
-     * @codeCoverageIgnore
-     */
     public static function unlink(string|array $path): bool
     {
         return \Hyde\Facades\Filesystem::unlink($path);
