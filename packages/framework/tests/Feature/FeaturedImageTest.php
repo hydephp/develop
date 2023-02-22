@@ -8,14 +8,12 @@ use BadMethodCallException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- * @covers \Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage
  */
 class FeaturedImageTest extends TestCase
 {
@@ -165,19 +163,17 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals(0, $image->getContentLength());
     }
 
-    public function testCanConstructRemoteFeaturedImage()
+    public function testCanConstructFeaturedImageWithRemoteSource()
     {
-        $image = new RemoteFeaturedImage('http/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $image = new FeaturedImage('http/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('http/foo', $image->getSource());
     }
 
-    public function testCanConstructRemoteFeaturedImageWithHttps()
+    public function testCanConstructFeaturedImageWithHttps()
     {
-        $image = new RemoteFeaturedImage('https/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $image = new FeaturedImage('https/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
         $this->assertEquals('https/foo', $image->getSource());
@@ -191,7 +187,7 @@ class FeaturedImageTest extends TestCase
             ]);
         });
 
-        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(16, $image->getContentLength());
     }
 
@@ -201,7 +197,7 @@ class FeaturedImageTest extends TestCase
             return Http::response(null, 404);
         });
 
-        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
     }
 
@@ -213,7 +209,7 @@ class FeaturedImageTest extends TestCase
             ]);
         });
 
-        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
     }
 
