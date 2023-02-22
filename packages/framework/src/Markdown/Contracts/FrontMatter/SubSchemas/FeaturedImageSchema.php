@@ -12,7 +12,7 @@ interface FeaturedImageSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
         'path'           => 'string', // @deprecated
-        'url'            => 'string',
+        'url'            => 'string', // @deprecated
         'description'    => 'string',
         'title'          => 'string',
         'copyright'      => 'string',
