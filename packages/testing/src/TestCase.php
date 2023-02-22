@@ -66,4 +66,44 @@ abstract class TestCase extends BaseTestCase
     {
         config(['app.throw_on_console_exception' => $throw]);
     }
+
+    /**
+     * Wrapper for the copy function, but using project relative paths.
+     */
+    public function copy(string $from, string $to): bool
+    {
+        return copy(Hyde::path($from), Hyde::path($to));
+    }
+
+    /**
+     * Touch one or more files in the project's directory.
+     */
+    public function touch(string|array $path): bool
+    {
+        if (is_string($path)) {
+            return touch(Hyde::path($path));
+        }
+
+        foreach ($path as $p) {
+            touch(Hyde::path($p));
+        }
+
+        return true;
+    }
+
+    /**
+     * Unlink one or more files in the project's directory.
+     */
+    public function unlink(string|array $path): bool
+    {
+        if (is_string($path)) {
+            return unlink(Hyde::path($path));
+        }
+
+        foreach ($path as $p) {
+            unlink(Hyde::path($p));
+        }
+
+        return true;
+    }
 }
