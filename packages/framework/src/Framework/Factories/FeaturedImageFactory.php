@@ -122,7 +122,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $path = Str::after($path, Hyde::getMediaDirectory());
         $path = Str::after($path, Hyde::getMediaOutputDirectory());
 
-        return unslash($path);
+        return str_starts_with($path, '//') ? $path : unslash($path);
     }
 
     protected function getStringMatter(string $key): ?string
