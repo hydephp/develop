@@ -100,13 +100,7 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
     public function getContentLength(): int
     {
         if ($this->type === self::TYPE_LOCAL) {
-            $storagePath = Hyde::mediaPath($this->source);
-
-            if (! file_exists($storagePath)) {
-                throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
-            }
-
-            return filesize($storagePath);
+            return $this->getContentLengthForLocalImage();
         }
 
         return 0;
@@ -160,5 +154,16 @@ abstract class FeaturedImage implements Stringable, FeaturedImageSchema
         }
 
         throw new BadMethodCallException(sprintf("Method '$name' does not exist on %s", static::class));
+    }
+
+    protected function getContentLengthForLocalImage(): int
+    {
+        $storagePath = Hyde::mediaPath($this->source);
+
+        if (!file_exists($storagePath)) {
+            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
+        }
+
+        return filesize($storagePath);
     }
 }
