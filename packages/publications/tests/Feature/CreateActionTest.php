@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreateAction;
@@ -22,7 +23,7 @@ class CreateActionTest extends TestCase
         $this->assertTrue(file_exists(Hyde::path('foo')));
         $this->assertSame('bar', file_get_contents(Hyde::path('foo')));
 
-        Hyde::unlink('foo');
+        Filesystem::unlink('foo');
     }
 
     public function testWithConflict()
@@ -35,7 +36,7 @@ class CreateActionTest extends TestCase
 
         $this->assertSame('keep', file_get_contents(Hyde::path('foo')));
 
-        Hyde::unlink('foo');
+        Filesystem::unlink('foo');
     }
 
     public function testWithConflictForce()
@@ -46,7 +47,7 @@ class CreateActionTest extends TestCase
 
         $this->assertSame('bar', file_get_contents(Hyde::path('foo')));
 
-        Hyde::unlink('foo');
+        Filesystem::unlink('foo');
     }
 
     public function testOutputPathHelpers()
@@ -75,7 +76,7 @@ class CreateActionTest extends TestCase
         $action->force(false);
         $this->assertTrue($action->hasFileConflict());
 
-        Hyde::unlink('foo');
+        Filesystem::unlink('foo');
     }
 
     public function testCanSaveToSubdirectory()

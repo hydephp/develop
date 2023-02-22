@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Factories\Concerns\PageDataFactory;
@@ -155,7 +156,7 @@ class PublicationPageUnitTest extends TestCase
         $this->directory('directory');
         (new PublicationType('directory'))->save();
 
-        Hyde::touch(PublicationPage::sourcePath('directory/foo'));
+        Filesystem::touch(PublicationPage::sourcePath('directory/foo'));
         $this->assertInstanceOf(PublicationPage::class, PublicationPage::parse('directory/foo'));
     }
 
@@ -215,7 +216,7 @@ class PublicationPageUnitTest extends TestCase
     public function testCompile()
     {
         $this->directory('directory');
-        Hyde::touch('directory/detail.blade.php');
+        Filesystem::touch('directory/detail.blade.php');
 
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::shareViewData($page);
