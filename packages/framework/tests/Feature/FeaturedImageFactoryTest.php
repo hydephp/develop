@@ -50,11 +50,11 @@ class FeaturedImageFactoryTest extends TestCase
     public function testMakeMethodCreatesLocalImageWhenPathIsSet()
     {
         $image = $this->makeFromArray([
-            'image.source' => 'source',
+            'image.source' => 'foo',
         ]);
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
-        $this->assertSame('media/source', $image->getSource());
+        $this->assertSame('media/foo', $image->getSource());
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
