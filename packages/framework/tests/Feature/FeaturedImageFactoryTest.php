@@ -21,7 +21,7 @@ class FeaturedImageFactoryTest extends TestCase
     public function testWithDataFromSchema()
     {
         $array = [
-            'image.path' => 'path',
+            'image.source' => 'source',
             'image.source' => 'source',
             'image.description' => 'description',
             'image.title' => 'title',
@@ -51,11 +51,11 @@ class FeaturedImageFactoryTest extends TestCase
     public function testMakeMethodCreatesLocalImageWhenPathIsSet()
     {
         $image = $this->makeFromArray([
-            'image.path' => 'path',
+            'image.source' => 'source',
         ]);
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
-        $this->assertSame('media/path', $image->getSource());
+        $this->assertSame('media/source', $image->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
@@ -72,7 +72,7 @@ class FeaturedImageFactoryTest extends TestCase
     {
         $image = $this->makeFromArray([
             'image.source' => 'source',
-            'image.path' => 'path',
+            'image.source' => 'source',
         ]);
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
@@ -113,9 +113,9 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('media/foo', ['image' => 'media/foo']);
         $this->assertSourceIsSame('media/foo', ['image' => '_media/foo']);
 
-        $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'foo']]);
-        $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'media/foo']]);
-        $this->assertSourceIsSame('media/foo', ['image' => ['path' => '_media/foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['source' => 'media/foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['source' => '_media/foo']]);
     }
 
     public function testImagePathsAreNormalizedForCustomizedMediaDirectory()
@@ -126,9 +126,9 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => '_assets/foo']);
 
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => '_assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => '_assets/foo']]);
     }
 
     public function testImagePathsAreNormalizedForCustomizedMediaDirectoryWithoutUnderscore()
@@ -139,9 +139,9 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
 
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
-        $this->assertSourceIsSame('assets/foo', ['image' => ['path' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
+        $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
     }
 
     protected function makeFromArray(array $matter): FeaturedImage
