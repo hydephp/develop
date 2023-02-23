@@ -251,6 +251,7 @@ class PublicationPageUnitTest extends TestCase
             'list.blade.php',
             'sortField', true, 1,
             [],
+            [],
             'directory'
         );
     }

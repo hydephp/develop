@@ -57,6 +57,9 @@ class PublicationType implements SerializableContract
     /** The number of publications to show per paginated page. Set to 0 to disable pagination. */
     public int $pageSize = 0;
 
+    /** Generic array field which can be used to store additional data as needed. */
+    public array $metadata = [];
+
     /**
      * The front matter fields used for the publications.
      *
@@ -84,6 +87,7 @@ class PublicationType implements SerializableContract
         }
     }
 
+    /** @param array<array<string, string>> $fields */
     public function __construct(
         string $name, // todo get from directory name if not set in schema?
         string $canonicalField = '__createdAt',
@@ -93,6 +97,7 @@ class PublicationType implements SerializableContract
         bool $sortAscending = true,
         int $pageSize = 0,
         array $fields = [],
+        array $metadata = [],
         ?string $directory = null
     ) {
         $this->name = $name; // todo get from directory name if not set in schema?
@@ -104,11 +109,12 @@ class PublicationType implements SerializableContract
         $this->sortField = $sortField;
         $this->sortAscending = $sortAscending;
         $this->pageSize = $pageSize;
+        $this->metadata = $metadata;
     }
 
     public function toArray(): array
     {
-        return $this->withoutNullValues([
+        $array = $this->withoutNullValues([
             'name' => $this->name,
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
@@ -118,6 +124,12 @@ class PublicationType implements SerializableContract
             'pageSize' => $this->pageSize,
             'fields' => $this->fields->toArray(),
         ]);
+
+        if ($this->metadata) {
+            $array['metadata'] = $this->metadata;
+        }
+
+        return $array;
     }
 
     public function toJson($options = JSON_PRETTY_PRINT): string
@@ -139,6 +151,16 @@ class PublicationType implements SerializableContract
     public function getDirectory(): string
     {
         return $this->directory;
+    }
+
+    public function getMetadata(): array
+    {
+        return $this->metadata;
+    }
+
+    public function setMetadata(array $metadata): array
+    {
+        return $this->metadata = $metadata;
     }
 
     /**
