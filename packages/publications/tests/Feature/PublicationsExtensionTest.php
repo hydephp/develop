@@ -48,6 +48,20 @@ class PublicationsExtensionTest extends TestCase
         );
     }
 
+    public function test_publication_tag_pages_are_generated()
+    {
+        $this->createPublication();
+
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
+
+        $this->assertInstanceOf(
+            InMemoryPage::class,
+            $booted->getPage('tags/index')
+        );
+    }
+
     protected function createPublication(): void
     {
         $this->directory('publication');
