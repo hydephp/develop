@@ -30,7 +30,7 @@ use function ucfirst;
  */
 class SeedsPublicationFiles
 {
-    protected PublicationType $pubType;
+    protected PublicationType $publicationType;
     protected int $number = 1;
 
     protected array $matter;
@@ -39,7 +39,7 @@ class SeedsPublicationFiles
     public function __construct(PublicationType $pubType, int $number = 1)
     {
         $this->number = $number;
-        $this->pubType = $pubType;
+        $this->publicationType = $pubType;
     }
 
     public function create(): void
@@ -51,7 +51,7 @@ class SeedsPublicationFiles
             $this->generatePublicationData();
             $identifier = Str::slug(substr($this->canonicalValue, 0, 64));
 
-            $page = new PublicationPage($identifier, $this->matter, "## Write something awesome.\n\n{$this->randomMarkdownLines(rand(0, 16))}\n\n", $this->pubType);
+            $page = new PublicationPage($identifier, $this->matter, "## Write something awesome.\n\n{$this->randomMarkdownLines(rand(0, 16))}\n\n", $this->publicationType);
             $page->save();
         }
     }
@@ -59,7 +59,7 @@ class SeedsPublicationFiles
     protected function generatePublicationData(): void
     {
         $this->matter['__createdAt'] = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
-        foreach ($this->pubType->getFields() as $field) {
+        foreach ($this->publicationType->getFields() as $field) {
             $this->matter[$field->name] = $this->generateFieldData($field);
             $this->getCanonicalFieldName($field);
         }
@@ -107,7 +107,7 @@ class SeedsPublicationFiles
     protected function getCanonicalFieldName(PublicationFieldDefinition $field): void
     {
         if ($this->canFieldTypeCanBeCanonical($field->type->value)) {
-            if ($field->name === $this->pubType->canonicalField) {
+            if ($field->name === $this->publicationType->canonicalField) {
                 $this->canonicalValue = $this->matter[$field->name];
             }
         }
