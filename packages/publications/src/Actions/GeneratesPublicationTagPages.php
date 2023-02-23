@@ -6,6 +6,10 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Foundation\Kernel\PageCollection;
 
+/**
+ * Called by the PublicationsExtension::discoverPages method,
+ * during the HydePHP autodiscovery boot process.
+ */
 class GeneratesPublicationTagPages
 {
     public function __invoke(PageCollection $collection): void
