@@ -70,7 +70,7 @@ foreach ($publicationTypes as $publicationType) {
     $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
     foreach ($publications as $publication) {
         foreach ($pubTagFieldsByName as $tagFieldName) {
-            $tags = $publication->matter->data[ $tagFieldName ];
+            $tags = (array) $publication->matter->data[ $tagFieldName ];
             foreach ($tags as $tag) {
                 if (!isset($tagCounts[ $tag ])) {
                     $tagCounts[ $tag ] = 0;
