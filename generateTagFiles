@@ -52,7 +52,7 @@ foreach ($publicationTypes as $publicationType) {
     //dump($publications);
 }
 
-$tagCounts  = [];
+$tagCounts = [];
 $pagesByTag = [];
 
 foreach ($publicationTypes as $publicationType) {
@@ -70,34 +70,34 @@ foreach ($publicationTypes as $publicationType) {
     $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
     foreach ($publications as $publication) {
         foreach ($pubTagFieldsByName as $tagFieldName) {
-            $tags = (array) $publication->matter->data[ $tagFieldName ];
+            $tags = (array) $publication->matter->data[$tagFieldName];
             foreach ($tags as $tag) {
-                if (!isset($tagCounts[ $tag ])) {
-                    $tagCounts[ $tag ] = 0;
+                if (!isset($tagCounts[$tag])) {
+                    $tagCounts[$tag] = 0;
                 }
-                $tagCounts[ $tag ]++;
+                $tagCounts[$tag]++;
 
-                if (!isset($pagesByTag[ $tag ])) {
-                    $pagesByTag[ $tag ] = [];
+                if (!isset($pagesByTag[$tag])) {
+                    $pagesByTag[$tag] = [];
                 }
-                $pagesByTag[ $tag ][] = $publication->getIdentifier();
+                $pagesByTag[$tag][] = $publication->getIdentifier();
             }
         }
     }
 }
 
-dump("TAG COUNTS", $tagCounts);
+dump('TAG COUNTS', $tagCounts);
 print "\n\n\n";
-dump("PAGES BY TAG", $pagesByTag);
+dump('PAGES BY TAG', $pagesByTag);
 
 // Build main/single tags page
-$page           = new \Hyde\Pages\InMemoryPage("tags/index.html", ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
+$page = new \Hyde\Pages\InMemoryPage('tags/index.html', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
 $pageCollection = \Hyde\Hyde::pages();
 $pageCollection->addPage($page);
 
 // Now build the individual page lists for each tag
 foreach ($pagesByTag as $tag => $pages) {
-    $page           = new \Hyde\Pages\InMemoryPage(
+    $page = new \Hyde\Pages\InMemoryPage(
             "tags/$tag.html",
             ['tag' => $tag, 'pages' => $pages],
             'blah',
@@ -106,4 +106,3 @@ foreach ($pagesByTag as $tag => $pages) {
     $pageCollection = \Hyde\Hyde::pages();
     $pageCollection->addPage($page);
 }
-
