@@ -12,8 +12,17 @@ use Hyde\Foundation\Kernel\PageCollection;
  */
 class GeneratesPublicationTagPages
 {
-    public function __invoke(PageCollection $collection): void
+    protected PageCollection $collection;
+
+    public function __construct(PageCollection $collection)
     {
+        $this->collection = $collection;
+    }
+
+    public function __invoke(): void
+    {
+        $collection = $this->collection;
+
         // Retrieve publication types and publication tags
         $publicationTypes = \Hyde\Publications\PublicationService::getPublicationTypes();
         $tagGroups = new \Hyde\Publications\Models\PublicationTags();

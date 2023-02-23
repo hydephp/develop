@@ -86,6 +86,6 @@ class PublicationsExtension extends HydeExtension
 
     protected static function generatePublicationTagPages(PageCollection $collection): void
     {
-        (new GeneratesPublicationTagPages())->__invoke($collection);
+        (new GeneratesPublicationTagPages($collection))->__invoke();
     }
 }
