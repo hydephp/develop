@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Stringable;
 
@@ -17,6 +18,8 @@ use Stringable;
  */
 class MarkdownDocument implements MarkdownDocumentContract, Stringable
 {
+    use InteractsWithFrontMatter;
+
     public FrontMatter $matter;
     public Markdown $markdown;
 
@@ -29,11 +32,6 @@ class MarkdownDocument implements MarkdownDocumentContract, Stringable
     public function __toString(): string
     {
         return $this->markdown->__toString();
-    }
-
-    public function matter(string $key = null, mixed $default = null): mixed
-    {
-        return $key ? $this->matter->get($key, $default) : $this->matter;
     }
 
     public function markdown(): Markdown
