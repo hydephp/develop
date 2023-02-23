@@ -85,6 +85,71 @@ class PublicationsExtension extends HydeExtension
 
     protected static function generatePublicationTagPages(PageCollection $collection): void
     {
-        //
+        $publicationTypes = \Hyde\Publications\PublicationService::getPublicationTypes();
+        //dump("PUBLICATION TYPES", $publicationTypes);
+        $tagGroups = new \Hyde\Publications\Models\PublicationTags();
+        foreach ($tagGroups->getTags() as $tagGroup) {
+            //dump("TAGS", $tagGroup);
+        }
+        foreach ($publicationTypes as $publicationType) {
+            $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
+            //dump("PUBLICATIONS FOR $publicationType->name", $publications);
+            //dump($publications);
+        }
+
+        $tagCounts = [];
+        $pagesByTag = [];
+
+        foreach ($publicationTypes as $publicationType) {
+            $pubTagFieldsByName = [];
+            foreach ($publicationType->getFields() as $fieldDefinition) {
+                if ($fieldDefinition->type->name == 'Tag') {
+                    $pubTagFieldsByName[] = $fieldDefinition->name;
+                }
+            }
+
+            if (!$pubTagFieldsByName) {
+                continue;
+            }
+
+            $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
+            foreach ($publications as $publication) {
+                foreach ($pubTagFieldsByName as $tagFieldName) {
+                    $tags = (array) $publication->matter->data[$tagFieldName];
+                    foreach ($tags as $tag) {
+                        if (!isset($tagCounts[$tag])) {
+                            $tagCounts[$tag] = 0;
+                        }
+                        $tagCounts[$tag]++;
+
+                        if (!isset($pagesByTag[$tag])) {
+                            $pagesByTag[$tag] = [];
+                        }
+                        $pagesByTag[$tag][] = $publication->getIdentifier();
+                    }
+                }
+            }
+        }
+
+        dump('TAG COUNTS', $tagCounts);
+        print "\n\n\n";
+        dump('PAGES BY TAG', $pagesByTag);
+
+        // Build main/single tags page
+        $page = new \Hyde\Pages\InMemoryPage('tags/index.html', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
+        $pageCollection = \Hyde\Hyde::pages();
+        $pageCollection->addPage($page);
+
+        // Now build the individual page lists for each tag
+        foreach ($pagesByTag as $tag => $pages) {
+            $page = new \Hyde\Pages\InMemoryPage(
+                "tags/$tag.html",
+                ['tag' => $tag, 'pages' => $pages],
+                'blah',
+                'pages/tagPageList.blade.php'
+            );
+            $pageCollection = \Hyde\Hyde::pages();
+            $pageCollection->addPage($page);
+        }
     }
 }
