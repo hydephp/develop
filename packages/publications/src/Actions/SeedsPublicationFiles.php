@@ -36,10 +36,10 @@ class SeedsPublicationFiles
     protected array $matter;
     protected string $canonicalValue;
 
-    public function __construct(PublicationType $pubType, int $number = 1)
+    public function __construct(PublicationType $publicationType, int $number = 1)
     {
         $this->number = $number;
-        $this->publicationType = $pubType;
+        $this->publicationType = $publicationType;
     }
 
     public function create(): void
