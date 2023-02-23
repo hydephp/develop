@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use function array_filter;
-use function array_merge;
-use function dirname;
 use Exception;
-use function file_get_contents;
-use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
@@ -19,9 +14,15 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use RuntimeException;
+
+use function array_filter;
+use function array_merge;
+use function dirname;
+use function file_get_contents;
+use function file_put_contents;
 use function json_decode;
 use function json_encode;
-use RuntimeException;
 use function str_starts_with;
 
 /**
@@ -57,6 +58,9 @@ class PublicationType implements SerializableContract
     /** The number of publications to show per paginated page. Set to 0 to disable pagination. */
     public int $pageSize = 0;
 
+    /** Generic array field which can be used to store additional data as needed. */
+    public array $meta = [];
+
     /**
      * The front matter fields used for the publications.
      *
@@ -76,8 +80,8 @@ class PublicationType implements SerializableContract
     {
         try {
             return new static(...array_merge(
-                static::parseSchemaFile($schemaFile),
-                static::getRelativeDirectoryEntry($schemaFile))
+                    static::parseSchemaFile($schemaFile),
+                    static::getRelativeDirectoryEntry($schemaFile))
             );
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
@@ -93,7 +97,8 @@ class PublicationType implements SerializableContract
         bool $sortAscending = true,
         int $pageSize = 0,
         array $fields = [],
-        ?string $directory = null
+        ?string $directory = null,
+        array $meta = []
     ) {
         $this->name = $name; // todo get from directory name if not set in schema?
         $this->canonicalField = $canonicalField;
@@ -104,6 +109,7 @@ class PublicationType implements SerializableContract
         $this->sortField = $sortField;
         $this->sortAscending = $sortAscending;
         $this->pageSize = $pageSize;
+        $this->meta = $meta;
     }
 
     public function toArray(): array
@@ -117,6 +123,7 @@ class PublicationType implements SerializableContract
             'sortAscending' => $this->sortAscending,
             'pageSize' => $this->pageSize,
             'fields' => $this->fields->toArray(),
+            'meta' => $this->meta,
         ]);
     }
 
@@ -141,6 +148,16 @@ class PublicationType implements SerializableContract
         return $this->directory;
     }
 
+    public function getMeta(): array
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(array $meta): array
+    {
+        return $this->meta = $meta;
+    }
+
     /**
      * Get the publication fields, deserialized to PublicationFieldDefinition objects.
      *
@@ -153,7 +170,8 @@ class PublicationType implements SerializableContract
 
     public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
     {
-        return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $fieldName)->firstOrFail();
+        return $this->getFields()->filter(fn(PublicationFieldDefinition $field
+        ): bool => $field->name === $fieldName)->firstOrFail();
     }
 
     public function getCanonicalFieldDefinition(): PublicationFieldDefinition
@@ -162,7 +180,8 @@ class PublicationType implements SerializableContract
             return new PublicationFieldDefinition('string', $this->canonicalField);
         }
 
-        return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
+        return $this->getFields()->filter(fn(PublicationFieldDefinition $field
+        ): bool => $field->name === $this->canonicalField)->first();
     }
 
     /** @return \Illuminate\Support\Collection<\Hyde\Publications\Models\PublicationPage> */
@@ -216,7 +235,7 @@ class PublicationType implements SerializableContract
 
     protected function withoutNullValues(array $array): array
     {
-        return array_filter($array, fn (mixed $value): bool => ! is_null($value));
+        return array_filter($array, fn(mixed $value): bool => !is_null($value));
     }
 
     /**
