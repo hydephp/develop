@@ -84,6 +84,9 @@ class PublicationType implements SerializableContract
         }
     }
 
+    /**
+     * @param array<array<string, string>> $fields
+     */
     public function __construct(
         string $name, // todo get from directory name if not set in schema?
         string $canonicalField = '__createdAt',
