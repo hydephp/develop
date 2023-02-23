@@ -56,6 +56,6 @@ class HydeServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->kernel->readyToBoot();
+        //
     }
 }
