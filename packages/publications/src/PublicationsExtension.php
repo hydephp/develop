@@ -137,7 +137,7 @@ class PublicationsExtension extends HydeExtension
 
         // Build main/single tags page
         $page = new \Hyde\Pages\InMemoryPage('tags/index.html', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
-        $pageCollection = \Hyde\Hyde::pages();
+        $pageCollection = $collection;
         $pageCollection->addPage($page);
 
         // Now build the individual page lists for each tag
