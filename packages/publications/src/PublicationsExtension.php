@@ -148,7 +148,6 @@ class PublicationsExtension extends HydeExtension
                 'blah',
                 'pages/tagPageList.blade.php'
             );
-            $pageCollection = $collection;
             $pageCollection->addPage($page);
         }
     }
