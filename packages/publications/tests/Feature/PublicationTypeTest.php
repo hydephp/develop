@@ -285,7 +285,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(
-            PublicationService::getPublicationsForPubType($publicationType),
+            PublicationService::getPublicationsForType($publicationType),
             $publicationType->getPublications()
         );
     }
@@ -426,6 +426,130 @@ class PublicationTypeTest extends TestCase
                 "fields": []
             }
             JSON, $publicationType->toJson());
+    }
+
+    public function testArrayRepresentationWithMetadata()
+    {
+        $publicationType = new PublicationType('test-publication', metadata: $metadata = [
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => '__createdAt',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 0,
+            'fields' => [],
+            'metadata' => $metadata,
+        ], $publicationType->toArray());
+    }
+
+    public function testJsonRepresentationWithMetadata()
+    {
+        $publicationType = new PublicationType('test-publication', metadata: [
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [],
+                "metadata": {
+                    "foo": [
+                        "bar",
+                        "baz"
+                    ],
+                    "bar": "baz",
+                    "baz": 1
+                }
+            }
+            JSON, $publicationType->toJson());
+    }
+
+    public function testCanParseSchemaFileWithMetadata()
+    {
+        $this->directory('test-publication');
+        $this->file('test-publication/schema.json', <<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [],
+                "metadata": {
+                    "foo": [
+                        "bar",
+                        "baz"
+                    ],
+                    "bar": "baz",
+                    "baz": 1
+                }
+            }
+            JSON
+        );
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => '__createdAt',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 0,
+            'fields' => [],
+            'metadata' => [
+                'foo' => ['bar', 'baz'],
+                'bar' => 'baz',
+                'baz' => 1,
+            ],
+        ], PublicationType::get('test-publication')->toArray());
+    }
+
+    public function testCanGetMetadata()
+    {
+        $publicationType = new PublicationType('test-publication', metadata: [
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame([
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ], $publicationType->getMetadata());
+    }
+
+    public function testCanSetMetadata()
+    {
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->setMetadata([
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame([
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ], $publicationType->getMetadata());
     }
 
     public function testValidateSchemaFile()

@@ -18,8 +18,9 @@ use Stringable;
  * access dynamic computed data if it exists, or it will fall back to this class's data.
  *
  * For package developers:
- * Use $page->get('foo') to access computed data,
- * Use $page->matter('foo') to access raw data.
+ * Use $page->data('foo') to access page data + front matter
+ * Use $page->matter('foo') to access front matter only
+ * You can also get the front matter object using $page->matter (which is an instance of this class)
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  * @phpstan-consistent-constructor

@@ -414,7 +414,6 @@ class HydeKernelTest extends TestCase
             $this->assertTrue(true);
         });
 
-        $kernel->readyToBoot();
         $kernel->boot();
     }
 
@@ -426,7 +425,6 @@ class HydeKernelTest extends TestCase
             $this->assertTrue(true);
         });
 
-        $kernel->readyToBoot();
         $kernel->boot();
     }
 
@@ -436,7 +434,6 @@ class HydeKernelTest extends TestCase
 
         $kernel->booting(new CallableClass($this));
 
-        $kernel->readyToBoot();
         $kernel->boot();
     }
 
@@ -446,7 +443,6 @@ class HydeKernelTest extends TestCase
 
         $kernel->booted(new CallableClass($this));
 
-        $kernel->readyToBoot();
         $kernel->boot();
     }
 
@@ -458,7 +454,6 @@ class HydeKernelTest extends TestCase
             $this->assertSame($kernel, $_kernel);
         });
 
-        $kernel->readyToBoot();
         $kernel->boot();
     }
 
@@ -470,7 +465,6 @@ class HydeKernelTest extends TestCase
             $this->assertSame($kernel, $_kernel);
         });
 
-        $kernel->readyToBoot();
         $kernel->boot();
     }
 
@@ -483,7 +477,6 @@ class HydeKernelTest extends TestCase
             $kernel->pages()->addPage($page);
         });
 
-        $kernel->readyToBoot();
         $kernel->boot();
 
         $this->assertSame($page, $kernel->pages()->getPage('foo'));

@@ -20,14 +20,14 @@ class PublicationSchemaValidator
     protected Validator $schemaValidator;
     protected array $fieldValidators = [];
 
-    public static function call(string $pubTypeName): static
+    public static function call(string $publicationTypeName): static
     {
-        return (new self($pubTypeName))->__invoke();
+        return (new self($publicationTypeName))->__invoke();
     }
 
-    public function __construct(string $pubTypeName)
+    public function __construct(string $publicationTypeName)
     {
-        $this->schema = json_decode(Filesystem::getContents("$pubTypeName/schema.json"));
+        $this->schema = json_decode(Filesystem::getContents("$publicationTypeName/schema.json"));
     }
 
     /** @return $this */

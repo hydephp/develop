@@ -51,7 +51,7 @@ class GeneratesPublicationTagPages
             }
 
             // Retrieve publications for the current publication type
-            $publications = PublicationService::getPublicationsForPubType($publicationType);
+            $publications = PublicationService::getPublicationsForType($publicationType);
 
             // Loop through each publication to retrieve associated tags
             foreach ($publications as $publication) {

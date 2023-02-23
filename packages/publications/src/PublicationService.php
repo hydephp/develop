@@ -35,16 +35,18 @@ class PublicationService
 
     /**
      * Return all publications for a given publication type.
+     *
+     * @return Collection<PublicationPage>
      */
-    public static function getPublicationsForPubType(PublicationType $pubType, ?string $sortField = null, ?bool $sortAscending = null): Collection
+    public static function getPublicationsForType(PublicationType $publicationType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
         /** @var Collection<PublicationPage> $publications */
-        $publications = Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
+        $publications = Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
             return static::parsePublicationFile(Hyde::pathToRelative($file));
         });
 
-        $sortAscending = $sortAscending !== null ? $sortAscending : $pubType->sortAscending;
-        $sortField = $sortField !== null ? $sortField : $pubType->sortField;
+        $sortAscending = $sortAscending !== null ? $sortAscending : $publicationType->sortAscending;
+        $sortField = $sortField !== null ? $sortField : $publicationType->sortField;
 
         return $publications->sortBy(function (PublicationPage $page) use ($sortField): mixed {
             return $page->matter($sortField);
@@ -54,9 +56,9 @@ class PublicationService
     /**
      * Return all media items for a given publication type.
      */
-    public static function getMediaForPubType(PublicationType $pubType): Collection
+    public static function getMediaForType(PublicationType $publicationType): Collection
     {
-        return Collection::make(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
+        return Collection::make(static::getMediaFiles($publicationType->getDirectory()))->map(function (string $file): string {
             return Hyde::pathToRelative($file);
         });
     }
@@ -90,9 +92,9 @@ class PublicationService
     /**
      * Check whether a given publication type exists.
      */
-    public static function publicationTypeExists(string $pubTypeName): bool
+    public static function publicationTypeExists(string $publicationTypeName): bool
     {
-        return static::getPublicationTypes()->has(Str::slug($pubTypeName));
+        return static::getPublicationTypes()->has(Str::slug($publicationTypeName));
     }
 
     protected static function getSchemaFiles(): array
