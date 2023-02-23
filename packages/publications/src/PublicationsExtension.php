@@ -115,7 +115,7 @@ class PublicationsExtension extends HydeExtension
             $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
             foreach ($publications as $publication) {
                 foreach ($pubTagFieldsByName as $tagFieldName) {
-                    $tags = (array) $publication->matter->data[$tagFieldName];
+                    $tags = (array) $publication->matter->get($tagFieldName);
                     foreach ($tags as $tag) {
                         if (! isset($tagCounts[$tag])) {
                             $tagCounts[$tag] = 0;
