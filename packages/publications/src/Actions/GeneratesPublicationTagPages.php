@@ -68,7 +68,7 @@ class GeneratesPublicationTagPages
                         if (! isset($pagesByTag[$tag])) {
                             $pagesByTag[$tag] = [];
                         }
-                        $pagesByTag[$tag][] = $publication->getIdentifier();
+                        $pagesByTag[$tag][] = $publication;
                     }
                 }
             }
