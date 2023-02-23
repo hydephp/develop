@@ -58,6 +58,11 @@ class GeneratesPublicationTagPages
                 foreach ($publicationTagFieldsByName as $tagFieldName) {
                     $tags = (array) $publication->matter->get($tagFieldName);
                     foreach ($tags as $tag) {
+                        // Skip empty tags
+                        if (empty($tag)) {
+                            continue;
+                        }
+
                         // Increment tag count for the current tag
                         if (! isset($tagCounts[$tag])) {
                             $tagCounts[$tag] = 0;
