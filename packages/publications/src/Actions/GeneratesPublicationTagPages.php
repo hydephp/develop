@@ -75,7 +75,7 @@ class GeneratesPublicationTagPages
         }
 
         // Build the index tags page
-        $indexTagsPage = new InMemoryPage('tags/index', ['tagCounts' => $tagCounts], view: 'hyde-publications::tags_list');
+        $indexTagsPage = new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list');
         $pageCollection = $collection;
         $pageCollection->addPage($indexTagsPage);
 
