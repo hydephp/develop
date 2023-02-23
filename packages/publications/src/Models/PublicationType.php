@@ -15,7 +15,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
-
 use function array_filter;
 use function array_merge;
 use function dirname;
@@ -170,7 +169,7 @@ class PublicationType implements SerializableContract
 
     public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
     {
-        return $this->getFields()->filter(fn(PublicationFieldDefinition $field
+        return $this->getFields()->filter(fn (PublicationFieldDefinition $field
         ): bool => $field->name === $fieldName)->firstOrFail();
     }
 
@@ -180,7 +179,7 @@ class PublicationType implements SerializableContract
             return new PublicationFieldDefinition('string', $this->canonicalField);
         }
 
-        return $this->getFields()->filter(fn(PublicationFieldDefinition $field
+        return $this->getFields()->filter(fn (PublicationFieldDefinition $field
         ): bool => $field->name === $this->canonicalField)->first();
     }
 
@@ -235,7 +234,7 @@ class PublicationType implements SerializableContract
 
     protected function withoutNullValues(array $array): array
     {
-        return array_filter($array, fn(mixed $value): bool => !is_null($value));
+        return array_filter($array, fn (mixed $value): bool => ! is_null($value));
     }
 
     /**
