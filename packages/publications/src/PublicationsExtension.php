@@ -96,15 +96,15 @@ class PublicationsExtension extends HydeExtension
         // Loop through each publication type to retrieve publications and associated tags
         foreach ($publicationTypes as $publicationType) {
             // Retrieve tag fields for the current publication type
-            $pubTagFieldsByName = [];
+            $publicationTagFieldsByName = [];
             foreach ($publicationType->getFields() as $fieldDefinition) {
                 if ($fieldDefinition->type->name == 'Tag') {
-                    $pubTagFieldsByName[] = $fieldDefinition->name;
+                    $publicationTagFieldsByName[] = $fieldDefinition->name;
                 }
             }
 
             // Skip the current publication type if no tag fields are found
-            if (! $pubTagFieldsByName) {
+            if (! $publicationTagFieldsByName) {
                 continue;
             }
 
@@ -113,7 +113,7 @@ class PublicationsExtension extends HydeExtension
 
             // Loop through each publication to retrieve associated tags
             foreach ($publications as $publication) {
-                foreach ($pubTagFieldsByName as $tagFieldName) {
+                foreach ($publicationTagFieldsByName as $tagFieldName) {
                     $tags = (array) $publication->matter->get($tagFieldName);
                     foreach ($tags as $tag) {
                         // Increment tag count for the current tag
@@ -133,19 +133,19 @@ class PublicationsExtension extends HydeExtension
         }
 
         // Build the main tags page
-        $page = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
+        $mainTagsPage = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
         $pageCollection = $collection;
-        $pageCollection->addPage($page);
+        $pageCollection->addPage($mainTagsPage);
 
         // Build individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
-            $page = new \Hyde\Pages\InMemoryPage(
+            $tagPage = new \Hyde\Pages\InMemoryPage(
                 "tags/$tag",
                 ['tag' => $tag, 'pages' => $pages],
                 'blah',
                 'pages/tagPageList.blade.php'
             );
-            $pageCollection->addPage($page);
+            $pageCollection->addPage($tagPage);
         }
     }
 }
