@@ -6,7 +6,6 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationService;
 
 /**
@@ -29,9 +28,8 @@ class GeneratesPublicationTagPages
     {
         $collection = $this->collection;
 
-        // Retrieve publication types and publication tags
+        // Retrieve publication types
         $publicationTypes = PublicationService::getPublicationTypes();
-        $tagGroups = new PublicationTags();
 
         // Initialize arrays to hold tag counts and pages by tag
         $tagCounts = [];
