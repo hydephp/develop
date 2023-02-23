@@ -521,6 +521,37 @@ class PublicationTypeTest extends TestCase
         ], PublicationType::get('test-publication')->toArray());
     }
 
+    public function testCanGetMetaData()
+    {
+        $publicationType = new PublicationType('test-publication', meta: [
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame([
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ], $publicationType->getMeta());
+    }
+
+    public function testCanSetMetaData()
+    {
+        $publicationType = new PublicationType('test-publication');
+        $publicationType->setMeta([
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame([
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ], $publicationType->getMeta());
+    }
+
     public function testValidateSchemaFile()
     {
         $this->directory('test-publication');
