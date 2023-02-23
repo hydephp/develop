@@ -428,6 +428,99 @@ class PublicationTypeTest extends TestCase
             JSON, $publicationType->toJson());
     }
 
+    public function testArrayRepresentationWithMetaData()
+    {
+        $publicationType = new PublicationType('test-publication', meta: $meta = [
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => '__createdAt',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 0,
+            'fields' => [],
+            'meta' => $meta,
+        ], $publicationType->toArray());
+    }
+
+    public function testJsonRepresentationWithMetaData()
+    {
+        $publicationType = new PublicationType('test-publication', meta: [
+            'foo' => ['bar', 'baz'],
+            'bar' => 'baz',
+            'baz' => 1,
+        ]);
+
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [],
+                "meta": {
+                    "foo": [
+                        "bar",
+                        "baz"
+                    ],
+                    "bar": "baz",
+                    "baz": 1
+                }
+            }
+            JSON, $publicationType->toJson());
+    }
+
+    public function testCanParseSchemaFileWithMetaData()
+    {
+        $this->directory('test-publication');
+        $this->file('test-publication/schema.json', <<<'JSON'
+            {
+                "name": "test-publication",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
+                "sortField": "__createdAt",
+                "sortAscending": true,
+                "pageSize": 0,
+                "fields": [],
+                "meta": {
+                    "foo": [
+                        "bar",
+                        "baz"
+                    ],
+                    "bar": "baz",
+                    "baz": 1
+                }
+            }
+            JSON
+        );
+
+        $this->assertSame([
+            'name' => 'test-publication',
+            'canonicalField' => '__createdAt',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 0,
+            'fields' => [],
+            'meta' => [
+                'foo' => ['bar', 'baz'],
+                'bar' => 'baz',
+                'baz' => 1,
+            ],
+        ], PublicationType::get('test-publication')->toArray());
+    }
+
     public function testValidateSchemaFile()
     {
         $this->directory('test-publication');
