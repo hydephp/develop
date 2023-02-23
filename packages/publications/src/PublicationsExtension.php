@@ -86,15 +86,12 @@ class PublicationsExtension extends HydeExtension
     protected static function generatePublicationTagPages(PageCollection $collection): void
     {
         $publicationTypes = \Hyde\Publications\PublicationService::getPublicationTypes();
-        //dump("PUBLICATION TYPES", $publicationTypes);
         $tagGroups = new \Hyde\Publications\Models\PublicationTags();
         foreach ($tagGroups->getTags() as $tagGroup) {
             //dump("TAGS", $tagGroup);
         }
         foreach ($publicationTypes as $publicationType) {
             $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
-            //dump("PUBLICATIONS FOR $publicationType->name", $publications);
-            //dump($publications);
         }
 
         $tagCounts = [];
@@ -130,10 +127,6 @@ class PublicationsExtension extends HydeExtension
                 }
             }
         }
-
-        // dump('TAG COUNTS', $tagCounts);
-        // echo "\n\n\n";
-        // dump('PAGES BY TAG', $pagesByTag);
 
         // Build main/single tags page
         $page = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
