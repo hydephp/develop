@@ -108,7 +108,7 @@ class PublicationsExtension extends HydeExtension
                 }
             }
 
-            if (!$pubTagFieldsByName) {
+            if (! $pubTagFieldsByName) {
                 continue;
             }
 
@@ -117,12 +117,12 @@ class PublicationsExtension extends HydeExtension
                 foreach ($pubTagFieldsByName as $tagFieldName) {
                     $tags = (array) $publication->matter->data[$tagFieldName];
                     foreach ($tags as $tag) {
-                        if (!isset($tagCounts[$tag])) {
+                        if (! isset($tagCounts[$tag])) {
                             $tagCounts[$tag] = 0;
                         }
                         $tagCounts[$tag]++;
 
-                        if (!isset($pagesByTag[$tag])) {
+                        if (! isset($pagesByTag[$tag])) {
                             $pagesByTag[$tag] = [];
                         }
                         $pagesByTag[$tag][] = $publication->getIdentifier();
@@ -132,7 +132,7 @@ class PublicationsExtension extends HydeExtension
         }
 
         dump('TAG COUNTS', $tagCounts);
-        print "\n\n\n";
+        echo "\n\n\n";
         dump('PAGES BY TAG', $pagesByTag);
 
         // Build main/single tags page
