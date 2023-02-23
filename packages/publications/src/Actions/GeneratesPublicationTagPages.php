@@ -10,6 +10,7 @@ use Hyde\Foundation\Kernel\PageCollection;
  * Called by the PublicationsExtension::discoverPages method,
  * during the HydePHP autodiscovery boot process.
  *
+ * @see \Hyde\Publications\PublicationsExtension::discoverPages()
  * @see \Hyde\Publications\Testing\Feature\GeneratesPublicationTagPagesTest
  */
 class GeneratesPublicationTagPages
