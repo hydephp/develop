@@ -132,10 +132,10 @@ class PublicationsExtension extends HydeExtension
             }
         }
 
-        // Build the main tags page
-        $mainTagsPage = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
+        // Build the index tags page
+        $indexTagsPage = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
         $pageCollection = $collection;
-        $pageCollection->addPage($mainTagsPage);
+        $pageCollection->addPage($indexTagsPage);
 
         // Build individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
