@@ -96,8 +96,8 @@ class PublicationType implements SerializableContract
         bool $sortAscending = true,
         int $pageSize = 0,
         array $fields = [],
-        ?string $directory = null,
-        array $metadata = []
+        array $metadata = [],
+        ?string $directory = null
     ) {
         $this->name = $name; // todo get from directory name if not set in schema?
         $this->canonicalField = $canonicalField;
