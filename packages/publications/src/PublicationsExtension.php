@@ -136,14 +136,14 @@ class PublicationsExtension extends HydeExtension
         dump('PAGES BY TAG', $pagesByTag);
 
         // Build main/single tags page
-        $page = new \Hyde\Pages\InMemoryPage('tags/index.html', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
+        $page = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
         $pageCollection = $collection;
         $pageCollection->addPage($page);
 
         // Now build the individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
             $page = new \Hyde\Pages\InMemoryPage(
-                "tags/$tag.html",
+                "tags/$tag",
                 ['tag' => $tag, 'pages' => $pages],
                 'blah',
                 'pages/tagPageList.blade.php'
