@@ -91,6 +91,7 @@ class PublicationsExtensionTest extends TestCase
             'tags/index',
         ], $booted->getPages()->keys()->toArray());
     }
+
     public function test_tags_pages_for_publications_are_generated_for_used_tag()
     {
         $this->directory('publication');
@@ -111,7 +112,6 @@ class PublicationsExtensionTest extends TestCase
             'tags/foo',
         ], $booted->getPages()->keys()->toArray());
     }
-
 
     public function test_tags_pages_for_publications_are_generated_for_used_tags_with_publication_tags_array()
     {
