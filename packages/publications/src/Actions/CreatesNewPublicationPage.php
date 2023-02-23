@@ -24,21 +24,21 @@ class CreatesNewPublicationPage extends CreateAction
 {
     protected bool $force = false;
     protected Collection $fieldData;
-    protected PublicationType $pubType;
+    protected PublicationType $publicationType;
 
     /**
-     * @param  \Hyde\Publications\Models\PublicationType  $pubType
+     * @param  \Hyde\Publications\Models\PublicationType  $publicationType
      * @param  \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationFieldValue>  $fieldData
      * @param  bool  $force
      */
-    public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
+    public function __construct(PublicationType $publicationType, Collection $fieldData, bool $force = false)
     {
         $fieldData->prepend(new PublicationFieldValue(PublicationFieldTypes::Datetime, (string) Carbon::now()), '__createdAt');
 
-        $this->pubType = $pubType;
+        $this->publicationType = $publicationType;
         $this->fieldData = $fieldData;
         $this->force = $force;
-        $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
+        $this->outputPath = "{$this->publicationType->getDirectory()}/{$this->getFilename()}.md";
     }
 
     protected function handleCreate(): void
@@ -53,7 +53,7 @@ class CreatesNewPublicationPage extends CreateAction
 
     protected function getCanonicalValue(): string
     {
-        $canonicalFieldName = $this->pubType->canonicalField;
+        $canonicalFieldName = $this->publicationType->canonicalField;
         if ($canonicalFieldName === '__createdAt') {
             return $this->getFieldFromCollection('__createdAt')->getValue()->format('Y-m-d H:i:s');
         }

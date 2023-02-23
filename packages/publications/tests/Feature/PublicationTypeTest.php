@@ -285,7 +285,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(
-            PublicationService::getPublicationsForPubType($publicationType),
+            PublicationService::getPublicationsForType($publicationType),
             $publicationType->getPublications()
         );
     }

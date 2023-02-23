@@ -145,7 +145,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->infoComment("Select file for image field [$field->name]");
 
-        $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
+        $mediaFiles = PublicationService::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
             return $this->handleEmptyOptionsCollection($field, 'media file',
                 sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
