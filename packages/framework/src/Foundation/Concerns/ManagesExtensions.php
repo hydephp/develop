@@ -50,6 +50,22 @@ trait ManagesExtensions
         }
     }
 
+    /** @internal This method is for testing purposes only. */
+    public function hasExtension(string $extension): bool
+    {
+        return in_array($extension, $this->extensions, true);
+    }
+
+    /** @internal This method is for testing purposes only. */
+    public function unRegisterExtension(string $extension): void
+    {
+        if (($key = array_search($extension, $this->extensions, true)) !== false) {
+            unset($this->extensions[$key]);
+
+            $this->extensions = array_values($this->extensions);
+        }
+    }
+
     /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {

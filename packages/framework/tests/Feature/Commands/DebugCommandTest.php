@@ -11,6 +11,13 @@ use Hyde\Testing\TestCase;
  */
 class DebugCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->app->bind('git.version', fn () => 'foo');
+    }
+
     public function test_debug_command_can_run()
     {
         $this->artisan('debug')->assertExitCode(0);

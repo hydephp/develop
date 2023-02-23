@@ -46,6 +46,10 @@ class HydeExtensionFeatureTest extends TestCase
         parent::setUp();
 
         $this->kernel = HydeKernel::getInstance();
+
+        if ($this->kernel->hasExtension('Hyde\Publications\PublicationsExtension')) {
+            $this->kernel->unregisterExtension('Hyde\Publications\PublicationsExtension');
+        }
     }
 
     public function testBaseClassGetPageClasses()

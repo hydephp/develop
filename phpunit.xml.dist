@@ -10,13 +10,16 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="FeatureHyde">
-            <directory suffix="Test.php">./packages/hyde/tests/Feature</directory>
+            <directory suffix="Test.php">./packages/hyde/tests</directory>
         </testsuite>
         <testsuite name="FeatureFramework">
             <directory suffix="Test.php">./packages/framework/tests/Feature</directory>
         </testsuite>
         <testsuite name="UnitFramework">
             <directory suffix="Test.php">./packages/framework/tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Publications">
+            <directory suffix="Test.php">./packages/publications/tests</directory>
         </testsuite>
         <testsuite name="Realtime Compiler">
              <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
@@ -25,6 +28,7 @@
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./packages/framework/src</directory>
+            <directory suffix=".php">./packages/publications/src</directory>
         </include>
     </coverage>
     <php>

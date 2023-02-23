@@ -1,0 +1,36 @@
+{
+    "name": "hyde/publications",
+    "description": "HydePHP Publications",
+    "keywords": [
+        "hyde",
+        "hydephp",
+        "publications"
+    ],
+    "homepage": "https://github.com/hyde/publications",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Caen De Silva",
+            "email": "caen@desilva.se",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^10.0",
+        "illuminate/validation": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyde\\Publications\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hyde\\Publications\\PublicationsServiceProvider"
+            ]
+        }
+    }
+}
