@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
@@ -30,6 +31,10 @@ class PublicationsExtension extends HydeExtension
     public static function discoverPages(PageCollection $collection): void
     {
         static::discoverPublicationPages($collection);
+
+        if (Filesystem::exists('tags.yml')) {
+            static::generatePublicationTagPages($collection);
+        }
     }
 
     protected static function discoverPublicationPages(PageCollection $instance): void
