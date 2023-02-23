@@ -113,7 +113,7 @@ class PublicationType implements SerializableContract
 
     public function toArray(): array
     {
-        return $this->withoutNullValues([
+        $array = $this->withoutNullValues([
             'name' => $this->name,
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
@@ -122,8 +122,13 @@ class PublicationType implements SerializableContract
             'sortAscending' => $this->sortAscending,
             'pageSize' => $this->pageSize,
             'fields' => $this->fields->toArray(),
-            'meta' => $this->meta,
         ]);
+
+        if ($this->meta) {
+            $array['meta'] = $this->meta;
+        }
+
+        return $array;
     }
 
     public function toJson($options = JSON_PRETTY_PRINT): string
