@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Publications\Actions;
 
 use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\PublicationService;
 
 /**
  * Called by the PublicationsExtension::discoverPages method,
@@ -27,8 +30,8 @@ class GeneratesPublicationTagPages
         $collection = $this->collection;
 
         // Retrieve publication types and publication tags
-        $publicationTypes = \Hyde\Publications\PublicationService::getPublicationTypes();
-        $tagGroups = new \Hyde\Publications\Models\PublicationTags();
+        $publicationTypes = PublicationService::getPublicationTypes();
+        $tagGroups = new PublicationTags();
 
         // Initialize arrays to hold tag counts and pages by tag
         $tagCounts = [];
@@ -50,7 +53,7 @@ class GeneratesPublicationTagPages
             }
 
             // Retrieve publications for the current publication type
-            $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
+            $publications = PublicationService::getPublicationsForPubType($publicationType);
 
             // Loop through each publication to retrieve associated tags
             foreach ($publications as $publication) {
@@ -74,13 +77,13 @@ class GeneratesPublicationTagPages
         }
 
         // Build the index tags page
-        $indexTagsPage = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
+        $indexTagsPage = new InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
         $pageCollection = $collection;
         $pageCollection->addPage($indexTagsPage);
 
         // Build individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
-            $tagPage = new \Hyde\Pages\InMemoryPage(
+            $tagPage = new InMemoryPage(
                 "tags/$tag",
                 ['tag' => $tag, 'pages' => $pages],
                 'blah',
