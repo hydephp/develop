@@ -16,7 +16,6 @@ use Hyde\Testing\TestCase;
  */
 class GeneratesPublicationTagPagesTest extends TestCase
 {
-
     public function test_tags_index_page_is_generated_when_tags_file_exists()
     {
         $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
