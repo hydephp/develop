@@ -87,9 +87,6 @@ class PublicationsExtension extends HydeExtension
     {
         $publicationTypes = \Hyde\Publications\PublicationService::getPublicationTypes();
         $tagGroups = new \Hyde\Publications\Models\PublicationTags();
-        foreach ($tagGroups->getTags() as $tagGroup) {
-            //dump("TAGS", $tagGroup);
-        }
         foreach ($publicationTypes as $publicationType) {
             $publications = \Hyde\Publications\PublicationService::getPublicationsForPubType($publicationType);
         }
