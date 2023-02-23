@@ -8,6 +8,7 @@ use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Stringable;
 
 /**
@@ -29,11 +30,11 @@ class FrontMatter implements Stringable, SerializableContract
 {
     use Serializable;
 
-    public array $data;
+    public Collection $data;
 
     public function __construct(array $matter = [])
     {
-        $this->data = $matter;
+        $this->data = collect($matter);
     }
 
     public function __toString(): string
@@ -71,7 +72,7 @@ class FrontMatter implements Stringable, SerializableContract
 
     public function toArray(): array
     {
-        return $this->data;
+        return $this->data->toArray();
     }
 
     public static function fromArray(array $matter): static
