@@ -31,7 +31,7 @@ class SeedPublicationCommand extends ValidatingCommand
     {
         $this->title('Seeding new publications!');
 
-        $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
+        $publicationType = $this->getPublicationTypeSelection($this->getPublicationTypes());
         $number = (int) ($this->argument('number') ?? $this->askWithValidation(
             'number',
             'How many publications would you like to generate',
@@ -45,41 +45,41 @@ class SeedPublicationCommand extends ValidatingCommand
         }
 
         $timeStart = microtime(true);
-        $seeder = new SeedsPublicationFiles($pubType, $number);
+        $seeder = new SeedsPublicationFiles($publicationType, $number);
         $seeder->create();
 
         $ms = round((microtime(true) - $timeStart) * 1000);
         $each = round($ms / $number, 2);
-        $this->info(sprintf("<comment>$number</comment> publication{$this->pluralize($number)} for <comment>$pubType->name</comment> created! <fg=gray>Took {$ms}ms%s",
+        $this->info(sprintf("<comment>$number</comment> publication{$this->pluralize($number)} for <comment>$publicationType->name</comment> created! <fg=gray>Took {$ms}ms%s",
                 ($number > 1) ? " ({$each}ms/each)</>" : ''));
 
         return Command::SUCCESS;
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType>  $pubTypes
+     * @param  \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType>  $publicationTypes
      * @return \Hyde\Publications\Models\PublicationType
      */
-    protected function getPubTypeSelection(Collection $pubTypes): PublicationType
+    protected function getPublicationTypeSelection(Collection $publicationTypes): PublicationType
     {
-        $pubTypeSelection = $this->argument('publicationType') ?? $pubTypes->keys()->get(
+        $publicationType = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
             (int) $this->choice(
                 'Which publication type would you like to seed?',
-                $pubTypes->keys()->toArray()
+                $publicationTypes->keys()->toArray()
             )
         );
 
-        if ($pubTypes->has($pubTypeSelection)) {
+        if ($publicationTypes->has($publicationType)) {
             if ($this->argument('number')) {
-                $this->line("<info>Creating</info> [<comment>{$this->argument('number')}</comment>] <info>random publications for type</info> [<comment>$pubTypeSelection</comment>]");
+                $this->line("<info>Creating</info> [<comment>{$this->argument('number')}</comment>] <info>random publications for type</info> [<comment>$publicationType</comment>]");
             } else {
-                $this->line("<info>Creating random publications for type</info> [<comment>$pubTypeSelection</comment>]");
+                $this->line("<info>Creating random publications for type</info> [<comment>$publicationType</comment>]");
             }
 
-            return $pubTypes->get($pubTypeSelection);
+            return $publicationTypes->get($publicationType);
         }
 
-        throw new InvalidArgumentException("Unable to locate publication type [$pubTypeSelection]");
+        throw new InvalidArgumentException("Unable to locate publication type [$publicationType]");
     }
 
     /**
@@ -89,12 +89,12 @@ class SeedPublicationCommand extends ValidatingCommand
      */
     protected function getPublicationTypes(): Collection
     {
-        $pubTypes = PublicationService::getPublicationTypes();
-        if ($pubTypes->isEmpty()) {
+        $publicationTypes = PublicationService::getPublicationTypes();
+        if ($publicationTypes->isEmpty()) {
             throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }
 
-        return $pubTypes;
+        return $publicationTypes;
     }
 
     protected function pluralize(int $count): string
