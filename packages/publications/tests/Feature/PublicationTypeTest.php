@@ -407,6 +407,7 @@ class PublicationTypeTest extends TestCase
             'sortAscending' => true,
             'pageSize' => 0,
             'fields' => [],
+            'meta' => [],
         ], $publicationType->toArray());
     }
 
@@ -423,7 +424,8 @@ class PublicationTypeTest extends TestCase
                 "sortField": "__createdAt",
                 "sortAscending": true,
                 "pageSize": 0,
-                "fields": []
+                "fields": [],
+                "meta": []
             }
             JSON, $publicationType->toJson());
     }
@@ -457,6 +459,7 @@ class PublicationTypeTest extends TestCase
                     'name' => 'title',
                 ],
             ],
+            'meta' => [],
         ], $mergeData);
     }
 
