@@ -131,9 +131,9 @@ class PublicationsExtension extends HydeExtension
             }
         }
 
-        dump('TAG COUNTS', $tagCounts);
-        echo "\n\n\n";
-        dump('PAGES BY TAG', $pagesByTag);
+        // dump('TAG COUNTS', $tagCounts);
+        // echo "\n\n\n";
+        // dump('PAGES BY TAG', $pagesByTag);
 
         // Build main/single tags page
         $page = new \Hyde\Pages\InMemoryPage('tags/index', ['tagCounts' => $tagCounts], 'blah', 'pages/tags.blade.php');
