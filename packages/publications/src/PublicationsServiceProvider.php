@@ -37,6 +37,10 @@ class PublicationsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'hyde-publications');
+
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/hyde-publications'),
+        ], 'hyde-publications-views');
     }
 
     /**
