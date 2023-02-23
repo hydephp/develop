@@ -428,9 +428,9 @@ class PublicationTypeTest extends TestCase
             JSON, $publicationType->toJson());
     }
 
-    public function testArrayRepresentationWithMetaData()
+    public function testArrayRepresentationWithMetadata()
     {
-        $publicationType = new PublicationType('test-publication', meta: $meta = [
+        $publicationType = new PublicationType('test-publication', metadata: $metadata = [
             'foo' => ['bar', 'baz'],
             'bar' => 'baz',
             'baz' => 1,
@@ -445,13 +445,13 @@ class PublicationTypeTest extends TestCase
             'sortAscending' => true,
             'pageSize' => 0,
             'fields' => [],
-            'meta' => $meta,
+            'metadata' => $metadata,
         ], $publicationType->toArray());
     }
 
-    public function testJsonRepresentationWithMetaData()
+    public function testJsonRepresentationWithMetadata()
     {
-        $publicationType = new PublicationType('test-publication', meta: [
+        $publicationType = new PublicationType('test-publication', metadata: [
             'foo' => ['bar', 'baz'],
             'bar' => 'baz',
             'baz' => 1,
@@ -467,7 +467,7 @@ class PublicationTypeTest extends TestCase
                 "sortAscending": true,
                 "pageSize": 0,
                 "fields": [],
-                "meta": {
+                "metadata": {
                     "foo": [
                         "bar",
                         "baz"
@@ -479,7 +479,7 @@ class PublicationTypeTest extends TestCase
             JSON, $publicationType->toJson());
     }
 
-    public function testCanParseSchemaFileWithMetaData()
+    public function testCanParseSchemaFileWithMetadata()
     {
         $this->directory('test-publication');
         $this->file('test-publication/schema.json', <<<'JSON'
@@ -492,7 +492,7 @@ class PublicationTypeTest extends TestCase
                 "sortAscending": true,
                 "pageSize": 0,
                 "fields": [],
-                "meta": {
+                "metadata": {
                     "foo": [
                         "bar",
                         "baz"
@@ -513,7 +513,7 @@ class PublicationTypeTest extends TestCase
             'sortAscending' => true,
             'pageSize' => 0,
             'fields' => [],
-            'meta' => [
+            'metadata' => [
                 'foo' => ['bar', 'baz'],
                 'bar' => 'baz',
                 'baz' => 1,
@@ -521,9 +521,9 @@ class PublicationTypeTest extends TestCase
         ], PublicationType::get('test-publication')->toArray());
     }
 
-    public function testCanGetMetaData()
+    public function testCanGetMetadata()
     {
-        $publicationType = new PublicationType('test-publication', meta: [
+        $publicationType = new PublicationType('test-publication', metadata: [
             'foo' => ['bar', 'baz'],
             'bar' => 'baz',
             'baz' => 1,
@@ -533,13 +533,13 @@ class PublicationTypeTest extends TestCase
             'foo' => ['bar', 'baz'],
             'bar' => 'baz',
             'baz' => 1,
-        ], $publicationType->getMeta());
+        ], $publicationType->getMetadata());
     }
 
-    public function testCanSetMetaData()
+    public function testCanSetMetadata()
     {
         $publicationType = new PublicationType('test-publication');
-        $publicationType->setMeta([
+        $publicationType->setMetadata([
             'foo' => ['bar', 'baz'],
             'bar' => 'baz',
             'baz' => 1,
@@ -549,7 +549,7 @@ class PublicationTypeTest extends TestCase
             'foo' => ['bar', 'baz'],
             'bar' => 'baz',
             'baz' => 1,
-        ], $publicationType->getMeta());
+        ], $publicationType->getMetadata());
     }
 
     public function testValidateSchemaFile()
