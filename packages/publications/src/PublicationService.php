@@ -35,6 +35,8 @@ class PublicationService
 
     /**
      * Return all publications for a given publication type.
+     *
+     * @return Collection<PublicationPage>
      */
     public static function getPublicationsForPubType(PublicationType $pubType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
