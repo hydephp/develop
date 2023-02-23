@@ -154,6 +154,8 @@ class PublicationsExtensionTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
+    // TODO test contents of generated pages
+
     protected function createPublication(): void
     {
         $this->directory('publication');
