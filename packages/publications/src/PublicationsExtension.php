@@ -77,4 +77,9 @@ class PublicationsExtension extends HydeExtension
             $instance->put($listingPage->getSourcePath(), $listingPage);
         }
     }
+
+    protected static function generatePublicationTagPages(PageCollection $collection): void
+    {
+        //
+    }
 }
