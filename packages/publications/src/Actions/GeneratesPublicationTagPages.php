@@ -75,7 +75,7 @@ class GeneratesPublicationTagPages
         }
 
         // Build the index tags page
-        $indexTagsPage = new InMemoryPage('tags/index', ['tagCounts' => $tagCounts], view: 'pages/tags.blade.php');
+        $indexTagsPage = new InMemoryPage('tags/index', ['tagCounts' => $tagCounts], view: 'pages/tags.blade.php'); // todo add namespaced templates similar to the pub-list/detail templates
         $pageCollection = $collection;
         $pageCollection->addPage($indexTagsPage);
 
@@ -84,7 +84,7 @@ class GeneratesPublicationTagPages
             $tagPage = new InMemoryPage(
                 "tags/$tag",
                 ['tag' => $tag, 'pages' => $pages],
-                view: 'pages/tagPageList.blade.php'
+                view: 'pages/tagPageList.blade.php' // todo add namespaced templates similar to the pub-list/detail templates
             );
             $pageCollection->addPage($tagPage);
         }
