@@ -30,8 +30,9 @@ class RouteListCommand extends Command
         {
             protected static function routeToListItem(Route $route): RouteListItem
             {
-                return new class($route) extends RouteListItem {
-                    protected function styleSourcePath(string $path,): string
+                return new class($route) extends RouteListItem
+                {
+                    protected function styleSourcePath(string $path): string
                     {
                         return ($this->route->getPageClass()::isDiscoverable())
                             ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)

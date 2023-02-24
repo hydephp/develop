@@ -43,6 +43,6 @@ class RouteList implements Arrayable
 
     protected static function routeToListItem(Route $route): RouteListItem
     {
-        return (new RouteListItem($route));
+        return new RouteListItem($route);
     }
 }
