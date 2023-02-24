@@ -43,6 +43,6 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     protected function factory(array $data = [], HydePage $page = null): HydePageDataFactory
     {
-        return new HydePageDataFactory($page ?? (new InMemoryPage('', $data))->toCoreDataObject());
+        return new HydePageDataFactory(($page ?? new InMemoryPage('', $data))->toCoreDataObject());
     }
 }
