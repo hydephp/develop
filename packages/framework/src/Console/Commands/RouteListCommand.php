@@ -35,7 +35,7 @@ class RouteListCommand extends Command
                 {
                     protected function styleSourcePath(string $path): string
                     {
-                        return ($this->route->getSourcePath() && ! $this->route->getPage() instanceof InMemoryPage)
+                        return ($this->isPageDiscoverable())
                             ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
                             : '<fg=gray>none</>';
                     }
