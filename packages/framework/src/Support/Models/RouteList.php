@@ -50,7 +50,11 @@ class RouteList implements Arrayable
             return '<fg=yellow>dynamic</>';
         }
 
-        return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
+        if ($this->runningInConsole) {
+            return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
+        }
+
+        return $path;
     }
 
     protected function formatOutputPath(string $path): string
@@ -59,7 +63,11 @@ class RouteList implements Arrayable
             return "_site/$path";
         }
 
-        return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
+        if ($this->runningInConsole) {
+            return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
+        }
+
+        return "_site/$path";
     }
 
     protected function clickablePathLink(string $link, string $path): string
