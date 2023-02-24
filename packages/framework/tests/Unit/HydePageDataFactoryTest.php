@@ -19,13 +19,17 @@ class HydePageDataFactoryTest extends UnitTestCase
     public static function setUpBeforeClass(): void
     {
         self::needsKernel();
+        self::mockConfig([
+            'hyde' => [
+                //
+            ],
+        ]);
+    }
 
-        app()->bind('config', function () {
-            return new Repository([
-                'hyde' => [
-                    //
-                ],
-            ]);
+    protected static function mockConfig(array $items): void
+    {
+        app()->bind('config', function () use ($items) {
+            return new Repository($items);
         });
 
         Config::swap(app('config'));
