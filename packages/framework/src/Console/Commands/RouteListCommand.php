@@ -31,7 +31,7 @@ class RouteListCommand extends Command
             {
                 return $class::isDiscoverable()
                     ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
-                    : '<fg=yellow>dynamic</>';
+                    : $this->getDynamicSourceLabel();
             }
 
             protected function styleOutputPath(string $path): string
@@ -46,6 +46,11 @@ class RouteListCommand extends Command
             protected function link(string $link, string $label): string
             {
                 return "<href=$link>$label</>";
+            }
+
+            protected function getDynamicSourceLabel(): string
+            {
+                return '<fg=yellow>dynamic</>';
             }
         };
 

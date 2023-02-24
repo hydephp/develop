@@ -52,7 +52,7 @@ class RouteList implements Arrayable
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
     protected function styleSourcePath(string $path, string $class): string
     {
-        return $class::isDiscoverable() ? $path : 'dynamic';
+        return $class::isDiscoverable() ? $path : $this->getDynamicSourceLabel();
     }
 
     protected function styleOutputPath(string $path): string
@@ -63,5 +63,10 @@ class RouteList implements Arrayable
     protected function styleRouteKey(string $key): string
     {
         return $key;
+    }
+
+    protected function getDynamicSourceLabel(): string
+    {
+        return 'dynamic';
     }
 }
