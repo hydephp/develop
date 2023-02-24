@@ -142,7 +142,55 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    // TODO test contents of generated pages
+    public function test_generated_index_page()
+    {
+        $this->createPublication();
+        (new PublicationType('publication', fields: [
+            ['name' => 'general', 'type' => 'tag'],
+        ]))->save();
+        $this->file('publication/foo.md', "---\ngeneral: 'foo'\n---\n");
+        $this->file('publication/bar.md', "---\ngeneral: 'bar'\n---\n");
+        $this->file('publication/baz.md', "---\ngeneral: 'bar'\n---\n");
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
+
+        $page = $booted->getPage('tags/index');
+
+        $this->assertInstanceOf(InMemoryPage::class, $page);
+
+        $this->assertSame('tags/index', $page->identifier);
+        $this->assertSame('tags/index', $page->getRouteKey());
+        $this->assertSame('tags/index.html', $page->getOutputPath());
+        $this->assertSame('Index', $page->title);
+
+        $this->assertSame(['tags' => ['bar' => 2, 'foo' => 1]], $page->matter->data);
+    }
+
+    public function test_generated_detail_page()
+    {
+        $this->createPublication();
+        (new PublicationType('publication', fields: [
+            ['name' => 'general', 'type' => 'tag'],
+        ]))->save();
+        $this->file('publication/foo.md', "---\ngeneral: 'foo'\n---\n");
+        $this->file('publication/bar.md', "---\ngeneral: 'bar'\n---\n");
+        $this->file('publication/baz.md', "---\ngeneral: 'bar'\n---\n");
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
+
+        $page = $booted->getPage('tags/foo');
+
+        $this->assertInstanceOf(InMemoryPage::class, $page);
+
+        $this->assertSame('tags/foo', $page->identifier);
+        $this->assertSame('tags/foo', $page->getRouteKey());
+        $this->assertSame('tags/foo.html', $page->getOutputPath());
+        $this->assertSame('Foo', $page->title);
+
+        $this->assertEquals(['tag' => 'foo', 'pages' => [PublicationPage::get('publication/foo')]], $page->matter->data);
+    }
 
     protected function createPublication(): void
     {
