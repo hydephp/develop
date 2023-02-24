@@ -8,6 +8,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\RouteListCommand
+ *
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
 class RouteListCommandTest extends TestCase
