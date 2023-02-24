@@ -27,12 +27,19 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $routes = new class extends RouteList
-        {
+        $routes = $this->routeListClass();
+
+        $this->table($routes->headers(), $routes->toArray());
+
+        return Command::SUCCESS;
+    }
+
+    protected function routeListClass(): RouteList
+    {
+        return new class extends RouteList {
             protected static function routeToListItem(Route $route): RouteListItem
             {
-                return new class($route) extends RouteListItem
-                {
+                return new class($route) extends RouteListItem {
                     protected function stylePageType(string $class): string
                     {
                         $type = parent::stylePageType($class);
@@ -55,7 +62,8 @@ class RouteListCommand extends Command
                     protected function styleOutputPath(string $path): string
                     {
                         return file_exists(Hyde::sitePath($path))
-                            ? $this->href(Command::createClickableFilepath(Hyde::sitePath($path)), parent::styleOutputPath($path))
+                            ? $this->href(Command::createClickableFilepath(Hyde::sitePath($path)),
+                                parent::styleOutputPath($path))
                             : parent::styleOutputPath($path);
                     }
 
@@ -67,9 +75,5 @@ class RouteListCommand extends Command
                 };
             }
         };
-
-        $this->table($routes->headers(), $routes->toArray());
-
-        return Command::SUCCESS;
     }
 }
