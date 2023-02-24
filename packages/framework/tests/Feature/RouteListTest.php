@@ -44,7 +44,7 @@ class RouteListTest extends TestCase
                 'Output File' => '_site/index.html',
                 'Route Key' => 'index',
             ],
-        ], (new RouteList())->runningInConsole()->toArray());
+        ], (new RouteList())->styleForConsole()->toArray());
     }
 
     public function testConsoleRouteListWithClickableOutputPaths()
@@ -59,7 +59,7 @@ class RouteListTest extends TestCase
                 'Output File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
                 'Route Key' => 'index',
             ],
-        ], (new RouteList())->runningInConsole()->toArray());
+        ], (new RouteList())->styleForConsole()->toArray());
     }
 
     public function testWithDynamicPages()
@@ -75,7 +75,7 @@ class RouteListTest extends TestCase
                 'Output File' => '_site/foo.html',
                 'Route Key' => 'foo',
             ],
-        ], (new RouteList())->runningInConsole()->toArray());
+        ], (new RouteList())->styleForConsole()->toArray());
     }
 
     public function testConsoleRouteListWithDynamicPages()
@@ -91,6 +91,6 @@ class RouteListTest extends TestCase
                 'Output File' => '_site/foo.html',
                 'Route Key' => 'foo',
             ],
-        ], (new RouteList())->runningInConsole()->toArray());
+        ], (new RouteList())->styleForConsole()->toArray());
     }
 }

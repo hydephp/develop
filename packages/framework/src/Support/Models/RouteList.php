@@ -13,11 +13,11 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class RouteList implements Arrayable
 {
-    protected bool $runningInConsole = false;
+    protected bool $styleForConsole = false;
 
-    public function runningInConsole(bool $runningInConsole = true): static
+    public function styleForConsole(bool $styleForConsole = true): static
     {
-        $this->runningInConsole = $runningInConsole;
+        $this->styleForConsole = $styleForConsole;
 
         return $this;
     }
@@ -50,7 +50,7 @@ class RouteList implements Arrayable
             return '<fg=yellow>dynamic</>';
         }
 
-        if ($this->runningInConsole) {
+        if ($this->styleForConsole) {
             return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
         }
 
@@ -59,7 +59,7 @@ class RouteList implements Arrayable
 
     protected function formatOutputPath(string $path): string
     {
-        if ($this->runningInConsole && file_exists(Hyde::sitePath($path))) {
+        if ($this->styleForConsole && file_exists(Hyde::sitePath($path))) {
             return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
         }
 
