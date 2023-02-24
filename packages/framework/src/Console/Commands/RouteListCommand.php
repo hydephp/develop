@@ -7,7 +7,6 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Support\Models\RouteList;
-
 use function file_exists;
 
 /**
@@ -25,7 +24,8 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $routes = new class extends RouteList {
+        $routes = new class extends RouteList
+        {
             /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
             protected function styleSourcePath(string $path, string $class): string
             {
