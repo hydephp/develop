@@ -15,9 +15,11 @@ class RouteList implements Arrayable
 {
     protected bool $runningInConsole = false;
 
-    public function __construct(bool $runningInConsole = false)
+    public function runningInConsole(bool $runningInConsole = true): static
     {
         $this->runningInConsole = $runningInConsole;
+
+        return $this;
     }
 
     public function toArray(): array
