@@ -64,8 +64,7 @@ class RouteListCommand extends Command
                     protected function styleOutputPath(string $path): string
                     {
                         return file_exists(Hyde::sitePath($path))
-                            ? $this->href(Command::createClickableFilepath(Hyde::sitePath($path)),
-                                parent::styleOutputPath($path))
+                            ? $this->href(Command::createClickableFilepath(Hyde::sitePath($path)), parent::styleOutputPath($path))
                             : parent::styleOutputPath($path);
                     }
 
