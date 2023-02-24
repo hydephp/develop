@@ -14,6 +14,7 @@ use Illuminate\Contracts\Support\Arrayable;
 class RouteList implements Arrayable
 {
     protected bool $styleForConsole = false;
+    protected array $routes;
 
     public function styleForConsole(bool $styleForConsole = true): static
     {
