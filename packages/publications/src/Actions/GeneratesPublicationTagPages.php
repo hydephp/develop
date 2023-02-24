@@ -46,7 +46,7 @@ class GeneratesPublicationTagPages
             }
 
             // Skip the current publication type if no tag fields are found
-            if (!$publicationTagFieldsByName) {
+            if (! $publicationTagFieldsByName) {
                 continue;
             }
 
@@ -64,13 +64,13 @@ class GeneratesPublicationTagPages
                         }
 
                         // Increment tag count for the current tag
-                        if (!isset($tagCounts[$tag])) {
+                        if (! isset($tagCounts[$tag])) {
                             $tagCounts[$tag] = 0;
                         }
                         $tagCounts[$tag]++;
 
                         // Add the current publication to the list of pages for the current tag
-                        if (!isset($pagesByTag[$tag])) {
+                        if (! isset($pagesByTag[$tag])) {
                             $pagesByTag[$tag] = [];
                         }
                         $pagesByTag[$tag][] = $publication;
