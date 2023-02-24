@@ -74,6 +74,6 @@ class RouteListCommandTest extends TestCase
                 'source_file' => '<fg=yellow>dynamic</>',
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',
-        ]])->assertExitCode(0);
+            ]])->assertExitCode(0);
     }
 }
