@@ -16,7 +16,7 @@
         <article class="prose dark:prose-invert">
             <h3>Front Matter Data</h3>
             <div class="ml-4">
-                @foreach($publication->matter->data as $key => $value)
+                @foreach($publication->matter->toArray() as $key => $value)
                     <dt class="font-bold">{{ $key }}</dt>
                     <dd class="ml-4">
                         {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}

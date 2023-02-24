@@ -164,7 +164,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->assertSame('tags/index.html', $page->getOutputPath());
         $this->assertSame('Tags', $page->title);
 
-        $this->assertSame(['tags' => ['bar' => 2, 'foo' => 1]], $page->matter->data);
+        $this->assertSame(['tags' => ['bar' => 2, 'foo' => 1]], $page->matter->toArray());
     }
 
     public function test_generated_detail_page()
@@ -189,7 +189,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->assertSame('tags/foo.html', $page->getOutputPath());
         $this->assertSame('Foo', $page->title);
 
-        $this->assertEquals(['tag' => 'foo', 'publications' => [PublicationPage::get('publication/foo')]], $page->matter->data);
+        $this->assertEquals(['tag' => 'foo', 'publications' => [PublicationPage::get('publication/foo')]], $page->matter->toArray());
     }
 
     protected function createPublication(): void
