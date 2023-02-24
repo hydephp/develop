@@ -16,16 +16,16 @@ class RouteListTest extends TestCase
     {
         $this->assertSame([
             [
-               'Page Type' => 'BladePage',
-               'Source File' => '_pages/404.blade.php',
-               'Output File' => '_site/404.html',
-               'Route Key' => '404',
+                'Page Type' => 'BladePage',
+                'Source File' => '_pages/404.blade.php',
+                'Output File' => '_site/404.html',
+                'Route Key' => '404',
             ],
             [
-               'Page Type' => 'BladePage',
-               'Source File' => '_pages/index.blade.php',
-               'Output File' => '_site/index.html',
-               'Route Key' => 'index',
+                'Page Type' => 'BladePage',
+                'Source File' => '_pages/index.blade.php',
+                'Output File' => '_site/index.html',
+                'Route Key' => 'index',
             ],
         ], (new RouteList())->toArray());
     }
