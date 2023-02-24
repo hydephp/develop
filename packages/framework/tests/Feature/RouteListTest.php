@@ -53,7 +53,7 @@ class RouteListTest extends TestCase
         $this->assertSame([
             [
                 'page_type' => 'InMemoryPage',
-                'source_file' => 'dynamic',
+                'source_file' => 'none',
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',
             ],
