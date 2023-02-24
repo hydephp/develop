@@ -50,10 +50,10 @@ class RouteListTest extends TestCase
     public function testHeaders()
     {
         $this->assertSame([
-            'page_type',
-            'source_file',
-            'output_file',
-            'route_key',
+            'Page Type',
+            'Source File',
+            'Output File',
+            'Route Key',
         ], (new RouteList())->headers());
     }
 

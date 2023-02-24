@@ -30,7 +30,9 @@ class RouteList implements Arrayable
 
     public function headers(): array
     {
-        return array_keys($this->routes[0]);
+        return array_map(function (string $key): string {
+            return ucwords(str_replace('_', ' ', $key));
+        }, array_keys($this->routes[0]));
     }
 
     protected function generate(): void
