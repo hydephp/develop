@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-class RouteListItem
+use Illuminate\Contracts\Support\Arrayable;
+
+class RouteListItem implements Arrayable
 {
     //
 }
