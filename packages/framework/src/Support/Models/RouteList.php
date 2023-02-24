@@ -9,6 +9,7 @@ use Hyde\Facades\Site;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
+ * @experimental This class is experimental and is subject to change.
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
 class RouteList implements Arrayable
