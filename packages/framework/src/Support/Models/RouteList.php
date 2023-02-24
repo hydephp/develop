@@ -11,5 +11,8 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class RouteList implements Arrayable
 {
-    //
+    public function toArray(): array
+    {
+        //
+    }
 }
