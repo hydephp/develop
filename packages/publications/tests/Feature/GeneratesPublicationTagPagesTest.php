@@ -162,7 +162,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->assertSame('tags/index', $page->identifier);
         $this->assertSame('tags/index', $page->getRouteKey());
         $this->assertSame('tags/index.html', $page->getOutputPath());
-        $this->assertSame('Index', $page->title);
+        $this->assertSame('Tags', $page->title);
 
         $this->assertSame(['tags' => ['bar' => 2, 'foo' => 1]], $page->matter->data);
     }
