@@ -33,13 +33,9 @@ class RouteListTest extends TestCase
 
     public function testConsoleRouteList()
     {
+        Hyde::routes()->forget('404');
+
         $this->assertSame([
-            [
-                'Page Type' => 'BladePage',
-                'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/404.blade.php>_pages/404.blade.php</>',
-                'Output File' => '_site/404.html',
-                'Route Key' => '404',
-            ],
             [
                 'Page Type' => 'BladePage',
                 'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
@@ -51,15 +47,10 @@ class RouteListTest extends TestCase
 
     public function testConsoleRouteListWithClickableOutputPaths()
     {
+        Hyde::routes()->forget('404');
         $this->file('_site/index.html');
 
         $this->assertSame([
-            [
-                'Page Type' => 'BladePage',
-                'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/404.blade.php>_pages/404.blade.php</>',
-                'Output File' => '_site/404.html',
-                'Route Key' => '404',
-            ],
             [
                 'Page Type' => 'BladePage',
                 'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
