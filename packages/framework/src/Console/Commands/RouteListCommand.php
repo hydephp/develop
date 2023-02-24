@@ -47,7 +47,7 @@ class RouteListCommand extends Command
 
                     protected function styleSourcePath(string $path): string
                     {
-                        return ($this->isPageDiscoverable())
+                        return parent::styleSourcePath($path) !== 'none'
                             ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
                             : '<fg=gray>none</>';
                     }
