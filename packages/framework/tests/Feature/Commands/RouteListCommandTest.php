@@ -19,7 +19,7 @@ class RouteListCommandTest extends TestCase
     public function testRouteListCommand()
     {
         $this->artisan('route:list')
-            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [
+            ->expectsTable($this->headers(), [
                 [
                     'BladePage',
                     '_pages/404.blade.php',
@@ -40,7 +40,7 @@ class RouteListCommandTest extends TestCase
         Hyde::routes()->forget('404');
 
         $this->artisan('route:list')
-            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [[
+            ->expectsTable($this->headers(), [[
                 'page_type' => 'BladePage',
                 'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
                 'output_file' => '_site/index.html',
@@ -54,7 +54,7 @@ class RouteListCommandTest extends TestCase
         $this->file('_site/index.html');
 
         $this->artisan('route:list')
-            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [[
+            ->expectsTable($this->headers(), [[
                 'page_type' => 'BladePage',
                 'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
                 'output_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
@@ -69,11 +69,16 @@ class RouteListCommandTest extends TestCase
         Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
 
         $this->artisan('route:list')
-            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [[
+            ->expectsTable($this->headers(), [[
                 'page_type' => 'InMemoryPage',
                 'source_file' => '<fg=yellow>dynamic</>',
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',
         ]])->assertExitCode(0);
+    }
+
+    protected function headers(): array
+    {
+        return ['Page Type', 'Source File', 'Output File', 'Route Key'];
     }
 }
