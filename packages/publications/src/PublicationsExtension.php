@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Publications\Actions\GeneratesPublicationTagPages;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
@@ -30,6 +32,10 @@ class PublicationsExtension extends HydeExtension
     public static function discoverPages(PageCollection $collection): void
     {
         static::discoverPublicationPages($collection);
+
+        if (Filesystem::exists('tags.yml')) {
+            static::generatePublicationTagPages($collection);
+        }
     }
 
     protected static function discoverPublicationPages(PageCollection $instance): void
@@ -76,5 +82,10 @@ class PublicationsExtension extends HydeExtension
             ], view: $listTemplate);
             $instance->put($listingPage->getSourcePath(), $listingPage);
         }
+    }
+
+    protected static function generatePublicationTagPages(PageCollection $collection): void
+    {
+        (new GeneratesPublicationTagPages($collection))->__invoke();
     }
 }

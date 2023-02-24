@@ -6,6 +6,7 @@ namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
@@ -44,6 +45,20 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(
             PublicationListPage::class,
             $booted->getPage('publication/index')
+        );
+    }
+
+    public function test_publication_tag_pages_are_generated()
+    {
+        $this->createPublication();
+
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
+
+        $this->assertInstanceOf(
+            InMemoryPage::class,
+            $booted->getPage('tags/index')
         );
     }
 
