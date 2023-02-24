@@ -30,7 +30,7 @@ class RouteListCommand extends Command
             protected function styleSourcePath(string $path, string $class): string
             {
                 return $class::isDiscoverable()
-                    ? $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path)
+                    ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
                     : '<fg=yellow>dynamic</>';
             }
 
@@ -38,11 +38,11 @@ class RouteListCommand extends Command
             {
                 $path = parent::styleOutputPath($path);
                 return file_exists(Hyde::path($path))
-                    ? $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path)
+                    ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
                     : $path;
             }
 
-            protected function clickablePathLink(string $link, string $path): string
+            protected function link(string $link, string $path): string
             {
                 return "<href=$link>$path</>";
             }
