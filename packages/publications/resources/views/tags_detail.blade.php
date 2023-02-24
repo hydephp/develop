@@ -5,9 +5,9 @@
             <h1>Publications for tag {{ $tag }}</h1>
 
             <ol>
-                @foreach($pages as $page)
+                @foreach($publications as $publication)
                     <li>
-                        <x-link :href="$page->getRoute()">{{ $page->title }}</x-link>
+                        <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
                     </li>
                 @endforeach
             </ol>

@@ -88,7 +88,7 @@ class GeneratesPublicationTagPages
         foreach ($pagesByTag as $tag => $pages) {
             $tagPage = new InMemoryPage(
                 "tags/$tag",
-                ['tag' => $tag, 'pages' => $pages],
+                ['tag' => $tag, 'publications' => $pages],
                 view: 'hyde-publications::tags_detail'
             );
             $pageCollection->addPage($tagPage);

@@ -189,7 +189,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->assertSame('tags/foo.html', $page->getOutputPath());
         $this->assertSame('Foo', $page->title);
 
-        $this->assertEquals(['tag' => 'foo', 'pages' => [PublicationPage::get('publication/foo')]], $page->matter->data);
+        $this->assertEquals(['tag' => 'foo', 'publications' => [PublicationPage::get('publication/foo')]], $page->matter->data);
     }
 
     protected function createPublication(): void
