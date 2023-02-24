@@ -97,9 +97,7 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     protected static function mockConfig(array $items = []): void
     {
-        app()->bind('config', function () use ($items) {
-            return new Repository($items);
-        });
+        app()->bind('config', fn() => new Repository($items));
 
         Config::swap(app('config'));
     }
