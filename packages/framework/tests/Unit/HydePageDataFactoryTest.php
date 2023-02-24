@@ -44,12 +44,12 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertSame(['title', 'canonicalUrl', 'navigation'], array_keys($this->factory()->toArray()));
     }
 
-    public function testCanGetTitleFromMatter()
+    public function testCanCreateTitleFromMatter()
     {
         $this->assertSame('Foo', $this->factory(['title' => 'Foo'])->toArray()['title']);
     }
 
-    public function testCanGetTitleFromMarkdown()
+    public function testCanCreateTitleFromMarkdown()
     {
         $this->assertSame('Foo', $this->factory(page: new MarkdownPage(markdown: '# Foo'))->toArray()['title']);
     }
