@@ -36,10 +36,12 @@ class RouteListCommand extends Command
 
     protected function routeListClass(): RouteList
     {
-        return new class extends RouteList {
+        return new class extends RouteList
+        {
             protected static function routeToListItem(Route $route): RouteListItem
             {
-                return new class($route) extends RouteListItem {
+                return new class($route) extends RouteListItem
+                {
                     protected function stylePageType(string $class): string
                     {
                         $type = parent::stylePageType($class);
