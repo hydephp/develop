@@ -90,7 +90,7 @@ class InMemoryPage extends HydePage
      */
     public function compile(): string
     {
-        if (isset($this->macros['compile'])) {
+        if ($this->hasMacro('compile')) {
             return $this->__call('compile', []);
         }
 
@@ -120,11 +120,19 @@ class InMemoryPage extends HydePage
     }
 
     /**
+     * Determine if a macro with the given name is registered for the instance.
+     */
+    public function hasMacro(string $method): bool
+    {
+        return isset($this->macros[$method]);
+    }
+
+    /**
      * Dynamically handle macro calls to the class.
      */
     public function __call(string $method, array $parameters): mixed
     {
-        if (! isset($this->macros[$method])) {
+        if (! $this->hasMacro($method)) {
             throw new BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));
