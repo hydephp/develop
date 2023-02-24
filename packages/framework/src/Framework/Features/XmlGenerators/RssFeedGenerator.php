@@ -15,7 +15,6 @@ use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use SimpleXMLElement;
-use function str_ends_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
