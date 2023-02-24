@@ -132,4 +132,16 @@ class InMemoryPageTest extends TestCase
         /** @noinspection PhpUndefinedMethodInspection */
         $page->foo();
     }
+
+    public function testHasMacro()
+    {
+        $page = InMemoryPage::make('foo');
+
+        $page->macro('foo', function () {
+            return 'bar';
+        });
+
+        $this->assertTrue($page->hasMacro('foo'));
+        $this->assertFalse($page->hasMacro('bar'));
+    }
 }
