@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
+use Hyde\Facades\Site;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -59,6 +60,6 @@ class RouteList implements Arrayable
 
     protected function styleOutputPath(string $path): string
     {
-        return "_site/$path";
+        return Site::getOutputDirectory()."/$path";
     }
 }
