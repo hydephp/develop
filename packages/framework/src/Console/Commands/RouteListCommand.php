@@ -32,6 +32,11 @@ class RouteListCommand extends Command
             {
                 return new class($route) extends RouteListItem
                 {
+                    protected function stylePageType(string $class): string
+                    {
+                        return parent::stylePageType($class);
+                    }
+
                     protected function styleSourcePath(string $path): string
                     {
                         return ($this->isPageDiscoverable())
