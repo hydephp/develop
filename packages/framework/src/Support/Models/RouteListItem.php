@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Facades\Site;
+use Hyde\Pages\InMemoryPage;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -66,6 +67,6 @@ class RouteListItem implements Arrayable
 
     protected function isPageDiscoverable(): bool
     {
-        return $this->route->getSourcePath();
+        return $this->route->getSourcePath() && ! $this->route->getPage() instanceof InMemoryPage;
     }
 }
