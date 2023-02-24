@@ -23,12 +23,7 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $this->table([
-            'Page Type',
-            'Source File',
-            'Output File',
-            'Route Key',
-        ], $this->getRoutes());
+        $this->table(array_keys($this->getRoutes()[0]), $this->getRoutes());
 
         return Command::SUCCESS;
     }
