@@ -28,10 +28,10 @@ class RouteList implements Arrayable
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                $this->formatPageType($route->getPageClass()),
-                $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
-                $this->formatOutputPath($route->getOutputPath()),
-                $route->getRouteKey(),
+                'Page Type' => $this->formatPageType($route->getPageClass()),
+                'Source File' => $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
+                'Output File' => $this->formatOutputPath($route->getOutputPath()),
+                'Route Key' => $route->getRouteKey(),
             ];
         }
 
