@@ -6,7 +6,9 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteList;
+use Hyde\Support\Models\RouteListItem;
 use function file_exists;
 
 /**
@@ -26,26 +28,30 @@ class RouteListCommand extends Command
     {
         $routes = new class extends RouteList
         {
-            /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
-            protected function styleSourcePath(string $path, string $class): string
+            protected static function routeToListItem(Route $route): RouteListItem
             {
-                return $class::isDiscoverable()
-                    ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
-                    : '<fg=yellow>dynamic</>';
-            }
+                return new class($route) extends RouteListItem {
+                    protected function styleSourcePath(string $path,): string
+                    {
+                        return ($this->route->getPageClass()::isDiscoverable())
+                            ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
+                            : '<fg=yellow>dynamic</>';
+                    }
 
-            protected function styleOutputPath(string $path): string
-            {
-                $path = parent::styleOutputPath($path);
+                    protected function styleOutputPath(string $path): string
+                    {
+                        $path = parent::styleOutputPath($path);
 
-                return file_exists(Hyde::path($path))
-                    ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
-                    : $path;
-            }
+                        return file_exists(Hyde::path($path))
+                            ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
+                            : $path;
+                    }
 
-            protected function link(string $link, string $label): string
-            {
-                return "<href=$link>$label</>";
+                    protected function link(string $link, string $label): string
+                    {
+                        return "<href=$link>$label</>";
+                    }
+                };
             }
         };
 
