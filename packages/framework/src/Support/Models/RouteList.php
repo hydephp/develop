@@ -34,17 +34,14 @@ class RouteList implements Arrayable
 
     protected function generate(): void
     {
-        $routes = [];
-        /** @var \Hyde\Support\Models\Route $route */
-        foreach (Hyde::routes() as $route) {
-            $routes[] = [
+        $this->routes = collect(Hyde::routes())->map(function (Route $route): array {
+            return [
                 'page_type' => $this->stylePageType($route->getPageClass()),
                 'source_file' => $this->styleSourcePath($route->getSourcePath(), $route->getPageClass()),
                 'output_file' => $this->styleOutputPath($route->getOutputPath()),
                 'route_key' => $this->styleRouteKey($route->getRouteKey()),
             ];
-        }
-        $this->routes = $routes;
+        })->values()->toArray();
     }
 
     protected function stylePageType(string $class): string
