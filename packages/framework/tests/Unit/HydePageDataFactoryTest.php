@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Factories\HydePageDataFactory;
+use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -95,6 +96,11 @@ class HydePageDataFactoryTest extends UnitTestCase
     public function testCanonicalUrlIsNullWhenNoBaseUrlIsSet()
     {
         $this->assertNull($this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+    }
+
+    public function testNavigationDataIsGeneratedByNavigationDataFactory()
+    {
+        $this->assertInstanceOf(NavigationData::class, $this->factory()->toArray()['navigation']);
     }
 
     protected static function mockConfig(array $items = []): void
