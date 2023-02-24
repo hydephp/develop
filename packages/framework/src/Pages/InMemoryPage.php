@@ -142,7 +142,7 @@ class InMemoryPage extends HydePage
         return $macro(...$parameters);
     }
 
-    public function getSourcePath(): string
+    final public function getSourcePath(): string
     {
         return '';
     }
