@@ -144,6 +144,6 @@ class InMemoryPage extends HydePage
 
     final public function getSourcePath(): string
     {
-        return '';
+        return "__dynamic/{$this->getIdentifier()}";
     }
 }

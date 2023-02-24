@@ -81,7 +81,7 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
     public function testGetSourcePath()
     {
         $this->assertSame(
-            'hello-world',
+            '__dynamic/hello-world',
             (new InMemoryPage('hello-world'))->getSourcePath()
         );
     }
