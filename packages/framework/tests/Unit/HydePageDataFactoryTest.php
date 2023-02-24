@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Factories\HydePageDataFactory;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
 
 /**
@@ -12,5 +13,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class HydePageDataFactoryTest extends UnitTestCase
 {
-    //
+    protected function factory(array $data = []): HydePageDataFactory
+    {
+        return new HydePageDataFactory((new InMemoryPage('foo', $data))->toCoreDataObject());
+    }
 }
