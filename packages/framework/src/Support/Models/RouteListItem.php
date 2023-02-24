@@ -45,9 +45,9 @@ class RouteListItem implements Arrayable
     {
         if (! $this->route->getPageClass()::isDiscoverable()) {
             return $this->getDynamicSourceLabel();
-        } else {
-            return $path;
         }
+
+        return $path;
     }
 
     protected function styleOutputPath(string $path): string
