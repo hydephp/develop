@@ -69,6 +69,34 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertSame('Bar', $this->factory(page: new MarkdownPage('foo/bar'))->toArray()['title']);
     }
 
+    public function testCanCreateCanonicalUrlUsingBaseUrlFromConfig()
+    {
+        self::mockConfig([
+            'hyde' => [
+                'url' => 'https://example.com',
+            ],
+        ]);
+
+        $this->assertSame('https://example.com/foo.html', $this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+    }
+
+    public function testCanCreateCanonicalUrlUsingBaseUrlFromConfigUsingPrettyUrls()
+    {
+        self::mockConfig([
+            'hyde' => [
+                'url' => 'https://example.com',
+                'pretty_urls' => true,
+            ],
+        ]);
+
+        $this->assertSame('https://example.com/foo', $this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+    }
+
+    public function testCanonicalUrlIsNullWhenNoBaseUrlIsSet()
+    {
+        $this->assertNull($this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+    }
+
     protected static function mockConfig(array $items = []): void
     {
         app()->bind('config', function () use ($items) {
