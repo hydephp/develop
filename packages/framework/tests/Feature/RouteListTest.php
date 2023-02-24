@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Support\Models\RouteList
+ * @covers \Hyde\Support\Models\RouteListItem
  */
 class RouteListTest extends TestCase
 {

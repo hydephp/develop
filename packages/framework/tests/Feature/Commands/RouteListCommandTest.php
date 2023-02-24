@@ -11,6 +11,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\RouteListCommand
+ * @covers \Hyde\Support\Models\RouteListItem
  *
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
