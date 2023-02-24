@@ -42,9 +42,9 @@ class RouteListCommand extends Command
                     : $path;
             }
 
-            protected function link(string $link, string $path): string
+            protected function link(string $link, string $label): string
             {
-                return "<href=$link>$path</>";
+                return "<href=$link>$label</>";
             }
         };
 
