@@ -39,10 +39,10 @@ class RouteList implements Arrayable
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                'Page Type' => $this->formatPageType($route->getPageClass()),
-                'Source File' => $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
-                'Output File' => $this->formatOutputPath($route->getOutputPath()),
-                'Route Key' => $route->getRouteKey(),
+                'page_type' => $this->formatPageType($route->getPageClass()),
+                'source_file' => $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
+                'output_file' => $this->formatOutputPath($route->getOutputPath()),
+                'route_key' => $route->getRouteKey(),
             ];
         }
         $this->routes = $routes;

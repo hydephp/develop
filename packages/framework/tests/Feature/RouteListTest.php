@@ -19,16 +19,16 @@ class RouteListTest extends TestCase
     {
         $this->assertSame([
             [
-                'Page Type' => 'BladePage',
-                'Source File' => '_pages/404.blade.php',
-                'Output File' => '_site/404.html',
-                'Route Key' => '404',
+                'page_type' => 'BladePage',
+                'source_file' => '_pages/404.blade.php',
+                'output_file' => '_site/404.html',
+                'route_key' => '404',
             ],
             [
-                'Page Type' => 'BladePage',
-                'Source File' => '_pages/index.blade.php',
-                'Output File' => '_site/index.html',
-                'Route Key' => 'index',
+                'page_type' => 'BladePage',
+                'source_file' => '_pages/index.blade.php',
+                'output_file' => '_site/index.html',
+                'route_key' => 'index',
             ],
         ], (new RouteList())->toArray());
     }
@@ -39,10 +39,10 @@ class RouteListTest extends TestCase
 
         $this->assertSame([
             [
-                'Page Type' => 'BladePage',
-                'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
-                'Output File' => '_site/index.html',
-                'Route Key' => 'index',
+                'page_type' => 'BladePage',
+                'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
+                'output_file' => '_site/index.html',
+                'route_key' => 'index',
             ],
         ], (new RouteList(true))->toArray());
     }
@@ -50,10 +50,10 @@ class RouteListTest extends TestCase
     public function testHeaders()
     {
         $this->assertSame([
-            'Page Type',
-            'Source File',
-            'Output File',
-            'Route Key',
+            'page_type',
+            'source_file',
+            'output_file',
+            'route_key',
         ], (new RouteList())->headers());
     }
 
@@ -64,10 +64,10 @@ class RouteListTest extends TestCase
 
         $this->assertSame([
             [
-                'Page Type' => 'BladePage',
-                'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
-                'Output File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
-                'Route Key' => 'index',
+                'page_type' => 'BladePage',
+                'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
+                'output_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
+                'route_key' => 'index',
             ],
         ], (new RouteList(true))->toArray());
     }
@@ -80,10 +80,10 @@ class RouteListTest extends TestCase
 
         $this->assertSame([
             [
-                'Page Type' => 'InMemoryPage',
-                'Source File' => 'dynamic',
-                'Output File' => '_site/foo.html',
-                'Route Key' => 'foo',
+                'page_type' => 'InMemoryPage',
+                'source_file' => 'dynamic',
+                'output_file' => '_site/foo.html',
+                'route_key' => 'foo',
             ],
         ], (new RouteList())->toArray());
     }
@@ -96,10 +96,10 @@ class RouteListTest extends TestCase
 
         $this->assertSame([
             [
-                'Page Type' => 'InMemoryPage',
-                'Source File' => '<fg=yellow>dynamic</>',
-                'Output File' => '_site/foo.html',
-                'Route Key' => 'foo',
+                'page_type' => 'InMemoryPage',
+                'source_file' => '<fg=yellow>dynamic</>',
+                'output_file' => '_site/foo.html',
+                'route_key' => 'foo',
             ],
         ], (new RouteList(true))->toArray());
     }
