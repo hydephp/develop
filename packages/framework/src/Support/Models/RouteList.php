@@ -47,7 +47,7 @@ class RouteList implements Arrayable
     protected function formatSourcePath(string $path, string $class): string
     {
         if (! $class::isDiscoverable()) {
-            return '<fg=yellow>dynamic</>';
+            return $this->styleForConsole ? '<fg=yellow>dynamic</>' : 'dynamic';
         }
 
         if ($this->styleForConsole) {

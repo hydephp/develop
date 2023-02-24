@@ -71,11 +71,11 @@ class RouteListTest extends TestCase
         $this->assertSame([
             [
                 'Page Type' => 'InMemoryPage',
-                'Source File' => '<fg=yellow>dynamic</>',
+                'Source File' => 'dynamic',
                 'Output File' => '_site/foo.html',
                 'Route Key' => 'foo',
             ],
-        ], (new RouteList())->styleForConsole()->toArray());
+        ], (new RouteList())->toArray());
     }
 
     public function testConsoleRouteListWithDynamicPages()
