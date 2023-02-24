@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Factories\HydePageDataFactory;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Config\Repository;
@@ -40,8 +41,8 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertSame(['title', 'canonicalUrl', 'navigation'], array_keys($this->factory()->toArray()));
     }
 
-    protected function factory(array $data = []): HydePageDataFactory
+    protected function factory(array $data = [], HydePage $page = null): HydePageDataFactory
     {
-        return new HydePageDataFactory((new InMemoryPage('', $data))->toCoreDataObject());
+        return new HydePageDataFactory($page ?? (new InMemoryPage('', $data))->toCoreDataObject());
     }
 }
