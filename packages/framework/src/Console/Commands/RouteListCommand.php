@@ -34,7 +34,8 @@ class RouteListCommand extends Command
                 {
                     protected function stylePageType(string $class): string
                     {
-                        return parent::stylePageType($class);
+                        $type = parent::stylePageType($class);
+                        return $type;
                     }
 
                     protected function styleSourcePath(string $path): string
