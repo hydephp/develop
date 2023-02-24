@@ -66,6 +66,16 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertSame('Bar', $this->factoryFromPage(new MarkdownPage('foo/bar'))->toArray()['title']);
     }
 
+    public function testIndexPageTitlesCanBeCreatedFromParentIdentifierBasename()
+    {
+        $this->assertSame('Foo', $this->factoryFromPage(new MarkdownPage('foo/index'))->toArray()['title']);
+    }
+
+    public function testIndexPageTitlesCanBeCreatedFromNestedParentIdentifierBasename()
+    {
+        $this->assertSame('Bar', $this->factoryFromPage(new MarkdownPage('foo/bar/index'))->toArray()['title']);
+    }
+
     public function testCanCreateCanonicalUrlUsingBaseUrlFromConfig()
     {
         self::mockConfig(['hyde' => [

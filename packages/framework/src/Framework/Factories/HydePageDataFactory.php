@@ -78,6 +78,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     {
         return $this->matter('title')
             ?? $this->findTitleFromMarkdownHeadings()
+            ?? $this->findTitleFromParentIdentifier()
             ?? Hyde::makeTitle(basename($this->identifier));
     }
 
@@ -89,6 +90,15 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
                     return trim(substr($line, 2), ' ');
                 }
             }
+        }
+
+        return null;
+    }
+
+    private function findTitleFromParentIdentifier(): ?string
+    {
+        if (str_contains($this->identifier, '/') && str_ends_with($this->identifier, '/index')) {
+            return Hyde::makeTitle(basename(dirname($this->identifier)));
         }
 
         return null;
