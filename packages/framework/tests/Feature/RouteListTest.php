@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteList;
 use Hyde\Testing\TestCase;
 
@@ -56,6 +58,38 @@ class RouteListTest extends TestCase
                 'Source File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
                 'Output File' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
                 'Route Key' => 'index',
+            ],
+        ], (new RouteList())->runningInConsole()->toArray());
+    }
+
+    public function testWithDynamicPages()
+    {
+        Hyde::routes()->forget('404');
+        Hyde::routes()->forget('index');
+        Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
+
+        $this->assertSame([
+            [
+                'Page Type' => 'InMemoryPage',
+                'Source File' => '<fg=yellow>dynamic</>',
+                'Output File' => '_site/foo.html',
+                'Route Key' => 'foo',
+            ],
+        ], (new RouteList())->runningInConsole()->toArray());
+    }
+
+    public function testConsoleRouteListWithDynamicPages()
+    {
+        Hyde::routes()->forget('404');
+        Hyde::routes()->forget('index');
+        Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
+
+        $this->assertSame([
+            [
+                'Page Type' => 'InMemoryPage',
+                'Source File' => '<fg=yellow>dynamic</>',
+                'Output File' => '_site/foo.html',
+                'Route Key' => 'foo',
             ],
         ], (new RouteList())->runningInConsole()->toArray());
     }
