@@ -59,6 +59,7 @@ class RouteListCommand extends Command
                             : parent::styleOutputPath($path);
                     }
 
+                    /** @todo Move to base Command class */
                     protected function href(string $link, string $label): string
                     {
                         return "<href=$link>$label</>";
