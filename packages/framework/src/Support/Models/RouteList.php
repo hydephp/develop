@@ -41,22 +41,22 @@ class RouteList implements Arrayable
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                'page_type' => $this->formatPageType($route->getPageClass()),
-                'source_file' => $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
-                'output_file' => $this->formatOutputPath($route->getOutputPath()),
+                'page_type' => $this->stylePageType($route->getPageClass()),
+                'source_file' => $this->styleSourcePath($route->getSourcePath(), $route->getPageClass()),
+                'output_file' => $this->styleOutputPath($route->getOutputPath()),
                 'route_key' => $route->getRouteKey(),
             ];
         }
         $this->routes = $routes;
     }
 
-    protected function formatPageType(string $class): string
+    protected function stylePageType(string $class): string
     {
         return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
-    protected function formatSourcePath(string $path, string $class): string
+    protected function styleSourcePath(string $path, string $class): string
     {
         if (! $class::isDiscoverable()) {
             return $this->styleForConsole ? '<fg=yellow>dynamic</>' : 'dynamic';
@@ -69,7 +69,7 @@ class RouteList implements Arrayable
         return $path;
     }
 
-    protected function formatOutputPath(string $path): string
+    protected function styleOutputPath(string $path): string
     {
         if ($this->styleForConsole && file_exists(Hyde::sitePath($path))) {
             return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
