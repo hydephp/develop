@@ -22,7 +22,9 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $this->table(array_keys($this->getRoutes()[0]), $this->getRoutes());
+        $routes = $this->getRoutes();
+
+        $this->table(array_keys($routes[0]), $routes);
 
         return Command::SUCCESS;
     }
