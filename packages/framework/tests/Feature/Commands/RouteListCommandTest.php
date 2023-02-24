@@ -11,13 +11,16 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\RouteListCommand
+ * @covers \Hyde\Support\Models\RouteListItem
+ *
+ * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
 class RouteListCommandTest extends TestCase
 {
     public function testRouteListCommand()
     {
         $this->artisan('route:list')
-            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [
+            ->expectsTable($this->headers(), [
                 [
                     'BladePage',
                     '_pages/404.blade.php',
@@ -33,37 +36,70 @@ class RouteListCommandTest extends TestCase
             ])->assertExitCode(0);
     }
 
-    public function testClickableLinks()
+    public function testConsoleRouteList()
     {
-        $this->file('_site/index.html');
+        Hyde::routes()->forget('404');
+
         $this->artisan('route:list')
-            ->assertExitCode(0);
+            ->expectsTable($this->headers(), [[
+                'page_type' => 'BladePage',
+                'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
+                'output_file' => '_site/index.html',
+                'route_key' => 'index',
+            ]])->assertExitCode(0);
     }
 
-    public function testWithDynamicPages()
+    public function testConsoleRouteListWithClickableOutputPaths()
     {
+        Hyde::routes()->forget('404');
+        $this->file('_site/index.html');
+
+        $this->artisan('route:list')
+            ->expectsTable($this->headers(), [[
+                'page_type' => 'BladePage',
+                'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
+                'output_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
+                'route_key' => 'index',
+            ]])->assertExitCode(0);
+    }
+
+    public function testConsoleRouteListWithDynamicPages()
+    {
+        Hyde::routes()->forget('404');
+        Hyde::routes()->forget('index');
         Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
 
         $this->artisan('route:list')
-            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [
-                [
-                    'BladePage',
-                    '_pages/404.blade.php',
-                    '_site/404.html',
-                    '404',
-                ],
-                [
-                    'BladePage',
-                    '_pages/index.blade.php',
-                    '_site/index.html',
-                    'index',
-                ],
-                [
-                    'InMemoryPage',
-                    '<fg=yellow>dynamic</>',
-                    '_site/foo.html',
-                    'foo',
-                ],
-            ])->assertExitCode(0);
+            ->expectsTable($this->headers(), [[
+                'page_type' => 'InMemoryPage',
+                'source_file' => '<fg=gray>none</>',
+                'output_file' => '_site/foo.html',
+                'route_key' => 'foo',
+            ]])->assertExitCode(0);
+    }
+
+    public function testConsoleRouteListWithTypeLabel()
+    {
+        Hyde::routes()->forget('404');
+        Hyde::routes()->forget('index');
+
+        $page = new InMemoryPage('foo');
+        $page->macro('typeLabel', function () {
+            return 'Foo';
+        });
+        Hyde::routes()->put('foo', new Route($page));
+
+        $this->artisan('route:list')
+            ->expectsTable($this->headers(), [[
+                'page_type' => 'InMemoryPage <fg=gray>(Foo)</>',
+                'source_file' => '<fg=gray>none</>',
+                'output_file' => '_site/foo.html',
+                'route_key' => 'foo',
+            ]])->assertExitCode(0);
+    }
+
+    protected function headers(): array
+    {
+        return ['Page Type', 'Source File', 'Output File', 'Route Key'];
     }
 }
