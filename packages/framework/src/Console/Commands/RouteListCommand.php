@@ -35,7 +35,7 @@ class RouteListCommand extends Command
                     {
                         return ($this->route->getSourcePath())
                             ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
-                            : '<fg=yellow>dynamic</>';
+                            : '<fg=gray>none</>';
                     }
 
                     protected function styleOutputPath(string $path): string

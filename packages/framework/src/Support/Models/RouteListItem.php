@@ -48,7 +48,7 @@ class RouteListItem implements Arrayable
     protected function styleSourcePath(string $path): string
     {
         if (! $this->route->getSourcePath()) {
-            return 'dynamic';
+            return 'none';
         }
 
         return $path;

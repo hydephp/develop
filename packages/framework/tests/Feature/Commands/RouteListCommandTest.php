@@ -72,7 +72,7 @@ class RouteListCommandTest extends TestCase
         $this->artisan('route:list')
             ->expectsTable($this->headers(), [[
                 'page_type' => 'InMemoryPage',
-                'source_file' => '<fg=yellow>dynamic</>',
+                'source_file' => '<fg=gray>none</>',
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',
             ]])->assertExitCode(0);
