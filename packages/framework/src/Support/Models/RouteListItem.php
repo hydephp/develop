@@ -11,7 +11,6 @@ class RouteListItem implements Arrayable
 {
     protected Route $route;
 
-    /** @var class-string<\Hyde\Pages\Concerns\HydePage>  */
     protected string $pageType;
     protected string $sourceFile;
     protected string $outputFile;
