@@ -33,20 +33,6 @@ class RouteListTest extends TestCase
         ], (new RouteList())->toArray());
     }
 
-    public function testConsoleRouteList()
-    {
-        Hyde::routes()->forget('404');
-
-        $this->assertSame([
-            [
-                'page_type' => 'BladePage',
-                'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
-                'output_file' => '_site/index.html',
-                'route_key' => 'index',
-            ],
-        ], (new RouteList(true))->toArray());
-    }
-
     public function testHeaders()
     {
         $this->assertSame([
@@ -55,21 +41,6 @@ class RouteListTest extends TestCase
             'Output File',
             'Route Key',
         ], (new RouteList())->headers());
-    }
-
-    public function testConsoleRouteListWithClickableOutputPaths()
-    {
-        Hyde::routes()->forget('404');
-        $this->file('_site/index.html');
-
-        $this->assertSame([
-            [
-                'page_type' => 'BladePage',
-                'source_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_pages/index.blade.php>_pages/index.blade.php</>',
-                'output_file' => '<href=file://'.str_replace('\\', '/', Hyde::path()).'/_site/index.html>_site/index.html</>',
-                'route_key' => 'index',
-            ],
-        ], (new RouteList(true))->toArray());
     }
 
     public function testWithDynamicPages()
@@ -86,21 +57,5 @@ class RouteListTest extends TestCase
                 'route_key' => 'foo',
             ],
         ], (new RouteList())->toArray());
-    }
-
-    public function testConsoleRouteListWithDynamicPages()
-    {
-        Hyde::routes()->forget('404');
-        Hyde::routes()->forget('index');
-        Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
-
-        $this->assertSame([
-            [
-                'page_type' => 'InMemoryPage',
-                'source_file' => '<fg=yellow>dynamic</>',
-                'output_file' => '_site/foo.html',
-                'route_key' => 'foo',
-            ],
-        ], (new RouteList(true))->toArray());
     }
 }

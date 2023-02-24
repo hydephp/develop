@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -13,13 +12,10 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class RouteList implements Arrayable
 {
-    protected bool $styleForConsole = false;
     protected array $routes;
 
-    public function __construct(bool $styleForConsole = false)
+    public function __construct()
     {
-        $this->styleForConsole = $styleForConsole;
-
         $this->generate();
     }
 
@@ -59,11 +55,7 @@ class RouteList implements Arrayable
     protected function styleSourcePath(string $path, string $class): string
     {
         if (! $class::isDiscoverable()) {
-            return $this->styleForConsole ? '<fg=yellow>dynamic</>' : 'dynamic';
-        }
-
-        if ($this->styleForConsole) {
-            return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
+            return 'dynamic';
         }
 
         return $path;
@@ -71,15 +63,6 @@ class RouteList implements Arrayable
 
     protected function styleOutputPath(string $path): string
     {
-        if ($this->styleForConsole && file_exists(Hyde::sitePath($path))) {
-            return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
-        }
-
         return "_site/$path";
-    }
-
-    protected function clickablePathLink(string $link, string $path): string
-    {
-        return "<href=$link>$path</>";
     }
 }
