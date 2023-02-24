@@ -54,11 +54,7 @@ class RouteList implements Arrayable
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
     protected function styleSourcePath(string $path, string $class): string
     {
-        if (! $class::isDiscoverable()) {
-            return 'dynamic';
-        }
-
-        return $path;
+        return $class::isDiscoverable() ? $path : 'dynamic';
     }
 
     protected function styleOutputPath(string $path): string

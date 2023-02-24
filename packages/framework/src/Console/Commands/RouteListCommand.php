@@ -29,20 +29,16 @@ class RouteListCommand extends Command
             /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
             protected function styleSourcePath(string $path, string $class): string
             {
-                if (! $class::isDiscoverable()) {
-                    return '<fg=yellow>dynamic</>';
-                }
-
-                return $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path);
+                return $class::isDiscoverable()
+                    ? $this->clickablePathLink(Command::createClickableFilepath(Hyde::path($path)), $path)
+                    : '<fg=yellow>dynamic</>';
             }
 
             protected function styleOutputPath(string $path): string
             {
-                if (file_exists(Hyde::sitePath($path))) {
-                    return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
-                }
-
-                return "_site/$path";
+                return file_exists(Hyde::sitePath($path))
+                    ? $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path")
+                    : "_site/$path";
             }
 
             protected function clickablePathLink(string $link, string $path): string
