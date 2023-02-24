@@ -33,7 +33,7 @@ class RouteListCommand extends Command
                 return new class($route) extends RouteListItem {
                     protected function styleSourcePath(string $path,): string
                     {
-                        return ($this->route->getPageClass()::isDiscoverable())
+                        return ($this->route->getSourcePath())
                             ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
                             : '<fg=yellow>dynamic</>';
                     }
