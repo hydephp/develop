@@ -41,7 +41,7 @@ class RouteList implements Arrayable
                 'page_type' => $this->stylePageType($route->getPageClass()),
                 'source_file' => $this->styleSourcePath($route->getSourcePath(), $route->getPageClass()),
                 'output_file' => $this->styleOutputPath($route->getOutputPath()),
-                'route_key' => $route->getRouteKey(),
+                'route_key' => $this->styleRouteKey($route->getRouteKey()),
             ];
         }
         $this->routes = $routes;
@@ -61,5 +61,10 @@ class RouteList implements Arrayable
     protected function styleOutputPath(string $path): string
     {
         return Site::getOutputDirectory()."/$path";
+    }
+
+    protected function styleRouteKey(string $key): string
+    {
+        return $key;
     }
 }
