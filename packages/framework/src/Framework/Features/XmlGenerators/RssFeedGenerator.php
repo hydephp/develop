@@ -9,6 +9,7 @@ namespace Hyde\Framework\Features\XmlGenerators;
 
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Support\Filesystem\MediaFile;
 use function date;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
@@ -99,8 +100,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function getImageType(FeaturedImage $image): string
     {
-        /** @todo Add support for more types */
-        return str_ends_with($image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
+        return (new MediaFile($image->getSource()))->getMimeType();
     }
 
     /** @return numeric-string */
