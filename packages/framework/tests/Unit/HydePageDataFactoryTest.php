@@ -48,22 +48,22 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     public function testCanCreateTitleFromMarkdown()
     {
-        $this->assertSame('Foo', $this->factory(page: new MarkdownPage(markdown: '# Foo'))->toArray()['title']);
+        $this->assertSame('Foo', $this->factoryFromPage(new MarkdownPage(markdown: '# Foo'))->toArray()['title']);
     }
 
     public function testTitlePrefersMatter()
     {
-        $this->assertSame('Foo', $this->factory(page: new MarkdownPage(matter: ['title' => 'Foo'], markdown: '# Bar'))->toArray()['title']);
+        $this->assertSame('Foo', $this->factoryFromPage(new MarkdownPage(matter: ['title' => 'Foo'], markdown: '# Bar'))->toArray()['title']);
     }
 
     public function testTitleFallsBackToIdentifier()
     {
-        $this->assertSame('Foo', $this->factory(page: new MarkdownPage('foo'))->toArray()['title']);
+        $this->assertSame('Foo', $this->factoryFromPage(new MarkdownPage('foo'))->toArray()['title']);
     }
 
     public function testTitleFallsBackToIdentifierBasename()
     {
-        $this->assertSame('Bar', $this->factory(page: new MarkdownPage('foo/bar'))->toArray()['title']);
+        $this->assertSame('Bar', $this->factoryFromPage(new MarkdownPage('foo/bar'))->toArray()['title']);
     }
 
     public function testCanCreateCanonicalUrlUsingBaseUrlFromConfig()
@@ -72,7 +72,7 @@ class HydePageDataFactoryTest extends UnitTestCase
             'url' => 'https://example.com',
         ]]);
 
-        $this->assertSame('https://example.com/foo.html', $this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+        $this->assertSame('https://example.com/foo.html', $this->factoryFromPage(new MarkdownPage('foo'))->toArray()['canonicalUrl']);
     }
 
     public function testCanCreateCanonicalUrlUsingBaseUrlFromConfigUsingPrettyUrls()
@@ -82,12 +82,12 @@ class HydePageDataFactoryTest extends UnitTestCase
             'pretty_urls' => true,
         ]]);
 
-        $this->assertSame('https://example.com/foo', $this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+        $this->assertSame('https://example.com/foo', $this->factoryFromPage(new MarkdownPage('foo'))->toArray()['canonicalUrl']);
     }
 
     public function testCanonicalUrlIsNullWhenNoBaseUrlIsSet()
     {
-        $this->assertNull($this->factory(page: new MarkdownPage('foo'))->toArray()['canonicalUrl']);
+        $this->assertNull($this->factoryFromPage(new MarkdownPage('foo'))->toArray()['canonicalUrl']);
     }
 
     public function testNavigationDataIsGeneratedByNavigationDataFactory()
@@ -104,8 +104,13 @@ class HydePageDataFactoryTest extends UnitTestCase
         Config::swap(app('config'));
     }
 
-    protected function factory(array $data = [], HydePage $page = null): HydePageDataFactory
+    protected function factory(array $data = []): HydePageDataFactory
     {
-        return new HydePageDataFactory(($page ?? new InMemoryPage('', $data))->toCoreDataObject());
+        return new HydePageDataFactory((new InMemoryPage('', $data))->toCoreDataObject());
+    }
+
+    protected function factoryFromPage(HydePage $page = null): HydePageDataFactory
+    {
+        return new HydePageDataFactory(($page)->toCoreDataObject());
     }
 }
