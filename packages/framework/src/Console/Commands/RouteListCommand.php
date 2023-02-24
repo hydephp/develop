@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteList;
 use Hyde\Support\Models\RouteListItem;
@@ -34,7 +35,7 @@ class RouteListCommand extends Command
                 {
                     protected function styleSourcePath(string $path): string
                     {
-                        return ($this->route->getSourcePath())
+                        return ($this->route->getSourcePath() && ! $this->route->getPage() instanceof InMemoryPage)
                             ? $this->link(Command::createClickableFilepath(Hyde::path($path)), $path)
                             : '<fg=gray>none</>';
                     }
