@@ -7,6 +7,10 @@ namespace Hyde\Support\Models;
 use Hyde\Facades\Site;
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @internal This class is experimental and is subject to change.
+ * @experimental This class is experimental and is subject to change.
+ */
 class RouteListItem implements Arrayable
 {
     protected Route $route;
