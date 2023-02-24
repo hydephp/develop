@@ -79,6 +79,8 @@ class GeneratesPublicationTagPages
             }
         }
 
+        arsort($tagCounts, SORT_NUMERIC);
+
         // Build the index tags page
         $indexTagsPage = new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list');
         $pageCollection = $collection;
