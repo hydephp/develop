@@ -28,6 +28,11 @@ class RouteList implements Arrayable
         return $this->routes;
     }
 
+    public function headers(): array
+    {
+        return array_keys($this->routes[0]);
+    }
+
     protected function generate(): void
     {
         $routes = [];

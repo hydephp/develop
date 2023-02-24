@@ -24,7 +24,7 @@ class RouteListCommand extends Command
     {
         $routes = (new RouteList(true));
 
-        $this->table(array_keys($routes->toArray()[0]), $routes->toArray());
+        $this->table($routes->headers(), $routes->toArray());
 
         return Command::SUCCESS;
     }

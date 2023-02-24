@@ -47,6 +47,16 @@ class RouteListTest extends TestCase
         ], (new RouteList(true))->toArray());
     }
 
+    public function testHeaders()
+    {
+        $this->assertSame([
+            'Page Type',
+            'Source File',
+            'Output File',
+            'Route Key',
+        ], (new RouteList())->headers());
+    }
+
     public function testConsoleRouteListWithClickableOutputPaths()
     {
         Hyde::routes()->forget('404');
