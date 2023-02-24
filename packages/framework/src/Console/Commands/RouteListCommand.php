@@ -22,15 +22,10 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $routes = $this->getRoutes();
+        $routes = (new RouteList(true))->toArray();
 
         $this->table(array_keys($routes[0]), $routes);
 
         return Command::SUCCESS;
-    }
-
-    protected function getRoutes(): array
-    {
-        return (new RouteList(true))->toArray();
     }
 }
