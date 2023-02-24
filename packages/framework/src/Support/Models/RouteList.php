@@ -59,11 +59,11 @@ class RouteList implements Arrayable
 
     protected function formatOutputPath(string $path): string
     {
-        if (! file_exists(Hyde::sitePath($path))) {
-            return "_site/$path";
-        }
-
         if ($this->runningInConsole) {
+            if (! file_exists(Hyde::sitePath($path))) {
+                return "_site/$path";
+            }
+
             return $this->clickablePathLink(Command::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
         }
 
