@@ -16,16 +16,11 @@ class RouteList implements Arrayable
     protected bool $styleForConsole = false;
     protected array $routes;
 
-    public function __construct()
-    {
-        $this->generate();
-    }
-
-    public function styleForConsole(bool $styleForConsole = true): static
+    public function __construct(bool $styleForConsole = false)
     {
         $this->styleForConsole = $styleForConsole;
 
-        return $this;
+        $this->generate();
     }
 
     public function toArray(): array

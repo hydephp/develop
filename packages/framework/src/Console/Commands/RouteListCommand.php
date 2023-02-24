@@ -29,6 +29,6 @@ class RouteListCommand extends Command
 
     protected function getRoutes(): array
     {
-        return (new RouteList())->styleForConsole()->toArray();
+        return (new RouteList(true))->toArray();
     }
 }
