@@ -29,7 +29,7 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        self::mockConfig([]);
+        self::mockConfig();
 
         parent::tearDown();
     }
@@ -69,7 +69,7 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertSame('Bar', $this->factory(page: new MarkdownPage('foo/bar'))->toArray()['title']);
     }
 
-    protected static function mockConfig(array $items): void
+    protected static function mockConfig(array $items = []): void
     {
         app()->bind('config', function () use ($items) {
             return new Repository($items);
