@@ -12,5 +12,21 @@ use Hyde\Testing\TestCase;
  */
 class RouteListTest extends TestCase
 {
-    //
+    public function testRouteList()
+    {
+        $this->assertSame([
+            [
+                'BladePage',
+                '_pages/404.blade.php',
+                '_site/404.html',
+                '404',
+            ],
+            [
+                'BladePage',
+                '_pages/index.blade.php',
+                '_site/index.html',
+                'index',
+            ],
+        ], (new RouteList())->toArray());
+    }
 }
