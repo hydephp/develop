@@ -20,10 +20,10 @@ class RouteListItem implements Arrayable
     {
         $this->route = $route;
 
-        $this->pageType = $this->stylePageType($this->route->getPageClass());
-        $this->sourceFile = $this->styleSourcePath($this->route->getSourcePath());
-        $this->outputFile = $this->styleOutputPath($this->route->getOutputPath());
-        $this->routeKey = $this->styleRouteKey($this->route->getRouteKey());
+        $this->pageType = $this->stylePageType($route->getPageClass());
+        $this->sourceFile = $this->styleSourcePath($route->getSourcePath());
+        $this->outputFile = $this->styleOutputPath($route->getOutputPath());
+        $this->routeKey = $this->styleRouteKey($route->getRouteKey());
     }
 
     public function toArray(): array
