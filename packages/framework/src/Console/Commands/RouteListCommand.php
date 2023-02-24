@@ -6,6 +6,11 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
+use Hyde\Support\Models\RouteList;
+use Hyde\Support\Models\RouteListItem;
+use function file_exists;
+use function sprintf;
 
 /**
  * Hyde command to display the list of site routes.
@@ -22,58 +27,54 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $this->table([
-            'Page Type',
-            'Source File',
-            'Output File',
-            'Route Key',
-        ], $this->getRoutes());
+        $routes = $this->routeListClass();
+
+        $this->table($routes->headers(), $routes->toArray());
 
         return Command::SUCCESS;
     }
 
-    protected function getRoutes(): array
+    protected function routeListClass(): RouteList
     {
-        $routes = [];
-        /** @var \Hyde\Support\Models\Route $route */
-        foreach (Hyde::routes() as $route) {
-            $routes[] = [
-                $this->formatPageType($route->getPageClass()),
-                $this->formatSourcePath($route->getSourcePath(), $route->getPageClass()),
-                $this->formatOutputPath($route->getOutputPath()),
-                $route->getRouteKey(),
-            ];
-        }
+        return new class extends RouteList
+        {
+            protected static function routeToListItem(Route $route): RouteListItem
+            {
+                return new class($route) extends RouteListItem
+                {
+                    protected function stylePageType(string $class): string
+                    {
+                        $type = parent::stylePageType($class);
 
-        return $routes;
-    }
+                        /** @experimental */
+                        if ($type === 'InMemoryPage' && $this->route->getPage()->hasMacro('typeLabel')) {
+                            $type .= sprintf(' <fg=gray>(%s)</>', $this->route->getPage()->typeLabel());
+                        }
 
-    protected function formatPageType(string $class): string
-    {
-        return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
-    }
+                        return $type;
+                    }
 
-    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
-    protected function formatSourcePath(string $path, string $class): string
-    {
-        if (! $class::isDiscoverable()) {
-            return '<fg=yellow>dynamic</>';
-        }
+                    protected function styleSourcePath(string $path): string
+                    {
+                        return parent::styleSourcePath($path) !== 'none'
+                            ? $this->href(Command::createClickableFilepath(Hyde::path($path)), $path)
+                            : '<fg=gray>none</>';
+                    }
 
-        return $this->clickablePathLink(static::createClickableFilepath(Hyde::path($path)), $path);
-    }
+                    protected function styleOutputPath(string $path): string
+                    {
+                        return file_exists(Hyde::sitePath($path))
+                            ? $this->href(Command::createClickableFilepath(Hyde::sitePath($path)), parent::styleOutputPath($path))
+                            : parent::styleOutputPath($path);
+                    }
 
-    protected function formatOutputPath(string $path): string
-    {
-        if (! file_exists(Hyde::sitePath($path))) {
-            return "_site/$path";
-        }
-
-        return $this->clickablePathLink(static::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
-    }
-
-    protected function clickablePathLink(string $link, string $path): string
-    {
-        return "<href=$link>$path</>";
+                    /** @todo Move to base Command class */
+                    protected function href(string $link, string $label): string
+                    {
+                        return "<href=$link>$label</>";
+                    }
+                };
+            }
+        };
     }
 }
