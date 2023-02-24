@@ -30,6 +30,16 @@ class HydePageDataFactoryTest extends UnitTestCase
         Config::swap(app('config'));
     }
 
+    public function testCanConstruct()
+    {
+        $this->assertInstanceOf(HydePageDataFactory::class, $this->factory());
+    }
+
+    public function testToArrayContainsExpectedKeys()
+    {
+        $this->assertSame(['title', 'canonicalUrl', 'navigation'], array_keys($this->factory()->toArray()));
+    }
+
     protected function factory(array $data = []): HydePageDataFactory
     {
         return new HydePageDataFactory((new InMemoryPage('foo', $data))->toCoreDataObject());
