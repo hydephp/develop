@@ -106,7 +106,6 @@ class RssFeedGenerator extends BaseXmlGenerator
     /** @return numeric-string */
     protected function getImageLength(FeaturedImage $image): string
     {
-        /** @todo We might want to add a build warning if the length is zero */
         return (string) $image->getContentLength();
     }
 
