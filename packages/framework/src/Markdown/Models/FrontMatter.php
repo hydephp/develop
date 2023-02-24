@@ -29,7 +29,7 @@ class FrontMatter implements Stringable, SerializableContract
 {
     use Serializable;
 
-    public array $data;
+    protected array $data;
 
     public function __construct(array $matter = [])
     {
