@@ -44,7 +44,7 @@ class RouteListItem implements Arrayable
     protected function styleSourcePath(string $path): string
     {
         if (! $this->route->getPageClass()::isDiscoverable()) {
-            return $this->getDynamicSourceLabel();
+            return 'dynamic';
         }
 
         return $path;
@@ -58,10 +58,5 @@ class RouteListItem implements Arrayable
     protected function styleRouteKey(string $key): string
     {
         return $key;
-    }
-
-    protected function getDynamicSourceLabel(): string
-    {
-        return 'dynamic';
     }
 }
