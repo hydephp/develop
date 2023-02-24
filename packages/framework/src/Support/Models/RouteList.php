@@ -25,6 +25,11 @@ class RouteList implements Arrayable
 
     public function toArray(): array
     {
+        return $this->routes;
+    }
+
+    protected function generate(): void
+    {
         $routes = [];
         /** @var \Hyde\Support\Models\Route $route */
         foreach (Hyde::routes() as $route) {
@@ -35,8 +40,7 @@ class RouteList implements Arrayable
                 'Route Key' => $route->getRouteKey(),
             ];
         }
-
-        return $routes;
+        $this->routes = $routes;
     }
 
     protected function formatPageType(string $class): string
