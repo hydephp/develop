@@ -6,10 +6,12 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteList;
 use Hyde\Support\Models\RouteListItem;
 use function file_exists;
+use function sprintf;
 
 /**
  * Hyde command to display the list of site routes.
@@ -35,6 +37,12 @@ class RouteListCommand extends Command
                     protected function stylePageType(string $class): string
                     {
                         $type = parent::stylePageType($class);
+
+                        if ($type === 'InMemoryPage' && $this->route->getPage()->hasMacro('typeLabel'))
+                        {
+                            $type .= sprintf(' <fg=gray>(%s)</>', $this->route->getPage()->typeLabel());
+                        }
+
                         return $type;
                     }
 
