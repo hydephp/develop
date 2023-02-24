@@ -21,7 +21,7 @@ class RouteListItem implements Arrayable
         $this->route = $route;
 
         $this->pageType = $this->stylePageType($this->route->getPageClass());
-        $this->sourceFile = $this->styleSourcePath($this->route->getSourcePath(), $this->route->getPageClass());
+        $this->sourceFile = $this->styleSourcePath($this->route->getSourcePath());
         $this->outputFile = $this->styleOutputPath($this->route->getOutputPath());
         $this->routeKey = $this->styleRouteKey($this->route->getRouteKey());
     }
@@ -41,10 +41,9 @@ class RouteListItem implements Arrayable
         return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
-    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $class */
-    protected function styleSourcePath(string $path, string $class): string
+    protected function styleSourcePath(string $path): string
     {
-        return $class::isDiscoverable() ? $path : $this->getDynamicSourceLabel();
+        return $this->route->getPageClass()::isDiscoverable() ? $path : $this->getDynamicSourceLabel();
     }
 
     protected function styleOutputPath(string $path): string
