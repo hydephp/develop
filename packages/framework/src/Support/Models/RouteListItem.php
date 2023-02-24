@@ -64,7 +64,7 @@ class RouteListItem implements Arrayable
         return $key;
     }
 
-    protected function isPageDiscoverable(): string
+    protected function isPageDiscoverable(): bool
     {
         return $this->route->getSourcePath();
     }
