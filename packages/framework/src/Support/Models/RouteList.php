@@ -15,9 +15,6 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class RouteList implements Arrayable
 {
-    /** @var class-string<RouteListItem> */
-    protected string $listItemClass = RouteListItem::class;
-
     protected array $routes;
 
     public function __construct()
@@ -40,7 +37,7 @@ class RouteList implements Arrayable
     protected function generate(): array
     {
         return collect(Hyde::routes())->map(function (Route $route): array {
-            return (new $this->listItemClass($route))->toArray();
+            return (new RouteListItem($route))->toArray();
         })->values()->toArray();
     }
 }
