@@ -17,7 +17,7 @@ class RouteList implements Arrayable
 
     public function __construct()
     {
-        $this->generate();
+        $this->routes = $this->generate();
     }
 
     public function toArray(): array
@@ -32,9 +32,9 @@ class RouteList implements Arrayable
         }, array_keys($this->routes[0]));
     }
 
-    protected function generate(): void
+    protected function generate(): array
     {
-        $this->routes = collect(Hyde::routes())->map(function (Route $route): array {
+        return collect(Hyde::routes())->map(function (Route $route): array {
             return [
                 'page_type' => $this->stylePageType($route->getPageClass()),
                 'source_file' => $this->styleSourcePath($route->getSourcePath(), $route->getPageClass()),
