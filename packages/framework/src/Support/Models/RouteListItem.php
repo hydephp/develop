@@ -19,15 +19,20 @@ class RouteListItem implements Arrayable
     public function __construct(Route $route)
     {
         $this->route = $route;
+
+        $this->pageType = $this->stylePageType($this->route->getPageClass());
+        $this->sourceFile = $this->styleSourcePath($this->route->getSourcePath(), $this->route->getPageClass());
+        $this->outputFile = $this->styleOutputPath($this->route->getOutputPath());
+        $this->routeKey = $this->styleRouteKey($this->route->getRouteKey());
     }
 
     public function toArray(): array
     {
         return [
-            'page_type' => $this->stylePageType($this->route->getPageClass()),
-            'source_file' => $this->styleSourcePath($this->route->getSourcePath(), $this->route->getPageClass()),
-            'output_file' => $this->styleOutputPath($this->route->getOutputPath()),
-            'route_key' => $this->styleRouteKey($this->route->getRouteKey()),
+            'page_type' => $this->pageType,
+            'source_file' => $this->sourceFile,
+            'output_file' => $this->outputFile,
+            'route_key' => $this->routeKey,
         ];
     }
 
