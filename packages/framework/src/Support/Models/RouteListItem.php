@@ -38,7 +38,7 @@ class RouteListItem implements Arrayable
 
     protected function styleSourcePath(string $path): string
     {
-        return ! $this->isPageDiscoverable() ? 'none' : $path;
+        return $this->isPageDiscoverable() ? $path : 'none';
     }
 
     protected function styleOutputPath(string $path): string
