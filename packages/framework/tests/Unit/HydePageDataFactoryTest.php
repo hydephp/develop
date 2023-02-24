@@ -26,15 +26,6 @@ class HydePageDataFactoryTest extends UnitTestCase
         ]);
     }
 
-    protected static function mockConfig(array $items): void
-    {
-        app()->bind('config', function () use ($items) {
-            return new Repository($items);
-        });
-
-        Config::swap(app('config'));
-    }
-
     public function testCanConstruct()
     {
         $this->assertInstanceOf(HydePageDataFactory::class, $this->factory());
@@ -43,6 +34,15 @@ class HydePageDataFactoryTest extends UnitTestCase
     public function testToArrayContainsExpectedKeys()
     {
         $this->assertSame(['title', 'canonicalUrl', 'navigation'], array_keys($this->factory()->toArray()));
+    }
+
+    protected static function mockConfig(array $items): void
+    {
+        app()->bind('config', function () use ($items) {
+            return new Repository($items);
+        });
+
+        Config::swap(app('config'));
     }
 
     protected function factory(array $data = [], HydePage $page = null): HydePageDataFactory
