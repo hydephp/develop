@@ -11,6 +11,11 @@ class RouteListItem implements Arrayable
 {
     protected Route $route;
 
+    protected string $pageType;
+    protected string $sourceFile;
+    protected string $outputFile;
+    protected string $routeKey;
+
     public function __construct(Route $route)
     {
         $this->route = $route;
