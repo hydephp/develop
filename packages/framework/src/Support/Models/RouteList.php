@@ -13,6 +13,8 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class RouteList implements Arrayable
 {
+    protected bool $runningInConsole = false;
+
     public function toArray(): array
     {
         $routes = [];
