@@ -9,12 +9,12 @@ namespace Hyde\Framework\Features\XmlGenerators;
 
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Support\Filesystem\MediaFile;
 use function date;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use SimpleXMLElement;
-use function str_ends_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
@@ -99,14 +99,12 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function getImageType(FeaturedImage $image): string
     {
-        /** @todo Add support for more types */
-        return str_ends_with($image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
+        return (new MediaFile($image->getSource()))->getMimeType();
     }
 
     /** @return numeric-string */
     protected function getImageLength(FeaturedImage $image): string
     {
-        /** @todo We might want to add a build warning if the length is zero */
         return (string) $image->getContentLength();
     }
 
