@@ -142,6 +142,7 @@ class InMemoryPage extends HydePage
         return $macro(...$parameters);
     }
 
+    /** @experimental */
     final public function getSourcePath(): string
     {
         return "__dynamic/{$this->getIdentifier()}";
