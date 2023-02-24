@@ -13,6 +13,11 @@ use Hyde\Testing\UnitTestCase;
  */
 class HydePageDataFactoryTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+    }
+
     protected function factory(array $data = []): HydePageDataFactory
     {
         return new HydePageDataFactory((new InMemoryPage('foo', $data))->toCoreDataObject());
