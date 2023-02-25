@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 /**
- * @experimental 
+ * @experimental
  */
 class BuildWarnings
 {
@@ -25,6 +25,11 @@ class BuildWarnings
     public static function report(string $warning): void
     {
         self::getInstance()->add($warning);
+    }
+
+    public static function warnings(): array
+    {
+        return self::getInstance()->get();
     }
 
     public function add(string $warning): void

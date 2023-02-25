@@ -104,7 +104,7 @@ class BuildSiteCommand extends Command
 
     protected function printFinishMessage(float $timeStart): void
     {
-        if (BuildWarnings::getInstance()->hasWarnings() && \Hyde\Facades\Config::getBool('hyde.log_warnings', true)) {
+        if (BuildWarnings::hasWarnings() && \Hyde\Facades\Config::getBool('hyde.log_warnings', true)) {
             $this->newLine();
             $this->error('There were some warnings during the build process:');
             $this->newLine();
