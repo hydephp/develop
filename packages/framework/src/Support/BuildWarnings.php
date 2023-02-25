@@ -21,28 +21,28 @@ class BuildWarnings
 
     protected array $warnings = [];
 
-    public static function getInstance(): self
+    public static function getInstance(): static
     {
-        if (! isset(self::$instance)) {
-            self::$instance = new self();
+        if (! isset(static::$instance)) {
+            static::$instance = new static();
         }
 
-        return self::$instance;
+        return static::$instance;
     }
 
     public static function report(string $warning): void
     {
-        self::getInstance()->add(new BuildWarning($warning));
+        static::getInstance()->add(new BuildWarning($warning));
     }
 
     public static function getWarnings(): array
     {
-        return self::getInstance()->get();
+        return static::getInstance()->get();
     }
 
     public static function hasWarnings(): bool
     {
-        return count(self::getInstance()->warnings) > 0;
+        return count(static::getInstance()->warnings) > 0;
     }
 
     public static function reportsWarnings(): bool
@@ -52,7 +52,7 @@ class BuildWarnings
 
     public static function writeWarningsToOutput(OutputStyle $output): void
     {
-        foreach (self::getWarnings() as $line => $warning) {
+        foreach (static::getWarnings() as $line => $warning) {
             $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
             if ($warning->getLocation()) {
                 $output->writeln(sprintf('    <fg=gray>%s</>', $warning->getLocation()));
