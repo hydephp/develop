@@ -106,7 +106,7 @@ class BuildSiteCommand extends Command
     {
         if (BuildWarnings::getInstance()->hasWarnings() && \Hyde\Facades\Config::getBool('hyde.log_warnings', true)) {
             $this->newLine();
-            $this->warn('There were some warnings during the build process:');
+            $this->error('There were some warnings during the build process:');
             $this->newLine();
             foreach (BuildWarnings::getInstance()->get() as $warning) {
                 $this->warn($warning);
