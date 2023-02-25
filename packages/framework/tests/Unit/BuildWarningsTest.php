@@ -88,7 +88,7 @@ class BuildWarningsTest extends UnitTestCase
 
     public function testWriteWarningsToOutputWithLocation()
     {
-        BuildWarnings::report('This is a warning', 'path/to/file.md');
+        BuildWarnings::report('This is a warning');
 
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
