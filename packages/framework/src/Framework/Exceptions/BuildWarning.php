@@ -13,12 +13,8 @@ use Throwable;
  */
 class BuildWarning extends RuntimeException
 {
-    protected string $location;
-
-    public function __construct(string $message = '', string $location = '', int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
-
-        $this->location = $location;
     }
 }
