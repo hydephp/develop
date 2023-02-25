@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Exceptions\BuildWarning;
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Config\Repository;
@@ -48,7 +49,7 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::report('This is a warning');
 
         $this->assertTrue(BuildWarnings::hasWarnings());
-        $this->assertSame(['This is a warning'], BuildWarnings::getWarnings());
+        $this->assertEquals([new BuildWarning('This is a warning')], BuildWarnings::getWarnings());
     }
 
     public function testReportsWarningsDefaultsToTrue()
@@ -85,7 +86,7 @@ class BuildWarningsTest extends UnitTestCase
     {
         $instance = BuildWarnings::getInstance();
 
-        $instance->add('This is a warning');
+        $instance->add(new BuildWarning('This is a warning'));
         $this->assertTrue($instance->hasWarnings());
     }
 
@@ -93,15 +94,15 @@ class BuildWarningsTest extends UnitTestCase
     {
         $instance = BuildWarnings::getInstance();
 
-        $instance->add('This is a warning');
-        $this->assertSame(['This is a warning'], $instance->get());
+        $instance->add($warning = new BuildWarning('This is a warning'));
+        $this->assertSame([$warning], $instance->get());
     }
 
     public function testClear()
     {
         $instance = BuildWarnings::getInstance();
 
-        $instance->add('This is a warning');
+        $instance->add(new BuildWarning('This is a warning'));
         $instance->clear();
         $this->assertFalse($instance->hasWarnings());
     }

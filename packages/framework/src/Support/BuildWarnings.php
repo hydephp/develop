@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 use Hyde\Facades\Config;
+use Hyde\Framework\Exceptions\BuildWarning;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
@@ -31,7 +32,7 @@ class BuildWarnings
 
     public static function report(string $warning): void
     {
-        self::getInstance()->add($warning);
+        self::getInstance()->add(new BuildWarning($warning));
     }
 
     public static function getWarnings(): array
@@ -52,11 +53,11 @@ class BuildWarnings
     public static function writeWarningsToOutput(OutputStyle $output): void
     {
         foreach (BuildWarnings::getWarnings() as $line => $warning) {
-            $output->writeln(sprintf('  %s. <comment>%s</comment>', $line + 1, $warning));
+            $output->writeln(sprintf('  %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
         }
     }
 
-    public function add(string $warning): void
+    public function add(BuildWarning $warning): void
     {
         $this->warnings[] = $warning;
     }
