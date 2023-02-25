@@ -53,7 +53,7 @@ class BuildWarnings
     public static function writeWarningsToOutput(OutputStyle $output): void
     {
         foreach (BuildWarnings::getWarnings() as $line => $warning) {
-            $output->writeln(sprintf('  %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
+            $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
         }
     }
 

@@ -75,7 +75,7 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::report('This is a warning');
 
         $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->with('  1. <comment>This is a warning</comment>');
+        $output->shouldReceive('writeln')->with(' 1. <comment>This is a warning</comment>');
 
         BuildWarnings::writeWarningsToOutput($output);
 
