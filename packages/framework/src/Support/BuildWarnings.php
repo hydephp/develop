@@ -19,6 +19,11 @@ class BuildWarnings
         return self::$instance;
     }
 
+    public static function report(string $warning): void
+    {
+        self::getInstance()->add($warning);
+    }
+
     public function add(string $warning): void
     {
         $this->warnings[] = $warning;
