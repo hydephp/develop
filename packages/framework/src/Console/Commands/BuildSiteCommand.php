@@ -12,6 +12,7 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
+use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -103,6 +104,15 @@ class BuildSiteCommand extends Command
 
     protected function printFinishMessage(float $timeStart): void
     {
+        if (BuildWarnings::getInstance()->hasWarnings() && \Hyde\Facades\Config::getBool('hyde.log_warnings', true)) {
+            $this->newLine();
+            $this->warn('There were some warnings during the build process:');
+            $this->newLine();
+            foreach (BuildWarnings::getInstance()->get() as $warning) {
+                $this->warn($warning);
+            }
+        }
+
         $executionTime = (microtime(true) - $timeStart);
         $this->info(sprintf(
             "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
