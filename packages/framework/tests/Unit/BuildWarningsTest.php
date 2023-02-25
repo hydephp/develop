@@ -105,7 +105,6 @@ class BuildWarningsTest extends UnitTestCase
 
         $instance->add('This is a warning');
         $instance->clear();
-
         $this->assertFalse($instance->hasWarnings());
     }
 
