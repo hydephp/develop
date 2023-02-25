@@ -9,6 +9,9 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\Config;
 
+use Mockery;
+use Symfony\Component\Console\Style\OutputStyle;
+
 use function app;
 
 /**
@@ -71,7 +74,16 @@ class BuildWarningsTest extends UnitTestCase
 
     public function testWriteWarningsToOutput()
     {
-        //
+        BuildWarnings::report('This is a warning');
+
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->with('<error>There were some warnings during the build process:</error>');
+        $output->shouldReceive('newLine');
+        $output->shouldReceive('writeln')->with('  1. <comment>This is a warning</comment>');
+
+        BuildWarnings::writeWarningsToOutput($output);
+
+        $this->assertTrue(true);
     }
 
     public function testAdd()
