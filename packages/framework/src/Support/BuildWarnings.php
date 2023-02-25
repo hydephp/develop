@@ -32,6 +32,11 @@ class BuildWarnings
         return self::getInstance()->get();
     }
 
+    public static function hasWarnings(): bool
+    {
+        return count(self::getInstance()->warnings) > 0;
+    }
+
     public function add(string $warning): void
     {
         $this->warnings[] = $warning;
@@ -40,11 +45,6 @@ class BuildWarnings
     public function get(): array
     {
         return $this->warnings;
-    }
-
-    public function hasWarnings(): bool
-    {
-        return count($this->warnings) > 0;
     }
 
     public function clear(): void
