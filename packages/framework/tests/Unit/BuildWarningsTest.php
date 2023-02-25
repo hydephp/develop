@@ -12,17 +12,7 @@ use Hyde\Testing\TestCase;
  */
 class BuildWarningsTest extends TestCase
 {
-    public function testReportsWarnings()
-    {
-        //
-    }
-
     public function testGetInstance()
-    {
-        //
-    }
-
-    public function testGet()
     {
         //
     }
@@ -32,7 +22,22 @@ class BuildWarningsTest extends TestCase
         //
     }
 
+    public function testGetWarnings()
+    {
+        //
+    }
+
     public function testHasWarnings()
+    {
+        //
+    }
+
+    public function testReportsWarnings()
+    {
+        //
+    }
+
+    public function testWriteWarningsToOutput()
     {
         //
     }
@@ -42,17 +47,12 @@ class BuildWarningsTest extends TestCase
         //
     }
 
+    public function testGet()
+    {
+        //
+    }
+
     public function testClear()
-    {
-        //
-    }
-
-    public function testGetWarnings()
-    {
-        //
-    }
-
-    public function testWriteWarningsToOutput()
     {
         //
     }
