@@ -8,11 +8,8 @@ use Hyde\Support\BuildWarnings;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\Config;
-
 use Mockery;
 use Symfony\Component\Console\Style\OutputStyle;
-
-use function app;
 
 /**
  * @covers \Hyde\Support\BuildWarnings
