@@ -25,7 +25,12 @@ class BuildWarningsTest extends UnitTestCase
 
     public function testGetInstance()
     {
-        //
+        $this->assertInstanceOf(BuildWarnings::class, BuildWarnings::getInstance());
+    }
+
+    public function testGetInstanceReturnsSingleton()
+    {
+        $this->assertSame(BuildWarnings::getInstance(), BuildWarnings::getInstance());
     }
 
     public function testHasWarnings()
