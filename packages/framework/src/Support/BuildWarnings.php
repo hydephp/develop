@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
+/**
+ * @experimental 
+ */
 class BuildWarnings
 {
     protected static self $instance;
