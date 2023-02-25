@@ -59,7 +59,6 @@ class BuildWarnings
             if (Config::getBool('hyde.convert_build_warnings_to_exceptions', false)) {
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
             } else {
-
                 $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
                 if ($warning->getLocation()) {
                     $output->writeln(sprintf('    <fg=gray>%s</>', $warning->getLocation()));
