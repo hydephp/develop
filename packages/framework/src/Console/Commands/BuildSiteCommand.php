@@ -106,6 +106,8 @@ class BuildSiteCommand extends Command
     {
         if (BuildWarnings::hasWarnings() && BuildWarnings::reportsWarnings()) {
             $this->newLine();
+            $this->error('There were some warnings during the build process:');
+            $this->newLine();
             BuildWarnings::writeWarningsToOutput($this->output);
         }
 

@@ -51,8 +51,6 @@ class BuildWarnings
 
     public static function writeWarningsToOutput(OutputStyle $output): void
     {
-        $output->writeln('<error>There were some warnings during the build process:</error>');
-        $output->newLine();
         foreach (BuildWarnings::getWarnings() as $line => $warning) {
             $output->writeln(sprintf('  %s. <comment>%s</comment>', $line + 1, $warning));
         }
