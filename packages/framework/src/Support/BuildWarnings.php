@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
+use Hyde\Facades\Config;
+
 /**
  * @experimental
  */
@@ -35,6 +37,11 @@ class BuildWarnings
     public static function hasWarnings(): bool
     {
         return count(self::getInstance()->warnings) > 0;
+    }
+
+    public static function reportsWarnings(): bool
+    {
+        return Config::getBool('hyde.log_warnings', true);
     }
 
     public function add(string $warning): void
