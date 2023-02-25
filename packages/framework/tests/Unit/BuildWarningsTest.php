@@ -51,9 +51,22 @@ class BuildWarningsTest extends UnitTestCase
         $this->assertSame(['This is a warning'], BuildWarnings::getWarnings());
     }
 
-    public function testReportsWarnings()
+    public function testReportsWarningsDefaultsToTrue()
     {
-        //
+        self::mockConfig();
+        $this->assertTrue(BuildWarnings::reportsWarnings());
+    }
+
+    public function testReportsWarningsReturnsTrueWhenTrue()
+    {
+        self::mockConfig(['hyde.log_warnings' => true]);
+        $this->assertTrue(BuildWarnings::reportsWarnings());
+    }
+
+    public function testReportsWarningsReturnsFalseWhenFalse()
+    {
+        self::mockConfig(['hyde.log_warnings' => false]);
+        $this->assertFalse(BuildWarnings::reportsWarnings());
     }
 
     public function testWriteWarningsToOutput()
