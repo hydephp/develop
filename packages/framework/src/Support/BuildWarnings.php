@@ -6,25 +6,36 @@ namespace Hyde\Support;
 
 class BuildWarnings
 {
-    protected static array $warnings = [];
+    protected static self $instance;
 
-    public static function add(string $warning): void
+    protected array $warnings = [];
+
+    public static function getInstance(): self
     {
-        self::$warnings[] = $warning;
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
-    public static function get(): array
+    public function add(string $warning): void
     {
-        return self::$warnings;
+        $this->warnings[] = $warning;
     }
 
-    public static function hasWarnings(): bool
+    public function get(): array
     {
-        return count(self::$warnings) > 0;
+        return $this->warnings;
     }
 
-    public static function clear(): void
+    public function hasWarnings(): bool
     {
-        self::$warnings = [];
+        return count($this->warnings) > 0;
+    }
+
+    public function clear(): void
+    {
+        $this->warnings = [];
     }
 }
