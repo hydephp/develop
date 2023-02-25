@@ -85,11 +85,12 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::report('This is a warning');
 
         $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->with(' 1. <comment>This is a warning</comment>');
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
+            $this->assertSame(' 1. <comment>This is a warning</comment>', $string);
+            return true;
+        });
 
         BuildWarnings::writeWarningsToOutput($output);
-
-        $this->assertTrue(true);
     }
 
     public function testWriteWarningsToOutputWithLocation()
@@ -97,15 +98,16 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::report('This is a warning', 'path/to/file.md');
 
         $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->with(' 1. <comment>This is a warning</comment>');
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
+            $this->assertSame(' 1. <comment>This is a warning</comment>', $string);
+            return true;
+        });
         $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
             $this->assertStringContainsString('BuildWarnings.php', $string);
             return true;
         });
 
         BuildWarnings::writeWarningsToOutput($output, true);
-
-        $this->assertTrue(true);
     }
 
     public function testWriteWarningsToOutputWithConvertingBuildWarningsToExceptions()
