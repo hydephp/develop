@@ -8,6 +8,7 @@ use Hyde\Framework\Exceptions\BuildWarning;
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Config;
 use Mockery;
 use Symfony\Component\Console\Style\OutputStyle;
@@ -102,6 +103,26 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::writeWarningsToOutput($output);
 
         $this->assertTrue(true);
+    }
+
+    public function testWriteWarningsToOutputWithConvertingBuildWarningsToExceptions()
+    {
+        self::mockConfig(['hyde.convert_build_warnings_to_exceptions' => true]);
+
+        BuildWarnings::report('This is a warning');
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        app()->bind(ExceptionHandler::class, function () use ($output) {
+            $handler = Mockery::mock(ExceptionHandler::class);
+            $handler->shouldReceive('renderForConsole')->once()->withArgs(function ($output, $warning) {
+                $this->assertEquals(new BuildWarning('This is a warning'), $warning);
+                return $output instanceof OutputStyle && $warning instanceof BuildWarning;
+            });
+            return $handler;
+        });
+
+        BuildWarnings::writeWarningsToOutput($output);
     }
 
     public function testAdd()
