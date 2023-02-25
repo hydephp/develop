@@ -9,6 +9,8 @@ use Symfony\Component\Console\Style\OutputStyle;
 
 /**
  * @experimental
+ *
+ * @see \Hyde\Framework\Testing\Unit\BuildWarningsTest
  */
 class BuildWarnings
 {
