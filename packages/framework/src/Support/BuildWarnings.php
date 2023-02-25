@@ -58,12 +58,12 @@ class BuildWarnings
         foreach (static::getWarnings() as $line => $warning) {
             if (Config::getBool('hyde.convert_build_warnings_to_exceptions', false)) {
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
-                continue;
-            }
+            } else {
 
-            $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
-            if ($warning->getLocation()) {
-                $output->writeln(sprintf('    <fg=gray>%s</>', $warning->getLocation()));
+                $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
+                if ($warning->getLocation()) {
+                    $output->writeln(sprintf('    <fg=gray>%s</>', $warning->getLocation()));
+                }
             }
         }
     }
