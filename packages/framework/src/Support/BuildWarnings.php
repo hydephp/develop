@@ -27,7 +27,7 @@ class BuildWarnings
         self::getInstance()->add($warning);
     }
 
-    public static function warnings(): array
+    public static function getWarnings(): array
     {
         return self::getInstance()->get();
     }

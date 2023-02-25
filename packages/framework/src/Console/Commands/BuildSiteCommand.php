@@ -108,7 +108,7 @@ class BuildSiteCommand extends Command
             $this->newLine();
             $this->error('There were some warnings during the build process:');
             $this->newLine();
-            foreach (BuildWarnings::getInstance()->get() as $line => $warning) {
+            foreach (BuildWarnings::getWarnings() as $line => $warning) {
                 $this->line(sprintf("  %s. <comment>%s</comment>", $line + 1, $warning));
             }
         }
