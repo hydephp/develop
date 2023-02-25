@@ -108,7 +108,7 @@ class BuildSiteCommand extends Command
             $this->newLine();
             $this->error('There were some warnings during the build process:');
             $this->newLine();
-            BuildWarnings::writeWarningsToOutput($this->output);
+            BuildWarnings::writeWarningsToOutput($this->output, $this->output->isVerbose());
         }
 
         $executionTime = (microtime(true) - $timeStart);
