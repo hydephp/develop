@@ -20,4 +20,9 @@ class BuildWarning extends RuntimeException
 
         $this->location = $location;
     }
+
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
 }
