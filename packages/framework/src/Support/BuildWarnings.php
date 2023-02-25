@@ -19,6 +19,7 @@ class BuildWarnings
 {
     protected static self $instance;
 
+    /** @var array<\Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
     public static function getInstance(): static
@@ -35,6 +36,7 @@ class BuildWarnings
         static::getInstance()->add(new BuildWarning($warning, $location));
     }
 
+    /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
     public static function getWarnings(): array
     {
         return static::getInstance()->get();
@@ -65,6 +67,7 @@ class BuildWarnings
         $this->warnings[] = $warning;
     }
 
+    /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
     public function get(): array
     {
         return $this->warnings;
