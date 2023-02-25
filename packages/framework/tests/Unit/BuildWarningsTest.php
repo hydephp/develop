@@ -12,5 +12,48 @@ use Hyde\Testing\TestCase;
  */
 class BuildWarningsTest extends TestCase
 {
-    //
+    public function testReportsWarnings()
+    {
+        //
+    }
+
+    public function testGetInstance()
+    {
+        //
+    }
+
+    public function testGet()
+    {
+        //
+    }
+
+    public function testReport()
+    {
+        //
+    }
+
+    public function testHasWarnings()
+    {
+        //
+    }
+
+    public function testAdd()
+    {
+        //
+    }
+
+    public function testClear()
+    {
+        //
+    }
+
+    public function testGetWarnings()
+    {
+        //
+    }
+
+    public function testWriteWarningsToOutput()
+    {
+        //
+    }
 }
