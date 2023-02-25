@@ -58,8 +58,8 @@ class BuildWarnings
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
             }
         } else {
-            foreach (static::getWarnings() as $line => $warning) {
-                $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
+            foreach (static::getWarnings() as $number => $warning) {
+                $output->writeln(sprintf(' %s. <comment>%s</comment>', $number + 1, $warning->getMessage()));
                 if ($verbose) {
                     $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
                 }
