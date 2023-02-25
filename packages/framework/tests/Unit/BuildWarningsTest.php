@@ -117,8 +117,10 @@ class BuildWarningsTest extends UnitTestCase
             $handler = Mockery::mock(ExceptionHandler::class);
             $handler->shouldReceive('renderForConsole')->once()->withArgs(function ($output, $warning) {
                 $this->assertEquals(new BuildWarning('This is a warning'), $warning);
+
                 return $output instanceof OutputStyle && $warning instanceof BuildWarning;
             });
+
             return $handler;
         });
 
