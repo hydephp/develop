@@ -98,9 +98,12 @@ class BuildWarningsTest extends UnitTestCase
 
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->with(' 1. <comment>This is a warning</comment>');
-        $output->shouldReceive('writeln')->with('    <fg=gray>path/to/file.md</>');
+        $output->shouldReceive('writeln')->withArgs(function (string $string) {
+            $this->assertStringContainsString('BuildWarnings.php', $string);
+            return true;
+        });
 
-        BuildWarnings::writeWarningsToOutput($output);
+        BuildWarnings::writeWarningsToOutput($output, true);
 
         $this->assertTrue(true);
     }
