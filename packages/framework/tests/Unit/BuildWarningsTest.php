@@ -91,6 +91,19 @@ class BuildWarningsTest extends UnitTestCase
         $this->assertTrue(true);
     }
 
+    public function testWriteWarningsToOutputWithLocation()
+    {
+        BuildWarnings::report('This is a warning', 'path/to/file.md');
+
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->with(' 1. <comment>This is a warning</comment>');
+        $output->shouldReceive('writeln')->with('    <fg=gray>path/to/file.md</>');
+
+        BuildWarnings::writeWarningsToOutput($output);
+
+        $this->assertTrue(true);
+    }
+
     public function testAdd()
     {
         $instance = BuildWarnings::getInstance();
