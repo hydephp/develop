@@ -106,10 +106,10 @@ class BuildSiteCommand extends Command
     {
         if (BuildWarnings::hasWarnings() && BuildWarnings::reportsWarnings()) {
             $this->newLine();
-            $this->error('There were some warnings during the build process:');
-            $this->newLine();
+            $this->output->writeln('<error>There were some warnings during the build process:</error>');
+            $this->output->newLine();
             foreach (BuildWarnings::getWarnings() as $line => $warning) {
-                $this->line(sprintf("  %s. <comment>%s</comment>", $line + 1, $warning));
+                $this->output->writeln(sprintf("  %s. <comment>%s</comment>", $line + 1, $warning));
             }
         }
 
