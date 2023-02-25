@@ -24,7 +24,7 @@ class BuildWarningsTest extends UnitTestCase
         //
     }
 
-    public function testReport()
+    public function testHasWarnings()
     {
         //
     }
@@ -34,7 +34,7 @@ class BuildWarningsTest extends UnitTestCase
         //
     }
 
-    public function testHasWarnings()
+    public function testReport()
     {
         //
     }
