@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 use Hyde\Facades\Config;
-
 use Symfony\Component\Console\Style\OutputStyle;
+
 /**
  * @experimental
  */
@@ -18,7 +18,7 @@ class BuildWarnings
 
     public static function getInstance(): self
     {
-        if (!isset(self::$instance)) {
+        if (! isset(self::$instance)) {
             self::$instance = new self();
         }
 
