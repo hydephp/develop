@@ -58,7 +58,7 @@ class BuildWarnings
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
             } else {
                 $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
-                if ($warning->getLocation()) {
+                if ($verbose) {
                     $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
                 }
             }
