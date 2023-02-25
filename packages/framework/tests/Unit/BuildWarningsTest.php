@@ -86,7 +86,7 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::writeWarningsToOutput($output);
     }
 
-    public function testWriteWarningsToOutputWithLocation()
+    public function testWriteWarningsToOutputWithVerboseOutput()
     {
         BuildWarnings::report('This is a warning');
 
