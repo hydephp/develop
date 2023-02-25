@@ -59,7 +59,7 @@ class BuildWarnings
             } else {
                 $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
                 if ($warning->getLocation()) {
-                    $output->writeln(sprintf('    <fg=gray>%s</>', $warning->getLocation()));
+                    $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
                 }
             }
         }
