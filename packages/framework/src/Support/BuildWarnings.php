@@ -54,16 +54,9 @@ class BuildWarnings
     public static function writeWarningsToOutput(OutputStyle $output, bool $verbose = false): void
     {
         if (static::reportsWarningsAsExceptions()) {
-            foreach (static::getWarnings() as $warning) {
-                app(ExceptionHandler::class)->renderForConsole($output, $warning);
-            }
+            self::renderWarningsAsExceptions($output);
         } else {
-            foreach (static::getWarnings() as $number => $warning) {
-                $output->writeln(sprintf(' %s. <comment>%s</comment>', $number + 1, $warning->getMessage()));
-                if ($verbose) {
-                    $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
-                }
-            }
+            self::renderWarnings($output, $verbose);
         }
     }
 
@@ -86,5 +79,22 @@ class BuildWarnings
     protected static function reportsWarningsAsExceptions(): bool
     {
         return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
+    }
+
+    protected static function renderWarningsAsExceptions(OutputStyle $output): void
+    {
+        foreach (static::getWarnings() as $warning) {
+            app(ExceptionHandler::class)->renderForConsole($output, $warning);
+        }
+    }
+
+    protected static function renderWarnings(OutputStyle $output, bool $verbose): void
+    {
+        foreach (static::getWarnings() as $number => $warning) {
+            $output->writeln(sprintf(' %s. <comment>%s</comment>', $number + 1, $warning->getMessage()));
+            if ($verbose) {
+                $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
+            }
+        }
     }
 }
