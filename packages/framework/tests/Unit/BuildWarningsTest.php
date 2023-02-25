@@ -12,6 +12,13 @@ use Hyde\Testing\UnitTestCase;
  */
 class BuildWarningsTest extends UnitTestCase
 {
+    protected function tearDown(): void
+    {
+        BuildWarnings::getInstance()->clear();
+
+        parent::tearDown();
+    }
+
     public function testGetInstance()
     {
         //
