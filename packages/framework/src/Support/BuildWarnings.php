@@ -54,7 +54,7 @@ class BuildWarnings
     public static function writeWarningsToOutput(OutputStyle $output, bool $verbose = false): void
     {
         if (static::reportsWarningsAsExceptions()) {
-            foreach (static::getWarnings() as $line => $warning) {
+            foreach (static::getWarnings() as $warning) {
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
             }
         } else {
