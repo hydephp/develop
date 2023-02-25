@@ -14,6 +14,7 @@ use Symfony\Component\Console\Style\OutputStyle;
 
 /**
  * @covers \Hyde\Support\BuildWarnings
+ * @covers \Hyde\Framework\Exceptions\BuildWarning
  */
 class BuildWarningsTest extends UnitTestCase
 {
