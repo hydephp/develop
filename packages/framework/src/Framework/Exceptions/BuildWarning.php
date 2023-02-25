@@ -6,6 +6,9 @@ namespace Hyde\Framework\Exceptions;
 
 use RuntimeException;
 
+/**
+ * @experimental
+ */
 class BuildWarning extends RuntimeException
 {
     //
