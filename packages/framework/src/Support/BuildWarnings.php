@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Facades\Config;
 
+use Symfony\Component\Console\Style\OutputStyle;
 /**
  * @experimental
  */
@@ -42,6 +43,15 @@ class BuildWarnings
     public static function reportsWarnings(): bool
     {
         return Config::getBool('hyde.log_warnings', true);
+    }
+
+    public static function writeWarningsToOutput(OutputStyle $output): void
+    {
+        $output->writeln('<error>There were some warnings during the build process:</error>');
+        $output->newLine();
+        foreach (BuildWarnings::getWarnings() as $line => $warning) {
+            $output->writeln(sprintf('  %s. <comment>%s</comment>', $line + 1, $warning));
+        }
     }
 
     public function add(string $warning): void
