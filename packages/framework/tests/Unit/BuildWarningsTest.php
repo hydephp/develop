@@ -6,6 +6,10 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Config\Repository;
+use Illuminate\Support\Facades\Config;
+
+use function app;
 
 /**
  * @covers \Hyde\Support\BuildWarnings
@@ -62,5 +66,12 @@ class BuildWarningsTest extends UnitTestCase
     public function testClear()
     {
         //
+    }
+
+    protected static function mockConfig(array $items = []): void
+    {
+        app()->bind('config', fn () => new Repository($items));
+
+        Config::swap(app('config'));
     }
 }
