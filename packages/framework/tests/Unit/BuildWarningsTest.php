@@ -52,6 +52,14 @@ class BuildWarningsTest extends UnitTestCase
         $this->assertEquals([new BuildWarning('This is a warning')], BuildWarnings::getWarnings());
     }
 
+    public function testReportWithLocation()
+    {
+        BuildWarnings::report('This is a warning', 'path/to/file.md');
+
+        $this->assertTrue(BuildWarnings::hasWarnings());
+        $this->assertEquals([new BuildWarning('This is a warning', 'path/to/file.md')], BuildWarnings::getWarnings());
+    }
+
     public function testReportsWarningsDefaultsToTrue()
     {
         self::mockConfig();
