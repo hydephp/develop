@@ -87,6 +87,7 @@ class BuildWarningsTest extends UnitTestCase
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
             $this->assertSame(' 1. <comment>This is a warning</comment>', $string);
+
             return true;
         });
 
@@ -100,10 +101,12 @@ class BuildWarningsTest extends UnitTestCase
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
             $this->assertSame(' 1. <comment>This is a warning</comment>', $string);
+
             return true;
         });
         $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
             $this->assertStringContainsString('BuildWarnings.php', $string);
+
             return true;
         });
 
