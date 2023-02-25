@@ -30,9 +30,9 @@ class BuildWarnings
         return static::$instance;
     }
 
-    public static function report(string $warning, string $location = ''): void
+    public static function report(string $warning): void
     {
-        static::getInstance()->add(new BuildWarning($warning, $location));
+        static::getInstance()->add(new BuildWarning($warning));
     }
 
     /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
