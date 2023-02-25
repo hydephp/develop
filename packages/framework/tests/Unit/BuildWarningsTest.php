@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Support\BuildWarnings;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Support\BuildWarnings
  */
-class BuildWarningsTest extends TestCase
+class BuildWarningsTest extends UnitTestCase
 {
     public function testGetInstance()
     {
