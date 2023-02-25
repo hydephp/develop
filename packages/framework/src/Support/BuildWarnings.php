@@ -53,10 +53,12 @@ class BuildWarnings
 
     public static function writeWarningsToOutput(OutputStyle $output, bool $verbose = false): void
     {
-        foreach (static::getWarnings() as $line => $warning) {
-            if (static::reportsWarningsAsExceptions()) {
+        if (static::reportsWarningsAsExceptions()) {
+            foreach (static::getWarnings() as $line => $warning) {
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
-            } else {
+            }
+        } else {
+            foreach (static::getWarnings() as $line => $warning) {
                 $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
                 if ($verbose) {
                     $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
