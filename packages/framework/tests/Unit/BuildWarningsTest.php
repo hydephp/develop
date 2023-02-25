@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Closure;
 use Hyde\Framework\Exceptions\BuildWarning;
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\UnitTestCase;
@@ -77,11 +78,9 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::report('This is a warning');
 
         $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
-            $this->assertSame(' 1. <comment>This is a warning</comment>', $string);
-
-            return true;
-        });
+        $output->shouldReceive('writeln')->once()->withArgs(
+            $this->runAssertSame(' 1. <comment>This is a warning</comment>')
+        );
 
         BuildWarnings::writeWarningsToOutput($output);
     }
@@ -91,11 +90,9 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::report('This is a warning');
 
         $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
-            $this->assertSame(' 1. <comment>This is a warning</comment>', $string);
-
-            return true;
-        });
+        $output->shouldReceive('writeln')->once()->withArgs(
+            $this->runAssertSame(' 1. <comment>This is a warning</comment>')
+        );
         $output->shouldReceive('writeln')->once()->withArgs(function (string $string) {
             $this->assertStringContainsString('BuildWarnings.php', $string);
 
@@ -157,5 +154,14 @@ class BuildWarningsTest extends UnitTestCase
         app()->bind('config', fn () => new Repository($items));
 
         Config::swap(app('config'));
+    }
+
+    protected function runAssertSame(string $expected): Closure
+    {
+        return function (string $string) use ($expected) {
+            $this->assertSame($expected, $string);
+
+            return true;
+        };
     }
 }
