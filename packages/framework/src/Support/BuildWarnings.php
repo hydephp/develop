@@ -12,8 +12,6 @@ use Symfony\Component\Console\Style\OutputStyle;
 /**
  * @experimental
  *
- * @todo Add generics to increase type coverage
- *
  * @see \Hyde\Framework\Testing\Unit\BuildWarningsTest
  */
 class BuildWarnings
