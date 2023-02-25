@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\BuildWarning;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
@@ -55,6 +56,11 @@ class BuildWarnings
     public static function writeWarningsToOutput(OutputStyle $output): void
     {
         foreach (static::getWarnings() as $line => $warning) {
+            if (Config::getBool('hyde.convert_build_warnings_to_exceptions', false)) {
+                app(ExceptionHandler::class)->renderForConsole($output, $warning);
+                continue;
+            }
+
             $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
             if ($warning->getLocation()) {
                 $output->writeln(sprintf('    <fg=gray>%s</>', $warning->getLocation()));
