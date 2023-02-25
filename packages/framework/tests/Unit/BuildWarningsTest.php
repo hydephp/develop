@@ -88,17 +88,27 @@ class BuildWarningsTest extends UnitTestCase
 
     public function testAdd()
     {
-        //
+        $instance = BuildWarnings::getInstance();
+
+        $instance->add('This is a warning');
+        $this->assertTrue($instance->hasWarnings());
     }
 
     public function testGet()
     {
-        //
+        $instance = BuildWarnings::getInstance();
+
+        $instance->add('This is a warning');
+        $this->assertSame(['This is a warning'], $instance->get());
     }
 
     public function testClear()
     {
-        //
+        $instance = BuildWarnings::getInstance();
+
+        $instance->add('This is a warning');
+        $instance->clear();
+        $this->assertFalse($instance->hasWarnings());
     }
 
     protected static function mockConfig(array $items = []): void
