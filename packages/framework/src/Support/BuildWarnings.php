@@ -51,7 +51,7 @@ class BuildWarnings
         return Config::getBool('hyde.log_warnings', true);
     }
 
-    public static function writeWarningsToOutput(OutputStyle $output): void
+    public static function writeWarningsToOutput(OutputStyle $output, bool $verbose = false): void
     {
         foreach (static::getWarnings() as $line => $warning) {
             if (static::reportsWarningsAsExceptions()) {
