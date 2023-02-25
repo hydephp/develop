@@ -56,7 +56,7 @@ class BuildWarnings
     public static function writeWarningsToOutput(OutputStyle $output): void
     {
         foreach (static::getWarnings() as $line => $warning) {
-            if (Config::getBool('hyde.convert_build_warnings_to_exceptions', false)) {
+            if (static::reportsWarningsAsExceptions()) {
                 app(ExceptionHandler::class)->renderForConsole($output, $warning);
             } else {
                 $output->writeln(sprintf(' %s. <comment>%s</comment>', $line + 1, $warning->getMessage()));
@@ -81,5 +81,10 @@ class BuildWarnings
     public function clear(): void
     {
         $this->warnings = [];
+    }
+
+    protected static function reportsWarningsAsExceptions(): bool
+    {
+        return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
     }
 }
