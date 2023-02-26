@@ -28,8 +28,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &nbsp;&gt;&gt;&nbsp;
                 Foo
             </nav>
-        HTML
-        );
+        HTML);
     }
 
     public function testRenderedBladeViewOnIndexPage()
@@ -51,8 +50,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &nbsp;&gt;&gt;&nbsp;
                 Bar
             </nav>
-        HTML
-        );
+        HTML);
     }
 
     public function testRenderedBladeViewOnDeeplyNestedPage()
@@ -69,8 +67,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &nbsp;&gt;&gt;&nbsp;
                 Baz
             </nav>
-        HTML
-        );
+        HTML);
     }
 
     public function testRenderedBladeViewOnNestedIndexPage()
@@ -83,8 +80,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &nbsp;&gt;&gt;&nbsp;
                 Foo
             </nav>
-        HTML
-        );
+        HTML);
     }
 
     protected function assertRenderedMatchesExpected(string $expected): void
