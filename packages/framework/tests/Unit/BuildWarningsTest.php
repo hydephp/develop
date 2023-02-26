@@ -22,7 +22,7 @@ class BuildWarningsTest extends UnitTestCase
 {
     protected function tearDown(): void
     {
-        BuildWarnings::clear();
+        app()->forgetInstance(BuildWarnings::class);
 
         parent::tearDown();
     }
