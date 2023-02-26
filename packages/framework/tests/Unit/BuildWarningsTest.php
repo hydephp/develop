@@ -42,9 +42,23 @@ class BuildWarningsTest extends UnitTestCase
         $this->assertFalse(BuildWarnings::hasWarnings());
     }
 
+    public function testHasWarningWithWarnings()
+    {
+        BuildWarnings::report('This is a warning');
+
+        $this->assertTrue(BuildWarnings::hasWarnings());
+    }
+
     public function testGetWarnings()
     {
         $this->assertSame([], BuildWarnings::getWarnings());
+    }
+
+    public function testGetWarningsWithWarnings()
+    {
+        BuildWarnings::report('This is a warning');
+
+        $this->assertEquals([new BuildWarning('This is a warning')], BuildWarnings::getWarnings());
     }
 
     public function testReport()
