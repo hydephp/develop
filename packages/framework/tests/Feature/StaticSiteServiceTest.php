@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Filesystem;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
+use Hyde\Support\BuildWarnings;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
@@ -244,5 +245,55 @@ class StaticSiteServiceTest extends TestCase
 
         $this->assertFileExists(Hyde::path('foo/keep.html'));
         File::deleteDirectory(Hyde::path('foo'));
+    }
+
+    public function test_without_warnings()
+    {
+        $this->artisan('build')
+            ->doesntExpectOutput('There were some warnings during the build process:')
+            ->assertExitCode(0);
+    }
+
+    public function test_with_warnings()
+    {
+        BuildWarnings::report('This is a warning');
+
+        $this->artisan('build')
+            ->expectsOutput('There were some warnings during the build process:')
+            ->expectsOutput(' 1. This is a warning')
+            ->assertExitCode(0);
+    }
+
+    public function test_with_warnings_and_verbose()
+    {
+        BuildWarnings::report('This is a warning');
+
+        $this->artisan('build --verbose')
+            ->expectsOutput('There were some warnings during the build process:')
+            ->expectsOutput(' 1. This is a warning')
+            ->expectsOutputToContain('BuildWarnings.php')
+            ->assertExitCode(0);
+    }
+
+    public function test_with_warnings_but_warnings_are_disabled()
+    {
+        config(['hyde.log_warnings' => false]);
+        BuildWarnings::report('This is a warning');
+
+        $this->artisan('build')
+            ->doesntExpectOutput('There were some warnings during the build process:')
+            ->assertExitCode(0);
+    }
+
+    public function test_with_warnings_converted_to_exceptions()
+    {
+        config(['hyde.convert_build_warnings_to_exceptions' => true]);
+        BuildWarnings::report('This is a warning');
+
+        $this->artisan('build')
+            ->expectsOutput('There were some warnings during the build process:')
+            ->expectsOutputToContain('Hyde\Framework\Exceptions\BuildWarning')
+            ->doesntExpectOutput(' 1. This is a warning')
+            ->assertExitCode(2);
     }
 }

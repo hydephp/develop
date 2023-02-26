@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Stringable;
@@ -229,7 +230,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
             return (int) key(array_flip($headers['Content-Length']));
         }
 
-        // Here we could throw an exception if we want to be strict about this, or add a warning.
+        BuildWarnings::report('The image "'.$this->getSource().'" has a content length of zero.');
 
         return 0;
     }
