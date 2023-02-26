@@ -32,4 +32,11 @@ class BreadcrumbsComponentViewTest extends TestCase
             $this->assertStringContainsString($string, $html);
         }
     }
+
+    public function testRenderedBladeViewOnIndexPage()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('index')));
+
+        $this->assertSame('', Blade::renderComponent(new BreadcrumbsComponent()));
+    }
 }
