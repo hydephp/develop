@@ -43,7 +43,7 @@ class BreadcrumbsComponent extends Component
             // if it's not the last field, add a trailing slash (since it must be a directory)
             $path .= $field.($key < count($fields) - 1 ? '/' : '');
             $title = Str::of($field)->replace('-', ' ')->title();
-            $breadcrumbs[$path] = $title->toString();
+            $breadcrumbs[Hyde::relativeLink($path)] = $title->toString();
         }
 
         return $breadcrumbs;
