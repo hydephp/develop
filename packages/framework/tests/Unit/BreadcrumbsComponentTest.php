@@ -97,7 +97,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
         $html = Blade::renderComponent(new BreadcrumbsComponent());
 
         $expected = [
-            '<nav aria-label="breadcrumb">'
+            '<nav aria-label="breadcrumb">',
         ];
 
         foreach ($expected as $string) {
