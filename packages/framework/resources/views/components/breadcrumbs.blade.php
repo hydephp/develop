@@ -1,5 +1,5 @@
 @if (count($breadcrumbs) > 1)
-    <nav class="">
+    <nav class="" aria-label="breadcrumb">
         @foreach ($breadcrumbs as $path=>$title)
             @if (!$loop->last)
                 <a href="{{ $path }}" class="hover:underline">{{ $title }}</a>
