@@ -13,6 +13,8 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
+use function tap;
+
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
  *
@@ -113,6 +115,29 @@ class BreadcrumbsComponentViewTest extends TestCase
                 </ol>
             </nav>
         HTML);
+    }
+
+    public function testRenderedBladeViewWithAttributes()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage()));
+
+        $html = Blade::renderComponent((new BreadcrumbsComponent())->withAttributes(['class' => 'foo']));
+
+        $expected = <<<'HTML'
+            <nav aria-label="breadcrumb" class="foo">
+                <ol class="flex">
+                    <li>
+                        <a href="/" class="hover:underline">Home</a>
+                    </li>
+                    <span class="px-1" aria-hidden="true">&gt;</span>
+                    <li>
+                        <a href="" aria-current="page"></a>
+                    </li>
+                </ol>
+            </nav>
+        HTML;
+
+        $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
     }
 
     protected function assertRenderedMatchesExpected(string $expected): void
