@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\GeneratesSidebarTableOfContents
  */
-class GeneratesSidebarTableOfContentsTest extends TestCase
+class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::mockConfig();
+    }
+
     public function testCanGenerateTableOfContents()
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";

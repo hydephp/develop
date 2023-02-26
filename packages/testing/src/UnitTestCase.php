@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Hyde\Foundation\HydeKernel;
+use Illuminate\Config\Repository;
+use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class UnitTestCase extends BaseTestCase
@@ -22,5 +24,12 @@ abstract class UnitTestCase extends BaseTestCase
     {
         HydeKernel::setInstance(new HydeKernel());
         self::$hasSetUpKernel = true;
+    }
+
+    protected static function mockConfig(array $items = []): void
+    {
+        app()->bind('config', fn (): Repository => new Repository($items));
+
+        Config::swap(app('config'));
     }
 }
