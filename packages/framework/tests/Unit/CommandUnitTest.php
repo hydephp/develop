@@ -12,5 +12,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class CommandUnitTest extends UnitTestCase
 {
-    //
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+    }
 }
