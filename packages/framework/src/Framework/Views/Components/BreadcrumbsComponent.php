@@ -47,8 +47,8 @@ class BreadcrumbsComponent extends Component
             } else {
                 $path .= "$field.html";
             }
-            $title = Str::of($field)->replace('-', ' ')->title();
-            $breadcrumbs[Hyde::relativeLink($path)] = $title->toString();
+            $title = Hyde::makeTitle($field);
+            $breadcrumbs[Hyde::relativeLink($path)] = $title;
         }
 
         return $breadcrumbs;
