@@ -21,7 +21,8 @@ class TracksExecutionTimeTest extends TestCase
 
         $this->assertTrue($class->isset('timeStart'));
         $this->assertIsFloat($class->timeStart);
-        $this->assertSame(round(microtime(true)), round($class->timeStart));
+        // Assert that the difference between the two is less than 1 second to account for time drift (causes 1/10 000 tests to fail)
+        $this->assertLessThan(1, abs((microtime(true)) - ($class->timeStart)));
     }
 
     public function test_stopClock()
