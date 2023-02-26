@@ -13,6 +13,8 @@ use Stringable;
 /**
  * Abstraction for a navigation menu item. Used by the NavigationMenu and DocumentationSidebar classes.
  *
+ * @todo See if this can be merged into the Route class.
+ *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
