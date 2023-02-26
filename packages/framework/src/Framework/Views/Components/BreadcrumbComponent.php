@@ -25,7 +25,7 @@ class BreadcrumbComponent extends Component
         return view('hyde::components.breadcrumb');
     }
 
-    public function getBreadcrumbs(): array
+    protected function getBreadcrumbs(): array
     {
         $identifier = Hyde::currentRoute()->getPage()->getIdentifier();
         $breadcrumbs = ['/' => 'Home'];
