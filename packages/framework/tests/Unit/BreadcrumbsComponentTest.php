@@ -21,6 +21,11 @@ class BreadcrumbsComponentTest extends UnitTestCase
         self::mockConfig();
     }
 
+    protected function tearDown(): void
+    {
+        Render::clearResolvedInstance(\Hyde\Support\Models\Render::class);
+    }
+
     public function testCanConstruct()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage()));
