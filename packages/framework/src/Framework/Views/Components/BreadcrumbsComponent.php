@@ -35,17 +35,17 @@ class BreadcrumbsComponent extends Component
 
         $previous = '';
         $fields = explode('/', $identifier);
-        foreach ($fields as $index => $field) {
-            if ($field === 'index') {
+        foreach ($fields as $index => $basename) {
+            if ($basename === 'index') {
                 break;
             }
 
-            // if it's not the last field, add index.html (since it must be a directory) otherwise add .html
-            $path = $previous."$field".($index < count($fields) - 1 ? '/index.html' : '.html');
+            // if it's not the last basename, add index.html (since it must be a directory) otherwise add .html
+            $path = $previous."$basename".($index < count($fields) - 1 ? '/index.html' : '.html');
 
-            $breadcrumbs[Hyde::relativeLink($path)] = Hyde::makeTitle($field);
+            $breadcrumbs[Hyde::relativeLink($path)] = Hyde::makeTitle($basename);
 
-            $previous .= $field.'/';
+            $previous .= $basename.'/';
         }
 
         return $breadcrumbs;
