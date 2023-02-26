@@ -8,6 +8,7 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Console\Concerns\Command
+ * @see \Hyde\Framework\Testing\Feature\CommandTest
  */
 class CommandUnitTest extends UnitTestCase
 {
