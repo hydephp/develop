@@ -61,12 +61,16 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo', $item->href);
         $this->assertSame('bar', $item->label);
         $this->assertSame(500, $item->priority);
-        $this->assertFalse($item->hidden);
     }
 
     public function testToLinkWithCustomPriority()
     {
         $this->assertSame(100, NavItem::toLink('foo', 'bar', 100)->priority);
+    }
+
+    public function testToLinkIsNotHidden()
+    {
+        $this->assertFalse(NavItem::toLink('foo', 'bar')->hidden);
     }
 
     public function testToRoute()
@@ -83,6 +87,11 @@ class NavItemTest extends UnitTestCase
     public function testToRouteWithCustomPriority()
     {
         $this->assertSame(100, NavItem::toRoute(Route::get('index'), 'foo', 100)->priority);
+    }
+
+    public function testToRouteIsNotHidden()
+    {
+        $this->assertFalse(NavItem::toRoute(Route::get('index'), 'foo')->hidden);
     }
 
     public function testIsCurrent()
