@@ -58,11 +58,11 @@ class BreadcrumbsComponentViewTest extends TestCase
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
-                        <a href="foo/" class="hover:underline">Foo</a>
+                        <a href="../foo/" class="hover:underline">Foo</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
-                        <a href="foo/bar" aria-current="page">Bar</a>
+                        <a href="../foo/bar" aria-current="page">Bar</a>
                     </li>
                 </ol>
             </nav>
@@ -81,15 +81,15 @@ class BreadcrumbsComponentViewTest extends TestCase
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
-                        <a href="foo/" class="hover:underline">Foo</a>
+                        <a href="../../foo/" class="hover:underline">Foo</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
-                        <a href="foo/bar/" class="hover:underline">Bar</a>
+                        <a href="../../foo/bar/" class="hover:underline">Bar</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
-                        <a href="foo/bar/baz" aria-current="page">Baz</a>
+                        <a href="../../foo/bar/baz" aria-current="page">Baz</a>
                     </li>
                 </ol>
             </nav>
@@ -108,7 +108,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
-                        <a href="foo/" aria-current="page">Foo</a>
+                        <a href="../foo/" aria-current="page">Foo</a>
                     </li>
                 </ol>
             </nav>
