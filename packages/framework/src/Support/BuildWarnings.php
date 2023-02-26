@@ -32,11 +32,6 @@ class BuildWarnings
         return static::$instance;
     }
 
-    public static function clear(): void
-    {
-        static::getInstance()->warnings = [];
-    }
-
     public static function report(BuildWarning|string $warning): void
     {
         static::getInstance()->warnings[] = $warning instanceof BuildWarning ? $warning : new BuildWarning($warning);
@@ -61,6 +56,11 @@ class BuildWarnings
     public static function reportsWarningsAsExceptions(): bool
     {
         return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
+    }
+
+    public static function clear(): void
+    {
+        static::getInstance()->warnings = [];
     }
 
     public static function writeWarningsToOutput(OutputStyle $output, bool $verbose = false): void
