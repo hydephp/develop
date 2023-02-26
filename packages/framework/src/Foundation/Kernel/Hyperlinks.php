@@ -29,7 +29,7 @@ class Hyperlinks
     /**
      * Format a web link to an HTML file, allowing for pretty URLs, if enabled.
      *
-     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkformatLinkTest
+     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFormatHtmlPathTest
      */
     public function formatLink(string $destination): string
     {
