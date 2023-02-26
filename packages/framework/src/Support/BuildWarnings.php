@@ -23,11 +23,11 @@ class BuildWarnings
 
     public static function getInstance(): static
     {
-        if (! app()->bound(static::class)) {
-            app()->singleton(static::class);
+        if (! app()->bound(self::class)) {
+            app()->singleton(self::class);
         }
 
-        return app(static::class);
+        return app(self::class);
     }
 
     public static function report(BuildWarning|string $warning): void
