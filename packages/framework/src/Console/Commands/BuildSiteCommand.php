@@ -104,7 +104,7 @@ class BuildSiteCommand extends Command
 
     protected function printFinishMessage(float $timeStart): void
     {
-        if (BuildWarnings::hasWarnings() && BuildWarnings::reportsWarnings()) {
+        if ($this->hasWarnings()) {
             $this->newLine();
             $this->error('There were some warnings during the build process:');
             $this->newLine();
@@ -155,5 +155,10 @@ class BuildSiteCommand extends Command
     protected function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch();
+    }
+
+    protected function hasWarnings(): bool
+    {
+        return BuildWarnings::hasWarnings() && BuildWarnings::reportsWarnings();
     }
 }
