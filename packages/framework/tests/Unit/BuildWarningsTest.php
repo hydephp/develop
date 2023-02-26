@@ -22,7 +22,7 @@ class BuildWarningsTest extends UnitTestCase
 {
     protected function tearDown(): void
     {
-        BuildWarnings::getInstance()->clear();
+        BuildWarnings::clear();
 
         parent::tearDown();
     }
@@ -151,7 +151,7 @@ class BuildWarningsTest extends UnitTestCase
         $instance = BuildWarnings::getInstance();
 
         $instance->report(new BuildWarning('This is a warning'));
-        $instance->clear();
+        $instance::clear();
         $this->assertFalse($instance->hasWarnings());
     }
 

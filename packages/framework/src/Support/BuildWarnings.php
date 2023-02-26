@@ -84,8 +84,8 @@ class BuildWarnings
         return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
     }
 
-    public function clear(): void
+    public static function clear(): void
     {
-        $this->warnings = [];
+        static::getInstance()->warnings = [];
     }
 }
