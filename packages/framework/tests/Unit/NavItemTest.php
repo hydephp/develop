@@ -64,23 +64,38 @@ class NavItemTest extends UnitTestCase
 
     public function testToLink()
     {
-        $item = NavItem::toLink('foo', 'bar', 10);
+        $item = NavItem::toLink('foo', 'bar');
 
         $this->assertSame('foo', $item->href);
         $this->assertSame('bar', $item->label);
-        $this->assertSame(10, $item->priority);
+        $this->assertSame(500, $item->priority);
         $this->assertFalse($item->hidden);
+    }
+
+    public function testToLinkWithCustomPriority()
+    {
+        $item = NavItem::toLink('foo', 'bar', 100);
+
+        $this->assertSame(100, $item->priority);
     }
 
     public function testToRoute()
     {
         $route = Route::get('index');
-        $item = NavItem::toRoute($route, 'foo', 10);
+        $item = NavItem::toRoute($route, 'foo');
 
         $this->assertSame($route, $item->route);
         $this->assertSame('foo', $item->label);
-        $this->assertSame(10, $item->priority);
+        $this->assertSame(500, $item->priority);
         $this->assertFalse($item->hidden);
+    }
+
+    public function testToRouteWithCustomPriority()
+    {
+        $route = Route::get('index');
+        $item = NavItem::toRoute($route, 'foo', 100);
+
+        $this->assertSame(100, $item->priority);
     }
 
     public function testIsCurrent()
