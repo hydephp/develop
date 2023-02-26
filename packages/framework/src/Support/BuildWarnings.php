@@ -84,7 +84,7 @@ class BuildWarnings
         }
     }
 
-    protected static function reportsWarningsAsExceptions(): bool
+    public static function reportsWarningsAsExceptions(): bool
     {
         return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
     }
