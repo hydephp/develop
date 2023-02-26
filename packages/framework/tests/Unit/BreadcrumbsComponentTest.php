@@ -69,14 +69,14 @@ class BreadcrumbsComponentTest extends UnitTestCase
     {
         $this->mockPage(new MarkdownPage('foo'));
 
-        $this->assertSame(['index.html' => 'Home',  'foo' => 'Foo'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['index.html' => 'Home',  'foo.html' => 'Foo'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     public function testCanGenerateBreadcrumbsForNestedPage()
     {
         $this->mockPage(new MarkdownPage('foo/bar'));
 
-        $this->assertSame(['../index.html' => 'Home', '../foo/' => 'Foo', '../foo/bar' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['../index.html' => 'Home', '../foo/' => 'Foo', '../foo/bar.html' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     public function testCanGenerateBreadcrumbsForNestedPageWithIndex()
