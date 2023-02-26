@@ -89,6 +89,6 @@ class BreadcrumbsComponentTest extends UnitTestCase
     protected function mockPage(MarkdownPage $page): void
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route($page));
-        Render::shouldReceive('getCurrentPage')->once()->andReturn($page->getOutputPath());
+        Render::shouldReceive('getCurrentPage')->andReturn($page->getOutputPath());
     }
 }
