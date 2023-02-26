@@ -10,13 +10,13 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Factory;
 use Mockery;
 
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
+ * @see \Hyde\Framework\Testing\Unit\BreadcrumbsComponentViewTest
  */
 class BreadcrumbsComponentTest extends UnitTestCase
 {
@@ -83,22 +83,5 @@ class BreadcrumbsComponentTest extends UnitTestCase
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar/index')));
 
         $this->assertSame(['/' => 'Home', 'foo/' => 'Foo', 'foo/bar/' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
-    }
-
-    public function testRenderedBladeView()
-    {
-        $this->createApplication();
-
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo')));
-
-        $html = Blade::renderComponent(new BreadcrumbsComponent());
-
-        $expected = [
-            '<nav aria-label="breadcrumb">'
-        ];
-
-        foreach ($expected as $string) {
-            $this->assertStringContainsString($string, $html);
-        }
     }
 }
