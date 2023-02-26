@@ -11,6 +11,9 @@ use LaravelZero\Framework\Commands\Command as BaseCommand;
 use function sprintf;
 
 /**
+ * A base class for HydeCLI command that adds some extra functionality and output
+ * helpers to reduce repeated code and to provide a consistent user interface.
+ *
  * @see \Hyde\Framework\Testing\Feature\CommandTest
  */
 abstract class Command extends BaseCommand
