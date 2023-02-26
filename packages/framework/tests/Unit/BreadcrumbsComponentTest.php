@@ -89,7 +89,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
             '../../../../foo/bar/index.html' => 'Bar',
             '../../../../foo/bar/baz/index.html' => 'Baz',
             '../../../../foo/bar/baz/cat/index.html' => 'Cat',
-            '../../../../foo/bar/baz/cat/hat.html' => 'Hat'
+            '../../../../foo/bar/baz/cat/hat.html' => 'Hat',
         ], (new BreadcrumbsComponent())->breadcrumbs);
     }
 

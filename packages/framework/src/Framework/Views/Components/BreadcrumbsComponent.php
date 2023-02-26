@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Facades\Route;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class BreadcrumbsComponent extends Component
