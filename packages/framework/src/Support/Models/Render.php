@@ -18,7 +18,6 @@ use InvalidArgumentException;
  * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
  *
  * @todo Refactor to use a singleton instead of a facade, like in the BuildWarnings class.
- *
  * @todo Rename to BuildData and merge with the BuildWarnings class?
  */
 class Render implements Arrayable
