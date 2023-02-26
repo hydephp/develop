@@ -18,18 +18,16 @@ use function sprintf;
  */
 class BuildWarnings
 {
-    protected static self $instance;
-
     /** @var array<\Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
     public static function getInstance(): static
     {
-        if (! isset(static::$instance)) {
-            static::$instance = new static();
+        if (! app()->bound(static::class)) {
+            app()->singleton(static::class);
         }
 
-        return static::$instance;
+        return app(static::class);
     }
 
     public static function report(BuildWarning|string $warning): void
