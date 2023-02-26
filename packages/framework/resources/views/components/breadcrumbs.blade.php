@@ -1,6 +1,6 @@
 @if (count($breadcrumbs) > 1)
     <nav aria-label="breadcrumb">
-        <ol>
+        <ol class="flex">
             @foreach ($breadcrumbs as $path => $title)
                 <li>
                     @if (! $loop->last)
