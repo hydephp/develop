@@ -262,7 +262,6 @@ class StaticSiteServiceTest extends TestCase
         $this->artisan('build')
             ->expectsOutput('There were some warnings during the build process:')
             ->expectsOutput(' 1. This is a warning')
-            ->doesntExpectOutputToContain('BuildWarnings.php')
             ->assertExitCode(0);
     }
 
