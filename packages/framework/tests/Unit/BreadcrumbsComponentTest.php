@@ -12,5 +12,9 @@ use Hyde\Testing\UnitTestCase;
  */
 class BreadcrumbsComponentTest extends UnitTestCase
 {
-    //
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+        self::mockConfig();
+    }
 }
