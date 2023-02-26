@@ -22,8 +22,6 @@ class BreadcrumbsComponentViewTest extends TestCase
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo')));
 
-        $html = Blade::renderComponent(new BreadcrumbsComponent());
-
         $expected = <<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
@@ -32,7 +30,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertRenderedMatchesExpected($expected, $html);
+        $this->assertRenderedMatchesExpected($expected);
     }
 
     public function testRenderedBladeViewOnIndexPage()
@@ -46,8 +44,6 @@ class BreadcrumbsComponentViewTest extends TestCase
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar')));
 
-        $html = Blade::renderComponent(new BreadcrumbsComponent());
-
         $expected = <<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
@@ -58,14 +54,12 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertRenderedMatchesExpected($expected, $html);
+        $this->assertRenderedMatchesExpected($expected);
     }
 
     public function testRenderedBladeViewOnDeeplyNestedPage()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar/baz')));
-
-        $html = Blade::renderComponent(new BreadcrumbsComponent());
 
         $expected = <<<'HTML'
             <nav aria-label="breadcrumb">
@@ -79,14 +73,12 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertRenderedMatchesExpected($expected, $html);
+        $this->assertRenderedMatchesExpected($expected);
     }
 
     public function testRenderedBladeViewOnNestedIndexPage()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/index')));
-
-        $html = Blade::renderComponent(new BreadcrumbsComponent());
 
         $expected = <<<'HTML'
             <nav aria-label="breadcrumb">
@@ -96,11 +88,13 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertRenderedMatchesExpected($expected, $html);
+        $this->assertRenderedMatchesExpected($expected);
     }
 
-    protected function assertRenderedMatchesExpected(string $expected, string $html): void
+    protected function assertRenderedMatchesExpected(string $expected): void
     {
+        $html = Blade::renderComponent(new BreadcrumbsComponent());
+
         $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
     }
 
