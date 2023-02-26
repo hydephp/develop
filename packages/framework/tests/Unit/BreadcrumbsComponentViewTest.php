@@ -22,7 +22,7 @@ class BreadcrumbsComponentViewTest extends TestCase
 {
     public function testRenderedBladeView()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo')));
+        $this->mockRenderPage(new MarkdownPage('foo'));
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
@@ -41,14 +41,14 @@ class BreadcrumbsComponentViewTest extends TestCase
 
     public function testRenderedBladeViewOnIndexPage()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('index')));
+        $this->mockRenderPage(new MarkdownPage('index'));
 
         $this->assertSame('', Blade::renderComponent(new BreadcrumbsComponent()));
     }
 
     public function testRenderedBladeViewOnNestedPage()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar')));
+        $this->mockRenderPage(new MarkdownPage('foo/bar'));
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
@@ -71,7 +71,7 @@ class BreadcrumbsComponentViewTest extends TestCase
 
     public function testRenderedBladeViewOnDeeplyNestedPage()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar/baz')));
+        $this->mockRenderPage(new MarkdownPage('foo/bar/baz'));
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
@@ -98,7 +98,7 @@ class BreadcrumbsComponentViewTest extends TestCase
 
     public function testRenderedBladeViewOnNestedIndexPage()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/index')));
+        $this->mockRenderPage(new MarkdownPage('foo/index'));
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
@@ -117,7 +117,7 @@ class BreadcrumbsComponentViewTest extends TestCase
 
     public function testRenderedBladeViewWithAttributes()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage()));
+        $this->mockRenderPage(new MarkdownPage());
 
         $html = Blade::renderComponent((new BreadcrumbsComponent())->withAttributes(['class' => 'foo']));
 
@@ -148,5 +148,11 @@ class BreadcrumbsComponentViewTest extends TestCase
     protected function stripIndentation(string $string): string
     {
         return implode("\n", array_filter(array_map(fn ($line) => ltrim($line), explode("\n", $string))));
+    }
+
+    protected function mockRenderPage(MarkdownPage $page): void
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route($page));
+        Render::shouldReceive('getCurrentPage')->andReturn($page->getOutputPath());
     }
 }
