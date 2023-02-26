@@ -11,7 +11,9 @@ use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Support\Str;
 use Stringable;
+
 use function str_replace;
 
 /**
@@ -80,6 +82,30 @@ class Route implements Stringable, SerializableContract
     public function getOutputPath(): string
     {
         return $this->page->getOutputPath();
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        $identifier = Hyde::currentRoute()->getPage()->getIdentifier();
+        $breadcrumbs = ['/' => 'Home'];
+        if ($identifier == 'index') {
+            return $breadcrumbs;
+        }
+
+        $path = '';
+        $fields = Str::of($identifier)->explode('/');
+        foreach ($fields as $k => $field) {
+            if ($field == 'index') {
+                return $breadcrumbs;
+            }
+
+            // if it's not the last field, add a trailing slash (since it must be a directory)
+            $path .= $field.($k < count($fields) - 1 ? '/' : '');
+            $title = Str::of($field)->replace('-', ' ')->title();
+            $breadcrumbs[$path] = $title->toString();
+        }
+
+        return $breadcrumbs;
     }
 
     /**
