@@ -27,11 +27,6 @@ class BuildWarningsTest extends UnitTestCase
         parent::tearDown();
     }
 
-    public function testCanConstructBuildWarning()
-    {
-        $this->assertInstanceOf(BuildWarning::class, new BuildWarning('This is a warning'));
-    }
-
     public function testGetInstance()
     {
         $this->assertInstanceOf(BuildWarnings::class, BuildWarnings::getInstance());
@@ -158,6 +153,11 @@ class BuildWarningsTest extends UnitTestCase
         $instance->report(new BuildWarning('This is a warning'));
         $instance->clear();
         $this->assertFalse($instance->hasWarnings());
+    }
+
+    public function testCanConstructBuildWarning()
+    {
+        $this->assertInstanceOf(BuildWarning::class, new BuildWarning('This is a warning'));
     }
 
     protected static function mockConfig(array $items = []): void
