@@ -27,7 +27,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb">
                 <ol class="flex">
                     <li>
-                        <a href="/" class="hover:underline">Home</a>
+                        <a href="index.html" class="hover:underline">Home</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
@@ -53,7 +53,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb">
                 <ol class="flex">
                     <li>
-                        <a href="/" class="hover:underline">Home</a>
+                        <a href="../index.html" class="hover:underline">Home</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
@@ -76,7 +76,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb">
                 <ol class="flex">
                     <li>
-                        <a href="/" class="hover:underline">Home</a>
+                        <a href="../../index.html" class="hover:underline">Home</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
@@ -103,7 +103,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb">
                 <ol class="flex">
                     <li>
-                        <a href="/" class="hover:underline">Home</a>
+                        <a href="../index.html" class="hover:underline">Home</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
@@ -124,7 +124,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb" class="foo">
                 <ol class="flex">
                     <li>
-                        <a href="/" class="hover:underline">Home</a>
+                        <a href="index.html" class="hover:underline">Home</a>
                     </li>
                     <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>

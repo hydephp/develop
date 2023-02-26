@@ -62,28 +62,28 @@ class BreadcrumbsComponentTest extends UnitTestCase
     {
         $this->mockPage(new MarkdownPage('index'));
 
-        $this->assertSame(['/' => 'Home'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['index.html' => 'Home'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     public function testCanGenerateBreadcrumbsForRootPage()
     {
         $this->mockPage(new MarkdownPage('foo'));
 
-        $this->assertSame(['/' => 'Home',  'foo' => 'Foo'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['index.html' => 'Home',  'foo' => 'Foo'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     public function testCanGenerateBreadcrumbsForNestedPage()
     {
         $this->mockPage(new MarkdownPage('foo/bar'));
 
-        $this->assertSame(['/' => 'Home', '../foo/' => 'Foo', '../foo/bar' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['../index.html' => 'Home', '../foo/' => 'Foo', '../foo/bar' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     public function testCanGenerateBreadcrumbsForNestedPageWithIndex()
     {
         $this->mockPage(new MarkdownPage('foo/bar/index'));
 
-        $this->assertSame(['/' => 'Home', '../../foo/' => 'Foo', '../../foo/bar/' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['../../index.html' => 'Home', '../../foo/' => 'Foo', '../../foo/bar/' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     protected function mockPage(MarkdownPage $page): void
