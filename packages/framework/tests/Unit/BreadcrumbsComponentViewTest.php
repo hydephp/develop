@@ -13,8 +13,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
-use function tap;
-
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
  *
