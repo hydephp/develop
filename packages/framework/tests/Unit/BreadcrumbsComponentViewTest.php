@@ -30,7 +30,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                     <li>
                         <a href="/" class="hover:underline">Home</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo" aria-current="page">Foo</a>
                     </li>
@@ -56,11 +56,11 @@ class BreadcrumbsComponentViewTest extends TestCase
                     <li>
                         <a href="/" class="hover:underline">Home</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo/" class="hover:underline">Foo</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo/bar" aria-current="page">Bar</a>
                     </li>
@@ -79,15 +79,15 @@ class BreadcrumbsComponentViewTest extends TestCase
                     <li>
                         <a href="/" class="hover:underline">Home</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo/" class="hover:underline">Foo</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo/bar/" class="hover:underline">Bar</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo/bar/baz" aria-current="page">Baz</a>
                     </li>
@@ -106,7 +106,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                     <li>
                         <a href="/" class="hover:underline">Home</a>
                     </li>
-                    <span class="px-1">&gt;</span>
+                    <span class="px-1" role="presentation">&gt;</span>
                     <li>
                         <a href="foo/" aria-current="page">Foo</a>
                     </li>
