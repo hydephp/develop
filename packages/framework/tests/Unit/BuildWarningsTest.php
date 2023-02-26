@@ -8,9 +8,7 @@ use Closure;
 use Hyde\Framework\Exceptions\BuildWarning;
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Facades\Config;
 use Mockery;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -167,13 +165,6 @@ class BuildWarningsTest extends UnitTestCase
     public function testCanConstructBuildWarning()
     {
         $this->assertInstanceOf(BuildWarning::class, new BuildWarning('This is a warning'));
-    }
-
-    protected static function mockConfig(array $items = []): void
-    {
-        app()->bind('config', fn () => new Repository($items));
-
-        Config::swap(app('config'));
     }
 
     protected function assertArgumentIs(string $expected): Closure
