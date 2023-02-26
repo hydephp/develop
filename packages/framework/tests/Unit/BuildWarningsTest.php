@@ -148,11 +148,9 @@ class BuildWarningsTest extends UnitTestCase
 
     public function testClear()
     {
-        $instance = BuildWarnings::getInstance();
-
-        $instance->report(new BuildWarning('This is a warning'));
-        $instance::clear();
-        $this->assertFalse($instance->hasWarnings());
+        BuildWarnings::report(new BuildWarning('This is a warning'));
+        BuildWarnings::clear();
+        $this->assertFalse(BuildWarnings::hasWarnings());
     }
 
     public function testCanConstructBuildWarning()
