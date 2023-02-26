@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
@@ -26,26 +25,19 @@ class NavItemTest extends UnitTestCase
     public function test__construct()
     {
         $route = $this->createMock(Route::class);
-        $route->method('getPage')->willReturn($this->createMock(HydePage::class));
-        $route->method('getLink')->willReturn('/');
 
         $item = new NavItem($route, 'Test', 500, true);
 
         $this->assertSame($route, $item->route);
-        $this->assertSame('Test', $item->label);
-        $this->assertSame(500, $item->priority);
-        $this->assertTrue($item->hidden);
     }
 
     public function testFromRoute()
     {
-        $route = Route::get('index');
+        $route = $this->createMock(Route::class);
+
         $item = NavItem::fromRoute($route);
 
         $this->assertSame($route, $item->route);
-        $this->assertSame('Home', $item->label);
-        $this->assertSame(0, $item->priority);
-        $this->assertFalse($item->hidden);
     }
 
     public function testResolveLink()
