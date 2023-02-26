@@ -10,8 +10,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Config\Repository;
-use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
@@ -103,13 +101,6 @@ class HydePageDataFactoryTest extends UnitTestCase
     public function testNavigationDataIsGeneratedByNavigationDataFactory()
     {
         $this->assertInstanceOf(NavigationData::class, $this->factory()->toArray()['navigation']);
-    }
-
-    protected static function mockConfig(array $items = []): void
-    {
-        app()->bind('config', fn () => new Repository($items));
-
-        Config::swap(app('config'));
     }
 
     protected function factory(array $data = []): HydePageDataFactory
