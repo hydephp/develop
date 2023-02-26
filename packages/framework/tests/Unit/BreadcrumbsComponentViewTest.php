@@ -25,7 +25,7 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 Foo
             </nav>
         HTML);
@@ -45,9 +45,9 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 <a href="foo/" class="hover:underline">Foo</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 Bar
             </nav>
         HTML);
@@ -60,11 +60,11 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 <a href="foo/" class="hover:underline">Foo</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 <a href="foo/bar/" class="hover:underline">Bar</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 Baz
             </nav>
         HTML);
@@ -77,7 +77,7 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
                 Foo
             </nav>
         HTML);

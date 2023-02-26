@@ -8,7 +8,7 @@
             @endif
 
             @if (!$loop->last)
-                &nbsp;&gt;&gt;&nbsp;
+                &gt;
             @endif
         @endforeach
     </nav>
