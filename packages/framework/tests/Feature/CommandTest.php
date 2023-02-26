@@ -14,6 +14,7 @@ use Symfony\Component\Console\Style\OutputStyle;
 
 /**
  * @covers \Hyde\Console\Concerns\Command
+ * @see \Hyde\Framework\Testing\Unit\CommandUnitTest
  */
 class CommandTest extends TestCase
 {

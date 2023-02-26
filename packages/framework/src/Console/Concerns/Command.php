@@ -15,6 +15,7 @@ use function sprintf;
  * helpers to reduce repeated code and to provide a consistent user interface.
  *
  * @see \Hyde\Framework\Testing\Feature\CommandTest
+ * @see \Hyde\Framework\Testing\Unit\CommandUnitTest
  */
 abstract class Command extends BaseCommand
 {
