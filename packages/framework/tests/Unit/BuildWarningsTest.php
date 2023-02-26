@@ -150,6 +150,7 @@ class BuildWarningsTest extends UnitTestCase
     {
         BuildWarnings::report(new BuildWarning('This is a warning'));
         BuildWarnings::clear();
+
         $this->assertFalse(BuildWarnings::hasWarnings());
     }
 
