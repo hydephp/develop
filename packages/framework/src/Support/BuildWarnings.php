@@ -60,7 +60,7 @@ class BuildWarnings
         }
     }
 
-    public function add(BuildWarning $warning): void
+    protected function add(BuildWarning $warning): void
     {
         $this->warnings[] = $warning;
     }
