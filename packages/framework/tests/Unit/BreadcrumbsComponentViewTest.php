@@ -9,7 +9,6 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
@@ -152,7 +151,6 @@ class BreadcrumbsComponentViewTest extends TestCase
 
     protected function mockRenderPage(MarkdownPage $page): void
     {
-        Render::shouldReceive('getCurrentRoute')->andReturn(new Route($page));
-        Render::shouldReceive('getCurrentPage')->andReturn($page->getOutputPath());
+        Render::setPage($page);
     }
 }
