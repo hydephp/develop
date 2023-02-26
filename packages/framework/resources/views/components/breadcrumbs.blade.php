@@ -11,7 +11,7 @@
                 </li>
 
                 @if (! $loop->last)
-                    <span>&gt;</span>
+                    <span class="px-1">&gt;</span>
                 @endif
             @endforeach
         </ol>
