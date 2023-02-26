@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
@@ -42,6 +43,8 @@ class NavItemTest extends UnitTestCase
 
     public function testResolveLink()
     {
+        Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
+
         $route = Route::get('index');
         $item = NavItem::fromRoute($route);
 
@@ -50,6 +53,8 @@ class NavItemTest extends UnitTestCase
 
     public function test__toString()
     {
+        Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
+
         $route = Route::get('index');
         $item = NavItem::fromRoute($route);
 
