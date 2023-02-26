@@ -98,4 +98,16 @@ class HyperlinkFormatHtmlPathTest extends UnitTestCase
         self::mockConfig(['hyde.pretty_urls' => false]);
         $this->assertEquals('docs/index.html', Hyde::formatLink('docs/index.html'));
     }
+
+    public function test_helpers_rewrites_arbitrary_nested_index_pages_when_using_pretty_urls()
+    {
+        self::mockConfig(['hyde.pretty_urls' => true]);
+        $this->assertEquals('foo/bar/', Hyde::formatLink('foo/bar/index.html'));
+    }
+
+    public function test_helpers_does_not_rewrite_arbitrary_nested_index_pages_when_not_using_pretty_urls()
+    {
+        self::mockConfig(['hyde.pretty_urls' => false]);
+        $this->assertEquals('foo/bar/index.html', Hyde::formatLink('foo/bar/index.html'));
+    }
 }

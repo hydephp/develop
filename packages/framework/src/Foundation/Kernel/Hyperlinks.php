@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 
 /**
@@ -39,8 +38,8 @@ class Hyperlinks
                     return '/';
                 }
 
-                if ($destination === DocumentationPage::outputDirectory().'/index.html') {
-                    return DocumentationPage::outputDirectory().'/';
+                if (str_ends_with($destination, 'index.html')) {
+                    return substr($destination, 0, -10);
                 }
 
                 return substr($destination, 0, -5);
