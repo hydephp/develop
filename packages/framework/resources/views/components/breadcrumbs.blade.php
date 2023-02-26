@@ -4,7 +4,7 @@
             @if (!$loop->last)
                 <a href="{{ $path }}" class="hover:underline">{{ $title }}</a>
             @else
-                <span>{{ $title }}</span>
+                <span aria-current="page">{{ $title }}</span>
             @endif
 
             @if (!$loop->last)
