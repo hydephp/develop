@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
-class BreadcrumbComponent extends Component
+class BreadcrumbsComponent extends Component
 {
     public array $breadcrumbs;
 

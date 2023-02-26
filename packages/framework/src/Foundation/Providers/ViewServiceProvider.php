@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Providers;
 
-use Hyde\Framework\Views\Components\BreadcrumbComponent;
+use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 use Hyde\Framework\Views\Components\LinkComponent;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
@@ -49,6 +49,6 @@ class ViewServiceProvider extends ServiceProvider
         ], 'hyde-blank-page');
 
         Blade::component('link', LinkComponent::class);
-        Blade::component('hyde::breadcrumb', BreadcrumbComponent::class);
+        Blade::component('hyde::breadcrumb', BreadcrumbsComponent::class);
     }
 }
