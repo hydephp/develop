@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * This unit test covers the basics of the NavItem class.
@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Features\Navigation\NavItem
  */
-class NavItemTest extends TestCase
+class NavItemTest extends UnitTestCase
 {
     public function test__construct()
     {
