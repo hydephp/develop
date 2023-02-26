@@ -32,7 +32,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
+        $this->assertRenderedMatchesExpected($expected, $html);
     }
 
     public function testRenderedBladeViewOnIndexPage()
@@ -58,7 +58,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
+        $this->assertRenderedMatchesExpected($expected, $html);
     }
 
     public function testRenderedBladeViewOnDeeplyNestedPage()
@@ -79,7 +79,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
-        $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
+        $this->assertRenderedMatchesExpected($expected, $html);
     }
 
     public function testRenderedBladeViewOnNestedIndexPage()
@@ -96,11 +96,16 @@ class BreadcrumbsComponentViewTest extends TestCase
             </nav>
         HTML;
 
+        $this->assertRenderedMatchesExpected($expected, $html);
+    }
+
+    protected function assertRenderedMatchesExpected(string $expected, string $html): void
+    {
         $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
     }
 
     protected function stripIndentation(string $string): string
     {
-        return implode("\n", array_filter(array_map(fn($line) => ltrim($line), explode("\n", $string))));
+        return implode("\n", array_filter(array_map(fn ($line) => ltrim($line), explode("\n", $string))));
     }
 }
