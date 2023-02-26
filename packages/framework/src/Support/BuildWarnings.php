@@ -62,14 +62,14 @@ class BuildWarnings
         }
     }
 
-    public function clear(): void
+    protected static function renderWarnings(OutputStyle $output, bool $verbose): void
     {
-        $this->warnings = [];
-    }
-
-    protected static function reportsWarningsAsExceptions(): bool
-    {
-        return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
+        foreach (static::getWarnings() as $number => $warning) {
+            $output->writeln(sprintf(' %s. <comment>%s</comment>', $number + 1, $warning->getMessage()));
+            if ($verbose) {
+                $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
+            }
+        }
     }
 
     protected static function renderWarningsAsExceptions(OutputStyle $output): void
@@ -79,13 +79,13 @@ class BuildWarnings
         }
     }
 
-    protected static function renderWarnings(OutputStyle $output, bool $verbose): void
+    protected static function reportsWarningsAsExceptions(): bool
     {
-        foreach (static::getWarnings() as $number => $warning) {
-            $output->writeln(sprintf(' %s. <comment>%s</comment>', $number + 1, $warning->getMessage()));
-            if ($verbose) {
-                $output->writeln(sprintf('    <fg=gray>%s:%s</>', $warning->getFile(), $warning->getLine()));
-            }
-        }
+        return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
+    }
+
+    public function clear(): void
+    {
+        $this->warnings = [];
     }
 }
