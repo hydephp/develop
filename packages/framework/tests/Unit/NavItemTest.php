@@ -46,20 +46,14 @@ class NavItemTest extends UnitTestCase
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
 
-        $route = Route::get('index');
-        $item = NavItem::fromRoute($route);
-
-        $this->assertSame('index.html', $item->resolveLink());
+        $this->assertSame('index.html', NavItem::fromRoute(Route::get('index'))->resolveLink());
     }
 
     public function test__toString()
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
 
-        $route = Route::get('index');
-        $item = NavItem::fromRoute($route);
-
-        $this->assertSame('index.html', (string) $item);
+        $this->assertSame('index.html', (string) (NavItem::fromRoute(Route::get('index'))));
     }
 
     public function testToLink()
@@ -74,9 +68,7 @@ class NavItemTest extends UnitTestCase
 
     public function testToLinkWithCustomPriority()
     {
-        $item = NavItem::toLink('foo', 'bar', 100);
-
-        $this->assertSame(100, $item->priority);
+        $this->assertSame(100, NavItem::toLink('foo', 'bar', 100)->priority);
     }
 
     public function testToRoute()
@@ -92,10 +84,7 @@ class NavItemTest extends UnitTestCase
 
     public function testToRouteWithCustomPriority()
     {
-        $route = Route::get('index');
-        $item = NavItem::toRoute($route, 'foo', 100);
-
-        $this->assertSame(100, $item->priority);
+        $this->assertSame(100, NavItem::toRoute(Route::get('index'), 'foo', 100)->priority);
     }
 
     public function testIsCurrent()
