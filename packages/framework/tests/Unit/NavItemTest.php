@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
@@ -148,5 +149,21 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::toLink('index.html', 'Home');
 
         $this->assertSame($item, $item->setPriority(10));
+    }
+
+    public function testGetGroup()
+    {
+        $route = $this->createMock(Route::class);
+        $item = new NavItem($route, 'Test', 500, true);
+
+        $this->assertNull($item->getGroup());
+    }
+
+    public function testGetGroupWithGroup()
+    {
+        $route = new Route(new MarkdownPage(matter: ['navigation.group' => 'foo']));
+        $item = new NavItem($route, 'Test', 500, true);
+
+        $this->assertSame('foo', $item->getGroup());
     }
 }
