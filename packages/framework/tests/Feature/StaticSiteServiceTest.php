@@ -251,7 +251,6 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_without_warnings()
     {
-        BuildWarnings::clear();
         $this->artisan('build')
             ->doesntExpectOutput('There were some warnings during the build process:')
             ->assertExitCode(0);
