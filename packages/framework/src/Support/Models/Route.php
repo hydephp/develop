@@ -13,7 +13,6 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use Stringable;
-
 use function str_replace;
 
 /**
