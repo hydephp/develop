@@ -12,6 +12,7 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
+use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -54,7 +55,7 @@ class BuildSiteCommand extends Command
 
         $this->printFinishMessage($timeStart);
 
-        return Command::SUCCESS;
+        return $this->getExitCode();
     }
 
     protected function runPreBuildActions(): void
@@ -103,6 +104,13 @@ class BuildSiteCommand extends Command
 
     protected function printFinishMessage(float $timeStart): void
     {
+        if ($this->hasWarnings()) {
+            $this->newLine();
+            $this->error('There were some warnings during the build process:');
+            $this->newLine();
+            BuildWarnings::writeWarningsToOutput($this->output, $this->output->isVerbose());
+        }
+
         $executionTime = (microtime(true) - $timeStart);
         $this->info(sprintf(
             "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
@@ -147,5 +155,19 @@ class BuildSiteCommand extends Command
     protected function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch();
+    }
+
+    protected function hasWarnings(): bool
+    {
+        return BuildWarnings::hasWarnings() && BuildWarnings::reportsWarnings();
+    }
+
+    protected function getExitCode(): int
+    {
+        if ($this->hasWarnings() && BuildWarnings::reportsWarningsAsExceptions()) {
+            return self::INVALID;
+        }
+
+        return Command::SUCCESS;
     }
 }
