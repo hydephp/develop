@@ -22,15 +22,14 @@ class BreadcrumbsComponentViewTest extends TestCase
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo')));
 
-        $expected = <<<'HTML'
+        $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
                 &nbsp;&gt;&gt;&nbsp;
                 Foo
             </nav>
-        HTML;
-
-        $this->assertRenderedMatchesExpected($expected);
+        HTML
+        );
     }
 
     public function testRenderedBladeViewOnIndexPage()
@@ -44,7 +43,7 @@ class BreadcrumbsComponentViewTest extends TestCase
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar')));
 
-        $expected = <<<'HTML'
+        $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
                 &nbsp;&gt;&gt;&nbsp;
@@ -52,16 +51,15 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &nbsp;&gt;&gt;&nbsp;
                 Bar
             </nav>
-        HTML;
-
-        $this->assertRenderedMatchesExpected($expected);
+        HTML
+        );
     }
 
     public function testRenderedBladeViewOnDeeplyNestedPage()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar/baz')));
 
-        $expected = <<<'HTML'
+        $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
                 &nbsp;&gt;&gt;&nbsp;
@@ -71,24 +69,22 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &nbsp;&gt;&gt;&nbsp;
                 Baz
             </nav>
-        HTML;
-
-        $this->assertRenderedMatchesExpected($expected);
+        HTML
+        );
     }
 
     public function testRenderedBladeViewOnNestedIndexPage()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/index')));
 
-        $expected = <<<'HTML'
+        $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
                 &nbsp;&gt;&gt;&nbsp;
                 Foo
             </nav>
-        HTML;
-
-        $this->assertRenderedMatchesExpected($expected);
+        HTML
+        );
     }
 
     protected function assertRenderedMatchesExpected(string $expected): void
