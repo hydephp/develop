@@ -95,6 +95,14 @@ class BuildWarningsTest extends UnitTestCase
         $this->assertFalse(BuildWarnings::reportsWarnings());
     }
 
+    public function testClear()
+    {
+        BuildWarnings::report(new BuildWarning('This is a warning'));
+        BuildWarnings::clear();
+
+        $this->assertFalse(BuildWarnings::hasWarnings());
+    }
+
     public function testWriteWarningsToOutput()
     {
         BuildWarnings::report('This is a warning');
@@ -144,14 +152,6 @@ class BuildWarningsTest extends UnitTestCase
         });
 
         BuildWarnings::writeWarningsToOutput($output);
-    }
-
-    public function testClear()
-    {
-        BuildWarnings::report(new BuildWarning('This is a warning'));
-        BuildWarnings::clear();
-
-        $this->assertFalse(BuildWarnings::hasWarnings());
     }
 
     public function testCanConstructBuildWarning()
