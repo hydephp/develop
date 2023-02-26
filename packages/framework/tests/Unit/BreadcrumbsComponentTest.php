@@ -117,6 +117,13 @@ class BreadcrumbsComponentTest extends UnitTestCase
         $this->assertSame(['index.html' => 'Home',  'foo-bar.html' => 'Foo Bar'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
+    public function testTitleGenerationWithSnakeCaseUrl()
+    {
+        $this->mockPage(new MarkdownPage('foo_bar'));
+
+        $this->assertSame(['index.html' => 'Home',  'foo_bar.html' => 'Foo Bar'], (new BreadcrumbsComponent())->breadcrumbs);
+    }
+
     protected function mockPage(MarkdownPage $page): void
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route($page));
