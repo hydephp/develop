@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Blade;
 
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
+ *
  * @see \Hyde\Framework\Testing\Unit\BreadcrumbsComponentTest
  */
 class BreadcrumbsComponentViewTest extends TestCase
@@ -24,7 +25,7 @@ class BreadcrumbsComponentViewTest extends TestCase
         $html = Blade::renderComponent(new BreadcrumbsComponent());
 
         $expected = [
-            '<nav aria-label="breadcrumb">'
+            '<nav aria-label="breadcrumb">',
         ];
 
         foreach ($expected as $string) {

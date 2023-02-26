@@ -16,6 +16,7 @@ use Mockery;
 
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
+ *
  * @see \Hyde\Framework\Testing\Unit\BreadcrumbsComponentViewTest
  */
 class BreadcrumbsComponentTest extends UnitTestCase
