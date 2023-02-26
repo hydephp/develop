@@ -26,7 +26,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
                 &gt;
-                <span aria-current="page">Foo</span>
+                <a href="foo" aria-current="page">Foo</a>
             </nav>
         HTML);
     }
@@ -48,7 +48,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &gt;
                 <a href="foo/" class="hover:underline">Foo</a>
                 &gt;
-                <span aria-current="page">Bar</span>
+                <a href="foo/bar" aria-current="page">Bar</a>
             </nav>
         HTML);
     }
@@ -65,7 +65,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 &gt;
                 <a href="foo/bar/" class="hover:underline">Bar</a>
                 &gt;
-                <span aria-current="page">Baz</span>
+                <a href="foo/bar/baz" aria-current="page">Baz</a>
             </nav>
         HTML);
     }
@@ -78,7 +78,7 @@ class BreadcrumbsComponentViewTest extends TestCase
             <nav aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
                 &gt;
-                <span aria-current="page">Foo</span>
+                <a href="foo/" aria-current="page">Foo</a>
             </nav>
         HTML);
     }
