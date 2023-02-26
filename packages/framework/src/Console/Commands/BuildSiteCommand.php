@@ -55,7 +55,7 @@ class BuildSiteCommand extends Command
 
         $this->printFinishMessage($timeStart);
 
-        return $this->hasWarnings() && BuildWarnings::reportsWarningsAsExceptions() ? self::INVALID : Command::SUCCESS;
+        return $this->getExitCode();
     }
 
     protected function runPreBuildActions(): void
@@ -160,5 +160,10 @@ class BuildSiteCommand extends Command
     protected function hasWarnings(): bool
     {
         return BuildWarnings::hasWarnings() && BuildWarnings::reportsWarnings();
+    }
+
+    protected function getExitCode(): int
+    {
+        return $this->hasWarnings() && BuildWarnings::reportsWarningsAsExceptions() ? self::INVALID : Command::SUCCESS;
     }
 }
