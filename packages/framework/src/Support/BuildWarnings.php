@@ -32,13 +32,13 @@ class BuildWarnings
 
     public static function report(BuildWarning|string $warning): void
     {
-        static::getInstance()->add($warning instanceof BuildWarning ? $warning : new BuildWarning($warning));
+        static::getInstance()->warnings[] = $warning instanceof BuildWarning ? $warning : new BuildWarning($warning);
     }
 
     /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
     public static function getWarnings(): array
     {
-        return static::getInstance()->get();
+        return static::getInstance()->warnings;
     }
 
     public static function hasWarnings(): bool
@@ -58,17 +58,6 @@ class BuildWarnings
         } else {
             self::renderWarnings($output, $verbose);
         }
-    }
-
-    protected function add(BuildWarning $warning): void
-    {
-        $this->warnings[] = $warning;
-    }
-
-    /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
-    protected function get(): array
-    {
-        return $this->warnings;
     }
 
     public function clear(): void
