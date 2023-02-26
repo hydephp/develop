@@ -132,14 +132,6 @@ class BuildWarningsTest extends UnitTestCase
         BuildWarnings::writeWarningsToOutput($output);
     }
 
-    public function testGet()
-    {
-        $instance = BuildWarnings::getInstance();
-
-        $instance->report($warning = new BuildWarning('This is a warning'));
-        $this->assertSame([$warning], $instance->get());
-    }
-
     public function testClear()
     {
         $instance = BuildWarnings::getInstance();

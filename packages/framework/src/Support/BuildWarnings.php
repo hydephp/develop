@@ -66,7 +66,7 @@ class BuildWarnings
     }
 
     /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
-    public function get(): array
+    protected function get(): array
     {
         return $this->warnings;
     }
