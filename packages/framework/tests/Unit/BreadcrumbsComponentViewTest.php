@@ -39,4 +39,9 @@ class BreadcrumbsComponentViewTest extends TestCase
 
         $this->assertSame('', Blade::renderComponent(new BreadcrumbsComponent()));
     }
+
+    protected function stripIndentation(string $string): string
+    {
+        return implode("\n", array_filter(array_map(fn($line) => ltrim($line), explode("\n", $string))));
+    }
 }
