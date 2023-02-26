@@ -1,7 +1,3 @@
-@php
-    $breadcrumbs = Hyde::currentRoute()->getBreadcrumbs();
-@endphp
-
 @if (count($breadcrumbs) > 1)
     <div class="">
         @foreach ($breadcrumbs as $path=>$title)
