@@ -27,9 +27,13 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <ol>
+                    <li>
                     <a href="/" class="hover:underline">Home</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo" aria-current="page">Foo</a>
+                    </li>
                 </ol>
             </nav>
         HTML);
@@ -49,11 +53,17 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <ol>
+                    <li>
                     <a href="/" class="hover:underline">Home</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo/" class="hover:underline">Foo</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo/bar" aria-current="page">Bar</a>
+                    </li>
                 </ol>
             </nav>
         HTML);
@@ -66,13 +76,21 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <ol>
+                    <li>
                     <a href="/" class="hover:underline">Home</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo/" class="hover:underline">Foo</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo/bar/" class="hover:underline">Bar</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo/bar/baz" aria-current="page">Baz</a>
+                    </li>
                 </ol>
             </nav>
         HTML);
@@ -85,9 +103,13 @@ class BreadcrumbsComponentViewTest extends TestCase
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
                 <ol>
+                    <li>
                     <a href="/" class="hover:underline">Home</a>
+                    </li>
                     &gt;
+                    <li>
                     <a href="foo/" aria-current="page">Foo</a>
+                    </li>
                 </ol>
             </nav>
         HTML);
