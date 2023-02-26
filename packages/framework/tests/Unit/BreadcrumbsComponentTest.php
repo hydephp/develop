@@ -10,6 +10,7 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\View\Factory;
 use Mockery;
 
@@ -18,7 +19,7 @@ use Mockery;
  */
 class BreadcrumbsComponentTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
+    protected function setUp(): void
     {
         self::needsKernel();
         self::mockConfig();
@@ -26,11 +27,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        Render::clearResolvedInstance(\Hyde\Support\Models\Render::class);
-
-        app()->forgetInstance(Factory::class);
-
-        Mockery::close();
+        Facade::clearResolvedInstances();
     }
 
     public function testCanConstruct()
