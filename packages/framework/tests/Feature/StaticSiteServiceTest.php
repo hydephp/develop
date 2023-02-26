@@ -22,6 +22,7 @@ class StaticSiteServiceTest extends TestCase
         parent::setUp();
 
         $this->resetSite();
+        BuildWarnings::clear();
     }
 
     protected function tearDown(): void
