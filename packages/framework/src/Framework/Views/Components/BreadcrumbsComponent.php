@@ -42,7 +42,11 @@ class BreadcrumbsComponent extends Component
             }
 
             // if it's not the last field, add a trailing slash (since it must be a directory) otherwise add .html
-            $path .= $field.($key < count($fields) - 1 ? '/' : '.html');
+            if ($key < count($fields) - 1) {
+                $path .= $field.('/');
+            } else {
+                $path .= $field.('.html');
+            }
             $title = Str::of($field)->replace('-', ' ')->title();
             $breadcrumbs[Hyde::relativeLink($path)] = $title->toString();
         }
