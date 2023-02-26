@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\TracksExecutionTime;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\TracksExecutionTime
  */
-class TracksExecutionTimeTest extends TestCase
+class TracksExecutionTimeTest extends UnitTestCase
 {
     public function test_startClock()
     {
