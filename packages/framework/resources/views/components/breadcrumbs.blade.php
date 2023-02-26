@@ -1,5 +1,5 @@
 @if (count($breadcrumbs) > 1)
-    <nav aria-label="breadcrumb">
+    <nav {{ $attributes }} aria-label="breadcrumb">
         <ol class="flex">
             @foreach ($breadcrumbs as $path => $title)
                 <li>
