@@ -24,9 +24,11 @@ class BreadcrumbsComponentViewTest extends TestCase
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
+                <ol>
                 <a href="/" class="hover:underline">Home</a>
                 &gt;
                 <a href="foo" aria-current="page">Foo</a>
+                </ol>
             </nav>
         HTML);
     }
@@ -44,11 +46,13 @@ class BreadcrumbsComponentViewTest extends TestCase
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
+                <ol>
                 <a href="/" class="hover:underline">Home</a>
                 &gt;
                 <a href="foo/" class="hover:underline">Foo</a>
                 &gt;
                 <a href="foo/bar" aria-current="page">Bar</a>
+                </ol>
             </nav>
         HTML);
     }
@@ -59,6 +63,7 @@ class BreadcrumbsComponentViewTest extends TestCase
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
+                <ol>
                 <a href="/" class="hover:underline">Home</a>
                 &gt;
                 <a href="foo/" class="hover:underline">Foo</a>
@@ -66,6 +71,7 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <a href="foo/bar/" class="hover:underline">Bar</a>
                 &gt;
                 <a href="foo/bar/baz" aria-current="page">Baz</a>
+                </ol>
             </nav>
         HTML);
     }
@@ -76,9 +82,11 @@ class BreadcrumbsComponentViewTest extends TestCase
 
         $this->assertRenderedMatchesExpected(<<<'HTML'
             <nav aria-label="breadcrumb">
+                <ol>
                 <a href="/" class="hover:underline">Home</a>
                 &gt;
                 <a href="foo/" aria-current="page">Foo</a>
+                </ol>
             </nav>
         HTML);
     }
