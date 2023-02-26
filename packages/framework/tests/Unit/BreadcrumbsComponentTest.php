@@ -29,6 +29,8 @@ class BreadcrumbsComponentTest extends UnitTestCase
         Render::clearResolvedInstance(\Hyde\Support\Models\Render::class);
 
         app()->forgetInstance(Factory::class);
+
+        Mockery::close();
     }
 
     public function testCanConstruct()
