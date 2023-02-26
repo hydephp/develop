@@ -295,6 +295,6 @@ class StaticSiteServiceTest extends TestCase
             ->expectsOutput('There were some warnings during the build process:')
             ->expectsOutputToContain('Hyde\Framework\Exceptions\BuildWarning')
             ->doesntExpectOutput(' 1. This is a warning')
-            ->assertExitCode(1);
+            ->assertExitCode(2);
     }
 }
