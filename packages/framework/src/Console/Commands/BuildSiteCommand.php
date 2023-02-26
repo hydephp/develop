@@ -164,6 +164,10 @@ class BuildSiteCommand extends Command
 
     protected function getExitCode(): int
     {
-        return $this->hasWarnings() && BuildWarnings::reportsWarningsAsExceptions() ? self::INVALID : Command::SUCCESS;
+        if ($this->hasWarnings() && BuildWarnings::reportsWarningsAsExceptions()) {
+            return self::INVALID;
+        }
+
+        return Command::SUCCESS;
     }
 }
