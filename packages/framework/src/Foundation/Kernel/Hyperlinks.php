@@ -34,12 +34,8 @@ class Hyperlinks
     {
         if (config('hyde.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
-                if ($destination === 'index.html') {
-                    return '/';
-                }
-
                 if (str_ends_with($destination, 'index.html')) {
-                    return substr($destination, 0, -10);
+                    return substr($destination, 0, -10) ?: '/';
                 }
 
                 return substr($destination, 0, -5);
