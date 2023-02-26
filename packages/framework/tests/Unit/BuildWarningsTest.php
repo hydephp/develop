@@ -27,6 +27,11 @@ class BuildWarningsTest extends UnitTestCase
         parent::tearDown();
     }
 
+    public function testCanConstructBuildWarning()
+    {
+        $this->assertInstanceOf(BuildWarning::class, new BuildWarning('This is a warning'));
+    }
+
     public function testGetInstance()
     {
         $this->assertInstanceOf(BuildWarnings::class, BuildWarnings::getInstance());
