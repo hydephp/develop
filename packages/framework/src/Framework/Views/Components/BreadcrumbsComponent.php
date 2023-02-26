@@ -29,6 +29,7 @@ class BreadcrumbsComponent extends Component
     {
         $identifier = Hyde::currentRoute()->getPage()->getIdentifier();
         $breadcrumbs = [(Route::get('index')?->getLink() ?? '/') => 'Home'];
+
         if ($identifier === 'index') {
             return $breadcrumbs;
         }
