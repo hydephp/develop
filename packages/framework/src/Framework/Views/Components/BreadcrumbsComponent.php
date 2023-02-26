@@ -48,6 +48,8 @@ class BreadcrumbsComponent extends Component
                 $path .= "$field.html";
             }
             $breadcrumbs[Hyde::relativeLink($path)] = Hyde::makeTitle($field);
+
+            $path = Str::of($path)->beforeLast('/').'/';
         }
 
         return $breadcrumbs;
