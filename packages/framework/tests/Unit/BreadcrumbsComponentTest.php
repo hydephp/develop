@@ -48,4 +48,39 @@ class BreadcrumbsComponentTest extends UnitTestCase
 
         $this->assertInstanceOf(Factory::class, (new BreadcrumbsComponent())->render());
     }
+
+    public function testCanGenerateBreadcrumbs()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage()));
+
+        $this->assertIsArray((new BreadcrumbsComponent())->breadcrumbs);
+    }
+
+    public function testCanGenerateBreadcrumbsForIndexPage()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('index')));
+
+        $this->assertSame(['/' => 'Home'], (new BreadcrumbsComponent())->breadcrumbs);
+    }
+
+    public function testCanGenerateBreadcrumbsForRootPage()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo')));
+
+        $this->assertSame(['/' => 'Home',  'foo' => 'Foo'], (new BreadcrumbsComponent())->breadcrumbs);
+    }
+
+    public function testCanGenerateBreadcrumbsForNestedPage()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar')));
+
+        $this->assertSame(['/' => 'Home', 'foo/' => 'Foo', 'foo/bar' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
+    }
+
+    public function testCanGenerateBreadcrumbsForNestedPageWithIndex()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route(new MarkdownPage('foo/bar/index')));
+
+        $this->assertSame(['/' => 'Home', 'foo/' => 'Foo', 'foo/bar/' => 'Bar'], (new BreadcrumbsComponent())->breadcrumbs);
+    }
 }
