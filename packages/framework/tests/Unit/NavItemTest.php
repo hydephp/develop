@@ -27,7 +27,6 @@ class NavItemTest extends UnitTestCase
     public function test__construct()
     {
         $route = new Route(new MarkdownPage());
-
         $item = new NavItem($route, 'Test', 500, true);
 
         $this->assertSame($route, $item->route);
@@ -36,7 +35,6 @@ class NavItemTest extends UnitTestCase
     public function testFromRoute()
     {
         $route = new Route(new MarkdownPage());
-
         $item = NavItem::fromRoute($route);
 
         $this->assertSame($route, $item->route);
