@@ -110,6 +110,7 @@ class NavItem implements Stringable
         return $this;
     }
 
+    /** @deprecated This helper is only used in tests and could be removed to simplify the class */
     public function setPriority(int $priority): static
     {
         $this->priority = $priority;
