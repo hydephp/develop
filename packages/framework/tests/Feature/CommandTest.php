@@ -7,25 +7,31 @@ namespace Hyde\Framework\Testing\Feature;
 use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Mockery;
 use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
  * @covers \Hyde\Console\Concerns\Command
- * @see \Hyde\Framework\Testing\Unit\CommandUnitTest
  */
-class CommandTest extends TestCase
+class CommandTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+    }
+
     public function test_create_clickable_filepath_creates_link_for_existing_file()
     {
-        $this->file('foo.txt');
+        touch(Hyde::path('foo.txt'));
 
         $this->assertSame(
             sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
             Command::createClickableFilepath('foo.txt')
         );
+
+        unlink(Hyde::path('foo.txt'));
     }
 
     public function test_create_clickable_filepath_creates_link_for_non_existing_file()
@@ -43,9 +49,9 @@ class CommandTest extends TestCase
             $command->infoComment('foo [bar]');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo </info>[<comment>bar</comment>]<info></info>';
+            return $this->assertIsSame('<info>foo </info>[<comment>bar</comment>]<info></info>', $message);
         });
 
         $command->setMockedOutput($output);
@@ -59,9 +65,9 @@ class CommandTest extends TestCase
             $command->infoComment('foo [bar] baz');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz</info>';
+            return $this->assertIsSame('<info>foo </info>[<comment>bar</comment>]<info> baz</info>', $message);
         });
 
         $command->setMockedOutput($output);
@@ -75,9 +81,9 @@ class CommandTest extends TestCase
             $command->infoComment('foo [bar] baz [qux]');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz </info>[<comment>qux</comment>]<info></info>';
+            return $this->assertIsSame('<info>foo </info>[<comment>bar</comment>]<info> baz </info>[<comment>qux</comment>]<info></info>', $message);
         });
 
         $command->setMockedOutput($output);
@@ -91,9 +97,9 @@ class CommandTest extends TestCase
             $command->gray('foo');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<fg=gray>foo</>';
+            return $this->assertIsSame('<fg=gray>foo</>', $message);
         });
 
         $command->setMockedOutput($output);
@@ -117,9 +123,9 @@ class CommandTest extends TestCase
             $command->indentedLine(2, 'foo');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '  foo';
+            return $this->assertIsSame('  foo', $message);
         });
 
         $command->setMockedOutput($output);
@@ -138,10 +144,13 @@ class CommandTest extends TestCase
 
     public function testSafeHandleException()
     {
+        self::mockConfig();
         $command = new SafeThrowingTestCommand();
         $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
+            $condition = str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
+            $this->assertTrue($condition);
+            return $condition;
         });
         $command->setOutput($output);
 
@@ -152,18 +161,23 @@ class CommandTest extends TestCase
 
     public function testCanEnableThrowOnException()
     {
-        $this->throwOnConsoleException();
-        $command = new SafeThrowingTestCommand();
-
-        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
-
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('This is a test');
 
+        self::mockConfig(['app.throw_on_console_exception' => true]);
+        $command = new SafeThrowingTestCommand();
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+        $output->shouldReceive('writeln')->once();
         $command->setOutput($output);
         $code = $command->handle();
 
         $this->assertSame(1, $code);
+    }
+
+    protected function assertIsSame(string $expected, string $actual): bool
+    {
+        $this->assertSame($expected, $actual);
+        return $actual === $expected;
     }
 }
 
