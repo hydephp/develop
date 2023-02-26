@@ -24,13 +24,15 @@ class BreadcrumbsComponentViewTest extends TestCase
 
         $html = Blade::renderComponent(new BreadcrumbsComponent());
 
-        $expected = [
-            '<nav aria-label="breadcrumb">',
-        ];
+        $expected = <<<'HTML'
+            <nav aria-label="breadcrumb">
+                <a href="/" class="hover:underline">Home</a>
+                &nbsp;&gt;&gt;&nbsp;
+                Foo
+            </nav>
+        HTML;
 
-        foreach ($expected as $string) {
-            $this->assertStringContainsString($string, $html);
-        }
+        $this->assertSame($this->stripIndentation($expected), $this->stripIndentation($html));
     }
 
     public function testRenderedBladeViewOnIndexPage()
