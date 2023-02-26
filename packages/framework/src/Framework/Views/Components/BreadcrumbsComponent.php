@@ -47,8 +47,7 @@ class BreadcrumbsComponent extends Component
             } else {
                 $path .= "$field.html";
             }
-            $title = Hyde::makeTitle($field);
-            $breadcrumbs[Hyde::relativeLink($path)] = $title;
+            $breadcrumbs[Hyde::relativeLink($path)] = Hyde::makeTitle($field);
         }
 
         return $breadcrumbs;
