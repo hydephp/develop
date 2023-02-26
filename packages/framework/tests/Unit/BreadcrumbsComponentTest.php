@@ -28,6 +28,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
     protected function tearDown(): void
     {
         Facade::clearResolvedInstances();
+        app()->forgetInstances();
     }
 
     public function testCanConstruct()
