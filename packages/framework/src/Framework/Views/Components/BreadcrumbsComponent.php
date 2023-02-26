@@ -41,9 +41,9 @@ class BreadcrumbsComponent extends Component
                 break;
             }
 
-            // if it's not the last field, add a trailing slash (since it must be a directory) otherwise add .html
+            // if it's not the last field, add index.html (since it must be a directory) otherwise add .html
             if ($index < count($fields) - 1) {
-                $path .= "$field/";
+                $path .= "$field/index.html";
             } else {
                 $path .= "$field.html";
             }
