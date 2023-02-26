@@ -42,6 +42,7 @@ class BreadcrumbsComponent extends Component
 
             // if it's not the last field, add index.html (since it must be a directory) otherwise add .html
             $path = $previous."$field".($index < count($fields) - 1 ? '/index.html' : '.html');
+
             $breadcrumbs[Hyde::relativeLink($path)] = Hyde::makeTitle($field);
 
             $previous .= $field.'/';
