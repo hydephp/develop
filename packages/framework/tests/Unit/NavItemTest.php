@@ -82,6 +82,26 @@ class NavItemTest extends UnitTestCase
         $this->assertFalse($item->hidden);
     }
 
+    public function testIsCurrent()
+    {
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn($this->createMock(Route::class));
+
+        $route = Route::get('index');
+        $item = NavItem::fromRoute($route);
+
+        $this->assertFalse($item->isCurrent());
+    }
+
+    public function testIsCurrentWhenCurrent()
+    {
+        $route = Route::get('index');
+
+        Render::shouldReceive('getCurrentRoute')->once()->andReturn($route);
+        $item = NavItem::fromRoute($route);
+
+        $this->assertTrue($item->isCurrent());
+    }
+
     public function testIsCurrentUsingRoute()
     {
         $route = Route::get('index');
