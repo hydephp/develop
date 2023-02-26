@@ -8,6 +8,7 @@ use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
+use Hyde\Testing\CreatesApplication;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\Facades\Facade;
@@ -19,6 +20,8 @@ use Mockery;
  */
 class BreadcrumbsComponentTest extends UnitTestCase
 {
+    use CreatesApplication;
+
     protected function setUp(): void
     {
         self::needsKernel();
