@@ -35,7 +35,7 @@ class BreadcrumbsComponent extends Component
         }
 
         $path = '';
-        $fields = Str::of($identifier)->explode('/');
+        $fields = explode('/', $identifier);
         foreach ($fields as $index => $field) {
             if ($field === 'index') {
                 break;
