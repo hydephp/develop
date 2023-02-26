@@ -36,13 +36,13 @@ class BreadcrumbsComponent extends Component
 
         $path = '';
         $fields = Str::of($identifier)->explode('/');
-        foreach ($fields as $key => $field) {
+        foreach ($fields as $index => $field) {
             if ($field == 'index') {
                 return $breadcrumbs;
             }
 
             // if it's not the last field, add a trailing slash (since it must be a directory) otherwise add .html
-            if ($key < count($fields) - 1) {
+            if ($index < count($fields) - 1) {
                 $path .= "$field/";
             } else {
                 $path .= "$field.html";
