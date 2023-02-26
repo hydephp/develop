@@ -49,6 +49,6 @@ class ViewServiceProvider extends ServiceProvider
         ], 'hyde-blank-page');
 
         Blade::component('link', LinkComponent::class);
-        Blade::component('hyde::breadcrumb', BreadcrumbsComponent::class);
+        Blade::component('hyde::breadcrumbs', BreadcrumbsComponent::class);
     }
 }

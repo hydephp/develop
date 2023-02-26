@@ -22,7 +22,7 @@ class BreadcrumbsComponent extends Component
     /** @interitDoc */
     public function render(): Factory|View
     {
-        return view('hyde::components.breadcrumb');
+        return view('hyde::components.breadcrumbs');
     }
 
     protected function makeBreadcrumbs(): array
