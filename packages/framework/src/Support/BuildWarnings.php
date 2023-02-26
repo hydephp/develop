@@ -53,6 +53,11 @@ class BuildWarnings
         return Config::getBool('hyde.log_warnings', true);
     }
 
+    public static function reportsWarningsAsExceptions(): bool
+    {
+        return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
+    }
+
     public static function clear(): void
     {
         static::getInstance()->warnings = [];
@@ -82,10 +87,5 @@ class BuildWarnings
         foreach (static::getWarnings() as $warning) {
             app(ExceptionHandler::class)->renderForConsole($output, $warning);
         }
-    }
-
-    public static function reportsWarningsAsExceptions(): bool
-    {
-        return Config::getBool('hyde.convert_build_warnings_to_exceptions', false);
     }
 }
