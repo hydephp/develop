@@ -10,6 +10,8 @@ use Illuminate\View\Component;
 
 class BreadcrumbComponent extends Component
 {
+    public array $breadcrumbs;
+
     /** @interitDoc */
     public function render(): Factory|View
     {
