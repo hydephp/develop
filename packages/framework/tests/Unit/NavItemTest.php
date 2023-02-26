@@ -82,7 +82,7 @@ class NavItemTest extends UnitTestCase
         $this->assertFalse($item->hidden);
     }
 
-    public function testIsCurrentRoute()
+    public function testIsCurrentUsingRoute()
     {
         $route = Route::get('index');
         $item = NavItem::fromRoute($route);
@@ -90,7 +90,7 @@ class NavItemTest extends UnitTestCase
         $this->assertTrue($item->isCurrent($route->getPage()));
     }
 
-    public function testIsCurrentLink()
+    public function testIsCurrentUsingLink()
     {
         $item = NavItem::toLink('index.html', 'Home');
 
