@@ -28,7 +28,7 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected static function mockConfig(array $items = []): void
     {
-        app()->bind('config', fn () => new Repository($items));
+        app()->bind('config', fn (): Repository => new Repository($items));
 
         Config::swap(app('config'));
     }
