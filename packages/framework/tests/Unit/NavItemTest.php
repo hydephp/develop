@@ -26,7 +26,7 @@ class NavItemTest extends UnitTestCase
 
     public function test__construct()
     {
-        $route = $this->createMock(Route::class);
+        $route = new Route(new MarkdownPage());
 
         $item = new NavItem($route, 'Test', 500, true);
 
@@ -35,7 +35,7 @@ class NavItemTest extends UnitTestCase
 
     public function testFromRoute()
     {
-        $route = $this->createMock(Route::class);
+        $route = new Route(new MarkdownPage());
 
         $item = NavItem::fromRoute($route);
 
@@ -153,7 +153,7 @@ class NavItemTest extends UnitTestCase
 
     public function testGetGroup()
     {
-        $route = $this->createMock(Route::class);
+        $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500, true);
 
         $this->assertNull($item->getGroup());
