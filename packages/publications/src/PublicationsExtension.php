@@ -145,7 +145,7 @@ class PublicationsExtension extends HydeExtension
      */
     private static function constructTypesIfNotConstructed(): void
     {
-        if (!isset(static::$types)) {
+        if (! isset(static::$types)) {
             static::$types = static::findPublicationTypes();
         }
     }
