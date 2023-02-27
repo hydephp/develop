@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Illuminate\Support\Facades\Process;
-use function config;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 use function sprintf;
 
@@ -28,8 +28,8 @@ class ServeCommand extends Command
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
-            $this->getHostSelection() ?: 'localhost',
-            $this->getPortSelection() ?: 8080,
+            $this->getHostSelection(),
+            $this->getPortSelection(),
             $this->getExecutablePath()
         ));
 
@@ -38,12 +38,12 @@ class ServeCommand extends Command
 
     protected function getPortSelection(): int
     {
-        return (int) ($this->option('port') ?: config('hyde.server.port', 8080));
+        return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
     }
 
     protected function getHostSelection(): string
     {
-        return $this->option('host') ?: config('hyde.server.host', 'localhost');
+        return (string) $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
     }
 
     protected function getExecutablePath(): string
@@ -51,9 +51,10 @@ class ServeCommand extends Command
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
     }
 
+    /** @codeCoverageIgnore Until output is testable */
     protected function runServerProcess(string $command): void
     {
-        Process::run($command, function ($type, $line) {
+        Process::run($command, function (string $type, string $line): void {
             $this->output->write($line);
         });
     }
