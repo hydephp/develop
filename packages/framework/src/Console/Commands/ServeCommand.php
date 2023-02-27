@@ -43,7 +43,7 @@ class ServeCommand extends Command
 
     protected function getHostSelection(): string
     {
-        return $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
+        return (string) $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
     }
 
     protected function getExecutablePath(): string
