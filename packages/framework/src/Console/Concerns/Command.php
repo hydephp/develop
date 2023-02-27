@@ -106,6 +106,7 @@ abstract class Command extends BaseCommand
         return "<fg=gray>$string</>";
     }
 
+    /** @internal This method may be removed and should not be relied upon */
     public function href(string $link, string $label): string
     {
         return "<href=$link>$label</>";
