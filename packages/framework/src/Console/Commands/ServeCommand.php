@@ -18,7 +18,7 @@ use function sprintf;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host=localhost} {--port= : <comment> [default: 8080] </comment>}';
+    protected $signature = 'serve {--host=} {--port= : <comment> [default: 8080] </comment>}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
