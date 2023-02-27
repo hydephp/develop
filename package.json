@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "dev": " vite",
-    "prod": "vite build"
+    "prod": "vite build",
+    "build": "php hyde vite"
   },
   "name": "hyde",
   "description": "Elegant and Powerful Static App Builder",

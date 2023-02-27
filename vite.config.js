@@ -2,6 +2,8 @@
 // However, if you add new Tailwind classes, or any customizations, you can use
 // Vite to compile the assets. See https://hydephp.com/docs/master/managing-assets.html.
 
+// To compile the assets using Vite, run `php hyde vite` or `npm run build`.
+
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
