@@ -114,11 +114,9 @@ class CommandTest extends UnitTestCase
 
     public function testInlineGray()
     {
-        $closure = function (Command $command) {
+        $this->testOutput(function (Command $command) {
             $this->assertSame('<fg=gray>foo</>', $command->inlineGray('foo'));
-        };
-
-        $this->testOutput($closure);
+        });
     }
 
     public function testIndentedLine()
