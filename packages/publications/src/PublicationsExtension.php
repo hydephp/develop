@@ -92,6 +92,16 @@ class PublicationsExtension extends HydeExtension
         (new GeneratesPublicationTagPages($collection))->__invoke();
     }
 
+    protected static function findPublicationTypes()
+    {
+        //
+    }
+
+    protected static function findPublicationsForType(PublicationType $publicationType): Collection
+    {
+        //
+    }
+
     protected static function getSchemaFiles(): array
     {
         return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
