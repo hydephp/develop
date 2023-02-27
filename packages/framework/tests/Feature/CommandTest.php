@@ -211,7 +211,9 @@ class CommandTest extends UnitTestCase
 
         $output = Mockery::mock(OutputStyle::class);
 
-        tap($output, fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(fn ($message) => $this->assertIsSame($expected, $message)));
+        tap($output, fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
+            fn ($message) => $this->assertIsSame($expected, $message))
+        );
 
         $command->setMockedOutput($output);
         $command->handle();
