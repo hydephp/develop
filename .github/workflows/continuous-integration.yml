@@ -72,6 +72,8 @@ jobs:
           php ping.php "Monorepo CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
 
   system-testing:
+    strategy:
+      fail-fast: false
     runs-on: ubuntu-latest
 
     steps:
