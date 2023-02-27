@@ -97,6 +97,13 @@ class CommandTest extends UnitTestCase
         $command->handle();
     }
 
+    public function testInlineGray()
+    {
+        $this->testOutput(function (Command $command) {
+            $this->assertSame('<fg=gray>foo</>', $command->inlineGray('foo'));
+        });
+    }
+
     public function testGray()
     {
         $this->testOutput(closure: fn(Command $command) => $command->gray('foo'),
@@ -104,13 +111,6 @@ class CommandTest extends UnitTestCase
                 fn(string $message) => $this->assertIsSame('<fg=gray>foo</>', $message)
             )
         );
-    }
-
-    public function testInlineGray()
-    {
-        $this->testOutput(function (Command $command) {
-            $this->assertSame('<fg=gray>foo</>', $command->inlineGray('foo'));
-        });
     }
 
     public function testIndentedLine()
