@@ -36,7 +36,6 @@ class PublicationService
      */
     public static function getPublicationsForType(PublicationType $publicationType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
-        /** @var Collection<string, PublicationPage> $publications */
         $publications = Hyde::pages()->getPages(PublicationPage::class)->values();
 
         $sortAscending = $sortAscending !== null ? $sortAscending : $publicationType->sortAscending;
