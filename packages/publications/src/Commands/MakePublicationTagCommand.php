@@ -88,7 +88,7 @@ class MakePublicationTagCommand extends ValidatingCommand
     protected function saveTagsToDisk(): void
     {
         $this->infoComment(sprintf('Saving tag data to [%s]',
-            \Hyde\Console\Concerns\Command::createClickableFilepath('tags.yml')
+            \Hyde\Console\Concerns\Command::fileLink('tags.yml')
         ));
 
         (new PublicationTags)->addTagGroups($this->tags)->save();
