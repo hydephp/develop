@@ -73,7 +73,7 @@ abstract class Command extends BaseCommand
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      *
-     * @param  string|null  $label If provided, the link will be wrapped in a Symfony Console <href> tag.
+     * @param  string|null  $label If provided, the link will be wrapped in a Symfony Console `href` tag.
      *                             Note that not all terminals support this, and it may lead to only
      *                             the label being shown, and the path being lost to the void.
      */
