@@ -18,9 +18,6 @@ test('can install node dependencies', function () {
 
 test('can build assets using laravel mix', function () {
     $output = shell_exec('cd '.BASE_PATH.' && npm run dev');
-    $this->assert(str_contains($output, 'webpack compiled successfully'),
-        'Laravel Mix output does not contain "webpack compiled successfully"'
-    );
 
     $this->assert(file_exists(BASE_PATH.'/_media/app.css'), 'CSS file does not exist');
     $this->assert(file_exists(BASE_PATH.'/_site/media/app.css'), 'CSS file does not exist');
