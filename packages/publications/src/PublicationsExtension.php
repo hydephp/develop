@@ -26,6 +26,10 @@ class PublicationsExtension extends HydeExtension
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     public static function getTypes(): Collection
     {
+        if (! isset(static::$types)) {
+            static::$types = static::findPublicationTypes();
+        }
+
         return static::$types;
     }
 
