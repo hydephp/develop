@@ -5,12 +5,20 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Process;
 
 /**
  * @covers \Hyde\Console\Commands\ServeCommand
  */
 class ServeCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Process::fake();
+    }
+
     public function test_hyde_serve_command()
     {
         $this->artisan('serve')
