@@ -20,6 +20,7 @@ use function str_ends_with;
  */
 class PublicationsExtension extends HydeExtension
 {
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> $types */
     protected static Collection $types;
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
