@@ -34,23 +34,23 @@ class CommandTest extends UnitTestCase
         }
     }
 
-    public function test_create_clickable_filepath_creates_link_for_existing_file()
+    public function test_file_link_helper_creates_link_for_existing_file()
     {
         touch(Hyde::path('foo.txt'));
 
         $this->assertSame(
             sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
-            Command::createClickableFilepath('foo.txt')
+            Command::fileLink('foo.txt')
         );
 
         unlink(Hyde::path('foo.txt'));
     }
 
-    public function test_create_clickable_filepath_creates_link_for_non_existing_file()
+    public function test_file_link_helper_creates_link_for_non_existing_file()
     {
         $this->assertSame(
             sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
-            Command::createClickableFilepath('foo.txt')
+            Command::fileLink('foo.txt')
         );
     }
 
