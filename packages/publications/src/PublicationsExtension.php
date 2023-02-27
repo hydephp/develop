@@ -42,7 +42,7 @@ class PublicationsExtension extends HydeExtension
 
     public static function discoverFiles(FileCollection $collection): void
     {
-        //
+        // Todo refactor to handle file discovery here
     }
 
     public static function discoverPages(PageCollection $collection): void
