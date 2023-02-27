@@ -43,6 +43,7 @@ class PublicationServiceTest extends TestCase
     public function testGetPublicationTypesWithTypes()
     {
         $this->createPublicationType();
+        Hyde::boot();
 
         $this->assertEquals(new Collection([
             'test-publication' => PublicationType::get('test-publication'),
