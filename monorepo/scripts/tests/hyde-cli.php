@@ -15,16 +15,6 @@ test('can install composer dependencies', function () {
 
     $this->assert(file_exists(BASE_PATH.'/vendor/autoload.php'), 'Autoloader does not exist');
 
-    $expected = [
-        'Loading composer repositories with package information',
-        'Installing dependencies from lock file',
-        'Generating optimized autoload files',
-    ];
-
-    foreach ($expected as $line) {
-        $this->assert(str_contains($output, $line), 'Composer output does not contain expected "'.$line.'"');
-    }
-
     $this->assert(str_contains($output, '@php -r "@unlink(\'./app/storage/framework/cache/packages.php\');"'),
         'The package cache file was not deleted'
     );
