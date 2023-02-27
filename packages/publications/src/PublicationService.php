@@ -26,7 +26,7 @@ class PublicationService
      */
     public static function getPublicationTypes(): Collection
     {
-        //
+        return PublicationsExtension::getTypes();
     }
 
     /**
