@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
@@ -11,18 +12,23 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use function Hyde\normalize_slashes;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
  */
-class FilesystemTest extends TestCase
+class FilesystemTest extends UnitTestCase
 {
     protected string $originalBasePath;
 
     protected Filesystem $filesystem;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+    }
 
     protected function setUp(): void
     {
@@ -105,6 +111,21 @@ class FilesystemTest extends TestCase
     public function test_path_method_resolves_already_absolute_paths_using_helper_with_trailing_slash()
     {
         $this->assertEquals($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo/')));
+    }
+
+    public function test_hyde_path_method_exists()
+    {
+        $this->assertTrue(method_exists(HydeKernel::class, 'path'));
+    }
+
+    public function test_hyde_path_string_is_returned()
+    {
+        $this->assertIsString(Hyde::path());
+    }
+
+    public function test_hyde_path_returned_directory_contains_content_expected_to_be_in_the_project_directory()
+    {
+        $this->assertFileExists(Hyde::path('hyde'));
     }
 
     public function test_vendor_path_method_exists()
