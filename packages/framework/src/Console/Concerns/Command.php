@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
-use function config;
+use Hyde\Facades\Config;
 use Exception;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
@@ -57,7 +57,7 @@ abstract class Command extends BaseCommand
     public function handleException(Exception $exception): int
     {
         // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
-        if (config('app.throw_on_console_exception', false)) {
+        if (Config::getBool('app.throw_on_console_exception', false)) {
             throw $exception;
         }
 
