@@ -99,18 +99,17 @@ class CommandTest extends UnitTestCase
 
     public function testGray()
     {
-        $command = new MockableTestCommand();
-        $command->closure = function (Command $command) {
+        $closure = function (Command $command): void {
             $command->gray('foo');
         };
 
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $this->assertIsSame('<fg=gray>foo</>', $message);
-        });
+        $expectations = function (OutputStyle&Mockery\LegacyMockInterface $output): void {
+            $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
+                return $this->assertIsSame('<fg=gray>foo</>', $message);
+            });
+        };
 
-        $command->setMockedOutput($output);
-        $command->handle();
+        $this->testOutput($closure, $expectations);
     }
 
     public function testInlineGray()
@@ -187,6 +186,19 @@ class CommandTest extends UnitTestCase
         $this->assertSame($expected, $actual);
 
         return $actual === $expected;
+    }
+
+    protected function testOutput(Closure $closure, Closure $expectations): void
+    {
+        $command = new MockableTestCommand();
+        $command->closure = $closure;
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        tap($output, $expectations);
+
+        $command->setMockedOutput($output);
+        $command->handle();
     }
 }
 
