@@ -22,6 +22,11 @@ class CommandTest extends UnitTestCase
         self::needsKernel();
     }
 
+    public static function tearDownAfterClass(): void
+    {
+        Mockery::close();
+    }
+
     public function test_create_clickable_filepath_creates_link_for_existing_file()
     {
         touch(Hyde::path('foo.txt'));
