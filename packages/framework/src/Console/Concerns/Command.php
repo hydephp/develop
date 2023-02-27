@@ -8,7 +8,12 @@ use Hyde\Facades\Config;
 use Exception;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
+use function array_keys;
+use function array_values;
+use function realpath;
 use function sprintf;
+use function str_repeat;
+use function str_replace;
 
 /**
  * A base class for HydeCLI command that adds some extra functionality and output
