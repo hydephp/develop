@@ -128,7 +128,7 @@ class FilesystemTest extends UnitTestCase
         $this->assertTrue(
             file_exists(Hyde::path('hyde')) &&
             file_exists(Hyde::path('_pages')) &&
-            file_exists(Hyde::path('_posts')) 
+            file_exists(Hyde::path('_posts'))
         );
     }
 
