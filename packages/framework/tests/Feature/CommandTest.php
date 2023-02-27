@@ -103,7 +103,7 @@ class CommandTest extends UnitTestCase
             $command->gray('foo');
         };
 
-        $expectations = function ($output){
+        $expectations = function ($output) {
             $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
                 return $this->assertIsSame('<fg=gray>foo</>', $message);
             });
