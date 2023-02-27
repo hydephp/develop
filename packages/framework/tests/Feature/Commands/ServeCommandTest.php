@@ -26,7 +26,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S localhost:8080 '.$this->binaryPath());
+        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_port_option()
@@ -35,7 +35,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S localhost:8081 '.$this->binaryPath());
+        Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_host_option()
@@ -44,7 +44,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S foo:8080 '.$this->binaryPath());
+        Process::assertRan("php -S foo:8080 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_port_and_host_option()
@@ -53,7 +53,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S foo:8081 '.$this->binaryPath());
+        Process::assertRan("php -S foo:8081 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_port_defined_in_config()
@@ -64,7 +64,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S localhost:8081 '.$this->binaryPath());
+        Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_port_defined_in_config_and_port_option()
@@ -75,7 +75,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S localhost:8082 '.$this->binaryPath());
+        Process::assertRan("php -S localhost:8082 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_port_missing_in_config_and_port_option()
@@ -86,7 +86,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S localhost:8080 '.$this->binaryPath());
+        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_invalid_config_value()
@@ -97,7 +97,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan('php -S localhost:8080 '.$this->binaryPath());
+        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
     }
 
     protected function binaryPath(): string
