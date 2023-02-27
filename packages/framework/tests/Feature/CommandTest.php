@@ -102,6 +102,13 @@ class CommandTest extends UnitTestCase
         $command->handle();
     }
 
+    public function testHref()
+    {
+        $this->testOutput(function ($command) {
+            $this->assertSame('<href=link>label</>', $command->href('link', 'label'));
+        });
+    }
+
     public function testInlineGray()
     {
         $this->testOutput(function ($command) {
@@ -112,13 +119,6 @@ class CommandTest extends UnitTestCase
     public function testGray()
     {
         $this->testOutputReceivesLine(fn (Command $command) => $command->gray('foo'), '<fg=gray>foo</>');
-    }
-
-    public function testHref()
-    {
-        $this->testOutput(function ($command) {
-            $this->assertSame('<href=link>label</>', $command->href('link', 'label'));
-        });
     }
 
     public function testIndentedLine()
