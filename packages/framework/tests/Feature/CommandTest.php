@@ -121,21 +121,21 @@ class CommandTest extends UnitTestCase
     public function testIndentedLine()
     {
         $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(2, 'foo'),
-            fn ($message) => $this->assertIsSame('  foo', $message)
+            '  foo',
         );
     }
 
     public function testIndentedLineWithMultipleIndentations()
     {
         $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(8, 'foo'),
-            fn ($message) => $this->assertIsSame('        foo', $message)
+         '        foo',
         );
     }
 
     public function testIndentedLineWithNoIndentation()
     {
         $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(0, 'foo'),
-            fn ($message) => $this->assertIsSame('foo', $message)
+         'foo'
         );
     }
 
@@ -204,14 +204,14 @@ class CommandTest extends UnitTestCase
         $command->handle();
     }
 
-    protected function testOutputReceivesLine(Closure $closure, Closure $expectation): void
+    protected function testOutputReceivesLine(Closure $closure, string $expected): void
     {
         $command = new MockableTestCommand();
         $command->closure = $closure;
 
         $output = Mockery::mock(OutputStyle::class);
 
-        tap($output, fn ($output) => $output->shouldReceive('writeln')->once()->withArgs($expectation));
+        tap($output, fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(fn ($message) => $this->assertIsSame($expected, $message)));
 
         $command->setMockedOutput($output);
         $command->handle();
