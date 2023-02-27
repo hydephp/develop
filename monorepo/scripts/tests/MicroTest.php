@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use JetBrains\PhpStorm\NoReturn;
 
+const BASE_PATH = __DIR__.'/../../../';
+
 class MicroTest
 {
     protected static self $instance;
