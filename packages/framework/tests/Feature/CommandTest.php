@@ -29,6 +29,11 @@ class CommandTest extends UnitTestCase
         }
     }
 
+    public function testUserExitConstant()
+    {
+        $this->assertSame(130, Command::USER_EXIT);
+    }
+
     public function testFileLinkHelperCreatesLinkForExistingFile()
     {
         touch(Hyde::path('foo.txt'));
