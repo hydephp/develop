@@ -6,6 +6,9 @@ use JetBrains\PhpStorm\NoReturn;
 
 const BASE_PATH = __DIR__.'/../../../';
 
+/**
+ * @internal
+ */
 class MicroTest
 {
     protected static self $instance;
