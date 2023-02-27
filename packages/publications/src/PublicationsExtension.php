@@ -34,6 +34,12 @@ class PublicationsExtension extends HydeExtension
         return static::$types;
     }
 
+    /** @internal */
+    public static function clearTypes(): void
+    {
+        static::$types = new Collection();
+    }
+
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {

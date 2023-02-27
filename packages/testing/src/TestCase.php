@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Publications\PublicationsExtension;
+use function class_exists;
 use function config;
 use function file_get_contents;
 use Hyde\Facades\Features;
@@ -44,6 +46,10 @@ abstract class TestCase extends BaseTestCase
         }
 
         Features::clearMockedInstances();
+
+        if (class_exists('Hyde\Publications\PublicationsExtension')) {
+            PublicationsExtension::clearTypes();
+        }
 
         parent::tearDown();
     }
