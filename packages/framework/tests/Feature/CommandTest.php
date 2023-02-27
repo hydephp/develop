@@ -62,6 +62,34 @@ class CommandTest extends UnitTestCase
         );
     }
 
+    public function testFileLinkHelperWithAbsolutePathInput()
+    {
+        $this->assertSame(
+            sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink(Hyde::path('foo.txt'))
+        );
+    }
+
+    public function testFileLinkHelperWithAbsolutePathInputAndCustomLabel()
+    {
+        $this->assertSame(
+            sprintf('<href=file://%s/foo.txt>bar</>', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink(Hyde::path('foo.txt'), 'bar')
+        );
+    }
+
+    public function testFileLinkHelperWithAbsolutePathAndRealFile()
+    {
+        touch(Hyde::path('foo.txt'));
+
+        $this->assertSame(
+            sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink(Hyde::path('foo.txt'))
+        );
+
+        unlink(Hyde::path('foo.txt'));
+    }
+
     public function testInfoComment()
     {
         $command = new MockableTestCommand();

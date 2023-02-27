@@ -83,7 +83,7 @@ abstract class Command extends BaseCommand
             return '<href='.static::fileLink($filepath).">$label</>";
         }
 
-        return 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path($filepath));
+        return 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path(Hyde::pathToRelative($filepath)));
     }
 
     /**
