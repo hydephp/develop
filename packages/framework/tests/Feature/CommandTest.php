@@ -11,11 +11,6 @@ use Hyde\Testing\UnitTestCase;
 use Mockery;
 use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
-use function sprintf;
-use function str_replace;
-use function tap;
-use function touch;
-use function unlink;
 
 /**
  * @covers \Hyde\Console\Concerns\Command
