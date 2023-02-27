@@ -495,6 +495,13 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
         $this->assertTrue($kernel->isBooted());
     }
+
+    public function test_is_booted_method_on_the_facade()
+    {
+        $this->assertFalse(Hyde::isBooted());
+        Hyde::kernel()->boot();
+        $this->assertTrue(Hyde::isBooted());
+    }
 }
 
 class CallableClass
