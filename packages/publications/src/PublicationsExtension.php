@@ -138,7 +138,10 @@ class PublicationsExtension extends HydeExtension
         return glob(Hyde::path("$directory/*.md"));
     }
 
-    /** @experimental This feature may be removed pending actual necessity */
+    /** @experimental This feature may be removed pending actual necessity,
+     *               as the array would only be uninitialized when the kernel has not yet booted,
+     *               a point which may actually be too early to actually interact with this domain.
+     */
     private static function constructTypesIfNotConstructed(): void
     {
         if (!isset(static::$types)) {
