@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Illuminate\Support\Facades\Process;
-use Hyde\Facades\Config;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 use function sprintf;
 
