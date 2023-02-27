@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 use JetBrains\PhpStorm\NoReturn;
 
-class MicroTest {
+class MicroTest
+{
     protected static self $instance;
 
     protected array $tests = [];
     protected array $failedTests = [];
 
-    protected function __construct() {
-        echo "Running tests..." . PHP_EOL;
-    }
-
-    #[NoReturn] public function __destruct()
+    protected function __construct()
     {
-        $this->run();
+        echo 'Running tests...'.PHP_EOL;
     }
 
-    public static function getInstance(): self {
+    #[NoReturn]
+ public function __destruct()
+ {
+     $this->run();
+ }
+
+    public static function getInstance(): self
+    {
         if (! isset(self::$instance)) {
             self::$instance = new self();
         }
@@ -52,20 +56,20 @@ class MicroTest {
                 $this->failedTests[$name] = $exception;
             } finally {
                 $status = (isset($exception) ? 'failed' : 'passed');
-                echo "Test $status: $name" . PHP_EOL;
-                if  (isset($exception)) {
-                    echo " > {$exception->getMessage()}" . PHP_EOL;
+                echo "Test $status: $name".PHP_EOL;
+                if (isset($exception)) {
+                    echo " > {$exception->getMessage()}".PHP_EOL;
                 }
                 unset($exception);
             }
         }
 
         if (count($this->failedTests) > 0) {
-            echo "Some tests failed" . PHP_EOL;
+            echo 'Some tests failed'.PHP_EOL;
             exit(1);
         }
 
-        echo "All tests passed" . PHP_EOL;
+        echo 'All tests passed'.PHP_EOL;
         exit(0);
     }
 }
