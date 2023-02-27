@@ -24,7 +24,9 @@ class CommandTest extends UnitTestCase
 
     public static function tearDownAfterClass(): void
     {
-        Mockery::close();
+        if ($container = Mockery::getContainer()) {
+            $container->mockery_close();
+        }
     }
 
     public function test_create_clickable_filepath_creates_link_for_existing_file()
