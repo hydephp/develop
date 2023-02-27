@@ -74,6 +74,8 @@ jobs:
   system-testing:
     strategy:
       fail-fast: false
+      matrix:
+        script: [ hyde-cli, project-styles ]
     runs-on: ubuntu-latest
 
     steps:
