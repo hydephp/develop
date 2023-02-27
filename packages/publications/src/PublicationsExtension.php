@@ -40,6 +40,11 @@ class PublicationsExtension extends HydeExtension
         ];
     }
 
+    public static function discoverFiles(FileCollection $collection): void
+    {
+        //
+    }
+
     public static function discoverPages(PageCollection $collection): void
     {
         static::discoverPublicationPages($collection);
