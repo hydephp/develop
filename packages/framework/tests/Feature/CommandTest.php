@@ -114,6 +114,13 @@ class CommandTest extends UnitTestCase
         $this->testOutputReceivesLine(fn (Command $command) => $command->gray('foo'), '<fg=gray>foo</>');
     }
 
+    public function testHref()
+    {
+        $this->testOutput(function ($command) {
+            $this->assertSame('<href=link>label</>', $command->href('link', 'label'));
+        });
+    }
+
     public function testIndentedLine()
     {
         $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(2, 'foo'), '  foo');
