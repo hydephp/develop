@@ -19,7 +19,7 @@ class ViteBuildCommand extends Command
     {
         $this->title('Building Vite Assets');
 
-        $output = Process::run('npx vite build', (function ($type, $line) {
+        $output = Process::run('npx vite build', (function (string $type, string $line): void {
             $this->output->write($line);
         }));
 
