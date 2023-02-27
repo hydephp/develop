@@ -20,6 +20,7 @@ class ConsoleServiceProvider extends ServiceProvider
             Commands\BuildSiteCommand::class,
             Commands\BuildSitemapCommand::class,
             Commands\RebuildStaticPageCommand::class,
+            Commands\ViteBuildCommand::class,
 
             Commands\MakePageCommand::class,
             Commands\MakePostCommand::class,
