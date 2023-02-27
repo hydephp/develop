@@ -91,4 +91,14 @@ class PublicationsExtension extends HydeExtension
     {
         (new GeneratesPublicationTagPages($collection))->__invoke();
     }
+
+    protected static function getSchemaFiles(): array
+    {
+        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
+    }
+
+    protected static function getPublicationFiles(string $directory): array
+    {
+        return glob(Hyde::path("$directory/*.md"));
+    }
 }

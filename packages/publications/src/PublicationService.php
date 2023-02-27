@@ -99,16 +99,6 @@ class PublicationService
         return static::getPublicationTypes()->has(Str::slug($publicationTypeName));
     }
 
-    protected static function getSchemaFiles(): array
-    {
-        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
-    }
-
-    protected static function getPublicationFiles(string $directory): array
-    {
-        return glob(Hyde::path("$directory/*.md"));
-    }
-
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
     {
         return glob(Hyde::mediaPath("$directory/*.$extensions"), GLOB_BRACE);
