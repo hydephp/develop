@@ -11,7 +11,7 @@
                 </li>
 
                 @if (! $loop->last)
-                    <li>
+                    <li role="presentation">
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                 @endif
