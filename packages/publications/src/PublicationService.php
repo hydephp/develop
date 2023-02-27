@@ -20,8 +20,6 @@ class PublicationService
     /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
-     * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
-     *
      * @return Collection<string, PublicationType>
      */
     public static function getPublicationTypes(): Collection
