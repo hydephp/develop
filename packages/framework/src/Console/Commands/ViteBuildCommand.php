@@ -15,7 +15,7 @@ class ViteBuildCommand extends Command
     /** @var string */
     protected $description = 'Build the Vite assets';
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->title('Building Vite Assets');
 
