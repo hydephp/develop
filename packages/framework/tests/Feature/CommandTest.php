@@ -121,27 +121,27 @@ class CommandTest extends UnitTestCase
 
     public function testIndentedLine()
     {
-        $this->testOutput(closure: fn(Command $command) => $command->indentedLine(2, 'foo'),
-            expectations: fn($output) => $output->shouldReceive('writeln')->once()->withArgs(
-                fn($message) => $this->assertIsSame('  foo', $message)
+        $this->testOutput(closure: fn (Command $command) => $command->indentedLine(2, 'foo'),
+            expectations: fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
+                fn ($message) => $this->assertIsSame('  foo', $message)
             )
         );
     }
 
     public function testIndentedLineWithMultipleIndentations()
     {
-        $this->testOutput(closure: fn(Command $command) => $command->indentedLine(8, 'foo'),
-            expectations: fn($output) => $output->shouldReceive('writeln')->once()->withArgs(
-                fn($message) => $this->assertIsSame('        foo', $message)
+        $this->testOutput(closure: fn (Command $command) => $command->indentedLine(8, 'foo'),
+            expectations: fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
+                fn ($message) => $this->assertIsSame('        foo', $message)
             )
         );
     }
 
     public function testIndentedLineWithNoIndentation()
     {
-        $this->testOutput(closure: fn(Command $command) => $command->indentedLine(0, 'foo'),
-            expectations: fn($output) => $output->shouldReceive('writeln')->once()->withArgs(
-                fn($message) => $this->assertIsSame('foo', $message)
+        $this->testOutput(closure: fn (Command $command) => $command->indentedLine(0, 'foo'),
+            expectations: fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
+                fn ($message) => $this->assertIsSame('foo', $message)
             )
         );
     }
