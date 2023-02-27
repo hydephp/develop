@@ -54,6 +54,14 @@ class CommandTest extends UnitTestCase
         );
     }
 
+    public function testFileLinkHelperWithCustomLabel()
+    {
+        $this->assertSame(
+            sprintf('<href=file://%s/foo.txt>bar</>', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink('foo.txt', 'bar')
+        );
+    }
+
     public function testInfoComment()
     {
         $command = new MockableTestCommand();
