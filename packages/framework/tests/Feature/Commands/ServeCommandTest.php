@@ -89,6 +89,39 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
+    public function test_hyde_serve_command_with_host_defined_in_config()
+    {
+        config(['hyde.server.host' => 'foo']);
+
+        $this->artisan('serve')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S foo:8080 {$this->binaryPath()}");
+    }
+
+    public function test_hyde_serve_command_with_host_defined_in_config_and_host_option()
+    {
+        config(['hyde.server.host' => 'foo']);
+
+        $this->artisan('serve --host=bar')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S bar:8080 {$this->binaryPath()}");
+    }
+
+    public function test_hyde_serve_command_with_host_missing_in_config_and_host_option()
+    {
+        config(['hyde.server.host' => null]);
+
+        $this->artisan('serve --host=foo')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S foo:8080 {$this->binaryPath()}");
+    }
+
     public function test_hyde_serve_command_with_invalid_config_value()
     {
         config(['hyde.server.port' => 'foo']);

@@ -18,7 +18,7 @@ use function sprintf;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host=localhost} {--port= : <comment> [default: 8080] </comment>}';
+    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
@@ -28,7 +28,7 @@ class ServeCommand extends Command
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
-            $this->option('host'),
+            $this->getHostSelection() ?: 'localhost',
             $this->getPortSelection() ?: 8080,
             $this->getExecutablePath()
         ));
@@ -39,6 +39,11 @@ class ServeCommand extends Command
     protected function getPortSelection(): int
     {
         return (int) ($this->option('port') ?: config('hyde.server.port', 8080));
+    }
+
+    protected function getHostSelection(): string
+    {
+        return $this->option('host') ?: config('hyde.server.host', 'localhost');
     }
 
     protected function getExecutablePath(): string
