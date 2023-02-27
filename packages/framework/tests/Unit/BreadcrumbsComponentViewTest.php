@@ -28,8 +28,6 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="index.html" class="hover:underline">Home</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
@@ -56,14 +54,10 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="../index.html" class="hover:underline">Home</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
                         <a href="../foo/index.html" class="hover:underline">Foo</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
@@ -83,20 +77,14 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="../../index.html" class="hover:underline">Home</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
                         <a href="../../foo/index.html" class="hover:underline">Foo</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
                         <a href="../../foo/bar/index.html" class="hover:underline">Bar</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
@@ -116,8 +104,6 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="../index.html" class="hover:underline">Home</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
@@ -139,8 +125,6 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="index.html" class="hover:underline">Home</a>
-                    </li>
-                    <li>
                         <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
                     <li>
