@@ -19,7 +19,9 @@ class MicroTest
     #[NoReturn]
     public function __destruct()
     {
-        $this->run();
+        $exitCode = $this->run();
+
+        exit($exitCode);
     }
 
     public static function getInstance(): self
@@ -46,8 +48,7 @@ class MicroTest
         }
     }
 
-    #[NoReturn]
-    protected function run(): void
+    protected function run(): int
     {
         foreach ($this->tests as $name => $test) {
             try {
@@ -66,11 +67,11 @@ class MicroTest
 
         if (count($this->failedTests) > 0) {
             echo 'Some tests failed'.PHP_EOL;
-            exit(1);
+            return 1;
         }
 
         echo 'All tests passed'.PHP_EOL;
-        exit(0);
+        return 0;
     }
 }
 
