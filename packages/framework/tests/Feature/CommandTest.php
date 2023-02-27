@@ -187,14 +187,16 @@ class CommandTest extends UnitTestCase
         return $actual === $expected;
     }
 
-    protected function testOutput(Closure $closure, Closure $expectations): void
+    protected function testOutput(Closure $closure, Closure $expectations = null): void
     {
         $command = new MockableTestCommand();
         $command->closure = $closure;
 
         $output = Mockery::mock(OutputStyle::class);
 
-        tap($output, $expectations);
+        if ($expectations) {
+            tap($output, $expectations);
+        }
 
         $command->setMockedOutput($output);
         $command->handle();
