@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
+use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\GeneratesPublicationTagPages;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Illuminate\Support\Collection;
+
 use function range;
 use function str_ends_with;
 
