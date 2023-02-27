@@ -150,6 +150,7 @@ class CommandTest extends UnitTestCase
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
             $condition = str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
             $this->assertTrue($condition);
+
             return $condition;
         });
         $command->setOutput($output);
@@ -177,6 +178,7 @@ class CommandTest extends UnitTestCase
     protected function assertIsSame(string $expected, string $actual): bool
     {
         $this->assertSame($expected, $actual);
+
         return $actual === $expected;
     }
 }
