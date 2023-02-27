@@ -100,6 +100,7 @@ abstract class Command extends BaseCommand
         $this->line($this->inlineGray($string));
     }
 
+    /** @internal This method may be confused with the ->gray method and may be removed */
     public function inlineGray(string $string): string
     {
         return "<fg=gray>$string</>";
