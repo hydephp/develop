@@ -9,9 +9,9 @@ test('example', function () {
 });
 
 test('can install composer dependencies', function () {
-    $this->assert(! file_exists(BASE_PATH . '/vendor/autoload.php'), 'Autoloader already exists');
+    $this->assert(! file_exists(BASE_PATH.'/vendor/autoload.php'), 'Autoloader already exists');
 
-    shell_exec('cd ' . BASE_PATH . ' && composer install');
+    shell_exec('cd '.BASE_PATH.' && composer install');
 
-    $this->assert(file_exists(BASE_PATH . '/vendor/autoload.php'), 'Autoloader does not exist');
+    $this->assert(file_exists(BASE_PATH.'/vendor/autoload.php'), 'Autoloader does not exist');
 });
