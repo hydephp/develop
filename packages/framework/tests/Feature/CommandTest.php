@@ -133,10 +133,8 @@ class CommandTest extends UnitTestCase
 
     public function testIndentedLineWithNoIndentation()
     {
-        $this->testOutput(closure: fn (Command $command) => $command->indentedLine(0, 'foo'),
-            expectations: fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
-                fn ($message) => $this->assertIsSame('foo', $message)
-            )
+        $this->testOutputReceivesLine(closure: fn (Command $command) => $command->indentedLine(0, 'foo'),
+            expectation: fn ($message) => $this->assertIsSame('foo', $message)
         );
     }
 
@@ -200,6 +198,19 @@ class CommandTest extends UnitTestCase
         if ($expectations) {
             tap($output, $expectations);
         }
+
+        $command->setMockedOutput($output);
+        $command->handle();
+    }
+
+    protected function testOutputReceivesLine(Closure $closure, Closure $expectation): void
+    {
+        $command = new MockableTestCommand();
+        $command->closure = $closure;
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        tap($output, fn($output) => $output->shouldReceive('writeln')->once()->withArgs($expectation));
 
         $command->setMockedOutput($output);
         $command->handle();
