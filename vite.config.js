@@ -15,5 +15,10 @@ export default defineConfig({
     build: {
         outDir: '_media',
         emptyOutDir: false,
+        rollupOptions: {
+            output: {
+                //
+            }
+        }
     },
 });
