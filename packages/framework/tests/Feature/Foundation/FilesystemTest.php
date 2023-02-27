@@ -11,18 +11,23 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use function Hyde\normalize_slashes;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
  */
-class FilesystemTest extends TestCase
+class FilesystemTest extends UnitTestCase
 {
     protected string $originalBasePath;
 
     protected Filesystem $filesystem;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+    }
 
     protected function setUp(): void
     {
