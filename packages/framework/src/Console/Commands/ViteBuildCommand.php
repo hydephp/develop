@@ -13,4 +13,9 @@ class ViteBuildCommand extends Command
 
     /** @var string */
     protected $description = 'Build the Vite assets';
+
+    public function handle(): int
+    {
+        return Command::SUCCESS;
+    }
 }
