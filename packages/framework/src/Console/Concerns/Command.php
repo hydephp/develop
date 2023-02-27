@@ -81,11 +81,7 @@ abstract class Command extends BaseCommand
     {
         $link = 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path(Hyde::pathToRelative($filepath)));
 
-        if ($label) {
-            return "<href=$link>$label</>";
-        }
-
-        return $link;
+        return $label ? "<href=$link>$label</>" : $link;
     }
 
     /**
