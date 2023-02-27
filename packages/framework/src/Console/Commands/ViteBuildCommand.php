@@ -23,6 +23,12 @@ class ViteBuildCommand extends Command
             $this->output->write($line);
         }));
 
+        if ($output->failed()) {
+            $this->error('Vite failed to build');
+
+            return Command::FAILURE;
+        }
+
         $this->info('Vite assets built');
 
         return Command::SUCCESS;
