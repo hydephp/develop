@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
-use Hyde\Facades\Config;
 use Exception;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 use function array_keys;
 use function array_values;
