@@ -31,4 +31,3 @@ test('can build assets using laravel mix', function () {
     $this->assert(file_exists(BASE_PATH.'/_media/mix-manifest.json'), 'Mix manifest file does not exist');
     $this->assert(file_exists(BASE_PATH.'/_site/media/mix-manifest.json'), 'Mix manifest file does not exist');
 });
-
