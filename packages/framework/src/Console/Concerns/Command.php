@@ -120,8 +120,8 @@ abstract class Command extends BaseCommand
     }
 
     /** Write a line with the specified indentation level */
-    public function indentedLine(int $indent, string $string): void
+    public function indentedLine(int $spaces, string $string): void
     {
-        $this->line(str_repeat(' ', $indent).$string);
+        $this->line(str_repeat(' ', $spaces).$string);
     }
 }
