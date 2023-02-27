@@ -136,6 +136,36 @@ class CommandTest extends UnitTestCase
         $this->testOutput($closure, $expectations);
     }
 
+    public function testIndentedLineWithMultipleIndentations()
+    {
+        $closure = function (Command $command) {
+            $command->indentedLine(8, 'foo');
+        };
+
+        $expectations = function ($output) {
+            $output->shouldReceive('writeln')->once()->withArgs(function ($message) {
+                return $this->assertIsSame('        foo', $message);
+            });
+        };
+
+        $this->testOutput($closure, $expectations);
+    }
+
+    public function testIndentedLineWithNoIndentation()
+    {
+        $closure = function (Command $command) {
+            $command->indentedLine(0, 'foo');
+        };
+
+        $expectations = function ($output) {
+            $output->shouldReceive('writeln')->once()->withArgs(function ($message) {
+                return $this->assertIsSame('foo', $message);
+            });
+        };
+
+        $this->testOutput($closure, $expectations);
+    }
+
     public function testHandleCallsBaseSafeHandle()
     {
         $this->assertSame(0, (new TestCommand())->handle());
