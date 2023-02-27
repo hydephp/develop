@@ -99,12 +99,12 @@ class CommandTest extends UnitTestCase
 
     public function testGray()
     {
-        $closure = function (Command $command): void {
+        $closure = function (Command $command) {
             $command->gray('foo');
         };
 
-        $expectations = function (OutputStyle & Mockery\LegacyMockInterface $output): void {
-            $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
+        $expectations = function ($output){
+            $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
                 return $this->assertIsSame('<fg=gray>foo</>', $message);
             });
         };
