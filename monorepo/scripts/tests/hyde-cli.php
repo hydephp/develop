@@ -22,3 +22,19 @@ test('can run the HydeCLI binary', function () {
         'HydeCLI output does not contain "USAGE: hyde <command> [options] [arguments]"'
     );
 });
+
+test('can build the static site', function () {
+    $output = shell_exec('cd '.BASE_PATH.' && php hyde build --no-ansi');
+
+    $this->assert(str_contains($output, 'Building your static site!'),
+        'HydeCLI output does not contain "Building your static site!"'
+    );
+
+    $this->assert(file_exists(BASE_PATH.'/_site/index.html'), 'Index file does not exist');
+    $this->assert(file_exists(BASE_PATH.'/_site/404.html'), '404 file does not exist');
+    $this->assert(file_exists(BASE_PATH.'/_site/media/app.css'), 'CSS file does not exist');
+
+    $this->assert(str_contains(file_get_contents(BASE_PATH.'/_site/index.html'), 'Welcome to HydePHP!'),
+        'Index file does not contain "Welcome to HydePHP!"'
+    );
+});
