@@ -103,7 +103,7 @@ class CommandTest extends UnitTestCase
             $command->gray('foo');
         };
 
-        $expectations = function (OutputStyle&Mockery\LegacyMockInterface $output): void {
+        $expectations = function (OutputStyle & Mockery\LegacyMockInterface $output): void {
             $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
                 return $this->assertIsSame('<fg=gray>foo</>', $message);
             });
