@@ -72,10 +72,12 @@ class MicroTest
 
         if (count($this->failedTests) > 0) {
             echo 'Some tests failed'.PHP_EOL;
+
             return 1;
         }
 
         echo 'All tests passed'.PHP_EOL;
+
         return 0;
     }
 }
