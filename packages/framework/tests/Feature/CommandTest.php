@@ -99,17 +99,13 @@ class CommandTest extends UnitTestCase
 
     public function testGray()
     {
-        $closure = function (Command $command): void {
+        $this->testOutput(function (Command $command): void {
             $command->gray('foo');
-        };
-
-        $expectations = function (OutputStyle&Mockery\LegacyMockInterface $output): void {
+        }, function (OutputStyle&Mockery\LegacyMockInterface $output): void {
             $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
                 return $this->assertIsSame('<fg=gray>foo</>', $message);
             });
-        };
-
-        $this->testOutput($closure, $expectations);
+        });
     }
 
     public function testInlineGray()
