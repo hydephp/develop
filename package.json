@@ -1,9 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": " mix",
-    "prod": "mix --production",
-    "watch": "mix watch"
+    "dev": " vite",
+    "prod": "vite build"
   },
   "name": "hyde",
   "description": "Elegant and Powerful Static App Builder",
