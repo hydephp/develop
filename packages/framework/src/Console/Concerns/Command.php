@@ -101,6 +101,7 @@ abstract class Command extends BaseCommand
         $this->line("<info>$string</info>");
     }
 
+    /** Write a grey-coloured line */
     public function gray(string $string): void
     {
         $this->line($this->inlineGray($string));
@@ -118,6 +119,7 @@ abstract class Command extends BaseCommand
         return "<href=$link>$label</>";
     }
 
+    /** Write a line with the specified indentation level */
     public function indentedLine(int $indent, string $string): void
     {
         $this->line(str_repeat(' ', $indent).$string);
