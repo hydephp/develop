@@ -16,5 +16,13 @@ export default defineConfig({
     ],
     build: {
         outDir: '_media',
-    }
+        emptyOutDir: false,
+        rollupOptions: {
+            output: {
+                assetFileNames: '[name][extname]',
+                chunkFileNames: '[name].js',
+                entryFileNames: '[name].js',
+            }
+        }
+    },
 });
