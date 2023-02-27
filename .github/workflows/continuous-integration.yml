@@ -81,6 +81,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Run system tests (${{ matrix.script }})
+        run: php monorepo/scripts/tests/${{ matrix.script }}.php
+
 
   build-hydefront-assets:
 
