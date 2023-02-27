@@ -111,10 +111,8 @@ class CommandTest extends UnitTestCase
 
     public function testGray()
     {
-        $this->testOutput(closure: fn (Command $command) => $command->gray('foo'),
-            expectations: fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
-                fn (string $message) => $this->assertIsSame('<fg=gray>foo</>', $message)
-            )
+        $this->testOutputReceivesLine(fn (Command $command) => $command->gray('foo'),
+    '<fg=gray>foo</>'
         );
     }
 
