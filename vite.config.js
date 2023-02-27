@@ -8,4 +8,7 @@ export default defineConfig({
             'resources/assets/app.js',
         ]),
     ],
+    build: {
+        outDir: '_media',
+    }
 });
