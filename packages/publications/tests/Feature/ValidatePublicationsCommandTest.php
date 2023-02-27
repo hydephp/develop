@@ -145,6 +145,7 @@ Hello World
             MD
         );
 
+        $this->rebootToDiscoverPublicationPages();
         $this->artisan('validate:publications')
             ->expectsOutputToContain('Validated 1 publication types, 1 publications, 2 fields')
             ->expectsOutput('Found 0 Warnings')
@@ -279,11 +280,13 @@ Hello World
             }
             JSON
         );
+        $this->rebootToDiscoverPublicationPages();
     }
 
     protected function savePublication(string $name): void
     {
         (new PublicationType($name))->save();
+        $this->rebootToDiscoverPublicationPages();
     }
 
     protected function createFullRangeTestFixtures(): void
@@ -340,5 +343,7 @@ Hello World
             # My Page
             MD
         );
+
+        $this->rebootToDiscoverPublicationPages();
     }
 }

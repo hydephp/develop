@@ -22,6 +22,7 @@ class SeedPublicationCommandTest extends TestCase
         $this->directory('test-publication');
         $this->pubType = new PublicationType('Test Publication');
         $this->pubType->save();
+        $this->rebootToDiscoverPublicationPages();
     }
 
     public function test_can_seed_publications()
@@ -89,6 +90,7 @@ class SeedPublicationCommandTest extends TestCase
     public function test_with_no_publication_types()
     {
         unlink(Hyde::path('test-publication/schema.json'));
+        $this->rebootToDiscoverPublicationPages();
         $this->artisan('seed:publications')
             ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
             ->assertExitCode(1);

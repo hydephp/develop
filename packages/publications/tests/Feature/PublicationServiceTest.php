@@ -258,6 +258,7 @@ class PublicationServiceTest extends TestCase
     public function testPublicationTypeExists()
     {
         $this->createPublicationType();
+        $this->rebootToDiscoverPublicationPages();
 
         $this->assertTrue(PublicationService::publicationTypeExists('test-publication'));
         $this->assertFalse(PublicationService::publicationTypeExists('foo'));
