@@ -71,6 +71,20 @@ jobs:
           curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/f66b4d08e0fc3b1ba5f5c2a8c01edd9116287109/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
 
+  system-testing:
+    strategy:
+      fail-fast: false
+      matrix:
+        script: [ hyde-cli, project-styles ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run system tests (${{ matrix.script }})
+        run: php monorepo/scripts/tests/${{ matrix.script }}.php
+
+
   build-hydefront-assets:
 
     runs-on: ubuntu-latest
