@@ -23,6 +23,7 @@ use function str_replace;
  */
 abstract class Command extends BaseCommand
 {
+    /** @var int */
     public const USER_EXIT = 130;
 
     /**
