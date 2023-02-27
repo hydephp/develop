@@ -20,13 +20,7 @@ class ViteBuildCommand extends Command
     {
         $this->title('Building Vite Assets');
 
-        $output = Process::run('npx vite build', (function (string $type, string $line): void {
-            $this->output->write($line);
-        }));
-
-        if ($output->failed()) {
-            throw new RuntimeException('Vite failed to build');
-        }
+        $this->runViteBuild();
 
         $this->newLine();
         $this->info('Vite assets built');
@@ -36,6 +30,12 @@ class ViteBuildCommand extends Command
 
     protected function runViteBuild(): void
     {
-        //
+        $output = Process::run('npx vite build', (function (string $type, string $line): void {
+            $this->output->write($line);
+        }));
+
+        if ($output->failed()) {
+            throw new RuntimeException('Vite failed to build');
+        }
     }
 }
