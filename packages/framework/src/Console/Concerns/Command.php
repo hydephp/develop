@@ -72,6 +72,8 @@ abstract class Command extends BaseCommand
 
     /**
      * Create a filepath that can be opened in the browser from a terminal.
+     *
+     * @todo Add support for custom label?
      */
     public static function fileLink(string $filepath): string
     {
