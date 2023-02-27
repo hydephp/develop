@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
@@ -110,6 +111,26 @@ class FilesystemTest extends UnitTestCase
     public function test_path_method_resolves_already_absolute_paths_using_helper_with_trailing_slash()
     {
         $this->assertEquals($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo/')));
+    }
+
+    public function test_hyde_path_method_exists()
+    {
+        $this->assertTrue(method_exists(HydeKernel::class, 'path'));
+    }
+
+    public function test_hyde_path_string_is_returned()
+    {
+        $this->assertIsString(Hyde::path());
+    }
+
+    public function test_hyde_path_returned_directory_contains_content_expected_to_be_in_the_project_directory()
+    {
+        $this->assertTrue(
+            file_exists(Hyde::path('hyde')) &&
+            file_exists(Hyde::path('_pages')) &&
+            file_exists(Hyde::path('_posts')) &&
+            file_exists(Hyde::path('_site'))
+        );
     }
 
     public function test_vendor_path_method_exists()
