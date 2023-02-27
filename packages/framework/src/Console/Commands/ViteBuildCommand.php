@@ -16,6 +16,12 @@ class ViteBuildCommand extends Command
 
     public function handle(): int
     {
+        $this->title('Building Vite Assets');
+
+        //
+
+        $this->info('Vite assets built');
+
         return Command::SUCCESS;
     }
 }
