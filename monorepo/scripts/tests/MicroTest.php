@@ -10,9 +10,12 @@ class MicroTest
 
     protected array $tests = [];
     protected array $failedTests = [];
+    protected float $time;
 
     protected function __construct()
     {
+        $this->time = microtime(true);
+
         echo 'Running tests...'.PHP_EOL;
     }
 
@@ -20,6 +23,8 @@ class MicroTest
     public function __destruct()
     {
         $exitCode = $this->run();
+
+        echo 'Tests finished in '.number_format((microtime(true) - $this->time) * 1000, 2).' ms'.PHP_EOL;
 
         exit($exitCode);
     }
