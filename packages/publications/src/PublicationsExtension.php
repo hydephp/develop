@@ -26,9 +26,7 @@ class PublicationsExtension extends HydeExtension
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     public static function getTypes(): Collection
     {
-        if (! isset(static::$types)) {
-            static::$types = static::findPublicationTypes();
-        }
+        self::constructTypesIfNotConstructed();
 
         return static::$types;
     }
@@ -128,5 +126,13 @@ class PublicationsExtension extends HydeExtension
     protected static function getPublicationFiles(string $directory): array
     {
         return glob(Hyde::path("$directory/*.md"));
+    }
+
+    /** @experimental This feature may be removed pending actual necessity */
+    private static function constructTypesIfNotConstructed(): void
+    {
+        if (!isset(static::$types)) {
+            static::$types = static::findPublicationTypes();
+        }
     }
 }
