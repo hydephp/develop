@@ -123,45 +123,33 @@ class CommandTest extends UnitTestCase
 
     public function testIndentedLine()
     {
-        $closure = function (Command $command) {
-            $command->indentedLine(2, 'foo');
-        };
+        $closure = fn(Command $command) => $command->indentedLine(2, 'foo');
 
-        $expectations = function ($output) {
-            $output->shouldReceive('writeln')->once()->withArgs(function ($message) {
-                return $this->assertIsSame('  foo', $message);
-            });
-        };
+        $expectations = fn($output) => $output->shouldReceive('writeln')->once()->withArgs(
+            fn($message) => $this->assertIsSame('  foo', $message)
+        );
 
         $this->testOutput($closure, $expectations);
     }
 
     public function testIndentedLineWithMultipleIndentations()
     {
-        $closure = function (Command $command) {
-            $command->indentedLine(8, 'foo');
-        };
+        $closure = fn(Command $command) => $command->indentedLine(8, 'foo');
 
-        $expectations = function ($output) {
-            $output->shouldReceive('writeln')->once()->withArgs(function ($message) {
-                return $this->assertIsSame('        foo', $message);
-            });
-        };
+        $expectations = fn($output) => $output->shouldReceive('writeln')->once()->withArgs(
+            fn($message) => $this->assertIsSame('        foo', $message)
+        );
 
         $this->testOutput($closure, $expectations);
     }
 
     public function testIndentedLineWithNoIndentation()
     {
-        $closure = function (Command $command) {
-            $command->indentedLine(0, 'foo');
-        };
+        $closure = fn(Command $command) => $command->indentedLine(0, 'foo');
 
-        $expectations = function ($output) {
-            $output->shouldReceive('writeln')->once()->withArgs(function ($message) {
-                return $this->assertIsSame('foo', $message);
-            });
-        };
+        $expectations = fn($output) => $output->shouldReceive('writeln')->once()->withArgs(
+            fn($message) => $this->assertIsSame('foo', $message)
+        );
 
         $this->testOutput($closure, $expectations);
     }
