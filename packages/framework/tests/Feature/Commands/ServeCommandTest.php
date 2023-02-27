@@ -82,11 +82,11 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.port' => null]);
 
-        $this->artisan('serve')
+        $this->artisan('serve --port=8081')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
-        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
+        Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
     public function test_hyde_serve_command_with_invalid_config_value()
