@@ -17,10 +17,10 @@ class MicroTest
     }
 
     #[NoReturn]
- public function __destruct()
- {
-     $this->run();
- }
+    public function __destruct()
+    {
+        $this->run();
+    }
 
     public static function getInstance(): self
     {
