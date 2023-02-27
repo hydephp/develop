@@ -111,22 +111,22 @@ class CommandTest extends UnitTestCase
 
     public function testGray()
     {
-        $this->testOutputReceivesLine(fn ($command) => $command->gray('foo'), '<fg=gray>foo</>');
+        $this->testOutputReceivesLine(fn (Command $command) => $command->gray('foo'), '<fg=gray>foo</>');
     }
 
     public function testIndentedLine()
     {
-        $this->testOutputReceivesLine(fn ($command) => $command->indentedLine(2, 'foo'), '  foo');
+        $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(2, 'foo'), '  foo');
     }
 
     public function testIndentedLineWithMultipleIndentations()
     {
-        $this->testOutputReceivesLine(fn ($command) => $command->indentedLine(8, 'foo'), '        foo');
+        $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(8, 'foo'), '        foo');
     }
 
     public function testIndentedLineWithNoIndentation()
     {
-        $this->testOutputReceivesLine(fn ($command) => $command->indentedLine(0, 'foo'), 'foo');
+        $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(0, 'foo'), 'foo');
     }
 
     public function testHandleCallsBaseSafeHandle()
