@@ -8,5 +8,6 @@ use Hyde\Console\Concerns\Command;
 
 class ViteBuildCommand extends Command
 {
-    //
+    /** @var string */
+    protected $signature = 'vite';
 }
