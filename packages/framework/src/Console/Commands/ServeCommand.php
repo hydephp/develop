@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function app;
-use function config;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
-use function passthru;
 use function sprintf;
 
 /**
@@ -19,7 +18,7 @@ use function sprintf;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host=localhost} {--port= : <comment> [default: 8080] </comment>}';
+    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
@@ -28,9 +27,9 @@ class ServeCommand extends Command
     {
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
-        $this->runServerCommand(sprintf('php -S %s:%d %s',
-            $this->option('host'),
-            $this->getPortSelection() ?: 8080,
+        $this->runServerProcess(sprintf('php -S %s:%d %s',
+            $this->getHostSelection(),
+            $this->getPortSelection(),
             $this->getExecutablePath()
         ));
 
@@ -39,7 +38,12 @@ class ServeCommand extends Command
 
     protected function getPortSelection(): int
     {
-        return (int) ($this->option('port') ?: config('hyde.server.port', 8080));
+        return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
+    }
+
+    protected function getHostSelection(): string
+    {
+        return (string) $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
     }
 
     protected function getExecutablePath(): string
@@ -47,13 +51,11 @@ class ServeCommand extends Command
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
     }
 
-    /** @codeCoverageIgnore */
-    protected function runServerCommand(string $command): void
+    /** @codeCoverageIgnore Until output is testable */
+    protected function runServerProcess(string $command): void
     {
-        if (app()->environment('testing')) {
-            $this->line($command);
-        } else {
-            passthru($command);
-        }
+        Process::run($command, function (string $type, string $line): void {
+            $this->output->write($line);
+        });
     }
 }

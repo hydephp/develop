@@ -57,18 +57,17 @@ class RouteListCommand extends Command
                     protected function styleSourcePath(string $path): string
                     {
                         return parent::styleSourcePath($path) !== 'none'
-                            ? $this->href(Command::createClickableFilepath(Hyde::path($path)), $path)
+                            ? $this->href(Command::fileLink(Hyde::path($path)), $path)
                             : '<fg=gray>none</>';
                     }
 
                     protected function styleOutputPath(string $path): string
                     {
                         return file_exists(Hyde::sitePath($path))
-                            ? $this->href(Command::createClickableFilepath(Hyde::sitePath($path)), parent::styleOutputPath($path))
+                            ? $this->href(Command::fileLink(Hyde::sitePath($path)), parent::styleOutputPath($path))
                             : parent::styleOutputPath($path);
                     }
 
-                    /** @todo Move to base Command class */
                     protected function href(string $link, string $label): string
                     {
                         return "<href=$link>$label</>";

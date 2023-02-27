@@ -28,8 +28,8 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="index.html" class="hover:underline">Home</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="foo.html" aria-current="page">Foo</a>
                     </li>
@@ -54,12 +54,12 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="../index.html" class="hover:underline">Home</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="../foo/index.html" class="hover:underline">Foo</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="../foo/bar.html" aria-current="page">Bar</a>
                     </li>
@@ -77,16 +77,16 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="../../index.html" class="hover:underline">Home</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="../../foo/index.html" class="hover:underline">Foo</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="../../foo/bar/index.html" class="hover:underline">Bar</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="../../foo/bar/baz.html" aria-current="page">Baz</a>
                     </li>
@@ -104,8 +104,8 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="../index.html" class="hover:underline">Home</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href="../foo/index.html" aria-current="page">Foo</a>
                     </li>
@@ -125,8 +125,8 @@ class BreadcrumbsComponentViewTest extends TestCase
                 <ol class="flex">
                     <li>
                         <a href="index.html" class="hover:underline">Home</a>
+                        <span class="px-1" aria-hidden="true">&gt;</span>
                     </li>
-                    <span class="px-1" aria-hidden="true">&gt;</span>
                     <li>
                         <a href=".html" aria-current="page"></a>
                     </li>

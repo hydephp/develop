@@ -72,7 +72,7 @@ class RebuildStaticPageCommand extends Command
 
             public function then(): void
             {
-                $this->createdSiteFile(Command::createClickableFilepath(
+                $this->createdSiteFile(Command::fileLink(
                     Pages::getPage($this->path)->getOutputPath()
                 ))->withExecutionTime();
             }
