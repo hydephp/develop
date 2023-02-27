@@ -33,4 +33,9 @@ class ViteBuildCommand extends Command
 
         return Command::SUCCESS;
     }
+
+    protected function runViteBuild(): void
+    {
+        //
+    }
 }
