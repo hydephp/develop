@@ -36,10 +36,7 @@ class PublicationService
      */
     public static function getPublicationsForType(PublicationType $publicationType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
-        /** @var Collection<PublicationPage> $publications */
-        $publications = Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
-            return static::parsePublicationFile(Hyde::pathToRelative($file));
-        });
+        //
 
         $sortAscending = $sortAscending !== null ? $sortAscending : $publicationType->sortAscending;
         $sortField = $sortField !== null ? $sortField : $publicationType->sortField;

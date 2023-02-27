@@ -103,7 +103,9 @@ class PublicationsExtension extends HydeExtension
 
     protected static function findPublicationsForType(PublicationType $publicationType): Collection
     {
-        //
+        return Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
+            return PublicationService::parsePublicationFile(Hyde::pathToRelative($file));
+        });
     }
 
     protected static function getSchemaFiles(): array
