@@ -41,6 +41,11 @@ class ServeCommand extends Command
         return (int) ($this->option('port') ?: config('hyde.server.port', 8080));
     }
 
+    protected function getHostSelection(): string
+    {
+        return $this->option('host') ?: config('hyde.server.host', 'localhost');
+    }
+
     protected function getExecutablePath(): string
     {
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
