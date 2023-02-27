@@ -50,6 +50,13 @@ class PublicationServiceTest extends TestCase
         ]), PublicationService::getPublicationTypes());
     }
 
+    public function testGetPublicationTypesMethodReturnsTheSameInstances()
+    {
+        $this->createPublicationType();
+
+        $this->assertSame(PublicationService::getPublicationTypes(), PublicationService::getPublicationTypes());
+    }
+
     public function testGetPublicationsForPubType()
     {
         $this->createPublicationType();
