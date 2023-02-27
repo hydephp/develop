@@ -26,11 +26,7 @@ class PublicationService
      */
     public static function getPublicationTypes(): Collection
     {
-        return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
-            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
-
-            return [$publicationType->getDirectory() => $publicationType];
-        });
+        //
     }
 
     /**
