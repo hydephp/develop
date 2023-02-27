@@ -53,7 +53,7 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::run($command, function ($type, $line) {
+        Process::run($command, function (string $type, string $line): void {
             $this->output->write($line);
         });
     }
