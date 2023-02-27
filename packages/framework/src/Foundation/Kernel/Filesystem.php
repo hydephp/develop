@@ -61,7 +61,7 @@ class Filesystem
             return $this->getBasePath();
         }
 
-        $path = unslash($path);
+        $path = unslash($this->pathToRelative($path));
 
         return path_join($this->getBasePath(), $path);
     }

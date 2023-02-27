@@ -91,6 +91,22 @@ class FilesystemTest extends TestCase
         $this->assertEquals('/foo/bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
     }
 
+    public function test_path_method_resolves_already_absolute_paths()
+    {
+        Hyde::getInstance()->setBasePath('/foo');
+        $this->assertEquals('/foo/bar', $this->filesystem->path('/foo/bar'));
+    }
+
+    public function test_path_method_resolves_already_absolute_paths_using_helper()
+    {
+        $this->assertEquals($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo')));
+    }
+
+    public function test_path_method_resolves_already_absolute_paths_using_helper_with_trailing_slash()
+    {
+        $this->assertEquals($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo/')));
+    }
+
     public function test_vendor_path_method_exists()
     {
         $this->assertTrue(method_exists(Filesystem::class, 'vendorPath'));
