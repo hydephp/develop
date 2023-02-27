@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Hyde\Console\Commands;
+
+use Hyde\Console\Concerns\Command;
+
+class ViteBuildCommand extends Command
+{
+    //
+}
