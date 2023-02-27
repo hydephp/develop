@@ -10,4 +10,7 @@ class ViteBuildCommand extends Command
 {
     /** @var string */
     protected $signature = 'vite';
+
+    /** @var string */
+    protected $description = 'Build the Vite assets';
 }
