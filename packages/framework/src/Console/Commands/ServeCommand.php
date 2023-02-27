@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function app;
+use Illuminate\Support\Facades\Process;
 use function config;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
-use function passthru;
 use function sprintf;
 
 /**
@@ -28,7 +27,7 @@ class ServeCommand extends Command
     {
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
-        $this->runServerCommand(sprintf('php -S %s:%d %s',
+        $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->option('host'),
             $this->getPortSelection() ?: 8080,
             $this->getExecutablePath()
@@ -47,13 +46,10 @@ class ServeCommand extends Command
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
     }
 
-    /** @codeCoverageIgnore */
-    protected function runServerCommand(string $command): void
+    protected function runServerProcess(string $command): void
     {
-        if (app()->environment('testing')) {
-            $this->line($command);
-        } else {
-            passthru($command);
-        }
+        Process::run($command, function ($type, $line) {
+            $this->output->write($line);
+        });
     }
 }
