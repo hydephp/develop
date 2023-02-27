@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Illuminate\Support\Facades\Process;
-use function config;
+use Hyde\Facades\Config;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
 use function sprintf;
@@ -38,12 +38,12 @@ class ServeCommand extends Command
 
     protected function getPortSelection(): int
     {
-        return (int) ($this->option('port') ?: config('hyde.server.port', 8080));
+        return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
     }
 
     protected function getHostSelection(): string
     {
-        return $this->option('host') ?: config('hyde.server.host', 'localhost');
+        return $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
     }
 
     protected function getExecutablePath(): string
