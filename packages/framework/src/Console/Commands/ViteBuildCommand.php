@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Illuminate\Support\Facades\Process;
 
 class ViteBuildCommand extends Command
 {
@@ -18,7 +19,9 @@ class ViteBuildCommand extends Command
     {
         $this->title('Building Vite Assets');
 
-        //
+        $output = Process::run('npx vite build', (function ($type, $line) {
+            $this->output->write($line);
+        }));
 
         $this->info('Vite assets built');
 
