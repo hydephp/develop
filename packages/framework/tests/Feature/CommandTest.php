@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Mockery;
 use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
@@ -15,24 +15,79 @@ use Symfony\Component\Console\Style\OutputStyle;
 /**
  * @covers \Hyde\Console\Concerns\Command
  */
-class CommandTest extends TestCase
+class CommandTest extends UnitTestCase
 {
-    public function test_create_clickable_filepath_creates_link_for_existing_file()
+    public static function setUpBeforeClass(): void
     {
-        $this->file('foo.txt');
+        self::needsKernel();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        if ($container = Mockery::getContainer()) {
+            $container->mockery_close();
+        }
+    }
+
+    public function testUserExitConstant()
+    {
+        $this->assertSame(130, Command::USER_EXIT);
+    }
+
+    public function testFileLinkHelperCreatesLinkForExistingFile()
+    {
+        touch(Hyde::path('foo.txt'));
 
         $this->assertSame(
             sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
-            Command::createClickableFilepath('foo.txt')
+            Command::fileLink('foo.txt')
+        );
+
+        unlink(Hyde::path('foo.txt'));
+    }
+
+    public function testFileLinkHelperCreatesLinkForNonExistingFile()
+    {
+        $this->assertSame(
+            sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink('foo.txt')
         );
     }
 
-    public function test_create_clickable_filepath_creates_link_for_non_existing_file()
+    public function testFileLinkHelperWithCustomLabel()
+    {
+        $this->assertSame(
+            sprintf('<href=file://%s/foo.txt>bar</>', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink('foo.txt', 'bar')
+        );
+    }
+
+    public function testFileLinkHelperWithAbsolutePathInput()
     {
         $this->assertSame(
             sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
-            Command::createClickableFilepath('foo.txt')
+            Command::fileLink(Hyde::path('foo.txt'))
         );
+    }
+
+    public function testFileLinkHelperWithAbsolutePathInputAndCustomLabel()
+    {
+        $this->assertSame(
+            sprintf('<href=file://%s/foo.txt>bar</>', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink(Hyde::path('foo.txt'), 'bar')
+        );
+    }
+
+    public function testFileLinkHelperWithAbsolutePathAndRealFile()
+    {
+        touch(Hyde::path('foo.txt'));
+
+        $this->assertSame(
+            sprintf('file://%s/foo.txt', str_replace('\\', '/', Hyde::path())),
+            Command::fileLink(Hyde::path('foo.txt'))
+        );
+
+        unlink(Hyde::path('foo.txt'));
     }
 
     public function testInfoComment()
@@ -42,9 +97,9 @@ class CommandTest extends TestCase
             $command->infoComment('foo [bar]');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo </info>[<comment>bar</comment>]<info></info>';
+            return $this->assertIsSame('<info>foo </info>[<comment>bar</comment>]<info></info>', $message);
         });
 
         $command->setMockedOutput($output);
@@ -58,9 +113,9 @@ class CommandTest extends TestCase
             $command->infoComment('foo [bar] baz');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz</info>';
+            return $this->assertIsSame('<info>foo </info>[<comment>bar</comment>]<info> baz</info>', $message);
         });
 
         $command->setMockedOutput($output);
@@ -74,55 +129,47 @@ class CommandTest extends TestCase
             $command->infoComment('foo [bar] baz [qux]');
         };
 
-        $output = $this->mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<info>foo </info>[<comment>bar</comment>]<info> baz </info>[<comment>qux</comment>]<info></info>';
+            return $this->assertIsSame('<info>foo </info>[<comment>bar</comment>]<info> baz </info>[<comment>qux</comment>]<info></info>', $message);
         });
 
         $command->setMockedOutput($output);
         $command->handle();
     }
 
-    public function testGray()
+    public function testHref()
     {
-        $command = new MockableTestCommand();
-        $command->closure = function (Command $command) {
-            $command->gray('foo');
-        };
-
-        $output = $this->mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '<fg=gray>foo</>';
+        $this->testOutput(function ($command) {
+            $this->assertSame('<href=link>label</>', $command->href('link', 'label'));
         });
-
-        $command->setMockedOutput($output);
-        $command->handle();
     }
 
     public function testInlineGray()
     {
-        $command = new MockableTestCommand();
-        $command->closure = function (Command $command) {
+        $this->testOutput(function ($command) {
             $this->assertSame('<fg=gray>foo</>', $command->inlineGray('foo'));
-        };
+        });
+    }
 
-        $command->handle();
+    public function testGray()
+    {
+        $this->testOutputReceivesLine(fn (Command $command) => $command->gray('foo'), '<fg=gray>foo</>');
     }
 
     public function testIndentedLine()
     {
-        $command = new MockableTestCommand();
-        $command->closure = function (Command $command) {
-            $command->indentedLine(2, 'foo');
-        };
+        $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(2, 'foo'), '  foo');
+    }
 
-        $output = $this->mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $message === '  foo';
-        });
+    public function testIndentedLineWithMultipleIndentations()
+    {
+        $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(8, 'foo'), '        foo');
+    }
 
-        $command->setMockedOutput($output);
-        $command->handle();
+    public function testIndentedLineWithNoIndentation()
+    {
+        $this->testOutputReceivesLine(fn (Command $command) => $command->indentedLine(0, 'foo'), 'foo');
     }
 
     public function testHandleCallsBaseSafeHandle()
@@ -137,10 +184,14 @@ class CommandTest extends TestCase
 
     public function testSafeHandleException()
     {
+        self::mockConfig();
         $command = new SafeThrowingTestCommand();
         $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
+            $condition = str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
+            $this->assertTrue($condition);
+
+            return $condition;
         });
         $command->setOutput($output);
 
@@ -151,18 +202,54 @@ class CommandTest extends TestCase
 
     public function testCanEnableThrowOnException()
     {
-        $this->throwOnConsoleException();
-        $command = new SafeThrowingTestCommand();
-
-        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
-
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('This is a test');
 
+        self::mockConfig(['app.throw_on_console_exception' => true]);
+        $command = new SafeThrowingTestCommand();
+        $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
+        $output->shouldReceive('writeln')->once();
         $command->setOutput($output);
         $code = $command->handle();
 
         $this->assertSame(1, $code);
+    }
+
+    protected function assertIsSame(string $expected, string $actual): bool
+    {
+        $this->assertSame($expected, $actual);
+
+        return $actual === $expected;
+    }
+
+    protected function testOutput(Closure $closure, Closure $expectations = null): void
+    {
+        $command = new MockableTestCommand();
+        $command->closure = $closure;
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        if ($expectations) {
+            tap($output, $expectations);
+        }
+
+        $command->setMockedOutput($output);
+        $command->handle();
+    }
+
+    protected function testOutputReceivesLine(Closure $closure, string $expected): void
+    {
+        $command = new MockableTestCommand();
+        $command->closure = $closure;
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        tap($output, fn ($output) => $output->shouldReceive('writeln')->once()->withArgs(
+            fn ($message) => $this->assertIsSame($expected, $message))
+        );
+
+        $command->setMockedOutput($output);
+        $command->handle();
     }
 }
 

@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
-use function config;
 use Exception;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
+use function array_keys;
+use function array_values;
+use function realpath;
 use function sprintf;
+use function str_repeat;
+use function str_replace;
 
 /**
+ * A base class for HydeCLI command that adds some extra functionality and output
+ * helpers to reduce repeated code and to provide a consistent user interface.
+ *
  * @see \Hyde\Framework\Testing\Feature\CommandTest
  */
 abstract class Command extends BaseCommand
 {
-    public const USER_EXIT = 130;
+    public final const USER_EXIT = 130;
 
     /**
      * The base handle method that can be overridden by child classes.
@@ -54,7 +62,7 @@ abstract class Command extends BaseCommand
     public function handleException(Exception $exception): int
     {
         // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
-        if (config('app.throw_on_console_exception', false)) {
+        if (Config::getBool('app.throw_on_console_exception', false)) {
             throw $exception;
         }
 
@@ -69,10 +77,16 @@ abstract class Command extends BaseCommand
 
     /**
      * Create a filepath that can be opened in the browser from a terminal.
+     *
+     * @param  string|null  $label  If provided, the link will be wrapped in a Symfony Console `href` tag.
+     *                              Note that not all terminals support this, and it may lead to only
+     *                              the label being shown, and the path being lost to the void.
      */
-    public static function createClickableFilepath(string $filepath): string
+    public static function fileLink(string $filepath, string $label = null): string
     {
-        return 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path($filepath));
+        $link = 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path(Hyde::pathToRelative($filepath)));
+
+        return $label ? "<href=$link>$label</>" : $link;
     }
 
     /**
@@ -92,18 +106,27 @@ abstract class Command extends BaseCommand
         $this->line("<info>$string</info>");
     }
 
+    /** Write a grey-coloured line */
     public function gray(string $string): void
     {
         $this->line($this->inlineGray($string));
     }
 
+    /** @internal This method may be confused with the ->gray method and may be removed */
     public function inlineGray(string $string): string
     {
         return "<fg=gray>$string</>";
     }
 
-    public function indentedLine(int $indent, string $string): void
+    /** @internal This method may be removed and should not be relied upon */
+    public function href(string $link, string $label): string
     {
-        $this->line(str_repeat(' ', $indent).$string);
+        return "<href=$link>$label</>";
+    }
+
+    /** Write a line with the specified indentation level */
+    public function indentedLine(int $spaces, string $string): void
+    {
+        $this->line(str_repeat(' ', $spaces).$string);
     }
 }
