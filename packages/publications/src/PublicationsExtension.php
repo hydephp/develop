@@ -23,6 +23,11 @@ class PublicationsExtension extends HydeExtension
     /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     protected static Collection $types;
 
+    public static function getTypes(): Collection
+    {
+        return static::$types;
+    }
+
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {
