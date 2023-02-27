@@ -92,6 +92,7 @@ class PublicationsExtension extends HydeExtension
         (new GeneratesPublicationTagPages($collection))->__invoke();
     }
 
+    /** @return Collection<string, PublicationPage> */
     protected static function findPublicationTypes()
     {
         return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
@@ -101,6 +102,7 @@ class PublicationsExtension extends HydeExtension
         });
     }
 
+    /** @return Collection<int, PublicationPage> */
     protected static function findPublicationsForType(PublicationType $publicationType): Collection
     {
         return Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
