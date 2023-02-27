@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Process;
+use RuntimeException;
 
 class ViteBuildCommand extends Command
 {
@@ -24,9 +25,7 @@ class ViteBuildCommand extends Command
         }));
 
         if ($output->failed()) {
-            $this->error('Vite failed to build');
-
-            return Command::FAILURE;
+            throw new RuntimeException('Vite failed to build');
         }
 
         $this->newLine();
