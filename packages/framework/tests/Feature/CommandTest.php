@@ -124,18 +124,17 @@ class CommandTest extends UnitTestCase
 
     public function testIndentedLine()
     {
-        $command = new MockableTestCommand();
-        $command->closure = function (Command $command) {
+        $closure = function (Command $command) {
             $command->indentedLine(2, 'foo');
         };
 
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message): bool {
-            return $this->assertIsSame('  foo', $message);
-        });
+        $expectations = function ($output) {
+            $output->shouldReceive('writeln')->once()->withArgs(function ($message) {
+                return $this->assertIsSame('  foo', $message);
+            });
+        };
 
-        $command->setMockedOutput($output);
-        $command->handle();
+        $this->testOutput($closure, $expectations);
     }
 
     public function testHandleCallsBaseSafeHandle()
