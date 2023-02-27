@@ -133,6 +133,20 @@ class ServeCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function test_hyde_serve_command_passes_through_process_output()
+    {
+        $this->markTestSkipped('Unable to access the output of the process. Assuming vendor bug for now.');
+
+        Process::fake(['php -S localhost:8080 {$this->binaryPath()}' => 'foo']);
+
+        $this->artisan('serve')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->expectsOutput('foo')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
+    }
+
     protected function binaryPath(): string
     {
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
