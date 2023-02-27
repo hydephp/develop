@@ -11,7 +11,7 @@ test('example', function () {
 test('can install composer dependencies', function () {
     $this->assert(! file_exists(BASE_PATH.'/vendor/autoload.php'), 'Autoloader already exists');
 
-    $output = shell_exec('cd '.BASE_PATH.' && composer install');
+    $output = shell_exec('cd '.BASE_PATH.' && composer install --no-ansi');
 
     $this->assert(file_exists(BASE_PATH.'/vendor/autoload.php'), 'Autoloader does not exist');
 
