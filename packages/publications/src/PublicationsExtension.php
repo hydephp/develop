@@ -39,7 +39,8 @@ class PublicationsExtension extends HydeExtension
     public static function getPageClasses(): array
     {
         return [
-            //
+            // Since our page classes are not auto-discoverable by Hyde due to the dynamic source directories,
+            // we run our own discovery logic in the callbacks below.
         ];
     }
 
