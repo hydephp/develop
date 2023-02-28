@@ -84,6 +84,7 @@ class PublicationsExtension extends HydeExtension
         $collection = Files::getSourceFiles(PublicationPage::class)->filter(function (SourceFile $file) use ($type): bool {
             return str_starts_with($file->getPath(), $type->getDirectory());
         });
+
         $collection->each(function (SourceFile $file) use ($instance): void {
             $instance->addPage(PublicationPage::parse(Str::before($file->getPath(), PublicationPage::fileExtension())));
         });
