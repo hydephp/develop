@@ -44,7 +44,33 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_get_types_method()
     {
-        $this->assertSame([], PublicationsExtension::getTypes()->toArray());
+        $extension = new PublicationsExtension;
+        $extension->discoverFiles(Hyde::files());
+        $this->assertSame([], $extension->getTypes()->toArray());
+    }
+
+    public function test_get_types_method_with_types()
+    {
+        $this->createPublication();
+
+        $extension = new PublicationsExtension;
+        $extension->discoverFiles(Hyde::files());
+        $this->assertEquals(['publication' => PublicationType::get('publication')], $extension->getTypes()->all());
+    }
+
+    public function test_get_types_method_with_multiple_types()
+    {
+        $this->createPublication();
+
+        $this->directory('publication2');
+        (new PublicationType('publication2'))->save();
+
+        $extension = new PublicationsExtension;
+        $extension->discoverFiles(Hyde::files());
+        $this->assertEquals([
+            'publication' => PublicationType::get('publication'),
+            'publication2' => PublicationType::get('publication2'),
+        ], $extension->getTypes()->all());
     }
 
     public function test_publication_files_are_discovered()
@@ -60,6 +86,20 @@ class PublicationsExtensionTest extends TestCase
         $this->assertEquals(new SourceFile('publication/foo.md', PublicationPage::class),
             $booted->getSourceFiles()->get('publication/foo.md')
         );
+    }
+
+    public function test_publication_files_are_discovered_for_multiple_types()
+    {
+        $this->createPublication();
+
+        $this->directory('publication2');
+        (new PublicationType('publication2'))->save();
+        $this->file('publication2/bar.md', 'bar');
+
+        $booted = FileCollection::init(Hyde::getInstance())->boot();
+
+        $files = $booted->getAllSourceFiles()->keys()->toArray();
+        $this->assertSame(['publication/foo.md', 'publication2/bar.md'], $files);
     }
 
     public function test_publication_media_files_are_discovered()

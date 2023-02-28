@@ -28,14 +28,16 @@ use function str_ends_with;
 class PublicationsExtension extends HydeExtension
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
-    protected static Collection $types;
+    protected Collection $types;
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
-    public static function getTypes(): Collection
+    public function getTypes(): Collection
     {
-        self::constructTypesIfNotConstructed();
+        if (! isset($this->types)) {
+            $this->types = $this->parsePublicationTypes();
+        }
 
-        return static::$types;
+        return $this->types;
     }
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
@@ -49,11 +51,10 @@ class PublicationsExtension extends HydeExtension
 
     public function discoverFiles(FileCollection $collection): void
     {
-        static::$types = new Collection(); // Reset (only called if we are in a test environment)
-        static::$types = static::parsePublicationTypes();
+        $this->types = $this->parsePublicationTypes();
 
-        static::$types->each(function (PublicationType $type) use ($collection): void {
-            Collection::make(static::getPublicationFilesForType($type))->map(function (string $filepath) use ($collection): void {
+        $this->types->each(function (PublicationType $type) use ($collection): void {
+            Collection::make($this->getPublicationFilesForType($type))->map(function (string $filepath) use ($collection): void {
                 $collection->put(Hyde::pathToRelative($filepath), SourceFile::make($filepath, PublicationPage::class));
             });
         });
@@ -61,44 +62,35 @@ class PublicationsExtension extends HydeExtension
 
     public function discoverPages(PageCollection $collection): void
     {
-        static::discoverPublicationPages($collection);
+        $this->discoverPublicationPages($collection);
 
         if (Filesystem::exists('tags.yml')) {
-            static::generatePublicationTagPages($collection);
+            $this->generatePublicationTagPages($collection);
         }
     }
 
-    protected static function discoverPublicationPages(PageCollection $instance): void
+    protected function discoverPublicationPages(PageCollection $instance): void
     {
-        static::$types->each(function (PublicationType $type) use ($instance): void {
-            static::discoverPublicationPagesForType($type, $instance);
-            static::generatePublicationListingPageForType($type, $instance);
-        });
-    }
-
-    protected static function discoverPublicationPagesForType(PublicationType $type, PageCollection $instance): void
-    {
-        // TODO this can be simplified as we probably don't need to add the pages on a per-type basis
-
-        $collection = Files::getSourceFiles(PublicationPage::class)->filter(function (SourceFile $file) use ($type): bool {
-            return str_starts_with($file->getPath(), $type->getDirectory());
-        });
-        $collection->each(function (SourceFile $file) use ($instance): void {
+        Files::getSourceFiles(PublicationPage::class)->each(function (SourceFile $file) use ($instance): void {
             $instance->addPage(PublicationPage::parse(Str::before($file->getPath(), PublicationPage::fileExtension())));
         });
+
+        $this->types->each(function (PublicationType $type) use ($instance): void {
+            $this->generatePublicationListingPageForType($type, $instance);
+        });
     }
 
-    protected static function generatePublicationListingPageForType(PublicationType $type, PageCollection $instance): void
+    protected function generatePublicationListingPageForType(PublicationType $type, PageCollection $instance): void
     {
         $page = new PublicationListPage($type);
         $instance->put($page->getSourcePath(), $page);
 
         if ($type->usesPagination()) {
-            static::generatePublicationPaginatedListingPagesForType($type, $instance);
+            $this->generatePublicationPaginatedListingPagesForType($type, $instance);
         }
     }
 
-    protected static function generatePublicationPaginatedListingPagesForType(PublicationType $type, PageCollection $instance): void
+    protected function generatePublicationPaginatedListingPagesForType(PublicationType $type, PageCollection $instance): void
     {
         $paginator = $type->getPaginator();
 
@@ -116,53 +108,33 @@ class PublicationsExtension extends HydeExtension
         }
     }
 
-    protected static function generatePublicationTagPages(PageCollection $collection): void
+    protected function generatePublicationTagPages(PageCollection $collection): void
     {
         (new GeneratesPublicationTagPages($collection))->__invoke();
     }
 
     /** @return Collection<string, PublicationPage> */
-    protected static function parsePublicationTypes(): Collection
+    protected function parsePublicationTypes(): Collection
     {
-        return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
+        return Collection::make($this->getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
             $type = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
             return [$type->getDirectory() => $type];
         });
     }
 
-    protected static function getSchemaFiles(): array
+    protected function getSchemaFiles(): array
     {
         return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
     }
 
-    protected static function getPublicationFiles(string $directory): array
+    protected function getPublicationFiles(string $directory): array
     {
         return glob(Hyde::path("$directory/*.md"));
     }
 
-    protected static function getPublicationFilesForType(PublicationType $type): array
+    protected function getPublicationFilesForType(PublicationType $type): array
     {
-        return static::getPublicationFiles($type->getDirectory());
-    }
-
-    /** @experimental This feature may be removed pending actual necessity,
-     *               as the array would only be uninitialized when the kernel has not yet booted,
-     *               a point which may actually be too early to actually interact with this domain.
-     *               Nonetheless, it's present for compatability during the ongoing container refactor.
-     *
-     * @codeCoverageIgnore
-     */
-    private static function constructTypesIfNotConstructed(): void
-    {
-        if (! isset(static::$types)) {
-            static::$types = static::parsePublicationTypes();
-        }
-    }
-
-    /** @internal */
-    public static function clearTypes(): void
-    {
-        static::$types = new Collection();
+        return $this->getPublicationFiles($type->getDirectory());
     }
 }
