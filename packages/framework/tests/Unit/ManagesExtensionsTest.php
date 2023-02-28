@@ -24,4 +24,9 @@ class ManagesExtensionsTest extends UnitTestCase
 
         $this->kernel = HydeKernel::getInstance();
     }
+
+    protected function markTestSuccessful(): void
+    {
+        $this->assertTrue(true);
+    }
 }
