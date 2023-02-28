@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Views\Components;
 
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\PublicationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class RelatedPublicationsComponent extends Component
@@ -27,17 +25,17 @@ class RelatedPublicationsComponent extends Component
         return view('hyde::components.relatedPublications');
     }
 
-    protected function makeRelatedPublications(int $max=5): array
+    protected function makeRelatedPublications(int $max = 5): array
     {
         // Get current publicationType
-        $currPage         = Hyde::currentRoute()->getPage();
-        $publicationType  = $currPage->getType();
-        if (!$publicationType) {
+        $currPage = Hyde::currentRoute()->getPage();
+        $publicationType = $currPage->getType();
+        if (! $publicationType) {
             return [];
         }
 
         // Get the tag fields for the current publicationType -> exit if there aren't any
-        $tagFields = $publicationType->getFields()->filter(function($field) {
+        $tagFields = $publicationType->getFields()->filter(function ($field) {
             return $field->tagGroup !== null;
         });
         if ($tagFields->isEmpty()) {
@@ -72,17 +70,17 @@ class RelatedPublicationsComponent extends Component
             // We have shared/matching tags, add this page and it's count to $allRelatedPages
             if ($count) {
                 $allRelatedPages->add(
-                    collect( [
+                    collect([
                         'count'      => $count,
                         'identifier' => $publicationPage->identifier,
                         'page'       => $publicationPage,
-                    ] )
+                    ])
                 );
             }
         }
 
         // We found nothing -> exit
-        if (!count($allRelatedPages)) {
+        if (! count($allRelatedPages)) {
             return [];
         }
 
