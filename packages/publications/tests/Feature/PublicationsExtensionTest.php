@@ -86,6 +86,30 @@ class PublicationsExtensionTest extends TestCase
         );
     }
 
+    public function test_paginated_listing_pages_for_publications_are_generated()
+    {
+        $this->createPublication();
+        (new PublicationType('publication', pageSize: 1))->save();
+        (new PublicationPage('bar', [], '', PublicationType::get('publication')))->save();
+
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
+
+        $this->assertInstanceOf(
+            PublicationListPage::class,
+            $booted->getPage('publication/index')
+        );
+
+        $this->assertInstanceOf(
+            InMemoryPage::class,
+            $booted->getPage('publication/page-1')
+        );
+
+        $this->assertInstanceOf(
+            InMemoryPage::class,
+            $booted->getPage('publication/page-2')
+        );
+    }
+
     public function test_publication_tag_pages_are_generated()
     {
         $this->createPublication();
