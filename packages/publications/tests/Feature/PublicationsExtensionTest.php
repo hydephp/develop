@@ -36,7 +36,14 @@ class PublicationsExtensionTest extends TestCase
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertCount(4, $booted->getPages()); // Default pages + publication index + publication page
+        $pages = $booted->getPages()->keys()->toArray();
+        $this->assertSame([
+            '_pages/404.blade.php',
+            '_pages/index.blade.php',
+            'publication/foo.md',
+            'publication/index',
+        ], $pages);
+
         $this->assertInstanceOf(PublicationPage::class, $booted->getPages()->get('publication/foo.md'));
     }
 
