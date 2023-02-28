@@ -87,8 +87,6 @@ class ExtensionsUnitTest extends UnitTestCase
 
         $this->kernel->registerExtension(HydeTestExtension::class);
         $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
     public function testGetExtensionWithValidExtension()
