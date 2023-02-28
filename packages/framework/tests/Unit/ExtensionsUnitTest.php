@@ -26,7 +26,7 @@ use Hyde\Testing\UnitTestCase;
  * @see \Hyde\Framework\Testing\Feature\HydeKernelTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
-class ManagesExtensionsTest extends UnitTestCase
+class ExtensionsUnitTest extends UnitTestCase
 {
     protected HydeKernel $kernel;
 

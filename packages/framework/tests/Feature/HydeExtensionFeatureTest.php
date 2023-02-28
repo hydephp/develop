@@ -32,7 +32,7 @@ use function func_get_args;
  * @covers \Hyde\Foundation\Kernel\PageCollection
  * @covers \Hyde\Foundation\Kernel\RouteCollection
  *
- * @see \Hyde\Framework\Testing\Unit\ManagesExtensionsTest
+ * @see \Hyde\Framework\Testing\Unit\ExtensionsUnitTest
  */
 class HydeExtensionFeatureTest extends TestCase
 {
