@@ -54,7 +54,7 @@ class PublicationService
             return Str::startsWith($file->getPath(), Hyde::getMediaDirectory().'/'.$publicationType->getDirectory());
         })->map(function (MediaFile $file): string {
             return $file->getPath();
-        });
+        })->values();
     }
 
     /**
