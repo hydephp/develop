@@ -7,6 +7,7 @@ namespace Hyde\Publications;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Facades\Filesystem;
+use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -76,7 +77,7 @@ class PublicationsExtension extends HydeExtension
 
     protected static function discoverPublicationPagesForType(PublicationType $type, PageCollection $instance): void
     {
-        $collection = static::parsePublicationsForType($type);
+        $collection = Files::getSourceFiles(PublicationPage::class);
         $collection->each(function (PublicationPage $publication) use ($instance): void {
             $instance->addPage($publication);
         });
