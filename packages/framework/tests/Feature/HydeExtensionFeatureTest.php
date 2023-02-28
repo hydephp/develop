@@ -266,6 +266,11 @@ class InspectableTestExtension extends HydeExtension
     }
 }
 
+class InstantiableHydeExtension extends HydeExtension
+{
+    //
+}
+
 class HydeExtensionTestPage extends HydePage
 {
     public static string $sourceDirectory = 'foo';
