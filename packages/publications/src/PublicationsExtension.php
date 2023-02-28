@@ -30,15 +30,6 @@ class PublicationsExtension extends HydeExtension
     /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     protected Collection $types;
 
-    /**
-     * @deprecated Temporary helper for refactoring compatibility
-     * @codeCoverageIgnore
-     */
-    public static function getInstance(): self
-    {
-        return Hyde::kernel()->getExtension(self::class);
-    }
-
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     public function getTypes(): Collection
     {
