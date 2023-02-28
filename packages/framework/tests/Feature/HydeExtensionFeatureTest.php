@@ -38,6 +38,8 @@ use function func_get_args;
  * @covers \Hyde\Foundation\Kernel\FileCollection
  * @covers \Hyde\Foundation\Kernel\PageCollection
  * @covers \Hyde\Foundation\Kernel\RouteCollection
+ *
+ * @see \Hyde\Framework\Testing\Unit\ManagesExtensionsTest
  */
 class HydeExtensionFeatureTest extends TestCase
 {
