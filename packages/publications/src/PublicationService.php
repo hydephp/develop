@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use function glob;
 use Hyde\Hyde;
+use Hyde\Foundation\Facades\Files;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Models\PublicationType;
@@ -49,8 +50,8 @@ class PublicationService
      */
     public static function getMediaForType(PublicationType $publicationType): Collection
     {
-        return Collection::make(static::getMediaFiles($publicationType->getDirectory()))->map(function (string $file): string {
-            return Hyde::pathToRelative($file);
+        return Files::getMediaFiles()->filter(function (MediaFile $file) use ($publicationType): bool {
+            return Str::startsWith($file->getPath(), Hyde::getMediaDirectory().'/'.$publicationType->getDirectory());
         });
     }
 
@@ -76,10 +77,5 @@ class PublicationService
     public static function publicationTypeExists(string $publicationTypeName): bool
     {
         return static::getPublicationTypes()->has(Str::slug($publicationTypeName));
-    }
-
-    protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
-    {
-        return glob(Hyde::mediaPath("$directory/*.$extensions"), GLOB_BRACE);
     }
 }
