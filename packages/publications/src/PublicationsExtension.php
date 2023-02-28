@@ -172,6 +172,6 @@ class PublicationsExtension extends HydeExtension
     /** @internal */
     public static function clearTypes(): void
     {
-        static::getInstance()->types = new Collection();
+        //
     }
 }
