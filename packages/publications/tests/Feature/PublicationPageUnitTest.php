@@ -242,6 +242,13 @@ class PublicationPageUnitTest extends TestCase
         $this->assertFileExists(Hyde::path('directory/foo.md'));
     }
 
+    public function testGetType()
+    {
+        $type = $this->pubType();
+        $this->assertInstanceOf(PublicationType::class, (new PublicationPage('foo', [], '', $type))->getType());
+        $this->assertSame($type, (new PublicationPage('foo', [], '', $type))->getType());
+    }
+
     protected function pubType(): PublicationType
     {
         return new PublicationType(
