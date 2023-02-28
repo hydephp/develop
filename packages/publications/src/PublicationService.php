@@ -52,7 +52,7 @@ class PublicationService
     {
         return Files::getMediaFiles()->filter(function (MediaFile $file) use ($publicationType): bool {
             return Str::startsWith($file->getPath(), Hyde::getMediaDirectory().'/'.$publicationType->getDirectory());
-        })->map(fn(MediaFile $file): string => $file->getPath())->values()->toBase();
+        })->keys()->toBase();
     }
 
     /**
