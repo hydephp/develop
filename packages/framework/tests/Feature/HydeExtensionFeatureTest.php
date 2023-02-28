@@ -55,9 +55,11 @@ class HydeExtensionFeatureTest extends TestCase
 
     public function testBaseClassDiscoveryHandlers()
     {
-        HydeExtension::discoverFiles(Hyde::files());
-        HydeExtension::discoverPages(Hyde::pages());
-        HydeExtension::discoverRoutes(Hyde::routes());
+        $extension = new InstantiableHydeExtension();
+
+        $extension->discoverFiles(Hyde::files());
+        $extension->discoverPages(Hyde::pages());
+        $extension->discoverRoutes(Hyde::routes());
 
         $this->markTestSuccessful();
     }
