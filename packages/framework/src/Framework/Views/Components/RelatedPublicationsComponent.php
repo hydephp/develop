@@ -22,7 +22,7 @@ class RelatedPublicationsComponent extends Component
     /** @interitDoc */
     public function render(): Factory|View
     {
-        return view('hyde::components.relatedPublications');
+        return view('hyde::components.related-publications');
     }
 
     protected function makeRelatedPublications(int $max = 5): array
