@@ -72,13 +72,12 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(InspectableTestExtension::class);
 
         $collection = FileCollection::init($this->kernel);
-
-        InspectableTestExtension::spy('files', function ($argument) use ($collection) {
-            $this->assertInstanceOf(FileCollection::class, $argument);
-            $this->assertSame($collection, $argument);
-        });
-
         $collection->boot();
+
+        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
+            $this->assertInstanceOf(FileCollection::class, ...$called['files']);
+            $this->assertSame($collection, ...$called['files']);
+        });
     }
 
     public function testPageHandlerDependencyInjection()
@@ -86,13 +85,12 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(InspectableTestExtension::class);
 
         $collection = PageCollection::init($this->kernel);
-
-        InspectableTestExtension::spy('pages', function ($argument) use ($collection) {
-            $this->assertInstanceOf(PageCollection::class, $argument);
-            $this->assertSame($collection, $argument);
-        });
-
         $collection->boot();
+
+        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
+            $this->assertInstanceOf(PageCollection::class, ...$called['pages']);
+            $this->assertSame($collection, ...$called['pages']);
+        });
     }
 
     public function testRouteHandlerDependencyInjection()
@@ -100,13 +98,12 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(InspectableTestExtension::class);
 
         $collection = RouteCollection::init($this->kernel);
-
-        InspectableTestExtension::spy('routes', function ($argument) use ($collection) {
-            $this->assertInstanceOf(RouteCollection::class, $argument);
-            $this->assertSame($collection, $argument);
-        });
-
         $collection->boot();
+
+        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
+            $this->assertInstanceOf(RouteCollection::class, ...$called['routes']);
+            $this->assertSame($collection, ...$called['routes']);
+        });
     }
 
     public function test_get_registered_page_classes_returns_core_extension_classes()
@@ -197,26 +194,28 @@ class HydeTestExtension extends HydeExtension
 
 class InspectableTestExtension extends HydeExtension
 {
-    private static array $mocks = [];
-
-    public static function spy(string $method, Closure $closure): void
-    {
-        self::$mocks[$method] = $closure;
-    }
+    private static array $callCache = [];
 
     public function discoverFiles(FileCollection $collection): void
     {
-        (self::$mocks['files'] ?? fn () => null)(...func_get_args());
+        self::$callCache['files'] = func_get_args();
     }
 
     public function discoverPages(PageCollection $collection): void
     {
-        (self::$mocks['pages'] ?? fn () => null)(...func_get_args());
+        self::$callCache['pages'] = func_get_args();
     }
 
     public function discoverRoutes(RouteCollection $collection): void
     {
-        (self::$mocks['routes'] ?? fn () => null)(...func_get_args());
+        self::$callCache['routes'] = func_get_args();
+    }
+
+    public static function verifyExpectations(Closure $closure): void
+    {
+        $closure(self::$callCache);
+
+        self::$callCache = [];
     }
 }
 
