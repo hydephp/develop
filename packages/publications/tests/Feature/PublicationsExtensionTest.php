@@ -74,7 +74,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(Route::class, $booted->getRoutes()->get('publication/foo'));
     }
 
-    public function test_listing_pages_for_publications_are_discovered()
+    public function test_listing_pages_for_publications_are_generated()
     {
         $this->createPublication();
 
