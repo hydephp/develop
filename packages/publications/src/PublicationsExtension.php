@@ -82,7 +82,7 @@ class PublicationsExtension extends HydeExtension
         });
         $collection->each(function (SourceFile $file) use ($type, $instance): void {
             $identifier = $type->getDirectory().'/'.basename($file->getPath(), PublicationPage::fileExtension());
-            $instance->addPage($publication);
+            $instance->addPage(PublicationPage::parse($identifier));
         });
     }
 
