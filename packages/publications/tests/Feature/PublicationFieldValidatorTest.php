@@ -139,7 +139,7 @@ class PublicationFieldValidatorTest extends TestCase
         $this->file('_media/foo/baz.png');
         $fieldDefinition = new PublicationFieldDefinition('media', 'myMedia');
         $rules = (new PublicationFieldValidator((new PublicationType('foo')), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['string', 'in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
+        $this->assertSame(['string', 'in:_media/foo/baz.png,_media/foo/bar.jpg'], $rules);
     }
 
     public function testGetRulesForTag()
