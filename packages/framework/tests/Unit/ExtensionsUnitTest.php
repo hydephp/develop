@@ -132,6 +132,9 @@ class ExtensionsUnitTest extends UnitTestCase
 
     public function test_register_extension_method_does_not_register_already_registered_classes()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Extension ['.HydeTestExtension::class.'] is already registered.');
+
         $this->kernel->registerExtension(HydeTestExtension::class);
         $this->kernel->registerExtension(HydeTestExtension::class);
 

@@ -48,6 +48,8 @@ trait ManagesExtensions
 
         if (! in_array($extension, $this->getRegisteredExtensions(), true)) {
             $this->extensions[$extension] = new $extension();
+        } else {
+            throw new InvalidArgumentException("Extension [$extension] is already registered.");
         }
     }
 
