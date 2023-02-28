@@ -37,6 +37,9 @@ abstract class HydeExtension
      * Hyde will then automatically discover source files for the new page class,
      * generate routes, and compile the pages during the build process.
      *
+     * If your page classes require more complex logic to discover their source files,
+     * use the discovery handler methods found below for full process control.
+     *
      * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
      */
     public static function getPageClasses(): array
