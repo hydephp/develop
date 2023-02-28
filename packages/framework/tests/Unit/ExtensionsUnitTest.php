@@ -19,6 +19,7 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Testing\UnitTestCase;
 use InvalidArgumentException;
+use BadMethodCallException;
 use stdClass;
 
 /**
@@ -62,6 +63,16 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(HydeTestExtension::class);
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
+
+    public function testRegisterExtensionAfterKernelIsBooted()
+    {
+        $this->kernel->boot();
+
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot register an extension after the Kernel has been booted.');
+
+        $this->kernel->registerExtension(HydeTestExtension::class);
     }
 
     public function testRegisterExtensionWithInvalidExtensionClass()
