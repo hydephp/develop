@@ -86,7 +86,10 @@ trait ManagesExtensions
         return $this->extensions;
     }
 
-    /** @internal This method is for testing purposes only. */
+    /**
+     * @internal This method is for testing purposes only.
+     * @codeCoverageIgnore
+     */
     public function unRegisterExtension(string $extension): void
     {
         if (($key = array_search($extension, $this->extensions, true)) !== false) {
