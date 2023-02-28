@@ -50,7 +50,7 @@ abstract class HydeExtension
      * at the end of the file discovery process. The collection instance
      * will be injected, so that you can interact with it directly.
      */
-    public static function discoverFiles(FileCollection $collection): void
+    public function discoverFiles(FileCollection $collection): void
     {
         //
     }
@@ -61,7 +61,7 @@ abstract class HydeExtension
      * at the end of the page discovery process. The collection instance
      * will be injected, so that you can interact with it directly.
      */
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverPages(PageCollection $collection): void
     {
         //
     }
@@ -72,7 +72,7 @@ abstract class HydeExtension
      * at the end of the route discovery process. The collection instance
      * will be injected, so that you can interact with it directly.
      */
-    public static function discoverRoutes(RouteCollection $collection): void
+    public function discoverRoutes(RouteCollection $collection): void
     {
         //
     }

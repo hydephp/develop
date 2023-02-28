@@ -57,6 +57,30 @@ class HydeExtensionFeatureTest extends TestCase
         HydeTestExtension::$callCache = [];
     }
 
+    public function testFileHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(InspectableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(FileCollection::class, ...InspectableTestExtension::getCalled('files'));
+    }
+
+    public function testPageHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(InspectableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('pages'));
+    }
+
+    public function testRouteHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(InspectableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
+    }
+
     public function test_register_extension_method_throws_exception_when_kernel_is_already_booted()
     {
         $this->expectException(BadMethodCallException::class);
@@ -128,17 +152,17 @@ class HydeTestExtension extends HydeExtension
         ];
     }
 
-    public static function discoverFiles(FileCollection $collection): void
+    public function discoverFiles(FileCollection $collection): void
     {
         static::$callCache[] = 'files';
     }
 
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverPages(PageCollection $collection): void
     {
         static::$callCache[] = 'pages';
     }
 
-    public static function discoverRoutes(RouteCollection $collection): void
+    public function discoverRoutes(RouteCollection $collection): void
     {
         static::$callCache[] = 'routes';
     }
@@ -175,5 +199,30 @@ class TestPageExtension extends HydeExtension
         return [
             TestPageClass::class,
         ];
+    }
+}
+
+class InspectableTestExtension extends HydeExtension
+{
+    private static array $callCache = [];
+
+    public function discoverFiles(FileCollection $collection): void
+    {
+        self::$callCache['files'] = func_get_args();
+    }
+
+    public function discoverPages(PageCollection $collection): void
+    {
+        self::$callCache['pages'] = func_get_args();
+    }
+
+    public function discoverRoutes(RouteCollection $collection): void
+    {
+        self::$callCache['routes'] = func_get_args();
+    }
+
+    public static function getCalled(string $method): array
+    {
+        return self::$callCache[$method];
     }
 }

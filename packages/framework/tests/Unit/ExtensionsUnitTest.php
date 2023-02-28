@@ -18,6 +18,9 @@ use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Testing\UnitTestCase;
+use InvalidArgumentException;
+use BadMethodCallException;
+use stdClass;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
@@ -46,45 +49,132 @@ class ExtensionsUnitTest extends UnitTestCase
 
     public function testBaseClassDiscoveryHandlers()
     {
-        HydeExtension::discoverFiles(Hyde::files());
-        HydeExtension::discoverPages(Hyde::pages());
-        HydeExtension::discoverRoutes(Hyde::routes());
+        $extension = new InstantiableHydeExtension();
+
+        $extension->discoverFiles(Hyde::files());
+        $extension->discoverPages(Hyde::pages());
+        $extension->discoverRoutes(Hyde::routes());
 
         $this->markTestSuccessful();
     }
 
     public function testCanRegisterNewExtension()
     {
-        HydeKernel::setInstance(new HydeKernel());
-
-        $this->kernel = HydeKernel::getInstance();
         $this->kernel->registerExtension(HydeTestExtension::class);
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
+    public function testRegisterExtensionAfterKernelIsBooted()
+    {
+        $this->kernel->boot();
+
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot register an extension after the Kernel has been booted.');
+
+        $this->kernel->registerExtension(HydeTestExtension::class);
+    }
+
+    public function testRegisterExtensionWithInvalidExtensionClass()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+
+        $this->kernel->registerExtension(stdClass::class);
+    }
+
+    public function testRegisterExtensionWithNonClassString()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+
+        $this->kernel->registerExtension('foo');
+    }
+
+    public function testRegisterExtensionWithAlreadyRegisteredExtension()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Extension ['.HydeTestExtension::class.'] is already registered.');
+
+        $this->kernel->registerExtension(HydeTestExtension::class);
+        $this->kernel->registerExtension(HydeTestExtension::class);
+    }
+
+    public function testRegisterExtensionMethodDoesNotRegisterAlreadyRegisteredClasses()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        try {
+            $this->kernel->registerExtension(HydeTestExtension::class);
+        } catch (InvalidArgumentException) {
+            //
+        }
+
+        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
+
+    public function testGetExtensionWithValidExtension()
+    {
+        $this->assertInstanceOf(HydeCoreExtension::class, $this->kernel->getExtension(HydeCoreExtension::class));
+    }
+
+    public function testGetExtensionWithCustomExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertInstanceOf(HydeTestExtension::class, $this->kernel->getExtension(HydeTestExtension::class));
+    }
+
+    public function testGetExtensionWithInvalidExtension()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Extension [foo] is not registered.');
+
+        $this->kernel->getExtension('foo');
+    }
+
+    public function testHasExtensionWithValidExtension()
+    {
+        $this->assertTrue($this->kernel->hasExtension(HydeCoreExtension::class));
+    }
+
+    public function testHasExtensionWithCustomExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertTrue($this->kernel->hasExtension(HydeTestExtension::class));
+    }
+
+    public function testHasExtensionWithInvalidExtension()
+    {
+        $this->assertFalse($this->kernel->hasExtension('foo'));
+    }
+
     public function testFileHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        $this->kernel->boot();
 
-        $this->assertInstanceOf(FileCollection::class, ...InspectableTestExtension::getCalled('files'));
+        InspectableTestExtension::setTest($this);
+
+        FileCollection::init($this->kernel)->boot();
     }
 
     public function testPageHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        $this->kernel->boot();
 
-        $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('pages'));
+        InspectableTestExtension::setTest($this);
+
+        PageCollection::init($this->kernel)->boot();
     }
 
     public function testRouteHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        $this->kernel->boot();
 
-        $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
+        InspectableTestExtension::setTest($this);
+
+        RouteCollection::init($this->kernel)->boot();
     }
 
     public function test_get_registered_page_classes_returns_core_extension_classes()
@@ -124,70 +214,49 @@ class ExtensionsUnitTest extends UnitTestCase
         ], $this->kernel->getRegisteredPageClasses());
     }
 
-    public function test_register_extension_method_does_not_register_already_registered_classes()
-    {
-        $this->kernel->registerExtension(HydeTestExtension::class);
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
-    }
-
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);
     }
 }
 
+class InstantiableHydeExtension extends HydeExtension
+{
+    //
+}
+
 class HydeTestExtension extends HydeExtension
 {
-    // An easy way to assert the handlers are called.
-    public static array $callCache = [];
-
     public static function getPageClasses(): array
     {
         return [
             HydeExtensionTestPage::class,
         ];
     }
-
-    public static function discoverFiles(FileCollection $collection): void
-    {
-        static::$callCache[] = 'files';
-    }
-
-    public static function discoverPages(PageCollection $collection): void
-    {
-        static::$callCache[] = 'pages';
-    }
-
-    public static function discoverRoutes(RouteCollection $collection): void
-    {
-        static::$callCache[] = 'routes';
-    }
 }
 
 class InspectableTestExtension extends HydeExtension
 {
-    private static array $callCache = [];
+    private static UnitTestCase $test;
 
-    public static function discoverFiles(FileCollection $collection): void
+    public static function setTest(UnitTestCase $test): void
     {
-        self::$callCache['files'] = func_get_args();
+        self::$test = $test;
     }
 
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverFiles($collection): void
     {
-        self::$callCache['pages'] = func_get_args();
+        self::$test->assertInstanceOf(FileCollection::class, $collection);
     }
 
-    public static function discoverRoutes(RouteCollection $collection): void
+    public function discoverPages($collection): void
     {
-        self::$callCache['routes'] = func_get_args();
+        self::$test->assertInstanceOf(PageCollection::class, $collection);
     }
 
-    public static function getCalled(string $method): array
+    public function discoverRoutes($collection): void
     {
-        return self::$callCache[$method];
+        self::$test->assertInstanceOf(RouteCollection::class, $collection);
     }
 }
 
