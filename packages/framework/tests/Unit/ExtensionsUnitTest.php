@@ -80,6 +80,17 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension('foo');
     }
 
+    public function test_register_extension_method_does_not_register_already_registered_classes()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Extension ['.HydeTestExtension::class.'] is already registered.');
+
+        $this->kernel->registerExtension(HydeTestExtension::class);
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
+
     public function testGetExtensionWithValidExtension()
     {
         $this->assertInstanceOf(HydeCoreExtension::class, $this->kernel->getExtension(HydeCoreExtension::class));
@@ -179,17 +190,6 @@ class ExtensionsUnitTest extends UnitTestCase
             DocumentationPage::class,
             HydeExtensionTestPage::class,
         ], $this->kernel->getRegisteredPageClasses());
-    }
-
-    public function test_register_extension_method_does_not_register_already_registered_classes()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Extension ['.HydeTestExtension::class.'] is already registered.');
-
-        $this->kernel->registerExtension(HydeTestExtension::class);
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
     protected function markTestSuccessful(): void
