@@ -29,7 +29,7 @@ jobs:
 
       - name: Ping statistics server with test results
         run: |
-          curl https://raw.githubusercontent.com/hydephp/develop/50b9b3aa307a6495947924469cac2b1ab79a909f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          curl https://raw.githubusercontent.com/hydephp/develop/e2b92de554fb178851e7866482da961788865255/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }}
 
 
@@ -68,5 +68,5 @@ jobs:
 
       - name: Ping statistics server with test results
         run: |
-          curl https://raw.githubusercontent.com/hydephp/develop/50b9b3aa307a6495947924469cac2b1ab79a909f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          curl https://raw.githubusercontent.com/hydephp/develop/e2b92de554fb178851e7866482da961788865255/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo Smoke Tests - Coverage" ${{ secrets.OPENANALYTICS_TOKEN }}
