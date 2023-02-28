@@ -66,6 +66,43 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
+    public function testGetExtensionWithValidExtension()
+    {
+        $this->assertInstanceOf(HydeCoreExtension::class, $this->kernel->getExtension(HydeCoreExtension::class));
+    }
+
+    public function testGetExtensionWithCustomExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertInstanceOf(HydeTestExtension::class, $this->kernel->getExtension(HydeTestExtension::class));
+    }
+
+    public function testGetExtensionWithInvalidExtension()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Extension [foo] is not registered.');
+
+        $this->kernel->getExtension('foo');
+    }
+
+    public function testHasExtensionWithValidExtension()
+    {
+        $this->assertTrue($this->kernel->hasExtension(HydeCoreExtension::class));
+    }
+
+    public function testHasExtensionWithCustomExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertTrue($this->kernel->hasExtension(HydeTestExtension::class));
+    }
+
+    public function testHasExtensionWithInvalidExtension()
+    {
+        $this->assertFalse($this->kernel->hasExtension('foo'));
+    }
+
     public function testFileHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
@@ -139,43 +176,6 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(HydeTestExtension::class);
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
-    }
-
-    public function testGetExtensionWithValidExtension()
-    {
-        $this->assertInstanceOf(HydeCoreExtension::class, $this->kernel->getExtension(HydeCoreExtension::class));
-    }
-
-    public function testGetExtensionWithCustomExtension()
-    {
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertInstanceOf(HydeTestExtension::class, $this->kernel->getExtension(HydeTestExtension::class));
-    }
-
-    public function testGetExtensionWithInvalidExtension()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Extension [foo] is not registered.');
-
-        $this->kernel->getExtension('foo');
-    }
-
-    public function testHasExtensionWithValidExtension()
-    {
-        $this->assertTrue($this->kernel->hasExtension(HydeCoreExtension::class));
-    }
-
-    public function testHasExtensionWithCustomExtension()
-    {
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertTrue($this->kernel->hasExtension(HydeTestExtension::class));
-    }
-
-    public function testHasExtensionWithInvalidExtension()
-    {
-        $this->assertFalse($this->kernel->hasExtension('foo'));
     }
 
     protected function markTestSuccessful(): void
