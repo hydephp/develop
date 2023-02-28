@@ -28,7 +28,7 @@ use function str_ends_with;
 class PublicationsExtension extends HydeExtension
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
-    protected static Collection $types;
+    protected Collection $types;
 
     /**
      * @deprecated Temporary helper for refactoring compatibility
