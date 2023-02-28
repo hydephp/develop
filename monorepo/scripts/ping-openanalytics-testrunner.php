@@ -12,7 +12,14 @@ echo "Pinging statistics server\n";
 $runner = $argv[1] ?? exit(400);
 $token = $argv[2] ?? exit(400);
 
+if (!file_exists('report.xml')){
+    exit(404);
+}
+
 $url = 'https://analytics.hydephp.se/api/test_runs';
+$data = [
+    'runner' => json_encode($runner),
+];
 
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_URL, $url);
@@ -37,10 +44,12 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 //    'branch' => 'string:nullable',
 //    'runner_os' => 'string:nullable',
 
-$data = [
-    'runner' => json_encode($runner),
-    'tests' => substr_count(file_get_contents('testdox.txt') ?: exit(404), '[x]'),
-];
+$junit = str_replace("''", '""', str_replace('"', '', str_replace('""', "''",
+    substr(substr(explode("\n", file_get_contents('report.xml'))[2], 13), 0, -3)))
+);
+foreach (explode(' ', $junit) as $pair) {
+    $data[explode('=', $pair)[0]] = explode('=', $pair)[1];
+}
 
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
