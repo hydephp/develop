@@ -42,6 +42,11 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         parent::__construct(static::normalizeIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
     }
 
+    public function getType(): PublicationType
+    {
+        return $this->type;
+    }
+
     public function compile(): string
     {
         return $this->renderComponent();
@@ -56,7 +61,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     {
         static::validateExistence(static::class, $identifier);
 
-        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
             PublicationPage::sourcePath($identifier)
         );

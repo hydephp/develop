@@ -12,12 +12,11 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use function json_encode;
-use function mkdir;
 
 /**
  * @covers \Hyde\Publications\PublicationService
+ * @covers \Hyde\Publications\PublicationsExtension
  */
 class PublicationServiceTest extends TestCase
 {
@@ -25,14 +24,7 @@ class PublicationServiceTest extends TestCase
     {
         parent::setUp();
 
-        mkdir(Hyde::path('test-publication'));
-    }
-
-    protected function tearDown(): void
-    {
-        File::deleteDirectory(Hyde::path('test-publication'));
-
-        parent::tearDown();
+        $this->directory('test-publication');
     }
 
     public function testGetPublicationTypes()
@@ -43,10 +35,18 @@ class PublicationServiceTest extends TestCase
     public function testGetPublicationTypesWithTypes()
     {
         $this->createPublicationType();
+        Hyde::boot();
 
         $this->assertEquals(new Collection([
             'test-publication' => PublicationType::get('test-publication'),
         ]), PublicationService::getPublicationTypes());
+    }
+
+    public function testGetPublicationTypesMethodReturnsTheSameInstances()
+    {
+        $this->createPublicationType();
+
+        $this->assertSame(PublicationService::getPublicationTypes(), PublicationService::getPublicationTypes());
     }
 
     public function testGetPublicationsForPubType()
@@ -66,7 +66,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/foo.md'),
+                PublicationPage::parse('test-publication/foo'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
@@ -93,9 +93,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationPage::parse('test-publication/one'),
+                PublicationPage::parse('test-publication/two'),
+                PublicationPage::parse('test-publication/three'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
@@ -111,9 +111,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationPage::parse('test-publication/three'),
+                PublicationPage::parse('test-publication/two'),
+                PublicationPage::parse('test-publication/one'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
@@ -129,9 +129,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationPage::parse('test-publication/one'),
+                PublicationPage::parse('test-publication/two'),
+                PublicationPage::parse('test-publication/three'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount')
         );
@@ -147,9 +147,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationPage::parse('test-publication/three'),
+                PublicationPage::parse('test-publication/two'),
+                PublicationPage::parse('test-publication/one'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount', false)
         );
@@ -165,9 +165,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
+                PublicationPage::parse('test-publication/one'),
+                PublicationPage::parse('test-publication/three'),
+                PublicationPage::parse('test-publication/two'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'invalid')
         );
@@ -186,7 +186,7 @@ class PublicationServiceTest extends TestCase
     public function testGetMediaForPubTypeWithMedia()
     {
         $this->createPublicationType();
-        mkdir(Hyde::path('_media/test-publication'));
+        $this->directory('_media/test-publication');
         file_put_contents(Hyde::path('_media/test-publication/image.png'), '');
 
         $this->assertEquals(
@@ -195,15 +195,13 @@ class PublicationServiceTest extends TestCase
             ]),
             PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
-
-        File::deleteDirectory(Hyde::path('_media/test-publication'));
     }
 
     public function testGetMediaForPubTypeWithCustomMediaDirectory()
     {
         Hyde::setMediaDirectory('_assets');
         $this->createPublicationType();
-        mkdir(Hyde::path('_assets/test-publication'), recursive: true);
+        $this->directory('_assets/test-publication');
         file_put_contents(Hyde::path('_assets/test-publication/image.png'), '');
 
         $this->assertEquals(
@@ -212,8 +210,6 @@ class PublicationServiceTest extends TestCase
             ]),
             PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
-
-        File::deleteDirectory(Hyde::path('_assets/test-publication'));
     }
 
     public function testParsePublicationFile()
@@ -221,20 +217,9 @@ class PublicationServiceTest extends TestCase
         $this->createPublicationType();
         $this->createPublication();
 
-        $file = PublicationService::parsePublicationFile('test-publication/foo');
+        $file = PublicationPage::parse('test-publication/foo');
         $this->assertInstanceOf(PublicationPage::class, $file);
         $this->assertEquals('test-publication/foo', $file->getIdentifier());
-    }
-
-    public function testParsePublicationFileWithFileExtension()
-    {
-        $this->createPublicationType();
-        $this->createPublication();
-
-        $this->assertEquals(
-            PublicationService::parsePublicationFile('test-publication/foo'),
-            PublicationService::parsePublicationFile('test-publication/foo.md')
-        );
     }
 
     public function testParsePublicationFileWithNonExistentFile()
@@ -244,12 +229,13 @@ class PublicationServiceTest extends TestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [test-publication/foo.md] not found.');
 
-        PublicationService::parsePublicationFile('test-publication/foo');
+        PublicationPage::parse('test-publication/foo');
     }
 
     public function testPublicationTypeExists()
     {
         $this->createPublicationType();
+        $this->rebootToDiscoverPublicationPages();
 
         $this->assertTrue(PublicationService::publicationTypeExists('test-publication'));
         $this->assertFalse(PublicationService::publicationTypeExists('foo'));

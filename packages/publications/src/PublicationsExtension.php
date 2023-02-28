@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Facades\Filesystem;
-use Hyde\Foundation\Concerns\HydeExtension;
-use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Facades\Filesystem;
+use Hyde\Foundation\Facades\Files;
+use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Publications\Actions\GeneratesPublicationTagPages;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Support\Filesystem\SourceFile;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use function glob;
 use function range;
 use function str_ends_with;
 
@@ -20,54 +27,71 @@ use function str_ends_with;
  */
 class PublicationsExtension extends HydeExtension
 {
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
+    protected Collection $types;
+
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
+    public function getTypes(): Collection
+    {
+        if (! isset($this->types)) {
+            $this->types = $this->parsePublicationTypes();
+        }
+
+        return $this->types;
+    }
+
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {
         return [
-            PublicationPage::class,
-            PublicationListPage::class,
+            // Since our page classes are not auto-discoverable by Hyde due to the dynamic source directories,
+            // we run our own discovery logic in the callbacks below.
         ];
     }
 
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverFiles(FileCollection $collection): void
     {
-        static::discoverPublicationPages($collection);
+        $this->types = $this->parsePublicationTypes();
+
+        $this->types->each(function (PublicationType $type) use ($collection): void {
+            Collection::make($this->getPublicationFilesForType($type))->map(function (string $filepath) use ($collection): void {
+                $collection->put(Hyde::pathToRelative($filepath), SourceFile::make($filepath, PublicationPage::class));
+            });
+        });
+    }
+
+    public function discoverPages(PageCollection $collection): void
+    {
+        $this->discoverPublicationPages($collection);
 
         if (Filesystem::exists('tags.yml')) {
-            static::generatePublicationTagPages($collection);
+            $this->generatePublicationTagPages($collection);
         }
     }
 
-    protected static function discoverPublicationPages(PageCollection $instance): void
+    protected function discoverPublicationPages(PageCollection $instance): void
     {
-        PublicationService::getPublicationTypes()->each(function (PublicationType $type) use ($instance): void {
-            static::discoverPublicationPagesForType($type, $instance);
-            static::generatePublicationListingPageForType($type, $instance);
+        Files::getSourceFiles(PublicationPage::class)->each(function (SourceFile $file) use ($instance): void {
+            $instance->addPage(PublicationPage::parse(Str::before($file->getPath(), PublicationPage::fileExtension())));
+        });
+
+        $this->types->each(function (PublicationType $type) use ($instance): void {
+            $this->generatePublicationListingPageForType($type, $instance);
         });
     }
 
-    protected static function discoverPublicationPagesForType(PublicationType $type, PageCollection $instance): void
-    {
-        PublicationService::getPublicationsForType($type)->each(function (PublicationPage $publication) use (
-            $instance
-        ): void {
-            $instance->addPage($publication);
-        });
-    }
-
-    protected static function generatePublicationListingPageForType(PublicationType $type, PageCollection $instance): void
+    protected function generatePublicationListingPageForType(PublicationType $type, PageCollection $instance): void
     {
         $page = new PublicationListPage($type);
         $instance->put($page->getSourcePath(), $page);
 
         if ($type->usesPagination()) {
-            static::generatePublicationPaginatedListingPagesForType($type, $instance);
+            $this->generatePublicationPaginatedListingPagesForType($type, $instance);
         }
     }
 
-    protected static function generatePublicationPaginatedListingPagesForType(PublicationType $type,
-        PageCollection $instance
-    ): void {
+    protected function generatePublicationPaginatedListingPagesForType(PublicationType $type, PageCollection $instance): void
+    {
         $paginator = $type->getPaginator();
 
         foreach (range(1, $paginator->totalPages()) as $page) {
@@ -84,8 +108,33 @@ class PublicationsExtension extends HydeExtension
         }
     }
 
-    protected static function generatePublicationTagPages(PageCollection $collection): void
+    protected function generatePublicationTagPages(PageCollection $collection): void
     {
         (new GeneratesPublicationTagPages($collection))->__invoke();
+    }
+
+    /** @return Collection<string, PublicationPage> */
+    protected function parsePublicationTypes(): Collection
+    {
+        return Collection::make($this->getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
+            $type = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
+
+            return [$type->getDirectory() => $type];
+        });
+    }
+
+    protected function getSchemaFiles(): array
+    {
+        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
+    }
+
+    protected function getPublicationFiles(string $directory): array
+    {
+        return glob(Hyde::path("$directory/*.md"));
+    }
+
+    protected function getPublicationFilesForType(PublicationType $type): array
+    {
+        return $this->getPublicationFiles($type->getDirectory());
     }
 }

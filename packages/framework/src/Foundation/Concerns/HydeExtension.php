@@ -37,6 +37,9 @@ abstract class HydeExtension
      * Hyde will then automatically discover source files for the new page class,
      * generate routes, and compile the pages during the build process.
      *
+     * If your page classes require more complex logic to discover their source files,
+     * use the discovery handler methods found below for full process control.
+     *
      * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
      */
     public static function getPageClasses(): array
@@ -50,7 +53,7 @@ abstract class HydeExtension
      * at the end of the file discovery process. The collection instance
      * will be injected, so that you can interact with it directly.
      */
-    public static function discoverFiles(FileCollection $collection): void
+    public function discoverFiles(FileCollection $collection): void
     {
         //
     }
@@ -61,7 +64,7 @@ abstract class HydeExtension
      * at the end of the page discovery process. The collection instance
      * will be injected, so that you can interact with it directly.
      */
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverPages(PageCollection $collection): void
     {
         //
     }
@@ -72,7 +75,7 @@ abstract class HydeExtension
      * at the end of the route discovery process. The collection instance
      * will be injected, so that you can interact with it directly.
      */
-    public static function discoverRoutes(RouteCollection $collection): void
+    public function discoverRoutes(RouteCollection $collection): void
     {
         //
     }
