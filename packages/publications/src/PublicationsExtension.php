@@ -131,14 +131,6 @@ class PublicationsExtension extends HydeExtension
         });
     }
 
-    /** @return Collection<int, PublicationPage> */
-    protected static function parsePublicationsForType(PublicationType $publicationType): Collection
-    {
-        return Collection::make(static::getPublicationFilesForType($publicationType))->map(function (string $file): PublicationPage {
-            return PublicationPage::parse(Str::before(Hyde::pathToRelative($file), PublicationPage::fileExtension()));
-        });
-    }
-
     protected static function getSchemaFiles(): array
     {
         return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
