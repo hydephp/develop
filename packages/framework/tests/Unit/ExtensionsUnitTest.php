@@ -159,6 +159,23 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->getExtension('foo');
     }
 
+    public function testHasExtensionWithValidExtension()
+    {
+        $this->assertTrue($this->kernel->hasExtension(HydeCoreExtension::class));
+    }
+
+    public function testHasExtensionWithCustomExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertTrue($this->kernel->hasExtension(HydeTestExtension::class));
+    }
+
+    public function testHasExtensionWithInvalidExtension()
+    {
+        $this->assertFalse($this->kernel->hasExtension('foo'));
+    }
+
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);

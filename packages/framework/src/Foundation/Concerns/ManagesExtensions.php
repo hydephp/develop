@@ -65,7 +65,15 @@ trait ManagesExtensions
         return $this->extensions[$extension];
     }
 
-    // Todo: Add is loaded method?
+    /**
+     * Determine if the specified extension is registered.
+     * 
+     * @param  class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
+     */
+    public function hasExtension(string $extension): bool
+    {
+        return isset($this->extensions[$extension]);
+    }
 
     /** @return array<\Hyde\Foundation\Concerns\HydeExtension> */
     public function getExtensions(): array
