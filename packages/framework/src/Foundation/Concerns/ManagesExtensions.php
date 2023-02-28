@@ -67,7 +67,7 @@ trait ManagesExtensions
 
     /**
      * Determine if the specified extension is registered.
-     * 
+     *
      * @param  class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
      */
     public function hasExtension(string $extension): bool
