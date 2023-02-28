@@ -7,8 +7,8 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Foundation\Concerns\ManagesExtensions
  * @covers \Hyde\Foundation\HydeKernel
+ * @covers \Hyde\Foundation\Concerns\ManagesExtensions
  */
 class ManagesExtensionsTest extends UnitTestCase
 {
