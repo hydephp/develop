@@ -46,7 +46,7 @@ trait ManagesExtensions
         }
 
         if (! in_array($extension, $this->extensions, true)) {
-            $this->extensions[] = $extension;
+            $this->extensions[] = new $extension();
         }
     }
 
