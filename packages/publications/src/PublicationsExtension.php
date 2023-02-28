@@ -98,9 +98,7 @@ class PublicationsExtension extends HydeExtension
         }
     }
 
-    protected static function generatePublicationPaginatedListingPagesForType(PublicationType $type,
-        PageCollection $instance
-    ): void {
+    protected static function generatePublicationPaginatedListingPagesForType(PublicationType $type, PageCollection $instance): void {
         $paginator = $type->getPaginator();
 
         foreach (range(1, $paginator->totalPages()) as $page) {
