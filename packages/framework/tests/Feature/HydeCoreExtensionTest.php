@@ -12,13 +12,19 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\HydeCoreExtension
  */
-class HydeCoreExtensionTest extends TestCase
+class HydeCoreExtensionTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+        self::mockConfig();
+    }
+
     public function testClassExtendsExtensionClass()
     {
         $this->assertInstanceOf(HydeCoreExtension::class, new HydeCoreExtension());
