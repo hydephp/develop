@@ -49,7 +49,7 @@ class PublicationsExtension extends HydeExtension
         // Todo refactor to handle file discovery here
 
         static::$types = new Collection(); // Reset (only called if we are in a test environment)
-        static::$types = static::findPublicationTypes();
+        static::$types = static::parsePublicationTypes();
     }
 
     public static function discoverPages(PageCollection $collection): void
@@ -71,7 +71,7 @@ class PublicationsExtension extends HydeExtension
 
     protected static function discoverPublicationPagesForType(PublicationType $type, PageCollection $instance): void
     {
-        static::findPublicationsForType($type)->each(function (PublicationPage $publication) use (
+        static::parsePublicationsForType($type)->each(function (PublicationPage $publication) use (
             $instance
         ): void {
             $instance->addPage($publication);
@@ -113,7 +113,7 @@ class PublicationsExtension extends HydeExtension
     }
 
     /** @return Collection<string, PublicationPage> */
-    protected static function findPublicationTypes(): Collection
+    protected static function parsePublicationTypes(): Collection
     {
         return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
@@ -123,7 +123,7 @@ class PublicationsExtension extends HydeExtension
     }
 
     /** @return Collection<int, PublicationPage> */
-    protected static function findPublicationsForType(PublicationType $publicationType): Collection
+    protected static function parsePublicationsForType(PublicationType $publicationType): Collection
     {
         return Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
             return PublicationPage::parse(Str::before(Hyde::pathToRelative($file), PublicationPage::fileExtension()));
@@ -148,7 +148,7 @@ class PublicationsExtension extends HydeExtension
     private static function constructTypesIfNotConstructed(): void
     {
         if (! isset(static::$types)) {
-            static::$types = static::findPublicationTypes();
+            static::$types = static::parsePublicationTypes();
         }
     }
 
