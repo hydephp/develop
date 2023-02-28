@@ -33,7 +33,9 @@ class PublicationsExtension extends HydeExtension
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     public function getTypes(): Collection
     {
-        $this->constructTypesIfNotConstructed();
+        if (!isset($this->types)) {
+            $this->types = $this->parsePublicationTypes();
+        }
 
         return $this->types;
     }
@@ -144,19 +146,5 @@ class PublicationsExtension extends HydeExtension
     protected function getPublicationFilesForType(PublicationType $type): array
     {
         return $this->getPublicationFiles($type->getDirectory());
-    }
-
-    /** @experimental This feature may be removed pending actual necessity,
-     *               as the array would only be uninitialized when the kernel has not yet booted,
-     *               a point which may actually be too early to actually interact with this domain.
-     *               Nonetheless, it's present for compatability during the ongoing container refactor.
-     *
-     * @codeCoverageIgnore
-     */
-    private function constructTypesIfNotConstructed(): void
-    {
-        if (! isset($this->types)) {
-            $this->types = $this->parsePublicationTypes();
-        }
     }
 }
