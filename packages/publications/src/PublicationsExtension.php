@@ -14,6 +14,7 @@ use Hyde\Publications\Actions\GeneratesPublicationTagPages;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function range;
@@ -46,10 +47,14 @@ class PublicationsExtension extends HydeExtension
 
     public static function discoverFiles(FileCollection $collection): void
     {
-        // Todo refactor to handle file discovery here
-
         static::$types = new Collection(); // Reset (only called if we are in a test environment)
         static::$types = static::parsePublicationTypes();
+
+        static::$types->each(function (PublicationType $type) use ($collection): void {
+            Collection::make(static::getPublicationFilesForType($type))->map(function (string $filepath) use ($collection): void {
+                $collection->put(Hyde::pathToRelative($filepath), SourceFile::make($filepath, PublicationPage::class));
+            });
+        });
     }
 
     public static function discoverPages(PageCollection $collection): void
