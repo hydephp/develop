@@ -51,7 +51,6 @@ class PublicationsExtension extends HydeExtension
 
     public function discoverFiles(FileCollection $collection): void
     {
-        $this->types = new Collection(); // Reset (only called if we are in a test environment)
         $this->types = $this->parsePublicationTypes();
 
         $this->types->each(function (PublicationType $type) use ($collection): void {
