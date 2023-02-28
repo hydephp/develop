@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Publications\PublicationsExtension;
+use function class_exists;
 use function config;
 use function file_get_contents;
 use Hyde\Facades\Features;
@@ -45,6 +47,10 @@ abstract class TestCase extends BaseTestCase
 
         Features::clearMockedInstances();
 
+        if (class_exists('Hyde\Publications\PublicationsExtension')) {
+            PublicationsExtension::clearTypes();
+        }
+
         parent::tearDown();
     }
 
@@ -65,5 +71,11 @@ abstract class TestCase extends BaseTestCase
     protected function throwOnConsoleException(bool $throw = true): void
     {
         config(['app.throw_on_console_exception' => $throw]);
+    }
+
+    /** @deprecated Temporary method to reboot kernel to rediscover types during refactor. Usages can then be found and refactored to be handled in memory for much faster and cleanertests. */
+    protected function rebootToDiscoverPublicationPages()
+    {
+        Hyde::boot(); // Reboot to rediscover types
     }
 }

@@ -50,7 +50,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     {
         static::validateExistence(static::class, $identifier);
 
-        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
             PublicationPage::sourcePath($identifier)
         );
