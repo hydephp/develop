@@ -10,7 +10,6 @@ use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_unique;
-use function array_values;
 use function in_array;
 use function is_subclass_of;
 
@@ -71,7 +70,7 @@ trait ManagesExtensions
     /** @return array<\Hyde\Foundation\Concerns\HydeExtension> */
     public function getExtensions(): array
     {
-        return array_values($this->extensions);
+        return $this->extensions;
     }
 
     /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
