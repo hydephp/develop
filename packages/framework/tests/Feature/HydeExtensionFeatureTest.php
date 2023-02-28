@@ -145,31 +145,6 @@ class HydeTestExtension extends HydeExtension
     }
 }
 
-class InspectableTestExtension extends HydeExtension
-{
-    private static array $callCache = [];
-
-    public static function discoverFiles(FileCollection $collection): void
-    {
-        self::$callCache['files'] = func_get_args();
-    }
-
-    public static function discoverPages(PageCollection $collection): void
-    {
-        self::$callCache['pages'] = func_get_args();
-    }
-
-    public static function discoverRoutes(RouteCollection $collection): void
-    {
-        self::$callCache['routes'] = func_get_args();
-    }
-
-    public static function getCalled(string $method): array
-    {
-        return self::$callCache[$method];
-    }
-}
-
 class HydeExtensionTestPage extends HydePage
 {
     public static string $sourceDirectory = 'foo';
