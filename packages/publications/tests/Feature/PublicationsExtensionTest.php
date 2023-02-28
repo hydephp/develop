@@ -30,23 +30,6 @@ class PublicationsExtensionTest extends TestCase
         ], PublicationsExtension::getPageClasses());
     }
 
-    public function test_publication_pages_are_discovered()
-    {
-        $this->createPublication();
-
-        $booted = PageCollection::init(Hyde::getInstance())->boot();
-
-        $pages = $booted->getPages()->keys()->toArray();
-        $this->assertSame([
-            '_pages/404.blade.php',
-            '_pages/index.blade.php',
-            'publication/foo.md',
-            'publication/index',
-        ], $pages);
-
-        $this->assertInstanceOf(PublicationPage::class, $booted->getPages()->get('publication/foo.md'));
-    }
-
     public function test_publication_files_are_discovered()
     {
         $this->createPublication();
@@ -70,14 +53,21 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(MediaFile::class, $booted->getMediaFiles()->get('_media/publication/foo.jpg'));
     }
 
-    public function test_publication_routes_are_discovered()
+    public function test_publication_pages_are_discovered()
     {
         $this->createPublication();
 
-        $booted = RouteCollection::init(Hyde::getInstance())->boot();
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertCount(4, $booted->getRoutes()); // Default pages + publication index + publication page
-        $this->assertInstanceOf(Route::class, $booted->getRoutes()->get('publication/foo'));
+        $pages = $booted->getPages()->keys()->toArray();
+        $this->assertSame([
+            '_pages/404.blade.php',
+            '_pages/index.blade.php',
+            'publication/foo.md',
+            'publication/index',
+        ], $pages);
+
+        $this->assertInstanceOf(PublicationPage::class, $booted->getPages()->get('publication/foo.md'));
     }
 
     public function test_listing_pages_for_publications_are_generated()
@@ -128,6 +118,16 @@ class PublicationsExtensionTest extends TestCase
             InMemoryPage::class,
             $booted->getPage('tags/index')
         );
+    }
+
+    public function test_publication_routes_are_discovered()
+    {
+        $this->createPublication();
+
+        $booted = RouteCollection::init(Hyde::getInstance())->boot();
+
+        $this->assertCount(4, $booted->getRoutes()); // Default pages + publication index + publication page
+        $this->assertInstanceOf(Route::class, $booted->getRoutes()->get('publication/foo'));
     }
 
     protected function createPublication(): void
