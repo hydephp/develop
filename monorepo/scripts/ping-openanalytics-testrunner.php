@@ -26,6 +26,17 @@ $headers = [
 ];
 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
+//    Supported fields:
+//    'timestamp' => 'date:nullable',
+//    'runner' => 'string:nullable',
+//    'tests' => 'integer',
+//    'assertions' => 'integer:nullable',
+//    // Since 2023-02-28
+//    'time' => 'integer:nullable',
+//    'commit' => 'string:nullable',
+//    'branch' => 'string:nullable',
+//    'runner_os' => 'string:nullable',
+
 $data = [
     'runner' => json_encode($runner),
     'tests' => substr_count(file_get_contents('testdox.txt') ?: exit(404), '[x]'),
