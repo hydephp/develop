@@ -68,15 +68,15 @@ class HydeKernel implements SerializableContract
     protected bool $booted = false;
 
     /** @var array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
-    protected array $extensions = [
-        HydeCoreExtension::class,
-    ];
+    protected array $extensions = [];
 
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+
+        $this->registerExtension(HydeCoreExtension::class);
     }
 
     public static function version(): string
