@@ -124,9 +124,9 @@ class PublicationsExtension extends HydeExtension
     protected static function parsePublicationTypes(): Collection
     {
         return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
-            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
+            $type = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
-            return [$publicationType->getDirectory() => $publicationType];
+            return [$type->getDirectory() => $type];
         });
     }
 
@@ -140,9 +140,9 @@ class PublicationsExtension extends HydeExtension
         return glob(Hyde::path("$directory/*.md"));
     }
 
-    protected static function getPublicationFilesForType(PublicationType $publicationType): array
+    protected static function getPublicationFilesForType(PublicationType $type): array
     {
-        return static::getPublicationFiles($publicationType->getDirectory());
+        return static::getPublicationFiles($type->getDirectory());
     }
 
     /** @experimental This feature may be removed pending actual necessity,
