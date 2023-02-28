@@ -8,6 +8,7 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\Concerns\ManagesExtensions
+ * @covers \Hyde\Foundation\HydeKernel
  */
 class ManagesExtensionsTest extends UnitTestCase
 {
