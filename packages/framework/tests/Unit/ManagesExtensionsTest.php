@@ -19,7 +19,7 @@ class ManagesExtensionsTest extends UnitTestCase
 
     public function setUp(): void
     {
-        self::needsKernel();
+        self::setupKernel();
         self::mockConfig();
 
         $this->kernel = HydeKernel::getInstance();
