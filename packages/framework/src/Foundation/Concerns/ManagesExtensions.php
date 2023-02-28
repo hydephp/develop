@@ -46,10 +46,10 @@ trait ManagesExtensions
             throw new InvalidArgumentException('The specified class must extend the HydeExtension class.');
         }
 
-        if (! in_array($extension, $this->getRegisteredExtensions(), true)) {
-            $this->extensions[$extension] = new $extension();
-        } else {
+        if (in_array($extension, $this->getRegisteredExtensions(), true)) {
             throw new InvalidArgumentException("Extension [$extension] is already registered.");
+        } else {
+            $this->extensions[$extension] = new $extension();
         }
     }
 
