@@ -5,7 +5,7 @@
  *
  * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }}
  *
- * @uses vendor/bin/pest --stop-on-failure --testdox-text testdox.txt
+ * @uses vendor/bin/pest --stop-on-failure --log-junit report.xml
  */
 echo "Pinging statistics server\n";
 

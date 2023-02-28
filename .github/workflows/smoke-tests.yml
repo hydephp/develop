@@ -25,7 +25,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run smoke tests
-        run: vendor/bin/pest --stop-on-failure --testdox-text testdox.txt
+        run: vendor/bin/pest --stop-on-failure --log-junit report.xml
 
       - name: Ping statistics server with test results
         run: |
@@ -59,7 +59,7 @@ jobs:
         run: echo "ENV=testing" > .env
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
-        run: vendor/bin/pest --coverage --coverage-clover clover.xml --testdox-text testdox.txt
+        run: vendor/bin/pest --coverage --coverage-clover clover.xml --log-junit report.xml
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v3
