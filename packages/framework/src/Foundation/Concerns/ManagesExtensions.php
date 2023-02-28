@@ -58,7 +58,7 @@ trait ManagesExtensions
     public function getExtension(string $extension): HydeExtension
     {
         if (! isset($this->extensions[$extension])) {
-            throw new InvalidArgumentException("The specified extension [{$extension}] is not registered.");
+            throw new InvalidArgumentException("The specified extension [$extension] is not registered.");
         }
 
         return $this->extensions[$extension];
