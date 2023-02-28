@@ -34,14 +34,14 @@ class PublicationService
      */
     public static function getPublicationsForType(PublicationType $publicationType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
-        $publications = Hyde::pages()->getPages(PublicationPage::class)->values()->toBase(); // Convert to base collection for type compatibility during refactor
+        $publications = Hyde::pages()->getPages(PublicationPage::class);
 
         $sortAscending = $sortAscending !== null ? $sortAscending : $publicationType->sortAscending;
         $sortField = $sortField !== null ? $sortField : $publicationType->sortField;
 
         return $publications->sortBy(function (PublicationPage $page) use ($sortField): mixed {
             return $page->matter($sortField);
-        }, descending: ! $sortAscending)->values();
+        }, descending: ! $sortAscending)->values()->toBase();
     }
 
     /**
