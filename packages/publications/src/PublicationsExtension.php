@@ -125,7 +125,7 @@ class PublicationsExtension extends HydeExtension
     /** @return Collection<int, PublicationPage> */
     protected static function parsePublicationsForType(PublicationType $publicationType): Collection
     {
-        return Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
+        return Collection::make(static::getPublicationFilesForType($publicationType))->map(function (string $file): PublicationPage {
             return PublicationPage::parse(Str::before(Hyde::pathToRelative($file), PublicationPage::fileExtension()));
         });
     }
@@ -138,6 +138,11 @@ class PublicationsExtension extends HydeExtension
     protected static function getPublicationFiles(string $directory): array
     {
         return glob(Hyde::path("$directory/*.md"));
+    }
+
+    protected static function getPublicationFilesForType(PublicationType $publicationType): array
+    {
+        return static::getPublicationFiles($publicationType->getDirectory());
     }
 
     /** @experimental This feature may be removed pending actual necessity,
