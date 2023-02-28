@@ -15,13 +15,9 @@ use Hyde\Testing\UnitTestCase;
  */
 class ManagesExtensionsTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::mockConfig();
-    }
-
     public function setUp(): void
     {
         self::needsKernel();
+        self::mockConfig();
     }
 }
