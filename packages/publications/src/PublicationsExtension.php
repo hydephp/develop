@@ -71,8 +71,9 @@ class PublicationsExtension extends HydeExtension
 
     protected function discoverPublicationPages(PageCollection $instance): void
     {
+        $this->legacyDiscoverPublicationPages($instance);
+
         $this->types->each(function (PublicationType $type) use ($instance): void {
-            $this->legacyDiscoverPublicationPages($instance);
             $this->generatePublicationListingPageForType($type, $instance);
         });
     }
