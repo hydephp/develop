@@ -40,11 +40,11 @@ class PublicationsExtension extends HydeExtension
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
-    public static function getTypes(): Collection
+    public function getTypes(): Collection
     {
-        self::constructTypesIfNotConstructed();
+        $this->constructTypesIfNotConstructed();
 
-        return static::getInstance()->types;
+        return $this->types;
     }
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
