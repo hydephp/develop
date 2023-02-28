@@ -45,6 +45,7 @@ class PublicationsExtensionTest extends TestCase
     public function test_get_types_method()
     {
         $extension = new PublicationsExtension;
+        $extension->discoverFiles(Hyde::files());
         $this->assertSame([], $extension->getTypes()->toArray());
     }
 
