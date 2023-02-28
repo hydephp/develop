@@ -491,7 +491,7 @@ jobs:
       - name: Run static analysis (Psalm/Shepherd)
         run: vendor/bin/psalm --shepherd || true
 
-      - name: Ping CI server with coverage results
+      - name: Ping CI server with type coverage results
         run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.sha }} master
 
 
