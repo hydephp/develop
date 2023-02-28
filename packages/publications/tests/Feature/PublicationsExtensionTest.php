@@ -21,8 +21,7 @@ class PublicationsExtensionTest extends TestCase
     public function test_get_page_classes_method()
     {
         $this->assertSame([
-            PublicationPage::class,
-            PublicationListPage::class,
+            //
         ], PublicationsExtension::getPageClasses());
     }
 

@@ -39,8 +39,7 @@ class PublicationsExtension extends HydeExtension
     public static function getPageClasses(): array
     {
         return [
-            PublicationPage::class,
-            PublicationListPage::class,
+            //
         ];
     }
 
