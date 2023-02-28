@@ -44,7 +44,7 @@ class PublicationsServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views' => resource_path('views/vendor/hyde-publications'),
         ], 'hyde-publications-views');
 
-        Blade::component('hyde::related-publications', RelatedPublicationsComponent::class);
+        Blade::component('hyde-publications::related-publications', RelatedPublicationsComponent::class);
     }
 
     /**
