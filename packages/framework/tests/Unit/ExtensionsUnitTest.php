@@ -92,9 +92,11 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testRegisterExtensionMethodDoesNotRegisterAlreadyRegisteredClasses()
     {
         $this->kernel->registerExtension(HydeTestExtension::class);
+
         try {
             $this->kernel->registerExtension(HydeTestExtension::class);
         } catch (InvalidArgumentException) {
+            //
         }
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
