@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Closure;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\HtmlPage;
@@ -69,25 +70,40 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testFileHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        FileCollection::init($this->kernel)->boot();
 
-        $this->assertInstanceOf(FileCollection::class, ...InspectableTestExtension::getCalled('files'));
+        $collection = FileCollection::init($this->kernel);
+        $collection->boot();
+
+        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
+            $this->assertInstanceOf(FileCollection::class, ...$called['files']);
+            $this->assertSame($collection, ...$called['files']);
+        });
     }
 
     public function testPageHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        PageCollection::init($this->kernel)->boot();
 
-        $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('pages'));
+        $collection = PageCollection::init($this->kernel);
+        $collection->boot();
+
+        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
+            $this->assertInstanceOf(PageCollection::class, ...$called['pages']);
+            $this->assertSame($collection, ...$called['pages']);
+        });
     }
 
     public function testRouteHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        RouteCollection::init($this->kernel)->boot();
 
-        $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
+        $collection = RouteCollection::init($this->kernel);
+        $collection->boot();
+
+        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
+            $this->assertInstanceOf(RouteCollection::class, ...$called['routes']);
+            $this->assertSame($collection, ...$called['routes']);
+        });
     }
 
     public function test_get_registered_page_classes_returns_core_extension_classes()
@@ -213,9 +229,11 @@ class InspectableTestExtension extends HydeExtension
         self::$callCache['routes'] = func_get_args();
     }
 
-    public static function getCalled(string $method): array
+    public static function verifyExpectations(Closure $closure): void
     {
-        return self::$callCache[$method];
+        $closure(self::$callCache);
+
+        self::$callCache = [];
     }
 }
 
