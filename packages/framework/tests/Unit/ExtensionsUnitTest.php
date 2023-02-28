@@ -19,6 +19,7 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Testing\UnitTestCase;
 use InvalidArgumentException;
+use stdClass;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
@@ -61,6 +62,22 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(HydeTestExtension::class);
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
+
+    public function testRegisterExtensionWithInvalidExtensionClass()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+
+        $this->kernel->registerExtension(stdClass::class);
+    }
+
+    public function testRegisterExtensionWithNonClassString()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+
+        $this->kernel->registerExtension('foo');
     }
 
     public function testGetExtensionWithValidExtension()
