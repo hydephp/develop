@@ -47,6 +47,9 @@ class PublicationsExtension extends HydeExtension
     public static function discoverFiles(FileCollection $collection): void
     {
         // Todo refactor to handle file discovery here
+
+        static::$types = new Collection(); // Reset if we are in a test environment
+        static::$types = static::findPublicationTypes();
     }
 
     public static function discoverPages(PageCollection $collection): void
@@ -60,8 +63,6 @@ class PublicationsExtension extends HydeExtension
 
     protected static function discoverPublicationPages(PageCollection $instance): void
     {
-        static::$types = new Collection(); // Reset if we are in a test environment
-        static::$types = static::findPublicationTypes();
         static::$types->each(function (PublicationType $type) use ($instance): void {
             static::discoverPublicationPagesForType($type, $instance);
             static::generatePublicationListingPageForType($type, $instance);
