@@ -52,7 +52,6 @@ class PublicationsExtensionTest extends TestCase
         $this->assertCount(1, $booted->getSourceFiles(PublicationPage::class));
     }
 
-
     public function test_publication_media_files_are_discovered()
     {
         $this->directory('_media/publication');
