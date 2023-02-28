@@ -71,18 +71,6 @@ class PublicationService
     }
 
     /**
-     * Parse a publication Markdown source file and return a PublicationPage object.
-     *
-     * @param  string  $identifier  Example: my-publication/hello
-     *
-     * @deprecated Will be merged into called method
-     */
-    public static function parsePublicationFile(string $identifier): PublicationPage
-    {
-        return PublicationPage::parse($identifier);
-    }
-
-    /**
      * Check whether a given publication type exists.
      */
     public static function publicationTypeExists(string $publicationTypeName): bool
