@@ -26,10 +26,12 @@ $headers = [
 ];
 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+$data = [
     'runner' => json_encode($runner),
     'tests' => substr_count(file_get_contents('testdox.txt') ?: exit(404), '[x]'),
-]));
+];
+
+curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
 $resp = curl_exec($curl);
 curl_close($curl);
