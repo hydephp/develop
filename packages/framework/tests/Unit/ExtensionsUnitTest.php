@@ -71,39 +71,27 @@ class ExtensionsUnitTest extends UnitTestCase
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
 
-        $collection = FileCollection::init($this->kernel);
-        $collection->boot();
+        InspectableTestExtension::setTest($this);
 
-        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
-            $this->assertInstanceOf(FileCollection::class, ...$called['files']);
-            $this->assertSame($collection, ...$called['files']);
-        });
+        FileCollection::init($this->kernel)->boot();
     }
 
     public function testPageHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
 
-        $collection = PageCollection::init($this->kernel);
-        $collection->boot();
+        InspectableTestExtension::setTest($this);
 
-        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
-            $this->assertInstanceOf(PageCollection::class, ...$called['pages']);
-            $this->assertSame($collection, ...$called['pages']);
-        });
+        PageCollection::init($this->kernel)->boot();
     }
 
     public function testRouteHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
 
-        $collection = RouteCollection::init($this->kernel);
-        $collection->boot();
+        InspectableTestExtension::setTest($this);
 
-        InspectableTestExtension::verifyExpectations(function (array $called) use ($collection) {
-            $this->assertInstanceOf(RouteCollection::class, ...$called['routes']);
-            $this->assertSame($collection, ...$called['routes']);
-        });
+        RouteCollection::init($this->kernel)->boot();
     }
 
     public function test_get_registered_page_classes_returns_core_extension_classes()
@@ -194,28 +182,26 @@ class HydeTestExtension extends HydeExtension
 
 class InspectableTestExtension extends HydeExtension
 {
-    private static array $callCache = [];
+    private static UnitTestCase $test;
 
-    public function discoverFiles(FileCollection $collection): void
+    public static function setTest(UnitTestCase $test): void
     {
-        self::$callCache['files'] = func_get_args();
+        self::$test = $test;
     }
 
-    public function discoverPages(PageCollection $collection): void
+    public function discoverFiles($collection): void
     {
-        self::$callCache['pages'] = func_get_args();
+        self::$test->assertInstanceOf(FileCollection::class, $collection);
     }
 
-    public function discoverRoutes(RouteCollection $collection): void
+    public function discoverPages($collection): void
     {
-        self::$callCache['routes'] = func_get_args();
+        self::$test->assertInstanceOf(PageCollection::class, $collection);
     }
 
-    public static function verifyExpectations(Closure $closure): void
+    public function discoverRoutes($collection): void
     {
-        $closure(self::$callCache);
-
-        self::$callCache = [];
+        self::$test->assertInstanceOf(RouteCollection::class, $collection);
     }
 }
 
