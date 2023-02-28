@@ -33,7 +33,7 @@ class PublicationsExtension extends HydeExtension
     /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
     public function getTypes(): Collection
     {
-        if (!isset($this->types)) {
+        if (! isset($this->types)) {
             $this->types = $this->parsePublicationTypes();
         }
 
