@@ -75,7 +75,7 @@ final class FileCollection extends BaseFoundationCollection
     {
         /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getExtensions() as $extension) {
-            $extension::discoverFiles($this);
+            $extension->discoverFiles($this);
         }
 
         return $this;
