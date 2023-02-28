@@ -47,7 +47,7 @@ class PublicationsExtension extends HydeExtension
         ];
     }
 
-    public static function discoverFiles(FileCollection $collection): void
+    public function discoverFiles(FileCollection $collection): void
     {
         static::$types = new Collection(); // Reset (only called if we are in a test environment)
         static::$types = static::parsePublicationTypes();
@@ -59,7 +59,7 @@ class PublicationsExtension extends HydeExtension
         });
     }
 
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverPages(PageCollection $collection): void
     {
         static::discoverPublicationPages($collection);
 
