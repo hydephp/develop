@@ -152,7 +152,7 @@ class PublicationsExtensionTest extends TestCase
             'publication/index',
             'tags/index',
             'tags/foo',
-            'tags/bar'
+            'tags/bar',
         ], $routes);
 
         // test tags
@@ -223,7 +223,7 @@ class PublicationsExtensionTest extends TestCase
             'publication/index',
             'tags/index',
             'tags/foo',
-            'tags/bar'
+            'tags/bar',
         ], $routes);
 
         // test tags
