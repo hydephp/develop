@@ -10,7 +10,12 @@
 echo "Pinging statistics server\n";
 
 $runner = $argv[1] ?? exit(400);
-$token = $argv[2] ?? exit(400);
+$token = $argv[2] ?? null;
+if ($token === null) {
+    // Probably running in a fork
+    echo "::warning:: No token provided, skipping ping\n";
+    exit(0);
+}
 
 if (! file_exists('report.xml')) {
     exit(404);
