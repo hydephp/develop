@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
-use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\GeneratesPublicationTagPages;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Illuminate\Support\Collection;
 use function range;
 use function str_ends_with;
 
@@ -20,6 +23,23 @@ use function str_ends_with;
  */
 class PublicationsExtension extends HydeExtension
 {
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
+    protected static Collection $types;
+
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Publications\Models\PublicationType> */
+    public static function getTypes(): Collection
+    {
+        self::constructTypesIfNotConstructed();
+
+        return static::$types;
+    }
+
+    /** @internal */
+    public static function clearTypes(): void
+    {
+        static::$types = new Collection();
+    }
+
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public static function getPageClasses(): array
     {
@@ -27,6 +47,11 @@ class PublicationsExtension extends HydeExtension
             PublicationPage::class,
             PublicationListPage::class,
         ];
+    }
+
+    public static function discoverFiles(FileCollection $collection): void
+    {
+        // Todo refactor to handle file discovery here
     }
 
     public static function discoverPages(PageCollection $collection): void
@@ -40,7 +65,9 @@ class PublicationsExtension extends HydeExtension
 
     protected static function discoverPublicationPages(PageCollection $instance): void
     {
-        PublicationService::getPublicationTypes()->each(function (PublicationType $type) use ($instance): void {
+        static::$types = new Collection(); // Reset if we are in a test environment
+        static::$types = static::findPublicationTypes();
+        static::$types->each(function (PublicationType $type) use ($instance): void {
             static::discoverPublicationPagesForType($type, $instance);
             static::generatePublicationListingPageForType($type, $instance);
         });
@@ -48,7 +75,7 @@ class PublicationsExtension extends HydeExtension
 
     protected static function discoverPublicationPagesForType(PublicationType $type, PageCollection $instance): void
     {
-        PublicationService::getPublicationsForType($type)->each(function (PublicationPage $publication) use (
+        static::findPublicationsForType($type)->each(function (PublicationPage $publication) use (
             $instance
         ): void {
             $instance->addPage($publication);
@@ -87,5 +114,45 @@ class PublicationsExtension extends HydeExtension
     protected static function generatePublicationTagPages(PageCollection $collection): void
     {
         (new GeneratesPublicationTagPages($collection))->__invoke();
+    }
+
+    /** @return Collection<string, PublicationPage> */
+    protected static function findPublicationTypes(): Collection
+    {
+        return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
+            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
+
+            return [$publicationType->getDirectory() => $publicationType];
+        });
+    }
+
+    /** @return Collection<int, PublicationPage> */
+    protected static function findPublicationsForType(PublicationType $publicationType): Collection
+    {
+        return Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
+            return PublicationService::parsePublicationFile(Hyde::pathToRelative($file));
+        });
+    }
+
+    protected static function getSchemaFiles(): array
+    {
+        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
+    }
+
+    protected static function getPublicationFiles(string $directory): array
+    {
+        return glob(Hyde::path("$directory/*.md"));
+    }
+
+    /** @experimental This feature may be removed pending actual necessity,
+     *               as the array would only be uninitialized when the kernel has not yet booted,
+     *               a point which may actually be too early to actually interact with this domain.
+     *               Nonetheless, it's present for compatability during the ongoing container refactor.
+     */
+    private static function constructTypesIfNotConstructed(): void
+    {
+        if (! isset(static::$types)) {
+            static::$types = static::findPublicationTypes();
+        }
     }
 }

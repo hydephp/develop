@@ -20,17 +20,11 @@ class PublicationService
     /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
-     * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
-     *
      * @return Collection<string, PublicationType>
      */
     public static function getPublicationTypes(): Collection
     {
-        return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
-            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
-
-            return [$publicationType->getDirectory() => $publicationType];
-        });
+        return PublicationsExtension::getTypes();
     }
 
     /**
@@ -40,10 +34,7 @@ class PublicationService
      */
     public static function getPublicationsForType(PublicationType $publicationType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {
-        /** @var Collection<PublicationPage> $publications */
-        $publications = Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
-            return static::parsePublicationFile(Hyde::pathToRelative($file));
-        });
+        $publications = Hyde::pages()->getPages(PublicationPage::class)->values()->toBase(); // Convert to base collection for type compatibility during refactor
 
         $sortAscending = $sortAscending !== null ? $sortAscending : $publicationType->sortAscending;
         $sortField = $sortField !== null ? $sortField : $publicationType->sortField;
@@ -97,16 +88,6 @@ class PublicationService
     public static function publicationTypeExists(string $publicationTypeName): bool
     {
         return static::getPublicationTypes()->has(Str::slug($publicationTypeName));
-    }
-
-    protected static function getSchemaFiles(): array
-    {
-        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
-    }
-
-    protected static function getPublicationFiles(string $directory): array
-    {
-        return glob(Hyde::path("$directory/*.md"));
     }
 
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array

@@ -43,10 +43,18 @@ class PublicationServiceTest extends TestCase
     public function testGetPublicationTypesWithTypes()
     {
         $this->createPublicationType();
+        Hyde::boot();
 
         $this->assertEquals(new Collection([
             'test-publication' => PublicationType::get('test-publication'),
         ]), PublicationService::getPublicationTypes());
+    }
+
+    public function testGetPublicationTypesMethodReturnsTheSameInstances()
+    {
+        $this->createPublicationType();
+
+        $this->assertSame(PublicationService::getPublicationTypes(), PublicationService::getPublicationTypes());
     }
 
     public function testGetPublicationsForPubType()
@@ -250,6 +258,7 @@ class PublicationServiceTest extends TestCase
     public function testPublicationTypeExists()
     {
         $this->createPublicationType();
+        $this->rebootToDiscoverPublicationPages();
 
         $this->assertTrue(PublicationService::publicationTypeExists('test-publication'));
         $this->assertFalse(PublicationService::publicationTypeExists('foo'));
