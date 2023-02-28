@@ -55,7 +55,6 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_publication_media_files_are_discovered()
     {
-        $this->createPublication();
         $this->directory('_media/publication');
         $this->file('_media/publication/foo.jpg', 'foo');
 
