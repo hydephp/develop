@@ -47,6 +47,9 @@ trait ManagesExtensions
         }
 
         if (in_array($extension, $this->getRegisteredExtensions(), true)) {
+            // While throwing an exception here is not required since we are using an associative array,
+            // it may be helpful for the developer to know that their registration logic may be flawed.
+
             throw new InvalidArgumentException("Extension [$extension] is already registered.");
         }
 
