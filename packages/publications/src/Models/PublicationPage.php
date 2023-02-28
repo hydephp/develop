@@ -52,11 +52,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         return $this->renderComponent();
     }
 
-    public function getType(): PublicationType
-    {
-        return $this->type;
-    }
-
     public static function parse(string $identifier): self
     {
         static::validateExistence(static::class, $identifier);
