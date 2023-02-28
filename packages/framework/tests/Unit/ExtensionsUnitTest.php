@@ -69,7 +69,7 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testFileHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        $this->kernel->boot();
+        FileCollection::init($this->kernel)->boot();
 
         $this->assertInstanceOf(FileCollection::class, ...InspectableTestExtension::getCalled('files'));
     }
@@ -77,7 +77,7 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testPageHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        $this->kernel->boot();
+        PageCollection::init($this->kernel)->boot();
 
         $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('pages'));
     }
@@ -85,7 +85,7 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testRouteHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
-        $this->kernel->boot();
+        RouteCollection::init($this->kernel)->boot();
 
         $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
     }
