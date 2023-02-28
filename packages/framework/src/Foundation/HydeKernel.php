@@ -67,6 +67,7 @@ class HydeKernel implements SerializableContract
 
     protected bool $booted = false;
 
+    /** @var array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     protected array $extensions = [
         HydeCoreExtension::class,
     ];
