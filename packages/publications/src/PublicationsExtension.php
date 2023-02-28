@@ -150,6 +150,8 @@ class PublicationsExtension extends HydeExtension
      *               as the array would only be uninitialized when the kernel has not yet booted,
      *               a point which may actually be too early to actually interact with this domain.
      *               Nonetheless, it's present for compatability during the ongoing container refactor.
+     *
+     * @codeCoverageIgnore
      */
     private static function constructTypesIfNotConstructed(): void
     {
