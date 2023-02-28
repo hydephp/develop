@@ -184,29 +184,11 @@ class InstantiableHydeExtension extends HydeExtension
 
 class HydeTestExtension extends HydeExtension
 {
-    // An easy way to assert the handlers are called.
-    public static array $callCache = [];
-
     public static function getPageClasses(): array
     {
         return [
             HydeExtensionTestPage::class,
         ];
-    }
-
-    public function discoverFiles(FileCollection $collection): void
-    {
-        static::$callCache[] = 'files';
-    }
-
-    public function discoverPages(PageCollection $collection): void
-    {
-        static::$callCache[] = 'pages';
-    }
-
-    public function discoverRoutes(RouteCollection $collection): void
-    {
-        static::$callCache[] = 'routes';
     }
 }
 
