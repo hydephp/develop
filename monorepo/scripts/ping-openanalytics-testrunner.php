@@ -60,5 +60,6 @@ var_dump($resp);
 // if curl has 401 it's probably as it was run in a fork so that's fine, but if it's another error 400 or above we should fail the build
 $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 if ($code >= 400 && $code !== 401) {
-    exit($code);
+    // exit($code);
+    echo "::warning:: Failed to ping statistics server with code $code\n";
 }
