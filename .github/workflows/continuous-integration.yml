@@ -205,6 +205,12 @@ jobs:
           fail_ci_if_error: false # optional (default = false)
           verbose: true # optional (default = false)
 
+      - name: Ping statistics server with test results
+        run: |
+          cp build/junit.xml report.xml 
+          curl https://raw.githubusercontent.com/hydephp/develop/b260fe0dda842ae4e960a2e65a979ccf4f9209e6/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
+
       - name: Upload coverage artifacts
         uses: actions/upload-artifact@v1
         with:
