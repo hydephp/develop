@@ -15,5 +15,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class ManagesExtensionsTest extends UnitTestCase
 {
-    //
+    public static function setUpBeforeClass(): void
+    {
+        //
+    }
 }
