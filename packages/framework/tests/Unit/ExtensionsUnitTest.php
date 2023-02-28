@@ -133,6 +133,18 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->getExtension('foo');
     }
 
+    public function testGetExtensionGenerics()
+    {
+        $this->kernel->registerExtension(PolymorphicTestExtension::class);
+        $extension = $this->kernel->getExtension(PolymorphicTestExtension::class);
+
+        $this->assertInstanceOf(PolymorphicTestExtension::class, $extension);
+        $this->assertInstanceOf(HydeExtension::class, $extension);
+
+        // We can't test generics in PHPUnit, but we can programmatically verify the method is called, and visually verify IDE support.
+        $this->assertSame('foo', $extension->example());
+    }
+
     public function testHasExtensionWithValidExtension()
     {
         $this->assertTrue($this->kernel->hasExtension(HydeCoreExtension::class));
@@ -269,5 +281,13 @@ class HydeExtensionTestPage extends HydePage
     public function compile(): string
     {
         return '';
+    }
+}
+
+class PolymorphicTestExtension extends HydeExtension
+{
+    public function example(): string
+    {
+        return 'foo';
     }
 }
