@@ -58,9 +58,6 @@ class ExtensionsUnitTest extends UnitTestCase
 
     public function testCanRegisterNewExtension()
     {
-        HydeKernel::setInstance(new HydeKernel());
-
-        $this->kernel = HydeKernel::getInstance();
         $this->kernel->registerExtension(HydeTestExtension::class);
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
