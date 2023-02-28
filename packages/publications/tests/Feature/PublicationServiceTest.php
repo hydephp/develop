@@ -18,6 +18,7 @@ use function mkdir;
 
 /**
  * @covers \Hyde\Publications\PublicationService
+ * @covers \Hyde\Publications\PublicationsExtension
  */
 class PublicationServiceTest extends TestCase
 {
