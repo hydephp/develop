@@ -12,7 +12,7 @@ echo "Pinging statistics server\n";
 $runner = $argv[1] ?? exit(400);
 $token = $argv[2] ?? exit(400);
 
-if (!file_exists('report.xml')){
+if (! file_exists('report.xml')) {
     exit(404);
 }
 
