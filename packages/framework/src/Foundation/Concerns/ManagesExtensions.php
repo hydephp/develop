@@ -59,7 +59,10 @@ trait ManagesExtensions
     /**
      * Get the singleton instance of the specified extension.
      *
-     * @param  class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
+     * @template T of \Hyde\Foundation\Concerns\HydeExtension
+     *
+     * @param  class-string<T>  $extension
+     * @return T
      */
     public function getExtension(string $extension): HydeExtension
     {
