@@ -18,6 +18,7 @@ use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Testing\UnitTestCase;
+use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
@@ -132,6 +133,26 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->kernel->registerExtension(HydeTestExtension::class);
 
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+    }
+
+    public function testGetExtensionWithValidExtension()
+    {
+        $this->assertInstanceOf(HydeCoreExtension::class, $this->kernel->getExtension(HydeCoreExtension::class));
+    }
+
+    public function testGetExtensionWithCustomExtension()
+    {
+        $this->kernel->registerExtension(HydeTestExtension::class);
+
+        $this->assertInstanceOf(HydeTestExtension::class, $this->kernel->getExtension(HydeTestExtension::class));
+    }
+
+    public function testGetExtensionWithInvalidExtension()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Extension [foo] is not registered.');
+
+        $this->kernel->getExtension('foo');
     }
 
     protected function markTestSuccessful(): void
