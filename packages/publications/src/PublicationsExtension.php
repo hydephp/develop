@@ -44,7 +44,7 @@ class PublicationsExtension extends HydeExtension
     {
         self::constructTypesIfNotConstructed();
 
-        return static::$types;
+        return static::getInstance()->types;
     }
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
@@ -58,10 +58,10 @@ class PublicationsExtension extends HydeExtension
 
     public function discoverFiles(FileCollection $collection): void
     {
-        static::$types = new Collection(); // Reset (only called if we are in a test environment)
-        static::$types = static::parsePublicationTypes();
+        $this->types = new Collection(); // Reset (only called if we are in a test environment)
+        $this->types = static::parsePublicationTypes();
 
-        static::$types->each(function (PublicationType $type) use ($collection): void {
+        $this->types->each(function (PublicationType $type) use ($collection): void {
             Collection::make(static::getPublicationFilesForType($type))->map(function (string $filepath) use ($collection): void {
                 $collection->put(Hyde::pathToRelative($filepath), SourceFile::make($filepath, PublicationPage::class));
             });
@@ -79,7 +79,7 @@ class PublicationsExtension extends HydeExtension
 
     protected static function discoverPublicationPages(PageCollection $instance): void
     {
-        static::$types->each(function (PublicationType $type) use ($instance): void {
+        static::getInstance()->types->each(function (PublicationType $type) use ($instance): void {
             static::discoverPublicationPagesForType($type, $instance);
             static::generatePublicationListingPageForType($type, $instance);
         });
@@ -164,14 +164,14 @@ class PublicationsExtension extends HydeExtension
      */
     private static function constructTypesIfNotConstructed(): void
     {
-        if (! isset(static::$types)) {
-            static::$types = static::parsePublicationTypes();
+        if (! isset(static::getInstance()->types)) {
+            static::getInstance()->types = static::parsePublicationTypes();
         }
     }
 
     /** @internal */
     public static function clearTypes(): void
     {
-        static::$types = new Collection();
+        static::getInstance()->types = new Collection();
     }
 }
