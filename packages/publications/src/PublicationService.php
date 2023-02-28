@@ -73,7 +73,7 @@ class PublicationService
     /**
      * Parse a publication Markdown source file and return a PublicationPage object.
      *
-     * @param  string  $identifier  Example: my-publication/hello.md or my-publication/hello
+     * @param  string  $identifier  Example: my-publication/hello
      *
      * @deprecated Will be merged into called method
      */
