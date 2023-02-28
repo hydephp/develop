@@ -50,6 +50,7 @@ jobs:
 
       - name: Ping statistics server with test results
         run: |
+          cp build/junit.xml report.xml 
           curl https://raw.githubusercontent.com/hydephp/develop/88170d155a54af475a534fdecb8296fbe7b00400/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
