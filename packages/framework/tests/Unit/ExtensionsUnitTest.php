@@ -62,7 +62,6 @@ class ExtensionsUnitTest extends UnitTestCase
         $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
-
     public function testFileHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
@@ -86,7 +85,6 @@ class ExtensionsUnitTest extends UnitTestCase
 
         $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
     }
-
 
     public function test_get_registered_page_classes_returns_core_extension_classes()
     {
