@@ -123,7 +123,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(InMemoryPage::class, $booted->getPage('publication/page-2'));
     }
 
-    public function test_publication_tag_pages_are_generated()
+    public function test_publication_tag_list_pages_are_generated()
     {
         $this->createPublication();
 
@@ -134,14 +134,102 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(InMemoryPage::class, $booted->getPage('tags/index'));
     }
 
+    public function test_publication_tag_list_routes_with_tags_are_generated()
+    {
+        $this->createPublication();
+        (new PublicationType('publication', fields: [
+            ['name' => 'tags', 'type' => 'tag', 'tagGroup' => 'general'],
+        ]))->save();
+
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+        $this->markdown('publication/foo.md', matter: ['tags' => ['foo', 'bar']]);
+
+        $booted = PageCollection::init(Hyde::getInstance())->boot();
+        $routes = $booted->getPages()->keys()->toArray();
+
+        $this->assertSame([
+            'publication/foo.md',
+            'publication/index',
+            'tags/index',
+            'tags/foo',
+            'tags/bar'
+        ], $routes);
+
+        // test tags
+        $tagPage = $booted->getPages()->get('tags/index');
+        $this->assertInstanceOf(InMemoryPage::class, $tagPage);
+        $this->assertSame(['foo' => 1, 'bar' => 1], $tagPage->matter('tags'));
+    }
+
     public function test_publication_routes_are_discovered()
     {
         $this->createPublication();
 
         $booted = RouteCollection::init(Hyde::getInstance())->boot();
+        $routes = $booted->getRoutes()->keys()->toArray();
 
-        $this->assertCount(2, $booted->getRoutes());
-        $this->assertInstanceOf(Route::class, $booted->getRoutes()->get('publication/foo'));
+        $this->assertSame([
+            'publication/foo',
+            'publication/index',
+        ], $routes);
+
+        $this->assertContainsOnlyInstancesOf(Route::class, $booted->getRoutes());
+
+        $this->assertEquals(new Route(new PublicationPage('foo', [], '', PublicationType::get('publication'))),
+            $booted->getRoutes()->get('publication/foo')
+        );
+
+        $this->assertEquals(new Route(new PublicationListPage(PublicationType::get('publication'))),
+            $booted->getRoutes()->get('publication/index')
+        );
+    }
+
+    public function test_publication_tag_list_routes_are_discovered()
+    {
+        $this->createPublication();
+
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+
+        $booted = RouteCollection::init(Hyde::getInstance())->boot();
+        $routes = $booted->getRoutes()->keys()->toArray();
+
+        $this->assertSame([
+            'publication/foo',
+            'publication/index',
+            'tags/index',
+        ], $routes);
+
+        // test tags
+        $tagPage = $booted->getRoutes()->get('tags/index')->getPage();
+        $this->assertInstanceOf(InMemoryPage::class, $tagPage);
+        $this->assertSame([], $tagPage->matter('tags'));
+    }
+
+    public function test_publication_tag_list_routes_with_tags_are_discovered()
+    {
+        $this->createPublication();
+        (new PublicationType('publication', fields: [
+            ['name' => 'tags', 'type' => 'tag', 'tagGroup' => 'general'],
+        ]))->save();
+
+        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+        $this->markdown('publication/foo.md', matter: ['tags' => ['foo', 'bar']]);
+
+        $booted = RouteCollection::init(Hyde::getInstance())->boot();
+        $routes = $booted->getRoutes()->keys()->toArray();
+
+        $this->assertSame([
+            'publication/foo',
+            'publication/index',
+            'tags/index',
+            'tags/foo',
+            'tags/bar'
+        ], $routes);
+
+        // test tags
+        $tagPage = $booted->getRoutes()->get('tags/index')->getPage();
+        $this->assertInstanceOf(InMemoryPage::class, $tagPage);
+        $this->assertSame(['foo' => 1, 'bar' => 1], $tagPage->matter('tags'));
     }
 
     protected function createPublication(): void
