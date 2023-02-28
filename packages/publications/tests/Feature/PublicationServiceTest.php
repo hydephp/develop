@@ -12,9 +12,7 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use function json_encode;
-use function mkdir;
 
 /**
  * @covers \Hyde\Publications\PublicationService
@@ -26,14 +24,7 @@ class PublicationServiceTest extends TestCase
     {
         parent::setUp();
 
-        mkdir(Hyde::path('test-publication'));
-    }
-
-    protected function tearDown(): void
-    {
-        File::deleteDirectory(Hyde::path('test-publication'));
-
-        parent::tearDown();
+        $this->directory('test-publication');
     }
 
     public function testGetPublicationTypes()
@@ -195,7 +186,7 @@ class PublicationServiceTest extends TestCase
     public function testGetMediaForPubTypeWithMedia()
     {
         $this->createPublicationType();
-        mkdir(Hyde::path('_media/test-publication'));
+        $this->directory('_media/test-publication');
         file_put_contents(Hyde::path('_media/test-publication/image.png'), '');
 
         $this->assertEquals(
@@ -204,15 +195,13 @@ class PublicationServiceTest extends TestCase
             ]),
             PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
-
-        File::deleteDirectory(Hyde::path('_media/test-publication'));
     }
 
     public function testGetMediaForPubTypeWithCustomMediaDirectory()
     {
         Hyde::setMediaDirectory('_assets');
         $this->createPublicationType();
-        mkdir(Hyde::path('_assets/test-publication'), recursive: true);
+        $this->directory('_assets/test-publication');
         file_put_contents(Hyde::path('_assets/test-publication/image.png'), '');
 
         $this->assertEquals(
@@ -221,8 +210,6 @@ class PublicationServiceTest extends TestCase
             ]),
             PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
-
-        File::deleteDirectory(Hyde::path('_assets/test-publication'));
     }
 
     public function testParsePublicationFile()
