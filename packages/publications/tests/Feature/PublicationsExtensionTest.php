@@ -23,6 +23,20 @@ use Hyde\Testing\TestCase;
  */
 class PublicationsExtensionTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutDefaultPages();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->restoreDefaultPages();
+
+        parent::tearDown();
+    }
+
     public function test_get_page_classes_method()
     {
         $this->assertSame([
@@ -36,7 +50,13 @@ class PublicationsExtensionTest extends TestCase
 
         $booted = FileCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertCount(3, $booted->getAllSourceFiles()); // Default pages + publication page
+        $files = $booted->getAllSourceFiles()->keys()->toArray();
+
+        $this->assertSame([
+            'publication/foo.md',
+        ], $files);
+
+        $this->assertCount(1, $booted->getAllSourceFiles());
         $this->assertInstanceOf(SourceFile::class, $booted->getSourceFiles()->get('publication/foo.md'));
 
         $this->assertCount(1, $booted->getSourceFiles(PublicationPage::class));
@@ -61,8 +81,6 @@ class PublicationsExtensionTest extends TestCase
 
         $pages = $booted->getPages()->keys()->toArray();
         $this->assertSame([
-            '_pages/404.blade.php',
-            '_pages/index.blade.php',
             'publication/foo.md',
             'publication/index',
         ], $pages);
@@ -126,7 +144,7 @@ class PublicationsExtensionTest extends TestCase
 
         $booted = RouteCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertCount(4, $booted->getRoutes()); // Default pages + publication index + publication page
+        $this->assertCount(2, $booted->getRoutes());
         $this->assertInstanceOf(Route::class, $booted->getRoutes()->get('publication/foo'));
     }
 
