@@ -74,7 +74,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/foo.md'),
+                PublicationService::parsePublicationFile('test-publication/foo'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
@@ -101,9 +101,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationService::parsePublicationFile('test-publication/one'),
+                PublicationService::parsePublicationFile('test-publication/two'),
+                PublicationService::parsePublicationFile('test-publication/three'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
@@ -119,9 +119,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationService::parsePublicationFile('test-publication/three'),
+                PublicationService::parsePublicationFile('test-publication/two'),
+                PublicationService::parsePublicationFile('test-publication/one'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
         );
@@ -137,9 +137,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
+                PublicationService::parsePublicationFile('test-publication/one'),
+                PublicationService::parsePublicationFile('test-publication/two'),
+                PublicationService::parsePublicationFile('test-publication/three'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount')
         );
@@ -155,9 +155,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
-                PublicationService::parsePublicationFile('test-publication/one.md'),
+                PublicationService::parsePublicationFile('test-publication/three'),
+                PublicationService::parsePublicationFile('test-publication/two'),
+                PublicationService::parsePublicationFile('test-publication/one'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount', false)
         );
@@ -173,9 +173,9 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                PublicationService::parsePublicationFile('test-publication/one.md'),
-                PublicationService::parsePublicationFile('test-publication/three.md'),
-                PublicationService::parsePublicationFile('test-publication/two.md'),
+                PublicationService::parsePublicationFile('test-publication/one'),
+                PublicationService::parsePublicationFile('test-publication/three'),
+                PublicationService::parsePublicationFile('test-publication/two'),
             ]),
             PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'invalid')
         );
@@ -232,17 +232,6 @@ class PublicationServiceTest extends TestCase
         $file = PublicationService::parsePublicationFile('test-publication/foo');
         $this->assertInstanceOf(PublicationPage::class, $file);
         $this->assertEquals('test-publication/foo', $file->getIdentifier());
-    }
-
-    public function testParsePublicationFileWithFileExtension()
-    {
-        $this->createPublicationType();
-        $this->createPublication();
-
-        $this->assertEquals(
-            PublicationService::parsePublicationFile('test-publication/foo'),
-            PublicationService::parsePublicationFile('test-publication/foo.md')
-        );
     }
 
     public function testParsePublicationFileWithNonExistentFile()
