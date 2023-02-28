@@ -64,11 +64,11 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/pest --testdox-text testdox.txt
+        run: vendor/bin/pest --log-junit report.xml
 
       - name: Ping statistics server with test results
         run: |
-          curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/f66b4d08e0fc3b1ba5f5c2a8c01edd9116287109/ping-openanalytics-testrunner.php -o ping.php
+          curl https://raw.githubusercontent.com/hydephp/develop/b260fe0dda842ae4e960a2e65a979ccf4f9209e6/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
 
   system-testing:
@@ -497,7 +497,7 @@ jobs:
       - name: Run static analysis (Psalm/Shepherd)
         run: vendor/bin/psalm --shepherd || true
 
-      - name: Ping CI server with coverage results
+      - name: Ping CI server with type coverage results
         run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.sha }} master
 
 
