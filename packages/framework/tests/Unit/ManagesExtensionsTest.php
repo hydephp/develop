@@ -18,5 +18,6 @@ class ManagesExtensionsTest extends UnitTestCase
     public static function setUpBeforeClass(): void
     {
         self::needsKernel();
+        self::mockConfig();
     }
 }
