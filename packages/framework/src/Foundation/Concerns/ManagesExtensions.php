@@ -64,6 +64,8 @@ trait ManagesExtensions
         return $this->extensions[$extension];
     }
 
+    // Todo: Add is loaded method?
+
     /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {
