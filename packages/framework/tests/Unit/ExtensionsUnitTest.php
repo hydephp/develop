@@ -62,9 +62,9 @@ class ExtensionsUnitTest extends UnitTestCase
         HydeKernel::setInstance(new HydeKernel());
 
         $this->kernel = HydeKernel::getInstance();
-        $this->kernel->registerExtension(HydeTestExtension::class);
+        $this->kernel->registerExtension(InspectableTestExtension::class);
 
-        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
+        $this->assertSame([HydeCoreExtension::class, InspectableTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
     public function testFileHandlerDependencyInjection()
