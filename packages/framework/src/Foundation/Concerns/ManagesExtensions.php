@@ -48,7 +48,7 @@ trait ManagesExtensions
 
         if (! in_array($extension, $this->extensions, true)) {
             $this->extensions[$extension] = new $extension();
-        } // Todo: Else throw?
+        }
     }
 
     /**
@@ -67,7 +67,7 @@ trait ManagesExtensions
 
     /**
      * Determine if the specified extension is registered.
-     * 
+     *
      * @param  class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
      */
     public function hasExtension(string $extension): bool
