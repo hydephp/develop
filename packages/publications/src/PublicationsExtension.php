@@ -162,10 +162,10 @@ class PublicationsExtension extends HydeExtension
      *
      * @codeCoverageIgnore
      */
-    private static function constructTypesIfNotConstructed(): void
+    private function constructTypesIfNotConstructed(): void
     {
-        if (! isset(static::getInstance()->types)) {
-            static::getInstance()->types = static::getInstance()->parsePublicationTypes();
+        if (! isset($this->types)) {
+            $this->types = $this->parsePublicationTypes();
         }
     }
 }
