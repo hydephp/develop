@@ -44,7 +44,8 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_get_types_method()
     {
-        $this->assertSame([], (new PublicationsExtension)->getTypes()->toArray());
+        $extension = new PublicationsExtension;
+        $this->assertSame([], $extension->getTypes()->toArray());
     }
 
     public function test_publication_files_are_discovered()
