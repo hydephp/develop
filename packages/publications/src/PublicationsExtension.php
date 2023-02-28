@@ -156,7 +156,7 @@ class PublicationsExtension extends HydeExtension
     private function constructTypesIfNotConstructed(): void
     {
         if (! isset($this->types)) {
-            $this->types = $this->parsePublicationTypes();
+            //
         }
     }
 }
