@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
 use InvalidArgumentException;
+use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_unique;
@@ -69,7 +70,7 @@ trait ManagesExtensions
     /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {
-        return $this->extensions;
+        return array_keys($this->extensions);
     }
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
