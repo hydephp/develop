@@ -9,33 +9,29 @@ use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Hyde\Hyde;
-use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\HtmlPage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
 use function app;
-use function func_get_args;
 
 /**
+ * Tests the Extensions API Feature on a higher level to ensure the components work together.
+ *
  * @covers \Hyde\Foundation\Concerns\HydeExtension
  * @covers \Hyde\Foundation\Concerns\ManagesExtensions
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\FileCollection
  * @covers \Hyde\Foundation\Kernel\PageCollection
  * @covers \Hyde\Foundation\Kernel\RouteCollection
+ *
+ * @see \Hyde\Framework\Testing\Unit\ExtensionsUnitTest
  */
 class HydeExtensionFeatureTest extends TestCase
 {
@@ -50,30 +46,6 @@ class HydeExtensionFeatureTest extends TestCase
         if ($this->kernel->hasExtension('Hyde\Publications\PublicationsExtension')) {
             $this->kernel->unregisterExtension('Hyde\Publications\PublicationsExtension');
         }
-    }
-
-    public function testBaseClassGetPageClasses()
-    {
-        $this->assertSame([], HydeExtension::getPageClasses());
-    }
-
-    public function testBaseClassDiscoveryHandlers()
-    {
-        HydeExtension::discoverFiles(Hyde::files());
-        HydeExtension::discoverPages(Hyde::pages());
-        HydeExtension::discoverRoutes(Hyde::routes());
-
-        $this->markTestSuccessful();
-    }
-
-    public function testCanRegisterNewExtension()
-    {
-        HydeKernel::setInstance(new HydeKernel());
-
-        $this->kernel = HydeKernel::getInstance();
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
     }
 
     public function testHandlerMethodsAreCalledByDiscovery()
@@ -130,51 +102,6 @@ class HydeExtensionFeatureTest extends TestCase
         app(HydeKernel::class)->registerExtension(stdClass::class);
     }
 
-    public function test_get_registered_page_classes_returns_core_extension_classes()
-    {
-        $this->assertSame(HydeCoreExtension::getPageClasses(), $this->kernel->getRegisteredPageClasses());
-    }
-
-    public function test_get_registered_page_classes_merges_all_extension_classes()
-    {
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame(
-            array_merge(HydeCoreExtension::getPageClasses(), HydeTestExtension::getPageClasses()),
-            $this->kernel->getRegisteredPageClasses()
-        );
-    }
-
-    public function test_merged_registered_page_classes_array_contents()
-    {
-        $this->assertSame([
-            HtmlPage::class,
-            BladePage::class,
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-        ], $this->kernel->getRegisteredPageClasses());
-
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame([
-            HtmlPage::class,
-            BladePage::class,
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-            HydeExtensionTestPage::class,
-        ], $this->kernel->getRegisteredPageClasses());
-    }
-
-    public function test_register_extension_method_does_not_register_already_registered_classes()
-    {
-        $this->kernel->registerExtension(HydeTestExtension::class);
-        $this->kernel->registerExtension(HydeTestExtension::class);
-
-        $this->assertSame([HydeCoreExtension::class, HydeTestExtension::class], $this->kernel->getRegisteredExtensions());
-    }
-
     public function test_custom_registered_pages_are_discovered_by_the_file_collection_class()
     {
         app(HydeKernel::class)->registerExtension(TestPageExtension::class);
@@ -229,44 +156,19 @@ class HydeTestExtension extends HydeExtension
         ];
     }
 
-    public static function discoverFiles(FileCollection $collection): void
+    public function discoverFiles(FileCollection $collection): void
     {
         static::$callCache[] = 'files';
     }
 
-    public static function discoverPages(PageCollection $collection): void
+    public function discoverPages(PageCollection $collection): void
     {
         static::$callCache[] = 'pages';
     }
 
-    public static function discoverRoutes(RouteCollection $collection): void
+    public function discoverRoutes(RouteCollection $collection): void
     {
         static::$callCache[] = 'routes';
-    }
-}
-
-class InspectableTestExtension extends HydeExtension
-{
-    private static array $callCache = [];
-
-    public static function discoverFiles(FileCollection $collection): void
-    {
-        self::$callCache['files'] = func_get_args();
-    }
-
-    public static function discoverPages(PageCollection $collection): void
-    {
-        self::$callCache['pages'] = func_get_args();
-    }
-
-    public static function discoverRoutes(RouteCollection $collection): void
-    {
-        self::$callCache['routes'] = func_get_args();
-    }
-
-    public static function getCalled(string $method): array
-    {
-        return self::$callCache[$method];
     }
 }
 
@@ -301,5 +203,30 @@ class TestPageExtension extends HydeExtension
         return [
             TestPageClass::class,
         ];
+    }
+}
+
+class InspectableTestExtension extends HydeExtension
+{
+    private static array $callCache = [];
+
+    public function discoverFiles(FileCollection $collection): void
+    {
+        self::$callCache['files'] = func_get_args();
+    }
+
+    public function discoverPages(PageCollection $collection): void
+    {
+        self::$callCache['pages'] = func_get_args();
+    }
+
+    public function discoverRoutes(RouteCollection $collection): void
+    {
+        self::$callCache['routes'] = func_get_args();
+    }
+
+    public static function getCalled(string $method): array
+    {
+        return self::$callCache[$method];
     }
 }
