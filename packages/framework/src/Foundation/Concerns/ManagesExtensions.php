@@ -50,6 +50,16 @@ trait ManagesExtensions
         }
     }
 
+    /**
+     * Get the singleton instance of the specified extension.
+     *
+     * @param  class-string<\Hyde\Foundation\Concerns\HydeExtension>  $extension
+     */
+    public function getExtension(string $extension): HydeExtension
+    {
+        return $this->extensions[$extension];
+    }
+
     /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {
