@@ -48,7 +48,7 @@ class PublicationsExtension extends HydeExtension
     {
         // Todo refactor to handle file discovery here
 
-        static::$types = new Collection(); // Reset if we are in a test environment
+        static::$types = new Collection(); // Reset (only called if we are in a test environment)
         static::$types = static::findPublicationTypes();
     }
 
