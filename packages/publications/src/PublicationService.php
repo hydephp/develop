@@ -79,7 +79,7 @@ class PublicationService
      */
     public static function parsePublicationFile(string $identifier): PublicationPage
     {
-        return PublicationPage::parse(Str::replaceLast('.md', '', $identifier));
+        return PublicationPage::parse($identifier);
     }
 
     /**
