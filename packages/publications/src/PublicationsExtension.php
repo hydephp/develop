@@ -51,9 +51,7 @@ class PublicationsExtension extends HydeExtension
 
     public function discoverFiles(FileCollection $collection): void
     {
-        $this->types = $this->parsePublicationTypes();
-
-        $this->types->each(function (PublicationType $type) use ($collection): void {
+        $this->getTypes()->each(function (PublicationType $type) use ($collection): void {
             Collection::make($this->getPublicationFilesForType($type))->map(function (string $filepath) use ($collection): void {
                 $collection->put(Hyde::pathToRelative($filepath), SourceFile::make($filepath, PublicationPage::class));
             });
