@@ -15,6 +15,7 @@ use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use function range;
 use function str_ends_with;
 
@@ -130,7 +131,7 @@ class PublicationsExtension extends HydeExtension
     protected static function findPublicationsForType(PublicationType $publicationType): Collection
     {
         return Collection::make(static::getPublicationFiles($publicationType->getDirectory()))->map(function (string $file): PublicationPage {
-            return PublicationService::parsePublicationFile(Hyde::pathToRelative($file));
+            return PublicationPage::parse(Str::before(Hyde::pathToRelative($file), PublicationPage::fileExtension()));
         });
     }
 
