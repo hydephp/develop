@@ -51,7 +51,7 @@ jobs:
       - name: Ping statistics server with test results
         run: |
           cp build/junit.xml report.xml 
-          curl https://raw.githubusercontent.com/hydephp/develop/6bbc9302dba4577db63f3ba6d7be216dcd0e6f7f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          curl https://raw.githubusercontent.com/hydephp/develop/b260fe0dda842ae4e960a2e65a979ccf4f9209e6/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
   test-matrix:
@@ -77,5 +77,5 @@ jobs:
 
       - name: Ping statistics server with test results
         run: |
-          curl https://raw.githubusercontent.com/hydephp/develop/6bbc9302dba4577db63f3ba6d7be216dcd0e6f7f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          curl https://raw.githubusercontent.com/hydephp/develop/b260fe0dda842ae4e960a2e65a979ccf4f9209e6/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo PR Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
