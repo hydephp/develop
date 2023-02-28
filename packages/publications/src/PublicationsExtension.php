@@ -79,9 +79,7 @@ class PublicationsExtension extends HydeExtension
 
     protected function discoverPublicationPagesForType(PageCollection $instance): void
     {
-        $collection = Files::getSourceFiles(PublicationPage::class);
-
-        $collection->each(function (SourceFile $file) use ($instance): void {
+        Files::getSourceFiles(PublicationPage::class)->each(function (SourceFile $file) use ($instance): void {
             $instance->addPage(PublicationPage::parse(Str::before($file->getPath(), PublicationPage::fileExtension())));
         });
     }
