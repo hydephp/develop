@@ -168,10 +168,4 @@ class PublicationsExtension extends HydeExtension
             static::getInstance()->types = static::parsePublicationTypes();
         }
     }
-
-    /** @internal */
-    public static function clearTypes(): void
-    {
-        //
-    }
 }
