@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Views\Components;
+namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Publications\PublicationService;

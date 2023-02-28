@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Views\Components\RelatedPublicationsComponent;
+use Hyde\Publications\Views\Components\RelatedPublicationsComponent;
 use Hyde\Publications\Providers\TranslationServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
