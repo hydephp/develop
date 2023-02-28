@@ -23,6 +23,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 {
     use ValidatesExistence;
 
+    // Fixme: can we make this private or protected without breaking other stuff?
     public PublicationType $type;
 
     public static string $sourceDirectory = '';
@@ -44,6 +45,11 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     public function compile(): string
     {
         return $this->renderComponent();
+    }
+
+    public function getType(): PublicationType
+    {
+        return $this->type;
     }
 
     public static function parse(string $identifier): self

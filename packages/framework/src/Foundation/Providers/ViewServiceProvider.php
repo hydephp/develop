@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Providers;
 
-use Hyde\Framework\Views\Components\LinkComponent;
 use Hyde\Framework\Views\Components\BreadcrumbsComponent;
+use Hyde\Framework\Views\Components\LinkComponent;
+use Hyde\Framework\Views\Components\RelatedPublicationsComponent;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -50,5 +51,6 @@ class ViewServiceProvider extends ServiceProvider
 
         Blade::component('link', LinkComponent::class);
         Blade::component('hyde::breadcrumbs', BreadcrumbsComponent::class);
+        Blade::component('hyde::relatedPublications', RelatedPublicationsComponent::class);
     }
 }
