@@ -14,6 +14,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
+ * @todo Since this class is now so simplified it may be better suited if renamed to a facade, eg Publications.
+ *
  * @see \Hyde\Publications\Testing\Feature\PublicationServiceTest
  */
 class PublicationService
