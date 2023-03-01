@@ -31,7 +31,7 @@ class BuildTaskService
 
     public function __construct()
     {
-        //
+        $this->discoverTasks();
     }
 
     public function runPostBuildTasks(): void
@@ -46,8 +46,6 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getPostBuildTasks(): array
     {
-        $this->discoverTasks();
-
         return self::$legacyPostBuildTasks;
     }
 
