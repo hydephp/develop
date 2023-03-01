@@ -12,6 +12,7 @@ use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function array_map;
 use function array_values;
 use function class_basename;
 use function is_bool;
@@ -43,7 +44,9 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getTasks(): array
     {
-        return array_values($this->buildTasks);
+        return array_map(function (BuildTask $task): string {
+            return $task::class;
+        }, array_values($this->buildTasks));
     }
 
     public function runPreBuildTasks(): void
