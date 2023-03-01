@@ -44,6 +44,9 @@ class BuildSiteCommand extends Command
 
         $this->service = new BuildService($this->output);
 
+        $service = app(BuildTaskService::class);
+        $service->setOutput($this->output);
+
         $this->runPreBuildActions();
 
         $this->service->cleanOutputDirectory();
@@ -79,7 +82,6 @@ class BuildSiteCommand extends Command
     public function runPostBuildActions(): void
     {
         $service = app(BuildTaskService::class);
-        $service->setOutput($this->output);
 
         $service->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $service->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
