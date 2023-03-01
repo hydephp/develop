@@ -25,7 +25,7 @@ class BuildTaskService
      *
      * @deprecated This should not be called directly as it will be made protected and non-static, use the registerTask method instead.
      */
-    public static array $postBuildTasks = [];
+    public static array $legacyPostBuildTasks = [];
 
     protected ?OutputStyle $output = null;
 
@@ -50,7 +50,7 @@ class BuildTaskService
             array_merge(
                 config('hyde.post_build_tasks', []),
                 static::findTasksInAppDirectory(),
-                static::$postBuildTasks
+                static::$legacyPostBuildTasks
             )
         );
     }
