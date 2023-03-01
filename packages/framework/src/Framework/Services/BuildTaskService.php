@@ -99,7 +99,7 @@ class BuildTaskService
     /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
     public function addPostBuildTask(string $class): static
     {
-        self::$legacyPostBuildTasks[] = $class;
+        self::$legacyPostBuildTasks[$this->makeTaskIdentifier($class)] = $class;
 
         return $this;
     }
@@ -112,9 +112,6 @@ class BuildTaskService
                 static::findTasksInAppDirectory(),
             )
         );
-
-        // Remove tasks already registered (legacy TODO remove this once keyed)
-        $tasks = array_diff($tasks, self::$legacyPostBuildTasks);
 
         foreach ($tasks as $task) {
             $this->addPostBuildTask($task);

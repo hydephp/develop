@@ -60,7 +60,7 @@ class BuildTaskServiceTest extends TestCase
         config(['hyde.post_build_tasks' => ['bar']]);
 
         $service = $this->makeService();
-        $this->assertEquals(['foo', 'bar'], $service->getPostBuildTasks());
+        $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], $service->getPostBuildTasks());
     }
 
     /**
@@ -72,7 +72,7 @@ class BuildTaskServiceTest extends TestCase
         config(['hyde.post_build_tasks' => ['foo']]);
 
         $service = $this->makeService();
-        $this->assertEquals(['foo'], $service->getPostBuildTasks());
+        $this->assertEquals(['foo' => 'foo'], $service->getPostBuildTasks());
     }
 
     /**
@@ -187,7 +187,7 @@ class BuildTaskServiceTest extends TestCase
         $this->directory('app/Actions');
         $this->file('app/Actions/FooBuildTask.php');
 
-        $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getPostBuildTasks());
+        $this->assertEquals(['foo-build-task' => 'App\Actions\FooBuildTask'], (new BuildTaskService())->getPostBuildTasks());
     }
 
     public function test_automatically_discovered_tasks_can_be_executed()

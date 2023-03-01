@@ -43,7 +43,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testAddPostBuildTask()
     {
         $this->service->addPostBuildTask(PostBuildTaskTestClass::class);
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getPostBuildTasks());
+        $this->assertSame(['post-build-task-test-class' => PostBuildTaskTestClass::class], $this->service->getPostBuildTasks());
     }
 
     public function testSetOutputWithNull()
