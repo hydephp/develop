@@ -87,7 +87,7 @@ class BuildTaskService
     }
 
     /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
-    public function addPostBuildTask(string $class): static
+    public function registerTask(string $class): static
     {
         $this->buildTasks[$this->makeTaskIdentifier($class)] = $class;
 
@@ -104,7 +104,7 @@ class BuildTaskService
         );
 
         foreach ($tasks as $task) {
-            $this->addPostBuildTask($task);
+            $this->registerTask($task);
         }
     }
 
