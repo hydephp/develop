@@ -91,22 +91,19 @@ class BuildTaskServiceTest extends TestCase
     /**
      * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_register_if_runs_task_if_supplied_boolean_is_true()
+    public function test_register_if_registers_task_if_supplied_boolean_is_true()
     {
         $task = $this->makeTask();
-
         $service = $this->makeService();
-        $return = $service->registerIf(get_class($task), true);
 
-        $this->expectOutputString('BuildTask');
-
-        $this->assertSame($service, $return);
+        $service->registerIf(get_class($task), true);
+        $this->assertSame(['test-build-task' => TestBuildTask::class], $service->getTasks());
     }
 
     /**
      * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_register_if_does_not_run_task_if_supplied_boolean_is_false()
+    public function test_register_if_does_not_register_task_if_supplied_boolean_is_false()
     {
         $task = $this->makeTask();
 
@@ -121,18 +118,16 @@ class BuildTaskServiceTest extends TestCase
     /**
      * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_register_if_runs_task_if_supplied_callable_returns_true()
+    public function test_register_if_registers_task_if_supplied_callable_returns_true()
     {
         $task = $this->makeTask();
-
         $service = $this->makeService();
-        $return = $service->registerIf(get_class($task), function () {
+
+        $service->registerIf(get_class($task), function () {
             return true;
         });
 
-        $this->expectOutputString('BuildTask');
-
-        $this->assertSame($service, $return);
+        $this->assertSame(['test-build-task' => TestBuildTask::class], $service->getTasks());
     }
 
     /**
