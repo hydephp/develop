@@ -187,17 +187,16 @@ class BuildTaskServiceTest extends TestCase
 
     public function test_find_tasks_in_app_directory_method_discovers_tasks_in_app_directory()
     {
-        File::makeDirectory(Hyde::path('app/Actions'));
-        Filesystem::touch('app/Actions/FooBuildTask.php');
+        $this->directory('app/Actions');
+        $this->file('app/Actions/FooBuildTask.php');
 
         $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getPostBuildTasks());
-        File::deleteDirectory(Hyde::path('app/Actions'));
     }
 
     public function test_automatically_discovered_tasks_can_be_executed()
     {
-        File::makeDirectory(Hyde::path('app/Actions'));
-        File::put(Hyde::path('app/Actions/FooBuildTask.php'), '<?php
+        $this->directory('app/Actions');
+        $this->file('app/Actions/FooBuildTask.php', '<?php
 
 namespace App\Actions;
 
@@ -213,7 +212,6 @@ class FooBuildTask extends BuildTask {
         $service->runPostBuildTasks();
 
         $this->expectOutputString('FooBuildTask');
-        File::deleteDirectory(Hyde::path('app/Actions'));
     }
 
     protected function makeService(): BuildTaskService
