@@ -232,6 +232,14 @@ class TestPostBuildTask extends BuildTask implements RunsAfterBuild
     }
 }
 
+class TestBuildTaskWithoutRunnerInterface extends BuildTask
+{
+    public function handle(): void
+    {
+        //
+    }
+}
+
 class GenerateSitemap extends FrameworkGenerateSitemap
 {
     public function handle(): void
