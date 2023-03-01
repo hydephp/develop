@@ -46,12 +46,14 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getPostBuildTasks(): array
     {
-        return array_unique(
+        $tasks = array_unique(
             array_merge(
                 config('hyde.post_build_tasks', []),
                 static::findTasksInAppDirectory(),
             )
         );
+
+        return $tasks;
     }
 
     protected static function findTasksInAppDirectory(): array
