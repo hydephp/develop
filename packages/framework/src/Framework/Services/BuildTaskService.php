@@ -66,8 +66,8 @@ class BuildTaskService
         }
     }
 
-    /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $task */
-    public function registerTask(string $task): void
+    /** @param  \Hyde\Framework\Features\BuildTasks\BuildTask|class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $task */
+    public function registerTask(BuildTask|string $task): void
     {
         $class = $task;
         $task = new $class($this->output);
