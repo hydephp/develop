@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
+use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -43,6 +44,16 @@ class BuildTaskService
     public function getTasks(): array
     {
         return array_values($this->buildTasks);
+    }
+
+    public function runPreBuildTasks(): void
+    {
+        foreach ($this->getTasks() as $task) {
+            $task = new $task($this->output);
+            if ($task instanceof RunsBeforeBuild) {
+                $task->run();
+            }
+        }
     }
 
     public function runPostBuildTasks(): void
