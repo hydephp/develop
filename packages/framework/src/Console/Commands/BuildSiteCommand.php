@@ -35,6 +35,7 @@ class BuildSiteCommand extends Command
     protected $description = 'Build the static site';
 
     protected BuildService $service;
+    protected BuildTaskService $taskService;
 
     public function handle(): int
     {
@@ -44,7 +45,8 @@ class BuildSiteCommand extends Command
 
         $this->service = new BuildService($this->output);
 
-        app(BuildTaskService::class)->setOutput($this->output);
+        $this->taskService = app(BuildTaskService::class);
+        $this->taskService->setOutput($this->output);
 
         $this->runPreBuildActions();
 
