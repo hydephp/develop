@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use Exception;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -138,8 +139,9 @@ class BuildTaskServiceTest extends TestCase
         namespace App\Actions;
         
         use Hyde\Framework\Features\BuildTasks\BuildTask;
+        use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
         
-        class FooBuildTask extends BuildTask {
+        class FooBuildTask extends BuildTask implements RunsAfterBuild {
             public function handle(): void {
                 echo "FooBuildTask";
             }
@@ -149,7 +151,7 @@ class BuildTaskServiceTest extends TestCase
     }
 }
 
-class TestBuildTask extends BuildTask
+class TestBuildTask extends BuildTask implements RunsAfterBuild
 {
     public function handle(): void
     {

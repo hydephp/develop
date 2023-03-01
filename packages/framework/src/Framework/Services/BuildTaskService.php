@@ -7,6 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -48,7 +49,9 @@ class BuildTaskService
     {
         foreach ($this->getTasks() as $task) {
             $task = new $task($this->output);
-            $task->run();
+            if ($task instanceof RunsAfterBuild) {
+                $task->run();
+            }
         }
     }
 
