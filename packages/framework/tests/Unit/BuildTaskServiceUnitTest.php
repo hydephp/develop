@@ -69,6 +69,8 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->service->registerTask(PostBuildTaskTestClass::class);
         $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+
+        self::mockConfig();
     }
 
     public function testSetOutputWithNull()
