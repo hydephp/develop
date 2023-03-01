@@ -307,6 +307,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->createService();
         $this->verifyMockeryExpectations();
+        self::setupKernel();
     }
 
     public function testServiceFindsTasksInAppDirectory()
@@ -319,6 +320,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->createService();
         $this->verifyMockeryExpectations();
+        self::setupKernel();
     }
 
     protected function markTestSuccessful(): void
