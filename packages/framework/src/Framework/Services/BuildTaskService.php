@@ -28,7 +28,7 @@ use function str_replace;
  */
 class BuildTaskService
 {
-    /** @var array<string, class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    /** @var array<string, \Hyde\Framework\Features\BuildTasks\BuildTask> */
     protected array $buildTasks = [];
 
     protected ?OutputStyle $output = null;
@@ -49,7 +49,6 @@ class BuildTaskService
     public function runPreBuildTasks(): void
     {
         foreach ($this->getTasks() as $task) {
-            $task = new $task($this->output);
             if ($task instanceof RunsBeforeBuild) {
                 $task->run();
             }
@@ -59,7 +58,6 @@ class BuildTaskService
     public function runPostBuildTasks(): void
     {
         foreach ($this->getTasks() as $task) {
-            $task = new $task($this->output);
             if ($task instanceof RunsAfterBuild) {
                 $task->run();
             }
@@ -73,7 +71,7 @@ class BuildTaskService
             throw new InvalidArgumentException("BuildTask [$class] must extend the HydeBuildTask class.");
         }
 
-        $this->buildTasks[$this->makeTaskIdentifier($class)] = $class;
+        $this->buildTasks[$this->makeTaskIdentifier($class)] = new $class($this->output);
     }
 
     public function registerIf(string $task, callable|bool $condition): void
