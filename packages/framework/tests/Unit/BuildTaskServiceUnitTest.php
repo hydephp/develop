@@ -169,6 +169,18 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateSitemap());
     }
+
+    public function testRunPreBuildTasks()
+    {
+        $this->service->runPreBuildTasks();
+        $this->markTestSuccessful();
+    }
+
+    public function testRunPostBuildTasks()
+    {
+        $this->service->runPostBuildTasks();
+        $this->markTestSuccessful();
+    }
 }
 
 class TestBuildTask extends BuildTask
