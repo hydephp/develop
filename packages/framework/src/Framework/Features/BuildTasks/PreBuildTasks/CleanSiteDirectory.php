@@ -28,6 +28,11 @@ class CleanSiteDirectory extends BuildTask implements RunsBeforeBuild
         }
     }
 
+    public function printFinishMessage(): void
+    {
+        //
+    }
+
     protected function isItSafeToCleanOutputDirectory(): bool
     {
         if (! $this->isOutputDirectoryWhitelisted() && ! $this->askIfUnsafeDirectoryShouldBeEmptied()) {
