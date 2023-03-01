@@ -13,7 +13,6 @@ use function unslash;
  * This trait is used to flatten the output path of a page. This is only used for the documentation pages,
  * where all pages are output to the same directory, but where putting the page in a subdirectory will
  * create a nested navigation structure in the sidebar.
- *
  * @see https://hydephp.com/docs/master/documentation-pages#using-subdirectories
  */
 trait UsesFlattenedOutputPaths
