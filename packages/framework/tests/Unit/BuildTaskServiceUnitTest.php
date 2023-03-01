@@ -90,7 +90,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRegisterTaskWithoutRunnerInterfaceImplementationExceptionMessageIsHelpful()
     {
-        $this->expectExceptionMessage('BuildTask ['.TestBuildTaskWithoutRunnerInterface::class.'] must implement either RunsBeforeBuild or RunsAfterBuild.');
+        $this->expectExceptionMessage('BuildTask ['.TestBuildTaskWithoutRunnerInterface::class.'] must implement either the RunsBeforeBuild or RunsAfterBuild interface.');
         $this->service->registerTask(TestBuildTaskWithoutRunnerInterface::class);
     }
 

@@ -76,7 +76,7 @@ class BuildTaskService
         }
 
         if (! ($task instanceof RunsBeforeBuild || $task instanceof RunsAfterBuild)) {
-            throw new InvalidArgumentException("BuildTask [$class] must implement either RunsBeforeBuild or RunsAfterBuild.");
+            throw new InvalidArgumentException("BuildTask [$class] must implement either the RunsBeforeBuild or RunsAfterBuild interface.");
         }
 
         $this->buildTasks[$this->makeTaskIdentifier($class)] = $task;
