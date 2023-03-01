@@ -76,11 +76,15 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function testRegisterTaskWithInvalidClassType()
+    public function testRegisterTaskWithInvalidClassTypeThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('BuildTask [stdClass] must extend the HydeBuildTask class.');
+        $this->service->registerTask(stdClass::class);
+    }
 
+    public function testRegisterTaskWithInvalidClassTypeExceptionMessageIsHelpful()
+    {
+        $this->expectExceptionMessage('BuildTask [stdClass] must extend the HydeBuildTask class.');
         $this->service->registerTask(stdClass::class);
     }
 
