@@ -156,9 +156,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertTrue(true);
     }
 
-    protected function createService(): void
+    protected function createService(): BuildTaskService
     {
         $this->service = new BuildTaskService();
+
+        return $this->service;
     }
 
     public function testGenerateBuildManifestImplementsRunsAfterBuild()
