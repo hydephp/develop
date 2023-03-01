@@ -102,7 +102,7 @@ class BuildSiteCommand extends Command
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
 
-        $service->runTasks();
+        $service->runPostBuildTasks();
     }
 
     protected function printFinishMessage(float $timeStart): void

@@ -38,12 +38,12 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
      */
     public function test_run_post_build_tasks_runs_configured_tasks_does_nothing_if_no_tasks_are_configured()
     {
         $service = $this->makeService();
-        $service->runTasks();
+        $service->runPostBuildTasks();
 
         $this->expectOutputString('');
     }
@@ -74,7 +74,7 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
      */
     public function test_run_post_build_tasks_runs_configured_tasks()
     {
@@ -83,7 +83,7 @@ class BuildTaskServiceTest extends TestCase
         app(BuildTaskService::class)->registerTask(get_class($task));
 
         $service = $this->makeService();
-        $service->runTasks();
+        $service->runPostBuildTasks();
 
         $this->expectOutputString('BuildTask');
     }
@@ -115,7 +115,7 @@ class BuildTaskServiceTest extends TestCase
         $this->file('app/Actions/FooBuildTask.php', $this->classFileStub());
 
         $service = $this->makeService();
-        $service->runTasks();
+        $service->runPostBuildTasks();
 
         $this->expectOutputString('FooBuildTask');
     }
