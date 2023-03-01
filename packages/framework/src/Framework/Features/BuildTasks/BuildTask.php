@@ -39,7 +39,7 @@ abstract class BuildTask
     {
         $this->startClock();
 
-        if ($output && $this->output !== false) {
+        if ($output && $this->output !== null) {
             $this->output = $output;
         }
 
