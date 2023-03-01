@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use InvalidArgumentException;
 use Mockery;
+use ReflectionClass;
 use stdClass;
 
 /**
@@ -290,6 +294,32 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
+        $this->verifyMockeryExpectations();
+    }
+
+    public function testServiceSearchesForTasksInAppDirectory()
+    {
+        $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])->makePartial()->shouldReceive('smartGlob')->once()->with('app/Actions/*BuildTask.php', 0)->andReturn(collect())->getMock();
+
+        // No better way to do this at the moment
+        $reflector = new ReflectionClass(HydeKernel::class);
+        $property = $reflector->getProperty('filesystem');
+        $property->setValue(HydeKernel::getInstance(), $filesystem);
+
+        $this->createService();
+        $this->verifyMockeryExpectations();
+    }
+
+    public function testServiceFindsTasksInAppDirectory()
+    {
+        $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])->makePartial()->shouldReceive('smartGlob')->once()->with('app/Actions/*BuildTask.php', 0)->andReturn(collect([/** TODO */]))->getMock();
+
+        // No better way to do this at the moment
+        $reflector = new ReflectionClass(HydeKernel::class);
+        $property = $reflector->getProperty('filesystem');
+        $property->setValue(HydeKernel::getInstance(), $filesystem);
+
+        $this->createService();
         $this->verifyMockeryExpectations();
     }
 
