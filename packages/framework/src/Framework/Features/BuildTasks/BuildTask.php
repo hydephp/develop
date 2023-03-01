@@ -40,9 +40,13 @@ abstract class BuildTask
      *
      * @return int The exit code of the task.
      */
-    public function run(): int
+    public function run(?OutputStyle $output = null): int
     {
         $this->startClock();
+
+        if ($output) {
+            $this->output = $output;
+        }
 
         $this->write("<comment>{$this->getMessage()}...</comment> ");
 
