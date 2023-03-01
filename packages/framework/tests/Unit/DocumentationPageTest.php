@@ -31,7 +31,10 @@ class DocumentationPageTest extends TestCase
     {
         $page = DocumentationPage::make('foo');
         $this->assertEquals('docs/foo', $page->getRouteKey());
+    }
 
+    public function test_can_get_current_custom_page_path()
+    {
         config(['hyde.output_directories.documentation-page' => 'documentation/latest/']);
         (new HydeServiceProvider($this->app))->register();
 
