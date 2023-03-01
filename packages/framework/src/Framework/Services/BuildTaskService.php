@@ -94,7 +94,7 @@ class BuildTaskService
         return $this;
     }
 
-    public function setOutput(?OutputStyle $output): BuildTaskService
+    public function setOutput(?OutputStyle $output): static
     {
         $this->output = $output;
 
