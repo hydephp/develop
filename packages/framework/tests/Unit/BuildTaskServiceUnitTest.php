@@ -27,7 +27,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->service = new BuildTaskService();
+        $this->createService();
     }
 
     public function testConstruct()
@@ -61,6 +61,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);
+    }
+
+    protected function createService(): void
+    {
+        $this->service = new BuildTaskService();
     }
 }
 
