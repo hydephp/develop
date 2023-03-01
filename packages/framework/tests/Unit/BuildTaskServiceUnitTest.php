@@ -182,6 +182,20 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->runPostBuildTasks();
         $this->markTestSuccessful();
     }
+
+    public function testRunPreBuildTasksWithTasks()
+    {
+        $this->service->registerTask(TestPreBuildTask::class);
+        $this->service->runPreBuildTasks();
+        $this->markTestSuccessful();
+    }
+
+    public function testRunPostBuildTasksWithTasks()
+    {
+        $this->service->registerTask(TestPostBuildTask::class);
+        $this->service->runPostBuildTasks();
+        $this->markTestSuccessful();
+    }
 }
 
 class TestBuildTask extends BuildTask
