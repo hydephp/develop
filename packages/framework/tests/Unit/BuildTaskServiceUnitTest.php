@@ -28,11 +28,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public static function setUpBeforeClass(): void
     {
         self::needsKernel();
-        self::mockConfig();
     }
 
     protected function setUp(): void
     {
+        self::mockConfig();
         $this->createService();
     }
 
@@ -87,8 +87,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->service->registerTask(TestBuildTask::class);
         $this->assertSame([TestBuildTask::class], $this->service->getTasks());
-
-        self::mockConfig();
     }
 
     public function testRegisterTaskWithInvalidClassTypeThrowsException()
