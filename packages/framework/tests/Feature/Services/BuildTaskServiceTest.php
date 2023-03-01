@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch
  *
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
- *
- * @todo Disable backupStaticAttributes for this test
- * @backupStaticAttributes enabled
  */
 class BuildTaskServiceTest extends TestCase
 {
