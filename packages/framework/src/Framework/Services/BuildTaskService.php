@@ -9,6 +9,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
+use function array_values;
 use function class_basename;
 use function is_bool;
 use function str_replace;
