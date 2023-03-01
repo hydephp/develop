@@ -11,6 +11,12 @@ class CleanSiteDirectory extends BuildTask implements RunsBeforeBuild
 {
     public function handle(): void
     {
-        // TODO: Implement handle() method.
+        if (config('hyde.empty_output_directory', true)) {
+            $this->warn('Removing all files from build directory.');
+            if ($this->isItSafeToCleanOutputDirectory()) {
+                array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
+                File::cleanDirectory(Hyde::siteMediaPath());
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ use Hyde\Facades\Site;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\BuildTasks\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
@@ -49,14 +50,7 @@ class BuildService
     /** @deprecated Will be handled by a build task */
     public function cleanOutputDirectory(): void
     {
-        if (config('hyde.empty_output_directory', true)) {
-            $this->warn('Removing all files from build directory.');
-
-            if ($this->isItSafeToCleanOutputDirectory()) {
-                array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-                File::cleanDirectory(Hyde::siteMediaPath());
-            }
-        }
+        (new CleanSiteDirectory())->handle();
     }
 
     public function transferMediaAssets(): void
