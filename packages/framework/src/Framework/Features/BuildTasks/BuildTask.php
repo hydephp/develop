@@ -27,7 +27,7 @@ abstract class BuildTask
     /** @var \Illuminate\Console\OutputStyle|null */
     protected $output;
 
-    abstract public function run(): void;
+    abstract public function handle(): void;
 
     /** @phpstan-consistent-constructor */
     public function __construct(?OutputStyle $output = null)
@@ -35,14 +35,14 @@ abstract class BuildTask
         $this->output = $output;
     }
 
-    public function handle(): int
+    public function run(): int
     {
         $this->startClock();
 
         $this->write("<comment>{$this->getMessage()}...</comment> ");
 
         try {
-            $this->run();
+            $this->handle();
             $this->then();
         } catch (Throwable $exception) {
             $this->writeln('<error>Failed</error>');

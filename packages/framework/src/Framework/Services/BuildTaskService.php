@@ -89,7 +89,7 @@ class BuildTaskService
 
     protected function runTask(BuildTask $task): void
     {
-        $task->handle();
+        $task->run();
     }
 
     protected function registerTasks(array $tasks): void

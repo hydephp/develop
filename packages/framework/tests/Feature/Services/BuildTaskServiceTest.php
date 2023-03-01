@@ -147,11 +147,11 @@ class BuildTaskServiceTest extends TestCase
     {
         $return = (new class extends BuildTask
         {
-            public function run(): void
+            public function handle(): void
             {
                 throw new Exception('foo', 1);
             }
-        })->handle();
+        })->run();
 
         $this->assertEquals(1, $return);
     }
@@ -174,7 +174,7 @@ namespace App\Actions;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 
 class FooBuildTask extends BuildTask {
-    public function run(): void {
+    public function handle(): void {
         echo "FooBuildTask";
     }
 }');
@@ -198,7 +198,7 @@ class FooBuildTask extends BuildTask {
 
 class TestBuildTask extends BuildTask
 {
-    public function run(): void
+    public function handle(): void
     {
         echo 'BuildTask';
     }

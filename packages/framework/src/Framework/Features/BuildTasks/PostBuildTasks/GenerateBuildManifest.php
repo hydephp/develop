@@ -25,7 +25,7 @@ class GenerateBuildManifest extends BuildTask
         $this->output = null;
     }
 
-    public function run(): void
+    public function handle(): void
     {
         $pages = new Collection();
 

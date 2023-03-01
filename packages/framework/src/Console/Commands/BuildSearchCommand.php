@@ -22,6 +22,6 @@ class BuildSearchCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSearch($this->output))->handle();
+        return (new GenerateSearch($this->output))->run();
     }
 }

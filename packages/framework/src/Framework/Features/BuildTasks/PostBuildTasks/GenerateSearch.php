@@ -15,7 +15,7 @@ class GenerateSearch extends BuildTask
 
     public static string $message = 'Generating search index';
 
-    public function run(): void
+    public function handle(): void
     {
         DocumentationSearchService::generate();
 
