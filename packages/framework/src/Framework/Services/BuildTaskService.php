@@ -30,7 +30,7 @@ class BuildTaskService
 
     public function __construct()
     {
-        $this->registerTasks(Config::getArray('hyde.post_build_tasks', []));
+        $this->registerTasks(Config::getArray('hyde.build_tasks', []));
 
         $this->registerTasks($this->findTasksInAppDirectory());
     }

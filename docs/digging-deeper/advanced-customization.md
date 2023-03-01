@@ -165,7 +165,7 @@ There are a few ways to register these tasks so Hyde can find them. There is a c
 
 ```php
 // filepath config/hyde.php
-'post_build_tasks' => [
+'build_tasks' => [
     \App\Actions\SimpleTask::class,
     \App\Actions\ExampleTask::class,
 ],

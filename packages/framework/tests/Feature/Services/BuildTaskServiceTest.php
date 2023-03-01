@@ -53,7 +53,7 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
-        config(['hyde.post_build_tasks' => ['bar']]);
+        config(['hyde.build_tasks' => ['bar']]);
 
         $service = $this->makeService();
         $service->registerTask('foo');
@@ -67,7 +67,7 @@ class BuildTaskServiceTest extends TestCase
     public function test_get_post_build_tasks_merges_duplicate_keys()
     {
         app(BuildTaskService::class)->registerTask('foo');
-        config(['hyde.post_build_tasks' => ['foo']]);
+        config(['hyde.build_tasks' => ['foo']]);
 
         $service = $this->makeService();
         $this->assertEquals(['foo' => 'foo'], $service->getTasks());
