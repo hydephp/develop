@@ -98,11 +98,4 @@ abstract class BuildTask
 
         return $this;
     }
-
-    public function setOutput(?OutputStyle $output): void
-    {
-        if ($output) {
-            $this->output = $output;
-        }
-    }
 }
