@@ -38,7 +38,7 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getTasks(): array
     {
-        return $this->buildTasks;
+        return array_values($this->buildTasks);
     }
 
     public function runTasks(): void
