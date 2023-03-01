@@ -14,7 +14,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use function collect;
 
