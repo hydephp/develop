@@ -9,5 +9,8 @@ use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
 
 class CleanSiteDirectory extends BuildTask implements RunsBeforeBuild
 {
-    //
+    public function handle(): void
+    {
+        // TODO: Implement handle() method.
+    }
 }
