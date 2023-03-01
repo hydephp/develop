@@ -55,6 +55,7 @@ class BuildTaskService
         return $tasks;
     }
 
+    /** @deprecated This method will be protected */
     public function run(string $task): static
     {
         $this->runTask(new $task($this->output));
