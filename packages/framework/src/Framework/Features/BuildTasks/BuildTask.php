@@ -26,13 +26,13 @@ abstract class BuildTask
     /** @var \Illuminate\Console\OutputStyle|null */
     protected $output;
 
+    abstract public function run(): void;
+
     public function __construct(?OutputStyle $output = null)
     {
         $this->startClock();
         $this->output = $output;
     }
-
-    abstract public function run(): void;
 
     public function handle(): int
     {
