@@ -51,7 +51,7 @@ class BuildTaskService
 
     public function runPreBuildTasks(): void
     {
-        foreach ($this->getTasks() as $task) {
+        foreach ($this->buildTasks as $task) {
             if ($task instanceof RunsBeforeBuild) {
                 $task->run();
             }
@@ -60,7 +60,7 @@ class BuildTaskService
 
     public function runPostBuildTasks(): void
     {
-        foreach ($this->getTasks() as $task) {
+        foreach ($this->buildTasks as $task) {
             if ($task instanceof RunsAfterBuild) {
                 $task->run();
             }
