@@ -12,7 +12,7 @@ class GenerateRssFeed extends BuildTask
 {
     public static string $message = 'Generating RSS feed';
 
-    public function run(): void
+    public function handle(): void
     {
         file_put_contents(
             Hyde::sitePath(RssFeedGenerator::getFilename()),

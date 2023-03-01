@@ -16,7 +16,7 @@ class GenerateBuildManifestTest extends TestCase
 {
     public function test_action_generates_build_manifest()
     {
-        (new GenerateBuildManifest())->run();
+        (new GenerateBuildManifest())->handle();
 
         $this->assertFileExists(Hyde::path('app/storage/framework/cache/build-manifest.json'));
 

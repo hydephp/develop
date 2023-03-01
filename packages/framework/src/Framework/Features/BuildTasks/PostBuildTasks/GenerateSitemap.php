@@ -12,7 +12,7 @@ class GenerateSitemap extends BuildTask
 {
     public static string $message = 'Generating sitemap';
 
-    public function run(): void
+    public function handle(): void
     {
         file_put_contents(
             Hyde::sitePath('sitemap.xml'),

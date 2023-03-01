@@ -113,7 +113,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
 class PostBuildTaskTestClass extends BuildTask
 {
-    public function run(): void
+    public function handle(): void
     {
         //
     }
@@ -121,7 +121,7 @@ class PostBuildTaskTestClass extends BuildTask
 
 class GenerateSitemap extends FrameworkGenerateSitemap
 {
-    public function run(): void
+    public function handle(): void
     {
         //
     }
