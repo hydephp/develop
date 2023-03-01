@@ -54,6 +54,10 @@ class BuildTaskService
             )
         );
 
+        foreach ($tasks as $task) {
+            $this->addPostBuildTask($task);
+        }
+
         return self::$legacyPostBuildTasks;
     }
 
