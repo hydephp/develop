@@ -64,6 +64,11 @@ class BuildSiteCommand extends Command
         return $this->getExitCode();
     }
 
+    protected function setupBuildTaskService(): void
+    {
+        $this->taskService->setOutput($this->output);
+    }
+
     protected function runPreBuildActions(): void
     {
         if ($this->option('no-api')) {
@@ -181,10 +186,5 @@ class BuildSiteCommand extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    protected function setupBuildTaskService(): void
-    {
-        $this->taskService->setOutput($this->output);
     }
 }
