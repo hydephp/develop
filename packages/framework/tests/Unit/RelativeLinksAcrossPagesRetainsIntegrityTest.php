@@ -87,6 +87,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             ])),
             'writeln' => null,
             'newLine' => null,
+            'write' => null,
         ]));
 
         $service->cleanOutputDirectory();
