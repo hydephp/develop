@@ -105,7 +105,6 @@ class BuildTaskService
 
     protected function discoverTasks(): void
     {
-        // TODO: Refactor so this is only called once
         $tasks = array_unique(
             array_merge(
                 config('hyde.post_build_tasks', []),
