@@ -168,10 +168,10 @@ class DocumentationPageTest extends TestCase
         $this->assertFalse(DocumentationPage::hasTableOfContents());
     }
 
-    public function test_compiled_pages_originating_in_subdirectories_get_output_to_root_docs_path()
+    public function test_compiled_pages_originating_in_subdirectories_retain_subdirectory_structure()
     {
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+        $this->assertEquals('docs/foo/bar.html', $page->getOutputPath());
     }
 
     public function test_page_has_front_matter()

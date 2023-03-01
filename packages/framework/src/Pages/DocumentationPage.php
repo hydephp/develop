@@ -18,8 +18,6 @@ use Hyde\Support\Models\Route;
  */
 class DocumentationPage extends BaseMarkdownPage
 {
-    use Concerns\UsesFlattenedOutputPaths;
-
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
