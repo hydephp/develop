@@ -89,21 +89,6 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::run
-     */
-    public function test_run_method_runs_task_by_class_name_input_and_returns_self()
-    {
-        $task = $this->makeTask();
-
-        $service = $this->makeService();
-        $return = $service->run(get_class($task));
-
-        $this->expectOutputString('BuildTask');
-
-        $this->assertSame($service, $return);
-    }
-
-    /**
      * @covers \Hyde\Framework\Services\BuildTaskService::runIf
      */
     public function test_run_if_runs_task_if_supplied_boolean_is_true()
