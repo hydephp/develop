@@ -74,7 +74,8 @@ class BuildTaskService
             throw new InvalidArgumentException("BuildTask [$class] must extend the HydeBuildTask class.");
         }
 
-        $this->buildTasks[$this->makeTaskIdentifier($class)] = new $class($this->output);
+        $task = new $class($this->output);
+        $this->buildTasks[$this->makeTaskIdentifier($class)] = $task;
     }
 
     public function registerIf(string $task, callable|bool $condition): void
