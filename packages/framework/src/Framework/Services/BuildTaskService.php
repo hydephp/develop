@@ -53,6 +53,7 @@ class BuildTaskService
     {
         foreach ($this->buildTasks as $task) {
             if ($task instanceof RunsBeforeBuild) {
+                $task->setOutput($this->output);
                 $task->run();
             }
         }
@@ -62,6 +63,7 @@ class BuildTaskService
     {
         foreach ($this->buildTasks as $task) {
             if ($task instanceof RunsAfterBuild) {
+                $task->setOutput($this->output);
                 $task->run();
             }
         }
@@ -70,7 +72,7 @@ class BuildTaskService
     /** @param  \Hyde\Framework\Features\BuildTasks\BuildTask|class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $task */
     public function registerTask(BuildTask|string $task): void
     {
-        $task = is_string($task) ? new $task($this->output) : $task;
+        $task = is_string($task) ? new $task() : $task;
         $class = $task::class;
 
         if (! $task instanceof BuildTask) {
