@@ -20,9 +20,11 @@ use function is_string;
 use function str_replace;
 
 /**
- * This service manages the build tasks that are called before and after the site has been compiled using the build command.
+ * This service manages the build tasks that are called before and after the site is compiled using the build command.
  *
- * It is registered as a singleton in the Laravel service container.
+ * The class is registered as a singleton in the Laravel service container and is run by the build command.
+ * Build Tasks can be registered programmatically, through the config, and through autodiscovery.
+ * The service determines when to run a task depending on the interface it implements.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
