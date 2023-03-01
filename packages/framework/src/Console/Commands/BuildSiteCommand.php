@@ -78,6 +78,8 @@ class BuildSiteCommand extends Command
 
     protected function runPreBuildActions(): void
     {
+        $service = app(BuildTaskService::class);
+
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
@@ -91,6 +93,8 @@ class BuildSiteCommand extends Command
             $this->newLine();
             Config::set(['hyde.pretty_urls' => true]);
         }
+
+        $service->runPreBuildTasks();
     }
 
     public function runPostBuildActions(): void
