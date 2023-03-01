@@ -48,40 +48,11 @@ class BuildTaskService
         return $this->buildTasks;
     }
 
-    protected static function findTasksInAppDirectory(): array
-    {
-        $tasks = [];
-
-        foreach (Filesystem::smartGlob('app/Actions/*BuildTask.php') as $file) {
-            $tasks[] = str_replace(
-                ['app', '.php', '/'],
-                ['App', '', '\\'],
-                (string) $file
-            );
-        }
-
-        return $tasks;
-    }
-
-    protected function run(string $task): static
-    {
-        $this->runTask(new $task($this->output));
-
-        return $this;
-    }
-
     public function registerIf(string $task, callable|bool $condition): static
     {
         if (is_bool($condition) ? $condition : $condition()) {
             $this->registerTask($task);
         }
-
-        return $this;
-    }
-
-    protected function runTask(BuildTask $task): static
-    {
-        $task->handle();
 
         return $this;
     }
@@ -121,5 +92,34 @@ class BuildTaskService
         foreach ($tasks as $task) {
             $this->registerTask($task);
         }
+    }
+
+    protected static function findTasksInAppDirectory(): array
+    {
+        $tasks = [];
+
+        foreach (Filesystem::smartGlob('app/Actions/*BuildTask.php') as $file) {
+            $tasks[] = str_replace(
+                ['app', '.php', '/'],
+                ['App', '', '\\'],
+                (string) $file
+            );
+        }
+
+        return $tasks;
+    }
+
+    protected function run(string $task): static
+    {
+        $this->runTask(new $task($this->output));
+
+        return $this;
+    }
+
+    protected function runTask(BuildTask $task): static
+    {
+        $task->handle();
+
+        return $this;
     }
 }
