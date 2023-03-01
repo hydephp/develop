@@ -81,17 +81,13 @@ class BuildTaskService
 
     protected static function findTasksInAppDirectory(): array
     {
-        $tasks = [];
-
-        foreach (Filesystem::smartGlob('app/Actions/*BuildTask.php') as $file) {
-            $tasks[] = str_replace(
+        return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
+            return str_replace(
                 ['app', '.php', '/'],
                 ['App', '', '\\'],
-                (string) $file
+                $file
             );
-        }
-
-        return $tasks;
+        })->toArray();
     }
 
     protected function makeTaskIdentifier(string $class): string
