@@ -81,10 +81,10 @@ class BuildSiteCommand extends Command
         $service = app(BuildTaskService::class);
         $service->setOutput($this->output);
 
+        $service->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $service->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $service->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
         $service->registerIf(GenerateSearch::class, $this->canGenerateSearch());
-        $service->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
@@ -145,6 +145,11 @@ class BuildSiteCommand extends Command
         ));
     }
 
+    protected function canGenerateManifest(): mixed
+    {
+        return config('hyde.generate_build_manifest', true);
+    }
+
     protected function canGenerateSitemap(): bool
     {
         return Features::sitemap();
@@ -158,11 +163,6 @@ class BuildSiteCommand extends Command
     protected function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch();
-    }
-
-    protected function canGenerateManifest(): mixed
-    {
-        return config('hyde.generate_build_manifest', true);
     }
 
     protected function hasWarnings(): bool
