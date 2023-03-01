@@ -241,7 +241,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->verifyMockeryExpectations();
     }
 
-    public function testRunPreBuildTasksCallsRunMethodsWithOutputArguments()
+    public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
@@ -251,7 +251,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->verifyMockeryExpectations();
     }
 
-    public function testRunPostBuildTasksCallsRunMethodsWithOutputArguments()
+    public function testRunPostBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
