@@ -20,12 +20,6 @@ class GenerateBuildManifest extends BuildTask implements RunsAfterBuild
 {
     public static string $message = 'Generating build manifest';
 
-    public function __construct(?OutputStyle $output = null)
-    {
-        parent::__construct($output);
-        $this->output = null;
-    }
-
     public function handle(): void
     {
         $pages = new Collection();
