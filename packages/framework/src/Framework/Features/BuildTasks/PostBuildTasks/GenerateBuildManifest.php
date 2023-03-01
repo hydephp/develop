@@ -19,9 +19,6 @@ class GenerateBuildManifest extends BuildTask implements RunsAfterBuild
 {
     public static string $message = 'Generating build manifest';
 
-    /** @var null This means the task will not produce any output */
-    protected $output = null;
-
     public function handle(): void
     {
         $pages = new Collection();
