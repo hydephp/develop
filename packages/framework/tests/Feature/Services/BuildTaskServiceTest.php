@@ -201,12 +201,14 @@ class FooBuildTask extends BuildTask {
 
     protected function makeTask(): BuildTask
     {
-        return new class extends BuildTask
-        {
-            public function run(): void
-            {
-                echo 'BuildTask';
-            }
-        };
+        return new TestBuildTask();
+    }
+}
+
+class TestBuildTask extends BuildTask
+{
+    public function run(): void
+    {
+        echo 'BuildTask';
     }
 }
