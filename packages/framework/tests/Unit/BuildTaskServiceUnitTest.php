@@ -17,6 +17,8 @@ use Mockery;
  */
 class BuildTaskServiceUnitTest extends UnitTestCase
 {
+    protected BuildTaskService $service;
+
     public static function setUpBeforeClass(): void
     {
         self::needsKernel();
