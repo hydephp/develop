@@ -344,6 +344,7 @@ class TestBuildTaskWithoutRunnerInterface extends BuildTask
     }
 }
 
+/** Test class to test overloading */
 class GenerateSitemap extends FrameworkGenerateSitemap
 {
     public function handle(): void
