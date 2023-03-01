@@ -51,7 +51,7 @@ class BuildService
     public function cleanOutputDirectory(): void
     {
         // TODO Register task in service instead
-        (new CleanSiteDirectory())->handle();
+        (new CleanSiteDirectory())->run();
     }
 
     public function transferMediaAssets(): void
