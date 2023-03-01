@@ -74,10 +74,10 @@ class BuildTaskService
     {
         $this->registerTasks(config('hyde.post_build_tasks', []));
 
-        $this->registerTasks(static::findTasksInAppDirectory());
+        $this->registerTasks($this->findTasksInAppDirectory());
     }
 
-    protected static function findTasksInAppDirectory(): array
+    protected function findTasksInAppDirectory(): array
     {
         return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
             return static::pathToClassName($file);
