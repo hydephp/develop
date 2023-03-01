@@ -16,7 +16,9 @@ use function is_bool;
 use function str_replace;
 
 /**
- * This service manages the build tasks that are called after the site has been compiled using the build command.
+ * This service manages the build tasks that are called before and after the site has been compiled using the build command.
+ *
+ * It is registered as a singleton in the Laravel service container.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
