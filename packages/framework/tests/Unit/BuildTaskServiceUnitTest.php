@@ -236,6 +236,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         return $this->service;
     }
+
+    protected function verifyMockeryExpectations(): void
+    {
+        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+        Mockery::close();
+    }
 }
 
 class TestBuildTask extends BuildTask implements RunsBeforeBuild, RunsAfterBuild
