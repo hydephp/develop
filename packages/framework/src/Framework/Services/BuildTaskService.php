@@ -71,7 +71,7 @@ class BuildTaskService
     public function registerTask(BuildTask|string $task): void
     {
         $task = is_string($task) ? new $task($this->output) : $task;
-        $class = $task;
+        $class = $task::class;
 
         if (! $task instanceof BuildTask) {
             throw new InvalidArgumentException("BuildTask [$class] must extend the HydeBuildTask class.");
