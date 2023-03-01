@@ -70,6 +70,18 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertSame([TestPostBuildTask::class], $this->service->getTasks());
     }
 
+    public function testRegisterTaskWithInvalidClassTypeThrowsException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->service->registerTask(stdClass::class);
+    }
+
+    public function testRegisterTaskWithInvalidClassTypeExceptionMessageIsHelpful()
+    {
+        $this->expectExceptionMessage('BuildTask [stdClass] must extend the HydeBuildTask class.');
+        $this->service->registerTask(stdClass::class);
+    }
+
     public function testRegisterTaskWithAlreadyRegisteredTask()
     {
         $this->service->registerTask(TestBuildTask::class);
@@ -85,18 +97,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->service->registerTask(TestBuildTask::class);
         $this->assertSame([TestBuildTask::class], $this->service->getTasks());
-    }
-
-    public function testRegisterTaskWithInvalidClassTypeThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->service->registerTask(stdClass::class);
-    }
-
-    public function testRegisterTaskWithInvalidClassTypeExceptionMessageIsHelpful()
-    {
-        $this->expectExceptionMessage('BuildTask [stdClass] must extend the HydeBuildTask class.');
-        $this->service->registerTask(stdClass::class);
     }
 
     public function testCanRegisterFrameworkTasks()
