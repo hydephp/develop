@@ -95,6 +95,8 @@ class BuildSiteCommand extends Command
 
     public function runPostBuildActions(): void
     {
+        $this->taskService->runPostBuildTasks();
+
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
                 'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line',
@@ -110,8 +112,6 @@ class BuildSiteCommand extends Command
         if ($this->option('run-prod')) {
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
-
-        $this->taskService->runPostBuildTasks();
     }
 
     protected function printFinishMessage(float $timeStart): void
