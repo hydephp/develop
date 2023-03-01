@@ -93,7 +93,7 @@ class HydeExtensionFeatureTest extends TestCase
     public function test_register_extension_method_only_accepts_instances_of_hyde_extension()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+        $this->expectExceptionMessage('Extension [stdClass] must extend the HydeExtension class.');
 
         app(HydeKernel::class)->registerExtension(stdClass::class);
     }
