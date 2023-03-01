@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 class BuildTaskService
 {
     /**
-     * @var array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
+     * @var array<string, class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
      */
     protected array $legacyPostBuildTasks = [];
 
