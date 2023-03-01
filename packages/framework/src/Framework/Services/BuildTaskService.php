@@ -66,7 +66,7 @@ class BuildTaskService
     public function runIf(string $task, callable|bool $condition): static
     {
         if (is_bool($condition) ? $condition : $condition()) {
-            $this->run($task);
+            $this->registerTask($task);
         }
 
         return $this;
