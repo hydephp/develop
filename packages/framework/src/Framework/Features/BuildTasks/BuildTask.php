@@ -31,12 +31,13 @@ abstract class BuildTask
     /** @phpstan-consistent-constructor */
     public function __construct(?OutputStyle $output = null)
     {
-        $this->startClock();
         $this->output = $output;
     }
 
     public function handle(): int
     {
+        $this->startClock();
+
         $this->write("<comment>{$this->getDescription()}...</comment> ");
 
         try {
