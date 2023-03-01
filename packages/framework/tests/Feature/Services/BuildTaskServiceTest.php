@@ -106,13 +106,11 @@ class BuildTaskServiceTest extends TestCase
     public function test_register_if_does_not_register_task_if_supplied_boolean_is_false()
     {
         $task = $this->makeTask();
-
         $service = $this->makeService();
-        $return = $service->registerIf(get_class($task), false);
 
-        $this->expectOutputString('');
+        $service->registerIf(get_class($task), false);
 
-        $this->assertSame($service, $return);
+        $this->assertSame([], $service->getTasks());
     }
 
     /**
@@ -136,15 +134,13 @@ class BuildTaskServiceTest extends TestCase
     public function test_register_if_does_not_run_task_if_supplied_callable_returns_false()
     {
         $task = $this->makeTask();
-
         $service = $this->makeService();
-        $return = $service->registerIf(get_class($task), function () {
+
+        $service->registerIf(get_class($task), function () {
             return false;
         });
 
-        $this->expectOutputString('');
-
-        $this->assertSame($service, $return);
+        $this->assertSame([], $service->getTasks());
     }
 
     public function test_exception_handler_shows_error_message_and_exits_with_code_1_without_throwing_exception()
