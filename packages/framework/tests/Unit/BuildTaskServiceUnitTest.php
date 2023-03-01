@@ -121,13 +121,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
      */
     public function testRegisterIfRegistersTaskIfSuppliedCallableReturnsTrue()
     {
-        $this->service->registerIf(TestBuildTask::class, fn() => true);
+        $this->service->registerIf(TestBuildTask::class, fn () => true);
         $this->assertSame([TestBuildTask::class], $this->service->getTasks());
     }
 
     public function testRegisterIfDoesNotRunTaskIfSuppliedCallableReturnsFalse()
     {
-        $this->service->registerIf(TestBuildTask::class, fn() => false);
+        $this->service->registerIf(TestBuildTask::class, fn () => false);
         $this->assertSame([], $this->service->getTasks());
     }
 
