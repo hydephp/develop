@@ -187,17 +187,19 @@ class BuildTaskServiceTest extends TestCase
 
     protected function classFileStub(): string
     {
-        return '<?php
-
-namespace App\Actions;
-
-use Hyde\Framework\Features\BuildTasks\BuildTask;
-
-class FooBuildTask extends BuildTask {
-    public function handle(): void {
-        echo "FooBuildTask";
-    }
-}';
+        return <<<'PHP'
+        <?php
+        
+        namespace App\Actions;
+        
+        use Hyde\Framework\Features\BuildTasks\BuildTask;
+        
+        class FooBuildTask extends BuildTask {
+            public function handle(): void {
+                echo "FooBuildTask";
+            }
+        }
+        PHP;
     }
 }
 
