@@ -167,17 +167,7 @@ class BuildTaskServiceTest extends TestCase
     public function test_automatically_discovered_tasks_can_be_executed()
     {
         $this->directory('app/Actions');
-        $this->file('app/Actions/FooBuildTask.php', '<?php
-
-namespace App\Actions;
-
-use Hyde\Framework\Features\BuildTasks\BuildTask;
-
-class FooBuildTask extends BuildTask {
-    public function handle(): void {
-        echo "FooBuildTask";
-    }
-}');
+        $this->file('app/Actions/FooBuildTask.php', $this->classFileStub());
 
         $service = $this->makeService();
         $service->runTasks();
@@ -193,6 +183,21 @@ class FooBuildTask extends BuildTask {
     protected function makeTask(): BuildTask
     {
         return new TestBuildTask();
+    }
+
+    protected function classFileStub(): string
+    {
+        return '<?php
+
+namespace App\Actions;
+
+use Hyde\Framework\Features\BuildTasks\BuildTask;
+
+class FooBuildTask extends BuildTask {
+    public function handle(): void {
+        echo "FooBuildTask";
+    }
+}';
     }
 }
 
