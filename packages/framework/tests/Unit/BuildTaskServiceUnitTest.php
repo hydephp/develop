@@ -14,6 +14,12 @@ use Hyde\Testing\UnitTestCase;
  */
 class BuildTaskServiceUnitTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+        self::mockConfig();
+    }
+
     public function testConstruct()
     {
         $this->assertInstanceOf(BuildTaskService::class, new BuildTaskService());
