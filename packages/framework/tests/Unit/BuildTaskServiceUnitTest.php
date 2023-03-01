@@ -98,6 +98,39 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertSame([GenerateSitemap::class], $this->service->getTasks());
     }
 
+    /**
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
+     */
+    public function testRegisterIfRegistersTaskIfSuppliedBooleanIsTrue()
+    {
+        $this->service->registerIf(PostBuildTaskTestClass::class, true);
+        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+    }
+
+    /**
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
+     */
+    public function testRegisterIfDoesNotRegisterTaskIfSuppliedBooleanIsFalse()
+    {
+        $this->service->registerIf(PostBuildTaskTestClass::class, false);
+        $this->assertSame([], $this->service->getTasks());
+    }
+
+    /**
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
+     */
+    public function testRegisterIfRegistersTaskIfSuppliedCallableReturnsTrue()
+    {
+        $this->service->registerIf(PostBuildTaskTestClass::class, fn() => true);
+        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+    }
+
+    public function testRegisterIfDoesNotRunTaskIfSuppliedCallableReturnsFalse()
+    {
+        $this->service->registerIf(PostBuildTaskTestClass::class, fn() => false);
+        $this->assertSame([], $this->service->getTasks());
+    }
+
     public function testSetOutputWithNull()
     {
         $this->service->setOutput(null);
