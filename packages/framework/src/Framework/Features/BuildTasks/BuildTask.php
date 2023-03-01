@@ -43,7 +43,7 @@ abstract class BuildTask
             $this->setOutput($output);
         }
 
-        $this->write("<comment>{$this->getMessage()}...</comment> ");
+        $this->printStartMessage();
 
         try {
             $this->handle();
@@ -57,6 +57,11 @@ abstract class BuildTask
         $this->write("\n");
 
         return $this->exitCode;
+    }
+
+    public function printStartMessage(): void
+    {
+        $this->write("<comment>{$this->getMessage()}...</comment> ");
     }
 
     public function printFinishMessage(): void
