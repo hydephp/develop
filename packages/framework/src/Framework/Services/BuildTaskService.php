@@ -80,7 +80,7 @@ class BuildTaskService
     protected static function findTasksInAppDirectory(): array
     {
         return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
-            return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file); // Convert path to class name
+            return static::pathToClassName($file);
         })->toArray();
     }
 
@@ -111,5 +111,10 @@ class BuildTaskService
         foreach ($tasks as $task) {
             $this->registerTask($task);
         }
+    }
+
+    protected static function pathToClassName(string $file): string
+    {
+        return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
     }
 }
