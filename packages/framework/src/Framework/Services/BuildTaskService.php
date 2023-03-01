@@ -8,6 +8,12 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Facades\Filesystem;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
+use function array_merge;
+use function array_unique;
+use function class_basename;
+use function config;
+use function is_bool;
+use function str_replace;
 
 /**
  * This service manages the build tasks that are called after the site has been compiled using the build command.
