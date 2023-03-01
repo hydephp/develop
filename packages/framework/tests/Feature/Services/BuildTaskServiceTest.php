@@ -199,6 +199,7 @@ class BuildTaskServiceTest extends TestCase
                 echo "FooBuildTask";
             }
         }
+
         PHP;
     }
 }
