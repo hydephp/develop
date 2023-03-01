@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\File;
  *
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  *
- * @backupStaticAttributes enabled
+ * @backupStaticAttributes enabled (@deprecated)
  */
 class BuildTaskServiceTest extends TestCase
 {
