@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use function class_basename;
-use Hyde\Facades\Config;
 use function is_bool;
 use function str_replace;
 
