@@ -302,9 +302,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])->makePartial()->shouldReceive('smartGlob')->once()->with('app/Actions/*BuildTask.php', 0)->andReturn(collect())->getMock();
 
         // No better way to do this at the moment
-        $reflector = new ReflectionClass(HydeKernel::class);
-        $property = $reflector->getProperty('filesystem');
-        $property->setValue(HydeKernel::getInstance(), $filesystem);
+        (new ReflectionClass(HydeKernel::class))->getProperty('filesystem')->setValue(HydeKernel::getInstance(), $filesystem);
 
         $this->createService();
         $this->verifyMockeryExpectations();
@@ -315,9 +313,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])->makePartial()->shouldReceive('smartGlob')->once()->with('app/Actions/*BuildTask.php', 0)->andReturn(collect([/** TODO */]))->getMock();
 
         // No better way to do this at the moment
-        $reflector = new ReflectionClass(HydeKernel::class);
-        $property = $reflector->getProperty('filesystem');
-        $property->setValue(HydeKernel::getInstance(), $filesystem);
+        (new ReflectionClass(HydeKernel::class))->getProperty('filesystem')->setValue(HydeKernel::getInstance(), $filesystem);
 
         $this->createService();
         $this->verifyMockeryExpectations();
