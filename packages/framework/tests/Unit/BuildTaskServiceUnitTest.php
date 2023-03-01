@@ -15,6 +15,8 @@ use Illuminate\Console\OutputStyle;
 use InvalidArgumentException;
 use Mockery;
 use stdClass;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
@@ -236,6 +238,26 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRunPostBuildTasksCallsHandleMethods()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+        $this->service->registerTask($task);
+        $this->service->runPostBuildTasks();
+        $this->verifyMockeryExpectations();
+    }
+
+    public function testRunPreBuildTasksCallsRunMethodsWithOutputArguments()
+    {
+        $output = new OutputStyle(new ArrayInput([]), new NullOutput());
+        $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+        $this->service->setOutput($output);
+        $this->service->registerTask($task);
+        $this->service->runPreBuildTasks();
+        $this->verifyMockeryExpectations();
+    }
+
+    public function testRunPostBuildTasksCallsRunMethodsWithOutputArguments()
+    {
+        $output = new OutputStyle(new ArrayInput([]), new NullOutput());
+        $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+        $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
         $this->verifyMockeryExpectations();
