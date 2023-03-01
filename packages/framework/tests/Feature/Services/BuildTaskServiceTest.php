@@ -26,11 +26,12 @@ class BuildTaskServiceTest extends TestCase
     /**
      * @covers \Hyde\Console\Commands\BuildSiteCommand::runPostBuildActions
      */
-    public function test_build_command_can_run_post_build_tasks()
+    public function test_build_command_can_run_build_tasks()
     {
         config(['hyde.url' => 'foo']);
 
         $this->artisan('build')
+            ->expectsOutputToContain('Removing all files from build directory')
             ->expectsOutputToContain('Generating sitemap')
             ->expectsOutputToContain('Created _site/sitemap.xml')
             ->assertExitCode(0);
