@@ -9,7 +9,9 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
+use InvalidArgumentException;
 use Mockery;
+use stdClass;
 
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
@@ -72,6 +74,14 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
 
         self::mockConfig();
+    }
+
+    public function testRegisterTaskWithInvalidClassType()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('BuildTask [stdClass] must extend the HydeBuildTask class.');
+
+        $this->service->registerTask(stdClass::class);
     }
 
     public function testCanRegisterFrameworkTasks()

@@ -53,12 +53,12 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
-        config(['hyde.build_tasks' => ['bar']]);
+        config(['hyde.build_tasks' => [SecondBuildTask::class]]);
 
         $service = $this->makeService();
-        $service->registerTask('foo');
+        $service->registerTask(TestBuildTask::class);
 
-        $this->assertEquals(['bar', 'foo'], $service->getTasks());
+        $this->assertEquals([SecondBuildTask::class, TestBuildTask::class], $service->getTasks());
     }
 
     /**
@@ -66,11 +66,11 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_get_post_build_tasks_merges_duplicate_keys()
     {
-        app(BuildTaskService::class)->registerTask('foo');
-        config(['hyde.build_tasks' => ['foo']]);
+        app(BuildTaskService::class)->registerTask(TestBuildTask::class);
+        config(['hyde.build_tasks' => [TestBuildTask::class]]);
 
         $service = $this->makeService();
-        $this->assertEquals(['foo'], $service->getTasks());
+        $this->assertEquals([TestBuildTask::class], $service->getTasks());
     }
 
     /**
@@ -159,7 +159,7 @@ class BuildTaskServiceTest extends TestCase
     public function test_find_tasks_in_app_directory_method_discovers_tasks_in_app_directory()
     {
         $this->directory('app/Actions');
-        $this->file('app/Actions/FooBuildTask.php');
+        $this->file('app/Actions/FooBuildTask.php', $this->classFileStub());
 
         $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getTasks());
     }
