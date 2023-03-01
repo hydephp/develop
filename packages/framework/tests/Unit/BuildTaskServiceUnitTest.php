@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Services\BuildTaskService;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Testing\UnitTestCase;
@@ -72,5 +73,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testGenerateSitemapImplementsRunsAfterBuild()
     {
         $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateSitemap());
+    }
+}
+
+class PostBuildTaskTestClass extends BuildTask implements RunsAfterBuild
+{
+    public function run(): void
+    {
+        //
     }
 }
