@@ -78,7 +78,7 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testRegisterExtensionWithInvalidExtensionClass()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+        $this->expectExceptionMessage('Extension [stdClass] must extend the HydeExtension class.');
 
         $this->kernel->registerExtension(stdClass::class);
     }
@@ -86,7 +86,7 @@ class ExtensionsUnitTest extends UnitTestCase
     public function testRegisterExtensionWithNonClassString()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified class must extend the HydeExtension class.');
+        $this->expectExceptionMessage('Extension [foo] must extend the HydeExtension class.');
 
         $this->kernel->registerExtension('foo');
     }
