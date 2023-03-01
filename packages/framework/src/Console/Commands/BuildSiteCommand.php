@@ -81,6 +81,11 @@ class BuildSiteCommand extends Command
         $service = app(BuildTaskService::class);
         $service->setOutput($this->output);
 
+        $service->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
+        $service->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $service->registerIf(GenerateSearch::class, $this->canGenerateSearch());
+        $service->registerIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
+
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
                 'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line',
@@ -96,11 +101,6 @@ class BuildSiteCommand extends Command
         if ($this->option('run-prod')) {
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
-
-        $service->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $service->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $service->registerIf(GenerateSearch::class, $this->canGenerateSearch());
-        $service->registerIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
 
         $service->runTasks();
     }
