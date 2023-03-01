@@ -6,7 +6,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Illuminate\Console\OutputStyle;
 
 /**
@@ -57,9 +57,9 @@ class BuildTaskService
     {
         $tasks = [];
 
-        foreach (glob(Hyde::path('app/Actions/*BuildTask.php')) as $file) {
+        foreach (Filesystem::smartGlob('app/Actions/*BuildTask.php') as $file) {
             $tasks[] = str_replace(
-                [Hyde::path('app'), '.php', '/'],
+                ['app', '.php', '/'],
                 ['App', '', '\\'],
                 (string) $file
             );
