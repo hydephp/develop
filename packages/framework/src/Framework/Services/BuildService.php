@@ -89,36 +89,6 @@ class BuildService
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
     }
 
-    protected function isItSafeToCleanOutputDirectory(): bool
-    {
-        if (! $this->isOutputDirectoryWhitelisted() && ! $this->askIfUnsafeDirectoryShouldBeEmptied()) {
-            $this->info('Output directory will not be emptied.');
-
-            return false;
-        }
-
-        return true;
-    }
-
-    protected function isOutputDirectoryWhitelisted(): bool
-    {
-        return in_array(basename(Hyde::sitePath()), $this->safeOutputDirectories());
-    }
-
-    protected function askIfUnsafeDirectoryShouldBeEmptied(): bool
-    {
-        return $this->confirm(sprintf(
-            'The configured output directory (%s) is potentially unsafe to empty. '.
-            'Are you sure you want to continue?',
-            Site::getOutputDirectory()
-        ));
-    }
-
-    protected function safeOutputDirectories(): array
-    {
-        return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
-    }
-
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     protected function getPageTypes(): array
     {
