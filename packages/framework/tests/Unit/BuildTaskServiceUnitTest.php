@@ -15,8 +15,6 @@ use Illuminate\Console\OutputStyle;
 use InvalidArgumentException;
 use Mockery;
 use stdClass;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
@@ -245,7 +243,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPreBuildTasksCallsRunMethodsWithOutputArguments()
     {
-        $output = new OutputStyle(new ArrayInput([]), new NullOutput());
+        $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
         $this->service->setOutput($output);
         $this->service->registerTask($task);
@@ -255,7 +253,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPostBuildTasksCallsRunMethodsWithOutputArguments()
     {
-        $output = new OutputStyle(new ArrayInput([]), new NullOutput());
+        $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
         $this->service->setOutput($output);
         $this->service->registerTask($task);
