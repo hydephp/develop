@@ -7,8 +7,10 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Facades\File;
 use InvalidArgumentException;
 use Mockery;
 use stdClass;
@@ -136,6 +138,18 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $this->service->setOutput(Mockery::mock(OutputStyle::class));
         $this->markTestSuccessful();
+    }
+
+    public function testServiceFindTasksInAppDirectory()
+    {
+        File::shouldReceive()
+            ->glob(Hyde::path('app/BuildTasks/*.php'))
+            ->andReturn([
+                Hyde::path('app/BuildTasks/GenerateSitemap.php'),
+                Hyde::path('app/BuildTasks/GenerateRobots.php'),
+            ]);
+
+        $this->service = new BuildTaskService();
     }
 
     protected function markTestSuccessful(): void
