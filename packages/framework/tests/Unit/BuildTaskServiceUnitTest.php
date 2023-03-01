@@ -43,49 +43,49 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGetTasks()
     {
-        $this->assertSame([], $this->service->getTasks());
+        $this->assertSame([], $this->service->getRegisteredTasks());
     }
 
     public function testGetTasksWithTaskRegisteredInConfig()
     {
         self::mockConfig(['hyde.build_tasks' => [TestBuildTask::class]]);
-        $this->assertSame([TestBuildTask::class], $this->createService()->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->createService()->getRegisteredTasks());
     }
 
     public function testRegisterTask()
     {
         $this->service->registerTask(TestBuildTask::class);
-        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterPreBuildTask()
     {
         $this->service->registerTask(TestPreBuildTask::class);
-        $this->assertSame([TestPreBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestPreBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterPostBuildTask()
     {
         $this->service->registerTask(TestPostBuildTask::class);
-        $this->assertSame([TestPostBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestPostBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterInstantiatedTask()
     {
         $this->service->registerTask(new TestBuildTask());
-        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterInstantiatedPreBuildTask()
     {
         $this->service->registerTask(new TestPreBuildTask());
-        $this->assertSame([TestPreBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestPreBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterInstantiatedPostBuildTask()
     {
         $this->service->registerTask(new TestPostBuildTask());
-        $this->assertSame([TestPostBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestPostBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterTaskWithInvalidClassTypeThrowsException()
@@ -117,7 +117,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(TestBuildTask::class);
         $this->service->registerTask(TestBuildTask::class);
 
-        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterTaskWithTaskAlreadyRegisteredInConfig()
@@ -126,13 +126,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->createService();
 
         $this->service->registerTask(TestBuildTask::class);
-        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testCanRegisterFrameworkTasks()
     {
         $this->service->registerTask(FrameworkGenerateSitemap::class);
-        $this->assertSame([FrameworkGenerateSitemap::class], $this->service->getTasks());
+        $this->assertSame([FrameworkGenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
     public function testCanOverloadFrameworkTasks()
@@ -140,31 +140,31 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(FrameworkGenerateSitemap::class);
         $this->service->registerTask(GenerateSitemap::class);
 
-        $this->assertSame([GenerateSitemap::class], $this->service->getTasks());
+        $this->assertSame([GenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterIfRegistersTaskIfSuppliedBooleanIsTrue()
     {
         $this->service->registerIf(TestBuildTask::class, true);
-        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterIfDoesNotRegisterTaskIfSuppliedBooleanIsFalse()
     {
         $this->service->registerIf(TestBuildTask::class, false);
-        $this->assertSame([], $this->service->getTasks());
+        $this->assertSame([], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterIfRegistersTaskIfSuppliedCallableReturnsTrue()
     {
         $this->service->registerIf(TestBuildTask::class, fn () => true);
-        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterIfDoesNotRunTaskIfSuppliedCallableReturnsFalse()
     {
         $this->service->registerIf(TestBuildTask::class, fn () => false);
-        $this->assertSame([], $this->service->getTasks());
+        $this->assertSame([], $this->service->getRegisteredTasks());
     }
 
     public function testSetOutputWithNull()

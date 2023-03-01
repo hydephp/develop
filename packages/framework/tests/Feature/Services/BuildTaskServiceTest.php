@@ -52,7 +52,7 @@ class BuildTaskServiceTest extends TestCase
         $service = $this->makeService();
         $service->registerTask(TestBuildTask::class);
 
-        $this->assertEquals([SecondBuildTask::class, TestBuildTask::class], $service->getTasks());
+        $this->assertEquals([SecondBuildTask::class, TestBuildTask::class], $service->getRegisteredTasks());
     }
 
     public function test_get_post_build_tasks_merges_duplicate_keys()
@@ -61,7 +61,7 @@ class BuildTaskServiceTest extends TestCase
         config(['hyde.build_tasks' => [TestBuildTask::class]]);
 
         $service = $this->makeService();
-        $this->assertEquals([TestBuildTask::class], $service->getTasks());
+        $this->assertEquals([TestBuildTask::class], $service->getRegisteredTasks());
     }
 
     public function test_run_post_build_tasks_runs_configured_tasks()
@@ -94,7 +94,7 @@ class BuildTaskServiceTest extends TestCase
         $this->directory('app/Actions');
         $this->file('app/Actions/FooBuildTask.php', $this->classFileStub());
 
-        $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getTasks());
+        $this->assertEquals(['App\Actions\FooBuildTask'], (new BuildTaskService())->getRegisteredTasks());
     }
 
     public function test_automatically_discovered_tasks_can_be_executed()
