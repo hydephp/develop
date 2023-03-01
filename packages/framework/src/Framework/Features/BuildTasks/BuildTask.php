@@ -32,6 +32,8 @@ abstract class BuildTask
         $this->output = $output;
     }
 
+    abstract public function run(): void;
+
     public function handle(): int
     {
         $this->write('<comment>'.$this->getDescription().'...</comment> ');
@@ -49,8 +51,6 @@ abstract class BuildTask
 
         return $this->exitCode;
     }
-
-    abstract public function run(): void;
 
     public function then(): void
     {
