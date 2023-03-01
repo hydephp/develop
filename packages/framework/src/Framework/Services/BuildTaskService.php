@@ -54,6 +54,9 @@ class BuildTaskService
             )
         );
 
+        // Remove tasks already registered (legacy TODO remove this once keyed)
+        $tasks = array_diff($tasks, self::$legacyPostBuildTasks);
+
         foreach ($tasks as $task) {
             $this->addPostBuildTask($task);
         }
