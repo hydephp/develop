@@ -8,7 +8,6 @@ use Hyde\Facades\Site;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Features\BuildTasks\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
@@ -49,8 +48,7 @@ class BuildService
     /** @deprecated Will be handled by a build task */
     public function cleanOutputDirectory(): void
     {
-        // TODO Register task in service instead
-        (new CleanSiteDirectory())->run($this->output);
+        //
     }
 
     public function transferMediaAssets(): void

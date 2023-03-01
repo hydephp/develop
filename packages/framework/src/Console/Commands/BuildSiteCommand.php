@@ -10,6 +10,7 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Features\BuildTasks\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
@@ -68,6 +69,7 @@ class BuildSiteCommand extends Command
     {
         $this->taskService->setOutput($this->output);
 
+        $this->taskService->registerTask(CleanSiteDirectory::class);
         $this->taskService->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $this->taskService->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $this->taskService->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
