@@ -149,18 +149,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->markTestSuccessful();
     }
 
-    protected function markTestSuccessful(): void
-    {
-        $this->assertTrue(true);
-    }
-
-    protected function createService(): BuildTaskService
-    {
-        $this->service = new BuildTaskService();
-
-        return $this->service;
-    }
-
     public function testGenerateBuildManifestImplementsRunsAfterBuild()
     {
         $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateBuildManifest());
@@ -205,6 +193,18 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(TestPostBuildTask::class);
         $this->service->runPostBuildTasks();
         $this->markTestSuccessful();
+    }
+
+    protected function markTestSuccessful(): void
+    {
+        $this->assertTrue(true);
+    }
+
+    protected function createService(): BuildTaskService
+    {
+        $this->service = new BuildTaskService();
+
+        return $this->service;
     }
 }
 
