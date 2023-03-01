@@ -16,7 +16,6 @@ use function array_map;
 use function array_values;
 use function class_basename;
 use function is_bool;
-use function is_subclass_of;
 use function str_replace;
 
 /**
@@ -72,7 +71,7 @@ class BuildTaskService
     {
         $task = new $class($this->output);
 
-        if (! is_subclass_of($class, BuildTask::class)) {
+        if (! $task instanceof BuildTask) {
             throw new InvalidArgumentException("BuildTask [$class] must extend the HydeBuildTask class.");
         }
 
