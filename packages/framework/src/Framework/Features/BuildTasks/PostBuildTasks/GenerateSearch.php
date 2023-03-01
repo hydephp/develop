@@ -24,7 +24,7 @@ class GenerateSearch extends BuildTask
         }
     }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
         $this->createdSiteFile(DocumentationSearchService::getFilePath())->withExecutionTime();
     }

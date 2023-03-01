@@ -20,7 +20,7 @@ class GenerateRssFeed extends BuildTask
         );
     }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
         $this->createdSiteFile('_site/'.RssFeedGenerator::getFilename())->withExecutionTime();
     }

@@ -38,7 +38,7 @@ abstract class BuildTask
     /**
      * This method is called by the BuildTaskService. It will run the task using the handle method,
      * as well as write output to the console, and handle any exceptions that may occur.
-     * 
+     *
      * @return int The exit code of the task.
      */
     public function run(): int
@@ -49,7 +49,7 @@ abstract class BuildTask
 
         try {
             $this->handle();
-            $this->then();
+            $this->printFinishMessage();
         } catch (Throwable $exception) {
             $this->writeln('<error>Failed</error>');
             $this->writeln("<error>{$exception->getMessage()}</error>");
@@ -61,7 +61,7 @@ abstract class BuildTask
         return $this->exitCode;
     }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
         $this->writeln('<fg=gray>Done in '.$this->getExecutionTimeString().'</>');
     }

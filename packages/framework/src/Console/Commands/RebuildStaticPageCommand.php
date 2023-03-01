@@ -70,7 +70,7 @@ class RebuildStaticPageCommand extends Command
                 (new RebuildService($this->path))->execute();
             }
 
-            public function then(): void
+            public function printFinishMessage(): void
             {
                 $this->createdSiteFile(Command::fileLink(
                     Pages::getPage($this->path)->getOutputPath()
