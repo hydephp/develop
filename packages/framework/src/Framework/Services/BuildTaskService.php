@@ -13,6 +13,7 @@ use Illuminate\Console\OutputStyle;
  * This service manages the build tasks that are called after the site has been compiled using the build command.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
+ * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  */
 class BuildTaskService
 {
