@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use function array_merge;
@@ -35,6 +35,12 @@ class BuildTaskService
         $this->discoverTasks();
     }
 
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    public function getTasks(): array
+    {
+        return $this->buildTasks;
+    }
+
     public function runTasks(): void
     {
         foreach ($this->getTasks() as $task) {
@@ -42,10 +48,12 @@ class BuildTaskService
         }
     }
 
-    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
-    public function getTasks(): array
+    /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
+    public function registerTask(string $class): static
     {
-        return $this->buildTasks;
+        $this->buildTasks[$this->makeTaskIdentifier($class)] = $class;
+
+        return $this;
     }
 
     public function registerIf(string $task, callable|bool $condition): static
@@ -62,22 +70,6 @@ class BuildTaskService
         $this->output = $output;
 
         return $this;
-    }
-
-    /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
-    public function registerTask(string $class): static
-    {
-        $this->buildTasks[$this->makeTaskIdentifier($class)] = $class;
-
-        return $this;
-    }
-
-    protected function makeTaskIdentifier(string $class): string
-    {
-        // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
-        // this will allow the user-land task to override the framework task, making them easy to swap out.
-
-        return Str::kebab(class_basename($class));
     }
 
     protected function discoverTasks(): void
@@ -107,6 +99,14 @@ class BuildTaskService
         }
 
         return $tasks;
+    }
+
+    protected function makeTaskIdentifier(string $class): string
+    {
+        // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
+        // this will allow the user-land task to override the framework task, making them easy to swap out.
+
+        return Str::kebab(class_basename($class));
     }
 
     protected function run(string $task): static
