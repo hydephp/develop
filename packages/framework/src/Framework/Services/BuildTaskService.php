@@ -53,9 +53,7 @@ class BuildTaskService
     {
         foreach ($this->buildTasks as $task) {
             if ($task instanceof RunsBeforeBuild) {
-                if ($this->output) {
-                    $task->setOutput($this->output);
-                }
+                $task->setOutput($this->output);
                 $task->run();
             }
         }
@@ -65,9 +63,7 @@ class BuildTaskService
     {
         foreach ($this->buildTasks as $task) {
             if ($task instanceof RunsAfterBuild) {
-                if ($this->output) {
-                    $task->setOutput($this->output);
-                }
+                $task->setOutput($this->output);
                 $task->run();
             }
         }
