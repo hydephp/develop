@@ -100,4 +100,11 @@ class BuildTaskService
 
         return $this;
     }
+
+    public function addPostBuildTask(string $class): static
+    {
+        self::$legacyPostBuildTasks[] = $class;
+
+        return $this;
+    }
 }
