@@ -18,4 +18,9 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $this->assertInstanceOf(BuildTaskService::class, new BuildTaskService());
     }
+
+    protected function service(): BuildTaskService
+    {
+        return new BuildTaskService();
+    }
 }
