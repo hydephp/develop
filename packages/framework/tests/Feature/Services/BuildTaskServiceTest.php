@@ -38,18 +38,18 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::runTasks
      */
     public function test_run_post_build_tasks_runs_configured_tasks_does_nothing_if_no_tasks_are_configured()
     {
         $service = $this->makeService();
-        $service->runPostBuildTasks();
+        $service->runTasks();
 
         $this->expectOutputString('');
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::getPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::getTasks
      */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
@@ -58,11 +58,11 @@ class BuildTaskServiceTest extends TestCase
         $service = $this->makeService();
         $service->registerTask('foo');
 
-        $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], $service->getPostBuildTasks());
+        $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], $service->getTasks());
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::getPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::getTasks
      */
     public function test_get_post_build_tasks_merges_duplicate_keys()
     {
@@ -70,11 +70,11 @@ class BuildTaskServiceTest extends TestCase
         config(['hyde.post_build_tasks' => ['foo']]);
 
         $service = $this->makeService();
-        $this->assertEquals(['foo' => 'foo'], $service->getPostBuildTasks());
+        $this->assertEquals(['foo' => 'foo'], $service->getTasks());
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::runTasks
      */
     public function test_run_post_build_tasks_runs_configured_tasks()
     {
@@ -83,7 +83,7 @@ class BuildTaskServiceTest extends TestCase
         app(BuildTaskService::class)->registerTask(get_class($task));
 
         $service = $this->makeService();
-        $service->runPostBuildTasks();
+        $service->runTasks();
 
         $this->expectOutputString('BuildTask');
     }
@@ -185,7 +185,7 @@ class BuildTaskServiceTest extends TestCase
         $this->directory('app/Actions');
         $this->file('app/Actions/FooBuildTask.php');
 
-        $this->assertEquals(['foo-build-task' => 'App\Actions\FooBuildTask'], (new BuildTaskService())->getPostBuildTasks());
+        $this->assertEquals(['foo-build-task' => 'App\Actions\FooBuildTask'], (new BuildTaskService())->getTasks());
     }
 
     public function test_automatically_discovered_tasks_can_be_executed()
@@ -204,7 +204,7 @@ class FooBuildTask extends BuildTask {
 }');
 
         $service = $this->makeService();
-        $service->runPostBuildTasks();
+        $service->runTasks();
 
         $this->expectOutputString('FooBuildTask');
     }

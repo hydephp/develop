@@ -102,7 +102,7 @@ class BuildSiteCommand extends Command
         $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
         $service->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
 
-        $service->runPostBuildTasks();
+        $service->runTasks();
     }
 
     protected function printFinishMessage(float $timeStart): void

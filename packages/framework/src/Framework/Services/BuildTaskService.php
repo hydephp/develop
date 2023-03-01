@@ -27,15 +27,15 @@ class BuildTaskService
         $this->discoverTasks();
     }
 
-    public function runPostBuildTasks(): void
+    public function runTasks(): void
     {
-        foreach ($this->getPostBuildTasks() as $task) {
+        foreach ($this->getTasks() as $task) {
             $this->run($task);
         }
     }
 
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
-    public function getPostBuildTasks(): array
+    public function getTasks(): array
     {
         return $this->buildTasks;
     }
