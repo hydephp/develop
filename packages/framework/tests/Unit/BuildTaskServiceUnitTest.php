@@ -257,6 +257,22 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->verifyMockeryExpectations();
     }
 
+    public function testRunPreBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
+    {
+        $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+        $this->service->registerTask($task);
+        $this->service->runPreBuildTasks();
+        $this->verifyMockeryExpectations();
+    }
+
+    public function testRunPostBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
+    {
+        $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+        $this->service->registerTask($task);
+        $this->service->runPostBuildTasks();
+        $this->verifyMockeryExpectations();
+    }
+
     public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
