@@ -36,7 +36,7 @@ abstract class BuildTask
 
     public function handle(): int
     {
-        $this->write('<comment>'.$this->getDescription().'...</comment> ');
+        $this->write("<comment>{$this->getDescription()}...</comment> ");
 
         try {
             $this->run();
