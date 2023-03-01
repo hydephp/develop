@@ -60,7 +60,7 @@ class BuildTaskServiceTest extends TestCase
         config(['hyde.post_build_tasks' => ['bar']]);
 
         $service = $this->makeService();
-        $this->assertEquals(['bar', 'foo'], $service->getPostBuildTasks());
+        $this->assertEquals(['foo', 'bar'], $service->getPostBuildTasks());
     }
 
     /**
