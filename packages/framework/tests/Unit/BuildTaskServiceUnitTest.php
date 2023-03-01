@@ -45,33 +45,33 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGetTasksWithTaskRegisteredInConfig()
     {
-        self::mockConfig(['hyde.build_tasks' => [PostBuildTaskTestClass::class]]);
+        self::mockConfig(['hyde.build_tasks' => [TestBuildTask::class]]);
         $this->createService();
 
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
     }
 
     public function testRegisterTask()
     {
-        $this->service->registerTask(PostBuildTaskTestClass::class);
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+        $this->service->registerTask(TestBuildTask::class);
+        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
     }
 
     public function testRegisterTaskWithAlreadyRegisteredTask()
     {
-        $this->service->registerTask(PostBuildTaskTestClass::class);
-        $this->service->registerTask(PostBuildTaskTestClass::class);
+        $this->service->registerTask(TestBuildTask::class);
+        $this->service->registerTask(TestBuildTask::class);
 
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
     }
 
     public function testRegisterTaskWithTaskAlreadyRegisteredInConfig()
     {
-        self::mockConfig(['hyde.build_tasks' => [PostBuildTaskTestClass::class]]);
+        self::mockConfig(['hyde.build_tasks' => [TestBuildTask::class]]);
         $this->createService();
 
-        $this->service->registerTask(PostBuildTaskTestClass::class);
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+        $this->service->registerTask(TestBuildTask::class);
+        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
 
         self::mockConfig();
     }
@@ -103,8 +103,8 @@ class BuildTaskServiceUnitTest extends UnitTestCase
      */
     public function testRegisterIfRegistersTaskIfSuppliedBooleanIsTrue()
     {
-        $this->service->registerIf(PostBuildTaskTestClass::class, true);
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+        $this->service->registerIf(TestBuildTask::class, true);
+        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
     }
 
     /**
@@ -112,7 +112,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
      */
     public function testRegisterIfDoesNotRegisterTaskIfSuppliedBooleanIsFalse()
     {
-        $this->service->registerIf(PostBuildTaskTestClass::class, false);
+        $this->service->registerIf(TestBuildTask::class, false);
         $this->assertSame([], $this->service->getTasks());
     }
 
@@ -121,13 +121,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
      */
     public function testRegisterIfRegistersTaskIfSuppliedCallableReturnsTrue()
     {
-        $this->service->registerIf(PostBuildTaskTestClass::class, fn() => true);
-        $this->assertSame([PostBuildTaskTestClass::class], $this->service->getTasks());
+        $this->service->registerIf(TestBuildTask::class, fn() => true);
+        $this->assertSame([TestBuildTask::class], $this->service->getTasks());
     }
 
     public function testRegisterIfDoesNotRunTaskIfSuppliedCallableReturnsFalse()
     {
-        $this->service->registerIf(PostBuildTaskTestClass::class, fn() => false);
+        $this->service->registerIf(TestBuildTask::class, fn() => false);
         $this->assertSame([], $this->service->getTasks());
     }
 
@@ -154,7 +154,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     }
 }
 
-class PostBuildTaskTestClass extends BuildTask
+class TestBuildTask extends BuildTask
 {
     public function handle(): void
     {
