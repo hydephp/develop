@@ -43,7 +43,7 @@ trait ManagesExtensions
             // We want to make sure that the extension class extends the HydeExtension class,
             // so that we won't have to check the methods we need to call exist later on.
 
-            throw new InvalidArgumentException('The specified class must extend the HydeExtension class.');
+            throw new InvalidArgumentException("Extension [$extension] must extend the HydeExtension class.");
         }
 
         if (in_array($extension, $this->getRegisteredExtensions(), true)) {
