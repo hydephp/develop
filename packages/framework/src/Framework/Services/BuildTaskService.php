@@ -62,7 +62,6 @@ class BuildTaskService
         return $this;
     }
 
-    /** @deprecated Conditions should be evaluated when registering tasks */
     public function registerIf(string $task, callable|bool $condition): static
     {
         if (is_bool($condition) ? $condition : $condition()) {
