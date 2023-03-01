@@ -38,7 +38,7 @@ abstract class BuildTask
     {
         $this->startClock();
 
-        $this->write("<comment>{$this->getDescription()}...</comment> ");
+        $this->write("<comment>{$this->getMessage()}...</comment> ");
 
         try {
             $this->run();
@@ -59,7 +59,7 @@ abstract class BuildTask
         $this->writeln('<fg=gray>Done in '.$this->getExecutionTimeString().'</>');
     }
 
-    public function getDescription(): string
+    public function getMessage(): string
     {
         return static::$message;
     }
