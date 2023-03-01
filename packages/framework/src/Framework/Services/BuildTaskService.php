@@ -22,10 +22,8 @@ class BuildTaskService
      * Make sure to add the fully qualified class name to the array and doing so by merging the array, not overwriting it.
      *
      * @var array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
-     *
-     * @deprecated This should not be called directly as it will be made non-static, use the registerTask method instead.
      */
-    protected static array $legacyPostBuildTasks = [];
+    protected array $legacyPostBuildTasks = [];
 
     protected ?OutputStyle $output = null;
 
@@ -44,7 +42,7 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getPostBuildTasks(): array
     {
-        return self::$legacyPostBuildTasks;
+        return $this->legacyPostBuildTasks;
     }
 
     protected static function findTasksInAppDirectory(): array
@@ -96,7 +94,7 @@ class BuildTaskService
     /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
     public function addPostBuildTask(string $class): static
     {
-        self::$legacyPostBuildTasks[$this->makeTaskIdentifier($class)] = $class;
+        $this->legacyPostBuildTasks[$this->makeTaskIdentifier($class)] = $class;
 
         return $this;
     }
