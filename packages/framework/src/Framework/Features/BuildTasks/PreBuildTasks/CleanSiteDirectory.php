@@ -30,7 +30,7 @@ class CleanSiteDirectory extends BuildTask implements RunsBeforeBuild
 
     public function printFinishMessage(): void
     {
-        //
+        $this->newLine();
     }
 
     protected function isItSafeToCleanOutputDirectory(): bool
