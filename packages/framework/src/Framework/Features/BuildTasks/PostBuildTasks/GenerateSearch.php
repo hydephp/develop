@@ -6,10 +6,11 @@ namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Services\DocumentationSearchService;
 
-class GenerateSearch extends BuildTask
+class GenerateSearch extends BuildTask implements RunsAfterBuild
 {
     use InteractsWithDirectories;
 
