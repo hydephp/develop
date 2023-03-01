@@ -11,7 +11,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 use function Hyde\unixsum_file;
-use function Hyde\unixsum_file as unixsum_file1;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
@@ -41,7 +40,7 @@ class GenerateBuildManifest extends BuildTask implements RunsAfterBuild
     {
         $path = Hyde::sitePath($page->getOutputPath());
 
-        return file_exists($path) ? unixsum_file1($path) : null;
+        return file_exists($path) ? unixsum_file($path) : null;
     }
 
     protected function hashSourcePath(HydePage $page): string
