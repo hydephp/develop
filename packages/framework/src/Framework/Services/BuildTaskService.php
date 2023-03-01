@@ -92,18 +92,14 @@ class BuildTaskService
         return Str::kebab(class_basename($class));
     }
 
-    protected function run(string $task): static
+    protected function run(string $task): void
     {
         $this->runTask(new $task($this->output));
-
-        return $this;
     }
 
-    protected function runTask(BuildTask $task): static
+    protected function runTask(BuildTask $task): void
     {
         $task->handle();
-
-        return $this;
     }
 
     protected function registerTasks(array $tasks): void
