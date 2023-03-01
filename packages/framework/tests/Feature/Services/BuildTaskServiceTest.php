@@ -89,14 +89,14 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_run_if_runs_task_if_supplied_boolean_is_true()
+    public function test_register_if_runs_task_if_supplied_boolean_is_true()
     {
         $task = $this->makeTask();
 
         $service = $this->makeService();
-        $return = $service->runIf(get_class($task), true);
+        $return = $service->registerIf(get_class($task), true);
 
         $this->expectOutputString('BuildTask');
 
@@ -104,14 +104,14 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_run_if_does_not_run_task_if_supplied_boolean_is_false()
+    public function test_register_if_does_not_run_task_if_supplied_boolean_is_false()
     {
         $task = $this->makeTask();
 
         $service = $this->makeService();
-        $return = $service->runIf(get_class($task), false);
+        $return = $service->registerIf(get_class($task), false);
 
         $this->expectOutputString('');
 
@@ -119,14 +119,14 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_run_if_runs_task_if_supplied_callable_returns_true()
+    public function test_register_if_runs_task_if_supplied_callable_returns_true()
     {
         $task = $this->makeTask();
 
         $service = $this->makeService();
-        $return = $service->runIf(get_class($task), function () {
+        $return = $service->registerIf(get_class($task), function () {
             return true;
         });
 
@@ -136,14 +136,14 @@ class BuildTaskServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::registerIf
      */
-    public function test_run_if_does_not_run_task_if_supplied_callable_returns_false()
+    public function test_register_if_does_not_run_task_if_supplied_callable_returns_false()
     {
         $task = $this->makeTask();
 
         $service = $this->makeService();
-        $return = $service->runIf(get_class($task), function () {
+        $return = $service->registerIf(get_class($task), function () {
             return false;
         });
 

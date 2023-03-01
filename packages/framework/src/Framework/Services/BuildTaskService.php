@@ -63,7 +63,7 @@ class BuildTaskService
     }
 
     /** @deprecated Conditions should be evaluated when registering tasks */
-    public function runIf(string $task, callable|bool $condition): static
+    public function registerIf(string $task, callable|bool $condition): static
     {
         if (is_bool($condition) ? $condition : $condition()) {
             $this->registerTask($task);

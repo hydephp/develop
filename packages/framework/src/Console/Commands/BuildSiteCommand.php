@@ -97,10 +97,10 @@ class BuildSiteCommand extends Command
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
 
-        $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $service->runIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
-        $service->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
+        $service->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
+        $service->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $service->registerIf(GenerateSearch::class, $this->canGenerateSearch());
+        $service->registerIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
 
         $service->runTasks();
     }
