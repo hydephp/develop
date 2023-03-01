@@ -8,6 +8,8 @@ use function basename;
 use function unslash;
 
 /**
+ * @deprecated This trait and feature will be removed as it breaks pages with the same name in different directories.
+ *
  * This trait is used to flatten the output path of a page. This is only used for the documentation pages,
  * where all pages are output to the same directory, but where putting the page in a subdirectory will
  * create a nested navigation structure in the sidebar.
