@@ -74,6 +74,7 @@ abstract class BuildTask
         $this->output?->writeln($message);
     }
 
+    /** Write a fluent message to the output that the task created the specified file */
     public function createdSiteFile(string $path): static
     {
         $this->write(sprintf(
@@ -84,6 +85,7 @@ abstract class BuildTask
         return $this;
     }
 
+    /** Write a fluent message to the output with the execution time of the task */
     public function withExecutionTime(): static
     {
         $this->write(" in {$this->getExecutionTimeString()}");
