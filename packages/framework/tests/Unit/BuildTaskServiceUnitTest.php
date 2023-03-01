@@ -22,6 +22,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
+    protected function setUp(): void
+    {
+        $this->service = new BuildTaskService();
+    }
+
     public function testConstruct()
     {
         $this->assertInstanceOf(BuildTaskService::class, new BuildTaskService());
@@ -29,27 +34,22 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGetPostBuildTasks()
     {
-        $this->assertIsArray($this->service()->getPostBuildTasks());
-        $this->assertSame([], $this->service()->getPostBuildTasks());
+        $this->assertIsArray($this->service->getPostBuildTasks());
+        $this->assertSame([], $this->service->getPostBuildTasks());
     }
 
     public function testSetOutputWithNull()
     {
-        $this->assertInstanceOf(BuildTaskService::class, $this->service()->setOutput(null));
+        $this->assertInstanceOf(BuildTaskService::class, $this->service->setOutput(null));
     }
 
     public function testSetOutputWithOutputStyle()
     {
-        $this->assertInstanceOf(BuildTaskService::class, $this->service()->setOutput(Mockery::mock(OutputStyle::class)));
+        $this->assertInstanceOf(BuildTaskService::class, $this->service->setOutput(Mockery::mock(OutputStyle::class)));
     }
 
     public function testSetOutputReturnsStatic()
     {
-        $this->assertSame($service = $this->service(), $service->setOutput(null));
-    }
-
-    protected function service(): BuildTaskService
-    {
-        return new BuildTaskService();
+        $this->assertSame($this->service, $this->service->setOutput(null));
     }
 }
