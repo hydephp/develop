@@ -45,8 +45,6 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_run_post_build_tasks_runs_configured_tasks_does_nothing_if_no_tasks_are_configured()
     {
-        BuildTaskService::$legacyPostBuildTasks = [];
-
         $service = $this->makeService();
         $service->runPostBuildTasks();
 
@@ -58,7 +56,7 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
-        BuildTaskService::$legacyPostBuildTasks = ['foo'];
+        app(BuildTaskService::class)->addPostBuildTask('foo');
         config(['hyde.post_build_tasks' => ['bar']]);
 
         $service = $this->makeService();
@@ -70,7 +68,7 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_get_post_build_tasks_merges_duplicate_keys()
     {
-        BuildTaskService::$legacyPostBuildTasks = ['foo'];
+        app(BuildTaskService::class)->addPostBuildTask('foo');
         config(['hyde.post_build_tasks' => ['foo']]);
 
         $service = $this->makeService();
@@ -84,7 +82,7 @@ class BuildTaskServiceTest extends TestCase
     {
         $task = $this->makeTask();
 
-        BuildTaskService::$legacyPostBuildTasks = [get_class($task)];
+        app(BuildTaskService::class)->addPostBuildTask(get_class($task));
 
         $service = $this->makeService();
         $service->runPostBuildTasks();
