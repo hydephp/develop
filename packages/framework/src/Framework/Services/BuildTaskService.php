@@ -74,11 +74,11 @@ class BuildTaskService
         $class = $task::class;
 
         if (! $task instanceof BuildTask) {
-            throw new InvalidArgumentException("BuildTask [$class] must extend the HydeBuildTask class.");
+            throw new InvalidArgumentException('BuildTask ['.$class.'] must extend the HydeBuildTask class.');
         }
 
         if (! ($task instanceof RunsBeforeBuild || $task instanceof RunsAfterBuild)) {
-            throw new InvalidArgumentException("BuildTask [$class] must implement either the RunsBeforeBuild or RunsAfterBuild interface.");
+            throw new InvalidArgumentException('BuildTask ['.$class.'] must implement either the RunsBeforeBuild or RunsAfterBuild interface.');
         }
 
         $this->buildTasks[$this->makeTaskIdentifier($class)] = $task;
