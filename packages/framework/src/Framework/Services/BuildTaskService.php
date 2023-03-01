@@ -22,6 +22,8 @@ class BuildTaskService
      * Make sure to add the fully qualified class name to the array and doing so by merging the array, not overwriting it.
      *
      * @var array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
+     *
+     * @deprecated This should not be called directly as it will be made protected and non-static, use the registerTask method instead.
      */
     public static array $postBuildTasks = [];
 
