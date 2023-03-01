@@ -159,7 +159,7 @@ class TestBuildTask extends BuildTask implements RunsAfterBuild
     }
 }
 
-class SecondBuildTask extends BuildTask
+class SecondBuildTask extends BuildTask implements RunsAfterBuild
 {
     public function handle(): void
     {
