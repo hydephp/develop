@@ -76,15 +76,11 @@ class BuildTaskService
     {
         $tasks = config('hyde.post_build_tasks', []);
 
-        foreach ($tasks as $task) {
-            $this->registerTask($task);
-        }
+        $this->registerTasks($tasks);
 
         $tasks = static::findTasksInAppDirectory();
 
-        foreach ($tasks as $task) {
-            $this->registerTask($task);
-        }
+        $this->registerTasks($tasks);
     }
 
     protected static function findTasksInAppDirectory(): array
@@ -122,5 +118,12 @@ class BuildTaskService
         $task->handle();
 
         return $this;
+    }
+
+    protected function registerTasks(array $tasks): void
+    {
+        foreach ($tasks as $task) {
+            $this->registerTask($task);
+        }
     }
 }
