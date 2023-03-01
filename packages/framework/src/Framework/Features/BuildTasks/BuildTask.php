@@ -19,6 +19,7 @@ abstract class BuildTask
     use InteractsWithIO;
     use TracksExecutionTime;
 
+    /** @var string The message that will be displayed when the task is run. */
     protected static string $message = 'Running generic build task';
 
     protected int $exitCode = Command::SUCCESS;
