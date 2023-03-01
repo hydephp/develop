@@ -47,7 +47,8 @@ class BuildTaskService
     public function runPostBuildTasks(): void
     {
         foreach ($this->getTasks() as $task) {
-            (new $task($this->output))->run();
+            $task = new $task($this->output);
+            $task->run();
         }
     }
 
