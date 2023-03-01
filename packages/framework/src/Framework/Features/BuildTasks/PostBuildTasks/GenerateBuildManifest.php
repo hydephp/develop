@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Console\OutputStyle;
@@ -16,7 +15,7 @@ use function Hyde\unixsum_file as unixsum_file1;
 /**
  * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
  */
-class GenerateBuildManifest extends BuildTask implements RunsAfterBuild
+class GenerateBuildManifest extends BuildTask
 {
     public static string $message = 'Generating build manifest';
 

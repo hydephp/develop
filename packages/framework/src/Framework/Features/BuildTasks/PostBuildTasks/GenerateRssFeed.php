@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 
-class GenerateRssFeed extends BuildTask implements RunsAfterBuild
+class GenerateRssFeed extends BuildTask
 {
     public static string $message = 'Generating RSS feed';
 
