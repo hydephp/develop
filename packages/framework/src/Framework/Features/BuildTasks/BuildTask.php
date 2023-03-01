@@ -28,6 +28,7 @@ abstract class BuildTask
 
     abstract public function run(): void;
 
+    /** @phpstan-consistent-constructor */
     public function __construct(?OutputStyle $output = null)
     {
         $this->startClock();
