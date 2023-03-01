@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Mockery;
@@ -73,6 +74,20 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
+    public function testCanRegisterFrameworkTasks()
+    {
+        $this->service->registerTask(FrameworkGenerateSitemap::class);
+        $this->assertSame([FrameworkGenerateSitemap::class], $this->service->getTasks());
+    }
+
+    public function testCanOverloadFrameworkTasks()
+    {
+        $this->service->registerTask(FrameworkGenerateSitemap::class);
+        $this->service->registerTask(GenerateSitemap::class);
+
+        $this->assertSame([GenerateSitemap::class], $this->service->getTasks());
+    }
+
     public function testSetOutputWithNull()
     {
         $this->service->setOutput(null);
@@ -97,6 +112,14 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 }
 
 class PostBuildTaskTestClass extends BuildTask
+{
+    public function run(): void
+    {
+        //
+    }
+}
+
+class GenerateSitemap extends FrameworkGenerateSitemap
 {
     public function run(): void
     {
