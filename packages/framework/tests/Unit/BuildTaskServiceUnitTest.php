@@ -82,6 +82,18 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(stdClass::class);
     }
 
+    public function testRegisterTaskWithoutRunnerInterfaceImplementationThrowsException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->service->registerTask(TestBuildTaskWithoutRunnerInterface::class);
+    }
+
+    public function testRegisterTaskWithoutRunnerInterfaceImplementationExceptionMessageIsHelpful()
+    {
+        $this->expectExceptionMessage('BuildTask ['.TestBuildTaskWithoutRunnerInterface::class.'] must implement either RunsBeforeBuild or RunsAfterBuild.');
+        $this->service->registerTask(TestBuildTaskWithoutRunnerInterface::class);
+    }
+
     public function testRegisterTaskWithAlreadyRegisteredTask()
     {
         $this->service->registerTask(TestBuildTask::class);
