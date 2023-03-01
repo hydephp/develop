@@ -12,5 +12,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class CleanSiteDirectoryTest extends UnitTestCase
 {
-    //
+    public function testTaskClearsOutputDirectory()
+    {
+        //
+    }
 }
