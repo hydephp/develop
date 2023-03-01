@@ -23,9 +23,9 @@ class BuildTaskService
      *
      * @var array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
      *
-     * @deprecated This should not be called directly as it will be made protected and non-static, use the registerTask method instead.
+     * @deprecated This should not be called directly as it will be made non-static, use the registerTask method instead.
      */
-    public static array $legacyPostBuildTasks = [];
+    protected static array $legacyPostBuildTasks = [];
 
     protected ?OutputStyle $output = null;
 
