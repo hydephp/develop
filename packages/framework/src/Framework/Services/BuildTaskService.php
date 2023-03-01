@@ -8,6 +8,7 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Facades\Filesystem;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Str;
 
 /**
  * This service manages the build tasks that are called after the site has been compiled using the build command.
@@ -118,5 +119,10 @@ class BuildTaskService
         foreach ($tasks as $task) {
             $this->addPostBuildTask($task);
         }
+    }
+
+    protected function makeTaskIdentifier(string $class): string
+    {
+        return Str::kebab(class_basename($class));
     }
 }
