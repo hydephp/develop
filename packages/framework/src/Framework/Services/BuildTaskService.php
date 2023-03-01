@@ -47,7 +47,7 @@ class BuildTaskService
     public function runPostBuildTasks(): void
     {
         foreach ($this->getTasks() as $task) {
-            $this->run($task);
+            (new $task($this->output))->run();
         }
     }
 
@@ -86,16 +86,6 @@ class BuildTaskService
         // this will allow the user-land task to override the framework task, making them easy to swap out.
 
         return Str::kebab(class_basename($class));
-    }
-
-    protected function run(string $task): void
-    {
-        $this->runTask(new $task($this->output));
-    }
-
-    protected function runTask(BuildTask $task): void
-    {
-        $task->run();
     }
 
     protected function registerTasks(array $tasks): void
