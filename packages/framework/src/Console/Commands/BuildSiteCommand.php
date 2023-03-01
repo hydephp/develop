@@ -9,6 +9,7 @@ use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
@@ -99,6 +100,7 @@ class BuildSiteCommand extends Command
         $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $service->runIf(GenerateRssFeed::class, $this->canGenerateFeed());
         $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
+        $service->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
 
         $service->runPostBuildTasks();
     }
