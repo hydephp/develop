@@ -37,9 +37,6 @@ class BuildTaskServiceTest extends TestCase
         File::cleanDirectory(Hyde::path('_site'));
     }
 
-    /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
-     */
     public function test_run_post_build_tasks_runs_configured_tasks_does_nothing_if_no_tasks_are_configured()
     {
         $service = $this->makeService();
@@ -48,9 +45,6 @@ class BuildTaskServiceTest extends TestCase
         $this->expectOutputString('');
     }
 
-    /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::getTasks
-     */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
         config(['hyde.build_tasks' => [SecondBuildTask::class]]);
@@ -61,9 +55,6 @@ class BuildTaskServiceTest extends TestCase
         $this->assertEquals([SecondBuildTask::class, TestBuildTask::class], $service->getTasks());
     }
 
-    /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::getTasks
-     */
     public function test_get_post_build_tasks_merges_duplicate_keys()
     {
         app(BuildTaskService::class)->registerTask(TestBuildTask::class);
@@ -73,9 +64,6 @@ class BuildTaskServiceTest extends TestCase
         $this->assertEquals([TestBuildTask::class], $service->getTasks());
     }
 
-    /**
-     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
-     */
     public function test_run_post_build_tasks_runs_configured_tasks()
     {
         $task = $this->makeTask();
