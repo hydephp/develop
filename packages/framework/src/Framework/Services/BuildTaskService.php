@@ -70,11 +70,12 @@ class BuildTaskService
     /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
     public function registerTask(string $class): void
     {
+        $task = new $class($this->output);
+
         if (! is_subclass_of($class, BuildTask::class)) {
             throw new InvalidArgumentException("BuildTask [$class] must extend the HydeBuildTask class.");
         }
 
-        $task = new $class($this->output);
         $this->buildTasks[$this->makeTaskIdentifier($class)] = $task;
     }
 
