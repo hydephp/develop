@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Pages\DocumentationPage
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Pages\Concerns\UsesFlattenedOutputPaths
  */
 class DocumentationPageTest extends TestCase
 {
@@ -32,9 +31,14 @@ class DocumentationPageTest extends TestCase
     {
         $page = DocumentationPage::make('foo');
         $this->assertEquals('docs/foo', $page->getRouteKey());
+    }
 
+    public function test_can_get_current_custom_page_path()
+    {
         config(['hyde.output_directories.documentation-page' => 'documentation/latest/']);
         (new HydeServiceProvider($this->app))->register();
+
+        $page = DocumentationPage::make('foo');
         $this->assertEquals('documentation/latest/foo', $page->getRouteKey());
     }
 
@@ -169,10 +173,10 @@ class DocumentationPageTest extends TestCase
         $this->assertFalse(DocumentationPage::hasTableOfContents());
     }
 
-    public function test_compiled_pages_originating_in_subdirectories_get_output_to_root_docs_path()
+    public function test_compiled_pages_originating_in_subdirectories_retain_subdirectory_structure()
     {
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+        $this->assertEquals('docs/foo/bar.html', $page->getOutputPath());
     }
 
     public function test_page_has_front_matter()
