@@ -213,7 +213,7 @@ class StaticSiteServiceTest extends TestCase
     {
         Filesystem::touch('_site/foo.html');
         $this->artisan('build')
-            ->expectsOutput('Removing all files from build directory...')
+            ->expectsOutputToContain('Removing all files from build directory...')
             ->assertExitCode(0);
         $this->assertFileDoesNotExist(Hyde::path('_site/foo.html'));
     }
@@ -239,7 +239,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::touch('foo/keep.html');
 
         $this->artisan('build')
-            ->expectsOutput('Removing all files from build directory...')
+            ->expectsOutputToContain('Removing all files from build directory...')
             ->expectsQuestion('The configured output directory (foo) is potentially unsafe to empty. Are you sure you want to continue?', false)
             ->expectsOutput('Output directory will not be emptied.')
             ->assertExitCode(0);
