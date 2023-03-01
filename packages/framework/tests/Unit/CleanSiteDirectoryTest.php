@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Features\BuildTasks\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Testing\UnitTestCase;
 
 /**
