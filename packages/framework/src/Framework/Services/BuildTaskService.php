@@ -80,11 +80,7 @@ class BuildTaskService
     protected static function findTasksInAppDirectory(): array
     {
         return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
-            return str_replace(
-                ['app', '.php', '/'],
-                ['App', '', '\\'],
-                $file
-            );
+            return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
         })->toArray();
     }
 
