@@ -90,7 +90,6 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             'write' => null,
         ]));
 
-        $service->cleanOutputDirectory();
         $service->transferMediaAssets();
         $service->compileStaticPages();
 
