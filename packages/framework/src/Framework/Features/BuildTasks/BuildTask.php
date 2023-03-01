@@ -29,7 +29,6 @@ abstract class BuildTask
 
     abstract public function handle(): void;
 
-    /** @phpstan-consistent-constructor */
     public function __construct(?OutputStyle $output = null)
     {
         $this->output = $output;
