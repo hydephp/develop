@@ -109,6 +109,9 @@ class BuildTaskService
 
     protected function makeTaskIdentifier(string $class): string
     {
+        // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
+        // this will allow the user-land task to override the framework task, making them easy to swap out.
+
         return Str::kebab(class_basename($class));
     }
 }
