@@ -46,6 +46,7 @@ class BuildSiteCommand extends Command
         $this->service = new BuildService($this->output);
 
         $this->taskService = app(BuildTaskService::class);
+
         $this->setupBuildTaskService();
 
         $this->runPreBuildActions();
