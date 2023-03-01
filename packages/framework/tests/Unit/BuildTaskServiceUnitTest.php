@@ -12,7 +12,6 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as Framewo
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
-use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use InvalidArgumentException;
