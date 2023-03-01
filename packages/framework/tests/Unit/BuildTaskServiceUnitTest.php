@@ -46,17 +46,19 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testSetOutputWithNull()
     {
-        $this->assertInstanceOf(BuildTaskService::class, $this->service->setOutput(null));
+        $this->service->setOutput(null);
+        $this->markTestSuccessful();
     }
 
     public function testSetOutputWithOutputStyle()
     {
-        $this->assertInstanceOf(BuildTaskService::class, $this->service->setOutput(Mockery::mock(OutputStyle::class)));
+        $this->service->setOutput(Mockery::mock(OutputStyle::class));
+        $this->markTestSuccessful();
     }
 
-    public function testSetOutputReturnsStatic()
+    protected function markTestSuccessful(): void
     {
-        $this->assertSame($this->service, $this->service->setOutput(null));
+        $this->assertTrue(true);
     }
 }
 

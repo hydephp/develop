@@ -47,27 +47,21 @@ class BuildTaskService
     }
 
     /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
-    public function registerTask(string $class): static
+    public function registerTask(string $class): void
     {
         $this->buildTasks[$this->makeTaskIdentifier($class)] = $class;
-
-        return $this;
     }
 
-    public function registerIf(string $task, callable|bool $condition): static
+    public function registerIf(string $task, callable|bool $condition): void
     {
         if (is_bool($condition) ? $condition : $condition()) {
             $this->registerTask($task);
         }
-
-        return $this;
     }
 
-    public function setOutput(?OutputStyle $output): static
+    public function setOutput(?OutputStyle $output): void
     {
         $this->output = $output;
-
-        return $this;
     }
 
     protected function discoverTasks(): void
