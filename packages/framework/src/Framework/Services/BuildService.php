@@ -50,6 +50,7 @@ class BuildService
     /** @deprecated Will be handled by a build task */
     public function cleanOutputDirectory(): void
     {
+        // TODO Register task in service instead
         (new CleanSiteDirectory())->handle();
     }
 
