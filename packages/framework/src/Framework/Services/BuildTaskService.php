@@ -74,12 +74,13 @@ class BuildTaskService
 
     protected function discoverTasks(): void
     {
-        $tasks = array_unique(
-            array_merge(
-                config('hyde.post_build_tasks', []),
-                static::findTasksInAppDirectory(),
-            )
-        );
+        $tasks = config('hyde.post_build_tasks', []);
+
+        foreach ($tasks as $task) {
+            $this->registerTask($task);
+        }
+
+        $tasks = static::findTasksInAppDirectory();
 
         foreach ($tasks as $task) {
             $this->registerTask($task);
