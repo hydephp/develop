@@ -213,7 +213,7 @@ class FooBuildTask extends BuildTask {
 
     protected function makeService(): BuildTaskService
     {
-        return new BuildTaskService();
+        return app(BuildTaskService::class);
     }
 
     protected function makeTask(): BuildTask
