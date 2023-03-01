@@ -9,7 +9,7 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use function class_basename;
-use function config;
+use Hyde\Facades\Config;
 use function is_bool;
 use function str_replace;
 
@@ -72,7 +72,7 @@ class BuildTaskService
 
     protected function discoverTasks(): void
     {
-        $this->registerTasks(config('hyde.post_build_tasks', []));
+        $this->registerTasks(Config::getArray('hyde.post_build_tasks', []));
 
         $this->registerTasks($this->findTasksInAppDirectory());
     }
