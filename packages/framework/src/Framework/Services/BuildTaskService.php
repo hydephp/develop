@@ -71,17 +71,16 @@ class BuildTaskService
     public function registerTask(BuildTask|string $task): void
     {
         $task = is_string($task) ? new $task() : $task;
-        $class = $task::class;
 
         if (! $task instanceof BuildTask) {
-            throw new InvalidArgumentException('BuildTask ['.$class.'] must extend the HydeBuildTask class.');
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
         }
 
         if (! ($task instanceof RunsBeforeBuild || $task instanceof RunsAfterBuild)) {
-            throw new InvalidArgumentException('BuildTask ['.$class.'] must implement either the RunsBeforeBuild or RunsAfterBuild interface.');
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the RunsBeforeBuild or RunsAfterBuild interface.');
         }
 
-        $this->buildTasks[$this->makeTaskIdentifier($class)] = $task;
+        $this->buildTasks[$this->makeTaskIdentifier($task::class)] = $task;
     }
 
     public function registerIf(string $task, callable|bool $condition): void
