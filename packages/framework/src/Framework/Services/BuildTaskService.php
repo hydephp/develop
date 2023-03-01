@@ -46,20 +46,7 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getPostBuildTasks(): array
     {
-        // TODO: Refactor so this is only called once
-        $tasks = array_unique(
-            array_merge(
-                config('hyde.post_build_tasks', []),
-                static::findTasksInAppDirectory(),
-            )
-        );
-
-        // Remove tasks already registered (legacy TODO remove this once keyed)
-        $tasks = array_diff($tasks, self::$legacyPostBuildTasks);
-
-        foreach ($tasks as $task) {
-            $this->addPostBuildTask($task);
-        }
+        $this->discoverTasks();
 
         return self::$legacyPostBuildTasks;
     }
@@ -116,5 +103,23 @@ class BuildTaskService
         self::$legacyPostBuildTasks[] = $class;
 
         return $this;
+    }
+
+    protected function discoverTasks(): void
+    {
+        // TODO: Refactor so this is only called once
+        $tasks = array_unique(
+            array_merge(
+                config('hyde.post_build_tasks', []),
+                static::findTasksInAppDirectory(),
+            )
+        );
+
+        // Remove tasks already registered (legacy TODO remove this once keyed)
+        $tasks = array_diff($tasks, self::$legacyPostBuildTasks);
+
+        foreach ($tasks as $task) {
+            $this->addPostBuildTask($task);
+        }
     }
 }
