@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Services\BuildTaskService;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
+use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Mockery;
@@ -51,5 +53,25 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testSetOutputReturnsStatic()
     {
         $this->assertSame($this->service, $this->service->setOutput(null));
+    }
+
+    public function testGenerateBuildManifestImplementsRunsAfterBuild()
+    {
+        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateBuildManifest());
+    }
+
+    public function testGenerateRssFeedImplementsRunsAfterBuild()
+    {
+        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateRssFeed());
+    }
+
+    public function testGenerateSearchImplementsRunsAfterBuild()
+    {
+        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateSearch());
+    }
+
+    public function testGenerateSitemapImplementsRunsAfterBuild()
+    {
+        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateSitemap());
     }
 }
