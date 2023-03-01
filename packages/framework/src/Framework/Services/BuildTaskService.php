@@ -16,6 +16,7 @@ use function array_map;
 use function array_values;
 use function class_basename;
 use function is_bool;
+use function is_string;
 use function str_replace;
 
 /**
@@ -69,7 +70,7 @@ class BuildTaskService
     /** @param  \Hyde\Framework\Features\BuildTasks\BuildTask|class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $task */
     public function registerTask(BuildTask|string $task): void
     {
-        $task = new $class($this->output);
+        $task = is_string($task) ? new $task($this->output) : $task;
         $class = $task;
 
         if (! $task instanceof BuildTask) {
