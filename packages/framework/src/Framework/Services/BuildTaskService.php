@@ -80,7 +80,7 @@ class BuildTaskService
             throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the RunsBeforeBuild or RunsAfterBuild interface.');
         }
 
-        $this->buildTasks[$this->makeTaskIdentifier($task::class)] = $task;
+        $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
     }
 
     public function registerIf(string $task, callable|bool $condition): void
@@ -102,7 +102,7 @@ class BuildTaskService
         })->toArray();
     }
 
-    protected function makeTaskIdentifier(string $class): string
+    protected function makeTaskIdentifier(BuildTask $class): string
     {
         // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
         // this will allow the user-land task to override the framework task, making them easy to swap out.
