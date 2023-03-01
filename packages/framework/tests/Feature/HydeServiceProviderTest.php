@@ -57,7 +57,7 @@ class HydeServiceProviderTest extends TestCase
         $this->assertTrue(method_exists($this->provider, 'boot'));
     }
 
-    public function test_provider_registers_asset_service_contract()
+    public function test_provider_registers_asset_service()
     {
         $this->assertTrue($this->app->bound(AssetService::class));
         $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
