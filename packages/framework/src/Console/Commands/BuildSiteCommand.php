@@ -67,6 +67,11 @@ class BuildSiteCommand extends Command
     protected function setupBuildTaskService(): void
     {
         $this->taskService->setOutput($this->output);
+
+        $this->taskService->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
+        $this->taskService->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
+        $this->taskService->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $this->taskService->registerIf(GenerateSearch::class, $this->canGenerateSearch());
     }
 
     protected function runPreBuildActions(): void
@@ -89,11 +94,6 @@ class BuildSiteCommand extends Command
     public function runPostBuildActions(): void
     {
         $service = app(BuildTaskService::class);
-
-        $service->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
-        $service->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $service->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $service->registerIf(GenerateSearch::class, $this->canGenerateSearch());
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
