@@ -36,7 +36,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGetPostBuildTasks()
     {
-        $this->assertIsArray($this->service->getPostBuildTasks());
         $this->assertSame([], $this->service->getPostBuildTasks());
     }
 
