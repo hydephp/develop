@@ -20,7 +20,7 @@ class BuildTaskService
     /**
      * @var array<string, class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
      */
-    protected array $legacyPostBuildTasks = [];
+    protected array $buildTasks = [];
 
     protected ?OutputStyle $output = null;
 
@@ -39,7 +39,7 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getPostBuildTasks(): array
     {
-        return $this->legacyPostBuildTasks;
+        return $this->buildTasks;
     }
 
     protected static function findTasksInAppDirectory(): array
@@ -91,7 +91,7 @@ class BuildTaskService
     /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
     public function addPostBuildTask(string $class): static
     {
-        $this->legacyPostBuildTasks[$this->makeTaskIdentifier($class)] = $class;
+        $this->buildTasks[$this->makeTaskIdentifier($class)] = $class;
 
         return $this;
     }
