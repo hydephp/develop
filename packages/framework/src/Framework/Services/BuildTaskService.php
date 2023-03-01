@@ -53,7 +53,7 @@ class BuildTaskService
             )
         );
 
-        return $tasks;
+        return self::$legacyPostBuildTasks;
     }
 
     protected static function findTasksInAppDirectory(): array
