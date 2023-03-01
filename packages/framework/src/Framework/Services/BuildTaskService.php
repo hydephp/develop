@@ -46,9 +46,7 @@ class BuildTaskService
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getRegisteredTasks(): array
     {
-        return array_map(function (BuildTask $task): string {
-            return $task::class;
-        }, array_values($this->buildTasks));
+        return array_map(fn(BuildTask $task): string => $task::class, array_values($this->buildTasks));
     }
 
     public function runPreBuildTasks(): void
