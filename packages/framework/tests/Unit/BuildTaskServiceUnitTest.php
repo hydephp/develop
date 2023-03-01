@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Testing\TestCase;
 
 /**
@@ -13,5 +14,8 @@ use Hyde\Testing\TestCase;
  */
 class BuildTaskServiceUnitTest extends TestCase
 {
-    //
+    public function testConstruct()
+    {
+        $this->assertInstanceOf(BuildTaskService::class, new BuildTaskService());
+    }
 }
