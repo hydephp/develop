@@ -50,7 +50,6 @@ class BuildTaskService
             array_merge(
                 config('hyde.post_build_tasks', []),
                 static::findTasksInAppDirectory(),
-                static::$legacyPostBuildTasks
             )
         );
     }
