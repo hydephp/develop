@@ -203,3 +203,11 @@ class TestBuildTask extends BuildTask
         echo 'BuildTask';
     }
 }
+
+class SecondBuildTask extends BuildTask
+{
+    public function handle(): void
+    {
+        echo 'SecondBuildTask';
+    }
+}
