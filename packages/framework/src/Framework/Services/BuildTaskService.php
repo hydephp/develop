@@ -74,13 +74,9 @@ class BuildTaskService
 
     protected function discoverTasks(): void
     {
-        $tasks = config('hyde.post_build_tasks', []);
+        $this->registerTasks(config('hyde.post_build_tasks', []));
 
-        $this->registerTasks($tasks);
-
-        $tasks = static::findTasksInAppDirectory();
-
-        $this->registerTasks($tasks);
+        $this->registerTasks(static::findTasksInAppDirectory());
     }
 
     protected static function findTasksInAppDirectory(): array
