@@ -40,7 +40,7 @@ abstract class BuildTask
         $this->startClock();
 
         if ($output) {
-            $this->output = $output;
+            $this->setOutput($output);
         }
 
         $this->write("<comment>{$this->getMessage()}...</comment> ");
