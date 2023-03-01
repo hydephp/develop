@@ -59,7 +59,7 @@ class RebuildStaticPageCommand extends Command
 
             public function __construct(OutputStyle $output, string $path)
             {
-                parent::__construct($output);
+                $this->output = $output;
                 $this->path = $path;
             }
 
