@@ -56,8 +56,8 @@ class BuildTaskServiceTest extends TestCase
      */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
-        app(BuildTaskService::class)->addPostBuildTask('foo');
         config(['hyde.post_build_tasks' => ['bar']]);
+        app(BuildTaskService::class)->addPostBuildTask('foo');
 
         $service = $this->makeService();
         $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], $service->getPostBuildTasks());
