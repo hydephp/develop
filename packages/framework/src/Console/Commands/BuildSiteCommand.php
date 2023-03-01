@@ -76,8 +76,6 @@ class BuildSiteCommand extends Command
 
     protected function runPreBuildActions(): void
     {
-        $service = app(BuildTaskService::class);
-
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
@@ -92,13 +90,11 @@ class BuildSiteCommand extends Command
             Config::set(['hyde.pretty_urls' => true]);
         }
 
-        $service->runPreBuildTasks();
+        $this->taskService->runPreBuildTasks();
     }
 
     public function runPostBuildActions(): void
     {
-        $service = app(BuildTaskService::class);
-
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
                 'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line',
@@ -115,7 +111,7 @@ class BuildSiteCommand extends Command
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
 
-        $service->runPostBuildTasks();
+        $this->taskService->runPostBuildTasks();
     }
 
     protected function printFinishMessage(float $timeStart): void
