@@ -101,6 +101,7 @@ class BuildTaskService
         return $this;
     }
 
+    /** @param  class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $class */
     public function addPostBuildTask(string $class): static
     {
         self::$legacyPostBuildTasks[] = $class;
