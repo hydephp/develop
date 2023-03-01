@@ -77,7 +77,8 @@ class BuildSiteCommand extends Command
 
     public function runPostBuildActions(): void
     {
-        $service = new BuildTaskService($this->output);
+        $service = new BuildTaskService();
+        $service->setOutput($this->output);
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(

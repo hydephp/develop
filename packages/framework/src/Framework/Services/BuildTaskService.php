@@ -24,11 +24,11 @@ class BuildTaskService
      */
     public static array $postBuildTasks = [];
 
-    protected ?OutputStyle $output;
+    protected ?OutputStyle $output = null;
 
-    public function __construct(?OutputStyle $output = null)
+    public function __construct()
     {
-        $this->output = $output;
+        //
     }
 
     public function runPostBuildTasks(): void
@@ -86,6 +86,13 @@ class BuildTaskService
     protected function runTask(BuildTask $task): static
     {
         $task->handle();
+
+        return $this;
+    }
+
+    public function setOutput(?OutputStyle $output): BuildTaskService
+    {
+        $this->output = $output;
 
         return $this;
     }
