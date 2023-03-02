@@ -14,6 +14,9 @@ use function str_contains;
  *
  * This class is loaded into the service container, making it easy to access and modify.
  *
+ * The class also provides helper methods for interacting with versioned files,
+ * as well as the HydeFront CDN service and the media directories.
+ *
  * @see \Hyde\Facades\Asset
  */
 class AssetService
