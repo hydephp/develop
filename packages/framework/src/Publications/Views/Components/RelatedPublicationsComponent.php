@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
@@ -34,7 +33,7 @@ class RelatedPublicationsComponent extends Component
         // Get current publicationType
         $currentHydePage = Hyde::currentRoute()->getPage();
         $publicationType = $currentHydePage->getType();
-        if (!$publicationType) {
+        if (! $publicationType) {
             return collect();
         }
 
@@ -71,7 +70,6 @@ class RelatedPublicationsComponent extends Component
         return $this->sortRelatedPagesByRelevance($allRelatedPages, $max);
     }
 
-
     protected function getTagsForPage(PublicationPage $publicationPage, Collection $tagFields): Collection
     {
         $thisPageTags = collect();
@@ -84,14 +82,13 @@ class RelatedPublicationsComponent extends Component
         return $thisPageTags;
     }
 
-
-    protected function getAllRelatedPages (Collection $publicationPages, Collection $tagFields, Collection $currPageTags): Collection
+    protected function getAllRelatedPages(Collection $publicationPages, Collection $tagFields, Collection $currPageTags): Collection
     {
         $allRelatedPages = collect();
 
         foreach ($publicationPages as $publicationPage) {
             $publicationPageTags = $this->getTagsForPage($publicationPage, $tagFields);
-            $matchedTagCount     = $publicationPageTags->intersect($currPageTags)->count();
+            $matchedTagCount = $publicationPageTags->intersect($currPageTags)->count();
 
             // We have shared/matching tags, add this page info to $allRelatedPages
             if ($matchedTagCount) {
@@ -107,7 +104,6 @@ class RelatedPublicationsComponent extends Component
 
         return $allRelatedPages;
     }
-
 
     protected function sortRelatedPagesByRelevance(Collection $allRelatedPages, int $max): Collection
     {
