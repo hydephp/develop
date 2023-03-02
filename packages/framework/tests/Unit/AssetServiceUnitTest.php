@@ -53,7 +53,7 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testCdnPatternConstant()
     {
-        $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}', AssetService::CDN_PATH_PATTERN);
+        $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}', AssetService::HYDEFRONT_CDN_URL);
     }
 
     public function testCanSetCustomCdnUrlInConfig()

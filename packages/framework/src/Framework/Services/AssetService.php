@@ -21,7 +21,7 @@ class AssetService
     public final const HYDEFRONT_VERSION = 'v2.0';
 
     /** @var string The default HydeFront CDN path pattern. */
-    public final const CDN_PATH_PATTERN = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
+    public final const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
     /**
      * The HydeFront version to load.
@@ -80,7 +80,7 @@ class AssetService
     {
         return str_replace(
             ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
-            $this->hydefrontUrl ?? self::CDN_PATH_PATTERN
+            $this->hydefrontUrl ?? self::HYDEFRONT_CDN_URL
         );
     }
 
