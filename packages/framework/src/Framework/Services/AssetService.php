@@ -78,7 +78,10 @@ class AssetService
         if ($this->hydefrontUrl) {
             return $this->hydefrontUrl;
         } else {
-            return str_replace(['{{ $version }}', '{{ $file }}'], [$this->version(), $file], 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}',);
+            return str_replace(
+                ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
+                'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}'
+            );
         }
     }
 
