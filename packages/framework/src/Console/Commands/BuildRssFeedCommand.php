@@ -22,6 +22,6 @@ class BuildRssFeedCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateRssFeed($this->output))->run();
+        return (new GenerateRssFeed())->run($this->output);
     }
 }
