@@ -41,14 +41,14 @@ class AssetServiceUnitTest extends UnitTestCase
     {
         $service = new AssetService();
         $service->version = '1.0.0';
-        $this->assertEquals('1.0.0', $service->version);
+        $this->assertSame('1.0.0', $service->version);
     }
 
     public function testVersionCanBeSetInConfig()
     {
         self::mockConfig(['hyde.hydefront_version' => '1.0.0']);
         $service = new AssetService();
-        $this->assertEquals('1.0.0', $service->version());
+        $this->assertSame('1.0.0', $service->version());
     }
 
     public function testCdnPatternConstant()
