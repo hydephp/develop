@@ -60,7 +60,6 @@ class BuildSiteCommand extends Command
     protected function setupBuildTaskService(): void
     {
         $this->taskService->setOutput($this->output);
-
     }
 
     protected function runPreBuildActions(): void
