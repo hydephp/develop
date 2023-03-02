@@ -14,7 +14,6 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
-use InvalidArgumentException;
 use Mockery;
 use ReflectionClass;
 use stdClass;

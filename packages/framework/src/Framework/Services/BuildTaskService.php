@@ -11,7 +11,6 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use function array_map;
 use function array_values;
 use function class_basename;
