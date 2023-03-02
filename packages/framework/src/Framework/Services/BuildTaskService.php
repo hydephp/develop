@@ -121,7 +121,7 @@ class BuildTaskService
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
     }
 
-    protected function registerIf(string $task, callable|bool $condition): void
+    protected function registerIf(string $task, bool $condition): void
     {
         if (is_bool($condition) ? $condition : $condition()) {
             $this->registerTask($task);
