@@ -431,4 +431,9 @@ return [
     // Where should the build manifest be saved? (Relative to project root, for example _site/build-manifest.json)
     'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
 
+    // Here you can specify HydeFront version and URL for when loading app.css from the CDN.
+    // Only change these if you know what you're doing as some versions may incompatible with your Hyde version.
+    // 'hydefront_version' => '',
+    // 'hydefront_cdn_url' => ''
+
 ];
