@@ -122,7 +122,7 @@ class NavItem implements Stringable
 
     public function getGroup(): ?string
     {
-        return $this->normalizeGroupKey($this->route->getPage()->data('navigation.group'));
+        return $this->normalizeGroupKey($this->getRoute()?->getPage()->data('navigation.group'));
     }
 
     public function getRoute(): ?Route
