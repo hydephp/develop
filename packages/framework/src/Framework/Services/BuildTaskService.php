@@ -20,7 +20,6 @@ use Illuminate\Support\Str;
 use function array_map;
 use function array_values;
 use function class_basename;
-use function is_bool;
 use function is_string;
 use function str_replace;
 
@@ -123,7 +122,7 @@ class BuildTaskService
 
     protected function registerIf(string $task, bool $condition): void
     {
-        if (is_bool($condition) ? $condition : $condition()) {
+        if ($condition) {
             $this->registerTask($task);
         }
     }
