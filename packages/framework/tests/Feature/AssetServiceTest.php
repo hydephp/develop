@@ -24,7 +24,7 @@ class AssetServiceTest extends TestCase
 
     public function test_media_link_returns_media_path_without_cache_key_if_cache_busting_is_disabled()
     {
-        config(['hyde.cache_busting' => false]);
+        config(['hyde.enable_cache_busting' => false]);
         $service = new AssetService();
         $this->assertIsString($path = $service->mediaLink('app.css'));
         $this->assertEquals('media/app.css', $path);
