@@ -55,16 +55,16 @@ class FrontMatterModelTest extends TestCase
         $this->assertNull($matter->foo);
     }
 
-    public function test_get_method_returns_self_when_no_argument_is_specified()
+    public function test_get_method_returns_data_when_no_argument_is_specified()
     {
         $matter = new FrontMatter();
-        $this->assertSame($matter, $matter->get());
+        $this->assertSame([], $matter->get());
     }
 
-    public function test_get_method_returns_self_when_no_argument_is_specified_with_data()
+    public function test_get_method_returns_data_when_no_argument_is_specified_with_data()
     {
         $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertSame($matter, $matter->get());
+        $this->assertSame(['foo' => 'bar'], $matter->get());
     }
 
     public function test_get_method_returns_null_if_specified_front_matter_key_does_not_exist()
