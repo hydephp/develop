@@ -103,16 +103,16 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(stdClass::class);
     }
 
-    public function testRegisterTaskWithoutRunnerInterfaceImplementationThrowsException()
+    public function testRegisterTaskWithoutChildExtensionThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->service->registerTask(TestBuildTaskWithoutRunnerInterface::class);
+        $this->service->registerTask(TestBuildTaskNotExtendingChildren::class);
     }
 
-    public function testRegisterTaskWithoutRunnerInterfaceImplementationExceptionMessageIsHelpful()
+    public function testRegisterTaskWithoutChildExtensionExceptionMessageIsHelpful()
     {
-        $this->expectExceptionMessage('BuildTask ['.TestBuildTaskWithoutRunnerInterface::class.'] must extend either PreBuildTask or PostBuildTask.');
-        $this->service->registerTask(TestBuildTaskWithoutRunnerInterface::class);
+        $this->expectExceptionMessage('BuildTask ['.TestBuildTaskNotExtendingChildren::class.'] must extend either PreBuildTask or PostBuildTask.');
+        $this->service->registerTask(TestBuildTaskNotExtendingChildren::class);
     }
 
     public function testRegisterTaskWithAlreadyRegisteredTask()
@@ -182,24 +182,24 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->markTestSuccessful();
     }
 
-    public function testGenerateBuildManifestImplementsRunsAfterBuild()
+    public function testGenerateBuildManifestExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateBuildManifest());
+        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateBuildManifest());
     }
 
-    public function testGenerateRssFeedImplementsRunsAfterBuild()
+    public function testGenerateRssFeedExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateRssFeed());
+        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateRssFeed());
     }
 
-    public function testGenerateSearchImplementsRunsAfterBuild()
+    public function testGenerateSearchExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateSearch());
+        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateSearch());
     }
 
-    public function testGenerateSitemapImplementsRunsAfterBuild()
+    public function testGenerateSitemapExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(RunsAfterBuild::class, new PostBuildTasks\GenerateSitemap());
+        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateSitemap());
     }
 
     public function testRunPreBuildTasks()
@@ -371,7 +371,7 @@ class TestPostBuildTask extends PostBuildTask
     }
 }
 
-class TestBuildTaskWithoutRunnerInterface extends BuildTask
+class TestBuildTaskNotExtendingChildren extends BuildTask
 {
     public function handle(): void
     {
