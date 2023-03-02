@@ -425,4 +425,7 @@ return [
     // the build command will prompt for confirmation before emptying it.
     'safe_output_directories' => ['_site', 'docs', 'build'],
 
+    // Should a JSON build manifest with metadata about the build be generated?
+    'generate_build_manifest' => true,
+
 ];
