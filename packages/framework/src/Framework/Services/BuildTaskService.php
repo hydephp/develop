@@ -8,7 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
+use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -52,7 +52,7 @@ class BuildTaskService
     public function runPreBuildTasks(): void
     {
         foreach ($this->buildTasks as $task) {
-            if ($task instanceof RunsBeforeBuild) {
+            if ($task instanceof PreBuildTask) {
                 $task->run($this->output);
             }
         }
@@ -76,8 +76,8 @@ class BuildTaskService
             throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
         }
 
-        if (! ($task instanceof RunsBeforeBuild || $task instanceof RunsAfterBuild)) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the RunsBeforeBuild or RunsAfterBuild interface.');
+        if (! ($task instanceof PreBuildTask || $task instanceof RunsAfterBuild)) {
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the PreBuildTask or RunsAfterBuild interface.');
         }
 
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
