@@ -16,6 +16,8 @@ You, of course, are free to skip this entire section, as you don't need to know 
 However, if you want to know the "magic" behind Hyde, or if you want to take advantage of these powerful tools,
 then by all means, please read on! This is also a great place to start if you want to contribute to the source code.
 
+>info For a high-level overview of these concepts, see the [Basic Architecture Concepts](basic-architecture-concepts.html) page.
+
 ## Behind the magic
 
 Want to learn more about a particular feature? Click on the links below to visit the article.
