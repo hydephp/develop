@@ -16,16 +16,14 @@ You can also overload the built-in tasks to customize them to your needs.
 
 There are two types, PreBuildTasks and PostBuildTasks. As the names suggest, PreBuildTasks are executed before the site is built, and PostBuildTasks are executed after the site is built.
 
-[//]: # (To choose which type of task you want to create, you can extend the `PreBuildTask` or `PostBuildTask` class.)
-
-To choose which type of task you want to create, you either implements the `RunsBeforeBuild` or `RunsAfterBuild` interface. More on that later, however.
+To choose which type of task you want to create, you extend either the `PreBuildTask` or `PostBuildTask` class.
+Both of these have the exact same helpers and API available, so the only difference between them is when they are executed. The classes are otherwise identical.
 
 ### About these examples
 
-For most of these examples we will focus on the PostBuildTasks as they are the most common. However, the only code difference between the two is the interface you implement. The classes are otherwise identical.
+For most of these examples we will focus on the PostBuildTasks as they are the most common. 
 
 For all these examples we assume you put the file in the `App/Actions` directory, but you can put them anywhere.
-
 
 ### Interacting with output
 
@@ -41,7 +39,7 @@ In addition, there are some extra helpers available in the base BuildTask class 
 Here is a minimal example to give you an idea of what we are working with.
 
 ```php
-class SimpleBuildTask extends BuildTask implements RunsAfterBuild
+class SimpleBuildTask extends PostBuildTask
 {
     public function run(): void
     {
@@ -52,6 +50,8 @@ class SimpleBuildTask extends BuildTask implements RunsAfterBuild
 
 As you can see, at their core, build tasks are simple classes containing a `run()` method,
 which as I'm sure you have guessed, is the method that is executed when the task is run by the build command.
+
+If you want the task to run before the build, you would extend the `PreBuildTask` class instead.
 
 #### Automatic output
 
@@ -72,10 +72,9 @@ Here is a full example, with all the namespaces included, as well as the most co
 
 namespace App\Actions;
 
-use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 
-class ExampleTask extends BuildTask implements RunsAfterBuild
+class ExampleTask extends PostBuildTask
 {
     public static string $message = 'Say hello';
 
@@ -90,6 +89,7 @@ class ExampleTask extends BuildTask implements RunsAfterBuild
     }
 }
 ```
+
 You can see a full API reference further below. But in short, the `$message` property is the message that runs before the task is executed, and the `printFinishMessage()` method is the message that runs after the task is executed.
 
 Running this task will produce the following output:
