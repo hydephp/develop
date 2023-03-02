@@ -72,15 +72,7 @@ class BuildTaskService
     {
         $task = is_string($task) ? new $task() : $task;
 
-        if (! $task instanceof BuildTask) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
-        }
-
-        if (! ($task instanceof PreBuildTask || $task instanceof PostBuildTask)) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend either PreBuildTask or PostBuildTask.');
-        }
-
-        $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
+        $this->registerTaskInService($task);
     }
 
     public function registerIf(string $task, callable|bool $condition): void
@@ -120,5 +112,18 @@ class BuildTaskService
     protected static function pathToClassName(string $file): string
     {
         return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
+    }
+
+    protected function registerTaskInService(mixed $task): void
+    {
+        if (!$task instanceof BuildTask) {
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
+        }
+
+        if (!($task instanceof PreBuildTask || $task instanceof PostBuildTask)) {
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend either PreBuildTask or PostBuildTask.');
+        }
+
+        $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
     }
 }
