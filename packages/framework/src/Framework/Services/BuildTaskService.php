@@ -69,9 +69,7 @@ class BuildTaskService
     /** @param  \Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask|class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask>  $task */
     public function registerTask(PreBuildTask|PostBuildTask|string $task): void
     {
-        $task = is_string($task) ? new $task() : $task;
-
-        $this->registerTaskInService($task);
+        $this->registerTaskInService(is_string($task) ? new $task() : $task);
     }
 
     public function registerIf(string $task, callable|bool $condition): void
