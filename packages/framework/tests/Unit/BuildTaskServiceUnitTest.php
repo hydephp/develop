@@ -56,7 +56,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGetTasksWithTaskRegisteredInConfig()
     {
-        self::mockConfig(['hyde.build_tasks' => [TestBuildTask::class]]);
+        self::mockConfig(array_merge(config()->all(), ['hyde.build_tasks' => [TestBuildTask::class]]));
         $this->assertSame([TestBuildTask::class], $this->createService()->getRegisteredTasks());
     }
 
@@ -124,7 +124,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRegisterTaskWithTaskAlreadyRegisteredInConfig()
     {
-        self::mockConfig(['hyde.build_tasks' => [TestBuildTask::class]]);
+        self::mockConfig(array_merge(config()->all(), ['hyde.build_tasks' => [TestBuildTask::class]]));
         $this->createService();
 
         $this->service->registerTask(TestBuildTask::class);
