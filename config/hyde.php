@@ -384,6 +384,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default Color Scheme
+    |--------------------------------------------------------------------------
+    |
+    | The default color scheme for the meta color-scheme tag, note that this
+    | is just a hint to the user-agent and does not force a specific theme.
+    |
+    */
+
+    'default_color_scheme' => 'light',
+
+    /*
+    |--------------------------------------------------------------------------
     | Built-in Server
     |--------------------------------------------------------------------------
     |
