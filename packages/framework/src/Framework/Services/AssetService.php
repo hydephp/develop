@@ -25,9 +25,7 @@ class AssetService
     public final const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
     /**
-     * The HydeFront version to load.
-     *
-     * @var string HydeFront SemVer Tag
+     * @var string The HydeFront SemVer Tag to load.
      */
     public string $version = self::HYDEFRONT_VERSION;
 
