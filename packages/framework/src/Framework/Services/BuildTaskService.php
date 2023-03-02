@@ -49,6 +49,11 @@ class BuildTaskService
         $this->registerTasks($this->findTasksInAppDirectory());
     }
 
+    public function setOutput(?OutputStyle $output): void
+    {
+        $this->output = $output;
+    }
+
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     public function getRegisteredTasks(): array
     {
@@ -79,38 +84,6 @@ class BuildTaskService
         $this->registerTaskInService(is_string($task) ? new $task() : $task);
     }
 
-    public function setOutput(?OutputStyle $output): void
-    {
-        $this->output = $output;
-    }
-
-    protected function findTasksInAppDirectory(): array
-    {
-        return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
-            return static::pathToClassName($file);
-        })->toArray();
-    }
-
-    protected function makeTaskIdentifier(BuildTask $class): string
-    {
-        // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
-        // this will allow the user-land task to override the framework task, making them easy to swap out.
-
-        return Str::kebab(class_basename($class));
-    }
-
-    protected function registerTasks(array $tasks): void
-    {
-        foreach ($tasks as $task) {
-            $this->registerTask($task);
-        }
-    }
-
-    protected static function pathToClassName(string $file): string
-    {
-        return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
-    }
-
     protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
@@ -121,6 +94,33 @@ class BuildTaskService
         if ($condition) {
             $this->registerTask($task);
         }
+    }
+
+    protected function registerTasks(array $tasks): void
+    {
+        foreach ($tasks as $task) {
+            $this->registerTask($task);
+        }
+    }
+
+    protected function findTasksInAppDirectory(): array
+    {
+        return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
+            return static::pathToClassName($file);
+        })->toArray();
+    }
+
+    protected static function pathToClassName(string $file): string
+    {
+        return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
+    }
+
+    protected function makeTaskIdentifier(BuildTask $class): string
+    {
+        // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
+        // this will allow the user-land task to override the framework task, making them easy to swap out.
+
+        return Str::kebab(class_basename($class));
     }
 
     private function registerFrameworkTasks(): void
