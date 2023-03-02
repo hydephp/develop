@@ -84,13 +84,6 @@ class BuildTaskService
         $this->registerTaskInService(is_string($task) ? new $task() : $task);
     }
 
-    protected function registerIf(string $task, callable|bool $condition): void
-    {
-        if (is_bool($condition) ? $condition : $condition()) {
-            $this->registerTask($task);
-        }
-    }
-
     public function setOutput(?OutputStyle $output): void
     {
         $this->output = $output;
@@ -126,6 +119,13 @@ class BuildTaskService
     protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
+    }
+
+    protected function registerIf(string $task, callable|bool $condition): void
+    {
+        if (is_bool($condition) ? $condition : $condition()) {
+            $this->registerTask($task);
+        }
     }
 
     protected function canCleanSiteDirectory(): bool
