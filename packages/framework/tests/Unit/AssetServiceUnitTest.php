@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Services\AssetService;
-use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 
 /**
