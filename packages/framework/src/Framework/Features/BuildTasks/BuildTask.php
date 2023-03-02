@@ -33,7 +33,7 @@ abstract class BuildTask
      * This method is called by the BuildTaskService. It will run the task using the handle method,
      * as well as write output to the console, and handle any exceptions that may occur.
      *
-     * @return int The exit code of the task.
+     * @return int The exit code of the task. This can be used when calling a task directly from a command.
      */
     public function run(?OutputStyle $output = null): int
     {
