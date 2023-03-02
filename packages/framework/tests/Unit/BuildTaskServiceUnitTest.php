@@ -10,7 +10,7 @@ use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
@@ -363,7 +363,7 @@ class TestPreBuildTask extends PreBuildTask
     }
 }
 
-class TestPostBuildTask extends BuildTask implements RunsAfterBuild
+class TestPostBuildTask extends PostBuildTask
 {
     public function handle(): void
     {
