@@ -24,7 +24,7 @@ class GenerateBuildManifest extends PostBuildTask
 
         /** @var \Hyde\Pages\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
-            $pages->push([
+            $pages->put($page->getRouteKey(), [
                 'source_path' => $page->getSourcePath(),
                 'output_path' => $page->getOutputPath(),
                 'source_hash' => $this->hashSourcePath($page),
