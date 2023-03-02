@@ -64,11 +64,11 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertSame($service->version, $service->version());
     }
 
-    public function testCdnPathConstructorReturnsCdnUri()
+    public function testCdnLinkHelper()
     {
         $service = new AssetService();
         $this->assertIsString($path = $service->cdnLink('styles.css'));
-        $this->assertStringContainsString('styles.css', $path);
+        $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@v2.0/dist/styles.css', $path);
     }
 
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
