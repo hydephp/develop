@@ -126,4 +126,4 @@ jobs:
         with:
           pull: 'origin gh-pages'
           add: 'pr-${{ github.event.pull_request.number }}/dev-docs-preview'
-          message: 'Upload documentation preview for PR #${{ github.event.pull_request.number }}'
+          message: 'Upload documentation preview for PR ${{ github.event.pull_request.number }}'
