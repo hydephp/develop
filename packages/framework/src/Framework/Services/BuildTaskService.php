@@ -20,7 +20,6 @@ use Illuminate\Support\Str;
 use function array_map;
 use function array_values;
 use function class_basename;
-use function config;
 use function is_bool;
 use function is_string;
 use function str_replace;
@@ -132,12 +131,12 @@ class BuildTaskService
 
     protected function canCleanSiteDirectory(): bool
     {
-        return config('hyde.empty_output_directory', true);
+        return Config::getBool('hyde.empty_output_directory', true);
     }
 
     protected function canGenerateManifest(): bool
     {
-        return config('hyde.generate_build_manifest', true);
+        return Config::getBool('hyde.generate_build_manifest', true);
     }
 
     protected function canGenerateSitemap(): bool
