@@ -77,7 +77,7 @@ class BuildTaskService
         }
 
         if (! ($task instanceof PreBuildTask || $task instanceof PostBuildTask)) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the PreBuildTask or PostBuildTask interface.');
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend either PreBuildTask or PostBuildTask.');
         }
 
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
