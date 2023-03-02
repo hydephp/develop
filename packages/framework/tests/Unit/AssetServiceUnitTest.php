@@ -105,6 +105,18 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@v2.0/dist/styles.css', $path);
     }
 
+    public function testHasMediaFileHelper()
+    {
+        $service = new AssetService();
+        $this->assertFalse($service->hasMediaFile('styles.css'));
+    }
+
+    public function testHasMediaFileHelperReturnsTrueForExistingFile()
+    {
+        $service = new AssetService();
+        $this->assertTrue($service->hasMediaFile('app.css'));
+    }
+
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
     {
         $service = new AssetService();
