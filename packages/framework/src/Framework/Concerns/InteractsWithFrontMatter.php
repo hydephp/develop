@@ -34,7 +34,7 @@ trait InteractsWithFrontMatter
      */
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        return $this->matter->get($key, $default);
+        return $this->matter->get($key, $default ?? $this->matter);
     }
 
     /**
