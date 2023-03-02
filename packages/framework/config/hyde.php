@@ -409,4 +409,17 @@ return [
         'dashboard' => env('SERVER_DASHBOARD', true),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Additional Advanced Options
+    |--------------------------------------------------------------------------
+    |
+    | Finally, here are some additional configuration options that you most
+    | likely won't need to change. These are intended for advanced users,
+    | and some should only be changed if you know what you're doing.
+    |
+    */
+
+    //
+
 ];
