@@ -114,7 +114,7 @@ class BuildTaskService
         return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
     }
 
-    protected function registerTaskInService(mixed $task): void
+    protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
         if (!$task instanceof BuildTask) {
             throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
