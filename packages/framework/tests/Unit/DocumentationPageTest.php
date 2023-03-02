@@ -42,6 +42,34 @@ class DocumentationPageTest extends TestCase
         $this->assertEquals('documentation/latest/foo', $page->getRouteKey());
     }
 
+    public function test_can_get_current_page_path_when_using_flattened_output_paths()
+    {
+        Config::set('docs.flattened_output_paths', true);
+
+        $page = DocumentationPage::make('foo/bar');
+        $this->assertEquals('docs/bar', $page->getRouteKey());
+
+        config(['hyde.output_directories.documentation-page' => 'documentation/latest/']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $page = DocumentationPage::make('foo/bar');
+        $this->assertEquals('documentation/latest/bar', $page->getRouteKey());
+    }
+
+    public function test_can_get_current_page_path_when_not_using_flattened_output_paths()
+    {
+        Config::set('docs.flattened_output_paths', false);
+
+        $page = DocumentationPage::make('foo/bar');
+        $this->assertEquals('docs/foo/bar', $page->getRouteKey());
+
+        config(['hyde.output_directories.documentation-page' => 'documentation/latest/']);
+        (new HydeServiceProvider($this->app))->register();
+
+        $page = DocumentationPage::make('foo/bar');
+        $this->assertEquals('documentation/latest/foo/bar', $page->getRouteKey());
+    }
+
     public function test_can_get_online_source_path()
     {
         $page = DocumentationPage::make('foo');
@@ -173,8 +201,22 @@ class DocumentationPageTest extends TestCase
         $this->assertFalse(DocumentationPage::hasTableOfContents());
     }
 
-    public function test_compiled_pages_originating_in_subdirectories_retain_subdirectory_structure()
+    public function test_compiled_pages_originating_in_subdirectories_get_output_to_root_docs_path()
     {
+        $page = DocumentationPage::make('foo/bar');
+        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+    }
+
+    public function test_compiled_pages_originating_in_subdirectories_get_output_to_root_docs_path_when_using_flattened_output_paths()
+    {
+        Config::set('docs.flattened_output_paths', true);
+        $page = DocumentationPage::make('foo/bar');
+        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+    }
+
+    public function test_compiled_pages_originating_in_subdirectories_retain_subdirectory_structure_when_not_using_flattened_output_paths()
+    {
+        Config::set('docs.flattened_output_paths', false);
         $page = DocumentationPage::make('foo/bar');
         $this->assertEquals('docs/foo/bar.html', $page->getOutputPath());
     }
