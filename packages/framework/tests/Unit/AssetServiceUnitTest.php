@@ -58,6 +58,35 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertSame('https://example.com', $service->cdnLink(''));
     }
 
+    public function testCanUseCustomCdnPathWithVersion()
+    {
+        self::mockConfig(['hyde.hydefront_url' => '{{ $version }}']);
+        $service = new AssetService();
+        $this->assertSame('v2.0', $service->cdnLink(''));
+    }
+
+    public function testCanUseCustomCdnPathWithFile()
+    {
+        self::mockConfig(['hyde.hydefront_url' => '{{ $file }}']);
+        $service = new AssetService();
+        $this->assertSame('styles.css', $service->cdnLink('styles.css'));
+    }
+
+    public function testCanUseCustomCdnPathWithVersionAndFile()
+    {
+        self::mockConfig(['hyde.hydefront_url' => '{{ $version }}/{{ $file }}']);
+        $service = new AssetService();
+        $this->assertSame('v2.0/styles.css', $service->cdnLink('styles.css'));
+    }
+
+    public function testCanUseCustomCdnPathWithCustomVersion()
+    {
+        self::mockConfig(['hyde.hydefront_url' => '{{ $version }}']);
+        $service = new AssetService();
+        $service->version = '1.0.0';
+        $this->assertSame('1.0.0', $service->cdnLink(''));
+    }
+
     public function testVersionMethodReturnsVersionProperty()
     {
         $service = new AssetService();

@@ -75,14 +75,10 @@ class AssetService
 
     protected function constructCdnPath(string $file): string
     {
-        if ($this->hydefrontUrl) {
-            return $this->hydefrontUrl;
-        } else {
-            return str_replace(
-                ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
-                'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}'
-            );
-        }
+        return str_replace(
+            ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
+            $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}'
+        );
     }
 
     protected function getCacheBustKey(string $file): string
