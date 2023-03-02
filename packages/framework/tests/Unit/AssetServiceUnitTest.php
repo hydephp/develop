@@ -33,6 +33,20 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertEquals('1.0.0', $service->version);
     }
 
+    public function testVersionCanBeSetInConfig()
+    {
+        self::mockConfig(['hyde.hydefront_version' => '1.0.0']);
+        $service = new AssetService();
+        $this->assertEquals('1.0.0', $service->version());
+    }
+
+    public function testCanSetCustomCdnUriInConfig()
+    {
+        self::mockConfig(['hyde.hydefront_url' => 'https://example.com']);
+        $service = new AssetService();
+        $this->assertSame('https://example.com', $service->cdnLink(''));
+    }
+
     public function testVersionMethodReturnsVersionPropertyWhenConfigOverrideIsNotSet()
     {
         $service = new AssetService();

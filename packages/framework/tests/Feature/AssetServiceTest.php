@@ -15,20 +15,6 @@ use Hyde\Testing\TestCase;
  */
 class AssetServiceTest extends TestCase
 {
-    public function test_version_can_be_set_in_config()
-    {
-        config(['hyde.hydefront_version' => '1.0.0']);
-        $service = new AssetService();
-        $this->assertEquals('1.0.0', $service->version());
-    }
-
-    public function test_can_set_custom_cdn_uri_in_config()
-    {
-        config(['hyde.hydefront_url' => 'https://example.com']);
-        $service = new AssetService();
-        $this->assertSame('https://example.com', $service->cdnLink('styles.css'));
-    }
-
     public function test_media_link_returns_media_path_with_cache_key()
     {
         $service = new AssetService();
