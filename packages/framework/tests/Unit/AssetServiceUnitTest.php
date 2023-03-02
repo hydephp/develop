@@ -93,8 +93,7 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testCdnLinkHelper()
     {
-        $path = (new AssetService())->cdnLink('styles.css');
-        $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@v2.0/dist/styles.css', $path);
+        $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@v2.0/dist/styles.css', (new AssetService())->cdnLink('styles.css'));
     }
 
     public function testHasMediaFileHelper()
