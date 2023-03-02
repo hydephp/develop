@@ -75,7 +75,11 @@ class AssetService
 
     protected function constructCdnPath(string $file): string
     {
-        return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
+        if ($this->hydefrontUrl) {
+            return $this->hydefrontUrl;
+        } else {
+            return 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
+        }
     }
 
     protected function getCacheBustKey(string $file): string
