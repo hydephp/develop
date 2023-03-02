@@ -30,7 +30,7 @@ class AssetService
      */
     public string $version = self::HYDEFRONT_VERSION;
 
-    protected ?string $hydefrontUrl = self::HYDEFRONT_CDN_URL;
+    protected string $hydefrontUrl = self::HYDEFRONT_CDN_URL;
 
     public function __construct()
     {
@@ -80,7 +80,7 @@ class AssetService
     {
         return str_replace(
             ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
-            $this->hydefrontUrl ?? self::HYDEFRONT_CDN_URL
+            $this->hydefrontUrl
         );
     }
 
