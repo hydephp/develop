@@ -145,30 +145,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertSame([GenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
-    public function testRegisterIfRegistersTaskIfSuppliedBooleanIsTrue()
-    {
-        $this->service->registerIf(TestBuildTask::class, true);
-        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
-    }
-
-    public function testRegisterIfDoesNotRegisterTaskIfSuppliedBooleanIsFalse()
-    {
-        $this->service->registerIf(TestBuildTask::class, false);
-        $this->assertSame([], $this->service->getRegisteredTasks());
-    }
-
-    public function testRegisterIfRegistersTaskIfSuppliedCallableReturnsTrue()
-    {
-        $this->service->registerIf(TestBuildTask::class, fn () => true);
-        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
-    }
-
-    public function testRegisterIfDoesNotRunTaskIfSuppliedCallableReturnsFalse()
-    {
-        $this->service->registerIf(TestBuildTask::class, fn () => false);
-        $this->assertSame([], $this->service->getRegisteredTasks());
-    }
-
     public function testSetOutputWithNull()
     {
         $this->service->setOutput(null);
