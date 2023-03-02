@@ -5,12 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
-use Hyde\Facades\Features;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
-use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
@@ -67,11 +61,6 @@ class BuildSiteCommand extends Command
     {
         $this->taskService->setOutput($this->output);
 
-        $this->taskService->registerTask(CleanSiteDirectory::class);
-        $this->taskService->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
-        $this->taskService->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $this->taskService->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $this->taskService->registerIf(GenerateSearch::class, $this->canGenerateSearch());
     }
 
     protected function runPreBuildActions(): void
@@ -152,26 +141,6 @@ class BuildSiteCommand extends Command
             '<fg=red>Could not %s! Is NPM installed?</>',
             $actionMessage ?? 'run script'
         ));
-    }
-
-    protected function canGenerateManifest(): mixed
-    {
-        return config('hyde.generate_build_manifest', true);
-    }
-
-    protected function canGenerateSitemap(): bool
-    {
-        return Features::sitemap();
-    }
-
-    protected function canGenerateFeed(): bool
-    {
-        return Features::rss();
-    }
-
-    protected function canGenerateSearch(): bool
-    {
-        return Features::hasDocumentationSearch();
     }
 
     protected function hasWarnings(): bool

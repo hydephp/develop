@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Facades\Config;
+use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
@@ -14,6 +20,7 @@ use Illuminate\Support\Str;
 use function array_map;
 use function array_values;
 use function class_basename;
+use function config;
 use function is_bool;
 use function is_string;
 use function str_replace;
@@ -40,6 +47,12 @@ class BuildTaskService
         $this->registerTasks(Config::getArray('hyde.build_tasks', []));
 
         $this->registerTasks($this->findTasksInAppDirectory());
+
+        $this->registerTask(CleanSiteDirectory::class);
+        $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
+        $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
+        $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $this->registerIf(GenerateSearch::class, $this->canGenerateSearch());
     }
 
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
@@ -114,5 +127,25 @@ class BuildTaskService
     protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
+    }
+
+    protected function canGenerateManifest(): mixed
+    {
+        return config('hyde.generate_build_manifest', true);
+    }
+
+    protected function canGenerateSitemap(): bool
+    {
+        return Features::sitemap();
+    }
+
+    protected function canGenerateFeed(): bool
+    {
+        return Features::rss();
+    }
+
+    protected function canGenerateSearch(): bool
+    {
+        return Features::hasDocumentationSearch();
     }
 }
