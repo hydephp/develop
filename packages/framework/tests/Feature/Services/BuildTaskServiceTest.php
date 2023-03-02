@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
  * @covers \Hyde\Framework\Features\BuildTasks\BuildTask
+ * @covers \Hyde\Framework\Features\BuildTasks\PreBuildTask
+ * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTask
  * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap
  * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed
  * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch
