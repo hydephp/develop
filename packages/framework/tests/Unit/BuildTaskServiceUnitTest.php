@@ -104,6 +104,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(TestBuildTaskNotExtendingChildren::class);
     }
 
+    public function testRegisterTaskWithBaseClassThrowsException()
+    {
+        $this->expectException(TypeError::class);
+        $this->service->registerTask(InstansiableTestBuildTask::class);
+    }
+
     public function testRegisterTaskWithAlreadyRegisteredTask()
     {
         $this->service->registerTask(TestBuildTask::class);
@@ -333,6 +339,14 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
         Mockery::close();
+    }
+}
+
+class InstansiableTestBuildTask extends BuildTask
+{
+    public function handle(): void
+    {
+        //
     }
 }
 
