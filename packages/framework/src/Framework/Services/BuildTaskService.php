@@ -116,14 +116,6 @@ class BuildTaskService
 
     protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
-        if (!$task instanceof BuildTask) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
-        }
-
-        if (!($task instanceof PreBuildTask || $task instanceof PostBuildTask)) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend either PreBuildTask or PostBuildTask.');
-        }
-
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
     }
 }
