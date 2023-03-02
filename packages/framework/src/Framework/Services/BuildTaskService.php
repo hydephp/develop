@@ -67,8 +67,8 @@ class BuildTaskService
         }
     }
 
-    /** @param  \Hyde\Framework\Features\BuildTasks\BuildTask|class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>  $task */
-    public function registerTask(BuildTask|string $task): void
+    /** @param  \Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask|class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask>  $task */
+    public function registerTask(PreBuildTask|PostBuildTask|string $task): void
     {
         $task = is_string($task) ? new $task() : $task;
 
