@@ -48,7 +48,7 @@ class BuildTaskService
 
         $this->registerTasks($this->findTasksInAppDirectory());
 
-        $this->registerTask(CleanSiteDirectory::class);
+        $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
@@ -127,6 +127,11 @@ class BuildTaskService
     protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
+    }
+
+    protected function canCleanSiteDirectory(): bool
+    {
+        return config('hyde.empty_output_directory', true);
     }
 
     protected function canGenerateManifest(): mixed
