@@ -347,7 +347,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     }
 }
 
-class TestBuildTask extends BuildTask implements RunsBeforeBuild, RunsAfterBuild
+class TestBuildTask extends PostBuildTask
 {
     public function handle(): void
     {
