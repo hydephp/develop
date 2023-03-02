@@ -337,6 +337,39 @@ class DocumentationSidebarTest extends TestCase
         $this->assertTrue(DocumentationSidebar::create()->isGroupActive('baz'));
     }
 
+    public function test_can_have_multiple_grouped_pages_with_the_same_name_labels()
+    {
+        $this->makePage('foo', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
+        $this->makePage('bar', ['navigation.group' => 'bar', 'navigation.label' => 'Foo']);
+
+        $sidebar = DocumentationSidebar::create();
+        $this->assertCount(2, $sidebar->items);
+
+        $this->assertEquals(
+            collect([
+                NavItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
+                NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999),
+            ]),
+            $sidebar->items
+        );
+    }
+
+    public function test_duplicate_labels_within_the_same_group_is_removed()
+    {
+        $this->makePage('foo', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
+        $this->makePage('bar', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
+
+        $sidebar = DocumentationSidebar::create();
+        $this->assertCount(1, $sidebar->items);
+
+        $this->assertEquals(
+            collect([
+                NavItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
+            ]),
+            $sidebar->items
+        );
+    }
+
     public function test_is_group_active_for_index_page_with_no_groups()
     {
         $this->makePage('index');

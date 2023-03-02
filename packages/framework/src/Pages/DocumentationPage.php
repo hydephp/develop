@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Hyde\Facades\Config;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
@@ -53,5 +54,29 @@ class DocumentationPage extends BaseMarkdownPage
     public function getTableOfContents(): string
     {
         return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
+    }
+
+    /**
+     * Get the route key for the page.
+     *
+     * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
+     */
+    public function getRouteKey(): string
+    {
+        return Config::getBool('docs.flattened_output_paths', true)
+            ? unslash(static::outputDirectory().'/'.basename($this->identifier))
+            : parent::getRouteKey();
+    }
+
+    /**
+     * Get the path where the compiled page will be saved.
+     *
+     * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
+     */
+    public function getOutputPath(): string
+    {
+        return Config::getBool('docs.flattened_output_paths', true)
+            ? static::outputPath(basename($this->identifier))
+            : parent::getOutputPath();
     }
 }
