@@ -73,8 +73,9 @@ Here is a full example, with all the namespaces included, as well as the most co
 namespace App\Actions;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 
-class ExampleTask extends BuildTask
+class ExampleTask extends BuildTask implements RunsAfterBuild
 {
     public static string $message = 'Say hello';
 
