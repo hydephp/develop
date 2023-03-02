@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
+use Hyde\Facades\Config;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
@@ -59,7 +60,7 @@ class GenerateBuildManifest extends PostBuildTask
 
     protected function getManifestPath(): string
     {
-        return Hyde::path(config(
+        return Hyde::path(Config::getString(
             'hyde.build_manifest_path',
             'app/storage/framework/cache/build-manifest.json'
         ));
