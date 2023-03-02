@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\BuildTasks\PreBuildTasks;
 
 use Hyde\Hyde;
 use Hyde\Facades\Site;
-use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
 use Illuminate\Support\Facades\File;
 use function basename;
@@ -14,7 +14,7 @@ use function config;
 use function in_array;
 use function sprintf;
 
-class CleanSiteDirectory extends BuildTask implements RunsBeforeBuild
+class CleanSiteDirectory extends PreBuildTask
 {
     protected static string $message = 'Removing all files from build directory';
 

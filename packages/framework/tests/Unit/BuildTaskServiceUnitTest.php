@@ -11,7 +11,7 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
+use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use InvalidArgumentException;
@@ -355,7 +355,7 @@ class TestBuildTask extends BuildTask implements RunsBeforeBuild, RunsAfterBuild
     }
 }
 
-class TestPreBuildTask extends BuildTask implements RunsBeforeBuild
+class TestPreBuildTask extends PreBuildTask
 {
     public function handle(): void
     {
