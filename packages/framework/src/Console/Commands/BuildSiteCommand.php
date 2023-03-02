@@ -42,7 +42,7 @@ class BuildSiteCommand extends Command
 
         $this->taskService = app(BuildTaskService::class);
 
-        $this->setupBuildTaskService();
+        $this->taskService->setOutput($this->output);
 
         $this->runPreBuildActions();
 
@@ -55,11 +55,6 @@ class BuildSiteCommand extends Command
         $this->printFinishMessage($timeStart);
 
         return $this->getExitCode();
-    }
-
-    protected function setupBuildTaskService(): void
-    {
-        $this->taskService->setOutput($this->output);
     }
 
     protected function runPreBuildActions(): void
