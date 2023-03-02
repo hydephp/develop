@@ -62,7 +62,7 @@ class GenerateBuildManifest extends PostBuildTask
     {
         return Hyde::path(Config::getString(
             'hyde.build_manifest_path',
-            storage_path('cache/build-manifest.json')
+            'app/storage/framework/cache/build-manifest.json'
         ));
     }
 
