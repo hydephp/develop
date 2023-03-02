@@ -18,6 +18,7 @@ use InvalidArgumentException;
 use Mockery;
 use ReflectionClass;
 use stdClass;
+use TypeError;
 
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
@@ -93,25 +94,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRegisterTaskWithInvalidClassTypeThrowsException()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->service->registerTask(stdClass::class);
-    }
-
-    public function testRegisterTaskWithInvalidClassTypeExceptionMessageIsHelpful()
-    {
-        $this->expectExceptionMessage('BuildTask [stdClass] must extend the HydeBuildTask class.');
+        $this->expectException(TypeError::class);
         $this->service->registerTask(stdClass::class);
     }
 
     public function testRegisterTaskWithoutChildExtensionThrowsException()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->service->registerTask(TestBuildTaskNotExtendingChildren::class);
-    }
-
-    public function testRegisterTaskWithoutChildExtensionExceptionMessageIsHelpful()
-    {
-        $this->expectExceptionMessage('BuildTask ['.TestBuildTaskNotExtendingChildren::class.'] must extend either PreBuildTask or PostBuildTask.');
+        $this->expectException(TypeError::class);
         $this->service->registerTask(TestBuildTaskNotExtendingChildren::class);
     }
 
