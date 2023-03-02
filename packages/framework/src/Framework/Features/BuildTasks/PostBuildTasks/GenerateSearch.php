@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Services\DocumentationSearchService;
 

@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\BuildTasks\PreBuildTasks;
 use Hyde\Hyde;
 use Hyde\Facades\Site;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsBeforeBuild;
 use Illuminate\Support\Facades\File;
 use function basename;
 use function config;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Console\OutputStyle;
