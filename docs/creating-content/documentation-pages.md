@@ -156,7 +156,7 @@ Since [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-bet
 
 For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter in the step above.
 
-> Note that the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the sub-directories.
+> Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled, the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the sub-directories.
 
 
 ### Hiding items
@@ -329,3 +329,16 @@ Just target the `.edit-page-link` class.
 #### Changing the Blade view
 
 You can also publish the `edit-source-button.blade.php` view and change it to your liking.
+
+#### Using flattened output paths
+
+If this setting is set to true, Hyde will output all documentation pages into the same configured documentation output directory.
+This means that you can use the automatic directory based grouping feature, but still have a "flat" output structure.
+Note that this means that you can't have two documentation pages with the same filename or navigation menu label as they will overwrite each other.
+
+If you set this to false, Hyde will match the directory structure of the source files (just like all other pages).
+
+```php
+// Filepath: config/docs.php
+'flattened_output_paths' => true,
+```
