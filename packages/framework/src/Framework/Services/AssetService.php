@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use function str_contains;
 
@@ -35,11 +36,11 @@ class AssetService
     public function __construct()
     {
         if (config('hyde.hydefront_version')) {
-            $this->version = config('hyde.hydefront_version');
+            $this->version = Config::getString('hyde.hydefront_version');
         }
 
         if (config('hyde.hydefront_url')) {
-            $this->hydefrontUrl = config('hyde.hydefront_url');
+            $this->hydefrontUrl = Config::getString('hyde.hydefront_url');
         }
     }
 
