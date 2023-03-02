@@ -55,7 +55,7 @@ class AssetService
 
     public function hasMediaFile(string $file): bool
     {
-        return file_exists(Hyde::mediaPath().'/'.$file);
+        return file_exists(Hyde::mediaPath($file));
     }
 
     public function injectTailwindConfig(): string
