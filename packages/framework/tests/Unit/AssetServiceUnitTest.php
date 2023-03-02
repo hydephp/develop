@@ -27,14 +27,12 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testServiceHasVersionString()
     {
-        $service = new AssetService();
-        $this->assertIsString($service->version);
+        $this->assertIsString((new AssetService())->version);
     }
 
     public function testVersionStringDefaultsToConstant()
     {
-        $service = new AssetService();
-        $this->assertSame(AssetService::HYDEFRONT_VERSION, $service->version);
+        $this->assertSame(AssetService::HYDEFRONT_VERSION, (new AssetService())->version);
     }
 
     public function testCanChangeVersion()
@@ -47,8 +45,7 @@ class AssetServiceUnitTest extends UnitTestCase
     public function testVersionCanBeSetInConfig()
     {
         self::mockConfig(['hyde.hydefront_version' => '1.0.0']);
-        $service = new AssetService();
-        $this->assertSame('1.0.0', $service->version());
+        $this->assertSame('1.0.0', (new AssetService())->version());
     }
 
     public function testCdnPatternConstant()
@@ -59,29 +56,25 @@ class AssetServiceUnitTest extends UnitTestCase
     public function testCanSetCustomCdnUrlInConfig()
     {
         self::mockConfig(['hyde.hydefront_url' => 'https://example.com']);
-        $service = new AssetService();
-        $this->assertSame('https://example.com', $service->cdnLink(''));
+        $this->assertSame('https://example.com', (new AssetService())->cdnLink(''));
     }
 
     public function testCanUseCustomCdnUrlWithVersion()
     {
         self::mockConfig(['hyde.hydefront_url' => '{{ $version }}']);
-        $service = new AssetService();
-        $this->assertSame('v2.0', $service->cdnLink(''));
+        $this->assertSame('v2.0', (new AssetService())->cdnLink(''));
     }
 
     public function testCanUseCustomCdnUrlWithFile()
     {
         self::mockConfig(['hyde.hydefront_url' => '{{ $file }}']);
-        $service = new AssetService();
-        $this->assertSame('styles.css', $service->cdnLink('styles.css'));
+        $this->assertSame('styles.css', (new AssetService())->cdnLink('styles.css'));
     }
 
     public function testCanUseCustomCdnUrlWithVersionAndFile()
     {
         self::mockConfig(['hyde.hydefront_url' => '{{ $version }}/{{ $file }}']);
-        $service = new AssetService();
-        $this->assertSame('v2.0/styles.css', $service->cdnLink('styles.css'));
+        $this->assertSame('v2.0/styles.css', (new AssetService())->cdnLink('styles.css'));
     }
 
     public function testCanUseCustomCdnUrlWithCustomVersion()
@@ -100,21 +93,18 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testCdnLinkHelper()
     {
-        $service = new AssetService();
-        $this->assertIsString($path = $service->cdnLink('styles.css'));
+        $this->assertIsString($path = (new AssetService())->cdnLink('styles.css'));
         $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@v2.0/dist/styles.css', $path);
     }
 
     public function testHasMediaFileHelper()
     {
-        $service = new AssetService();
-        $this->assertFalse($service->hasMediaFile('styles.css'));
+        $this->assertFalse((new AssetService())->hasMediaFile('styles.css'));
     }
 
     public function testHasMediaFileHelperReturnsTrueForExistingFile()
     {
-        $service = new AssetService();
-        $this->assertTrue($service->hasMediaFile('app.css'));
+        $this->assertTrue((new AssetService())->hasMediaFile('app.css'));
     }
 
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
