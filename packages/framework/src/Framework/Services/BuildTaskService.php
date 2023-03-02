@@ -84,8 +84,7 @@ class BuildTaskService
         $this->registerTaskInService(is_string($task) ? new $task() : $task);
     }
 
-    /** @deprecated Will be made protected */
-    public function registerIf(string $task, callable|bool $condition): void
+    protected function registerIf(string $task, callable|bool $condition): void
     {
         if (is_bool($condition) ? $condition : $condition()) {
             $this->registerTask($task);
