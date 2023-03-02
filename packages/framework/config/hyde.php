@@ -428,7 +428,7 @@ return [
     // Should a JSON build manifest with metadata about the build be generated?
     'generate_build_manifest' => true,
 
-    // Where should the build manifest be saved? (Relative to project root, for example _site/build-manifest.json)
+    // Where should the build manifest be saved? (for example, _site/build-manifest.json)
     'build_manifest_path' => storage_path('cache/build-manifest.json'),
 
     // Here you can specify HydeFront version and URL for when loading app.css from the CDN.
