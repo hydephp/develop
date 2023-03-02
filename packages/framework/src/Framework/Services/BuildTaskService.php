@@ -42,11 +42,7 @@ class BuildTaskService
 
     public function __construct()
     {
-        $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
-        $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
-        $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $this->registerIf(GenerateSearch::class, $this->canGenerateSearch());
+        $this->registerFrameworkTasks();
 
         $this->registerTasks(Config::getArray('hyde.build_tasks', []));
 
@@ -127,27 +123,36 @@ class BuildTaskService
         }
     }
 
-    protected function canCleanSiteDirectory(): bool
+    private function registerFrameworkTasks(): void
+    {
+        $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
+        $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
+        $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
+        $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $this->registerIf(GenerateSearch::class, $this->canGenerateSearch());
+    }
+
+    private function canCleanSiteDirectory(): bool
     {
         return Config::getBool('hyde.empty_output_directory', true);
     }
 
-    protected function canGenerateManifest(): bool
+    private function canGenerateManifest(): bool
     {
         return Config::getBool('hyde.generate_build_manifest', true);
     }
 
-    protected function canGenerateSitemap(): bool
+    private function canGenerateSitemap(): bool
     {
         return Features::sitemap();
     }
 
-    protected function canGenerateFeed(): bool
+    private function canGenerateFeed(): bool
     {
         return Features::rss();
     }
 
-    protected function canGenerateSearch(): bool
+    private function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch();
     }
