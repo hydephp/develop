@@ -30,7 +30,7 @@ class AssetService
      */
     public string $version = self::HYDEFRONT_VERSION;
 
-    protected ?string $hydefrontUrl = null;
+    protected ?string $hydefrontUrl = self::HYDEFRONT_CDN_URL;
 
     public function __construct()
     {
