@@ -17,12 +17,15 @@ use function str_contains;
  */
 class AssetService
 {
+    /** @var string The default HydeFront version to load. */
+    public final const HYDEFRONT_VERSION = 'v2.0';
+
     /**
-     * The default HydeFront version to load.
+     * The HydeFront version to load.
      *
      * @var string HydeFront SemVer Tag
      */
-    public string $version = 'v2.0';
+    public string $version = self::HYDEFRONT_VERSION;
 
     protected ?string $hydefrontUrl = null;
 

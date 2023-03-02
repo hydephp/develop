@@ -20,6 +20,11 @@ class AssetServiceUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
+    public function testVersionStringConstant()
+    {
+        $this->assertSame('v2.0', AssetService::HYDEFRONT_VERSION);
+    }
+
     public function testHasVersionString()
     {
         $service = new AssetService();
