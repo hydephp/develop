@@ -37,7 +37,10 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        self::mockConfig();
+        self::mockConfig(['hyde' => [
+            'empty_output_directory' => false,
+            'generate_build_manifest' => false,
+        ]]);
         $this->createService();
     }
 
