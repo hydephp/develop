@@ -19,6 +19,7 @@ abstract class BuildTask
     use InteractsWithIO;
     use TracksExecutionTime;
 
+    /** @var string The message that will be displayed when the task is run. */
     protected static string $message = 'Running generic build task';
 
     protected int $exitCode = Command::SUCCESS;
@@ -26,19 +27,27 @@ abstract class BuildTask
     /** @var \Illuminate\Console\OutputStyle|null */
     protected $output;
 
-    public function __construct(?OutputStyle $output = null)
+    abstract public function handle(): void;
+
+    /**
+     * This method is called by the BuildTaskService. It will run the task using the handle method,
+     * as well as write output to the console, and handle any exceptions that may occur.
+     *
+     * @return int The exit code of the task. This can be used when calling a task directly from a command.
+     */
+    public function run(?OutputStyle $output = null): int
     {
         $this->startClock();
-        $this->output = $output;
-    }
 
-    public function handle(): int
-    {
-        $this->write('<comment>'.$this->getDescription().'...</comment> ');
+        if ($output && ! $this->output) {
+            $this->setOutput($output);
+        }
+
+        $this->printStartMessage();
 
         try {
-            $this->run();
-            $this->then();
+            $this->handle();
+            $this->printFinishMessage();
         } catch (Throwable $exception) {
             $this->writeln('<error>Failed</error>');
             $this->writeln("<error>{$exception->getMessage()}</error>");
@@ -50,14 +59,17 @@ abstract class BuildTask
         return $this->exitCode;
     }
 
-    abstract public function run(): void;
+    public function printStartMessage(): void
+    {
+        $this->write("<comment>{$this->getMessage()}...</comment> ");
+    }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
         $this->writeln('<fg=gray>Done in '.$this->getExecutionTimeString().'</>');
     }
 
-    public function getDescription(): string
+    public function getMessage(): string
     {
         return static::$message;
     }
@@ -72,6 +84,7 @@ abstract class BuildTask
         $this->output?->writeln($message);
     }
 
+    /** Write a fluent message to the output that the task created the specified file. */
     public function createdSiteFile(string $path): static
     {
         $this->write(sprintf(
@@ -82,6 +95,7 @@ abstract class BuildTask
         return $this;
     }
 
+    /** Write a fluent message to the output with the execution time of the task. */
     public function withExecutionTime(): static
     {
         $this->write(" in {$this->getExecutionTimeString()}");

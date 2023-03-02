@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Console\Commands\BuildSiteCommand
  * @covers \Hyde\Framework\Services\BuildService
+ * @covers \Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory
  */
 class StaticSiteServiceTest extends TestCase
 {
@@ -212,7 +213,7 @@ class StaticSiteServiceTest extends TestCase
     {
         Filesystem::touch('_site/foo.html');
         $this->artisan('build')
-            ->expectsOutput('Removing all files from build directory.')
+            ->expectsOutputToContain('Removing all files from build directory...')
             ->assertExitCode(0);
         $this->assertFileDoesNotExist(Hyde::path('_site/foo.html'));
     }
@@ -223,7 +224,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::touch('_site/keep.html');
 
         $this->artisan('build')
-            ->doesntExpectOutput('Removing all files from build directory.')
+            ->doesntExpectOutput('Removing all files from build directory...')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/keep.html'));
@@ -238,7 +239,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::touch('foo/keep.html');
 
         $this->artisan('build')
-            ->expectsOutput('Removing all files from build directory.')
+            ->expectsOutputToContain('Removing all files from build directory...')
             ->expectsQuestion('The configured output directory (foo) is potentially unsafe to empty. Are you sure you want to continue?', false)
             ->expectsOutput('Output directory will not be emptied.')
             ->assertExitCode(0);

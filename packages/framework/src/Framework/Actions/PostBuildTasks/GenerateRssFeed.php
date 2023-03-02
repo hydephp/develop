@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
+namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 
-class GenerateRssFeed extends BuildTask
+class GenerateRssFeed extends PostBuildTask
 {
     public static string $message = 'Generating RSS feed';
 
-    public function run(): void
+    public function handle(): void
     {
         file_put_contents(
             Hyde::sitePath(RssFeedGenerator::getFilename()),
@@ -20,7 +20,7 @@ class GenerateRssFeed extends BuildTask
         );
     }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
         $this->createdSiteFile('_site/'.RssFeedGenerator::getFilename())->withExecutionTime();
     }

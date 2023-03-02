@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use function Hyde\unixsum_file;
 
 /**
- * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest
  */
 class GenerateBuildManifestTest extends TestCase
 {
     public function test_action_generates_build_manifest()
     {
-        (new GenerateBuildManifest())->run();
+        (new GenerateBuildManifest())->handle();
 
         $this->assertFileExists(Hyde::path('app/storage/framework/cache/build-manifest.json'));
 

@@ -4,89 +4,156 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Facades\Config;
+use Hyde\Facades\Features;
+use Hyde\Facades\Filesystem;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Hyde;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
+use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Str;
+use function array_map;
+use function array_values;
+use function class_basename;
+use function is_string;
+use function str_replace;
 
 /**
- * This service manages the build tasks that are called after the site has been compiled using the build command.
+ * This service manages the build tasks that are called before and after the site is compiled using the build command.
+ *
+ * The class is registered as a singleton in the Laravel service container and is run by the build command.
+ * Build Tasks can be registered programmatically, through the config, and through autodiscovery.
+ * The service determines when to run a task depending on which class it extends.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
+ * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  */
 class BuildTaskService
 {
-    /**
-     * Information for package developers: This offers a hook for packages to add custom build tasks.
-     * Make sure to add the fully qualified class name to the array and doing so by merging the array, not overwriting it.
-     *
-     * @var array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>>
-     */
-    public static array $postBuildTasks = [];
+    /** @var array<string, \Hyde\Framework\Features\BuildTasks\BuildTask> */
+    protected array $buildTasks = [];
 
-    protected ?OutputStyle $output;
+    protected ?OutputStyle $output = null;
 
-    public function __construct(?OutputStyle $output = null)
+    public function __construct()
+    {
+        $this->registerFrameworkTasks();
+
+        $this->registerTasks(Config::getArray('hyde.build_tasks', []));
+
+        $this->registerTasks($this->findTasksInAppDirectory());
+    }
+
+    public function setOutput(?OutputStyle $output): void
     {
         $this->output = $output;
     }
 
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    public function getRegisteredTasks(): array
+    {
+        return array_map(fn (BuildTask $task): string => $task::class, array_values($this->buildTasks));
+    }
+
+    public function runPreBuildTasks(): void
+    {
+        foreach ($this->buildTasks as $task) {
+            if ($task instanceof PreBuildTask) {
+                $task->run($this->output);
+            }
+        }
+    }
+
     public function runPostBuildTasks(): void
     {
-        foreach ($this->getPostBuildTasks() as $task) {
-            $this->run($task);
+        foreach ($this->buildTasks as $task) {
+            if ($task instanceof PostBuildTask) {
+                $task->run($this->output);
+            }
         }
-
-        $this->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
     }
 
-    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
-    public function getPostBuildTasks(): array
+    /** @param  \Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask|class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask>  $task */
+    public function registerTask(PreBuildTask|PostBuildTask|string $task): void
     {
-        return array_unique(
-            array_merge(
-                config('hyde.post_build_tasks', []),
-                static::findTasksInAppDirectory(),
-                static::$postBuildTasks
-            )
-        );
+        $this->registerTaskInService(is_string($task) ? new $task() : $task);
     }
 
-    protected static function findTasksInAppDirectory(): array
+    protected function registerTaskInService(PreBuildTask|PostBuildTask $task): void
     {
-        $tasks = [];
+        $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
+    }
 
-        foreach (glob(Hyde::path('app/Actions/*BuildTask.php')) as $file) {
-            $tasks[] = str_replace(
-                [Hyde::path('app'), '.php', '/'],
-                ['App', '', '\\'],
-                (string) $file
-            );
+    protected function registerIf(string $task, bool $condition): void
+    {
+        if ($condition) {
+            $this->registerTask($task);
         }
-
-        return $tasks;
     }
 
-    public function run(string $task): static
+    protected function registerTasks(array $tasks): void
     {
-        $this->runTask(new $task($this->output));
-
-        return $this;
-    }
-
-    public function runIf(string $task, callable|bool $condition): static
-    {
-        if (is_bool($condition) ? $condition : $condition()) {
-            $this->run($task);
+        foreach ($tasks as $task) {
+            $this->registerTask($task);
         }
-
-        return $this;
     }
 
-    protected function runTask(BuildTask $task): static
+    protected function findTasksInAppDirectory(): array
     {
-        $task->handle();
+        return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
+            return static::pathToClassName($file);
+        })->toArray();
+    }
 
-        return $this;
+    protected static function pathToClassName(string $file): string
+    {
+        return str_replace(['app', '.php', '/'], ['App', '', '\\'], $file);
+    }
+
+    protected function makeTaskIdentifier(BuildTask $class): string
+    {
+        // If a user-land task is registered with the same class name (excluding namespaces) as a framework task,
+        // this will allow the user-land task to override the framework task, making them easy to swap out.
+
+        return Str::kebab(class_basename($class));
+    }
+
+    private function registerFrameworkTasks(): void
+    {
+        $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
+        $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
+        $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
+        $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $this->registerIf(GenerateSearch::class, $this->canGenerateSearch());
+    }
+
+    private function canCleanSiteDirectory(): bool
+    {
+        return Config::getBool('hyde.empty_output_directory', true);
+    }
+
+    private function canGenerateManifest(): bool
+    {
+        return Config::getBool('hyde.generate_build_manifest', true);
+    }
+
+    private function canGenerateSitemap(): bool
+    {
+        return Features::sitemap();
+    }
+
+    private function canGenerateFeed(): bool
+    {
+        return Features::rss();
+    }
+
+    private function canGenerateSearch(): bool
+    {
+        return Features::hasDocumentationSearch();
     }
 }

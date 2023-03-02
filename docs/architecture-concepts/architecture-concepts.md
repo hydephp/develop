@@ -1,7 +1,7 @@
 ---
 navigation:
     label: Introduction
-    priority: 40
+    priority: 50
 ---
 
 # Advanced Architecture Concepts
