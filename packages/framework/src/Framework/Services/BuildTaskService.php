@@ -7,7 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
@@ -61,7 +61,7 @@ class BuildTaskService
     public function runPostBuildTasks(): void
     {
         foreach ($this->buildTasks as $task) {
-            if ($task instanceof RunsAfterBuild) {
+            if ($task instanceof PostBuildTask) {
                 $task->run($this->output);
             }
         }
@@ -76,8 +76,8 @@ class BuildTaskService
             throw new InvalidArgumentException('BuildTask ['.$task::class.'] must extend the HydeBuildTask class.');
         }
 
-        if (! ($task instanceof PreBuildTask || $task instanceof RunsAfterBuild)) {
-            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the PreBuildTask or RunsAfterBuild interface.');
+        if (! ($task instanceof PreBuildTask || $task instanceof PostBuildTask)) {
+            throw new InvalidArgumentException('BuildTask ['.$task::class.'] must implement either the PreBuildTask or PostBuildTask interface.');
         }
 
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
