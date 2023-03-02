@@ -14,11 +14,14 @@ use function Hyde\unixsum_file;
  */
 class GenerateBuildManifestTest extends UnitTestCase
 {
-    public function test_action_generates_build_manifest()
+    public static function setUpBeforeClass(): void
     {
         self::needsKernel();
         self::mockConfig();
+    }
 
+    public function test_action_generates_build_manifest()
+    {
         (new GenerateBuildManifest())->handle();
 
         $this->assertFileExists(Hyde::path('app/storage/framework/cache/build-manifest.json'));
