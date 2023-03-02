@@ -100,6 +100,8 @@ Running this task will produce the following output:
   Goodbye World!
 </pre>
 
+As you can see, there is no execution time tracking here, since we overrode the `printFinishMessage()` method that normally prints this. You can of course call the `withExecutionTime()` method to add this back in. See more in the API reference below.
+
 
 ## Registering the tasks
 
