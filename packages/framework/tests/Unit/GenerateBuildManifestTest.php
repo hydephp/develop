@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use function Hyde\unixsum_file;
 
 /**
- * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest
  */
 class GenerateBuildManifestTest extends TestCase
 {

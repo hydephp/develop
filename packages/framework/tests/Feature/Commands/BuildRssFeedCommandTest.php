@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\BuildRssFeedCommand
- * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
  */
 class BuildRssFeedCommandTest extends TestCase
 {

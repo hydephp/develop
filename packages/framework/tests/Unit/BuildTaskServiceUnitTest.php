@@ -6,12 +6,14 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
-use Hyde\Framework\Services\BuildTaskService;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
+use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Mockery;
@@ -178,22 +180,22 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGenerateBuildManifestExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateBuildManifest());
+        $this->assertInstanceOf(PostBuildTask::class, new GenerateBuildManifest());
     }
 
     public function testGenerateRssFeedExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateRssFeed());
+        $this->assertInstanceOf(PostBuildTask::class, new GenerateRssFeed());
     }
 
     public function testGenerateSearchExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateSearch());
+        $this->assertInstanceOf(PostBuildTask::class, new GenerateSearch());
     }
 
     public function testGenerateSitemapExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(PostBuildTask::class, new PostBuildTasks\GenerateSitemap());
+        $this->assertInstanceOf(PostBuildTask::class, new FrameworkGenerateSitemap());
     }
 
     public function testRunPreBuildTasks()

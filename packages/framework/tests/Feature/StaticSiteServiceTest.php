@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Console\Commands\BuildSiteCommand
  * @covers \Hyde\Framework\Services\BuildService
- * @covers \Hyde\Framework\Features\BuildTasks\PreBuildTasks\CleanSiteDirectory
+ * @covers \Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory
  */
 class StaticSiteServiceTest extends TestCase
 {

@@ -6,11 +6,11 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Facades\Features;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Features\BuildTasks\PreBuildTasks\CleanSiteDirectory;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;

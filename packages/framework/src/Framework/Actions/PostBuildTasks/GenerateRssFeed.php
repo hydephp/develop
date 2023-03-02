@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
+namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
