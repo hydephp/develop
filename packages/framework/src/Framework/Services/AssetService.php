@@ -17,10 +17,10 @@ use function str_contains;
  */
 class AssetService
 {
-    /** @var string The default HydeFront version to load. */
+    /** @var string The default HydeFront version to load. This constant is set to match the styles used for the installed framework version. */
     public final const HYDEFRONT_VERSION = 'v2.0';
 
-    /** @var string The default HydeFront CDN path pattern. */
+    /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
     public final const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
     /**
