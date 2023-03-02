@@ -73,12 +73,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | When the setting is enabled, generated links in the compiled HTML site
-    | are without the .html extension. Since this breaks local browsing you
-    | can leave the setting disabled, and instead add the --pretty-urls flag
-    | when running the php hyde build command for deployment.
+    | are without the .html extension, in other words, "pretty" URLs.
     |
-    | Note that this can cause issues when you are serving from a subdirectory.
-    | See https://github.com/hydephp/develop/issues/228
+    | This setting can also be enabled on a per-compile basis by supplying
+    | the `--pretty-urls` option when you run the build command.
     |
     */
 
@@ -90,7 +88,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | When the setting is enabled, a sitemap.xml file will automatically be
-    | generated when the site is built.
+    | generated when you compile your static site.
     |
     | This feature requires that a site base URL has been set.
     |
