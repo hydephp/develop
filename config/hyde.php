@@ -57,6 +57,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Site Language
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the language of your site and is used for the
+    | <html lang=""> element in the app layout. Default is 'en'.
+    |
+    */
+
+    'language' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
     | Pretty URLs
     |--------------------------------------------------------------------------
     |
@@ -109,15 +121,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Site Language
+    | Source Root Directory
     |--------------------------------------------------------------------------
     |
-    | This value sets the language of your site and is used for the
-    | <html lang=""> element in the app layout. Default is 'en'.
+    | HydePHP will by default look for the underscored source directories in the
+    | root of your project. For example, you might want everything in a 'src'
+    | subdirectory. That's easy enough, just set the value below to "src"!
     |
     */
 
-    'language' => 'en',
+    'source_root' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -131,47 +144,6 @@ return [
     */
 
     'output_directory' => '_site',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Media Directory
-    |--------------------------------------------------------------------------
-    |
-    | This setting specifies the directory where your media files are stored.
-    | Note that this affects both the source and output directories.
-    | The path is relative to the root of your project.
-    |
-    */
-
-    'media_directory' => '_media',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Built-in Server
-    |--------------------------------------------------------------------------
-    |
-    | Here you can configure settings for the built-in realtime compiler server.
-    |
-    */
-
-    'server' => [
-        'port' => env('SERVER_PORT', 8080),
-        'host' => env('SERVER_HOST', 'localhost'),
-        'dashboard' => env('SERVER_DASHBOARD', true),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Source Root Directory
-    |--------------------------------------------------------------------------
-    |
-    | HydePHP will by default look for the underscored source directories in the
-    | root of your project. For example, you might want everything in a 'src'
-    | subdirectory. That's easy enough, just set the value below to "src"!
-    |
-    */
-
-    'source_root' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -214,6 +186,19 @@ return [
         \Hyde\Pages\MarkdownPost::class => 'posts',
         \Hyde\Pages\DocumentationPage::class => 'docs',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Media Directory
+    |--------------------------------------------------------------------------
+    |
+    | This setting specifies the directory where your media files are stored.
+    | Note that this affects both the source and output directories.
+    | The path is relative to the root of your project.
+    |
+    */
+
+    'media_directory' => '_media',
 
     /*
     |--------------------------------------------------------------------------
@@ -380,4 +365,20 @@ return [
      */
 
     'use_play_cdn' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Built-in Server
+    |--------------------------------------------------------------------------
+    |
+    | Here you can configure settings for the built-in realtime compiler server.
+    |
+    */
+
+    'server' => [
+        'port' => env('SERVER_PORT', 8080),
+        'host' => env('SERVER_HOST', 'localhost'),
+        'dashboard' => env('SERVER_DASHBOARD', true),
+    ],
+
 ];
