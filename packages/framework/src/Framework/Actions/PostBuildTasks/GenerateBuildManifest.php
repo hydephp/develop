@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
+use Hyde\Facades\Config;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
@@ -12,6 +13,16 @@ use Illuminate\Support\Collection;
 use function Hyde\unixsum_file;
 
 /**
+ * The build manifest contains a list of all pages and their source and output paths.
+ *
+ * While not used by the framework, it's useful for addon services to know which page were built, and when.
+ * The hashes are so that the addon services can determine if a page has changed since the last build.
+ *
+ * The manifest is stored in the `app/storage/framework/cache` directory by default, as some users
+ * may not want to commit the manifest file to their repository or their deployed site.
+ * However, a great alternate location is in `_site/build-manifest.json`,
+ * if you don't mind it the file being publicly accessible.
+ *
  * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
  */
 class GenerateBuildManifest extends PostBuildTask
@@ -24,7 +35,7 @@ class GenerateBuildManifest extends PostBuildTask
 
         /** @var \Hyde\Pages\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
-            $pages->push([
+            $pages->put($page->getRouteKey(), [
                 'source_path' => $page->getSourcePath(),
                 'output_path' => $page->getOutputPath(),
                 'source_hash' => $this->hashSourcePath($page),
@@ -49,7 +60,7 @@ class GenerateBuildManifest extends PostBuildTask
 
     protected function getManifestPath(): string
     {
-        return Hyde::path(config(
+        return Hyde::path(Config::getString(
             'hyde.build_manifest_path',
             'app/storage/framework/cache/build-manifest.json'
         ));
