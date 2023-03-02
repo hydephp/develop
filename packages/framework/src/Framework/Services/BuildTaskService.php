@@ -135,7 +135,7 @@ class BuildTaskService
         return config('hyde.empty_output_directory', true);
     }
 
-    protected function canGenerateManifest(): mixed
+    protected function canGenerateManifest(): bool
     {
         return config('hyde.generate_build_manifest', true);
     }
