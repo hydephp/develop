@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -22,6 +22,6 @@ class BuildRssFeedCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateRssFeed($this->output))->handle();
+        return (new GenerateRssFeed())->run($this->output);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -22,6 +22,6 @@ class BuildSearchCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSearch($this->output))->handle();
+        return (new GenerateSearch())->run($this->output);
     }
 }

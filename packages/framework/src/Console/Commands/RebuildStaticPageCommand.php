@@ -41,7 +41,7 @@ class RebuildStaticPageCommand extends Command
             return Command::SUCCESS;
         }
 
-        return $this->makeBuildTask($this->output, $this->getNormalizedPathString())->handle();
+        return $this->makeBuildTask($this->output, $this->getNormalizedPathString())->run();
     }
 
     protected function getNormalizedPathString(): string
@@ -59,18 +59,18 @@ class RebuildStaticPageCommand extends Command
 
             public function __construct(OutputStyle $output, string $path)
             {
-                parent::__construct($output);
+                $this->output = $output;
                 $this->path = $path;
             }
 
-            public function run(): void
+            public function handle(): void
             {
                 $this->validate();
 
                 (new RebuildService($this->path))->execute();
             }
 
-            public function then(): void
+            public function printFinishMessage(): void
             {
                 $this->createdSiteFile(Command::fileLink(
                     Pages::getPage($this->path)->getOutputPath()

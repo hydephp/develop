@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
+namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Console\OutputStyle;
@@ -14,17 +14,11 @@ use function Hyde\unixsum_file;
 /**
  * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
  */
-class GenerateBuildManifest extends BuildTask
+class GenerateBuildManifest extends PostBuildTask
 {
     public static string $message = 'Generating build manifest';
 
-    public function __construct(?OutputStyle $output = null)
-    {
-        parent::__construct($output);
-        $this->output = null;
-    }
-
-    public function run(): void
+    public function handle(): void
     {
         $pages = new Collection();
 
@@ -67,5 +61,10 @@ class GenerateBuildManifest extends BuildTask
             'generated' => now(),
             'pages' => $pages,
         ], JSON_PRETTY_PRINT);
+    }
+
+    public function setOutput(OutputStyle $output)
+    {
+        // Disable output
     }
 }

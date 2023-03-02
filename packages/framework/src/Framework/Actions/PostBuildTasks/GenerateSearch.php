@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
+namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Features\BuildTasks\BuildTask;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Services\DocumentationSearchService;
 
-class GenerateSearch extends BuildTask
+class GenerateSearch extends PostBuildTask
 {
     use InteractsWithDirectories;
 
     public static string $message = 'Generating search index';
 
-    public function run(): void
+    public function handle(): void
     {
         DocumentationSearchService::generate();
 
@@ -24,7 +24,7 @@ class GenerateSearch extends BuildTask
         }
     }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
         $this->createdSiteFile(DocumentationSearchService::getFilePath())->withExecutionTime();
     }

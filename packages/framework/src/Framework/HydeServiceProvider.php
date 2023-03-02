@@ -7,6 +7,7 @@ namespace Hyde\Framework;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
@@ -28,6 +29,7 @@ class HydeServiceProvider extends ServiceProvider
         $this->kernel = HydeKernel::getInstance();
 
         $this->app->singleton(AssetService::class, AssetService::class);
+        $this->app->singleton(BuildTaskService::class, BuildTaskService::class);
 
         $this->kernel->setSourceRoot(config('hyde.source_root', ''));
 
