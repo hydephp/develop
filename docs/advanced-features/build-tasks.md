@@ -1,34 +1,71 @@
-## Adding custom post-build tasks
+# Custom Build Tasks
 
-These tasks are code that is executed automatically after the site has been built using the `php hyde build` command. The built-in features in Hyde like sitemap generation and RSS feeds are created using tasks like these.
+## Introduction
 
-Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory? It's easy to do, here's how!
+The Build Task API offers a simple way to hook into the build process.
+The build tasks are very powerful and allow for limitless customizability.
+
+The built-in Hyde features like sitemap generation and RSS feeds are created using tasks like these.
+Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory?
+You can also overload the built-in tasks to customize them to your needs.
+
+
+## Good to know before you start
+
+### Types of tasks
+
+There are two types, PreBuildTasks and PostBuildTasks. As the names suggest, PreBuildTasks are executed before the site is built, and PostBuildTasks are executed after the site is built.
+
+[//]: # (To choose which type of task you want to create, you can extend the `PreBuildTask` or `PostBuildTask` class.)
+
+To choose which type of task you want to create, you either implements the `RunsBeforeBuild` or `RunsAfterBuild` interface. More on that later, however.
+
+### About these examples
+
+For most of these examples we will focus on the PostBuildTasks as they are the most common. However, the only code difference between the two is the interface you implement. The classes are otherwise identical.
+
+For all these examples we assume you put the file in the `App/Actions` directory, but you can put them anywhere.
+
+
+### Interacting with output
+
+In a way, build tasks are like micro-commands, as they can interact directly with the build commands I/O. Please take a look at the [Laravel Console Documentation](https://laravel.com/docs/10.x/artisan#command-io) for the full list of available methods.
+
+In addition, there are some extra helpers available in the base BuildTask class that allow you to fluently format output to the console, which you will see in the examples below.
+
+## Creating build tasks
+
 
 ### Minimal example
 
-Here is a minimal example to get you started. For all these examples we assume you put the file in the `App/Actions` directory, but you can put them anywhere.
+Here is a minimal example to give you an idea of what we are working with.
 
 ```php
-class SimpleTask extends BuildTask
+class SimpleBuildTask extends BuildTask implements RunsAfterBuild
 {
     public function run(): void
     {
-        $this->info('Hello World!');
+        //
     }
 }
 ```
 
-This will then output the following, where you can see that some extra output, including execution time tracking is added for us. We can of course customize this if we want, as you can see in the next example.
+As you can see, at their core, build tasks are simple classes containing a `run()` method,
+which as I'm sure you have guessed, is the method that is executed when the task is run by the build command.
+
+#### Automatic output
+
+When running the build command, you will see the following output added after the build is complete.
 
 <pre>
-<small style="color: gray">$ php hyde build</small>
-  <span style="color: gold">Generic build task...</span> Hello World! <span style="color: gray">Done in 0.26ms</span>
+ <span style="color: gold">Generic build task...</span> <span style="color: gray">Done in 0.26ms</span>
 </pre>
 
+As you can see, some extra output including execution time tracking is added for us. We can of course customize all of this if we want, as you will learn a bit further down.
 
 ### Full example
 
-You can also set the message, and an optional `then()` method to run after the main task has been executed. The then method is great if you want to display a status message.
+Here is a full example, with all the namespaces included, as well as the most common fluent output helpers.
 
 ```php
 <?php
@@ -46,12 +83,15 @@ class ExampleTask extends BuildTask
         $this->info('Hello World!');
     }
 
-    public function then(): void
+    public function printFinishMessage(): void
     {
 		$this->line('Goodbye World!');
     }
 }
 ```
+You can see a full API reference further below. But in short, the `$message` property is the message that runs before the task is executed, and the `printFinishMessage()` method is the message that runs after the task is executed.
+
+Running this task will produce the following output:
 
 <pre>
 <small style="color: gray">$ php hyde build</small>
@@ -60,18 +100,52 @@ class ExampleTask extends BuildTask
 </pre>
 
 
-### Registering the tasks
+## Registering the tasks
 
-There are a few ways to register these tasks so Hyde can find them. There is a convenient place to do this, which is in the main configuration file, `config/hyde.php`.
+There are a few ways to register these tasks so Hyde can find them.
+
+They are shown here in order of presumed convenience, but you are free to choose whichever you prefer. The latter options are more suited for extension developers.
+
+### Autodiscovery registration
+
+The easiest way to register build tasks, is to not do it. Just let Hyde do it for you!
+
+Any classes that end in `BuildTask.php` that are stored in `app/Actions`  will be autoloaded and registered to run automatically.
+
+For example: `app/Actions/ExampleBuildTask.php`.
+
+
+### Config file registration
+
+If you want, you can also register build tasks of any namespace in the convenient `build_tasks` array which is in the main configuration file, `config/hyde.php`.
 
 ```php
 // filepath config/hyde.php
 'build_tasks' => [
     \App\Actions\SimpleTask::class,
-    \App\Actions\ExampleTask::class,
+    \MyPackage\Tasks\MyBuildTask::class,
 ],
 ```
 
-If you are developing an extension, I recommend you do this in the `boot` method of a service provider so that it can be loaded automatically. Do this by adding the fully qualified class name to the `BuildTaskService::$postBuildTasks` array.
+### Programmatic registration
 
-Hyde can also autoload them if you store the files in the `app/Actions` directory and the names end in `BuildTask.php`. For example `app/Actions/ExampleBuildTask.php`.
+>info This option assumes you are familiar with Laravel's service container and service providers.
+
+If you are developing an extension, you can either instruct users register your tasks with the config option above,
+or you can register the extensions programmatically, I recommend you do this in the `boot` method of a service provider.
+
+The build tasks are registered in an internal array of the `BuildService` class, which is bound as a singleton in the underlying Laravel service container.
+To actually register your task, provide the fully qualified class name of the task to the `BuildTaskService::registerTask()` method.
+
+Here is an example of how to do this using in a service provider. Though you could technically do it anywhere using the `app()` helper, just as long as it's done early enough in the application lifecycle so it's registered before the build command is executed.
+
+```php
+class MyServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        $this->app->make(\Hyde\Framework\Services\BuildTaskService::class)
+            ->registerTask(\MyPackage\Tasks\MyBuildTask::class);
+    }
+}
+```
