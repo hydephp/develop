@@ -21,33 +21,33 @@ class AssetServiceUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function test_has_version_string()
+    public function testHasVersionString()
     {
         $service = new AssetService();
         $this->assertIsString($service->version);
     }
 
-    public function test_can_change_version()
+    public function testCanChangeVersion()
     {
         $service = new AssetService();
         $service->version = '1.0.0';
         $this->assertEquals('1.0.0', $service->version);
     }
 
-    public function test_version_method_returns_version_property_when_config_override_is_not_set()
+    public function testVersionMethodReturnsVersionPropertyWhenConfigOverrideIsNotSet()
     {
         $service = new AssetService();
         $this->assertEquals($service->version, $service->version());
     }
 
-    public function test_cdn_path_constructor_returns_cdn_uri()
+    public function testCdnPathConstructorReturnsCdnUri()
     {
         $service = new AssetService();
         $this->assertIsString($path = $service->cdnLink('styles.css'));
         $this->assertStringContainsString('styles.css', $path);
     }
 
-    public function test_inject_tailwind_config_returns_extracted_tailwind_config()
+    public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
     {
         $service = new AssetService();
         $this->assertIsString($config = $service->injectTailwindConfig());
