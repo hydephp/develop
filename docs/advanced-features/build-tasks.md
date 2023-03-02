@@ -41,14 +41,14 @@ Here is a minimal example to give you an idea of what we are working with.
 ```php
 class SimpleBuildTask extends PostBuildTask
 {
-    public function run(): void
+    public function handle(): void
     {
         //
     }
 }
 ```
 
-As you can see, at their core, build tasks are simple classes containing a `run()` method,
+As you can see, at their core, build tasks are simple classes containing a `handle()` method,
 which as I'm sure you have guessed, is the method that is executed when the task is run by the build command.
 
 If you want the task to run before the build, you would extend the `PreBuildTask` class instead.
@@ -78,7 +78,7 @@ class ExampleTask extends PostBuildTask
 {
     public static string $message = 'Say hello';
 
-    public function run(): void
+    public function handle(): void
     {
         $this->info('Hello World!');
     }
