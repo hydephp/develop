@@ -428,4 +428,7 @@ return [
     // Should a JSON build manifest with metadata about the build be generated?
     'generate_build_manifest' => true,
 
+    // Where should the build manifest be saved? (Relative to project root, for example _site/build-manifest.json)
+    'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
+
 ];
