@@ -25,10 +25,16 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertSame('v2.0', AssetService::HYDEFRONT_VERSION);
     }
 
-    public function testHasVersionString()
+    public function testServiceHasVersionString()
     {
         $service = new AssetService();
         $this->assertIsString($service->version);
+    }
+
+    public function testVersionStringDefaultsToConstant()
+    {
+        $service = new AssetService();
+        $this->assertSame(AssetService::HYDEFRONT_VERSION, $service->version);
     }
 
     public function testCanChangeVersion()
@@ -52,10 +58,10 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertSame('https://example.com', $service->cdnLink(''));
     }
 
-    public function testVersionMethodReturnsVersionPropertyWhenConfigOverrideIsNotSet()
+    public function testVersionMethodReturnsVersionProperty()
     {
         $service = new AssetService();
-        $this->assertEquals($service->version, $service->version());
+        $this->assertSame($service->version, $service->version());
     }
 
     public function testCdnPathConstructorReturnsCdnUri()
