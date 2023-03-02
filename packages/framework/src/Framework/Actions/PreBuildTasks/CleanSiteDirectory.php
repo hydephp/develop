@@ -19,11 +19,9 @@ class CleanSiteDirectory extends PreBuildTask
 
     public function handle(): void
     {
-        if (config('hyde.empty_output_directory', true)) {
-            if ($this->isItSafeToCleanOutputDirectory()) {
-                array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-                File::cleanDirectory(Hyde::siteMediaPath());
-            }
+        if ($this->isItSafeToCleanOutputDirectory()) {
+            array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
+            File::cleanDirectory(Hyde::siteMediaPath());
         }
     }
 
