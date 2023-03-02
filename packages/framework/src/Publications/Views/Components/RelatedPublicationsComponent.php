@@ -32,17 +32,17 @@ class RelatedPublicationsComponent extends Component
     protected function makeRelatedPublications(int $max = 5): Collection
     {
         // Get current publicationType
-        $currHydePage = Hyde::currentRoute()->getPage();
-        $publicationType = $currHydePage->getType();
-        if (! $publicationType) {
+        $currentHydePage = Hyde::currentRoute()->getPage();
+        $publicationType = $currentHydePage->getType();
+        if (!$publicationType) {
             return collect();
         }
 
         // Get the tag fields for the current publicationType -> exit if there aren't any
-        $tagFields = $publicationType->getFields()->filter(function ($field) {
+        $publicationTypeTagFields = $publicationType->getFields()->filter(function ($field) {
             return $field->tagGroup !== null;
         });
-        if ($tagFields->isEmpty()) {
+        if ($publicationTypeTagFields->isEmpty()) {
             return collect();
         }
 
@@ -53,16 +53,16 @@ class RelatedPublicationsComponent extends Component
         }
 
         // Get all tags for the current page
-        $currPageTags = $this->getTagsForPage($publicationPages->get($currHydePage->getIdentifier()), $tagFields);
-        if ($currPageTags->isEmpty()) {
+        $currentPageTags = $this->getTagsForPage($publicationPages->get($currentHydePage->getIdentifier()), $publicationTypeTagFields);
+        if ($currentPageTags->isEmpty()) {
             return collect();
         }
 
         // Forget the current page pages since we don't want to show it as a related page against itself
-        $publicationPages->forget($currHydePage->getIdentifier());
+        $publicationPages->forget($currentHydePage->getIdentifier());
 
         // Get all related pages
-        $allRelatedPages = $this->getAllRelatedPages($publicationPages, $tagFields, $currPageTags);
+        $allRelatedPages = $this->getAllRelatedPages($publicationPages, $publicationTypeTagFields, $currentPageTags);
         if ($allRelatedPages->isEmpty()) {
             return collect();
         }
@@ -74,14 +74,14 @@ class RelatedPublicationsComponent extends Component
 
     protected function getTagsForPage(PublicationPage $publicationPage, Collection $tagFields): Collection
     {
-        $currPageTags = collect();
+        $thisPageTags = collect();
 
         // There could be multiple tag fields, most pubTypes will only have one
         foreach ($tagFields as $tagField) {
-            $currPageTags = $currPageTags->merge($publicationPage->matter->get($tagField->name, []));
+            $thisPageTags = $thisPageTags->merge($publicationPage->matter->get($tagField->name, []));
         }
 
-        return $currPageTags;
+        return $thisPageTags;
     }
 
 
@@ -90,8 +90,8 @@ class RelatedPublicationsComponent extends Component
         $allRelatedPages = collect();
 
         foreach ($publicationPages as $publicationPage) {
-            $pubPageTags     = $this->getTagsForPage($publicationPage, $tagFields);
-            $matchedTagCount = $pubPageTags->intersect($currPageTags)->count();
+            $publicationPageTags = $this->getTagsForPage($publicationPage, $tagFields);
+            $matchedTagCount     = $publicationPageTags->intersect($currPageTags)->count();
 
             // We have shared/matching tags, add this page info to $allRelatedPages
             if ($matchedTagCount) {
@@ -117,13 +117,13 @@ class RelatedPublicationsComponent extends Component
         $allRelatedPagesGrouped = $allRelatedPages->groupBy('count')->sortKeysDesc(SORT_NUMERIC);
 
         // Iterate over groups
-        foreach ($allRelatedPagesGrouped as $v) {
+        foreach ($allRelatedPagesGrouped as $relatedPagesGroup) {
             // Sort group by recency, newest pages first
-            $sortedGroup = $v->sortByDesc('page.matter.__createdAt');
+            $sortedPageGroup = $relatedPagesGroup->sortByDesc('page.matter.__createdAt');
 
             // Now add to $relatedPages, quit at $max
-            foreach ($sortedGroup as $vv) {
-                $relatedPages->put($vv['identifier'], $vv['page']);
+            foreach ($sortedPageGroup as $page) {
+                $relatedPages->put($page['identifier'], $page['page']);
                 if (count($relatedPages) >= $max) {
                     break 2;
                 }
