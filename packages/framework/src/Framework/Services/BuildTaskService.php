@@ -42,15 +42,15 @@ class BuildTaskService
 
     public function __construct()
     {
-        $this->registerTasks(Config::getArray('hyde.build_tasks', []));
-
-        $this->registerTasks($this->findTasksInAppDirectory());
-
         $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
         $this->registerIf(GenerateSearch::class, $this->canGenerateSearch());
+
+        $this->registerTasks(Config::getArray('hyde.build_tasks', []));
+
+        $this->registerTasks($this->findTasksInAppDirectory());
     }
 
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
