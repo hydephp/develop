@@ -127,8 +127,7 @@ class BuildTaskServiceTest extends TestCase
         
         namespace App\Actions;
         
-        use Hyde\Framework\Features\BuildTasks\BuildTask;
-        use Hyde\Framework\Features\BuildTasks\Contracts\RunsAfterBuild;
+        use Hyde\Framework\Features\BuildTasks\PostBuildTask;
         
         class FooBuildTask extends PostBuildTask {
             public function handle(): void {
