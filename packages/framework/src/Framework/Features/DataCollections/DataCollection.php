@@ -14,8 +14,6 @@ use Illuminate\Support\Collection;
  *
  * This class acts both as a base collection class, a factory for
  * creating collections, and static facade shorthand helper methods.
- *
- * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
 class DataCollection extends Collection
 {
