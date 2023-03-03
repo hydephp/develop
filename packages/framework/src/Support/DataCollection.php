@@ -7,11 +7,8 @@ namespace Hyde\Support;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Markdown\Models\MarkdownDocument;
-use Hyde\Markdown\Models\FrontMatter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use stdClass;
 use function json_decode;
 use function unslash;
 
@@ -51,7 +48,7 @@ class DataCollection extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(static::findMarkdownFiles($name)->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => static::parseMarkdownFile($file)];
+            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
 
@@ -66,7 +63,7 @@ class DataCollection extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(static::findYamlFiles($name)->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => static::parseYamlFile($file)];
+            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()->matter()];
         }));
     }
 
@@ -81,7 +78,7 @@ class DataCollection extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(static::findJsonFiles($name)->mapWithKeys(function (string $file) use ($asArray): array {
-            return [static::makeIdentifier($file) => static::parseJsonFile($file, $asArray)];
+            return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));
     }
 
@@ -108,20 +105,5 @@ class DataCollection extends Collection
     protected static function makeIdentifier(string $path): string
     {
         return unslash(Str::after($path, static::$sourceDirectory));
-    }
-
-    protected static function parseMarkdownFile(string $file): MarkdownDocument
-    {
-        return (new MarkdownFileParser($file))->get();
-    }
-
-    protected static function parseYamlFile(string $file): FrontMatter
-    {
-        return (new MarkdownFileParser($file))->get()->matter();
-    }
-
-    protected static function parseJsonFile(string $file, bool $asArray): stdClass|array|null
-    {
-        return json_decode(Filesystem::get($file), $asArray);
     }
 }
