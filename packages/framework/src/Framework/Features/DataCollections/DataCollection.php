@@ -54,10 +54,10 @@ class DataCollection extends Collection
         return $collection;
     }
 
-    protected static function findMarkdownFiles(string $key): array
+    protected static function findMarkdownFiles(string $key): Collection
     {
         return Filesystem::smartGlob(
             static::$sourceDirectory.'/'.$key.'/*.md'
-        )->toArray();
+        );
     }
 }
