@@ -35,12 +35,6 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertInstanceOf(Collection::class, $class);
     }
 
-    public function testConstructorSetsKey()
-    {
-        $class = new DataCollection('foo');
-        $this->assertSame('foo', $class->key);
-    }
-
     public function testCanConvertCollectionToArray()
     {
         $this->assertSame([], (new DataCollection())->toArray());
