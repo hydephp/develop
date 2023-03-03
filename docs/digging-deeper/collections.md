@@ -44,7 +44,13 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 
 ### Markdown Collections
 
-// TODO
+#### Usage
+
+```php
+use \Hyde\Support\DataCollection;
+
+$collection = DataCollection::markdown('name');
+```
 
 ## Markdown Collections - Hands-on Guide
 
