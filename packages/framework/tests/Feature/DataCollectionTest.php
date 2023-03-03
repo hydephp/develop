@@ -117,7 +117,7 @@ class DataCollectionTest extends TestCase
         {
             public function _findMarkdownFiles(): array
             {
-                return $this->findMarkdownFiles();
+                return $this->findMarkdownFiles($this->key);
             }
         })->_findMarkdownFiles();
     }
