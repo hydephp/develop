@@ -140,12 +140,12 @@ class RouteTest extends TestCase
     {
         $route = new Route(new MarkdownPage('foo'));
         Render::share('currentRoute', $route);
-        $this->assertEquals($route, Route::current());
+        $this->assertEquals($route, \Hyde\Facades\Route::current());
     }
 
     public function test_current_returns_null_if_route_is_not_found()
     {
-        $this->assertNull(Route::current());
+        $this->assertNull(\Hyde\Facades\Route::current());
     }
 
     public function test_to_array_method()
