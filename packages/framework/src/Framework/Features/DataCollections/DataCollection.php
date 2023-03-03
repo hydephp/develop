@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\DataCollections;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Automatically generates Laravel Collections from static data files,
@@ -56,7 +57,7 @@ class DataCollection extends Collection
     {
         $collection = new DataCollection($key);
         foreach ($collection->findMarkdownFiles() as $file) {
-            $collection->put($file, (new MarkdownFileParser($file))->get());
+            $collection->put(unslash(Str::after($file, static::$sourceDirectory)), (new MarkdownFileParser($file))->get());
         }
 
         return $collection->getCollection();

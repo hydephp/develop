@@ -83,8 +83,8 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/bar.md');
 
         $this->assertEquals([
-            'resources/collections/foo/foo.md' => new MarkdownDocument([], ''),
-            'resources/collections/foo/bar.md' => new MarkdownDocument([], ''),
+            'foo/foo.md' => new MarkdownDocument([], ''),
+            'foo/bar.md' => new MarkdownDocument([], ''),
         ], DataCollection::markdown('foo')->toArray());
     }
 
