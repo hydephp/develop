@@ -13,6 +13,7 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route as RouteModel;
 use Hyde\Testing\UnitTestCase;
+use Mockery;
 
 /**
  * @covers \Hyde\Facades\Route
@@ -23,6 +24,11 @@ class RouteFacadeTest extends UnitTestCase
     {
         self::needsKernel();
         self::mockConfig();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        Mockery::close();
     }
 
     public function test_route_facade_all_method_returns_all_routes()
