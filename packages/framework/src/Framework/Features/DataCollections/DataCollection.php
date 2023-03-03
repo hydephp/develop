@@ -29,11 +29,6 @@ class DataCollection extends Collection
         parent::__construct();
     }
 
-    public function getCollection(): static
-    {
-        return $this;
-    }
-
     protected function findMarkdownFiles(): array
     {
         return Filesystem::smartGlob(
@@ -63,6 +58,6 @@ class DataCollection extends Collection
             $collection->put(unslash(Str::after($file, static::$sourceDirectory)), (new MarkdownFileParser($file))->get());
         }
 
-        return $collection->getCollection();
+        return $collection;
     }
 }

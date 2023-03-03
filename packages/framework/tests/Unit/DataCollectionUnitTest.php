@@ -41,12 +41,6 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertSame('foo', $class->key);
     }
 
-    public function testGetCollectionMethodReturnsTheCollectionInstance()
-    {
-        $class = new DataCollection('foo');
-        $this->assertSame($class, $class->getCollection());
-    }
-
     public function testCanConvertCollectionToArray()
     {
         $this->assertSame([], (new DataCollection('foo'))->toArray());
