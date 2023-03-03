@@ -132,6 +132,22 @@ email: "john@example.org"
 
 >warning Note that the Yaml file should start with `---` to be parsed correctly.
 
+## Json Collections
+
+### Usage
+
+```php
+$collection = \Hyde\Support\DataCollection::json('name');
+```
+
+By default, the entries will be returned as `stdClass` objects. If you want to return an associative array instead, pass `true` as the second parameter:
+
+```php
+$collection = \Hyde\Support\DataCollection::json('name', true);
+```
+
+Since both return values use naitive PHP types, there are no example returns, as I'm sure you can imagine what they look like.
+
 
 ## Markdown Collections - Hands-on Guide
 
