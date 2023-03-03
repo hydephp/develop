@@ -38,9 +38,9 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 
 ### Quick Reference Overview
 
-| Collection Type                   | Facade Method  | Returned Object Type | File Extension |
-|-----------------------------------|----------------|----------------------|----------------|
-| [Markdown](#markdown-collections) | `::markdown()` | `MarkdownDocument`   | `.md`          |
+| Collection Type                   | Facade Method  | Returned Object Type                                                                                                            | File Extension |
+|-----------------------------------|----------------|---------------------------------------------------------------------------------------------------------------------------------|----------------|
+| [Markdown](#markdown-collections) | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/develop/blob/master/packages/framework/src/Markdown/Models/MarkdownDocument.php | `.md`          |
 
 ### Markdown Collections
 
