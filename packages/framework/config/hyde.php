@@ -57,16 +57,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Site Language
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the language of your site and is used for the
+    | <html lang=""> element in the app layout. Default is 'en'.
+    |
+    */
+
+    'language' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
     | Pretty URLs
     |--------------------------------------------------------------------------
     |
     | When the setting is enabled, generated links in the compiled HTML site
-    | are without the .html extension. Since this breaks local browsing you
-    | can leave the setting disabled, and instead add the --pretty-urls flag
-    | when running the php hyde build command for deployment.
+    | are without the .html extension, in other words, "pretty" URLs.
     |
-    | Note that this can cause issues when you are serving from a subdirectory.
-    | See https://github.com/hydephp/develop/issues/228
+    | This setting can also be enabled on a per-compile basis by supplying
+    | the `--pretty-urls` option when you run the build command.
     |
     */
 
@@ -78,7 +88,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | When the setting is enabled, a sitemap.xml file will automatically be
-    | generated when the site is built.
+    | generated when you compile your static site.
     |
     | This feature requires that a site base URL has been set.
     |
@@ -109,15 +119,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Site Language
+    | Source Root Directory
     |--------------------------------------------------------------------------
     |
-    | This value sets the language of your site and is used for the
-    | <html lang=""> element in the app layout. Default is 'en'.
+    | HydePHP will by default look for the underscored source directories in the
+    | root of your project. For example, you might want everything in a 'src'
+    | subdirectory. That's easy enough, just set the value below to "src"!
     |
     */
 
-    'language' => 'en',
+    'source_root' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -131,47 +142,6 @@ return [
     */
 
     'output_directory' => '_site',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Media Directory
-    |--------------------------------------------------------------------------
-    |
-    | This setting specifies the directory where your media files are stored.
-    | Note that this affects both the source and output directories.
-    | The path is relative to the root of your project.
-    |
-    */
-
-    'media_directory' => '_media',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Built-in Server
-    |--------------------------------------------------------------------------
-    |
-    | Here you can configure settings for the built-in realtime compiler server.
-    |
-    */
-
-    'server' => [
-        'port' => env('SERVER_PORT', 8080),
-        'host' => env('SERVER_HOST', 'localhost'),
-        'dashboard' => env('SERVER_DASHBOARD', true),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Source Root Directory
-    |--------------------------------------------------------------------------
-    |
-    | HydePHP will by default look for the underscored source directories in the
-    | root of your project. For example, you might want everything in a 'src'
-    | subdirectory. That's easy enough, just set the value below to "src"!
-    |
-    */
-
-    'source_root' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -214,6 +184,19 @@ return [
         \Hyde\Pages\MarkdownPost::class => 'posts',
         \Hyde\Pages\DocumentationPage::class => 'docs',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Media Directory
+    |--------------------------------------------------------------------------
+    |
+    | This setting specifies the directory where your media files are stored.
+    | Note that this affects both the source and output directories.
+    | The path is relative to the root of your project.
+    |
+    */
+
+    'media_directory' => '_media',
 
     /*
     |--------------------------------------------------------------------------
@@ -357,6 +340,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Cache Busting
+    |--------------------------------------------------------------------------
+    |
+    | Any assets loaded using the Asset::mediaLink() helper will automatically
+    | have a cache busting query string appended to the URL. This is useful
+    | when you want to force browsers to load a new version of an asset.
+    |
+    | The mediaLink helper is used in the built-in views to load the
+    | default stylesheets and scripts, and thus use this feature.
+    |
+    | To disable cache busting, set this setting to false.
+    |
+    */
+
+    'enable_cache_busting' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Load app.css from CDN
     |--------------------------------------------------------------------------
     |
@@ -380,4 +381,59 @@ return [
      */
 
     'use_play_cdn' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Color Scheme
+    |--------------------------------------------------------------------------
+    |
+    | The default color scheme for the meta color-scheme tag, note that this
+    | is just a hint to the user-agent and does not force a specific theme.
+    |
+    */
+
+    'default_color_scheme' => 'light',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Built-in Server
+    |--------------------------------------------------------------------------
+    |
+    | Here you can configure settings for the built-in realtime compiler server.
+    |
+    */
+
+    'server' => [
+        'port' => env('SERVER_PORT', 8080),
+        'host' => env('SERVER_HOST', 'localhost'),
+        'dashboard' => env('SERVER_DASHBOARD', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Additional Advanced Options
+    |--------------------------------------------------------------------------
+    |
+    | Finally, here are some additional configuration options that you most
+    | likely won't need to change. These are intended for advanced users,
+    | and some should only be changed if you know what you're doing.
+    |
+    */
+
+    // The list of directories that are considered to be safe to empty upon site build.
+    // If the site output directory is set to a directory that is not in this list,
+    // the build command will prompt for confirmation before emptying it.
+    'safe_output_directories' => ['_site', 'docs', 'build'],
+
+    // Should a JSON build manifest with metadata about the build be generated?
+    'generate_build_manifest' => true,
+
+    // Where should the build manifest be saved? (Relative to project root, for example _site/build-manifest.json)
+    'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
+
+    // Here you can specify HydeFront version and URL for when loading app.css from the CDN.
+    // Only change these if you know what you're doing as some versions may incompatible with your Hyde version.
+    'hydefront_version' => \Hyde\Framework\Services\AssetService::HYDEFRONT_VERSION,
+    'hydefront_cdn_url' => \Hyde\Framework\Services\AssetService::HYDEFRONT_CDN_URL,
+
 ];
