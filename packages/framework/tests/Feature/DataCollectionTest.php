@@ -17,7 +17,7 @@ class DataCollectionTest extends TestCase
 {
     public function test_get_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
-        $class = DataCollection::create('foo');
+        $class = new DataCollection('foo');
         $this->assertIsArray($class->getMarkdownFiles());
         $this->assertEmpty($class->getMarkdownFiles());
     }
@@ -26,7 +26,7 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
 
-        $class = DataCollection::create('foo');
+        $class = new DataCollection('foo');
         $this->assertIsArray($class->getMarkdownFiles());
         $this->assertEmpty($class->getMarkdownFiles());
     }
@@ -40,7 +40,7 @@ class DataCollectionTest extends TestCase
         $this->assertSame([
             'resources/collections/foo/bar.md',
             'resources/collections/foo/foo.md',
-        ], DataCollection::create('foo')->getMarkdownFiles());
+        ], (new DataCollection('foo'))->getMarkdownFiles());
     }
 
     public function test_get_markdown_files_method_does_not_include_files_in_subdirectories()
@@ -52,7 +52,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'resources/collections/foo/foo.md',
-        ], DataCollection::create('foo')->getMarkdownFiles());
+        ], (new DataCollection('foo'))->getMarkdownFiles());
     }
 
     public function test_get_markdown_files_method_does_not_include_files_with_extensions_other_than_md()
@@ -63,7 +63,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'resources/collections/foo/foo.md',
-        ], DataCollection::create('foo')->getMarkdownFiles());
+        ], (new DataCollection('foo'))->getMarkdownFiles());
     }
 
     public function test_get_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
@@ -73,7 +73,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'resources/collections/foo/_foo.md',
-        ], DataCollection::create('foo')->getMarkdownFiles());
+        ], (new DataCollection('foo'))->getMarkdownFiles());
     }
 
     public function test_static_markdown_helper_discovers_and_parses_markdown_files_in_the_specified_directory()
@@ -102,7 +102,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/bar/foo.md',
-        ], DataCollection::create('bar')->getMarkdownFiles());
+        ], (new DataCollection('bar'))->getMarkdownFiles());
 
         DataCollection::$sourceDirectory = 'resources/collections';
     }
