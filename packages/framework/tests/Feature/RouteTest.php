@@ -16,14 +16,10 @@ use Hyde\Testing\UnitTestCase;
  */
 class RouteTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-    }
-
     protected function setUp(): void
     {
+        self::setupKernel();
+        self::mockConfig();
         Render::swap(new \Hyde\Support\Models\Render());
     }
 
