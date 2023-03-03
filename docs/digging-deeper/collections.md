@@ -24,7 +24,7 @@ To make collections easy to use and understand, Hyde makes a few assumptions abo
 Follow these conventions and creating dynamic static sites will be a breeze.
 
 1. Collections are stored in the new `resources/collections` directory.
-2. Collections are accessed through the `MarkdownCollection` class, which is aliased so that you can use it in Blade files without having to include the namespace.
+2. Collections are accessed through the `DataCollection` class, which is aliased so that you can use it in Blade files without having to include the namespace.
 3. Collections are retrieved by the subdirectory name. Each subdirectory in here can be accessed as a collection.
 4. Data will be parsed into differing objects depending on which facade method you use.
 5. Each subdirectory should probably only have the same filetype to prevent developer confusion, but this is not enforced.
