@@ -7,6 +7,8 @@ namespace Hyde\Foundation\Concerns;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use RuntimeException;
+use Throwable;
 
 /**
  * Base class for the kernel auto-discovery collections.
@@ -45,7 +47,11 @@ abstract class BaseFoundationCollection extends Collection
 
     public function boot(): static
     {
-        return $this->runDiscovery();
+        try {
+            return $this->runDiscovery();
+        } catch (Throwable $exception) {
+            throw new RuntimeException('An error occurred during the discovery process.', previous: $exception);
+        }
     }
 
     protected function __construct(array|Arrayable|null $items = [])
