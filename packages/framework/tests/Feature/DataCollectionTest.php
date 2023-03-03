@@ -26,6 +26,7 @@ class DataCollectionTest extends TestCase
     public function test_get_markdown_files_method_returns_empty_array_if_no_files_are_found_in_specified_directory()
     {
         $this->directory('resources/collections/foo');
+
         $class = new DataCollection('foo');
         $this->assertIsArray($class->getMarkdownFiles());
         $this->assertEmpty($class->getMarkdownFiles());
@@ -51,6 +52,7 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo/bar');
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/bar/bar.md');
+
         $this->assertSame([
             'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
@@ -61,6 +63,7 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/bar.txt');
+
         $this->assertSame([
             'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
@@ -92,6 +95,7 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/_bar.md');
+
         $this->assertCount(2, DataCollection::markdown('foo'));
     }
 
@@ -100,6 +104,7 @@ class DataCollectionTest extends TestCase
         DataCollection::$sourceDirectory = 'foo';
         $this->directory('foo/bar');
         $this->file('foo/bar/foo.md');
+
         $this->assertSame([
             'foo/bar/foo.md',
         ], (new DataCollection('bar'))->getMarkdownFiles());
