@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\DataCollections\DataCollection
+ *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
 class DataCollectionUnitTest extends UnitTestCase

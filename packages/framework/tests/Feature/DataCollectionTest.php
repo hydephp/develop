@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use ArgumentCountError;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\DataCollections\DataCollection
+ *
  * @see \Hyde\Framework\Testing\Unit\DataCollectionUnitTest
  */
 class DataCollectionTest extends TestCase
