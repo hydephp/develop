@@ -44,6 +44,13 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertSame($class, $class->getCollection());
     }
 
+    public function testCanConvertCollectionToArray()
+    {
+        $class = new DataCollection('foo');
+        $this->assertIsArray($class->toArray());
+        $this->assertEmpty($class->toArray());
+    }
+
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
