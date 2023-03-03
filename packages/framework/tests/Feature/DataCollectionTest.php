@@ -112,6 +112,6 @@ class DataCollectionTest extends TestCase
 
     protected function getTestedFindMarkdownFiles($file = 'foo'): array
     {
-        return array_keys(DataCollection::markdown($file)->toArray());
+        return DataCollection::markdown($file)->keys()->toArray();
     }
 }

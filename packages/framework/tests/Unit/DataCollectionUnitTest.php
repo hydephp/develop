@@ -97,6 +97,6 @@ class DataCollectionUnitTest extends UnitTestCase
 
     protected function getTestedFindMarkdownFiles(): array
     {
-        return array_keys(DataCollection::markdown('foo')->toArray());
+        return DataCollection::markdown('foo')->keys()->toArray();
     }
 }
