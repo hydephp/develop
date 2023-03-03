@@ -38,9 +38,9 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 
 ### Quick Reference Overview
 
-| Collection Type | Facade Method  | Returned Object Type | File Extension |
-|-----------------|----------------|----------------------|----------------|
-| Markdown        | `::markdown()` | `MarkdownDocument`   | `.md`          |
+| Collection Type                   | Facade Method  | Returned Object Type | File Extension |
+|-----------------------------------|----------------|----------------------|----------------|
+| [Markdown](#markdown-collections) | `::markdown()` | `MarkdownDocument`   | `.md`          |
 
 ### Markdown Collections
 
