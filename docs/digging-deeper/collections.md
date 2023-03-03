@@ -52,15 +52,15 @@ The following facade methods for creating data collections are available:
 | **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php) | `.md`          |
 | **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)           | `.yaml`        |
 
-### Markdown Collections
+## Markdown Collections
 
-#### Usage
+### Usage
 
 ```php
 $collection = \Hyde\Support\DataCollection::markdown('name');
 ```
 
-#### Example returns
+### Example returns
 
 Here is an approximation of the data types contained by the variable created above:
 
@@ -98,15 +98,15 @@ author: "John Doe"
 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 ```
 
-### Yaml Collections
+## Yaml Collections
 
-#### Usage
+### Usage
 
 ```php
 $collection = \Hyde\Support\DataCollection::yaml('name');
 ```
 
-#### Example returns
+### Example returns
 
 Here is an approximation of the data types contained by the variable created above:
 
