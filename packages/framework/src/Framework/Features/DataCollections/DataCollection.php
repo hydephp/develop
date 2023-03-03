@@ -20,13 +20,6 @@ class DataCollection extends Collection
 {
     public static string $sourceDirectory = 'resources/collections';
 
-    public function __construct(string $key)
-    {
-        $this->key = $key;
-
-        parent::__construct();
-    }
-
     public function toArray(): array
     {
         return $this->items;
