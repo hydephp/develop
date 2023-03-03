@@ -23,7 +23,7 @@ class RouteTest extends UnitTestCase
         Render::swap(new \Hyde\Support\Models\Render());
     }
 
-    public function test_constructor_creates_route_from_page_model()
+    public function testConstructorCreatesRouteFromPageModel()
     {
         $page = new MarkdownPage();
         $route = new Route($page);
@@ -31,7 +31,7 @@ class RouteTest extends UnitTestCase
         $this->assertInstanceOf(Route::class, $route);
     }
 
-    public function test_get_page_type_returns_fully_qualified_class_name()
+    public function testGetPageTypeReturnsFullyQualifiedClassName()
     {
         $page = new MarkdownPage();
         $route = new Route($page);
@@ -39,7 +39,7 @@ class RouteTest extends UnitTestCase
         $this->assertEquals(MarkdownPage::class, $route->getPageClass());
     }
 
-    public function test_get_source_model_returns_page_model()
+    public function testGetSourceModelReturnsPageModel()
     {
         $page = new MarkdownPage();
         $route = new Route($page);
@@ -48,7 +48,7 @@ class RouteTest extends UnitTestCase
         $this->assertSame($page, $route->getPage());
     }
 
-    public function test_get_route_key_returns_page_path()
+    public function testGetRouteKeyReturnsPagePath()
     {
         $page = new MarkdownPage();
         $route = new Route($page);
@@ -56,7 +56,7 @@ class RouteTest extends UnitTestCase
         $this->assertEquals($page->getRouteKey(), $route->getRouteKey());
     }
 
-    public function test_get_source_file_path_returns_page_source_path()
+    public function testGetSourceFilePathReturnsPageSourcePath()
     {
         $page = new MarkdownPage();
         $route = new Route($page);
@@ -64,7 +64,7 @@ class RouteTest extends UnitTestCase
         $this->assertEquals($page->getSourcePath(), $route->getSourcePath());
     }
 
-    public function test_get_output_file_path_returns_page_output_path()
+    public function testGetOutputFilePathReturnsPageOutputPath()
     {
         $page = new MarkdownPage();
         $route = new Route($page);
@@ -72,21 +72,21 @@ class RouteTest extends UnitTestCase
         $this->assertEquals($page->getOutputPath(), $route->getOutputPath());
     }
 
-    public function test_get_link_returns_correct_path_for_root_pages()
+    public function testGetLinkReturnsCorrectPathForRootPages()
     {
         $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo.html', $route->getLink());
     }
 
-    public function test_get_link_returns_correct_path_for_nested_pages()
+    public function testGetLinkReturnsCorrectPathForNestedPages()
     {
         $route = new Route(new MarkdownPage('foo/bar'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo/bar.html', $route->getLink());
     }
 
-    public function test_get_link_returns_correct_path_for_nested_current_page()
+    public function testGetLinkReturnsCorrectPathForNestedCurrentPage()
     {
         $route = new Route(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentPage')->andReturn('foo/bar');
@@ -94,7 +94,7 @@ class RouteTest extends UnitTestCase
         $this->assertEquals('../foo.html', $route->getLink());
     }
 
-    public function test_get_link_returns_pretty_url_if_enabled()
+    public function testGetLinkReturnsPrettyUrlIfEnabled()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $route = new Route(new MarkdownPage('foo'));
@@ -102,7 +102,7 @@ class RouteTest extends UnitTestCase
         $this->assertEquals('foo', $route->getLink());
     }
 
-    public function test_to_string_is_alias_for_get_link()
+    public function testToStringIsAliasForGetLink()
     {
         $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals($route->getLink(), (string) $route);
@@ -131,7 +131,7 @@ class RouteTest extends UnitTestCase
         $this->assertFalse($route->is(new RouteKey('bar')));
     }
 
-    public function test_to_array_method()
+    public function testToArrayMethod()
     {
         $this->assertEquals([
             'routeKey' => 'foo',
