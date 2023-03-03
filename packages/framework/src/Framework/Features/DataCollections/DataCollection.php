@@ -19,9 +19,9 @@ use Illuminate\Support\Collection;
  */
 class DataCollection extends Collection
 {
-    public string $key;
-
     public static string $sourceDirectory = 'resources/collections';
+
+    public string $key;
 
     public function __construct(string $key)
     {
