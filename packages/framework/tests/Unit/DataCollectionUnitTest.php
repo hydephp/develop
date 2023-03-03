@@ -20,6 +20,11 @@ class DataCollectionUnitTest extends UnitTestCase
         self::needsKernel();
     }
 
+    public function testClassHasStaticSourceDirectoryProperty()
+    {
+        $this->assertEquals('resources/collections', DataCollection::$sourceDirectory);
+    }
+
     public function testConstructorCreatesNewDataCollectionInstance()
     {
         $class = new DataCollection('foo');
