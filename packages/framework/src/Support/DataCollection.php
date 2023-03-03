@@ -48,7 +48,7 @@ class DataCollection extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(static::findMarkdownFiles($name)->mapWithKeys(function (string $file): array {
+        return new static(DataCollection::findFiles($name, ['md'])->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
@@ -64,7 +64,7 @@ class DataCollection extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(static::findYamlFiles($name)->mapWithKeys(function (string $file): array {
+        return new static(DataCollection::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()->matter()];
         }));
     }
@@ -80,24 +80,9 @@ class DataCollection extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(static::findJsonFiles($name)->mapWithKeys(function (string $file) use ($asArray): array {
+        return new static(DataCollection::findFiles($name, ['json'])->mapWithKeys(function (string $file) use ($asArray): array {
             return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));
-    }
-
-    protected static function findMarkdownFiles(string $name): Collection
-    {
-        return static::findFiles($name, ['md']);
-    }
-
-    protected static function findYamlFiles(string $name): Collection
-    {
-        return static::findFiles($name, ['yaml', 'yml']);
-    }
-
-    protected static function findJsonFiles(string $name): Collection
-    {
-        return static::findFiles($name, ['json']);
     }
 
     protected static function findFiles(string $name, array $extensions): Collection
