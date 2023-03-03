@@ -34,9 +34,11 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 
 ### Markdown Collections - Hands-on Guide
 
-#### Setting up the file structure
+I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
 
-I think the best way to explain DataCollections is through examples. Let's create a Blade page with customer testimonials.
+This example will use Markdown Collections, but the same concepts apply to all other collection types.
+
+#### Setting up the file structure
 
 We start by setting up our directory structure. We will create a `testimonials` subdirectory, which will be the collection name.
 
