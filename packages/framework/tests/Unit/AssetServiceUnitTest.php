@@ -76,8 +76,7 @@ class AssetServiceUnitTest extends UnitTestCase
             'hyde.hydefront_url' => '{{ $version }}',
             'hyde.hydefront_version' => '1.0.0',
         ]);
-        $service = new AssetService();
-        $this->assertSame('1.0.0', $service->cdnLink(''));
+        $this->assertSame('1.0.0', (new AssetService())->cdnLink(''));
     }
 
     public function testCdnLinkHelper()
