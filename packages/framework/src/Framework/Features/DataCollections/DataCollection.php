@@ -12,6 +12,9 @@ use Illuminate\Support\Collection;
  * Automatically generates Laravel Collections from static data files,
  * such as Markdown components and YAML files using Hyde Autodiscovery.
  *
+ * This class acts both as a base collection class, a factory for
+ * creating collections, and static facade shorthand helper methods.
+ *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
 class DataCollection extends Collection
