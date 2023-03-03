@@ -42,7 +42,6 @@ class DataCollectionTest extends TestCase
             'resources/collections/foo/bar.md',
             'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
-
     }
 
     public function test_get_markdown_files_method_does_not_include_files_in_subdirectories()
