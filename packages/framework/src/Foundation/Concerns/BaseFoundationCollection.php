@@ -25,6 +25,10 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Foundation\Kernel\FileCollection Discovers the source files in the project.
  * @see \Hyde\Foundation\Kernel\PageCollection Parses the source files into page objects.
  * @see \Hyde\Foundation\Kernel\RouteCollection Creates route objects from the page objects.
+ *
+ * The collections are constructed and booted in the kernel through the `BootsHydeKernel` trait.
+ * Between the construction and booting is a time-frame where the extensions can hook into
+ * the discovery process and add their data through the `runExtensionCallbacks` API.
  */
 abstract class BaseFoundationCollection extends Collection
 {
