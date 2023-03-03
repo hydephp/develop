@@ -95,13 +95,13 @@ class DataCollection extends Collection
         return static::findFiles($name, '*.json');
     }
 
-    protected static function makeIdentifier(string $path): string
-    {
-        return unslash(Str::after($path, static::$sourceDirectory));
-    }
-
     protected static function findFiles(string $name, string $pattern, int $flags = 0): Collection
     {
         return Filesystem::smartGlob(static::$sourceDirectory."/$name/$pattern", $flags);
+    }
+
+    protected static function makeIdentifier(string $path): string
+    {
+        return unslash(Str::after($path, static::$sourceDirectory));
     }
 }
