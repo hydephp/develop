@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
@@ -108,5 +109,29 @@ class DataCollectionTest extends TestCase
         ], DataCollection::markdown('bar')->keys()->toArray());
 
         DataCollection::$sourceDirectory = 'resources/collections';
+    }
+
+    public function test_source_directory_is_automatically_added_if_missing()
+    {
+        rmdir(Hyde::path('resources/collections'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/collections'));
+
+        DataCollection::markdown('foo');
+
+        $this->assertDirectoryExists(Hyde::path('resources/collections'));
+    }
+
+    public function test_custom_source_directory_is_automatically_added_if_missing()
+    {
+        rmdir(Hyde::path('foo'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
+
+        DataCollection::$sourceDirectory = 'foo';
+        DataCollection::markdown('bar');
+
+        $this->assertDirectoryExists(Hyde::path('foo'));
+
+        DataCollection::$sourceDirectory = 'resources/collections';
+        rmdir(Hyde::path('foo'));
     }
 }
