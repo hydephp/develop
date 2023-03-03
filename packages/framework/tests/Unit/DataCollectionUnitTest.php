@@ -96,6 +96,21 @@ class DataCollectionUnitTest extends UnitTestCase
         Mockery::close();
     }
 
+    public function testGetMarkdownFilesWithFiles()
+    {
+        $filesystem = Mockery::mock(Filesystem::class, [
+            'glob' => ['bar.md'],
+            'get' => 'foo',
+        ]);
+
+        app()->instance(Filesystem::class, $filesystem);
+
+        $class = new DataCollection('foo');
+        $this->assertSame(['bar.md'], $class->getMarkdownFiles());
+
+        Mockery::close();
+    }
+
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
