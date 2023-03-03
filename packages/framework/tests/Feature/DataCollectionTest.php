@@ -27,6 +27,13 @@ class DataCollectionTest extends TestCase
         }
     }
 
+    public function test_get_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
+    {
+        $class = new DataCollection('foo');
+        $this->assertIsArray($class->getMarkdownFiles());
+        $this->assertEmpty($class->getMarkdownFiles());
+    }
+
     public function test_get_markdown_files_method_returns_empty_array_if_no_files_are_found_in_specified_directory()
     {
         mkdir(Hyde::path('resources/collections/foo'));

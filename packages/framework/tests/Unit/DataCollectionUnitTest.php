@@ -44,13 +44,6 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertSame($class, $class->getCollection());
     }
 
-    public function testGetMarkdownFilesMethodReturnsEmptyArrayIfTheSpecifiedDirectoryDoesNotExist()
-    {
-        $class = new DataCollection('foo');
-        $this->assertIsArray($class->getMarkdownFiles());
-        $this->assertEmpty($class->getMarkdownFiles());
-    }
-
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
