@@ -56,7 +56,7 @@ class DataCollection extends Collection
     {
         $collection = new DataCollection($key);
         foreach ($collection->findMarkdownFiles() as $file) {
-            $collection->push((new MarkdownFileParser($file))->get());
+            $collection->put($file, (new MarkdownFileParser($file))->get());
         }
 
         return $collection->getCollection();
