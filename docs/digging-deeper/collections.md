@@ -53,8 +53,31 @@ $collection = \Hyde\Support\DataCollection::markdown('name');
 
 #### Example returns
 
-//
+Here is an approximation of the data types contained by the variable created above:
 
+```php
+\Hyde\Support\DataCollection {
+    "testimonials/1.md" => Hyde\Markdown\Models\MarkdownDocument
+    "testimonials/2.md" => Hyde\Markdown\Models\MarkdownDocument
+    "testimonials/3.md" => Hyde\Markdown\Models\MarkdownDocument
+  ]
+}
+```
+
+The returned MarkdownObjects look approximately like this:
+
+```php
+\Hyde\Markdown\Models\MarkdownDocument {
+  +matter: Hyde\Markdown\Models\FrontMatter {
+     +data: array:1 [
+       "author" => "John Doe"
+     ]
+  }
+  +markdown: Hyde\Markdown\Models\Markdown {
+    +body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+  }
+}
+```
 
 ## Markdown Collections - Hands-on Guide
 
