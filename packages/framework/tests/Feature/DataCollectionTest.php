@@ -30,7 +30,6 @@ class DataCollectionTest extends TestCase
         $class = new DataCollection('foo');
         $this->assertIsArray($class->getMarkdownFiles());
         $this->assertEmpty($class->getMarkdownFiles());
-        rmdir(Hyde::path('resources/collections/foo'));
     }
 
     public function test_get_markdown_files_method_returns_an_array_of_markdown_files_in_the_specified_directory()
