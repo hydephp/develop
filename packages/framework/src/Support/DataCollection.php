@@ -48,7 +48,7 @@ class DataCollection extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollection::findFiles($name, ['md'])->mapWithKeys(function (string $file): array {
+        return new static(DataCollection::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
@@ -80,15 +80,15 @@ class DataCollection extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollection::findFiles($name, ['json'])->mapWithKeys(function (string $file) use ($asArray): array {
+        return new static(DataCollection::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
             return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));
     }
 
-    protected static function findFiles(string $name, array $extensions): Collection
+    protected static function findFiles(string $name, array|string $extensions): Collection
     {
         return Filesystem::smartGlob(sprintf('%s/%s/*.{%s}',
-            static::$sourceDirectory, $name, implode(',', $extensions)
+            static::$sourceDirectory, $name, implode(',', (array) $extensions)
         ), GLOB_BRACE);
     }
 
