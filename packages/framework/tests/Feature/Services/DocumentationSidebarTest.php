@@ -11,7 +11,7 @@ use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
+use Hyde\Facades\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;

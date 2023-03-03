@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views\Components;
 
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
+use Hyde\Facades\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
