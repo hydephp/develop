@@ -50,7 +50,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testFindMarkdownFilesCallsProperGlobPattern()
     {
-        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class, ['exists' => true]);
         $filesystem->shouldReceive('glob')
             ->with(Hyde::path('resources/collections/foo/*.md'), 0)
             ->once();
@@ -66,6 +66,7 @@ class DataCollectionUnitTest extends UnitTestCase
     public function testFindMarkdownFilesWithNoFiles()
     {
         $filesystem = Mockery::mock(Filesystem::class, [
+            'exists' => true,
             'glob' => [],
         ]);
 
@@ -79,6 +80,7 @@ class DataCollectionUnitTest extends UnitTestCase
     public function testFindMarkdownFilesWithFiles()
     {
         $filesystem = Mockery::mock(Filesystem::class, [
+            'exists' => true,
             'glob' => ['bar.md'],
             'get' => 'foo',
         ]);
