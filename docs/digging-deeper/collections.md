@@ -42,6 +42,10 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 |-----------------|----------------|----------------------|----------------|
 | Markdown        | `::markdown()` | `MarkdownDocument`   | `.md`          |
 
+### Markdown Collections
+
+// TODO
+
 ## Markdown Collections - Hands-on Guide
 
 I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
