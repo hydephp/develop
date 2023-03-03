@@ -9,15 +9,22 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route as RouteModel;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Facades\Route
  */
-class RouteFacadeTest extends TestCase
+class RouteFacadeTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+        self::mockConfig();
+    }
+
     public function test_route_facade_all_method_returns_all_routes()
     {
         $this->assertEquals(Hyde::routes(), Route::all());
@@ -47,20 +54,23 @@ class RouteFacadeTest extends TestCase
 
     public function test_get_supports_dot_notation()
     {
-        $this->file('_posts/foo.md');
+        Hyde::routes()->add(new RouteModel(new MarkdownPost('foo')));
         $this->assertSame(Route::get('posts/foo'), Route::get('posts.foo'));
     }
 
     public function test_current_returns_current_route()
     {
         $route = new RouteModel(new MarkdownPage('foo'));
-        Render::share('currentRoute', $route);
+        Render::shouldReceive('getCurrentRoute')->andReturn($route);
         $this->assertEquals($route, Route::current());
+        Render::clearResolvedInstances();
     }
 
     public function test_current_returns_null_if_route_is_not_found()
     {
+        Render::shouldReceive('getCurrentRoute')->andReturn(null);
         $this->assertNull(Route::current());
+        Render::clearResolvedInstances();
     }
 
     public function testExists()
