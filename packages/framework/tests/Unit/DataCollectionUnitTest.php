@@ -52,7 +52,7 @@ class DataCollectionUnitTest extends UnitTestCase
     {
         $filesystem = Mockery::mock(Filesystem::class, ['exists' => true]);
         $filesystem->shouldReceive('glob')
-            ->with(Hyde::path('resources/collections/foo/*.{md}'), 128)
+            ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
             ->once();
 
         app()->instance(Filesystem::class, $filesystem);
