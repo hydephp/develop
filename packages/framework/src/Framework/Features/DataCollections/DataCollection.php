@@ -32,7 +32,7 @@ class DataCollection extends Collection
      */
     public static function markdown(string $key): static
     {
-        return new DataCollection(static::findMarkdownFiles($key)->mapWithKeys(function (string $file): array {
+        return new static(static::findMarkdownFiles($key)->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
