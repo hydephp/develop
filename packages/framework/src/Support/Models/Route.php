@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Stringable;
-use function str_replace;
 
 /**
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
@@ -113,30 +110,30 @@ class Route implements Stringable, SerializableContract
     /** @deprecated Call the method on the facade Route class instead */
     public static function get(string $routeKey): ?Route
     {
-        return Routes::get(str_replace('.', '/', $routeKey));
+        return \Hyde\Facades\Route::get($routeKey);
     }
 
     /** @deprecated Call the method on the facade Route class instead */
     public static function getOrFail(string $routeKey): Route
     {
-        return static::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return \Hyde\Facades\Route::getOrFail($routeKey);
     }
 
     /** @deprecated Call the method on the facade Route class instead */
     public static function all(): RouteCollection
     {
-        return Hyde::routes();
+        return \Hyde\Facades\Route::all();
     }
 
     /** @deprecated Call the method on the facade Route class instead */
     public static function current(): ?Route
     {
-        return Hyde::currentRoute();
+        return \Hyde\Facades\Route::current();
     }
 
     /** @deprecated Call the method on the facade Route class instead */
     public static function exists(string $routeKey): bool
     {
-        return Routes::has($routeKey);
+        return \Hyde\Facades\Route::exists($routeKey);
     }
 }
