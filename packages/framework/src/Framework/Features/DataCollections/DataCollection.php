@@ -29,13 +29,6 @@ class DataCollection extends Collection
         parent::__construct();
     }
 
-    protected function findMarkdownFiles(): array
-    {
-        return Filesystem::smartGlob(
-            static::$sourceDirectory.'/'.$this->key.'/*.md'
-        )->toArray();
-    }
-
     public function toArray(): array
     {
         return $this->items;
@@ -59,5 +52,12 @@ class DataCollection extends Collection
         }
 
         return $collection;
+    }
+
+    protected function findMarkdownFiles(): array
+    {
+        return Filesystem::smartGlob(
+            static::$sourceDirectory.'/'.$this->key.'/*.md'
+        )->toArray();
     }
 }
