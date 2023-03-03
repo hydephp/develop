@@ -63,6 +63,7 @@ class RouteTest extends UnitTestCase
     public function testGetLinkReturnsCorrectPathForRootPages()
     {
         $route = new Route(new MarkdownPage('foo'));
+
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('foo.html', $route->getLink());
     }
@@ -70,6 +71,7 @@ class RouteTest extends UnitTestCase
     public function testGetLinkReturnsCorrectPathForNestedPages()
     {
         $route = new Route(new MarkdownPage('foo/bar'));
+
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('foo/bar.html', $route->getLink());
     }
@@ -78,6 +80,7 @@ class RouteTest extends UnitTestCase
     {
         $route = new Route(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentPage')->andReturn('foo/bar');
+
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('../foo.html', $route->getLink());
     }
@@ -86,6 +89,7 @@ class RouteTest extends UnitTestCase
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $route = new Route(new MarkdownPage('foo'));
+
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('foo', $route->getLink());
     }
