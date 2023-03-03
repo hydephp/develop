@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Support\DataCollection
@@ -113,7 +114,8 @@ class DataCollectionTest extends TestCase
 
     public function test_source_directory_is_automatically_added_if_missing()
     {
-        rmdir(Hyde::path('resources/collections'));
+        $this->directory('resources/collections');
+        File::deleteDirectory(Hyde::path('resources/collections'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/collections'));
 
         DataCollection::markdown('foo');
@@ -123,7 +125,9 @@ class DataCollectionTest extends TestCase
 
     public function test_custom_source_directory_is_automatically_added_if_missing()
     {
-        rmdir(Hyde::path('foo'));
+        $this->directory('foo');
+        File::deleteDirectory(Hyde::path('foo'));
+
         $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
 
         DataCollection::$sourceDirectory = 'foo';
@@ -132,6 +136,5 @@ class DataCollectionTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('foo'));
 
         DataCollection::$sourceDirectory = 'resources/collections';
-        rmdir(Hyde::path('foo'));
     }
 }
