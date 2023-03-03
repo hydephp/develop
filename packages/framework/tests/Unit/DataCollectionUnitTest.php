@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\DataCollections\DataCollection;
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
+use Mockery;
 
 /**
  * @covers \Hyde\Framework\Features\DataCollections\DataCollection
@@ -66,8 +69,17 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testGetMarkdownFilesWithNoFiles()
     {
+        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem->shouldReceive('glob')
+            ->with(Hyde::path('resources/collections/foo/*.md'), 0)
+            ->once()->andReturn([]);
+
+        app()->instance(Filesystem::class, $filesystem);
+
         $class = new DataCollection('foo');
         $this->assertSame([], $class->getMarkdownFiles());
+
+        Mockery::close();
     }
 
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
