@@ -28,7 +28,7 @@ class RouteFacadeTest extends TestCase
     public function testFacadeMethodAll()
     {
         $this->markTestIncomplete('TODO: Reimplement the tests');
-        // $this->assertSame(Route::all(), RouteModel::all());
+        // $this->assertSame(\Hyde\Facades\Route::all(), RouteModel::all());
     }
 
     public function testFacadeMethodCurrent()
