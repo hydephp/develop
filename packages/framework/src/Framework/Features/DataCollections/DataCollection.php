@@ -56,8 +56,6 @@ class DataCollection extends Collection
 
     protected static function findMarkdownFiles(string $key): Collection
     {
-        return Filesystem::smartGlob(
-            static::$sourceDirectory."/$key/*.md"
-        );
+        return Filesystem::smartGlob(static::$sourceDirectory."/$key/*.md");
     }
 }
