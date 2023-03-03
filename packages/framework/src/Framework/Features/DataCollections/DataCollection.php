@@ -33,7 +33,7 @@ class DataCollection extends Collection
         return $this;
     }
 
-    public function getMarkdownFiles(): array
+    public function findMarkdownFiles(): array
     {
         return Filesystem::smartGlob(
             static::$sourceDirectory.'/'.$this->key.'/*.md'
@@ -55,7 +55,7 @@ class DataCollection extends Collection
     public static function markdown(string $key): static
     {
         $collection = new DataCollection($key);
-        foreach ($collection->getMarkdownFiles() as $file) {
+        foreach ($collection->findMarkdownFiles() as $file) {
             $collection->push(
                 (new MarkdownFileParser($file))->get()
             );

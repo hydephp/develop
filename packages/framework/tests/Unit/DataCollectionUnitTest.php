@@ -67,7 +67,7 @@ class DataCollectionUnitTest extends UnitTestCase
         // TODO
     }
 
-    public function testGetMarkdownFilesCallsProperGlobPattern()
+    public function testFindMarkdownFilesCallsProperGlobPattern()
     {
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('glob')
@@ -76,13 +76,13 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        (new DataCollection('foo'))->getMarkdownFiles();
+        (new DataCollection('foo'))->findMarkdownFiles();
 
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
         Mockery::close();
     }
 
-    public function testGetMarkdownFilesWithNoFiles()
+    public function testFindMarkdownFilesWithNoFiles()
     {
         $filesystem = Mockery::mock(Filesystem::class, [
             'glob' => [],
@@ -91,12 +91,12 @@ class DataCollectionUnitTest extends UnitTestCase
         app()->instance(Filesystem::class, $filesystem);
 
         $class = new DataCollection('foo');
-        $this->assertSame([], $class->getMarkdownFiles());
+        $this->assertSame([], $class->findMarkdownFiles());
 
         Mockery::close();
     }
 
-    public function testGetMarkdownFilesWithFiles()
+    public function testFindMarkdownFilesWithFiles()
     {
         $filesystem = Mockery::mock(Filesystem::class, [
             'glob' => ['bar.md'],
@@ -106,7 +106,7 @@ class DataCollectionUnitTest extends UnitTestCase
         app()->instance(Filesystem::class, $filesystem);
 
         $class = new DataCollection('foo');
-        $this->assertSame(['bar.md'], $class->getMarkdownFiles());
+        $this->assertSame(['bar.md'], $class->findMarkdownFiles());
 
         Mockery::close();
     }

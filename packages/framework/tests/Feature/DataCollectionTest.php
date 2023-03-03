@@ -15,23 +15,23 @@ use Hyde\Testing\TestCase;
  */
 class DataCollectionTest extends TestCase
 {
-    public function test_get_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
+    public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
         $class = new DataCollection('foo');
-        $this->assertIsArray($class->getMarkdownFiles());
-        $this->assertEmpty($class->getMarkdownFiles());
+        $this->assertIsArray($class->findMarkdownFiles());
+        $this->assertEmpty($class->findMarkdownFiles());
     }
 
-    public function test_get_markdown_files_method_returns_empty_array_if_no_files_are_found_in_specified_directory()
+    public function test_find_markdown_files_method_returns_empty_array_if_no_files_are_found_in_specified_directory()
     {
         $this->directory('resources/collections/foo');
 
         $class = new DataCollection('foo');
-        $this->assertIsArray($class->getMarkdownFiles());
-        $this->assertEmpty($class->getMarkdownFiles());
+        $this->assertIsArray($class->findMarkdownFiles());
+        $this->assertEmpty($class->findMarkdownFiles());
     }
 
-    public function test_get_markdown_files_method_returns_an_array_of_markdown_files_in_the_specified_directory()
+    public function test_find_markdown_files_method_returns_an_array_of_markdown_files_in_the_specified_directory()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
@@ -40,10 +40,10 @@ class DataCollectionTest extends TestCase
         $this->assertSame([
             'resources/collections/foo/bar.md',
             'resources/collections/foo/foo.md',
-        ], (new DataCollection('foo'))->getMarkdownFiles());
+        ], (new DataCollection('foo'))->findMarkdownFiles());
     }
 
-    public function test_get_markdown_files_method_does_not_include_files_in_subdirectories()
+    public function test_find_markdown_files_method_does_not_include_files_in_subdirectories()
     {
         $this->directory('resources/collections/foo');
         $this->directory('resources/collections/foo/bar');
@@ -52,10 +52,10 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'resources/collections/foo/foo.md',
-        ], (new DataCollection('foo'))->getMarkdownFiles());
+        ], (new DataCollection('foo'))->findMarkdownFiles());
     }
 
-    public function test_get_markdown_files_method_does_not_include_files_with_extensions_other_than_md()
+    public function test_find_markdown_files_method_does_not_include_files_with_extensions_other_than_md()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
@@ -63,17 +63,17 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'resources/collections/foo/foo.md',
-        ], (new DataCollection('foo'))->getMarkdownFiles());
+        ], (new DataCollection('foo'))->findMarkdownFiles());
     }
 
-    public function test_get_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
+    public function test_find_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/_foo.md');
 
         $this->assertSame([
             'resources/collections/foo/_foo.md',
-        ], (new DataCollection('foo'))->getMarkdownFiles());
+        ], (new DataCollection('foo'))->findMarkdownFiles());
     }
 
     public function test_static_markdown_helper_discovers_and_parses_markdown_files_in_the_specified_directory()
@@ -105,7 +105,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/bar/foo.md',
-        ], (new DataCollection('bar'))->getMarkdownFiles());
+        ], (new DataCollection('bar'))->findMarkdownFiles());
 
         DataCollection::$sourceDirectory = 'resources/collections';
     }
