@@ -62,7 +62,7 @@ class AssetService
     {
         $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
 
-        // Remove the plugins array, as it is not needed in the frontend.
+        // Remove the plugins array, as it is not used in the frontend.
         if (str_contains($config, 'plugins: [')) {
             $tokens = explode('plugins: [', $config, 2);
             $tokens[1] = Str::after($tokens[1], ']');
