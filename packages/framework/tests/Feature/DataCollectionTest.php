@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
@@ -27,6 +28,18 @@ class DataCollectionTest extends TestCase
             'foo/foo.md' => new MarkdownDocument(['title' => 'Foo'], 'Hello World'),
             'foo/bar.md' => new MarkdownDocument([], ''),
         ]), DataCollection::markdown('foo'));
+    }
+
+    public function test_yaml_collections()
+    {
+        $this->directory('resources/collections/foo');
+        $this->markdown('resources/collections/foo/foo.yaml', matter: ['title' => 'Foo']);
+        $this->file('resources/collections/foo/bar.yaml');
+
+        $this->assertEquals(new DataCollection([
+            'foo/foo.yaml' => new FrontMatter(['title' => 'Foo']),
+            'foo/bar.yaml' => new FrontMatter([]),
+        ]), DataCollection::yaml('foo'));
     }
 
     public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()

@@ -50,9 +50,29 @@ class DataCollection extends Collection
         }));
     }
 
+    /**
+     * Get a collection of YAML documents in the resources/collections/<$key> directory.
+     * Each YAML file will be parsed into a FrontMatter object.
+     *
+     * @return DataCollection<string, \Hyde\Markdown\Models\FrontMatter>
+     */
+    public static function yaml(string $name): static
+    {
+        static::needsDirectory(static::$sourceDirectory);
+
+        return new static(static::findYamlFiles($name)->mapWithKeys(function (string $file): array {
+            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()->matter()];
+        }));
+    }
+
     protected static function findMarkdownFiles(string $name): Collection
     {
         return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.md");
+    }
+
+    protected static function findYamlFiles(string $name): Collection
+    {
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.yaml");
     }
 
     protected static function makeIdentifier(string $path): string
