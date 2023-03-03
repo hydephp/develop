@@ -33,12 +33,17 @@ class DataCollection extends Collection
     public static function markdown(string $key): static
     {
         return new DataCollection(static::findMarkdownFiles($key)->mapWithKeys(function (string $file): array {
-            return [unslash(Str::after($file, static::$sourceDirectory)) => (new MarkdownFileParser($file))->get()];
+            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
 
     protected static function findMarkdownFiles(string $key): Collection
     {
         return Filesystem::smartGlob(static::$sourceDirectory."/$key/*.md");
+    }
+
+    protected static function makeIdentifier(string $path): string
+    {
+        return unslash(Str::after($path, static::$sourceDirectory));
     }
 }
