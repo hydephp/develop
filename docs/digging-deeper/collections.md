@@ -79,6 +79,16 @@ The returned MarkdownObjects look approximately like this:
 }
 ```
 
+Assuming the Markdown document looks like this:
+
+```markdown
+---
+author: "John Doe"
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+```
+
 ## Markdown Collections - Hands-on Guide
 
 I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
