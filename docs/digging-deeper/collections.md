@@ -47,9 +47,7 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 #### Usage
 
 ```php
-use \Hyde\Support\DataCollection;
-
-$collection = DataCollection::markdown('name');
+$collection = \Hyde\Support\DataCollection::markdown('name');
 ```
 
 #### Example returns
