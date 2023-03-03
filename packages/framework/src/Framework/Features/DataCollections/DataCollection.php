@@ -21,6 +21,7 @@ class DataCollection extends Collection
 
     public string $key;
 
+    /** @deprecated Use the static create method instead */
     public function __construct(string $key)
     {
         $this->key = $key;
