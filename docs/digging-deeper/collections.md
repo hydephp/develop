@@ -67,9 +67,7 @@ resources/collections
 └── testimonials
     ├── 1.md
     ├── 2.md
-    ├── 3.md
-    ├── 4.md
-    └── 5.md
+    └── 3.md
 ```
 
 #### Using the Facade to Access the Collections
