@@ -9,13 +9,24 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Support\Models\Route
  */
-class RouteTest extends TestCase
+class RouteTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+        self::mockConfig();
+    }
+
+    protected function setUp(): void
+    {
+        Render::swap(new \Hyde\Support\Models\Render());
+    }
+
     public function test_constructor_creates_route_from_page_model()
     {
         $page = new MarkdownPage();
@@ -82,14 +93,14 @@ class RouteTest extends TestCase
     public function test_get_link_returns_correct_path_for_nested_current_page()
     {
         $route = new Route(new MarkdownPage('foo'));
-        Render::share('currentPage', 'foo/bar');
+        Render::shouldReceive('getCurrentPage')->andReturn('foo/bar');
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_pretty_url_if_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.pretty_urls' => true]);
         $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
