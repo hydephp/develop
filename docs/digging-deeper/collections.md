@@ -47,10 +47,10 @@ The following facade methods for creating data collections are available:
 
 ### Quick Reference Table
 
-| Collection Type                       | Facade Method  | Returned Object Type                                                                                            | File Extension |
-|---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|----------------|
-| **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php) | `.md`          |
-| **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)           | `.yaml`        |
+| Collection Type                       | Facade Method  | Returned Object Type                                                                                            | File Extension  |
+|---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|-----------------|
+| **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php) | `.md`           |
+| **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)           | `.yaml`, `.yml` |
 
 ## Markdown Collections
 

@@ -34,11 +34,11 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
         $this->markdown('resources/collections/foo/foo.yaml', matter: ['title' => 'Foo']);
-        $this->file('resources/collections/foo/bar.yaml');
+        $this->file('resources/collections/foo/bar.yml');
 
         $this->assertEquals(new DataCollection([
             'foo/foo.yaml' => new FrontMatter(['title' => 'Foo']),
-            'foo/bar.yaml' => new FrontMatter([]),
+            'foo/bar.yml' => new FrontMatter([]),
         ]), DataCollection::yaml('foo'));
     }
 

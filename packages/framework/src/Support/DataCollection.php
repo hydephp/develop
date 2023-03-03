@@ -72,7 +72,7 @@ class DataCollection extends Collection
 
     protected static function findYamlFiles(string $name): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.yaml");
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.{yaml,yml}", GLOB_BRACE);
     }
 
     protected static function makeIdentifier(string $path): string
