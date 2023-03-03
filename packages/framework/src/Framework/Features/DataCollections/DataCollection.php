@@ -36,7 +36,6 @@ class DataCollection extends Collection
         foreach (static::findMarkdownFiles($key) as $file) {
             $collection->put(unslash(Str::after($file, static::$sourceDirectory)), (new MarkdownFileParser($file))->get());
         }
-
         return $collection;
     }
 
