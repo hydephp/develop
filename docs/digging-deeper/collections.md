@@ -43,6 +43,7 @@ The following facade methods for creating data collections are available:
 ```php
 \Hyde\Support\DataCollection::markdown();
 \Hyde\Support\DataCollection::yaml();
+\Hyde\Support\DataCollection::json();
 ```
 
 ### Quick Reference Table
