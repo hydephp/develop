@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -27,6 +28,8 @@ use Illuminate\Support\Str;
  */
 class DataCollection extends Collection
 {
+    use InteractsWithDirectories;
+
     /**
      * The base directory for all data collections. Can be modified using a service provider.
      */
