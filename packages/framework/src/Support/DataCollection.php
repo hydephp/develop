@@ -15,6 +15,9 @@ use Illuminate\Support\Str;
  *
  * This class acts both as a base collection class, a factory for
  * creating collections, and static facade shorthand helper methods.
+ *
+ * All collections are keyed by their filename which is relative
+ * to the configured data collection source directory.
  */
 class DataCollection extends Collection
 {
@@ -28,7 +31,7 @@ class DataCollection extends Collection
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
      * @param  string  $key  for a subdirectory of the resources/collections directory
-     * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument> Collection is keyed by filename relative to the source directory.
+     * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
      *
      * @example `Usage: DataCollection::markdown('cards')`
      * @example `Returns: ['cards/card-1.md' => MarkdownDocument, etc...]` (assuming card-1.md exists as resources/collections/cards/card-1.md)
