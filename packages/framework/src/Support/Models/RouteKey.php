@@ -42,9 +42,9 @@ final class RouteKey implements Stringable
         return $this->key;
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $pageClass */
         return new self(unslash($pageClass::baseRouteKey().'/'.$identifier));
     }
 }
