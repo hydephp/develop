@@ -28,9 +28,9 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 2. Collections are stored as files in subdirectories of the `resources/collections` directory.
 3. To get a collection, specify name of the subdirectory the files are stored in.
 4. Data will be parsed into differing objects depending on which facade method you use. See the table below.
-5. Each subdirectory should probably only have the same filetype to prevent developer confusion, but this is not enforced.
-6. Unlike source files for pages, files starting with underscores are not ignored.
-7. The class is aliased so that you can use it in Blade files without having to include the namespace.
+5. The class is aliased so that you can use it in Blade files without having to include the namespace.
+6. While not enforced, each subdirectory should probably only have the same filetype to prevent developer confusion
+7. Unlike source files for pages, files starting with underscores are not ignored.
 8. You can customize the source directory for collections through a service provider.
 9. If the base source directory does not exist, it will be created for you.
 
