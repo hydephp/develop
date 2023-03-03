@@ -39,6 +39,7 @@ class DataCollection extends Collection
 
     /**
      * Get a collection of Markdown documents in the resources/collections/<$key> directory.
+     * 
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
      * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
@@ -54,6 +55,7 @@ class DataCollection extends Collection
 
     /**
      * Get a collection of YAML documents in the resources/collections/<$key> directory.
+     *
      * Each YAML file will be parsed into a FrontMatter object.
      *
      * @return DataCollection<string, \Hyde\Markdown\Models\FrontMatter>
@@ -69,6 +71,7 @@ class DataCollection extends Collection
 
     /**
      * Get a collection of JSON documents in the resources/collections/<$key> directory.
+     *
      * Each JSON file will be parsed into a stdClass object, or an associative array, depending on the second parameter.
      *
      * @return DataCollection<string, \stdClass|array>
