@@ -17,7 +17,7 @@ class DataCollectionTest extends TestCase
 {
     public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
-        $class = new DataCollection('foo');
+        $class = new DataCollection();
         $this->assertIsArray($this->getTestedFindMarkdownFiles());
         $this->assertEmpty($this->getTestedFindMarkdownFiles());
     }
@@ -26,7 +26,7 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
 
-        $class = new DataCollection('foo');
+        $class = new DataCollection();
         $this->assertIsArray($this->getTestedFindMarkdownFiles());
         $this->assertEmpty($this->getTestedFindMarkdownFiles());
     }
@@ -38,8 +38,8 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/bar.md');
 
         $this->assertSame([
-            'resources/collections/foo/bar.md',
-            'resources/collections/foo/foo.md',
+            'foo/bar.md',
+            'foo/foo.md',
         ], $this->getTestedFindMarkdownFiles());
     }
 
@@ -51,7 +51,7 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/bar/bar.md');
 
         $this->assertSame([
-            'resources/collections/foo/foo.md',
+            'foo/foo.md',
         ], $this->getTestedFindMarkdownFiles());
     }
 
@@ -62,7 +62,7 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/bar.txt');
 
         $this->assertSame([
-            'resources/collections/foo/foo.md',
+            'foo/foo.md',
         ], $this->getTestedFindMarkdownFiles());
     }
 
@@ -72,7 +72,7 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/_foo.md');
 
         $this->assertSame([
-            'resources/collections/foo/_foo.md',
+            'foo/_foo.md',
         ], $this->getTestedFindMarkdownFiles());
     }
 
@@ -104,7 +104,7 @@ class DataCollectionTest extends TestCase
         $this->file('foo/bar/foo.md');
 
         $this->assertSame([
-            'foo/bar/foo.md',
+            'bar/foo.md',
         ], $this->getTestedFindMarkdownFiles('bar'));
 
         DataCollection::$sourceDirectory = 'resources/collections';
