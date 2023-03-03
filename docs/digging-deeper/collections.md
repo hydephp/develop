@@ -19,7 +19,7 @@ As you have access to all standard Laravel Collection methods, you are encourage
 
 This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
 
-### High-Level Concept Overview
+## High-Level Concept Overview
 
 To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections.
 Follow these conventions and creating dynamic static sites will be a breeze.
@@ -35,7 +35,7 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 9. If the base source directory does not exist, it will be created for you.
 
 
-### Markdown Collections - Hands-on Guide
+## Markdown Collections - Hands-on Guide
 
 I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
 
