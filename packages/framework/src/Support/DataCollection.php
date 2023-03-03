@@ -65,6 +65,21 @@ class DataCollection extends Collection
         }));
     }
 
+    /**
+     * Get a collection of JSON documents in the resources/collections/<$key> directory.
+     * Each JSON file will be parsed into a stdClass object.
+     *
+     * @return DataCollection<string, \stdClass>
+     */
+    public static function json(string $name): static
+    {
+        static::needsDirectory(static::$sourceDirectory);
+
+        return new static(static::findJsonFiles($name)->mapWithKeys(function (string $file): array {
+            return [static::makeIdentifier($file) => json_decode(Filesystem::get($file))];
+        }));
+    }
+
     protected static function findMarkdownFiles(string $name): Collection
     {
         return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.md");
@@ -73,6 +88,11 @@ class DataCollection extends Collection
     protected static function findYamlFiles(string $name): Collection
     {
         return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.{yaml,yml}", GLOB_BRACE);
+    }
+
+    protected static function findJsonFiles(string $name): Collection
+    {
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.json");
     }
 
     protected static function makeIdentifier(string $path): string
