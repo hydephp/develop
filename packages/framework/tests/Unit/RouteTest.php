@@ -25,18 +25,12 @@ class RouteTest extends UnitTestCase
 
     public function testConstructorCreatesRouteFromPageModel()
     {
-        $page = new MarkdownPage();
-        $route = new Route($page);
-
-        $this->assertInstanceOf(Route::class, $route);
+        $this->assertInstanceOf(Route::class, new Route(new MarkdownPage()));
     }
 
     public function testGetPageTypeReturnsFullyQualifiedClassName()
     {
-        $page = new MarkdownPage();
-        $route = new Route($page);
-
-        $this->assertEquals(MarkdownPage::class, $route->getPageClass());
+        $this->assertEquals(MarkdownPage::class, (new Route(new MarkdownPage()))->getPageClass());
     }
 
     public function testGetSourceModelReturnsPageModel()
@@ -51,25 +45,19 @@ class RouteTest extends UnitTestCase
     public function testGetRouteKeyReturnsPagePath()
     {
         $page = new MarkdownPage();
-        $route = new Route($page);
-
-        $this->assertEquals($page->getRouteKey(), $route->getRouteKey());
+        $this->assertEquals($page->getRouteKey(), (new Route($page))->getRouteKey());
     }
 
     public function testGetSourceFilePathReturnsPageSourcePath()
     {
         $page = new MarkdownPage();
-        $route = new Route($page);
-
-        $this->assertEquals($page->getSourcePath(), $route->getSourcePath());
+        $this->assertEquals($page->getSourcePath(), (new Route($page))->getSourcePath());
     }
 
     public function testGetOutputFilePathReturnsPageOutputPath()
     {
         $page = new MarkdownPage();
-        $route = new Route($page);
-
-        $this->assertEquals($page->getOutputPath(), $route->getOutputPath());
+        $this->assertEquals($page->getOutputPath(), (new Route($page))->getOutputPath());
     }
 
     public function testGetLinkReturnsCorrectPathForRootPages()
