@@ -69,7 +69,7 @@ class DataCollection extends Collection
 
     /**
      * Get a collection of JSON documents in the resources/collections/<$key> directory.
-     * Each JSON file will be parsed into a stdClass object.
+     * Each JSON file will be parsed into a stdClass object, or an associative array, depending on the second parameter.
      *
      * @return DataCollection<string, \stdClass|array>
      */
