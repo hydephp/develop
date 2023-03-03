@@ -20,11 +20,6 @@ class DataCollection extends Collection
 {
     public static string $sourceDirectory = 'resources/collections';
 
-    public function toArray(): array
-    {
-        return $this->items;
-    }
-
     /**
      * Get a collection of Markdown documents in the resources/collections/<$key> directory.
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
