@@ -64,6 +64,12 @@ class DataCollectionUnitTest extends UnitTestCase
         // TODO
     }
 
+    public function testGetMarkdownFilesWithNoFiles()
+    {
+        $class = new DataCollection('foo');
+        $this->assertSame([], $class->getMarkdownFiles());
+    }
+
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
