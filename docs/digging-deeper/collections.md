@@ -147,7 +147,7 @@ By default, the entries will be returned as `stdClass` objects. If you want to r
 $collection = \Hyde\Support\DataCollection::json('name', true);
 ```
 
-Since both return values use native PHP types, there are no example returns, as I'm sure you can imagine what they look like.
+Since both return values use native PHP types, there are no example returns added here, as I'm sure you can imagine what they look like.
 
 
 ## Markdown Collections - Hands-on Guide
