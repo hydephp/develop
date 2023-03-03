@@ -29,12 +29,12 @@ class AssetService
 
     protected string $version = self::HYDEFRONT_VERSION;
 
-    protected string $hydefrontUrl = self::HYDEFRONT_CDN_URL;
+    protected string $cdnUrl = self::HYDEFRONT_CDN_URL;
 
     public function __construct()
     {
         $this->version = Config::getString('hyde.hydefront_version', self::HYDEFRONT_VERSION);
-        $this->hydefrontUrl = Config::getString('hyde.hydefront_url', self::HYDEFRONT_CDN_URL);
+        $this->cdnUrl = Config::getString('hyde.hydefront_url', self::HYDEFRONT_CDN_URL);
     }
 
     public function version(): string
@@ -75,7 +75,7 @@ class AssetService
     {
         return str_replace(
             ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
-            $this->hydefrontUrl
+            $this->cdnUrl
         );
     }
 
