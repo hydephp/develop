@@ -34,6 +34,13 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 8. You can customize the source directory for collections through a service provider.
 9. If the base source directory does not exist, it will be created for you.
 
+## Available Collection Types
+
+### Quick Reference Overview
+
+| Collection Type | Facade Method  | Returned Object Type | File Extension |
+|-----------------|----------------|----------------------|----------------|
+| Markdown        | `::markdown()` | `MarkdownDocument`   | `.md`          |
 
 ## Markdown Collections - Hands-on Guide
 
