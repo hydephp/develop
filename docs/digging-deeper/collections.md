@@ -48,11 +48,11 @@ The following facade methods for creating data collections are available:
 
 ### Quick Reference Table
 
-| Collection Type                       | Facade Method  | Returned Object Type                                                                                                                               | File Extension   |
-|---------------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
-| **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php)                                    | `.md`            |
-| **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)                                              | `.yaml`,  `.yml` |
-| **[Json](#json-collections)**         | `::json()`     | [`stdClass`](https://www.php.net/manual/en/class.stdclass.php) <small>OR</small> [`array`](https://www.php.net/manual/en/language.types.array.php) | `.json`          |
+| Collection Type                       | Facade Method  | Returned Object Type                                                                                                                                     | File Extension   |
+|---------------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php)                                          | `.md`            |
+| **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)                                                    | `.yaml`,  `.yml` |
+| **[Json](#json-collections)**         | `::json()`     | [`stdClass`](https://www.php.net/manual/en/class.stdclass.php) <small>OR&nbsp;</small> [`array`](https://www.php.net/manual/en/language.types.array.php) | `.json`          |
 
 ## Markdown Collections
 
