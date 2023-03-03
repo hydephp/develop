@@ -108,15 +108,8 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
     }
 
-    /** @deprecated temporary during refactor */
     protected function getTestedFindMarkdownFiles(): array
     {
-        return (new class('foo') extends DataCollection
-        {
-            public function _findMarkdownFiles(): array
-            {
-                return $this->findMarkdownFiles($this->key)->toArray();
-            }
-        })->_findMarkdownFiles();
+        return array_keys(DataCollection::markdown('foo')->toArray());
     }
 }

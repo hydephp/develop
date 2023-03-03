@@ -110,15 +110,8 @@ class DataCollectionTest extends TestCase
         DataCollection::$sourceDirectory = 'resources/collections';
     }
 
-    /** @deprecated temporary during refactor */
     protected function getTestedFindMarkdownFiles($file = 'foo'): array
     {
-        return (new class($file) extends DataCollection
-        {
-            public function _findMarkdownFiles(): array
-            {
-                return $this->findMarkdownFiles($this->key)->toArray();
-            }
-        })->_findMarkdownFiles();
+        return array_keys(DataCollection::markdown($file)->toArray());
     }
 }
