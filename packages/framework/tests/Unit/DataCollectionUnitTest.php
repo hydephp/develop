@@ -21,39 +21,39 @@ class DataCollectionUnitTest extends UnitTestCase
         self::needsKernel();
     }
 
-    public function test_constructor_creates_new_data_collection_instance()
+    public function testConstructorCreatesNewDataCollectionInstance()
     {
         $class = new DataCollection('foo');
         $this->assertInstanceOf(DataCollection::class, $class);
         $this->assertInstanceOf(Collection::class, $class);
     }
 
-    public function test_constructor_sets_key()
+    public function testConstructorSetsKey()
     {
         $class = new DataCollection('foo');
         $this->assertEquals('foo', $class->key);
     }
 
-    public function test_key_is_required()
+    public function testKeyIsRequired()
     {
         $this->expectException(ArgumentCountError::class);
         new DataCollection();
     }
 
-    public function test_get_collection_method_returns_the_collection_instance()
+    public function testGetCollectionMethodReturnsTheCollectionInstance()
     {
         $class = new DataCollection('foo');
         $this->assertSame($class, $class->getCollection());
     }
 
-    public function test_get_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
+    public function testGetMarkdownFilesMethodReturnsEmptyArrayIfTheSpecifiedDirectoryDoesNotExist()
     {
         $class = new DataCollection('foo');
         $this->assertIsArray($class->getMarkdownFiles());
         $this->assertEmpty($class->getMarkdownFiles());
     }
 
-    public function test_static_markdown_helper_returns_new_data_collection_instance()
+    public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
     }
