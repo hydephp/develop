@@ -11,10 +11,20 @@ use Illuminate\Support\Collection;
 /**
  * Base class for the kernel auto-discovery collections.
  *
- * @see \Hyde\Foundation\Kernel\FileCollection
- * @see \Hyde\Foundation\Kernel\PageCollection
- * @see \Hyde\Foundation\Kernel\RouteCollection
- * @see \Hyde\Framework\Testing\Unit\BaseFoundationCollectionTest
+ * These collections are the heart of the discovery process.
+ *
+ * They are responsible for discovering the files, pages, and routes,
+ * for the project, and also act as containers for the discovered data.
+ *
+ * The collections are stored as singletons in the kernel, and can be
+ * accessed via the kernel's `getFiles()`, `getPages()`, and `getRoutes()`
+ * methods respectively, or through the corresponding facade helper classes.
+ *
+ * Each collection depends on the earlier one, thus they are booted in sequence.
+ *
+ * @see \Hyde\Foundation\Kernel\FileCollection Discovers the source files in the project.
+ * @see \Hyde\Foundation\Kernel\PageCollection Parses the source files into page objects.
+ * @see \Hyde\Foundation\Kernel\RouteCollection Creates route objects from the page objects.
  */
 abstract class BaseFoundationCollection extends Collection
 {
