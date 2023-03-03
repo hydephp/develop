@@ -50,8 +50,8 @@ class DataCollectionTest extends TestCase
         Filesystem::touch('resources/collections/foo/bar.md');
 
         $this->assertEquals([
-            Hyde::path('resources/collections/foo/bar.md'),
-            Hyde::path('resources/collections/foo/foo.md'),
+            'resources/collections/foo/bar.md',
+            'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
 
         File::deleteDirectory(Hyde::path('resources/collections/foo'));
@@ -64,7 +64,7 @@ class DataCollectionTest extends TestCase
         Filesystem::touch('resources/collections/foo/foo.md');
         Filesystem::touch('resources/collections/foo/bar/bar.md');
         $this->assertEquals([
-            Hyde::path('resources/collections/foo/foo.md'),
+            'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
         File::deleteDirectory(Hyde::path('resources/collections/foo'));
     }
@@ -75,7 +75,7 @@ class DataCollectionTest extends TestCase
         Filesystem::touch('resources/collections/foo/foo.md');
         Filesystem::touch('resources/collections/foo/bar.txt');
         $this->assertEquals([
-            Hyde::path('resources/collections/foo/foo.md'),
+            'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
         File::deleteDirectory(Hyde::path('resources/collections/foo'));
     }
@@ -86,7 +86,7 @@ class DataCollectionTest extends TestCase
         Filesystem::touch('resources/collections/foo/_foo.md');
 
         $this->assertEquals([
-            Hyde::path('resources/collections/foo/_foo.md'),
+            'resources/collections/foo/_foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
         File::deleteDirectory(Hyde::path('resources/collections/foo'));
     }
@@ -119,7 +119,7 @@ class DataCollectionTest extends TestCase
         mkdir(Hyde::path('foo/bar'), recursive: true);
         Filesystem::touch('foo/bar/foo.md');
         $this->assertEquals([
-            Hyde::path('foo/bar/foo.md'),
+            'foo/bar/foo.md',
         ], (new DataCollection('bar'))->getMarkdownFiles());
         File::deleteDirectory(Hyde::path('foo'));
         DataCollection::$sourceDirectory = 'resources/collections';
