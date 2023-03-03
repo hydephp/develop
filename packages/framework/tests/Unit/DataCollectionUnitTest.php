@@ -45,16 +45,6 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertSame('[]', (new DataCollection())->toJson());
     }
 
-    public function testCanConvertCollectionToArrayWithItems()
-    {
-        // TODO
-    }
-
-    public function testCanConvertCollectionToJsonWithItems()
-    {
-        // TODO
-    }
-
     public function testFindMarkdownFilesCallsProperGlobPattern()
     {
         $filesystem = Mockery::mock(Filesystem::class);
