@@ -27,19 +27,12 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testServiceHasVersionString()
     {
-        $this->assertIsString((new AssetService())->version);
+        $this->assertIsString((new AssetService())->version());
     }
 
     public function testVersionStringDefaultsToConstant()
     {
-        $this->assertSame(AssetService::HYDEFRONT_VERSION, (new AssetService())->version);
-    }
-
-    public function testCanChangeVersion()
-    {
-        $service = new AssetService();
-        $service->version = '1.0.0';
-        $this->assertSame('1.0.0', $service->version);
+        $this->assertSame(AssetService::HYDEFRONT_VERSION, (new AssetService())->version());
     }
 
     public function testVersionCanBeSetInConfig()
@@ -79,16 +72,12 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testCanUseCustomCdnUrlWithCustomVersion()
     {
-        self::mockConfig(['hyde.hydefront_url' => '{{ $version }}']);
+        self::mockConfig([
+            'hyde.hydefront_url' => '{{ $version }}',
+            'hyde.hydefront_version' => '1.0.0',
+        ]);
         $service = new AssetService();
-        $service->version = '1.0.0';
         $this->assertSame('1.0.0', $service->cdnLink(''));
-    }
-
-    public function testVersionMethodReturnsVersionProperty()
-    {
-        $service = new AssetService();
-        $this->assertSame($service->version, $service->version());
     }
 
     public function testCdnLinkHelper()
