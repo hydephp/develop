@@ -28,7 +28,6 @@ class AssetService
     public final const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
     protected string $version = self::HYDEFRONT_VERSION;
-
     protected string $cdnUrl = self::HYDEFRONT_CDN_URL;
 
     public function __construct()
