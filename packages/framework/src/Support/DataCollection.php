@@ -102,8 +102,7 @@ class DataCollection extends Collection
 
     protected static function findFiles(string $name, array $extensions): Collection
     {
-        $pattern = implode(',', $extensions);
-        return Filesystem::smartGlob(sprintf("%s/%s/*.{%s}", static::$sourceDirectory, $name, $pattern), GLOB_BRACE);
+        return Filesystem::smartGlob(sprintf("%s/%s/*.{%s}", static::$sourceDirectory, $name, implode(',', $extensions)), GLOB_BRACE);
     }
 
     protected static function makeIdentifier(string $path): string
