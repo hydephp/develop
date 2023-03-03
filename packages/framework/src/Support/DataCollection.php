@@ -39,7 +39,6 @@ class DataCollection extends Collection
      * Get a collection of Markdown documents in the resources/collections/<$key> directory.
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @param  string  $name
      * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
      */
     public static function markdown(string $name): static
