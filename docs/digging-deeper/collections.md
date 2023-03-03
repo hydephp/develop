@@ -89,6 +89,40 @@ author: "John Doe"
 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 ```
 
+### Yaml Collections
+
+#### Usage
+
+```php
+$collection = \Hyde\Support\DataCollection::yaml('name');
+```
+
+#### Example returns
+
+Here is an approximation of the data types contained by the variable created above:
+
+```php
+\Hyde\Support\DataCollection {
+  "authors/1.yaml" => Hyde\Markdown\Models\FrontMatter {
+    +data: array:1 [
+      "name" => "John Doe",
+      "email" => "john@example.org"
+    ]
+  }
+}
+```
+
+Assuming the Yaml document looks like this:
+
+```yaml
+---
+name: "John Doe"
+email: "john@example.org"
+```
+
+Note that the Yaml file should start with `---` to be parsed correctly.
+
+
 ## Markdown Collections - Hands-on Guide
 
 I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
