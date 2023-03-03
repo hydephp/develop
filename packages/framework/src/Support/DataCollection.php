@@ -87,22 +87,23 @@ class DataCollection extends Collection
 
     protected static function findMarkdownFiles(string $name): Collection
     {
-        return static::findFiles($name, '*.md');
+        return static::findFiles($name, ['md']);
     }
 
     protected static function findYamlFiles(string $name): Collection
     {
-        return static::findFiles($name, '*.{yaml,yml}');
+        return static::findFiles($name, ['yaml', 'yml']);
     }
 
     protected static function findJsonFiles(string $name): Collection
     {
-        return static::findFiles($name, '*.json');
+        return static::findFiles($name, ['json']);
     }
 
-    protected static function findFiles(string $name, string $pattern): Collection
+    protected static function findFiles(string $name, array $extensions): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$name/$pattern", GLOB_BRACE);
+        $pattern = implode(',', $extensions);
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.{".$pattern.'}', GLOB_BRACE);
     }
 
     protected static function makeIdentifier(string $path): string
