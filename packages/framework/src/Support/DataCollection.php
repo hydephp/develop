@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
  * they allow you to quickly access the data collections.
  *
  * To use them retrieve a collection, call a facade method with the
- * collection key, which is the name of the collection directory.
+ * name of the data collection subdirectory directory.
  *
  * All collections are keyed by their filename which is relative
  * to the configured data collection source directory.
@@ -36,22 +36,22 @@ class DataCollection extends Collection
      * Get a collection of Markdown documents in the resources/collections/<$key> directory.
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @param  string  $key
+     * @param  string  $name
      * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
      *
      * @example `Usage: DataCollection::markdown('cards')`
      * @example `Returns: ['cards/card-1.md' => MarkdownDocument, etc...]` (assuming card-1.md exists as resources/collections/cards/card-1.md)
      */
-    public static function markdown(string $key): static
+    public static function markdown(string $name): static
     {
-        return new static(static::findMarkdownFiles($key)->mapWithKeys(function (string $file): array {
+        return new static(static::findMarkdownFiles($name)->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
 
-    protected static function findMarkdownFiles(string $key): Collection
+    protected static function findMarkdownFiles(string $name): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$key/*.md");
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.md");
     }
 
     protected static function makeIdentifier(string $path): string
