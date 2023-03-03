@@ -82,21 +82,26 @@ class DataCollection extends Collection
 
     protected static function findMarkdownFiles(string $name): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.md");
+        return static::findFiles($name, '*.md');
     }
 
     protected static function findYamlFiles(string $name): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.{yaml,yml}", GLOB_BRACE);
+        return static::findFiles($name, '*.{yaml,yml}', GLOB_BRACE);
     }
 
     protected static function findJsonFiles(string $name): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$name/*.json");
+        return static::findFiles($name, '*.json');
     }
 
     protected static function makeIdentifier(string $path): string
     {
         return unslash(Str::after($path, static::$sourceDirectory));
+    }
+
+    protected static function findFiles(string $name, string $pattern, int $flags = 0): Collection
+    {
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/$pattern", $flags);
     }
 }
