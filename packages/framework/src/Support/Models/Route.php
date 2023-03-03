@@ -108,12 +108,6 @@ class Route implements Stringable, SerializableContract
     }
 
     /** @deprecated Call the method on the facade Route class instead */
-    public static function get(string $routeKey): ?Route
-    {
-        return \Hyde\Facades\Route::get($routeKey);
-    }
-
-    /** @deprecated Call the method on the facade Route class instead */
     public static function getOrFail(string $routeKey): Route
     {
         return \Hyde\Facades\Route::getOrFail($routeKey);
