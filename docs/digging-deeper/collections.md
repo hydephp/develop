@@ -13,7 +13,7 @@ navigation:
 
 Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/9.x/collections) giving you a similar developer experience to working with Eloquent Collections, but here, it's all entirely file-based.
 
-You get the have access to all Laravel Collection methods so you are encouraged to read the [Laravel Collections documentation](https://laravel.com/docs/9.x/collections) for more information.
+You have access to all Laravel Collection methods, so you are encouraged to read the [Laravel Collections documentation](https://laravel.com/docs/9.x/collections) for more information.
 
 Currently only a Markdown collection type is added, but more types like YAML are planned.
 
