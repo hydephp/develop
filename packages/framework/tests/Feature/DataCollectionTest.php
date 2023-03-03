@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\DataCollections\DataCollection;
-use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
