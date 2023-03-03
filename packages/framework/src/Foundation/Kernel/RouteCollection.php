@@ -72,13 +72,6 @@ final class RouteCollection extends BaseFoundationCollection
         return $this;
     }
 
-    protected function discover(HydePage $page): self
-    {
-        $this->addRoute(new Route($page));
-
-        return $this;
-    }
-
     protected function runDiscovery(): self
     {
         $this->kernel->pages()->each(function (HydePage $page): void {
@@ -96,6 +89,13 @@ final class RouteCollection extends BaseFoundationCollection
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverRoutes($this);
         }
+
+        return $this;
+    }
+
+    protected function discover(HydePage $page): self
+    {
+        $this->addRoute(new Route($page));
 
         return $this;
     }
