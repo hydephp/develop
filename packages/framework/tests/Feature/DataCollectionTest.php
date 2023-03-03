@@ -18,15 +18,6 @@ use Illuminate\Support\Facades\File;
  */
 class DataCollectionTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        if (! is_dir(Hyde::path('resources/collections'))) {
-            mkdir(Hyde::path('resources/collections'));
-        }
-    }
-
     public function test_get_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
         $class = new DataCollection('foo');
