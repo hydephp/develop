@@ -16,6 +16,15 @@ use Illuminate\Support\Str;
  * This class acts both as a base collection class, a factory for
  * creating collections, and static facade shorthand helper methods.
  *
+ * The static "facade" methods are what makes this class special,
+ * they allow you to quickly access the data collections.
+ *
+ * To use them, call the proper method with the collection key,
+ * which is the name of the subdirectory in the resources/collections directory.
+ * So for example, if you have a collection of Markdown files in resources/collections/cards,
+ * you can access them all using DataCollection::markdown('cards').
+ * Each facade method returns a different data type appropriate for the collection.
+ *
  * All collections are keyed by their filename which is relative
  * to the configured data collection source directory.
  */
@@ -30,7 +39,7 @@ class DataCollection extends Collection
      * Get a collection of Markdown documents in the resources/collections/<$key> directory.
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @param  string  $key  for a subdirectory of the resources/collections directory
+     * @param  string  $key
      * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
      *
      * @example `Usage: DataCollection::markdown('cards')`
