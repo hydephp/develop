@@ -21,16 +21,16 @@ class DataCollection extends Collection
 
     public string $key;
 
-    protected function __construct(array $items = [], string $key = null)
+    protected function __construct(string $key)
     {
         $this->key = $key;
 
-        parent::__construct($items);
+        parent::__construct();
     }
 
     public static function create(string $key): static
     {
-        return new static(key: $key);
+        return new static($key);
     }
 
     public function getCollection(): static
