@@ -117,7 +117,8 @@ class DataCollectionUnitTest extends UnitTestCase
     /** @deprecated temporary during refactor */
     protected function getTestedFindMarkdownFiles(): array
     {
-        return (new class('foo') extends DataCollection {
+        return (new class('foo') extends DataCollection
+        {
             public function _findMarkdownFiles(): array
             {
                 return $this->findMarkdownFiles();

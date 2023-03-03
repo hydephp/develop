@@ -113,7 +113,8 @@ class DataCollectionTest extends TestCase
     /** @deprecated temporary during refactor */
     protected function getTestedFindMarkdownFiles($file = 'foo'): array
     {
-        return (new class($file) extends DataCollection {
+        return (new class($file) extends DataCollection
+        {
             public function _findMarkdownFiles(): array
             {
                 return $this->findMarkdownFiles();
