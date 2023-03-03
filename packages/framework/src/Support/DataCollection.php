@@ -92,7 +92,7 @@ class DataCollection extends Collection
 
     protected static function findYamlFiles(string $name): Collection
     {
-        return static::findFiles($name, '*.{yaml,yml}', GLOB_BRACE);
+        return static::findFiles($name, '*.{yaml,yml}');
     }
 
     protected static function findJsonFiles(string $name): Collection
@@ -100,9 +100,9 @@ class DataCollection extends Collection
         return static::findFiles($name, '*.json');
     }
 
-    protected static function findFiles(string $name, string $pattern, int $flags = 0): Collection
+    protected static function findFiles(string $name, string $pattern): Collection
     {
-        return Filesystem::smartGlob(static::$sourceDirectory."/$name/$pattern", $flags);
+        return Filesystem::smartGlob(static::$sourceDirectory."/$name/$pattern", GLOB_BRACE);
     }
 
     protected static function makeIdentifier(string $path): string
