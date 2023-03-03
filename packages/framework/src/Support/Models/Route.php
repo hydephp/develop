@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\Serializable;
@@ -117,12 +116,6 @@ class Route implements Stringable, SerializableContract
     public static function getOrFail(string $routeKey): Route
     {
         return \Hyde\Facades\Route::getOrFail($routeKey);
-    }
-
-    /** @deprecated Call the method on the facade Route class instead */
-    public static function all(): RouteCollection
-    {
-        return \Hyde\Facades\Route::all();
     }
 
     /** @deprecated Call the method on the facade Route class instead */
