@@ -76,7 +76,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        (new DataCollection('foo'))->findMarkdownFiles();
+        $this->getTestedFindMarkdownFiles();
 
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
         Mockery::close();
@@ -90,7 +90,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        $this->assertSame([], (new DataCollection('foo'))->findMarkdownFiles());
+        $this->assertSame([], $this->getTestedFindMarkdownFiles());
 
         Mockery::close();
     }
@@ -104,7 +104,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        $this->assertSame(['bar.md'], (new DataCollection('foo'))->findMarkdownFiles());
+        $this->assertSame(['bar.md'], $this->getTestedFindMarkdownFiles());
 
         Mockery::close();
     }
@@ -112,5 +112,16 @@ class DataCollectionUnitTest extends UnitTestCase
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
+    }
+
+    /** @deprecated temporary during refactor */
+    protected function getTestedFindMarkdownFiles(): array
+    {
+        return (new class('foo') extends DataCollection {
+            public function _findMarkdownFiles(): array
+            {
+                return $this->findMarkdownFiles();
+            }
+        })->_findMarkdownFiles();
     }
 }
