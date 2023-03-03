@@ -110,26 +110,31 @@ class Route implements Stringable, SerializableContract
         ];
     }
 
+    /** @deprecated Call the method on the facade Route class instead */
     public static function get(string $routeKey): ?Route
     {
         return Routes::get(str_replace('.', '/', $routeKey));
     }
 
+    /** @deprecated Call the method on the facade Route class instead */
     public static function getOrFail(string $routeKey): Route
     {
         return static::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
+    /** @deprecated Call the method on the facade Route class instead */
     public static function all(): RouteCollection
     {
         return Hyde::routes();
     }
 
+    /** @deprecated Call the method on the facade Route class instead */
     public static function current(): ?Route
     {
         return Hyde::currentRoute();
     }
 
+    /** @deprecated Call the method on the facade Route class instead */
     public static function exists(string $routeKey): bool
     {
         return Routes::has($routeKey);
