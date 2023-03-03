@@ -54,6 +54,18 @@ class DataCollectionTest extends TestCase
         ]), DataCollection::json('foo'));
     }
 
+    public function test_json_collections_as_arrays()
+    {
+        $this->directory('resources/collections/foo');
+        $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
+        $this->file('resources/collections/foo/bar.json');
+
+        $this->assertEquals(new DataCollection([
+            'foo/foo.json' => ['foo' => 'bar'],
+            'foo/bar.json' => null,
+        ]), DataCollection::json('foo', true));
+    }
+
     public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
         $class = new DataCollection();

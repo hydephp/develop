@@ -69,14 +69,14 @@ class DataCollection extends Collection
      * Get a collection of JSON documents in the resources/collections/<$key> directory.
      * Each JSON file will be parsed into a stdClass object.
      *
-     * @return DataCollection<string, \stdClass>
+     * @return DataCollection<string, \stdClass|array>
      */
-    public static function json(string $name): static
+    public static function json(string $name, bool $asArray = false): static
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(static::findJsonFiles($name)->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => json_decode(Filesystem::get($file))];
+        return new static(static::findJsonFiles($name)->mapWithKeys(function (string $file) use ($asArray): array {
+            return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));
     }
 
