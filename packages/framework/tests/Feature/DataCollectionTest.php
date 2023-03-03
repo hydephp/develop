@@ -108,6 +108,7 @@ class DataCollectionTest extends TestCase
         $this->assertSame([
             'foo/bar/foo.md',
         ], (new DataCollection('bar'))->getMarkdownFiles());
+
         DataCollection::$sourceDirectory = 'resources/collections';
     }
 }
