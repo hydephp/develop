@@ -186,7 +186,7 @@ class RouteTest extends TestCase
 
     public function testExists()
     {
-        $this->assertTrue(Route::exists('index'));
-        $this->assertFalse(Route::exists('not-found'));
+        $this->assertTrue(\Hyde\Facades\Route::exists('index'));
+        $this->assertFalse(\Hyde\Facades\Route::exists('not-found'));
     }
 }

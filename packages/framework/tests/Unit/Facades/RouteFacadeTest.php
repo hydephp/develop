@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Facades;
 
-use Hyde\Facades\Route;
 use Hyde\Support\Models\Route as RouteModel;
 use Hyde\Testing\TestCase;
 
@@ -40,6 +39,6 @@ class RouteFacadeTest extends TestCase
     public function testFacadeMethodExists()
     {
         $this->markTestIncomplete('TODO: Reimplement the tests');
-        // $this->assertSame(Route::exists('index'), RouteModel::exists('index'));
+        // $this->assertSame(\Hyde\Facades\Route::exists('index'), RouteModel::exists('index'));
     }
 }
