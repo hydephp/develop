@@ -105,10 +105,4 @@ class Route implements Stringable, SerializableContract
             ],
         ];
     }
-
-    /** @deprecated Call the method on the facade Route class instead */
-    public static function exists(string $routeKey): bool
-    {
-        return \Hyde\Facades\Route::exists($routeKey);
-    }
 }
