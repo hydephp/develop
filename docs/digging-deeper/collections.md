@@ -54,44 +54,17 @@ $collection = DataCollection::markdown('name');
 
 #### Example returns
 
-```php
-dump(DataCollection::markdown('testimonials'));
-
-Hyde\Support\DataCollection {
-  #items: array:3 [
-    'testimonials/1.md' => Hyde\Markdown\Models\MarkdownDocument
-      +matter: Hyde\Markdown\Models\FrontMatter
-        #data: array:1 [
-          'author' => 'Jane Doe'
-        ]
-      }
-      +markdown: Hyde\Markdown\Models\Markdown
-        +body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
-      }
-    }
-    'testimonials/2.md' => Hyde\Markdown\Models\MarkdownDocument
-      +matter: Hyde\Markdown\Models\FrontMatter
-        #data: array:1 [
-          'author' => 'John Smith'
-        ]
-      }
-      +markdown: Hyde\Markdown\Models\Markdown
-        +body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
-      }
-    }
-    'testimonials/3.md' => Hyde\Markdown\Models\MarkdownDocument
-      +matter: Hyde\Markdown\Models\FrontMatter
-        #data: array:1 [
-          'author' => 'John Doe'
-        ]
-      }
-      +markdown: Hyde\Markdown\Models\Markdown
-        +body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
-      }
-    }
-  ]
-}
-```
+<pre style="display: block; white-space: pre-wrap; padding: 1rem 1.5rem; overflow: initial !important; background-color: rgb(24, 23, 27); color: rgb(255, 132, 0); font: 400 12px Menlo, Monaco, Consolas, monospace; overflow-wrap: break-word; position: relative; z-index: 99999; word-break: break-all; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><span class="sf-dump-default" style="display: inline; background-color: rgb(24, 23, 27); color: rgb(255, 132, 0); font: 12px Menlo, Monaco, Consolas, monospace; overflow-wrap: break-word; white-space: pre-wrap; position: relative; z-index: 99999; word-break: break-all;">^</span><span class="sf-dump-default" style="display: inline; background-color: rgb(24, 23, 27); color: rgb(255, 132, 0); font: 12px Menlo, Monaco, Consolas, monospace; overflow-wrap: break-word; white-space: pre-wrap; position: relative; z-index: 99999; word-break: break-all;"> </span><span style="display: inline; color: rgb(18, 153, 218);">Hyde\Support\DataCollection</span> {<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);">#651 <span style="display: inline;">▼</span></span><samp>
+  #<span style="display: inline; color: rgb(255, 255, 255);">items</span>: <span style="display: inline; color: rgb(18, 153, 218);">array:3</span> [<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);"><span style="display: inline;">▼</span></span><samp>
+    "<span style="display: inline; color: rgb(86, 219, 58);">testimonials/1.md</span>" =&gt; <span style="display: inline; color: rgb(18, 153, 218);"><span>Hyde\Markdown\Models</span><span style="display: inline-block; text-overflow: ellipsis; max-width: none; white-space: nowrap; overflow: hidden; vertical-align: top; color: rgb(18, 153, 218);">\</span>MarkdownDocument</span> {<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);">#653 <span style="display: inline;">▼</span></span><samp>
+      +<span style="display: inline; color: rgb(255, 255, 255);">matter</span>: <span style="display: inline; color: rgb(18, 153, 218);"><span>Hyde\Markdown\Models</span><span style="display: inline-block; text-overflow: ellipsis; max-width: none; white-space: nowrap; overflow: hidden; vertical-align: top; color: rgb(18, 153, 218);">\</span>FrontMatter</span> {<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);">#652 <span style="display: inline;">▶</span></span>}
+      +<span style="display: inline; color: rgb(255, 255, 255);">markdown</span>: <span style="display: inline; color: rgb(18, 153, 218);"><span>Hyde\Markdown\Models</span><span style="display: inline-block; text-overflow: ellipsis; max-width: none; white-space: nowrap; overflow: hidden; vertical-align: top; color: rgb(18, 153, 218);">\</span>Markdown</span> {<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);">#654 <span style="display: inline;">▶</span></span>}
+    </samp>}
+    "<span style="display: inline; color: rgb(86, 219, 58);">testimonials/2.md</span>" =&gt; <span style="display: inline; color: rgb(18, 153, 218);"><span>Hyde\Markdown\Models</span><span style="display: inline-block; text-overflow: ellipsis; max-width: none; white-space: nowrap; overflow: hidden; vertical-align: top; color: rgb(18, 153, 218);">\</span>MarkdownDocument</span> {<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);">#656 <span style="display: inline;">▶</span></span>}
+    "<span style="display: inline; color: rgb(86, 219, 58);">testimonials/3.md</span>" =&gt; <span style="display: inline; color: rgb(18, 153, 218);"><span>Hyde\Markdown\Models</span><span style="display: inline-block; text-overflow: ellipsis; max-width: none; white-space: nowrap; overflow: hidden; vertical-align: top; color: rgb(18, 153, 218);">\</span>MarkdownDocument</span> {<span style="text-decoration: none; border: 0px; outline: none; color: rgb(160, 160, 160);">#659 <span style="display: inline;">▶</span></span>}
+  </samp>]
+</samp>}
+</pre>
 
 ## Markdown Collections - Hands-on Guide
 
