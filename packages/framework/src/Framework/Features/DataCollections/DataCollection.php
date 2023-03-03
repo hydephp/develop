@@ -52,6 +52,9 @@ class DataCollection extends Collection
      *
      * @param  string  $key  for a subdirectory of the resources/collections directory
      * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument> Collection is keyed by filename relative to the source directory.
+     *
+     * @example `Usage: DataCollection::markdown('cards')`
+     * @example `Returns: ['cards/card-1.md' => MarkdownDocument, etc...]` (assuming card-1.md exists as resources/collections/cards/card-1.md)
      */
     public static function markdown(string $key): static
     {
