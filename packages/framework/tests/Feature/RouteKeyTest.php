@@ -9,12 +9,12 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\RouteKey;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Support\Models\RouteKey
  */
-class RouteKeyTest extends TestCase
+class RouteKeyTest extends UnitTestCase
 {
     public function testMake()
     {
