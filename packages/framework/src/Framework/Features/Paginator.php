@@ -81,7 +81,7 @@ class Paginator
         $pageRange = range(1, $this->totalPages());
         if (isset($this->routeBasename)) {
             foreach ($pageRange as $number) {
-                $array[$number] = Route::get("$this->routeBasename/page-$number") ?? Hyde::formatLink("$this->routeBasename/page-$number");
+                $array[$number] = \Hyde\Facades\Route::get("$this->routeBasename/page-$number") ?? Hyde::formatLink("$this->routeBasename/page-$number");
             }
         } else {
             foreach ($pageRange as $number) {
@@ -200,7 +200,7 @@ class Paginator
 
     protected function getRoute(int $offset): Route|string
     {
-        return Route::get("$this->routeBasename/{$this->formatPageName($offset)}") ?? Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
+        return \Hyde\Facades\Route::get("$this->routeBasename/{$this->formatPageName($offset)}") ?? Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
     }
 
     protected function firstPage(): int

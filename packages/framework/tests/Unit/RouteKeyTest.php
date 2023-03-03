@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\RouteKey;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Support\Models\RouteKey
  */
-class RouteKeyTest extends TestCase
+class RouteKeyTest extends UnitTestCase
 {
     public function testMake()
     {

@@ -25,7 +25,7 @@ class DocumentationPage extends BaseMarkdownPage
 
     public static function home(): ?Route
     {
-        return Route::get(static::homeRouteName());
+        return \Hyde\Facades\Route::get(static::homeRouteName());
     }
 
     public static function homeRouteName(): string

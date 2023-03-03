@@ -11,7 +11,7 @@ use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
-use Hyde\Support\Models\Route;
+use Hyde\Facades\Route;
 
 /**
  * Handle routing for a web page request.

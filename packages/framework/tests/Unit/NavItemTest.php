@@ -44,14 +44,14 @@ class NavItemTest extends UnitTestCase
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
 
-        $this->assertSame('index.html', NavItem::fromRoute(Route::get('index'))->resolveLink());
+        $this->assertSame('index.html', NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->resolveLink());
     }
 
     public function test__toString()
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
 
-        $this->assertSame('index.html', (string) (NavItem::fromRoute(Route::get('index'))));
+        $this->assertSame('index.html', (string) (NavItem::fromRoute(\Hyde\Facades\Route::get('index'))));
     }
 
     public function testToLink()
@@ -75,7 +75,7 @@ class NavItemTest extends UnitTestCase
 
     public function testToRoute()
     {
-        $route = Route::get('index');
+        $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::toRoute($route, 'foo');
 
         $this->assertSame($route, $item->route);
@@ -86,19 +86,19 @@ class NavItemTest extends UnitTestCase
 
     public function testToRouteWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::toRoute(Route::get('index'), 'foo', 100)->priority);
+        $this->assertSame(100, NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
     }
 
     public function testToRouteIsNotHidden()
     {
-        $this->assertFalse(NavItem::toRoute(Route::get('index'), 'foo')->hidden);
+        $this->assertFalse(NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo')->hidden);
     }
 
     public function testIsCurrent()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn($this->createMock(Route::class));
 
-        $route = Route::get('index');
+        $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
 
         $this->assertFalse($item->isCurrent());
@@ -106,7 +106,7 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrentWhenCurrent()
     {
-        $route = Route::get('index');
+        $route = \Hyde\Facades\Route::get('index');
 
         Render::shouldReceive('getCurrentRoute')->once()->andReturn($route);
         $item = NavItem::fromRoute($route);
@@ -116,7 +116,7 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrentUsingRoute()
     {
-        $route = Route::get('index');
+        $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
 
         $this->assertTrue($item->isCurrent($route->getPage()));
@@ -126,12 +126,12 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::toLink('index.html', 'Home');
 
-        $this->assertTrue($item->isCurrent(Route::get('index')->getPage()));
+        $this->assertTrue($item->isCurrent(\Hyde\Facades\Route::get('index')->getPage()));
     }
 
     public function testGetRoute()
     {
-        $route = Route::get('index');
+        $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
 
         $this->assertSame($route, $item->getRoute());

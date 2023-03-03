@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Hyde;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
+use function str_replace;
 
 /**
  * Provides an easy way to access the Hyde pseudo-router.
@@ -18,7 +22,7 @@ class Route
      */
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
-        return \Hyde\Support\Models\Route::get($routeKey);
+        return Routes::get(str_replace('.', '/', $routeKey));
     }
 
     /**
@@ -29,7 +33,7 @@ class Route
      */
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
     {
-        return \Hyde\Support\Models\Route::getOrFail($routeKey);
+        return static::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
@@ -39,7 +43,7 @@ class Route
      */
     public static function all(): RouteCollection
     {
-        return \Hyde\Support\Models\Route::all();
+        return Hyde::routes();
     }
 
     /**
@@ -47,7 +51,7 @@ class Route
      */
     public static function current(): ?\Hyde\Support\Models\Route
     {
-        return \Hyde\Support\Models\Route::current();
+        return Hyde::currentRoute();
     }
 
     /**
@@ -55,6 +59,6 @@ class Route
      */
     public static function exists(string $routeKey): bool
     {
-        return \Hyde\Support\Models\Route::exists($routeKey);
+        return Routes::has($routeKey);
     }
 }

@@ -29,7 +29,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     public function generate(): static
     {
-        Route::all()->each(function (Route $route): void {
+        \Hyde\Facades\Route::all()->each(function (Route $route): void {
             $this->addRoute($route);
         });
 

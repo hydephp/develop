@@ -31,6 +31,7 @@ use Hyde\Support\Models\Route;
  *
  * Routes are not intended to be added manually, instead the route index is created using
  * the exact same rules as the current autodiscovery process and compiled file output.
+ * However, extensions can add routes using the discovery handler callbacks.
  *
  * The route index serves as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
@@ -72,14 +73,6 @@ final class RouteCollection extends BaseFoundationCollection
         return $this;
     }
 
-    protected function discover(HydePage $page): self
-    {
-        // Create a new route for the given page, and add it to the index.
-        $this->addRoute(new Route($page));
-
-        return $this;
-    }
-
     protected function runDiscovery(): self
     {
         $this->kernel->pages()->each(function (HydePage $page): void {
@@ -93,11 +86,15 @@ final class RouteCollection extends BaseFoundationCollection
 
     protected function runExtensionCallbacks(): self
     {
-        /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverRoutes($this);
         }
 
         return $this;
+    }
+
+    protected function discover(HydePage $page): void
+    {
+        $this->addRoute(new Route($page));
     }
 }
