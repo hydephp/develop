@@ -38,6 +38,15 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 
 ### Quick Reference Overview
 
+The following facade methods for creating data collections are available:
+
+```php
+\Hyde\Support\DataCollection::markdown();
+\Hyde\Support\DataCollection::yaml();
+```
+
+### Quick Reference Table
+
 | Collection Type                       | Facade Method  | Returned Object Type                                                                                            | File Extension |
 |---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|----------------|
 | **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php) | `.md`          |
