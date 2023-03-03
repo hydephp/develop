@@ -82,7 +82,10 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/bar.md');
 
-        $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, DataCollection::markdown('foo'));
+        $this->assertEquals([
+            new MarkdownDocument([], ''),
+            new MarkdownDocument([], ''),
+        ], DataCollection::markdown('foo')->toArray());
     }
 
     public function test_static_markdown_helper_doest_not_ignore_files_starting_with_an_underscore()
