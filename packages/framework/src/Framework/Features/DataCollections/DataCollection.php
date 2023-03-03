@@ -24,7 +24,7 @@ class DataCollection extends Collection
 
     /** @deprecated Use the static create method instead */
     #[Deprecated(reason: 'Use the static create method instead', replacement: '%class%::create(%parameter0%)')]
-    public function __construct(string $key)
+    protected function __construct(string $key)
     {
         $this->key = $key;
 
