@@ -47,17 +47,17 @@ class DataCollection extends Collection
     public static function markdown(string $key): static
     {
         $collection = new DataCollection($key);
-        foreach ($collection->findMarkdownFiles() as $file) {
+        foreach (static::findMarkdownFiles($key) as $file) {
             $collection->put(unslash(Str::after($file, static::$sourceDirectory)), (new MarkdownFileParser($file))->get());
         }
 
         return $collection;
     }
 
-    protected function findMarkdownFiles(): array
+    protected static function findMarkdownFiles(string $key): array
     {
         return Filesystem::smartGlob(
-            static::$sourceDirectory.'/'.$this->key.'/*.md'
+            static::$sourceDirectory.'/'.$key.'/*.md'
         )->toArray();
     }
 }
