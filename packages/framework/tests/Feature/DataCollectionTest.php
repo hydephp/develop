@@ -38,7 +38,7 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/bar.md');
 
-        $this->assertEquals([
+        $this->assertSame([
             'resources/collections/foo/bar.md',
             'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
@@ -51,7 +51,7 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo/bar');
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/bar/bar.md');
-        $this->assertEquals([
+        $this->assertSame([
             'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
     }
@@ -61,7 +61,7 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/bar.txt');
-        $this->assertEquals([
+        $this->assertSame([
             'resources/collections/foo/foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
     }
@@ -71,7 +71,7 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/_foo.md');
 
-        $this->assertEquals([
+        $this->assertSame([
             'resources/collections/foo/_foo.md',
         ], (new DataCollection('foo'))->getMarkdownFiles());
     }
@@ -100,7 +100,7 @@ class DataCollectionTest extends TestCase
         DataCollection::$sourceDirectory = 'foo';
         $this->directory('foo/bar');
         $this->file('foo/bar/foo.md');
-        $this->assertEquals([
+        $this->assertSame([
             'foo/bar/foo.md',
         ], (new DataCollection('bar'))->getMarkdownFiles());
         DataCollection::$sourceDirectory = 'resources/collections';
