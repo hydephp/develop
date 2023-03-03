@@ -20,8 +20,6 @@ class DataCollection extends Collection
 {
     public static string $sourceDirectory = 'resources/collections';
 
-    public string $key;
-
     public function __construct(string $key)
     {
         $this->key = $key;
