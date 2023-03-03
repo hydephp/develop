@@ -15,7 +15,6 @@ use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
@@ -46,8 +45,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate();
 
         $expected = collect([
-            '404' => NavItem::fromRoute(Route::get('404')),
-            'index' => NavItem::fromRoute(Route::get('index')),
+            '404' => NavItem::fromRoute(\Hyde\Facades\Route::get('404')),
+            'index' => NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -60,8 +59,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate()->sort();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('404')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('404')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -74,7 +73,7 @@ class NavigationMenuTest extends TestCase
         $menu->generate()->filter();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -101,9 +100,9 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo')),
-            NavItem::fromRoute(Route::get('docs/index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('foo')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('docs/index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -120,8 +119,8 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('foo')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -142,7 +141,7 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
             NavItem::toLink('https://example.com', 'foo'),
         ]);
 
@@ -157,7 +156,7 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
             NavItem::toLink('foo', 'foo'),
         ]);
 
@@ -175,7 +174,7 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
             NavItem::toLink('foo', 'foo'),
         ]);
 
@@ -193,7 +192,7 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
             NavItem::toLink('foo', 'foo'),
         ]);
 
@@ -209,8 +208,8 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('docs/index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('docs/index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -226,7 +225,7 @@ class NavigationMenuTest extends TestCase
         Filesystem::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
-        $expected = collect([NavItem::fromRoute(Route::get('index'))]);
+        $expected = collect([NavItem::fromRoute(\Hyde\Facades\Route::get('index'))]);
 
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
@@ -240,8 +239,8 @@ class NavigationMenuTest extends TestCase
 
         $menu = NavigationMenu::create();
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo/bar')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('foo/bar')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -256,9 +255,9 @@ class NavigationMenuTest extends TestCase
 
         $menu = NavigationMenu::create();
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
             DropdownNavItem::fromArray('foo', [
-                NavItem::fromRoute(Route::get('foo/bar')),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('foo/bar')),
             ]),
         ]);
 
@@ -399,7 +398,7 @@ class NavigationMenuTest extends TestCase
 
         $this->assertCount(3, $menu->items);
         $this->assertEquals([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(\Hyde\Facades\Route::get('index')),
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
             DropdownNavItem::fromArray('bar', [
                 NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),

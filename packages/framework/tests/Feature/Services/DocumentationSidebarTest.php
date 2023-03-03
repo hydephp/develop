@@ -11,7 +11,6 @@ use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
@@ -81,9 +80,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/a'))->setPriority(999),
-                NavItem::fromRoute(Route::get('docs/b'))->setPriority(999),
-                NavItem::fromRoute(Route::get('docs/c'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/a'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/b'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/c'))->setPriority(999),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -102,9 +101,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/c'))->setPriority(250 + 250),
-                NavItem::fromRoute(Route::get('docs/b'))->setPriority(250 + 251),
-                NavItem::fromRoute(Route::get('docs/a'))->setPriority(250 + 252),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/c'))->setPriority(250 + 250),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/b'))->setPriority(250 + 251),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/a'))->setPriority(250 + 252),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -141,9 +140,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/first'))->setPriority(250 + 250),
-                NavItem::fromRoute(Route::get('docs/second'))->setPriority(250 + 252),
-                NavItem::fromRoute(Route::get('docs/third'))->setPriority(250 + 300),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/first'))->setPriority(250 + 250),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/second'))->setPriority(250 + 252),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/third'))->setPriority(250 + 300),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -228,15 +227,15 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
-                NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/bar'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/foo'))->setPriority(999),
             ]),
             DocumentationSidebar::create()->getItemsInGroup('bar')
         );
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/baz'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/baz'))->setPriority(999),
             ]),
             DocumentationSidebar::create()->getItemsInGroup('baz')
         );
@@ -250,9 +249,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/a'))->setPriority(999),
-                NavItem::fromRoute(Route::get('docs/b'))->setPriority(999),
-                NavItem::fromRoute(Route::get('docs/c'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/a'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/b'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/c'))->setPriority(999),
             ]),
             DocumentationSidebar::create()->getItemsInGroup('Foo bar')
         );
@@ -264,7 +263,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('b', ['navigation.group' => 'foo']);
 
         $this->assertEquals(
-            collect([NavItem::fromRoute(Route::get('docs/b'))->setPriority(999)]),
+            collect([NavItem::fromRoute(\Hyde\Facades\Route::get('docs/b'))->setPriority(999)]),
             DocumentationSidebar::create()->getItemsInGroup('foo')
         );
     }
@@ -275,7 +274,7 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
 
         $this->assertEquals(
-            collect([NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999)]),
+            collect([NavItem::fromRoute(\Hyde\Facades\Route::get('docs/foo'))->setPriority(999)]),
             DocumentationSidebar::create()->items
         );
     }
@@ -347,8 +346,8 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
-                NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/bar'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/foo'))->setPriority(999),
             ]),
             $sidebar->items
         );
@@ -364,7 +363,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
+                NavItem::fromRoute(\Hyde\Facades\Route::get('docs/bar'))->setPriority(999),
             ]),
             $sidebar->items
         );

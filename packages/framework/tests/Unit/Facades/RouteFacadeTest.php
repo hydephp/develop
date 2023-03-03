@@ -16,13 +16,13 @@ class RouteFacadeTest extends TestCase
     public function testFacadeMethodGet()
     {
         $this->markTestIncomplete('TODO: Reimplement the tests');
-        // $this->assertSame(Route::get('index'), RouteModel::get('index'));
+        // $this->assertSame(\Hyde\Facades\Route::get('index'), RouteModel::get('index'));
     }
 
     public function testFacadeMethodGetOrFail()
     {
         $this->markTestIncomplete('TODO: Reimplement the tests');
-        // $this->assertSame(Route::getOrFail('index'), RouteModel::getOrFail('index'));
+        // $this->assertSame(\Hyde\Facades\Route::getOrFail('index'), RouteModel::getOrFail('index'));
     }
 
     public function testFacadeMethodAll()

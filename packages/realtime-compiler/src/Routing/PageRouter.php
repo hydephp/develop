@@ -11,7 +11,6 @@ use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
-use Hyde\Support\Models\Route;
 
 /**
  * Handle routing for a web page request.
@@ -79,6 +78,6 @@ class PageRouter
             return new DocumentationSearchPage();
         }
 
-        return Route::getOrFail($this->normalizePath($this->request->path))->getPage();
+        return \Hyde\Facades\Route::getOrFail($this->normalizePath($this->request->path))->getPage();
     }
 }
