@@ -10,7 +10,7 @@ use function unslash;
 /**
  * Route keys are the core of Hyde's routing system.
  *
- * In short, the route key is the URL path relative to the site root.
+ * In short, the route key is the URL path relative to the site webroot, without the file extension.
  *
  * For example, `_pages/index.blade.php` would be compiled to `_site/index.html` and thus has the route key of `index`.
  * As another example, `_posts/welcome.md` would be compiled to `_site/posts/welcome.html` and thus has the route key of `posts/welcome`.
