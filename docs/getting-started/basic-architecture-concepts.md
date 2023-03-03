@@ -140,18 +140,18 @@ Each route in your site is represented by a Route object. It's very easy to get 
 ```php
 // Source file: _pages/index.md/index.blade.php
 // Compiled file: _site/index.html
-\Hyde\Facades\Route::get('index') 
+Route::get('index') 
 
 // Source file: _posts/my-post.md
 // Compiled file: _site/posts/my-post.html
-\Hyde\Facades\Route::get('posts/my-post')
+Route::get('posts/my-post')
 
 // Source file: _docs/readme.md
 // Compiled file: _site/docs/readme.html
-\Hyde\Facades\Route::get('docs/readme')
+Route::get('docs/readme')
 ```
 
->info Tip: You can also use "dot notation" instead of slashes, for example `\Hyde\Facades\Route::get('posts.my-post')`.
+>info Tip: You can also use "dot notation" instead of slashes, for example `Route::get('posts.my-post')`.
 
 ### Using the `x-link` component
 
@@ -165,12 +165,12 @@ You can of course, use it just like a normal anchor tag like so:
 But where it really shines is when you supply a route. This will then resolve the proper relative link, and format it to use pretty URLs if your site is configured to use them.
 
 ```blade
-<x-link :href="\Hyde\Facades\Route::get('index')">Home</x-link>
+<x-link :href="Route::get('index')">Home</x-link>
 ```
 
 You can of course, also supply extra attributes like classes:
 ```blade
-<x-link :href="\Hyde\Facades\Route::get('index')" class="btn btn-primary">Home</x-link>
+<x-link :href="Route::get('index')" class="btn btn-primary">Home</x-link>
 ```
 
 ## Nested directories

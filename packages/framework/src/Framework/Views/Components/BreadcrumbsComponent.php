@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Views\Components;
 
 use Hyde\Hyde;
+use Hyde\Facades\Route;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -27,7 +28,7 @@ class BreadcrumbsComponent extends Component
     protected function makeBreadcrumbs(): array
     {
         $identifier = Hyde::currentRoute()->getPage()->getIdentifier();
-        $breadcrumbs = [(\Hyde\Facades\Route::get('index')?->getLink() ?? '/') => 'Home'];
+        $breadcrumbs = [(Route::get('index')?->getLink() ?? '/') => 'Home'];
 
         if ($identifier === 'index') {
             return $breadcrumbs;
