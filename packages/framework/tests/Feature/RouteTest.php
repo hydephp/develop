@@ -114,6 +114,8 @@ class RouteTest extends UnitTestCase
 
     public function test_to_array_method()
     {
+        MarkdownPage::$sourceDirectory = '_pages';
+
         $this->assertEquals([
             'routeKey' => 'foo',
             'sourcePath' => '_pages/foo.md',
