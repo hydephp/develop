@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use function str_contains;
 
@@ -13,28 +14,26 @@ use function str_contains;
  *
  * This class is loaded into the service container, making it easy to access and modify.
  *
+ * The class also provides helper methods for interacting with versioned files,
+ * as well as the HydeFront CDN service and the media directories.
+ *
  * @see \Hyde\Facades\Asset
  */
 class AssetService
 {
-    /**
-     * The default HydeFront version to load.
-     *
-     * @var string HydeFront SemVer Tag
-     */
-    public string $version = 'v2.0';
+    /** @var string The default HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
+    public final const HYDEFRONT_VERSION = 'v2.0';
 
-    protected ?string $hydefrontUrl = null;
+    /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
+    public final const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
+
+    protected string $version = self::HYDEFRONT_VERSION;
+    protected string $cdnUrl = self::HYDEFRONT_CDN_URL;
 
     public function __construct()
     {
-        if (config('hyde.hydefront_version')) {
-            $this->version = config('hyde.hydefront_version');
-        }
-
-        if (config('hyde.hydefront_url')) {
-            $this->hydefrontUrl = config('hyde.hydefront_url');
-        }
+        $this->version = Config::getString('hyde.hydefront_version', self::HYDEFRONT_VERSION);
+        $this->cdnUrl = Config::getString('hyde.hydefront_url', self::HYDEFRONT_CDN_URL);
     }
 
     public function version(): string
@@ -49,18 +48,19 @@ class AssetService
 
     public function mediaLink(string $file): string
     {
-        return Hyde::mediaLink("$file").$this->getCacheBustKey($file);
+        return Hyde::mediaLink($file).$this->getCacheBustKey($file);
     }
 
     public function hasMediaFile(string $file): bool
     {
-        return file_exists(Hyde::mediaPath().'/'.$file);
+        return file_exists(Hyde::mediaPath($file));
     }
 
     public function injectTailwindConfig(): string
     {
         $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
 
+        // Remove the plugins array, as it is not used in the frontend.
         if (str_contains($config, 'plugins: [')) {
             $tokens = explode('plugins: [', $config, 2);
             $tokens[1] = Str::after($tokens[1], ']');
@@ -72,15 +72,16 @@ class AssetService
 
     protected function constructCdnPath(string $file): string
     {
-        return $this->hydefrontUrl ?? 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
+        return str_replace(
+            ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
+            $this->cdnUrl
+        );
     }
 
     protected function getCacheBustKey(string $file): string
     {
-        if (! config('hyde.cache_busting', true)) {
-            return '';
-        }
-
-        return '?v='.md5_file(Hyde::mediaPath("$file"));
+        return Config::getBool('hyde.enable_cache_busting', true)
+            ? '?v='.md5_file(Hyde::mediaPath("$file"))
+            : '';
     }
 }
