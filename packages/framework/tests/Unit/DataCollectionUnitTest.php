@@ -27,26 +27,26 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testConstructorCreatesNewDataCollectionInstance()
     {
-        $class = new DataCollection('foo');
+        $class = DataCollection::create('foo');
         $this->assertInstanceOf(DataCollection::class, $class);
         $this->assertInstanceOf(Collection::class, $class);
     }
 
     public function testConstructorSetsKey()
     {
-        $class = new DataCollection('foo');
+        $class = DataCollection::create('foo');
         $this->assertSame('foo', $class->key);
     }
 
     public function testGetCollectionMethodReturnsTheCollectionInstance()
     {
-        $class = new DataCollection('foo');
+        $class = DataCollection::create('foo');
         $this->assertSame($class, $class->getCollection());
     }
 
     public function testCanConvertCollectionToArray()
     {
-        $class = new DataCollection('foo');
+        $class = DataCollection::create('foo');
         $this->assertIsArray($class->toArray());
         $this->assertEmpty($class->toArray());
     }

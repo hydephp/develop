@@ -54,7 +54,7 @@ class DataCollection extends Collection
      */
     public static function markdown(string $key): static
     {
-        $collection = new DataCollection($key);
+        $collection = static::create($key);
         foreach ($collection->getMarkdownFiles() as $file) {
             $collection->push(
                 (new MarkdownFileParser($file))->get()
