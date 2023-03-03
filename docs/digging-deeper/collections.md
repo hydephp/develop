@@ -41,6 +41,7 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 | Collection Type                       | Facade Method  | Returned Object Type                                                                                            | File Extension |
 |---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|----------------|
 | **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php) | `.md`          |
+| **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)           | `.yaml`        |
 
 ### Markdown Collections
 
