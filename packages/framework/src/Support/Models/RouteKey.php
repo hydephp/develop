@@ -14,6 +14,9 @@ use function unslash;
  *
  * For example, `_pages/index.blade.php` would be compiled to `_site/index.html` and thus has the route key of `index`.
  * As another example, `_posts/welcome.md` would be compiled to `_site/posts/welcome.html` and thus has the route key of `posts/welcome`.
+ *
+ * Note that if the source page's output directory is changed, the route key will change accordingly.
+ * This can potentially cause links to break when changing the output directory for a page class.
  */
 final class RouteKey implements Stringable
 {
