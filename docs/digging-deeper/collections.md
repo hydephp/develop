@@ -6,31 +6,33 @@ navigation:
 
 # File-based Collections
 
->info This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
-
 
 ## Introduction to Hyde Data Collections
 
-Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/9.x/collections) giving you a similar developer experience to working with Eloquent Collections, but here, it's all entirely file-based.
+Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/9.x/collections) giving you
+a similar developer experience to working with Eloquent Collections,but here, it's all entirely file-based using static
+data files such as Markdown, Yaml, and JSON files. These get parsed into objects that you can easily work with.
 
-You have access to all Laravel Collection methods, so you are encouraged to read the [Laravel Collections documentation](https://laravel.com/docs/9.x/collections) for more information.
+As you have access to all standard Laravel Collection methods, you are encouraged to read the
+[Laravel Collections documentation](https://laravel.com/docs/9.x/collections) for more information.
 
-Currently only a Markdown collection type is added, but more types like YAML are planned.
+>info This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
 
 ### High-Level Concept Overview
 
-To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections. Follow these conventions and creating dynamic static sites will be a breeze.
+To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections.
+Follow these conventions and creating dynamic static sites will be a breeze.
 
 1. Collections are stored in the new `resources/collections` directory.
-2. Each subdirectory in here can be a collection. 
-3. Data collections are automatically generated from the source files when you use the Facade you will learn about below.
-4. When using one of the facades, you need to specify the collection name, this name is the name of the subdirectory.
+2. Collections are accessed through the `MarkdownCollection` class, which is aliased so that you can use it in Blade files without having to include the namespace.
+3. Collections are retrieved by the subdirectory name. Each subdirectory in here can be accessed as a collection.
+4. Data will be parsed into differing objects depending on which facade method you use.
 5. Each subdirectory should probably only have the same filetype to prevent developer confusion, but this is not enforced.
 6. Unlike Markdown pages, files starting with underscores are not ignored.
 7. You can customize the source directory for collections through a service provider.
 
 
-### Markdown Collections - Hands on Guide
+### Markdown Collections - Hands-on Guide
 
 #### Setting up the file structure
 
@@ -38,7 +40,8 @@ I think the best way to explain DataCollections is through examples. Let's creat
 
 We start by setting up our directory structure. We will create a `testimonials` subdirectory, which will be the collection name.
 
-In it we will place Markdown files. Each file will be a testimonial. The Markdown will be parsed into a `MarkdownDocument` object which parses any optional YAML front matter. 
+In it, we will place Markdown files. Each file will be a testimonial. 
+The Markdown will be parsed into a `MarkdownDocument` object which parses any optional YAML front matter. 
 
 Here is the sample Markdown we will use:
 
@@ -51,7 +54,8 @@ author: John Doe
 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 ```
 
-Let's take a look at our directory structure. I just copied the same file a few times. You can name the files anything you want, I kept it simple and just numbered them.
+Let's take a look at our directory structure. I just copied the same file a few times.
+You can name the files anything you want, I kept it simple and just numbered them.
 
 ```tree
 resources/collections
@@ -65,12 +69,13 @@ resources/collections
 
 #### Using the Facade to Access the Collections
 
-Now for the fun part! We will use the `MarkdownCollection` facade to access all our files into a convenient object. The class is registered with an alias, so you don't need to include any namespaces when in a Blade file.
+Now for the fun part! We will use the `DataCollection::markdown()` to access all our files into a convenient object.
+The class is registered with an alias, so you don't need to include any namespaces when in a Blade file.
 
 The general syntax to use the facade is as follows:
 
 ```blade
-MarkdownCollection::get('subdirectory_name')
+DataCollection::markdown('subdirectory_name')
 ```
 
 This will return a Hyde DataCollection object, containing our Markdown files as MarkdownDocument objects. Here is a quick look at the object the facade returns:
@@ -84,13 +89,14 @@ Let's create a Blade page to display all our testimonials.
 
 ```bash
 php hyde make:page "Testimonials" --type="blade"
-# or just touch _pages/testimonials.blade.php
 ```
 
-And we can use the collection almost like any other Laravel one. As you can see, we are able to get the author from the front matter, and the content from the body.
+And we can use the collection almost like any other Laravel one. As you can see, since each entry is a `MarkdownDocument` class,
+we are able to get the author from the front matter, and the content from the body.
 
 ```blade
-@foreach(MarkdownCollection::get('testimonials') as $testimonial)
+// filepath _pages/testimonials.blade.php
+@foreach(DataCollection::markdown('testimonials') as $testimonial)
 <blockquote>
 	<p>{{ $testimonial->body }}</p>
 	<small>{{ $testimonial->matter['author'] }}</small>
