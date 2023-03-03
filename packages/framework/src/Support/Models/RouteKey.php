@@ -24,7 +24,7 @@ final class RouteKey implements Stringable
 
     public static function make(string $key): self
     {
-        return new RouteKey($key);
+        return new self($key);
     }
 
     public function __construct(string $key)
