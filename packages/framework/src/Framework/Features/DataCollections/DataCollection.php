@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\DataCollections;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
 
 /**
@@ -35,9 +35,9 @@ class DataCollection extends Collection
 
     public function getMarkdownFiles(): array
     {
-        return glob(Hyde::path(
+        return Filesystem::smartGlob(
             static::$sourceDirectory.'/'.$this->key.'/*.md'
-        ));
+        )->toArray();
     }
 
     /**
@@ -52,7 +52,7 @@ class DataCollection extends Collection
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
             $collection->push(
-                (new MarkdownFileParser(Hyde::pathToRelative($file)))->get()
+                (new MarkdownFileParser($file))->get()
             );
         }
 
