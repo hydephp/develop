@@ -96,26 +96,40 @@ class RouteTest extends UnitTestCase
         $this->assertSame($route->getLink(), (string) $route);
     }
 
-    public function testIsWithRoute()
+    public function testIsWithRouteReturnsTrueWhenTrue()
     {
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is($route));
+    }
 
+    public function testIsWithRouteReturnsFalseWhenFalse()
+    {
+        $route = new Route(new MarkdownPage('foo'));
         $route2 = new Route(new MarkdownPage('bar'));
         $this->assertFalse($route->is($route2));
     }
 
-    public function testIsWithRouteKey()
+    public function testIsWithRouteKeyReturnsTrueWhenTrue()
     {
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is('foo'));
+    }
+
+    public function testIsWithRouteKeyReturnsFalseWhenFalse()
+    {
+        $route = new Route(new MarkdownPage('foo'));
         $this->assertFalse($route->is('bar'));
     }
 
-    public function testIsWithRouteKeyObject()
+    public function testIsWithRouteKeyObjectReturnsTrueWhenTrue()
     {
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is(new RouteKey('foo')));
+    }
+
+    public function testIsWithRouteKeyObjectReturnsTrueWhenFalse()
+    {
+        $route = new Route(new MarkdownPage('foo'));
         $this->assertFalse($route->is(new RouteKey('bar')));
     }
 
