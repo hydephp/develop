@@ -24,16 +24,16 @@ class DataCollection extends Collection
 
     /** @deprecated Use the static create method instead */
     #[Deprecated(reason: 'Use the static create method instead', replacement: '%class%::create(%parameter0%)')]
-    protected function __construct(string $key)
+    protected function __construct(array $items = [], string $key = null)
     {
         $this->key = $key;
 
-        parent::__construct();
+        parent::__construct($items);
     }
 
     public static function create(string $key): static
     {
-        return new static($key);
+        return new static(key: $key);
     }
 
     public function getCollection(): static
