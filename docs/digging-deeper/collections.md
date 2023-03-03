@@ -126,10 +126,10 @@ we are able to get the author from the front matter, and the content from the bo
 ```blade
 // filepath _pages/testimonials.blade.php
 @foreach(DataCollection::markdown('testimonials') as $testimonial)
-<blockquote>
-	<p>{{ $testimonial->body }}</p>
-	<small>{{ $testimonial->matter['author'] }}</small>
-</blockquote>
+    <blockquote>
+        <p>{{ $testimonial->body }}</p>
+        <small>{{ $testimonial->matter['author'] }}</small>
+    </blockquote>
 @endforeach
 ```
 
