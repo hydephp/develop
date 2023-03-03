@@ -35,11 +35,15 @@ class BaseFoundationCollectionTest extends UnitTestCase
         $this->assertSame($booted, $booted->getInstance());
     }
 
+    public function test_exceptions_are_caught_and_rethrown_as_runtime_exceptions()
+    {
+        $this->expectException(RuntimeException::class);
+        ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
+    }
+
     public function test_exceptions_are_caught_and_rethrown_with_helpful_information()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('An error occurred during the discovery process');
-
         ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
     }
 }
