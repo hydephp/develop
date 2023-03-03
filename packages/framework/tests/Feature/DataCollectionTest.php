@@ -18,8 +18,8 @@ class DataCollectionTest extends TestCase
     public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
         $class = new DataCollection();
-        $this->assertIsArray($this->getTestedFindMarkdownFiles());
-        $this->assertEmpty($this->getTestedFindMarkdownFiles());
+        $this->assertIsArray(DataCollection::markdown('foo')->keys()->toArray());
+        $this->assertEmpty(DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function test_find_markdown_files_method_returns_empty_array_if_no_files_are_found_in_specified_directory()
@@ -27,8 +27,8 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo');
 
         $class = new DataCollection();
-        $this->assertIsArray($this->getTestedFindMarkdownFiles());
-        $this->assertEmpty($this->getTestedFindMarkdownFiles());
+        $this->assertIsArray(DataCollection::markdown('foo')->keys()->toArray());
+        $this->assertEmpty(DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function test_find_markdown_files_method_returns_an_array_of_markdown_files_in_the_specified_directory()
@@ -40,7 +40,7 @@ class DataCollectionTest extends TestCase
         $this->assertSame([
             'foo/bar.md',
             'foo/foo.md',
-        ], $this->getTestedFindMarkdownFiles());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function test_find_markdown_files_method_does_not_include_files_in_subdirectories()
@@ -52,7 +52,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/foo.md',
-        ], $this->getTestedFindMarkdownFiles());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function test_find_markdown_files_method_does_not_include_files_with_extensions_other_than_md()
@@ -63,7 +63,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/foo.md',
-        ], $this->getTestedFindMarkdownFiles());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function test_find_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
@@ -73,7 +73,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/_foo.md',
-        ], $this->getTestedFindMarkdownFiles());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function test_static_markdown_helper_discovers_and_parses_markdown_files_in_the_specified_directory()
@@ -105,13 +105,8 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'bar/foo.md',
-        ], $this->getTestedFindMarkdownFiles('bar'));
+        ], DataCollection::markdown('bar')->keys()->toArray());
 
         DataCollection::$sourceDirectory = 'resources/collections';
-    }
-
-    protected function getTestedFindMarkdownFiles($file = 'foo'): array
-    {
-        return DataCollection::markdown($file)->keys()->toArray();
     }
 }
