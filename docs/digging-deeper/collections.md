@@ -52,6 +52,35 @@ use \Hyde\Support\DataCollection;
 $collection = DataCollection::markdown('name');
 ```
 
+#### Example returns
+
+```php
+dump(DataCollection::markdown('testimonials'));
+
+Hyde\Support\DataCollection {
+    #items: array:3 [
+        0 => Hyde\Markdown\Models\MarkdownDocument {
+        #frontMatter: array:1 [
+            "author" => "John Doe"
+        ]
+        #body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+        }
+        1 => Hyde\Markdown\Models\MarkdownDocument {
+        #frontMatter: array:1 [
+            "author" => "Jane Doe"
+        ]
+        #body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+        }
+        2 => Hyde\Markdown\Models\MarkdownDocument {
+        #frontMatter: array:1 [
+            "author" => "John Smith"
+        ]
+        #body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+        }
+    ]
+}
+```
+
 ## Markdown Collections - Hands-on Guide
 
 I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
