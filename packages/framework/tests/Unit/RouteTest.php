@@ -30,7 +30,7 @@ class RouteTest extends UnitTestCase
 
     public function testGetPageTypeReturnsFullyQualifiedClassName()
     {
-        $this->assertEquals(MarkdownPage::class, (new Route(new MarkdownPage()))->getPageClass());
+        $this->assertSame(MarkdownPage::class, (new Route(new MarkdownPage()))->getPageClass());
     }
 
     public function testGetSourceModelReturnsPageModel()
@@ -45,55 +45,55 @@ class RouteTest extends UnitTestCase
     public function testGetRouteKeyReturnsPagePath()
     {
         $page = new MarkdownPage();
-        $this->assertEquals($page->getRouteKey(), (new Route($page))->getRouteKey());
+        $this->assertSame($page->getRouteKey(), (new Route($page))->getRouteKey());
     }
 
     public function testGetSourceFilePathReturnsPageSourcePath()
     {
         $page = new MarkdownPage();
-        $this->assertEquals($page->getSourcePath(), (new Route($page))->getSourcePath());
+        $this->assertSame($page->getSourcePath(), (new Route($page))->getSourcePath());
     }
 
     public function testGetOutputFilePathReturnsPageOutputPath()
     {
         $page = new MarkdownPage();
-        $this->assertEquals($page->getOutputPath(), (new Route($page))->getOutputPath());
+        $this->assertSame($page->getOutputPath(), (new Route($page))->getOutputPath());
     }
 
     public function testGetLinkReturnsCorrectPathForRootPages()
     {
         $route = new Route(new MarkdownPage('foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
-        $this->assertEquals('foo.html', $route->getLink());
+        $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
+        $this->assertSame('foo.html', $route->getLink());
     }
 
     public function testGetLinkReturnsCorrectPathForNestedPages()
     {
         $route = new Route(new MarkdownPage('foo/bar'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
-        $this->assertEquals('foo/bar.html', $route->getLink());
+        $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
+        $this->assertSame('foo/bar.html', $route->getLink());
     }
 
     public function testGetLinkReturnsCorrectPathForNestedCurrentPage()
     {
         $route = new Route(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentPage')->andReturn('foo/bar');
-        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
-        $this->assertEquals('../foo.html', $route->getLink());
+        $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
+        $this->assertSame('../foo.html', $route->getLink());
     }
 
     public function testGetLinkReturnsPrettyUrlIfEnabled()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $route = new Route(new MarkdownPage('foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
-        $this->assertEquals('foo', $route->getLink());
+        $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
+        $this->assertSame('foo', $route->getLink());
     }
 
     public function testToStringIsAliasForGetLink()
     {
         $route = new Route(new MarkdownPage('foo'));
-        $this->assertEquals($route->getLink(), (string) $route);
+        $this->assertSame($route->getLink(), (string) $route);
     }
 
     public function testIsWithRoute()
@@ -121,7 +121,7 @@ class RouteTest extends UnitTestCase
 
     public function testToArrayMethod()
     {
-        $this->assertEquals([
+        $this->assertSame([
             'routeKey' => 'foo',
             'sourcePath' => '_pages/foo.md',
             'outputPath' => 'foo.html',
