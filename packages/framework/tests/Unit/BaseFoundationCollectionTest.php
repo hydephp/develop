@@ -46,6 +46,16 @@ class BaseFoundationCollectionTest extends UnitTestCase
         $this->expectException(RuntimeException::class);
         ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
     }
+
+    public function test_can_get_previous_exception()
+    {
+        try {
+            ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
+        } catch (RuntimeException $exception) {
+            $this->assertInstanceOf(Exception::class, $exception->getPrevious());
+            $this->assertSame('This is a test exception', $exception->getPrevious()->getMessage());
+        }
+    }
 }
 
 class BaseFoundationCollectionTestClass extends BaseFoundationCollection
