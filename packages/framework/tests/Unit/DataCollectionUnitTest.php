@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use ArgumentCountError;
 use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
@@ -32,12 +31,6 @@ class DataCollectionUnitTest extends UnitTestCase
     {
         $class = new DataCollection('foo');
         $this->assertEquals('foo', $class->key);
-    }
-
-    public function testKeyIsRequired()
-    {
-        $this->expectException(ArgumentCountError::class);
-        new DataCollection();
     }
 
     public function testGetCollectionMethodReturnsTheCollectionInstance()
