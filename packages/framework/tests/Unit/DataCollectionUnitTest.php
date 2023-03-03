@@ -30,7 +30,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testConstructorCreatesNewDataCollectionInstance()
     {
-        $class = new DataCollection('foo');
+        $class = new DataCollection();
         $this->assertInstanceOf(DataCollection::class, $class);
         $this->assertInstanceOf(Collection::class, $class);
     }
@@ -43,12 +43,12 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testCanConvertCollectionToArray()
     {
-        $this->assertSame([], (new DataCollection('foo'))->toArray());
+        $this->assertSame([], (new DataCollection())->toArray());
     }
 
     public function testCanConvertCollectionToJson()
     {
-        $this->assertSame('[]', (new DataCollection('foo'))->toJson());
+        $this->assertSame('[]', (new DataCollection())->toJson());
     }
 
     public function testCanConvertCollectionToArrayWithItems()
