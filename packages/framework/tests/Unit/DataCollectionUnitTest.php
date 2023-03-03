@@ -90,8 +90,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        $class = new DataCollection('foo');
-        $this->assertSame([], $class->findMarkdownFiles());
+        $this->assertSame([], (new DataCollection('foo'))->findMarkdownFiles());
 
         Mockery::close();
     }
@@ -105,8 +104,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        $class = new DataCollection('foo');
-        $this->assertSame(['bar.md'], $class->findMarkdownFiles());
+        $this->assertSame(['bar.md'], (new DataCollection('foo'))->findMarkdownFiles());
 
         Mockery::close();
     }
