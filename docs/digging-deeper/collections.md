@@ -129,7 +129,7 @@ name: "John Doe"
 email: "john@example.org"
 ```
 
->warn Note that the Yaml file should start with `---` to be parsed correctly.
+>warning Note that the Yaml file should start with `---` to be parsed correctly.
 
 
 ## Markdown Collections - Hands-on Guide
