@@ -115,7 +115,7 @@ class DataCollectionUnitTest extends UnitTestCase
         {
             public function _findMarkdownFiles(): array
             {
-                return $this->findMarkdownFiles($this->key);
+                return $this->findMarkdownFiles($this->key)->toArray();
             }
         })->_findMarkdownFiles();
     }
