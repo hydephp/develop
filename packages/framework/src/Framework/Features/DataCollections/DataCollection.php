@@ -28,11 +28,6 @@ class DataCollection extends Collection
         parent::__construct();
     }
 
-    public static function create(string $key): static
-    {
-        return new static($key);
-    }
-
     public function getCollection(): static
     {
         return $this;
