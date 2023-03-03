@@ -58,26 +58,38 @@ $collection = DataCollection::markdown('name');
 dump(DataCollection::markdown('testimonials'));
 
 Hyde\Support\DataCollection {
-    #items: array:3 [
-        0 => Hyde\Markdown\Models\MarkdownDocument {
-        #frontMatter: array:1 [
-            "author" => "John Doe"
+  #items: array:3 [
+    'testimonials/1.md' => Hyde\Markdown\Models\MarkdownDocument
+      +matter: Hyde\Markdown\Models\FrontMatter
+        #data: array:1 [
+          'author' => 'Jane Doe'
         ]
-        #body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-        }
-        1 => Hyde\Markdown\Models\MarkdownDocument {
-        #frontMatter: array:1 [
-            "author" => "Jane Doe"
+      }
+      +markdown: Hyde\Markdown\Models\Markdown
+        +body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+      }
+    }
+    'testimonials/2.md' => Hyde\Markdown\Models\MarkdownDocument
+      +matter: Hyde\Markdown\Models\FrontMatter
+        #data: array:1 [
+          'author' => 'John Smith'
         ]
-        #body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-        }
-        2 => Hyde\Markdown\Models\MarkdownDocument {
-        #frontMatter: array:1 [
-            "author" => "John Smith"
+      }
+      +markdown: Hyde\Markdown\Models\Markdown
+        +body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+      }
+    }
+    'testimonials/3.md' => Hyde\Markdown\Models\MarkdownDocument
+      +matter: Hyde\Markdown\Models\FrontMatter
+        #data: array:1 [
+          'author' => 'John Doe'
         ]
-        #body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-        }
-    ]
+      }
+      +markdown: Hyde\Markdown\Models\Markdown
+        +body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+      }
+    }
+  ]
 }
 ```
 
