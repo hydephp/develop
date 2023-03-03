@@ -18,6 +18,9 @@ use Illuminate\Support\Str;
  */
 class DataCollection extends Collection
 {
+    /**
+     * The base directory for all data collections. Can be modified using a service provider.
+     */
     public static string $sourceDirectory = 'resources/collections';
 
     /**
