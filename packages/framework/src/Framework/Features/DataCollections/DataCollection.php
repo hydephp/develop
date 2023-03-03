@@ -33,7 +33,7 @@ class DataCollection extends Collection
         return $this;
     }
 
-    public function findMarkdownFiles(): array
+    protected function findMarkdownFiles(): array
     {
         return Filesystem::smartGlob(
             static::$sourceDirectory.'/'.$this->key.'/*.md'
