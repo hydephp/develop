@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Markdown\Models\MarkdownDocument;
+use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\DataCollections\DataCollection
+ * @covers \Hyde\Support\DataCollection
  *
  * @see \Hyde\Framework\Testing\Unit\DataCollectionUnitTest
  */

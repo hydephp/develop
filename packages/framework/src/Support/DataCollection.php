@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\DataCollections;
+namespace Hyde\Support;
 
-use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Actions\MarkdownFileParser;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 

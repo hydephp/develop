@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Features\DataCollections\DataCollection;
 use Hyde\Hyde;
+use Hyde\Support\DataCollection;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Mockery;
 
 /**
- * @covers \Hyde\Framework\Features\DataCollections\DataCollection
+ * @covers \Hyde\Support\DataCollection
  *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
