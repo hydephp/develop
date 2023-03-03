@@ -30,9 +30,12 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testConstructorCreatesNewDataCollectionInstance()
     {
-        $class = new DataCollection();
-        $this->assertInstanceOf(DataCollection::class, $class);
-        $this->assertInstanceOf(Collection::class, $class);
+        $this->assertInstanceOf(DataCollection::class, new DataCollection());
+    }
+
+    public function testClassExtendsCollectionClass()
+    {
+        $this->assertInstanceOf(Collection::class, new DataCollection());
     }
 
     public function testCanConvertCollectionToArray()
