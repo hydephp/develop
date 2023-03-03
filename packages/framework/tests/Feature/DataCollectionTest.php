@@ -17,6 +17,18 @@ use Illuminate\Support\Facades\File;
  */
 class DataCollectionTest extends TestCase
 {
+    public function test_markdown_collections()
+    {
+        $this->directory('resources/collections/foo');
+        $this->markdown('resources/collections/foo/foo.md', 'Hello World', ['title' => 'Foo']);
+        $this->file('resources/collections/foo/bar.md');
+
+        $this->assertEquals(new DataCollection([
+            'foo/foo.md' => new MarkdownDocument(['title' => 'Foo'], 'Hello World'),
+            'foo/bar.md' => new MarkdownDocument([], ''),
+        ]), DataCollection::markdown('foo'));
+    }
+
     public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
     {
         $class = new DataCollection();
