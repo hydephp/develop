@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\DataCollections;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Automatically generates Laravel Collections from static data files,
@@ -22,6 +23,7 @@ class DataCollection extends Collection
     public string $key;
 
     /** @deprecated Use the static create method instead */
+    #[Deprecated(reason: 'Use the static create method instead', replacement: '%class%::create(%parameter0%)')]
     public function __construct(string $key)
     {
         $this->key = $key;
