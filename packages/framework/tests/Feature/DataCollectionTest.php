@@ -122,5 +122,6 @@ class DataCollectionTest extends TestCase
             Hyde::path('foo/bar/foo.md'),
         ], (new DataCollection('bar'))->getMarkdownFiles());
         File::deleteDirectory(Hyde::path('foo'));
+        DataCollection::$sourceDirectory = 'resources/collections';
     }
 }
