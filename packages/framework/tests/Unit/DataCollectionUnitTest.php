@@ -67,12 +67,26 @@ class DataCollectionUnitTest extends UnitTestCase
         // TODO
     }
 
-    public function testGetMarkdownFilesWithNoFiles()
+    public function testGetMarkdownFilesCallsProperGlobPattern()
     {
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('glob')
             ->with(Hyde::path('resources/collections/foo/*.md'), 0)
-            ->once()->andReturn([]);
+            ->once();
+
+        app()->instance(Filesystem::class, $filesystem);
+
+        (new DataCollection('foo'))->getMarkdownFiles();
+
+        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+        Mockery::close();
+    }
+
+    public function testGetMarkdownFilesWithNoFiles()
+    {
+        $filesystem = Mockery::mock(Filesystem::class, [
+            'glob' => [],
+        ]);
 
         app()->instance(Filesystem::class, $filesystem);
 
