@@ -108,19 +108,6 @@ class RouteTest extends UnitTestCase
         $this->assertEquals($route->getLink(), (string) $route);
     }
 
-    public function test_to_array_method()
-    {
-        $this->assertEquals([
-            'routeKey' => 'foo',
-            'sourcePath' => '_pages/foo.md',
-            'outputPath' => 'foo.html',
-            'page' => [
-                'class' => MarkdownPage::class,
-                'identifier' => 'foo',
-            ],
-        ], (new MarkdownPage('foo'))->getRoute()->toArray());
-    }
-
     public function testIsWithRoute()
     {
         $route = new Route(new MarkdownPage('foo'));
@@ -142,5 +129,18 @@ class RouteTest extends UnitTestCase
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is(new RouteKey('foo')));
         $this->assertFalse($route->is(new RouteKey('bar')));
+    }
+
+    public function test_to_array_method()
+    {
+        $this->assertEquals([
+            'routeKey' => 'foo',
+            'sourcePath' => '_pages/foo.md',
+            'outputPath' => 'foo.html',
+            'page' => [
+                'class' => MarkdownPage::class,
+                'identifier' => 'foo',
+            ],
+        ], (new MarkdownPage('foo'))->getRoute()->toArray());
     }
 }
