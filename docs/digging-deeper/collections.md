@@ -41,9 +41,9 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 The following facade methods for creating data collections are available:
 
 ```php
-\Hyde\Support\DataCollection::markdown();
-\Hyde\Support\DataCollection::yaml();
-\Hyde\Support\DataCollection::json();
+\Hyde\Support\DataCollection::markdown(string $name);
+\Hyde\Support\DataCollection::yaml(string $name);
+\Hyde\Support\DataCollection::json(string $name, bool $asArray = false);
 ```
 
 ### Quick Reference Table
