@@ -19,11 +19,8 @@ use Illuminate\Support\Str;
  * The static "facade" methods are what makes this class special,
  * they allow you to quickly access the data collections.
  *
- * To use them, call the proper method with the collection key,
- * which is the name of the subdirectory in the resources/collections directory.
- * So for example, if you have a collection of Markdown files in resources/collections/cards,
- * you can access them all using DataCollection::markdown('cards').
- * Each facade method returns a different data type appropriate for the collection.
+ * To use them retrieve a collection, call a facade method with the
+ * collection key, which is the name of the collection directory.
  *
  * All collections are keyed by their filename which is relative
  * to the configured data collection source directory.
