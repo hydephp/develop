@@ -22,7 +22,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testClassHasStaticSourceDirectoryProperty()
     {
-        $this->assertEquals('resources/collections', DataCollection::$sourceDirectory);
+        $this->assertSame('resources/collections', DataCollection::$sourceDirectory);
     }
 
     public function testConstructorCreatesNewDataCollectionInstance()
@@ -35,7 +35,7 @@ class DataCollectionUnitTest extends UnitTestCase
     public function testConstructorSetsKey()
     {
         $class = new DataCollection('foo');
-        $this->assertEquals('foo', $class->key);
+        $this->assertSame('foo', $class->key);
     }
 
     public function testGetCollectionMethodReturnsTheCollectionInstance()
