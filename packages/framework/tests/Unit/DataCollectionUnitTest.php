@@ -46,8 +46,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testCanConvertCollectionToArray()
     {
-        $class = new DataCollection('foo');
-        $this->assertSame([], $class->toArray());
+        $this->assertSame([], (new DataCollection('foo'))->toArray());
     }
 
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
