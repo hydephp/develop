@@ -47,7 +47,7 @@ class DataCollection extends Collection
      */
     public static function markdown(string $name): static
     {
-        self::needsDirectory(static::$sourceDirectory);
+        static::needsDirectory(static::$sourceDirectory);
 
         return new static(static::findMarkdownFiles($name)->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
