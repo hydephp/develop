@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Foundation\Kernel\PageCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\Facades\Pages
  */
 class PageCollectionTest extends TestCase
 {
