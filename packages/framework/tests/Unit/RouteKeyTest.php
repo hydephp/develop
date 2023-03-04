@@ -22,12 +22,12 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(RouteKey::make('foo'), new RouteKey('foo'));
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $this->assertInstanceOf(RouteKey::class, new RouteKey('test'));
     }
 
-    public function test__toString()
+    public function testToString()
     {
         $this->assertSame('foo', (string) new RouteKey('foo'));
     }
