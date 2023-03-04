@@ -51,6 +51,8 @@ Let's take a look at a simplified version of the kernel's boot method to see how
 ```php
 public function boot(): void
 {
+    $this->booted = true;
+
     $this->files = FileCollection::boot($this);
     $this->pages = PageCollection::boot($this);
     $this->routes = RouteCollection::boot($this);
@@ -58,3 +60,25 @@ public function boot(): void
 ```
 
 Here you'll see that we boot the three collections. This is where all the autodiscovery magic happens!
+We'll take a closer look at each of these in a second, but first, here's how the "lazy-booting" works.
+
+```php
+// This will boot the kernel if it hasn't been booted yet
+protected function needsToBeBooted(): void
+{
+    if (! $this->booted) {
+        $this->boot();
+    }
+}
+
+// And here's an example of how it's used
+public function pages(): PageCollection
+{
+    $this->needsToBeBooted();
+
+    return $this->pages;
+}
+```
+
+Yeah, it's really unglamorous I know. But it works! Having it like this will ensure that any time you call `Hyde::pages()`,
+that underlying collection will always have been booted and be ready to use.
