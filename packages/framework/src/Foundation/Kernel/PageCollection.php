@@ -34,7 +34,7 @@ final class PageCollection extends BaseFoundationCollection
      * as that will allow you to utilize the full power of the HydePHP autodiscovery.
      *
      * In order for your page to be routable and compilable you must call this method during the boot process,
-     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery callback handler.
+     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
      */
     public function addPage(HydePage $page): self
     {
