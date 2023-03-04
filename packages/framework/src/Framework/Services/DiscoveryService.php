@@ -101,7 +101,7 @@ class DiscoveryService
         ));
     }
 
-    protected static function parseConfiguredMediaExtensions(string|array|null $extensions): string
+    protected static function parseConfiguredMediaExtensions(string|array $extensions): string
     {
         return is_array($extensions)
             ? implode(',', $extensions)
