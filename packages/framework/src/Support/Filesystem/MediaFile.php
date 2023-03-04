@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Str;
@@ -12,9 +13,12 @@ use function extension_loaded;
 use function array_merge;
 use function file_exists;
 use function filesize;
+use function glob;
+use function implode;
 use function pathinfo;
 use function collect;
 use function is_file;
+use function sprintf;
 
 /**
  * File abstraction for a project media file.
@@ -83,10 +87,22 @@ class MediaFile extends ProjectFile
 
     protected static function discoverMediaAssetFiles(): array
     {
-        return collect(DiscoveryService::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
+        return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
             $file = static::make($filepath);
 
             return [$file->getPath() => $file];
         })->all();
+    }
+
+    protected static function getMediaAssetFiles(): array
+    {
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
+    }
+
+    protected static function getMediaGlobPattern(): string
+    {
+        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
+            Config::getArray('hyde.media_extensions', DiscoveryService::DEFAULT_MEDIA_EXTENSIONS)
+        ));
     }
 }
