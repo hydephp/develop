@@ -22,23 +22,27 @@ use Hyde\Support\Models\Route;
  * @see \Hyde\Foundation\Facades\Router
  * @see \Hyde\Hyde::routes()
  *
- * This is not a router in the traditional sense that it decides where to go.
- * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
+ * The HydePHP Pseudo-Router provides an object that encapsulates the Hyde
+ * autodiscovery process. It serves as a canonical source of truth for the
+ * autodiscovery process and allows emulation of Laravel route helpers.
  *
- * This not only let us emulate Laravel route helpers, but also serve as the
- * canonical source of truth for the vital HydePHP autodiscovery process.
+ * The route index serves as a multidimensional mapping, which helps determine
+ * where a source file will be compiled to and where a compiled file was generated
+ * from. This feature bridges the gaps between the source and the compiled
+ * web-accessible URI routes created by the static site generator.
  *
- * The routes defined can then also be used to power the RealtimeCompiler without
- * having to reverse-engineer the source file mapping.
+ * The routes are integral to the build process, as each route contains the
+ * information needed to compile the connected source file to a static page with
+ * the correct destination.
  *
- * Routes are not intended to be added manually, instead the route index is created using
- * the exact same rules as the current autodiscovery process and compiled file output.
- * However, extensions can add routes using the discovery handler callbacks.
+ * The defined routes can power the RealtimeCompiler, eliminating the need to
+ * reverse-engineer source file mapping. This integration provides seamless and
+ * efficient compilation of routes.
  *
- * The route index serves as a multidimensional mapping allowing you to
- * determine where a source file will be compiled to, and where a compiled
- * file was generated from. This bridges the gaps between the source and
- * the compiled web accessible URI routes the static site generator creates.
+ * Manually adding routes is not recommended. Instead, the route index is created
+ * using the exact same rules as the current autodiscovery process and compiled
+ * file output. However, extensions can add routes using the discovery handler
+ * callbacks.
  */
 final class RouteCollection extends BaseFoundationCollection
 {
