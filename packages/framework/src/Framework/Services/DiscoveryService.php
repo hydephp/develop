@@ -39,22 +39,22 @@ class DiscoveryService
 
     public static function getBladePageFiles(): array
     {
-        return static::getSourceFileListForModel(BladePage::class);
+        return BladePage::files();
     }
 
     public static function getMarkdownPageFiles(): array
     {
-        return static::getSourceFileListForModel(MarkdownPage::class);
+        return MarkdownPage::files();
     }
 
     public static function getMarkdownPostFiles(): array
     {
-        return static::getSourceFileListForModel(MarkdownPost::class);
+        return MarkdownPost::files();
     }
 
     public static function getDocumentationPageFiles(): array
     {
-        return static::getSourceFileListForModel(DocumentationPage::class);
+        return DocumentationPage::files();
     }
 
     /**
