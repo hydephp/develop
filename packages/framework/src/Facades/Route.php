@@ -11,13 +11,13 @@ use Hyde\Support\Models\RouteKey;
 
 /**
  * Provides an easy way to access the Hyde pseudo-router.
+ *
+ * To access a route you need the route key which is the equivalent of the URL path of the compiled page.
  */
 class Route
 {
     /**
      * Get a route from the route index for the specified route key.
-     *
-     * @param  string  $routeKey  Example: posts/foo
      */
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
