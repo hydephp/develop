@@ -161,15 +161,15 @@ class PageCollectionTest extends TestCase
         MarkdownPost::setSourceDirectory('.source/posts');
         DocumentationPage::setSourceDirectory('.source/docs');
 
-        mkdir(Hyde::path('.source'));
-        mkdir(Hyde::path('.source/pages'));
-        mkdir(Hyde::path('.source/posts'));
-        mkdir(Hyde::path('.source/docs'));
+        $this->directory('.source');
+        $this->directory('.source/pages');
+        $this->directory('.source/posts');
+        $this->directory('.source/docs');
 
-        touch(Hyde::path('.source/pages/foo.blade.php'));
-        touch(Hyde::path('.source/pages/foo.md'));
-        touch(Hyde::path('.source/posts/foo.md'));
-        touch(Hyde::path('.source/docs/foo.md'));
+        $this->file('.source/pages/foo.blade.php');
+        $this->file('.source/pages/foo.md');
+        $this->file('.source/posts/foo.md');
+        $this->file('.source/docs/foo.md');
 
         $collection = Pages::getPages();
         $this->assertCount(4, $collection);
@@ -178,8 +178,6 @@ class PageCollectionTest extends TestCase
         $this->assertEquals(new MarkdownPage('foo'), $collection->get('.source/pages/foo.md'));
         $this->assertEquals(new MarkdownPost('foo'), $collection->get('.source/posts/foo.md'));
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('.source/docs/foo.md'));
-
-        File::deleteDirectory(Hyde::path('.source'));
     }
 
     public function test_get_file_throws_exception_when_file_is_not_found()
