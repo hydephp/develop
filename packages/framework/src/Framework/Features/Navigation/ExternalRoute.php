@@ -25,6 +25,6 @@ class ExternalRoute extends Route
 
     public function getLink(): string
     {
-        return $this->getDestination();
+        return $this->destination;
     }
 }
