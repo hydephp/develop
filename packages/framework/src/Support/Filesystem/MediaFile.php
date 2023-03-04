@@ -35,7 +35,7 @@ class MediaFile extends ProjectFile
     public function getContentLength(): int
     {
         if (! is_file($this->getAbsolutePath())) {
-            throw new FileNotFoundException(message: "Could not get the content length of file '$this->path'");
+            throw new FileNotFoundException(message: "Could not get the content length of file [$this->path]");
         }
 
         return filesize($this->getAbsolutePath());
