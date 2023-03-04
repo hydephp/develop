@@ -35,11 +35,9 @@ final class FileCollection extends BaseFoundationCollection
      * In order for your file to be further processed you must call this method during the boot process,
      * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
      */
-    public function addFile(ProjectFile $file): self
+    public function addFile(ProjectFile $file): void
     {
         $this->put($file->getPath(), $file);
-
-        return $this;
     }
 
     protected function runDiscovery(): void
