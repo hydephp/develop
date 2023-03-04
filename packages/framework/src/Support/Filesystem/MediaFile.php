@@ -6,13 +6,13 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
-use function array_merge;
 use function extension_loaded;
+use function array_merge;
 use function file_exists;
 use function filesize;
+use function pathinfo;
 use function collect;
 use function is_file;
-use function pathinfo;
 
 /**
  * File abstraction for a project media file.
