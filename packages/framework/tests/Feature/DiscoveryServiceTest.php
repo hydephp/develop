@@ -173,7 +173,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $path = Hyde::path('_media/test.custom');
         touch($path);
         $this->assertNotContains($path, DiscoveryService::getMediaAssetFiles());
-        self::mockConfig(['hyde.media_extensions' => ['custom']]);
+        self::mockConfig(['hyde.media_extensions' => 'custom']);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
         unlink($path);
     }
@@ -208,7 +208,27 @@ class DiscoveryServiceTest extends UnitTestCase
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
 
-        self::mockConfig(['hyde.media_extensions' => ['1,2,3']]);
+        self::mockConfig(['hyde.media_extensions' => '1,2,3']);
+        $this->assertEquals([
+            Hyde::path('_media/test.1'),
+            Hyde::path('_media/test.2'),
+            Hyde::path('_media/test.3'),
+        ], DiscoveryService::getMediaAssetFiles());
+
+        Filesystem::unlink('_media/test.1');
+        Filesystem::unlink('_media/test.2');
+        Filesystem::unlink('_media/test.3');
+    }
+
+    public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
+    {
+        self::mockConfig(['hyde.media_extensions' => null]);
+        Filesystem::touch('_media/test.1');
+        Filesystem::touch('_media/test.2');
+        Filesystem::touch('_media/test.3');
+
+        $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
+        self::mockConfig(['hyde.media_extensions' => '1, 2, 3']);
         $this->assertEquals([
             Hyde::path('_media/test.1'),
             Hyde::path('_media/test.2'),
