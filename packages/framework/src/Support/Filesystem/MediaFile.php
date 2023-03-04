@@ -78,6 +78,7 @@ class MediaFile extends ProjectFile
     {
         return collect(DiscoveryService::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
             $file = static::make($filepath);
+
             return [$file->getPath() => $file];
         })->all();
     }
