@@ -13,7 +13,6 @@ use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
