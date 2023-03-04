@@ -17,6 +17,12 @@ use Hyde\Testing\UnitTestCase;
  */
 class FoundationFacadesTest extends UnitTestCase
 {
+    protected function setUp(): void
+    {
+        self::setupKernel();
+        self::mockConfig();
+    }
+
     public function test_file_collection_facade()
     {
         $this->assertSame(
