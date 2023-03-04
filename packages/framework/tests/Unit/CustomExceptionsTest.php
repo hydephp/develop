@@ -28,84 +28,84 @@ class CustomExceptionsTest extends UnitTestCase
     public function testFileConflictExceptionWithDefaultMessage()
     {
         $exception = new FileConflictException();
-        $this->assertEquals('A file already exists at this path.', $exception->getMessage());
-        $this->assertEquals(409, $exception->getCode());
+        $this->assertSame('A file already exists at this path.', $exception->getMessage());
+        $this->assertSame(409, $exception->getCode());
     }
 
     public function testFileConflictExceptionWithPath()
     {
         $exception = new FileConflictException('path/to/file');
-        $this->assertEquals('File already exists: path/to/file', $exception->getMessage());
-        $this->assertEquals(409, $exception->getCode());
+        $this->assertSame('File already exists: path/to/file', $exception->getMessage());
+        $this->assertSame(409, $exception->getCode());
     }
 
     public function testFileConflictExceptionWithCustomMessage()
     {
         $exception = new FileConflictException('path/to/file', 'Custom message');
-        $this->assertEquals('Custom message', $exception->getMessage());
-        $this->assertEquals(409, $exception->getCode());
+        $this->assertSame('Custom message', $exception->getMessage());
+        $this->assertSame(409, $exception->getCode());
     }
 
     public function testFileNotFoundExceptionWithDefaultMessage()
     {
         $exception = new FileNotFoundException();
-        $this->assertEquals('File not found.', $exception->getMessage());
-        $this->assertEquals(404, $exception->getCode());
+        $this->assertSame('File not found.', $exception->getMessage());
+        $this->assertSame(404, $exception->getCode());
     }
 
     public function testFileNotFoundExceptionWithPath()
     {
         $exception = new FileNotFoundException('path/to/file');
-        $this->assertEquals('File [path/to/file] not found.', $exception->getMessage());
-        $this->assertEquals(404, $exception->getCode());
+        $this->assertSame('File [path/to/file] not found.', $exception->getMessage());
+        $this->assertSame(404, $exception->getCode());
     }
 
     public function testFileNotFoundExceptionWithCustomMessage()
     {
         $exception = new FileNotFoundException('path/to/file', 'Custom message');
-        $this->assertEquals('Custom message', $exception->getMessage());
-        $this->assertEquals(404, $exception->getCode());
+        $this->assertSame('Custom message', $exception->getMessage());
+        $this->assertSame(404, $exception->getCode());
     }
 
     public function testRouteNotFoundExceptionWithDefaultMessage()
     {
         $exception = new RouteNotFoundException();
-        $this->assertEquals('Route not found.', $exception->getMessage());
-        $this->assertEquals(404, $exception->getCode());
+        $this->assertSame('Route not found.', $exception->getMessage());
+        $this->assertSame(404, $exception->getCode());
     }
 
     public function testRouteNotFoundExceptionWithRouteKey()
     {
         $exception = new RouteNotFoundException('route-name');
-        $this->assertEquals("Route not found: 'route-name'", $exception->getMessage());
-        $this->assertEquals(404, $exception->getCode());
+        $this->assertSame("Route not found: 'route-name'", $exception->getMessage());
+        $this->assertSame(404, $exception->getCode());
     }
 
     public function testRouteNotFoundExceptionWithCustomMessage()
     {
         $exception = new RouteNotFoundException(null, 'Custom message');
-        $this->assertEquals('Custom message', $exception->getMessage());
-        $this->assertEquals(404, $exception->getCode());
+        $this->assertSame('Custom message', $exception->getMessage());
+        $this->assertSame(404, $exception->getCode());
     }
 
     public function testUnsupportedPageTypeExceptionWithDefaultMessage()
     {
         $exception = new UnsupportedPageTypeException();
-        $this->assertEquals('The page type is not supported.', $exception->getMessage());
-        $this->assertEquals(400, $exception->getCode());
+        $this->assertSame('The page type is not supported.', $exception->getMessage());
+        $this->assertSame(400, $exception->getCode());
     }
 
     public function testUnsupportedPageTypeExceptionWithPage()
     {
         $exception = new UnsupportedPageTypeException('some-page');
-        $this->assertEquals('The page type is not supported: some-page', $exception->getMessage());
-        $this->assertEquals(400, $exception->getCode());
+        $this->assertSame('The page type is not supported: some-page', $exception->getMessage());
+        $this->assertSame(400, $exception->getCode());
     }
 
     public function testBaseUrlNotSetException()
     {
         $exception = new BaseUrlNotSetException();
-        $this->assertEquals('No site URL has been set in config (or .env).', $exception->getMessage());
-        $this->assertEquals(0, $exception->getCode());
+        $this->assertSame('No site URL has been set in config (or .env).', $exception->getMessage());
+        $this->assertSame(0, $exception->getCode());
     }
 }
