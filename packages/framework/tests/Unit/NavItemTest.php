@@ -104,6 +104,8 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::fromRoute($route);
 
         $this->assertFalse($item->isCurrent());
+
+        Render::swap(new \Hyde\Support\Models\Render());
     }
 
     public function testIsCurrentWhenCurrent()
