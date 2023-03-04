@@ -66,4 +66,21 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo'), RouteKey::fromPage(InMemoryPage::class, 'foo'));
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(InMemoryPage::class, 'foo/bar'));
     }
+
+    public function testWithCustomOutputDirectory()
+    {
+        MarkdownPage::setOutputDirectory('foo');
+        $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(MarkdownPage::class, 'bar'));
+    }
+
+    public function testWithCustomNestedOutputDirectory()
+    {
+        MarkdownPage::setOutputDirectory('foo/bar');
+        $this->assertEquals(new RouteKey('foo/bar/baz'), RouteKey::fromPage(MarkdownPage::class, 'baz'));
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        MarkdownPage::setOutputDirectory('');
+    }
 }
