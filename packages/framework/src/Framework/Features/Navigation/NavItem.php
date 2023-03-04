@@ -41,6 +41,13 @@ class NavItem implements Stringable
     {
         $this->destination = $destination instanceof Route ? $destination->getLink() : $destination;
 
+        // @deprecated: Temporary during refactor
+        if  ($destination instanceof Route) {
+            $this->route = $destination;
+        } else {
+            $this->href = $destination;
+        }
+
         $this->label = $label;
         $this->priority = $priority;
         $this->hidden = $hidden;
