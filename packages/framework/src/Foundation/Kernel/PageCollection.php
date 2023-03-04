@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
@@ -24,14 +25,12 @@ final class PageCollection extends BaseFoundationCollection
 {
     public function getPage(string $sourcePath): HydePage
     {
-        return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath.' in page collection');
+        return Pages::getPage($sourcePath);
     }
 
     public function getPages(?string $pageClass = null): self
     {
-        return $pageClass ? $this->filter(function (HydePage $page) use ($pageClass): bool {
-            return $page instanceof $pageClass;
-        }) : $this;
+        return Pages::getPages($pageClass);
     }
 
     /**
@@ -50,9 +49,7 @@ final class PageCollection extends BaseFoundationCollection
      */
     public function addPage(HydePage $page): self
     {
-        $this->put($page->getSourcePath(), $page);
-
-        return $this;
+        return Pages::addPage($page);
     }
 
     protected function runDiscovery(): self
