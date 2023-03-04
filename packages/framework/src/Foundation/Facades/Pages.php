@@ -21,16 +21,16 @@ class Pages extends Facade
 
     public function getPage(string $sourcePath): HydePage
     {
-        //
+        return static::getFacadeRoot()->getPage($sourcePath);
     }
 
     public function getPages(?string $pageClass = null): PageCollection
     {
-        //
+        return static::getFacadeRoot()->getPages($pageClass);
     }
 
     public function addPage(HydePage $page): PageCollection
     {
-        //
+        return static::getFacadeRoot()->addPage($page);
     }
 }
