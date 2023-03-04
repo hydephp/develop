@@ -5,20 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 
 /**
  * The FileCollection contains all the discovered source and media files,
  * and thus has an integral role in the Hyde Auto Discovery process.
  *
- * @template T of \Hyde\Support\Filesystem\ProjectFile
+ * @template T of \Hyde\Support\Filesystem\SourceFile
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
- * @property array<string, ProjectFile> $items The files in the collection.
+ * @property array<string, SourceFile> $items The files in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
@@ -35,7 +32,7 @@ final class FileCollection extends BaseFoundationCollection
      * In order for your file to be further processed you must call this method during the boot process,
      * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
      */
-    public function addFile(ProjectFile $file): void
+    public function addFile(SourceFile $file): void
     {
         $this->put($file->getPath(), $file);
     }
@@ -48,8 +45,6 @@ final class FileCollection extends BaseFoundationCollection
                 $this->discoverFilesFor($pageClass);
             }
         }
-
-        $this->discoverMediaAssetFiles();
     }
 
     protected function runExtensionCallbacks(): void
@@ -68,13 +63,6 @@ final class FileCollection extends BaseFoundationCollection
             if (! str_starts_with(basename((string) $filepath), '_')) {
                 $this->addFile(SourceFile::make($filepath, $pageClass));
             }
-        }
-    }
-
-    protected function discoverMediaAssetFiles(): void
-    {
-        foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
-            $this->addFile(MediaFile::make($filepath));
         }
     }
 }

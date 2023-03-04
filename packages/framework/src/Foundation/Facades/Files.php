@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Facades\Facade;
@@ -44,12 +43,6 @@ class Files extends Facade
     public static function getAllSourceFiles(): FileCollection
     {
         return static::getFacadeRoot()->where(fn (ProjectFile $file): bool => $file instanceof SourceFile);
-    }
-
-    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
-    public static function getMediaFiles(): FileCollection
-    {
-        return static::getFacadeRoot()->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
     }
 
     /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
