@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Hyde\Foundation\Facades;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
@@ -90,7 +91,7 @@ abstract class HydePage implements PageSchema
      */
     public static function get(string $identifier): HydePage
     {
-        return Hyde::pages()->getPage(static::sourcePath($identifier));
+        return Pages::getPage(static::sourcePath($identifier));
     }
 
     /**

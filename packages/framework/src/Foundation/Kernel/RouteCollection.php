@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
 /**
  * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
+ *
+ * @template T of \Hyde\Support\Models\Route
+ * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, Route> $items The routes in the collection.
  *
@@ -40,61 +43,33 @@ use Hyde\Support\Models\Route;
  */
 final class RouteCollection extends BaseFoundationCollection
 {
-    public function getRoute(string $routeKey): Route
-    {
-        return $this->items[$routeKey] ?? throw new RouteNotFoundException($routeKey.' in route collection');
-    }
-
-    public function getRoutes(?string $pageClass = null): self
-    {
-        return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass): bool {
-            return $route->getPage() instanceof $pageClass;
-        });
-    }
-
     /**
      * This method adds the specified route to the route index.
      * It can be used by package developers to hook into the routing system.
      *
      * Note that this method when used outside of this class is only intended to be used for adding on-off routes;
      * If you are registering multiple routes, you may instead want to register an entire custom page class,
-     * as that will allow you to utilize the full power of the HydePHP autodiscovery. In addition,
-     * you might actually rather want to use the page collection's addPage method instead,
-     * as all pages there are automatically also added as routes here as well.
+     * as that will allow you to utilize the full power of the HydePHP autodiscovery.
      *
-     * When using this method, take notice of the following things:
-     * 1. Be sure to register the route before the HydeKernel boots.
-     * 2. Make sure the route leads to something that can be compiled.
+     * In addition, you might actually rather want to use the PageCollection's addPage method
+     * instead as all pages there are automatically also added as routes here as well.
      */
-    public function addRoute(Route $route): self
+    public function addRoute(Route $route): void
     {
         $this->put($route->getRouteKey(), $route);
-
-        return $this;
     }
 
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         $this->kernel->pages()->each(function (HydePage $page): void {
-            $this->discover($page);
+            $this->addRoute(new Route($page));
         });
-
-        $this->runExtensionCallbacks();
-
-        return $this;
     }
 
-    protected function runExtensionCallbacks(): self
+    protected function runExtensionCallbacks(): void
     {
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverRoutes($this);
         }
-
-        return $this;
-    }
-
-    protected function discover(HydePage $page): void
-    {
-        $this->addRoute(new Route($page));
     }
 }

@@ -6,6 +6,8 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
@@ -471,17 +473,15 @@ class HydeKernelTest extends TestCase
 
     public function test_can_use_booting_callbacks_to_inject_custom_pages()
     {
-        $kernel = new HydeKernel();
+        $kernel = HydeKernel::getInstance();
 
         $page = new InMemoryPage('foo');
         $kernel->booting(function (HydeKernel $kernel) use ($page): void {
             $kernel->pages()->addPage($page);
         });
 
-        $kernel->boot();
-
-        $this->assertSame($page, $kernel->pages()->getPage('foo'));
-        $this->assertEquals($page->getRoute(), $kernel->routes()->getRoute('foo'));
+        $this->assertSame($page, Pages::getPage('foo'));
+        $this->assertEquals($page->getRoute(), Routes::getRoute('foo'));
     }
 
     public function test_is_booted_returns_false_when_not_booted()
