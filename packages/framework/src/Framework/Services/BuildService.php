@@ -15,7 +15,6 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Str;
 use function array_keys;
 use function collect;
 
@@ -54,7 +53,7 @@ class BuildService
 
         $this->comment('Transferring Media Assets...');
         $this->withProgressBar(array_keys(MediaFile::all()), function (string $filepath): void {
-            $sitePath = Hyde::siteMediaPath(Str::after($filepath, Hyde::getMediaDirectory()));
+            $sitePath = Hyde::siteMediaPath($filepath);
             $this->needsParentDirectory($sitePath);
             copy($filepath, $sitePath);
         });
