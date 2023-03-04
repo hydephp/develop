@@ -16,6 +16,8 @@ use Hyde\Support\Models\Route;
  */
 class ExternalRoute extends Route
 {
+    public string $destination;
+
     public function getLink(): string
     {
         return $this->getDestination();
