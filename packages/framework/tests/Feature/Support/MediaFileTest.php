@@ -163,4 +163,19 @@ class MediaFileTest extends TestCase
     {
         $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
     }
+
+    public function test_all_helper_returns_all_media_files()
+    {
+        $this->assertEquals([
+            '_media/app.css' => new MediaFile('_media/app.css'),
+        ], MediaFile::all());
+    }
+
+    public function test_all_helper_does_not_include_non_media_files()
+    {
+        $this->file('_media/foo.blade.php');
+        $this->assertEquals([
+            '_media/app.css' => new MediaFile('_media/app.css'),
+        ], MediaFile::all());
+    }
 }

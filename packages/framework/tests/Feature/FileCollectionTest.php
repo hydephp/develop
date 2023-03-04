@@ -70,21 +70,6 @@ class FileCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_get_media_files_returns_all_discovered_media_files()
-    {
-        $this->assertEquals([
-            '_media/app.css' => new MediaFile('_media/app.css'),
-        ], Files::getMediaFiles()->all());
-    }
-
-    public function test_get_media_files_does_not_include_non_media_files()
-    {
-        $this->file('_media/foo.blade.php');
-        $this->assertEquals([
-            '_media/app.css' => new MediaFile('_media/app.css'),
-        ], Files::getMediaFiles()->all());
-    }
-
     public function test_blade_pages_are_discovered()
     {
         $this->file('_pages/foo.blade.php');
