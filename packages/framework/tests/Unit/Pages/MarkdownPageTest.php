@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
@@ -19,7 +18,7 @@ class MarkdownPageTest extends TestCase
     public function test_can_get_collection_of_slugs()
     {
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
-        $this->assertSame(['test-page'], DiscoveryService::getMarkdownPageFiles());
+        $this->assertSame(['test-page'], MarkdownPage::files());
     }
 
     public function test_created_model_contains_expected_data()
