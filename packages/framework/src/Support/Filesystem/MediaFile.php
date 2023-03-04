@@ -32,6 +32,7 @@ class MediaFile extends ProjectFile
         return static::discoverMediaAssetFiles();
     }
 
+    /** @return array<string> */
     public static function files(): array
     {
         return array_keys(static::all());
