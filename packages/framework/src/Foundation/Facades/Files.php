@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Facades\Facade;
 
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Files extends Facade
 {
-    public static function getFile(string $filePath): ProjectFile
+    public static function getFile(string $filePath): SourceFile
     {
         return static::getFacadeRoot()->get($filePath) ?? throw new FileNotFoundException(message: "File [$filePath] not found in file collection");
     }
@@ -32,7 +31,7 @@ class Files extends Facade
         }) : static::getFacadeRoot();
     }
 
-    /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
+    /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\SourceFile> */
     public static function getFacadeRoot(): FileCollection
     {
         return HydeKernel::getInstance()->files();
