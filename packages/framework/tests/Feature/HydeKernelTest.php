@@ -480,9 +480,6 @@ class HydeKernelTest extends TestCase
             $kernel->pages()->addPage($page);
         });
 
-        $kernel->boot();
-
-        $kernel->pages();
         $this->assertSame($page, Pages::getPage('foo'));
         $this->assertEquals($page->getRoute(), $kernel->routes()->getRoute('foo'));
     }
