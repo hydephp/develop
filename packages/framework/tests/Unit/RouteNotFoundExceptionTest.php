@@ -22,7 +22,7 @@ class RouteNotFoundExceptionTest extends TestCase
     public function test_it_throws_an_exception_when_page_type_is_not_supported()
     {
         $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage("Route not found: 'not-found'");
+        $this->expectExceptionMessage('Route [not-found] not found.');
         $this->expectExceptionCode(404);
 
         throw new RouteNotFoundException('not-found');

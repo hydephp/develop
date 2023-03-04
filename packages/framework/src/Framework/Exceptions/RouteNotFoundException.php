@@ -17,7 +17,7 @@ class RouteNotFoundException extends Exception
     public function __construct(?string $routeKey = null, ?string $message = null)
     {
         if ($routeKey) {
-            $this->message = "Route not found: '$routeKey'";
+            $this->message = "Route [$routeKey] not found.";
         }
         if ($message) {
             $this->message = $message;
