@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Hyde;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
+use Illuminate\Support\Str;
 use function extension_loaded;
 use function array_merge;
 use function file_exists;
@@ -23,6 +25,11 @@ class MediaFile extends ProjectFile
     public static function all(): array
     {
         return static::discoverMediaAssetFiles();
+    }
+
+    public function getIdentifier(): string
+    {
+        return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
     }
 
     public function toArray(): array

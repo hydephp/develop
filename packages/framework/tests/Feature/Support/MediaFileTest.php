@@ -178,4 +178,14 @@ class MediaFileTest extends TestCase
             '_media/app.css' => new MediaFile('_media/app.css'),
         ], MediaFile::all());
     }
+
+    public function testGetIdentifier()
+    {
+        $this->assertSame('foo', MediaFile::make('foo')->getIdentifier());
+    }
+
+    public function testGetIdentifierWithSubdirectory()
+    {
+        $this->assertSame('foo/bar', MediaFile::make('foo/bar')->getIdentifier());
+    }
 }
