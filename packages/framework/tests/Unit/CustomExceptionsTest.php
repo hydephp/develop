@@ -32,7 +32,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testFileConflictExceptionWithPath()
     {
-        $this->assertSame('File already exists: path/to/file', (new FileConflictException('path/to/file'))->getMessage());
+        $this->assertSame('File [path/to/file] already exists.', (new FileConflictException('path/to/file'))->getMessage());
     }
 
     public function testFileConflictExceptionWithCustomMessage()

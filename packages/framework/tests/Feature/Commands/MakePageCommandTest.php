@@ -99,7 +99,7 @@ class MakePageCommandTest extends TestCase
         file_put_contents($this->markdownPath, 'This should not be overwritten');
 
         $this->expectException(FileConflictException::class);
-        $this->expectExceptionMessage('File already exists: _pages/foo-test-page.md');
+        $this->expectExceptionMessage('File [_pages/foo-test-page.md] already exists.');
         $this->expectExceptionCode(409);
         $this->artisan('make:page "foo test page"')->assertExitCode(409);
 
