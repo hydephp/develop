@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
+use Hyde\Foundation\Facades\Files;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
+use Hyde\Support\Filesystem\SourceFile;
+use Illuminate\Support\Str;
 use function class_exists;
 use function config;
 use function glob;
-use Hyde\Foundation\Facades\Files;
-use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Filesystem\SourceFile;
-use Illuminate\Support\Str;
 use function implode;
 use function is_array;
 use function is_subclass_of;
