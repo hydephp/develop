@@ -7,7 +7,9 @@ namespace Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
+use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -31,7 +33,7 @@ class Files extends Facade
      */
     public static function getSourceFiles(?string $pageClass = null): FileCollection
     {
-        return static::getFacadeRoot()->getSourceFiles($pageClass);
+        return ! $pageClass ? static::getFacadeRoot()->getAllSourceFiles() : static::getFacadeRoot()->getSourceFilesFor($pageClass);
     }
 
     /**
@@ -40,18 +42,18 @@ class Files extends Facade
      */
     public static function getSourceFilesFor(string $pageClass): FileCollection
     {
-        return static::getFacadeRoot()->getSourceFilesFor($pageClass);
+        return static::getFacadeRoot()->getAllSourceFiles()->where(fn(SourceFile $file): bool => $file->model === $pageClass);
     }
 
     /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
     public static function getAllSourceFiles(): FileCollection
     {
-        return static::getFacadeRoot()->getAllSourceFiles();
+        return static::getFacadeRoot()->where(fn(ProjectFile $file): bool => $file instanceof SourceFile);
     }
 
     /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
     public static function getMediaFiles(): FileCollection
     {
-        return static::getFacadeRoot()->getMediaFiles();
+        return static::getFacadeRoot()->where(fn(ProjectFile $file): bool => $file instanceof MediaFile);
     }
 }
