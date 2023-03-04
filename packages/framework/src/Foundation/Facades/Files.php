@@ -34,7 +34,7 @@ class Files extends Facade
      */
     public static function getSourceFiles(?string $pageClass = null): FileCollection
     {
-        return ! $pageClass ? static::getAllSourceFiles() : static::getSourceFilesFor($pageClass);
+        return $pageClass ? static::getSourceFilesFor($pageClass) : static::getAllSourceFiles();
     }
 
     /**
