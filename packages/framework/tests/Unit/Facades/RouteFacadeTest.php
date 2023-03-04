@@ -38,8 +38,12 @@ class RouteFacadeTest extends UnitTestCase
 
     public function test_get_returns_route_from_router_index()
     {
-        $this->assertEquals(new RouteModel(BladePage::parse('index')), Route::get('index'));
         $this->assertInstanceOf(RouteModel::class, Route::get('index'));
+    }
+
+    public function test_get_returns_route_from_router_index_for_the_right_page()
+    {
+        $this->assertEquals(new RouteModel(BladePage::parse('index')), Route::get('index'));
     }
 
     public function test_get_from_returns_null_if_route_is_not_found()
