@@ -43,6 +43,13 @@ class RouteKeyTest extends UnitTestCase
         $this->assertSame('foo', (string) new RouteKey('foo'));
     }
 
+    public function testNormalize()
+    {
+        $this->assertSame('foo', RouteKey::normalize('foo'));
+        $this->assertSame('foo/bar', RouteKey::normalize('foo/bar'));
+        $this->assertSame('foo/bar', RouteKey::normalize('foo.bar'));
+    }
+
     public function testFromPage()
     {
         $this->assertEquals(new RouteKey('foo'), RouteKey::fromPage(HtmlPage::class, 'foo'));

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
+use function str_replace;
 use function unslash;
 
 /**
@@ -46,5 +47,10 @@ final class RouteKey implements Stringable
     public static function fromPage(string $pageClass, string $identifier): self
     {
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
+    }
+
+    public static function normalize(string $routeKey): string
+    {
+        return str_replace('.', '/', $routeKey);
     }
 }
