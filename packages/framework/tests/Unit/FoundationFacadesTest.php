@@ -24,8 +24,6 @@ class FoundationFacadesTest extends TestCase
             HydeKernel::getInstance()->files(),
             Files::getInstance()
         );
-
-        Hyde::files();
     }
 
     public function test_page_collection_facade()
@@ -34,8 +32,6 @@ class FoundationFacadesTest extends TestCase
             HydeKernel::getInstance()->pages(),
             Pages::getInstance()
         );
-
-        Hyde::pages();
     }
 
     public function test_route_collection_facade()
@@ -44,8 +40,6 @@ class FoundationFacadesTest extends TestCase
             HydeKernel::getInstance()->routes(),
             Routes::getInstance()
         );
-
-        Hyde::routes();
     }
 
     public function test_facade_roots()
