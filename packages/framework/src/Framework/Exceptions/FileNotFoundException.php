@@ -20,6 +20,6 @@ class FileNotFoundException extends Exception
         $message = $path ? sprintf('File [%s] not found.', Hyde::pathToRelative($path)) : $this->message;
         $this->message = $message;
 
-        parent::__construct($this->message);
+        parent::__construct($message);
     }
 }
