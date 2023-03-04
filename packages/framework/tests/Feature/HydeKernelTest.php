@@ -472,8 +472,7 @@ class HydeKernelTest extends TestCase
 
     public function test_can_use_booting_callbacks_to_inject_custom_pages()
     {
-        $kernel = new HydeKernel();
-        HydeKernel::setInstance($kernel);
+        $kernel = HydeKernel::getInstance();
 
         $page = new InMemoryPage('foo');
         $kernel->booting(function (HydeKernel $kernel) use ($page): void {
