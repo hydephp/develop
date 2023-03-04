@@ -113,7 +113,7 @@ class RouteCollectionTest extends TestCase
     public function test_get_route_with_non_existing_route()
     {
         $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage('Route [non-existing] not found in route collection');
+        $this->expectExceptionMessage('Route [non-existing] not found');
         Routes::getRoute('non-existing');
     }
 }

@@ -36,16 +36,6 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame('File [foo] already exists.', (new FileConflictException('foo'))->getMessage());
     }
 
-    public function testFileConflictExceptionWithCustomMessage()
-    {
-        $this->assertSame('Custom message', (new FileConflictException(message: 'Custom message'))->getMessage());
-    }
-
-    public function testFileConflictExceptionWithPathAndCustomMessage()
-    {
-        $this->assertSame('Custom message', (new FileConflictException('foo', 'Custom message'))->getMessage());
-    }
-
     public function testFileConflictExceptionWithAbsolutePath()
     {
         $this->assertSame('File [foo] already exists.', (new FileConflictException(Hyde::path('foo')))->getMessage());
@@ -61,16 +51,6 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame('File [foo] not found.', (new FileNotFoundException('foo'))->getMessage());
     }
 
-    public function testFileNotFoundExceptionWithCustomMessage()
-    {
-        $this->assertSame('Custom message', (new FileNotFoundException(message: 'Custom message'))->getMessage());
-    }
-
-    public function testFileNotFoundExceptionWithPathAndCustomMessage()
-    {
-        $this->assertSame('Custom message', (new FileNotFoundException('foo', 'Custom message'))->getMessage());
-    }
-
     public function testFileNotFoundExceptionWithAbsolutePath()
     {
         $this->assertSame('File [foo] not found.', (new FileNotFoundException(Hyde::path('foo')))->getMessage());
@@ -84,16 +64,6 @@ class CustomExceptionsTest extends UnitTestCase
     public function testRouteNotFoundExceptionWithRouteKey()
     {
         $this->assertSame('Route [foo] not found.', (new RouteNotFoundException('foo'))->getMessage());
-    }
-
-    public function testRouteNotFoundExceptionWithCustomMessage()
-    {
-        $this->assertSame('Custom message', (new RouteNotFoundException(message: 'Custom message'))->getMessage());
-    }
-
-    public function testRouteNotFoundExceptionWithCustomMessageAndRouteKey()
-    {
-        $this->assertSame('Custom message', (new RouteNotFoundException('foo', 'Custom message'))->getMessage());
     }
 
     public function testUnsupportedPageTypeExceptionWithDefaultMessage()

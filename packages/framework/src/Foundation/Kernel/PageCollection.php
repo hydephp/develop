@@ -50,7 +50,7 @@ final class PageCollection extends BaseFoundationCollection
 
     public function getPage(string $sourcePath): HydePage
     {
-        return $this->get($sourcePath) ?? throw new FileNotFoundException(message: "Page [$sourcePath] not found in page collection");
+        return $this->get($sourcePath) ?? throw new FileNotFoundException($sourcePath);
     }
 
     /**

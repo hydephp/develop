@@ -46,14 +46,4 @@ class FileConflictExceptionTest extends UnitTestCase
         HydeKernel::setInstance(new HydeKernel('my-base-path'));
         $this->assertSame('File [path/to/file] already exists.', (new FileConflictException('my-base-path/path/to/file'))->getMessage());
     }
-
-    public function test_exception_message_with_custom_message()
-    {
-        $this->assertSame('Custom message', (new FileConflictException(null, 'Custom message'))->getMessage());
-    }
-
-    public function test_exception_message_with_custom_message_and_path()
-    {
-        $this->assertSame('Custom message', (new FileConflictException('foo', 'Custom message'))->getMessage());
-    }
 }

@@ -124,14 +124,14 @@ class MediaFileTest extends TestCase
         $this->directory('foo');
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Could not get the content length of file [foo]');
+        $this->expectExceptionMessage('File [foo] not found.');
         MediaFile::make('foo')->getContentLength();
     }
 
     public function test_getContentLength_with_non_existent_file()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Could not get the content length of file [foo]');
+        $this->expectExceptionMessage('File [foo] not found.');
         MediaFile::make('foo')->getContentLength();
     }
 

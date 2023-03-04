@@ -14,10 +14,8 @@ class RouteNotFoundException extends Exception
     /** @var int */
     protected $code = 404;
 
-    public function __construct(?string $routeKey = null, ?string $message = null)
+    public function __construct(?string $routeKey = null)
     {
-        $this->message = $message ?? ($routeKey ? "Route [$routeKey] not found." : $this->message);
-
-        parent::__construct($this->message, $this->code);
+        parent::__construct($routeKey ? sprintf('Route [%s] not found.', $routeKey) : $this->message);
     }
 }
