@@ -108,6 +108,7 @@ class NavItem implements Stringable
         return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
     }
 
+    /** @deprecated Made obsolete by $destination */
     protected function setDestination(string $href): static
     {
         $this->href = $href;
