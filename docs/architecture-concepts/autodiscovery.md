@@ -43,10 +43,10 @@ The kernel is also where the discovered data is stored in memory, so it's import
 
 Now that we know the role of the HydeKernel, let's take a look at its lifecycle. The kernel is "lazy-booted", meaning
 that the all the heavy lifting only happens when you actually need it. Once booted, the kernel data will stay in memory
-until the application is terminated.
+until the console application is terminated.
 
 The kernel data is primarily stored in three collections that get generated during the kernel's boot process.
-Let's take a look at the kernel's boot method to see how this works.
+Let's take a look at a simplified version of the kernel's boot method to see how this works.
 
 ```php
 public function boot(): void
@@ -60,7 +60,11 @@ public function boot(): void
 ```
 
 Here you'll see that we boot the three collections. This is where all the autodiscovery magic happens!
-We'll take a closer look at each of these in a second, but first, here's how the "lazy-booting" works.
+
+#### Deep dive into lazy-booting
+
+If you're curious about how the kernel is lazy-booted, here's how it works!
+Feel free to skip this section if this doesn't interest you.
 
 ```php
 // This will boot the kernel if it hasn't been booted yet
