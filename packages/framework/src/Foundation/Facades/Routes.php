@@ -28,8 +28,8 @@ class Routes extends Facade
 
     public static function getRoutes(?string $pageClass = null): RouteCollection
     {
-        return ! $pageClass ? static::getFacadeRoot() : static::getFacadeRoot()->filter(function (Route $route) use ($pageClass): bool {
+        return $pageClass ? static::getFacadeRoot()->filter(function (Route $route) use ($pageClass): bool {
             return $route->getPage() instanceof $pageClass;
-        });
+        }) : static::getFacadeRoot();
     }
 }
