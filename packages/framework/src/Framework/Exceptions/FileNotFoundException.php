@@ -17,8 +17,6 @@ class FileNotFoundException extends Exception
 
     public function __construct(?string $path = null)
     {
-        $message = $path ? sprintf('File [%s] not found.', Hyde::pathToRelative($path)) : $this->message;
-
-        parent::__construct($message);
+        parent::__construct($path ? sprintf('File [%s] not found.', Hyde::pathToRelative($path)) : $this->message);
     }
 }
