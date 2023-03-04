@@ -52,10 +52,10 @@ class BuildService
         $this->needsDirectory(Hyde::siteMediaPath());
 
         $this->comment('Transferring Media Assets...');
-        $this->withProgressBar(array_keys(MediaFile::all()), function (string $filepath): void {
-            $sitePath = Hyde::siteMediaPath($filepath);
+        $this->withProgressBar(array_keys(MediaFile::all()), function (string $identifier): void {
+            $sitePath = Hyde::siteMediaPath($identifier);
             $this->needsParentDirectory($sitePath);
-            copy($filepath, $sitePath);
+            copy($identifier, $sitePath);
         });
 
         $this->newLine(2);
