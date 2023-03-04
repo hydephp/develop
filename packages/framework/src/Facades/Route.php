@@ -49,7 +49,7 @@ class Route
      */
     public static function exists(string $routeKey): bool
     {
-        return Routes::has($routeKey);
+        return Routes::has(RouteKey::normalize($routeKey));
     }
 
     /**
