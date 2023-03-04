@@ -10,6 +10,9 @@ use Hyde\Support\Models\Route;
  * External route used by navigation items.
  *
  * They are not present in the kernel route collection as they are not part of the website.
+ *
+ * @internal
+ * @experimental
  */
 class ExternalRoute extends Route
 {
