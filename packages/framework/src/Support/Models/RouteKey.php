@@ -49,8 +49,8 @@ final class RouteKey implements Stringable
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
     }
 
-    public static function normalize(string $routeKey): string
+    public static function normalize(string $string): string
     {
-        return str_replace('.', '/', $routeKey);
+        return str_replace('.', '/', $string);
     }
 }
