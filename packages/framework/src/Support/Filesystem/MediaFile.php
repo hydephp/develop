@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Foundation\Facades\Files;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use function is_file;
 use function pathinfo;
 
