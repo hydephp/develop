@@ -37,6 +37,11 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testFileConflictExceptionWithCustomMessage()
     {
+        $this->assertSame('Custom message', (new FileConflictException(message: 'Custom message'))->getMessage());
+    }
+
+    public function testFileConflictExceptionWithPathAndCustomMessage()
+    {
         $this->assertSame('Custom message', (new FileConflictException('path/to/file', 'Custom message'))->getMessage());
     }
 
@@ -51,6 +56,11 @@ class CustomExceptionsTest extends UnitTestCase
     }
 
     public function testFileNotFoundExceptionWithCustomMessage()
+    {
+        $this->assertSame('Custom message', (new FileNotFoundException(message: 'Custom message'))->getMessage());
+    }
+
+    public function testFileNotFoundExceptionWithPathAndCustomMessage()
     {
         $this->assertSame('Custom message', (new FileNotFoundException('path/to/file', 'Custom message'))->getMessage());
     }
@@ -67,7 +77,12 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testRouteNotFoundExceptionWithCustomMessage()
     {
-        $this->assertSame('Custom message', (new RouteNotFoundException(null, 'Custom message'))->getMessage());
+        $this->assertSame('Custom message', (new RouteNotFoundException(message: 'Custom message'))->getMessage());
+    }
+
+    public function testRouteNotFoundExceptionWithCustomMessageAndRouteKey()
+    {
+        $this->assertSame('Custom message', (new RouteNotFoundException('route-name', 'Custom message'))->getMessage());
     }
 
     public function testUnsupportedPageTypeExceptionWithDefaultMessage()
