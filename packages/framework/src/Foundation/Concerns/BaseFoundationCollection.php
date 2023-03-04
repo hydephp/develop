@@ -45,7 +45,7 @@ abstract class BaseFoundationCollection extends Collection
         return (new static())->setKernel($kernel);
     }
 
-    public function boot(): static
+    final public function boot(): static
     {
         try {
             $this->runDiscovery();
