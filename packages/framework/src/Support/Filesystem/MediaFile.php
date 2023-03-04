@@ -10,6 +10,7 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Str;
 use function extension_loaded;
+use function array_keys;
 use function array_merge;
 use function file_exists;
 use function filesize;
@@ -29,6 +30,11 @@ class MediaFile extends ProjectFile
     public static function all(): array
     {
         return static::discoverMediaAssetFiles();
+    }
+
+    public static function files(): array
+    {
+        return array_keys(static::all());
     }
 
     public function getIdentifier(): string

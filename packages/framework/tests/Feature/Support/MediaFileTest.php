@@ -179,6 +179,11 @@ class MediaFileTest extends TestCase
         ], MediaFile::all());
     }
 
+    public function test_files_helper()
+    {
+        $this->assertSame(['app.css'], MediaFile::files());
+    }
+
     public function testGetIdentifier()
     {
         $this->assertSame('foo', MediaFile::make('foo')->getIdentifier());
