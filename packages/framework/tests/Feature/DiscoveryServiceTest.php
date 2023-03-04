@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -123,13 +122,6 @@ class DiscoveryServiceTest extends UnitTestCase
         // Cleanup
         MarkdownPage::setSourceDirectory($sourceDirectoryBackup);
         MarkdownPage::setFileExtension($fileExtensionBackup);
-    }
-
-    public function test_get_source_file_list_throws_exception_for_invalid_model_class()
-    {
-        $this->expectException(UnsupportedPageTypeException::class);
-
-        DiscoveryService::getModelIdentifiers('NonExistentModel');
     }
 
     public function test_get_media_asset_files()

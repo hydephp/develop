@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Files;
-use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
-use function class_exists;
 use function config;
 use function glob;
 use function implode;
 use function is_array;
-use function is_subclass_of;
 use function sprintf;
 use function str_replace;
 use function unslash;
@@ -37,17 +33,11 @@ class DiscoveryService
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
      * @return array<string>
      *
-     * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
-     *
      * @example Usage: DiscoveryService::getSourceFileListForModel(BladePage::class)
      * @example Returns: ['index', 'about', 'contact']
      */
     public static function getModelIdentifiers(string $model): array
     {
-        if (! class_exists($model) || ! is_subclass_of($model, HydePage::class)) {
-            throw new UnsupportedPageTypeException($model);
-        }
-
         return Files::getSourceFiles($model)->map(function (SourceFile $file) use ($model): string {
             return static::pathToIdentifier($model, $file->getPath());
         })->values()->toArray();
