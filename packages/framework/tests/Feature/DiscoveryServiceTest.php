@@ -13,7 +13,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Services\DiscoveryService
