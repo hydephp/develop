@@ -66,7 +66,7 @@ class NavItem implements Stringable
      */
     public static function toLink(string $href, string $label, int $priority = 500): static
     {
-        return (new self(new ExternalRoute($href), $label, $priority, false))->setDestination($href);
+        return (new self(null, $label, $priority, false))->setDestination($href);
     }
 
     /**
