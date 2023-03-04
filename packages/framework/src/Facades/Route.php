@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
-use function str_replace;
+use Hyde\Support\Models\RouteKey;
 
 /**
  * Provides an easy way to access the Hyde pseudo-router.
@@ -22,7 +22,7 @@ class Route
      */
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
-        return Routes::get(str_replace('.', '/', $routeKey));
+        return Routes::get(RouteKey::normalize($routeKey));
     }
 
     /**
