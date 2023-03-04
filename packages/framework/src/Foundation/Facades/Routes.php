@@ -31,9 +31,4 @@ class Routes extends Facade
             return $route->getPage() instanceof $pageClass;
         });
     }
-
-    protected static function getFacadeAccessor(): string
-    {
-        return 'routes';
-    }
 }

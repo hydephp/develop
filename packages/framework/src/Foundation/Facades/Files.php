@@ -56,9 +56,4 @@ class Files extends Facade
     {
         return static::getFacadeRoot()->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
     }
-
-    protected static function getFacadeAccessor(): string
-    {
-        return 'files';
-    }
 }
