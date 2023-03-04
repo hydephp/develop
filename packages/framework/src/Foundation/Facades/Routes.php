@@ -21,11 +21,11 @@ class Routes extends Facade
 
     public static function getRoute(string $routeKey): Route
     {
-        //
+        return static::getFacadeRoot()->getRoute($routeKey);
     }
 
     public static function getRoutes(?string $pageClass = null): RouteCollection
     {
-        //
+        return static::getFacadeRoot()->getRoutes($pageClass);
     }
 }
