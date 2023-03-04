@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Pages\MarkdownPost;
 use function count;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Framework\Services\DiscoveryService;
@@ -154,7 +155,7 @@ class Features implements SerializableContract
             && static::hasMarkdownPosts()
             && config('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml')
-            && count(DiscoveryService::getMarkdownPostFiles()) > 0;
+            && count(MarkdownPost::files()) > 0;
     }
 
     /**

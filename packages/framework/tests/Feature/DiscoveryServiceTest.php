@@ -72,7 +72,7 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_get_source_file_list_for_markdown_post()
     {
         Filesystem::touch('_posts/foo.md');
-        $this->assertEquals(['foo'], DiscoveryService::getMarkdownPostFiles());
+        $this->assertEquals(['foo'], MarkdownPost::files());
         Filesystem::unlink('_posts/foo.md');
     }
 
@@ -277,7 +277,7 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_post_files_starting_with_underscore_are_ignored()
     {
         Filesystem::touch('_posts/_foo.md');
-        $this->assertEquals([], DiscoveryService::getMarkdownPostFiles());
+        $this->assertEquals([], MarkdownPost::files());
         Filesystem::unlink('_posts/_foo.md');
     }
 

@@ -12,7 +12,6 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
 use function implode;
@@ -34,11 +33,6 @@ use function unslash;
 class DiscoveryService
 {
     final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
-
-    public static function getMarkdownPostFiles(): array
-    {
-        return MarkdownPost::files();
-    }
 
     public static function getDocumentationPageFiles(): array
     {
