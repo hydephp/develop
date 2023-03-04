@@ -22,22 +22,6 @@ use Illuminate\Support\Facades\File;
  */
 class DiscoveryServiceTest extends TestCase
 {
-    public function createContentSourceTestFiles()
-    {
-        Filesystem::touch(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md');
-        Filesystem::touch(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md');
-        Filesystem::touch(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md');
-        Filesystem::touch(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php');
-    }
-
-    public function deleteContentSourceTestFiles()
-    {
-        Filesystem::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md');
-        Filesystem::unlink(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md');
-        Filesystem::unlink(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md');
-        Filesystem::unlink(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php');
-    }
-
     public function test_get_file_extension_for_model_files()
     {
         $this->assertEquals('.md', DiscoveryService::getModelFileExtension(MarkdownPage::class));
