@@ -15,6 +15,7 @@ use Hyde\Support\Filesystem\SourceFile;
  * The FileCollection contains all the discovered source and media files,
  * and thus has an integral role in the Hyde Auto Discovery process.
  *
+ * @final
  * @property array<string, ProjectFile> $items The files in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
@@ -23,7 +24,7 @@ use Hyde\Support\Filesystem\SourceFile;
  * @see \Hyde\Foundation\Facades\Files
  * @see \Hyde\Hyde::files()
  */
-final class FileCollection extends BaseFoundationCollection
+class FileCollection extends BaseFoundationCollection
 {
     protected function runDiscovery(): self
     {

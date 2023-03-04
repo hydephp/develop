@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 /**
  * The PageCollection contains all the instantiated pages.
  *
+ * @final
  * @property array<string, HydePage> $items The pages in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
@@ -20,7 +21,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Foundation\Facades\PageCollection
  * @see \Hyde\Hyde::pages()
  */
-final class PageCollection extends BaseFoundationCollection
+class PageCollection extends BaseFoundationCollection
 {
     /**
      * This method adds the specified page to the page collection.
