@@ -37,11 +37,9 @@ final class PageCollection extends BaseFoundationCollection
      * In order for your page to be routable and compilable you must call this method during the boot process,
      * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
      */
-    public function addPage(HydePage $page): self
+    public function addPage(HydePage $page): void
     {
         $this->put($page->getSourcePath(), $page);
-
-        return $this;
     }
 
     protected function runDiscovery(): void
