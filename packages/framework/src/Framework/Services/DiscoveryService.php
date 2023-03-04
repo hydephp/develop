@@ -21,11 +21,9 @@ use function str_replace;
 use function unslash;
 
 /**
- * The core service that powers all HydePHP file auto-discovery.
+ * General Discovery Helpers for HydePHP Auto-Discovery.
  *
- * Contains service methods to return helpful collections of arrays and lists,
- * and provides helper methods for source file auto-discovery used in the site
- * building process to determine where files are located and how to parse them.
+ * Offloads FoundationCollection logic and provides helpers for common code.
  *
  * @see \Hyde\Framework\Testing\Feature\DiscoveryServiceTest
  */
