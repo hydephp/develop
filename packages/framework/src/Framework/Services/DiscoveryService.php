@@ -44,7 +44,7 @@ class DiscoveryService
      * @example Usage: DiscoveryService::getSourceFileListForModel(BladePage::class)
      * @example Returns: ['index', 'about', 'contact']
      */
-    public static function getSourceFileListForModel(string $model): array
+    public static function getModelIdentifiers(string $model): array
     {
         if (! class_exists($model) || ! is_subclass_of($model, HydePage::class)) {
             throw new UnsupportedPageTypeException($model);

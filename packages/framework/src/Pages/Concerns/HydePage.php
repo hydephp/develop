@@ -116,7 +116,7 @@ abstract class HydePage implements PageSchema
      */
     public static function files(): array
     {
-        return DiscoveryService::getSourceFileListForModel(static::class);
+        return DiscoveryService::getModelIdentifiers(static::class);
     }
 
     /**

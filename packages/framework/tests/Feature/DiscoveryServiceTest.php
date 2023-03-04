@@ -86,25 +86,25 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_get_source_file_list_for_markdown_page_model()
     {
         $this->file('_pages/foo.md');
-        $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(MarkdownPage::class));
+        $this->assertEquals(['foo'], DiscoveryService::getModelIdentifiers(MarkdownPage::class));
     }
 
     public function test_get_source_file_list_for_blade_page_model()
     {
         $this->file('_pages/foo.blade.php');
-        $this->assertEquals(['404', 'foo', 'index'], DiscoveryService::getSourceFileListForModel(BladePage::class));
+        $this->assertEquals(['404', 'foo', 'index'], DiscoveryService::getModelIdentifiers(BladePage::class));
     }
 
     public function test_get_source_file_list_for_markdown_post_model()
     {
         $this->file('_posts/foo.md');
-        $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(MarkdownPost::class));
+        $this->assertEquals(['foo'], DiscoveryService::getModelIdentifiers(MarkdownPost::class));
     }
 
     public function test_get_source_file_list_for_documentation_page_model()
     {
         $this->file('_docs/foo.md');
-        $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(DocumentationPage::class));
+        $this->assertEquals(['foo'], DiscoveryService::getModelIdentifiers(DocumentationPage::class));
     }
 
     public function test_get_source_file_list_for_model_method_finds_customized_model_properties()
@@ -148,7 +148,7 @@ class DiscoveryServiceTest extends UnitTestCase
     {
         $this->expectException(UnsupportedPageTypeException::class);
 
-        DiscoveryService::getSourceFileListForModel('NonExistentModel');
+        DiscoveryService::getModelIdentifiers('NonExistentModel');
     }
 
     public function test_get_media_asset_files()
@@ -311,7 +311,7 @@ class DiscoveryServiceTest extends UnitTestCase
 
         $expected = $expected ?? basename($path, '.md');
 
-        $this->assertEquals([$expected], DiscoveryService::getSourceFileListForModel($model));
+        $this->assertEquals([$expected], DiscoveryService::getModelIdentifiers($model));
 
         Filesystem::unlink($path);
     }

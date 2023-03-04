@@ -80,7 +80,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             ['test'],
-            DiscoveryService::getSourceFileListForModel(MarkdownPost::class)
+            DiscoveryService::getModelIdentifiers(MarkdownPost::class)
         );
     }
 
@@ -93,7 +93,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             ['test'],
-            DiscoveryService::getSourceFileListForModel(MarkdownPost::class)
+            DiscoveryService::getModelIdentifiers(MarkdownPost::class)
         );
     }
 }
