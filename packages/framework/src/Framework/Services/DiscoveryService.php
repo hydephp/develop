@@ -9,10 +9,10 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Support\Filesystem\SourceFile;
-use Hyde\Facades\Filesystem;
 use Illuminate\Support\Str;
 use function class_exists;
 use function config;
+use function glob;
 use function implode;
 use function is_array;
 use function is_subclass_of;
@@ -85,12 +85,13 @@ class DiscoveryService
 
     /**
      * Get all the Media asset file paths.
+     * Returns a full file path, unlike the other get*List methods.
      *
-     * @return array<string>
+     * @return array<string> An array of absolute file paths.
      */
     public static function getMediaAssetFiles(): array
     {
-        return Filesystem::smartGlob(static::getMediaGlobPattern(), GLOB_BRACE)->toArray();
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
     }
 
     protected static function getMediaGlobPattern(): string
