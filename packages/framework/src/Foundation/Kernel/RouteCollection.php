@@ -68,12 +68,10 @@ final class RouteCollection extends BaseFoundationCollection
         });
     }
 
-    protected function runExtensionCallbacks(): self
+    protected function runExtensionCallbacks(): void
     {
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverRoutes($this);
         }
-
-        return $this;
     }
 }

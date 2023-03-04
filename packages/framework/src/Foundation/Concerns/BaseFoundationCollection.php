@@ -38,7 +38,7 @@ abstract class BaseFoundationCollection extends Collection
 
     abstract protected function runDiscovery(): void;
 
-    abstract protected function runExtensionCallbacks(): self;
+    abstract protected function runExtensionCallbacks(): void;
 
     public static function init(HydeKernel $kernel): static
     {
