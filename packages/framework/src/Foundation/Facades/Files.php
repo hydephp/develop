@@ -25,7 +25,7 @@ class Files extends Facade
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
      * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
      */
-    public static function getSourceFiles(?string $pageClass = null): FileCollection
+    public static function getFiles(?string $pageClass = null): FileCollection
     {
         return $pageClass ? static::getSourceFilesFor($pageClass) : static::getAllSourceFiles();
     }
