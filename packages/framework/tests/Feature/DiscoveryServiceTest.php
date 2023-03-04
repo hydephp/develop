@@ -216,6 +216,7 @@ class DiscoveryServiceTest extends UnitTestCase
 
         $expected = $expected ?? basename($path, '.md');
 
+        /** @var \Hyde\Pages\Concerns\HydePage $model */
         $this->assertEquals([$expected], $model::files());
     }
 }
