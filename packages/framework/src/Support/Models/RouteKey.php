@@ -44,14 +44,14 @@ final class RouteKey implements Stringable
         return $this->key;
     }
 
+    public static function normalize(string $string): string
+    {
+        return str_replace('.', '/', $string);
+    }
+
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
-    }
-
-    public static function normalize(string $string): string
-    {
-        return str_replace('.', '/', $string);
     }
 }
