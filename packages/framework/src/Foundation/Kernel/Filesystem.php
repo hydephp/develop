@@ -192,7 +192,7 @@ class Filesystem
     /**
      * Fluent file helper methods.
      *
-     * @param class-string<\Hyde\Pages\Concerns\HydePage> $model
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
      *
      * Provides a more fluent way of getting either the absolute path
      * to a model's source directory, or an absolute path to a file within it.
