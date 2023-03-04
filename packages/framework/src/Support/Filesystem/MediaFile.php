@@ -90,7 +90,7 @@ class MediaFile extends ProjectFile
         return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
             $file = static::make($filepath);
 
-            return [$file->getPath() => $file];
+            return [$file->getIdentifier() => $file];
         })->all();
     }
 

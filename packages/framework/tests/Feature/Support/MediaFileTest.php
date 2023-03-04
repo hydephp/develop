@@ -167,7 +167,7 @@ class MediaFileTest extends TestCase
     public function test_all_helper_returns_all_media_files()
     {
         $this->assertEquals([
-            '_media/app.css' => new MediaFile('_media/app.css'),
+            'app.css' => new MediaFile('_media/app.css'),
         ], MediaFile::all());
     }
 
@@ -175,7 +175,7 @@ class MediaFileTest extends TestCase
     {
         $this->file('_media/foo.blade.php');
         $this->assertEquals([
-            '_media/app.css' => new MediaFile('_media/app.css'),
+            'app.css' => new MediaFile('_media/app.css'),
         ], MediaFile::all());
     }
 
