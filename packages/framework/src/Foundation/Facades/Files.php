@@ -27,7 +27,9 @@ class Files extends Facade
      */
     public static function getFiles(?string $pageClass = null): FileCollection
     {
-        return $pageClass ? static::getFacadeRoot()->where(fn (SourceFile $file): bool => $file->model === $pageClass) : static::getFacadeRoot();
+        return $pageClass ? static::getFacadeRoot()->where(function (SourceFile $file) use ($pageClass): bool {
+            return $file->model === $pageClass;
+        }) : static::getFacadeRoot();
     }
 
     /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
