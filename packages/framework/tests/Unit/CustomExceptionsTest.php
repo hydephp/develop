@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
+use Hyde\Framework\Exceptions\FileConflictException;
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 
 /**
  * @covers \Hyde\Framework\Exceptions\FileConflictException
