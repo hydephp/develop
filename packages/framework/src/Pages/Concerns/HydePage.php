@@ -207,6 +207,11 @@ abstract class HydePage implements PageSchema
         return Hyde::path(unslash(static::sourceDirectory().'/'.unslash($path)));
     }
 
+    public static function pathToIdentifier(string $path): string
+    {
+        return DiscoveryService::pathToIdentifier(static::class, $path);
+    }
+
     /**
      * Get the route key base for the page model.
      */

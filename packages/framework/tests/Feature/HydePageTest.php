@@ -88,6 +88,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testBasePathToIdentifier()
+    {
+        $this->assertSame(
+            'hello-world',
+            HydePage::pathToIdentifier('hello-world')
+        );
+    }
+
     public function testBaseBaseRouteKey()
     {
         $this->assertSame(
