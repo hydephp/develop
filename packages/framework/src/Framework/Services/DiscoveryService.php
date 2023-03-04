@@ -50,9 +50,9 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        return Files::getSourceFiles($model)->flatten()->map(function (SourceFile $file) use ($model): string {
+        return Files::getSourceFiles($model)->map(function (SourceFile $file) use ($model): string {
             return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
-        })->toArray();
+        })->values()->toArray();
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
