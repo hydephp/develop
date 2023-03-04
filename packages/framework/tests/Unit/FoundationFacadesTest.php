@@ -23,17 +23,17 @@ class FoundationFacadesTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function testFileCollectionFacadeInstanceUsesKernelInstance()
+    public function testFileCollectionFacadeUsesKernelInstance()
     {
         $this->assertSame(HydeKernel::getInstance()->files(), Files::getInstance());
     }
 
-    public function testPageCollectionFacadeInstanceUsesKernelInstance()
+    public function testPageCollectionFacadeUsesKernelInstance()
     {
         $this->assertSame(HydeKernel::getInstance()->pages(), Pages::getInstance());
     }
 
-    public function testRouteCollectionFacadeInstanceUsesKernelInstance()
+    public function testRouteCollectionFacadeUsesKernelInstance()
     {
         $this->assertSame(HydeKernel::getInstance()->routes(), Routes::getInstance());
     }
