@@ -45,7 +45,7 @@ class FileCollectionTest extends TestCase
     public function test_get_file_throws_exception_when_file_is_not_found()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [_pages/foo.blade.php] not found in file collection');
+        $this->expectExceptionMessage('File [_pages/foo.blade.php] not found');
 
         Files::getFile('_pages/foo.blade.php');
     }

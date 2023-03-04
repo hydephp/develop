@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
+use function str_replace;
 use function unslash;
 
 /**
- * Route keys are the core of Hyde's routing system.
+ * Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.
+ * This class both provides a data object for normalized type-hintable values, and general related helper methods.
  *
  * In short, the route key is the URL path relative to the site webroot, without the file extension.
  *
@@ -29,7 +31,7 @@ final class RouteKey implements Stringable
 
     public function __construct(string $key)
     {
-        $this->key = $key;
+        $this->key = self::normalize($key);
     }
 
     public function __toString(): string
@@ -40,6 +42,11 @@ final class RouteKey implements Stringable
     public function get(): string
     {
         return $this->key;
+    }
+
+    public static function normalize(string $string): string
+    {
+        return str_replace('.', '/', $string);
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */

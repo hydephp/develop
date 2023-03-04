@@ -46,7 +46,7 @@ final class RouteCollection extends BaseFoundationCollection
 
     public function getRoute(string $routeKey): Route
     {
-        return $this->get($routeKey) ?? throw new RouteNotFoundException(message: "Route [$routeKey] not found in route collection");
+        return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
