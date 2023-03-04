@@ -60,7 +60,7 @@ class FileCollectionTest extends TestCase
         $this->assertEquals([
             '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
             '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
-        ], $collection->getSourceFiles()->all());
+        ], Files::getSourceFiles()->all());
     }
 
     public function test_get_source_files_does_not_include_non_page_source_files()
@@ -69,7 +69,7 @@ class FileCollectionTest extends TestCase
         $this->file('_pages/foo.txt');
 
         $collection = FileCollection::init(Hyde::getInstance())->boot();
-        $this->assertEquals([], $collection->getSourceFiles()->all());
+        $this->assertEquals([], Files::getSourceFiles()->all());
 
         $this->restoreDefaultPages();
     }
@@ -79,7 +79,7 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals([
             '_media/app.css' => new MediaFile('_media/app.css'),
-        ], $collection->getMediaFiles()->all());
+        ], Files::getMediaFiles()->all());
     }
 
     public function test_get_media_files_does_not_include_non_media_files()
@@ -88,7 +88,7 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals([
             '_media/app.css' => new MediaFile('_media/app.css'),
-        ], $collection->getMediaFiles()->all());
+        ], Files::getMediaFiles()->all());
     }
 
     public function test_blade_pages_are_discovered()

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Foundation\Facades\Files;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\MediaFile;
@@ -26,36 +25,6 @@ use Hyde\Support\Filesystem\SourceFile;
  */
 final class FileCollection extends BaseFoundationCollection
 {
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
-     */
-    public function getSourceFiles(?string $pageClass = null): self
-    {
-        return Files::getSourceFiles($pageClass);
-    }
-
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
-     */
-    public function getSourceFilesFor(string $pageClass): self
-    {
-        return Files::getSourceFilesFor($pageClass);
-    }
-
-    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
-    public function getAllSourceFiles(): self
-    {
-        return Files::getAllSourceFiles();
-    }
-
-    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
-    public function getMediaFiles(): self
-    {
-        return Files::getMediaFiles();
-    }
-
     protected function runDiscovery(): self
     {
         /** @var class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
