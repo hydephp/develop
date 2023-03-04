@@ -22,6 +22,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\ExternalRoute
  */
 class NavigationMenuTest extends TestCase
 {
