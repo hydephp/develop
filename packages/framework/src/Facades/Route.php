@@ -28,7 +28,6 @@ class Route
     /**
      * Get a route from the route index for the specified route key or throw an exception.
      *
-     *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
