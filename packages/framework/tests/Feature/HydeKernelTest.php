@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
@@ -480,7 +481,7 @@ class HydeKernelTest extends TestCase
         });
 
         $this->assertSame($page, Pages::getPage('foo'));
-        $this->assertEquals($page->getRoute(), $kernel->routes()->getRoute('foo'));
+        $this->assertEquals($page->getRoute(), Routes::getRoute('foo'));
     }
 
     public function test_is_booted_returns_false_when_not_booted()

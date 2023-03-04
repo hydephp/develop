@@ -8,6 +8,7 @@ use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -53,8 +54,9 @@ class FoundationFacadesTest extends TestCase
             Routes::getInstance()
         );
 
+        Hyde::routes();
         $this->assertEquals(
-            Hyde::routes()->getRoutes(),
+            Routes::getRoutes(null),
             Routes::getRoutes()
         );
     }

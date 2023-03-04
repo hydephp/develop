@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Facades\Site;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
@@ -66,7 +67,7 @@ class BuildService
     {
         $this->comment("Creating {$this->getClassPluralName($pageClass)}...");
 
-        $collection = $this->router->getRoutes($pageClass);
+        $collection = Routes::getRoutes($pageClass);
 
         $this->withProgressBar($collection, function (Route $route): void {
             (new StaticPageBuilder($route->getPage()))->__invoke();

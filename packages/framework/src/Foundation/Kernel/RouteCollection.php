@@ -40,16 +40,6 @@ use Hyde\Support\Models\Route;
  */
 final class RouteCollection extends BaseFoundationCollection
 {
-    public function getRoute(string $routeKey): Route
-    {
-        return Routes::getRoute($routeKey);
-    }
-
-    public function getRoutes(?string $pageClass = null): self
-    {
-        return Routes::getRoutes($pageClass);
-    }
-
     /**
      * This method adds the specified route to the route index.
      * It can be used by package developers to hook into the routing system.
