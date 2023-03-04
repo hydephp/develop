@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
+use Hyde\Foundation\Facades\Files;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
@@ -28,7 +29,7 @@ final class FileCollection extends BaseFoundationCollection
 {
     public function getFile(string $filePath): ProjectFile
     {
-        return $this->items[$filePath] ?? throw new FileNotFoundException($filePath.' in file collection');
+        return Files::getFile($filePath);
     }
 
     /**
