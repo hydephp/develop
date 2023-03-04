@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  * The PageCollection contains all the instantiated pages.
  *
  * @template T of \Hyde\Pages\Concerns\HydePage
- * @extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, HydePage> $items The pages in the collection.
  *

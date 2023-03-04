@@ -16,7 +16,7 @@ use Hyde\Support\Filesystem\SourceFile;
  * and thus has an integral role in the Hyde Auto Discovery process.
  *
  * @template T of \Hyde\Support\Filesystem\ProjectFile
- * @extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, ProjectFile> $items The files in the collection.
  *
