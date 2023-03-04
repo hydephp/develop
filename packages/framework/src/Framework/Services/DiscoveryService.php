@@ -55,18 +55,6 @@ class DiscoveryService
         })->values()->toArray();
     }
 
-    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
-    public static function getModelFileExtension(string $model): string
-    {
-        return $model::fileExtension();
-    }
-
-    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
-    public static function getModelSourceDirectory(string $model): string
-    {
-        return $model::sourceDirectory();
-    }
-
     /**
      * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
      * within the source directory are retained in order to satisfy the page identifier definition.

@@ -67,7 +67,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             '_source/posts',
-            DiscoveryService::getModelSourceDirectory(MarkdownPost::class)
+            MarkdownPost::class::sourceDirectory()
         );
     }
 
