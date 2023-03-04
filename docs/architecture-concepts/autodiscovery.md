@@ -60,7 +60,11 @@ public function boot(): void
 ```
 
 Here you'll see that we boot the three collections. This is where all the autodiscovery magic happens!
-We'll take a closer look at each of these in a second, but first, here's how the "lazy-booting" works.
+
+#### Deep dive into lazy-booting
+
+If you're curious about how the kernel is lazy-booted, here's how it works!
+Feel free to skip this section if this doesn't interest you.
 
 ```php
 // This will boot the kernel if it hasn't been booted yet
