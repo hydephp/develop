@@ -6,7 +6,6 @@ namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
