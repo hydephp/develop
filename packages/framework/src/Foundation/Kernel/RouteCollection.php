@@ -12,7 +12,6 @@ use Hyde\Support\Models\Route;
 /**
  * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
  *
- * @final This class is not meant to be extended.
  * @property array<string, Route> $items The routes in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
@@ -39,7 +38,7 @@ use Hyde\Support\Models\Route;
  * file was generated from. This bridges the gaps between the source and
  * the compiled web accessible URI routes the static site generator creates.
  */
-class RouteCollection extends BaseFoundationCollection
+final class RouteCollection extends BaseFoundationCollection
 {
     /**
      * This method adds the specified route to the route index.
