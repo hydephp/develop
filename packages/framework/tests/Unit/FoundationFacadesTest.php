@@ -26,10 +26,6 @@ class FoundationFacadesTest extends TestCase
         );
 
         Hyde::files();
-        $this->assertEquals(
-            Files::getSourceFiles(),
-            Files::getSourceFiles()
-        );
     }
 
     public function test_page_collection_facade()
@@ -40,10 +36,6 @@ class FoundationFacadesTest extends TestCase
         );
 
         Hyde::pages();
-        $this->assertEquals(
-            Pages::getPages(),
-            Pages::getPages()
-        );
     }
 
     public function test_route_collection_facade()
@@ -54,10 +46,6 @@ class FoundationFacadesTest extends TestCase
         );
 
         Hyde::routes();
-        $this->assertEquals(
-            Routes::getRoutes(),
-            Routes::getRoutes()
-        );
     }
 
     public function test_facade_roots()
