@@ -66,6 +66,7 @@ class MediaFile extends ProjectFile
         return 'text/plain';
     }
 
+    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> */
     public static function all(): array
     {
         return Files::getMediaFiles()->all();
