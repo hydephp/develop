@@ -41,7 +41,7 @@ class RouteFacadeTest extends UnitTestCase
         Route::getOrFail('not-found');
     }
 
-    public function test_get_from_key_returns_route_from_router_index()
+    public function test_get_returns_route_from_router_index()
     {
         $this->assertEquals(new RouteModel(BladePage::parse('index')), Route::get('index'));
         $this->assertInstanceOf(RouteModel::class, Route::get('index'));
