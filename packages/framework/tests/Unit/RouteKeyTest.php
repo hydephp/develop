@@ -29,6 +29,11 @@ class RouteKeyTest extends UnitTestCase
 
     public function testToString()
     {
+        $this->assertSame('foo', (new RouteKey('foo'))->__toString());
+    }
+
+    public function testStringCast()
+    {
         $this->assertSame('foo', (string) new RouteKey('foo'));
     }
 
