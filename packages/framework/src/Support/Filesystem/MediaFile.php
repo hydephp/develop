@@ -21,7 +21,7 @@ class MediaFile extends ProjectFile
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> */
     public static function all(): array
     {
-        return Files::getMediaFiles()->all();
+        return Files::where(fn (ProjectFile $file): bool => $file instanceof MediaFile)->all();
     }
 
     public function toArray(): array
