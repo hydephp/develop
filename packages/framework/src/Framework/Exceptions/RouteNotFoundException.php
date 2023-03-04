@@ -16,7 +16,8 @@ class RouteNotFoundException extends Exception
 
     public function __construct(?string $routeKey = null)
     {
-        $this->message = $routeKey ? sprintf('Route [%s] not found.', $routeKey) : $this->message;
+        $message = $routeKey ? sprintf('Route [%s] not found.', $routeKey) : $this->message;
+        $this->message = $message;
 
         parent::__construct($this->message);
     }
