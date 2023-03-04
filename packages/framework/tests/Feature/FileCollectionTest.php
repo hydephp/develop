@@ -40,7 +40,6 @@ class FileCollectionTest extends TestCase
     public function test_get_file_returns_parsed_file_object_for_given_file_path()
     {
         $this->file('_pages/foo.blade.php');
-        $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class),
             Files::getFile('_pages/foo.blade.php'));
     }
@@ -49,14 +48,11 @@ class FileCollectionTest extends TestCase
     {
         $this->expectException(FileNotFoundException::class);
 
-        $collection = FileCollection::init(Hyde::getInstance())->boot();
         Files::getFile('_pages/foo.blade.php');
     }
 
     public function test_get_source_files_returns_all_discovered_source_files_when_no_parameter_is_supplied()
     {
-        $collection = FileCollection::init(Hyde::getInstance())->boot();
-
         $this->assertEquals([
             '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
             '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
@@ -68,7 +64,6 @@ class FileCollectionTest extends TestCase
         $this->withoutDefaultPages();
         $this->file('_pages/foo.txt');
 
-        $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals([], Files::getSourceFiles()->all());
 
         $this->restoreDefaultPages();
@@ -76,7 +71,6 @@ class FileCollectionTest extends TestCase
 
     public function test_get_media_files_returns_all_discovered_media_files()
     {
-        $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals([
             '_media/app.css' => new MediaFile('_media/app.css'),
         ], Files::getMediaFiles()->all());
@@ -85,7 +79,6 @@ class FileCollectionTest extends TestCase
     public function test_get_media_files_does_not_include_non_media_files()
     {
         $this->file('_media/foo.blade.php');
-        $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals([
             '_media/app.css' => new MediaFile('_media/app.css'),
         ], Files::getMediaFiles()->all());
