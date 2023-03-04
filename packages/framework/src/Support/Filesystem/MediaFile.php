@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Foundation\Facades\Files;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
@@ -63,5 +64,10 @@ class MediaFile extends ProjectFile
         }
 
         return 'text/plain';
+    }
+
+    public static function all(): array
+    {
+        return Files::getMediaFiles()->all();
     }
 }
