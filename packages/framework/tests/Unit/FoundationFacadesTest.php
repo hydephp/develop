@@ -17,9 +17,9 @@ use Hyde\Testing\UnitTestCase;
  */
 class FoundationFacadesTest extends UnitTestCase
 {
-    protected function setUp(): void
+    public static function setupBeforeClass(): void
     {
-        self::setupKernel();
+        self::needsKernel();
         self::mockConfig();
     }
 
