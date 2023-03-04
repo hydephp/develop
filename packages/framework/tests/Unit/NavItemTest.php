@@ -15,6 +15,7 @@ use Hyde\Testing\UnitTestCase;
  * For the full feature test, see the NavigationMenuTest class.
  *
  * @covers \Hyde\Framework\Features\Navigation\NavItem
+ * @covers \Hyde\Framework\Features\Navigation\ExternalRoute
  */
 class NavItemTest extends UnitTestCase
 {
