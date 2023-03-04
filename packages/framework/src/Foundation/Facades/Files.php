@@ -17,12 +17,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Files extends Facade
 {
-    /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
-    public static function getFacadeRoot(): FileCollection
-    {
-        return HydeKernel::getInstance()->files();
-    }
-
     public static function getFile(string $filePath): ProjectFile
     {
         return static::getFacadeRoot()->get($filePath) ?? throw new FileNotFoundException(message: "File [$filePath] not found in file collection");
@@ -56,5 +50,11 @@ class Files extends Facade
     public static function getMediaFiles(): FileCollection
     {
         return static::getFacadeRoot()->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
+    }
+
+    /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
+    public static function getFacadeRoot(): FileCollection
+    {
+        return HydeKernel::getInstance()->files();
     }
 }

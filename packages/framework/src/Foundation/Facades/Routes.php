@@ -15,12 +15,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Routes extends Facade
 {
-    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
-    public static function getFacadeRoot(): RouteCollection
-    {
-        return HydeKernel::getInstance()->routes();
-    }
-
     public static function getRoute(string $routeKey): Route
     {
         return static::getFacadeRoot()->get($routeKey) ?? throw new RouteNotFoundException(message: "Route [$routeKey] not found in route collection");
@@ -31,5 +25,11 @@ class Routes extends Facade
         return $pageClass ? static::getFacadeRoot()->filter(function (Route $route) use ($pageClass): bool {
             return $route->getPage() instanceof $pageClass;
         }) : static::getFacadeRoot();
+    }
+
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
+    public static function getFacadeRoot(): RouteCollection
+    {
+        return HydeKernel::getInstance()->routes();
     }
 }
