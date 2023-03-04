@@ -17,7 +17,7 @@ class FileConflictException extends Exception
 
     public function __construct(?string $path = null)
     {
-        $this->message = ($path ? sprintf('File [%s] already exists.', Hyde::pathToRelative($path)) : $this->message);
+        $this->message = $path ? sprintf('File [%s] already exists.', Hyde::pathToRelative($path)) : $this->message;
 
         parent::__construct($this->message, $this->code);
     }
