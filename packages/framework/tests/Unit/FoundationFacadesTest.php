@@ -23,22 +23,22 @@ class FoundationFacadesTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function test_file_collection_facade()
+    public function testFileCollectionFacade()
     {
         $this->assertSame(HydeKernel::getInstance()->files(), Files::getInstance());
     }
 
-    public function test_page_collection_facade()
+    public function testPageCollectionFacade()
     {
         $this->assertSame(HydeKernel::getInstance()->pages(), Pages::getInstance());
     }
 
-    public function test_route_collection_facade()
+    public function testRouteCollectionFacade()
     {
         $this->assertSame(HydeKernel::getInstance()->routes(), Routes::getInstance());
     }
 
-    public function test_facade_roots()
+    public function testFacadeRoots()
     {
         $this->assertSame(Files::getInstance(), Files::getFacadeRoot());
         $this->assertSame(Pages::getInstance(), Pages::getFacadeRoot());
