@@ -73,9 +73,13 @@ class RouteFacadeTest extends UnitTestCase
         Render::swap(new \Hyde\Support\Models\Render());
     }
 
-    public function testExists()
+    public function testExistsForExistingRoute()
     {
         $this->assertTrue(Route::exists('index'));
+    }
+
+    public function testExistsForNonExistingRoute()
+    {
         $this->assertFalse(Route::exists('not-found'));
     }
 }
