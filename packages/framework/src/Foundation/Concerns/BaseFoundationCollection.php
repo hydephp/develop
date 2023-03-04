@@ -51,9 +51,9 @@ abstract class BaseFoundationCollection extends Collection
             $this->runDiscovery();
         } catch (Throwable $exception) {
             throw new RuntimeException('An error occurred during the discovery process.', previous: $exception);
-        } finally {
-            return $this;
         }
+
+        return $this;
     }
 
     protected function __construct(array|Arrayable|null $items = [])
