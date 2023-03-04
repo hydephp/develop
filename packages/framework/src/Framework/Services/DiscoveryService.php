@@ -105,7 +105,7 @@ class DiscoveryService
     {
         return is_array($extensions)
             ? implode(',', $extensions)
-            : static::removeSpaces((string) $extensions);
+            : static::removeSpaces($extensions);
     }
 
     protected static function removeSpaces(string $string): string
