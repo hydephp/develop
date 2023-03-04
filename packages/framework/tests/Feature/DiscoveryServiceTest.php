@@ -53,33 +53,30 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_get_source_file_list_for_model_method_finds_default_model_properties()
     {
         $this->directory('foo');
-        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, MarkdownPage::sourceDirectory().'/foo.md');
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, '_pages'.'/foo.md');
     }
 
     public function test_get_source_file_list_for_model_method_finds_customized_source_directory()
     {
         $this->directory('foo');
-        $sourceDirectoryBackup = MarkdownPage::sourceDirectory();
 
         MarkdownPage::setSourceDirectory('foo');
         $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.md');
 
-        MarkdownPage::setSourceDirectory($sourceDirectoryBackup);
+        MarkdownPage::setSourceDirectory('_pages');
     }
 
     public function test_get_source_file_list_for_model_method_finds_customized_file_extension()
     {
         $this->directory('foo');
-        $sourceDirectoryBackup = MarkdownPage::sourceDirectory();
-        $fileExtensionBackup = MarkdownPage::fileExtension();
 
         MarkdownPage::setSourceDirectory('foo');
         MarkdownPage::setFileExtension('.foo');
 
         $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.foo', 'foo');
 
-        MarkdownPage::setSourceDirectory($sourceDirectoryBackup);
-        MarkdownPage::setFileExtension($fileExtensionBackup);
+        MarkdownPage::setSourceDirectory('_pages');
+        MarkdownPage::setFileExtension('.md');
     }
 
     public function test_get_media_asset_files()
