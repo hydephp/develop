@@ -22,7 +22,7 @@ class Routes extends Facade
 
     public static function getRoute(string $routeKey): Route
     {
-        return static::getFacadeRoot()->items[$routeKey] ?? throw new RouteNotFoundException($routeKey . ' in route collection');
+        return static::getFacadeRoot()->get($routeKey) ?? throw new RouteNotFoundException($routeKey . ' in route collection');
     }
 
     public static function getRoutes(?string $pageClass = null): RouteCollection
