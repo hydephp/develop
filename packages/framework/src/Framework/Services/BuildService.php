@@ -55,7 +55,7 @@ class BuildService
         $this->withProgressBar(array_keys(MediaFile::all()), function (string $identifier): void {
             $sitePath = Hyde::siteMediaPath($identifier);
             $this->needsParentDirectory($sitePath);
-            copy($identifier, $sitePath);
+            copy(Hyde::mediaPath($identifier), $sitePath);
         });
 
         $this->newLine(2);
