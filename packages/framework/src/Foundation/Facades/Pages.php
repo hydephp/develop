@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Facades;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\Facade;
 
@@ -21,12 +22,14 @@ class Pages extends Facade
 
     public function getPage(string $sourcePath): HydePage
     {
-        return static::getFacadeRoot()->getPage($sourcePath);
+        return static::getFacadeRoot()->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath . ' in page collection');
     }
 
     public function getPages(?string $pageClass = null): PageCollection
     {
-        return static::getFacadeRoot()->getPages($pageClass);
+        return $pageClass ? static::getFacadeRoot()->filter(function (HydePage $page) use ($pageClass): bool {
+            return $page instanceof $pageClass;
+        }) : static::getFacadeRoot();
     }
 
     /**
@@ -45,6 +48,8 @@ class Pages extends Facade
      */
     public function addPage(HydePage $page): PageCollection
     {
-        return static::getFacadeRoot()->addPage($page);
+        static::getFacadeRoot()->put($page->getSourcePath(), $page);
+
+        return static::getFacadeRoot();
     }
 }
