@@ -110,7 +110,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get an array of all the source file identifiers for the model.
      *
-     * Essentially an alias of DiscoveryService::getAbstractPageList().
+     * Note that the values do not include the source directory or file extension.
      *
      * @return array<string>
      */
