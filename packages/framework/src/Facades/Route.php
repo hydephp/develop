@@ -41,7 +41,7 @@ class Route
      */
     public static function all(): RouteCollection
     {
-        return Hyde::routes();
+        return Routes::getRoutes();
     }
 
     /**
