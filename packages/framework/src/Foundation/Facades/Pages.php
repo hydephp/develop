@@ -31,4 +31,9 @@ class Pages extends Facade
             return $page instanceof $pageClass;
         }) : static::getFacadeRoot();
     }
+
+    protected static function getFacadeAccessor(): string
+    {
+        return 'pages';
+    }
 }
