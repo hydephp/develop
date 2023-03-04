@@ -61,13 +61,11 @@ final class RouteCollection extends BaseFoundationCollection
         return $this;
     }
 
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         $this->kernel->pages()->each(function (HydePage $page): void {
             $this->addRoute(new Route($page));
         });
-
-        return $this;
     }
 
     protected function runExtensionCallbacks(): self

@@ -43,13 +43,11 @@ final class PageCollection extends BaseFoundationCollection
         return $this;
     }
 
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
             $this->discoverPagesFor($pageClass);
         }
-
-        return $this;
     }
 
     protected function runExtensionCallbacks(): self

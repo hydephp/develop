@@ -55,11 +55,9 @@ class BaseFoundationCollectionTestClass extends BaseFoundationCollection
 {
     protected bool $discovered = false;
 
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         $this->discovered = true;
-
-        return $this;
     }
 
     protected function runExtensionCallbacks(): self
@@ -80,7 +78,7 @@ class BaseFoundationCollectionTestClass extends BaseFoundationCollection
 
 class ThrowingBaseFoundationCollectionTestClass extends BaseFoundationCollection
 {
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         throw new Exception('This is a test exception');
     }

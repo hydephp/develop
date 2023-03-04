@@ -42,7 +42,7 @@ final class FileCollection extends BaseFoundationCollection
         return $this;
     }
 
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         /** @var class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
@@ -52,8 +52,6 @@ final class FileCollection extends BaseFoundationCollection
         }
 
         $this->discoverMediaAssetFiles();
-
-        return $this;
     }
 
     protected function runExtensionCallbacks(): self
