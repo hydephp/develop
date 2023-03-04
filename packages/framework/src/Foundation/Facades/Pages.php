@@ -20,6 +20,10 @@ class Pages extends Facade
         return static::getFacadeRoot()->get($sourcePath) ?? throw new FileNotFoundException(message: "Page [$sourcePath] not found in page collection");
     }
 
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\Concerns\HydePage>
+     */
     public static function getPages(?string $pageClass = null): PageCollection
     {
         return $pageClass ? static::getFacadeRoot()->filter(function (HydePage $page) use ($pageClass): bool {

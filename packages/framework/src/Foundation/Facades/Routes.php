@@ -20,6 +20,10 @@ class Routes extends Facade
         return static::getFacadeRoot()->get($routeKey) ?? throw new RouteNotFoundException(message: "Route [$routeKey] not found in route collection");
     }
 
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route>
+     */
     public static function getRoutes(?string $pageClass = null): RouteCollection
     {
         return $pageClass ? static::getFacadeRoot()->filter(function (Route $route) use ($pageClass): bool {
