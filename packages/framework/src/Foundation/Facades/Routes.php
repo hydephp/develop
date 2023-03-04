@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Facades;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -16,5 +17,15 @@ class Routes extends Facade
     public static function getFacadeRoot(): RouteCollection
     {
         return HydeKernel::getInstance()->routes();
+    }
+
+    public static function getRoute(string $routeKey): Route
+    {
+        //
+    }
+
+    public static function getRoutes(?string $pageClass = null): RouteCollection
+    {
+        //
     }
 }
