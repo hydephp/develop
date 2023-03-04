@@ -49,11 +49,10 @@ final class RouteCollection extends BaseFoundationCollection
      *
      * Note that this method when used outside of this class is only intended to be used for adding on-off routes;
      * If you are registering multiple routes, you may instead want to register an entire custom page class,
-     * as that will allow you to utilize the full power of the HydePHP autodiscovery. In addition,
-     * you might actually rather want to use the page collection's addPage method instead,
-     * as all pages there are automatically also added as routes here as well.
+     * as that will allow you to utilize the full power of the HydePHP autodiscovery.
      *
-     * When using this method, take notice of the following things:
+     * In addition, you might actually rather want to use the PageCollection's addPage method
+     * instead as all pages there are automatically also added as routes here as well.
      */
     public function addRoute(Route $route): self
     {
