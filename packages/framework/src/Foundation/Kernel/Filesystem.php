@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Facades\Site;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
