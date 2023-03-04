@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Hyde;
-use Illuminate\Support\Str;
-use function unslash;
-
 /**
  * General Discovery Helpers for HydePHP Auto-Discovery.
  *
@@ -27,9 +23,6 @@ class DiscoveryService
      */
     public static function pathToIdentifier(string $pageClass, string $filepath): string
     {
-        return unslash(Str::between(Hyde::pathToRelative($filepath),
-            $pageClass::sourceDirectory().'/',
-            $pageClass::fileExtension())
-        );
+        return $pageClass::pathToIdentifier($filepath);
     }
 }

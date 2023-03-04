@@ -20,6 +20,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
+use Illuminate\Support\Str;
 use function unslash;
 
 /**
@@ -209,7 +210,10 @@ abstract class HydePage implements PageSchema
 
     public static function pathToIdentifier(string $path): string
     {
-        return DiscoveryService::pathToIdentifier(static::class, $path);
+        return unslash(Str::between(Hyde::pathToRelative($path),
+            static::sourceDirectory().'/',
+            static::fileExtension())
+        );
     }
 
     /**
