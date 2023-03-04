@@ -46,7 +46,7 @@ class Files extends Facade
         return static::getFacadeRoot()->where(fn (ProjectFile $file): bool => $file instanceof SourceFile);
     }
 
-    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
+    /** @deprecated */
     public static function getMediaFiles(): FileCollection
     {
         return static::getFacadeRoot()->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
