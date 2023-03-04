@@ -131,11 +131,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertSame([], MediaFile::files());
 
         self::mockConfig(['hyde.media_extensions' => ['1,2,3']]);
-        $this->assertSame([
-            'test.1',
-            'test.2',
-            'test.3',
-        ], MediaFile::files());
+        $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
     }
 
     public function test_media_asset_extensions_can_be_added_by_array()
@@ -147,11 +143,7 @@ class DiscoveryServiceTest extends UnitTestCase
 
         $this->assertSame([], MediaFile::files());
         self::mockConfig(['hyde.media_extensions' => ['1', '2', '3']]);
-        $this->assertSame([
-            'test.1',
-            'test.2',
-            'test.3',
-        ], MediaFile::files());
+        $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
     }
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
