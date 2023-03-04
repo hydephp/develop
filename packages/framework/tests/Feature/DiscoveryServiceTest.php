@@ -87,16 +87,16 @@ class DiscoveryServiceTest extends UnitTestCase
         $testFiles = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
         foreach ($testFiles as $fileType) {
-            $path = Hyde::path('_media/test.'.$fileType);
-            $this->file($path);
+            $path = 'test.'.$fileType;
+            $this->file('_media/'.$path);
             $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
         }
     }
 
     public function test_get_media_asset_files_discovers_custom_file_types()
     {
-        $path = Hyde::path('_media/test.custom');
-        $this->file($path);
+        $path = 'test.custom';
+        $this->file("_media/$path");
         $this->assertNotContains($path, DiscoveryService::getMediaAssetFiles());
         self::mockConfig(['hyde.media_extensions' => ['custom']]);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
@@ -104,19 +104,19 @@ class DiscoveryServiceTest extends UnitTestCase
 
     public function test_get_media_asset_files_discovers_files_recursively()
     {
-        $path = Hyde::path('_media/foo/bar.png');
+        $path = 'foo/bar.png';
         $this->directory('_media/foo');
-        $this->file($path);
+        $this->file("_media/$path");
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
     }
 
     public function test_get_media_asset_files_discovers_files_very_recursively()
     {
-        $path = Hyde::path('_media/foo/bar/img.png');
-        $this->directory(dirname($path), recursive: true);
-        $this->file($path);
+        $path = 'foo/bar/img.png';
+        $this->directory(dirname("_media/$path"), recursive: true);
+        $this->file("_media/$path");
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        Filesystem::deleteDirectory(Hyde::path('_media/foo'));
+        Filesystem::deleteDirectory('_media/foo');
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
@@ -130,9 +130,9 @@ class DiscoveryServiceTest extends UnitTestCase
 
         self::mockConfig(['hyde.media_extensions' => ['1,2,3']]);
         $this->assertEquals([
-            Hyde::path('_media/test.1'),
-            Hyde::path('_media/test.2'),
-            Hyde::path('_media/test.3'),
+            'test.1',
+            'test.2',
+            'test.3',
         ], DiscoveryService::getMediaAssetFiles());
     }
 
@@ -146,9 +146,9 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
         self::mockConfig(['hyde.media_extensions' => ['1', '2', '3']]);
         $this->assertEquals([
-            Hyde::path('_media/test.1'),
-            Hyde::path('_media/test.2'),
-            Hyde::path('_media/test.3'),
+            'test.1',
+            'test.2',
+            'test.3',
         ], DiscoveryService::getMediaAssetFiles());
     }
 

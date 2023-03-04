@@ -37,13 +37,12 @@ class DiscoveryService
     }
 
     /**
-     * Get all the Media asset file paths.
-     * Returns a full file path, unlike the other get*List methods.
+     * Get all the Media asset filenames.
      *
-     * @return array<string> An array of absolute file paths.
+     * @return array<string> An array of filenames relative to the media source directory.
      */
     public static function getMediaAssetFiles(): array
     {
-        return collect(MediaFile::all())->map(fn (MediaFile $file): string => $file->getAbsolutePath())->values()->toArray();
+        return array_keys(MediaFile::all());
     }
 }
