@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 
@@ -56,5 +57,21 @@ final class FileCollection extends BaseFoundationCollection
                 $this->addFile(SourceFile::make($filepath, $pageClass));
             }
         }
+    }
+
+    public function getFile(string $filePath): SourceFile
+    {
+        return $this->get($filePath) ?? throw new FileNotFoundException(message: "File [$filePath] not found in file collection");
+    }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\SourceFile>
+     */
+    public function getFiles(?string $pageClass = null): FileCollection
+    {
+        return $pageClass ? $this->filter(function (SourceFile $file) use ($pageClass): bool {
+            return $file->model === $pageClass;
+        }) : $this;
     }
 }
