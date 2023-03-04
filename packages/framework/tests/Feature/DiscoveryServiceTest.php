@@ -59,7 +59,7 @@ class DiscoveryServiceTest extends UnitTestCase
 
     public function test_get_source_file_list_for_blade_page()
     {
-        $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
+        $this->assertEquals(['404', 'index'], BladePage::files());
     }
 
     public function test_get_source_file_list_for_markdown_page()
@@ -263,7 +263,7 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
         Filesystem::touch('_pages/_foo.blade.php');
-        $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
+        $this->assertEquals(['404', 'index'], BladePage::files());
         Filesystem::unlink('_pages/_foo.blade.php');
     }
 

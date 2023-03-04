@@ -10,7 +10,6 @@ use function glob;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
-use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -36,11 +35,6 @@ use function unslash;
 class DiscoveryService
 {
     final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
-
-    public static function getBladePageFiles(): array
-    {
-        return BladePage::files();
-    }
 
     public static function getMarkdownPageFiles(): array
     {

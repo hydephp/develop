@@ -132,7 +132,7 @@ class ValidationService
     {
         $conflicts = array_intersect(
             DiscoveryService::getMarkdownPageFiles(),
-            DiscoveryService::getBladePageFiles()
+            BladePage::files()
         );
 
         if (count($conflicts)) {
