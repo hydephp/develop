@@ -25,6 +25,8 @@ class NavItem implements Stringable
     public Route $route;
     public string $href;
 
+    public Route|string $destination;
+
     public string $label;
     public int $priority;
     public bool $hidden;
