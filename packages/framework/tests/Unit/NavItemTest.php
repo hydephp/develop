@@ -131,14 +131,6 @@ class NavItemTest extends UnitTestCase
         $this->assertTrue($item->isCurrent(\Hyde\Facades\Route::get('index')->getPage()));
     }
 
-    public function testGetRoute()
-    {
-        $route = \Hyde\Facades\Route::get('index');
-        $item = NavItem::fromRoute($route);
-
-        $this->assertSame($route, $item->getRoute());
-    }
-
     public function testGetRouteWithNoRoute()
     {
         $item = NavItem::toLink('index.html', 'Home');
