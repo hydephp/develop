@@ -107,6 +107,6 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testBaseUrlNotSetExceptionCode()
     {
-        $this->assertSame(0, (new BaseUrlNotSetException())->getCode());
+        $this->assertSame(500, (new BaseUrlNotSetException())->getCode());
     }
 }
