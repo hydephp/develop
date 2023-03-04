@@ -16,6 +16,6 @@ class UnsupportedPageTypeException extends Exception
 
     public function __construct(?string $page = null)
     {
-        parent::__construct($page ? "The page type [$page] is not supported." : $this->message);
+        parent::__construct($page ? sprintf("The page type [%s] is not supported.", $page) : $this->message);
     }
 }
