@@ -21,9 +21,7 @@ class Route
         return Routes::get(RouteKey::normalize($routeKey));
     }
 
-    /**
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
-     */
+    /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
     {
         return Routes::getRoute(RouteKey::normalize($routeKey));
@@ -34,17 +32,13 @@ class Route
         return Routes::has(RouteKey::normalize($routeKey));
     }
 
-    /**
-     * @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route>
-     */
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
     public static function all(): RouteCollection
     {
         return Routes::getRoutes();
     }
 
-    /**
-     * Get the current route for the page being rendered.
-     */
+    /** Get the current route for the page being rendered. */
     public static function current(): ?\Hyde\Support\Models\Route
     {
         return Hyde::currentRoute();
