@@ -23,7 +23,7 @@ class Pages extends Facade
 
     public static function getPage(string $sourcePath): HydePage
     {
-        return static::getFacadeRoot()->get($sourcePath) ?? throw new FileNotFoundException($sourcePath.' in page collection');
+        return static::getFacadeRoot()->get($sourcePath) ?? throw new FileNotFoundException(message: "Page [$sourcePath] not found in page collection");
     }
 
     public static function getPages(?string $pageClass = null): PageCollection

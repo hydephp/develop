@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -179,5 +180,13 @@ class PageCollectionTest extends TestCase
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('.source/docs/foo.md'));
 
         File::deleteDirectory(Hyde::path('.source'));
+    }
+
+    public function test_get_file_throws_exception_when_file_is_not_found()
+    {
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('Page [_pages/foo.blade.php] not found in page collection');
+
+        Pages::getPage('_pages/foo.blade.php');
     }
 }
