@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -32,6 +33,21 @@ class FileCollectionTest extends TestCase
             '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
             '_media/app.css' => new MediaFile('_media/app.css'),
         ], $collection->all());
+    }
+
+    public function test_get_file_returns_parsed_file_object_for_given_file_path()
+    {
+        $this->file('_pages/foo.blade.php');
+        $collection = FileCollection::init(Hyde::getInstance())->boot();
+        $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class), $collection->getFile('_pages/foo.blade.php'));
+    }
+
+    public function test_get_file_throws_exception_when_file_is_not_found()
+    {
+        $this->expectException(FileNotFoundException::class);
+
+        $collection = FileCollection::init(Hyde::getInstance())->boot();
+        $collection->getFile('_pages/foo.blade.php');
     }
 
     public function test_get_source_files_returns_all_discovered_source_files_when_no_parameter_is_supplied()
