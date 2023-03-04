@@ -21,6 +21,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Foundation\Kernel\FileCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\Facades\Files
  */
 class FileCollectionTest extends TestCase
 {
