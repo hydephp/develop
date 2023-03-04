@@ -208,6 +208,13 @@ abstract class HydePage implements PageSchema
         return Hyde::path(unslash(static::sourceDirectory().'/'.unslash($path)));
     }
 
+    /**
+     * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
+     * within the source directory are retained in order to satisfy the page identifier definition.
+     *
+     * @param  string  $path  Example: index.blade.php
+     * @return string Example: index
+     */
     public static function pathToIdentifier(string $path): string
     {
         return unslash(Str::between(Hyde::pathToRelative($path),
