@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
@@ -80,7 +79,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             ['test'],
-            DiscoveryService::getModelIdentifiers(MarkdownPost::class)
+            MarkdownPost::files()
         );
     }
 
@@ -93,7 +92,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             ['test'],
-            DiscoveryService::getModelIdentifiers(MarkdownPost::class)
+            MarkdownPost::files()
         );
     }
 }

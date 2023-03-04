@@ -26,20 +26,6 @@ class DiscoveryService
     final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
     /**
-     * Supply a model::class constant and get a list of all the existing source file base names.
-     *
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
-     * @return array<string>
-     *
-     * @example Usage: DiscoveryService::getSourceFileListForModel(BladePage::class)
-     * @example Returns: ['index', 'about', 'contact']
-     */
-    public static function getModelIdentifiers(string $model): array
-    {
-        return $model::files();
-    }
-
-    /**
      * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
      * within the source directory are retained in order to satisfy the page identifier definition.
      *
