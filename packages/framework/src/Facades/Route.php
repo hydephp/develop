@@ -33,7 +33,7 @@ class Route
      */
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
     {
-        return static::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return static::get(RouteKey::normalize($routeKey)) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
