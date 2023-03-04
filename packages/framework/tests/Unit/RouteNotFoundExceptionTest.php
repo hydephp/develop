@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Exceptions\RouteNotFoundException;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
  */
-class RouteNotFoundExceptionTest extends TestCase
+class RouteNotFoundExceptionTest extends UnitTestCase
 {
     public function test_it_can_be_instantiated()
     {

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
  */
-class UnsupportedPageTypeExceptionTest extends TestCase
+class UnsupportedPageTypeExceptionTest extends UnitTestCase
 {
     public function test_it_can_be_instantiated()
     {

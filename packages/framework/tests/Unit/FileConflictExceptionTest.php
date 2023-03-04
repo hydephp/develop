@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileConflictException;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Exceptions\FileConflictException
  */
-class FileConflictExceptionTest extends TestCase
+class FileConflictExceptionTest extends UnitTestCase
 {
     public function test_it_can_be_instantiated()
     {
