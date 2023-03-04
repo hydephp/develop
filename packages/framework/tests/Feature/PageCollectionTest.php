@@ -9,7 +9,6 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;

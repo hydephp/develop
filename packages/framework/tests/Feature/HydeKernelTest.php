@@ -12,7 +12,6 @@ use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;

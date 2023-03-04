@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\HydeCoreExtension;
-use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;

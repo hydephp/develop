@@ -92,6 +92,7 @@ abstract class HydePage implements PageSchema
     public static function get(string $identifier): HydePage
     {
         Hyde::pages();
+
         return Pages::getPage(static::sourcePath($identifier));
     }
 
