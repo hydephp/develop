@@ -24,4 +24,34 @@ class Files extends Facade
     {
         return static::getFacadeRoot()->get($filePath) ?? throw new FileNotFoundException($filePath.' in file collection');
     }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
+     */
+    public static function getSourceFiles(?string $pageClass = null): FileCollection
+    {
+        //
+    }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
+     */
+    public static function getSourceFilesFor(string $pageClass): FileCollection
+    {
+        //
+    }
+
+    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
+    public static function getAllSourceFiles(): FileCollection
+    {
+        //
+    }
+
+    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
+    public static function getMediaFiles(): FileCollection
+    {
+        //
+    }
 }
