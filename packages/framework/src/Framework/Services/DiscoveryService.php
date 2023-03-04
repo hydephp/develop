@@ -101,11 +101,13 @@ class DiscoveryService
         ));
     }
 
+    /** @deprecated Handle in glob helper */
     protected static function parseConfiguredMediaExtensions(string|array $extensions): string
     {
         return is_array($extensions) ? implode(',', $extensions) : static::removeSpaces($extensions);
     }
 
+    /** @deprecated Handle in glob helper */
     protected static function removeSpaces(string $string): string
     {
         return str_replace(' ', '', $string);
