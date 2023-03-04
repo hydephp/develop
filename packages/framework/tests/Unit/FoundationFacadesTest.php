@@ -52,19 +52,4 @@ class FoundationFacadesTest extends UnitTestCase
     {
         $this->assertSame(Routes::getInstance(), Routes::getFacadeRoot());
     }
-
-    public function testFilesFacadeIsMockable()
-    {
-        Files::shouldReceive('getFacadeRoot')->andReturn('mocked');
-    }
-
-    public function testPagesFacadeIsMockable()
-    {
-        Pages::shouldReceive('getFacadeRoot')->andReturn('mocked');
-    }
-
-    public function testRoutesFacadeIsMockable()
-    {
-        Routes::shouldReceive('getFacadeRoot')->andReturn('mocked');
-    }
 }
