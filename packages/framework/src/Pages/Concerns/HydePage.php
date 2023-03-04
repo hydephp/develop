@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Hyde\Foundation\Facades;
+use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
@@ -16,6 +17,7 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use function unslash;
@@ -116,7 +118,9 @@ abstract class HydePage implements PageSchema
      */
     public static function files(): array
     {
-        return DiscoveryService::getModelIdentifiers(static::class);
+        return Files::getSourceFiles(static::class)->map(function (SourceFile $file): string {
+            return DiscoveryService::pathToIdentifier(static::class, $file->getPath());
+        })->values()->toArray();
     }
 
     /**

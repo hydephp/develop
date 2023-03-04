@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
-use Hyde\Foundation\Facades\Files;
-use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
 use function config;
 use function glob;
@@ -38,9 +36,7 @@ class DiscoveryService
      */
     public static function getModelIdentifiers(string $model): array
     {
-        return Files::getSourceFiles($model)->map(function (SourceFile $file) use ($model): string {
-            return static::pathToIdentifier($model, $file->getPath());
-        })->values()->toArray();
+        return $model::files();
     }
 
     /**
