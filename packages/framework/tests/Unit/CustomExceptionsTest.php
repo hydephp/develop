@@ -32,7 +32,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testFileConflictExceptionWithPath()
     {
-        $this->assertSame('File [path/to/file] already exists.', (new FileConflictException('path/to/file'))->getMessage());
+        $this->assertSame('File [foo] already exists.', (new FileConflictException('foo'))->getMessage());
     }
 
     public function testFileConflictExceptionWithCustomMessage()
@@ -42,7 +42,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testFileConflictExceptionWithPathAndCustomMessage()
     {
-        $this->assertSame('Custom message', (new FileConflictException('path/to/file', 'Custom message'))->getMessage());
+        $this->assertSame('Custom message', (new FileConflictException('foo', 'Custom message'))->getMessage());
     }
 
     public function testFileNotFoundExceptionWithDefaultMessage()
@@ -52,7 +52,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testFileNotFoundExceptionWithPath()
     {
-        $this->assertSame('File [path/to/file] not found.', (new FileNotFoundException('path/to/file'))->getMessage());
+        $this->assertSame('File [foo] not found.', (new FileNotFoundException('foo'))->getMessage());
     }
 
     public function testFileNotFoundExceptionWithCustomMessage()
@@ -62,7 +62,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testFileNotFoundExceptionWithPathAndCustomMessage()
     {
-        $this->assertSame('Custom message', (new FileNotFoundException('path/to/file', 'Custom message'))->getMessage());
+        $this->assertSame('Custom message', (new FileNotFoundException('foo', 'Custom message'))->getMessage());
     }
 
     public function testRouteNotFoundExceptionWithDefaultMessage()
@@ -72,7 +72,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testRouteNotFoundExceptionWithRouteKey()
     {
-        $this->assertSame("Route not found: 'route-name'", (new RouteNotFoundException('route-name'))->getMessage());
+        $this->assertSame("Route not found: 'foo'", (new RouteNotFoundException('foo'))->getMessage());
     }
 
     public function testRouteNotFoundExceptionWithCustomMessage()
@@ -82,7 +82,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testRouteNotFoundExceptionWithCustomMessageAndRouteKey()
     {
-        $this->assertSame('Custom message', (new RouteNotFoundException('route-name', 'Custom message'))->getMessage());
+        $this->assertSame('Custom message', (new RouteNotFoundException('foo', 'Custom message'))->getMessage());
     }
 
     public function testUnsupportedPageTypeExceptionWithDefaultMessage()
@@ -92,7 +92,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testUnsupportedPageTypeExceptionWithPage()
     {
-        $this->assertSame('The page type is not supported: some-page', (new UnsupportedPageTypeException('some-page'))->getMessage());
+        $this->assertSame('The page type is not supported: foo', (new UnsupportedPageTypeException('foo'))->getMessage());
     }
 
     public function testBaseUrlNotSetException()
