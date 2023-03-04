@@ -49,7 +49,9 @@ final class PageCollection extends BaseFoundationCollection
      */
     public function addPage(HydePage $page): self
     {
-        return Pages::addPage($page);
+        $this->put($page->getSourcePath(), $page);
+
+        return $this;
     }
 
     protected function runDiscovery(): self
