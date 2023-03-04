@@ -22,7 +22,7 @@ class Routes extends Facade
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route>
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
      */
     public static function getRoutes(?string $pageClass = null): RouteCollection
     {
