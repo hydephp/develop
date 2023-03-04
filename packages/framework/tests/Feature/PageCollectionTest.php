@@ -73,7 +73,6 @@ class PageCollectionTest extends TestCase
     public function test_get_page_returns_parsed_page_object_for_given_source_path()
     {
         $this->file('_pages/foo.blade.php');
-        $collection = PageCollection::init(Hyde::getInstance())->boot();
         $this->assertEquals(new BladePage('foo'), Pages::getPage('_pages/foo.blade.php'));
     }
 
@@ -115,8 +114,7 @@ class PageCollectionTest extends TestCase
         $this->file('_docs/foo.md');
         $this->file('_pages/foo.html');
 
-        PageCollection::init(Hyde::getInstance())->boot();
-        $collection = Pages::getPages(null);
+        $collection = Pages::getPages();
         $this->assertCount(5, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
@@ -131,8 +129,7 @@ class PageCollectionTest extends TestCase
     public function test_get_pages_returns_empty_collection_when_no_pages_are_discovered()
     {
         $this->withoutDefaultPages();
-        $collection = PageCollection::init(Hyde::getInstance())->boot();
-        $this->assertEmpty(Pages::getPages(null));
+        $this->assertEmpty(Pages::getPages());
         $this->restoreDefaultPages();
     }
 
@@ -172,8 +169,7 @@ class PageCollectionTest extends TestCase
         touch(Hyde::path('.source/posts/foo.md'));
         touch(Hyde::path('.source/docs/foo.md'));
 
-        PageCollection::init(Hyde::getInstance())->boot();
-        $collection = Pages::getPages(null);
+        $collection = Pages::getPages();
         $this->assertCount(4, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('.source/pages/foo.blade.php'));

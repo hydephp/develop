@@ -344,7 +344,6 @@ class HydePageTest extends TestCase
     public function test_all_returns_collection_of_all_parsed_source_files_from_page_index()
     {
         Filesystem::touch('_pages/foo.md');
-        Hyde::pages();
         $this->assertEquals(
             Pages::getPages(MarkdownPage::class),
             MarkdownPage::all()
@@ -995,7 +994,6 @@ class HydePageTest extends TestCase
         $this->assertSame("bar\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
         /** @var BaseMarkdownPage $parsed */
-        MarkdownPage::all();
         $parsed = Pages::getPage('_pages/foo.md');
         $this->assertSame('bar', $parsed->markdown->body());
 
