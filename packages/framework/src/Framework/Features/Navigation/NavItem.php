@@ -22,6 +22,7 @@ use Stringable;
  */
 class NavItem implements Stringable
 {
+    /** @deprecated Use $destination instead */
     public Route $route;
     public string $href;
 
