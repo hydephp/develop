@@ -8,14 +8,14 @@ use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\Facades\Files
  * @covers \Hyde\Foundation\Facades\Pages
  * @covers \Hyde\Foundation\Facades\Routes
  */
-class FoundationFacadesTest extends TestCase
+class FoundationFacadesTest extends UnitTestCase
 {
     public function test_file_collection_facade()
     {
