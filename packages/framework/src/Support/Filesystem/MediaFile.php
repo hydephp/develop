@@ -26,13 +26,13 @@ use function glob;
  */
 class MediaFile extends ProjectFile
 {
-    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> */
+    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
     public static function all(): array
     {
         return static::discoverMediaAssetFiles();
     }
 
-    /** @return array<string> */
+    /** @return array<string> Array of filenames relative to the _media/ directory */
     public static function files(): array
     {
         return array_keys(static::all());
