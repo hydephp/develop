@@ -48,9 +48,11 @@ abstract class BaseFoundationCollection extends Collection
     public function boot(): static
     {
         try {
-            return $this->runDiscovery();
+            $this->runDiscovery();
         } catch (Throwable $exception) {
             throw new RuntimeException('An error occurred during the discovery process.', previous: $exception);
+        } finally {
+            return $this;
         }
     }
 
