@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -43,6 +44,11 @@ class CustomExceptionsTest extends UnitTestCase
     public function testFileConflictExceptionWithPathAndCustomMessage()
     {
         $this->assertSame('Custom message', (new FileConflictException('foo', 'Custom message'))->getMessage());
+    }
+
+    public function testFileConflictExceptionWithAbsolutePath()
+    {
+        $this->assertSame('File [foo] already exists.', (new FileConflictException(Hyde::path('foo')))->getMessage());
     }
 
     public function testFileNotFoundExceptionWithDefaultMessage()
