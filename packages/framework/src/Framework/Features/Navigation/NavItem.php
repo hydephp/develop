@@ -76,7 +76,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Resolve a link to the navigation item.
+     * @deprecated As links are always resolved, this method is obsolete
      */
     public function resolveLink(): string
     {
