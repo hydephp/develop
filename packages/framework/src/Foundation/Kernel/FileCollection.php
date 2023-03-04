@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 
 /**
- * The FileCollection contains all the discovered source and media files,
- * and thus has an integral role in the Hyde Auto Discovery process.
+ * The FileCollection contains all the discovered source files.
  *
  * @template T of \Hyde\Support\Filesystem\SourceFile
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
@@ -18,20 +18,13 @@ use Hyde\Support\Filesystem\SourceFile;
  * @property array<string, SourceFile> $items The files in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
- * You would commonly access it via one of the facades:
+ * You would commonly access it via the facade or Hyde helper:
  *
  * @see \Hyde\Foundation\Facades\Files
  * @see \Hyde\Hyde::files()
  */
 final class FileCollection extends BaseFoundationCollection
 {
-    /**
-     * This method adds the specified file to the file collection.
-     * It can be used by package developers to add a file that can be discovered.
-     *
-     * In order for your file to be further processed you must call this method during the boot process,
-     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
-     */
     public function addFile(SourceFile $file): void
     {
         $this->put($file->getPath(), $file);
@@ -64,5 +57,21 @@ final class FileCollection extends BaseFoundationCollection
                 $this->addFile(SourceFile::make($filepath, $pageClass));
             }
         }
+    }
+
+    public function getFile(string $filePath): SourceFile
+    {
+        return $this->get($filePath) ?? throw new FileNotFoundException(message: "File [$filePath] not found in file collection");
+    }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\SourceFile>
+     */
+    public function getFiles(?string $pageClass = null): FileCollection
+    {
+        return $pageClass ? $this->filter(function (SourceFile $file) use ($pageClass): bool {
+            return $file->model === $pageClass;
+        }) : $this;
     }
 }

@@ -55,7 +55,7 @@ class FileCollectionTest extends TestCase
         $this->assertEquals([
             '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
             '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
-        ], Files::getSourceFiles()->all());
+        ], Files::getFiles()->all());
     }
 
     public function test_get_source_files_does_not_include_non_page_source_files()
@@ -63,7 +63,7 @@ class FileCollectionTest extends TestCase
         $this->withoutDefaultPages();
         $this->file('_pages/foo.txt');
 
-        $this->assertEquals([], Files::getSourceFiles()->all());
+        $this->assertEquals([], Files::getFiles()->all());
 
         $this->restoreDefaultPages();
     }

@@ -118,7 +118,7 @@ abstract class HydePage implements PageSchema
      */
     public static function files(): array
     {
-        return Files::getSourceFiles(static::class)->map(function (SourceFile $file): string {
+        return Files::getFiles(static::class)->map(function (SourceFile $file): string {
             return DiscoveryService::pathToIdentifier(static::class, $file->getPath());
         })->values()->toArray();
     }
