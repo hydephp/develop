@@ -43,6 +43,6 @@ class DiscoveryService
      */
     public static function getMediaAssetFiles(): array
     {
-        return array_keys(MediaFile::all());
+        return MediaFile::files();
     }
 }
