@@ -6,11 +6,13 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -480,7 +482,8 @@ class HydeKernelTest extends TestCase
 
         $kernel->boot();
 
-        $this->assertSame($page, $kernel->pages()->getPage('foo'));
+        $kernel->pages();
+        $this->assertSame($page, Pages::getPage('foo'));
         $this->assertEquals($page->getRoute(), $kernel->routes()->getRoute('foo'));
     }
 

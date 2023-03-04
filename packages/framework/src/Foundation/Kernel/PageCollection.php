@@ -23,16 +23,6 @@ use Illuminate\Support\Collection;
  */
 final class PageCollection extends BaseFoundationCollection
 {
-    public function getPage(string $sourcePath): HydePage
-    {
-        return Pages::getPage($sourcePath);
-    }
-
-    public function getPages(?string $pageClass = null): self
-    {
-        return Pages::getPages($pageClass);
-    }
-
     /**
      * This method adds the specified page to the page collection.
      * It can be used by package developers to add a page that will be compiled.

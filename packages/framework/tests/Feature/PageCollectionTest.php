@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
@@ -73,7 +75,7 @@ class PageCollectionTest extends TestCase
     {
         $this->file('_pages/foo.blade.php');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
-        $this->assertEquals(new BladePage('foo'), $collection->getPage('_pages/foo.blade.php'));
+        $this->assertEquals(new BladePage('foo'), Pages::getPage('_pages/foo.blade.php'));
     }
 
     public function test_get_pages_returns_collection_of_pages_of_given_class()
@@ -89,17 +91,17 @@ class PageCollectionTest extends TestCase
         $collection = PageCollection::init(Hyde::getInstance())->boot();
         $this->assertCount(5, $collection);
 
-        $this->assertContainsOnlyInstancesOf(BladePage::class, $collection->getPages(BladePage::class));
-        $this->assertContainsOnlyInstancesOf(MarkdownPage::class, $collection->getPages(MarkdownPage::class));
-        $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection->getPages(MarkdownPost::class));
-        $this->assertContainsOnlyInstancesOf(DocumentationPage::class, $collection->getPages(DocumentationPage::class));
-        $this->assertContainsOnlyInstancesOf(HtmlPage::class, $collection->getPages(HtmlPage::class));
+        $this->assertContainsOnlyInstancesOf(BladePage::class, Pages::getPages(BladePage::class));
+        $this->assertContainsOnlyInstancesOf(MarkdownPage::class, Pages::getPages(MarkdownPage::class));
+        $this->assertContainsOnlyInstancesOf(MarkdownPost::class, Pages::getPages(MarkdownPost::class));
+        $this->assertContainsOnlyInstancesOf(DocumentationPage::class, Pages::getPages(DocumentationPage::class));
+        $this->assertContainsOnlyInstancesOf(HtmlPage::class, Pages::getPages(HtmlPage::class));
 
-        $this->assertEquals(new BladePage('foo'), $collection->getPages(BladePage::class)->first());
-        $this->assertEquals(new MarkdownPage('foo'), $collection->getPages(MarkdownPage::class)->first());
-        $this->assertEquals(new MarkdownPost('foo'), $collection->getPages(MarkdownPost::class)->first());
-        $this->assertEquals(new DocumentationPage('foo'), $collection->getPages(DocumentationPage::class)->first());
-        $this->assertEquals(new HtmlPage('foo'), $collection->getPages(HtmlPage::class)->first());
+        $this->assertEquals(new BladePage('foo'), Pages::getPages(BladePage::class)->first());
+        $this->assertEquals(new MarkdownPage('foo'), Pages::getPages(MarkdownPage::class)->first());
+        $this->assertEquals(new MarkdownPost('foo'), Pages::getPages(MarkdownPost::class)->first());
+        $this->assertEquals(new DocumentationPage('foo'), Pages::getPages(DocumentationPage::class)->first());
+        $this->assertEquals(new HtmlPage('foo'), Pages::getPages(HtmlPage::class)->first());
 
         $this->restoreDefaultPages();
     }
@@ -114,7 +116,8 @@ class PageCollectionTest extends TestCase
         $this->file('_docs/foo.md');
         $this->file('_pages/foo.html');
 
-        $collection = PageCollection::init(Hyde::getInstance())->boot()->getPages();
+        PageCollection::init(Hyde::getInstance())->boot();
+        $collection = Pages::getPages(null);
         $this->assertCount(5, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
@@ -130,7 +133,7 @@ class PageCollectionTest extends TestCase
     {
         $this->withoutDefaultPages();
         $collection = PageCollection::init(Hyde::getInstance())->boot();
-        $this->assertEmpty($collection->getPages());
+        $this->assertEmpty(Pages::getPages(null));
         $this->restoreDefaultPages();
     }
 
@@ -170,7 +173,8 @@ class PageCollectionTest extends TestCase
         touch(Hyde::path('.source/posts/foo.md'));
         touch(Hyde::path('.source/docs/foo.md'));
 
-        $collection = PageCollection::init(Hyde::getInstance())->boot()->getPages();
+        PageCollection::init(Hyde::getInstance())->boot();
+        $collection = Pages::getPages(null);
         $this->assertCount(4, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('.source/pages/foo.blade.php'));
