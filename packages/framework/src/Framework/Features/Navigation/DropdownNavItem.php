@@ -21,7 +21,7 @@ class DropdownNavItem extends NavItem
     /** @param array<NavItem> $items */
     public function __construct(string $name, array $items)
     {
-        parent::__construct(null, $name, 999);
+        parent::__construct('#', $name, 999);
         $this->items = $items;
         $this->name = $name;
     }
