@@ -16,7 +16,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Foundation\Kernel\PageCollection
