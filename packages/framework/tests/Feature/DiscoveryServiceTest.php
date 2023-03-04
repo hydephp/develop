@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Services\DiscoveryService
- *
- * @see \Hyde\Framework\Testing\Unit\DiscoveryServiceUnitTest
  */
 class DiscoveryServiceTest extends UnitTestCase
 {

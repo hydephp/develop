@@ -32,7 +32,6 @@ use function unslash;
  * building process to determine where files are located and how to parse them.
  *
  * @see \Hyde\Framework\Testing\Feature\DiscoveryServiceTest
- * @see \Hyde\Framework\Testing\Unit\DiscoveryServiceUnitTest
  */
 class DiscoveryService
 {
