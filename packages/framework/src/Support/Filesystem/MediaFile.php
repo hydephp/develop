@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
 use function array_merge;
@@ -76,12 +75,12 @@ class MediaFile extends ProjectFile
 
     protected static function discoverMediaAssetFiles(): array
     {
-        $collection = new Collection();
+        $files = [];
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
             $file = static::make($filepath);
-            $collection->put($file->getPath(), $file);
+            $files[$file->getPath()] = $file;
         }
 
-        return $collection->all();
+        return $files;
     }
 }
