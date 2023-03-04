@@ -12,7 +12,6 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
@@ -33,7 +32,6 @@ class FileCollectionTest extends TestCase
         $this->assertEquals([
             '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
             '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
-            '_media/app.css' => new MediaFile('_media/app.css'),
         ], $collection->all());
     }
 

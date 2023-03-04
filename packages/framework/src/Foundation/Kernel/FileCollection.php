@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 
@@ -48,8 +46,6 @@ final class FileCollection extends BaseFoundationCollection
                 $this->discoverFilesFor($pageClass);
             }
         }
-
-        $this->discoverMediaAssetFiles();
     }
 
     protected function runExtensionCallbacks(): void
@@ -68,14 +64,6 @@ final class FileCollection extends BaseFoundationCollection
             if (! str_starts_with(basename((string) $filepath), '_')) {
                 $this->addFile(SourceFile::make($filepath, $pageClass));
             }
-        }
-    }
-
-    /** @deprecated */
-    protected function discoverMediaAssetFiles(): void
-    {
-        foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
-            $this->addFile(MediaFile::make($filepath));
         }
     }
 }
