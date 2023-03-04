@@ -16,6 +16,11 @@ use Hyde\Support\Models\RouteKey;
  */
 class Route
 {
+    public static function exists(string $routeKey): bool
+    {
+        return Routes::has(RouteKey::normalize($routeKey));
+    }
+
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
         return Routes::get(RouteKey::normalize($routeKey));
@@ -25,11 +30,6 @@ class Route
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
     {
         return Routes::getRoute(RouteKey::normalize($routeKey));
-    }
-
-    public static function exists(string $routeKey): bool
-    {
-        return Routes::has(RouteKey::normalize($routeKey));
     }
 
     /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
