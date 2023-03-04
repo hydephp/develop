@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Foundation\Kernel\RouteCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\Facades\Routes
  */
 class RouteCollectionTest extends TestCase
 {
