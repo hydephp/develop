@@ -31,7 +31,7 @@ class Files extends Facade
      */
     public static function getSourceFiles(?string $pageClass = null): FileCollection
     {
-        //
+        return static::getFacadeRoot()->getSourceFiles($pageClass);
     }
 
     /**
@@ -40,18 +40,18 @@ class Files extends Facade
      */
     public static function getSourceFilesFor(string $pageClass): FileCollection
     {
-        //
+        return static::getFacadeRoot()->getSourceFilesFor($pageClass);
     }
 
     /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
     public static function getAllSourceFiles(): FileCollection
     {
-        //
+        return static::getFacadeRoot()->getAllSourceFiles();
     }
 
     /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
     public static function getMediaFiles(): FileCollection
     {
-        //
+        return static::getFacadeRoot()->getMediaFiles();
     }
 }
