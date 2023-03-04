@@ -98,7 +98,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $path = Hyde::path('_media/test.custom');
         $this->file($path);
         $this->assertNotContains($path, DiscoveryService::getMediaAssetFiles());
-        self::mockConfig(['hyde.media_extensions' => 'custom']);
+        self::mockConfig(['hyde.media_extensions' => ['custom']]);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
     }
 
@@ -121,30 +121,14 @@ class DiscoveryServiceTest extends UnitTestCase
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
     {
-        self::mockConfig(['hyde.media_extensions' => null]);
+        self::mockConfig(['hyde.media_extensions' => []]);
         $this->file('_media/test.1');
         $this->file('_media/test.2');
         $this->file('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
 
-        self::mockConfig(['hyde.media_extensions' => '1,2,3']);
-        $this->assertEquals([
-            Hyde::path('_media/test.1'),
-            Hyde::path('_media/test.2'),
-            Hyde::path('_media/test.3'),
-        ], DiscoveryService::getMediaAssetFiles());
-    }
-
-    public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
-    {
-        self::mockConfig(['hyde.media_extensions' => null]);
-        $this->file('_media/test.1');
-        $this->file('_media/test.2');
-        $this->file('_media/test.3');
-
-        $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
-        self::mockConfig(['hyde.media_extensions' => '1, 2, 3']);
+        self::mockConfig(['hyde.media_extensions' => ['1,2,3']]);
         $this->assertEquals([
             Hyde::path('_media/test.1'),
             Hyde::path('_media/test.2'),
@@ -154,7 +138,7 @@ class DiscoveryServiceTest extends UnitTestCase
 
     public function test_media_asset_extensions_can_be_added_by_array()
     {
-        self::mockConfig(['hyde.media_extensions' => null]);
+        self::mockConfig(['hyde.media_extensions' => []]);
         $this->file('_media/test.1');
         $this->file('_media/test.2');
         $this->file('_media/test.3');

@@ -6,12 +6,10 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
 use Illuminate\Support\Str;
-use function config;
+use Hyde\Facades\Config;
 use function glob;
 use function implode;
-use function is_array;
 use function sprintf;
-use function str_replace;
 use function unslash;
 
 /**
@@ -54,20 +52,8 @@ class DiscoveryService
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', static::parseConfiguredMediaExtensions(
-            config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS) ?? []
+        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
+            Config::getArray('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
-    }
-
-    /** @deprecated Handle in glob helper */
-    protected static function parseConfiguredMediaExtensions(string|array $extensions): string
-    {
-        return is_array($extensions) ? implode(',', $extensions) : static::removeSpaces($extensions);
-    }
-
-    /** @deprecated Handle in glob helper */
-    protected static function removeSpaces(string $string): string
-    {
-        return str_replace(' ', '', $string);
     }
 }
