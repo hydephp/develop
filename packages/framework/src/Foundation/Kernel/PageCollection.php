@@ -25,17 +25,6 @@ use Hyde\Support\Filesystem\SourceFile;
  */
 final class PageCollection extends BaseFoundationCollection
 {
-    /**
-     * This method adds the specified page to the page collection.
-     * It can be used by package developers to add a page that will be compiled.
-     *
-     * Note that this method when used outside of this class is only intended to be used for adding on-off pages;
-     * If you are registering multiple pages, you may instead want to register an entire custom page class,
-     * as that will allow you to utilize the full power of the HydePHP autodiscovery.
-     *
-     * In order for your page to be routable and compilable you must call this method during the boot process,
-     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
-     */
     public function addPage(HydePage $page): void
     {
         $this->put($page->getSourcePath(), $page);

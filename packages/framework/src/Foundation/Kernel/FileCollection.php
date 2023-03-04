@@ -25,13 +25,6 @@ use Hyde\Support\Filesystem\SourceFile;
  */
 final class FileCollection extends BaseFoundationCollection
 {
-    /**
-     * This method adds the specified file to the file collection.
-     * It can be used by package developers to add a file that can be discovered.
-     *
-     * In order for your file to be further processed you must call this method during the boot process,
-     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
-     */
     public function addFile(SourceFile $file): void
     {
         $this->put($file->getPath(), $file);
