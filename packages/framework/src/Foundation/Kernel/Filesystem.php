@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Facades\Site;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -193,6 +192,8 @@ class Filesystem
     /**
      * Fluent file helper methods.
      *
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
+     *
      * Provides a more fluent way of getting either the absolute path
      * to a model's source directory, or an absolute path to a file within it.
      *
@@ -202,10 +203,10 @@ class Filesystem
     public function getModelSourcePath(string $model, string $path = ''): string
     {
         if (empty($path)) {
-            return $this->path(DiscoveryService::getModelSourceDirectory($model));
+            return $this->path($model::sourceDirectory());
         }
 
-        return $this->path(path_join(DiscoveryService::getModelSourceDirectory($model), unslash($path)));
+        return $this->path(path_join($model::sourceDirectory(), unslash($path)));
     }
 
     public function getBladePagePath(string $path = ''): string

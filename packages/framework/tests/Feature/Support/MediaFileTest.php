@@ -124,14 +124,14 @@ class MediaFileTest extends TestCase
         $this->directory('foo');
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage("Could not get the content length of file 'foo'");
+        $this->expectExceptionMessage('Could not get the content length of file [foo]');
         MediaFile::make('foo')->getContentLength();
     }
 
     public function test_getContentLength_with_non_existent_file()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage("Could not get the content length of file 'foo'");
+        $this->expectExceptionMessage('Could not get the content length of file [foo]');
         MediaFile::make('foo')->getContentLength();
     }
 
@@ -162,5 +162,35 @@ class MediaFileTest extends TestCase
     public function test_getMimeType_with_non_existent_file()
     {
         $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
+    }
+
+    public function test_all_helper_returns_all_media_files()
+    {
+        $this->assertEquals([
+            'app.css' => new MediaFile('_media/app.css'),
+        ], MediaFile::all());
+    }
+
+    public function test_all_helper_does_not_include_non_media_files()
+    {
+        $this->file('_media/foo.blade.php');
+        $this->assertEquals([
+            'app.css' => new MediaFile('_media/app.css'),
+        ], MediaFile::all());
+    }
+
+    public function test_files_helper()
+    {
+        $this->assertSame(['app.css'], MediaFile::files());
+    }
+
+    public function testGetIdentifier()
+    {
+        $this->assertSame('foo', MediaFile::make('foo')->getIdentifier());
+    }
+
+    public function testGetIdentifierWithSubdirectory()
+    {
+        $this->assertSame('foo/bar', MediaFile::make('foo/bar')->getIdentifier());
     }
 }

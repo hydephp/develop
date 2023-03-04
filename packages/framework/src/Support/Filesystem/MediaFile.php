@@ -4,18 +4,47 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use Illuminate\Support\Str;
 use function extension_loaded;
 use function file_exists;
+use function array_merge;
+use function array_keys;
 use function filesize;
-use Hyde\Framework\Exceptions\FileNotFoundException;
-use function is_file;
+use function implode;
 use function pathinfo;
+use function collect;
+use function is_file;
+use function sprintf;
+use function glob;
 
 /**
  * File abstraction for a project media file.
  */
 class MediaFile extends ProjectFile
 {
+    /** @var array<string> The default extensions for media types */
+    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+
+    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
+    public static function all(): array
+    {
+        return static::discoverMediaAssetFiles();
+    }
+
+    /** @return array<string> Array of filenames relative to the _media/ directory */
+    public static function files(): array
+    {
+        return array_keys(static::all());
+    }
+
+    public function getIdentifier(): string
+    {
+        return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
+    }
+
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
@@ -26,8 +55,8 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
-        if (! is_file($this->path)) {
-            throw new FileNotFoundException(message: "Could not get the content length of file '$this->path'");
+        if (! is_file($this->getAbsolutePath())) {
+            throw new FileNotFoundException(message: "Could not get the content length of file [$this->path]");
         }
 
         return filesize($this->getAbsolutePath());
@@ -63,5 +92,26 @@ class MediaFile extends ProjectFile
         }
 
         return 'text/plain';
+    }
+
+    protected static function discoverMediaAssetFiles(): array
+    {
+        return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
+            $file = static::make($filepath);
+
+            return [$file->getIdentifier() => $file];
+        })->all();
+    }
+
+    protected static function getMediaAssetFiles(): array
+    {
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
+    }
+
+    protected static function getMediaGlobPattern(): string
+    {
+        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
+            Config::getArray('hyde.media_extensions', self::EXTENSIONS)
+        ));
     }
 }
