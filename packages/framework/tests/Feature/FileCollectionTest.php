@@ -13,7 +13,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
