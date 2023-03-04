@@ -61,8 +61,8 @@ final class PageCollection extends BaseFoundationCollection
     protected function discoverPagesFor(string $pageClass): void
     {
         /** @var HydePage $pageClass */
-        collect($pageClass::files()->each(function (string $page) use ($pageClass): void {
+        collect($pageClass::files())->each(function (string $page) use ($pageClass): void {
             $this->addPage($pageClass::parse($page));
-        }));
+        });
     }
 }
