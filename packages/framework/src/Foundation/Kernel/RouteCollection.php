@@ -54,11 +54,9 @@ final class RouteCollection extends BaseFoundationCollection
      * In addition, you might actually rather want to use the PageCollection's addPage method
      * instead as all pages there are automatically also added as routes here as well.
      */
-    public function addRoute(Route $route): self
+    public function addRoute(Route $route): void
     {
         $this->put($route->getRouteKey(), $route);
-
-        return $this;
     }
 
     protected function runDiscovery(): void
