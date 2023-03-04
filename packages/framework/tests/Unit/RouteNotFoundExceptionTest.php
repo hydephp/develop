@@ -27,4 +27,13 @@ class RouteNotFoundExceptionTest extends TestCase
 
         throw new RouteNotFoundException('not-found');
     }
+
+    public function test_it_throws_an_exception_with_custom_message()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Custom message');
+        $this->expectExceptionCode(404);
+
+        throw new RouteNotFoundException(null, 'Custom message');
+    }
 }
