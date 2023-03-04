@@ -187,6 +187,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->directory(dirname($path), recursive: true);
         $this->file($path);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
+        Filesystem::deleteDirectory(Hyde::path('_media/foo'));
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
