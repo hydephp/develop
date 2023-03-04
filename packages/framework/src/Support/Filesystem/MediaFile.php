@@ -10,6 +10,7 @@ use function array_merge;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
+use function collect;
 use function is_file;
 use function pathinfo;
 
@@ -75,12 +76,9 @@ class MediaFile extends ProjectFile
 
     protected static function discoverMediaAssetFiles(): array
     {
-        $files = [];
-        foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
+        return collect(DiscoveryService::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
             $file = static::make($filepath);
-            $files[$file->getPath()] = $file;
-        }
-
-        return $files;
+            return [$file->getPath() => $file];
+        })->all();
     }
 }
