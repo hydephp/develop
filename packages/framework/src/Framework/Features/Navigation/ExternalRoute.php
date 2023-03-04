@@ -22,4 +22,14 @@ class ExternalRoute extends Route
     {
         return $this->getDestination();
     }
+
+    public function getDestination(): string
+    {
+        return $this->destination;
+    }
+
+    public function setDestination(string $destination): void
+    {
+        $this->destination = $destination;
+    }
 }
