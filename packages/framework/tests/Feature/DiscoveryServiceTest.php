@@ -14,7 +14,7 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Services\DiscoveryService
+ * Contains integration tests for the overall auto-discovery functionality.
  */
 class DiscoveryServiceTest extends UnitTestCase
 {
