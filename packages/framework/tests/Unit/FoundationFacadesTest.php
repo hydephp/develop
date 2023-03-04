@@ -7,6 +7,9 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\UnitTestCase;
 
@@ -21,6 +24,21 @@ class FoundationFacadesTest extends UnitTestCase
     {
         self::needsKernel();
         self::mockConfig();
+    }
+
+    public function testFilesFacade()
+    {
+        $this->assertInstanceOf(FileCollection::class, Files::getInstance());
+    }
+
+    public function testPagesFacade()
+    {
+        $this->assertInstanceOf(PageCollection::class, Pages::getInstance());
+    }
+
+    public function testRoutesFacade()
+    {
+        $this->assertInstanceOf(RouteCollection::class, Routes::getInstance());
     }
 
     public function testFilesFacadeUsesKernelInstance()
