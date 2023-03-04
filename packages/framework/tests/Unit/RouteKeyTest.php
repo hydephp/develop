@@ -74,6 +74,20 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(InMemoryPage::class, 'foo/bar'));
     }
 
+    public function testConstructorValuesAreNormalized()
+    {
+        $this->assertEquals(new RouteKey('foo'), new RouteKey('foo'));
+        $this->assertEquals(new RouteKey('foo/bar'), new RouteKey('foo/bar'));
+        $this->assertEquals(new RouteKey('foo/bar'), new RouteKey('foo.bar'));
+    }
+
+    public function testStaticConstructorValuesAreNormalized()
+    {
+        $this->assertEquals(RouteKey::make('foo'), RouteKey::make('foo'));
+        $this->assertEquals(RouteKey::make('foo/bar'), RouteKey::make('foo/bar'));
+        $this->assertEquals(RouteKey::make('foo/bar'), RouteKey::make('foo.bar'));
+    }
+
     public function testWithCustomOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo');
