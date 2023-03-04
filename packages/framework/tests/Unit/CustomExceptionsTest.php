@@ -115,15 +115,15 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame(404, $exception->getCode());
     }
 
-    public function testBaseUrlNotSetExceptionCode()
-    {
-        $exception = new BaseUrlNotSetException();
-        $this->assertSame(0, $exception->getCode());
-    }
-
     public function testUnsupportedPageTypeExceptionCode()
     {
         $exception = new UnsupportedPageTypeException();
         $this->assertSame(400, $exception->getCode());
+    }
+
+    public function testBaseUrlNotSetExceptionCode()
+    {
+        $exception = new BaseUrlNotSetException();
+        $this->assertSame(0, $exception->getCode());
     }
 }
