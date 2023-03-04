@@ -32,7 +32,7 @@ final class FileCollection extends BaseFoundationCollection
      */
     public function getSourceFiles(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this->getAllSourceFiles() : $this->getSourceFilesFor($pageClass);
+        return Files::getSourceFiles($pageClass);
     }
 
     /**
@@ -41,19 +41,19 @@ final class FileCollection extends BaseFoundationCollection
      */
     public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->getAllSourceFiles()->where(fn (SourceFile $file): bool => $file->model === $pageClass);
+        return Files::getSourceFilesFor($pageClass);
     }
 
     /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
     public function getAllSourceFiles(): self
     {
-        return $this->where(fn (ProjectFile $file): bool => $file instanceof SourceFile);
+        return Files::getAllSourceFiles();
     }
 
     /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
     public function getMediaFiles(): self
     {
-        return $this->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
+        return Files::getMediaFiles();
     }
 
     protected function runDiscovery(): self
