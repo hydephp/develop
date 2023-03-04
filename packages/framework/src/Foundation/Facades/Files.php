@@ -26,7 +26,7 @@ class Files extends Facade
      */
     public static function getFiles(?string $pageClass = null): FileCollection
     {
-        return $pageClass ? static::getFacadeRoot()->where(function (SourceFile $file) use ($pageClass): bool {
+        return $pageClass ? static::getFacadeRoot()->filter(function (SourceFile $file) use ($pageClass): bool {
             return $file->model === $pageClass;
         }) : static::getFacadeRoot();
     }
