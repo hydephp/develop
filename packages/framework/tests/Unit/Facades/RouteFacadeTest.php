@@ -30,11 +30,6 @@ class RouteFacadeTest extends UnitTestCase
         $this->assertEquals(Hyde::routes(), Route::all());
     }
 
-    public function test_get_is_alias_for_get_from_key()
-    {
-        $this->assertEquals(Route::get('index'), Route::get('index'));
-    }
-
     public function test_get_or_fail_throws_exception_if_route_is_not_found()
     {
         $this->expectException(RouteNotFoundException::class);
