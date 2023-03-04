@@ -25,7 +25,7 @@ use function glob;
  */
 class MediaFile extends ProjectFile
 {
-    final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
     public static function all(): array
@@ -110,7 +110,7 @@ class MediaFile extends ProjectFile
     protected static function getMediaGlobPattern(): string
     {
         return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
-            Config::getArray('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
+            Config::getArray('hyde.media_extensions', self::EXTENSIONS)
         ));
     }
 }
