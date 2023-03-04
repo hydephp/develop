@@ -56,12 +56,6 @@ class DiscoveryService
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
-    public static function getModelFileExtension(string $model): string
-    {
-        return $model::fileExtension();
-    }
-
-    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
     public static function getModelSourceDirectory(string $model): string
     {
         return $model::sourceDirectory();

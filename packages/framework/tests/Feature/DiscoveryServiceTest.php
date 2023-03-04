@@ -51,14 +51,6 @@ class DiscoveryServiceTest extends UnitTestCase
         @mkdir(Hyde::path($path), recursive: $recursive);
     }
 
-    public function test_get_file_extension_for_model_files()
-    {
-        $this->assertEquals('.md', DiscoveryService::getModelFileExtension(MarkdownPage::class));
-        $this->assertEquals('.md', DiscoveryService::getModelFileExtension(MarkdownPost::class));
-        $this->assertEquals('.md', DiscoveryService::getModelFileExtension(DocumentationPage::class));
-        $this->assertEquals('.blade.php', DiscoveryService::getModelFileExtension(BladePage::class));
-    }
-
     public function test_get_file_path_for_model_class_files()
     {
         $this->assertEquals('_posts', DiscoveryService::getModelSourceDirectory(MarkdownPost::class));
