@@ -27,7 +27,7 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testRouteFacadeAllMethodReturnsAllRoutes()
     {
-        $this->assertEquals(Hyde::routes(), Route::all());
+        $this->assertSame(Hyde::routes(), Route::all());
     }
 
     public function testGetOrFailThrowsExceptionIfRouteIsNotFound()
@@ -61,7 +61,7 @@ class RouteFacadeTest extends UnitTestCase
     {
         $route = new RouteModel(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentRoute')->andReturn($route);
-        $this->assertEquals($route, Route::current());
+        $this->assertSame($route, Route::current());
         Render::swap(new \Hyde\Support\Models\Render());
     }
 
