@@ -27,11 +27,6 @@ use Hyde\Support\Filesystem\SourceFile;
  */
 final class FileCollection extends BaseFoundationCollection
 {
-    public function getFile(string $filePath): ProjectFile
-    {
-        return Files::getFile($filePath);
-    }
-
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
      * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
