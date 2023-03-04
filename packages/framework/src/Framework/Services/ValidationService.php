@@ -74,7 +74,7 @@ class ValidationService
                 ->withTip('Skipped because: The documentation page feature is disabled in config');
         }
 
-        if (count(DiscoveryService::getDocumentationPageFiles()) === 0) {
+        if (count(DocumentationPage::files()) === 0) {
             return $result->skip('Does documentation site have an index page?')
                 ->withTip('Skipped because: There are no documentation pages');
         }

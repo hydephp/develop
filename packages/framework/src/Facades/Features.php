@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use function count;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
@@ -72,7 +72,7 @@ class Features implements SerializableContract
     {
         return static::enabled(static::documentationSearch())
             && static::hasDocumentationPages()
-            && count(DiscoveryService::getDocumentationPageFiles()) > 0;
+            && count(DocumentationPage::files()) > 0;
     }
 
     public static function hasDarkmode(): bool

@@ -79,7 +79,7 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_get_source_file_list_for_documentation_page()
     {
         Filesystem::touch('_docs/foo.md');
-        $this->assertEquals(['foo'], DiscoveryService::getDocumentationPageFiles());
+        $this->assertEquals(['foo'], DocumentationPage::files());
         Filesystem::unlink('_docs/foo.md');
     }
 
@@ -284,7 +284,7 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_documentation_page_files_starting_with_underscore_are_ignored()
     {
         Filesystem::touch('_docs/_foo.md');
-        $this->assertEquals([], DiscoveryService::getDocumentationPageFiles());
+        $this->assertEquals([], DocumentationPage::files());
         Filesystem::unlink('_docs/_foo.md');
     }
 

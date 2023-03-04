@@ -11,7 +11,6 @@ use Hyde\Foundation\Facades\Files;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Str;
 use function implode;
@@ -33,11 +32,6 @@ use function unslash;
 class DiscoveryService
 {
     final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
-
-    public static function getDocumentationPageFiles(): array
-    {
-        return DocumentationPage::files();
-    }
 
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
