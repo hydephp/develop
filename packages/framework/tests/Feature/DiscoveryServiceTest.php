@@ -30,15 +30,25 @@ class DiscoveryServiceTest extends UnitTestCase
     protected function tearDown(): void
     {
         foreach ($this->filesToDelete as $file) {
-            unlink(Hyde::path($file));
+            if (is_dir($file)) {
+                Filesystem::deleteDirectory($file);
+            } else {
+                @unlink($file);
+            }
         }
         $this->filesToDelete = [];
     }
 
     protected function file(string $path): void
     {
-        $this->filesToDelete[] = $path;
+        $this->filesToDelete[] = Hyde::path($path);
         touch(Hyde::path($path));
+    }
+
+    protected function directory(string $path, bool $recursive = false): void
+    {
+        $this->filesToDelete[] = Hyde::path($path);
+        @mkdir(Hyde::path($path), recursive: $recursive);
     }
 
     public function test_get_file_extension_for_model_files()
@@ -64,23 +74,20 @@ class DiscoveryServiceTest extends UnitTestCase
 
     public function test_get_source_file_list_for_markdown_page()
     {
-        Filesystem::touch('_pages/foo.md');
+        $this->file('_pages/foo.md');
         $this->assertEquals(['foo'], MarkdownPage::files());
-        Filesystem::unlink('_pages/foo.md');
     }
 
     public function test_get_source_file_list_for_markdown_post()
     {
-        Filesystem::touch('_posts/foo.md');
+        $this->file('_posts/foo.md');
         $this->assertEquals(['foo'], MarkdownPost::files());
-        Filesystem::unlink('_posts/foo.md');
     }
 
     public function test_get_source_file_list_for_documentation_page()
     {
-        Filesystem::touch('_docs/foo.md');
+        $this->file('_docs/foo.md');
         $this->assertEquals(['foo'], DocumentationPage::files());
-        Filesystem::unlink('_docs/foo.md');
     }
 
     public function test_get_source_file_list_for_markdown_page_model()
@@ -138,7 +145,7 @@ class DiscoveryServiceTest extends UnitTestCase
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
 
             // Cleanup
-            rmdir(Hyde::path('foo'));
+            Filesystem::deleteDirectory('foo');
             $model::setSourceDirectory($sourceDirectoryBackup);
             $model::setFileExtension($fileExtensionBackup);
         }
@@ -162,49 +169,42 @@ class DiscoveryServiceTest extends UnitTestCase
 
         foreach ($testFiles as $fileType) {
             $path = Hyde::path('_media/test.'.$fileType);
-            touch($path);
+            $this->file($path);
             $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-            unlink($path);
         }
     }
 
     public function test_get_media_asset_files_discovers_custom_file_types()
     {
         $path = Hyde::path('_media/test.custom');
-        touch($path);
+        $this->file($path);
         $this->assertNotContains($path, DiscoveryService::getMediaAssetFiles());
         self::mockConfig(['hyde.media_extensions' => 'custom']);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        unlink($path);
     }
 
     public function test_get_media_asset_files_discovers_files_recursively()
     {
         $path = Hyde::path('_media/foo/bar.png');
-        mkdir(dirname($path));
-        touch($path);
+        $this->directory('_media/foo');
+        $this->file($path);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        unlink($path);
-        rmdir(Hyde::path('_media/foo'));
     }
 
     public function test_get_media_asset_files_discovers_files_very_recursively()
     {
         $path = Hyde::path('_media/foo/bar/img.png');
-        mkdir(dirname($path), recursive: true);
-        touch($path);
+        $this->directory(dirname($path), recursive: true);
+        $this->file($path);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        unlink($path);
-        rmdir(Hyde::path('_media/foo/bar'));
-        rmdir(Hyde::path('_media/foo'));
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
     {
         self::mockConfig(['hyde.media_extensions' => null]);
-        Filesystem::touch('_media/test.1');
-        Filesystem::touch('_media/test.2');
-        Filesystem::touch('_media/test.3');
+        $this->file('_media/test.1');
+        $this->file('_media/test.2');
+        $this->file('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
 
@@ -215,17 +215,14 @@ class DiscoveryServiceTest extends UnitTestCase
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Filesystem::unlink('_media/test.1');
-        Filesystem::unlink('_media/test.2');
-        Filesystem::unlink('_media/test.3');
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
     {
         self::mockConfig(['hyde.media_extensions' => null]);
-        Filesystem::touch('_media/test.1');
-        Filesystem::touch('_media/test.2');
-        Filesystem::touch('_media/test.3');
+        $this->file('_media/test.1');
+        $this->file('_media/test.2');
+        $this->file('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
         self::mockConfig(['hyde.media_extensions' => '1, 2, 3']);
@@ -235,17 +232,14 @@ class DiscoveryServiceTest extends UnitTestCase
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Filesystem::unlink('_media/test.1');
-        Filesystem::unlink('_media/test.2');
-        Filesystem::unlink('_media/test.3');
     }
 
     public function test_media_asset_extensions_can_be_added_by_array()
     {
         self::mockConfig(['hyde.media_extensions' => null]);
-        Filesystem::touch('_media/test.1');
-        Filesystem::touch('_media/test.2');
-        Filesystem::touch('_media/test.3');
+        $this->file('_media/test.1');
+        $this->file('_media/test.2');
+        $this->file('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
         self::mockConfig(['hyde.media_extensions' => ['1', '2', '3']]);
@@ -255,37 +249,30 @@ class DiscoveryServiceTest extends UnitTestCase
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Filesystem::unlink('_media/test.1');
-        Filesystem::unlink('_media/test.2');
-        Filesystem::unlink('_media/test.3');
     }
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
-        Filesystem::touch('_pages/_foo.blade.php');
+        $this->file('_pages/_foo.blade.php');
         $this->assertEquals(['404', 'index'], BladePage::files());
-        Filesystem::unlink('_pages/_foo.blade.php');
     }
 
     public function test_markdown_page_files_starting_with_underscore_are_ignored()
     {
-        Filesystem::touch('_pages/_foo.md');
+        $this->file('_pages/_foo.md');
         $this->assertEquals([], MarkdownPage::files());
-        Filesystem::unlink('_pages/_foo.md');
     }
 
     public function test_post_files_starting_with_underscore_are_ignored()
     {
-        Filesystem::touch('_posts/_foo.md');
+        $this->file('_posts/_foo.md');
         $this->assertEquals([], MarkdownPost::files());
-        Filesystem::unlink('_posts/_foo.md');
     }
 
     public function test_documentation_page_files_starting_with_underscore_are_ignored()
     {
-        Filesystem::touch('_docs/_foo.md');
+        $this->file('_docs/_foo.md');
         $this->assertEquals([], DocumentationPage::files());
-        Filesystem::unlink('_docs/_foo.md');
     }
 
     public function test_path_to_identifier_helper_formats_path_to_identifier()
@@ -306,13 +293,11 @@ class DiscoveryServiceTest extends UnitTestCase
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
     {
-        Filesystem::touch($path);
+        $this->file($path);
         Hyde::boot(); // Reboot to rediscover new pages
 
         $expected = $expected ?? basename($path, '.md');
 
         $this->assertEquals([$expected], DiscoveryService::getModelIdentifiers($model));
-
-        Filesystem::unlink($path);
     }
 }
