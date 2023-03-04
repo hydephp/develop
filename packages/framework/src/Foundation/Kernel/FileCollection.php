@@ -9,7 +9,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 
 /**
- * The FileCollection contains all the discovered source and media files,
+ * The FileCollection contains all the discovered source files,
  * and thus has an integral role in the Hyde Auto Discovery process.
  *
  * @template T of \Hyde\Support\Filesystem\SourceFile
