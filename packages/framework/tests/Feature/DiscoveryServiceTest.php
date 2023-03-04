@@ -214,7 +214,6 @@ class DiscoveryServiceTest extends UnitTestCase
             Hyde::path('_media/test.2'),
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
-
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
@@ -231,7 +230,6 @@ class DiscoveryServiceTest extends UnitTestCase
             Hyde::path('_media/test.2'),
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
-
     }
 
     public function test_media_asset_extensions_can_be_added_by_array()
@@ -248,7 +246,6 @@ class DiscoveryServiceTest extends UnitTestCase
             Hyde::path('_media/test.2'),
             Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
-
     }
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
