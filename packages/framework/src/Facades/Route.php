@@ -45,18 +45,18 @@ class Route
     }
 
     /**
-     * Get the current route for the page being rendered.
-     */
-    public static function current(): ?\Hyde\Support\Models\Route
-    {
-        return Hyde::currentRoute();
-    }
-
-    /**
      * Determine if the supplied route key exists in the route index.
      */
     public static function exists(string $routeKey): bool
     {
         return Routes::has($routeKey);
+    }
+
+    /**
+     * Get the current route for the page being rendered.
+     */
+    public static function current(): ?\Hyde\Support\Models\Route
+    {
+        return Hyde::currentRoute();
     }
 }
