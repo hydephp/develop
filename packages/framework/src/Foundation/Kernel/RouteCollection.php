@@ -17,7 +17,7 @@ use Hyde\Support\Models\Route;
  * @property array<string, Route> $items The routes in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
- * You would commonly access it via one of the facades:
+ * You would commonly access it via the facade or Hyde helper:
  *
  * @see \Hyde\Foundation\Facades\Router
  * @see \Hyde\Hyde::routes()
