@@ -71,6 +71,11 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame('Custom message', (new FileNotFoundException('foo', 'Custom message'))->getMessage());
     }
 
+    public function testFileNotFoundExceptionWithAbsolutePath()
+    {
+        $this->assertSame('File [foo] not found.', (new FileNotFoundException(Hyde::path('foo')))->getMessage());
+    }
+
     public function testRouteNotFoundExceptionWithDefaultMessage()
     {
         $this->assertSame('Route not found.', (new RouteNotFoundException())->getMessage());
