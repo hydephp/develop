@@ -22,7 +22,10 @@ class NavItemTest extends UnitTestCase
     {
         self::needsKernel();
         self::mockConfig();
+    }
 
+    protected function setUp(): void
+    {
         Render::swap(new \Hyde\Support\Models\Render());
     }
 
@@ -104,8 +107,6 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::fromRoute($route);
 
         $this->assertFalse($item->isCurrent());
-
-        Render::swap(new \Hyde\Support\Models\Render());
     }
 
     public function testIsCurrentWhenCurrent()
