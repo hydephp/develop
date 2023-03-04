@@ -8,7 +8,7 @@ use Stringable;
 use function unslash;
 
 /**
- * Route keys are the core of Hyde's routing system.
+ * Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.
  *
  * In short, the route key is the URL path relative to the site webroot, without the file extension.
  *
