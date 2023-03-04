@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Str;
-use Hyde\Facades\Config;
-use function glob;
-use function implode;
-use function sprintf;
 use function unslash;
 
 /**
@@ -47,13 +44,6 @@ class DiscoveryService
      */
     public static function getMediaAssetFiles(): array
     {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
-    }
-
-    protected static function getMediaGlobPattern(): string
-    {
-        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
-            Config::getArray('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
-        ));
+        return collect(MediaFile::all())->map(fn (MediaFile $file): string => $file->getAbsolutePath())->values()->toArray();
     }
 }
