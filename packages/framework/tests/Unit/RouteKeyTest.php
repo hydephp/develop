@@ -88,13 +88,13 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(RouteKey::make('foo/bar'), RouteKey::make('foo.bar'));
     }
 
-    public function testWithCustomOutputDirectory()
+    public function testFromPageWithCustomOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(MarkdownPage::class, 'bar'));
     }
 
-    public function testWithCustomNestedOutputDirectory()
+    public function testFromPageWithCustomNestedOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo/bar');
         $this->assertEquals(new RouteKey('foo/bar/baz'), RouteKey::fromPage(MarkdownPage::class, 'baz'));
