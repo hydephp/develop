@@ -22,6 +22,8 @@ class NavItemTest extends UnitTestCase
     {
         self::needsKernel();
         self::mockConfig();
+
+        Render::swap(new \Hyde\Support\Models\Render());
     }
 
     public function test__construct()
