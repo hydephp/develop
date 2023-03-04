@@ -102,6 +102,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrent()
     {
         Render::shouldReceive('getCurrentRoute')->once()->andReturn($this->createMock(Route::class));
+        Render::shouldReceive('getCurrentPage')->once()->andReturn('foo');
 
         $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
@@ -114,6 +115,7 @@ class NavItemTest extends UnitTestCase
         $route = \Hyde\Facades\Route::get('index');
 
         Render::shouldReceive('getCurrentRoute')->once()->andReturn($route);
+        Render::shouldReceive('getCurrentPage')->once()->andReturn('foo');
         $item = NavItem::fromRoute($route);
 
         $this->assertTrue($item->isCurrent());
