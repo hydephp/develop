@@ -20,12 +20,12 @@ class Pages extends Facade
         return HydeKernel::getInstance()->pages();
     }
 
-    public function getPage(string $sourcePath): HydePage
+    public static function getPage(string $sourcePath): HydePage
     {
         return static::getFacadeRoot()->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath . ' in page collection');
     }
 
-    public function getPages(?string $pageClass = null): PageCollection
+    public static function getPages(?string $pageClass = null): PageCollection
     {
         return $pageClass ? static::getFacadeRoot()->filter(function (HydePage $page) use ($pageClass): bool {
             return $page instanceof $pageClass;
@@ -46,7 +46,7 @@ class Pages extends Facade
      * 2. Note that all pages will have their routes added to the route index,
      *    and subsequently be compiled during the build process.
      */
-    public function addPage(HydePage $page): PageCollection
+    public static function addPage(HydePage $page): PageCollection
     {
         static::getFacadeRoot()->put($page->getSourcePath(), $page);
 
