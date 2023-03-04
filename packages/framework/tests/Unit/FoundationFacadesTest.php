@@ -25,26 +25,17 @@ class FoundationFacadesTest extends UnitTestCase
 
     public function test_file_collection_facade()
     {
-        $this->assertSame(
-            HydeKernel::getInstance()->files(),
-            Files::getInstance()
-        );
+        $this->assertSame(HydeKernel::getInstance()->files(), Files::getInstance());
     }
 
     public function test_page_collection_facade()
     {
-        $this->assertSame(
-            HydeKernel::getInstance()->pages(),
-            Pages::getInstance()
-        );
+        $this->assertSame(HydeKernel::getInstance()->pages(), Pages::getInstance());
     }
 
     public function test_route_collection_facade()
     {
-        $this->assertSame(
-            HydeKernel::getInstance()->routes(),
-            Routes::getInstance()
-        );
+        $this->assertSame(HydeKernel::getInstance()->routes(), Routes::getInstance());
     }
 
     public function test_facade_roots()
