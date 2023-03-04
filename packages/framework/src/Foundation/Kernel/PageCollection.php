@@ -33,11 +33,8 @@ final class PageCollection extends BaseFoundationCollection
      * If you are registering multiple pages, you may instead want to register an entire custom page class,
      * as that will allow you to utilize the full power of the HydePHP autodiscovery.
      *
-     * When using this method, take notice of the following things:
-     * 1. Be sure to register the page before the HydeKernel boots,
-     *    otherwise it might not be fully processed by Hyde.
-     * 2. Note that all pages will have their routes added to the route index,
-     *    and subsequently be compiled during the build process.
+     * In order for your page to be routable and compilable you must call this method during the boot process,
+     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery callback handler.
      */
     public function addPage(HydePage $page): self
     {
