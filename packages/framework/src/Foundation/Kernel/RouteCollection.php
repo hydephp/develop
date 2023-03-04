@@ -55,7 +55,6 @@ final class RouteCollection extends BaseFoundationCollection
      *
      * When using this method, take notice of the following things:
      * 1. Be sure to register the route before the HydeKernel boots.
-     * 2. Make sure the route leads to something that can be compiled.
      */
     public function addRoute(Route $route): self
     {
