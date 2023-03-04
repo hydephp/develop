@@ -8,7 +8,6 @@ use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
