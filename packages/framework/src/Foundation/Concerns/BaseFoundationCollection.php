@@ -49,6 +49,7 @@ abstract class BaseFoundationCollection extends Collection
     {
         try {
             $this->runDiscovery();
+            $this->runExtensionCallbacks();
         } catch (Throwable $exception) {
             throw new RuntimeException('An error occurred during the discovery process.', previous: $exception);
         }

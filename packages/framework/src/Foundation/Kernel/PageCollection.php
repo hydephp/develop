@@ -49,8 +49,6 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor($pageClass);
         }
 
-        $this->runExtensionCallbacks();
-
         return $this;
     }
 

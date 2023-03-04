@@ -51,8 +51,6 @@ final class FileCollection extends BaseFoundationCollection
             }
         }
 
-        $this->runExtensionCallbacks();
-
         $this->discoverMediaAssetFiles();
 
         return $this;

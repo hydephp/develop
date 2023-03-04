@@ -67,8 +67,6 @@ final class RouteCollection extends BaseFoundationCollection
             $this->addRoute(new Route($page));
         });
 
-        $this->runExtensionCallbacks();
-
         return $this;
     }
 
