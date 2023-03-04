@@ -51,7 +51,7 @@ class DiscoveryService
         }
 
         return Files::getSourceFiles($model)->map(function (SourceFile $file) use ($model): string {
-            return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
+            return static::pathToIdentifier($model, $file->getPath());
         })->values()->toArray();
     }
 
