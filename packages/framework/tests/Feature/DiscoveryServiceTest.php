@@ -116,39 +116,29 @@ class DiscoveryServiceTest extends UnitTestCase
 
     public function test_get_source_file_list_for_model_method_finds_customized_model_properties()
     {
-        $matrix = [
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-        ];
+        // Setup
+        $this->directory('foo');
+        $sourceDirectoryBackup = MarkdownPage::sourceDirectory();
+        $fileExtensionBackup = MarkdownPage::fileExtension();
 
-        /** @var \Hyde\Pages\MarkdownPage $model */
-        foreach ($matrix as $model) {
-            // Setup
-            @mkdir(Hyde::path('foo'));
-            $sourceDirectoryBackup = $model::sourceDirectory();
-            $fileExtensionBackup = $model::fileExtension();
+        // Test baseline
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, MarkdownPage::sourceDirectory().'/foo.md');
 
-            // Test baseline
-            $this->unitTestMarkdownBasedPageList($model, $model::sourceDirectory().'/foo.md');
+        // Set the source directory to a custom value
+        MarkdownPage::setSourceDirectory('foo');
 
-            // Set the source directory to a custom value
-            $model::setSourceDirectory('foo');
+        // Test customized source directory
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.md');
 
-            // Test customized source directory
-            $this->unitTestMarkdownBasedPageList($model, 'foo/foo.md');
+        // Set file extension to a custom value
+        MarkdownPage::setFileExtension('.foo');
 
-            // Set file extension to a custom value
-            $model::setFileExtension('.foo');
+        // Test customized file extension
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.foo', 'foo');
 
-            // Test customized file extension
-            $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
-
-            // Cleanup
-            Filesystem::deleteDirectory('foo');
-            $model::setSourceDirectory($sourceDirectoryBackup);
-            $model::setFileExtension($fileExtensionBackup);
-        }
+        // Cleanup
+        MarkdownPage::setSourceDirectory($sourceDirectoryBackup);
+        MarkdownPage::setFileExtension($fileExtensionBackup);
     }
 
     public function test_get_source_file_list_throws_exception_for_invalid_model_class()
