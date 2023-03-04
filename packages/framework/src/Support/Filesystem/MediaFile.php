@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-use Hyde\Foundation\Facades\Files;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Services\DiscoveryService;
@@ -82,6 +81,7 @@ class MediaFile extends ProjectFile
             $file = static::make($filepath);
             $collection->put($file->getPath(), $file);
         }
+
         return $collection;
     }
 }
