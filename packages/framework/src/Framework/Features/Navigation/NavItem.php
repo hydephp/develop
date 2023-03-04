@@ -37,11 +37,9 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item.
      */
-    public function __construct(?Route $route, string $label, int $priority = 500, bool $hidden = false)
+    public function __construct(string $destination, string $label, int $priority = 500, bool $hidden = false)
     {
-        if ($route !== null) {
-            $this->route = $route;
-        }
+        $this->destination = $destination;
 
         $this->label = $label;
         $this->priority = $priority;
