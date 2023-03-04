@@ -50,29 +50,34 @@ class DiscoveryServiceTest extends UnitTestCase
         @mkdir(Hyde::path($path), recursive: $recursive);
     }
 
-    public function test_get_source_file_list_for_model_method_finds_customized_model_properties()
+    public function test_get_source_file_list_for_model_method_finds_default_model_properties()
     {
-        // Setup
+        $this->directory('foo');
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, MarkdownPage::sourceDirectory().'/foo.md');
+    }
+
+    public function test_get_source_file_list_for_model_method_finds_customized_source_directory()
+    {
+        $this->directory('foo');
+        $sourceDirectoryBackup = MarkdownPage::sourceDirectory();
+
+        MarkdownPage::setSourceDirectory('foo');
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.md');
+
+        MarkdownPage::setSourceDirectory($sourceDirectoryBackup);
+    }
+
+    public function test_get_source_file_list_for_model_method_finds_customized_file_extension()
+    {
         $this->directory('foo');
         $sourceDirectoryBackup = MarkdownPage::sourceDirectory();
         $fileExtensionBackup = MarkdownPage::fileExtension();
 
-        // Test baseline
-        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, MarkdownPage::sourceDirectory().'/foo.md');
-
-        // Set the source directory to a custom value
         MarkdownPage::setSourceDirectory('foo');
-
-        // Test customized source directory
-        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.md');
-
-        // Set file extension to a custom value
         MarkdownPage::setFileExtension('.foo');
 
-        // Test customized file extension
         $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.foo', 'foo');
 
-        // Cleanup
         MarkdownPage::setSourceDirectory($sourceDirectoryBackup);
         MarkdownPage::setFileExtension($fileExtensionBackup);
     }
