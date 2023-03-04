@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Support\Models\Route;
+use Hyde\Pages\InMemoryPage;
+use Illuminate\Support\Str;
 
 /**
  * External route used by navigation items.
@@ -21,6 +23,8 @@ class ExternalRoute extends Route
     public function __construct(string $destination)
     {
         $this->destination = $destination;
+
+        parent::__construct(new InMemoryPage('external-link-' .Str::slug($destination)));
     }
 
     public function getLink(): string
