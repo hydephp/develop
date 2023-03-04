@@ -7,7 +7,6 @@ namespace Hyde\Support\Filesystem;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Str;
 use function extension_loaded;
 use function file_exists;
@@ -26,6 +25,8 @@ use function glob;
  */
 class MediaFile extends ProjectFile
 {
+    final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
     public static function all(): array
     {
@@ -109,7 +110,7 @@ class MediaFile extends ProjectFile
     protected static function getMediaGlobPattern(): string
     {
         return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
-            Config::getArray('hyde.media_extensions', DiscoveryService::DEFAULT_MEDIA_EXTENSIONS)
+            Config::getArray('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
     }
 }

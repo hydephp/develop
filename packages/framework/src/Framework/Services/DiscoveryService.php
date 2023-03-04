@@ -17,8 +17,6 @@ use function unslash;
  */
 class DiscoveryService
 {
-    final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
-
     /**
      * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
      * within the source directory are retained in order to satisfy the page identifier definition.
