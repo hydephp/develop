@@ -18,6 +18,11 @@ class ExternalRoute extends Route
 {
     protected string $destination;
 
+    public function __construct(string $destination)
+    {
+        $this->destination = $destination;
+    }
+
     public function getLink(): string
     {
         return $this->getDestination();
