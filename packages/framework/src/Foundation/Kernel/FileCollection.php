@@ -28,6 +28,20 @@ use Hyde\Support\Filesystem\SourceFile;
  */
 final class FileCollection extends BaseFoundationCollection
 {
+    /**
+     * This method adds the specified file to the file collection.
+     * It can be used by package developers to add a file that can be discovered.
+     *
+     * In order for your file to be further processed you must call this method during the boot process,
+     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
+     */
+    public function addFile(ProjectFile $file): self
+    {
+        $this->put($file->getPath(), $file);
+
+        return $this;
+    }
+
     protected function runDiscovery(): self
     {
         /** @var class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
@@ -60,7 +74,7 @@ final class FileCollection extends BaseFoundationCollection
         // Scan the source directory, and directories therein, for files that match the model's file extension.
         foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename((string) $filepath), '_')) {
-                $this->put($this->kernel->pathToRelative($filepath), SourceFile::make($filepath, $pageClass));
+                $this->addFile(SourceFile::make($filepath, $pageClass));
             }
         }
     }
@@ -68,7 +82,7 @@ final class FileCollection extends BaseFoundationCollection
     protected function discoverMediaAssetFiles(): void
     {
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
-            $this->put($this->kernel->pathToRelative($filepath), MediaFile::make($filepath));
+            $this->addFile(MediaFile::make($filepath));
         }
     }
 }
