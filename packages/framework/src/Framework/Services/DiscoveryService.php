@@ -84,15 +84,13 @@ class DiscoveryService
     }
 
     /**
-     * Get all the Media asset filenames.
+     * Get all the Media asset file paths.
      *
      * @return array<string>
      */
     public static function getMediaAssetFiles(): array
     {
-        return Filesystem::smartGlob(static::getMediaGlobPattern(), GLOB_BRACE)->map(function (string $path): string {
-            return unslash(Str::after($path, Hyde::getMediaDirectory()));
-        })->toArray();
+        return Filesystem::smartGlob(static::getMediaGlobPattern(), GLOB_BRACE)->toArray();
     }
 
     protected static function getMediaGlobPattern(): string
