@@ -35,6 +35,14 @@ class Route
     }
 
     /**
+     * Determine if the supplied route key exists in the route index.
+     */
+    public static function exists(string $routeKey): bool
+    {
+        return Routes::has(RouteKey::normalize($routeKey));
+    }
+
+    /**
      * Get all routes from the route index.
      *
      * @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route>
@@ -42,14 +50,6 @@ class Route
     public static function all(): RouteCollection
     {
         return Routes::getRoutes();
-    }
-
-    /**
-     * Determine if the supplied route key exists in the route index.
-     */
-    public static function exists(string $routeKey): bool
-    {
-        return Routes::has(RouteKey::normalize($routeKey));
     }
 
     /**
