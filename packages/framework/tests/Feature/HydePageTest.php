@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
@@ -344,7 +345,7 @@ class HydePageTest extends TestCase
     {
         Filesystem::touch('_pages/foo.md');
         $this->assertEquals(
-            Hyde::pages()->getPages(MarkdownPage::class),
+            Pages::getPages(MarkdownPage::class),
             MarkdownPage::all()
         );
         $this->assertEquals(
@@ -993,7 +994,7 @@ class HydePageTest extends TestCase
         $this->assertSame("bar\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
         /** @var BaseMarkdownPage $parsed */
-        $parsed = MarkdownPage::all()->getPage('_pages/foo.md');
+        $parsed = Pages::getPage('_pages/foo.md');
         $this->assertSame('bar', $parsed->markdown->body());
 
         $parsed->markdown = new Markdown('baz');

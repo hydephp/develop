@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
@@ -19,6 +20,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Foundation\Kernel\RouteCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\Facades\Routes
  */
 class RouteCollectionTest extends TestCase
 {
@@ -69,7 +71,7 @@ class RouteCollectionTest extends TestCase
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
 
-        $this->assertSame(Hyde::routes(), Hyde::routes()->getRoutes());
+        $this->assertSame(Hyde::routes(), Routes::getRoutes());
     }
 
     public function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
@@ -85,11 +87,11 @@ class RouteCollectionTest extends TestCase
         $collection = Hyde::routes();
 
         $this->assertCount(5, $collection);
-        $this->assertEquals(new Route(new BladePage('blade')), $collection->getRoutes(BladePage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPage('markdown')), $collection->getRoutes(MarkdownPage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPost('post')), $collection->getRoutes(MarkdownPost::class)->first());
-        $this->assertEquals(new Route(new DocumentationPage('docs')), $collection->getRoutes(DocumentationPage::class)->first());
-        $this->assertEquals(new Route(new HtmlPage('html')), $collection->getRoutes(HtmlPage::class)->first());
+        $this->assertEquals(new Route(new BladePage('blade')), Routes::getRoutes(BladePage::class)->first());
+        $this->assertEquals(new Route(new MarkdownPage('markdown')), Routes::getRoutes(MarkdownPage::class)->first());
+        $this->assertEquals(new Route(new MarkdownPost('post')), Routes::getRoutes(MarkdownPost::class)->first());
+        $this->assertEquals(new Route(new DocumentationPage('docs')), Routes::getRoutes(DocumentationPage::class)->first());
+        $this->assertEquals(new Route(new HtmlPage('html')), Routes::getRoutes(HtmlPage::class)->first());
 
         $this->restoreDefaultPages();
     }
@@ -105,12 +107,13 @@ class RouteCollectionTest extends TestCase
 
     public function test_get_route()
     {
-        $this->assertEquals(new Route(new BladePage('index')), Hyde::routes()->getRoute('index'));
+        $this->assertEquals(new Route(new BladePage('index')), Routes::getRoute('index'));
     }
 
     public function test_get_route_with_non_existing_route()
     {
         $this->expectException(RouteNotFoundException::class);
-        Hyde::routes()->getRoute('non-existing');
+        $this->expectExceptionMessage('Route [non-existing] not found in route collection');
+        Routes::getRoute('non-existing');
     }
 }

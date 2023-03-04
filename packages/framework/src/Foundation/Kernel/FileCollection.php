@@ -15,6 +15,9 @@ use Hyde\Support\Filesystem\SourceFile;
  * The FileCollection contains all the discovered source and media files,
  * and thus has an integral role in the Hyde Auto Discovery process.
  *
+ * @template T of \Hyde\Support\Filesystem\ProjectFile
+ * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ *
  * @property array<string, ProjectFile> $items The files in the collection.
  *
  * This class is stored as a singleton in the HydeKernel.
@@ -26,36 +29,18 @@ use Hyde\Support\Filesystem\SourceFile;
 final class FileCollection extends BaseFoundationCollection
 {
     /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
+     * This method adds the specified file to the file collection.
+     * It can be used by package developers to add a file that can be discovered.
+     *
+     * In order for your file to be further processed you must call this method during the boot process,
+     * either using a Kernel bootingCallback, or by using a HydeExtension's discovery handler callback.
      */
-    public function getSourceFiles(?string $pageClass = null): self
+    public function addFile(ProjectFile $file): void
     {
-        return ! $pageClass ? $this->getAllSourceFiles() : $this->getSourceFilesFor($pageClass);
+        $this->put($file->getPath(), $file);
     }
 
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     * @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile>
-     */
-    public function getSourceFilesFor(string $pageClass): self
-    {
-        return $this->getAllSourceFiles()->where(fn (SourceFile $file): bool => $file->model === $pageClass);
-    }
-
-    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
-    public function getAllSourceFiles(): self
-    {
-        return $this->where(fn (ProjectFile $file): bool => $file instanceof SourceFile);
-    }
-
-    /** @return \Hyde\Foundation\Kernel\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
-    public function getMediaFiles(): self
-    {
-        return $this->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
-    }
-
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         /** @var class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
         foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
@@ -64,21 +49,15 @@ final class FileCollection extends BaseFoundationCollection
             }
         }
 
-        $this->runExtensionCallbacks();
-
         $this->discoverMediaAssetFiles();
-
-        return $this;
     }
 
-    protected function runExtensionCallbacks(): self
+    protected function runExtensionCallbacks(): void
     {
         /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverFiles($this);
         }
-
-        return $this;
     }
 
     /** @param class-string<HydePage> $pageClass */
@@ -87,7 +66,7 @@ final class FileCollection extends BaseFoundationCollection
         // Scan the source directory, and directories therein, for files that match the model's file extension.
         foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename((string) $filepath), '_')) {
-                $this->put($this->kernel->pathToRelative($filepath), SourceFile::make($filepath, $pageClass));
+                $this->addFile(SourceFile::make($filepath, $pageClass));
             }
         }
     }
@@ -95,7 +74,7 @@ final class FileCollection extends BaseFoundationCollection
     protected function discoverMediaAssetFiles(): void
     {
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
-            $this->put($this->kernel->pathToRelative($filepath), MediaFile::make($filepath));
+            $this->addFile(MediaFile::make($filepath));
         }
     }
 }

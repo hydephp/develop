@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\UnitTestCase;
+use RuntimeException;
+use Exception;
 
 /**
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
@@ -26,11 +28,26 @@ class BaseFoundationCollectionTest extends UnitTestCase
         $this->assertTrue($booted->isDiscovered());
     }
 
-    public function test_get_instance()
+    public function test_exceptions_are_caught_and_rethrown_as_runtime_exceptions()
     {
-        $booted = BaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
+        $this->expectException(RuntimeException::class);
+        ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
+    }
 
-        $this->assertSame($booted, $booted->getInstance());
+    public function test_exceptions_are_caught_and_rethrown_with_helpful_information()
+    {
+        $this->expectException(RuntimeException::class);
+        ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
+    }
+
+    public function test_can_get_previous_exception()
+    {
+        try {
+            ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
+        } catch (RuntimeException $exception) {
+            $this->assertInstanceOf(Exception::class, $exception->getPrevious());
+            $this->assertSame('This is a test exception', $exception->getPrevious()->getMessage());
+        }
     }
 }
 
@@ -38,16 +55,14 @@ class BaseFoundationCollectionTestClass extends BaseFoundationCollection
 {
     protected bool $discovered = false;
 
-    protected function runDiscovery(): self
+    protected function runDiscovery(): void
     {
         $this->discovered = true;
-
-        return $this;
     }
 
-    protected function runExtensionCallbacks(): self
+    protected function runExtensionCallbacks(): void
     {
-        return $this;
+        //
     }
 
     public function isDiscovered(): bool
@@ -58,5 +73,18 @@ class BaseFoundationCollectionTestClass extends BaseFoundationCollection
     public function getKernel(): HydeKernel
     {
         return $this->kernel;
+    }
+}
+
+class ThrowingBaseFoundationCollectionTestClass extends BaseFoundationCollection
+{
+    protected function runDiscovery(): void
+    {
+        throw new Exception('This is a test exception');
+    }
+
+    protected function runExtensionCallbacks(): void
+    {
+        //
     }
 }
