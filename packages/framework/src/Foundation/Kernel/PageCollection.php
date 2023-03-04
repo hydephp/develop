@@ -6,7 +6,6 @@ namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 
@@ -35,7 +34,7 @@ final class PageCollection extends BaseFoundationCollection
     {
         $this->kernel->files()->each(function (SourceFile $file): void {
             $this->addPage($file->model::parse(
-                DiscoveryService::pathToIdentifier($file->model, $file->getPath())
+                $file->model::pathToIdentifier($file->getPath())
             ));
         });
     }

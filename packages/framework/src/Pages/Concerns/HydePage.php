@@ -13,13 +13,13 @@ use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
+use Illuminate\Support\Str;
 use function unslash;
 
 /**
@@ -119,7 +119,7 @@ abstract class HydePage implements PageSchema
     public static function files(): array
     {
         return Files::getFiles(static::class)->map(function (SourceFile $file): string {
-            return DiscoveryService::pathToIdentifier(static::class, $file->getPath());
+            return static::pathToIdentifier($file->getPath());
         })->values()->toArray();
     }
 
@@ -205,6 +205,21 @@ abstract class HydePage implements PageSchema
     public static function path(string $path = ''): string
     {
         return Hyde::path(unslash(static::sourceDirectory().'/'.unslash($path)));
+    }
+
+    /**
+     * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
+     * within the source directory are retained in order to satisfy the page identifier definition.
+     *
+     * @param  string  $path  Example: index.blade.php
+     * @return string Example: index
+     */
+    public static function pathToIdentifier(string $path): string
+    {
+        return unslash(Str::between(Hyde::pathToRelative($path),
+            static::sourceDirectory().'/',
+            static::fileExtension())
+        );
     }
 
     /**
