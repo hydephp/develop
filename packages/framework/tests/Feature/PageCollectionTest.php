@@ -182,7 +182,7 @@ class PageCollectionTest extends TestCase
     public function test_get_file_throws_exception_when_file_is_not_found()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Page [_pages/foo.blade.php] not found in page collection');
+        $this->expectExceptionMessage('File [_pages/foo.blade.php] not found');
 
         Pages::getPage('_pages/foo.blade.php');
     }
