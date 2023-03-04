@@ -71,6 +71,7 @@ final class FileCollection extends BaseFoundationCollection
         }
     }
 
+    /** @deprecated */
     protected function discoverMediaAssetFiles(): void
     {
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
