@@ -22,7 +22,7 @@ class MediaFile extends ProjectFile
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> */
     public static function all(): array
     {
-        return static::discoverMediaAssetFiles()->all();
+        return static::discoverMediaAssetFiles();
     }
 
     public function toArray(): array
@@ -74,7 +74,7 @@ class MediaFile extends ProjectFile
         return 'text/plain';
     }
 
-    protected static function discoverMediaAssetFiles(): Collection
+    protected static function discoverMediaAssetFiles(): array
     {
         $collection = new Collection();
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
@@ -82,6 +82,6 @@ class MediaFile extends ProjectFile
             $collection->put($file->getPath(), $file);
         }
 
-        return $collection;
+        return $collection->all();
     }
 }
