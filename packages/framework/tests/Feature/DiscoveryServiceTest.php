@@ -12,7 +12,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -20,8 +20,30 @@ use Illuminate\Support\Facades\File;
  *
  * @see \Hyde\Framework\Testing\Unit\DiscoveryServiceUnitTest
  */
-class DiscoveryServiceTest extends TestCase
+class DiscoveryServiceTest extends UnitTestCase
 {
+    protected array $filesToDelete = [];
+
+    protected function setUp(): void
+    {
+        self::setupKernel();
+        self::mockConfig();
+    }
+
+    protected function tearDown(): void
+    {
+        foreach ($this->filesToDelete as $file) {
+            unlink(Hyde::path($file));
+        }
+        $this->filesToDelete = [];
+    }
+
+    protected function file(string $path): void
+    {
+        $this->filesToDelete[] = $path;
+        touch(Hyde::path($path));
+    }
+
     public function test_get_file_extension_for_model_files()
     {
         $this->assertEquals('.md', DiscoveryService::getModelFileExtension(MarkdownPage::class));
@@ -119,7 +141,7 @@ class DiscoveryServiceTest extends TestCase
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
 
             // Cleanup
-            File::deleteDirectory(Hyde::path('foo'));
+            rmdir(Hyde::path('foo'));
             $model::setSourceDirectory($sourceDirectoryBackup);
             $model::setFileExtension($fileExtensionBackup);
         }
@@ -154,7 +176,7 @@ class DiscoveryServiceTest extends TestCase
         $path = Hyde::path('_media/test.custom');
         touch($path);
         $this->assertNotContains($path, DiscoveryService::getMediaAssetFiles());
-        config(['hyde.media_extensions' => 'custom']);
+        self::mockConfig(['hyde.media_extensions' => 'custom']);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
         unlink($path);
     }
@@ -165,7 +187,8 @@ class DiscoveryServiceTest extends TestCase
         mkdir(dirname($path));
         touch($path);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        File::deleteDirectory(Hyde::path('_media/foo'));
+        unlink($path);
+        rmdir(Hyde::path('_media/foo'));
     }
 
     public function test_get_media_asset_files_discovers_files_very_recursively()
@@ -174,19 +197,21 @@ class DiscoveryServiceTest extends TestCase
         mkdir(dirname($path), recursive: true);
         touch($path);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        File::deleteDirectory(Hyde::path('_media/foo'));
+        unlink($path);
+        rmdir(Hyde::path('_media/foo/bar'));
+        rmdir(Hyde::path('_media/foo'));
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
     {
-        config(['hyde.media_extensions' => null]);
+        self::mockConfig(['hyde.media_extensions' => null]);
         Filesystem::touch('_media/test.1');
         Filesystem::touch('_media/test.2');
         Filesystem::touch('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
 
-        config(['hyde.media_extensions' => '1,2,3']);
+        self::mockConfig(['hyde.media_extensions' => '1,2,3']);
         $this->assertEquals([
             Hyde::path('_media/test.1'),
             Hyde::path('_media/test.2'),
@@ -200,13 +225,13 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
     {
-        config(['hyde.media_extensions' => null]);
+        self::mockConfig(['hyde.media_extensions' => null]);
         Filesystem::touch('_media/test.1');
         Filesystem::touch('_media/test.2');
         Filesystem::touch('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
-        config(['hyde.media_extensions' => '1, 2, 3']);
+        self::mockConfig(['hyde.media_extensions' => '1, 2, 3']);
         $this->assertEquals([
             Hyde::path('_media/test.1'),
             Hyde::path('_media/test.2'),
@@ -220,13 +245,13 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_media_asset_extensions_can_be_added_by_array()
     {
-        config(['hyde.media_extensions' => null]);
+        self::mockConfig(['hyde.media_extensions' => null]);
         Filesystem::touch('_media/test.1');
         Filesystem::touch('_media/test.2');
         Filesystem::touch('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
-        config(['hyde.media_extensions' => ['1', '2', '3']]);
+        self::mockConfig(['hyde.media_extensions' => ['1', '2', '3']]);
         $this->assertEquals([
             Hyde::path('_media/test.1'),
             Hyde::path('_media/test.2'),
