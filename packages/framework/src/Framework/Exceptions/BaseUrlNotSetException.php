@@ -8,8 +8,6 @@ use Exception;
 
 class BaseUrlNotSetException extends Exception
 {
-    public function __construct()
-    {
-        parent::__construct('No site URL has been set in config (or .env).');
-    }
+    /** @var string */
+    protected $message = 'No site URL has been set in config (or .env).';
 }
