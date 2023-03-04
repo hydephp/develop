@@ -31,7 +31,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500, true);
 
-        $this->assertSame($route, $item->route);
+        $this->assertSame($route->getLink(), $item->destination);
     }
 
     public function testFromRoute()
@@ -39,7 +39,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = NavItem::fromRoute($route);
 
-        $this->assertSame($route, $item->route);
+        $this->assertSame($route->getLink(), $item->destination);
     }
 
     public function testResolveLink()
@@ -80,7 +80,7 @@ class NavItemTest extends UnitTestCase
         $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::toRoute($route, 'foo');
 
-        $this->assertSame($route, $item->route);
+        $this->assertSame($route->getLink(), $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(500, $item->priority);
         $this->assertFalse($item->hidden);
