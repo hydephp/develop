@@ -28,46 +28,31 @@ class FoundationFacadesTest extends UnitTestCase
 
     public function testFilesFacade()
     {
-        $this->assertInstanceOf(FileCollection::class, Files::getInstance());
+        $this->assertInstanceOf(FileCollection::class, Files::getFacadeRoot());
     }
 
     public function testPagesFacade()
     {
-        $this->assertInstanceOf(PageCollection::class, Pages::getInstance());
+        $this->assertInstanceOf(PageCollection::class, Pages::getFacadeRoot());
     }
 
     public function testRoutesFacade()
     {
-        $this->assertInstanceOf(RouteCollection::class, Routes::getInstance());
+        $this->assertInstanceOf(RouteCollection::class, Routes::getFacadeRoot());
     }
 
     public function testFilesFacadeUsesKernelInstance()
     {
-        $this->assertSame(HydeKernel::getInstance()->files(), Files::getInstance());
+        $this->assertSame(HydeKernel::getInstance()->files(), Files::getFacadeRoot());
     }
 
     public function testPagesFacadeUsesKernelInstance()
     {
-        $this->assertSame(HydeKernel::getInstance()->pages(), Pages::getInstance());
+        $this->assertSame(HydeKernel::getInstance()->pages(), Pages::getFacadeRoot());
     }
 
     public function testRoutesFacadeUsesKernelInstance()
     {
-        $this->assertSame(HydeKernel::getInstance()->routes(), Routes::getInstance());
-    }
-
-    public function testFilesFacadeRoot()
-    {
-        $this->assertSame(Files::getInstance(), Files::getFacadeRoot());
-    }
-
-    public function testPagesFacadeRoot()
-    {
-        $this->assertSame(Pages::getInstance(), Pages::getFacadeRoot());
-    }
-
-    public function testRoutesFacadeRoot()
-    {
-        $this->assertSame(Routes::getInstance(), Routes::getFacadeRoot());
+        $this->assertSame(HydeKernel::getInstance()->routes(), Routes::getFacadeRoot());
     }
 }

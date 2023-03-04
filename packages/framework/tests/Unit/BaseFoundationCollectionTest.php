@@ -28,13 +28,6 @@ class BaseFoundationCollectionTest extends UnitTestCase
         $this->assertTrue($booted->isDiscovered());
     }
 
-    public function test_get_instance()
-    {
-        $booted = BaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
-
-        $this->assertSame($booted, $booted->getInstance());
-    }
-
     public function test_exceptions_are_caught_and_rethrown_as_runtime_exceptions()
     {
         $this->expectException(RuntimeException::class);

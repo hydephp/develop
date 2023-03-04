@@ -68,10 +68,4 @@ abstract class BaseFoundationCollection extends Collection
 
         return $this;
     }
-
-    /** @return $this */
-    public function getInstance(): static
-    {
-        return $this;
-    }
 }
