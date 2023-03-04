@@ -176,20 +176,35 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertEquals([], DocumentationPage::files());
     }
 
-    public function test_path_to_identifier_helper_formats_path_to_identifier()
+    public function test_blade_page_path_to_identifier_helper_formats_path_to_identifier()
     {
-        foreach ([MarkdownPage::class, MarkdownPost::class, DocumentationPage::class] as $page) {
-            $this->assertEquals('foo', $page::pathToIdentifier('foo'));
-            $this->assertEquals('foo', $page::pathToIdentifier('foo.md'));
-            $this->assertEquals('foo/bar', $page::pathToIdentifier('foo/bar.md'));
-        }
-
         $this->assertEquals('foo', BladePage::pathToIdentifier('foo'));
         $this->assertEquals('foo', BladePage::pathToIdentifier('foo.blade.php'));
         $this->assertEquals('foo/bar', BladePage::pathToIdentifier('foo/bar.blade.php'));
 
         $this->assertEquals('foo', BladePage::pathToIdentifier(Hyde::path('_pages/foo.blade.php')));
         $this->assertEquals('foo', BladePage::pathToIdentifier('_pages/foo.blade.php'));
+    }
+
+    public function test_markdown_page_path_to_identifier_helper_formats_path_to_identifier()
+    {
+        $this->assertEquals('foo', MarkdownPage::pathToIdentifier('foo'));
+        $this->assertEquals('foo', MarkdownPage::pathToIdentifier('foo.md'));
+        $this->assertEquals('foo/bar', MarkdownPage::pathToIdentifier('foo/bar.md'));
+    }
+
+    public function test_markdown_post_path_to_identifier_helper_formats_path_to_identifier()
+    {
+        $this->assertEquals('foo', MarkdownPost::pathToIdentifier('foo'));
+        $this->assertEquals('foo', MarkdownPost::pathToIdentifier('foo.md'));
+        $this->assertEquals('foo/bar', MarkdownPost::pathToIdentifier('foo/bar.md'));
+    }
+
+    public function test_documentation_page_path_to_identifier_helper_formats_path_to_identifier()
+    {
+        $this->assertEquals('foo', DocumentationPage::pathToIdentifier('foo'));
+        $this->assertEquals('foo', DocumentationPage::pathToIdentifier('foo.md'));
+        $this->assertEquals('foo/bar', DocumentationPage::pathToIdentifier('foo/bar.md'));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
