@@ -103,9 +103,7 @@ class DiscoveryService
 
     protected static function parseConfiguredMediaExtensions(string|array $extensions): string
     {
-        return is_array($extensions)
-            ? implode(',', $extensions)
-            : static::removeSpaces($extensions);
+        return is_array($extensions) ? implode(',', $extensions) : static::removeSpaces($extensions);
     }
 
     protected static function removeSpaces(string $string): string
