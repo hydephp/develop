@@ -22,6 +22,6 @@ class Files extends Facade
 
     public static function getFile(string $filePath): ProjectFile
     {
-        return static::getFacadeRoot()->items[$filePath] ?? throw new FileNotFoundException($filePath . ' in file collection');
+        return static::getFacadeRoot()->get($filePath) ?? throw new FileNotFoundException($filePath . ' in file collection');
     }
 }
