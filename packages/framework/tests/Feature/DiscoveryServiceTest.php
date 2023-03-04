@@ -50,53 +50,6 @@ class DiscoveryServiceTest extends UnitTestCase
         @mkdir(Hyde::path($path), recursive: $recursive);
     }
 
-    public function test_get_source_file_list_for_blade_page()
-    {
-        $this->assertEquals(['404', 'index'], BladePage::files());
-    }
-
-    public function test_get_source_file_list_for_markdown_page()
-    {
-        $this->file('_pages/foo.md');
-        $this->assertEquals(['foo'], MarkdownPage::files());
-    }
-
-    public function test_get_source_file_list_for_markdown_post()
-    {
-        $this->file('_posts/foo.md');
-        $this->assertEquals(['foo'], MarkdownPost::files());
-    }
-
-    public function test_get_source_file_list_for_documentation_page()
-    {
-        $this->file('_docs/foo.md');
-        $this->assertEquals(['foo'], DocumentationPage::files());
-    }
-
-    public function test_get_source_file_list_for_markdown_page_model()
-    {
-        $this->file('_pages/foo.md');
-        $this->assertEquals(['foo'], MarkdownPage::files());
-    }
-
-    public function test_get_source_file_list_for_blade_page_model()
-    {
-        $this->file('_pages/foo.blade.php');
-        $this->assertEquals(['404', 'foo', 'index'], BladePage::files());
-    }
-
-    public function test_get_source_file_list_for_markdown_post_model()
-    {
-        $this->file('_posts/foo.md');
-        $this->assertEquals(['foo'], MarkdownPost::files());
-    }
-
-    public function test_get_source_file_list_for_documentation_page_model()
-    {
-        $this->file('_docs/foo.md');
-        $this->assertEquals(['foo'], DocumentationPage::files());
-    }
-
     public function test_get_source_file_list_for_model_method_finds_customized_model_properties()
     {
         // Setup
