@@ -56,7 +56,7 @@ abstract class BaseFoundationCollection extends Collection
         return $this;
     }
 
-    protected function __construct(array|Arrayable|null $items = [])
+    final protected function __construct(array|Arrayable|null $items = [])
     {
         parent::__construct($items);
     }
