@@ -52,7 +52,7 @@ class NavItem implements Stringable
     public static function fromRoute(Route $route): static
     {
         return new self(
-            $route,
+            $route->getLink(),
             $route->getPage()->navigationMenuLabel(),
             $route->getPage()->navigationMenuPriority(),
             ! $route->getPage()->showInNavigation()
@@ -72,7 +72,7 @@ class NavItem implements Stringable
      */
     public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
-        return new self($route, $label, $priority, false);
+        return new self($route->getLink(), $label, $priority, false);
     }
 
     /**
