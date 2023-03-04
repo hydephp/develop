@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
-use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Str;
 use function unslash;
 
@@ -34,15 +33,5 @@ class DiscoveryService
             $pageClass::sourceDirectory().'/',
             $pageClass::fileExtension())
         );
-    }
-
-    /**
-     * Get all the Media asset filenames.
-     *
-     * @return array<string> An array of filenames relative to the media source directory.
-     */
-    public static function getMediaAssetFiles(): array
-    {
-        return MediaFile::files();
     }
 }
