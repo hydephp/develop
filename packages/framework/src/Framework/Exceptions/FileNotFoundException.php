@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Exceptions;
 
 use Exception;
+use Hyde\Hyde;
 
 class FileNotFoundException extends Exception
 {
@@ -16,7 +17,7 @@ class FileNotFoundException extends Exception
 
     public function __construct(?string $path = null, ?string $message = null)
     {
-        $this->message = $message ?? ($path ? "File [$path] not found." : $this->message);
+        $this->message = $message ?? ($path ? sprintf('File [%s] not found.', Hyde::pathToRelative($path)) : $this->message);
 
         parent::__construct($this->message, $this->code);
     }

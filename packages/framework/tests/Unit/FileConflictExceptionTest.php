@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileConflictException;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Exceptions\FileConflictException
  */
-class FileConflictExceptionTest extends TestCase
+class FileConflictExceptionTest extends UnitTestCase
 {
     public function test_it_can_be_instantiated()
     {
@@ -38,13 +38,13 @@ class FileConflictExceptionTest extends TestCase
     public function test_exception_message_with_path()
     {
         HydeKernel::setInstance(new HydeKernel('my-base-path'));
-        $this->assertSame('File already exists: path/to/file', (new FileConflictException('path/to/file'))->getMessage());
+        $this->assertSame('File [path/to/file] already exists.', (new FileConflictException('path/to/file'))->getMessage());
     }
 
     public function test_exception_message_with_absolute_path()
     {
         HydeKernel::setInstance(new HydeKernel('my-base-path'));
-        $this->assertSame('File already exists: path/to/file', (new FileConflictException('my-base-path/path/to/file'))->getMessage());
+        $this->assertSame('File [path/to/file] already exists.', (new FileConflictException('my-base-path/path/to/file'))->getMessage());
     }
 
     public function test_exception_message_with_custom_message()
