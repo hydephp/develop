@@ -80,7 +80,7 @@ class NavItem implements Stringable
      */
     public function resolveLink(): string
     {
-        return $this->href ?? $this->route->getLink();
+        return $this->destination;
     }
 
     /**
