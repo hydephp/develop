@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\Concerns\HydePage;
-use Illuminate\Support\Collection;
+use Hyde\Support\Filesystem\ProjectFile;
+use Hyde\Support\Filesystem\SourceFile;
 
 /**
  * The PageCollection contains all the instantiated pages.
@@ -45,9 +46,13 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): void
     {
-        foreach ($this->kernel->getRegisteredPageClasses() as $pageClass) {
-            $this->discoverPagesFor($pageClass);
-        }
+        $this->kernel->files()->each(function (ProjectFile $file): void {
+            if ($file instanceof SourceFile) {
+                $this->addPage($file->model::parse(
+                    DiscoveryService::pathToIdentifier($file->model, $file->getPath())
+                ));
+            }
+        });
     }
 
     protected function runExtensionCallbacks(): void
@@ -56,13 +61,5 @@ final class PageCollection extends BaseFoundationCollection
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverPages($this);
         }
-    }
-
-    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */
-    protected function discoverPagesFor(string $pageClass): void
-    {
-        collect($pageClass::files())->each(function (string $page) use ($pageClass): void {
-            $this->addPage($pageClass::parse($page));
-        });
     }
 }
