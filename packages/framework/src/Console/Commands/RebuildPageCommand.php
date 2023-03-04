@@ -21,9 +21,9 @@ use function unslash;
 /**
  * Hyde Command to build a single static site file.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\RebuildStaticSiteCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\RebuildPageCommand
  */
-class RebuildStaticPageCommand extends Command
+class RebuildPageCommand extends Command
 {
     /** @var string */
     protected $signature = 'rebuild {path : The relative file path (example: _posts/hello-world.md)}';

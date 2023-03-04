@@ -8,9 +8,9 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\RebuildStaticPageCommand
+ * @covers \Hyde\Console\Commands\RebuildPageCommand
  */
-class RebuildStaticPageCommandTest extends TestCase
+class RebuildPageCommand extends TestCase
 {
     public function test_handle_is_successful_with_valid_path()
     {
