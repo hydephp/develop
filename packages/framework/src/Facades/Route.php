@@ -7,7 +7,6 @@ namespace Hyde\Facades;
 use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Support\Models\RouteKey;
 
 /**
