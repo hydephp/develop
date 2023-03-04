@@ -180,17 +180,17 @@ class DiscoveryServiceTest extends UnitTestCase
     public function test_path_to_identifier_helper_formats_path_to_identifier()
     {
         foreach ([MarkdownPage::class, MarkdownPost::class, DocumentationPage::class] as $page) {
-            $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo'));
-            $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo.md'));
-            $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier($page, 'foo/bar.md'));
+            $this->assertEquals('foo', $page::pathToIdentifier('foo'));
+            $this->assertEquals('foo', $page::pathToIdentifier('foo.md'));
+            $this->assertEquals('foo/bar', $page::pathToIdentifier('foo/bar.md'));
         }
 
-        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo'));
-        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo.blade.php'));
-        $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier(BladePage::class, 'foo/bar.blade.php'));
+        $this->assertEquals('foo', BladePage::pathToIdentifier('foo'));
+        $this->assertEquals('foo', BladePage::pathToIdentifier('foo.blade.php'));
+        $this->assertEquals('foo/bar', BladePage::pathToIdentifier('foo/bar.blade.php'));
 
-        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, Hyde::path('_pages/foo.blade.php')));
-        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, '_pages/foo.blade.php'));
+        $this->assertEquals('foo', BladePage::pathToIdentifier(Hyde::path('_pages/foo.blade.php')));
+        $this->assertEquals('foo', BladePage::pathToIdentifier('_pages/foo.blade.php'));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)

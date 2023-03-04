@@ -35,7 +35,7 @@ final class PageCollection extends BaseFoundationCollection
     {
         $this->kernel->files()->each(function (SourceFile $file): void {
             $this->addPage($file->model::parse(
-                DiscoveryService::pathToIdentifier($file->model, $file->getPath())
+                $file->model::pathToIdentifier($file->getPath())
             ));
         });
     }

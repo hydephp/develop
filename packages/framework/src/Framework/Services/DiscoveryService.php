@@ -13,8 +13,5 @@ namespace Hyde\Framework\Services;
  */
 class DiscoveryService
 {
-    public static function pathToIdentifier(string $pageClass, string $filepath): string
-    {
-        return $pageClass::pathToIdentifier($filepath);
-    }
+    //
 }
