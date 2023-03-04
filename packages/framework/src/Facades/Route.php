@@ -16,17 +16,12 @@ use Hyde\Support\Models\RouteKey;
  */
 class Route
 {
-    /**
-     * Get a route from the route index for the specified route key.
-     */
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
         return Routes::get(RouteKey::normalize($routeKey));
     }
 
     /**
-     * Get a route from the route index for the specified route key or throw an exception.
-     *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
@@ -34,17 +29,12 @@ class Route
         return Routes::getRoute(RouteKey::normalize($routeKey));
     }
 
-    /**
-     * Determine if the supplied route key exists in the route index.
-     */
     public static function exists(string $routeKey): bool
     {
         return Routes::has(RouteKey::normalize($routeKey));
     }
 
     /**
-     * Get all routes from the route index.
-     *
      * @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route>
      */
     public static function all(): RouteCollection
