@@ -67,7 +67,7 @@ class MakePageCommandTest extends TestCase
     public function test_command_fails_if_user_specifies_invalid_page_type()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('The page type is not supported: invalid');
+        $this->expectExceptionMessage('The page type [invalid] is not supported.');
         $this->expectExceptionCode(400);
         $this->artisan('make:page "foo test page" --type=invalid')->assertExitCode(400);
     }

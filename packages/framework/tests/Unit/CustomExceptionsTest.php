@@ -103,7 +103,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testUnsupportedPageTypeExceptionWithPage()
     {
-        $this->assertSame('The page type is not supported: foo', (new UnsupportedPageTypeException('foo'))->getMessage());
+        $this->assertSame('The page type [foo] is not supported.', (new UnsupportedPageTypeException('foo'))->getMessage());
     }
 
     public function testBaseUrlNotSetException()

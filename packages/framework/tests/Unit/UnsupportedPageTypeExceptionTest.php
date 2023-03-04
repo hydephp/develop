@@ -22,7 +22,7 @@ class UnsupportedPageTypeExceptionTest extends UnitTestCase
     public function test_it_throws_an_exception_when_page_type_is_not_supported()
     {
         $this->expectException(UnsupportedPageTypeException::class);
-        $this->expectExceptionMessage('The page type is not supported: unsupported');
+        $this->expectExceptionMessage('The page type [unsupported] is not supported.');
 
         throw new UnsupportedPageTypeException('unsupported');
     }
