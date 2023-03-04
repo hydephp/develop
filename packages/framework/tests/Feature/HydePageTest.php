@@ -88,6 +88,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testBasePathToIdentifier()
+    {
+        $this->assertSame(
+            'hello-world',
+            HydePage::pathToIdentifier('hello-world')
+        );
+    }
+
     public function testBaseBaseRouteKey()
     {
         $this->assertSame(
@@ -464,6 +472,8 @@ class HydePageTest extends TestCase
     public function test_all_page_models_extend_abstract_page()
     {
         $pages = [
+            HtmlPage::class,
+            BladePage::class,
             MarkdownPage::class,
             MarkdownPost::class,
             DocumentationPage::class,
@@ -479,6 +489,7 @@ class HydePageTest extends TestCase
     public function test_all_page_models_have_configured_source_directory()
     {
         $pages = [
+            HtmlPage::class => '_pages',
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
