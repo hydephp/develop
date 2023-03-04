@@ -6,7 +6,6 @@ namespace Hyde\Foundation\Kernel;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Foundation\Facades\Pages;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 
