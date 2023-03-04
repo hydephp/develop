@@ -10,7 +10,6 @@ use Hyde\Support\Filesystem\SourceFile;
 
 /**
  * The FileCollection contains all the discovered source files.
- * This is the initial entry point that powers the core of the Hyde Auto Discovery process.
  *
  * @template T of \Hyde\Support\Filesystem\SourceFile
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
