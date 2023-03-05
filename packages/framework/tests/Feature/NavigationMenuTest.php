@@ -261,7 +261,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
-             DropdownNavItem::fromArray('foo', [
+            DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
             ]), ], $menu->getDropdowns());
     }
@@ -277,7 +277,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
-             DropdownNavItem::fromArray('foo', [
+            DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
             ]),
@@ -297,7 +297,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(2, $menu->getDropdowns());
 
         $this->assertEquals([
-             DropdownNavItem::fromArray('foo', [
+            DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
             ]),
