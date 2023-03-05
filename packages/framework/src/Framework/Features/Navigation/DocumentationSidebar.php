@@ -18,15 +18,13 @@ use function collect;
 class DocumentationSidebar extends BaseNavigationMenu
 {
     /** @deprecated Will be made protected */
-    public function generate(): static
+    public function generate(): void
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
                 $this->items->put($route->getRouteKey(), SidebarItem::fromRoute($route));
             }
         });
-
-        return $this;
     }
 
     public function hasGroups(): bool

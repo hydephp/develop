@@ -17,15 +17,13 @@ use function in_array;
 class NavigationMenu extends BaseNavigationMenu
 {
     /** @deprecated Will be made protected */
-    public function generate(): static
+    public function generate(): void
     {
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
             $this->createDropdownsForGroupedItems();
         }
-
-        return $this;
     }
 
     protected function createDropdownsForGroupedItems(): void

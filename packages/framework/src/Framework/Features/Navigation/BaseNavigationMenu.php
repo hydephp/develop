@@ -36,7 +36,7 @@ abstract class BaseNavigationMenu
     }
 
     /** @deprecated Will be made protected */
-    public function generate(): static
+    public function generate(): void
     {
         Routes::each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
@@ -48,8 +48,6 @@ abstract class BaseNavigationMenu
             // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
-
-        return $this;
     }
 
     protected function canAddRoute(Route $route): bool
