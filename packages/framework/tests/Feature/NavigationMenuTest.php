@@ -54,33 +54,21 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_sort_method_sorts_items_by_priority()
+    public function test_items_are_sorted_by_priority()
     {
-        $this->markTestSkipped('Refactor to not test method being protected');
-        $menu = new NavigationMenu();
-        $menu->generate()->sortByPriority();
+        Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'foo', ['navigation.priority' => 1])));
+        Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'bar', ['navigation.priority' => 2])));
+        Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'baz', ['navigation.priority' => 3])));
 
-        $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('404')),
-        ]);
-
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], NavigationMenu::create()->items->pluck('label')->toArray());
     }
 
-    public function test_filter_method_removes_items_with_hidden_property_set_to_true()
+    public function test_items_with_hidden_property_set_to_true_are_not_added()
     {
-        $this->markTestSkipped('Refactor to not test method being protected');
-        $menu = new NavigationMenu();
-        $menu->generate()->removeDuplicateItems();
+        Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'foo', ['navigation.hidden' => true])));
+        Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'bar', ['navigation.hidden' => false])));
 
-        $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-        ]);
-
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertSame(['Home', 'Bar'], NavigationMenu::create()->items->pluck('label')->toArray());
     }
 
     public function test_static_create_method_creates_new_processed_collection()
