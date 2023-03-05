@@ -46,7 +46,7 @@ abstract class BaseNavigationMenu
     }
 
     /** @deprecated Refactor to handle this upon generation */
-    public function filter(): static
+    protected function filter(): static
     {
         $this->items = $this->filterDuplicateItems();
 
