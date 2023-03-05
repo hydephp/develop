@@ -24,7 +24,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
         self::mockConfig();
     }
 
-    protected function setUp(): void
+    protected function tearDown(): void
     {
         Render::swap(new \Hyde\Support\Models\Render());
     }
