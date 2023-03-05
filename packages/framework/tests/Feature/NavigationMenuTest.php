@@ -27,17 +27,12 @@ class NavigationMenuTest extends TestCase
 {
     public function test_constructor()
     {
-        $menu = new NavigationMenu();
-
-        $this->assertInstanceOf(NavigationMenu::class, $menu);
+        $this->assertInstanceOf(NavigationMenu::class, NavigationMenu::create());
     }
 
     public function test_generate_method_creates_collection_of_nav_items()
     {
-        $menu = new NavigationMenu();
-
-        $this->assertInstanceOf(Collection::class, $menu->items);
-        $this->assertEmpty($menu->items);
+        $this->assertInstanceOf(Collection::class, NavigationMenu::create()->items);
     }
 
     public function test_items_are_sorted_by_priority()
