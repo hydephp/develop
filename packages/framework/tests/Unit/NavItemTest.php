@@ -58,7 +58,7 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::toLink('foo', 'bar');
 
-        $this->assertSame('foo', $item->href);
+        $this->assertSame('foo', $item->destination);
         $this->assertSame('bar', $item->label);
         $this->assertSame(500, $item->priority);
     }
