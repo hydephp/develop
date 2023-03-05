@@ -85,6 +85,6 @@ abstract class BaseNavigationMenu
 
     protected static function canAddRoute(Route $route): bool
     {
-        return true;
+        return $route->getPage()->showInNavigation();
     }
 }
