@@ -70,7 +70,7 @@ class NavItem implements Stringable
      *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      */
-    public static function toRoute(Route|string $route, string $label, int $priority = 500): static
+    public static function toRoute(Route|string $route, ?string $label = null, int $priority = 500): static
     {
         $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
 
