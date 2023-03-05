@@ -116,7 +116,7 @@ class NavItem implements Stringable
 
     protected static function resolveRouteGroup(Route $route): ?string
     {
-        return static::normalizeGroupKey(($route ?? null)?->getPage()->data('navigation.group'));
+        return static::normalizeGroupKey(($route)?->getPage()->data('navigation.group'));
     }
 
     protected static function normalizeGroupKey(?string $group): ?string
