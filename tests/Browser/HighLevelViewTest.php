@@ -151,8 +151,8 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertPresent('#sidebar-navigation > li.active')
-                ->assertAriaAttribute('#sidebar-navigation > li:nth-child(1) > a', 'current', 'true')
+                ->assertPresent('#sidebar-navigation-items > li.active')
+                ->assertAriaAttribute('#sidebar-navigation-items > li:nth-child(1) > a', 'current', 'true')
                 ->screenshot('docs/with_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_sidebar_pages');
         });
