@@ -1,8 +1,8 @@
 @php /** @var \Hyde\Framework\Features\Navigation\NavItem $item */ @endphp
 @php
-    $activeClass = 'active bg-black/5 dark:bg-black/10';
+    $activeListClasses = 'active bg-black/5 dark:bg-black/10';
 @endphp
-<li @class(['sidebar-navigation-item -ml-4 pl-4', $activeClass => $item->isCurrent()]) role="listitem">
+<li @class(['sidebar-navigation-item -ml-4 pl-4', $activeListClasses => $item->isCurrent()]) role="listitem">
     @if($item->isCurrent())
         <a href="{{ $item->destination }}" aria-current="true" class="-ml-4 p-2 block hover:bg-black/5 dark:hover:bg-black/10  text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300	ease-in-out">
             {{ $item->label }}
