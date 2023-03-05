@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavItem
- * @covers \Hyde\Framework\Features\Navigation\NavItem
  */
 class DocumentationSidebarTest extends TestCase
 {
