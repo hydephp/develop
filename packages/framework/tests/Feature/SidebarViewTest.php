@@ -15,6 +15,11 @@ class SidebarViewTest extends TestCase
 {
     public function testBaseSidebar()
     {
-        $html = view('hyde::components.docs.sidebar')->render();
+        $html = $this->renderComponent(view('hyde::components.docs.sidebar'));
+    }
+
+    protected function renderComponent(\Illuminate\Contracts\View\View $view): string
+    {
+        return $view->render();
     }
 }
