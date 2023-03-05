@@ -105,8 +105,8 @@ class NavItem implements Stringable
             return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
         }
         
-        return ($current->getRoute()->getRouteKey() === $this->destination)
-            || ($current->getRoute()->getRouteKey().'.html' === $this->destination);
+        return ($current->getRoute()->getLink() === $this->destination)
+            || ($current->getRoute()->getLink().'.html' === $this->destination);
     }
 
     public function getGroup(): ?string
