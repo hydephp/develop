@@ -44,6 +44,30 @@ class NavItemTest extends UnitTestCase
         $this->assertSame($route->getLink(), $item->destination);
     }
 
+    public function testGetDestination()
+    {
+        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $this->assertSame('foo.html', $navItem->getDestination());
+    }
+
+    public function testGetLabel()
+    {
+        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $this->assertSame('Page', $navItem->getLabel());
+    }
+
+    public function testGetPriority()
+    {
+        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $this->assertSame(500, $navItem->getPriority());
+    }
+
+    public function testGetGroup()
+    {
+        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $this->assertNull($navItem->getGroup());
+    }
+
     public function testFromRoute()
     {
         $route = new Route(new MarkdownPage());
