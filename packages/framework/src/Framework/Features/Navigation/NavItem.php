@@ -105,8 +105,8 @@ class NavItem implements Stringable
             return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
         }
         
-        return ($current->getRoute()->getLink() === $this->destination)
-            || ($current->getRoute()->getLink().'.html' === $this->destination);
+        return ($this->makeLinkPretty($current->getRoute()->getLink()) === $this->destination)
+            || ($current->getRoute()->getLink() === $this->destination);
     }
 
     public function getGroup(): ?string
@@ -122,5 +122,10 @@ class NavItem implements Stringable
     protected static function normalizeGroupKey(?string $group): ?string
     {
         return empty($group) ? null : Str::slug($group);
+    }
+
+    protected function makeLinkPretty(string $url): string
+    {
+        return Str::before($url, '.html');
     }
 }
