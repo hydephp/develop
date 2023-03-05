@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use BadMethodCallException;
-use Hyde\Support\Models\Route;
 use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Models\Route;
 use function in_array;
 
 /**
