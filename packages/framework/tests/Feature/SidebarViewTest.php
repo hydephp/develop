@@ -79,7 +79,6 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-navigation-group-heading')
             ->assertSeeHtml('class="sidebar-navigation-group-toggle')
             ->assertSeeHtml('class="sidebar-navigation-group-toggle-icon')
-            ->assertSeeHtml('class="sidebar-navigation-group-toggle-icon')
             ->assertSeeHtml('class="sidebar-navigation-group-list')
             ->allGood();
 
