@@ -7,7 +7,7 @@
             </header>
             <ul class="sidebar-navigation-group-list ml-4 px-2 mb-2" role="list">
                 @foreach ($sidebar->getItemsInGroup($group) as $item)
-                    <x-hyde::docs.grouped-sidebar-item :item="$item" :active="$item->isCurrent()" />
+                    <x-hyde::docs.grouped-sidebar-item :item="$item"  />
                 @endforeach
             </ul>
         </li>
