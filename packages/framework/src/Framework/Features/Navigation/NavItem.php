@@ -22,10 +22,10 @@ use Stringable;
  */
 class NavItem implements Stringable
 {
-    public string $destination;
-    public string $label;
-    public int $priority;
-    public ?string $group;
+    public readonly string $destination;
+    public readonly string $label;
+    public readonly int $priority;
+    public readonly ?string $group;
 
     /**
      * Create a new navigation menu item.
