@@ -130,7 +130,6 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
     }
 
-
     protected function renderComponent(View $view): self
     {
         try {
