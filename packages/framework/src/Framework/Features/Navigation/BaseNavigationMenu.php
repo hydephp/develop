@@ -45,7 +45,6 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    /** @deprecated Refactor to handle this upon generation */
     protected function filter(): static
     {
         $this->items = $this->filterDuplicateItems();
@@ -53,7 +52,6 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    /** @deprecated Refactor to handle this upon generation */
     protected function sort(): static
     {
         $this->items = $this->items->sortBy('priority')->values();
