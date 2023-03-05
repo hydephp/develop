@@ -25,7 +25,6 @@ abstract class BaseNavigationMenu
 
     public static function create(): static
     {
-        // Todo: Simplify call order by making chained protected methods void
         $menu = new static();
 
         $menu->generate();
