@@ -234,18 +234,15 @@ class NavigationMenuTest extends TestCase
     public function test_has_dropdowns_returns_true_when_there_are_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
+        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $menu = NavigationMenu::create();
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->generate();
         $this->assertTrue($menu->hasDropdowns());
     }
 
     public function test_has_dropdowns_always_returns_false_when_dropdowns_are_disabled()
     {
-        $menu = NavigationMenu::create();
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->generate();
-        $this->assertFalse($menu->hasDropdowns());
+        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
+        $this->assertFalse(NavigationMenu::create()->hasDropdowns());
     }
 
     public function test_get_dropdowns_returns_empty_array_there_are_no_dropdowns()
@@ -259,9 +256,8 @@ class NavigationMenuTest extends TestCase
     public function test_get_dropdowns_returns_correct_array_when_there_are_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
+        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $menu = NavigationMenu::create();
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->generate();
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
@@ -273,11 +269,10 @@ class NavigationMenuTest extends TestCase
     public function test_get_dropdowns_with_multiple_items()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
-        $menu->generate();
+        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
+        Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
+        $menu = NavigationMenu::create();
 
         $this->assertCount(1, $menu->getDropdowns());
 
@@ -292,12 +287,12 @@ class NavigationMenuTest extends TestCase
     public function test_get_dropdowns_with_multiple_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()));
-        $menu->generate();
+        Routes::addRoute(((new MarkdownPage('foo/bar'))->getRoute()));
+        Routes::addRoute(((new MarkdownPage('foo/baz'))->getRoute()));
+        Routes::addRoute(((new MarkdownPage('cat/hat'))->getRoute()));
+
+        $menu = NavigationMenu::create();
 
         $this->assertCount(2, $menu->getDropdowns());
 
@@ -324,11 +319,10 @@ class NavigationMenuTest extends TestCase
     public function test_documentation_pages_do_not_get_added_to_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new DocumentationPage('foo'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new DocumentationPage('bar/baz'))->getRoute()));
-        $menu->generate();
+        Routes::addRoute((new DocumentationPage('foo'))->getRoute());
+        Routes::addRoute((new DocumentationPage('bar/baz'))->getRoute());
+        $menu = NavigationMenu::create();
 
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
@@ -337,12 +331,11 @@ class NavigationMenuTest extends TestCase
     public function test_blog_posts_do_not_get_added_to_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        Routes::addRoute((new MarkdownPost('foo'))->getRoute());
+        Routes::addRoute((new MarkdownPost('bar/baz'))->getRoute());
+
         $menu = NavigationMenu::create();
-
-        $menu->items->push(NavItem::fromRoute((new MarkdownPost('foo'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPost('bar/baz'))->getRoute()));
-        $menu->generate();
-
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
     }
