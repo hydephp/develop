@@ -41,7 +41,7 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    /** @return $this */
+    /** @deprecated Refactor to handle this upon generation */
     public function filter(): static
     {
         $this->items = $this->filterHiddenItems();
