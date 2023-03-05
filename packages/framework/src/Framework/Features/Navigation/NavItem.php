@@ -117,6 +117,6 @@ class NavItem implements Stringable
 
     protected static function normalizeGroupKey(?string $group): ?string
     {
-        return empty($group) ? null : Str::slug($group);
+        return !empty($group) ? Str::slug($group) : null;
     }
 }
