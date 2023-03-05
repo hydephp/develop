@@ -18,7 +18,6 @@ abstract class BaseNavigationMenu
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public Collection $items;
 
-    /** @todo Consider protecting to scope down public API */
     final protected function __construct()
     {
         $this->items = new Collection();
