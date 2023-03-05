@@ -70,6 +70,15 @@ abstract class BaseNavigationMenu
 
     protected static function canAddRoute(Route $route): bool
     {
+        if (self::isRouteDuplicate($route)) {
+            return false;
+        }
+
         return $route->getPage()->showInNavigation();
+    }
+
+    private static function isRouteDuplicate(Route $route): bool
+    {
+        //
     }
 }
