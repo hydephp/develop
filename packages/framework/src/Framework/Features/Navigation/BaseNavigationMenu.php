@@ -35,8 +35,7 @@ abstract class BaseNavigationMenu
         return $menu;
     }
 
-    /** @deprecated Will be made protected */
-    public function generate(): void
+    protected function generate(): void
     {
         Routes::each(function (Route $route): void {
             if ($this->canAddRoute($route)) {

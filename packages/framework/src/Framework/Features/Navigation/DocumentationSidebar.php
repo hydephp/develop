@@ -17,8 +17,7 @@ use function collect;
  */
 class DocumentationSidebar extends BaseNavigationMenu
 {
-    /** @deprecated Will be made protected */
-    public function generate(): void
+    protected function generate(): void
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {

@@ -14,8 +14,7 @@ use BadMethodCallException;
  */
 class NavigationMenu extends BaseNavigationMenu
 {
-    /** @deprecated Will be made protected */
-    public function generate(): void
+    protected function generate(): void
     {
         parent::generate();
 
