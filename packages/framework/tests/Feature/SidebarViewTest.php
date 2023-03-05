@@ -115,10 +115,6 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-navigation-group-toggle-icon')
             ->assertSeeHtml('class="sidebar-navigation-group-list')
             ->allGood();
-
-        $this->assertViewWasRendered(view('hyde::components.docs.collapsible-grouped-sidebar-navigation', [
-            'sidebar' => DocumentationSidebar::create(),
-        ]));
     }
 
     public function testSidebarWithNonCollapsibleGroupedItems()
