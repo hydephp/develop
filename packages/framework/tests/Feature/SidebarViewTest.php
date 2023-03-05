@@ -54,6 +54,10 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
             ->assertSeeHtml('<li class="sidebar-navigation-item')
             ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+            'sidebar' => DocumentationSidebar::create(),
+        ]));
     }
 
     public function testBaseSidebarWithGroupedItems()
