@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection HtmlUnknownTarget */
 
 declare(strict_types=1);
 
