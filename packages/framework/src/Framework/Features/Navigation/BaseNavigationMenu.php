@@ -50,7 +50,7 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    /** @return $this */
+    /** @deprecated Refactor to handle this upon generation */
     public function sort(): static
     {
         $this->items = $this->items->sortBy('priority')->values();
