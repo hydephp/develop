@@ -396,6 +396,8 @@ class DocumentationSidebarTest extends TestCase
 
     protected function setPriority(SidebarItem $sidebarItem, int $priority): SidebarItem
     {
-        return $sidebarItem->setPriority($priority);
+        return tap($sidebarItem, function ($sidebarItem) use ($priority) {
+            $sidebarItem->priority = $priority;
+        });
     }
 }
