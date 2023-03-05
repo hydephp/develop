@@ -78,7 +78,7 @@ class NavItemTest extends UnitTestCase
 
         $this->assertSame($route->getLink(), $item->destination);
         $this->assertSame('foo', $item->label);
-        $this->assertSame(500, $item->priority);
+        $this->assertSame(999, $item->priority);
     }
 
     public function testToRouteWithRouteKey()
