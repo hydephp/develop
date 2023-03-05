@@ -27,10 +27,9 @@ abstract class BaseNavigationMenu
     {
         // Todo: Simplify call order by making chained protected methods void
         $menu = new static();
-        $menu
-            ->generate()
-            ->removeDuplicateItems()
-            ->sortByPriority();
+        $menu->generate();
+        $menu->removeDuplicateItems();
+        $menu->sortByPriority();
 
         return $menu;
     }
