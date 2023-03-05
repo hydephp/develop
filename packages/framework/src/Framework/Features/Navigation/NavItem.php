@@ -81,7 +81,7 @@ class NavItem implements Stringable
      */
     public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
-        return new static($route->getLink(), $label, $priority);
+        return new static($route->getLink(), $label, $priority, static::resolveRouteGroup($route));
     }
 
     /**
