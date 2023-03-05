@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\Deprecated;
 use Stringable;
 
 /**
@@ -93,7 +94,7 @@ class NavItem implements Stringable
     /**
      * Check if the NavItem instance is the current page.
      */
-    public function isCurrent(?HydePage $current = null): bool
+    public function isCurrent(#[Deprecated]?HydePage $current = null): bool
     {
         if ($current === null) {
             $current = Hyde::currentRoute()->getPage();
