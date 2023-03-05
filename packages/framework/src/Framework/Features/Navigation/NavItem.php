@@ -59,7 +59,8 @@ class NavItem implements Stringable
     public static function fromRoute(Route $route): static
     {
         return new static(
-            $route->getLink(),
+            // $route->getLink(),
+            $route, // needed by NavigationMenu::shouldItemBeHidden()
             $route->getPage()->navigationMenuLabel(),
             $route->getPage()->navigationMenuPriority(),
             static::resolveRouteGroup($route),
