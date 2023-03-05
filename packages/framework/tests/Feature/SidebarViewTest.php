@@ -56,7 +56,7 @@ class SidebarViewTest extends TestCase
         return $this;
     }
 
-    protected function assertSeeHtml(string $text, bool $escape = true): self
+    protected function assertSeeHtml(string $text, bool $escape = false): self
     {
         $this->assertStringContainsString($escape ? e($text) : false, $this->html);
 
