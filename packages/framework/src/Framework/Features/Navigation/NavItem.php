@@ -33,9 +33,6 @@ class NavItem implements Stringable
     public string $label;
     public int $priority;
 
-    /** @deprecated Hidden items should not be added to start with */
-    public bool $hidden;
-
     /**
      * Create a new navigation menu item.
      */
@@ -52,7 +49,6 @@ class NavItem implements Stringable
 
         $this->label = $label;
         $this->priority = $priority;
-        $this->hidden = $hidden;
     }
 
     /**
