@@ -13,13 +13,24 @@ use Hyde\Testing\TestCase;
  */
 class SidebarViewTest extends TestCase
 {
-    public function testBaseSidebar()
+    protected string $html;
+
+    protected function tearDown(): void
     {
-        $html = $this->renderComponent(view('hyde::components.docs.sidebar'));
+        parent::setUp();
+
+         unset($this->html);
     }
 
-    protected function renderComponent(\Illuminate\Contracts\View\View $view): string
+    public function testBaseSidebar()
     {
-        return $view->render();
+        $this->renderComponent(view('hyde::components.docs.sidebar'));
+    }
+
+    protected function renderComponent(\Illuminate\Contracts\View\View $view): self
+    {
+        $this->html = $view->render();
+
+        return $this;
     }
 }
