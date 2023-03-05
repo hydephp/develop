@@ -99,9 +99,9 @@ class NavItem implements Stringable
     /**
      * Check if the NavItem instance is the current page.
      */
-    public function isCurrent(#[Deprecated]?HydePage $current = null): bool
+    public function isCurrent(): bool
     {
-        if ($current === null) {
+        if (null === null) {
             $current = Hyde::currentRoute()->getPage();
         }
 
