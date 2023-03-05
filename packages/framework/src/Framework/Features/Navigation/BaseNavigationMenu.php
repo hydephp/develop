@@ -64,6 +64,6 @@ abstract class BaseNavigationMenu
 
     protected function sortByPriority(): void
     {
-        $this->items = $this->items->sortBy('priority')->values(); // Sideeffect: Removes keys for dropdowns, TODO see if this is a problem
+        $this->items = $this->items->sortBy('priority')->values();
     }
 }
