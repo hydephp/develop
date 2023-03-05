@@ -48,7 +48,7 @@ abstract class BaseNavigationMenu
     protected function filter(): static
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
-            return $item->getGroup() . $item->label;
+            return $item->getGroup().$item->label;
         });
 
         return $this;
