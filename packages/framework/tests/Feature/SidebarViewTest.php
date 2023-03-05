@@ -13,5 +13,8 @@ use Hyde\Testing\TestCase;
  */
 class SidebarViewTest extends TestCase
 {
-    //
+    public function testBaseSidebar()
+    {
+        $html = view('hyde::components.docs.sidebar')->render();
+    }
 }
