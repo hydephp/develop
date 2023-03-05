@@ -19,7 +19,7 @@ abstract class BaseNavigationMenu
     public Collection $items;
 
     /** @todo Consider protecting to scope down public API */
-    final public function __construct()
+    final protected function __construct()
     {
         $this->items = new Collection();
     }
