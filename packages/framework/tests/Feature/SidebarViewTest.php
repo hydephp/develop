@@ -16,7 +16,6 @@ use Throwable;
  */
 class SidebarViewTest extends TestCase
 {
-    protected static bool $writeToDisk = false;
     protected string $html;
 
     protected function tearDown(): void
@@ -38,7 +37,8 @@ class SidebarViewTest extends TestCase
     {
         try {
             $this->html = $view->render();
-            if (self::$writeToDisk) {
+            /** @noinspection LaravelFunctionsInspection */
+            if (env('TEST_HTML_DEBUG', false)) {
                 file_put_contents(Hyde::path('_site/test.html'), $this->html);
                 echo "\e[0;32mCreated file: \e[0m".realpath(Hyde::path('_site/test.html'));
             }
