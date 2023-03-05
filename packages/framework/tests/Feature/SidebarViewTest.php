@@ -116,6 +116,8 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-navigation-group-list')
             ->assertSee('groupOpen')
             ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
     }
 
     public function testSidebarWithNonCollapsibleGroupedItems()
@@ -145,6 +147,8 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasRendered(view('hyde::components.docs.grouped-sidebar-navigation', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
+
+        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
     }
 
     protected function renderComponent(View $view): self
