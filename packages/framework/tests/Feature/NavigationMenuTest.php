@@ -198,6 +198,8 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
+    // TODO test when there are duplicates, config items take precedence
+
     public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
     {
         $this->file('_docs/foo.md');
