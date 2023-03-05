@@ -30,7 +30,8 @@ class SidebarViewTest extends TestCase
         $this->renderComponent(view('hyde::components.docs.sidebar'))
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
-            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">');
+            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
+            ->allGood();
     }
 
     protected function renderComponent(View $view): self
@@ -75,6 +76,13 @@ class SidebarViewTest extends TestCase
     protected function assertDontSee(string $text): self
     {
         $this->assertStringNotContainsString($text, $this->html);
+
+        return $this;
+    }
+
+    protected function allGood(): self
+    {
+        // Just an empty helper so we get easier Git diffs when adding new assertions.
 
         return $this;
     }
