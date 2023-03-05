@@ -24,7 +24,6 @@ class SidebarViewTest extends TestCase
     public function testBaseSidebar()
     {
         $this->renderComponent(view('hyde::components.docs.sidebar'))
-            ->assertViewWasRendered()
             ->assertSee('sidebar')
             ->assertSeeText('sidebar')
             ->assertSeeHtml('sidebar');
@@ -34,12 +33,7 @@ class SidebarViewTest extends TestCase
     {
         $this->html = $view->render();
 
-        return $this;
-    }
-
-    protected function assertViewWasRendered(): self
-    {
-        $this->assertNotNull($this->html);
+        $this->assertIsString($this->html);
 
         return $this;
     }
