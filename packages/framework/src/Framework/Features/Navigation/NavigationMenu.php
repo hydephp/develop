@@ -21,7 +21,7 @@ class NavigationMenu extends BaseNavigationMenu
     {
         parent::generate();
 
-        if ($this->dropdownsEnabled()) {
+        if (static::dropdownsEnabled()) {
             $this->createDropdownsForGroupedItems();
         }
 
@@ -34,7 +34,7 @@ class NavigationMenu extends BaseNavigationMenu
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $item) {
-            if ($this->canAddItemToDropdown($item)) {
+            if (static::canAddItemToDropdown($item)) {
                 // Buffer the item in the dropdowns array
                 $dropdowns[$item->getGroup()][] = $item;
 
