@@ -70,6 +70,8 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item leading to an external URI.
+     *
+     * @deprecated Rename to forLink instead as toLink makes it sound like it returns a Link instance
      */
     public static function toLink(string $href, string $label, int $priority = 500): static
     {
@@ -78,6 +80,8 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item leading to a Route model.
+     *
+     * @deprecated Rename to forRoute instead as toRoute makes it sound like it returns a Route instance
      */
     public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
