@@ -1,8 +1,8 @@
 @php /** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */ @endphp
 <ul id="sidebar-navigation" role="list" class="pl-2">
 	@foreach ($sidebar->items as $item)
-	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->route->getRouteKey() === $currentRoute->getRouteKey()])>
-		@if($item->route->getRouteKey() === $currentRoute->getRouteKey())
+	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->isCurrent()])>
+		@if($item->isCurrent())
 			<a href="{{ $item->route }}" aria-current="true" class="-ml-4 p-2 block hover:bg-black/5 dark:hover:bg-black/10  text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300	ease-in-out">
 				{{ $item->label }}
 			</a>
