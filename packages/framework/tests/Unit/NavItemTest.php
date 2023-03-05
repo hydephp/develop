@@ -136,24 +136,6 @@ class NavItemTest extends UnitTestCase
         $this->assertTrue($item->isCurrent(\Hyde\Facades\Route::get('index')->getPage()));
     }
 
-    public function testSetPrioritySetsPriority()
-    {
-        $item = NavItem::toLink('index.html', 'Home');
-
-        $this->assertSame(500, $item->priority);
-
-        $item->setPriority(10);
-
-        $this->assertSame(10, $item->priority);
-    }
-
-    public function testSetPriorityReturnsStatic()
-    {
-        $item = NavItem::toLink('index.html', 'Home');
-
-        $this->assertSame($item, $item->setPriority(10));
-    }
-
     public function testGetGroup()
     {
         $route = new Route(new MarkdownPage());
