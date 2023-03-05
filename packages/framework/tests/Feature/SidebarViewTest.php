@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
 use Throwable;
+use function view;
 
 /**
  * Very high level test of the sidebar views and their combinations of layouts.
