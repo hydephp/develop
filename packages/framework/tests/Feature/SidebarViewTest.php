@@ -117,8 +117,9 @@ class SidebarViewTest extends TestCase
             ->assertSee('groupOpen')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.grouped-sidebar-navigation', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
             'sidebar' => DocumentationSidebar::create(),
+            'grouped' => true,
         ]));
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
@@ -148,8 +149,9 @@ class SidebarViewTest extends TestCase
             ->assertDontSee('groupOpen')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.grouped-sidebar-navigation', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
             'sidebar' => DocumentationSidebar::create(),
+            'grouped' => true,
         ]));
 
         $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
