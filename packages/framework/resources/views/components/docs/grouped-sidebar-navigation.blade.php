@@ -7,7 +7,7 @@
             </header>
             <ul class="sidebar-navigation-group-list ml-4 px-2 mb-2" role="list">
                 @foreach ($sidebar->getItemsInGroup($group) as $item)
-                    @include('hyde::components.docs.sidebar-item')
+                    @include('hyde::components.docs.sidebar-item', ['grouped' => true])
                 @endforeach
             </ul>
         </li>
