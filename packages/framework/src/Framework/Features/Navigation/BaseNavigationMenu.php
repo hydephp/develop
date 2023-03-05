@@ -54,7 +54,7 @@ abstract class BaseNavigationMenu
     }
 
     /** @deprecated Refactor to handle this upon generation */
-    public function sort(): static
+    protected function sort(): static
     {
         $this->items = $this->items->sortBy('priority')->values();
 
