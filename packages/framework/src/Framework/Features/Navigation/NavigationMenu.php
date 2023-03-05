@@ -31,13 +31,13 @@ class NavigationMenu extends BaseNavigationMenu
         $dropdowns = [];
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
-        foreach ($this->items as $item) {
+        foreach ($this->items as $key => $item) {
             if ($this->canAddItemToDropdown($item)) {
                 // Buffer the item in the dropdowns array
                 $dropdowns[$item->getGroup()][] = $item;
 
                 // Remove the item from the main items collection
-                $this->items->forget($item->route->getRouteKey());
+                $this->items->forget($key);
             }
         }
 
