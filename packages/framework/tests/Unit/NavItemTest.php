@@ -128,8 +128,8 @@ class NavItemTest extends UnitTestCase
 
     public function testGetGroupWithGroup()
     {
-        $route = new Route(new MarkdownPage(matter: ['navigation.group' => 'foo']));
-        $item = new NavItem($route, 'Test', 500);
+        $route = new Route(new MarkdownPage());
+        $item = new NavItem($route, 'Test', 500, 'foo');
 
         $this->assertSame('foo', $item->getGroup());
     }
