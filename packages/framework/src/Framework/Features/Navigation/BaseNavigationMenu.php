@@ -37,6 +37,7 @@ abstract class BaseNavigationMenu
         });
 
         collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+            // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
 
