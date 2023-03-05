@@ -151,8 +151,8 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertPresent('#sidebar-navigation-items > li.active')
-                ->assertAriaAttribute('#sidebar-navigation-items > li:nth-child(1) > a', 'current', 'true')
+                ->assertPresent('#sidebar-items > li.active')
+                ->assertAriaAttribute('#sidebar-items > li:nth-child(1) > a', 'current', 'true')
                 ->screenshot('docs/with_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_sidebar_pages');
         });
@@ -179,10 +179,10 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertDontSee('Page3')
-                ->assertAttributeContains('#sidebar-navigation-items > li', 'class', 'sidebar-navigation-group')
-                ->assertSeeIn('#sidebar-navigation-items > li:nth-child(1) > header > h4.sidebar-navigation-group-heading', 'Group 1')
-                ->assertAriaAttribute('#sidebar-navigation-items > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
-                ->assertSeeIn('#sidebar-navigation-items > li:nth-child(2) > header > h4.sidebar-navigation-group-heading', 'Other')
+                ->assertAttributeContains('#sidebar-items > li', 'class', 'sidebar-group')
+                ->assertSeeIn('#sidebar-items > li:nth-child(1) > header > h4.sidebar-group-heading', 'Group 1')
+                ->assertAriaAttribute('#sidebar-items > li:nth-child(1) > ul > li.sidebar-item.active > a', 'current', 'true')
+                ->assertSeeIn('#sidebar-items > li:nth-child(2) > header > h4.sidebar-group-heading', 'Other')
                 ->screenshot('docs/with_grouped_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
         });

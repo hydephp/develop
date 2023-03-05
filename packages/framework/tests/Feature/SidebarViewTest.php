@@ -38,16 +38,16 @@ class SidebarViewTest extends TestCase
     {
         $this->renderComponent(view('hyde::components.docs.sidebar'))
             ->assertSeeText('HydePHP Docs')
-            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list"')
+            ->assertSeeHtml('<ul id="sidebar-items" role="list"')
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<footer id="sidebar-footer"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
             ->assertSeeHtml('<span class="sr-only">Toggle dark theme</span>')
             ->assertDontSee('<a href="docs/index.html">')
-            ->assertDontSee('<li class="sidebar-navigation-item')
+            ->assertDontSee('<li class="sidebar-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
 
@@ -85,11 +85,11 @@ class SidebarViewTest extends TestCase
         $this->renderComponent(view('hyde::components.docs.sidebar'))
             ->assertSeeHtml('<a href="docs/index.html">')
             ->assertSeeHtml('<nav id="sidebar-navigation"')
-            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
-            ->assertSeeHtml('<li class="sidebar-navigation-item')
+            ->assertSeeHtml('<ul id="sidebar-items" role="list" class="pl-2">')
+            ->assertSeeHtml('<li class="sidebar-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
     }
@@ -105,24 +105,24 @@ class SidebarViewTest extends TestCase
             ->assertSeeText('Group 1')
             ->assertSeeText('First')
             ->assertSeeHtml('href="docs/first.html"')
-            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list"')
-            ->assertSeeHtml('<li class="sidebar-navigation-item')
-            ->assertSeeHtml('<li class="sidebar-navigation-group')
-            ->assertSeeHtml('class="sidebar-navigation-group"')
-            ->assertSeeHtml('class="sidebar-navigation-group-header')
-            ->assertSeeHtml('class="sidebar-navigation-group-heading')
-            ->assertSeeHtml('class="sidebar-navigation-group-toggle')
-            ->assertSeeHtml('class="sidebar-navigation-group-toggle-icon')
-            ->assertSeeHtml('class="sidebar-navigation-group-items')
+            ->assertSeeHtml('<ul id="sidebar-items" role="list"')
+            ->assertSeeHtml('<li class="sidebar-item')
+            ->assertSeeHtml('<li class="sidebar-group')
+            ->assertSeeHtml('class="sidebar-group"')
+            ->assertSeeHtml('class="sidebar-group-header')
+            ->assertSeeHtml('class="sidebar-group-heading')
+            ->assertSeeHtml('class="sidebar-group-toggle')
+            ->assertSeeHtml('class="sidebar-group-toggle-icon')
+            ->assertSeeHtml('class="sidebar-group-items')
             ->assertSee('groupOpen')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
             'grouped' => true,
         ]));
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-group-toggle-button'));
     }
 
     public function testSidebarWithNonCollapsibleGroupedItems()
@@ -137,24 +137,24 @@ class SidebarViewTest extends TestCase
             ->assertSeeText('Group 1')
             ->assertSeeText('First')
             ->assertSeeHtml('href="docs/first.html"')
-            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list"')
-            ->assertSeeHtml('<li class="sidebar-navigation-item')
-            ->assertSeeHtml('<li class="sidebar-navigation-group')
-            ->assertSeeHtml('class="sidebar-navigation-group"')
-            ->assertSeeHtml('class="sidebar-navigation-group-header')
-            ->assertSeeHtml('class="sidebar-navigation-group-heading')
-            ->assertSeeHtml('class="sidebar-navigation-group-items')
-            ->assertDontSee('sidebar-navigation-group-toggle')
-            ->assertDontSee('sidebar-navigation-group-toggle-icon')
+            ->assertSeeHtml('<ul id="sidebar-items" role="list"')
+            ->assertSeeHtml('<li class="sidebar-item')
+            ->assertSeeHtml('<li class="sidebar-group')
+            ->assertSeeHtml('class="sidebar-group"')
+            ->assertSeeHtml('class="sidebar-group-header')
+            ->assertSeeHtml('class="sidebar-group-heading')
+            ->assertSeeHtml('class="sidebar-group-items')
+            ->assertDontSee('sidebar-group-toggle')
+            ->assertDontSee('sidebar-group-toggle-icon')
             ->assertDontSee('groupOpen')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
             'grouped' => true,
         ]));
 
-        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
+        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-group-toggle-button'));
     }
 
     protected function renderComponent(View $view): self
