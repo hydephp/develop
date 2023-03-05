@@ -89,7 +89,7 @@ class NavItemTest extends UnitTestCase
     {
         Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
-            'getCurrentPage' => (new Route(new InMemoryPage('foo')))->getRouteKey(),
+            'getCurrentPage' => 'foo',
         ]));
         $this->assertTrue(NavItem::fromRoute(new Route(new InMemoryPage('foo')))->isCurrent());
         $this->assertFalse(NavItem::fromRoute(new Route(new InMemoryPage('bar')))->isCurrent());
