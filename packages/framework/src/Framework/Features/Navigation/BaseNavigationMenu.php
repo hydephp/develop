@@ -78,4 +78,9 @@ abstract class BaseNavigationMenu
     {
         return $item->hidden;
     }
+
+    protected static function canAddRoute(Route $route): bool
+    {
+        return true;
+    }
 }
