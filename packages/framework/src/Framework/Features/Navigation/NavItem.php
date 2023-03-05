@@ -47,7 +47,7 @@ class NavItem implements Stringable
             $route->getLink(),
             $label ?? $route->getPage()->navigationMenuLabel(),
             $priority ?? $route->getPage()->navigationMenuPriority(),
-            $group ?? static::resolveRouteGroup($route),
+            $group ?? static::getRouteGroup($route),
         );
     }
 
@@ -97,7 +97,7 @@ class NavItem implements Stringable
         return $this->group;
     }
 
-    protected static function resolveRouteGroup(Route $route): ?string
+    protected static function getRouteGroup(Route $route): ?string
     {
         return static::normalizeGroupKey(($route)->getPage()->data('navigation.group'));
     }
