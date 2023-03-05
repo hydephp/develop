@@ -50,6 +50,23 @@ class SidebarViewTest extends TestCase
             ->allGood();
     }
 
+    public function testBaseSidebarWithGroupedItems()
+    {
+        $this->mockRoute();
+        $this->mockPage();
+        $this->file('_docs/index.md');
+        $this->markdown('_docs/first.md', matter: ['navigation.group' => 'Group 1']);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeText('Group 1')
+            ->assertSeeText('First')
+            ->assertSeeHtml('href="docs/first.html"')
+            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list"')
+            ->assertSeeHtml('<li class="sidebar-navigation-item')
+            ->assertSeeHtml('<li class="sidebar-navigation-group')
+            ->allGood();
+    }
+
     protected function renderComponent(View $view): self
     {
         try {
