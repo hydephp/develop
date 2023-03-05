@@ -125,6 +125,78 @@ class NavItemTest extends UnitTestCase
         $this->assertFalse(NavItem::toLink('index.html', 'Home')->isCurrent());
     }
 
+    public function testIsCurrentWithNestedCurrentPage()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('bar'))->isCurrent());
+    }
+
+    public function testIsCurrentWhenCurrentWithNestedCurrentPage()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertTrue(NavItem::fromRoute($this->makeRoute('foo/bar'))->isCurrent());
+    }
+
+    public function testIsCurrentWithNestedCurrentPageWhenNested()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertTrue(NavItem::fromRoute($this->makeRoute('foo/bar'))->isCurrent());
+    }
+
+    public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenNested()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('foo/baz'))->isCurrent());
+    }
+
+    public function testIsCurrentWithNestedCurrentPageWhenVeryNested()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar/baz'));
+        $this->assertTrue(NavItem::fromRoute($this->makeRoute('foo/bar/baz'))->isCurrent());
+    }
+
+    public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenVeryNested()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar/baz'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('foo/baz/bar'))->isCurrent());
+    }
+
+    public function testIsCurrentWithNestedCurrentPageWhenVeryDifferingNested()
+    {
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('foo/bar/baz'))->isCurrent());
+    }
+
+    public function testIsCurrentWithNestedCurrentPageWhenVeryDifferingNestedInverse()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar/baz'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('foo'))->isCurrent());
+    }
+
+    public function testIsCurrentUsingCurrentLinkWithNestedCurrentPage()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertTrue(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
+    }
+
+    public function testIsCurrentUsingNotCurrentLinkWithNestedCurrentPage()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertFalse(NavItem::toLink('foo.html', 'foo')->isCurrent());
+    }
+
+    public function testIsCurrentWhenCurrentWithNestedCurrentPageAndSubjectPage()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertTrue(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
+    }
+
+    public function testIsCurrentWhenNotCurrentWithNestedCurrentPageAndSubjectPage()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertFalse(NavItem::toLink('foo/baz.html', 'foo')->isCurrent());
+    }
+
     public function testGetGroup()
     {
         $route = new Route(new MarkdownPage());
