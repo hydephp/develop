@@ -20,7 +20,7 @@ class SidebarViewTest extends TestCase
 
     protected function tearDown(): void
     {
-        parent::setUp();
+        parent::tearDown();
 
         unset($this->html);
     }
