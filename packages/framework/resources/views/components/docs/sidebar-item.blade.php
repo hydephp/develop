@@ -1,7 +1,5 @@
 @php /** @var \Hyde\Framework\Features\Navigation\NavItem $item */ @endphp
 @props(['grouped' => false])
-@php
-@endphp
 <li @class(['sidebar-navigation-item -ml-4 pl-4', $grouped
         ? 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'
         : 'active bg-black/5 dark:bg-black/10' => $item->isCurrent()]) role="listitem">
