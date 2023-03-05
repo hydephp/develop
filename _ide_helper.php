@@ -8,7 +8,7 @@ declare(strict_types=1);
  * as it is not versioned through any official releases.
  *
  * When using a good IDE, such as PhpStorm, this file will be used to provide
- * rich code completion for "magic" fields, such as the global $page variables.
+ * rich code completion for "magic" fields, such as global data and facades.
  */
 
 // Global page variables
