@@ -80,7 +80,7 @@ abstract class BaseNavigationMenu
     /** @deprecated Hidden items should not be added to start with */
     protected static function shouldItemBeHidden(NavItem $item): bool
     {
-        return $item->hidden;
+        return false;
     }
 
     protected static function canAddRoute(Route $route): bool
