@@ -77,7 +77,7 @@ class NavItem implements Stringable
 
         return new static($route->getLink(),
             $label ?? $route->getPage()->navigationMenuLabel(),
-            $priority,
+            $priority ?? $route->getPage()->navigationMenuPriority(),
             static::resolveRouteGroup($route)
         );
     }
