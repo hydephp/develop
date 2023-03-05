@@ -27,7 +27,7 @@ abstract class BaseNavigationMenu
         return (new static())->generate()->filter()->sort();
     }
 
-    /** @return $this */
+    /** @deprecated Will be made protected */
     public function generate(): static
     {
         Routes::each(function (Route $route): void {

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  */
 class DocumentationSidebar extends BaseNavigationMenu
 {
-    /** @return $this */
+    /** @deprecated Will be made protected */
     public function generate(): static
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {

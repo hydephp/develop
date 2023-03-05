@@ -16,6 +16,7 @@ use function in_array;
  */
 class NavigationMenu extends BaseNavigationMenu
 {
+    /** @deprecated Will be made protected */
     public function generate(): static
     {
         parent::generate();
