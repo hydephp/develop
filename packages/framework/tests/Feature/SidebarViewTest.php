@@ -40,6 +40,8 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-footer'));
     }
 
     public function testBaseSidebarWithItems()
@@ -115,6 +117,20 @@ class SidebarViewTest extends TestCase
         ]));
     }
 
+    public function testBaseSidebarWithoutFooter()
+    {
+        config(['docs.sidebar.footer' => false]);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'));
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+            'sidebar' => DocumentationSidebar::create(),
+        ]));
+
+        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
+    }
+
+
     protected function renderComponent(View $view): self
     {
         try {
@@ -140,6 +156,13 @@ class SidebarViewTest extends TestCase
     protected function assertViewWasRendered(View $view): self
     {
         $this->assertStringContainsString($view->render(), $this->html);
+
+        return $this;
+    }
+
+    protected function assertViewWasNotRendered(View $view): self
+    {
+        $this->assertStringNotContainsString($view->render(), $this->html);
 
         return $this;
     }
