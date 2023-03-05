@@ -80,12 +80,6 @@ class NavigationMenu extends BaseNavigationMenu
         return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
 
-    /** @deprecated Hidden items should not be added to start with */
-    protected static function shouldItemBeHidden(NavItem $item): bool
-    {
-        return false;
-    }
-
     protected static function canAddRoute(Route $route): bool
     {
         return ! (! parent::canAddRoute($route)

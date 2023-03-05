@@ -55,12 +55,6 @@ class DocumentationSidebar extends BaseNavigationMenu
             || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
     }
 
-    /** @deprecated Hidden items should not be added to start with */
-    protected static function shouldItemBeHidden(NavItem $item): bool
-    {
-        return false;
-    }
-
     protected static function canAddRoute(Route $route): bool
     {
         return parent::canAddRoute($route) && ! $route->is(DocumentationPage::homeRouteName());
