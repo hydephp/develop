@@ -22,13 +22,13 @@ class NavigationMenu extends BaseNavigationMenu
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
-            $this->putGroupedItemsInDropdowns();
+            $this->createDropdownsForGroupedItems();
         }
 
         return $this;
     }
 
-    protected function putGroupedItemsInDropdowns(): void
+    protected function createDropdownsForGroupedItems(): void
     {
         $dropdowns = [];
 
