@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
 
@@ -20,7 +18,7 @@ class SidebarViewTest extends TestCase
     {
         parent::setUp();
 
-         unset($this->html);
+        unset($this->html);
     }
 
     public function testBaseSidebar()
@@ -48,7 +46,7 @@ class SidebarViewTest extends TestCase
 
     protected function assertSee(string $text, bool $escape = true): self
     {
-        $this->assertStringContainsString($escape ? e($text) :false, $this->html);
+        $this->assertStringContainsString($escape ? e($text) : false, $this->html);
 
         return $this;
     }
