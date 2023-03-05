@@ -34,6 +34,8 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
             ->assertDontSee('<li class="sidebar-navigation-item')
             ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation'));
     }
 
     public function testBaseSidebarWithItems()
@@ -85,6 +87,14 @@ class SidebarViewTest extends TestCase
         }
 
         $this->assertIsString($this->html);
+
+        return $this;
+    }
+
+
+    protected function assertViewWasRendered(View $view): self
+    {
+        $this->assertStringContainsString($view->render(), $this->html);
 
         return $this;
     }
