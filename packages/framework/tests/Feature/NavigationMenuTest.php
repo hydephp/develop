@@ -301,7 +301,7 @@ class NavigationMenuTest extends TestCase
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
             ]),
-            'dropdown.cat' => DropdownNavItem::fromArray('cat', [
+            DropdownNavItem::fromArray('cat', [
                 NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
             ]),
         ], $menu->getDropdowns());
