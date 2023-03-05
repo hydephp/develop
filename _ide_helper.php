@@ -11,6 +11,8 @@ declare(strict_types=1);
  * rich code completion for "magic" fields, such as the global $page variables.
  */
 
+// Global page variables
+
 /** @var \Hyde\Pages\Concerns\HydePage $page The page being compiled/previewed */
 $page = \Hyde\Support\Facades\Render::getPage();
 
