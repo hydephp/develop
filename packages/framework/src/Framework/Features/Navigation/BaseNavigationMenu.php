@@ -79,6 +79,6 @@ abstract class BaseNavigationMenu
 
     private static function isRouteDuplicate(Route $route): bool
     {
-        //
+        return false; // TODO
     }
 }
