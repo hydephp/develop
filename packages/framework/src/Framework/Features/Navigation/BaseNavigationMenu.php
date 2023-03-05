@@ -63,10 +63,8 @@ abstract class BaseNavigationMenu
         });
     }
 
-    protected function sortByPriority(): static
+    protected function sortByPriority(): void
     {
         $this->items = $this->items->sortBy('priority')->values();
-
-        return $this;
     }
 }
