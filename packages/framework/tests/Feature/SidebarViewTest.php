@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
 use Throwable;
@@ -13,6 +14,7 @@ use Throwable;
  */
 class SidebarViewTest extends TestCase
 {
+    protected static bool $writeToDisk = false;
     protected string $html;
 
     protected function tearDown(): void
@@ -34,6 +36,9 @@ class SidebarViewTest extends TestCase
     {
         try {
             $this->html = $view->render();
+            if (self::$writeToDisk) {
+                file_put_contents(Hyde::path('_site/test.html'), $this->html);
+            }
         } catch (Throwable $exception) {
             $this->fail($exception->getMessage());
         }
