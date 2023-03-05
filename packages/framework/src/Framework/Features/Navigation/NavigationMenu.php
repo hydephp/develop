@@ -63,6 +63,7 @@ class NavigationMenu extends BaseNavigationMenu
             throw new BadMethodCallException('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
         }
 
+        // Todo: Either re-add string keys removed by sort, or reindex the items (depending on if keys are actually used)
         return $this->items->filter(function (NavItem $item): bool {
             return $item instanceof DropdownNavItem;
         })->all();
