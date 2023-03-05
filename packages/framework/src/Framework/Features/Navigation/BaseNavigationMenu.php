@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Support\Models\Route;
+use Hyde\Foundation\Facades\Routes;
+use Illuminate\Support\Collection;
 use function collect;
 use function config;
-use Hyde\Foundation\Facades\Routes;
-use Hyde\Support\Models\Route;
-use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest

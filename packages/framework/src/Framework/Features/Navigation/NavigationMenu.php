@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use BadMethodCallException;
 use Hyde\Facades\Config;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
+use BadMethodCallException;
 use function in_array;
 
 /**
