@@ -74,7 +74,11 @@ class NavItem implements Stringable
     {
         $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
 
-        return new static($route->getLink(), $label, $priority, static::resolveRouteGroup($route));
+        return new static($route->getLink(),
+            $label,
+            $priority,
+            static::resolveRouteGroup($route)
+        );
     }
 
     /**
