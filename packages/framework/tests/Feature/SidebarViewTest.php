@@ -19,6 +19,9 @@ use function e;
 
 /**
  * Very high level test of the sidebar views and their combinations of layouts.
+ *
+ * It should cover all possible rendering paths, so while not all code is asserted on,
+ * all views should be rendered at least once, and thus we know they can at least be rendered.
  */
 class SidebarViewTest extends TestCase
 {
