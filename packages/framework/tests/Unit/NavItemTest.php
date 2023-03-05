@@ -85,10 +85,7 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrent()
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
-            'getCurrentRoute' => new Route(new InMemoryPage('foo')),
-            'getCurrentPage' => 'foo',
-        ]));
+        $this->mockRenderData(new Route(new InMemoryPage('foo')));
 
         $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
@@ -99,11 +96,8 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWhenCurrent()
     {
         $route = \Hyde\Facades\Route::get('index');
+        $this->mockRenderData($route);
 
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
-            'getCurrentRoute' => $route,
-            'getCurrentPage' => 'index',
-        ]));
         $item = NavItem::fromRoute($route);
 
         $this->assertTrue($item->isCurrent());
@@ -154,5 +148,13 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::toRoute($route, 'foo');
 
         $this->assertSame('foo', $item->getGroup());
+    }
+
+    protected function mockRenderData(Route $route): void
+    {
+        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+            'getCurrentRoute' => $route,
+            'getCurrentPage' => $route->getRouteKey(),
+        ]));
     }
 }
