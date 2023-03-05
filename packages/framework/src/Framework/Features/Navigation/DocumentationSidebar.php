@@ -20,7 +20,9 @@ class DocumentationSidebar extends BaseNavigationMenu
     public function generate(): static
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
-            $this->items->put($route->getRouteKey(), SidebarItem::fromRoute($route));
+            if (static::canAddRoute($route)) {
+                $this->items->put($route->getRouteKey(), SidebarItem::fromRoute($route));
+            }
         });
 
         return $this;
