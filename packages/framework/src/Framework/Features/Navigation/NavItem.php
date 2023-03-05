@@ -90,11 +90,6 @@ class NavItem implements Stringable
         return Hyde::currentRoute()->getLink() === $this->destination;
     }
 
-    public function getGroup(): ?string
-    {
-        return $this->group;
-    }
-
     protected static function getRouteGroup(Route $route): ?string
     {
         return static::normalizeGroupKey(($route)->getPage()->data('navigation.group'));
@@ -118,5 +113,10 @@ class NavItem implements Stringable
     public function getPriority(): int
     {
         return $this->priority;
+    }
+
+    public function getGroup(): ?string
+    {
+        return $this->group;
     }
 }
