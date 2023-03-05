@@ -31,7 +31,7 @@ abstract class BaseNavigationMenu
     public function generate(): static
     {
         Routes::each(function (Route $route): void {
-            if (static::canAddRoute($route)) {
+            if ($this->canAddRoute($route)) {
                 $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
         });
@@ -68,7 +68,7 @@ abstract class BaseNavigationMenu
         });
     }
 
-    protected static function canAddRoute(Route $route): bool
+    protected function canAddRoute(Route $route): bool
     {
         if (self::isRouteDuplicate($route)) {
             return false;

@@ -80,7 +80,7 @@ class NavigationMenu extends BaseNavigationMenu
         return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
 
-    protected static function canAddRoute(Route $route): bool
+    protected function canAddRoute(Route $route): bool
     {
         return parent::canAddRoute($route) && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
     }

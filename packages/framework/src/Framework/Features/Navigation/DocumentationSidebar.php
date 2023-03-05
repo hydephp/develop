@@ -20,7 +20,7 @@ class DocumentationSidebar extends BaseNavigationMenu
     public function generate(): static
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
-            if (static::canAddRoute($route)) {
+            if ($this->canAddRoute($route)) {
                 $this->items->put($route->getRouteKey(), SidebarItem::fromRoute($route));
             }
         });
@@ -55,7 +55,7 @@ class DocumentationSidebar extends BaseNavigationMenu
             || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
     }
 
-    protected static function canAddRoute(Route $route): bool
+    protected function canAddRoute(Route $route): bool
     {
         return parent::canAddRoute($route) && ! $route->is(DocumentationPage::homeRouteName());
     }
