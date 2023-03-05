@@ -22,7 +22,7 @@ class DocumentationSidebar extends BaseNavigationMenu
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
-                $this->items->put($route->getRouteKey(), SidebarItem::fromRoute($route));
+                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
         });
     }
@@ -35,15 +35,15 @@ class DocumentationSidebar extends BaseNavigationMenu
     /** @return array<string> */
     public function getGroups(): array
     {
-        return $this->items->map(function (SidebarItem $item): string {
+        return $this->items->map(function (NavItem $item): string {
             return $item->getGroup();
         })->unique()->toArray();
     }
 
-    /** @return Collection<\Hyde\Framework\Features\Navigation\SidebarItem> */
+    /** @return Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItemsInGroup(?string $group): Collection
     {
-        return $this->items->filter(function (SidebarItem $item) use ($group): bool {
+        return $this->items->filter(function (NavItem $item) use ($group): bool {
             return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
         })->sortBy('navigation.priority')->values();
     }
