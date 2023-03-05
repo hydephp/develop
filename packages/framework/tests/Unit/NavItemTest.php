@@ -97,33 +97,21 @@ class NavItemTest extends UnitTestCase
 
     public function testGetGroup()
     {
-        $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Test', 500);
-
-        $this->assertNull($item->getGroup());
+        $this->assertNull((new NavItem(new Route(new MarkdownPage()), 'Test', 500))->getGroup());
     }
 
     public function testGetGroupWithGroup()
     {
-        $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Test', 500, 'foo');
-
-        $this->assertSame('foo', $item->getGroup());
+        $this->assertSame('foo', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroup());
     }
 
     public function testGetGroupFromRouteWithGroup()
     {
-        $route = new Route(new MarkdownPage(matter: ['navigation.group' => 'foo']));
-        $item = NavItem::fromRoute($route);
-
-        $this->assertSame('foo', $item->getGroup());
+        $this->assertSame('foo', NavItem::fromRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroup());
     }
 
     public function testGetGroupToRouteWithGroup()
     {
-        $route = new Route(new MarkdownPage(matter: ['navigation.group' => 'foo']));
-        $item = NavItem::toRoute($route, 'foo');
-
-        $this->assertSame('foo', $item->getGroup());
+        $this->assertSame('foo', NavItem::toRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroup());
     }
 }
