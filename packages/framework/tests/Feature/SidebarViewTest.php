@@ -69,4 +69,11 @@ class SidebarViewTest extends TestCase
 
         return $this;
     }
+
+    protected function assertDontSee(string $text): self
+    {
+        $this->assertStringNotContainsString($text, $this->html);
+
+        return $this;
+    }
 }
