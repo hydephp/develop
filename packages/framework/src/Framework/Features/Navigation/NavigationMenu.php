@@ -70,6 +70,11 @@ class NavigationMenu extends BaseNavigationMenu
         })->all();
     }
 
+    protected function canAddRoute(Route $route): bool
+    {
+        return parent::canAddRoute($route) && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
+    }
+
     protected static function canAddItemToDropdown(NavItem $item): bool
     {
         return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
@@ -78,10 +83,5 @@ class NavigationMenu extends BaseNavigationMenu
     protected static function dropdownsEnabled(): bool
     {
         return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
-    }
-
-    protected function canAddRoute(Route $route): bool
-    {
-        return parent::canAddRoute($route) && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
     }
 }
