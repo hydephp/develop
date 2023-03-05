@@ -1,5 +1,5 @@
+@php /** @var \Hyde\Framework\Features\Navigation\NavItem $item */ @endphp
 @props([
-/** @var \Hyde\Framework\Features\Navigation\NavItem $item */
 'item',
 'active'
 ])
