@@ -68,11 +68,12 @@ class NavItem implements Stringable
      *
      * @deprecated Rename to forRoute instead as toRoute makes it sound like it returns a Route instance
      *
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route Route model or route key
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      */
     public static function toRoute(Route|string $route, string $label, int $priority = 500): static
     {
         $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
+
         return new static($route->getLink(), $label, $priority, static::resolveRouteGroup($route));
     }
 
