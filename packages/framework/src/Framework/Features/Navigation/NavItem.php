@@ -81,6 +81,8 @@ class NavItem implements Stringable
      * Create a new navigation menu item leading to a Route model.
      *
      * @deprecated Rename to forRoute instead as toRoute makes it sound like it returns a Route instance
+     *
+     * @todo Support route keys as well
      */
     public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
