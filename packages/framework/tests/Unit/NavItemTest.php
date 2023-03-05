@@ -94,7 +94,7 @@ class NavItemTest extends UnitTestCase
     public function testToRouteWithMissingRouteKey()
     {
         $this->expectException(RouteNotFoundException::class);
-        NavItem::toRoute('missing', 'foo');
+        NavItem::toRoute('foo', 'foo');
     }
 
     public function testToRouteWithCustomPriority()
