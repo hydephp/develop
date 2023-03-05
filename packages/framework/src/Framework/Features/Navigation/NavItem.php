@@ -100,21 +100,38 @@ class NavItem implements Stringable
         return $group ? Str::slug($group) : null;
     }
 
+    /**
+     * Get the destination link of the navigation item.
+     *
+     * If the navigation item is an external link, this will return the link as is,
+     * if it's for a route, a resolved relative link will be returned.
+     */
     public function getDestination(): string
     {
         return $this->destination;
     }
 
+    /**
+     * Get the label of the navigation item.
+     */
     public function getLabel(): string
     {
         return $this->label;
     }
 
+    /**
+     * Get the priority to determine the order of the navigation item.
+     */
     public function getPriority(): int
     {
         return $this->priority;
     }
 
+    /**
+     * Get the group identifier of the navigation item, if any.
+     *
+     * For sidebars this is the category key, for navigation menus this is the dropdown key.
+     */
     public function getGroup(): ?string
     {
         return $this->group;
