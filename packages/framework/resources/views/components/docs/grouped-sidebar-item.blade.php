@@ -1,7 +1,7 @@
 @props([
 /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
 'item',
-'active' => false,
+'active'
 ])
 
 <li @class(['sidebar-navigation-item -ml-4 pl-4', 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'=> $active]) role="listitem">
