@@ -37,7 +37,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
-            'sidebar' => DocumentationSidebar::create()
+            'sidebar' => DocumentationSidebar::create(),
         ]));
     }
 
@@ -93,7 +93,6 @@ class SidebarViewTest extends TestCase
 
         return $this;
     }
-
 
     protected function assertViewWasRendered(View $view): self
     {
