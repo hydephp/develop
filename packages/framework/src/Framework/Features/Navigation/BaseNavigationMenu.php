@@ -65,7 +65,7 @@ abstract class BaseNavigationMenu
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item): bool {
-            return $this->shouldItemBeHidden($item);
+            return false;
         })->values();
     }
 
@@ -75,12 +75,6 @@ abstract class BaseNavigationMenu
         return $this->items->unique(function (NavItem $item): string {
             return $item->getGroup().$item->label;
         });
-    }
-
-    /** @deprecated Hidden items should not be added to start with */
-    protected static function shouldItemBeHidden(NavItem $item): bool
-    {
-        return false;
     }
 
     protected static function canAddRoute(Route $route): bool
