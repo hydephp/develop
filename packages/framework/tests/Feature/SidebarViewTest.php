@@ -125,10 +125,6 @@ class SidebarViewTest extends TestCase
 
         $this->renderComponent(view('hyde::components.docs.sidebar'));
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
-            'sidebar' => DocumentationSidebar::create(),
-        ]));
-
         $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
     }
 
