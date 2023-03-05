@@ -48,6 +48,7 @@ abstract class BaseNavigationMenu
     protected function removeDuplicateItems(): static
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
+            // Filter using a combination of the group and label to allow duplicate labels in different groups
             return $item->getGroup().$item->label;
         });
 
