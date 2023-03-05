@@ -45,6 +45,11 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
+    protected function canAddRoute(Route $route): bool
+    {
+        return $route->getPage()->showInNavigation();
+    }
+
     protected function removeDuplicateItems(): static
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
@@ -60,10 +65,5 @@ abstract class BaseNavigationMenu
         $this->items = $this->items->sortBy('priority')->values();
 
         return $this;
-    }
-
-    protected function canAddRoute(Route $route): bool
-    {
-        return $route->getPage()->showInNavigation();
     }
 }
