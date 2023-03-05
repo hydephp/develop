@@ -10,6 +10,8 @@
             {!! ($page->getTableOfContents()) !!}
         @endif
     @else
-        <a href="{{ $item->destination }}" class="block -ml-4 p-2 border-l-[0.325rem] border-transparent hover:bg-black/5 dark:hover:bg-black/10">{{ $item->label }}</a>
+        <a href="{{ $item->destination }}" class="block -ml-4 p-2 border-l-[0.325rem] border-transparent hover:bg-black/5 dark:hover:bg-black/10">
+            {{ $item->label }}
+        </a>
     @endif
 </li>
