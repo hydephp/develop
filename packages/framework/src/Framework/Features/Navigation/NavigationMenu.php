@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use BadMethodCallException;
+use Hyde\Support\Models\Route;
 use function config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
@@ -83,5 +84,10 @@ class NavigationMenu extends BaseNavigationMenu
     {
         return parent::shouldItemBeHidden($item) ||
             $item->getRoute()?->getPage() instanceof DocumentationPage && ! $item->getRoute()->is(DocumentationPage::homeRouteName());
+    }
+
+    protected static function canAddRoute(Route $route): bool
+    {
+        return parent::canAddRoute($route);
     }
 }
