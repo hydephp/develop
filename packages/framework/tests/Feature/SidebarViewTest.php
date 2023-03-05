@@ -52,7 +52,7 @@ class SidebarViewTest extends TestCase
         ]));
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-footer'));
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-footer-text'));
     }
 
     public function testBaseSidebarWithoutFooter()
@@ -61,7 +61,7 @@ class SidebarViewTest extends TestCase
 
         $this->renderComponent(view('hyde::components.docs.sidebar'));
 
-        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
+        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer-text'));
     }
 
     public function testBaseSidebarCustomHeaderBrand()
