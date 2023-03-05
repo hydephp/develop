@@ -91,16 +91,8 @@ class NavItemTest extends UnitTestCase
             'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
             'getCurrentPage' => (new Route(new InMemoryPage('foo')))->getRouteKey(),
         ]));
-        $this->assertFalse(NavItem::fromRoute(new Route(new InMemoryPage('bar')))->isCurrent());
-    }
-
-    public function testIsCurrentWhenCurrent()
-    {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
-            'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
-            'getCurrentPage' => (new Route(new InMemoryPage('foo')))->getRouteKey(),
-        ]));
         $this->assertTrue(NavItem::fromRoute(new Route(new InMemoryPage('foo')))->isCurrent());
+        $this->assertFalse(NavItem::fromRoute(new Route(new InMemoryPage('bar')))->isCurrent());
     }
 
     public function testGetGroup()
