@@ -213,13 +213,13 @@ Note that since Blade pages do not support front matter, this will only work for
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array. 
 
-When linking to an external site, you should use the `NavItem::toLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
+When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
 
 ```php
 // filepath config/hyde.php
 'navigation' => [
     'custom' => [
-        NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
     ]
 ]
 ```

@@ -16,7 +16,7 @@ use Stringable;
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
- *   3. You can use NavItem::toLink() for an external or un-routed link
+ *   3. You can use NavItem::forLink() for an external or un-routed link
  */
 class NavItem implements Stringable
 {
@@ -51,10 +51,8 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item leading to an external URI.
-     *
-     * @deprecated Rename to forLink instead as toLink makes it sound like it returns a Link instance
      */
-    public static function toLink(string $href, string $label, int $priority = 500): static
+    public static function forLink(string $href, string $label, int $priority = 500): static
     {
         return new static($href, $label, $priority);
     }

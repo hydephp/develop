@@ -91,13 +91,13 @@ class NavigationMenuTest extends TestCase
 
     public function test_external_link_can_be_added_in_config()
     {
-        config(['hyde.navigation.custom' => [NavItem::toLink('https://example.com', 'foo')]]);
+        config(['hyde.navigation.custom' => [NavItem::forLink('https://example.com', 'foo')]]);
 
         $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
-            NavItem::toLink('https://example.com', 'foo'),
+            NavItem::forLink('https://example.com', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -106,13 +106,13 @@ class NavigationMenuTest extends TestCase
 
     public function test_path_link_can_be_added_in_config()
     {
-        config(['hyde.navigation.custom' => [NavItem::toLink('foo', 'foo')]]);
+        config(['hyde.navigation.custom' => [NavItem::forLink('foo', 'foo')]]);
 
         $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
-            NavItem::toLink('foo', 'foo'),
+            NavItem::forLink('foo', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -122,15 +122,15 @@ class NavigationMenuTest extends TestCase
     public function test_duplicates_are_removed_when_adding_in_config()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::toLink('foo', 'foo'),
-            NavItem::toLink('foo', 'foo'),
+            NavItem::forLink('foo', 'foo'),
+            NavItem::forLink('foo', 'foo'),
         ]]);
 
         $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
-            NavItem::toLink('foo', 'foo'),
+            NavItem::forLink('foo', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -140,15 +140,15 @@ class NavigationMenuTest extends TestCase
     public function test_duplicates_are_removed_when_adding_in_config_regardless_of_destination()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::toLink('foo', 'foo'),
-            NavItem::toLink('bar', 'foo'),
+            NavItem::forLink('foo', 'foo'),
+            NavItem::forLink('bar', 'foo'),
         ]]);
 
         $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
-            NavItem::toLink('foo', 'foo'),
+            NavItem::forLink('foo', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->items);

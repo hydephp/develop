@@ -83,18 +83,18 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('index.html', (string) NavItem::fromRoute(\Hyde\Facades\Route::get('index')));
     }
 
-    public function testToLink()
+    public function testForLink()
     {
-        $item = NavItem::toLink('foo', 'bar');
+        $item = NavItem::forLink('foo', 'bar');
 
         $this->assertSame('foo', $item->destination);
         $this->assertSame('bar', $item->label);
         $this->assertSame(500, $item->priority);
     }
 
-    public function testToLinkWithCustomPriority()
+    public function testForLinkWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::toLink('foo', 'bar', 100)->priority);
+        $this->assertSame(100, NavItem::forLink('foo', 'bar', 100)->priority);
     }
 
     public function testToRoute()

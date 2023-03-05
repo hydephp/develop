@@ -23,7 +23,7 @@ class NavigationLinkViewTest extends TestCase
     protected function render(?NavItem $item = null): string
     {
         return view('hyde::components.navigation.navigation-link', [
-            'item' => $item ?? NavItem::toLink('foo.html', 'Foo'),
+            'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
         ])->render();
     }
 
