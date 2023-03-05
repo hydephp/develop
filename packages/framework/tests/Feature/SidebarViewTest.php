@@ -113,7 +113,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-navigation-group-heading')
             ->assertSeeHtml('class="sidebar-navigation-group-toggle')
             ->assertSeeHtml('class="sidebar-navigation-group-toggle-icon')
-            ->assertSeeHtml('class="sidebar-navigation-group-list')
+            ->assertSeeHtml('class="sidebar-navigation-group-items')
             ->assertSee('groupOpen')
             ->allGood();
 
@@ -142,7 +142,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-navigation-group"')
             ->assertSeeHtml('class="sidebar-navigation-group-header')
             ->assertSeeHtml('class="sidebar-navigation-group-heading')
-            ->assertSeeHtml('class="sidebar-navigation-group-list')
+            ->assertSeeHtml('class="sidebar-navigation-group-items')
             ->assertDontSee('sidebar-navigation-group-toggle')
             ->assertDontSee('sidebar-navigation-group-toggle-icon')
             ->assertDontSee('groupOpen')

@@ -9,7 +9,7 @@
                     @include('hyde::components.docs.sidebar-navigation-group-toggle-button')
                 @endif
             </header>
-            <ul class="sidebar-navigation-group-list ml-4 px-2 mb-2" role="list" @if($collapsible) x-show="groupOpen" @endif>
+            <ul class="sidebar-navigation-group-items ml-4 px-2 mb-2" role="list" @if($collapsible) x-show="groupOpen" @endif>
                 @foreach ($sidebar->getItemsInGroup($group) as $item)
                     @include('hyde::components.docs.sidebar-item', ['grouped' => true])
                 @endforeach
