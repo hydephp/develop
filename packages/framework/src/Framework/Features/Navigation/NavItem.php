@@ -50,6 +50,7 @@ class NavItem implements Stringable
 
         $this->label = $label;
         $this->priority = $priority;
+        $this->group = $group;
     }
 
     /**
