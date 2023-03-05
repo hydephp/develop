@@ -32,7 +32,7 @@ class NavItem implements Stringable
 
     public string $label;
     public int $priority;
-    public ?string $group = null;
+    public ?string $group;
 
     /**
      * Create a new navigation menu item.
