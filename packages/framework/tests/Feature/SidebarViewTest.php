@@ -42,6 +42,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<footer id="sidebar-footer"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
+            ->assertSeeHtml('<span class="sr-only">Toggle dark theme</span>')
             ->assertDontSee('<a href="docs/index.html">')
             ->assertDontSee('<li class="sidebar-navigation-item')
             ->allGood();
