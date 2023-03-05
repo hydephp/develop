@@ -269,6 +269,23 @@ class NavItemTest extends UnitTestCase
         $this->assertFalse(NavItem::toLink('foo', 'foo')->isCurrent());
     }
 
+    public function testIsCurrentWithAbsoluteLink()
+    {
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertFalse(NavItem::toLink('/foo', 'foo')->isCurrent());
+    }
+
+    public function testIsCurrentWithNestedCurrentPageWhenNestedUsingAbsoluteLinkItem()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar'));
+        $this->assertFalse(NavItem::toLink('/foo/bar', 'foo')->isCurrent());
+    }
+    public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenNestedUsingAbsoluteLinkItem()
+    {
+        $this->mockRenderData($this->makeRoute('foo/bar/baz'));
+        $this->assertFalse(NavItem::toLink('/foo/bar/baz', 'foo')->isCurrent());
+    }
+
     public function testGetGroup()
     {
         $route = new Route(new MarkdownPage());
