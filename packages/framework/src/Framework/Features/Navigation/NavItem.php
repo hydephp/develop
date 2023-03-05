@@ -108,7 +108,6 @@ class NavItem implements Stringable
         return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
     }
 
-    /** @todo Pre-resolve in constructor */
     public function getGroup(): ?string
     {
         return $this->group;
