@@ -41,6 +41,8 @@ abstract class BaseNavigationMenu
             $this->items->push($item);
         });
 
+        $this->items = $this->filterDuplicateItems();
+
         return $this;
     }
 
