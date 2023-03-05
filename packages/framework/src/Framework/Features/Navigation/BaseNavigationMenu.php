@@ -60,7 +60,6 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    /** @deprecated Refactor to handle this upon generation */
     protected function filterDuplicateItems(): Collection
     {
         return $this->items->unique(function (NavItem $item): string {
