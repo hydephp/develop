@@ -64,9 +64,7 @@ abstract class BaseNavigationMenu
     /** @deprecated Refactor to handle this upon generation */
     protected function filterHiddenItems(): Collection
     {
-        return $this->items->reject(function (NavItem $item): bool {
-            return false;
-        })->values();
+        return $this->items->values();
     }
 
     /** @deprecated Refactor to handle this upon generation */
