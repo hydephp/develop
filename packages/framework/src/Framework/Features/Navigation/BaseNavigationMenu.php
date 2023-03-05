@@ -25,7 +25,7 @@ abstract class BaseNavigationMenu
 
     public static function create(): static
     {
-        return (new static())->generate()->filter()->sortByPriority();
+        return (new static())->generate()->filterDuplicateItems()->sortByPriority();
     }
 
     /** @deprecated Will be made protected */
@@ -45,7 +45,7 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    protected function filter(): static
+    protected function filterDuplicateItems(): static
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
             return $item->getGroup() . $item->label;
