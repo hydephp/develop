@@ -104,7 +104,7 @@ class NavItem implements Stringable
         if (false) {
             return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
         }
-        
+
         return ($current->getRoute()->getLink() === $this->destination)
             || ($current->getRoute()->getLink().'.html' === $this->destination);
     }
