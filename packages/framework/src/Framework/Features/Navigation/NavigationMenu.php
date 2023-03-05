@@ -34,7 +34,7 @@ class NavigationMenu extends BaseNavigationMenu
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $item) {
-            if ($this->canBeInDropdown($item)) {
+            if ($this->canAddItemToDropdown($item)) {
                 // Buffer the item in the dropdowns array
                 $dropdowns[$item->getGroup()][] = $item;
 
@@ -70,7 +70,7 @@ class NavigationMenu extends BaseNavigationMenu
         })->all();
     }
 
-    protected static function canBeInDropdown(NavItem $item): bool
+    protected static function canAddItemToDropdown(NavItem $item): bool
     {
         return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
     }
