@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
@@ -36,7 +37,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
-            'sidebar' => \Hyde\Framework\Features\Navigation\DocumentationSidebar::create()
+            'sidebar' => DocumentationSidebar::create()
         ]));
     }
 
