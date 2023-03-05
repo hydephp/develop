@@ -4,76 +4,65 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use function collect;
-use function config;
-use Hyde\Foundation\Facades\Routes;
+use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
+use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Collection;
+use function collect;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  */
 abstract class BaseNavigationMenu
 {
+    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public Collection $items;
 
-    final public function __construct()
+    final protected function __construct()
     {
         $this->items = new Collection();
     }
 
     public static function create(): static
     {
-        return (new static())->generate()->filter()->sort();
+        $menu = new static();
+
+        $menu->generate();
+        $menu->removeDuplicateItems();
+        $menu->sortByPriority();
+
+        return $menu;
     }
 
-    /** @return $this */
-    public function generate(): static
+    protected function generate(): void
     {
         Routes::each(function (Route $route): void {
-            $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+            if ($this->canAddRoute($route)) {
+                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+            }
         });
 
-        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+        collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+            // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
-
-        return $this;
     }
 
-    /** @return $this */
-    public function filter(): static
+    protected function canAddRoute(Route $route): bool
     {
-        $this->items = $this->filterHiddenItems();
-        $this->items = $this->filterDuplicateItems();
-
-        return $this;
+        return $route->getPage()->showInNavigation();
     }
 
-    /** @return $this */
-    public function sort(): static
+    protected function removeDuplicateItems(): void
     {
-        $this->items = $this->items->sortBy('priority')->values();
-
-        return $this;
-    }
-
-    protected function filterHiddenItems(): Collection
-    {
-        return $this->items->reject(function (NavItem $item): bool {
-            return $this->shouldItemBeHidden($item);
-        })->values();
-    }
-
-    protected function filterDuplicateItems(): Collection
-    {
-        return $this->items->unique(function (NavItem $item): string {
+        $this->items = $this->items->unique(function (NavItem $item): string {
+            // Filter using a combination of the group and label to allow duplicate labels in different groups
             return $item->getGroup().$item->label;
         });
     }
 
-    protected static function shouldItemBeHidden(NavItem $item): bool
+    protected function sortByPriority(): void
     {
-        return $item->hidden;
+        $this->items = $this->items->sortBy('priority')->values();
     }
 }

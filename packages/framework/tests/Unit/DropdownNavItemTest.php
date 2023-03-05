@@ -43,4 +43,17 @@ class DropdownNavItemTest extends TestCase
         $item = DropdownNavItem::fromArray('foo', $children);
         $this->assertSame($children, $item->items);
     }
+
+    public function testGetItems()
+    {
+        $children = [
+            new NavItem(new Route(new MarkdownPage()), 'bar'),
+        ];
+
+        $item = new DropdownNavItem('foo', $children);
+        $this->assertSame($children, $item->getItems()->all());
+
+        $item = DropdownNavItem::fromArray('foo', $children);
+        $this->assertSame($children, $item->getItems()->all());
+    }
 }
