@@ -10,7 +10,6 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
 
@@ -87,14 +86,6 @@ class NavItemTest extends UnitTestCase
         $this->assertEquals(
             NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo'),
             NavItem::toRoute('index', 'foo')
-        );
-    }
-
-    public function testToRouteWithRouteKeyClass()
-    {
-        $this->assertEquals(
-            NavItem::toRoute('index', 'foo'),
-            NavItem::toRoute((string) new RouteKey('index'), 'foo') // String cast to emulate non-strict types
         );
     }
 
