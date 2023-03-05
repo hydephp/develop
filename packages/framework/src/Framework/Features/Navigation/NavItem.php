@@ -83,24 +83,6 @@ class NavItem implements Stringable
     }
 
     /**
-     * Check if the NavItem instance is the current page.
-     */
-    public function isCurrent(): bool
-    {
-        return Hyde::currentRoute()->getLink() === $this->destination;
-    }
-
-    protected static function getRouteGroup(Route $route): ?string
-    {
-        return static::normalizeGroupKey(($route)->getPage()->data('navigation.group'));
-    }
-
-    protected static function normalizeGroupKey(?string $group): ?string
-    {
-        return $group ? Str::slug($group) : null;
-    }
-
-    /**
      * Get the destination link of the navigation item.
      *
      * If the navigation item is an external link, this will return the link as is,
@@ -135,5 +117,23 @@ class NavItem implements Stringable
     public function getGroup(): ?string
     {
         return $this->group;
+    }
+
+    /**
+     * Check if the NavItem instance is the current page.
+     */
+    public function isCurrent(): bool
+    {
+        return Hyde::currentRoute()->getLink() === $this->destination;
+    }
+
+    protected static function getRouteGroup(Route $route): ?string
+    {
+        return static::normalizeGroupKey(($route)->getPage()->data('navigation.group'));
+    }
+
+    protected static function normalizeGroupKey(?string $group): ?string
+    {
+        return $group ? Str::slug($group) : null;
     }
 }
