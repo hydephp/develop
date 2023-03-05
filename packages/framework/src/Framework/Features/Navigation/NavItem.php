@@ -23,7 +23,6 @@ use Stringable;
 class NavItem implements Stringable
 {
     public string $destination;
-
     public string $label;
     public int $priority;
     public ?string $group;
