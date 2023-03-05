@@ -38,7 +38,7 @@ class SidebarViewTest extends TestCase
             $this->html = $view->render();
             if (self::$writeToDisk) {
                 file_put_contents(Hyde::path('_site/test.html'), $this->html);
-                echo "\e[0;32mCreated file: \e[0m" . realpath(Hyde::path('_site/test.html'));
+                echo "\e[0;32mCreated file: \e[0m".realpath(Hyde::path('_site/test.html'));
             }
         } catch (Throwable $exception) {
             $this->fail($exception->getMessage());
