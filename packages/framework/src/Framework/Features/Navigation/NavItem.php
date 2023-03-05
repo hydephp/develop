@@ -68,10 +68,10 @@ class NavItem implements Stringable
      *
      * @deprecated Rename to forRoute instead as toRoute makes it sound like it returns a Route instance
      *
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      */
     public static function toRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
