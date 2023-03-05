@@ -9,7 +9,9 @@
             $sidebar = \Hyde\Framework\Features\Navigation\DocumentationSidebar::create();
         @endphp
 
-        @include('hyde::components.docs.sidebar-navigation', ['grouped' => $sidebar->hasGroups()])
+        @include('hyde::components.docs.sidebar-navigation', [
+            'grouped' => $sidebar->hasGroups()
+        ])
     </nav>
     @if(config('docs.sidebar.footer', true))
         <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
