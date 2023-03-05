@@ -58,7 +58,7 @@ class NavItem implements Stringable
      */
     public static function fromRoute(Route $route): static
     {
-        return new self(
+        return new static(
             // $route->getLink(),
             $route, // needed by NavigationMenu::shouldItemBeHidden()
             $route->getPage()->navigationMenuLabel(),
@@ -72,7 +72,7 @@ class NavItem implements Stringable
      */
     public static function toLink(string $href, string $label, int $priority = 500): static
     {
-        return (new self($href, $label, $priority, false))->setDestination($href);
+        return (new static($href, $label, $priority, false))->setDestination($href);
     }
 
     /**
@@ -80,7 +80,7 @@ class NavItem implements Stringable
      */
     public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
-        return new self($route->getLink(), $label, $priority, false);
+        return new static($route->getLink(), $label, $priority, false);
     }
 
     /**
