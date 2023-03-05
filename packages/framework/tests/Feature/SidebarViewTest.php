@@ -34,6 +34,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
             ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
+            ->assertSeeText('HydePHP Docs')
             ->assertDontSee('<li class="sidebar-navigation-item')
             ->allGood();
 
@@ -41,6 +42,7 @@ class SidebarViewTest extends TestCase
             'sidebar' => DocumentationSidebar::create(),
         ]));
 
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-footer'));
     }
 
@@ -128,6 +130,18 @@ class SidebarViewTest extends TestCase
         ]));
 
         $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
+    }
+
+    public function testBaseSidebarCustomHeaderBrand()
+    {
+        config(['docs.sidebar.header' => 'My Custom Header']);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeText('My Custom Header')
+            ->assertDontSee('HydePHP Docs')
+            ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
     }
 
     protected function renderComponent(View $view): self
