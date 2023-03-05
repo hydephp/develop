@@ -364,9 +364,7 @@ class DocumentationSidebarTest extends TestCase
         $this->assertCount(1, $sidebar->items);
 
         $this->assertEquals(
-            collect([
-                SidebarItem::fromRoute(Route::get('docs/bar'), priority: 999)
-            ]),
+            collect([SidebarItem::fromRoute(Route::get('docs/bar'), priority: 999)]),
             $sidebar->items
         );
     }
@@ -390,7 +388,7 @@ class DocumentationSidebarTest extends TestCase
     {
         file_put_contents(
             Hyde::path('_docs/'.$name.'.md'),
-                (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
+            (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
         );
     }
 }
