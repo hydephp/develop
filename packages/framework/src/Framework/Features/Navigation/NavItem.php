@@ -25,9 +25,6 @@ class NavItem implements Stringable
     /** @deprecated Use $destination instead */
     public Route $route;
 
-    /** @deprecated Use $destination instead */
-    public string $href;
-
     public string $destination;
 
     public string $label;
@@ -45,7 +42,7 @@ class NavItem implements Stringable
         if ($destination instanceof Route) {
             $this->route = $destination;
         } else {
-            $this->href = $destination;
+            //
         }
 
         $this->label = $label;
