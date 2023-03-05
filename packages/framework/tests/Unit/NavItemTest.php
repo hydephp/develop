@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
+use Mockery;
 
 /**
  * This unit test covers the basics of the NavItem class.
@@ -83,8 +85,10 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrent()
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn($this->createMock(Route::class));
-        Render::shouldReceive('getCurrentPage')->once()->andReturn('foo');
+        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+            'getCurrentRoute' => new Route(new InMemoryPage('foo')),
+            'getCurrentPage' => 'foo',
+        ]));
 
         $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
@@ -96,8 +100,10 @@ class NavItemTest extends UnitTestCase
     {
         $route = \Hyde\Facades\Route::get('index');
 
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn($route);
-        Render::shouldReceive('getCurrentPage')->once()->andReturn('foo');
+        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+            'getCurrentRoute' => $route,
+            'getCurrentPage' => 'index',
+        ]));
         $item = NavItem::fromRoute($route);
 
         $this->assertTrue($item->isCurrent());
