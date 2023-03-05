@@ -55,14 +55,12 @@ abstract class BaseNavigationMenu
         return $route->getPage()->showInNavigation();
     }
 
-    protected function removeDuplicateItems(): static
+    protected function removeDuplicateItems(): void
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
             // Filter using a combination of the group and label to allow duplicate labels in different groups
             return $item->getGroup().$item->label;
         });
-
-        return $this;
     }
 
     protected function sortByPriority(): static
