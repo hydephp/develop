@@ -32,6 +32,8 @@ class NavItem implements Stringable
 
     public string $label;
     public int $priority;
+
+    /** @deprecated Hidden items should not be added to start with */
     public bool $hidden;
 
     /**
