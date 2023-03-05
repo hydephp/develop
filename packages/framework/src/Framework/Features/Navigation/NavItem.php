@@ -111,7 +111,7 @@ class NavItem implements Stringable
     /** @todo Pre-resolve in constructor */
     public function getGroup(): ?string
     {
-        //
+        return $this->group;
     }
 
     public function resolveRouteGroup(Route $route): ?string
