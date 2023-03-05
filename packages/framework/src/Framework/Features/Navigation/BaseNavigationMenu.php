@@ -26,7 +26,10 @@ abstract class BaseNavigationMenu
     public static function create(): static
     {
         // Todo: Simplify call order by making chained protected methods void
-        return (new static())->generate()->removeDuplicateItems()->sortByPriority();
+        return (new static())
+            ->generate()
+            ->removeDuplicateItems()
+            ->sortByPriority();
     }
 
     /** @deprecated Will be made protected */
