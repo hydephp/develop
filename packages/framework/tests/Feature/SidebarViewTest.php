@@ -87,6 +87,34 @@ class SidebarViewTest extends TestCase
         ]));
     }
 
+    public function testBaseSidebarWithNonCollapsibleGroupedItems()
+    {
+        $this->mockRoute();
+        $this->mockPage();
+        $this->file('_docs/index.md');
+        $this->markdown('_docs/first.md', matter: ['navigation.group' => 'Group 1']);
+        config(['docs.sidebar.collapsible' => false]);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeText('Group 1')
+            ->assertSeeText('First')
+            ->assertSeeHtml('href="docs/first.html"')
+            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list"')
+            ->assertSeeHtml('<li class="sidebar-navigation-item')
+            ->assertSeeHtml('<li class="sidebar-navigation-group')
+            ->assertSeeHtml('class="sidebar-navigation-group"')
+            ->assertSeeHtml('class="sidebar-navigation-group-header')
+            ->assertSeeHtml('class="sidebar-navigation-group-heading')
+            ->assertSeeHtml('class="sidebar-navigation-group-list')
+            ->assertDontSee('sidebar-navigation-group-toggle')
+            ->assertDontSee('sidebar-navigation-group-toggle-icon')
+            ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.grouped-sidebar-navigation', [
+            'sidebar' => DocumentationSidebar::create(),
+        ]));
+    }
+
     protected function renderComponent(View $view): self
     {
         try {
