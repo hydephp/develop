@@ -280,6 +280,7 @@ class NavItemTest extends UnitTestCase
         $this->mockRenderData($this->makeRoute('foo/bar'));
         $this->assertFalse(NavItem::toLink('/foo/bar', 'foo')->isCurrent());
     }
+
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenNestedUsingAbsoluteLinkItem()
     {
         $this->mockRenderData($this->makeRoute('foo/bar/baz'));
