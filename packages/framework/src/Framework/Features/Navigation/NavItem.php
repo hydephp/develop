@@ -70,9 +70,10 @@ class NavItem implements Stringable
      *
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
+     * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      */
-    public static function toRoute(Route|string $route, ?string $label = null, ?int $priority = null): static
+    public static function toRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
         $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
 
@@ -80,7 +81,7 @@ class NavItem implements Stringable
             $route->getLink(),
             $label ?? $route->getPage()->navigationMenuLabel(),
             $priority ?? $route->getPage()->navigationMenuPriority(),
-            static::resolveRouteGroup($route)
+            $group ?? static::resolveRouteGroup($route),
         );
     }
 
