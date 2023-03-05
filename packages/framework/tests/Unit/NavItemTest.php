@@ -109,6 +109,33 @@ class NavItemTest extends UnitTestCase
         $this->assertSame(100, NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
     }
 
+    public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
+    {
+        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+            'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
+            'getCurrentPage' => 'foo',
+        ]));
+
+        $this->assertSame('foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
+        $this->assertSame('foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
+
+        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+            'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar'))),
+            'getCurrentPage' => 'foo/bar',
+        ]));
+
+        $this->assertSame('../foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
+        $this->assertSame('../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
+
+        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+            'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar/baz'))),
+            'getCurrentPage' => 'foo/bar/baz',
+        ]));
+
+        $this->assertSame('../../foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
+        $this->assertSame('../../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
+    }
+
     public function testIsCurrent()
     {
         Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
