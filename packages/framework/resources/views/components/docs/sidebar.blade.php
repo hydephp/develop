@@ -5,11 +5,8 @@
     </header>
     <nav id="sidebar-navigation"
         class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
-        @php
-            $sidebar = \Hyde\Framework\Features\Navigation\DocumentationSidebar::create();
-        @endphp
-
         @include('hyde::components.docs.sidebar-navigation', [
+            $sidebar = \Hyde\Framework\Features\Navigation\DocumentationSidebar::create(),
             'grouped' => $sidebar->hasGroups()
         ])
     </nav>
