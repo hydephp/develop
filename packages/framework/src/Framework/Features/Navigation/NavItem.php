@@ -100,9 +100,7 @@ class NavItem implements Stringable
      */
     public function isCurrent(): bool
     {
-        if (null === null) {
-            $current = Hyde::currentRoute()->getPage();
-        }
+        $current = Hyde::currentRoute()->getPage();
 
         if (! isset($this->route)) {
             return ($current->getRoute()->getRouteKey() === $this->href)
