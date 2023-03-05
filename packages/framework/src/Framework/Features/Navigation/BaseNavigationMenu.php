@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Collection;
 use function collect;
-use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
@@ -37,7 +37,7 @@ abstract class BaseNavigationMenu
             }
         });
 
-        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+        collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
             // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
