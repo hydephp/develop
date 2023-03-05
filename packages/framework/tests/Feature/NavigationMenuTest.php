@@ -39,21 +39,6 @@ class NavigationMenuTest extends TestCase
         $this->assertEmpty($menu->items);
     }
 
-    public function test_generate_method_adds_route_items()
-    {
-        $this->markTestSkipped('Refactor to not test method being protected');
-        $menu = new NavigationMenu();
-        $menu->generate();
-
-        $expected = collect([
-            '404' => NavItem::fromRoute(Route::get('404')),
-            'index' => NavItem::fromRoute(Route::get('index')),
-        ]);
-
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
-    }
-
     public function test_items_are_sorted_by_priority()
     {
         Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'foo', ['navigation.priority' => 1])));
@@ -69,19 +54,6 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new \Hyde\Support\Models\Route(new MarkdownPage( 'bar', ['navigation.hidden' => false])));
 
         $this->assertSame(['Home', 'Bar'], NavigationMenu::create()->items->pluck('label')->toArray());
-    }
-
-    public function test_static_create_method_creates_new_processed_collection()
-    {
-        $this->markTestSkipped('Refactor to not test method being protected');
-        $this->file('_pages/foo.md');
-        $menu = NavigationMenu::create();
-
-        $this->assertInstanceOf(NavigationMenu::class, $menu);
-        $this->assertEquals(
-            (new NavigationMenu())->generate()->removeDuplicateItems()->sortByPriority(),
-            NavigationMenu::create()
-        );
     }
 
     public function test_created_collection_is_sorted_by_navigation_menu_priority()
