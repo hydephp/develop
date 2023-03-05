@@ -98,17 +98,19 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrentUsingRoute()
     {
+        $this->mockRenderData(new Route(new InMemoryPage('index')));
         $route = \Hyde\Facades\Route::get('index');
         $item = NavItem::fromRoute($route);
 
-        $this->assertTrue($item->isCurrent($route->getPage()));
+        $this->assertTrue($item->isCurrent());
     }
 
     public function testIsCurrentUsingLink()
     {
+        $this->mockRenderData(new Route(new InMemoryPage('index')));
         $item = NavItem::toLink('index.html', 'Home');
 
-        $this->assertTrue($item->isCurrent(\Hyde\Facades\Route::get('index')->getPage()));
+        $this->assertTrue($item->isCurrent());
     }
 
     public function testGetGroup()
