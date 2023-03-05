@@ -14,6 +14,15 @@ use BadMethodCallException;
  */
 class NavigationMenu extends BaseNavigationMenu
 {
+    protected function generate(): void
+    {
+        parent::generate();
+
+        if ($this->dropdownsEnabled()) {
+            $this->createDropdownsForGroupedItems();
+        }
+    }
+
     public function hasDropdowns(): bool
     {
         if (! $this->dropdownsEnabled()) {
@@ -33,15 +42,6 @@ class NavigationMenu extends BaseNavigationMenu
         return $this->items->filter(function (NavItem $item): bool {
             return $item instanceof DropdownNavItem;
         })->values()->all();
-    }
-
-    protected function generate(): void
-    {
-        parent::generate();
-
-        if ($this->dropdownsEnabled()) {
-            $this->createDropdownsForGroupedItems();
-        }
     }
 
     protected function createDropdownsForGroupedItems(): void
