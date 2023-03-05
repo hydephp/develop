@@ -6,4 +6,5 @@
         @include('hyde::components.docs.sidebar-item')
     @endforeach
 </ul>
+@else
 @endif
