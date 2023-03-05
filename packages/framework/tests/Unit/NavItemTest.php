@@ -80,6 +80,14 @@ class NavItemTest extends UnitTestCase
         $this->assertSame(500, $item->priority);
     }
 
+    public function testToRouteWithRouteKey()
+    {
+        $this->assertEquals(
+            NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo'),
+            NavItem::toRoute('index', 'foo')
+        );
+    }
+
     public function testToRouteWithCustomPriority()
     {
         $this->assertSame(100, NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
