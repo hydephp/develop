@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
+use Throwable;
 
 /**
  * Very high level test of the sidebar views and their combinations of layouts.
@@ -33,7 +34,7 @@ class SidebarViewTest extends TestCase
     {
         try {
             $this->html = $view->render();
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             $this->fail($exception->getMessage());
         }
 
