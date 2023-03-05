@@ -31,6 +31,21 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
             ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
+            ->assertDontSee('<li class="sidebar-navigation-item')
+            ->allGood();
+    }
+
+    public function testBaseSidebarWithItems()
+    {
+        $this->mockRoute();
+        $this->file('_docs/index.md');
+        $this->file('_docs/first.md');
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeHtml('<nav id="sidebar-navigation"')
+            ->assertSeeHtml('<a href="index.html">Back to home page</a>')
+            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
+            ->assertSeeHtml('<li class="sidebar-navigation-item')
             ->allGood();
     }
 
