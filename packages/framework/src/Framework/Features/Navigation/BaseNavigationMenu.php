@@ -58,6 +58,7 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
+    /** @deprecated Refactor to handle this upon generation */
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item): bool {
@@ -65,6 +66,7 @@ abstract class BaseNavigationMenu
         })->values();
     }
 
+    /** @deprecated Refactor to handle this upon generation */
     protected function filterDuplicateItems(): Collection
     {
         return $this->items->unique(function (NavItem $item): string {
