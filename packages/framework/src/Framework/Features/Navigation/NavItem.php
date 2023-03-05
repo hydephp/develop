@@ -75,9 +75,7 @@ class NavItem implements Stringable
      */
     public static function toRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
-        $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
-
-        return static::fromRoute($route, $label, $priority, $group);
+        return static::fromRoute($route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route), $label, $priority, $group);
     }
 
     /**
