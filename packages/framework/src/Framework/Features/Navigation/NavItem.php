@@ -101,8 +101,7 @@ class NavItem implements Stringable
     {
         $current = Hyde::currentRoute()->getPage();
 
-        return ($current->getRoute()->getLink() === $this->destination)
-            || ($current->getRoute()->getLink().'.html' === $this->destination);
+        return $current->getRoute()->getLink() === $this->destination;
     }
 
     public function getGroup(): ?string

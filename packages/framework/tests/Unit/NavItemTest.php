@@ -176,7 +176,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentUsingCurrentLinkWithNestedCurrentPage()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertTrue(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
+        $this->assertFalse(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
     }
 
     public function testIsCurrentUsingNotCurrentLinkWithNestedCurrentPage()
@@ -188,7 +188,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWhenCurrentWithNestedCurrentPageAndSubjectPage()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertTrue(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
+        $this->assertFalse(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
     }
 
     public function testIsCurrentWhenNotCurrentWithNestedCurrentPageAndSubjectPage()
@@ -200,7 +200,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWithNestedCurrentPageWhenNestedUsingLinkItem()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertTrue(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
+        $this->assertFalse(NavItem::toLink('foo/bar.html', 'foo')->isCurrent());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenNestedUsingLinkItem()
@@ -212,7 +212,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWithNestedCurrentPageWhenVeryNestedUsingLinkItem()
     {
         $this->mockRenderData($this->makeRoute('foo/bar/baz'));
-        $this->assertTrue(NavItem::toLink('foo/bar/baz.html', 'foo')->isCurrent());
+        $this->assertFalse(NavItem::toLink('foo/bar/baz.html', 'foo')->isCurrent());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenVeryNestedUsingLinkItem()
@@ -236,7 +236,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWithNestedCurrentPageWhenNestedUsingPrettyLinkItem()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertTrue(NavItem::toLink('foo/bar', 'foo')->isCurrent());
+        $this->assertFalse(NavItem::toLink('foo/bar', 'foo')->isCurrent());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenNestedUsingPrettyLinkItem()
@@ -248,7 +248,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWithNestedCurrentPageWhenVeryNestedUsingPrettyLinkItem()
     {
         $this->mockRenderData($this->makeRoute('foo/bar/baz'));
-        $this->assertTrue(NavItem::toLink('foo/bar/baz', 'foo')->isCurrent());
+        $this->assertFalse(NavItem::toLink('foo/bar/baz', 'foo')->isCurrent());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenVeryNestedUsingPrettyLinkItem()
