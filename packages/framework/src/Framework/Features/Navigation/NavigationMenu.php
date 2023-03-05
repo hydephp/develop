@@ -6,10 +6,8 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use BadMethodCallException;
-use function in_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
@@ -75,7 +73,7 @@ class NavigationMenu extends BaseNavigationMenu
 
     protected function canAddItemToDropdown(NavItem $item): bool
     {
-        return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
+        return $item->getGroup() !== null;
     }
 
     protected function dropdownsEnabled(): bool
