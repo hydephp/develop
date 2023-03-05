@@ -17,6 +17,7 @@ abstract class BaseNavigationMenu
 {
     public Collection $items;
 
+    /** @todo Consider deprecating to scope down public API */
     final public function __construct()
     {
         $this->items = new Collection();
