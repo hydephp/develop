@@ -88,6 +88,7 @@ class NavigationMenu extends BaseNavigationMenu
 
     protected static function canAddRoute(Route $route): bool
     {
-        return parent::canAddRoute($route);
+        return !(!parent::canAddRoute($route)
+            || $route->getPage() instanceof DocumentationPage && !$route->is(DocumentationPage::homeRouteName()));
     }
 }

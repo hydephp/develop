@@ -61,7 +61,7 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     protected static function canAddRoute(Route $route): bool
     {
-        return parent::canAddRoute($route);
+        return parent::canAddRoute($route) && ! $route->is(DocumentationPage::homeRouteName());
     }
 
     private function isPageIndexPage(): bool
