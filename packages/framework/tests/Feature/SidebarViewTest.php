@@ -1,4 +1,6 @@
-<?php /** @noinspection HtmlUnknownTarget */
+<?php
+
+/** @noinspection HtmlUnknownTarget */
 
 declare(strict_types=1);
 
@@ -29,8 +31,7 @@ class SidebarViewTest extends TestCase
         $this->renderComponent(view('hyde::components.docs.sidebar'))
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
-            ->assertSeeHtml('<ul id="sidebar-navigation" role="list" class="pl-2">')
-        ;
+            ->assertSeeHtml('<ul id="sidebar-navigation" role="list" class="pl-2">');
     }
 
     protected function renderComponent(View $view): self
