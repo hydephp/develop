@@ -358,5 +358,17 @@ class NavigationMenuTest extends TestCase
         ], $menu->items->all());
     }
 
-    // TODO test dropdown items are sorted
+    public function test_dropdown_menu_items_are_sorted_by_priority()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        Routes::addRoute(new RouteModel(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
+        Routes::addRoute(new RouteModel(new MarkdownPage('foo/bar', ['navigation.priority' => 2])));
+        Routes::addRoute(new RouteModel(new MarkdownPage('foo/baz', ['navigation.priority' => 3])));
+
+        $menu = NavigationMenu::create();
+        $dropdowns = $menu->getDropdowns();
+
+        $this->assertSame(['Foo', 'Bar', 'Baz'], $dropdowns[0]->getItems()->pluck('label')->toArray());
+    }
 }
