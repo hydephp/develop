@@ -64,6 +64,7 @@ class NavItem implements Stringable
             $route, // needed by NavigationMenu::shouldItemBeHidden()
             $route->getPage()->navigationMenuLabel(),
             $route->getPage()->navigationMenuPriority(),
+            static::resolveRouteGroup($route),
         );
     }
 
