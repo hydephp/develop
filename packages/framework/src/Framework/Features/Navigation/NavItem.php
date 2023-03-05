@@ -22,6 +22,9 @@ use Stringable;
  */
 class NavItem implements Stringable
 {
+    /** @deprecated Use $destination instead */
+    public Route $route;
+
     public string $destination;
 
     public string $label;
@@ -37,7 +40,7 @@ class NavItem implements Stringable
 
         // @deprecated: Temporary during refactor
         if ($destination instanceof Route) {
-            //
+            $this->route = $destination;
         } else {
             //
         }
