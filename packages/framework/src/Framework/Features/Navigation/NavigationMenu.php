@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
-use function config;
+use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use function in_array;
@@ -82,6 +82,6 @@ class NavigationMenu extends BaseNavigationMenu
 
     protected function dropdownsEnabled(): bool
     {
-        return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+        return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
 }
