@@ -43,13 +43,13 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item from a route.
      */
-    public static function fromRoute(Route $route): static
+    public static function fromRoute(Route $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
         return new static(
             $route->getLink(),
-            $route->getPage()->navigationMenuLabel(),
-            $route->getPage()->navigationMenuPriority(),
-            static::resolveRouteGroup($route),
+            $label ?? $route->getPage()->navigationMenuLabel(),
+            $priority ?? $route->getPage()->navigationMenuPriority(),
+            $group ?? static::resolveRouteGroup($route),
         );
     }
 
