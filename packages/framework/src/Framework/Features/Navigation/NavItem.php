@@ -75,7 +75,7 @@ class NavItem implements Stringable
         $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
 
         return new static($route->getLink(),
-            $label,
+            $label ?? $route->getPage()->navigationMenuLabel(),
             $priority,
             static::resolveRouteGroup($route)
         );
