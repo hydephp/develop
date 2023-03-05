@@ -117,6 +117,10 @@ class SidebarViewTest extends TestCase
             ->assertSee('groupOpen')
             ->allGood();
 
+        $this->assertViewWasRendered(view('hyde::components.docs.grouped-sidebar-navigation', [
+            'sidebar' => DocumentationSidebar::create(),
+        ]));
+
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-group-toggle-button'));
     }
 
