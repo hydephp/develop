@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\Deprecated;
 use Stringable;
 
 /**
@@ -60,14 +59,12 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item leading to a Route model.
      *
-     * @deprecated Rename to forRoute instead as toRoute makes it sound like it returns a Route instance
-     *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
      */
-    public static function toRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
+    public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
         return static::fromRoute($route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route), $label, $priority, $group);
     }

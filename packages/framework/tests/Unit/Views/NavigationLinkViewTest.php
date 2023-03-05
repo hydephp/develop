@@ -40,12 +40,12 @@ class NavigationLinkViewTest extends TestCase
     public function test_component_is_current_when_current_route_matches()
     {
         $this->mockRoute(Route::get('index'));
-        $this->assertStringContainsString('current', $this->render(NavItem::toRoute(Route::get('index'), 'Home')));
+        $this->assertStringContainsString('current', $this->render(NavItem::forRoute(Route::get('index'), 'Home')));
     }
 
     public function test_component_has_aria_current_when_current_route_matches()
     {
         $this->mockRoute(Route::get('index'));
-        $this->assertStringContainsString('aria-current="page"', $this->render(NavItem::toRoute(Route::get('index'), 'Home')));
+        $this->assertStringContainsString('aria-current="page"', $this->render(NavItem::forRoute(Route::get('index'), 'Home')));
     }
 }

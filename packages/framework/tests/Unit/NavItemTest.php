@@ -97,33 +97,33 @@ class NavItemTest extends UnitTestCase
         $this->assertSame(100, NavItem::forLink('foo', 'bar', 100)->priority);
     }
 
-    public function testToRoute()
+    public function testForRoute()
     {
         $route = \Hyde\Facades\Route::get('index');
-        $item = NavItem::toRoute($route, 'foo');
+        $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route->getLink(), $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(999, $item->priority);
     }
 
-    public function testToRouteWithRouteKey()
+    public function testForRouteWithRouteKey()
     {
         $this->assertEquals(
-            NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo'),
-            NavItem::toRoute('index', 'foo')
+            NavItem::forRoute(\Hyde\Facades\Route::get('index'), 'foo'),
+            NavItem::forRoute('index', 'foo')
         );
     }
 
-    public function testToRouteWithMissingRouteKey()
+    public function testForRouteWithMissingRouteKey()
     {
         $this->expectException(RouteNotFoundException::class);
-        NavItem::toRoute('foo', 'foo');
+        NavItem::forRoute('foo', 'foo');
     }
 
-    public function testToRouteWithCustomPriority()
+    public function testForRouteWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
+        $this->assertSame(100, NavItem::forRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
     }
 
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
@@ -178,8 +178,8 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo', NavItem::fromRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroup());
     }
 
-    public function testGetGroupToRouteWithGroup()
+    public function testGetGroupForRouteWithGroup()
     {
-        $this->assertSame('foo', NavItem::toRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroup());
+        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroup());
     }
 }
