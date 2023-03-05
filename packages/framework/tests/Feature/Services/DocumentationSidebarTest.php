@@ -82,9 +82,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/a'))->setPriority(999),
-                SidebarItem::fromRoute(Route::get('docs/b'))->setPriority(999),
-                SidebarItem::fromRoute(Route::get('docs/c'))->setPriority(999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/a')), 999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/b')), 999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/c')), 999),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -103,9 +103,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/c'))->setPriority(250 + 250),
-                SidebarItem::fromRoute(Route::get('docs/b'))->setPriority(250 + 251),
-                SidebarItem::fromRoute(Route::get('docs/a'))->setPriority(250 + 252),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/c')), 250 + 250),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/b')), 250 + 251),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/a')), 250 + 252),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -142,9 +142,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/first'))->setPriority(250 + 250),
-                SidebarItem::fromRoute(Route::get('docs/second'))->setPriority(250 + 252),
-                SidebarItem::fromRoute(Route::get('docs/third'))->setPriority(250 + 300),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/first')), 250 + 250),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/second')), 250 + 252),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/third')), 250 + 300),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -229,15 +229,15 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
-                SidebarItem::fromRoute(Route::get('docs/foo'))->setPriority(999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/bar')), 999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/foo')), 999),
             ]),
             DocumentationSidebar::create()->getItemsInGroup('bar')
         );
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/baz'))->setPriority(999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/baz')), 999),
             ]),
             DocumentationSidebar::create()->getItemsInGroup('baz')
         );
@@ -251,9 +251,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/a'))->setPriority(999),
-                SidebarItem::fromRoute(Route::get('docs/b'))->setPriority(999),
-                SidebarItem::fromRoute(Route::get('docs/c'))->setPriority(999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/a')), 999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/b')), 999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/c')), 999),
             ]),
             DocumentationSidebar::create()->getItemsInGroup('Foo bar')
         );
@@ -265,7 +265,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('b', ['navigation.group' => 'foo']);
 
         $this->assertEquals(
-            collect([SidebarItem::fromRoute(Route::get('docs/b'))->setPriority(999)]),
+            collect([$this->setPriority(SidebarItem::fromRoute(Route::get('docs/b')), 999)]),
             DocumentationSidebar::create()->getItemsInGroup('foo')
         );
     }
@@ -276,7 +276,7 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
 
         $this->assertEquals(
-            collect([SidebarItem::fromRoute(Route::get('docs/foo'))->setPriority(999)]),
+            collect([$this->setPriority(SidebarItem::fromRoute(Route::get('docs/foo')), 999)]),
             DocumentationSidebar::create()->items
         );
     }
@@ -348,8 +348,8 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
-                SidebarItem::fromRoute(Route::get('docs/foo'))->setPriority(999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/bar')), 999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/foo')), 999),
             ]),
             $sidebar->items
         );
@@ -365,7 +365,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                SidebarItem::fromRoute(Route::get('docs/bar'))->setPriority(999),
+                $this->setPriority(SidebarItem::fromRoute(Route::get('docs/bar')), 999),
             ]),
             $sidebar->items
         );
@@ -392,5 +392,10 @@ class DocumentationSidebarTest extends TestCase
             Hyde::path('_docs/'.$name.'.md'),
                 (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
         );
+    }
+
+    protected function setPriority(SidebarItem $sidebarItem, int $priority): SidebarItem
+    {
+        return $sidebarItem->setPriority($priority);
     }
 }
