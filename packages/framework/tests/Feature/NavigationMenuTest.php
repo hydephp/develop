@@ -58,7 +58,7 @@ class NavigationMenuTest extends TestCase
     {
         $this->markTestSkipped('Refactor to not test method being protected');
         $menu = new NavigationMenu();
-        $menu->generate()->sort();
+        $menu->generate()->sortByPriority();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
@@ -91,7 +91,7 @@ class NavigationMenuTest extends TestCase
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
         $this->assertEquals(
-            (new NavigationMenu())->generate()->filter()->sort(),
+            (new NavigationMenu())->generate()->filter()->sortByPriority(),
             NavigationMenu::create()
         );
     }

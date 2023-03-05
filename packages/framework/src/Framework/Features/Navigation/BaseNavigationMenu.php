@@ -25,7 +25,7 @@ abstract class BaseNavigationMenu
 
     public static function create(): static
     {
-        return (new static())->generate()->filter()->sort();
+        return (new static())->generate()->filter()->sortByPriority();
     }
 
     /** @deprecated Will be made protected */
@@ -52,7 +52,7 @@ abstract class BaseNavigationMenu
         return $this;
     }
 
-    protected function sort(): static
+    protected function sortByPriority(): static
     {
         $this->items = $this->items->sortBy('priority')->values();
 
