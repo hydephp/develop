@@ -102,7 +102,7 @@ class NavItem implements Stringable
     {
         $current = Hyde::currentRoute()->getPage();
 
-        if (true) {
+        if (! isset($this->route)) {
             return ($current->getRoute()->getRouteKey() === $this->destination)
             || ($current->getRoute()->getRouteKey().'.html' === $this->destination);
         }
