@@ -85,7 +85,7 @@ class SidebarViewTest extends TestCase
         ]));
     }
 
-    public function testBaseSidebarWithGroupedItems()
+    public function testSidebarWithGroupedItems()
     {
         $this->mockRoute();
         $this->mockPage();
@@ -112,7 +112,7 @@ class SidebarViewTest extends TestCase
         ]));
     }
 
-    public function testBaseSidebarWithNonCollapsibleGroupedItems()
+    public function testSidebarWithNonCollapsibleGroupedItems()
     {
         $this->mockRoute();
         $this->mockPage();
