@@ -1,6 +1,6 @@
 @php /** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */ @endphp
 <ul id="sidebar-navigation-items" role="list">
-	@foreach ($sidebar->getGroups() as $group)
+    @foreach ($sidebar->getGroups() as $group)
         <li class="sidebar-navigation-group" role="listitem" x-data="{ groupOpen: {{ $sidebar->isGroupActive($group) ? 'true' : 'false' }} }">
             <header class="sidebar-navigation-group-header p-2 px-4 -ml-2 flex justify-between items-center group hover:bg-black/10" @click="groupOpen = ! groupOpen">
                 <h4 class="sidebar-navigation-group-heading text-base font-semibold cursor-pointer dark:group-hover:text-white">{{ Hyde::makeTitle($group) }}</h4>
@@ -19,5 +19,5 @@
                 @endforeach
             </ul>
         </li>
-	@endforeach
+    @endforeach
 </ul>
