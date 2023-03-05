@@ -104,4 +104,19 @@ class NavItem implements Stringable
     {
         return $group ? Str::slug($group) : null;
     }
+
+    public function getDestination(): string
+    {
+        return $this->destination;
+    }
+
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
 }
