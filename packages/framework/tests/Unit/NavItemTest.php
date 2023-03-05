@@ -32,7 +32,7 @@ class NavItemTest extends UnitTestCase
     public function test__construct()
     {
         $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Test', 500, true);
+        $item = new NavItem($route, 'Test', 500);
 
         $this->assertSame($route->getLink(), $item->destination);
     }
@@ -128,7 +128,7 @@ class NavItemTest extends UnitTestCase
     public function testGetGroup()
     {
         $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Test', 500, true);
+        $item = new NavItem($route, 'Test', 500);
 
         $this->assertNull($item->getGroup());
     }
@@ -136,7 +136,7 @@ class NavItemTest extends UnitTestCase
     public function testGetGroupWithGroup()
     {
         $route = new Route(new MarkdownPage(matter: ['navigation.group' => 'foo']));
-        $item = new NavItem($route, 'Test', 500, true);
+        $item = new NavItem($route, 'Test', 500);
 
         $this->assertSame('foo', $item->getGroup());
     }

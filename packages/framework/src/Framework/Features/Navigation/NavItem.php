@@ -36,7 +36,7 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item.
      */
-    public function __construct(Route|string $destination, string $label, int $priority = 500, bool $hidden = false)
+    public function __construct(Route|string $destination, string $label, int $priority = 500)
     {
         $this->destination = $destination instanceof Route ? $destination->getLink() : $destination;
 
@@ -60,8 +60,7 @@ class NavItem implements Stringable
             // $route->getLink(),
             $route, // needed by NavigationMenu::shouldItemBeHidden()
             $route->getPage()->navigationMenuLabel(),
-            $route->getPage()->navigationMenuPriority(),
-            ! $route->getPage()->showInNavigation()
+            $route->getPage()->navigationMenuPriority()
         );
     }
 
@@ -70,7 +69,7 @@ class NavItem implements Stringable
      */
     public static function toLink(string $href, string $label, int $priority = 500): static
     {
-        return (new static($href, $label, $priority, false))->setDestination($href);
+        return (new static($href, $label, $priority))->setDestination($href);
     }
 
     /**
@@ -78,7 +77,7 @@ class NavItem implements Stringable
      */
     public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
-        return new static($route->getLink(), $label, $priority, false);
+        return new static($route->getLink(), $label, $priority);
     }
 
     /**
