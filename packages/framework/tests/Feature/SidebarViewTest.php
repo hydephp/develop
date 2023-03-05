@@ -46,6 +46,27 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-footer'));
     }
 
+    public function testBaseSidebarWithoutFooter()
+    {
+        config(['docs.sidebar.footer' => false]);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'));
+
+        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
+    }
+
+    public function testBaseSidebarCustomHeaderBrand()
+    {
+        config(['docs.sidebar.header' => 'My Custom Header']);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeText('My Custom Header')
+            ->assertDontSee('HydePHP Docs')
+            ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
+    }
+
     public function testBaseSidebarWithItems()
     {
         $this->mockRoute();
@@ -117,27 +138,6 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasRendered(view('hyde::components.docs.grouped-sidebar-navigation', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
-    }
-
-    public function testBaseSidebarWithoutFooter()
-    {
-        config(['docs.sidebar.footer' => false]);
-
-        $this->renderComponent(view('hyde::components.docs.sidebar'));
-
-        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer'));
-    }
-
-    public function testBaseSidebarCustomHeaderBrand()
-    {
-        config(['docs.sidebar.header' => 'My Custom Header']);
-
-        $this->renderComponent(view('hyde::components.docs.sidebar'))
-            ->assertSeeText('My Custom Header')
-            ->assertDontSee('HydePHP Docs')
-            ->allGood();
-
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
     }
 
     protected function renderComponent(View $view): self
