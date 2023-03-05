@@ -1,4 +1,5 @@
 @props([
+/** @var \Hyde\Framework\Features\Navigation\NavItem $item */
 'item',
 'active' => false,
 ])
