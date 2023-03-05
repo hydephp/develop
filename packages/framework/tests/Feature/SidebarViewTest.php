@@ -47,7 +47,7 @@ class SidebarViewTest extends TestCase
             ->assertDontSee('<li class="sidebar-navigation-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
 
@@ -89,7 +89,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<li class="sidebar-navigation-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
             'sidebar' => DocumentationSidebar::create(),
         ]));
     }
@@ -117,7 +117,7 @@ class SidebarViewTest extends TestCase
             ->assertSee('groupOpen')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
             'sidebar' => DocumentationSidebar::create(),
             'grouped' => true,
         ]));
@@ -149,7 +149,7 @@ class SidebarViewTest extends TestCase
             ->assertDontSee('groupOpen')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation-items', [
             'sidebar' => DocumentationSidebar::create(),
             'grouped' => true,
         ]));

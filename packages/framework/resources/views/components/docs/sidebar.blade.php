@@ -5,7 +5,7 @@
     </header>
     <nav id="sidebar-navigation"
         class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
-        @include('hyde::components.docs.sidebar-navigation', [
+        @include('hyde::components.docs.sidebar-navigation-items', [
             'sidebar' => \Hyde\Framework\Features\Navigation\DocumentationSidebar::create(),
         ])
     </nav>
