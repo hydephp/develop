@@ -45,13 +45,6 @@ class NavItemTest extends UnitTestCase
         $this->assertSame($route->getLink(), $item->destination);
     }
 
-    public function testResolveLink()
-    {
-        Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
-
-        $this->assertSame('index.html', NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->resolveLink());
-    }
-
     public function test__toString()
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');

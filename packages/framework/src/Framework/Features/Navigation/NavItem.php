@@ -81,19 +81,11 @@ class NavItem implements Stringable
     }
 
     /**
-     * @deprecated As links are always resolved, this method is obsolete
-     */
-    public function resolveLink(): string
-    {
-        return $this->destination;
-    }
-
-    /**
      * Resolve a link to the navigation item.
      */
     public function __toString(): string
     {
-        return $this->resolveLink();
+        return $this->destination;
     }
 
     /**
