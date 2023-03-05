@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -86,6 +87,12 @@ class NavItemTest extends UnitTestCase
             NavItem::toRoute(\Hyde\Facades\Route::get('index'), 'foo'),
             NavItem::toRoute('index', 'foo')
         );
+    }
+
+    public function testToRouteWithMissingRouteKey()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        NavItem::toRoute('foo', 'foo');
     }
 
     public function testToRouteWithCustomPriority()
