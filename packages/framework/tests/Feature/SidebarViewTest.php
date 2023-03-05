@@ -44,6 +44,10 @@ class SidebarViewTest extends TestCase
                 echo "\e[0;32mCreated file: \e[0m".realpath(Hyde::path('_site/test.html'));
             }
         } catch (Throwable $exception) {
+            /** @noinspection LaravelFunctionsInspection */
+            if (env('TEST_HTML_DEBUG', false)) {
+                throw $exception;
+            }
             $this->fail($exception->getMessage());
         }
 
