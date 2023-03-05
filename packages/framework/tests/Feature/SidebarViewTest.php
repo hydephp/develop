@@ -37,11 +37,12 @@ class SidebarViewTest extends TestCase
     public function testBaseSidebar()
     {
         $this->renderComponent(view('hyde::components.docs.sidebar'))
-            ->assertDontSee('<a href="docs/index.html">')
-            ->assertSeeHtml('<nav id="sidebar-navigation"')
-            ->assertSeeHtml('<a href="index.html">Back to home page</a>')
-            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
             ->assertSeeText('HydePHP Docs')
+            ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list"')
+            ->assertSeeHtml('<nav id="sidebar-navigation"')
+            ->assertSeeHtml('<footer id="sidebar-footer"')
+            ->assertSeeHtml('<a href="index.html">Back to home page</a>')
+            ->assertDontSee('<a href="docs/index.html">')
             ->assertDontSee('<li class="sidebar-navigation-item')
             ->allGood();
 
