@@ -71,7 +71,7 @@ class NavItem implements Stringable
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
      */
-    public static function toRoute(Route|string $route, ?string $label = null, int $priority = 500): static
+    public static function toRoute(Route|string $route, ?string $label = null, ?int $priority = null): static
     {
         $route = $route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route);
 
