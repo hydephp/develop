@@ -163,7 +163,7 @@ class NavItemTest extends UnitTestCase
         $this->assertFalse(NavItem::fromRoute(new Route(new InMemoryPage('bar')))->isCurrent());
     }
 
-    public function testGetGroup()
+    public function testGetGroupWithNoGroup()
     {
         $this->assertNull((new NavItem(new Route(new MarkdownPage()), 'Test', 500))->getGroup());
     }
