@@ -31,7 +31,11 @@ class SidebarViewTest extends TestCase
 
     protected function renderComponent(View $view): self
     {
-        $this->html = $view->render();
+        try {
+            $this->html = $view->render();
+        } catch (\Throwable $exception) {
+            $this->fail($exception->getMessage());
+        }
 
         $this->assertIsString($this->html);
 
