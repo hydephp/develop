@@ -21,3 +21,21 @@ $currentRoute = \Hyde\Support\Facades\Render::getCurrentRoute();
 
 /** @var string $currentPage The route key for the page being compiled/previewed */
 $currentPage = \Hyde\Support\Facades\Render::getCurrentPage();
+
+// Facades (aliased in app/config.php)
+
+class Hyde extends \Hyde\Hyde {}
+class Site extends \Hyde\Facades\Site {}
+class Meta extends \Hyde\Facades\Meta {}
+class Route extends \Hyde\Facades\Route {}
+class Asset extends \Hyde\Facades\Asset {}
+class Author extends \Hyde\Facades\Author {}
+class Includes extends \Hyde\Facades\Includes {}
+class Features extends \Hyde\Facades\Features {}
+class Config extends \Hyde\Facades\Config {}
+class BladePage extends \Hyde\Pages\BladePage {}
+class MarkdownPage extends \Hyde\Pages\MarkdownPage {}
+class MarkdownPost extends \Hyde\Pages\MarkdownPost {}
+class DocumentationPage extends \Hyde\Pages\DocumentationPage {}
+class Filesystem extends \Hyde\Facades\Filesystem {}
+class DataCollection extends \Hyde\Support\DataCollection {}
