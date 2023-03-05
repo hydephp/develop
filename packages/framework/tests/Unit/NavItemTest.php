@@ -85,32 +85,44 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrent()
     {
-        $this->mockRenderData(new Route(new InMemoryPage('foo')));
-        $this->assertFalse(NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->isCurrent());
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('bar'))->isCurrent());
     }
 
     public function testIsCurrentWhenCurrent()
     {
-        $this->mockRenderData($route = \Hyde\Facades\Route::get('index'));
-
-        $this->assertTrue(NavItem::fromRoute($route)->isCurrent());
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertTrue(NavItem::fromRoute($this->makeRoute('foo'))->isCurrent());
     }
 
-    public function testIsCurrentUsingRoute()
+    public function testIsCurrentUsingCurrentRoute()
     {
-        $this->mockRenderData(new Route(new InMemoryPage('index')));
-        $route = \Hyde\Facades\Route::get('index');
-        $item = NavItem::fromRoute($route);
-
-        $this->assertTrue($item->isCurrent());
+        $this->mockRenderData($this->makeRoute('index'));
+        $this->assertTrue(NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->isCurrent());
     }
 
-    public function testIsCurrentUsingLink()
+    public function testIsCurrentUsingCurrentLink()
     {
-        $this->mockRenderData(new Route(new InMemoryPage('index')));
-        $item = NavItem::toLink('index.html', 'Home');
+        $this->mockRenderData($this->makeRoute('index'));
+        $this->assertTrue(NavItem::toLink('index.html', 'Home')->isCurrent());
+    }
 
-        $this->assertTrue($item->isCurrent());
+    public function testIsCurrentWhenNotCurrent()
+    {
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertFalse(NavItem::fromRoute($this->makeRoute('bar'))->isCurrent());
+    }
+
+    public function testIsCurrentUsingNotCurrentRoute()
+    {
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertFalse(NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->isCurrent());
+    }
+
+    public function testIsCurrentUsingNotCurrentLink()
+    {
+        $this->mockRenderData($this->makeRoute('foo'));
+        $this->assertFalse(NavItem::toLink('index.html', 'Home')->isCurrent());
     }
 
     public function testGetGroup()
@@ -151,5 +163,10 @@ class NavItemTest extends UnitTestCase
             'getCurrentRoute' => $route,
             'getCurrentPage' => $route->getRouteKey(),
         ]));
+    }
+
+    protected function makeRoute(string $identifier): Route
+    {
+        return new Route(new InMemoryPage($identifier));
     }
 }
