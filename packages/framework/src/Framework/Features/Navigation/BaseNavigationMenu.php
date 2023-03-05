@@ -24,7 +24,7 @@ abstract class BaseNavigationMenu
 
     public static function create(): static
     {
-        return (new static())->generate()->filter()->sort();
+        return (new static())->generate()->sort();
     }
 
     /** @deprecated Will be made protected */
