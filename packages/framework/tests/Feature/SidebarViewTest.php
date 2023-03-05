@@ -28,6 +28,7 @@ class SidebarViewTest extends TestCase
     public function testBaseSidebar()
     {
         $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertDontSee('<a href="docs/index.html">')
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
             ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
@@ -42,6 +43,7 @@ class SidebarViewTest extends TestCase
         $this->file('_docs/first.md');
 
         $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeHtml('<a href="docs/index.html">')
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<ul id="sidebar-navigation-items" role="list" class="pl-2">')
             ->assertSeeHtml('<li class="sidebar-navigation-item')
