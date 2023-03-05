@@ -47,7 +47,7 @@ abstract class BaseNavigationMenu
     /** @deprecated Refactor to handle this upon generation */
     public function filter(): static
     {
-        $this->items = $this->filterHiddenItems();
+        $this->items = $this->items;
         $this->items = $this->filterDuplicateItems();
 
         return $this;
@@ -59,12 +59,6 @@ abstract class BaseNavigationMenu
         $this->items = $this->items->sortBy('priority')->values();
 
         return $this;
-    }
-
-    /** @deprecated Refactor to handle this upon generation */
-    protected function filterHiddenItems(): Collection
-    {
-        return $this->items;
     }
 
     /** @deprecated Refactor to handle this upon generation */
