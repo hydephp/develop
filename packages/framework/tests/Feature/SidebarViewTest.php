@@ -35,7 +35,9 @@ class SidebarViewTest extends TestCase
             ->assertDontSee('<li class="sidebar-navigation-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation'));
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-navigation', [
+            'sidebar' => \Hyde\Framework\Features\Navigation\DocumentationSidebar::create()
+        ]));
     }
 
     public function testBaseSidebarWithItems()
