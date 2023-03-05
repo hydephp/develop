@@ -10,20 +10,20 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function collect;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  */
 class DocumentationSidebar extends BaseNavigationMenu
 {
-    /** @return $this */
-    public function generate(): static
+    protected function generate(): void
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
-            $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+            if ($this->canAddRoute($route)) {
+                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+            }
         });
-
-        return $this;
     }
 
     public function hasGroups(): bool
@@ -53,9 +53,9 @@ class DocumentationSidebar extends BaseNavigationMenu
             || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
     }
 
-    protected static function shouldItemBeHidden(NavItem $item): bool
+    protected function canAddRoute(Route $route): bool
     {
-        return parent::shouldItemBeHidden($item) || $item->getRoute()?->is(DocumentationPage::homeRouteName());
+        return parent::canAddRoute($route) && ! $route->is(DocumentationPage::homeRouteName());
     }
 
     private function isPageIndexPage(): bool

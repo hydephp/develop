@@ -4,46 +4,22 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use BadMethodCallException;
-use function config;
+use Hyde\Facades\Config;
+use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
-use function in_array;
+use BadMethodCallException;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  */
 class NavigationMenu extends BaseNavigationMenu
 {
-    public function generate(): static
+    protected function generate(): void
     {
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
-            $this->putGroupedItemsInDropdowns();
-        }
-
-        return $this;
-    }
-
-    protected function putGroupedItemsInDropdowns(): void
-    {
-        $dropdowns = [];
-
-        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
-        foreach ($this->items as $item) {
-            if ($this->canBeInDropdown($item)) {
-                // Buffer the item in the dropdowns array
-                $dropdowns[$item->getGroup()][] = $item;
-
-                // Remove the item from the main items collection
-                $this->items->forget($item->route->getRouteKey());
-            }
-        }
-
-        foreach ($dropdowns as $group => $items) {
-            // Create a new dropdown item containing the buffered items
-            $this->items->put("dropdown.$group", new DropdownNavItem($group, $items));
+            $this->createDropdownsForGroupedItems();
         }
     }
 
@@ -65,22 +41,42 @@ class NavigationMenu extends BaseNavigationMenu
 
         return $this->items->filter(function (NavItem $item): bool {
             return $item instanceof DropdownNavItem;
-        })->all();
+        })->values()->all();
     }
 
-    protected static function canBeInDropdown(NavItem $item): bool
+    protected function createDropdownsForGroupedItems(): void
     {
-        return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
+        $dropdowns = [];
+
+        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
+        foreach ($this->items as $key => $item) {
+            if ($this->canAddItemToDropdown($item)) {
+                // Buffer the item in the dropdowns array
+                $dropdowns[$item->getGroup()][] = $item;
+
+                // Remove the item from the main items collection
+                $this->items->forget($key);
+            }
+        }
+
+        foreach ($dropdowns as $group => $items) {
+            // Create a new dropdown item containing the buffered items
+            $this->items->add(new DropdownNavItem($group, $items));
+        }
     }
 
-    protected static function dropdownsEnabled(): bool
+    protected function canAddRoute(Route $route): bool
     {
-        return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+        return parent::canAddRoute($route) && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
     }
 
-    protected static function shouldItemBeHidden(NavItem $item): bool
+    protected function canAddItemToDropdown(NavItem $item): bool
     {
-        return parent::shouldItemBeHidden($item) ||
-            $item->getRoute()?->getPage() instanceof DocumentationPage && ! $item->getRoute()->is(DocumentationPage::homeRouteName());
+        return $item->getGroup() !== null;
+    }
+
+    protected function dropdownsEnabled(): bool
+    {
+        return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;
@@ -13,71 +12,61 @@ use Stringable;
 /**
  * Abstraction for a navigation menu item. Used by the NavigationMenu and DocumentationSidebar classes.
  *
- * @todo See if this can be merged into the Route class.
- *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
- *   3. You can use NavItem::toLink() for an external or un-routed link
+ *   3. You can use NavItem::forLink() for an external or un-routed link
  */
 class NavItem implements Stringable
 {
-    public Route $route;
-    public string $href;
-
-    public string $label;
-    public int $priority;
-    public bool $hidden;
+    public readonly string $destination;
+    public readonly string $label;
+    public readonly int $priority;
+    public readonly ?string $group;
 
     /**
      * Create a new navigation menu item.
      */
-    public function __construct(?Route $route, string $label, int $priority = 500, bool $hidden = false)
+    public function __construct(Route|string $destination, string $label, int $priority = 500, ?string $group = null)
     {
-        if ($route !== null) {
-            $this->route = $route;
-        }
-
+        $this->destination = (string) $destination;
         $this->label = $label;
         $this->priority = $priority;
-        $this->hidden = $hidden;
+        $this->group = $group;
     }
 
     /**
      * Create a new navigation menu item from a route.
      */
-    public static function fromRoute(Route $route): static
+    public static function fromRoute(Route $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
-        return new self(
-            $route,
-            $route->getPage()->navigationMenuLabel(),
-            $route->getPage()->navigationMenuPriority(),
-            ! $route->getPage()->showInNavigation()
+        return new static(
+            $route->getLink(),
+            $label ?? $route->getPage()->navigationMenuLabel(),
+            $priority ?? $route->getPage()->navigationMenuPriority(),
+            $group ?? static::getRouteGroup($route),
         );
     }
 
     /**
      * Create a new navigation menu item leading to an external URI.
      */
-    public static function toLink(string $href, string $label, int $priority = 500): static
+    public static function forLink(string $href, string $label, int $priority = 500): static
     {
-        return (new self(null, $label, $priority, false))->setDestination($href);
+        return new static($href, $label, $priority);
     }
 
     /**
      * Create a new navigation menu item leading to a Route model.
+     *
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
+     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
+     * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
+     * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
      */
-    public static function toRoute(Route $route, string $label, int $priority = 500): static
+    public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
-        return new self($route, $label, $priority, false);
-    }
-
-    /**
-     * Resolve a link to the navigation item.
-     */
-    public function resolveLink(): string
-    {
-        return $this->href ?? $this->route->getLink();
+        return static::fromRoute($route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route), $label, $priority, $group);
     }
 
     /**
@@ -85,53 +74,61 @@ class NavItem implements Stringable
      */
     public function __toString(): string
     {
-        return $this->resolveLink();
+        return $this->destination;
+    }
+
+    /**
+     * Get the destination link of the navigation item.
+     *
+     * If the navigation item is an external link, this will return the link as is,
+     * if it's for a route, a resolved relative link will be returned.
+     */
+    public function getDestination(): string
+    {
+        return $this->destination;
+    }
+
+    /**
+     * Get the label of the navigation item.
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * Get the priority to determine the order of the navigation item.
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Get the group identifier of the navigation item, if any.
+     *
+     * For sidebars this is the category key, for navigation menus this is the dropdown key.
+     */
+    public function getGroup(): ?string
+    {
+        return $this->group;
     }
 
     /**
      * Check if the NavItem instance is the current page.
      */
-    public function isCurrent(?HydePage $current = null): bool
+    public function isCurrent(): bool
     {
-        if ($current === null) {
-            $current = Hyde::currentRoute()->getPage();
-        }
-
-        if (! isset($this->route)) {
-            return ($current->getRoute()->getRouteKey() === $this->href)
-            || ($current->getRoute()->getRouteKey().'.html' === $this->href);
-        }
-
-        return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
+        return Hyde::currentRoute()->getLink() === $this->destination;
     }
 
-    protected function setDestination(string $href): static
+    protected static function getRouteGroup(Route $route): ?string
     {
-        $this->href = $href;
-
-        return $this;
+        return static::normalizeGroupKey(($route)->getPage()->data('navigation.group'));
     }
 
-    /** @deprecated This helper is only used in tests and could be removed to simplify the class */
-    public function setPriority(int $priority): static
+    protected static function normalizeGroupKey(?string $group): ?string
     {
-        $this->priority = $priority;
-
-        return $this;
-    }
-
-    public function getGroup(): ?string
-    {
-        return $this->normalizeGroupKey($this->getRoute()?->getPage()->data('navigation.group'));
-    }
-
-    public function getRoute(): ?Route
-    {
-        return $this->route ?? null;
-    }
-
-    protected function normalizeGroupKey(?string $group): ?string
-    {
-        return empty($group) ? null : Str::slug($group);
+        return $group ? Str::slug($group) : null;
     }
 }
