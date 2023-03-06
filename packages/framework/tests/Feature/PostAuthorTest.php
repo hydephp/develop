@@ -17,7 +17,7 @@ class PostAuthorTest extends TestCase
 {
     public function test_create_method_creates_new_author_model()
     {
-        $author = Author::create('foo', null, null);
+        $author = Author::create('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
     }
@@ -40,10 +40,10 @@ class PostAuthorTest extends TestCase
     public function test_make_method_creates_new_author_model_from_string_can_find_existing_author()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', 'bar', null),
+            Author::create('foo', 'bar'),
         ]);
 
-        $this->assertEquals(PostAuthor::make('foo'), Author::create('foo', 'bar', null));
+        $this->assertEquals(PostAuthor::make('foo'), Author::create('foo', 'bar'));
     }
 
     public function test_make_method_creates_new_author_model_from_array()
@@ -58,7 +58,7 @@ class PostAuthorTest extends TestCase
 
     public function test_make_method_creates_new_author_model_from_array_only_needs_username()
     {
-        $this->assertEquals(PostAuthor::make(['username' => 'foo']), Author::create('foo', null, null));
+        $this->assertEquals(PostAuthor::make(['username' => 'foo']), Author::create('foo'));
     }
 
     public function test_all_method_returns_empty_collection_if_no_authors_are_set_in_config()
@@ -73,33 +73,33 @@ class PostAuthorTest extends TestCase
     public function test_all_method_returns_collection_with_all_authors_defined_in_config()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', null, null),
+            Author::create('foo'),
         ]);
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(1, $authors);
-        $this->assertEquals(Author::create('foo', null, null), $authors->first());
+        $this->assertEquals(Author::create('foo'), $authors->first());
     }
 
     public function test_multiple_authors_can_be_defined_in_config()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', null, null),
-            Author::create('bar', null, null),
+            Author::create('foo'),
+            Author::create('bar'),
         ]);
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(2, $authors);
-        $this->assertEquals(Author::create('foo', null, null), $authors->first());
-        $this->assertEquals(Author::create('bar', null, null), $authors->last());
+        $this->assertEquals(Author::create('foo'), $authors->first());
+        $this->assertEquals(Author::create('bar'), $authors->last());
     }
 
     public function test_get_method_returns_config_defined_author_by_username()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', 'bar', null),
+            Author::create('foo', 'bar'),
         ]);
         $author = PostAuthor::get('foo');
 
