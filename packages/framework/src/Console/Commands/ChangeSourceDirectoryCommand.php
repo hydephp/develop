@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function array_unique;
-use function basename;
-use function config;
-use Hyde\Console\Concerns\Command;
-use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
+use Hyde\Facades\Filesystem;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Console\Concerns\Command;
 use InvalidArgumentException;
-use function realpath;
+use function array_unique;
 use function str_replace;
+use function basename;
+use function realpath;
+use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest

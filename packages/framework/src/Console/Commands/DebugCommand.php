@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Composer\InstalledVersions;
-use Hyde\Facades\Config;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Composer\InstalledVersions;
 use LaravelZero\Framework\Commands\Command;
-use function app;
-use function config;
-use function realpath;
 use function str_replace;
+use function realpath;
+use function config;
+use function app;
 
 /**
  * Hyde Command to print debug information.
