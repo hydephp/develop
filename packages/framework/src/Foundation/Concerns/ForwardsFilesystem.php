@@ -28,21 +28,25 @@ trait ForwardsFilesystem
         return $this->filesystem->vendorPath($path, $package);
     }
 
+    /** @deprecated */
     public function getBladePagePath(string $path = ''): string
     {
         return $this->filesystem->getBladePagePath($path);
     }
 
+    /** @deprecated */
     public function getMarkdownPagePath(string $path = ''): string
     {
         return $this->filesystem->getMarkdownPagePath($path);
     }
 
+    /** @deprecated */
     public function getMarkdownPostPath(string $path = ''): string
     {
         return $this->filesystem->getMarkdownPostPath($path);
     }
 
+    /** @deprecated */
     public function getDocumentationPagePath(string $path = ''): string
     {
         return $this->filesystem->getDocumentationPagePath($path);
