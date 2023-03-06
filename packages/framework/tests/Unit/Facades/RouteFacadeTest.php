@@ -62,14 +62,14 @@ class RouteFacadeTest extends UnitTestCase
     {
         $route = new RouteModel(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentRoute')->andReturn($route);
-        $this->assertSame($route, Hyde::currentRoute());
+        $this->assertSame($route, Routes::current());
         Render::swap(new RenderModel());
     }
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
     {
         Render::shouldReceive('getCurrentRoute')->andReturn(null);
-        $this->assertNull(Hyde::currentRoute());
+        $this->assertNull(Routes::current());
         Render::swap(new RenderModel());
     }
 
