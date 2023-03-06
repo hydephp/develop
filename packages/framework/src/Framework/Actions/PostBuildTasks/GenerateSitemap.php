@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
+use Hyde\Hyde;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
-use Hyde\Hyde;
+use function file_put_contents;
 
 class GenerateSitemap extends PostBuildTask
 {

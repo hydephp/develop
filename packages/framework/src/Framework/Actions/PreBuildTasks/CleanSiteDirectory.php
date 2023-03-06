@@ -8,9 +8,9 @@ use Hyde\Hyde;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Support\Facades\File;
 use function basename;
-use function config;
 use function in_array;
 use function sprintf;
+use function config;
 
 class CleanSiteDirectory extends PreBuildTask
 {

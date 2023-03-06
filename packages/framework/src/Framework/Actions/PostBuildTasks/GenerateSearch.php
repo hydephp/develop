@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
-use Hyde\Framework\Services\DocumentationSearchService;
 
 class GenerateSearch extends PostBuildTask
 {
