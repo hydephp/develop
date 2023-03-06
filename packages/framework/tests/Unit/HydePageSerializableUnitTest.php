@@ -15,7 +15,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
-    public function testToArray()
+    public function testHydePageToArray()
     {
         $this->assertSame([
             'identifier',
