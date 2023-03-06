@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Facades;
 
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 
@@ -26,6 +27,6 @@ class Render extends Facade
     /** @return class-string */
     protected static function getFacadeAccessor(): string
     {
-        return \Hyde\Support\Models\RenderData::class;
+        return RenderData::class;
     }
 }
