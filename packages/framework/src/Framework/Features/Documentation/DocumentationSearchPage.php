@@ -7,7 +7,7 @@ namespace Hyde\Framework\Features\Documentation;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use function config;
+use Hyde\Facades\Config;
 use function view;
 
 /**
@@ -35,7 +35,7 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function enabled(): bool
     {
-        return config('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
+        return Config::getBool('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
     }
 
     public static function generate(): string
