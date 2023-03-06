@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Facades\View;
@@ -63,7 +64,7 @@ class Redirect extends InMemoryPage
 
     public function store(): static
     {
-        file_put_contents(Hyde::sitePath("$this->path.html"), $this->compile());
+        Filesystem::putContents(Hyde::sitePath("$this->path.html"), $this->compile());
 
         return $this;
     }
