@@ -6,18 +6,43 @@ namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Markdown\MarkdownConverter;
-use Hyde\Pages\Concerns\PageContents;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
+use Stringable;
 
 /**
  * A simple object representation of a Markdown file, with helpful methods to interact with it.
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class Markdown extends PageContents implements Htmlable
+class Markdown implements Arrayable, Stringable, Htmlable
 {
     public string $body;
+
+    /**
+     * Create a new Markdown object from a string.
+     */
+    public function __construct(string $body = '')
+    {
+        $this->body = str_replace("\r\n", "\n", rtrim($body));
+    }
+
+    /**
+     * Get the source Markdown body.
+     */
+    public function __toString(): string
+    {
+        return $this->body;
+    }
+
+    /**
+     * Get the source Markdown body.
+     */
+    public function body(): string
+    {
+        return $this->body;
+    }
 
     /**
      * Compile the Markdown body to a string of HTML.
@@ -38,6 +63,16 @@ class Markdown extends PageContents implements Htmlable
     public function toHtml(?string $pageClass = null): HtmlString
     {
         return new HtmlString($this->compile($pageClass));
+    }
+
+    /**
+     * Get the Markdown document body as an array of lines.
+     *
+     * @return string[]
+     */
+    public function toArray(): array
+    {
+        return explode("\n", $this->body);
     }
 
     /**
