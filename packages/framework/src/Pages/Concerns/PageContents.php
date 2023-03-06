@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Stringable;
+use Hyde\Facades\Filesystem;
 use Illuminate\Contracts\Support\Arrayable;
 
 class PageContents implements Arrayable, Stringable
@@ -14,6 +15,11 @@ class PageContents implements Arrayable, Stringable
     public function __construct(string $body = '')
     {
         $this->body = str_replace("\r\n", "\n", rtrim($body));
+    }
+
+    public static function fromFile(string $path): static
+    {
+        return new static(Filesystem::getContents($path));
     }
 
     public function __toString(): string
