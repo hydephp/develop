@@ -7,7 +7,6 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\ViewDiffService;
-use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
