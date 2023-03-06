@@ -10,7 +10,6 @@ use Composer\InstalledVersions;
 use LaravelZero\Framework\Commands\Command;
 use function str_replace;
 use function realpath;
-use function config;
 use function app;
 
 /**
@@ -28,7 +27,7 @@ class DebugCommand extends Command
     {
         parent::__construct();
 
-        if (config('app.env', 'production') !== 'development') {
+        if (Config::getString('app.env', 'production') !== 'development') {
             $this->setHidden();
         }
     }
