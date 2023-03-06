@@ -49,18 +49,22 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
     public static function get(): array
     {
         return [
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>danger';
             },
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>info';
             },
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>success';
             },
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>warning';
