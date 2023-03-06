@@ -30,7 +30,7 @@ trait ForwardsFilesystem
 
     public function getModelSourcePath(string $pageClass, string $path = ''): string
     {
-        return $this->filesystem->getModelSourcePath($pageClass, $path);
+        return $pageClass::path($path);
     }
 
     public function getBladePagePath(string $path = ''): string

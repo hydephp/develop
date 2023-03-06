@@ -189,42 +189,24 @@ class Filesystem
         return false;
     }
 
-    /**
-     * Fluent file helper methods.
-     *
-     * @deprecated May be obsolete by $model::path() methods.
-     *
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
-     *
-     * Provides a more fluent way of getting either the absolute path
-     * to a model's source directory, or an absolute path to a file within it.
-     *
-     * These are intended to be used as a dynamic alternative to legacy code
-     * Hyde::path('_pages/foo') becomes Hyde::getBladePagePath('foo')
-     */
-    public function getModelSourcePath(string $model, string $path = ''): string
-    {
-        return $model::path($path);
-    }
-
     public function getBladePagePath(string $path = ''): string
     {
-        return $this->getModelSourcePath(BladePage::class, $path);
+        return BladePage::path($path);
     }
 
     public function getMarkdownPagePath(string $path = ''): string
     {
-        return $this->getModelSourcePath(MarkdownPage::class, $path);
+        return MarkdownPage::path($path);
     }
 
     public function getMarkdownPostPath(string $path = ''): string
     {
-        return $this->getModelSourcePath(MarkdownPost::class, $path);
+        return MarkdownPost::path($path);
     }
 
     public function getDocumentationPagePath(string $path = ''): string
     {
-        return $this->getModelSourcePath(DocumentationPage::class, $path);
+        return DocumentationPage::path($path);
     }
 
     public function smartGlob(string $pattern, int $flags = 0): Collection
