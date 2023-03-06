@@ -52,12 +52,6 @@ class SiteTest extends TestCase
         $this->assertEquals(GlobalMetadataBag::make(), Site::metadata());
     }
 
-    public function testPath()
-    {
-        $this->assertSame(Hyde::sitePath(), Site::path());
-        $this->assertSame(Hyde::sitePath('foo'), Site::path('foo'));
-    }
-
     public function testGetOutputDirectory()
     {
         $this->assertSame(Hyde::kernel()->getOutputDirectory(), Site::getOutputDirectory());
