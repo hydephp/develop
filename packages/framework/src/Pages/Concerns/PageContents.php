@@ -15,4 +15,9 @@ class PageContents implements Arrayable, Stringable
     {
         $this->body = str_replace("\r\n", "\n", rtrim($body));
     }
+
+    public function __toString(): string
+    {
+        return $this->body;
+    }
 }
