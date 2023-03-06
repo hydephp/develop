@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Stringable;
@@ -52,7 +53,7 @@ class PostAuthor implements Stringable
 
     public static function create(string $username, ?string $name = null, ?string $website = null): static
     {
-        return new static($username, $name, $website);
+        return Author::create($username, $name, $website);
     }
 
     /** Dynamically get or create an author based on a username string or front matter array */
