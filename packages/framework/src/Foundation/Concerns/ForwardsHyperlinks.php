@@ -28,7 +28,7 @@ trait ForwardsHyperlinks
 
     public function image(string $name, bool $preferQualifiedUrl = false): string
     {
-        return $this->hyperlinks->image($name, $preferQualifiedUrl);
+        return $this->hyperlinks->asset($name, $preferQualifiedUrl);
     }
 
     public function hasSiteUrl(): bool
