@@ -75,7 +75,7 @@ trait RegistersFileLocations
      */
     protected function storeCompiledSiteIn(string $directory): void
     {
-        Site::setOutputDirectory($directory);
+        Hyde::kernel()->setOutputDirectory($directory);
     }
 
     /**

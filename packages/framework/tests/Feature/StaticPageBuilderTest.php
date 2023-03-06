@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Facades\Site;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
@@ -145,7 +144,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_site_directory_can_be_customized()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::kernel()->setOutputDirectory('foo');
 
         new StaticPageBuilder(MarkdownPage::make('foo'), true);
 
@@ -157,7 +156,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_site_directory_can_be_customized_with_nested_pages()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::kernel()->setOutputDirectory('foo');
 
         new StaticPageBuilder(MarkdownPost::make('foo'), true);
 

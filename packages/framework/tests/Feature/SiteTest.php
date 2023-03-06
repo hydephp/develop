@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Site;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
-use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -50,12 +49,5 @@ class SiteTest extends TestCase
     public function testMetadata()
     {
         $this->assertEquals(GlobalMetadataBag::make(), Site::metadata());
-    }
-
-    public function testSetOutputDirectory()
-    {
-        $this->assertSame(Hyde::kernel()->getOutputDirectory(), Hyde::kernel()->getOutputDirectory());
-        Site::setOutputDirectory('foo');
-        $this->assertSame('foo', Hyde::kernel()->getOutputDirectory());
     }
 }
