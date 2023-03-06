@@ -49,7 +49,7 @@ abstract class BaseXmlGenerator
      *
      * @return $this
      */
-    abstract protected function generate(): static;
+    abstract public function generate(): static;
 
     /**
      * Get the XML document as a string.
