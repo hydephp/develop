@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
 
+use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\HtmlString;
@@ -115,8 +116,8 @@ class SemanticDocumentationArticle
         // Hook to add dynamic content to the footer.
         // This is where we can add copyright, attributions, info, etc.
 
-        if (config('torchlight.attribution.enabled', true) && $this->hasTorchlight()) {
-            $this->footer .= Str::markdown(config(
+        if (Config::getBool('torchlight.attribution.enabled', true) && $this->hasTorchlight()) {
+            $this->footer .= Str::markdown(Config::getString(
                 'torchlight.attribution.markdown',
                 'Syntax highlighted by torchlight.dev'
             ));
@@ -141,7 +142,7 @@ class SemanticDocumentationArticle
      */
     protected function canRenderSourceLink(string $inPosition): bool
     {
-        $config = config('docs.edit_source_link_position', 'both');
+        $config = Config::getString('docs.edit_source_link_position', 'both');
         $positions = $config === 'both' ? ['header', 'footer'] : [$config];
 
         return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
