@@ -56,7 +56,7 @@ abstract class HydePage implements PageSchema
     public static string $fileExtension;
     public static string $template;
 
-    public string $identifier;
+    public readonly string $identifier;
     public string $routeKey;
 
     public FrontMatter $matter;
