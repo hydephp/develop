@@ -17,10 +17,10 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
 {
     use Serializable;
 
-    public ?string $label;
-    public ?string $group;
-    public ?bool $hidden;
-    public ?int $priority;
+    public readonly ?string $label;
+    public readonly ?string $group;
+    public readonly ?bool $hidden;
+    public readonly ?int $priority;
 
     public function __construct(?string $label = null, ?string $group = null, ?bool $hidden = null, ?int $priority = null)
     {
