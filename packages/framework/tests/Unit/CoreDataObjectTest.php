@@ -14,11 +14,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class CoreDataObjectTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-    }
+    protected bool $needsKernel = true;
+    protected bool $needsConfig = true;
 
     public function testCoreDataObjectWithHydePage()
     {
