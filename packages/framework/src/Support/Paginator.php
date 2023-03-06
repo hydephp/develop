@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features;
+namespace Hyde\Support;
 
 use Hyde\Foundation\Facades\Routes;
 use function collect;
