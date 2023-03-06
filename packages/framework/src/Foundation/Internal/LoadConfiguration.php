@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Internal;
 
 use Phar;
-use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 use function array_merge;
 use function dirname;
