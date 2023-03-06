@@ -32,6 +32,6 @@ class RebuildService
      */
     public function __invoke(): void
     {
-        new StaticPageBuilder($this->page, true);
+        (new StaticPageBuilder($this->page))->__invoke();
     }
 }
