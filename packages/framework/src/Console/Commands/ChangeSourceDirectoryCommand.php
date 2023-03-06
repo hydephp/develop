@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Facades\Filesystem;
@@ -17,7 +18,6 @@ use function array_unique;
 use function str_replace;
 use function basename;
 use function realpath;
-use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
@@ -51,7 +51,7 @@ class ChangeSourceDirectoryCommand extends Command
         }
 
         $this->gray(' > Updating configuration file');
-        $this->updateConfigurationFile($newDirectoryName, (string) config('hyde.source_root', ''));
+        $this->updateConfigurationFile($newDirectoryName, Config::getString('hyde.source_root', ''));
 
         // We could also check if there are any more page classes (from packages) and add a note that they may need manual attention
 
@@ -83,7 +83,7 @@ class ChangeSourceDirectoryCommand extends Command
 
     protected function validateName(string $name): void
     {
-        if (realpath(Hyde::path($name)) === realpath(Hyde::path(config('hyde.source_root', '')))) {
+        if (realpath(Hyde::path($name)) === realpath(Hyde::path(Config::getString('hyde.source_root', '')))) {
             throw new InvalidArgumentException("The directory '$name' is already set as the project source root!");
         }
     }
