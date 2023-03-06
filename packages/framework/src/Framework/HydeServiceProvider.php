@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
-use Hyde\Facades\Config;
-use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Concerns\RegistersFileLocations;
-use Hyde\Framework\Services\AssetService;
-use Hyde\Framework\Services\BuildTaskService;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Services\BuildTaskService;
+use Hyde\Framework\Concerns\RegistersFileLocations;
 use Illuminate\Support\ServiceProvider;
+use Hyde\Facades\Config;
 
 /**
  * Register and bootstrap core Hyde application services.
