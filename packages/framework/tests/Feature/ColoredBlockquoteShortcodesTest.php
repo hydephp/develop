@@ -14,19 +14,19 @@ use Hyde\Testing\UnitTestCase;
  */
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
+    public function testGetMethod()
+    {
+        $this->assertCount(4, ColoredBlockquotes::get());
+        $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
+            ColoredBlockquotes::get());
+    }
+
     public function testResolveMethod()
     {
         $this->assertSame(
             '<blockquote class="color"><p>foo</p></blockquote>',
             ColoredBlockquotes::resolve('>color foo')
         );
-    }
-
-    public function testGetMethod()
-    {
-        $this->assertCount(4, ColoredBlockquotes::get());
-        $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
-            ColoredBlockquotes::get());
     }
 
     public function testCanUseMarkdownWithinBlockquote()
