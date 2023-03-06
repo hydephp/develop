@@ -18,7 +18,8 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
     {
         $this->assertCount(4, ColoredBlockquotes::get());
         $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
-            ColoredBlockquotes::get());
+            ColoredBlockquotes::get()
+        );
     }
 
     public function testResolveMethod()
