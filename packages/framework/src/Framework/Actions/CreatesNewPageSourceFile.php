@@ -34,17 +34,17 @@ class CreatesNewPageSourceFile
     protected string $subDir = '';
     protected bool $force;
 
-    public function __construct(string $title, string $type = MarkdownPage::class, bool $force = false)
+    public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false)
     {
-        $this->validateType($type);
+        $this->validateType($pageClass);
 
         $this->title = $this->parseTitle($title);
         $this->filename = $this->fileName($title);
         $this->force = $force;
 
-        $this->outputPath = $this->makeOutputPath($type);
+        $this->outputPath = $this->makeOutputPath($pageClass);
 
-        $this->createPage($type);
+        $this->createPage($pageClass);
     }
 
     public function getOutputPath(): string
