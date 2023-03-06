@@ -39,7 +39,7 @@ class MakePostCommand extends Command
         if (! $this->confirm('Do you wish to continue?', true)) {
             $this->info('Aborting.');
 
-            return 130;
+            return Command::USER_EXIT;
         }
 
         return $this->createPostFile($creator);
