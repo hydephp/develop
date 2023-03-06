@@ -7,6 +7,7 @@ namespace Hyde\Pages\Concerns;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
@@ -282,7 +283,7 @@ abstract class HydePage implements PageSchema
      */
     public function getRoute(): Route
     {
-        return \Hyde\Facades\Route::get($this->getRouteKey()) ?? new Route($this);
+        return Routes::get($this->getRouteKey()) ?? new Route($this);
     }
 
     /**

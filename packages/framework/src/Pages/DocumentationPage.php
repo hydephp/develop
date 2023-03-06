@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Facades\Config;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
@@ -25,7 +26,7 @@ class DocumentationPage extends BaseMarkdownPage
 
     public static function home(): ?Route
     {
-        return \Hyde\Facades\Route::get(static::homeRouteName());
+        return Routes::get(static::homeRouteName());
     }
 
     public static function homeRouteName(): string

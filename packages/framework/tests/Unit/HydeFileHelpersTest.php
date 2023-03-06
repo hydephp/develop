@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
-use Hyde\Facades\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -27,8 +27,8 @@ class HydeFileHelpersTest extends TestCase
 
     public function test_current_route_returns_current_route_view_property()
     {
-        Render::share('currentRoute', Route::get('index'));
-        $this->assertEquals(Route::get('index'), Hyde::currentRoute());
+        Render::share('currentRoute', Routes::get('index'));
+        $this->assertEquals(Routes::get('index'), Hyde::currentRoute());
     }
 
     public function test_current_route_falls_back_to_null_if_current_route_view_property_is_not_set()

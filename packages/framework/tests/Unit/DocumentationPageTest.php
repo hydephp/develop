@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
@@ -148,7 +149,7 @@ class DocumentationPageTest extends TestCase
     {
         Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
-        $this->assertEquals(\Hyde\Facades\Route::get('docs/index'), DocumentationPage::home());
+        $this->assertEquals(Routes::get('docs/index'), DocumentationPage::home());
         Filesystem::unlink('_docs/index.md');
     }
 
@@ -159,7 +160,7 @@ class DocumentationPageTest extends TestCase
         mkdir(Hyde::path('foo'));
         Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
-        $this->assertEquals(\Hyde\Facades\Route::get('foo/index'), DocumentationPage::home());
+        $this->assertEquals(Routes::get('foo/index'), DocumentationPage::home());
         Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
@@ -172,7 +173,7 @@ class DocumentationPageTest extends TestCase
         mkdir(Hyde::path('foo/bar'));
         Filesystem::touch('_docs/index.md');
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
-        $this->assertEquals(\Hyde\Facades\Route::get('foo/bar/index'), DocumentationPage::home());
+        $this->assertEquals(Routes::get('foo/bar/index'), DocumentationPage::home());
         Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }

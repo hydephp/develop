@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\InMemoryPage;
@@ -80,7 +81,7 @@ class NavItemTest extends UnitTestCase
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
 
-        $this->assertSame('index.html', (string) NavItem::fromRoute(\Hyde\Facades\Route::get('index')));
+        $this->assertSame('index.html', (string) NavItem::fromRoute(Routes::get('index')));
     }
 
     public function testForLink()
@@ -99,7 +100,7 @@ class NavItemTest extends UnitTestCase
 
     public function testForRoute()
     {
-        $route = \Hyde\Facades\Route::get('index');
+        $route = Routes::get('index');
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route->getLink(), $item->destination);
@@ -110,7 +111,7 @@ class NavItemTest extends UnitTestCase
     public function testForRouteWithRouteKey()
     {
         $this->assertEquals(
-            NavItem::forRoute(\Hyde\Facades\Route::get('index'), 'foo'),
+            NavItem::forRoute(Routes::get('index'), 'foo'),
             NavItem::forRoute('index', 'foo')
         );
     }
@@ -123,7 +124,7 @@ class NavItemTest extends UnitTestCase
 
     public function testForRouteWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::forRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
+        $this->assertSame(100, NavItem::forRoute(Routes::get('index'), 'foo', 100)->priority);
     }
 
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()

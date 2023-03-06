@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
@@ -620,7 +621,7 @@ class HydePageTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $page = MarkdownPage::parse('foo');
-        $this->assertSame(\Hyde\Facades\Route::get('foo'), $page->getRoute());
+        $this->assertSame(Routes::get('foo'), $page->getRoute());
     }
 
     public function test_html_title_returns_site_name_plus_page_title()
