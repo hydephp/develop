@@ -12,14 +12,12 @@ use InvalidArgumentException;
 /**
  * Contains data for the current page being rendered/compiled.
  *
- * All public data here will be available in the Blade views through @see ManagesViewData::shareViewData().
+ * All public data here will be available in the Blade views through {@see ManagesViewData::shareViewData()}.
  *
  * @see \Hyde\Support\Facades\Render
  * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
- *
- * @todo Refactor to use a singleton instead of a facade, like in the BuildWarnings class. OR rename to RenderData to prevent name conflict.
  */
-class Render implements Arrayable
+class RenderData implements Arrayable
 {
     protected HydePage $page;
     protected Route $currentRoute;

@@ -11,7 +11,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Render as RenderModel;
+use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
@@ -63,14 +63,14 @@ class RouteFacadeTest extends UnitTestCase
         $route = new Route(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentRoute')->andReturn($route);
         $this->assertSame($route, Routes::current());
-        Render::swap(new RenderModel());
+        Render::swap(new RenderData());
     }
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
     {
         Render::shouldReceive('getCurrentRoute')->andReturn(null);
         $this->assertNull(Routes::current());
-        Render::swap(new RenderModel());
+        Render::swap(new RenderData());
     }
 
     public function testExistsForExistingRoute()
