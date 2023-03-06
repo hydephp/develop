@@ -59,6 +59,9 @@ abstract class BaseXmlGenerator
         return (string) $this->xmlElement->asXML();
     }
 
+    /**
+     * Get the XML document as a SimpleXMLElement object.
+     */
     public function getXmlElement(): SimpleXMLElement
     {
         return $this->xmlElement;
