@@ -6,13 +6,13 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use ReflectionClass;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationData
  */
-class NavigationDataTest extends TestCase
+class NavigationDataTest extends UnitTestCase
 {
     protected array $array = [
         'label' => 'label',
