@@ -19,6 +19,7 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use function in_array;
 use SimpleXMLElement;
+use function time;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
