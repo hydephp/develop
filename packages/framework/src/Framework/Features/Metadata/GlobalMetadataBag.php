@@ -11,6 +11,10 @@ use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
+use function array_filter;
+use function array_map;
+use function config;
+use function in_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
