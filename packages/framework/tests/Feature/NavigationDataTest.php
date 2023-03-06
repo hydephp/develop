@@ -16,9 +16,9 @@ class NavigationDataTest extends TestCase
 {
     protected array $array = [
         'label' => 'label',
-        'group' => 'group',
-        'hidden' => true,
         'priority' => 1,
+        'hidden' => true,
+        'group' => 'group',
     ];
 
     public function testClassMatchesSchema()
