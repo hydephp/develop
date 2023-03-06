@@ -250,6 +250,7 @@ class HydePageTest extends TestCase
     public function testToArray()
     {
         $this->assertSame([
+            'class',
             'identifier',
             'routeKey',
             'matter',

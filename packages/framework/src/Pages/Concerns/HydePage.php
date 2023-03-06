@@ -251,6 +251,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function toArray(): array
     {
         return [
+            'class' => static::class,
             'identifier' => $this->identifier,
             'routeKey' => $this->routeKey,
             'matter' => $this->matter,

@@ -23,7 +23,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testHydePageToArrayKeys()
     {
         $this->assertSame(
-            ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
             array_keys((new InstantiableHydePage())->toArray())
         );
     }
@@ -31,7 +31,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testHtmlPageToArrayKeys()
     {
         $this->assertSame(
-            ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
             array_keys((new HtmlPage())->toArray())
         );
     }
@@ -39,7 +39,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testBladePageToArrayKeys()
     {
         $this->assertSame(
-            ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
             array_keys((new BladePage())->toArray())
         );
     }
@@ -47,7 +47,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testMarkdownPageToArrayKeys()
     {
         $this->assertSame(
-            ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
             array_keys((new MarkdownPage())->toArray())
         );
     }
@@ -55,7 +55,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testMarkdownPostToArrayKeys()
     {
         $this->assertSame(
-            ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
             array_keys((new MarkdownPost())->toArray())
         );
     }
@@ -63,7 +63,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testDocumentationPageToArrayKeys()
     {
         $this->assertSame(
-            ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
             array_keys((new DocumentationPage())->toArray())
         );
     }
@@ -72,6 +72,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     {
         $page = new InstantiableHydePage();
         $this->assertSame([
+            'class' => InstantiableHydePage::class,
             'identifier' => $page->identifier,
             'routeKey' => $page->routeKey,
             'matter' => $page->matter,
@@ -88,6 +89,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     {
         $page = new HtmlPage();
         $this->assertSame([
+            'class' => HtmlPage::class,
             'identifier' => $page->identifier,
             'routeKey' => $page->routeKey,
             'matter' => $page->matter,
@@ -104,6 +106,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     {
         $page = new BladePage();
         $this->assertSame([
+            'class' => BladePage::class,
             'identifier' => $page->identifier,
             'routeKey' => $page->routeKey,
             'matter' => $page->matter,
@@ -120,6 +123,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     {
         $page = new MarkdownPage();
         $this->assertSame([
+            'class' => MarkdownPage::class,
             'identifier' => $page->identifier,
             'routeKey' => $page->routeKey,
             'matter' => $page->matter,
@@ -136,6 +140,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     {
         $page = new MarkdownPost();
         $this->assertSame([
+            'class' => MarkdownPost::class,
             'identifier' => $page->identifier,
             'routeKey' => $page->routeKey,
             'matter' => $page->matter,
@@ -152,6 +157,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     {
         $page = new DocumentationPage();
         $this->assertSame([
+            'class' => DocumentationPage::class,
             'identifier' => $page->identifier,
             'routeKey' => $page->routeKey,
             'matter' => $page->matter,
