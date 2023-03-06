@@ -7,7 +7,15 @@ namespace Hyde\Framework\Services;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
+use function rtrim;
+use function explode;
+use function implode;
+use function md5_file;
+use function file_exists;
+use function str_replace;
+use function preg_replace;
 use function str_contains;
+use function file_get_contents;
 
 /**
  * Handles the retrieval of core asset files. Commonly used through the Asset facade.
