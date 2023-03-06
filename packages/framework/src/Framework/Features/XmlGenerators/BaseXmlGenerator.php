@@ -28,6 +28,7 @@ abstract class BaseXmlGenerator
      * @return $this
      */
     abstract public function generate(): static;
+
     abstract protected function constructBaseElement(): void;
 
     /**
@@ -49,6 +50,7 @@ abstract class BaseXmlGenerator
 
         $this->constructBaseElement();
     }
+
     /**
      * Get the XML document as a string.
      */
