@@ -16,7 +16,6 @@ use Hyde\Pages\Concerns\HydePage;
 class RebuildService
 {
     protected HydePage $page;
-    protected string $filepath;
 
     /**
      * Construct the service class instance.
@@ -26,7 +25,6 @@ class RebuildService
     public function __construct(string $filepath)
     {
         $this->page = Pages::getPage($filepath);
-        $this->filepath = $filepath;
     }
 
     /**
