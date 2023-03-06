@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use function file_exists;
 
 /**
  * Validate the existence of a Page model's source file.
@@ -26,7 +25,7 @@ trait ValidatesExistence
     {
         $filepath = $model::sourcePath($identifier);
 
-        if (! file_exists(Hyde::path($filepath))) {
+        if (! Filesystem::exists($filepath)) {
             throw new FileNotFoundException($filepath);
         }
     }
