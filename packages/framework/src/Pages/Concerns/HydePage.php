@@ -18,6 +18,7 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
@@ -50,6 +51,7 @@ use function rtrim;
 abstract class HydePage implements PageSchema, SerializableContract
 {
     use InteractsWithFrontMatter;
+    use Serializable;
     use HasFactory;
 
     public static string $sourceDirectory;
