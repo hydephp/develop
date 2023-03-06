@@ -119,8 +119,7 @@ class PostAuthorTest extends TestCase
 
     public function test_get_name_helper_returns_name_if_set()
     {
-        $author = new PostAuthor('username');
-        $author->name = 'John Doe';
+        $author = new PostAuthor('username', 'John Doe');
 
         $this->assertEquals('John Doe', $author->getName());
     }
@@ -134,8 +133,7 @@ class PostAuthorTest extends TestCase
 
     public function test_to_string_helper_returns_the_name()
     {
-        $author = new PostAuthor('username');
-        $author->name = 'John Doe';
+        $author = new PostAuthor('username', 'John Doe');
 
         $this->assertEquals('John Doe', (string) $author);
     }

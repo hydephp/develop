@@ -21,12 +21,12 @@ class PostAuthor implements Stringable
      * The username of the author.
      * This is the key used to find authors in the config.
      */
-    public string $username;
+    public readonly string $username;
 
     /**
      * The display name of the author.
      */
-    public ?string $name = null;
+    public readonly ?string $name;
 
     /**
      * The author's website URL.
@@ -34,7 +34,7 @@ class PostAuthor implements Stringable
      * Could for example, be a Twitter page, website, or a hyperlink to more posts by the author.
      * Should be a fully qualified link, meaning it starts with http:// or https://.
      */
-    public ?string $website = null;
+    public readonly ?string $website;
 
     /**
      * Construct a new Post Author object.
