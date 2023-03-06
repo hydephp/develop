@@ -15,7 +15,6 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 class RebuildService
 {
     protected string $filepath;
-    protected StaticPageBuilder $builder;
 
     /**
      * Construct the service class instance.
@@ -32,7 +31,7 @@ class RebuildService
      */
     public function execute(): StaticPageBuilder
     {
-        return $this->builder = (new StaticPageBuilder(
+        return $builder = (new StaticPageBuilder(
             Pages::getPage($this->filepath),
             true
         ));
