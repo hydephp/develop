@@ -189,11 +189,6 @@ class Filesystem
         return false;
     }
 
-    public function getBladePagePath(string $path = ''): string
-    {
-        return BladePage::path($path);
-    }
-
     public function getMarkdownPagePath(string $path = ''): string
     {
         return MarkdownPage::path($path);

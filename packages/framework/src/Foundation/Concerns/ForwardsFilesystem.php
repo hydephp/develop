@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Pages\BladePage;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -31,7 +32,7 @@ trait ForwardsFilesystem
     /** @deprecated */
     public function getBladePagePath(string $path = ''): string
     {
-        return $this->filesystem->getBladePagePath($path);
+        return BladePage::path($path);
     }
 
     /** @deprecated */
