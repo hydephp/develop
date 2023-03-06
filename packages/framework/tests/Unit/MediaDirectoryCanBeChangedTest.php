@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\RebuildService;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -61,7 +62,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->file('_assets/app.js');
 
         $this->file('_pages/foo.md');
-        (new RebuildService('_pages/foo.md'))->execute();
+        (new StaticPageBuilder(Pages::getPage('_pages/foo.md')))->__invoke();
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $contents = file_get_contents(Hyde::path('_site/foo.html'));
