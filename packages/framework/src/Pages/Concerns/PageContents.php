@@ -8,6 +8,9 @@ use Stringable;
 use Hyde\Facades\Filesystem;
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @experimental 
+ */
 class PageContents implements Arrayable, Stringable
 {
     public string $body;
