@@ -75,8 +75,8 @@ abstract class HydePage implements PageSchema
     {
         $this->identifier = $identifier;
         $this->routeKey = RouteKey::fromPage(static::class, $identifier)->get();
-
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+
         $this->constructPageSchemas();
         $this->metadata = new PageMetadataBag($this);
     }
