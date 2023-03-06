@@ -25,6 +25,17 @@ use function view;
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
+    protected static array $patterns = [
+        '// filepath: ',
+        '// filepath ',
+        '/* filepath: ',
+        '/* filepath ',
+        '# filepath: ',
+        '# filepath ',
+    ];
+
+    protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
+
     /**
      * Extract lines matching the shortcode pattern and replace them with meta-blocks that will be processed later.
      */
@@ -77,17 +88,6 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 
         return implode("\n", $lines);
     }
-
-    protected static array $patterns = [
-        '// filepath: ',
-        '// filepath ',
-        '/* filepath: ',
-        '/* filepath ',
-        '# filepath: ',
-        '# filepath ',
-    ];
-
-    protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
 
     protected static function lineMatchesPattern(string $line): bool
     {
