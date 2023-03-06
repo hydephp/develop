@@ -7,7 +7,7 @@ namespace Hyde\Facades;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 
 /**
- * Object representation for the HydePHP site and its configuration.
+ * Facade to quickly get data for the HydePHP site and its configuration.
  *
  * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
