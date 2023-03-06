@@ -9,6 +9,7 @@ use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use function resource_path;
 
 /**
  * Register the Hyde view components.
