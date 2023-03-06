@@ -20,7 +20,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_pages/foo.blade.php');
         $service = new RebuildService('_pages/foo.blade.php');
-        $result = $service->execute();
+        $result = $service->__invoke();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);
     }
 
@@ -28,7 +28,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $service = new RebuildService('_pages/foo.md');
-        $result = $service->execute();
+        $result = $service->__invoke();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);
     }
 
@@ -36,7 +36,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_posts/foo.md');
         $service = new RebuildService('_posts/foo.md');
-        $result = $service->execute();
+        $result = $service->__invoke();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);
     }
 
@@ -44,7 +44,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $service = new RebuildService('_pages/foo.md');
-        $result = $service->execute();
+        $result = $service->__invoke();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);
     }
 }

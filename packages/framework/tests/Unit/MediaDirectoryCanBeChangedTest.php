@@ -61,7 +61,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->file('_assets/app.js');
 
         $this->file('_pages/foo.md');
-        (new RebuildService('_pages/foo.md'))->execute();
+        (new RebuildService('_pages/foo.md'))->__invoke();
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $contents = file_get_contents(Hyde::path('_site/foo.html'));
