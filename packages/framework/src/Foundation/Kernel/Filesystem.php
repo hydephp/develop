@@ -204,11 +204,7 @@ class Filesystem
      */
     public function getModelSourcePath(string $model, string $path = ''): string
     {
-        if (empty($path)) {
-            return $this->path($model::sourceDirectory());
-        }
-
-        return $this->path(path_join($model::sourceDirectory(), unslash($path)));
+        return $model::path($path);
     }
 
     public function getBladePagePath(string $path = ''): string
