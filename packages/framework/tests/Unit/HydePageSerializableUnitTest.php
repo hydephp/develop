@@ -67,6 +67,102 @@ class HydePageSerializableUnitTest extends UnitTestCase
             array_keys((new DocumentationPage())->toArray())
         );
     }
+
+    public function testHydePageToArrayContents()
+    {
+        $page = new InstantiableHydePage();
+        $this->assertSame([
+            'identifier' => $page->identifier,
+            'routeKey' => $page->routeKey,
+            'matter' => $page->matter,
+            'metadata' => $page->metadata,
+            'navigation' => $page->navigation,
+            'title' => $page->title,
+            'canonicalUrl' => $page->canonicalUrl,
+        ],
+            $page->toArray()
+        );
+    }
+
+    public function testHtmlPageToArrayContents()
+    {
+        $page = new HtmlPage();
+        $this->assertSame([
+            'identifier' => $page->identifier,
+            'routeKey' => $page->routeKey,
+            'matter' => $page->matter,
+            'metadata' => $page->metadata,
+            'navigation' => $page->navigation,
+            'title' => $page->title,
+            'canonicalUrl' => $page->canonicalUrl,
+        ],
+            $page->toArray()
+        );
+    }
+
+    public function testBladePageToArrayContents()
+    {
+        $page = new BladePage();
+        $this->assertSame([
+            'identifier' => $page->identifier,
+            'routeKey' => $page->routeKey,
+            'matter' => $page->matter,
+            'metadata' => $page->metadata,
+            'navigation' => $page->navigation,
+            'title' => $page->title,
+            'canonicalUrl' => $page->canonicalUrl,
+        ],
+            $page->toArray()
+        );
+    }
+
+    public function testMarkdownPageToArrayContents()
+    {
+        $page = new MarkdownPage();
+        $this->assertSame([
+            'identifier' => $page->identifier,
+            'routeKey' => $page->routeKey,
+            'matter' => $page->matter,
+            'metadata' => $page->metadata,
+            'navigation' => $page->navigation,
+            'title' => $page->title,
+            'canonicalUrl' => $page->canonicalUrl,
+        ],
+            $page->toArray()
+        );
+    }
+
+    public function testMarkdownPostToArrayContents()
+    {
+        $page = new MarkdownPost();
+        $this->assertSame([
+            'identifier' => $page->identifier,
+            'routeKey' => $page->routeKey,
+            'matter' => $page->matter,
+            'metadata' => $page->metadata,
+            'navigation' => $page->navigation,
+            'title' => $page->title,
+            'canonicalUrl' => $page->canonicalUrl,
+        ],
+            $page->toArray()
+        );
+    }
+
+    public function testDocumentationPageToArrayContents()
+    {
+        $page = new DocumentationPage();
+        $this->assertSame([
+            'identifier' => $page->identifier,
+            'routeKey' => $page->routeKey,
+            'matter' => $page->matter,
+            'metadata' => $page->metadata,
+            'navigation' => $page->navigation,
+            'title' => $page->title,
+            'canonicalUrl' => $page->canonicalUrl,
+        ],
+            $page->toArray()
+        );
+    }
 }
 
 class InstantiableHydePage extends HydePage
