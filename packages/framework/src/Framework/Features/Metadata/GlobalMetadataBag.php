@@ -25,6 +25,7 @@ class GlobalMetadataBag extends MetadataBag
     {
         $metadata = new static();
 
+        /** @var MetadataElementContract $item */
         foreach (Config::getArray('hyde.meta', []) as $item) {
             $metadata->add($item);
         }
