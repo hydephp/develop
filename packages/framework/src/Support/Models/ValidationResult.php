@@ -17,7 +17,7 @@ class ValidationResult
     public string $message;
     public string $tip;
 
-    public bool $passed;
+    public bool $passed = false;
     public bool $skipped = false;
 
     public function __construct(string $defaultMessage = 'Generic check')
