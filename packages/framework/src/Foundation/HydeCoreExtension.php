@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Facades\Features;
-use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Facades\Features;
+use function array_filter;
+use function array_keys;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\HydeCoreExtensionTest
