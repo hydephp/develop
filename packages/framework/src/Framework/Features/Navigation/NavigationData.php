@@ -17,7 +17,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
 {
     use Serializable;
 
-    public readonly ?string $label;
+    public readonly string $label;
     public readonly ?string $group;
     public readonly ?bool $hidden;
     public readonly ?int $priority;
