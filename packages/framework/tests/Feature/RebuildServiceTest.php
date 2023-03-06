@@ -21,6 +21,8 @@ class RebuildServiceTest extends TestCase
         $this->file('_pages/foo.blade.php');
         $service = new RebuildService('_pages/foo.blade.php');
         $service->__invoke();
+
+        $this->assertFileExists('_site/foo.html');
     }
 
     public function test_can_rebuild_markdown_page()
@@ -28,6 +30,8 @@ class RebuildServiceTest extends TestCase
         $this->file('_pages/foo.md');
         $service = new RebuildService('_pages/foo.md');
         $service->__invoke();
+
+        $this->assertFileExists('_site/foo.html');
     }
 
     public function test_can_rebuild_markdown_post()
@@ -35,6 +39,8 @@ class RebuildServiceTest extends TestCase
         $this->file('_posts/foo.md');
         $service = new RebuildService('_posts/foo.md');
         $service->__invoke();
+
+        $this->assertFileExists('_site/posts/foo.html');
     }
 
     public function test_can_rebuild_documentation_page()
@@ -42,5 +48,7 @@ class RebuildServiceTest extends TestCase
         $this->file('_pages/foo.md');
         $service = new RebuildService('_pages/foo.md');
         $service->__invoke();
+
+        $this->assertFileExists('_site/foo.html');
     }
 }
