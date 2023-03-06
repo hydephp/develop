@@ -11,7 +11,7 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
  *
  * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
-final class Site
+class Site
 {
     public static function url(): ?string
     {
