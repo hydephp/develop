@@ -20,9 +20,14 @@ class ValidatesExistenceTest extends TestCase
         $class = new class
         {
             use ValidatesExistence;
+
+            public function run(...$args)
+            {
+                $this->validateExistence(...$args);
+            }
         };
 
-        $class->validateExistence(BladePage::class, 'index');
+        $class->run(BladePage::class, 'index');
 
         $this->assertTrue(true);
     }
@@ -34,8 +39,13 @@ class ValidatesExistenceTest extends TestCase
         $class = new class
         {
             use ValidatesExistence;
+
+            public function run(...$args)
+            {
+                $this->validateExistence(...$args);
+            }
         };
 
-        $class->validateExistence(BladePage::class, 'not-found');
+        $class->run(BladePage::class, 'not-found');
     }
 }
