@@ -22,7 +22,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
     public readonly bool $hidden;
     public readonly ?string $group;
 
-    public function __construct(string $label = null, bool $hidden = null, int $priority = null, string $group = null)
+    public function __construct(string $label = null, int $priority = null, bool $hidden = null, string $group = null)
     {
         $this->label = $label;
         $this->group = $group;
@@ -37,8 +37,8 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
     {
         return new self(
             $data['label'] ?? null,
-            $data['hidden'] ?? null,
             $data['priority'] ?? null,
+            $data['hidden'] ?? null,
             $data['group'] ?? null,
         );
     }
