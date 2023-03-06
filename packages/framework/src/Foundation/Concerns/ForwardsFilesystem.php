@@ -33,12 +33,6 @@ trait ForwardsFilesystem
     }
 
     /** @deprecated */
-    public function getBladePagePath(string $path = ''): string
-    {
-        return BladePage::path($path);
-    }
-
-    /** @deprecated */
     public function getMarkdownPagePath(string $path = ''): string
     {
         return MarkdownPage::path($path);
