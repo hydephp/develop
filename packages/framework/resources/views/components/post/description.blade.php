@@ -1,3 +1,3 @@
 <p itemprop="abstract">
-	{{ $page->matter['description'] }}
+    {{ $page->matter['description'] }}
 </p>

@@ -37,4 +37,4 @@
     @foreach ($image->getMetadataArray() as $name => $value)
         <meta itemprop="{{ $name }}" content="{{ $value }}">
     @endforeach
-</figure> 
+</figure>
