@@ -22,21 +22,14 @@ class Routes extends Facade
         return HydeKernel::getInstance()->routes();
     }
 
-    /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
-    public static function all(): RouteCollection
+    public static function exists(string $routeKey): bool
     {
-        return HydeKernel::getInstance()->routes()->getRoutes();
+        return HydeKernel::getInstance()->routes()->has(RouteKey::normalize($routeKey));
     }
 
     public static function get(string $routeKey): ?Route
     {
         return HydeKernel::getInstance()->routes()->get(RouteKey::normalize($routeKey));
-    }
-
-    /** Get the current route for the page being rendered. */
-    public static function current(): ?Route
-    {
-        return Hyde::currentRoute();
     }
 
     /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
@@ -45,8 +38,15 @@ class Routes extends Facade
         return HydeKernel::getInstance()->routes()->getRoute(RouteKey::normalize($routeKey));
     }
 
-    public static function exists(string $routeKey): bool
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
+    public static function all(): RouteCollection
     {
-        return HydeKernel::getInstance()->routes()->has(RouteKey::normalize($routeKey));
+        return HydeKernel::getInstance()->routes()->getRoutes();
+    }
+
+    /** Get the current route for the page being rendered. */
+    public static function current(): ?Route
+    {
+        return Hyde::currentRoute();
     }
 }
