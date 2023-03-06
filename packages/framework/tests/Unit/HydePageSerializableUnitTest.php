@@ -20,7 +20,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
-    public function testHydePageToArray()
+    public function testHydePageToArrayKeys()
     {
         $this->assertSame(
             ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
@@ -28,7 +28,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
         );
     }
 
-    public function testHtmlPageToArray()
+    public function testHtmlPageToArrayKeys()
     {
         $this->assertSame(
             ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
@@ -36,7 +36,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
         );
     }
 
-    public function testBladePageToArray()
+    public function testBladePageToArrayKeys()
     {
         $this->assertSame(
             ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
@@ -44,7 +44,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
         );
     }
 
-    public function testMarkdownPageToArray()
+    public function testMarkdownPageToArrayKeys()
     {
         $this->assertSame(
             ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
@@ -52,7 +52,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
         );
     }
 
-    public function testMarkdownPostToArray()
+    public function testMarkdownPostToArrayKeys()
     {
         $this->assertSame(
             ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
@@ -60,7 +60,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
         );
     }
 
-    public function testDocumentationPageToArray()
+    public function testDocumentationPageToArrayKeys()
     {
         $this->assertSame(
             ['identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
