@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Facades\Filesystem;
 
 /**
  * Converts a Page Model into a static HTML page.
