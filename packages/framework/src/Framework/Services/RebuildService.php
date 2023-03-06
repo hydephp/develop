@@ -18,7 +18,7 @@ class RebuildService
      * The source file to build.
      * Should be relative to the Hyde installation.
      */
-    public string $filepath;
+    protected string $filepath;
 
     /**
      * The page builder instance.
