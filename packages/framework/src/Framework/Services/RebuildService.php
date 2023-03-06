@@ -31,9 +31,9 @@ class RebuildService
      */
     public function execute(): StaticPageBuilder
     {
-        return (new StaticPageBuilder(
+        return new StaticPageBuilder(
             Pages::getPage($this->filepath),
             true
-        ));
+        );
     }
 }
