@@ -31,7 +31,7 @@ class NavigationDataTest extends TestCase
 
     public function test__construct()
     {
-        $navigationData = new NavigationData('label', 'group', true, 1);
+        $navigationData = new NavigationData('label', true, 1, 'group');
 
         $this->assertEquals('label', $navigationData->label);
         $this->assertEquals('group', $navigationData->group);
@@ -43,7 +43,7 @@ class NavigationDataTest extends TestCase
     {
         $navigationData = NavigationData::make($this->array);
 
-        $this->assertEquals($navigationData, new NavigationData('label', 'group', true, 1));
+        $this->assertEquals($navigationData, new NavigationData('label', true, 1, 'group'));
     }
 
     public function testToArray()
