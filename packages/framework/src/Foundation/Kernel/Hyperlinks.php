@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Facades\Config;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -12,7 +13,6 @@ use function substr_count;
 use function file_exists;
 use function str_replace;
 use function str_repeat;
-use function config;
 use function substr;
 use function blank;
 use function rtrim;
@@ -41,7 +41,7 @@ class Hyperlinks
      */
     public function formatLink(string $destination): string
     {
-        if (config('hyde.pretty_urls', false) === true) {
+        if (Config::getBool('hyde.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';
@@ -125,7 +125,7 @@ class Hyperlinks
      */
     public function hasSiteUrl(): bool
     {
-        return ! blank(config('hyde.url'));
+        return ! blank(Config::getNullableString('hyde.url'));
     }
 
     /**
@@ -140,7 +140,7 @@ class Hyperlinks
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim((string) config('hyde.url'), '/')."/$path", '/');
+            return rtrim(rtrim((string) Config::getNullableString('hyde.url'), '/')."/$path", '/');
         }
 
         throw new BaseUrlNotSetException();
