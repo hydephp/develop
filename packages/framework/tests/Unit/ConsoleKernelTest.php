@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Foundation\Services\LoadYamlConfiguration;
+use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Contracts\Console\Kernel;
 use Hyde\Foundation\ConsoleKernel;
 use Hyde\Testing\TestCase;
@@ -44,7 +44,7 @@ class ConsoleKernelTest extends TestCase
             2 => 'Hyde\Foundation\Internal\LoadConfiguration',
             3 => 'Illuminate\Foundation\Bootstrap\HandleExceptions',
             4 => 'LaravelZero\Framework\Bootstrap\RegisterFacades',
-            5 => 'Hyde\Foundation\Services\LoadYamlConfiguration',
+            5 => 'Hyde\Foundation\Internal\LoadYamlConfiguration',
             6 => 'LaravelZero\Framework\Bootstrap\RegisterProviders',
             7 => 'Illuminate\Foundation\Bootstrap\BootProviders',
         ], $bootstrappers);

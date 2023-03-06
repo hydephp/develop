@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Foundation\Services;
+namespace Hyde\Foundation\Internal;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;

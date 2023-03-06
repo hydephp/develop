@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use LaravelZero\Framework\Kernel;
-use Hyde\Foundation\Services\LoadYamlConfiguration;
+use Hyde\Foundation\Internal\LoadYamlConfiguration;
 
 class ConsoleKernel extends Kernel
 {

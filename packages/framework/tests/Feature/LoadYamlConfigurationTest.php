@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Foundation\Services\LoadYamlConfiguration;
+use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use function config;
 
 /**
- * @covers \Hyde\Foundation\Services\LoadYamlConfiguration
+ * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  */
 class LoadYamlConfigurationTest extends TestCase
 {
