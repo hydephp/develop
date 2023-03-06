@@ -25,8 +25,8 @@ class CoreDataObjectTest extends UnitTestCase
         $this->assertInstanceOf(
             CoreDataObject::class,
             (new MarkdownPage(
-            'foo',
-        ))->toCoreDataObject());
+                'foo',
+            ))->toCoreDataObject());
     }
 
     public function testCoreDataObjectWithDynamicPage()
