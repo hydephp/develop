@@ -25,7 +25,7 @@ trait ValidatesExistence
     {
         $filepath = $model::sourcePath($identifier);
 
-        if (! Filesystem::exists($filepath)) {
+        if (Filesystem::missing($filepath)) {
             throw new FileNotFoundException($filepath);
         }
     }
