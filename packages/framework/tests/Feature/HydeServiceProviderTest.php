@@ -141,13 +141,13 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_site_output_directory()
     {
-        $this->assertEquals('_site', Hyde::kernel()->getOutputDirectory());
+        $this->assertEquals('_site', Hyde::getOutputDirectory());
 
         config(['hyde.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', Hyde::kernel()->getOutputDirectory());
+        $this->assertEquals('foo', Hyde::getOutputDirectory());
     }
 
     public function test_provider_registers_media_directory()

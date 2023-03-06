@@ -19,7 +19,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
 
-        Hyde::kernel()->setOutputDirectory('_site/build');
+        Hyde::setOutputDirectory('_site/build');
 
         $this->withoutMockingConsoleOutput();
         $this->artisan('build');
@@ -35,7 +35,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
 
-        Hyde::kernel()->setOutputDirectory('_site/build');
+        Hyde::setOutputDirectory('_site/build');
 
         (new RebuildService('_posts/test-post.md'))->execute();
 
@@ -48,7 +48,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
         File::deleteDirectory(Hyde::path('_site/build/foo'));
-        Hyde::kernel()->setOutputDirectory('_site/build/foo');
+        Hyde::setOutputDirectory('_site/build/foo');
         (new RebuildService('_posts/test-post.md'))->execute();
 
         $this->assertFileExists(Hyde::path('_site/build/foo/posts/test-post.html'));
@@ -73,7 +73,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
     public function test_site_output_directory_path_is_normalized_to_trim_trailing_slashes()
     {
-        Hyde::kernel()->setOutputDirectory('foo/bar/');
+        Hyde::setOutputDirectory('foo/bar/');
         $this->assertEquals('foo/bar', Hyde::kernel()->getOutputDirectory());
     }
 }

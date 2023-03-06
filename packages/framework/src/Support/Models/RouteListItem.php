@@ -43,7 +43,7 @@ class RouteListItem implements Arrayable
 
     protected function styleOutputPath(string $path): string
     {
-        return Hyde::kernel()->getOutputDirectory()."/$path";
+        return Hyde::getOutputDirectory()."/$path";
     }
 
     protected function styleRouteKey(string $key): string

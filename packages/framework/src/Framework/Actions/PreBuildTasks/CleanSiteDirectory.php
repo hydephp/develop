@@ -50,7 +50,7 @@ class CleanSiteDirectory extends PreBuildTask
         return $this->confirm(sprintf(
             'The configured output directory (%s) is potentially unsafe to empty. '.
             'Are you sure you want to continue?',
-            Hyde::kernel()->getOutputDirectory()
+            Hyde::getOutputDirectory()
         ));
     }
 
