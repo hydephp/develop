@@ -16,7 +16,7 @@ use Hyde\Support\Models\Route as RouteModel;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Facades\Route
+ * @covers \Hyde\Foundation\Facades\Routes
  */
 class RouteFacadeTest extends UnitTestCase
 {
