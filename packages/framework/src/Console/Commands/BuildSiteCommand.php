@@ -68,7 +68,7 @@ class BuildSiteCommand extends Command
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
-            $config = Config::getArray('hyde.features');
+            $config = Config::getArray('hyde.features', []);
             unset($config[array_search('torchlight', $config)]);
             Config::set(['hyde.features' => $config]);
         }
