@@ -109,7 +109,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function resolveTemplate(string $path): string
     {
         return view('hyde::components.filepath-label', [
-            'path' => config('markdown.allow_html') ? new HtmlString($path) : $path,
+            'path' => config('markdown.allow_html', false) ? new HtmlString($path) : $path,
         ])->render();
     }
 
