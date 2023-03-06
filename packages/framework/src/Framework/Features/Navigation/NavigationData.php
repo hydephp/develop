@@ -35,8 +35,8 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
     public static function make(array $data): self
     {
         return new self(
-            (string) $data['label'] ?: null,
-            (string) $data['group'] ?: null,
+            $data['label'] ?? null,
+            $data['group'] ?? null,
             $data['hidden'] ?? null,
             $data['priority'] ?? null,
         );
