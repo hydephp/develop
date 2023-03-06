@@ -13,7 +13,7 @@ use Hyde\Support\Contracts\SerializableContract;
  */
 class SerializableTest extends UnitTestCase
 {
-    public function test_json_serialize()
+    public function testJsonSerialize()
     {
         $class = new SerializableTestClass;
 
@@ -23,7 +23,7 @@ class SerializableTest extends UnitTestCase
         $this->assertSame('{"foo":"bar"}', json_encode($class));
     }
 
-    public function test_to_json()
+    public function testToJson()
     {
         $class = new SerializableTestClass;
 
