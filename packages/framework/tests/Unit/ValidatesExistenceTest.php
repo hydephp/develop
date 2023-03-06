@@ -37,7 +37,7 @@ class ValidatesExistenceTest extends TestCase
 class ValidatesExistenceTestClass {
     use ValidatesExistence;
 
-    public function run(...$args)
+    public function run(...$args): void
     {
         $this->validateExistence(...$args);
     }
