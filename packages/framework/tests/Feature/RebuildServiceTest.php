@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Hyde;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Testing\TestCase;
 
@@ -23,6 +24,7 @@ class RebuildServiceTest extends TestCase
         $service->__invoke();
 
         $this->assertFileExists('_site/foo.html');
+        unlink(Hyde::path('_site/foo.html'));
     }
 
     public function test_can_rebuild_markdown_page()
@@ -32,6 +34,7 @@ class RebuildServiceTest extends TestCase
         $service->__invoke();
 
         $this->assertFileExists('_site/foo.html');
+        unlink(Hyde::path('_site/foo.html'));
     }
 
     public function test_can_rebuild_markdown_post()
@@ -41,6 +44,7 @@ class RebuildServiceTest extends TestCase
         $service->__invoke();
 
         $this->assertFileExists('_site/posts/foo.html');
+        unlink(Hyde::path('_site/posts/foo.html'));
     }
 
     public function test_can_rebuild_documentation_page()
@@ -50,5 +54,6 @@ class RebuildServiceTest extends TestCase
         $service->__invoke();
 
         $this->assertFileExists('_site/foo.html');
+        unlink(Hyde::path('_site/foo.html'));
     }
 }
