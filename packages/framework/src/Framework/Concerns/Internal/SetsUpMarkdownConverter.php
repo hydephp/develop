@@ -8,6 +8,9 @@ use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Torchlight\Commonmark\V2\TorchlightExtension;
+use function array_merge;
+use function in_array;
+use function config;
 
 /**
  * Sets up the Markdown converter for the Markdown service.

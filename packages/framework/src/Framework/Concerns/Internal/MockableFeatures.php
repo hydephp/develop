@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use function is_array;
+
 /**
  * Allows the Features class to be mocked.
  *
