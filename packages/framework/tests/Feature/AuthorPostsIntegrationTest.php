@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Author;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
@@ -80,7 +80,7 @@ class AuthorPostsIntegrationTest extends TestCase
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
         Config::set('hyde.authors', [
-            PostAuthor::create('test_named_author', 'Test Author'),
+            Author::create('test_named_author', 'Test Author', null),
         ]);
 
         // Check that the post was created
@@ -118,7 +118,7 @@ class AuthorPostsIntegrationTest extends TestCase
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
         Config::set('hyde.authors', [
-            PostAuthor::create('test_author_with_website', 'Test Author', 'https://example.org'),
+            Author::create('test_author_with_website', 'Test Author', 'https://example.org'),
         ]);
 
         // Check that the post was created
