@@ -7,6 +7,10 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
+use function array_merge;
+use function dirname;
+use function is_dir;
+use function tap;
 
 /** @internal */
 class LoadConfiguration extends BaseLoadConfiguration
