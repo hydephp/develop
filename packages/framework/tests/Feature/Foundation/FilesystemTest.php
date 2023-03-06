@@ -239,22 +239,22 @@ class FilesystemTest extends UnitTestCase
 
     public function testHelperForBladePages()
     {
-        $this->assertSame(Hyde::path('_pages'), Hyde::getBladePagePath());
+        $this->assertSame(Hyde::path('_pages'), Hyde::kernel()->getBladePagePath());
     }
 
     public function testHelperForMarkdownPages()
     {
-        $this->assertSame(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
+        $this->assertSame(Hyde::path('_pages'), Hyde::kernel()->getMarkdownPagePath());
     }
 
     public function testHelperForMarkdownPosts()
     {
-        $this->assertSame(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
+        $this->assertSame(Hyde::path('_posts'), Hyde::kernel()->getMarkdownPostPath());
     }
 
     public function testHelperForDocumentationPages()
     {
-        $this->assertSame(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
+        $this->assertSame(Hyde::path('_docs'), Hyde::kernel()->getDocumentationPagePath());
     }
 
     public function testHelperForMediaPath()

@@ -1096,10 +1096,10 @@ class HydePageTest extends TestCase
 
     public function test_path_helpers_return_same_result_as_fluent_filesystem_helpers()
     {
-        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), Hyde::getBladePagePath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::getMarkdownPagePath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::getMarkdownPostPath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), Hyde::kernel()->getBladePagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::kernel()->getMarkdownPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::kernel()->getMarkdownPostPath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::kernel()->getDocumentationPagePath('foo'));
     }
 
     public function test_all_pages_are_routable()
