@@ -44,7 +44,9 @@ class StaticPageBuilder
 
         $this->needsParentDirectory($this->path);
 
-        return $this->save($this->page->compile());
+        $this->save($this->page->compile());
+
+        return $this->path;
     }
 
     /**
