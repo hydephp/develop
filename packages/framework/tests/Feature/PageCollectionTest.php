@@ -33,7 +33,7 @@ class PageCollectionTest extends TestCase
         $this->assertEquals([
             '_pages/404.blade.php' => new BladePage('404'),
             '_pages/index.blade.php' => new BladePage('index'),
-        ], $collection->toArray());
+        ], $collection->all());
     }
 
     public function test_blade_pages_are_discovered()
@@ -41,7 +41,7 @@ class PageCollectionTest extends TestCase
         $this->file('_pages/foo.blade.php');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertArrayHasKey('_pages/foo.blade.php', $collection->toArray());
+        $this->assertArrayHasKey('_pages/foo.blade.php', $collection->all());
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
     }
 
@@ -50,7 +50,7 @@ class PageCollectionTest extends TestCase
         $this->file('_pages/foo.md');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertArrayHasKey('_pages/foo.md', $collection->toArray());
+        $this->assertArrayHasKey('_pages/foo.md', $collection->all());
         $this->assertEquals(new MarkdownPage('foo'), $collection->get('_pages/foo.md'));
     }
 
@@ -59,7 +59,7 @@ class PageCollectionTest extends TestCase
         $this->file('_posts/foo.md');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
 
-        $this->assertArrayHasKey('_posts/foo.md', $collection->toArray());
+        $this->assertArrayHasKey('_posts/foo.md', $collection->all());
         $this->assertEquals(new MarkdownPost('foo'), $collection->get('_posts/foo.md'));
     }
 
@@ -67,7 +67,7 @@ class PageCollectionTest extends TestCase
     {
         $this->file('_docs/foo.md');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
-        $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
+        $this->assertArrayHasKey('_docs/foo.md', $collection->all());
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('_docs/foo.md'));
     }
 
