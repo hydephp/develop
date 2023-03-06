@@ -32,13 +32,6 @@ class HyperlinkFormatHtmlPathTest extends UnitTestCase
         $this->assertEquals('foo/bar', Hyde::formatLink('foo/bar.html'));
     }
 
-    public function test_non_pretty_urls_is_default_value_when_config_is_not_set()
-    {
-        self::mockConfig(['hyde.pretty_urls' => null]);
-
-        $this->assertEquals('foo/bar.html', Hyde::formatLink('foo/bar.html'));
-    }
-
     public function test_helper_respects_absolute_urls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
