@@ -35,7 +35,8 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         foreach ($lines as $index => $line) {
             if (static::lineMatchesPattern($line)) {
                 // Add the meta-block two lines before the pattern, placing it just above the code block.
-                // This prevents the meta-block from interfering with other processes.
+                // This prevents the meta-block from interfering with other processes during compile.
+                // We then replace these markers in the post-processor.
                 $lines[$index - 2] .= sprintf(
                     "\n<!-- HYDE[Filepath]%s -->",
                     trim(str_ireplace(static::$patterns, '', $line))
