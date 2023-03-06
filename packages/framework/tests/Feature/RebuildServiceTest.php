@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
-use Hyde\Framework\Services\RebuildService;
 use Hyde\Testing\TestCase;
+use Hyde\Framework\Services\RebuildService;
 
 /**
  * Note that we don't fully test the created files since the service is
