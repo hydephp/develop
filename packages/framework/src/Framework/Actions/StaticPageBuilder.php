@@ -30,7 +30,7 @@ class StaticPageBuilder
     public function __construct(HydePage $page, bool $selfInvoke = false)
     {
         $this->page = $page;
-        $this->path = Hyde::sitePath($this->page->getOutputPath());
+        $this->path = Hyde::sitePath($page->getOutputPath());
 
         if ($selfInvoke) {
             $this->__invoke();
