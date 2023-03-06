@@ -23,7 +23,7 @@ class MarkdownFileParser
     /**
      * The extracted Markdown body.
      */
-    public string $markdown = '';
+    protected string $markdown = '';
 
     public function __construct(string $localFilepath)
     {
