@@ -36,12 +36,12 @@ class SerializableTest extends UnitTestCase
 
     public function testSerialize()
     {
-        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->serialize());
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->arraySerialize());
     }
 
     public function testSerializeWithArrayable()
     {
-        $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->serialize());
+        $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->arraySerialize());
     }
 
     public function testJsonSerializeWithArrayable()

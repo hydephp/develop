@@ -18,7 +18,7 @@ trait Serializable
     /** @inheritDoc */
     public function jsonSerialize(): array
     {
-        return $this->serialize();
+        return $this->arraySerialize();
     }
 
     /** @param  int  $options */
@@ -28,7 +28,7 @@ trait Serializable
     }
 
     /** Recursively serialize Arrayables */
-    public function serialize(): array
+    public function arraySerialize(): array
     {
         return collect($this->toArray())->toArray();
     }
