@@ -16,17 +16,17 @@ final class Site
 {
     public static function url(): ?string
     {
-        return config('hyde.url');
+        return Config::getNullableString('hyde.url');
     }
 
     public static function name(): ?string
     {
-        return config('hyde.name');
+        return Config::getNullableString('hyde.name');
     }
 
     public static function language(): ?string
     {
-        return config('hyde.language');
+        return Config::getNullableString('hyde.language');
     }
 
     public static function metadata(): GlobalMetadataBag
