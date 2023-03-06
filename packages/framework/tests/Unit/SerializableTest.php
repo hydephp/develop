@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Testing\UnitTestCase;
-use JsonSerializable;
+use Hyde\Support\Contracts\SerializableContract;
 
 /**
  * @covers \Hyde\Support\Concerns\Serializable
@@ -31,7 +31,7 @@ class SerializableTest extends UnitTestCase
     }
 }
 
-class SerializableTestClass implements JsonSerializable
+class SerializableTestClass implements SerializableContract
 {
     use Serializable;
 
