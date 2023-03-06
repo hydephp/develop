@@ -12,17 +12,29 @@ use function extension_loaded;
 use function htmlspecialchars;
 use function throw_unless;
 
+/**
+ * Defines the public API for XML generators and provides a shared codebase for common helpers.
+ *
+ * @see \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
+ * @see \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ */
 abstract class BaseXmlGenerator implements XmlGeneratorContract
 {
     protected SimpleXMLElement $xmlElement;
 
     abstract protected function constructBaseElement(): void;
 
+    /**
+     * Generate a new XML document and get the contents as a string.
+     */
     public static function make(): string
     {
         return (new static)->generate()->getXML();
     }
 
+    /**
+     * Create a new XML generator instance.
+     */
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
@@ -32,6 +44,16 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
         $this->constructBaseElement();
     }
 
+    /**
+     * Generate the XML document.
+     *
+     * @return $this
+     */
+    abstract public function generate(): static;
+
+    /**
+     * Get the XML document as a string.
+     */
     public function getXml(): string
     {
         return (string) $this->xmlElement->asXML();
