@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\Concerns\HydePage;
+use function file_put_contents;
 
 /**
  * Converts a Page Model into a static HTML page.

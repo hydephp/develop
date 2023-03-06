@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function explode;
-use function file_get_contents;
 use Hyde\Hyde;
-use function json_decode;
 use RuntimeException;
+use function file_get_contents;
+use function substr_count;
+use function json_decode;
+use function explode;
 use function strlen;
 use function strpos;
 use function substr;
-use function substr_count;
 use function trim;
 
 /**

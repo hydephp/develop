@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function file_exists;
-use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Exceptions\FileConflictException;
-use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Str;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Exceptions\FileConflictException;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
+use function file_put_contents;
+use function file_exists;
+use function basename;
 use function in_array;
-use function rtrim;
 use function unslash;
+use function rtrim;
 
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
