@@ -103,7 +103,7 @@ return [
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
         'DocumentationPage' => \Hyde\Pages\DocumentationPage::class,
-        'DataCollection' => \Hyde\Support\DataCollection::class,
+        'DataCollections' => \Hyde\Support\DataCollections::class,
     ],
 
 ];

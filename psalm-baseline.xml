@@ -766,15 +766,15 @@
       <code>GenerateSitemap</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="packages/framework/src/Framework/Features/DataCollections/DataCollection.php">
+  <file src="packages/framework/src/Framework/Features/DataCollections/DataCollections.php">
     <MismatchingDocblockReturnType occurrences="1">
-      <code>DataCollection&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
+      <code>DataCollections&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
     </MismatchingDocblockReturnType>
     <MixedInferredReturnType occurrences="1">
-      <code>DataCollection&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
+      <code>DataCollections&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
     </MixedInferredReturnType>
     <TooManyTemplateParams occurrences="1">
-      <code>DataCollection&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
+      <code>DataCollections&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
     </TooManyTemplateParams>
   </file>
   <file src="packages/framework/src/Framework/Features/Documentation/SemanticDocumentationArticle.php">

@@ -36,7 +36,7 @@ class Features extends \Hyde\Facades\Features {}
 class Config extends \Hyde\Facades\Config {}
 /** @mixin \Illuminate\Filesystem\Filesystem */
 class Filesystem extends \Hyde\Facades\Filesystem {}
-class DataCollection extends \Hyde\Support\DataCollection {}
+class DataCollections extends \Hyde\Support\DataCollections {}
 /** @mixin \Hyde\Foundation\Kernel\RouteCollection */
 class Routes extends \Hyde\Foundation\Facades\Routes {}
 

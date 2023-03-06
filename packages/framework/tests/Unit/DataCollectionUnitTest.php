@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
-use Hyde\Support\DataCollection;
+use Hyde\Support\DataCollections;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Mockery;
 
 /**
- * @covers \Hyde\Support\DataCollection
+ * @covers \Hyde\Support\DataCollections
  *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
@@ -25,27 +25,27 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testClassHasStaticSourceDirectoryProperty()
     {
-        $this->assertSame('resources/collections', DataCollection::$sourceDirectory);
+        $this->assertSame('resources/collections', DataCollections::$sourceDirectory);
     }
 
     public function testConstructorCreatesNewDataCollectionInstance()
     {
-        $this->assertInstanceOf(DataCollection::class, new DataCollection());
+        $this->assertInstanceOf(DataCollections::class, new DataCollections());
     }
 
     public function testClassExtendsCollectionClass()
     {
-        $this->assertInstanceOf(Collection::class, new DataCollection());
+        $this->assertInstanceOf(Collection::class, new DataCollections());
     }
 
     public function testCanConvertCollectionToArray()
     {
-        $this->assertSame([], (new DataCollection())->toArray());
+        $this->assertSame([], (new DataCollections())->toArray());
     }
 
     public function testCanConvertCollectionToJson()
     {
-        $this->assertSame('[]', (new DataCollection())->toJson());
+        $this->assertSame('[]', (new DataCollections())->toJson());
     }
 
     public function testFindMarkdownFilesCallsProperGlobPattern()
@@ -57,7 +57,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        DataCollection::markdown('foo')->keys()->toArray();
+        DataCollections::markdown('foo')->keys()->toArray();
 
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
         Mockery::close();
@@ -72,7 +72,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        $this->assertSame([], DataCollection::markdown('foo')->keys()->toArray());
+        $this->assertSame([], DataCollections::markdown('foo')->keys()->toArray());
 
         Mockery::close();
     }
@@ -87,13 +87,13 @@ class DataCollectionUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        $this->assertSame(['bar.md'], DataCollection::markdown('foo')->keys()->toArray());
+        $this->assertSame(['bar.md'], DataCollections::markdown('foo')->keys()->toArray());
 
         Mockery::close();
     }
 
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
-        $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
+        $this->assertInstanceOf(DataCollections::class, DataCollections::markdown('foo'));
     }
 }
