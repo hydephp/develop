@@ -14,15 +14,7 @@ use Hyde\Framework\Actions\StaticPageBuilder;
  */
 class RebuildService
 {
-    /**
-     * The source file to build.
-     * Should be relative to the Hyde installation.
-     */
     protected string $filepath;
-
-    /**
-     * The page builder instance.
-     */
     protected StaticPageBuilder $builder;
 
     /**
