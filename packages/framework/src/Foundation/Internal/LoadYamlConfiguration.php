@@ -6,7 +6,6 @@ namespace Hyde\Foundation\Internal;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use LaravelZero\Framework\Application;
 use Symfony\Component\Yaml\Yaml;
 use function file_get_contents;
 use function array_merge;
@@ -23,7 +22,7 @@ class LoadYamlConfiguration
      * Performs a core task that needs to be performed on
      * early stages of the framework.
      */
-    public function bootstrap(Application $app): void
+    public function bootstrap(): void
     {
         if ($this->hasYamlConfigFile()) {
             $this->mergeParsedConfiguration();
