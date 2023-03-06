@@ -21,7 +21,7 @@ trait ValidatesExistence
      *
      * @throws FileNotFoundException If the file does not exist.
      */
-    public static function validateExistence(string $model, string $identifier): void
+    protected static function validateExistence(string $model, string $identifier): void
     {
         $filepath = $model::sourcePath($identifier);
 
