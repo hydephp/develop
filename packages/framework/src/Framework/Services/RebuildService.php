@@ -30,9 +30,9 @@ class RebuildService
     /**
      * Execute the service action.
      */
-    public function __invoke(): StaticPageBuilder
+    public function __invoke(): void
     {
-        return new StaticPageBuilder(
+        new StaticPageBuilder(
             $this->page,
             true
         );
