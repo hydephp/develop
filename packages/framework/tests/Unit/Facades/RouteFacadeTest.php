@@ -11,7 +11,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Render as RenderModel;
+use Hyde\Support\Models\RenderData as RenderModel;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 

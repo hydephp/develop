@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
 /**
- * @covers \Hyde\Support\Models\Render
+ * @covers \Hyde\Support\Models\RenderData
  * @covers \Hyde\Support\Facades\Render
  */
 class RenderHelperTest extends TestCase

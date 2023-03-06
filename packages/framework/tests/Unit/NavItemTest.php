@@ -34,7 +34,7 @@ class NavItemTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        Render::swap(new \Hyde\Support\Models\Render());
+        Render::swap(new \Hyde\Support\Models\RenderData());
     }
 
     public function test__construct()
@@ -129,7 +129,7 @@ class NavItemTest extends UnitTestCase
 
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(\Hyde\Support\Models\RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
             'getCurrentPage' => 'foo',
         ]));
@@ -137,7 +137,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
         $this->assertSame('foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(\Hyde\Support\Models\RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar'))),
             'getCurrentPage' => 'foo/bar',
         ]));
@@ -145,7 +145,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('../foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
         $this->assertSame('../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(\Hyde\Support\Models\RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar/baz'))),
             'getCurrentPage' => 'foo/bar/baz',
         ]));
@@ -156,7 +156,7 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrent()
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(\Hyde\Support\Models\RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
             'getCurrentPage' => 'foo',
         ]));

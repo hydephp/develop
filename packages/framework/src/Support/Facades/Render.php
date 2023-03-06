@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Manages data for the current page being rendered/compiled.
  *
- * @see \Hyde\Support\Models\Render
+ * @see \Hyde\Support\Models\RenderData
  *
  * @method static void setPage(HydePage $page)
  * @method static HydePage|null getPage()
@@ -26,6 +26,6 @@ class Render extends Facade
     /** @return class-string */
     protected static function getFacadeAccessor(): string
     {
-        return \Hyde\Support\Models\Render::class;
+        return \Hyde\Support\Models\RenderData::class;
     }
 }

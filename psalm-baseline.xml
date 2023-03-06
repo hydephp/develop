@@ -1434,7 +1434,7 @@
       <code>new static($path, $destination, $showText)</code>
     </UnsafeInstantiation>
   </file>
-  <file src="packages/framework/src/Support/Models/Render.php">
+  <file src="packages/framework/src/Support/Models/RenderData.php">
     <InvalidDocblock occurrences="1">
       <code>public function toArray(): array</code>
     </InvalidDocblock>

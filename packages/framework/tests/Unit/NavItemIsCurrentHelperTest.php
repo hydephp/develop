@@ -27,7 +27,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        Render::swap(new \Hyde\Support\Models\Render());
+        Render::swap(new \Hyde\Support\Models\RenderData());
     }
 
     public function testIsCurrent()
@@ -236,7 +236,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
 
     protected function mockRenderData(Route $route): void
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(\Hyde\Support\Models\RenderData::class, [
             'getCurrentRoute' => $route,
             'getCurrentPage' => $route->getRouteKey(),
         ]));

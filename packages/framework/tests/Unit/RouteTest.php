@@ -20,7 +20,7 @@ class RouteTest extends UnitTestCase
     {
         self::setupKernel();
         self::mockConfig();
-        Render::swap(new \Hyde\Support\Models\Render());
+        Render::swap(new \Hyde\Support\Models\RenderData());
     }
 
     public function testConstructorCreatesRouteFromPageModel()
