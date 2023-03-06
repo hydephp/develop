@@ -48,9 +48,9 @@ class MarkdownService
     protected array $preprocessors = [];
     protected array $postprocessors = [];
 
-    public function __construct(string $markdown, ?string $sourceModel = null)
+    public function __construct(string $markdown, ?string $pageClass = null)
     {
-        $this->pageClass = $sourceModel;
+        $this->pageClass = $pageClass;
         $this->markdown = $markdown;
     }
 

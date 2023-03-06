@@ -295,8 +295,8 @@ class MarkdownServiceTestClass extends MarkdownService
 {
     public array $features = [];
 
-    public function __construct(string $markdown = '', ?string $sourceModel = null)
+    public function __construct(string $markdown = '', ?string $pageClass = null)
     {
-        parent::__construct($markdown, $sourceModel);
+        parent::__construct($markdown, $pageClass);
     }
 }
