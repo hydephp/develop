@@ -18,7 +18,7 @@ class MarkdownFileParser
     /**
      * The extracted Front Matter.
      */
-    public array $matter = [];
+    protected array $matter = [];
 
     /**
      * The extracted Markdown body.
