@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\Concerns;
 
+use Hyde\Hyde;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
@@ -14,7 +15,6 @@ use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
-use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Filesystem\SourceFile;
