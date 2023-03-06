@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
 use Hyde\Facades\Route;
-use Hyde\Foundation\Facades\Routes;
 use Hyde\Testing\TestCase;
 
 /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Facades\Route;
-use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;

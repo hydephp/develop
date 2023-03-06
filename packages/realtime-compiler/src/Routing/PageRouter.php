@@ -12,7 +12,6 @@ use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\Facades\Route;
-use Hyde\Foundation\Facades\Routes;
 
 /**
  * Handle routing for a web page request.
