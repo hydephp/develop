@@ -59,9 +59,9 @@ class SourceFileParser
         );
     }
 
+    /** @param  class-string<\Hyde\Pages\Concerns\BaseMarkdownPage>  $pageClass */
     protected function parseMarkdownPage(string $pageClass): BaseMarkdownPage
     {
-        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
             $pageClass::sourcePath($this->identifier)
         );
