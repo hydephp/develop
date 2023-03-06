@@ -6,6 +6,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * Runs the static page builder for the given path.
@@ -14,6 +15,7 @@ use Hyde\Framework\Actions\StaticPageBuilder;
  */
 class RebuildService
 {
+    protected HydePage $page;
     protected string $filepath;
 
     /**
