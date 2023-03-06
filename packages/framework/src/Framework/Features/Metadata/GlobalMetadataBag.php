@@ -9,7 +9,7 @@ use Hyde\Facades\Meta;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Pages\Concerns\HydePage;
-use Illuminate\Support\Facades\View;
+use Hyde\Support\Facades\Render;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
 use function array_filter;
@@ -42,7 +42,7 @@ class GlobalMetadataBag extends MetadataBag
         }
 
         if (Hyde::currentPage() !== null) {
-            static::filterDuplicateMetadata($metadata, View::shared('page'));
+            static::filterDuplicateMetadata($metadata, Render::getPage());
         }
 
         return $metadata;
