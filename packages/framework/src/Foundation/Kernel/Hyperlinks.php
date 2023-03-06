@@ -8,6 +8,15 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
+use function blank;
+use function config;
+use function file_exists;
+use function rtrim;
+use function str_repeat;
+use function str_replace;
+use function substr;
+use function substr_count;
+use function trim;
 
 /**
  * Contains helpers and logic for resolving web paths for compiled files.
