@@ -25,9 +25,9 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
     public function __construct(string $label = null, int $priority = null, bool $hidden = null, string $group = null)
     {
         $this->label = $label;
-        $this->group = $group;
-        $this->hidden = $hidden;
         $this->priority = $priority;
+        $this->hidden = $hidden;
+        $this->group = $group;
 
         parent::__construct($this->toArray());
     }
