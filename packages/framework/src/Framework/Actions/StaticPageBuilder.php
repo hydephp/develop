@@ -53,12 +53,9 @@ class StaticPageBuilder
      * Save the compiled HTML to file.
      *
      * @param  string  $contents  to save to the file
-     * @return string the path to the saved file
      */
-    protected function save(string $contents): string
+    protected function save(string $contents): void
     {
         file_put_contents($this->path, $contents);
-
-        return $this->path;
     }
 }
