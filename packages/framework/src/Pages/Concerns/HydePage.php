@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
@@ -22,7 +23,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
 use function unslash;
-use function config;
 use function filled;
 use function ltrim;
 use function rtrim;
@@ -333,7 +333,7 @@ abstract class HydePage implements PageSchema
      */
     public function title(): string
     {
-        return config('hyde.name', 'HydePHP').' - '.$this->title;
+        return Config::getString('hyde.name', 'HydePHP').' - '.$this->title;
     }
 
     public function metadata(): PageMetadataBag
