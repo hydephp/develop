@@ -25,8 +25,8 @@ class RebuildService
      */
     public function __construct(string $filepath)
     {
-        $this->filepath = $filepath;
         $this->page = Pages::getPage($filepath);
+        $this->filepath = $filepath;
     }
 
     /**
