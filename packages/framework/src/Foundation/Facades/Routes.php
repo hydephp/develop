@@ -24,24 +24,24 @@ class Routes extends Facade
 
     public static function exists(string $routeKey): bool
     {
-        return Routes::has(RouteKey::normalize($routeKey));
+        return HydeKernel::getInstance()->routes()->has(RouteKey::normalize($routeKey));
     }
 
     public static function get(string $routeKey): ?Route
     {
-        return Routes::get(RouteKey::normalize($routeKey));
+        return HydeKernel::getInstance()->routes()->get(RouteKey::normalize($routeKey));
     }
 
     /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
     public static function getOrFail(string $routeKey): Route
     {
-        return Routes::getRoute(RouteKey::normalize($routeKey));
+        return HydeKernel::getInstance()->routes()->getRoute(RouteKey::normalize($routeKey));
     }
 
     /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
     public static function all(): RouteCollection
     {
-        return Routes::getRoutes();
+        return HydeKernel::getInstance()->routes()->getRoutes();
     }
 
     /** Get the current route for the page being rendered. */
