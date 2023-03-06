@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\DateString;
+use function array_merge;
 
 /**
  * Page class for Markdown posts.
@@ -35,5 +36,16 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');
+    }
+
+    public function toArray(): array
+    {
+        return array_merge(parent::toArray(), [
+            'description' => $this->description,
+            'category' => $this->category,
+            'date' => $this->date,
+            'author' => $this->author,
+            'image' => $this->image,
+        ]);
     }
 }
