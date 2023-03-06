@@ -32,6 +32,9 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
         parent::__construct($this->toArray());
     }
 
+    /**
+     * @param  array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}  $data
+     */
     public static function make(array $data): self
     {
         return new self(
