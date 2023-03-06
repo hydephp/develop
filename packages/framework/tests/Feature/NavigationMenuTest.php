@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
-use Hyde\Support\Models\Route as RouteModel;
+use Hyde\Support\Models\Route;
 use function collect;
 use function config;
 use Hyde\Foundation\Facades\Routes;
@@ -36,17 +36,17 @@ class NavigationMenuTest extends TestCase
 
     public function test_items_are_sorted_by_priority()
     {
-        Routes::addRoute(new RouteModel(new MarkdownPage('foo', ['navigation.priority' => 1])));
-        Routes::addRoute(new RouteModel(new MarkdownPage('bar', ['navigation.priority' => 2])));
-        Routes::addRoute(new RouteModel(new MarkdownPage('baz', ['navigation.priority' => 3])));
+        Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.priority' => 1])));
+        Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.priority' => 2])));
+        Routes::addRoute(new Route(new MarkdownPage('baz', ['navigation.priority' => 3])));
 
         $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], NavigationMenu::create()->items->pluck('label')->toArray());
     }
 
     public function test_items_with_hidden_property_set_to_true_are_not_added()
     {
-        Routes::addRoute(new RouteModel(new MarkdownPage('foo', ['navigation.hidden' => true])));
-        Routes::addRoute(new RouteModel(new MarkdownPage('bar', ['navigation.hidden' => false])));
+        Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.hidden' => true])));
+        Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.hidden' => false])));
 
         $this->assertSame(['Home', 'Bar'], NavigationMenu::create()->items->pluck('label')->toArray());
     }
@@ -356,9 +356,9 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
-        Routes::addRoute(new RouteModel(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
-        Routes::addRoute(new RouteModel(new MarkdownPage('foo/bar', ['navigation.priority' => 2])));
-        Routes::addRoute(new RouteModel(new MarkdownPage('foo/baz', ['navigation.priority' => 3])));
+        Routes::addRoute(new Route(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
+        Routes::addRoute(new Route(new MarkdownPage('foo/bar', ['navigation.priority' => 2])));
+        Routes::addRoute(new Route(new MarkdownPage('foo/baz', ['navigation.priority' => 3])));
 
         $menu = NavigationMenu::create();
         $dropdowns = $menu->getDropdowns();

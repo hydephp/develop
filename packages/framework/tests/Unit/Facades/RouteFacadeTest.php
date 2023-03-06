@@ -12,7 +12,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Render as RenderModel;
-use Hyde\Support\Models\Route as RouteModel;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
 /**
@@ -39,12 +39,12 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testGetReturnsRouteFromRouterIndex()
     {
-        $this->assertInstanceOf(RouteModel::class, Routes::get('index'));
+        $this->assertInstanceOf(Route::class, Routes::get('index'));
     }
 
     public function testGetReturnsRouteFromRouterIndexForTheRightPage()
     {
-        $this->assertEquals(new RouteModel(BladePage::parse('index')), Routes::get('index'));
+        $this->assertEquals(new Route(BladePage::parse('index')), Routes::get('index'));
     }
 
     public function testGetFromReturnsNullIfRouteIsNotFound()
@@ -54,13 +54,13 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testGetSupportsDotNotation()
     {
-        Hyde::routes()->add(new RouteModel(new MarkdownPost('foo')));
+        Hyde::routes()->add(new Route(new MarkdownPost('foo')));
         $this->assertSame(Routes::get('posts/foo'), Routes::get('posts.foo'));
     }
 
     public function testCurrentReturnsCurrentRoute()
     {
-        $route = new RouteModel(new MarkdownPage('foo'));
+        $route = new Route(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentRoute')->andReturn($route);
         $this->assertSame($route, Routes::current());
         Render::swap(new RenderModel());
