@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Hyde;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
-use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
@@ -187,46 +183,6 @@ class Filesystem
         }
 
         return false;
-    }
-
-    /**
-     * Fluent file helper methods.
-     *
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
-     *
-     * Provides a more fluent way of getting either the absolute path
-     * to a model's source directory, or an absolute path to a file within it.
-     *
-     * These are intended to be used as a dynamic alternative to legacy code
-     * Hyde::path('_pages/foo') becomes Hyde::getBladePagePath('foo')
-     */
-    public function getModelSourcePath(string $model, string $path = ''): string
-    {
-        if (empty($path)) {
-            return $this->path($model::sourceDirectory());
-        }
-
-        return $this->path(path_join($model::sourceDirectory(), unslash($path)));
-    }
-
-    public function getBladePagePath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(BladePage::class, $path);
-    }
-
-    public function getMarkdownPagePath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(MarkdownPage::class, $path);
-    }
-
-    public function getMarkdownPostPath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(MarkdownPost::class, $path);
-    }
-
-    public function getDocumentationPagePath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(DocumentationPage::class, $path);
     }
 
     public function smartGlob(string $pattern, int $flags = 0): Collection

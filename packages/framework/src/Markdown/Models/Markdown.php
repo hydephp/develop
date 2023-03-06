@@ -50,19 +50,19 @@ class Markdown implements Arrayable, Stringable, Htmlable
      * If the Markdown being compiled is from a page model, supply
      * model's class name here so the dynamic parser can be used.
      *
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $sourceModel
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
      */
-    public function compile(?string $sourceModel = null): string
+    public function compile(?string $pageClass = null): string
     {
-        return static::render($this->body, $sourceModel);
+        return static::render($this->body, $pageClass);
     }
 
     /**
      * Same as Markdown::compile(), but returns an HtmlString object.
      */
-    public function toHtml(?string $sourceModel = null): HtmlString
+    public function toHtml(?string $pageClass = null): HtmlString
     {
-        return new HtmlString($this->compile($sourceModel));
+        return new HtmlString($this->compile($pageClass));
     }
 
     /**
@@ -91,10 +91,10 @@ class Markdown implements Arrayable, Stringable, Htmlable
      *
      * @return string $html
      */
-    public static function render(string $markdown, ?string $sourceModel = null): string
+    public static function render(string $markdown, ?string $pageClass = null): string
     {
-        return $sourceModel !== null
-            ? (new MarkdownService($markdown, $sourceModel))->parse()
+        return $pageClass !== null
+            ? (new MarkdownService($markdown, $pageClass))->parse()
             : (string) app(MarkdownConverter::class)->convert($markdown);
     }
 }

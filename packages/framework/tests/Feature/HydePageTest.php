@@ -22,11 +22,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * Test the HydePage class.
- *
- * Since the class is abstract, we can't test it directly,
- * so we will use the MarkdownPage class as a proxy,
- * since it's the simplest implementation.
+ * Test the base HydePage class.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
@@ -247,6 +243,22 @@ class HydePageTest extends TestCase
         $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
 
+    public function testToArray()
+    {
+        $this->assertSame([
+            'class',
+            'identifier',
+            'routeKey',
+            'matter',
+            'metadata',
+            'navigation',
+            'title',
+            'canonicalUrl',
+        ],
+            array_keys((new TestPage('hello-world'))->toArray())
+        );
+    }
+
     // Section: In-depth tests
 
     public function test_get_source_directory_returns_static_property()
@@ -361,7 +373,7 @@ class HydePageTest extends TestCase
             ['_pages/foo.md' => tap(new MarkdownPage('foo'), function ($page) {
                 $page->title = 'Foo';
             })],
-            MarkdownPage::all()->toArray()
+            MarkdownPage::all()->all()
         );
         Filesystem::unlink('_pages/foo.md');
     }
@@ -1096,10 +1108,10 @@ class HydePageTest extends TestCase
 
     public function test_path_helpers_return_same_result_as_fluent_filesystem_helpers()
     {
-        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), Hyde::getBladePagePath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::getMarkdownPagePath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::getMarkdownPostPath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), BladePage::path('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), MarkdownPage::path('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), MarkdownPost::path('foo'));
+        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), DocumentationPage::path('foo'));
     }
 
     public function test_all_pages_are_routable()

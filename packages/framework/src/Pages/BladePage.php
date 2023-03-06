@@ -7,6 +7,7 @@ namespace Hyde\Pages;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
+use function array_merge;
 
 /**
  * Page class for Blade pages.
@@ -44,5 +45,12 @@ class BladePage extends HydePage
     public function compile(): string
     {
         return View::make($this->getBladeView())->render();
+    }
+
+    public function toArray(): array
+    {
+        return array_merge(parent::toArray(), [
+            'view' => $this->view,
+        ]);
     }
 }

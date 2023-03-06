@@ -22,7 +22,7 @@ class SourceFileTest extends TestCase
         $this->assertInstanceOf(SourceFile::class, $file);
 
         $this->assertSame('foo', $file->path);
-        $this->assertSame(HydePage::class, $file->model);
+        $this->assertSame(HydePage::class, $file->pageClass);
     }
 
     public function test_can_construct_with_model_class()
@@ -31,7 +31,7 @@ class SourceFileTest extends TestCase
         $this->assertInstanceOf(SourceFile::class, $file);
 
         $this->assertSame('foo', $file->path);
-        $this->assertSame(MarkdownPage::class, $file->model);
+        $this->assertSame(MarkdownPage::class, $file->pageClass);
     }
 
     public function can_make()
@@ -95,7 +95,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name'     => 'foo.txt',
             'path'     => 'foo.txt',
-            'model' => HydePage::class,
+            'pageClass' => HydePage::class,
         ], SourceFile::make('foo.txt')->toArray());
     }
 
@@ -105,7 +105,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name' => 'foo',
             'path' => 'foo',
-            'model' => HydePage::class,
+            'pageClass' => HydePage::class,
         ], SourceFile::make('foo')->toArray());
     }
 
@@ -116,7 +116,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
-            'model' => HydePage::class,
+            'pageClass' => HydePage::class,
         ], SourceFile::make('foo/bar.txt')->toArray());
         Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
