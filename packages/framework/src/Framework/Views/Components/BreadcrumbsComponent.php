@@ -6,6 +6,7 @@ namespace Hyde\Framework\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Facades\Route;
+use Hyde\Foundation\Facades\Routes;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

@@ -16,6 +16,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Facades\Route;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
