@@ -11,6 +11,8 @@ use Hyde\Framework\Actions\StaticPageBuilder;
  * Build static pages, but intelligently.
  *
  * Runs the static page builder for a given path.
+ *
+ * @deprecated Can be replaced with an action.
  */
 class RebuildService
 {
