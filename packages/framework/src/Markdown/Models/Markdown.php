@@ -43,9 +43,9 @@ class Markdown extends PageContents implements Htmlable
     /**
      * Parse a Markdown file into a new Markdown object.
      */
-    public static function fromFile(string $path): static
+    public static function fromFile(string $localFilepath): static
     {
-        return MarkdownDocument::parse($path)->markdown();
+        return MarkdownDocument::parse($localFilepath)->markdown();
     }
 
     /**
