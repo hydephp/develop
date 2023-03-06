@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Metadata;
 
-use Hyde\Facades\Features;
-use Hyde\Facades\Meta;
-use Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
-use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
+use Hyde\Facades\Meta;
+use Hyde\Facades\Features;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
 use function array_filter;
 use function array_map;
-use function config;
 use function in_array;
+use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
