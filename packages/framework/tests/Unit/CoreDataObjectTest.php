@@ -14,8 +14,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class CoreDataObjectTest extends UnitTestCase
 {
-    protected bool $needsKernel = true;
-    protected bool $needsConfig = true;
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     public function testCoreDataObjectWithHydePage()
     {

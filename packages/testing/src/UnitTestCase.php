@@ -13,8 +13,8 @@ abstract class UnitTestCase extends BaseTestCase
 {
     protected static bool $hasSetUpKernel = false;
 
-    protected bool $needsKernel = false;
-    protected bool $needsConfig = false;
+    protected static bool $needsKernel = false;
+    protected static bool $needsConfig = false;
 
     protected static function needsKernel(): void
     {
@@ -23,13 +23,13 @@ abstract class UnitTestCase extends BaseTestCase
         }
     }
 
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        if ($this->needsKernel) {
+        if (static::$needsKernel) {
             self::needsKernel();
         }
 
-        if ($this->needsConfig) {
+        if (static::$needsConfig) {
             self::mockConfig();
         }
     }
