@@ -8,6 +8,10 @@ use Composer\InstalledVersions;
 use Hyde\Facades\Config;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
+use function app;
+use function config;
+use function realpath;
+use function str_replace;
 
 /**
  * Hyde Command to print debug information.

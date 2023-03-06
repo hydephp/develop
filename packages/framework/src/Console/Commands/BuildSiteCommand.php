@@ -10,6 +10,14 @@ use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
 use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Config;
+use function app;
+use function array_search;
+use function config;
+use function memory_get_peak_usage;
+use function microtime;
+use function number_format;
+use function shell_exec;
+use function sprintf;
 
 /**
  * Hyde Command to run the Build Process.

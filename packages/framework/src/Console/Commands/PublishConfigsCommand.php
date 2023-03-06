@@ -7,6 +7,8 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
+use function array_search;
+use function sprintf;
 
 /**
  * Publish the Hyde Config Files.
