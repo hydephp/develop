@@ -19,7 +19,7 @@ use function substr;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
-class GeneratesSidebarTableOfContents
+class GeneratesTableOfContents
 {
     protected string $markdown;
 

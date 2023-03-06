@@ -524,7 +524,7 @@
       <code>$identifier</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="packages/framework/src/Framework/Actions/GeneratesSidebarTableOfContents.php">
+  <file src="packages/framework/src/Framework/Actions/GeneratesTableOfContents.php">
     <PossiblyFalseArgument occurrences="1">
       <code>strpos($html, '&lt;p&gt;[[END_TOC]]')</code>
     </PossiblyFalseArgument>
