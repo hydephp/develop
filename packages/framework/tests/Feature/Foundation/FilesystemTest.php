@@ -239,130 +239,82 @@ class FilesystemTest extends UnitTestCase
 
     public function test_helper_for_blade_pages()
     {
-        $this->assertEquals(
-            Hyde::path('_pages'),
-            Hyde::getBladePagePath()
-        );
+        $this->assertEquals(Hyde::path('_pages'), Hyde::getBladePagePath());
     }
 
     public function test_helper_for_markdown_pages()
     {
-        $this->assertEquals(
-            Hyde::path('_pages'),
-            Hyde::getMarkdownPagePath()
-        );
+        $this->assertEquals(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
     }
 
     public function test_helper_for_markdown_posts()
     {
-        $this->assertEquals(
-            Hyde::path('_posts'),
-            Hyde::getMarkdownPostPath()
-        );
+        $this->assertEquals(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
     }
 
     public function test_helper_for_documentation_pages()
     {
-        $this->assertEquals(
-            Hyde::path('_docs'),
-            Hyde::getDocumentationPagePath()
-        );
+        $this->assertEquals(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
     }
 
     public function test_helper_for_media_path()
     {
-        $this->assertEquals(
-            Hyde::path('_media'),
-            Hyde::mediaPath()
-        );
+        $this->assertEquals(Hyde::path('_media'), Hyde::mediaPath());
     }
 
     public function test_helper_for_media_path_returns_path_to_file_within_the_directory()
     {
-        $this->assertEquals(
-            Hyde::path('_media/foo.css'),
-            Hyde::mediaPath('foo.css')
-        );
+        $this->assertEquals(Hyde::path('_media/foo.css'), Hyde::mediaPath('foo.css'));
     }
 
     public function test_get_media_path_returns_absolute_path()
     {
-        $this->assertEquals(
-            Hyde::path('_media'),
-            Hyde::mediaPath()
-        );
+        $this->assertEquals(Hyde::path('_media'), Hyde::mediaPath());
     }
 
     public function test_helper_for_media_output_path()
     {
-        $this->assertEquals(
-            Hyde::path('_site/media'),
-            Hyde::siteMediaPath()
-        );
+        $this->assertEquals(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
     public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
     {
-        $this->assertEquals(
-            Hyde::path('_site/media/foo.css'),
-            Hyde::siteMediaPath('foo.css')
-        );
+        $this->assertEquals(Hyde::path('_site/media/foo.css'), Hyde::siteMediaPath('foo.css'));
     }
 
     public function test_get_media_output_path_returns_absolute_path()
     {
-        $this->assertEquals(
-            Hyde::path('_site/media'),
-            Hyde::siteMediaPath()
-        );
+        $this->assertEquals(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
     public function test_helper_for_site_output_path()
     {
-        $this->assertEquals(
-            Hyde::path('_site'),
-            Hyde::sitePath()
-        );
+        $this->assertEquals(Hyde::path('_site'), Hyde::sitePath());
     }
 
     public function test_helper_for_site_output_path_returns_path_to_file_within_the_directory()
     {
-        $this->assertEquals(
-            Hyde::path('_site/foo.html'),
-            Hyde::sitePath('foo.html')
-        );
+        $this->assertEquals(Hyde::path('_site/foo.html'), Hyde::sitePath('foo.html'));
     }
 
     public function test_get_site_output_path_returns_absolute_path()
     {
-        $this->assertEquals(
-            Hyde::path('_site'),
-            Hyde::sitePath()
-        );
+        $this->assertEquals(Hyde::path('_site'), Hyde::sitePath());
     }
 
     public function test_site_output_path_helper_ignores_trailing_slashes()
     {
-        $this->assertEquals(
-            Hyde::path('_site/foo.html'),
-            Hyde::sitePath('/foo.html/')
-        );
+        $this->assertEquals(Hyde::path('_site/foo.html'), Hyde::sitePath('/foo.html/'));
     }
 
     public function test_pathToAbsolute()
     {
-        $this->assertSame(
-            Hyde::path('foo'),
-            Hyde::pathToAbsolute('foo')
-        );
+        $this->assertSame(Hyde::path('foo'), Hyde::pathToAbsolute('foo'));
     }
 
     public function test_path_to_absolute_helper_is_alias_for_path_helper()
     {
-        $this->assertSame(
-            Hyde::path('foo'),
-            $this->filesystem->pathToAbsolute('foo')
-        );
+        $this->assertSame(Hyde::path('foo'), $this->filesystem->pathToAbsolute('foo'));
     }
 
     public function test_pathToAbsolute_can_convert_array_of_paths()
