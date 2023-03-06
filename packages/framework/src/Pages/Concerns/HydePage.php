@@ -61,10 +61,10 @@ abstract class HydePage implements PageSchema
 
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
+    public NavigationData $navigation;
 
     public string $title;
     public ?string $canonicalUrl;
-    public NavigationData $navigation;
 
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
     {
