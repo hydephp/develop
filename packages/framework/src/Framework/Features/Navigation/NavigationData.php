@@ -20,7 +20,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
     public readonly string $label;
     public readonly ?string $group;
     public readonly bool $hidden;
-    public readonly ?int $priority;
+    public readonly int $priority;
 
     public function __construct(?string $label = null, ?string $group = null, ?bool $hidden = null, ?int $priority = null)
     {
