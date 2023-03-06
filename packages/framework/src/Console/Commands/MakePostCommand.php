@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
-use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Console\Concerns\Command;
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use function is_string;
 use function sprintf;
 use function ucwords;
