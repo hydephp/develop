@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
-use Hyde\Facades\Site;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
