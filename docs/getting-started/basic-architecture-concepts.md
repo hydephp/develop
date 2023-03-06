@@ -140,15 +140,15 @@ Each route in your site is represented by a Route object. It's very easy to get 
 ```php
 // Source file: _pages/index.md/index.blade.php
 // Compiled file: _site/index.html
-Route::get('index') 
+\Hyde\Foundation\Facades\Routes::get('index') 
 
 // Source file: _posts/my-post.md
 // Compiled file: _site/posts/my-post.html
-Route::get('posts/my-post')
+\Hyde\Foundation\Facades\Routes::get('posts/my-post')
 
 // Source file: _docs/readme.md
 // Compiled file: _site/docs/readme.html
-Route::get('docs/readme')
+\Hyde\Foundation\Facades\Routes::get('docs/readme')
 ```
 
 >info Tip: You can also use "dot notation" instead of slashes, for example `Route::get('posts.my-post')`.

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Facades;
 
-use Hyde\Facades\Route;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -28,58 +28,58 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testRouteFacadeAllMethodReturnsAllRoutes()
     {
-        $this->assertSame(Hyde::routes(), Route::all());
+        $this->assertSame(Hyde::routes(), Routes::all());
     }
 
     public function testGetOrFailThrowsExceptionIfRouteIsNotFound()
     {
         $this->expectException(RouteNotFoundException::class);
-        Route::getOrFail('not-found');
+        Routes::getOrFail('not-found');
     }
 
     public function testGetReturnsRouteFromRouterIndex()
     {
-        $this->assertInstanceOf(RouteModel::class, Route::get('index'));
+        $this->assertInstanceOf(RouteModel::class, Routes::get('index'));
     }
 
     public function testGetReturnsRouteFromRouterIndexForTheRightPage()
     {
-        $this->assertEquals(new RouteModel(BladePage::parse('index')), Route::get('index'));
+        $this->assertEquals(new RouteModel(BladePage::parse('index')), Routes::get('index'));
     }
 
     public function testGetFromReturnsNullIfRouteIsNotFound()
     {
-        $this->assertNull(Route::get('not-found'));
+        $this->assertNull(Routes::get('not-found'));
     }
 
     public function testGetSupportsDotNotation()
     {
         Hyde::routes()->add(new RouteModel(new MarkdownPost('foo')));
-        $this->assertSame(Route::get('posts/foo'), Route::get('posts.foo'));
+        $this->assertSame(Routes::get('posts/foo'), Routes::get('posts.foo'));
     }
 
     public function testCurrentReturnsCurrentRoute()
     {
         $route = new RouteModel(new MarkdownPage('foo'));
         Render::shouldReceive('getCurrentRoute')->andReturn($route);
-        $this->assertSame($route, Route::current());
+        $this->assertSame($route, Hyde::currentRoute());
         Render::swap(new RenderModel());
     }
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
     {
         Render::shouldReceive('getCurrentRoute')->andReturn(null);
-        $this->assertNull(Route::current());
+        $this->assertNull(Hyde::currentRoute());
         Render::swap(new RenderModel());
     }
 
     public function testExistsForExistingRoute()
     {
-        $this->assertTrue(Route::exists('index'));
+        $this->assertTrue(Routes::exists('index'));
     }
 
     public function testExistsForNonExistingRoute()
     {
-        $this->assertFalse(Route::exists('not-found'));
+        $this->assertFalse(Routes::exists('not-found'));
     }
 }

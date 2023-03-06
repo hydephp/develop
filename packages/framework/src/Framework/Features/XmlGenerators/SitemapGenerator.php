@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
+use Hyde\Foundation\Facades\Routes;
 use function config;
 use function date;
 use function filemtime;
@@ -29,7 +30,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     public function generate(): static
     {
-        \Hyde\Facades\Route::all()->each(function (Route $route): void {
+        Routes::all()->each(function (Route $route): void {
             $this->addRoute($route);
         });
 

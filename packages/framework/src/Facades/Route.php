@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Hyde;
-use Hyde\Foundation\Facades\Routes;
-use Hyde\Foundation\Kernel\RouteCollection;
-
 /**
  * Provides an easy way to access the Hyde pseudo-router.
  *
@@ -15,31 +11,5 @@ use Hyde\Foundation\Kernel\RouteCollection;
  */
 class Route
 {
-    public static function exists(string $routeKey): bool
-    {
-        return Routes::exists($routeKey);
-    }
-
-    public static function get(string $routeKey): ?\Hyde\Support\Models\Route
-    {
-        return Routes::get($routeKey);
-    }
-
-    /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
-    public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
-    {
-        return Routes::getOrFail($routeKey);
-    }
-
-    /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
-    public static function all(): RouteCollection
-    {
-        return Routes::all();
-    }
-
-    /** Get the current route for the page being rendered. */
-    public static function current(): ?\Hyde\Support\Models\Route
-    {
-        return Hyde::currentRoute();
-    }
+    //
 }

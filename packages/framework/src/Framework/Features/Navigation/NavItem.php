@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
@@ -66,7 +67,7 @@ class NavItem implements Stringable
      */
     public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
-        return static::fromRoute($route instanceof Route ? $route : \Hyde\Facades\Route::getOrFail($route), $label, $priority, $group);
+        return static::fromRoute($route instanceof Route ? $route : Routes::getOrFail($route), $label, $priority, $group);
     }
 
     /**
