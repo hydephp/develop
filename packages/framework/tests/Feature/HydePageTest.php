@@ -361,7 +361,7 @@ class HydePageTest extends TestCase
             ['_pages/foo.md' => tap(new MarkdownPage('foo'), function ($page) {
                 $page->title = 'Foo';
             })],
-            MarkdownPage::all()->toArray()
+            MarkdownPage::all()->all()
         );
         Filesystem::unlink('_pages/foo.md');
     }
