@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Facades\Site;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
