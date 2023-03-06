@@ -23,7 +23,7 @@ class GlobalMetadataBag extends MetadataBag
 {
     public static function make(): static
     {
-        $metadata = new self();
+        $metadata = new static();
 
         foreach (Config::getArray('hyde.meta', []) as $item) {
             $metadata->add($item);
