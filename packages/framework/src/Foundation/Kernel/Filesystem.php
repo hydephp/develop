@@ -189,11 +189,6 @@ class Filesystem
         return false;
     }
 
-    public function getDocumentationPagePath(string $path = ''): string
-    {
-        return DocumentationPage::path($path);
-    }
-
     public function smartGlob(string $pattern, int $flags = 0): Collection
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))

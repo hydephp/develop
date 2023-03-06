@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 
@@ -52,7 +53,7 @@ trait ForwardsFilesystem
     /** @deprecated */
     public function getDocumentationPagePath(string $path = ''): string
     {
-        return $this->filesystem->getDocumentationPagePath($path);
+        return DocumentationPage::path($path);
     }
 
     public function mediaPath(string $path = ''): string
