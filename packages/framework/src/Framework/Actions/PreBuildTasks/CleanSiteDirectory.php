@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Support\Facades\File;
 use function basename;
 use function in_array;
 use function sprintf;
-use function config;
 
 class CleanSiteDirectory extends PreBuildTask
 {
@@ -56,6 +56,6 @@ class CleanSiteDirectory extends PreBuildTask
 
     protected function safeOutputDirectories(): array
     {
-        return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
+        return Config::getArray('hyde.safe_output_directories', ['_site', 'docs', 'build']);
     }
 }
