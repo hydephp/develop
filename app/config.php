@@ -91,7 +91,7 @@ return [
         'Hyde' => Hyde\Hyde::class,
         'Site' => \Hyde\Facades\Site::class,
         'Meta' => \Hyde\Facades\Meta::class,
-        'Route' => \Hyde\Facades\Route::class,
+        'Routes' => \Hyde\Foundation\Facades\Routes::class,
         'Asset' => \Hyde\Facades\Asset::class,
         'Author' => \Hyde\Facades\Author::class,
         'Includes' => \Hyde\Facades\Includes::class,
