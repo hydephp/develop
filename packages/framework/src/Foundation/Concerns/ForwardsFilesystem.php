@@ -28,9 +28,9 @@ trait ForwardsFilesystem
         return $this->filesystem->vendorPath($path, $package);
     }
 
-    public function getModelSourcePath(string $model, string $path = ''): string
+    public function getModelSourcePath(string $pageClass, string $path = ''): string
     {
-        return $this->filesystem->getModelSourcePath($model, $path);
+        return $this->filesystem->getModelSourcePath($pageClass, $path);
     }
 
     public function getBladePagePath(string $path = ''): string
