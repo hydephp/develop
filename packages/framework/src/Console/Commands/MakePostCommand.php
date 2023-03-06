@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 use function is_string;
 use function sprintf;
 use function ucwords;
