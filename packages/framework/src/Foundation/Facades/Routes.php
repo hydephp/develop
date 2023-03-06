@@ -12,6 +12,10 @@ use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * Provides an easy way to access the Hyde pseudo-router.
+ *
+ * To access a route you need the route key which is the equivalent of the URL path of the compiled page.
+ *
  * @mixin \Hyde\Foundation\Kernel\RouteCollection
  */
 class Routes extends Facade
