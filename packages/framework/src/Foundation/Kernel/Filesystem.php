@@ -189,11 +189,6 @@ class Filesystem
         return false;
     }
 
-    public function getMarkdownPostPath(string $path = ''): string
-    {
-        return MarkdownPost::path($path);
-    }
-
     public function getDocumentationPagePath(string $path = ''): string
     {
         return DocumentationPage::path($path);
