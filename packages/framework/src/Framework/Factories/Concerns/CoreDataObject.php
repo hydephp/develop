@@ -10,7 +10,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
 /**
- * Experimental class to contain the core data for a page being constructed.
+ * Data class to contain the core data for a page being constructed.
  *
  * It should contain immutable data known at the very start of construction.
  * In addition to the front matter and markdown, the data should contain
