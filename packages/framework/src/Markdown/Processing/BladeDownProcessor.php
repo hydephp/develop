@@ -7,14 +7,14 @@ namespace Hyde\Markdown\Processing;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\Facades\Blade;
-use function array_map;
-use function e;
-use function explode;
 use function html_entity_decode;
-use function implode;
 use function strtolower;
+use function array_map;
+use function explode;
+use function implode;
 use function substr;
 use function trim;
+use function e;
 
 /**
  * Markdown Processor to render Laravel Blade within Markdown files.
