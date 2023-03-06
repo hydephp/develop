@@ -18,24 +18,24 @@ class Route
 {
     public static function exists(string $routeKey): bool
     {
-        return Routes::has(RouteKey::normalize($routeKey));
+        return Routes::exists($routeKey);
     }
 
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
-        return Routes::get(RouteKey::normalize($routeKey));
+        return Routes::get($routeKey);
     }
 
     /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
     public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
     {
-        return Routes::getRoute(RouteKey::normalize($routeKey));
+        return Routes::getOrFail($routeKey);
     }
 
     /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
     public static function all(): RouteCollection
     {
-        return Routes::getRoutes();
+        return Routes::all();
     }
 
     /** Get the current route for the page being rendered. */
