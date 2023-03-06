@@ -8,6 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Facades\View;
+use function substr;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
