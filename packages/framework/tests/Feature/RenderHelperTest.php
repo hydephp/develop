@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
@@ -86,6 +87,16 @@ class RenderHelperTest extends TestCase
     }
 
     public function testClearData()
+    {
+        $render = new RenderData();
+        $render->setPage(new MarkdownPage());
+        $this->assertNotNull($render->getPage());
+
+        $render->clearData();
+        $this->assertNull($render->getPage());
+    }
+
+    public function testClearDataOnFacade()
     {
         Render::setPage(new MarkdownPage());
         $this->assertNotNull(Render::getPage());
