@@ -13,6 +13,6 @@ class PageContents implements Arrayable, Stringable
 
     public function __construct(string $body = '')
     {
-        $this->body = $body;
+        $this->body = str_replace("\r\n", "\n", rtrim($body));
     }
 }
