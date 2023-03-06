@@ -36,7 +36,7 @@ class MarkdownService
     use SetsUpMarkdownConverter;
 
     public string $markdown;
-    public ?string $sourceModel = null;
+    public ?string $pageClass = null;
 
     protected array $config = [];
     protected array $extensions = [];
@@ -50,7 +50,7 @@ class MarkdownService
 
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
-        $this->sourceModel = $sourceModel;
+        $this->pageClass = $sourceModel;
         $this->markdown = $markdown;
     }
 
@@ -144,7 +144,7 @@ class MarkdownService
 
     public function isDocumentationPage(): bool
     {
-        return isset($this->sourceModel) && $this->sourceModel === DocumentationPage::class;
+        return isset($this->pageClass) && $this->pageClass === DocumentationPage::class;
     }
 
     public function withTableOfContents(): static

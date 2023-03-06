@@ -193,7 +193,7 @@ class MarkdownServiceTest extends TestCase
         $service = $this->makeService();
 
         Config::set('docs.table_of_contents.enabled', true);
-        $service->sourceModel = DocumentationPage::class;
+        $service->pageClass = DocumentationPage::class;
 
         $this->assertTrue($service->canEnablePermalinks());
     }
