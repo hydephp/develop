@@ -9,7 +9,8 @@ use Hyde\Facades\Filesystem;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
- * @experimental 
+ * @experimental
+ * @codeCoverageIgnore
  */
 class PageContents implements Arrayable, Stringable
 {
