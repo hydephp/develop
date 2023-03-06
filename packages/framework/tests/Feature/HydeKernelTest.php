@@ -232,14 +232,10 @@ class HydeKernelTest extends TestCase
 
     public function test_fluent_model_source_path_helpers()
     {
-        Hyde::kernel();
-        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path(''));
-        Hyde::kernel();
-        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path(''));
-        Hyde::kernel();
-        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path(''));
-        Hyde::kernel();
-        $this->assertSame(Hyde::path('_pages'), BladePage::path(''));
+        $this->assertSame(Hyde::path('_pages'), BladePage::path());
+        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
+        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
+        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
 
         $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
         $this->assertSame(Hyde::path('_pages'), Hyde::getBladePagePath());

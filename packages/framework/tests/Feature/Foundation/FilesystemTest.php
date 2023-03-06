@@ -230,29 +230,11 @@ class FilesystemTest extends UnitTestCase
 
     public function test_get_model_source_path_method_returns_path_to_file_for_model_classes()
     {
-        Hyde::kernel();
-        $this->assertEquals(
-            Hyde::path('_posts/foo.md'),
-            MarkdownPost::path('foo.md')
-        );
-
-        Hyde::kernel();
-        $this->assertEquals(
-            Hyde::path('_pages/foo.md'),
-            MarkdownPage::path('foo.md')
-        );
-
-        Hyde::kernel();
-        $this->assertEquals(
-            Hyde::path('_docs/foo.md'),
-            DocumentationPage::path('foo.md')
-        );
-
-        Hyde::kernel();
-        $this->assertEquals(
-            Hyde::path('_pages/foo.md'),
-            BladePage::path('foo.md')
-        );
+        $this->assertEquals(Hyde::path('_pages/foo.md'), HtmlPage::path('foo.md'));
+        $this->assertEquals(Hyde::path('_pages/foo.md'), BladePage::path('foo.md'));
+        $this->assertEquals(Hyde::path('_pages/foo.md'), MarkdownPage::path('foo.md'));
+        $this->assertEquals(Hyde::path('_posts/foo.md'), MarkdownPost::path('foo.md'));
+        $this->assertEquals(Hyde::path('_docs/foo.md'), DocumentationPage::path('foo.md'));
     }
 
     public function test_helper_for_blade_pages()
