@@ -32,9 +32,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
         parent::__construct($this->toArray());
     }
 
-    /**
-     * @param  array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}  $data
-     */
+    /** @param  array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}  $data */
     public static function make(array $data): self
     {
         return new self(
@@ -45,9 +43,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
         );
     }
 
-    /**
-     * @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}
-     */
+    /** @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null} */
     public function toArray(): array
     {
         return [
