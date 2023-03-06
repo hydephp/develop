@@ -17,7 +17,15 @@ class HydePageSerializableUnitTest extends UnitTestCase
 
     public function testToArray()
     {
-        //
+        $this->assertSame([
+            'identifier',
+            'routeKey',
+            'matter',
+            'metadata',
+            'navigation',
+            'title',
+            'canonicalUrl',
+        ], array_keys((new InstantiableHydePage())->toArray()));
     }
 }
 
