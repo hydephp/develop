@@ -42,7 +42,7 @@ class GlobalMetadataBag extends MetadataBag
             ]));
         }
 
-        if (Hyde::currentPage() !== null) {
+        if (Render::getPage() !== null) {
             static::filterDuplicateMetadata($metadata, Render::getPage());
         }
 
