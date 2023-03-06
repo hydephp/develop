@@ -20,3 +20,11 @@ class HydePageSerializableUnitTest extends UnitTestCase
         //
     }
 }
+
+class InstantiableHydePage extends HydePage
+{
+    public function compile(): string
+    {
+        return '';
+    }
+}
