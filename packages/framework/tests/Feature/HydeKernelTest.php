@@ -269,7 +269,7 @@ class HydeKernelTest extends TestCase
 
     public function test_json_serialize_method()
     {
-        $this->assertEquals(Hyde::kernel()->jsonSerialize(), Hyde::toArray());
+        $this->assertEquals(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
     }
 
     public function test_to_json_method()
