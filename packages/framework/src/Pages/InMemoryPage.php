@@ -29,7 +29,7 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $fileExtension;
 
-    protected string $legacy_contents;
+    protected string $contents;
     protected string $view;
 
     /** @var array<string, callable> */
@@ -65,14 +65,14 @@ class InMemoryPage extends HydePage
     {
         parent::__construct($identifier, $matter);
 
-        $this->legacy_contents = $contents;
+        $this->contents = $contents;
         $this->view = $view;
     }
 
     /** Get the contents of the page. This will be saved as-is to the output file when this strategy is used. */
-    public function getLegacyContents(): string
+    public function getContents(): string
     {
-        return $this->legacy_contents;
+        return $this->contents;
     }
 
     /** Get the view key or Blade file for the view to use to render the page contents when this strategy is used. */
@@ -94,7 +94,7 @@ class InMemoryPage extends HydePage
             return $this->__call('compile', []);
         }
 
-        if ($this->getBladeView() && ! $this->getLegacyContents()) {
+        if ($this->getBladeView() && ! $this->getContents()) {
             if (str_ends_with($this->getBladeView(), '.blade.php')) {
                 // If the view key is for a Blade file path, we'll use the anonymous view compiler to compile it.
                 // This allows you to use any arbitrary file, without needing to register its namespace or directory.
@@ -105,7 +105,7 @@ class InMemoryPage extends HydePage
         }
 
         // If there's no macro or view configured, we'll just return the contents as-is.
-        return $this->getLegacyContents();
+        return $this->getContents();
     }
 
     /**

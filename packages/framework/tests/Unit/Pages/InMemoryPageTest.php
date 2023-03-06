@@ -28,7 +28,7 @@ class InMemoryPageTest extends TestCase
 
     public function testContentsMethod()
     {
-        $this->assertSame('bar', (new InMemoryPage('foo', contents: 'bar'))->getLegacyContents());
+        $this->assertSame('bar', (new InMemoryPage('foo', contents: 'bar'))->getContents());
     }
 
     public function testViewMethod()
