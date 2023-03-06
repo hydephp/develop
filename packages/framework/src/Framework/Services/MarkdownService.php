@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Pages\DocumentationPage;
@@ -21,7 +22,6 @@ use function explode;
 use function substr;
 use function strlen;
 use function filled;
-use function config;
 use function ltrim;
 use function trim;
 
@@ -181,13 +181,13 @@ class MarkdownService
     protected function determineIfTorchlightAttributionShouldBeInjected(): bool
     {
         return ! $this->isDocumentationPage()
-            && config('torchlight.attribution.enabled', true)
+            && Config::getBool('torchlight.attribution.enabled', true)
             && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
     }
 
     protected function injectTorchlightAttribution(): string
     {
-        return '<br>'.$this->converter->convert(config(
+        return '<br>'.$this->converter->convert(Config::getString(
             'torchlight.attribution.markdown',
             'Syntax highlighted by torchlight.dev'
         ));

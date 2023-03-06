@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
@@ -15,7 +16,6 @@ use function array_intersect;
 use function file_exists;
 use function implode;
 use function sprintf;
-use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
@@ -126,7 +126,7 @@ class ValidationService
                 ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
         }
 
-        if (config('torchlight.token') !== null) {
+        if (Config::getNullableString('torchlight.token') !== null) {
             return $result->pass('Your site has a Torchlight API token set');
         }
 
