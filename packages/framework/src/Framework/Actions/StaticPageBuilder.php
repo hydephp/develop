@@ -19,7 +19,6 @@ class StaticPageBuilder
     use InteractsWithDirectories;
 
     protected HydePage $page;
-    protected string $path;
 
     /**
      * Construct a new static page builder instance.
@@ -30,7 +29,6 @@ class StaticPageBuilder
     public function __construct(HydePage $page, bool $selfInvoke = false)
     {
         $this->page = $page;
-        $this->path = Hyde::sitePath($page->getOutputPath());
 
         if ($selfInvoke) {
             $this->__invoke();
@@ -42,12 +40,14 @@ class StaticPageBuilder
      */
     public function __invoke(): string
     {
+        $path = Hyde::sitePath($this->page->getOutputPath());
+
         Hyde::shareViewData($this->page);
 
-        $this->needsParentDirectory($this->path);
+        $this->needsParentDirectory($path);
 
-        Filesystem::putContents($this->path, $this->page->compile());
+        Filesystem::putContents($path, $this->page->compile());
 
-        return $this->path;
+        return $path;
     }
 }
