@@ -254,7 +254,7 @@ class FilesystemTest extends UnitTestCase
 
     public function testHelperForDocumentationPages()
     {
-        $this->assertSame(Hyde::path('_docs'), Hyde::kernel()->getDocumentationPagePath());
+        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path(''));
     }
 
     public function testHelperForMediaPath()

@@ -12,6 +12,7 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Console\OutputStyle;
@@ -89,7 +90,7 @@ class RebuildPageCommand extends Command
                     Hyde::pathToRelative(BladePage::path('')),
                     Hyde::pathToRelative(MarkdownPage::path('')),
                     Hyde::pathToRelative(MarkdownPost::path('')),
-                    Hyde::pathToRelative(Hyde::kernel()->getDocumentationPagePath()),
+                    Hyde::pathToRelative(DocumentationPage::path('')),
                 ];
 
                 if (! in_array($directory, $directories)) {

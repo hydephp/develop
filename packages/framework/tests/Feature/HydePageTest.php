@@ -1099,7 +1099,7 @@ class HydePageTest extends TestCase
         $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), BladePage::path('foo'));
         $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), MarkdownPage::path('foo'));
         $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), MarkdownPost::path('foo'));
-        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::kernel()->getDocumentationPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), DocumentationPage::path('foo'));
     }
 
     public function test_all_pages_are_routable()

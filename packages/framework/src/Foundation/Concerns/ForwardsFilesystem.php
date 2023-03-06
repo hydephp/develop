@@ -32,12 +32,6 @@ trait ForwardsFilesystem
         return $this->filesystem->vendorPath($path, $package);
     }
 
-    /** @deprecated */
-    public function getDocumentationPagePath(string $path = ''): string
-    {
-        return DocumentationPage::path($path);
-    }
-
     public function mediaPath(string $path = ''): string
     {
         return $this->filesystem->mediaPath($path);
