@@ -9,7 +9,7 @@ use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
-use Illuminate\Support\Facades\Config;
+use Hyde\Facades\Config;
 use function memory_get_peak_usage;
 use function number_format;
 use function array_search;
