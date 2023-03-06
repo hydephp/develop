@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Hyde\Support\Concerns;
+
 use function json_encode;
 use function collect;
 
