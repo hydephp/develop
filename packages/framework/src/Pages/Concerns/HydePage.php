@@ -246,6 +246,16 @@ abstract class HydePage implements PageSchema, SerializableContract
     abstract public function compile(): string;
 
     /**
+     * Get the instance as an array.
+     */
+    public function toArray(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
      * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
