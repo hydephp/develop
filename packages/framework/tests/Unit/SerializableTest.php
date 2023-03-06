@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Support\Concerns\Serializable;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 use JsonSerializable;
 
 /**
  * @covers \Hyde\Support\Concerns\Serializable
  */
-class SerializableTest extends TestCase
+class SerializableTest extends UnitTestCase
 {
     public function test_json_serialize()
     {
