@@ -36,7 +36,7 @@ class MarkdownService
     use SetsUpMarkdownConverter;
 
     protected string $markdown;
-    public ?string $pageClass = null;
+    protected ?string $pageClass = null;
 
     protected array $config = [];
     protected array $extensions = [];
