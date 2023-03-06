@@ -29,7 +29,7 @@ abstract class PageDataFactory implements Arrayable
     public const SCHEMA = [];
 
     /**
-     * Get the generated data as an array.
+     * Get the generated data as an associative array.
      *
      * @return array<string, mixed>
      */
