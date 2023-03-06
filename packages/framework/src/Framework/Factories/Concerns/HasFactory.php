@@ -10,6 +10,19 @@ use Hyde\Pages\MarkdownPost;
 
 trait HasFactory
 {
+    public function toCoreDataObject(): CoreDataObject
+    {
+        return new CoreDataObject(
+            $this->matter,
+            $this->markdown ?? false,
+            static::class,
+            $this->identifier,
+            $this->getSourcePath(),
+            $this->getOutputPath(),
+            $this->getRouteKey(),
+        );
+    }
+
     protected function constructFactoryData(): void
     {
         $this->assignFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
@@ -24,18 +37,5 @@ trait HasFactory
         foreach ($factory->toArray() as $key => $value) {
             $this->{$key} = $value;
         }
-    }
-
-    public function toCoreDataObject(): CoreDataObject
-    {
-        return new CoreDataObject(
-            $this->matter,
-            $this->markdown ?? false,
-            static::class,
-            $this->identifier,
-            $this->getSourcePath(),
-            $this->getOutputPath(),
-            $this->getRouteKey(),
-        );
     }
 }
