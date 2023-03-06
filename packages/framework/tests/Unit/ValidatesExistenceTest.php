@@ -34,7 +34,8 @@ class ValidatesExistenceTest extends TestCase
     }
 }
 
-class ValidatesExistenceTestClass {
+class ValidatesExistenceTestClass
+{
     use ValidatesExistence;
 
     public function run(...$args): void
