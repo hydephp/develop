@@ -7,7 +7,16 @@ namespace Hyde\Markdown\Processing;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\HtmlString;
+use function preg_replace;
+use function str_ireplace;
 use function strtolower;
+use function str_replace;
+use function explode;
+use function implode;
+use function sprintf;
+use function config;
+use function trim;
+use function view;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
@@ -60,8 +69,8 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
                 $label = static::resolveTemplate($path);
 
                 $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
-                ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
-                : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
+                    ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
+                    : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
             }
         }
 
