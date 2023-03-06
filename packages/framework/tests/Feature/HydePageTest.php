@@ -247,6 +247,21 @@ class HydePageTest extends TestCase
         $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
 
+    public function testToArray()
+    {
+        $this->assertSame([
+            'identifier',
+            'routeKey',
+            'matter',
+            'metadata',
+            'navigation',
+            'title',
+            'canonicalUrl',
+        ],
+            array_keys((new TestPage('hello-world'))->toArray())
+        );
+    }
+
     // Section: In-depth tests
 
     public function test_get_source_directory_returns_static_property()
