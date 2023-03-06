@@ -14,6 +14,11 @@ use Hyde\Pages\DocumentationPage;
 
 /**
  * @covers \Hyde\Pages\Concerns\HydePage
+ * @covers \Hyde\Pages\HtmlPage
+ * @covers \Hyde\Pages\BladePage
+ * @covers \Hyde\Pages\MarkdownPage
+ * @covers \Hyde\Pages\MarkdownPost
+ * @covers \Hyde\Pages\DocumentationPage
  */
 class HydePageSerializableUnitTest extends UnitTestCase
 {
