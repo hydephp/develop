@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Processing;
 
+use Hyde\Facades\Config;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\HtmlString;
@@ -14,7 +15,6 @@ use function str_replace;
 use function explode;
 use function implode;
 use function sprintf;
-use function config;
 use function trim;
 use function view;
 
@@ -109,7 +109,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function resolveTemplate(string $path): string
     {
         return view('hyde::components.filepath-label', [
-            'path' => config('markdown.allow_html', false) ? new HtmlString($path) : $path,
+            'path' => Config::getBool('markdown.allow_html', false) ? new HtmlString($path) : $path,
         ])->render();
     }
 
