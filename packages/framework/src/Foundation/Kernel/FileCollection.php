@@ -73,7 +73,7 @@ final class FileCollection extends BaseFoundationCollection
     public function getFiles(?string $pageClass = null): FileCollection
     {
         return $pageClass ? $this->filter(function (SourceFile $file) use ($pageClass): bool {
-            return $file->model === $pageClass;
+            return $file->pageClass === $pageClass;
         }) : $this;
     }
 }

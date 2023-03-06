@@ -22,7 +22,7 @@ class SourceFileTest extends TestCase
         $this->assertInstanceOf(SourceFile::class, $file);
 
         $this->assertSame('foo', $file->path);
-        $this->assertSame(HydePage::class, $file->model);
+        $this->assertSame(HydePage::class, $file->pageClass);
     }
 
     public function test_can_construct_with_model_class()
@@ -31,7 +31,7 @@ class SourceFileTest extends TestCase
         $this->assertInstanceOf(SourceFile::class, $file);
 
         $this->assertSame('foo', $file->path);
-        $this->assertSame(MarkdownPage::class, $file->model);
+        $this->assertSame(MarkdownPage::class, $file->pageClass);
     }
 
     public function can_make()
