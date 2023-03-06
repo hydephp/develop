@@ -10,6 +10,7 @@ use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
@@ -220,6 +221,7 @@ class FilesystemTest extends UnitTestCase
 
     public function test_get_model_source_path_method_returns_path_for_model_classes()
     {
+        $this->assertEquals(Hyde::path('_pages'), HtmlPage::path());
         $this->assertEquals(Hyde::path('_pages'), BladePage::path());
         $this->assertEquals(Hyde::path('_pages'), MarkdownPage::path());
         $this->assertEquals(Hyde::path('_posts'), MarkdownPost::path());
