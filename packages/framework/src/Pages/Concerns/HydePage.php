@@ -18,6 +18,7 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
@@ -46,7 +47,7 @@ use function rtrim;
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class HydePage implements PageSchema
+abstract class HydePage implements PageSchema, SerializableContract
 {
     use InteractsWithFrontMatter;
     use HasFactory;
