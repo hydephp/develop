@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPage;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -38,7 +39,7 @@ trait ForwardsFilesystem
     /** @deprecated */
     public function getMarkdownPagePath(string $path = ''): string
     {
-        return $this->filesystem->getMarkdownPagePath($path);
+        return MarkdownPage::path($path);
     }
 
     /** @deprecated */
