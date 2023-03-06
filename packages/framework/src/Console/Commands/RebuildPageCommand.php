@@ -67,7 +67,7 @@ class RebuildPageCommand extends Command
             {
                 $this->validate();
 
-                (new RebuildService($this->path))->__invoke();
+                (new RebuildService($this->path))->execute();
             }
 
             public function printFinishMessage(): void

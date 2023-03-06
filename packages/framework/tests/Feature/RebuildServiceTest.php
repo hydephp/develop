@@ -20,7 +20,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_pages/foo.blade.php');
         $service = new RebuildService('_pages/foo.blade.php');
-        $service->__invoke();
+        $service->execute();
 
         $this->assertFileExists('_site/foo.html');
         unlink(Hyde::path('_site/foo.html'));
@@ -30,7 +30,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $service = new RebuildService('_pages/foo.md');
-        $service->__invoke();
+        $service->execute();
 
         $this->assertFileExists('_site/foo.html');
         unlink(Hyde::path('_site/foo.html'));
@@ -40,7 +40,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_posts/foo.md');
         $service = new RebuildService('_posts/foo.md');
-        $service->__invoke();
+        $service->execute();
 
         $this->assertFileExists('_site/posts/foo.html');
         unlink(Hyde::path('_site/posts/foo.html'));
@@ -50,7 +50,7 @@ class RebuildServiceTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $service = new RebuildService('_pages/foo.md');
-        $service->__invoke();
+        $service->execute();
 
         $this->assertFileExists('_site/foo.html');
         unlink(Hyde::path('_site/foo.html'));
