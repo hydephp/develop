@@ -6,7 +6,6 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Pages\Concerns\HydePage;
 
 /**
  * Runs the static page builder for the given path.
@@ -15,7 +14,7 @@ use Hyde\Pages\Concerns\HydePage;
  */
 class RebuildService
 {
-    protected HydePage $page;
+    protected string $filepath;
 
     /**
      * Construct the service class instance.
@@ -24,7 +23,7 @@ class RebuildService
      */
     public function __construct(string $filepath)
     {
-        $this->page = Pages::getPage($filepath);
+        $this->filepath = $filepath;
     }
 
     /**
@@ -32,6 +31,6 @@ class RebuildService
      */
     public function execute(): void
     {
-        (new StaticPageBuilder($this->page))->__invoke();
+        (new StaticPageBuilder(Pages::getPage($this->filepath)))->__invoke();
     }
 }
