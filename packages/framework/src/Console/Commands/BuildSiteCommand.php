@@ -16,7 +16,6 @@ use function array_search;
 use function shell_exec;
 use function microtime;
 use function sprintf;
-use function config;
 use function app;
 
 /**
@@ -69,7 +68,7 @@ class BuildSiteCommand extends Command
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
-            $config = (array) config('hyde.features');
+            $config = (array) Config::getArray('hyde.features');
             unset($config[array_search('torchlight', $config)]);
             Config::set(['hyde.features' => $config]);
         }
