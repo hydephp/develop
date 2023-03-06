@@ -22,6 +22,13 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
         );
     }
 
+    public function testGetMethod()
+    {
+        $this->assertCount(4, ColoredBlockquotes::get());
+        $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
+            ColoredBlockquotes::get());
+    }
+
     public function testCanUseMarkdownWithinBlockquote()
     {
         $this->assertEquals(

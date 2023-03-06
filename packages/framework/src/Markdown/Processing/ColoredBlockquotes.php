@@ -46,7 +46,7 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
     }
 
     /** @return ColoredBlockquotes[] */
-    protected static function get(): array
+    public static function get(): array
     {
         return [
             /** @internal */
