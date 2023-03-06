@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Markdown\Processing\ColoredBlockquotes;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * Class ColoredBlockquoteShortcodesTest.
  *
  * @covers \Hyde\Markdown\Processing\ColoredBlockquotes
  */
-class ColoredBlockquoteShortcodesTest extends TestCase
+class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
     public function test_resolve_method()
     {
