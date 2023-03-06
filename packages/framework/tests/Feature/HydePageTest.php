@@ -22,11 +22,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * Test the HydePage class.
- *
- * Since the class is abstract, we can't test it directly,
- * so we will use the MarkdownPage class as a proxy,
- * since it's the simplest implementation.
+ * Test the base HydePage class
  *
  * @covers \Hyde\Pages\Concerns\HydePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
