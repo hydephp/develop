@@ -7,13 +7,19 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Factories\Concerns\CoreDataObject
  */
-class CoreDataObjectTest extends TestCase
+class CoreDataObjectTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::needsKernel();
+        self::mockConfig();
+    }
+
     public function testCoreDataObjectWithHydePage()
     {
         $this->assertInstanceOf(
