@@ -86,11 +86,11 @@ class RebuildPageCommand extends Command
                 $directory = Hyde::pathToRelative(dirname($this->path));
 
                 $directories = [
-                    Hyde::pathToRelative(BladePage::path('')),
-                    Hyde::pathToRelative(BladePage::path('')),
-                    Hyde::pathToRelative(MarkdownPage::path('')),
-                    Hyde::pathToRelative(MarkdownPost::path('')),
-                    Hyde::pathToRelative(DocumentationPage::path('')),
+                    Hyde::pathToRelative(BladePage::path()),
+                    Hyde::pathToRelative(BladePage::path()),
+                    Hyde::pathToRelative(MarkdownPage::path()),
+                    Hyde::pathToRelative(MarkdownPost::path()),
+                    Hyde::pathToRelative(DocumentationPage::path()),
                 ];
 
                 if (! in_array($directory, $directories)) {
