@@ -25,6 +25,11 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertInstanceOf(ReadingTime::class, new ReadingTime('Hello world'));
     }
 
+    public function test__toString()
+    {
+        $this->assertSame('0min, 0sec', (string) new ReadingTime('Hello world'));
+    }
+
     public function test_getWordCount()
     {
         $this->assertSame(0, (new ReadingTime($this->words(0)))->getWordCount());
