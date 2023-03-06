@@ -28,5 +28,8 @@ abstract class PageDataFactory implements Arrayable
      */
     public const SCHEMA = [];
 
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function toArray(): array;
 }
