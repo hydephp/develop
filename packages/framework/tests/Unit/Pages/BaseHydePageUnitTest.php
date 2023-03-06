@@ -19,11 +19,6 @@ use Hyde\Testing\TestCase;
  */
 abstract class BaseHydePageUnitTest extends TestCase
 {
-    protected function mockPageDataFactory(): PageDataFactory
-    {
-        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
-    }
-
     abstract public function testPath();
 
     abstract public function testBaseRouteKey();
