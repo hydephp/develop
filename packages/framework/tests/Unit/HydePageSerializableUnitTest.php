@@ -203,6 +203,28 @@ class HydePageSerializableUnitTest extends UnitTestCase
             $page->toArray()
         );
     }
+
+    public function testJsonEncodedOutput()
+    {
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Framework\\Testing\\Unit\\InstantiableHydePage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 999,
+                    "hidden": false,
+                    "group": null
+                },
+                "title": "",
+                "canonicalUrl": null
+            }
+            JSON, (new InstantiableHydePage())->toJson(128)
+        );
+    }
 }
 
 class InstantiableHydePage extends HydePage
