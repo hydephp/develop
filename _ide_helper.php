@@ -28,6 +28,7 @@ $currentPage = \Hyde\Support\Facades\Render::getCurrentPage();
 class Hyde extends \Hyde\Hyde {}
 class Site extends \Hyde\Facades\Site {}
 class Meta extends \Hyde\Facades\Meta {}
+/** @mixin \Hyde\Foundation\Kernel\RouteCollection */
 class Routes extends \Hyde\Foundation\Facades\Routes {}
 /** @mixin \Hyde\Framework\Services\AssetService */
 class Asset extends \Hyde\Facades\Asset {}
