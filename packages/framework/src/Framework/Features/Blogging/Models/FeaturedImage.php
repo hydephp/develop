@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Hyde\Facades\Config;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Stringable;
+use Hyde\Facades\Config;
+use Illuminate\Support\Str;
 use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use Stringable;
-use function array_flip;
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use function array_key_exists;
+use function array_flip;
 use function file_exists;
 use function filesize;
-use function key;
 use function sprintf;
+use function key;
 
 /**
  * Object representation of a blog post's featured image.

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\BuildTasks;
 
-use Hyde\Framework\Concerns\TracksExecutionTime;
+use Throwable;
 use Hyde\Hyde;
-use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Command\Command;
-use Throwable;
+use Hyde\Framework\Concerns\TracksExecutionTime;
+use Illuminate\Console\Concerns\InteractsWithIO;
+use function str_replace;
+use function sprintf;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest

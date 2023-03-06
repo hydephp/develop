@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
-use Stringable;
+use function is_string;
 
 /**
  * The Post Author model object.

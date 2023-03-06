@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Actions\StaticPageBuilder;
+use function config;
+use function view;
 
 /**
  * @internal This page is used to render the search page for the documentation.
