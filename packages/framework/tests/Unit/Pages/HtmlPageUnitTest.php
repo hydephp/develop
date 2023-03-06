@@ -205,12 +205,6 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(CoreDataObject::class, (new HtmlPage('foo'))->toCoreDataObject());
     }
 
-    public function testAssignFactoryData()
-    {
-        (new HtmlPage())->assignFactoryData($this->mockPageDataFactory());
-        $this->assertTrue(true);
-    }
-
     public function testCompile()
     {
         $this->file('_pages/foo.html');

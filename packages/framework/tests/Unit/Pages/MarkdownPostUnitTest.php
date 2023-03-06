@@ -207,12 +207,6 @@ class MarkdownPostUnitTest extends BaseMarkdownPageUnitTest
         $this->assertInstanceOf(CoreDataObject::class, (new MarkdownPost('foo'))->toCoreDataObject());
     }
 
-    public function testAssignFactoryData()
-    {
-        (new MarkdownPost())->assignFactoryData($this->mockPageDataFactory());
-        $this->assertTrue(true);
-    }
-
     public function testCompile()
     {
         $page = new MarkdownPost('foo');
