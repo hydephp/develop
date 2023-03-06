@@ -41,6 +41,18 @@ class Config extends \Illuminate\Support\Facades\Config
         return (float) self::validated(static::get($key, $default), 'float', $key);
     }
 
+    /** @experimental */
+    public static function getNullableString(string $key, string $default = null): ?string
+    {
+        $value = static::get($key, $default);
+
+        if ($value === null) {
+            return null;
+        }
+
+        return (string) self::validated($value, 'string', $key);
+    }
+
     protected static function validated(mixed $value, string $type, string $key): mixed
     {
         if (! ("is_$type")($value)) {
