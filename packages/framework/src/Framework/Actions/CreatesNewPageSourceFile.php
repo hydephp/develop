@@ -80,11 +80,11 @@ class CreatesNewPageSourceFile
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
     }
 
-    protected function createPage(string $type): void
+    protected function createPage(string $pageClass): void
     {
         $this->failIfFileCannotBeSaved($this->outputPath);
 
-        match ($type) {
+        match ($pageClass) {
             BladePage::class => $this->createBladeFile(),
             MarkdownPage::class => $this->createMarkdownFile(),
             DocumentationPage::class => $this->createDocumentationFile(),
