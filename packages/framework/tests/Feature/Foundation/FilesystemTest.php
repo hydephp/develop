@@ -221,11 +221,8 @@ class FilesystemTest extends UnitTestCase
     public function test_get_model_source_path_method_returns_path_for_model_classes()
     {
         $this->assertEquals(Hyde::path('_posts'), MarkdownPost::path());
-
         $this->assertEquals(Hyde::path('_pages'), MarkdownPage::path());
-
         $this->assertEquals(Hyde::path('_docs'), DocumentationPage::path());
-
         $this->assertEquals(Hyde::path('_pages'), BladePage::path());
     }
 
