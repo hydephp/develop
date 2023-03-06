@@ -22,20 +22,15 @@ class CoreDataObjectTest extends UnitTestCase
 
     public function testCoreDataObjectWithHydePage()
     {
-        $this->assertInstanceOf(
-            CoreDataObject::class,
-            (new MarkdownPage(
-                'foo',
-            ))->toCoreDataObject());
+        $this->assertInstanceOf(CoreDataObject::class,
+            (new MarkdownPage('foo'))->toCoreDataObject()
+        );
     }
 
     public function testCoreDataObjectWithDynamicPage()
     {
-        $this->assertInstanceOf(
-            CoreDataObject::class,
-            (new InMemoryPage(
-                'foo',
-            ))->toCoreDataObject()
+        $this->assertInstanceOf(CoreDataObject::class,
+            (new InMemoryPage('foo'))->toCoreDataObject()
         );
     }
 
@@ -47,8 +42,6 @@ class CoreDataObjectTest extends UnitTestCase
             'sourcePath' => '_pages/foo.md',
             'outputPath' => 'foo.html',
             'routeKey' => 'foo',
-        ], (new MarkdownPage(
-            'foo',
-        ))->toCoreDataObject()->toArray());
+        ], (new MarkdownPage('foo'))->toCoreDataObject()->toArray());
     }
 }
