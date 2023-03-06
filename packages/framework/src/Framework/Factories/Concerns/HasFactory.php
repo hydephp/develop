@@ -17,7 +17,7 @@ trait HasFactory
         }
     }
 
-    protected function constructPageSchemas(): void
+    protected function constructFactoryData(): void
     {
         $this->assignFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
 
