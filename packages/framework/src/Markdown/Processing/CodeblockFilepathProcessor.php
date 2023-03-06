@@ -25,6 +25,8 @@ use function view;
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
+    protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
+
     protected static array $patterns = [
         '// filepath: ',
         '// filepath ',
@@ -33,8 +35,6 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         '# filepath: ',
         '# filepath ',
     ];
-
-    protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
 
     /**
      * Extract lines matching the shortcode pattern and replace them with meta-blocks that will be processed later.
