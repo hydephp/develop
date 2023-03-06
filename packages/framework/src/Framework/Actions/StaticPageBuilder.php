@@ -18,6 +18,7 @@ class StaticPageBuilder
 {
     use InteractsWithDirectories;
 
+    protected HydePage $page;
     protected string $path;
 
     /**
@@ -26,8 +27,9 @@ class StaticPageBuilder
      * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
      */
-    public function __construct(protected HydePage $page, bool $selfInvoke = false)
+    public function __construct(HydePage $page, bool $selfInvoke = false)
     {
+        $this->page = $page;
         $this->path = Hyde::sitePath($this->page->getOutputPath());
 
         if ($selfInvoke) {
