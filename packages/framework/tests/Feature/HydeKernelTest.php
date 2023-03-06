@@ -240,7 +240,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
         $this->assertSame(Hyde::path('_pages'), BladePage::path(''));
         $this->assertSame(Hyde::path('_pages'), MarkdownPage::path(''));
-        $this->assertSame(Hyde::path('_posts'), Hyde::kernel()->getMarkdownPostPath());
+        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path(''));
         $this->assertSame(Hyde::path('_docs'), Hyde::kernel()->getDocumentationPagePath());
         $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());

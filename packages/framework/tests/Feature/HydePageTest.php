@@ -1098,7 +1098,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), BladePage::path('foo'));
         $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), MarkdownPage::path('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::kernel()->getMarkdownPostPath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), MarkdownPost::path('foo'));
         $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::kernel()->getDocumentationPagePath('foo'));
     }
 
