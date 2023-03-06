@@ -22,9 +22,8 @@ class RebuildService
 
     /**
      * The page builder instance.
-     * Used to get debug output from the builder.
      */
-    public StaticPageBuilder $builder;
+    protected StaticPageBuilder $builder;
 
     /**
      * Construct the service class instance.
