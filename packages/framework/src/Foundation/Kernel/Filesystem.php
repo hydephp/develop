@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
-use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\PharSupport;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
