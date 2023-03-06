@@ -13,21 +13,24 @@ use Hyde\Support\Contracts\SerializableContract;
  */
 class SerializableTest extends UnitTestCase
 {
+    public function testToArray()
+    {
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->toArray());
+    }
+
     public function testJsonSerialize()
     {
-        $class = new SerializableTestClass;
-
-        $this->assertSame(['foo' => 'bar'], $class->toArray());
-        $this->assertSame(['foo' => 'bar'], $class->jsonSerialize());
-
-        $this->assertSame('{"foo":"bar"}', json_encode($class));
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->jsonSerialize());
     }
 
     public function testToJson()
     {
-        $class = new SerializableTestClass;
+        $this->assertSame('{"foo":"bar"}', (new SerializableTestClass)->toJson());
+    }
 
-        $this->assertSame('{"foo":"bar"}', $class->toJson());
+    public function testJsonEncode()
+    {
+        $this->assertSame('{"foo":"bar"}', json_encode(new SerializableTestClass));
     }
 }
 
