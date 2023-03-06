@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
@@ -20,7 +21,7 @@ class RouteTest extends UnitTestCase
     {
         self::setupKernel();
         self::mockConfig();
-        Render::swap(new \Hyde\Support\Models\Render());
+        Render::swap(new RenderData());
     }
 
     public function testConstructorCreatesRouteFromPageModel()
