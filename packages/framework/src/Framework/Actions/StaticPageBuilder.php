@@ -7,7 +7,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Hyde;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\Concerns\HydePage;
-use function file_put_contents;
+use Hyde\Facades\Filesystem;
 
 /**
  * Converts a Page Model into a static HTML page.
@@ -56,6 +56,6 @@ class StaticPageBuilder
      */
     protected function save(string $contents): void
     {
-        file_put_contents($this->path, $contents);
+        Filesystem::putContents($this->path, $contents);
     }
 }
