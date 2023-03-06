@@ -13,7 +13,6 @@ use function array_unique;
 use function array_merge;
 use function base_path;
 use function unslash;
-use function config;
 
 /**
  * This trait registers the file paths for important Hyde locations.
@@ -68,7 +67,7 @@ trait RegistersFileLocations
      */
     protected function discoverBladeViewsIn(string $directory): void
     {
-        config(['view.paths' => array_unique(array_merge(
+        Config::set(['view.paths' => array_unique(array_merge(
             Config::getArray('view.paths', []),
             [base_path($directory)]
         ))]);
