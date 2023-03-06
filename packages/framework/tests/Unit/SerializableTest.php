@@ -43,6 +43,16 @@ class SerializableTest extends UnitTestCase
     {
         $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->serialize());
     }
+
+    public function testJsonSerializeWithArrayable()
+    {
+        $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->jsonSerialize());
+    }
+
+    public function testToJsonWithArrayable()
+    {
+        $this->assertSame('{"foo":"bar","arrayable":{"foo":"bar"}}', (new SerializableTestClassWithArrayable)->toJson());
+    }
 }
 
 class SerializableTestClass implements SerializableContract
