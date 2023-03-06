@@ -43,7 +43,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
         );
     }
 
-    /** @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null} */
+    /** @return array{label: string, group: string|null, hidden: bool, priority: int} */
     public function toArray(): array
     {
         return [
