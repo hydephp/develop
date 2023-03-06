@@ -34,6 +34,7 @@ class Author extends \Hyde\Facades\Author {}
 class Includes extends \Hyde\Facades\Includes {}
 class Features extends \Hyde\Facades\Features {}
 class Config extends \Hyde\Facades\Config {}
+class HtmlPage extends \Hyde\Pages\HtmlPage {}
 class BladePage extends \Hyde\Pages\BladePage {}
 class MarkdownPage extends \Hyde\Pages\MarkdownPage {}
 class MarkdownPost extends \Hyde\Pages\MarkdownPost {}

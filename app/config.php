@@ -98,6 +98,7 @@ return [
         'Config' => \Hyde\Facades\Config::class,
         'Filesystem' => \Hyde\Facades\Filesystem::class,
         'Routes' => \Hyde\Foundation\Facades\Routes::class,
+        'HtmlPage' => \Hyde\Pages\HtmlPage::class,
         'BladePage' => \Hyde\Pages\BladePage::class,
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
