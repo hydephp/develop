@@ -18,7 +18,7 @@ use function throw_unless;
  * @see \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
  * @see \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
  */
-abstract class BaseXmlGenerator implements XmlGeneratorContract
+abstract class BaseXmlGenerator
 {
     protected SimpleXMLElement $xmlElement;
 
