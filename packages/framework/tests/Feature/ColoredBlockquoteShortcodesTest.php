@@ -14,13 +14,13 @@ use Hyde\Testing\UnitTestCase;
  */
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
-    public function test_resolve_method()
+    public function testResolveMethod()
     {
         $this->assertEquals('<blockquote class="color"><p>foo</p></blockquote>',
             ColoredBlockquotes::resolve('>color foo'));
     }
 
-    public function test_can_use_markdown_within_blockquote()
+    public function testCanUseMarkdownWithinBlockquote()
     {
         $this->assertEquals('<blockquote class="color"><p>foo <strong>bar</strong></p></blockquote>',
             ColoredBlockquotes::resolve('>color foo **bar**')
