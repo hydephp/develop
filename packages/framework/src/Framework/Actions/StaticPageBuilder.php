@@ -44,18 +44,8 @@ class StaticPageBuilder
 
         $this->needsParentDirectory($this->path);
 
-        $this->save($this->page->compile());
+        Filesystem::putContents($this->path, $this->page->compile());
 
         return $this->path;
-    }
-
-    /**
-     * Save the compiled HTML to file.
-     *
-     * @param  string  $contents  to save to the file
-     */
-    protected function save(string $contents): void
-    {
-        Filesystem::putContents($this->path, $contents);
     }
 }
