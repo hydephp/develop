@@ -26,4 +26,10 @@ trait Serializable
     {
         return json_encode($this->jsonSerialize(), $options);
     }
+
+    /** Recursively serialize Arrayables */
+    public function serialize(): array
+    {
+        return collect($this->toArray())->toArray();
+    }
 }

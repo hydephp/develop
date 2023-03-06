@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * @covers \Hyde\Support\Concerns\Serializable
@@ -32,12 +33,40 @@ class SerializableTest extends UnitTestCase
     {
         $this->assertSame('{"foo":"bar"}', json_encode(new SerializableTestClass));
     }
+
+    public function testSerialize()
+    {
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->serialize());
+    }
+
+    public function testSerializeWithArrayable()
+    {
+        $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->serialize());
+    }
 }
 
 class SerializableTestClass implements SerializableContract
 {
     use Serializable;
 
+    public function toArray(): array
+    {
+        return ['foo' => 'bar'];
+    }
+}
+
+class SerializableTestClassWithArrayable implements SerializableContract
+{
+    use Serializable;
+
+    public function toArray(): array
+    {
+        return ['foo' => 'bar', 'arrayable' => new ArrayableTestClass()];
+    }
+}
+
+class ArrayableTestClass implements Arrayable
+{
     public function toArray(): array
     {
         return ['foo' => 'bar'];
