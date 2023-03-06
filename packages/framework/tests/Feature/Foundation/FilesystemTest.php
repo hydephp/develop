@@ -222,45 +222,49 @@ class FilesystemTest extends UnitTestCase
     {
         $this->assertEquals(
             Hyde::path('_posts'),
-            Hyde::kernel()->getModelSourcePath(MarkdownPost::class)
+            MarkdownPost::path()
         );
 
         $this->assertEquals(
             Hyde::path('_pages'),
-            Hyde::kernel()->getModelSourcePath(MarkdownPage::class)
+            MarkdownPage::path()
         );
 
         $this->assertEquals(
             Hyde::path('_docs'),
-            Hyde::kernel()->getModelSourcePath(DocumentationPage::class)
+            DocumentationPage::path()
         );
 
         $this->assertEquals(
             Hyde::path('_pages'),
-            Hyde::kernel()->getModelSourcePath(BladePage::class)
+            BladePage::path()
         );
     }
 
     public function test_get_model_source_path_method_returns_path_to_file_for_model_classes()
     {
+        Hyde::kernel();
         $this->assertEquals(
             Hyde::path('_posts/foo.md'),
-            Hyde::kernel()->getModelSourcePath(MarkdownPost::class, 'foo.md')
+            MarkdownPost::path('foo.md')
         );
 
+        Hyde::kernel();
         $this->assertEquals(
             Hyde::path('_pages/foo.md'),
-            Hyde::kernel()->getModelSourcePath(MarkdownPage::class, 'foo.md')
+            MarkdownPage::path('foo.md')
         );
 
+        Hyde::kernel();
         $this->assertEquals(
             Hyde::path('_docs/foo.md'),
-            Hyde::kernel()->getModelSourcePath(DocumentationPage::class, 'foo.md')
+            DocumentationPage::path('foo.md')
         );
 
+        Hyde::kernel();
         $this->assertEquals(
             Hyde::path('_pages/foo.md'),
-            Hyde::kernel()->getModelSourcePath(BladePage::class, 'foo.md')
+            BladePage::path('foo.md')
         );
     }
 
