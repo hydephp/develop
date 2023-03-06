@@ -46,8 +46,8 @@ class MakePostCommand extends Command
     protected function getTitle(): string
     {
         $this->line($this->argument('title')
-                ? '<info>Selected title: '.$this->argument('title')."</info>\n"
-                : 'Please enter the title of the post, it will be used to generate the filename.'
+            ? '<info>Selected title: '.$this->argument('title')."</info>\n"
+            : 'Please enter the title of the post, it will be used to generate the filename.'
         );
 
         return $this->argument('title')
