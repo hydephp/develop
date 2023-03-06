@@ -28,7 +28,6 @@ use Illuminate\Support\HtmlString;
  * @method static string vendorPath(string $path = '', string $package = 'framework')
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
- * @method static string getModelSourcePath(string $pageClass, string $path = '')
  * @method static string getBladePagePath(string $path = '') "$basePath/_pages"
  * @method static string getMarkdownPagePath(string $path = '') "$basePath/_pages"
  * @method static string getMarkdownPostPath(string $path = '') "$basePath/_posts"
