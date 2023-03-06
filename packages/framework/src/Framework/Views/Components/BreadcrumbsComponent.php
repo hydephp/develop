@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Views\Components;
 
-use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
+use Hyde\Foundation\Facades\Routes;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use function explode;
+use function view;
 
 class BreadcrumbsComponent extends Component
 {

@@ -6,6 +6,12 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
+use function array_key_exists;
+use function array_map;
+use function explode;
+use function implode;
+use function strpos;
+use function substr;
 
 /**
  * Handle all shortcode processing for a Markdown conversion.

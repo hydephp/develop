@@ -17,10 +17,10 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
 {
     use Serializable;
 
-    public ?string $label = null;
-    public ?string $group = null;
-    public ?bool $hidden = null;
-    public ?int $priority = null;
+    public readonly ?string $label;
+    public readonly ?string $group;
+    public readonly ?bool $hidden;
+    public readonly ?int $priority;
 
     public function __construct(?string $label = null, ?string $group = null, ?bool $hidden = null, ?int $priority = null)
     {
@@ -32,6 +32,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
         parent::__construct($this->toArray());
     }
 
+    /** @param  array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}  $data */
     public static function make(array $data): self
     {
         return new self(
@@ -42,9 +43,7 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
         );
     }
 
-    /**
-     * @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}
-     */
+    /** @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null} */
     public function toArray(): array
     {
         return [

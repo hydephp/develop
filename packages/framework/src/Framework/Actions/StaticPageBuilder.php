@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\Concerns\HydePage;
 
 /**
@@ -17,42 +18,35 @@ class StaticPageBuilder
 {
     use InteractsWithDirectories;
 
+    protected HydePage $page;
+
     /**
-     * Construct the class.
+     * Construct a new static page builder instance.
      *
      * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
      */
-    public function __construct(protected HydePage $page, bool $selfInvoke = false)
+    public function __construct(HydePage $page, bool $selfInvoke = false)
     {
+        $this->page = $page;
+
         if ($selfInvoke) {
             $this->__invoke();
         }
     }
 
     /**
-     * Run the page builder.
+     * Invoke the static page builder.
      */
     public function __invoke(): string
     {
-        Hyde::shareViewData($this->page);
-
-        $this->needsParentDirectory(Hyde::sitePath($this->page->getOutputPath()));
-
-        return $this->save($this->page->compile());
-    }
-
-    /**
-     * Save the compiled HTML to file.
-     *
-     * @param  string  $contents  to save to the file
-     * @return string the path to the saved file
-     */
-    protected function save(string $contents): string
-    {
         $path = Hyde::sitePath($this->page->getOutputPath());
 
-        file_put_contents($path, $contents);
+        Hyde::shareViewData($this->page);
+
+        $this->needsParentDirectory($path);
+
+        Filesystem::putContents($path, $this->page->compile());
 
         return $path;
     }

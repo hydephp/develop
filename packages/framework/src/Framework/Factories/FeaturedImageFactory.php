@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
-use Hyde\Markdown\Models\FrontMatter;
-use Illuminate\Support\Str;
-use function is_string;
 use RuntimeException;
+use Illuminate\Support\Str;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use function str_starts_with;
+use function is_string;
+use function unslash;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {

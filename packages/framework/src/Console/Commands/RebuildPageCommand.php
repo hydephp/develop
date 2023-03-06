@@ -7,9 +7,9 @@ namespace Hyde\Console\Commands;
 use Exception;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 use function dirname;
@@ -67,7 +67,7 @@ class RebuildPageCommand extends Command
             {
                 $this->validate();
 
-                (new RebuildService($this->path))->execute();
+                (new StaticPageBuilder(Pages::getPage($this->path)))->__invoke();
             }
 
             public function printFinishMessage(): void

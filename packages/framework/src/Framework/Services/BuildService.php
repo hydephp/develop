@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Facades\Site;
+use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+use function class_basename;
+use function preg_replace;
 use function collect;
+use function copy;
 
 /**
  * Moves logic from the build command to a service.

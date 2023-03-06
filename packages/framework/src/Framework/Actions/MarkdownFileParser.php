@@ -18,12 +18,12 @@ class MarkdownFileParser
     /**
      * The extracted Front Matter.
      */
-    public array $matter = [];
+    protected array $matter = [];
 
     /**
      * The extracted Markdown body.
      */
-    public string $markdown = '';
+    protected string $markdown = '';
 
     public function __construct(string $localFilepath)
     {
@@ -55,6 +55,6 @@ class MarkdownFileParser
 
     public static function parse(string $filepath): MarkdownDocument
     {
-        return (new self($filepath))->get();
+        return (new static($filepath))->get();
     }
 }

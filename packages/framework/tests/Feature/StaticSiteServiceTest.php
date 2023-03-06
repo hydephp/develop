@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\TestCase;
@@ -233,7 +232,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_aborts_when_non_standard_directory_is_emptied()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::setOutputDirectory('foo');
 
         mkdir(Hyde::path('foo'));
         Filesystem::touch('foo/keep.html');

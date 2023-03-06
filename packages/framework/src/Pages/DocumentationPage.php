@@ -6,7 +6,7 @@ namespace Hyde\Pages;
 
 use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
+use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 
@@ -54,7 +54,7 @@ class DocumentationPage extends BaseMarkdownPage
      */
     public function getTableOfContents(): string
     {
-        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
+        return (new GeneratesTableOfContents($this->markdown))->execute();
     }
 
     /**

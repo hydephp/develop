@@ -28,7 +28,7 @@ use function unslash;
  * All collections are indexed by their filename, which is relative
  * to the configured data collection source directory.
  */
-class DataCollection extends Collection
+class DataCollections extends Collection
 {
     use InteractsWithDirectories;
 
@@ -42,13 +42,13 @@ class DataCollection extends Collection
      *
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
+     * @return DataCollections<string, \Hyde\Markdown\Models\MarkdownDocument>
      */
     public static function markdown(string $name): static
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollection::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
+        return new static(DataCollections::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
         }));
     }
@@ -58,13 +58,13 @@ class DataCollection extends Collection
      *
      * Each YAML file will be parsed into a FrontMatter object.
      *
-     * @return DataCollection<string, \Hyde\Markdown\Models\FrontMatter>
+     * @return DataCollections<string, \Hyde\Markdown\Models\FrontMatter>
      */
     public static function yaml(string $name): static
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollection::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
+        return new static(DataCollections::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()->matter()];
         }));
     }
@@ -74,13 +74,13 @@ class DataCollection extends Collection
      *
      * Each JSON file will be parsed into a stdClass object, or an associative array, depending on the second parameter.
      *
-     * @return DataCollection<string, \stdClass|array>
+     * @return DataCollections<string, \stdClass|array>
      */
     public static function json(string $name, bool $asArray = false): static
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollection::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
+        return new static(DataCollections::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
             return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));
     }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Documentation;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Facades\Config;
+use function view;
 
 /**
  * @internal This page is used to render the search page for the documentation.
@@ -33,7 +35,7 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function enabled(): bool
     {
-        return config('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
+        return Config::getBool('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
     }
 
     public static function generate(): string

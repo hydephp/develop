@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
 use Hyde\Hyde;
-use Hyde\Facades\Site;
+use Hyde\Facades\Config;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Support\Facades\File;
 use function basename;
-use function config;
 use function in_array;
 use function sprintf;
 
@@ -51,12 +50,12 @@ class CleanSiteDirectory extends PreBuildTask
         return $this->confirm(sprintf(
             'The configured output directory (%s) is potentially unsafe to empty. '.
             'Are you sure you want to continue?',
-            Site::getOutputDirectory()
+            Hyde::getOutputDirectory()
         ));
     }
 
     protected function safeOutputDirectories(): array
     {
-        return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
+        return Config::getArray('hyde.safe_output_directories', ['_site', 'docs', 'build']);
     }
 }

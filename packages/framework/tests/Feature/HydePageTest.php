@@ -1211,80 +1211,70 @@ class HydePageTest extends TestCase
 
 class TestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
     public static string $fileExtension = '.md';
     public static string $template = 'template';
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class ConfigurableSourcesTestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
     public static string $template;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class DiscoverableTestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'bar';
     public static string $fileExtension = 'baz';
     public static string $template;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class NonDiscoverableTestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class PartiallyDiscoverablePage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
     public static string $fileExtension;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class MissingSourceDirectoryMarkdownPage extends BaseMarkdownPage
 {
     public static string $sourceDirectory = 'foo';
+}
+
+trait VoidCompiler
+{
+    public function compile(): string
+    {
+        return '';
+    }
 }

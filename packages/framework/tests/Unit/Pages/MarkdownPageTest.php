@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\RebuildService;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
@@ -36,7 +37,7 @@ class MarkdownPageTest extends TestCase
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
         $page = MarkdownPage::parse('test-page');
 
-        (new RebuildService($page->getSourcePath()))->execute();
+        (new StaticPageBuilder(Pages::getPage($page->getSourcePath())))->__invoke();
 
         $this->assertFileExists(Hyde::path('_site/test-page.html'));
         $this->assertStringContainsString('<h1>Test Page</h1>',

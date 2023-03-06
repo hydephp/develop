@@ -7,6 +7,8 @@ namespace Hyde\Framework\Features\Metadata;
 use Hyde\Facades\Meta;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
+use function substr_count;
+use function str_repeat;
 
 class PageMetadataBag extends MetadataBag
 {

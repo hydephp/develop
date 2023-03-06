@@ -6,19 +6,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
-use Hyde\Foundation\Facades\Routes;
-use function config;
-use function date;
-use function filemtime;
-use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Hyde;
+use SimpleXMLElement;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Concerns\TracksExecutionTime;
+use function filemtime;
 use function in_array;
-use SimpleXMLElement;
+use function config;
+use function date;
+use function time;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest

@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
-use Hyde\Hyde;
-use Hyde\Support\BuildWarnings;
-use Illuminate\Support\Facades\Config;
+use function memory_get_peak_usage;
+use function number_format;
+use function array_search;
+use function shell_exec;
+use function microtime;
+use function sprintf;
+use function app;
 
 /**
  * Hyde Command to run the Build Process.
@@ -61,7 +68,7 @@ class BuildSiteCommand extends Command
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
-            $config = (array) config('hyde.features');
+            $config = Config::getArray('hyde.features', []);
             unset($config[array_search('torchlight', $config)]);
             Config::set(['hyde.features' => $config]);
         }

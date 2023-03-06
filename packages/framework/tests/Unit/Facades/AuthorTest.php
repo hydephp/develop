@@ -21,7 +21,7 @@ class AuthorTest extends TestCase
         $this->assertSame('John Doe', $author->name);
         $this->assertSame('https://johndoe.com', $author->website);
 
-        $this->assertEquals(PostAuthor::create('foo'), Author::create('foo'));
+        $this->assertEquals(Author::create('foo', null, null), Author::create('foo'));
     }
 
     public function testGet()

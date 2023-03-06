@@ -20,19 +20,19 @@ class DateString implements Stringable
     final public const SHORT_FORMAT = 'M jS, Y';
 
     /** The original date string. */
-    public string $string;
+    public readonly string $string;
 
     /** The parsed date object. */
-    public DateTime $dateTimeObject;
+    public readonly DateTime $dateTimeObject;
 
     /** The machine-readable datetime string. */
-    public string $datetime;
+    public readonly string $datetime;
 
     /** The human-readable sentence string. */
-    public string $sentence;
+    public readonly string $sentence;
 
     /** Shorter version of the sentence string. */
-    public string $short;
+    public readonly string $short;
 
     public function __construct(string $string)
     {

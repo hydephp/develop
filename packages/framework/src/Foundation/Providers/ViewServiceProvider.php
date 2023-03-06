@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Providers;
 
-use Hyde\Framework\Views\Components\LinkComponent;
-use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Hyde\Framework\Views\Components\LinkComponent;
+use Hyde\Framework\Views\Components\BreadcrumbsComponent;
+use function resource_path;
 
 /**
  * Register the Hyde view components.

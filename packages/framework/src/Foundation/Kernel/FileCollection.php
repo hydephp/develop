@@ -8,6 +8,8 @@ use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
+use function basename;
+use function glob;
 
 /**
  * The FileCollection contains all the discovered source files.

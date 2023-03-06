@@ -93,8 +93,8 @@ class MetadataTest extends TestCase
         $page->metadata->add(Meta::link('foo', 'bar'));
 
         $this->assertEquals([
-            'foo' => Meta::link('foo', 'bar'),
-        ], $page->metadata->links);
+            'links:foo' => Meta::link('foo', 'bar'),
+        ], $page->metadata->get());
     }
 
     public function test_metadata_item_can_be_added()
@@ -103,8 +103,8 @@ class MetadataTest extends TestCase
         $page->metadata->add(Meta::name('foo', 'bar'));
 
         $this->assertEquals([
-            'foo' => Meta::name('foo', 'bar'),
-        ], $page->metadata->metadata);
+            'metadata:foo' => Meta::name('foo', 'bar'),
+        ], $page->metadata->get());
     }
 
     public function test_open_graph_item_can_be_added()
@@ -113,8 +113,8 @@ class MetadataTest extends TestCase
         $page->metadata->add(Meta::property('foo', 'bar'));
 
         $this->assertEquals([
-            'foo' => Meta::property('foo', 'bar'),
-        ], $page->metadata->properties);
+            'properties:foo' => Meta::property('foo', 'bar'),
+        ], $page->metadata->get());
     }
 
     public function test_generic_item_can_be_added()
@@ -123,8 +123,8 @@ class MetadataTest extends TestCase
         $page->metadata->add('foo');
 
         $this->assertEquals([
-            'foo',
-        ], $page->metadata->generics);
+            'generics:0' => 'foo',
+        ], $page->metadata->get());
     }
 
     public function test_multiple_items_can_be_accessed_with_get_method()
@@ -150,8 +150,8 @@ class MetadataTest extends TestCase
         $page->metadata->add(Meta::link('foo', 'baz'));
 
         $this->assertEquals([
-            'foo' => Meta::link('foo', 'baz'),
-        ], $page->metadata->links);
+            'links:foo' => Meta::link('foo', 'baz'),
+        ], $page->metadata->get());
     }
 
     public function test_render_returns_html_string_of_imploded_metadata_arrays()

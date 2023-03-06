@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+use function file_put_contents;
+use function basename;
+use function in_array;
+use function trim;
 
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
@@ -42,7 +47,7 @@ final class DocumentationSearchService
     {
         /** @var \Hyde\Pages\DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
-            if (! in_array($page->identifier, config('docs.exclude_from_search', []))) {
+            if (! in_array($page->identifier, Config::getArray('docs.exclude_from_search', []))) {
                 $this->searchIndex->push(
                     $this->generatePageEntry($page)
                 );
@@ -81,7 +86,7 @@ final class DocumentationSearchService
 
     protected function formatDestination(string $slug): string
     {
-        if (config('hyde.pretty_urls', false) === true) {
+        if (Config::getBool('hyde.pretty_urls', false) === true) {
             return $slug === 'index' ? '' : $slug;
         }
 

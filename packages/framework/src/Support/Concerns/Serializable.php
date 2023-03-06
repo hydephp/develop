@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Concerns;
 
 /**
- * Automatically serializes an Arrayable interface when JSON is requested.
+ * Automatically serializes an Arrayable implementation when JSON is requested.
  *
  * @see \Hyde\Support\Contracts\SerializableContract
  * @see \Hyde\Framework\Testing\Unit\SerializableTest

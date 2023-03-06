@@ -23,7 +23,7 @@ use function str_replace;
  */
 abstract class Command extends BaseCommand
 {
-    public final const USER_EXIT = 130;
+    final public const USER_EXIT = 130;
 
     /**
      * The base handle method that can be overridden by child classes.

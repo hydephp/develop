@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Facades\Config;
-use function array_flip;
-use function config;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use function array_flip;
 use function in_array;
+use function config;
 use function is_a;
 
 /**

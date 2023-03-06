@@ -97,7 +97,7 @@ and the rest of the data will be pulled from a matching entry.
 ```php
 // torchlight! {"lineNumbers": false}
 'authors' => [
-    PostAuthor::create(
+    Author::create(
         username: 'mr_hyde', // Required username
         name: 'Mr. Hyde', // Optional display name
         website: 'https://hydephp.com' // Optional website URL
