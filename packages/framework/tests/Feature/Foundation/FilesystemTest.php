@@ -244,7 +244,7 @@ class FilesystemTest extends UnitTestCase
 
     public function testHelperForMarkdownPages()
     {
-        $this->assertSame(Hyde::path('_pages'), Hyde::kernel()->getMarkdownPagePath());
+        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path(''));
     }
 
     public function testHelperForMarkdownPosts()

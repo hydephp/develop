@@ -12,6 +12,7 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPage;
 use Illuminate\Console\OutputStyle;
 use function dirname;
 use function file_exists;
@@ -85,7 +86,7 @@ class RebuildPageCommand extends Command
                 $directories = [
                     Hyde::pathToRelative(BladePage::path('')),
                     Hyde::pathToRelative(BladePage::path('')),
-                    Hyde::pathToRelative(Hyde::kernel()->getMarkdownPagePath()),
+                    Hyde::pathToRelative(MarkdownPage::path('')),
                     Hyde::pathToRelative(Hyde::kernel()->getMarkdownPostPath()),
                     Hyde::pathToRelative(Hyde::kernel()->getDocumentationPagePath()),
                 ];
