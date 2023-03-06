@@ -192,6 +192,8 @@ class Filesystem
     /**
      * Fluent file helper methods.
      *
+     * @deprecated May be obsolete by $model::path() methods.
+     *
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
      *
      * Provides a more fluent way of getting either the absolute path
