@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
-use Hyde\Foundation\Facades\Routes;
-use function collect;
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use function range;
+use Hyde\Support\Models\Route;
+use Hyde\Foundation\Facades\Routes;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
+use function collect;
 use function sprintf;
+use function range;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginatorTest
