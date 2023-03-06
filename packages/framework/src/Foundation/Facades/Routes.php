@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Facades\Facade;
 
@@ -26,13 +27,13 @@ class Routes extends Facade
         return Routes::has(RouteKey::normalize($routeKey));
     }
 
-    public static function get(string $routeKey): ?\Hyde\Support\Models\Route
+    public static function get(string $routeKey): ?Route
     {
         return Routes::get(RouteKey::normalize($routeKey));
     }
 
     /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
-    public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
+    public static function getOrFail(string $routeKey): Route
     {
         return Routes::getRoute(RouteKey::normalize($routeKey));
     }
@@ -44,7 +45,7 @@ class Routes extends Facade
     }
 
     /** Get the current route for the page being rendered. */
-    public static function current(): ?\Hyde\Support\Models\Route
+    public static function current(): ?Route
     {
         return Hyde::currentRoute();
     }
