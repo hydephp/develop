@@ -20,13 +20,6 @@ class ColoredBlockquoteShortcodesTest extends TestCase
             ColoredBlockquotes::resolve('>color foo'));
     }
 
-    public function test_get_method()
-    {
-        $this->assertCount(4, ColoredBlockquotes::get());
-        $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
-            ColoredBlockquotes::get());
-    }
-
     public function test_can_use_markdown_within_blockquote()
     {
         $this->assertEquals('<blockquote class="color"><p>foo <strong>bar</strong></p></blockquote>',
