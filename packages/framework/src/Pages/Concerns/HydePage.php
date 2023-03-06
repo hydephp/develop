@@ -81,7 +81,7 @@ abstract class HydePage implements PageSchema, SerializableContract
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
 
         $this->constructFactoryData();
-        $this->metadata = new PageMetadataBag($this);
+        $this->constructMetadata();
     }
 
     // Section: State
@@ -379,5 +379,10 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function navigationMenuGroup(): ?string
     {
         return $this->navigation->group;
+    }
+
+    protected function constructMetadata(): void
+    {
+        $this->metadata = new PageMetadataBag($this);
     }
 }
