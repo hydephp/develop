@@ -22,6 +22,12 @@ abstract class BaseXmlGenerator
 {
     protected SimpleXMLElement $xmlElement;
 
+    /**
+     * Generate the XML document.
+     *
+     * @return $this
+     */
+    abstract public function generate(): static;
     abstract protected function constructBaseElement(): void;
 
     /**
@@ -43,14 +49,6 @@ abstract class BaseXmlGenerator
 
         $this->constructBaseElement();
     }
-
-    /**
-     * Generate the XML document.
-     *
-     * @return $this
-     */
-    abstract public function generate(): static;
-
     /**
      * Get the XML document as a string.
      */
