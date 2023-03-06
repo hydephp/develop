@@ -26,7 +26,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->mediaLink($destination, $validate);
     }
 
-    public function image(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name, bool $preferQualifiedUrl = false): string
     {
         return $this->hyperlinks->asset($name, $preferQualifiedUrl);
     }
