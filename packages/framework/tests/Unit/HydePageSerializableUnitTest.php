@@ -30,10 +30,10 @@ class HydePageSerializableUnitTest extends UnitTestCase
         $this->assertIsArray((new InstantiableHydePage())->toArray());
     }
 
-    public function testJsonSerializeUsesToArray()
+    public function testJsonSerializeUsesArraySerialize()
     {
         $page = new InstantiableHydePage();
-        $this->assertSame($page->toArray(), $page->jsonSerialize());
+        $this->assertSame($page->serialize(), $page->jsonSerialize());
     }
 
     public function testToJsonUsesJsonEncodedObject()
