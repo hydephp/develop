@@ -1271,7 +1271,8 @@ class MissingSourceDirectoryMarkdownPage extends BaseMarkdownPage
     public static string $sourceDirectory = 'foo';
 }
 
-trait VoidCompiler {
+trait VoidCompiler
+{
     public function compile(): string
     {
         return '';
