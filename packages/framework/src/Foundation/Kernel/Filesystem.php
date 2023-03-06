@@ -12,17 +12,17 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
-use function array_map;
-use function collect;
-use function file_exists;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
-use function is_array;
-use function is_string;
+use function file_exists;
 use function str_replace;
-use function touch;
-use function unlink;
+use function array_map;
+use function is_string;
+use function is_array;
+use function collect;
 use function unslash;
+use function unlink;
+use function touch;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
