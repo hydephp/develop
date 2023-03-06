@@ -15,15 +15,7 @@ class SerializableTest extends TestCase
 {
     public function test_json_serialize()
     {
-        $class = new class implements JsonSerializable
-        {
-            use Serializable;
-
-            public function toArray(): array
-            {
-                return ['foo' => 'bar'];
-            }
-        };
+        $class = new SerializableTestClass;
 
         $this->assertSame(['foo' => 'bar'], $class->toArray());
         $this->assertSame(['foo' => 'bar'], $class->jsonSerialize());
@@ -33,16 +25,18 @@ class SerializableTest extends TestCase
 
     public function test_to_json()
     {
-        $class = new class
-        {
-            use Serializable;
-
-            public function toArray(): array
-            {
-                return ['foo' => 'bar'];
-            }
-        };
+        $class = new SerializableTestClass;
 
         $this->assertSame('{"foo":"bar"}', $class->toJson());
+    }
+}
+
+class SerializableTestClass implements JsonSerializable
+{
+    use Serializable;
+
+    public function toArray(): array
+    {
+        return ['foo' => 'bar'];
     }
 }
