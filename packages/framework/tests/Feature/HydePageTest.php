@@ -22,7 +22,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * Test the base HydePage class
+ * Test the base HydePage class.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
