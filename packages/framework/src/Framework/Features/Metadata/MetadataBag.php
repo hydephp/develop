@@ -14,18 +14,16 @@ use function implode;
 /**
  * Holds the metadata tags for a page or the site model.
  *
- * @todo These properties should probably not be public
- *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
  * @see \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
 class MetadataBag implements Htmlable
 {
-    public array $links = [];
-    public array $metadata = [];
-    public array $properties = [];
-    public array $generics = [];
+    protected array $links = [];
+    protected array $metadata = [];
+    protected array $properties = [];
+    protected array $generics = [];
 
     public function toHtml(): string
     {
