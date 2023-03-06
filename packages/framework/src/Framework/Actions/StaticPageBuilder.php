@@ -22,7 +22,7 @@ class StaticPageBuilder
     protected string $path;
 
     /**
-     * Construct the class.
+     * Construct a new static page builder instance.
      *
      * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
@@ -38,7 +38,7 @@ class StaticPageBuilder
     }
 
     /**
-     * Run the static page builder.
+     * Invoke the static page builder.
      */
     public function __invoke(): string
     {
