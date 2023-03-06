@@ -7,12 +7,12 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Str;
-use function array_merge;
-use function array_unique;
-use function base_path;
 use function class_basename;
-use function config;
+use function array_unique;
+use function array_merge;
+use function base_path;
 use function unslash;
+use function config;
 
 /**
  * This trait registers the file paths for important Hyde locations.
