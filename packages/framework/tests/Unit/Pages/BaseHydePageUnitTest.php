@@ -76,7 +76,7 @@ abstract class BaseHydePageUnitTest extends TestCase
 
     abstract public function testToCoreDataObject();
 
-    abstract public function testConstructFactoryData();
+    abstract public function testAssignFactoryData();
 
     abstract public function testFileExtension();
 

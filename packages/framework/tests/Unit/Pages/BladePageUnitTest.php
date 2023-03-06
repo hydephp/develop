@@ -171,9 +171,9 @@ class BladePageUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(CoreDataObject::class, (new BladePage('foo'))->toCoreDataObject());
     }
 
-    public function testConstructFactoryData()
+    public function testAssignFactoryData()
     {
-        (new BladePage())->constructFactoryData($this->mockPageDataFactory());
+        (new BladePage())->assignFactoryData($this->mockPageDataFactory());
         $this->assertTrue(true);
     }
 

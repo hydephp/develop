@@ -209,9 +209,9 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(CoreDataObject::class, (new InMemoryPage('foo'))->toCoreDataObject());
     }
 
-    public function testConstructFactoryData()
+    public function testAssignFactoryData()
     {
-        (new InMemoryPage('foo'))->constructFactoryData($this->mockPageDataFactory());
+        (new InMemoryPage('foo'))->assignFactoryData($this->mockPageDataFactory());
         $this->assertTrue(true);
     }
 

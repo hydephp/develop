@@ -10,7 +10,7 @@ use Hyde\Pages\MarkdownPost;
 
 trait HasFactory
 {
-    public function constructFactoryData(PageDataFactory $factory): void
+    public function assignFactoryData(PageDataFactory $factory): void
     {
         foreach ($factory->toArray() as $key => $value) {
             $this->{$key} = $value;
@@ -19,10 +19,10 @@ trait HasFactory
 
     protected function constructPageSchemas(): void
     {
-        $this->constructFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
+        $this->assignFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
 
         if ($this instanceof MarkdownPost) {
-            $this->constructFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
+            $this->assignFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
         }
     }
 
