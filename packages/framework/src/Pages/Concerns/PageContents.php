@@ -20,4 +20,10 @@ class PageContents implements Arrayable, Stringable
     {
         return $this->body;
     }
+
+    /** @return string[] */
+    public function toArray(): array
+    {
+        return explode("\n", $this->body);
+    }
 }
