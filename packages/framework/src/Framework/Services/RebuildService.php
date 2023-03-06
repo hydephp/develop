@@ -8,9 +8,7 @@ use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
 
 /**
- * Build static pages, but intelligently.
- *
- * Runs the static page builder for a given path.
+ * Runs the static page builder for the given path.
  *
  * @deprecated Can be replaced with an action.
  */
