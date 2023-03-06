@@ -22,6 +22,11 @@ class PageContents implements Arrayable, Stringable
         return new static(Filesystem::getContents($path));
     }
 
+    public function body(): string
+    {
+        return $this->body;
+    }
+
     public function __toString(): string
     {
         return $this->body;
