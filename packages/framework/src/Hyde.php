@@ -14,6 +14,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\HtmlString;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * General facade for Hyde services.
@@ -87,6 +88,7 @@ class Hyde extends Facade
         return HydeKernel::getInstance();
     }
 
+    #[Pure]
     public static function kernel(): HydeKernel
     {
         return HydeKernel::getInstance();
