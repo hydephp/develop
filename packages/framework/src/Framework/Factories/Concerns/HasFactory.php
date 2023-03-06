@@ -10,19 +10,19 @@ use Hyde\Pages\MarkdownPost;
 
 trait HasFactory
 {
-    protected function assignFactoryData(PageDataFactory $factory): void
-    {
-        foreach ($factory->toArray() as $key => $value) {
-            $this->{$key} = $value;
-        }
-    }
-
     protected function constructFactoryData(): void
     {
         $this->assignFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
 
         if ($this instanceof MarkdownPost) {
             $this->assignFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
+        }
+    }
+
+    protected function assignFactoryData(PageDataFactory $factory): void
+    {
+        foreach ($factory->toArray() as $key => $value) {
+            $this->{$key} = $value;
         }
     }
 
