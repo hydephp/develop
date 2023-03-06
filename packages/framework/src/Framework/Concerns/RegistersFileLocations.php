@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Str;
 use function class_basename;
@@ -68,7 +69,7 @@ trait RegistersFileLocations
     protected function discoverBladeViewsIn(string $directory): void
     {
         config(['view.paths' => array_unique(array_merge(
-            config('view.paths', []),
+            Config::getArray('view.paths', []),
             [base_path($directory)]
         ))]);
     }
@@ -103,8 +104,8 @@ trait RegistersFileLocations
 
     private function getPageConfiguration(string $option, string $class, string $default): string
     {
-        return config("hyde.$option.".Str::kebab(class_basename($class))) /** @experimental Support for using kebab-case class names */
-            ?? config("hyde.$option.$class")
+        return Config::getNullableString("hyde.$option.".Str::kebab(class_basename($class))) /** @experimental Support for using kebab-case class names */
+            ?? Config::getNullableString("hyde.$option.$class")
             ?? $default;
     }
 }
