@@ -39,7 +39,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testBladePageToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl', 'view'],
             array_keys((new BladePage())->toArray())
         );
     }
@@ -114,6 +114,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'navigation' => $page->navigation,
             'title' => $page->title,
             'canonicalUrl' => $page->canonicalUrl,
+            'view' => $page->view,
         ],
             $page->toArray()
         );
