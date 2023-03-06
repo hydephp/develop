@@ -2,8 +2,7 @@
     $navigation = \Hyde\Framework\Features\Navigation\NavigationMenu::create();
 @endphp
 
-<nav aria-label="Main navigation" id="main-navigation"
-     class="flex flex-wrap items-center justify-between p-4 shadow-lg sm:shadow-xl md:shadow-none dark:bg-gray-800">
+<nav aria-label="Main navigation" id="main-navigation" class="flex flex-wrap items-center justify-between p-4 shadow-lg sm:shadow-xl md:shadow-none dark:bg-gray-800">
     <div class="flex flex-grow items-center flex-shrink-0 text-gray-700 dark:text-gray-200">
         @include('hyde::components.navigation.navigation-brand')
 
@@ -13,9 +12,8 @@
     </div>
 
     <div class="block md:hidden">
-        <button id="navigation-toggle-button" @click="navigationOpen = ! navigationOpen"
-                class="flex items-center px-3 py-1 hover:text-gray-700 dark:text-gray-200"
-                aria-label="Toggle navigation menu">
+        <button id="navigation-toggle-button" class="flex items-center px-3 py-1 hover:text-gray-700 dark:text-gray-200"
+                aria-label="Toggle navigation menu" @click="navigationOpen = ! navigationOpen">
             <svg x-show="! navigationOpen" title="Open Navigation Menu" class="dark:fill-gray-200"
                  style="display: block;"
                  id="open-main-navigation-menu-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
@@ -32,8 +30,7 @@
         </button>
     </div>
 
-    <div id="main-navigation-links"
-         class="w-full x-uncloak-md md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
+    <div id="main-navigation-links" class="w-full x-uncloak-md md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
          :class="navigationOpen ? '' : 'hidden'" x-cloak>
         <ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
             @foreach ($navigation->items as $item)

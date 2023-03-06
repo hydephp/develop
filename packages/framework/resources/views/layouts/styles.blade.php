@@ -3,9 +3,9 @@
 
 {{-- The compiled Tailwind/App styles --}}
 @if(config('hyde.load_app_styles_from_cdn', false))
-<link rel="stylesheet" href="{{ Asset::cdnLink('app.css') }}">
+    <link rel="stylesheet" href="{{ Asset::cdnLink('app.css') }}">
 @elseif(Asset::hasMediaFile('app.css'))
-<link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
+    <link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
 @endif
 
 {{-- Dynamic TailwindCSS Play CDN --}}
