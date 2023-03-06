@@ -165,25 +165,24 @@ class ValidationServiceTest extends TestCase
     public function test_validation_result_message_returns_message()
     {
         $result = new ValidationResult();
-        $result->message = 'foo';
-        $this->assertEquals('foo', $result->message());
+        $this->assertEquals('Generic check', $result->message());
     }
 
     public function test_validation_result_passed_returns_true_when_passed_is_true()
     {
         $result = new ValidationResult();
-        $result->passed = true;
+        $result->pass();
         $this->assertTrue($result->passed());
-        $result->passed = false;
+        $result->fail();
         $this->assertFalse($result->passed());
     }
 
     public function test_validation_result_failed_returns_true_when_passed_is_false()
     {
         $result = new ValidationResult();
-        $result->passed = true;
+        $result->pass();
         $this->assertFalse($result->failed());
-        $result->passed = false;
+        $result->fail();
         $this->assertTrue($result->failed());
     }
 
@@ -191,17 +190,15 @@ class ValidationServiceTest extends TestCase
     {
         $result = new ValidationResult();
         $this->assertFalse($result->skipped());
-        $result->skipped = true;
+        $result->skip();
         $this->assertTrue($result->skipped());
-        $result->skipped = false;
-        $this->assertFalse($result->skipped());
     }
 
     public function test_validation_result_tip_returns_message_when_set()
     {
         $result = new ValidationResult();
         $this->assertFalse($result->tip());
-        $result->tip = 'foo';
+        $result->withTip('foo');
         $this->assertEquals('foo', $result->tip());
     }
 }
