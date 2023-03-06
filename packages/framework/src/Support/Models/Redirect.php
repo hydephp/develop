@@ -28,7 +28,7 @@ class Redirect extends InMemoryPage
     public readonly bool $showText;
 
     /**
-     * Create a new redirect page file in the project's site output directory.
+     * Create a new redirect instance that can be saved using the store method.
      *
      * @param  string  $path  The URI path to redirect from.
      * @param  string  $destination  The destination to redirect to.
@@ -42,6 +42,12 @@ class Redirect extends InMemoryPage
         parent::__construct($this->path);
     }
 
+    /**
+     * Create a new redirect page file in the project's site output directory.
+     *
+     * @param  string  $path  The URI path to redirect from.
+     * @param  string  $destination  The destination to redirect to.
+     */
     public static function create(string $path, string $destination, bool $showText = true): static
     {
         return (new static($path, $destination, $showText))->store();
