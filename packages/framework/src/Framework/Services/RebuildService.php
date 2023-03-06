@@ -26,6 +26,7 @@ class RebuildService
     public function __construct(string $filepath)
     {
         $this->filepath = $filepath;
+        $this->page = Pages::getPage($this->filepath);
     }
 
     /**
@@ -34,7 +35,7 @@ class RebuildService
     public function execute(): StaticPageBuilder
     {
         return new StaticPageBuilder(
-            Pages::getPage($this->filepath),
+            $this->page,
             true
         );
     }
