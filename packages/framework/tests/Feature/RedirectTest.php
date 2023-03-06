@@ -34,9 +34,9 @@ class RedirectTest extends TestCase
             
                     <title>Redirecting to bar</title>
                 </head>
-                <body>
-                    Redirecting to <a href="bar">bar</a>.
-                </body>
+            <body>
+                Redirecting to <a href="bar">bar</a>.
+            </body>
             </html>
             
             HTML), str_replace("\r", '', $redirect->compile())
