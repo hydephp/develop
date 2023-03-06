@@ -95,7 +95,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name'     => 'foo.txt',
             'path'     => 'foo.txt',
-            'model' => HydePage::class,
+            'pageClass' => HydePage::class,
         ], SourceFile::make('foo.txt')->toArray());
     }
 
@@ -105,7 +105,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name' => 'foo',
             'path' => 'foo',
-            'model' => HydePage::class,
+            'pageClass' => HydePage::class,
         ], SourceFile::make('foo')->toArray());
     }
 
@@ -116,7 +116,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
-            'model' => HydePage::class,
+            'pageClass' => HydePage::class,
         ], SourceFile::make('foo/bar.txt')->toArray());
         Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
