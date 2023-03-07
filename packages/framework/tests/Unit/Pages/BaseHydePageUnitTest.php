@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\View;
@@ -26,11 +28,18 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
         self::setupKernel();
         self::mockConfig();
 
-        View::swap(Mockery::mock(Factory::class, [
+        View::swap($mock = Mockery::mock(Factory::class, [
             'make' => Mockery::mock(Factory::class, [
                 'render' => 'foo',
+                'with' => Mockery::mock(Factory::class, [
+                    'render' => 'foo',
+                ]),
             ]),
+            'share' => null,
         ]));
+        app()->instance(\Illuminate\Contracts\View\Factory::class, $mock);
+
+        Render::swap(new RenderData());
     }
 
     protected function tearDown(): void
