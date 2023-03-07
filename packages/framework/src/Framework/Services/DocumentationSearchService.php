@@ -70,13 +70,11 @@ class DocumentationSearchService
         ];
     }
 
-    protected function save(): static
+    protected function save(): void
     {
         $this->needsParentDirectory($this->filePath);
 
         Filesystem::putContents($this->filePath, $this->searchIndex->toJson());
-
-        return $this;
     }
 
     protected function getSearchContentForDocument(DocumentationPage $page): string
