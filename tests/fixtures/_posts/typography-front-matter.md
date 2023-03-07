@@ -11,7 +11,7 @@ image:
   source: https://hydephp.com/media/fixture-1.jpg
   description: Alt text
   title: Tooltip
-  license: "the Unsplash License"
+  licenseName: "the Unsplash License"
   licenseUrl: "https://unsplash.com/license"
   authorName: "Blake"
   authorUrl: "https://unsplash.com/photos/GFrBMipOd_E"

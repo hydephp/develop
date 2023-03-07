@@ -15,7 +15,7 @@ interface FeaturedImageSchema
         'description'    => 'string',
         'title'          => 'string',
         'copyright'      => 'string',
-        'license'        => 'string',
+        'licenseName'    => 'string',
         'licenseUrl'     => 'string',
         'authorName'     => 'string',
         'authorUrl' => 'string',

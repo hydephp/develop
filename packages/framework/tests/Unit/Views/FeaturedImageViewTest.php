@@ -27,8 +27,8 @@ class FeaturedImageViewTest extends TestCase
             'image.description' => 'This is an image',
             'image.title' => 'FeaturedImage Title',
             'image.authorName' => 'John Doe',
-            'image.license' => 'Creative Commons',
-            'image.licenseUrl' => 'https://licence.example.com',
+            'image.licenseName' => 'Creative Commons',
+            'image.licenseNameUrl' => 'https://licence.example.com',
         ]);
 
         $this->assertStringContainsString('src="media/foo.jpg"', $component);
@@ -82,7 +82,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_license_string()
     {
-        $string = $this->renderComponent(['image.license' => 'foo']);
+        $string = $this->renderComponent(['image.licenseName' => 'foo']);
 
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
@@ -90,8 +90,8 @@ class FeaturedImageViewTest extends TestCase
     public function test_license_string_with_url()
     {
         $image = $this->make([
-            'image.license' => 'foo',
-            'image.licenseUrl' => 'https://example.com/bar.html',
+            'image.licenseName' => 'foo',
+            'image.licenseNameUrl' => 'https://example.com/bar.html',
         ]);
         $string = $this->renderComponent($image);
 
@@ -107,7 +107,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_license_string_inverse_with_url()
     {
-        $string = $this->renderComponent(['image.licenseUrl' => 'https://example.com/bar.html']);
+        $string = $this->renderComponent(['image.licenseNameUrl' => 'https://example.com/bar.html']);
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
@@ -117,7 +117,7 @@ class FeaturedImageViewTest extends TestCase
         $image = $this->make([
             'image.authorName' => 'John Doe',
             'image.copyright' => 'foo',
-            'image.license' => 'foo',
+            'image.licenseName' => 'foo',
         ]);
         $string = $this->renderComponent($image);
 
@@ -149,7 +149,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_3()
     {
-        $image = $this->make(['image.license' => 'foo']);
+        $image = $this->make(['image.licenseName' => 'foo']);
 
         $string = $this->renderComponent($image);
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
@@ -168,7 +168,7 @@ class FeaturedImageViewTest extends TestCase
         $image = $this->make([
             'image.authorName' => 'John Doe',
             'image.copyright' => 'CC',
-            'image.license' => 'MIT',
+            'image.licenseName' => 'MIT',
         ]);
 
         $this->assertSame(
@@ -181,7 +181,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $image = $this->make([
             'image.authorName' => 'John Doe',
-            'image.license' => 'MIT',
+            'image.licenseName' => 'MIT',
         ]);
         $expect = 'Image by John Doe. License MIT.';
         $this->assertSame(
@@ -234,7 +234,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $expect = 'License MIT.';
         $image = $this->make([
-            'image.license' => 'MIT',
+            'image.licenseName' => 'MIT',
         ]);
 
         $this->assertSame(

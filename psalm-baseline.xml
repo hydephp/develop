@@ -649,8 +649,8 @@
       <code>$this-&gt;matter('image.authorName')</code>
       <code>$this-&gt;matter('image.copyright')</code>
       <code>$this-&gt;matter('image.description')</code>
-      <code>$this-&gt;matter('image.license')</code>
-      <code>$this-&gt;matter('image.licenseUrl')</code>
+      <code>$this-&gt;matter('image.licenseName')</code>
+      <code>$this-&gt;matter('image.licenseNameUrl')</code>
       <code>$this-&gt;matter('image.title')</code>
       <code>$this-&gt;matter('image.url')</code>
     </MixedReturnStatement>
