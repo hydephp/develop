@@ -19,7 +19,6 @@ class DropdownNavItem extends NavItem
     /** @var array<NavItem> */
     public array $items;
     public string $name;
-    public string $href = '';
 
     /** @param array<NavItem> $items */
     public function __construct(string $name, array $items)
