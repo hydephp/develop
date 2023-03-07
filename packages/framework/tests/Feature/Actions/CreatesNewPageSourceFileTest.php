@@ -84,7 +84,6 @@ class CreatesNewPageSourceFileTest extends TestCase
 
     public function test_that_a_markdown_file_can_be_created_and_contains_expected_content()
     {
-        Filesystem::unlink('_pages/test-page.md');
         (new CreatesNewPageSourceFile('Test Page'))->save();
 
         $this->assertFileExists(Hyde::path('_pages/test-page.md'));
@@ -146,8 +145,8 @@ class CreatesNewPageSourceFileTest extends TestCase
             (new CreatesNewPageSourceFile('Test Page', BladePage::class))->getOutputPath()
         );
 
-        Filesystem::unlink('_pages/test-page.md');
-        Filesystem::unlink('_pages/test-page.blade.php');
+       // Filesystem::unlink('_pages/test-page.md');
+       // Filesystem::unlink('_pages/test-page.blade.php');
     }
 
     public function test_file_is_created_using_slug_generated_from_title()
