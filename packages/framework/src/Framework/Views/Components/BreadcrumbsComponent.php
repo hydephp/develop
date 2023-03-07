@@ -14,7 +14,7 @@ use function view;
 
 class BreadcrumbsComponent extends Component
 {
-    public array $breadcrumbs;
+    public readonly array $breadcrumbs;
 
     public function __construct()
     {
