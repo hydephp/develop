@@ -9,10 +9,12 @@ use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
-class MarkdownFileParserTest extends TestCase
+class MarkdownFileParserTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     protected function makeTestPost(): void
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), <<<'MD'
