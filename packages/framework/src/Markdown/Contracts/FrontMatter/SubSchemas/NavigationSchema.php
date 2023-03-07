@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 
+use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
+
 /**
  * @see \Hyde\Framework\Features\Navigation\NavigationData
  * @see \Hyde\Pages\Concerns\HydePage
  */
-interface NavigationSchema
+interface NavigationSchema extends PageSchema
 {
     public const NAVIGATION_SCHEMA = [
         'label'     => 'string',
