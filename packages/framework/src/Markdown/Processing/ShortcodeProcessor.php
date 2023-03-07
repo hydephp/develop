@@ -90,11 +90,9 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
     }
 
     /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
-    public function addShortcode(MarkdownShortcodeContract $shortcode): static
+    public function addShortcode(MarkdownShortcodeContract $shortcode): void
     {
         $this->shortcodes[$shortcode::signature()] = $shortcode;
-
-        return $this;
     }
 
     protected function discoverShortcodes(): void
