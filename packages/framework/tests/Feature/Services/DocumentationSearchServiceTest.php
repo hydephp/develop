@@ -7,13 +7,27 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\CreatesTemporaryFiles;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Services\DocumentationSearchService
  */
-class DocumentationSearchServiceTest extends TestCase
+class DocumentationSearchServiceTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected function setUp(): void
+    {
+        self::setupKernel();
+        self::mockConfig();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+    }
+
     public function test_it_generates_a_json_file_with_a_search_index()
     {
         $this->file('_docs/foo.md');
@@ -80,7 +94,7 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.pretty_urls' => true]);
         $this->file('_docs/index.md');
 
         $this->assertSame('',
@@ -90,7 +104,7 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_get_destination_for_slug_returns_pretty_url_when_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.pretty_urls' => true]);
         $this->file('_docs/foo.md');
 
         $this->assertSame('foo',
@@ -101,7 +115,7 @@ class DocumentationSearchServiceTest extends TestCase
     public function test_excluded_pages_are_not_present_in_the_search_index()
     {
         $this->file('_docs/excluded.md');
-        config(['docs.exclude_from_search' => ['excluded']]);
+        self::mockConfig(['docs.exclude_from_search' => ['excluded']]);
 
         $this->assertStringNotContainsString('excluded',
             json_encode($this->getArray())
