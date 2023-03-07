@@ -29,6 +29,7 @@ class BladePage extends HydePage
      */
     public string $view;
 
+    /** @param  string  $identifier The identifier, which also serves as the view key. */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         parent::__construct($identifier, $matter);
