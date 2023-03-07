@@ -43,7 +43,7 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 
         // Actions must have either a public static handle() method or a public non-static execute() method
         foreach ($files as $filepath) {
-            $class = 'Hyde\\Framework\\Actions\\' . basename($filepath, '.php');
+            $class = 'Hyde\\Framework\\Actions\\'.basename($filepath, '.php');
 
             if (in_array($class, $exclude)) {
                 continue;
@@ -55,7 +55,7 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
             $hasExecuteMethod = $reflection->hasMethod('execute') && $reflection->getMethod('execute')->isPublic() && ! $reflection->getMethod('execute')->isStatic();
 
             $this->assertTrue($hasHandleMethod || $hasExecuteMethod,
-                "Action class $class does not have a public static handle() method or a public non-static execute() method.\n ".  realpath($filepath)
+                "Action class $class does not have a public static handle() method or a public non-static execute() method.\n ".realpath($filepath)
             );
         }
     }
