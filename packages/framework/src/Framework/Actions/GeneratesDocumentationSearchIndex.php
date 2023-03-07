@@ -28,12 +28,16 @@ class GeneratesDocumentationSearchIndex
 
     /**
      * Generate the search index and save it to disk.
+     *
+     * @return string The path to the generated file.
      */
-    public static function generate(): void
+    public static function generate(): string
     {
         $service = new static();
         $service->run();
         $service->save();
+
+        return $service->filePath;
     }
 
     protected function __construct()
