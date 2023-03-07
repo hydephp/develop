@@ -161,7 +161,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return Config::getArray('hyde.navigation.order', [
             'index' => 0,
             'posts' => 10,
-            'docs/index' => 100
+            'docs/index' => 100,
         ])[$this->routeKey] ?? null;
     }
 
