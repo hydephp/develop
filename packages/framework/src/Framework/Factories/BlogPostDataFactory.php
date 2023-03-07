@@ -32,7 +32,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
      *
      * Note that this class does not add the title, as that is already added to all pages.
      */
-    final public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
+    final public const SCHEMA = BlogPostSchema::BLOG_POST_SCHEMA;
 
     private readonly FrontMatter $matter;
     private readonly Markdown $markdown;

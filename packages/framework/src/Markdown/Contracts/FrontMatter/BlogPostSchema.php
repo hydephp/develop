@@ -11,7 +11,7 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
  */
 interface BlogPostSchema extends PageSchema
 {
-    public const MARKDOWN_POST_SCHEMA = [
+    public const BLOG_POST_SCHEMA = [
         'title'        => 'string',
         'description'  => 'string',
         'category'     => 'string',

@@ -50,7 +50,7 @@ class SchemaContractsTest extends UnitTestCase
             'date'         => 'string',
             'author'       => ['string', BlogPostSchema::AUTHOR_SCHEMA],
             'image'        => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
-        ], BlogPostSchema::MARKDOWN_POST_SCHEMA);
+        ], BlogPostSchema::BLOG_POST_SCHEMA);
 
         $this->assertSame([
             'name'      => 'string',
