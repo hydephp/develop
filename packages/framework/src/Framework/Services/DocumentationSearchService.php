@@ -54,9 +54,7 @@ final class DocumentationSearchService
         /** @var \Hyde\Pages\DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
             if (! in_array($page->identifier, Config::getArray('docs.exclude_from_search', []))) {
-                $this->searchIndex->push(
-                    $this->generatePageEntry($page)
-                );
+                $this->searchIndex->push($this->generatePageEntry($page));
             }
         }
 
