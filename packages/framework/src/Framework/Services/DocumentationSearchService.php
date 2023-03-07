@@ -20,7 +20,7 @@ use function trim;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
-final class DocumentationSearchService
+class DocumentationSearchService
 {
     use InteractsWithDirectories;
 
