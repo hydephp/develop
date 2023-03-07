@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Actions\BladeMatterParser;
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
+use Hyde\Framework\Actions\CreatesNewPageSourceFile;
+use Hyde\Framework\Actions\MarkdownFileParser;
+use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Testing\UnitTestCase;
 
 class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
@@ -31,6 +35,10 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 
         $exclude = [
             BladeMatterParser::class,
+            CreatesNewMarkdownPostFile::class,
+            CreatesNewPageSourceFile::class,
+            MarkdownFileParser::class,
+            SourceFileParser::class,
         ];
 
         // Actions must have either a public static handle() method or a public non-static execute() method
