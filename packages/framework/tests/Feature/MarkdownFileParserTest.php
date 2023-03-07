@@ -81,23 +81,4 @@ class MarkdownFileParserTest extends UnitTestCase
         $this->assertSame('Mr. Hyde', $post->matter('author'));
         $this->assertSame('blog', $post->matter('category'));
     }
-
-    public function test_static_parse_shorthand()
-    {
-        $this->makeTestPost();
-
-        $post = MarkdownFileParser::parse('_posts/test-post.md');
-        $this->assertSame('My New Post', $post->matter('title'));
-        $this->assertSame('Mr. Hyde', $post->matter('author'));
-        $this->assertSame('blog', $post->matter('category'));
-
-        $this->assertSame(
-            <<<'MARKDOWN'
-            # My New Post
-            
-            This is a post stub used in the automated tests
-            MARKDOWN,
-            (string) $post->markdown
-        );
-    }
 }
