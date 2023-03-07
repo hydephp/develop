@@ -24,10 +24,10 @@ class FeaturedImageViewTest extends TestCase
     {
         $component = $this->renderComponent([
             'image.source' => 'foo.jpg',
-            'image.description' => 'This is an image',
-            'image.title' => 'FeaturedImage Title',
-            'image.author' => 'John Doe',
-            'image.license' => 'Creative Commons',
+            'image.altText' => 'This is an image',
+            'image.titleText' => 'FeaturedImage Title',
+            'image.authorName' => 'John Doe',
+            'image.licenseName' => 'Creative Commons',
             'image.licenseUrl' => 'https://licence.example.com',
         ]);
 
@@ -48,7 +48,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_image_author_attribution_string()
     {
-        $string = $this->renderComponent(['image.author' => 'John Doe']);
+        $string = $this->renderComponent(['image.authorName' => 'John Doe']);
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemtype="https://schema.org/Person"', $string);
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
@@ -57,8 +57,8 @@ class FeaturedImageViewTest extends TestCase
     public function test_image_author_attribution_string_with_url()
     {
         $string = $this->renderComponent([
-            'image.author' => 'John Doe',
-            'image.attributionUrl' => 'https://example.com/',
+            'image.authorName' => 'John Doe',
+            'image.authorUrl' => 'https://example.com/',
         ]);
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemprop="url"', $string);
@@ -82,7 +82,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_license_string()
     {
-        $string = $this->renderComponent(['image.license' => 'foo']);
+        $string = $this->renderComponent(['image.licenseName' => 'foo']);
 
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
@@ -90,7 +90,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_license_string_with_url()
     {
         $image = $this->make([
-            'image.license' => 'foo',
+            'image.licenseName' => 'foo',
             'image.licenseUrl' => 'https://example.com/bar.html',
         ]);
         $string = $this->renderComponent($image);
@@ -115,9 +115,9 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_uses_rich_html_tags()
     {
         $image = $this->make([
-            'image.author' => 'John Doe',
+            'image.authorName' => 'John Doe',
             'image.copyright' => 'foo',
-            'image.license' => 'foo',
+            'image.licenseName' => 'foo',
         ]);
         $string = $this->renderComponent($image);
 
@@ -133,7 +133,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_1()
     {
-        $image = $this->make(['image.author' => 'John Doe']);
+        $image = $this->make(['image.authorName' => 'John Doe']);
         $string = $this->renderComponent($image);
         $this->assertStringContainsString('Image by', $string);
         $this->assertStringContainsString('John Doe', $string);
@@ -149,7 +149,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_3()
     {
-        $image = $this->make(['image.license' => 'foo']);
+        $image = $this->make(['image.licenseName' => 'foo']);
 
         $string = $this->renderComponent($image);
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
@@ -166,9 +166,9 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages1()
     {
         $image = $this->make([
-            'image.author' => 'John Doe',
+            'image.authorName' => 'John Doe',
             'image.copyright' => 'CC',
-            'image.license' => 'MIT',
+            'image.licenseName' => 'MIT',
         ]);
 
         $this->assertSame(
@@ -180,8 +180,8 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages2()
     {
         $image = $this->make([
-            'image.author' => 'John Doe',
-            'image.license' => 'MIT',
+            'image.authorName' => 'John Doe',
+            'image.licenseName' => 'MIT',
         ]);
         $expect = 'Image by John Doe. License MIT.';
         $this->assertSame(
@@ -194,7 +194,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $expect = 'Image by John Doe. CC.';
         $image = $this->make([
-            'image.author' => 'John Doe',
+            'image.authorName' => 'John Doe',
             'image.copyright' => 'CC',
         ]);
 
@@ -221,7 +221,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $expect = 'Image by John Doe.';
         $image = $this->make([
-            'image.author' => 'John Doe',
+            'image.authorName' => 'John Doe',
         ]);
 
         $this->assertSame(
@@ -234,7 +234,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $expect = 'License MIT.';
         $image = $this->make([
-            'image.license' => 'MIT',
+            'image.licenseName' => 'MIT',
         ]);
 
         $this->assertSame(
