@@ -11,13 +11,13 @@ namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 interface FeaturedImageSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
-        'source'         => 'string', // Filename in _media/ or a remote URL
-        'description'    => 'string',
-        'title'          => 'string',
-        'licenseName'    => 'string',
-        'licenseUrl'     => 'string',
-        'authorName'     => 'string',
-        'authorUrl'      => 'string',
-        'copyright'      => 'string',
+        'source'         => 'string', // Name of a file in _media/ or a remote URL (required)
+        'description'    => 'string', // The alt text (important for accessibility)
+        'title'          => 'string', // The title text (hover text tooltip)
+        'licenseName'    => 'string', // The name of the license (e.g. "CC BY 4.0")
+        'licenseUrl'     => 'string', // The URL of the license (e.g. "https://creativecommons.org/licenses/by/4.0/")
+        'authorName'     => 'string', // The name of the author/photographer of the image (e.g. "John Doe", Wikimedia Commons)
+        'authorUrl'      => 'string', // The URL of the author/photographer of the image (e.g. "https://commons.wikimedia.org/wiki/User:John_Doe", Wikimedia Commons)
+        'copyright'      => 'string', // The copyright text (e.g. "© 2023 John Doe")
     ];
 }
