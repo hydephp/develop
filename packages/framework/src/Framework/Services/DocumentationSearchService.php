@@ -30,9 +30,9 @@ class DocumentationSearchService
     /**
      * Generate the search index and save it to disk.
      */
-    public static function generate(): static
+    public static function generate(): void
     {
-        return (new static())->execute();
+        (new static())->execute();
     }
 
     /**
