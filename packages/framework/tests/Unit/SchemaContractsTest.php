@@ -25,7 +25,7 @@ class SchemaContractsTest extends TestCase
         $this->assertSame([
             'title'         => 'string',
             'canonicalUrl'  => 'string',
-            'navigation'    => 'array<navigation>',
+            'navigation'    => NavigationSchema::NAVIGATION_SCHEMA,
         ], PageSchema::PAGE_SCHEMA);
 
         $this->assertSame([
@@ -40,8 +40,8 @@ class SchemaContractsTest extends TestCase
             'description'  => 'string',
             'category'     => 'string',
             'date'         => 'string',
-            'author'       => ['string', 'array<blog_post.author>'],
-            'image'        => ['string', 'array<featured_image>'],
+            'author'       => ['string', BlogPostSchema::AUTHOR_SCHEMA],
+            'image'        => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
         ], BlogPostSchema::MARKDOWN_POST_SCHEMA);
 
         $this->assertSame([
