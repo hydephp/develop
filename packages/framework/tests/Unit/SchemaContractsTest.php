@@ -111,6 +111,20 @@ class SchemaContractsTest extends UnitTestCase
         }
     }
 
+    public function testEachInterfaceOnlyHasOneSchema()
+    {
+        $files = glob('vendor/hyde/framework/src/Markdown/Contracts/FrontMatter/*Schema.php');
+        $subFiles = glob('vendor/hyde/framework/src/Markdown/Contracts/FrontMatter/SubSchemas/*Schema.php');
+        $files = array_merge($files, $subFiles);
+
+        foreach ($files as $file) {
+            $contents = file_get_contents($file);
+            $this->assertSame(1,
+                substr_count($contents, 'public const'),
+                "File $file has more than one constant defined.");
+        }
+    }
+
     private function assertClassHasConstant(string $constant, string $schema)
     {
         $this->assertTrue(
