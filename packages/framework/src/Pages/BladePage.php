@@ -7,7 +7,6 @@ namespace Hyde\Pages;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
-use function array_merge;
 
 /**
  * Page class for Blade pages.
