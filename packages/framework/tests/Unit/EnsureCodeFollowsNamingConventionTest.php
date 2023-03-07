@@ -28,8 +28,16 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 
         $this->assertNotEmpty($files, 'No action classes found.');
 
+        $exclude = [
+            //
+        ];
+
         // Actions must have either a public static handle() method or a public non-static execute() method
         foreach ($files as $filepath) {
+            if (in_array(basename($filepath), $exclude)) {
+                continue;
+            }
+
             $class = 'Hyde\\Framework\\Actions\\' . basename($filepath, '.php');
             $reflection = new \ReflectionClass($class);
 
