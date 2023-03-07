@@ -32,7 +32,8 @@ class DocumentationSearchService
      */
     public static function generate(): void
     {
-        (new static())->execute();
+        $documentationSearchService = new static();
+        $documentationSearchService->run()->save();
     }
 
     /**
@@ -42,11 +43,6 @@ class DocumentationSearchService
     {
         $this->searchIndex = new Collection();
         $this->filePath = $this->getFilePath();
-    }
-
-    protected function execute(): static
-    {
-        return $this->run()->save();
     }
 
     public function run(): static
