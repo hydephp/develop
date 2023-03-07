@@ -9,7 +9,7 @@ use Hyde\Markdown\Contracts\FrontMatter\FrontMatterSchema;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  * @see \Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema
  * @see \Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema
  */
-class SchemaContractsTest extends TestCase
+class SchemaContractsTest extends UnitTestCase
 {
     public function testSchemasAreNotAccidentallyChanged()
     {
