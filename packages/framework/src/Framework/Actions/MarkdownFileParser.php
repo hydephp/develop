@@ -6,7 +6,6 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\MarkdownDocument;
-use JetBrains\PhpStorm\Pure;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
@@ -28,7 +27,6 @@ class MarkdownFileParser
      */
     protected string $markdown = '';
 
-    #[Pure]
     public function __construct(string $path)
     {
         return MarkdownFileParser::parse($path);
