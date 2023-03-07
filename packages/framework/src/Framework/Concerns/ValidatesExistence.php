@@ -23,10 +23,10 @@ trait ValidatesExistence
      */
     protected static function validateExistence(string $pageClass, string $identifier): void
     {
-        $filepath = $pageClass::sourcePath($identifier);
+        $path = $pageClass::sourcePath($identifier);
 
-        if (Filesystem::missing($filepath)) {
-            throw new FileNotFoundException($filepath);
+        if (Filesystem::missing($path)) {
+            throw new FileNotFoundException($path);
         }
     }
 }
