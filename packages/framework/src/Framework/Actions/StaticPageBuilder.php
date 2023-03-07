@@ -53,6 +53,14 @@ class StaticPageBuilder
 
     public static function handle(HydePage $page): string
     {
-        return (new static($page))->__invoke();
+        $path = Hyde::sitePath($page->getOutputPath());
+
+        Hyde::shareViewData($page);
+
+        static::needsParentDirectory($path);
+
+        Filesystem::putContents($path, $page->compile());
+
+        return $path;
     }
 }
