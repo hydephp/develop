@@ -13,7 +13,7 @@ image:
   title: Tooltip
   license: "the Unsplash License"
   licenseUrl: "https://unsplash.com/license"
-  author: "Blake"
+  authorName: "Blake"
   authorUrl: "https://unsplash.com/photos/GFrBMipOd_E"
 ---
 
