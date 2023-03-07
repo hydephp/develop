@@ -8,7 +8,6 @@
       x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
 
     @include('hyde::components.skip-to-content-button')
-
     @include('hyde::components.docs.mobile-navigation')
     @include('hyde::components.docs.sidebar')
 
