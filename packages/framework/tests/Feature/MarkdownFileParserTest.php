@@ -43,7 +43,7 @@ class MarkdownFileParserTest extends UnitTestCase
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
 
-        $document = (new MarkdownFileParser('_posts/test-post.md'))->get();
+        $document = MarkdownFileParser::parse('_posts/test-post.md');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals('Foo bar', $document->markdown);
@@ -53,7 +53,7 @@ class MarkdownFileParserTest extends UnitTestCase
     {
         $this->makeTestPost();
 
-        $document = (new MarkdownFileParser('_posts/test-post.md'))->get();
+        $document = MarkdownFileParser::parse('_posts/test-post.md');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals(FrontMatter::fromArray([
@@ -76,7 +76,7 @@ class MarkdownFileParserTest extends UnitTestCase
     {
         $this->makeTestPost();
 
-        $post = (new MarkdownFileParser('_posts/test-post.md'))->get();
+        $post = MarkdownFileParser::parse('_posts/test-post.md');
         $this->assertSame('My New Post', $post->matter('title'));
         $this->assertSame('Mr. Hyde', $post->matter('author'));
         $this->assertSame('blog', $post->matter('category'));

@@ -7,6 +7,7 @@ namespace Hyde\Support;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
@@ -49,7 +50,7 @@ class DataCollections extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(DataCollections::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
+            return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)];
         }));
     }
 
@@ -65,7 +66,7 @@ class DataCollections extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(DataCollections::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()->matter()];
+            return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)->matter()];
         }));
     }
 

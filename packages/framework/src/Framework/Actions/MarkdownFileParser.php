@@ -34,14 +34,6 @@ class MarkdownFileParser
         return MarkdownFileParser::parse($path);
     }
 
-    /**
-     * Get the processed Markdown file as a MarkdownDocument.
-     */
-    public function get(): MarkdownDocument
-    {
-        return MarkdownFileParser::parse($path);
-    }
-
     public static function parse(string $path): MarkdownDocument
     {
         $stream = Filesystem::getContents($path);

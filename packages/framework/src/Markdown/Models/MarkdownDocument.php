@@ -41,6 +41,6 @@ class MarkdownDocument implements MarkdownDocumentContract, Stringable
 
     public static function parse(string $path): static
     {
-        return (new MarkdownFileParser($path))->get();
+        return MarkdownFileParser::parse($path);
     }
 }
