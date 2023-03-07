@@ -6,15 +6,18 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Author;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
  */
-class PostAuthorTest extends TestCase
+class PostAuthorTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function test_create_method_creates_new_author_model()
     {
         $author = Author::create('foo');
