@@ -23,7 +23,7 @@ class SchemaContractsTest extends TestCase
     {
         $this->assertSame([
             'title'         => 'string',
-            'canonicalUrl'  => 'string(url)',
+            'canonicalUrl'  => 'string',
             'navigation'    => 'array<navigation>',
         ], PageSchema::PAGE_SCHEMA);
 
@@ -46,7 +46,7 @@ class SchemaContractsTest extends TestCase
         $this->assertSame([
             'name'      => 'string',
             'username'  => 'string',
-            'website'   => 'string(url)',
+            'website'   => 'string',
         ], BlogPostSchema::AUTHOR_SCHEMA);
 
         $this->assertSame([
