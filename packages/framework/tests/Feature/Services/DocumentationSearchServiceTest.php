@@ -121,6 +121,8 @@ class DocumentationSearchServiceTest extends TestCase
     protected function getArray(): array
     {
         DocumentationSearchService::generate();
-        return json_decode(file_get_contents('_site/docs/search.json'), true);
+        $array = json_decode(file_get_contents('_site/docs/search.json'), true);
+        Filesystem::unlink('_site/docs/search.json');
+        return $array;
     }
 }
