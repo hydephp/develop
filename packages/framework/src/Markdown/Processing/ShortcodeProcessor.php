@@ -41,6 +41,8 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     /**
      * The activated shortcode instances.
+     *
+     * @var array<string, MarkdownShortcodeContract>
      */
     protected array $shortcodes;
 
