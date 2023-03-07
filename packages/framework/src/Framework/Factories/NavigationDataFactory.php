@@ -158,7 +158,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        return Config::getArray('hyde.navigation.order', [])[$this->routeKey] ?? null;
+        return Config::getArray('hyde.navigation.order', [
+            'index' => 0,
+            'posts' => 10,
+            'docs/index' => 100
+        ])[$this->routeKey] ?? null;
     }
 
     private function canUseSubdirectoryForGroups(): bool
