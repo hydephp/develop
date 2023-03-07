@@ -72,7 +72,7 @@ class RedirectTest extends TestCase
 
         Hyde::pages()->addPage($redirect);
 
-        (new StaticPageBuilder($redirect))->__invoke();
+        StaticPageBuilder::handle($redirect);
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertSame($redirect->compile(), file_get_contents(Hyde::path('_site/foo.html')));

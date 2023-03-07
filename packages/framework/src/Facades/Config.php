@@ -41,7 +41,7 @@ class Config extends \Illuminate\Support\Facades\Config
         return (float) self::validated(static::get($key, $default), 'float', $key);
     }
 
-    /** @experimental */
+    /** @experimental Could possibly be merged by allowing null returns if default is null? Preferably with generics so the type is matched by IDE support. */
     public static function getNullableString(string $key, string $default = null): ?string
     {
         $value = static::get($key, $default);

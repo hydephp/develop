@@ -41,10 +41,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
         MarkdownPost::setSourceDirectory('testSourceDir/blog');
 
-        new StaticPageBuilder(
-            MarkdownPost::parse('test'),
-            true
-        );
+        StaticPageBuilder::handle(MarkdownPost::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/posts/test.html'));
         Filesystem::unlink('_site/posts/test.html');
@@ -57,10 +54,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
         MarkdownPage::setSourceDirectory('testSourceDir/pages');
 
-        new StaticPageBuilder(
-            MarkdownPage::parse('test'),
-            true
-        );
+        StaticPageBuilder::handle(MarkdownPage::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
         Filesystem::unlink('_site/test.html');
@@ -73,10 +67,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
         DocumentationPage::setSourceDirectory('testSourceDir/documentation');
 
-        new StaticPageBuilder(
-            DocumentationPage::parse('test'),
-            true
-        );
+        StaticPageBuilder::handle(DocumentationPage::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/docs/test.html'));
         Filesystem::unlink('_site/docs/test.html');
@@ -90,10 +81,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         BladePage::setSourceDirectory('testSourceDir/blade');
         Config::set('view.paths', ['testSourceDir/blade']);
 
-        new StaticPageBuilder(
-            BladePage::parse('test'),
-            true
-        );
+        StaticPageBuilder::handle(BladePage::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
         Filesystem::unlink('_site/test.html');

@@ -49,7 +49,7 @@ class DataCollections extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(DataCollections::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()];
+            return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)];
         }));
     }
 
@@ -65,7 +65,7 @@ class DataCollections extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(DataCollections::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => (new MarkdownFileParser($file))->get()->matter()];
+            return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)->matter()];
         }));
     }
 

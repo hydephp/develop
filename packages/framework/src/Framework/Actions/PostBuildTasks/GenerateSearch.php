@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 class GenerateSearch extends PostBuildTask
 {
@@ -15,9 +15,11 @@ class GenerateSearch extends PostBuildTask
 
     public static string $message = 'Generating search index';
 
+    protected string $path;
+
     public function handle(): void
     {
-        DocumentationSearchService::generate();
+        $this->path = GeneratesDocumentationSearchIndex::handle();
 
         if (DocumentationSearchPage::enabled()) {
             $this->createdSiteFile(DocumentationSearchPage::generate());
@@ -26,6 +28,6 @@ class GenerateSearch extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile(DocumentationSearchService::getFilePath())->withExecutionTime();
+        $this->createdSiteFile($this->path)->withExecutionTime();
     }
 }

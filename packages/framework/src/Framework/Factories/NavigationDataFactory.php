@@ -15,7 +15,6 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use function array_flip;
 use function in_array;
-use function config;
 use function is_a;
 
 /**
@@ -159,7 +158,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        return config("hyde.navigation.order.$this->routeKey");
+        return Config::getArray('hyde.navigation.order', [
+            'index' => 0,
+            'posts' => 10,
+            'docs/index' => 100,
+        ])[$this->routeKey] ?? null;
     }
 
     private function canUseSubdirectoryForGroups(): bool

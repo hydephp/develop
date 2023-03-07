@@ -4,27 +4,32 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
-class MarkdownFileParserTest extends TestCase
+class MarkdownFileParserTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     protected function makeTestPost(): void
     {
-        file_put_contents(Hyde::path('_posts/test-post.md'), '---
-title: My New Post
-category: blog
-author: Mr. Hyde
----
-
-# My New Post
-
-This is a post stub used in the automated tests
-');
+        Filesystem::putContents('_posts/test-post.md', <<<'MD'
+            ---
+            title: My New Post
+            category: blog
+            author: Mr. Hyde
+            ---
+            
+            # My New Post
+            
+            This is a post stub used in the automated tests
+            
+            MD
+        );
     }
 
     protected function tearDown(): void
@@ -38,7 +43,7 @@ This is a post stub used in the automated tests
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
 
-        $document = (new MarkdownFileParser('_posts/test-post.md'))->get();
+        $document = MarkdownFileParser::parse('_posts/test-post.md');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals('Foo bar', $document->markdown);
@@ -48,7 +53,7 @@ This is a post stub used in the automated tests
     {
         $this->makeTestPost();
 
-        $document = (new MarkdownFileParser('_posts/test-post.md'))->get();
+        $document = MarkdownFileParser::parse('_posts/test-post.md');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals(FrontMatter::fromArray([
@@ -57,10 +62,12 @@ This is a post stub used in the automated tests
             'author' => 'Mr. Hyde',
         ]), $document->matter);
 
-        $this->assertEquals(str_replace("\r", '',
-                '# My New Post
-
-This is a post stub used in the automated tests'),
+        $this->assertSame(
+            <<<'MARKDOWN'
+            # My New Post
+            
+            This is a post stub used in the automated tests
+            MARKDOWN,
             (string) $document->markdown
         );
     }
@@ -69,26 +76,9 @@ This is a post stub used in the automated tests'),
     {
         $this->makeTestPost();
 
-        $post = (new MarkdownFileParser('_posts/test-post.md'))->get();
-        $this->assertEquals('My New Post', $post->matter('title'));
-        $this->assertEquals('Mr. Hyde', $post->matter('author'));
-        $this->assertEquals('blog', $post->matter('category'));
-    }
-
-    public function test_static_parse_shorthand()
-    {
-        $this->makeTestPost();
-
         $post = MarkdownFileParser::parse('_posts/test-post.md');
-        $this->assertEquals('My New Post', $post->matter('title'));
-        $this->assertEquals('Mr. Hyde', $post->matter('author'));
-        $this->assertEquals('blog', $post->matter('category'));
-
-        $this->assertEquals(str_replace("\r", '',
-                '# My New Post
-
-This is a post stub used in the automated tests'),
-            (string) $post->markdown
-        );
+        $this->assertSame('My New Post', $post->matter('title'));
+        $this->assertSame('Mr. Hyde', $post->matter('author'));
+        $this->assertSame('blog', $post->matter('category'));
     }
 }

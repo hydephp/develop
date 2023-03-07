@@ -28,6 +28,9 @@ class CreatesNewPageSourceFile
 {
     use InteractsWithDirectories;
 
+    /** @var class-string<\Hyde\Pages\Concerns\HydePage> */
+    protected string $pageClass;
+
     protected string $title;
     protected string $filename;
     protected string $outputPath;
@@ -37,16 +40,29 @@ class CreatesNewPageSourceFile
     public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false)
     {
         $this->validateType($pageClass);
+        $this->pageClass = $pageClass;
 
         $this->title = $this->parseTitle($title);
         $this->filename = $this->fileName($title);
         $this->force = $force;
 
         $this->outputPath = $this->makeOutputPath($pageClass);
-
-        $this->createPage($pageClass);
     }
 
+    public function save(): string
+    {
+        $this->failIfFileCannotBeSaved($this->outputPath);
+
+        match ($this->pageClass) {
+            BladePage::class => $this->createBladeFile(),
+            MarkdownPage::class => $this->createMarkdownFile(),
+            DocumentationPage::class => $this->createDocumentationFile(),
+        };
+
+        return $this->outputPath;
+    }
+
+    /** @deprecated This method may be removed as the save method now returns the path. */
     public function getOutputPath(): string
     {
         return $this->outputPath;
@@ -78,17 +94,6 @@ class CreatesNewPageSourceFile
     protected function makeOutputPath(string $pageClass): string
     {
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
-    }
-
-    protected function createPage(string $pageClass): void
-    {
-        $this->failIfFileCannotBeSaved($this->outputPath);
-
-        match ($pageClass) {
-            BladePage::class => $this->createBladeFile(),
-            MarkdownPage::class => $this->createMarkdownFile(),
-            DocumentationPage::class => $this->createDocumentationFile(),
-        };
     }
 
     protected function createBladeFile(): void

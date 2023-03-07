@@ -12,7 +12,7 @@ use function view;
 
 class LinkComponent extends Component
 {
-    public string $href;
+    public readonly string $href;
 
     public function __construct(string $href)
     {

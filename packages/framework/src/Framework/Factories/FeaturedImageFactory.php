@@ -59,9 +59,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     public static function make(FrontMatter $matter): FeaturedImage
     {
-        $data = (new static($matter))->toArray();
-
-        return new FeaturedImage(...$data);
+        return new FeaturedImage(...(new static($matter))->toArray());
     }
 
     protected function makeSource(): string

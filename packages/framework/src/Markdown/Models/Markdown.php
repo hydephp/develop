@@ -78,9 +78,9 @@ class Markdown implements Arrayable, Stringable, Htmlable
     /**
      * Parse a Markdown file into a new Markdown object.
      */
-    public static function fromFile(string $localFilepath): static
+    public static function fromFile(string $path): static
     {
-        return MarkdownDocument::parse($localFilepath)->markdown();
+        return MarkdownDocument::parse($path)->markdown();
     }
 
     /**

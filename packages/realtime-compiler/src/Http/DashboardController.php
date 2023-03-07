@@ -29,7 +29,7 @@ class DashboardController
 
     public function show(): string
     {
-        return AnonymousViewCompiler::call(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
+        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
             (array) $this, ['dashboard' => $this, 'request' => Request::capture()],
         ));
     }
@@ -65,7 +65,7 @@ class DashboardController
     // This method is called from the PageRouter and allows us to serve a dynamic welcome page
     public static function renderIndexPage(HydePage $page): string
     {
-        $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
+        $contents = file_get_contents(StaticPageBuilder::handle($page));
 
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {

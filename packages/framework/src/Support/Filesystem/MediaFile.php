@@ -96,8 +96,8 @@ class MediaFile extends ProjectFile
 
     protected static function discoverMediaAssetFiles(): array
     {
-        return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $filepath): array {
-            $file = static::make($filepath);
+        return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $path): array {
+            $file = static::make($path);
 
             return [$file->getIdentifier() => $file];
         })->all();

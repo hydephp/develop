@@ -7,7 +7,6 @@ namespace Hyde\Pages;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
-use function array_merge;
 
 /**
  * Page class for Blade pages.
@@ -24,33 +23,21 @@ class BladePage extends HydePage
     public static string $outputDirectory = '';
     public static string $fileExtension = '.blade.php';
 
-    /**
-     * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.
-     */
-    public string $view;
-
-    public function __construct(string $view = '', FrontMatter|array $matter = [])
+    /** @param  string  $identifier The identifier, which also serves as the view key. */
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
-        parent::__construct($view, $matter);
-        $this->view = $view;
+        parent::__construct($identifier, $matter);
     }
 
     /** @inheritDoc */
     public function getBladeView(): string
     {
-        return $this->view;
+        return $this->identifier;
     }
 
     /** @inheritDoc */
     public function compile(): string
     {
         return View::make($this->getBladeView())->render();
-    }
-
-    public function toArray(): array
-    {
-        return array_merge(parent::toArray(), [
-            'view' => $this->view,
-        ]);
     }
 }

@@ -42,7 +42,7 @@ final class FileCollection extends BaseFoundationCollection
         }
     }
 
-    protected function runExtensionCallbacks(): void
+    protected function runExtensionHandlers(): void
     {
         /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getExtensions() as $extension) {
@@ -54,16 +54,16 @@ final class FileCollection extends BaseFoundationCollection
     protected function discoverFilesFor(string $pageClass): void
     {
         // Scan the source directory, and directories therein, for files that match the model's file extension.
-        foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
-            if (! str_starts_with(basename((string) $filepath), '_')) {
-                $this->addFile(SourceFile::make($filepath, $pageClass));
+        foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $path) {
+            if (! str_starts_with(basename((string) $path), '_')) {
+                $this->addFile(SourceFile::make($path, $pageClass));
             }
         }
     }
 
-    public function getFile(string $filePath): SourceFile
+    public function getFile(string $path): SourceFile
     {
-        return $this->get($filePath) ?? throw new FileNotFoundException($filePath);
+        return $this->get($path) ?? throw new FileNotFoundException($path);
     }
 
     /**

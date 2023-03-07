@@ -2,27 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Author;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
  */
-class PostAuthorTest extends TestCase
+class PostAuthorTest extends UnitTestCase
 {
-    public function test_create_method_creates_new_author_model()
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    public function testCreateMethodCreatesNewAuthorModel()
     {
         $author = Author::create('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
     }
 
-    public function test_create_method_accepts_all_parameters()
+    public function testCreateMethodAcceptsAllParameters()
     {
         $author = Author::create('foo', 'bar', 'https://example.com');
 
@@ -31,24 +34,24 @@ class PostAuthorTest extends TestCase
         $this->assertEquals('https://example.com', $author->website);
     }
 
-    public function test_make_method_creates_new_author_model_from_string()
+    public function testGetOrCreateMethodCreatesNewAuthorModelFromString()
     {
-        $author = PostAuthor::make('foo');
+        $author = PostAuthor::getOrCreate('foo');
         $this->assertEquals($author, new PostAuthor('foo'));
     }
 
-    public function test_make_method_creates_new_author_model_from_string_can_find_existing_author()
+    public function testGetOrCreateMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
     {
         Config::set('hyde.authors', [
             Author::create('foo', 'bar'),
         ]);
 
-        $this->assertEquals(PostAuthor::make('foo'), Author::create('foo', 'bar'));
+        $this->assertEquals(PostAuthor::getOrCreate('foo'), Author::create('foo', 'bar'));
     }
 
-    public function test_make_method_creates_new_author_model_from_array()
+    public function testGetOrCreateMethodCreatesNewAuthorModelFromArray()
     {
-        $author = PostAuthor::make([
+        $author = PostAuthor::getOrCreate([
             'username' => 'foo',
             'name' => 'bar',
             'website' => 'https://example.com',
@@ -56,12 +59,12 @@ class PostAuthorTest extends TestCase
         $this->assertEquals($author, Author::create('foo', 'bar', 'https://example.com'));
     }
 
-    public function test_make_method_creates_new_author_model_from_array_only_needs_username()
+    public function testGetOrCreateMethodCreatesNewAuthorModelFromArrayOnlyNeedsUsername()
     {
-        $this->assertEquals(PostAuthor::make(['username' => 'foo']), Author::create('foo'));
+        $this->assertEquals(PostAuthor::getOrCreate(['username' => 'foo']), Author::create('foo'));
     }
 
-    public function test_all_method_returns_empty_collection_if_no_authors_are_set_in_config()
+    public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
     {
         Config::set('hyde.authors', []);
         $authors = PostAuthor::all();
@@ -70,7 +73,7 @@ class PostAuthorTest extends TestCase
         $this->assertCount(0, $authors);
     }
 
-    public function test_all_method_returns_collection_with_all_authors_defined_in_config()
+    public function testAllMethodReturnsCollectionWithAllAuthorsDefinedInConfig()
     {
         Config::set('hyde.authors', [
             Author::create('foo'),
@@ -82,7 +85,7 @@ class PostAuthorTest extends TestCase
         $this->assertEquals(Author::create('foo'), $authors->first());
     }
 
-    public function test_multiple_authors_can_be_defined_in_config()
+    public function testMultipleAuthorsCanBeDefinedInConfig()
     {
         Config::set('hyde.authors', [
             Author::create('foo'),
@@ -96,7 +99,7 @@ class PostAuthorTest extends TestCase
         $this->assertEquals(Author::create('bar'), $authors->last());
     }
 
-    public function test_get_method_returns_config_defined_author_by_username()
+    public function testGetMethodReturnsConfigDefinedAuthorByUsername()
     {
         Config::set('hyde.authors', [
             Author::create('foo', 'bar'),
@@ -108,7 +111,7 @@ class PostAuthorTest extends TestCase
         $this->assertEquals('bar', $author->name);
     }
 
-    public function test_get_method_returns_new_author_if_username_not_found_in_config()
+    public function testGetMethodReturnsNewAuthorIfUsernameNotFoundInConfig()
     {
         Config::set('hyde.authors', []);
         $author = PostAuthor::get('foo');
@@ -117,21 +120,21 @@ class PostAuthorTest extends TestCase
         $this->assertEquals('foo', $author->username);
     }
 
-    public function test_get_name_helper_returns_name_if_set()
+    public function testGetNameHelperReturnsNameIfSet()
     {
         $author = new PostAuthor('username', 'John Doe');
 
         $this->assertEquals('John Doe', $author->getName());
     }
 
-    public function test_get_name_helper_returns_username_if_name_is_not_set()
+    public function testGetNameHelperReturnsUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
 
         $this->assertEquals('username', $author->getName());
     }
 
-    public function test_to_string_helper_returns_the_name()
+    public function testToStringHelperReturnsTheName()
     {
         $author = new PostAuthor('username', 'John Doe');
 

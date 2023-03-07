@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
-use function file_put_contents;
 use function basename;
 use function in_array;
 use function trim;
@@ -20,47 +19,46 @@ use function trim;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
-final class DocumentationSearchService
+class GeneratesDocumentationSearchIndex
 {
     use InteractsWithDirectories;
 
-    public Collection $searchIndex;
-    protected string $filePath;
+    protected Collection $index;
+    protected string $path;
 
-    public static function generate(): self
+    /**
+     * Generate the search index and save it to disk.
+     *
+     * @return string The path to the generated file.
+     */
+    public static function handle(): string
     {
-        return (new self())->execute();
+        $service = new static();
+        $service->run();
+        $service->save();
+
+        return $service->path;
     }
 
-    public function __construct()
+    protected function __construct()
     {
-        $this->searchIndex = new Collection();
-        $this->filePath = $this->getFilePath();
+        $this->index = new Collection();
+        $this->path = $this->getPath();
     }
 
-    public function execute(): self
+    protected function run(): void
     {
-        return $this->run()->save();
-    }
-
-    public function run(): self
-    {
-        /** @var \Hyde\Pages\DocumentationPage $page */
-        foreach (DocumentationPage::all() as $page) {
+        DocumentationPage::all()->each(function (DocumentationPage $page): void {
             if (! in_array($page->identifier, Config::getArray('docs.exclude_from_search', []))) {
-                $this->searchIndex->push(
-                    $this->generatePageEntry($page)
-                );
+                $this->index->push($this->generatePageEntry($page));
             }
-        }
-
-        return $this;
+        });
     }
 
     /**
      * @return array{slug: string, title: string, content: string, destination: string}
      */
-    public function generatePageEntry(DocumentationPage $page): array
+    protected function generatePageEntry(DocumentationPage $page): array
     {
         return [
             'slug' => basename($page->identifier),
@@ -70,13 +68,11 @@ final class DocumentationSearchService
         ];
     }
 
-    protected function save(): self
+    protected function save(): void
     {
-        $this->needsParentDirectory(Hyde::path($this->filePath));
+        $this->needsParentDirectory($this->path);
 
-        file_put_contents(Hyde::path($this->filePath), $this->searchIndex->toJson());
-
-        return $this;
+        Filesystem::putContents($this->path, $this->index->toJson());
     }
 
     protected function getSearchContentForDocument(DocumentationPage $page): string
@@ -93,10 +89,8 @@ final class DocumentationSearchService
         return "$slug.html";
     }
 
-    public static function getFilePath(): string
+    protected function getPath(): string
     {
-        return Hyde::pathToRelative(Hyde::sitePath(
-            DocumentationPage::outputDirectory().'/search.json'
-        ));
+        return Hyde::sitePath(DocumentationPage::outputDirectory().'/search.json');
     }
 }

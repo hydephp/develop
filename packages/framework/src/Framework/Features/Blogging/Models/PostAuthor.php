@@ -13,7 +13,7 @@ use function is_string;
 /**
  * The Post Author model object.
  *
- * @see \Hyde\Framework\Testing\Feature\PostAuthorTest
+ * @see \Hyde\Framework\Testing\Unit\PostAuthorTest
  */
 class PostAuthor implements Stringable
 {
@@ -39,7 +39,7 @@ class PostAuthor implements Stringable
     /**
      * Construct a new Post Author object.
      *
-     * If your input is in the form of an array, you may rather want to use the `make` method.
+     * If your input is in the form of an array, you may rather want to use the `getOrCreate` method.
      *
      * @param  string  $username
      * @param  string|null  $name
@@ -53,7 +53,7 @@ class PostAuthor implements Stringable
     }
 
     /** Dynamically get or create an author based on a username string or front matter array */
-    public static function make(string|array $data): static
+    public static function getOrCreate(string|array $data): static
     {
         if (is_string($data)) {
             return static::get($data);
@@ -68,6 +68,7 @@ class PostAuthor implements Stringable
         return static::all()->firstWhere('username', $username) ?? Author::create($username);
     }
 
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
         return new Collection(Config::getArray('hyde.authors', []));

@@ -63,7 +63,7 @@ class PageRouter
             return DashboardController::renderIndexPage($page);
         }
 
-        return file_get_contents((new StaticPageBuilder($page))->__invoke());
+        return file_get_contents(StaticPageBuilder::handle($page));
     }
 
     public static function handle(Request $request): Response

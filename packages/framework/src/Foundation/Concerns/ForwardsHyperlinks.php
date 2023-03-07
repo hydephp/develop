@@ -31,13 +31,13 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->asset($name, $preferQualifiedUrl);
     }
 
-    public function hasSiteUrl(): bool
-    {
-        return $this->hyperlinks->hasSiteUrl();
-    }
-
     public function url(string $path = ''): string
     {
         return $this->hyperlinks->url($path);
+    }
+
+    public function hasSiteUrl(): bool
+    {
+        return $this->hyperlinks->hasSiteUrl();
     }
 }

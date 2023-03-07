@@ -37,7 +37,7 @@ class MarkdownPageTest extends TestCase
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
         $page = MarkdownPage::parse('test-page');
 
-        (new StaticPageBuilder(Pages::getPage($page->getSourcePath())))->__invoke();
+        StaticPageBuilder::handle(Pages::getPage($page->getSourcePath()));
 
         $this->assertFileExists(Hyde::path('_site/test-page.html'));
         $this->assertStringContainsString('<h1>Test Page</h1>',

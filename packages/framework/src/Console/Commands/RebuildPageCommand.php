@@ -71,7 +71,7 @@ class RebuildPageCommand extends Command
             {
                 $this->validate();
 
-                (new StaticPageBuilder(Pages::getPage($this->path)))->__invoke();
+                StaticPageBuilder::handle(Pages::getPage($this->path));
             }
 
             public function printFinishMessage(): void

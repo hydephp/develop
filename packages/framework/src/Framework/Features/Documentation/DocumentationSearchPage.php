@@ -21,6 +21,19 @@ use function view;
  */
 class DocumentationSearchPage extends DocumentationPage
 {
+    /**
+     * Generate the search page and save it to disk.
+     *
+     * @return string The path to the generated file.
+     */
+    public static function generate(): string
+    {
+        return StaticPageBuilder::handle(new static());
+    }
+
+    /**
+     * Create a new DocumentationSearchPage instance.
+     */
     public function __construct()
     {
         parent::__construct('search', [
@@ -36,11 +49,6 @@ class DocumentationSearchPage extends DocumentationPage
     public static function enabled(): bool
     {
         return Config::getBool('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
-    }
-
-    public static function generate(): string
-    {
-        return (new StaticPageBuilder(new static()))->__invoke();
     }
 
     public static function routeKey(): string

@@ -41,14 +41,17 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     /**
      * The activated shortcode instances.
+     *
+     * @var array<string, MarkdownShortcodeContract>
      */
-    public array $shortcodes;
+    protected array $shortcodes;
 
     public static function preprocess(string $markdown): string
     {
         return (new static($markdown))->run();
     }
 
+    /** @internal This class may be converted to a singleton. Thus, this constructor should not be relied upon. Use preprocess instead.  */
     public function __construct(string $input)
     {
         $this->input = $input;
@@ -56,23 +59,38 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         $this->discoverShortcodes();
     }
 
-    public function processInput(): static
-    {
-        $this->output = implode("\n", array_map(function (string $line): string {
-            return $this->expandShortcode($line);
-        }, explode("\n", $this->input)));
-
-        return $this;
-    }
-
-    public function getOutput(): string
-    {
-        return $this->output;
-    }
-
+    /** @internal Use the preprocess method */
     public function run(): string
     {
         return $this->processInput()->getOutput();
+    }
+
+    /**
+     * @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class.
+     *
+     * @return array<string, MarkdownShortcodeContract>
+     */
+    public function getShortcodes(): array
+    {
+        return $this->shortcodes;
+    }
+
+    /**
+     * @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class.
+     *
+     * @param  array<MarkdownShortcodeContract>  $shortcodes
+     */
+    public function addShortcodesFromArray(array $shortcodes): void
+    {
+        foreach ($shortcodes as $shortcode) {
+            $this->addShortcode($shortcode);
+        }
+    }
+
+    /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
+    public function addShortcode(MarkdownShortcodeContract $shortcode): void
+    {
+        $this->shortcodes[$shortcode::signature()] = $shortcode;
     }
 
     protected function discoverShortcodes(): void
@@ -82,20 +100,9 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         );
     }
 
-    public function addShortcodesFromArray(array $shortcodes): static
+    protected function getOutput(): string
     {
-        foreach ($shortcodes as $shortcode) {
-            $this->addShortcode($shortcode);
-        }
-
-        return $this;
-    }
-
-    public function addShortcode(MarkdownShortcodeContract $shortcode): static
-    {
-        $this->shortcodes[$shortcode::signature()] = $shortcode;
-
-        return $this;
+        return $this->output;
     }
 
     protected function expandShortcode(string $line): string
@@ -108,5 +115,14 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
     protected function discoverSignature(string $line): string
     {
         return str_contains($line, ' ') ? substr($line, 0, strpos($line, ' ')) : $line;
+    }
+
+    protected function processInput(): static
+    {
+        $this->output = implode("\n", array_map(function (string $line): string {
+            return $this->expandShortcode($line);
+        }, explode("\n", $this->input)));
+
+        return $this;
     }
 }

@@ -54,8 +54,8 @@ class SourceFileParser
     protected function parseBladePage(): BladePage
     {
         return new BladePage(
-            $this->identifier,
-            BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
+            identifier: $this->identifier,
+            matter: BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
         );
     }
 

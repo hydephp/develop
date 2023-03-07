@@ -49,9 +49,9 @@ class BladeMatterParser
     /** @var string The directive signature used to determine if a line should be parsed. */
     protected const SEARCH = '@php($';
 
-    public static function parseFile(string $localFilePath): array
+    public static function parseFile(string $path): array
     {
-        return static::parseString(file_get_contents(Hyde::path($localFilePath)));
+        return static::parseString(file_get_contents(Hyde::path($path)));
     }
 
     public static function parseString(string $contents): array

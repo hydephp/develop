@@ -5,7 +5,7 @@ declare(strict_types=1);
 error_reporting(E_ALL);
 $time = microtime(true);
 
-// Generate some file fixtures for quick visual testing.
+// @internal Generate some file fixtures for quick visual testing.
 
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Pages\BladePage;
