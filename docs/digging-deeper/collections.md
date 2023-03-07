@@ -160,8 +160,8 @@ This example will use Markdown Collections, but the same concepts apply to all o
 
 We start by setting up our directory structure. We will create a `testimonials` subdirectory, which will be the collection name.
 
-In it, we will place Markdown files. Each file will be a testimonial. 
-The Markdown will be parsed into a `MarkdownDocument` object which parses any optional YAML front matter. 
+In it, we will place Markdown files. Each file will be a testimonial.
+The Markdown will be parsed into a `MarkdownDocument` object which parses any optional YAML front matter.
 
 Here is the sample Markdown we will use:
 

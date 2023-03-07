@@ -146,7 +146,7 @@ In both cases the parsed Markdown will be rendered in the footer Blade component
 
 The actual footer component is rendered using the [`layouts/footer.blade.php`](https://github.com/hydephp/framework/blob/master/resources/views/layouts/footer.blade.php) Blade template.
 
-In this template we automatically render the configured footer Markdown text. If you want to change this behaviour, for example, HydePHP.com uses a more sophisticated footer, simply [publish the footer component](#blade-views). 
+In this template we automatically render the configured footer Markdown text. If you want to change this behaviour, for example, HydePHP.com uses a more sophisticated footer, simply [publish the footer component](#blade-views).
 
 #### Disabling the footer entirely
 
@@ -211,7 +211,7 @@ Note that since Blade pages do not support front matter, this will only work for
 
 #### Adding Custom Navigation Menu Links
 
-You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array. 
+You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
 
 When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
 
@@ -260,7 +260,7 @@ Hyde makes a few attempts to find a suitable label for the navigation menu items
 
 From the Hyde config you can also override the label of navigation links using the by mapping the route key (identifier/slug relative to the site root) to the desired title. Note that the front matter property will take precedence over the config property.
 
-    
+
 ```php
 // filepath config/hyde.php
 'navigation' => [
@@ -289,7 +289,7 @@ Hyde is designed to not only serve as a framework but a whole starter kit and co
 
 Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converting Markdown into HTML.
 
-Hyde ships with the GitHub Flavored Markdown extension, and 
+Hyde ships with the GitHub Flavored Markdown extension, and
 the Torchlight extension is enabled automatically when needed.
 
 You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.

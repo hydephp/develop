@@ -111,7 +111,7 @@ if you don't want to use the scaffolding command.
 
 ## When to use which?
 
-Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited. 
+Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited.
 
 If you are comfortable with it, and have the need for it, use Blade to create more complex pages! And mix and match between them! Some page types are better suited for Markdown, and others for Blade.
 

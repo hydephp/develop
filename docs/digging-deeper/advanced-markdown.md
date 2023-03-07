@@ -40,7 +40,7 @@ followed by your desired Blade string.
 #### Blade includes
 
 Only single-line shortcode directives are supported. If you need to use multi-line Blade code,
-use an `@include` directive to render a more complex Blade template. 
+use an `@include` directive to render a more complex Blade template.
 You can pass data to includes by specifying an array to the second argument.
 
 ```markdown

@@ -146,11 +146,11 @@ The `make:page` command is similar to the `make:post` command and lets you quick
 create one of the following page types:
 
 - **Markdown**:
- Creates a Markdown file in the `_pages` directory.
+  Creates a Markdown file in the `_pages` directory.
 - **Blade**:
- Creates a Blade file using the app layout in the `_pages` directory.
+  Creates a Blade file using the app layout in the `_pages` directory.
 - **Docs**:
- Creates a Markdown file in the `_docs` directory. 
+  Creates a Markdown file in the `_docs` directory.
 
 In all cases, the title will be used in the created file as the page title, and to generate the filename.
 
