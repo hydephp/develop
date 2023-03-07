@@ -30,9 +30,9 @@ class DocumentationSearchService
     /**
      * Generate the search index and save it to disk.
      */
-    public static function generate(): self
+    public static function generate(): static
     {
-        return (new self())->execute();
+        return (new static())->execute();
     }
 
     /**
@@ -44,12 +44,12 @@ class DocumentationSearchService
         $this->filePath = $this->getFilePath();
     }
 
-    protected function execute(): self
+    protected function execute(): static
     {
         return $this->run()->save();
     }
 
-    public function run(): self
+    public function run(): static
     {
         /** @var \Hyde\Pages\DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
@@ -74,7 +74,7 @@ class DocumentationSearchService
         ];
     }
 
-    protected function save(): self
+    protected function save(): static
     {
         $this->needsParentDirectory(Hyde::path($this->filePath));
 
