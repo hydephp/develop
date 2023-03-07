@@ -49,7 +49,7 @@ class CreatesNewPageSourceFile
         $this->save($pageClass);
     }
 
-    protected function save(string $pageClass): void
+    public function save(string $pageClass): void
     {
         $this->failIfFileCannotBeSaved($this->outputPath);
 
