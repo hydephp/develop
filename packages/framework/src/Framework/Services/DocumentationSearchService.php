@@ -48,7 +48,6 @@ class DocumentationSearchService
 
     protected function run(): void
     {
-        /** @var \Hyde\Pages\DocumentationPage $page */
         DocumentationPage::all()->each(function (DocumentationPage $page): void {
             if (! in_array($page->identifier, Config::getArray('docs.exclude_from_search', []))) {
                 $this->searchIndex->push($this->generatePageEntry($page));
