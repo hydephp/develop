@@ -30,7 +30,7 @@ use Throwable;
  *
  * The collections are constructed and booted in the kernel through the `BootsHydeKernel` trait.
  * Between the construction and booting is a time-frame where the extensions can hook into
- * the discovery process and add their data through the `runExtensionCallbacks` API.
+ * the discovery process and add their data through the `runExtensionHandlers` API.
  */
 abstract class BaseFoundationCollection extends Collection
 {
@@ -38,7 +38,7 @@ abstract class BaseFoundationCollection extends Collection
 
     abstract protected function runDiscovery(): void;
 
-    abstract protected function runExtensionCallbacks(): void;
+    abstract protected function runExtensionHandlers(): void;
 
     public static function init(HydeKernel $kernel): static
     {
@@ -49,7 +49,7 @@ abstract class BaseFoundationCollection extends Collection
     {
         try {
             $this->runDiscovery();
-            $this->runExtensionCallbacks();
+            $this->runExtensionHandlers();
         } catch (Throwable $exception) {
             throw new RuntimeException('An error occurred during the discovery process.', previous: $exception);
         }

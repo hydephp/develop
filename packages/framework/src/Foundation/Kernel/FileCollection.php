@@ -42,7 +42,7 @@ final class FileCollection extends BaseFoundationCollection
         }
     }
 
-    protected function runExtensionCallbacks(): void
+    protected function runExtensionHandlers(): void
     {
         /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getExtensions() as $extension) {
