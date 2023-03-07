@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\AsksToRebuildSite;
-use Hyde\Console\Concerns\Command;
-use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Pages\BladePage;
-use Illuminate\Support\Collection;
+use Hyde\Console\Concerns\Command;
+use Hyde\Console\Concerns\AsksToRebuildSite;
+use Hyde\Framework\Services\ViewDiffService;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Collection;
+use function Hyde\unixsum_file;
 use function array_key_exists;
 use function file_exists;
-use function Hyde\unixsum_file;
 use function str_replace;
 use function strstr;
 

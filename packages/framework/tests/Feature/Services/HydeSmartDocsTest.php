@@ -189,7 +189,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_the_documentation_article_view()
     {
         $rendered = view('hyde::components.docs.documentation-article', [
-            'document' => $this->makeArticle(),
+            'page' => $this->makePage(),
         ])->render();
 
         $this->assertStringContainsString('<h1>Foo</h1>', $rendered);
@@ -201,6 +201,13 @@ class HydeSmartDocsTest extends TestCase
         $this->file('_docs/foo.md', $sourceFileContents);
 
         return SemanticDocumentationArticle::make(DocumentationPage::parse('foo'));
+    }
+
+    protected function makePage(string $sourceFileContents = "# Foo\n\nHello world."): DocumentationPage
+    {
+        $this->file('_docs/foo.md', $sourceFileContents);
+
+        return DocumentationPage::parse('foo');
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
