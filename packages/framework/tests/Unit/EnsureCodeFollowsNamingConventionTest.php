@@ -14,6 +14,7 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 
         $this->assertNotEmpty($files, 'No commands found.');
 
+        // Commands must not start with "Hyde" and must end with "Command"
         foreach ($files as $filepath) {
             $filename = basename($filepath, '.php');
             $this->assertStringStartsNotWith('Hyde', $filename);
