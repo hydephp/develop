@@ -136,7 +136,7 @@ There are two ways to customize the footer text. First, you can set it in the co
 If you don't want to write Markdown in the configuration file, you can create a Markdown file in your includes directory. When this file is found, it will be used instead of the configuration setting.
 
 ```markdown
-// filepath: resources/_includes/footer.md
+// filepath: resources/includes/footer.md
 Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩
 ```
 

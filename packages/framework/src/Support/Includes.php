@@ -18,7 +18,7 @@ class Includes
     /**
      * @var string The directory where includes are stored.
      */
-    protected static string $includesDirectory = 'resources/_includes';
+    protected static string $includesDirectory = 'resources/includes';
 
     /**
      * Return the path to the includes directory, or a partial within it, if requested.
