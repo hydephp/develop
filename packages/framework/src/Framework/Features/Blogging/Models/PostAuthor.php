@@ -53,7 +53,7 @@ class PostAuthor implements Stringable
     }
 
     /** Dynamically get or create an author based on a username string or front matter array */
-    public static function make(string|array $data): static
+    public static function getOrCreate(string|array $data): static
     {
         if (is_string($data)) {
             return static::get($data);

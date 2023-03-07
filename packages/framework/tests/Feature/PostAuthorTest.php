@@ -31,24 +31,24 @@ class PostAuthorTest extends TestCase
         $this->assertEquals('https://example.com', $author->website);
     }
 
-    public function test_make_method_creates_new_author_model_from_string()
+    public function test_get_or_create_method_creates_new_author_model_from_string()
     {
-        $author = PostAuthor::make('foo');
+        $author = PostAuthor::getOrCreate('foo');
         $this->assertEquals($author, new PostAuthor('foo'));
     }
 
-    public function test_make_method_creates_new_author_model_from_string_can_find_existing_author()
+    public function test_get_or_create_method_creates_new_author_model_from_string_can_find_existing_author()
     {
         Config::set('hyde.authors', [
             Author::create('foo', 'bar'),
         ]);
 
-        $this->assertEquals(PostAuthor::make('foo'), Author::create('foo', 'bar'));
+        $this->assertEquals(PostAuthor::getOrCreate('foo'), Author::create('foo', 'bar'));
     }
 
-    public function test_make_method_creates_new_author_model_from_array()
+    public function test_get_or_create_method_creates_new_author_model_from_array()
     {
-        $author = PostAuthor::make([
+        $author = PostAuthor::getOrCreate([
             'username' => 'foo',
             'name' => 'bar',
             'website' => 'https://example.com',
@@ -56,9 +56,9 @@ class PostAuthorTest extends TestCase
         $this->assertEquals($author, Author::create('foo', 'bar', 'https://example.com'));
     }
 
-    public function test_make_method_creates_new_author_model_from_array_only_needs_username()
+    public function test_get_or_create_method_creates_new_author_model_from_array_only_needs_username()
     {
-        $this->assertEquals(PostAuthor::make(['username' => 'foo']), Author::create('foo'));
+        $this->assertEquals(PostAuthor::getOrCreate(['username' => 'foo']), Author::create('foo'));
     }
 
     public function test_all_method_returns_empty_collection_if_no_authors_are_set_in_config()
