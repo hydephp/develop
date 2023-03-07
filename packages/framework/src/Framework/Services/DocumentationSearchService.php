@@ -27,11 +27,17 @@ final class DocumentationSearchService
     public Collection $searchIndex;
     protected string $filePath;
 
+    /**
+     * Generate the search index and save it to disk.
+     */
     public static function generate(): self
     {
         return (new self())->execute();
     }
 
+    /**
+     * Create a new DocumentationSearchService instance.
+     */
     public function __construct()
     {
         $this->searchIndex = new Collection();
