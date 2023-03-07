@@ -56,7 +56,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         $this->discoverShortcodes();
     }
 
-    public function processInput(): static
+    protected function processInput(): static
     {
         $this->output = implode("\n", array_map(function (string $line): string {
             return $this->expandShortcode($line);
