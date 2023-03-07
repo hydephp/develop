@@ -200,7 +200,7 @@ class HydeSmartDocsTest extends TestCase
     {
         $this->file('_docs/foo.md', $sourceFileContents);
 
-        return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
+        return SemanticDocumentationArticle::make(DocumentationPage::parse('foo'));
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void

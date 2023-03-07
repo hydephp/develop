@@ -36,7 +36,7 @@ class SemanticDocumentationArticle
      * @param  \Hyde\Pages\DocumentationPage  $page  The source page object to process.
      * @return static new processed instance
      */
-    public static function create(DocumentationPage $page): static
+    public static function make(DocumentationPage $page): static
     {
         return new self($page);
     }
