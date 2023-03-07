@@ -13,7 +13,7 @@ HydePHP contains a few "magic" features so that you can focus on your content. I
 ## The HydeCLI
 
 When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the
-Hyde Command Line Interface (CLI). 
+Hyde Command Line Interface (CLI).
 Since the CLI is based on the Laravel Artisan Console, so you may actually already be familiar with it.
 
 You should take a look at [the Console Commands page](console-commands)
@@ -70,7 +70,7 @@ Default media file types supported: `.png`, `.svg`, `.jpg`, `.jpeg`, `.gif`, `.i
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
-However, Hyde also strives to be modular and endlessly customizable hackable if you need it. 
+However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
 Take a look at the [customization and configuration guide](customization) to see the endless options available!
 
 ## Front Matter
@@ -187,7 +187,7 @@ Simply put, a nested directory in Hyde is a source directory that contains a sub
 
 #### Automatically routed pages
 
-As it is now, when you put a source file within a subdirectory of one of the following, it will be compiled into the corresponding output directory. 
+As it is now, when you put a source file within a subdirectory of one of the following, it will be compiled into the corresponding output directory.
 
 The following page types use this behaviour:
 - Blade pages (`_pages/`)

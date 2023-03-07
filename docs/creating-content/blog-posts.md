@@ -120,7 +120,7 @@ array:
 ### Post Front Matter Schema
 
 Here is a quick reference of the supported front matter properties.
-Keep on reading to see further explanations, details, and examples. 
+Keep on reading to see further explanations, details, and examples.
 
 
 | **KEY NAME**   | **VALUE TYPE** | **EXAMPLE / FORMAT**             |
@@ -163,7 +163,7 @@ category: "My favorite recipes"
 ### Date
 
 ```yaml
-date: "2022-01-01 12:00" 
+date: "2022-01-01 12:00"
 date: "2022-01-01" 
 ```
 
@@ -174,9 +174,9 @@ date: "2022-01-01"
 author: "Mr. Hyde" # Arbitrary name displayed "as is"
 author: mr_hyde # Username defined in `authors` config
 author: # Array of author data
-  name: "Mr. Hyde" 
-  username: mr_hyde 
-  website: https://twitter.com/HydeFramework
+    name: "Mr. Hyde"
+    username: mr_hyde
+    website: https://twitter.com/HydeFramework
 ```
 
 When specifying an array you don't need all the sub-properties.
@@ -189,15 +189,15 @@ will override all the values in the `authors` config entry.
 image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL for the built site
 image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) or `//` (protocol-relative)
 image:
-  source: image.jpg # Same as above
-  source: https://cdn.example.com/image.jpg # Same as above
-  altText: "Alt text for image"
-  title: "Tooltip title"
-  copyright: "Copyright (c) 2022"
-  licenseName: "CC-BY-SA-4.0"
-  licenseUrl: https://example.com/license/
-  authorUrl: https://photographer.example.com/
-  authorName: "John Doe"
+    source: image.jpg # Same as above
+    source: https://cdn.example.com/image.jpg # Same as above
+    altText: "Alt text for image"
+    title: "Tooltip title"
+    copyright: "Copyright (c) 2022"
+    licenseName: "CC-BY-SA-4.0"
+    licenseUrl: https://example.com/license/
+    authorUrl: https://photographer.example.com/
+    authorName: "John Doe"
 ```
 
 When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
