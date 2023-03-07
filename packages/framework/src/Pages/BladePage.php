@@ -39,7 +39,7 @@ class BladePage extends HydePage
     /** @inheritDoc */
     public function getBladeView(): string
     {
-        return $this->view;
+        return $this->identifier;
     }
 
     /** @inheritDoc */
