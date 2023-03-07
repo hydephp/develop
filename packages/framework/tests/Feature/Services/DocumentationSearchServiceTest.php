@@ -123,6 +123,7 @@ class DocumentationSearchServiceTest extends TestCase
         DocumentationSearchService::generate();
         $array = json_decode(file_get_contents('_site/docs/search.json'), true);
         Filesystem::unlink('_site/docs/search.json');
+
         return $array;
     }
 }
