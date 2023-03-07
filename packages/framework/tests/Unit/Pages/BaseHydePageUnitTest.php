@@ -40,7 +40,6 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
         app()->instance(\Illuminate\Contracts\View\Factory::class, $mock);
         app()->instance('view', $mock);
 
-
         Render::swap(new RenderData());
     }
 
