@@ -23,6 +23,8 @@ class StaticPageBuilder
     /**
      * Construct a new static page builder instance.
      *
+     * @deprecated 
+     *
      * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
      */
