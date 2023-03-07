@@ -101,12 +101,22 @@ class NavItemTest extends UnitTestCase
 
     public function testForRoute()
     {
-        $route = Routes::get('index');
+        $route = Routes::get('404');
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route->getLink(), $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(999, $item->priority);
+    }
+
+    public function testForIndexRoute()
+    {
+        $route = Routes::get('index');
+        $item = NavItem::forRoute($route, 'foo');
+
+        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame('foo', $item->label);
+        $this->assertSame(0, $item->priority);
     }
 
     public function testForRouteWithRouteKey()
