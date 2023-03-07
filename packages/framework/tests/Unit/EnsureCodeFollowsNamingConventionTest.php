@@ -21,4 +21,13 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
             $this->assertStringEndsWith('Command', $filename);
         }
     }
+
+    public function testActionEntryPointsFollowNamingConventions()
+    {
+        $files = glob('vendor/hyde/framework/src/Framework/Actions/*.php');
+
+        $this->assertNotEmpty($files, 'No action classes found.');
+
+        // Actions must have either a public static handle() method or a public non-static execute() method
+    }
 }
