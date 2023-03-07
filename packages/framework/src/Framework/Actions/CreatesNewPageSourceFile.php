@@ -49,7 +49,7 @@ class CreatesNewPageSourceFile
         $this->save($pageClass);
     }
 
-    public function save(string $pageClass): void
+    public function save(string $pageClass): string
     {
         $this->failIfFileCannotBeSaved($this->outputPath);
 
@@ -58,6 +58,8 @@ class CreatesNewPageSourceFile
             MarkdownPage::class => $this->createMarkdownFile(),
             DocumentationPage::class => $this->createDocumentationFile(),
         };
+
+        return $this->outputPath;
     }
 
     public function getOutputPath(): string
