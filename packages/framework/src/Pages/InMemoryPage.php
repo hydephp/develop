@@ -61,7 +61,7 @@ class InMemoryPage extends HydePage
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      */
-    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
         parent::__construct($identifier, $matter);
 
