@@ -49,7 +49,7 @@ class StaticPageBuilder
     }
 
     /**
-     * Invoke the static page builder.
+     * Invoke the static page builder for the given page.
      */
     public static function handle(HydePage $page): string
     {
