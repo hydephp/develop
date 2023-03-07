@@ -47,7 +47,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
 
     protected function inspectHtml(array $expectedStrings)
     {
-        new StaticPageBuilder($this->post, true);
+        StaticPageBuilder::handle($this->post);
         $stream = file_get_contents(Hyde::path('_site/posts/test-post.html'));
 
         foreach ($expectedStrings as $expectedString) {
