@@ -80,13 +80,11 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
      *
      * @param  array<MarkdownShortcodeContract>  $shortcodes
      */
-    public function addShortcodesFromArray(array $shortcodes): static
+    public function addShortcodesFromArray(array $shortcodes): void
     {
         foreach ($shortcodes as $shortcode) {
             $this->addShortcode($shortcode);
         }
-
-        return $this;
     }
 
     /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
