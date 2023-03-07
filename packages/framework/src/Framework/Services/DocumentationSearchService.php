@@ -6,11 +6,11 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
-use function file_put_contents;
 use function basename;
 use function in_array;
 use function trim;
@@ -78,7 +78,7 @@ class DocumentationSearchService
     {
         $this->needsParentDirectory($this->filePath);
 
-        file_put_contents(Hyde::path($this->filePath), $this->searchIndex->toJson());
+        Filesystem::putContents($this->filePath, $this->searchIndex->toJson());
 
         return $this;
     }
