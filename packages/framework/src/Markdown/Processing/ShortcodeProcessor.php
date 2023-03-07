@@ -49,6 +49,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return (new static($markdown))->run();
     }
 
+    /** @internal This class may be converted to a singleton. Thus this constructor should not be relied upon. Use preprocess instead.  */
     public function __construct(string $input)
     {
         $this->input = $input;
@@ -56,16 +57,19 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         $this->discoverShortcodes();
     }
 
+    /** @internal Use the preprocess method */
     public function run(): string
     {
         return $this->processInput()->getOutput();
     }
 
+    /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
     public function getShortcodes(): array
     {
         return $this->shortcodes;
     }
 
+    /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
     public function addShortcodesFromArray(array $shortcodes): static
     {
         foreach ($shortcodes as $shortcode) {
@@ -75,6 +79,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return $this;
     }
 
+    /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
     public function addShortcode(MarkdownShortcodeContract $shortcode): static
     {
         $this->shortcodes[$shortcode::signature()] = $shortcode;
