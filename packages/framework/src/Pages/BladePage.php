@@ -32,7 +32,6 @@ class BladePage extends HydePage
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         parent::__construct($identifier, $matter);
-        $this->view = $identifier;
     }
 
     /** @inheritDoc */
