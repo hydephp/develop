@@ -35,7 +35,7 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/bar.md');
         $this->file('_docs/baz.md');
 
-        $this->assertCount(3, (new DocumentationSearchService())->run()->searchIndex);
+        $this->assertCount(3, $this->getArray());
     }
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
