@@ -67,6 +67,13 @@ class IncludesFacadeTest extends TestCase
         $this->assertEquals("<h1>default</h1>\n", Includes::markdown('foo.md', '# default'));
     }
 
+    public function test_markdown_with_and_without_extension()
+    {
+        file_put_contents(Hyde::path('resources/_includes/foo.md'), '# foo bar');
+        $this->assertEquals(Includes::markdown('foo.md'), Includes::markdown('foo'));
+        Filesystem::unlink('resources/_includes/foo.md');
+    }
+
     public function test_blade_returns_rendered_partial()
     {
         $expected = 'foo bar';
