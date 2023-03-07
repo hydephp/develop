@@ -7,7 +7,6 @@ namespace Hyde\Support;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Markdown\Models\MarkdownDocument;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
