@@ -56,18 +56,6 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::unlink('_site/docs/search.json');
     }
 
-    public function test_generate_page_entry_method_generates_a_page_entry()
-    {
-        $this->file('_docs/foo.md', "# Bar\nHello World");
-
-        $this->assertSame([
-            'slug' => 'foo',
-            'title' => 'Bar',
-            'content' => "Bar\nHello World",
-            'destination' => 'foo.html',
-        ], (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo')));
-    }
-
     public function test_it_generates_a_valid_JSON()
     {
         $this->file('_docs/foo.md', "# Bar\nHello World");

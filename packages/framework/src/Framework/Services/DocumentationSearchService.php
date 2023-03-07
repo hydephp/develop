@@ -64,7 +64,7 @@ class DocumentationSearchService
     /**
      * @return array{slug: string, title: string, content: string, destination: string}
      */
-    public function generatePageEntry(DocumentationPage $page): array
+    protected function generatePageEntry(DocumentationPage $page): array
     {
         return [
             'slug' => basename($page->identifier),
