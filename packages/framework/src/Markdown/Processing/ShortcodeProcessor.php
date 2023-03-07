@@ -61,9 +61,6 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return $this->processInput()->getOutput();
     }
 
-    /**
-     * Get the activated shortcode instances.
-     */
     public function getShortcodes(): array
     {
         return $this->shortcodes;
