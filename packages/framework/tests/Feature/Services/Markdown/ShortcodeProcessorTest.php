@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Markdown\Processing\ShortcodeProcessor
  */
-class ShortcodeProcessorTest extends TestCase
+class ShortcodeProcessorTest extends UnitTestCase
 {
     public function test_constructor_discovers_default_shortcodes()
     {
