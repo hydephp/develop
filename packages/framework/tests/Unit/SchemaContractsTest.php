@@ -78,11 +78,11 @@ class SchemaContractsTest extends UnitTestCase
         $this->assertNotEmpty($subFiles, 'No sub schemas found.');
 
         $schemas = array_map(function ($file) {
-            return 'Hyde\\Markdown\\Contracts\\FrontMatter\\' . basename($file, '.php');
+            return 'Hyde\\Markdown\\Contracts\\FrontMatter\\'.basename($file, '.php');
         }, $files);
 
         $subSchemas = array_map(function ($file) {
-            return 'Hyde\\Markdown\\Contracts\\FrontMatter\\SubSchemas\\' . basename($file, '.php');
+            return 'Hyde\\Markdown\\Contracts\\FrontMatter\\SubSchemas\\'.basename($file, '.php');
         }, $subFiles);
 
         $schemas = array_merge($schemas, $subSchemas);
