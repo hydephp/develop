@@ -46,7 +46,7 @@ class CreatesNewPageSourceFile
 
         $this->outputPath = $this->makeOutputPath($pageClass);
 
-        $this->createPage($pageClass);
+        $this->save($pageClass);
     }
 
     public function getOutputPath(): string
@@ -82,7 +82,7 @@ class CreatesNewPageSourceFile
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
     }
 
-    protected function createPage(string $pageClass): void
+    protected function save(string $pageClass): void
     {
         $this->failIfFileCannotBeSaved($this->outputPath);
 
