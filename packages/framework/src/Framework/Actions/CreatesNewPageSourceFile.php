@@ -42,6 +42,7 @@ class CreatesNewPageSourceFile
     public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false)
     {
         $this->validateType($pageClass);
+        $this->pageClass = $pageClass;
 
         $this->title = $this->parseTitle($title);
         $this->filename = $this->fileName($title);
