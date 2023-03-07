@@ -57,26 +57,6 @@ class MarkdownFileParser
 
     public static function parse(string $path): MarkdownDocument
     {
-        $stream = Filesystem::getContents($path);
-
-        $matter = [];
-        $markdown = '';
-
-        // Check if the file has Front Matter.
-        if (str_starts_with($stream, '---')) {
-            $document = YamlFrontMatter::markdownCompatibleParse($stream);
-
-            if ($document->matter()) {
-                $matter = $document->matter();
-            }
-
-            if ($document->body()) {
-                $markdown = $document->body();
-            }
-        } else {
-            $markdown = $stream;
-        }
-
-        return new MarkdownDocument($matter, $markdown);
+        return (new static($path))->get();
     }
 }
