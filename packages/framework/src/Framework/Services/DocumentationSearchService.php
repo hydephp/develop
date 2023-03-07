@@ -24,7 +24,7 @@ class DocumentationSearchService
 {
     use InteractsWithDirectories;
 
-    public Collection $searchIndex;
+    protected Collection $searchIndex;
     protected string $filePath;
 
     /**
