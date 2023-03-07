@@ -29,10 +29,10 @@ class BladePage extends HydePage
      */
     public string $view;
 
-    public function __construct(string $view = '', FrontMatter|array $matter = [])
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
-        parent::__construct($view, $matter);
-        $this->view = $view;
+        parent::__construct($identifier, $matter);
+        $this->view = $identifier;
     }
 
     /** @inheritDoc */
