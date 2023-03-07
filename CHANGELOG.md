@@ -16,6 +16,60 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.1](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.1) - 2023-03-07
+
+### About
+
+Welcome to the first release candidate for HydePHP 1.0! If you are coming from a beta version, please know that there are is a very large amount of breaking changes regarding the internal structure, so it is highly reccomended that you read through the release notes below.
+
+### Added
+
+### Breaking changes
+
+#### Abstract
+
+This beta release contains a plethora of breaking changes compared earlier beta versions.
+So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project. Though it only took me like five minutes to upgrade a simple documentation site, see [this diff](https://github.com/caendesilva/hyde-example-documentation-site/commit/f647f9250ecb20cf7bbf43bb10cd6401fae201cb) to see what I did.
+
+The good news however, is that as HydePHP approaches version 1.0, there will no longer be releases like these with breaking changes.
+
+While I've got your attention: read this the section right after this, as you might not need to make any changes at all.
+
+#### Do I need to make any changes to my project?
+
+If any of these statements are true, you will probably need to make changes to your project, and it might be easiest to copy over your content to a new project.
+
+- You currently only have PHP 8.0 installed, HydePHP now requires PHP 8.1.
+- You have written custom code (for example in Blade views) that relies on the old API.
+- You have published the built-in Blade views (you should be able to get away by just republishing them).
+
+In all cases, you will most definitely need to republish the configuration files and update the `app/bootstrap.php` file.
+
+### Upgrade guide
+
+The easiest way to upgrade your project is to copy over your content (source files, etc.) to a new project.
+
+#### Major breaking changes
+
+These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
+
+- HydePHP now requires PHP 8.1 or higher.
+- Almost all namespaces in the framework have been changed and restructured.
+- Many of the internal underling Laravel application files have been moved, this means your `app/` directory will look a bit different. See [`#873`](https://github.com/hydephp/develop/pull/873)
+- The `config/site.php` file has been merged into `config/hyde.php`. See [`#964`](https://github.com/hydephp/develop/pull/964) for the upgrade guide.
+
+#### Breaking internal changes
+
+These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
+Instead, these changes will likely only concern those who write custom code and integrations using the HydePHP framework.
+
+These types of changes are handled within the framework ecosystem to ensure they do not affect those using HydePHP to create sites.
+For example, if a namespace is changed, all internal references to that namespace are updated, so most users won't even notice it.
+If you however have written custom code that explicitly references the old namespace, you will need to update your code to use the new namespace.
+
+- The Framework package now uses strict types for its source files.
+
+
 ## [v0.64.0-beta](https://github.com/hydephp/develop/releases/tag/v0.64.0-beta) - 2022-10-18
 
 ### Note from the maintainer
