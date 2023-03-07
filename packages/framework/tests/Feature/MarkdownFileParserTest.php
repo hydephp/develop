@@ -62,10 +62,10 @@ class MarkdownFileParserTest extends UnitTestCase
             'author' => 'Mr. Hyde',
         ]), $document->matter);
 
-        $this->assertEquals(str_replace("\r", '',
+        $this->assertEquals(
                 '# My New Post
 
-This is a post stub used in the automated tests'),
+This is a post stub used in the automated tests',
             (string) $document->markdown
         );
     }
@@ -89,10 +89,10 @@ This is a post stub used in the automated tests'),
         $this->assertEquals('Mr. Hyde', $post->matter('author'));
         $this->assertEquals('blog', $post->matter('category'));
 
-        $this->assertEquals(str_replace("\r", '',
+        $this->assertEquals(
                 '# My New Post
 
-This is a post stub used in the automated tests'),
+This is a post stub used in the automated tests',
             (string) $post->markdown
         );
     }
