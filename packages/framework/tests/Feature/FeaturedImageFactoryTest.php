@@ -21,7 +21,7 @@ class FeaturedImageFactoryTest extends TestCase
         $array = [
             'image.source' => 'source',
             'image.altText' => 'description',
-            'image.title' => 'title',
+            'image.titleText' => 'title',
             'image.copyright' => 'copyright',
             'image.licenseName' => 'license',
             'image.licenseUrl' => 'licenseUrl',

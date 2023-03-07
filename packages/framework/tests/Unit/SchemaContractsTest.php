@@ -74,7 +74,7 @@ class SchemaContractsTest extends UnitTestCase
         $this->assertSame([
             'source'         => 'string',
             'altText'        => 'string',
-            'title'          => 'string',
+            'titleText'      => 'string',
             'licenseName'    => 'string',
             'licenseUrl'     => 'string',
             'authorName'     => 'string',

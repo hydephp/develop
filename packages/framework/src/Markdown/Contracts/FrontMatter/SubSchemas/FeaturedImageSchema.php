@@ -15,7 +15,7 @@ interface FeaturedImageSchema extends BlogPostSchema
     public const FEATURED_IMAGE_SCHEMA = [
         'source'       => 'string', // Name of a file in _media/ or a remote URL (required)
         'altText'      => 'string', // The alt text (important for accessibility)
-        'title'        => 'string', // The title text (hover tooltip & metadata)
+        'titleText'    => 'string', // The title text (hover tooltip & metadata)
         'licenseName'  => 'string', // The name of the license (e.g. "CC BY 4.0")
         'licenseUrl'   => 'string', // The URL of the license (e.g. "https://creativecommons.org/licenses/by/4.0/")
         'authorName'   => 'string', // The name of the author/photographer of the image (e.g. "John Doe", Wikimedia Commons)

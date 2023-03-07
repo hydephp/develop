@@ -32,7 +32,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     ) {
         $this->source = $this->makeSource();
         $this->altText = $this->getStringMatter('image.altText');
-        $this->titleText = $this->getStringMatter('image.title');
+        $this->titleText = $this->getStringMatter('image.titleText');
         $this->authorName = $this->getStringMatter('image.authorName');
         $this->authorUrl = $this->getStringMatter('image.authorUrl');
         $this->copyrightText = $this->getStringMatter('image.copyright');
