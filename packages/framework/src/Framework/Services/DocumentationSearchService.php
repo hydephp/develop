@@ -40,7 +40,7 @@ class DocumentationSearchService
     /**
      * Create a new DocumentationSearchService instance.
      */
-    public function __construct()
+    protected function __construct()
     {
         $this->searchIndex = new Collection();
         $this->filePath = $this->getFilePath();
