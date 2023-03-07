@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Markdown\Contracts\FrontMatter\FrontMatterSchema;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
@@ -60,5 +61,18 @@ class SchemaContractsTest extends TestCase
             'authorUrl'      => 'string',
             'copyright'      => 'string',
         ], FeaturedImageSchema::FEATURED_IMAGE_SCHEMA);
+    }
+
+    public function testAllSchemasExtendFrontMatterSchemaInterface()
+    {
+        foreach ([
+            PageSchema::class,
+            NavigationSchema::class,
+            BlogPostSchema::class,
+            BlogPostSchema::class,
+            FeaturedImageSchema::class,
+        ] as $schema) {
+            $this->assertTrue(is_subclass_of($schema, FrontMatterSchema::class));
+        }
     }
 }

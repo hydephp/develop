@@ -9,7 +9,7 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 /**
  * @see \Hyde\Pages\Concerns\HydePage
  */
-interface PageSchema
+interface PageSchema extends FrontMatterSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',
