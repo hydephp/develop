@@ -74,7 +74,7 @@ class DocumentationSearchServiceTest extends TestCase
 
         $this->assertSame(
             "Foo Bar\nHello World",
-            ($this->getArray())[0]['content']
+            $this->getArray()[0]['content']
         );
     }
 
