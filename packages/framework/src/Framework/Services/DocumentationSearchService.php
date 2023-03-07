@@ -33,7 +33,8 @@ class DocumentationSearchService
     public static function generate(): void
     {
         $documentationSearchService = new static();
-        $documentationSearchService->run()->save();
+        $documentationSearchService->run();
+        $documentationSearchService->save();
     }
 
     /**
@@ -45,7 +46,7 @@ class DocumentationSearchService
         $this->filePath = $this->getFilePath();
     }
 
-    public function run(): static
+    public function run(): void
     {
         /** @var \Hyde\Pages\DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
@@ -53,8 +54,6 @@ class DocumentationSearchService
                 $this->searchIndex->push($this->generatePageEntry($page));
             }
         }
-
-        return $this;
     }
 
     /**
