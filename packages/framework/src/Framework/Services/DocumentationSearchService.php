@@ -91,8 +91,6 @@ class DocumentationSearchService
 
     public static function getFilePath(): string
     {
-        return Hyde::sitePath(
-            DocumentationPage::outputDirectory().'/search.json'
-        );
+        return Hyde::sitePath(DocumentationPage::outputDirectory().'/search.json');
     }
 }
