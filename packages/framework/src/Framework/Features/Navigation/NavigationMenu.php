@@ -19,7 +19,7 @@ class NavigationMenu extends BaseNavigationMenu
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
-            $this->createDropdownsForGroupedItems();
+            $this->moveGroupedItemsIntoDropdowns();
         }
     }
 
@@ -44,7 +44,7 @@ class NavigationMenu extends BaseNavigationMenu
         })->values()->all();
     }
 
-    protected function createDropdownsForGroupedItems(): void
+    protected function moveGroupedItemsIntoDropdowns(): void
     {
         $dropdowns = [];
 
