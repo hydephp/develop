@@ -17,6 +17,8 @@ use function str_starts_with;
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
  *
+ * @internal Until this class is split into a service/manager class, it should not be used outside of Hyde as the API is subject to change.
+ *
  * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
  *
  * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
