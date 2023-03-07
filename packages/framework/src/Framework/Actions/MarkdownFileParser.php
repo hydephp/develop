@@ -29,7 +29,7 @@ class MarkdownFileParser
     protected string $markdown = '';
 
     /**
-     * @param string $path The path to the Markdown file tp parse.
+     * @param  string  $path  The path to the Markdown file tp parse.
      * @return MarkdownDocument The processed Markdown file as a MarkdownDocument.
      */
     public static function parse(string $path): MarkdownDocument
