@@ -46,7 +46,7 @@ class DocumentationSearchService
         $this->filePath = $this->getFilePath();
     }
 
-    public function run(): void
+    protected function run(): void
     {
         /** @var \Hyde\Pages\DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
