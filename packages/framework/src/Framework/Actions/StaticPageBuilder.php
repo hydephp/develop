@@ -31,24 +31,6 @@ class StaticPageBuilder
     public function __construct(HydePage $page, bool $selfInvoke = false)
     {
         $this->page = $page;
-
-        if ($selfInvoke) {
-            $this->__invoke();
-        }
-    }
-
-    /** @deprecated Use the handle method instead */
-    public function __invoke(): string
-    {
-        $path = Hyde::sitePath($this->page->getOutputPath());
-
-        Hyde::shareViewData($this->page);
-
-        $this->needsParentDirectory($path);
-
-        Filesystem::putContents($path, $this->page->compile());
-
-        return $path;
     }
 
     /**
