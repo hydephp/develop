@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\View;
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
  *
- * @experimental This feature is experimental and may change substantially before the 1.0.0 release.
- *
  * When used in a package, it's on the package developer to ensure that the virtual page is registered with Hyde,
  * usually within the boot method of the package's service provider, or a page collection callback in an extension.
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
