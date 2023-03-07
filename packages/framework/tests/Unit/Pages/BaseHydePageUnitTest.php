@@ -46,6 +46,8 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
     {
         $this->cleanUpFilesystem();
         View::swap(null);
+        Render::swap(null);
+        app()->forgetInstance(\Illuminate\Contracts\View\Factory::class);
     }
 
     abstract public function testPath();
