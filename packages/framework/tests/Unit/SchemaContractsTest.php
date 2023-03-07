@@ -11,6 +11,16 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Str;
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_values;
+use function basename;
+use function defined;
+use function file_get_contents;
+use function glob;
+use function is_subclass_of;
+use function substr_count;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
@@ -121,7 +131,8 @@ class SchemaContractsTest extends UnitTestCase
             $contents = file_get_contents($file);
             $this->assertSame(1,
                 substr_count($contents, 'public const'),
-                "File $file has more than one constant defined.");
+                "File $file has more than one constant defined."
+            );
         }
     }
 
