@@ -89,7 +89,7 @@ class GeneratesDocumentationSearchIndex
         return "$slug.html";
     }
 
-    public static function getFilePath(): string
+    protected function getFilePath(): string
     {
         return Hyde::sitePath(DocumentationPage::outputDirectory().'/search.json');
     }
