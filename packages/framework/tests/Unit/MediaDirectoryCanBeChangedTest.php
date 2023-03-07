@@ -62,7 +62,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->file('_assets/app.js');
 
         $this->file('_pages/foo.md');
-        (new StaticPageBuilder(Pages::getPage('_pages/foo.md')))->__invoke();
+        StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $contents = file_get_contents(Hyde::path('_site/foo.html'));

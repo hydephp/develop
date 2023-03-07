@@ -28,7 +28,7 @@ class DocumentationSearchPage extends DocumentationPage
      */
     public static function generate(): string
     {
-        return (new StaticPageBuilder(new static()))->__invoke();
+        return StaticPageBuilder::handle(new static());
     }
 
     /**
