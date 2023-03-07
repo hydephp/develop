@@ -44,7 +44,6 @@ class NavigationMenu extends BaseNavigationMenu
     {
         $dropdowns = [];
 
-        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $key => $item) {
             if ($this->canAddItemToDropdown($item)) {
                 // Buffer the item in the dropdowns array
