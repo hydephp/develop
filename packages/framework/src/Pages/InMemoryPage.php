@@ -99,7 +99,7 @@ class InMemoryPage extends HydePage
             if (str_ends_with($this->getBladeView(), '.blade.php')) {
                 // If the view key is for a Blade file path, we'll use the anonymous view compiler to compile it.
                 // This allows you to use any arbitrary file, without needing to register its namespace or directory.
-                return AnonymousViewCompiler::call($this->getBladeView(), $this->matter->toArray());
+                return AnonymousViewCompiler::handle($this->getBladeView(), $this->matter->toArray());
             }
 
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
