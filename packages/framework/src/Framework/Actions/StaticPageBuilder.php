@@ -25,9 +25,9 @@ class StaticPageBuilder
     {
         $path = Hyde::sitePath($page->getOutputPath());
 
-        Hyde::shareViewData($page);
-
         static::needsParentDirectory($path);
+
+        Hyde::shareViewData($page);
 
         Filesystem::putContents($path, $page->compile());
 
