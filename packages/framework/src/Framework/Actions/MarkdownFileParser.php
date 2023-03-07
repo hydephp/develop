@@ -57,7 +57,7 @@ class MarkdownFileParser
         }
     }
 
-    public function get(): MarkdownDocument
+    protected function get(): MarkdownDocument
     {
         return new MarkdownDocument($this->matter, $this->markdown);
     }
