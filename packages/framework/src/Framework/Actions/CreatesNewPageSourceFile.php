@@ -50,14 +50,14 @@ class CreatesNewPageSourceFile
 
         $this->outputPath = $this->makeOutputPath($pageClass);
 
-        $this->save($pageClass);
+        $this->save();
     }
 
-    public function save(string $pageClass): string
+    public function save(): string
     {
         $this->failIfFileCannotBeSaved($this->outputPath);
 
-        match ($pageClass) {
+        match ($this->pageClass) {
             BladePage::class => $this->createBladeFile(),
             MarkdownPage::class => $this->createMarkdownFile(),
             DocumentationPage::class => $this->createDocumentationFile(),
