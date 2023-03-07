@@ -58,7 +58,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $string = $this->renderComponent([
             'image.author' => 'John Doe',
-            'image.attributionUrl' => 'https://example.com/',
+            'image.authorUrl' => 'https://example.com/',
         ]);
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemprop="url"', $string);

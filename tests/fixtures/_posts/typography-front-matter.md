@@ -14,7 +14,7 @@ image:
   license: "the Unsplash License"
   licenseUrl: "https://unsplash.com/license"
   author: "Blake"
-  attributionUrl: "https://unsplash.com/photos/GFrBMipOd_E"
+  authorUrl: "https://unsplash.com/photos/GFrBMipOd_E"
 ---
 
 ## Write something awesome.

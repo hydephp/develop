@@ -645,7 +645,7 @@
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="9">
       <code>$this-&gt;matter('image')</code>
-      <code>$this-&gt;matter('image.attributionUrl')</code>
+      <code>$this-&gt;matter('image.authorUrl')</code>
       <code>$this-&gt;matter('image.author')</code>
       <code>$this-&gt;matter('image.copyright')</code>
       <code>$this-&gt;matter('image.description')</code>

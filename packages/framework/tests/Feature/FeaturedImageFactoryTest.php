@@ -26,7 +26,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image.license' => 'license',
             'image.licenseUrl' => 'licenseUrl',
             'image.author' => 'author',
-            'image.attributionUrl' => 'attributionUrl',
+            'image.authorUrl' => 'authorUrl',
         ];
 
         $expected = [
@@ -34,7 +34,7 @@ class FeaturedImageFactoryTest extends TestCase
             'altText' => 'description',
             'titleText' => 'title',
             'authorName' => 'author',
-            'authorUrl' => 'attributionUrl',
+            'authorUrl' => 'authorUrl',
             'copyrightText' => 'copyright',
             'licenseName' => 'license',
             'licenseUrl' => 'licenseUrl',

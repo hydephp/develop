@@ -34,7 +34,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $this->altText = $this->getStringMatter('image.description');
         $this->titleText = $this->getStringMatter('image.title');
         $this->authorName = $this->getStringMatter('image.author');
-        $this->authorUrl = $this->getStringMatter('image.attributionUrl');
+        $this->authorUrl = $this->getStringMatter('image.authorUrl');
         $this->copyrightText = $this->getStringMatter('image.copyright');
         $this->licenseName = $this->getStringMatter('image.license');
         $this->licenseUrl = $this->getStringMatter('image.licenseUrl');
