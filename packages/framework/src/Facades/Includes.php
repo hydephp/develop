@@ -8,6 +8,11 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
+/**
+ * The Includes facade provides a simple way to access partials in the includes directory.
+ *
+ * Both Markdown and Blade includes will be rendered to HTML.
+ */
 class Includes
 {
     /**
