@@ -35,6 +35,7 @@ class StaticPageBuilder
         }
     }
 
+    /** @deprecated */
     public function __invoke(): string
     {
         $path = Hyde::sitePath($this->page->getOutputPath());
