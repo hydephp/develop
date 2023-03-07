@@ -63,9 +63,11 @@ class MarkdownFileParserTest extends UnitTestCase
         ]), $document->matter);
 
         $this->assertEquals(
-                '# My New Post
-
-This is a post stub used in the automated tests',
+            <<<'MARKDOWN'
+            # My New Post
+            
+            This is a post stub used in the automated tests
+            MARKDOWN,
             (string) $document->markdown
         );
     }
@@ -90,9 +92,11 @@ This is a post stub used in the automated tests',
         $this->assertEquals('blog', $post->matter('category'));
 
         $this->assertEquals(
-                '# My New Post
-
-This is a post stub used in the automated tests',
+            <<<'MARKDOWN'
+            # My New Post
+            
+            This is a post stub used in the automated tests
+            MARKDOWN,
             (string) $post->markdown
         );
     }
