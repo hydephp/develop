@@ -13,8 +13,6 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
  * and Markdown body, and creating MarkdownDocument object from them.
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownFileParserTest
- *
- * @todo Simplify MarkdownFileParser to only use static entry point
  */
 class MarkdownFileParser
 {
