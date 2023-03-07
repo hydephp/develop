@@ -47,11 +47,4 @@ class BladePage extends HydePage
     {
         return View::make($this->getBladeView())->render();
     }
-
-    public function toArray(): array
-    {
-        return array_merge(parent::toArray(), [
-            //
-        ]);
-    }
 }
