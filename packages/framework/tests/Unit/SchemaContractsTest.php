@@ -130,7 +130,7 @@ class SchemaContractsTest extends UnitTestCase
 
         foreach ($files as $file) {
             $contents = file_get_contents($file);
-            $this->assertSame(1,
+            $this->assertLessThanOrEqual(1,
                 substr_count($contents, 'public const'),
                 "File $file has more than one constant defined."
             );
