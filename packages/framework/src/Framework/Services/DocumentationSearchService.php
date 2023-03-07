@@ -32,9 +32,9 @@ class DocumentationSearchService
      */
     public static function generate(): void
     {
-        $documentationSearchService = new static();
-        $documentationSearchService->run();
-        $documentationSearchService->save();
+        $service = new static();
+        $service->run();
+        $service->save();
     }
 
     /**
