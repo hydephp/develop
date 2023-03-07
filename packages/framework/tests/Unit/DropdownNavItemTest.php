@@ -35,7 +35,7 @@ class DropdownNavItemTest extends UnitTestCase
     {
         $item = new DropdownNavItem('foo', []);
 
-        $this->assertSame('foo', $item->name);
+        $this->assertSame('foo', $item->label);
         $this->assertSame([], $item->items);
     }
 
@@ -43,7 +43,7 @@ class DropdownNavItemTest extends UnitTestCase
     {
         $item = DropdownNavItem::fromArray('foo', []);
 
-        $this->assertSame('foo', $item->name);
+        $this->assertSame('foo', $item->label);
         $this->assertSame([], $item->items);
     }
 
