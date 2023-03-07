@@ -23,6 +23,8 @@ class DocumentationSearchPage extends DocumentationPage
 {
     /**
      * Generate the search page and save it to disk.
+     *
+     * @return string The path to the generated file.
      */
     public static function generate(): string
     {
