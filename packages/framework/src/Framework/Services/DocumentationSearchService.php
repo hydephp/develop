@@ -76,7 +76,7 @@ class DocumentationSearchService
 
     protected function save(): static
     {
-        $this->needsParentDirectory(Hyde::path($this->filePath));
+        $this->needsParentDirectory($this->filePath);
 
         file_put_contents(Hyde::path($this->filePath), $this->searchIndex->toJson());
 
