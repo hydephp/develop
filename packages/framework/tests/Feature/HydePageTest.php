@@ -1189,7 +1189,6 @@ class HydePageTest extends TestCase
         $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
     }
 
-    /** @deprecated */
     public function test_is_discoverable_method_requires_source_directory_to_be_filled()
     {
         $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());

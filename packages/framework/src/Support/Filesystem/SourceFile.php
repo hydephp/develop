@@ -41,7 +41,7 @@ class SourceFile extends ProjectFile
         ]);
     }
 
-    /** @experimental This method is not used anywhere other than tests and may be removed */
+    /** @deprecated This method is not used anywhere other than tests and may be removed */
     public function withoutDirectoryPrefix(): string
     {
         // Works like basename, but keeps subdirectory names.
