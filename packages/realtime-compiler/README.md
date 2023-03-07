@@ -6,18 +6,14 @@ The package adds a `php hyde serve` command which exposes a web server on port `
 
 ## Supported Versions
 
-The 2.0 release brings a total rewrite. See the release notes below.
+This package is not intended to be used outside the HydePHP framework.
+It thus offers no guarantees for compatibility with other versions of itself.
 
-The upgrade will be handled within Hyde/Framework and standard usage will not be affected.
-Any third-party integrations will need to be handled manually. v1.0x will receive security fixes for the time being.
-See the [Security Policy](https://github.com/hydephp/realtime-compiler/security/policy).
+The following table shows the supported versions of this package.
 
-
-| Version | Supported          | Notes    |
-|---------|--------------------|----------|
-| 3.x     | :test_tube:        | Upcoming |
-| 2.x     | :white_check_mark: | Latest   |
-| 1.x     | :shield:           | (LTS*)   |
-| < 1.0   | :x:                | Alpha    |
-
-*1.x LTS receives security fixes only (End of Life: 2023-03-01)
+| Hyde Version | Version | Supported          | Notes                   |
+|:-------------|---------|--------------------|-------------------------|
+| Release      | 3.x     | :white_check_mark: | Latest                  |
+| Beta         | 2.x     | :x:                | Security fixes only     |
+| Alpha        | 1.x LTS | :shield:           | End of Life: 2023-03-01 |
+| Alpha        | < 1.0   | :x:                | Alpha                   |
