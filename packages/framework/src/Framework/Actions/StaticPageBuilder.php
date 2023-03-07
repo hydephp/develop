@@ -21,19 +21,6 @@ class StaticPageBuilder
     protected HydePage $page;
 
     /**
-     * Construct a new static page builder instance.
-     *
-     * @deprecated Use the handle method instead
-     *
-     * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
-     * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
-     */
-    public function __construct(HydePage $page, bool $selfInvoke = false)
-    {
-        $this->page = $page;
-    }
-
-    /**
      * Invoke the static page builder for the given page.
      */
     public static function handle(HydePage $page): string
