@@ -42,7 +42,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
     /**
      * The activated shortcode instances.
      */
-    public array $shortcodes;
+    protected array $shortcodes;
 
     public static function preprocess(string $markdown): string
     {
