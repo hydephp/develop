@@ -9,7 +9,8 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
- * Prepares a Markdown file for further usage by extracting the Front Matter and Markdown body, and creating MarkdownDocument object from it.
+ * Prepares a Markdown file for further usage by extracting the Front Matter
+ * and Markdown body, and creating MarkdownDocument object from it.
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownFileParserTest
  *
