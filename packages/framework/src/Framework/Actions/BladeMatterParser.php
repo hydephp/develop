@@ -16,7 +16,7 @@ use function substr;
 use function trim;
 
 /**
- * Parse the front matter in a Blade file.
+ * @experimental Parse the front matter in a Blade file.
  *
  * Accepts a string to make it easier to mock when testing.
  *
