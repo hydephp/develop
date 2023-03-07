@@ -17,6 +17,15 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class MarkdownFileParser
 {
     /**
+     * @param  string  $path  The path to the Markdown file tp parse.
+     * @return MarkdownDocument The processed Markdown file as a MarkdownDocument.
+     */
+    public static function parse(string $path): MarkdownDocument
+    {
+        return (new static($path))->get();
+    }
+
+    /**
      * The extracted Front Matter.
      */
     protected array $matter = [];
@@ -25,15 +34,6 @@ class MarkdownFileParser
      * The extracted Markdown body.
      */
     protected string $markdown = '';
-
-    /**
-     * @param  string  $path  The path to the Markdown file tp parse.
-     * @return MarkdownDocument The processed Markdown file as a MarkdownDocument.
-     */
-    public static function parse(string $path): MarkdownDocument
-    {
-        return (new static($path))->get();
-    }
 
     protected function __construct(string $path)
     {
