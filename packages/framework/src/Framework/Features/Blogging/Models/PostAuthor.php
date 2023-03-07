@@ -13,7 +13,7 @@ use function is_string;
 /**
  * The Post Author model object.
  *
- * @see \Hyde\Framework\Testing\Feature\PostAuthorTest
+ * @see \Hyde\Framework\Testing\Unit\PostAuthorTest
  */
 class PostAuthor implements Stringable
 {
