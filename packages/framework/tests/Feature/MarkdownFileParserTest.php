@@ -17,7 +17,7 @@ class MarkdownFileParserTest extends UnitTestCase
 
     protected function makeTestPost(): void
     {
-        file_put_contents(Hyde::path('_posts/test-post.md'), <<<'MD'
+        Filesystem::putContents('_posts/test-post.md', <<<'MD'
             ---
             title: My New Post
             category: blog
