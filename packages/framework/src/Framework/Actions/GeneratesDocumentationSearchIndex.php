@@ -36,9 +36,6 @@ class GeneratesDocumentationSearchIndex
         $service->save();
     }
 
-    /**
-     * Create a new GeneratesDocumentationSearchIndex instance.
-     */
     protected function __construct()
     {
         $this->searchIndex = new Collection();
