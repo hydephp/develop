@@ -65,13 +65,19 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return $this->processInput()->getOutput();
     }
 
-    /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
+    /**
+     * @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class.
+     * @return array<string, MarkdownShortcodeContract>
+     */
     public function getShortcodes(): array
     {
         return $this->shortcodes;
     }
 
-    /** @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class. */
+    /**
+     * @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class.
+     * @param array<MarkdownShortcodeContract> $shortcodes
+     */
     public function addShortcodesFromArray(array $shortcodes): static
     {
         foreach ($shortcodes as $shortcode) {
