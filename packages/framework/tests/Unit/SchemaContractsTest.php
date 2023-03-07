@@ -22,11 +22,10 @@ use Hyde\Testing\UnitTestCase;
 class SchemaContractsTest extends UnitTestCase
 {
     protected const SCHEMAS = [
+        BlogPostSchema::class,
         PageSchema::class,
-        NavigationSchema::class,
-        BlogPostSchema::class,
-        BlogPostSchema::class,
         FeaturedImageSchema::class,
+        NavigationSchema::class,
     ];
 
     public function testSchemasAreNotAccidentallyChanged()
