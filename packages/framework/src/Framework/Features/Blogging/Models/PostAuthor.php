@@ -68,6 +68,7 @@ class PostAuthor implements Stringable
         return static::all()->firstWhere('username', $username) ?? Author::create($username);
     }
 
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
         return new Collection(Config::getArray('hyde.authors', []));
