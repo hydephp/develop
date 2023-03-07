@@ -30,6 +30,8 @@ class CreatesNewPageSourceFile
 {
     use InteractsWithDirectories;
 
+    protected string $pageClass;
+
     protected string $title;
     protected string $filename;
     protected string $outputPath;
