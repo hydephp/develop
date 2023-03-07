@@ -69,9 +69,9 @@ The most high impact change is change of sidebar front matter options, and relat
 If you are using any of the following front matter properties, you will likely need to update them:
 
 - `navigation.title` is now `navigation.label`
-- The `label` setting has been removed from documentation pages, use `navigation.label` instead 
-- The `hidden` setting has been removed from documentation pages, use `navigation.hidden` instead 
-- The `priority` setting has been removed from documentation pages, use `navigation.priority` instead 
+- The `label` setting has been removed from documentation pages, use `navigation.label` instead
+- The `hidden` setting has been removed from documentation pages, use `navigation.hidden` instead
+- The `priority` setting has been removed from documentation pages, use `navigation.priority` instead
 
 This change also bubbles to the HydePage accessors, though that will only affect you if you have written or published custom code that interacts with the framework.
 
@@ -91,7 +91,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Changed Blade component identifier class 'sidebar-category' to 'sidebar-group'
 - Changed Blade component identifier class 'sidebar-category-heading' to 'sidebar-group-heading'
 - Changed Blade component identifier class 'sidebar-category-list' to 'sidebar-group-list'
-- Changed the Route::toArray schema 
+- Changed the Route::toArray schema
 - Split the page metadata handling so that global metadata is now handled by the Site model (meta.blade.php must be updated if you have published it)
 - The MetadataBag class now implements Htmlable, so you can use it directly in Blade templates without calling `render()`
 - BladePage $view constructor argument is now optional
@@ -205,14 +205,14 @@ This release contains breaking changes regarding the PostBuildTasks that may req
 
 ### Changed
 - **Breaking changes to build hooks/tasks**:
-  - Rename BuildHookService to BuildTaskService
-  - AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code
-  - The way auxiliary build actions are handled internally has been changed to use build tasks, see [PR #453](https://github.com/hydephp/develop/pull/453)
-  - The documentation has been updated to consistently refer to these as tasks instead of hooks
+    - Rename BuildHookService to BuildTaskService
+    - AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code
+    - The way auxiliary build actions are handled internally has been changed to use build tasks, see [PR #453](https://github.com/hydephp/develop/pull/453)
+    - The documentation has been updated to consistently refer to these as tasks instead of hooks
 - The RSS feed related generators are now only enabled when there are blog posts
-  - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
+    - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
 - The documentation search related generators are now only enabled when there are documentation pages
-  - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
+    - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
 - The methods in InteractsWithDirectories.php are now static, this does not affect existing usages
 - Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
 - Cleans up the Author model class and makes the constructors final
@@ -239,7 +239,7 @@ The following interfaces are affected: `HydeKernelContract` and `AssetServiceCon
 ### Deprecated
 - Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
 - Deprecate interface AssetServiceContract, type hint the AssetService::class instead
-  
+
 ### Removed
 - Removed legacy `.js-enabled` class from documentation pages
 
@@ -319,7 +319,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 
 ### Upgrade Guide
 
-#### MarkdownFileParser path change 
+#### MarkdownFileParser path change
 This class now expects the supplied filepath to be relative to the root of the project. This will only affect you if you have written any custom code that uses this class. All internal Hyde code is already updated to use the new path format.
 
 To upgrade, change any calls you may have like follows:
@@ -423,7 +423,7 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
 - Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
 - Breaking: The default `config/hyde.php` file now uses `Models\Author` instead of `Helpers\Author`
-- Major: Restructure internal page data to use new front matter schema traits 
+- Major: Restructure internal page data to use new front matter schema traits
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 - Page metadata is now stored as a page property, making it easier to see and understand
@@ -432,7 +432,7 @@ The way metadata tags are handled internally is also refactored. The rendered re
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
-- Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
+- Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php`
 
 ### Removed
 - Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
@@ -461,7 +461,7 @@ I considered using `basename` as an alternative, but that does not fit with nest
 So, for example, a page source file stored as `_pages/foo/bar.md` would have the identifier `foo/bar`. Each page type can only have one identifier of the same name.
 But since you could have a file with the same identifier in the `_posts` directory, we internally always need to specify what source model we are using.
 
-The identifier property is closely related to the page model's route key property, which consists of the site output directory followed by the identifier. 
+The identifier property is closely related to the page model's route key property, which consists of the site output directory followed by the identifier.
 
 #### Heavily refactor constructors of Markdown-based page models
 
@@ -502,7 +502,7 @@ This update refactors the internal page source model parsing. This will likely n
 - All source model parsing is now handled by the new SourceFileParser action
 - Blog post front matter no longer includes merged slug
 - MarkdownDocument now implements the `Arrayable` interface
-- Markdown page models no longer includes the slug merged into the front matter 
+- Markdown page models no longer includes the slug merged into the front matter
 - All Markdown page models now have the title property inferred when parsing
 - internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
 - internal: Refactor search index generator to use route system
@@ -684,18 +684,18 @@ Note that the goal with this release is to make the framework more stable and de
 
 - Move laravel-zero/framework Composer dependency to hyde/hyde package
 - Moved site specific configuration settings to `config/site.php`
-  - Moved config option `hyde.name` to `site.name`
-  - Moved config option `hyde.site_url` to `site.url`
-  - Moved config option `hyde.pretty_urls` to `site.pretty_urls`
-  - Moved config option `hyde.generate_sitemap` to `site.generate_sitemap`
-  - Moved config option `hyde.language` to `site.language`
-  - Moved config option `hyde.output_directory` to `site.output_directory`
+    - Moved config option `hyde.name` to `site.name`
+    - Moved config option `hyde.site_url` to `site.url`
+    - Moved config option `hyde.pretty_urls` to `site.pretty_urls`
+    - Moved config option `hyde.generate_sitemap` to `site.generate_sitemap`
+    - Moved config option `hyde.language` to `site.language`
+    - Moved config option `hyde.output_directory` to `site.output_directory`
 - The default `site.url` is now `http://localhost` instead of `null`
 - Merged configuration options for the footer, see below
 - Rebrand `lagrafo` documentation driver to `HydeDocs`
 - Hyde now requires a minimum version of HydeFront v2.x, see release notes below
 - internal: Refactor navigation menu components and improve link helpers
-- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
+- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace
 - internal: Move tests foundation to new testing package
 - internal: Renamed `GeneratesTableOfContents.php` to `GeneratesSidebarTableOfContents.php`
 
@@ -825,7 +825,7 @@ You will also need to update navigation related Blade templates, if you have pre
 
 ### Changed
 - Changed how the navigation menu is generated, configuration files and published views must be updated
-- Changed bootstrap.php to Stt Hyde base path using dirname instead of getcwd 
+- Changed bootstrap.php to Stt Hyde base path using dirname instead of getcwd
 - Reversed deprecation for `StaticPageBuilder::$outputPath`
 - internal refactor: Creates a new build service to handle the build process
 
@@ -925,7 +925,7 @@ However, if you are a package developer, or if you have published Blade views or
 - Remove unused `$withoutNavigation` variable from the app layout
 - Removed deprecated 'hyde.site_output_path' config option (use `hyde.output_directory` instead)
 - Remove long deprecated `hyde.version` and `framework.version` service container bindings
-- Removed deprecated StarterFileService which was deprecated in v0.20.x 
+- Removed deprecated StarterFileService which was deprecated in v0.20.x
 
 ### Fixed
 - Fix style bug https://github.com/hydephp/develop/issues/117, Hyde title helper should not capitalize non-principal words
@@ -959,7 +959,7 @@ However, if you are a package developer, or if you have published Blade views or
 - Change how the `docs/search.html` page is rendered, by handling page logic in the view, to decouple it from the build search command
 
 ### Fixed
-- HydeRC: Rewrite request docs to docs/index to fix https://github.com/hydephp/realtime-compiler/issues/10 
+- HydeRC: Rewrite request docs to docs/index to fix https://github.com/hydephp/realtime-compiler/issues/10
 - Fix bug https://github.com/hydephp/develop/issues/93 where styles were missing on search.html when changing the output directory to root
 
 
@@ -1050,7 +1050,7 @@ If you don't know what any of this means, good news! You don't have to worry abo
 
 ### About
 
-This release refactors the test suite, compartmentalizing test code into the respective package directories. 
+This release refactors the test suite, compartmentalizing test code into the respective package directories.
 This does not affect the behavior of the library, but it does affect how package developers run the test suites.
 
 ### Added
@@ -1075,7 +1075,7 @@ This release brings internal restructuring to the Hyde monorepo,
 adding a helper command to manage the new release cycle.
 
 ### Added
-- Add internal `monorepo:release` command 
+- Add internal `monorepo:release` command
 
 ### Changed
 - Changed to keep only a single `CHANGELOG.md` file for Hyde/Hyde and Hyde/Framework
