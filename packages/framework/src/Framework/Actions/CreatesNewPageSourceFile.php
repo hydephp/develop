@@ -30,6 +30,7 @@ class CreatesNewPageSourceFile
 {
     use InteractsWithDirectories;
 
+    /** @var class-string<\Hyde\Pages\Concerns\HydePage> */
     protected string $pageClass;
 
     protected string $title;
