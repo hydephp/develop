@@ -159,7 +159,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        return config("hyde.navigation.order.$this->routeKey");
+        $orders = config("hyde.navigation.order.$this->routeKey");
+        return $orders;
     }
 
     private function canUseSubdirectoryForGroups(): bool
