@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use PHPUnit\Framework\TestCase;
 
@@ -58,6 +59,6 @@ class SchemaContractsTest extends TestCase
             'authorName'     => 'string',
             'authorUrl'      => 'string',
             'copyright'      => 'string',
-        ], BlogPostSchema::FEATURED_IMAGE_SCHEMA);
+        ], FeaturedImageSchema::FEATURED_IMAGE_SCHEMA);
     }
 }

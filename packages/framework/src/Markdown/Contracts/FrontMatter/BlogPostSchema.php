@@ -9,7 +9,7 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 /**
  * @see \Hyde\Pages\MarkdownPost
  */
-interface BlogPostSchema extends FeaturedImageSchema
+interface BlogPostSchema
 {
     public const MARKDOWN_POST_SCHEMA = [
         'title'        => 'string',
