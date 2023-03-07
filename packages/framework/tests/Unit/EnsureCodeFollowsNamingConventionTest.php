@@ -36,7 +36,9 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
             $hasHandleMethod = $reflection->hasMethod('handle') && $reflection->getMethod('handle')->isPublic() && $reflection->getMethod('handle')->isStatic();
             $hasExecuteMethod = $reflection->hasMethod('execute') && $reflection->getMethod('execute')->isPublic() && ! $reflection->getMethod('execute')->isStatic();
 
-            $this->assertTrue($hasHandleMethod || $hasExecuteMethod, "Action class $class does not have a public static handle() method or a public non-static execute() method.");
+            $this->assertTrue($hasHandleMethod || $hasExecuteMethod,
+                "Action class $class does not have a public static handle() method or a public non-static execute() method."
+            );
         }
     }
 }
