@@ -25,11 +25,7 @@ class NavigationMenu extends BaseNavigationMenu
 
     public function hasDropdowns(): bool
     {
-        if (! $this->dropdownsEnabled()) {
-            return false;
-        }
-
-        return count($this->getDropdowns()) >= 1;
+        return $this->dropdownsEnabled() && count($this->getDropdowns()) >= 1;
     }
 
     /** @return array<string, DropdownNavItem> */
