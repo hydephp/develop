@@ -14,10 +14,10 @@ interface FeaturedImageSchema
         'source'         => 'string', // Filename in _media/ or a remote URL
         'description'    => 'string',
         'title'          => 'string',
-        'copyright'      => 'string',
         'licenseName'    => 'string',
         'licenseUrl'     => 'string',
         'authorName'     => 'string',
         'authorUrl'      => 'string',
+        'copyright'      => 'string',
     ];
 }

@@ -53,11 +53,11 @@ class SchemaContractsTest extends TestCase
             'source'         => 'string',
             'description'    => 'string',
             'title'          => 'string',
-            'copyright'      => 'string',
             'licenseName'    => 'string',
             'licenseUrl'     => 'string',
             'authorName'     => 'string',
             'authorUrl'      => 'string',
+            'copyright'      => 'string',
         ], BlogPostSchema::FEATURED_IMAGE_SCHEMA);
     }
 }
