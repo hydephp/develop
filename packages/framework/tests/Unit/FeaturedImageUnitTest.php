@@ -185,7 +185,7 @@ class FilledImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
+        parent::__construct('source', 'alt', 'title', 'author', 'authorUrl', 'license', 'licenseUrl', 'copyright');
     }
 
     public function getContentLength(): int
