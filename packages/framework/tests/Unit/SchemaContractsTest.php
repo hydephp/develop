@@ -71,6 +71,32 @@ class SchemaContractsTest extends UnitTestCase
         ], FeaturedImageSchema::FEATURED_IMAGE_SCHEMA);
     }
 
+    public function testAllSchemasAreTested()
+    {
+        $files = glob('vendor/hyde/framework/src/Markdown/Contracts/FrontMatter/*Schema.php');
+        $subFiles = glob('vendor/hyde/framework/src/Markdown/Contracts/FrontMatter/SubSchemas/*Schema.php');
+        $this->assertNotEmpty($files, 'No schemas found.');
+        $this->assertNotEmpty($subFiles, 'No sub schemas found.');
+
+        $schemas = array_map(function ($file) {
+            return 'Hyde\\Markdown\\Contracts\\FrontMatter\\' . basename($file, '.php');
+        }, $files);
+
+        $subSchemas = array_map(function ($file) {
+            return 'Hyde\\Markdown\\Contracts\\FrontMatter\\SubSchemas\\' . basename($file, '.php');
+        }, $subFiles);
+
+        $schemas = array_merge($schemas, $subSchemas);
+
+        $schemas = array_filter($schemas, function ($schema) {
+            return $schema !== 'Hyde\\Markdown\\Contracts\\FrontMatter\\FrontMatterSchema';
+        });
+
+        $schemas = array_values($schemas);
+
+        $this->assertEquals(self::SCHEMAS, $schemas);
+    }
+
     public function testAllSchemasExtendFrontMatterSchemaInterface()
     {
         foreach (self::SCHEMAS as $schema) {
