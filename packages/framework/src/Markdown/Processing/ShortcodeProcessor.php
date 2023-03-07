@@ -51,7 +51,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return (new static($markdown))->run();
     }
 
-    /** @internal This class may be converted to a singleton. Thus this constructor should not be relied upon. Use preprocess instead.  */
+    /** @internal This class may be converted to a singleton. Thus, this constructor should not be relied upon. Use preprocess instead.  */
     public function __construct(string $input)
     {
         $this->input = $input;
