@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Facades\Includes;
+use Hyde\Support\Includes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Facades\Includes
+ * @covers \Hyde\Support\Includes
  */
 class IncludesFacadeTest extends TestCase
 {

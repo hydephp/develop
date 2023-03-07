@@ -31,7 +31,7 @@ class Meta extends \Hyde\Facades\Meta {}
 /** @mixin \Hyde\Framework\Services\AssetService */
 class Asset extends \Hyde\Facades\Asset {}
 class Author extends \Hyde\Facades\Author {}
-class Includes extends \Hyde\Facades\Includes {}
+class Includes extends \Hyde\Support\Includes {}
 class Features extends \Hyde\Facades\Features {}
 class Config extends \Hyde\Facades\Config {}
 /** @mixin \Illuminate\Filesystem\Filesystem */
