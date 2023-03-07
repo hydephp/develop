@@ -61,9 +61,9 @@ final class FileCollection extends BaseFoundationCollection
         }
     }
 
-    public function getFile(string $filePath): SourceFile
+    public function getFile(string $path): SourceFile
     {
-        return $this->get($filePath) ?? throw new FileNotFoundException($filePath);
+        return $this->get($path) ?? throw new FileNotFoundException($path);
     }
 
     /**
