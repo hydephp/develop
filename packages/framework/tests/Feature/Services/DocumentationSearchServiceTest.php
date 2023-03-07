@@ -62,7 +62,10 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/bar.md', "# Foo\n\nHello World");
 
         $this->assertSame(
-            '[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]',
+            <<<'JSON'
+[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]
+JSON
+,
             json_encode($this->getArray())
         );
     }
