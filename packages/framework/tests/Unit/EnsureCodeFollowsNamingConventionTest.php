@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
 
-class EnsureCommandsFollowNamingConventionTest extends UnitTestCase
+class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 {
     public function test_ensure_commands_follow_naming_convention()
     {
