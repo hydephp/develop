@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Testing\TestCase;
+use Hyde\Testing\CreatesTemporaryFiles;
+use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\Facades\View;
+use Illuminate\View\Factory;
+use Mockery;
 
 /**
  * Providers helpers and a contract for unit testing for the specified page class.
@@ -13,8 +17,28 @@ use Hyde\Testing\TestCase;
  *
  * @coversNothing
  */
-abstract class BaseHydePageUnitTest extends TestCase
+abstract class BaseHydePageUnitTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected function setUp(): void
+    {
+        self::setupKernel();
+        self::mockConfig();
+
+        View::swap(Mockery::mock(Factory::class, [
+            'make' => Mockery::mock(Factory::class, [
+                'render' => 'foo',
+            ]),
+        ]));
+    }
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+        View::swap(null);
+    }
+
     abstract public function testPath();
 
     abstract public function testBaseRouteKey();
