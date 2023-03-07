@@ -35,9 +35,6 @@ class StaticPageBuilder
         }
     }
 
-    /**
-     * Invoke the static page builder.
-     */
     public function __invoke(): string
     {
         $path = Hyde::sitePath($this->page->getOutputPath());
@@ -51,6 +48,9 @@ class StaticPageBuilder
         return $path;
     }
 
+    /**
+     * Invoke the static page builder.
+     */
     public static function handle(HydePage $page): string
     {
         $path = Hyde::sitePath($page->getOutputPath());
