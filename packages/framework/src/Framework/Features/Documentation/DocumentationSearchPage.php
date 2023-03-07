@@ -21,6 +21,11 @@ use function view;
  */
 class DocumentationSearchPage extends DocumentationPage
 {
+    public static function generate(): string
+    {
+        return (new StaticPageBuilder(new static()))->__invoke();
+    }
+
     public function __construct()
     {
         parent::__construct('search', [
@@ -36,11 +41,6 @@ class DocumentationSearchPage extends DocumentationPage
     public static function enabled(): bool
     {
         return Config::getBool('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
-    }
-
-    public static function generate(): string
-    {
-        return (new StaticPageBuilder(new static()))->__invoke();
     }
 
     public static function routeKey(): string
