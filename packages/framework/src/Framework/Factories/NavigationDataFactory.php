@@ -15,7 +15,6 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use function array_flip;
 use function in_array;
-use function config;
 use function is_a;
 
 /**
@@ -159,7 +158,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        $orders = config('hyde.navigation.order', []);
+        $orders = Config::getArray('hyde.navigation.order', []);
         return $orders[$this->routeKey] ?? null;
     }
 
