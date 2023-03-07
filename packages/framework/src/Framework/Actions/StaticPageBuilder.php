@@ -18,8 +18,6 @@ class StaticPageBuilder
 {
     use InteractsWithDirectories;
 
-    protected HydePage $page;
-
     /**
      * Invoke the static page builder for the given page.
      */
