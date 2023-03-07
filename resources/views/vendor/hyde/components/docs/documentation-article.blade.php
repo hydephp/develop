@@ -1,7 +1,6 @@
-@props([
-    /** @var \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle $document */
-    'document',
-])
+@php
+    $document = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::make($page);
+@endphp
 
 <article id="document" itemscope itemtype="https://schema.org/Article" @class([
         'mx-auto lg:ml-8 prose dark:prose-invert max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]',
