@@ -146,7 +146,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         );
 
         // Filesystem::unlink('_pages/test-page.md');
-       // Filesystem::unlink('_pages/test-page.blade.php');
+        // Filesystem::unlink('_pages/test-page.blade.php');
     }
 
     public function test_file_is_created_using_slug_generated_from_title()
