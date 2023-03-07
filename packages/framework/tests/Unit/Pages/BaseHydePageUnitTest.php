@@ -38,6 +38,8 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
             'share' => null,
         ]));
         app()->instance(\Illuminate\Contracts\View\Factory::class, $mock);
+        app()->instance('view', $mock);
+
 
         Render::swap(new RenderData());
     }
@@ -48,6 +50,7 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
         View::swap(null);
         Render::swap(null);
         app()->forgetInstance(\Illuminate\Contracts\View\Factory::class);
+        app()->forgetInstance('view');
     }
 
     abstract public function testPath();
