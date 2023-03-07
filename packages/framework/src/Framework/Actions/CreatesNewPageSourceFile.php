@@ -49,6 +49,17 @@ class CreatesNewPageSourceFile
         $this->save($pageClass);
     }
 
+    protected function save(string $pageClass): void
+    {
+        $this->failIfFileCannotBeSaved($this->outputPath);
+
+        match ($pageClass) {
+            BladePage::class => $this->createBladeFile(),
+            MarkdownPage::class => $this->createMarkdownFile(),
+            DocumentationPage::class => $this->createDocumentationFile(),
+        };
+    }
+
     public function getOutputPath(): string
     {
         return $this->outputPath;
@@ -80,17 +91,6 @@ class CreatesNewPageSourceFile
     protected function makeOutputPath(string $pageClass): string
     {
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
-    }
-
-    protected function save(string $pageClass): void
-    {
-        $this->failIfFileCannotBeSaved($this->outputPath);
-
-        match ($pageClass) {
-            BladePage::class => $this->createBladeFile(),
-            MarkdownPage::class => $this->createMarkdownFile(),
-            DocumentationPage::class => $this->createDocumentationFile(),
-        };
     }
 
     protected function createBladeFile(): void
