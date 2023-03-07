@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Hyde;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
