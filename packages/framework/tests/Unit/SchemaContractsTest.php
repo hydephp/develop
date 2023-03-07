@@ -21,6 +21,14 @@ use Hyde\Testing\UnitTestCase;
  */
 class SchemaContractsTest extends UnitTestCase
 {
+    protected const SCHEMAS = [
+        PageSchema::class,
+        NavigationSchema::class,
+        BlogPostSchema::class,
+        BlogPostSchema::class,
+        FeaturedImageSchema::class,
+    ];
+
     public function testSchemasAreNotAccidentallyChanged()
     {
         $this->assertSame([
@@ -65,13 +73,7 @@ class SchemaContractsTest extends UnitTestCase
 
     public function testAllSchemasExtendFrontMatterSchemaInterface()
     {
-        foreach ([
-            PageSchema::class,
-            NavigationSchema::class,
-            BlogPostSchema::class,
-            BlogPostSchema::class,
-            FeaturedImageSchema::class,
-        ] as $schema) {
+        foreach (self::SCHEMAS as $schema) {
             $this->assertTrue(is_subclass_of($schema, FrontMatterSchema::class));
         }
     }
