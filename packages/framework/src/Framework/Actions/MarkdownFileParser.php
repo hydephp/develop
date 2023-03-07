@@ -37,7 +37,7 @@ class MarkdownFileParser
         return (new static($path))->get();
     }
 
-    public function __construct(string $path)
+    protected function __construct(string $path)
     {
         $stream = Filesystem::getContents($path);
 
