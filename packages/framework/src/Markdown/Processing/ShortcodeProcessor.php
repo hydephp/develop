@@ -65,7 +65,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return $this;
     }
 
-    public function getOutput(): string
+    protected function getOutput(): string
     {
         return $this->output;
     }
