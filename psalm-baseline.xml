@@ -1105,7 +1105,7 @@
       <code>FileCollection::getSourceFiles($model)-&gt;flatten()</code>
     </TooManyTemplateParams>
   </file>
-  <file src="packages/framework/src/Framework/Services/DocumentationSearchService.php">
+  <file src="packages/framework/src/Framework/Services/GeneratesDocumentationSearchIndex.php">
     <MixedArgument occurrences="2">
       <code>config('docs.exclude_from_search', [])</code>
       <code>view('hyde::pages.documentation-search')-&gt;render()</code>

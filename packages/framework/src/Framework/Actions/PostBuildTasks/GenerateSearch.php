@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Services\DocumentationSearchService;
+use Hyde\Framework\Services\GeneratesDocumentationSearchIndex;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 
@@ -17,7 +17,7 @@ class GenerateSearch extends PostBuildTask
 
     public function handle(): void
     {
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::generate();
 
         if (DocumentationSearchPage::enabled()) {
             $this->createdSiteFile(DocumentationSearchPage::generate());
@@ -26,6 +26,6 @@ class GenerateSearch extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile(DocumentationSearchService::getFilePath())->withExecutionTime();
+        $this->createdSiteFile(GeneratesDocumentationSearchIndex::getFilePath())->withExecutionTime();
     }
 }

@@ -20,7 +20,7 @@ use function trim;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
-class DocumentationSearchService
+class GeneratesDocumentationSearchIndex
 {
     use InteractsWithDirectories;
 
@@ -38,7 +38,7 @@ class DocumentationSearchService
     }
 
     /**
-     * Create a new DocumentationSearchService instance.
+     * Create a new GeneratesDocumentationSearchIndex instance.
      */
     protected function __construct()
     {

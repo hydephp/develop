@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\DocumentationSearchService;
+use Hyde\Framework\Services\GeneratesDocumentationSearchIndex;
 use Hyde\Hyde;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Services\DocumentationSearchService
+ * @covers \Hyde\Framework\Services\GeneratesDocumentationSearchIndex
  */
 class DocumentationSearchServiceTest extends UnitTestCase
 {
@@ -32,7 +32,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
     {
         $this->file('_docs/foo.md');
 
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::generate();
 
         $this->assertSame(json_encode([[
             'slug' => 'foo',
@@ -53,7 +53,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
     {
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::generate();
 
         $this->assertSame('[]', file_get_contents('_site/docs/search.json'));
 
@@ -62,7 +62,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
 
     public function test_save_method_saves_the_file_to_the_correct_location()
     {
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::generate();
 
         $this->assertFileExists('_site/docs/search.json');
 
@@ -134,7 +134,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
 
     protected function getArray(): array
     {
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::generate();
         $array = json_decode(file_get_contents('_site/docs/search.json'), true);
         Filesystem::unlink('_site/docs/search.json');
 
