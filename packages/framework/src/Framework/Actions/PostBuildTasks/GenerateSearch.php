@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Services\GeneratesDocumentationSearchIndex;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 

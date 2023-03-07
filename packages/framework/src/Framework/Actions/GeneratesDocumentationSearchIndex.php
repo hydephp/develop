@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;

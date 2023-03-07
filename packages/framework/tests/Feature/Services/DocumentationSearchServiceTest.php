@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\GeneratesDocumentationSearchIndex;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Hyde;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Services\GeneratesDocumentationSearchIndex
+ * @covers \Hyde\Framework\Actions\GeneratesDocumentationSearchIndex
  */
 class DocumentationSearchServiceTest extends UnitTestCase
 {
