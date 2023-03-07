@@ -51,7 +51,7 @@ class BladePage extends HydePage
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
-            'view' => $this->view,
+            //
         ]);
     }
 }
