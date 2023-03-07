@@ -6,13 +6,14 @@ The package adds a `php hyde serve` command which exposes a web server on port `
 
 ## Supported Versions
 
+This package is not intended to be used outside the HydePHP framework.
+It thus offers no guarantees for compatibility with other versions of itself.
 
-| Version | Supported          | Notes  |
-|---------|--------------------|--------|
-| 3.x     | :test_tube:        | Latest |
-| 2.x     | :white_check_mark: | Sunset |
-| 1.x LTS | :shield:           | (EOL)  |
-| < 1.0   | :x:                | Alpha  |
+The following table shows the supported versions of this package.
 
-*1.x LTS reached End of Life: 2023-03-01
-*2.x Receives security fixes only for the time being.
+| Hyde Version | Version | Supported          | Notes                   |
+|:-------------|---------|--------------------|-------------------------|
+| Release      | 3.x     | :white_check_mark: | Latest                  |
+| Beta         | 2.x     | :x:                | Security fixes only     |
+| Alpha        | 1.x LTS | :shield:           | End of Life: 2023-03-01 |
+| Alpha        | < 1.0   | :x:                | Alpha                   |
