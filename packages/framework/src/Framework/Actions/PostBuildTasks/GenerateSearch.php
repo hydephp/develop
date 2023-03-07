@@ -15,9 +15,11 @@ class GenerateSearch extends PostBuildTask
 
     public static string $message = 'Generating search index';
 
+    protected string $path;
+
     public function handle(): void
     {
-        GeneratesDocumentationSearchIndex::generate();
+        $this->path = GeneratesDocumentationSearchIndex::generate();
 
         if (DocumentationSearchPage::enabled()) {
             $this->createdSiteFile(DocumentationSearchPage::generate());
@@ -26,6 +28,6 @@ class GenerateSearch extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile(GeneratesDocumentationSearchIndex::getFilePath())->withExecutionTime();
+        $this->createdSiteFile($this->path)->withExecutionTime();
     }
 }
