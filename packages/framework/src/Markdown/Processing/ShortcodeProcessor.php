@@ -67,6 +67,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     /**
      * @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class.
+     *
      * @return array<string, MarkdownShortcodeContract>
      */
     public function getShortcodes(): array
@@ -76,7 +77,8 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     /**
      * @internal As the shortcodes are currently added per-instance, this method is not useful outside of this class.
-     * @param array<MarkdownShortcodeContract> $shortcodes
+     *
+     * @param  array<MarkdownShortcodeContract>  $shortcodes
      */
     public function addShortcodesFromArray(array $shortcodes): static
     {
