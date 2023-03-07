@@ -23,8 +23,8 @@ class GeneratesDocumentationSearchIndex
 {
     use InteractsWithDirectories;
 
-    protected Collection $searchIndex;
-    protected string $filePath;
+    protected Collection $index;
+    protected string $path;
 
     /**
      * Generate the search index and save it to disk.
@@ -37,20 +37,20 @@ class GeneratesDocumentationSearchIndex
         $service->run();
         $service->save();
 
-        return $service->filePath;
+        return $service->path;
     }
 
     protected function __construct()
     {
-        $this->searchIndex = new Collection();
-        $this->filePath = $this->getFilePath();
+        $this->index = new Collection();
+        $this->path = $this->getPath();
     }
 
     protected function run(): void
     {
         DocumentationPage::all()->each(function (DocumentationPage $page): void {
             if (! in_array($page->identifier, Config::getArray('docs.exclude_from_search', []))) {
-                $this->searchIndex->push($this->generatePageEntry($page));
+                $this->index->push($this->generatePageEntry($page));
             }
         });
     }
@@ -70,9 +70,9 @@ class GeneratesDocumentationSearchIndex
 
     protected function save(): void
     {
-        $this->needsParentDirectory($this->filePath);
+        $this->needsParentDirectory($this->path);
 
-        Filesystem::putContents($this->filePath, $this->searchIndex->toJson());
+        Filesystem::putContents($this->path, $this->index->toJson());
     }
 
     protected function getSearchContentForDocument(DocumentationPage $page): string
@@ -89,7 +89,7 @@ class GeneratesDocumentationSearchIndex
         return "$slug.html";
     }
 
-    protected function getFilePath(): string
+    protected function getPath(): string
     {
         return Hyde::sitePath(DocumentationPage::outputDirectory().'/search.json');
     }
