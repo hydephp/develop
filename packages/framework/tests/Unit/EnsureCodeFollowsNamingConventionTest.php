@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Actions\BladeMatterParser;
 use Hyde\Testing\UnitTestCase;
 
 class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
@@ -29,16 +30,17 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
         $this->assertNotEmpty($files, 'No action classes found.');
 
         $exclude = [
-            'BladeMatterParser.php',
+            BladeMatterParser::class
         ];
 
         // Actions must have either a public static handle() method or a public non-static execute() method
         foreach ($files as $filepath) {
-            if (in_array(basename($filepath), $exclude)) {
+            $class = 'Hyde\\Framework\\Actions\\' . basename($filepath, '.php');
+
+            if (in_array($class, $exclude)) {
                 continue;
             }
 
-            $class = 'Hyde\\Framework\\Actions\\' . basename($filepath, '.php');
             $reflection = new \ReflectionClass($class);
 
             $hasHandleMethod = $reflection->hasMethod('handle') && $reflection->getMethod('handle')->isPublic() && $reflection->getMethod('handle')->isStatic();
