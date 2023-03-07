@@ -80,6 +80,7 @@ class CreatesNewPageSourceFile
         return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
     }
 
+    /** Todo: Decouple save method to match CreatesNewMarkdownPostFile */
     protected function createPage(string $pageClass): void
     {
         $this->failIfFileCannotBeSaved($this->outputPath);
