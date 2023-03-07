@@ -82,6 +82,13 @@ class IncludesFacadeTest extends TestCase
         Filesystem::unlink('resources/_includes/foo.blade.php');
     }
 
+    public function test_blade_with_and_without_extension()
+    {
+        file_put_contents(Hyde::path('resources/_includes/foo.blade.php'), '# foo bar');
+        $this->assertEquals(Includes::blade('foo.blade.php'), Includes::blade('foo'));
+        Filesystem::unlink('resources/_includes/foo.blade.php');
+    }
+
     public function test_blade_returns_rendered_default_value_when_not_found()
     {
         $this->assertNull(Includes::blade('foo.blade.php'));
