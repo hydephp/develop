@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
-class EnsureCommandsFollowNamingConventionTest extends TestCase
+class EnsureCommandsFollowNamingConventionTest extends UnitTestCase
 {
     public function test_ensure_commands_follow_naming_convention()
     {
