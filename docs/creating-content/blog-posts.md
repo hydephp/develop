@@ -194,10 +194,10 @@ image:
   description: "Alt text for image"
   title: "Tooltip title"
   copyright: "Copyright (c) 2022"
-  license: "CC-BY-SA-4.0"
+  licenseName: "CC-BY-SA-4.0"
   licenseUrl: https://example.com/license/
   authorUrl: https://photographer.example.com/
-  author: "John Doe"
+  authorName: "John Doe"
 ```
 
 When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
