@@ -7,7 +7,7 @@ navigation:
 
 ## Introduction
 
-Managing and compiling assets is a very common task in web development. Unfortunately, it's rarely fun. 
+Managing and compiling assets is a very common task in web development. Unfortunately, it's rarely fun.
 
 With hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
 But as always with Hyde, you can customize everything if you want to.

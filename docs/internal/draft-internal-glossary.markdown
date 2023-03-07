@@ -106,9 +106,9 @@ Route keys are always relative to the site root, and never contain the file exte
 * `$outputPath` - Generally an output file path relative to the _site output directory.
 
 * `$filename` - The full name of a file (without path information). In other words, it's a slug with a file extension.
-Example: `hello-world.md`
+  Example: `hello-world.md`
 * `$filepath` - The full file path (almost always relative to the root of the Hyde project installation). Includes the file extension.
-Example: `_posts/hello-world.md`
+  Example: `_posts/hello-world.md`
 
 ### Visualizing the anatomy of a file name
 

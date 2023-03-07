@@ -6,7 +6,7 @@ navigation:
 
 # Quickstart Guide
 
-## Installing HydePHP using Composer 
+## Installing HydePHP using Composer
 The recommended method of installing Hyde is using Composer.
 ```bash
 // torchlight! {"lineNumbers": false}
@@ -17,8 +17,8 @@ composer create-project hyde/hyde --stability=dev
 > These requirements are for your local development environment.
 
 Hyde is based on [Laravel 9](https://laravel.com/docs/9.x/releases)
-which requires a minimum PHP version of 8.0. 
-You should also have [Composer](https://getcomposer.org/) installed. 
+which requires a minimum PHP version of 8.0.
+You should also have [Composer](https://getcomposer.org/) installed.
 
 To use some features like [compiling your own assets](managing-assets)
 you also need NodeJS and NPM.

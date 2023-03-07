@@ -1,4 +1,4 @@
 preset: laravel
 
 disabled:
-    - alpha_ordered_imports
+  - alpha_ordered_imports

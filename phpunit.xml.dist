@@ -19,7 +19,7 @@
             <directory suffix="Test.php">./packages/framework/tests/Unit</directory>
         </testsuite>
         <testsuite name="Realtime Compiler">
-             <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
+            <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

@@ -493,7 +493,7 @@ jobs:
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-     
+
       - name: Run static analysis (Psalm/Shepherd)
         run: vendor/bin/psalm --shepherd || true
 

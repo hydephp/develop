@@ -7,19 +7,19 @@ navigation:
 
 Since Hyde has a lot of "magic" features which depend on some base assumptions,
 there might be some "gotchas" you might run into. Here are some I can think of,
-did you find a new one? Send a PR to [update the docs](https://github.com/hydephp/docs)! 
+did you find a new one? Send a PR to [update the docs](https://github.com/hydephp/docs)!
 
 > Tip: You can run `php hyde validate` to run a series of tests to help you catch common issues.  
 {.info}
 
-            
+
 ## General Tips
 (In no particular order of importance)
 
-1. In general, **Hyde is actually pretty forgiving**. While this article makes it sound like there are a lot of rules to follow, 
+1. In general, **Hyde is actually pretty forgiving**. While this article makes it sound like there are a lot of rules to follow,
    honestly don't worry about it. Hyde will attempt to fix mistakes and make your life easier.
 2. You don't need to set an H1 heading in blog posts. The H1 is set by Hyde based on the front matter title.
-3. You never need front matter, though it is often useful. 
+3. You never need front matter, though it is often useful.
    For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
 4. Currently, Hyde support for nested directories besides those already defined is experimental.
 
@@ -56,7 +56,7 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 - **HydeCLI**: The command-line interface for Hyde.
 - **Framework**: The Hyde core codebase.
 
-- **Slug**: The filename without the extension (basename) (internally also known as `identifier`).  Example: `hello-world` 
+- **Slug**: The filename without the extension (basename) (internally also known as `identifier`).  Example: `hello-world`
 - **Filename**: The full name of a file with the extension. Example: `hello-world.md`
 - **Filepath**: The full file path including extension (almost always relative to the Hyde project) Example: `_posts/hello-world.md`
 
@@ -95,7 +95,7 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 ### Extra troubleshooting information
 
 #### Fixing a broken config
-If your configuration is broken, you might not be able to run any commands through the HydeCLI. 
+If your configuration is broken, you might not be able to run any commands through the HydeCLI.
 To remedy this you can copy the config files from the vendor directory into the project directory.
 You can do this manually, or with the following rescue command:
 ```

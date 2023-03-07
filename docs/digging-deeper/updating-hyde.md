@@ -8,7 +8,7 @@ navigation:
 ## While Hyde is in beta, stuff can change rapidly.
 This guide will help you update Hyde to the latest version. It is recommended to back up your source files before updating.
 
-## Updating Hyde/Framework 
+## Updating Hyde/Framework
 
 Run the following command from your Hyde/Hyde installation:
 ```bash
@@ -17,7 +17,7 @@ composer update hyde/framework
 
 Next, follow the post-update instructions for Hyde/Hyde.
 
-## Updating Hyde/Hyde 
+## Updating Hyde/Hyde
 When updating an existing installation, first ensure you have a Git backup of your source files to revert the update.
 
 Depending on how you installed Hyde, there are a few different ways to update it.

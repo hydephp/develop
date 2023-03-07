@@ -32,7 +32,7 @@ When Hyde references files, especially when passing filenames between components
 
 >warning This may cause integrations such as the realtime compiler to break. You'll also likely need to update route key names in your templates.
 
-The source directory paths are stored in the PageModel objects. 
+The source directory paths are stored in the PageModel objects.
 You can change them by modifying the static property, for example in a service provider.
 
 Internally, the paths are registered in the HydeServiceProvider using the following method:
@@ -65,7 +65,7 @@ When run, Hyde will update the source directory setting in the config file, then
 
 ## Custom media directory 🧪
 
-The media directory houses assets like images and stylesheets. The default directory is `_media`, and upon building the site, 
+The media directory houses assets like images and stylesheets. The default directory is `_media`, and upon building the site,
 Hyde will copy all files in this directory to `_site/media` (or whatever your configured output and media directories are).
 
 You can change the path to this directory by setting the `media_directory` setting in `config/hyde.php`.
