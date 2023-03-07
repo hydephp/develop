@@ -22,8 +22,6 @@ use function rtrim;
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
  *
- * @todo Decouple save method to match CreatesNewMarkdownPostFile
- *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
  */
 class CreatesNewPageSourceFile
