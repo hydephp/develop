@@ -8,7 +8,7 @@ use Hyde\Testing\UnitTestCase;
 
 class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 {
-    public function testFollowNamingConventions()
+    public function testCommandsFollowNamingConventions()
     {
         $files = glob('vendor/hyde/framework/src/Console/Commands/*.php');
 
