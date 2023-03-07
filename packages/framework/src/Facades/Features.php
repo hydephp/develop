@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
-use function app;
-use function collect;
-use function config;
-use function count;
-use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Illuminate\Support\Str;
-use function extension_loaded;
 use function get_class_methods;
-use function in_array;
+use function extension_loaded;
 use function str_starts_with;
+use function in_array;
+use function collect;
 use function substr;
+use function config;
+use function count;
+use function app;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
