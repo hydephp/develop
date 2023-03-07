@@ -13,7 +13,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 interface NavigationSchema extends PageSchema
 {
     public const NAVIGATION_SCHEMA = [
-        'label'     => 'string',
+        'label'     => 'string', // The text to display
         'priority'  => 'int',  // Order is also supported
         'hidden'    => 'bool',  // Visible is also supported (but obviously invert the value)
         'group'     => 'string', // Category is also supported
