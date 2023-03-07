@@ -50,4 +50,9 @@ class StaticPageBuilder
 
         return $path;
     }
+
+    public static function handle(HydePage $page): string
+    {
+        return (new static($page))->__invoke();
+    }
 }
