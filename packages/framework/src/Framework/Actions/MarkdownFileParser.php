@@ -29,22 +29,7 @@ class MarkdownFileParser
 
     public function __construct(string $path)
     {
-        $stream = Filesystem::getContents($path);
-
-        // Check if the file has Front Matter.
-        if (str_starts_with($stream, '---')) {
-            $document = YamlFrontMatter::markdownCompatibleParse($stream);
-
-            if ($document->matter()) {
-                $this->matter = $document->matter();
-            }
-
-            if ($document->body()) {
-                $this->markdown = $document->body();
-            }
-        } else {
-            $this->markdown = $stream;
-        }
+        return MarkdownFileParser::parse($path);
     }
 
     /**
@@ -52,7 +37,7 @@ class MarkdownFileParser
      */
     public function get(): MarkdownDocument
     {
-        return new MarkdownDocument($this->matter, $this->markdown);
+        return MarkdownFileParser::parse($path);
     }
 
     public static function parse(string $path): MarkdownDocument
