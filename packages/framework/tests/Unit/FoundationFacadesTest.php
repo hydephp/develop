@@ -7,60 +7,52 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\Facades\Files
  * @covers \Hyde\Foundation\Facades\Pages
  * @covers \Hyde\Foundation\Facades\Routes
  */
-class FoundationFacadesTest extends TestCase
+class FoundationFacadesTest extends UnitTestCase
 {
-    public function test_file_collection_facade()
+    public static function setupBeforeClass(): void
     {
-        $this->assertSame(
-            HydeKernel::getInstance()->files(),
-            Files::getInstance()
-        );
-
-        $this->assertEquals(
-            Hyde::files()->getSourceFiles(),
-            Files::getSourceFiles()
-        );
+        self::needsKernel();
+        self::mockConfig();
     }
 
-    public function test_page_collection_facade()
+    public function testFilesFacade()
     {
-        $this->assertSame(
-            HydeKernel::getInstance()->pages(),
-            Pages::getInstance()
-        );
-
-        $this->assertEquals(
-            Hyde::pages()->getPages(),
-            Pages::getPages()
-        );
+        $this->assertInstanceOf(FileCollection::class, Files::getFacadeRoot());
     }
 
-    public function test_route_collection_facade()
+    public function testPagesFacade()
     {
-        $this->assertSame(
-            HydeKernel::getInstance()->routes(),
-            Routes::getInstance()
-        );
-
-        $this->assertEquals(
-            Hyde::routes()->getRoutes(),
-            Routes::getRoutes()
-        );
+        $this->assertInstanceOf(PageCollection::class, Pages::getFacadeRoot());
     }
 
-    public function test_facade_roots()
+    public function testRoutesFacade()
     {
-        $this->assertSame(Files::getInstance(), Files::getFacadeRoot());
-        $this->assertSame(Pages::getInstance(), Pages::getFacadeRoot());
-        $this->assertSame(Routes::getInstance(), Routes::getFacadeRoot());
+        $this->assertInstanceOf(RouteCollection::class, Routes::getFacadeRoot());
+    }
+
+    public function testFilesFacadeUsesKernelInstance()
+    {
+        $this->assertSame(HydeKernel::getInstance()->files(), Files::getFacadeRoot());
+    }
+
+    public function testPagesFacadeUsesKernelInstance()
+    {
+        $this->assertSame(HydeKernel::getInstance()->pages(), Pages::getFacadeRoot());
+    }
+
+    public function testRoutesFacadeUsesKernelInstance()
+    {
+        $this->assertSame(HydeKernel::getInstance()->routes(), Routes::getFacadeRoot());
     }
 }

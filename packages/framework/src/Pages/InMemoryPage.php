@@ -56,12 +56,13 @@ class InMemoryPage extends HydePage
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
      *                              You can then also use the route helper to get a link to it by using the route key "foo/bar".
+     *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      */
-    public function __construct(string $identifier, FrontMatter|array $matter = [], string $contents = '', string $view = '')
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
         parent::__construct($identifier, $matter);
 
@@ -98,7 +99,7 @@ class InMemoryPage extends HydePage
             if (str_ends_with($this->getBladeView(), '.blade.php')) {
                 // If the view key is for a Blade file path, we'll use the anonymous view compiler to compile it.
                 // This allows you to use any arbitrary file, without needing to register its namespace or directory.
-                return AnonymousViewCompiler::call($this->getBladeView(), $this->matter->toArray());
+                return AnonymousViewCompiler::handle($this->getBladeView(), $this->matter->toArray());
             }
 
             return View::make($this->getBladeView(), $this->matter->toArray())->render();

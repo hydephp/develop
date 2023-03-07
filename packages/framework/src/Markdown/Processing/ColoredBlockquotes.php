@@ -6,9 +6,16 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Models\Markdown;
+use function str_replace;
+use function sprintf;
+use function strlen;
+use function substr;
+use function trim;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\ColoredBlockquoteShortcodesTest
+ *
+ * @internal This class may be refactored to work with a single class instead of five, thus extending this class is discouraged.
  */
 abstract class ColoredBlockquotes implements MarkdownShortcodeContract
 {
@@ -44,18 +51,22 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
     public static function get(): array
     {
         return [
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>danger';
             },
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>info';
             },
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>success';
             },
+            /** @internal */
             new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>warning';

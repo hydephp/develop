@@ -8,11 +8,11 @@ use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
 use Illuminate\Contracts\Support\Htmlable;
+use function array_merge;
+use function implode;
 
 /**
  * Holds the metadata tags for a page or the site model.
- *
- * @todo These properties should probably not be public
  *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
@@ -20,10 +20,10 @@ use Illuminate\Contracts\Support\Htmlable;
  */
 class MetadataBag implements Htmlable
 {
-    public array $links = [];
-    public array $metadata = [];
-    public array $properties = [];
-    public array $generics = [];
+    protected array $links = [];
+    protected array $metadata = [];
+    protected array $properties = [];
+    protected array $generics = [];
 
     public function toHtml(): string
     {

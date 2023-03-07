@@ -17,7 +17,7 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), '# My New Post');
 
-        new StaticPageBuilder(MarkdownPost::get('test-post'), true);
+        StaticPageBuilder::handle(MarkdownPost::get('test-post'));
 
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
 
@@ -34,7 +34,7 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
             Hyde::path('_pages/feed-test.blade.php')
         );
 
-        new StaticPageBuilder(BladePage::get('feed-test'), true);
+        StaticPageBuilder::handle(BladePage::get('feed-test'));
 
         $this->assertFileExists(Hyde::path('_site/feed-test.html'));
 

@@ -17,7 +17,7 @@ class AnonymousViewCompiler
     protected string $viewPath;
     protected array $data;
 
-    public static function call(string $viewPath, array $data = []): string
+    public static function handle(string $viewPath, array $data = []): string
     {
         return (new self($viewPath, $data))->__invoke();
     }

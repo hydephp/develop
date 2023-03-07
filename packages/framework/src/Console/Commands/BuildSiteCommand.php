@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
-use Hyde\Facades\Features;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
-use Hyde\Hyde;
-use Hyde\Support\BuildWarnings;
-use Illuminate\Support\Facades\Config;
+use function memory_get_peak_usage;
+use function number_format;
+use function array_search;
+use function shell_exec;
+use function microtime;
+use function sprintf;
+use function app;
 
 /**
  * Hyde Command to run the Build Process.
@@ -34,6 +37,7 @@ class BuildSiteCommand extends Command
     protected $description = 'Build the static site';
 
     protected BuildService $service;
+    protected BuildTaskService $taskService;
 
     public function handle(): int
     {
@@ -43,9 +47,10 @@ class BuildSiteCommand extends Command
 
         $this->service = new BuildService($this->output);
 
-        $this->runPreBuildActions();
+        $this->taskService = app(BuildTaskService::class);
+        $this->taskService->setOutput($this->output);
 
-        $this->service->cleanOutputDirectory();
+        $this->runPreBuildActions();
 
         $this->service->transferMediaAssets();
 
@@ -63,7 +68,7 @@ class BuildSiteCommand extends Command
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
-            $config = (array) config('hyde.features');
+            $config = Config::getArray('hyde.features', []);
             unset($config[array_search('torchlight', $config)]);
             Config::set(['hyde.features' => $config]);
         }
@@ -73,11 +78,13 @@ class BuildSiteCommand extends Command
             $this->newLine();
             Config::set(['hyde.pretty_urls' => true]);
         }
+
+        $this->taskService->runPreBuildTasks();
     }
 
     public function runPostBuildActions(): void
     {
-        $service = new BuildTaskService($this->output);
+        $this->taskService->runPostBuildTasks();
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
@@ -94,12 +101,6 @@ class BuildSiteCommand extends Command
         if ($this->option('run-prod')) {
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
-
-        $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $service->runIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
-
-        $service->runPostBuildTasks();
     }
 
     protected function printFinishMessage(float $timeStart): void
@@ -140,21 +141,6 @@ class BuildSiteCommand extends Command
             '<fg=red>Could not %s! Is NPM installed?</>',
             $actionMessage ?? 'run script'
         ));
-    }
-
-    protected function canGenerateSitemap(): bool
-    {
-        return Features::sitemap();
-    }
-
-    protected function canGenerateFeed(): bool
-    {
-        return Features::rss();
-    }
-
-    protected function canGenerateSearch(): bool
-    {
-        return Features::hasDocumentationSearch();
     }
 
     protected function hasWarnings(): bool

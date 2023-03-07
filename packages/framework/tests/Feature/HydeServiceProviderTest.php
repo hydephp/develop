@@ -11,9 +11,9 @@ use function config;
 use function get_class;
 use function glob;
 use Hyde\Console\ConsoleServiceProvider;
-use Hyde\Facades\Site;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -57,10 +57,18 @@ class HydeServiceProviderTest extends TestCase
         $this->assertTrue(method_exists($this->provider, 'boot'));
     }
 
-    public function test_provider_registers_asset_service_contract()
+    public function test_provider_registers_asset_service_as_singleton()
     {
         $this->assertTrue($this->app->bound(AssetService::class));
         $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
+        $this->assertSame($this->app->make(AssetService::class), $this->app->make(AssetService::class));
+    }
+
+    public function test_provider_registers_build_task_service_as_singleton()
+    {
+        $this->assertTrue($this->app->bound(BuildTaskService::class));
+        $this->assertInstanceOf(BuildTaskService::class, $this->app->make(BuildTaskService::class));
+        $this->assertSame($this->app->make(BuildTaskService::class), $this->app->make(BuildTaskService::class));
     }
 
     public function test_provider_registers_source_directories()
@@ -133,13 +141,13 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_site_output_directory()
     {
-        $this->assertEquals('_site', Site::getOutputDirectory());
+        $this->assertEquals('_site', Hyde::getOutputDirectory());
 
         config(['hyde.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', Site::getOutputDirectory());
+        $this->assertEquals('foo', Hyde::getOutputDirectory());
     }
 
     public function test_provider_registers_media_directory()

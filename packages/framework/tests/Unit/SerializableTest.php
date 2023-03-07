@@ -4,45 +4,81 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Concerns\Serializable;
-use PHPUnit\Framework\TestCase;
-use JsonSerializable;
+use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * @covers \Hyde\Support\Concerns\Serializable
  */
-class SerializableTest extends TestCase
+class SerializableTest extends UnitTestCase
 {
-    public function test_json_serialize()
+    public function testToArray()
     {
-        $class = new class implements JsonSerializable
-        {
-            use Serializable;
-
-            public function toArray(): array
-            {
-                return ['foo' => 'bar'];
-            }
-        };
-
-        $this->assertSame(['foo' => 'bar'], $class->toArray());
-        $this->assertSame(['foo' => 'bar'], $class->jsonSerialize());
-
-        $this->assertSame('{"foo":"bar"}', json_encode($class));
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->toArray());
     }
 
-    public function test_to_json()
+    public function testJsonSerialize()
     {
-        $class = new class
-        {
-            use Serializable;
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->jsonSerialize());
+    }
 
-            public function toArray(): array
-            {
-                return ['foo' => 'bar'];
-            }
-        };
+    public function testToJson()
+    {
+        $this->assertSame('{"foo":"bar"}', (new SerializableTestClass)->toJson());
+    }
 
-        $this->assertSame('{"foo":"bar"}', $class->toJson());
+    public function testJsonEncode()
+    {
+        $this->assertSame('{"foo":"bar"}', json_encode(new SerializableTestClass));
+    }
+
+    public function testSerialize()
+    {
+        $this->assertSame(['foo' => 'bar'], (new SerializableTestClass)->arraySerialize());
+    }
+
+    public function testSerializeWithArrayable()
+    {
+        $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->arraySerialize());
+    }
+
+    public function testJsonSerializeWithArrayable()
+    {
+        $this->assertSame(['foo' => 'bar', 'arrayable' => ['foo' => 'bar']], (new SerializableTestClassWithArrayable)->jsonSerialize());
+    }
+
+    public function testToJsonWithArrayable()
+    {
+        $this->assertSame('{"foo":"bar","arrayable":{"foo":"bar"}}', (new SerializableTestClassWithArrayable)->toJson());
+    }
+}
+
+class SerializableTestClass implements SerializableContract
+{
+    use Serializable;
+
+    public function toArray(): array
+    {
+        return ['foo' => 'bar'];
+    }
+}
+
+class SerializableTestClassWithArrayable implements SerializableContract
+{
+    use Serializable;
+
+    public function toArray(): array
+    {
+        return ['foo' => 'bar', 'arrayable' => new ArrayableTestClass()];
+    }
+}
+
+class ArrayableTestClass implements Arrayable
+{
+    public function toArray(): array
+    {
+        return ['foo' => 'bar'];
     }
 }

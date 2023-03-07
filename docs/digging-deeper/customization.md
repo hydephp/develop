@@ -97,7 +97,7 @@ and the rest of the data will be pulled from a matching entry.
 ```php
 // torchlight! {"lineNumbers": false}
 'authors' => [
-    PostAuthor::create(
+    Author::create(
         username: 'mr_hyde', // Required username
         name: 'Mr. Hyde', // Optional display name
         website: 'https://hydephp.com' // Optional website URL
@@ -136,7 +136,7 @@ There are two ways to customize the footer text. First, you can set it in the co
 If you don't want to write Markdown in the configuration file, you can create a Markdown file in your includes directory. When this file is found, it will be used instead of the configuration setting.
 
 ```markdown
-// filepath: resources/_includes/footer.md
+// filepath: resources/includes/footer.md
 Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩
 ```
 
@@ -213,13 +213,13 @@ Note that since Blade pages do not support front matter, this will only work for
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array. 
 
-When linking to an external site, you should use the `NavItem::toLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
+When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
 
 ```php
 // filepath config/hyde.php
 'navigation' => [
     'custom' => [
-        NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
     ]
 ]
 ```

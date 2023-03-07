@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
-use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Concerns\RegistersFileLocations;
-use Hyde\Framework\Services\AssetService;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Services\BuildTaskService;
+use Hyde\Framework\Concerns\RegistersFileLocations;
 use Illuminate\Support\ServiceProvider;
+use Hyde\Facades\Config;
 
 /**
  * Register and bootstrap core Hyde application services.
@@ -28,8 +30,9 @@ class HydeServiceProvider extends ServiceProvider
         $this->kernel = HydeKernel::getInstance();
 
         $this->app->singleton(AssetService::class, AssetService::class);
+        $this->app->singleton(BuildTaskService::class, BuildTaskService::class);
 
-        $this->kernel->setSourceRoot(config('hyde.source_root', ''));
+        $this->kernel->setSourceRoot(Config::getString('hyde.source_root', ''));
 
         $this->registerSourceDirectories([
             HtmlPage::class => $this->getSourceDirectoryConfiguration(HtmlPage::class, '_pages'),
@@ -47,9 +50,9 @@ class HydeServiceProvider extends ServiceProvider
             DocumentationPage::class => $this->getOutputDirectoryConfiguration(DocumentationPage::class, 'docs'),
         ]);
 
-        $this->storeCompiledSiteIn(config('hyde.output_directory', '_site'));
+        $this->storeCompiledSiteIn(Config::getString('hyde.output_directory', '_site'));
 
-        $this->useMediaDirectory(config('hyde.media_directory', '_media'));
+        $this->useMediaDirectory(Config::getString('hyde.media_directory', '_media'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
     }

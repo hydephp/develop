@@ -4,19 +4,30 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Mockery;
 use Hyde\Hyde;
 use Hyde\Support\ReadingTime;
-use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\File;
+use Hyde\Testing\UnitTestCase;
+use Illuminate\Filesystem\Filesystem;
 
 /**
  * @covers \Hyde\Support\ReadingTime
  */
-class ReadingTimeTest extends TestCase
+class ReadingTimeTest extends UnitTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        self::setupKernel();
+    }
+
     public function test___construct()
     {
         $this->assertInstanceOf(ReadingTime::class, new ReadingTime('Hello world'));
+    }
+
+    public function test__toString()
+    {
+        $this->assertSame('0min, 0sec', (string) new ReadingTime('Hello world'));
     }
 
     public function test_getWordCount()
@@ -92,10 +103,13 @@ class ReadingTimeTest extends TestCase
 
     public function test_fromFile()
     {
-        File::shouldReceive('get')->with(Hyde::path('foo.md'), false)->andReturn('Hello world');
+        app()->instance(Filesystem::class, Mockery::mock(Filesystem::class)->shouldReceive('get')->with(Hyde::path('foo.md'), false)->andReturn('Hello world')->getMock());
 
         $this->assertInstanceOf(ReadingTime::class, ReadingTime::fromFile('foo.md'));
         $this->assertEquals(new ReadingTime('Hello world'), ReadingTime::fromFile('foo.md'));
+
+        Mockery::close();
+        app()->forgetInstance(Filesystem::class);
     }
 
     protected function words(int $words): string

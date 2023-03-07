@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Exceptions;
 
 use Exception;
+use function sprintf;
 
 class RouteNotFoundException extends Exception
 {
@@ -16,10 +17,6 @@ class RouteNotFoundException extends Exception
 
     public function __construct(?string $routeKey = null)
     {
-        if ($routeKey) {
-            $this->message = "Route not found: '$routeKey'";
-        }
-
-        parent::__construct($this->message, $this->code);
+        parent::__construct($routeKey ? sprintf('Route [%s] not found.', $routeKey) : $this->message);
     }
 }

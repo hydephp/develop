@@ -524,7 +524,7 @@
       <code>$identifier</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="packages/framework/src/Framework/Actions/GeneratesSidebarTableOfContents.php">
+  <file src="packages/framework/src/Framework/Actions/GeneratesTableOfContents.php">
     <PossiblyFalseArgument occurrences="1">
       <code>strpos($html, '&lt;p&gt;[[END_TOC]]')</code>
     </PossiblyFalseArgument>
@@ -766,15 +766,15 @@
       <code>GenerateSitemap</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="packages/framework/src/Framework/Features/DataCollections/DataCollection.php">
+  <file src="packages/framework/src/Framework/Features/DataCollections/DataCollections.php">
     <MismatchingDocblockReturnType occurrences="1">
-      <code>DataCollection&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
+      <code>DataCollections&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
     </MismatchingDocblockReturnType>
     <MixedInferredReturnType occurrences="1">
-      <code>DataCollection&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
+      <code>DataCollections&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
     </MixedInferredReturnType>
     <TooManyTemplateParams occurrences="1">
-      <code>DataCollection&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
+      <code>DataCollections&lt;\Hyde\Markdown\Models\MarkdownDocument&gt;</code>
     </TooManyTemplateParams>
   </file>
   <file src="packages/framework/src/Framework/Features/Documentation/SemanticDocumentationArticle.php">
@@ -1105,7 +1105,7 @@
       <code>FileCollection::getSourceFiles($model)-&gt;flatten()</code>
     </TooManyTemplateParams>
   </file>
-  <file src="packages/framework/src/Framework/Services/DocumentationSearchService.php">
+  <file src="packages/framework/src/Framework/Services/GeneratesDocumentationSearchIndex.php">
     <MixedArgument occurrences="2">
       <code>config('docs.exclude_from_search', [])</code>
       <code>view('hyde::pages.documentation-search')-&gt;render()</code>
@@ -1434,7 +1434,7 @@
       <code>new static($path, $destination, $showText)</code>
     </UnsafeInstantiation>
   </file>
-  <file src="packages/framework/src/Support/Models/Render.php">
+  <file src="packages/framework/src/Support/Models/RenderData.php">
     <InvalidDocblock occurrences="1">
       <code>public function toArray(): array</code>
     </InvalidDocblock>

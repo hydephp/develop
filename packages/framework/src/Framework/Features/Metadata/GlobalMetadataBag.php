@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Metadata;
 
-use Hyde\Facades\Features;
-use Hyde\Facades\Meta;
-use Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
-use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
+use Hyde\Facades\Meta;
+use Hyde\Facades\Config;
+use Hyde\Facades\Features;
 use Hyde\Pages\Concerns\HydePage;
-use Illuminate\Support\Facades\View;
+use Hyde\Support\Facades\Render;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
+use function array_filter;
+use function array_map;
+use function in_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
@@ -19,9 +23,10 @@ class GlobalMetadataBag extends MetadataBag
 {
     public static function make(): static
     {
-        $metadata = new self();
+        $metadata = new static();
 
-        foreach (config('hyde.meta', []) as $item) {
+        /** @var MetadataElementContract $item */
+        foreach (Config::getArray('hyde.meta', []) as $item) {
             $metadata->add($item);
         }
 
@@ -37,8 +42,8 @@ class GlobalMetadataBag extends MetadataBag
             ]));
         }
 
-        if (Hyde::currentPage() !== null) {
-            static::filterDuplicateMetadata($metadata, View::shared('page'));
+        if (Render::getPage() !== null) {
+            static::filterDuplicateMetadata($metadata, Render::getPage());
         }
 
         return $metadata;

@@ -24,6 +24,14 @@ trait BootsHydeKernel
     protected array $bootedCallbacks = [];
 
     /**
+     * Determine if the Kernel has booted.
+     */
+    public function isBooted(): bool
+    {
+        return $this->booted;
+    }
+
+    /**
      * Boot the Hyde Kernel and run the Auto-Discovery Process.
      */
     public function boot(): void

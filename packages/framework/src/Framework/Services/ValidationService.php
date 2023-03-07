@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Facades\Features;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Hyde\Facades\Features;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ValidationResult as Result;
+use function get_class_methods;
+use function array_intersect;
+use function file_exists;
+use function implode;
+use function sprintf;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
@@ -52,7 +58,7 @@ class ValidationService
         }
 
         return $result->fail('Could not find an 404.md or 404.blade.php file!')
-                ->withTip('You can publish the default one using `php hyde publish:views`');
+            ->withTip('You can publish the default one using `php hyde publish:views`');
     }
 
     public function check_site_has_an_index_page(Result $result): Result
@@ -64,7 +70,7 @@ class ValidationService
         }
 
         return $result->fail('Could not find an index.md or index.blade.php file!')
-                ->withTip('You can publish the one of the built in templates using `php hyde publish:homepage`');
+            ->withTip('You can publish the one of the built in templates using `php hyde publish:homepage`');
     }
 
     public function check_documentation_site_has_an_index_page(Result $result): Result
@@ -74,7 +80,7 @@ class ValidationService
                 ->withTip('Skipped because: The documentation page feature is disabled in config');
         }
 
-        if (count(DiscoveryService::getDocumentationPageFiles()) === 0) {
+        if (count(DocumentationPage::files()) === 0) {
             return $result->skip('Does documentation site have an index page?')
                 ->withTip('Skipped because: There are no documentation pages');
         }
@@ -110,17 +116,17 @@ class ValidationService
         }
 
         return $result->fail('Could not find a site URL in the config or .env file!')
-                ->withTip('Adding it may improve SEO as it allows Hyde to generate canonical URLs, sitemaps, and RSS feeds');
+            ->withTip('Adding it may improve SEO as it allows Hyde to generate canonical URLs, sitemaps, and RSS feeds');
     }
 
     public function check_a_torchlight_api_token_is_set(Result $result): Result
     {
         if (! Features::enabled(Features::torchlight())) {
             return $result->skip('Check a Torchlight API token is set')
-               ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
+                ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
         }
 
-        if (config('torchlight.token') !== null) {
+        if (Config::getNullableString('torchlight.token') !== null) {
             return $result->pass('Your site has a Torchlight API token set');
         }
 
@@ -131,8 +137,8 @@ class ValidationService
     public function check_for_conflicts_between_blade_and_markdown_pages(Result $result): Result
     {
         $conflicts = array_intersect(
-            DiscoveryService::getMarkdownPageFiles(),
-            DiscoveryService::getBladePageFiles()
+            MarkdownPage::files(),
+            BladePage::files()
         );
 
         if (count($conflicts)) {

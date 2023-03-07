@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
-use Illuminate\Contracts\Config\Repository as RepositoryContract;
+use Phar;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
+use function array_merge;
+use function dirname;
+use function is_dir;
+use function tap;
 
 /** @internal */
 class LoadConfiguration extends BaseLoadConfiguration
@@ -62,7 +67,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         // If we're running in a Phar and no project config directory exists,
         // we need to adjust the path to use the bundled static Phar config file.
 
-        if (\Phar::running() && (! is_dir($files['app']))) {
+        if (Phar::running() && (! is_dir($files['app']))) {
             $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
         }
     }

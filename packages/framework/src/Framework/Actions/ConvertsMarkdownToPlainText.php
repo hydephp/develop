@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function array_keys;
-use function array_values;
+use function rtrim;
+use function substr;
 use function explode;
 use function implode;
-use function preg_replace;
-use function rtrim;
+use function array_keys;
 use function str_replace;
-use function substr;
+use function array_values;
+use function preg_replace;
 
 /**
  * Converts Markdown to plain text.

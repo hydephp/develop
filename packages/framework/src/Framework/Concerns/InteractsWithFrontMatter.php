@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
+use Illuminate\Support\Arr;
 use function array_filter;
 use function array_merge;
 use function blank;
-use Illuminate\Support\Arr;
 
 /**
  * Adds methods to a class to allow it to fluently interact with the front matter.
@@ -34,7 +34,11 @@ trait InteractsWithFrontMatter
      */
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        return $this->matter->get($key, $default);
+        if ($key) {
+            return $this->matter->get($key, $default);
+        }
+
+        return $this->matter;
     }
 
     /**

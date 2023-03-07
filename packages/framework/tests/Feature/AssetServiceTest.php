@@ -10,49 +10,11 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\AssetService
+ *
+ * @see \Hyde\Framework\Testing\Unit\AssetServiceUnitTest
  */
 class AssetServiceTest extends TestCase
 {
-    public function test_has_version_string()
-    {
-        $service = new AssetService();
-        $this->assertIsString($service->version);
-    }
-
-    public function test_can_change_version()
-    {
-        $service = new AssetService();
-        $service->version = '1.0.0';
-        $this->assertEquals('1.0.0', $service->version);
-    }
-
-    public function test_version_method_returns_version_property_when_config_override_is_not_set()
-    {
-        $service = new AssetService();
-        $this->assertEquals($service->version, $service->version());
-    }
-
-    public function test_version_can_be_set_in_config()
-    {
-        config(['hyde.hydefront_version' => '1.0.0']);
-        $service = new AssetService();
-        $this->assertEquals('1.0.0', $service->version());
-    }
-
-    public function test_cdn_path_constructor_returns_cdn_uri()
-    {
-        $service = new AssetService();
-        $this->assertIsString($path = $service->cdnLink('styles.css'));
-        $this->assertStringContainsString('styles.css', $path);
-    }
-
-    public function test_can_set_custom_cdn_uri_in_config()
-    {
-        config(['hyde.hydefront_url' => 'https://example.com']);
-        $service = new AssetService();
-        $this->assertSame('https://example.com', $service->cdnLink('styles.css'));
-    }
-
     public function test_media_link_returns_media_path_with_cache_key()
     {
         $service = new AssetService();
@@ -62,7 +24,7 @@ class AssetServiceTest extends TestCase
 
     public function test_media_link_returns_media_path_without_cache_key_if_cache_busting_is_disabled()
     {
-        config(['hyde.cache_busting' => false]);
+        config(['hyde.enable_cache_busting' => false]);
         $service = new AssetService();
         $this->assertIsString($path = $service->mediaLink('app.css'));
         $this->assertEquals('media/app.css', $path);
@@ -77,16 +39,5 @@ class AssetServiceTest extends TestCase
         $service = new AssetService();
         $this->assertIsString($path = $service->mediaLink('app.css'));
         $this->assertEquals('assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')), $path);
-    }
-
-    public function test_inject_tailwind_config_returns_extracted_tailwind_config()
-    {
-        $service = new AssetService();
-        $this->assertIsString($config = $service->injectTailwindConfig());
-        $this->assertStringContainsString("darkMode: 'class'", $config);
-        $this->assertStringContainsString('theme: {', $config);
-        $this->assertStringContainsString('extend: {', $config);
-        $this->assertStringContainsString('typography: {', $config);
-        $this->assertStringNotContainsString('plugins', $config);
     }
 }

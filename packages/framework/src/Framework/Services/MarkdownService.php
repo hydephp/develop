@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
-use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
-use Hyde\Markdown\Contracts\MarkdownPreProcessorContract as PreProcessor;
-use Hyde\Markdown\MarkdownConverter;
 use Hyde\Pages\DocumentationPage;
-use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
+use Hyde\Markdown\MarkdownConverter;
+use Hyde\Markdown\Contracts\MarkdownPreProcessorContract as PreProcessor;
+use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
+use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
+use function str_replace;
+use function array_merge;
+use function array_diff;
+use function in_array;
+use function implode;
+use function explode;
+use function substr;
+use function strlen;
+use function filled;
+use function ltrim;
+use function trim;
 
 /**
  * Dynamically creates a Markdown converter tailored for the target model and setup,
@@ -23,8 +35,8 @@ class MarkdownService
 {
     use SetsUpMarkdownConverter;
 
-    public string $markdown;
-    public ?string $sourceModel = null;
+    protected string $markdown;
+    protected ?string $pageClass = null;
 
     protected array $config = [];
     protected array $extensions = [];
@@ -36,9 +48,9 @@ class MarkdownService
     protected array $preprocessors = [];
     protected array $postprocessors = [];
 
-    public function __construct(string $markdown, ?string $sourceModel = null)
+    public function __construct(string $markdown, ?string $pageClass = null)
     {
-        $this->sourceModel = $sourceModel;
+        $this->pageClass = $pageClass;
         $this->markdown = $markdown;
     }
 
@@ -132,7 +144,7 @@ class MarkdownService
 
     public function isDocumentationPage(): bool
     {
-        return isset($this->sourceModel) && $this->sourceModel === DocumentationPage::class;
+        return isset($this->pageClass) && $this->pageClass === DocumentationPage::class;
     }
 
     public function withTableOfContents(): static
@@ -169,13 +181,13 @@ class MarkdownService
     protected function determineIfTorchlightAttributionShouldBeInjected(): bool
     {
         return ! $this->isDocumentationPage()
-            && config('torchlight.attribution.enabled', true)
+            && Config::getBool('torchlight.attribution.enabled', true)
             && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
     }
 
     protected function injectTorchlightAttribution(): string
     {
-        return '<br>'.$this->converter->convert(config(
+        return '<br>'.$this->converter->convert(Config::getString(
             'torchlight.attribution.markdown',
             'Syntax highlighted by torchlight.dev'
         ));

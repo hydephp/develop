@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Facades\View;
+use function substr;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
@@ -28,7 +30,7 @@ class Redirect extends InMemoryPage
     public readonly bool $showText;
 
     /**
-     * Create a new redirect page file in the project's site output directory.
+     * Create a new redirect instance that can be saved using the store method.
      *
      * @param  string  $path  The URI path to redirect from.
      * @param  string  $destination  The destination to redirect to.
@@ -42,6 +44,12 @@ class Redirect extends InMemoryPage
         parent::__construct($this->path);
     }
 
+    /**
+     * Create a new redirect page file in the project's site output directory.
+     *
+     * @param  string  $path  The URI path to redirect from.
+     * @param  string  $destination  The destination to redirect to.
+     */
     public static function create(string $path, string $destination, bool $showText = true): static
     {
         return (new static($path, $destination, $showText))->store();
@@ -57,7 +65,7 @@ class Redirect extends InMemoryPage
 
     public function store(): static
     {
-        file_put_contents(Hyde::sitePath("$this->path.html"), $this->compile());
+        Filesystem::putContents(Hyde::sitePath("$this->path.html"), $this->compile());
 
         return $this;
     }

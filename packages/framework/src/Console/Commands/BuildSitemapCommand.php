@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -22,6 +22,6 @@ class BuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSitemap($this->output))->handle();
+        return (new GenerateSitemap())->run($this->output);
     }
 }

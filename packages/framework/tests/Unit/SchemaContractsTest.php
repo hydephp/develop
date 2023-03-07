@@ -29,9 +29,9 @@ class SchemaContractsTest extends TestCase
 
         $this->assertSame([
             'label'     => 'string',
-            'group'     => 'string',
-            'hidden'    => 'bool',
             'priority'  => 'int',
+            'hidden'    => 'bool',
+            'group'     => 'string',
         ], NavigationSchema::NAVIGATION_SCHEMA);
 
         $this->assertSame([

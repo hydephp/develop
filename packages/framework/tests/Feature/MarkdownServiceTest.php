@@ -190,10 +190,9 @@ class MarkdownServiceTest extends TestCase
 
     public function test_method_can_enable_permalinks_is_automatically_for_documentation_pages()
     {
-        $service = $this->makeService();
+        $service = new MarkdownServiceTestClass(pageClass: DocumentationPage::class);
 
         Config::set('docs.table_of_contents.enabled', true);
-        $service->sourceModel = DocumentationPage::class;
 
         $this->assertTrue($service->canEnablePermalinks());
     }
@@ -295,8 +294,8 @@ class MarkdownServiceTestClass extends MarkdownService
 {
     public array $features = [];
 
-    public function __construct(string $markdown = '', ?string $sourceModel = null)
+    public function __construct(string $markdown = '', ?string $pageClass = null)
     {
-        parent::__construct($markdown, $sourceModel);
+        parent::__construct($markdown, $pageClass);
     }
 }

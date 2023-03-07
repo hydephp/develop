@@ -10,22 +10,6 @@ use Hyde\Pages\MarkdownPost;
 
 trait HasFactory
 {
-    public function constructFactoryData(PageDataFactory $factory): void
-    {
-        foreach ($factory->toArray() as $key => $value) {
-            $this->{$key} = $value;
-        }
-    }
-
-    protected function constructPageSchemas(): void
-    {
-        $this->constructFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
-
-        if ($this instanceof MarkdownPost) {
-            $this->constructFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
-        }
-    }
-
     public function toCoreDataObject(): CoreDataObject
     {
         return new CoreDataObject(
@@ -37,5 +21,21 @@ trait HasFactory
             $this->getOutputPath(),
             $this->getRouteKey(),
         );
+    }
+
+    protected function constructFactoryData(): void
+    {
+        $this->assignFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
+
+        if ($this instanceof MarkdownPost) {
+            $this->assignFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
+        }
+    }
+
+    protected function assignFactoryData(PageDataFactory $factory): void
+    {
+        foreach ($factory->toArray() as $key => $value) {
+            $this->{$key} = $value;
+        }
     }
 }

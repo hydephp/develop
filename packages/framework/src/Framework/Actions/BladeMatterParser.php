@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function explode;
-use function file_get_contents;
 use Hyde\Hyde;
-use function json_decode;
 use RuntimeException;
+use function file_get_contents;
+use function substr_count;
+use function json_decode;
+use function explode;
 use function strlen;
 use function strpos;
 use function substr;
-use function substr_count;
 use function trim;
 
 /**
- * Parse the front matter in a Blade file.
+ * @experimental Parse the front matter in a Blade file.
  *
  * Accepts a string to make it easier to mock when testing.
  *
@@ -49,9 +49,9 @@ class BladeMatterParser
     /** @var string The directive signature used to determine if a line should be parsed. */
     protected const SEARCH = '@php($';
 
-    public static function parseFile(string $localFilePath): array
+    public static function parseFile(string $path): array
     {
-        return static::parseString(file_get_contents(Hyde::path($localFilePath)));
+        return static::parseString(file_get_contents(Hyde::path($path)));
     }
 
     public static function parseString(string $contents): array

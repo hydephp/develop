@@ -10,6 +10,7 @@ use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
@@ -45,122 +46,122 @@ class FilesystemTest extends UnitTestCase
         parent::tearDown();
     }
 
-    public function test_get_base_path_returns_kernels_base_path()
+    public function testGetBasePathReturnsKernelsBasePath()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo', $this->filesystem->getBasePath());
+        $this->assertSame('/foo', $this->filesystem->getBasePath());
     }
 
-    public function test_path_method_exists()
+    public function testPathMethodExists()
     {
         $this->assertTrue(method_exists(Filesystem::class, 'path'));
     }
 
-    public function test_path_method_returns_string()
+    public function testPathMethodReturnsString()
     {
         $this->assertIsString($this->filesystem->path());
     }
 
-    public function test_path_method_returns_base_path_when_not_supplied_with_argument()
+    public function testPathMethodReturnsBasePathWhenNotSuppliedWithArgument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo', $this->filesystem->path());
+        $this->assertSame('/foo', $this->filesystem->path());
     }
 
-    public function test_path_method_returns_path_relative_to_base_path_when_supplied_with_argument()
+    public function testPathMethodReturnsPathRelativeToBasePathWhenSuppliedWithArgument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/foo/bar.php', $this->filesystem->path('foo/bar.php'));
+        $this->assertSame('/foo/foo/bar.php', $this->filesystem->path('foo/bar.php'));
     }
 
-    public function test_path_method_returns_qualified_file_path_when_supplied_with_argument()
+    public function testPathMethodReturnsQualifiedFilePathWhenSuppliedWithArgument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/file.php', $this->filesystem->path('file.php'));
+        $this->assertSame('/foo/file.php', $this->filesystem->path('file.php'));
     }
 
-    public function test_path_method_returns_expected_value_for_nested_path_arguments()
+    public function testPathMethodReturnsExpectedValueForNestedPathArguments()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/directory/file.php', $this->filesystem->path('directory/file.php'));
+        $this->assertSame('/foo/directory/file.php', $this->filesystem->path('directory/file.php'));
     }
 
-    public function test_path_method_strips_trailing_directory_separators_from_argument()
+    public function testPathMethodStripsTrailingDirectorySeparatorsFromArgument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/file.php', $this->filesystem->path('\\/file.php/'));
+        $this->assertSame('/foo/file.php', $this->filesystem->path('\\/file.php/'));
     }
 
-    public function test_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
+    public function testPathMethodReturnsExpectedValueRegardlessOfTrailingDirectorySeparatorsInArgument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
+        $this->assertSame('/foo/bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
     }
 
-    public function test_path_method_resolves_already_absolute_paths()
+    public function testPathMethodResolvesAlreadyAbsolutePaths()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/bar', $this->filesystem->path('/foo/bar'));
+        $this->assertSame('/foo/bar', $this->filesystem->path('/foo/bar'));
     }
 
-    public function test_path_method_resolves_already_absolute_paths_using_helper()
+    public function testPathMethodResolvesAlreadyAbsolutePathsUsingHelper()
     {
-        $this->assertEquals($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo')));
+        $this->assertSame($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo')));
     }
 
-    public function test_path_method_resolves_already_absolute_paths_using_helper_with_trailing_slash()
+    public function testPathMethodResolvesAlreadyAbsolutePathsUsingHelperWithTrailingSlash()
     {
-        $this->assertEquals($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo/')));
+        $this->assertSame($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo/')));
     }
 
-    public function test_hyde_path_method_exists()
+    public function testHydePathMethodExists()
     {
         $this->assertTrue(method_exists(HydeKernel::class, 'path'));
     }
 
-    public function test_hyde_path_string_is_returned()
+    public function testHydePathStringIsReturned()
     {
         $this->assertIsString(Hyde::path());
     }
 
-    public function test_hyde_path_returned_directory_contains_content_expected_to_be_in_the_project_directory()
+    public function testHydePathReturnedDirectoryContainsContentExpectedToBeInTheProjectDirectory()
     {
         $this->assertFileExists(Hyde::path('hyde'));
     }
 
-    public function test_vendor_path_method_exists()
+    public function testVendorPathMethodExists()
     {
         $this->assertTrue(method_exists(Filesystem::class, 'vendorPath'));
     }
 
-    public function test_vendor_path_method_returns_string()
+    public function testVendorPathMethodReturnsString()
     {
         $this->assertIsString($this->filesystem->vendorPath());
     }
 
-    public function test_vendor_path_method_returns_the_vendor_path()
+    public function testVendorPathMethodReturnsTheVendorPath()
     {
         $this->assertSame(Hyde::path('vendor/hyde/framework'), $this->filesystem->vendorPath());
     }
 
-    public function test_vendor_path_method_returns_qualified_file_path_when_supplied_with_argument()
+    public function testVendorPathMethodReturnsQualifiedFilePathWhenSuppliedWithArgument()
     {
-        $this->assertEquals($this->filesystem->vendorPath('file.php'), $this->filesystem->vendorPath().'/file.php');
+        $this->assertSame($this->filesystem->vendorPath('file.php'), $this->filesystem->vendorPath().'/file.php');
     }
 
-    public function test_vendor_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
+    public function testVendorPathMethodReturnsExpectedValueRegardlessOfTrailingDirectorySeparatorsInArgument()
     {
         Hyde::getInstance()->setBasePath('/foo');
-        $this->assertEquals('/foo/vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
+        $this->assertSame('/foo/vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 
-    public function test_vendor_path_can_specify_which_hyde_package_to_use()
+    public function testVendorPathCanSpecifyWhichHydePackageToUse()
     {
         $this->assertDirectoryExists(Hyde::vendorPath(package: 'realtime-compiler'));
         $this->assertFileExists(Hyde::vendorPath('composer.json', 'realtime-compiler'));
     }
 
-    public function test_vendor_path_can_run_in_phar()
+    public function testVendorPathCanRunInPhar()
     {
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
@@ -174,14 +175,14 @@ class FilesystemTest extends UnitTestCase
         PharSupport::clearMocks();
     }
 
-    public function test_touch_helper_creates_file_at_given_path()
+    public function testTouchHelperCreatesFileAtGivenPath()
     {
         $this->assertTrue($this->filesystem->touch('foo'));
         $this->assertFileExists(Hyde::path('foo'));
         $this->filesystem->unlink('foo');
     }
 
-    public function test_touch_helper_creates_multiple_files_at_given_paths()
+    public function testTouchHelperCreatesMultipleFilesAtGivenPaths()
     {
         $this->assertTrue($this->filesystem->touch(['foo', 'bar']));
         $this->assertFileExists(Hyde::path('foo'));
@@ -190,14 +191,14 @@ class FilesystemTest extends UnitTestCase
         $this->filesystem->unlink('bar');
     }
 
-    public function test_unlink_helper_deletes_file_at_given_path()
+    public function testUnlinkHelperDeletesFileAtGivenPath()
     {
         touch(Hyde::path('foo'));
         $this->assertTrue($this->filesystem->unlink('foo'));
         $this->assertFileDoesNotExist(Hyde::path('foo'));
     }
 
-    public function test_unlink_helper_deletes_multiple_files_at_given_paths()
+    public function testUnlinkHelperDeletesMultipleFilesAtGivenPaths()
     {
         touch(Hyde::path('foo'));
         touch(Hyde::path('bar'));
@@ -206,193 +207,117 @@ class FilesystemTest extends UnitTestCase
         $this->assertFileDoesNotExist(Hyde::path('bar'));
     }
 
-    public function test_unlinkIfExists_helper_deletes_file_at_given_path()
+    public function testUnlinkIfExistsHelperDeletesFileAtGivenPath()
     {
         touch(Hyde::path('foo'));
         $this->assertTrue($this->filesystem->unlinkIfExists('foo'));
         $this->assertFileDoesNotExist(Hyde::path('foo'));
     }
 
-    public function test_unlinkIfExists_handles_non_existent_files_gracefully()
+    public function testUnlinkIfExistsHandlesNonExistentFilesGracefully()
     {
         $this->assertFalse($this->filesystem->unlinkIfExists('foo'));
     }
 
-    public function test_get_model_source_path_method_returns_path_for_model_classes()
+    public function testGetModelSourcePathMethodReturnsPathForModelClasses()
     {
-        $this->assertEquals(
-            Hyde::path('_posts'),
-            Hyde::getModelSourcePath(MarkdownPost::class)
-        );
-
-        $this->assertEquals(
-            Hyde::path('_pages'),
-            Hyde::getModelSourcePath(MarkdownPage::class)
-        );
-
-        $this->assertEquals(
-            Hyde::path('_docs'),
-            Hyde::getModelSourcePath(DocumentationPage::class)
-        );
-
-        $this->assertEquals(
-            Hyde::path('_pages'),
-            Hyde::getModelSourcePath(BladePage::class)
-        );
+        $this->assertSame(Hyde::path('_pages'), HtmlPage::path());
+        $this->assertSame(Hyde::path('_pages'), BladePage::path());
+        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
+        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
+        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
     }
 
-    public function test_get_model_source_path_method_returns_path_to_file_for_model_classes()
+    public function testGetModelSourcePathMethodReturnsPathToFileForModelClasses()
     {
-        $this->assertEquals(
-            Hyde::path('_posts/foo.md'),
-            Hyde::getModelSourcePath(MarkdownPost::class, 'foo.md')
-        );
-
-        $this->assertEquals(
-            Hyde::path('_pages/foo.md'),
-            Hyde::getModelSourcePath(MarkdownPage::class, 'foo.md')
-        );
-
-        $this->assertEquals(
-            Hyde::path('_docs/foo.md'),
-            Hyde::getModelSourcePath(DocumentationPage::class, 'foo.md')
-        );
-
-        $this->assertEquals(
-            Hyde::path('_pages/foo.md'),
-            Hyde::getModelSourcePath(BladePage::class, 'foo.md')
-        );
+        $this->assertSame(Hyde::path('_pages/foo.md'), HtmlPage::path('foo.md'));
+        $this->assertSame(Hyde::path('_pages/foo.md'), BladePage::path('foo.md'));
+        $this->assertSame(Hyde::path('_pages/foo.md'), MarkdownPage::path('foo.md'));
+        $this->assertSame(Hyde::path('_posts/foo.md'), MarkdownPost::path('foo.md'));
+        $this->assertSame(Hyde::path('_docs/foo.md'), DocumentationPage::path('foo.md'));
     }
 
-    public function test_helper_for_blade_pages()
+    public function testHelperForBladePages()
     {
-        $this->assertEquals(
-            Hyde::path('_pages'),
-            Hyde::getBladePagePath()
-        );
+        $this->assertSame(Hyde::path('_pages'), BladePage::path());
     }
 
-    public function test_helper_for_markdown_pages()
+    public function testHelperForMarkdownPages()
     {
-        $this->assertEquals(
-            Hyde::path('_pages'),
-            Hyde::getMarkdownPagePath()
-        );
+        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
     }
 
-    public function test_helper_for_markdown_posts()
+    public function testHelperForMarkdownPosts()
     {
-        $this->assertEquals(
-            Hyde::path('_posts'),
-            Hyde::getMarkdownPostPath()
-        );
+        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
     }
 
-    public function test_helper_for_documentation_pages()
+    public function testHelperForDocumentationPages()
     {
-        $this->assertEquals(
-            Hyde::path('_docs'),
-            Hyde::getDocumentationPagePath()
-        );
+        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
     }
 
-    public function test_helper_for_media_path()
+    public function testHelperForMediaPath()
     {
-        $this->assertEquals(
-            Hyde::path('_media'),
-            Hyde::mediaPath()
-        );
+        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
     }
 
-    public function test_helper_for_media_path_returns_path_to_file_within_the_directory()
+    public function testHelperForMediaPathReturnsPathToFileWithinTheDirectory()
     {
-        $this->assertEquals(
-            Hyde::path('_media/foo.css'),
-            Hyde::mediaPath('foo.css')
-        );
+        $this->assertSame(Hyde::path('_media/foo.css'), Hyde::mediaPath('foo.css'));
     }
 
-    public function test_get_media_path_returns_absolute_path()
+    public function testGetMediaPathReturnsAbsolutePath()
     {
-        $this->assertEquals(
-            Hyde::path('_media'),
-            Hyde::mediaPath()
-        );
+        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
     }
 
-    public function test_helper_for_media_output_path()
+    public function testHelperForMediaOutputPath()
     {
-        $this->assertEquals(
-            Hyde::path('_site/media'),
-            Hyde::siteMediaPath()
-        );
+        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
-    public function test_helper_for_media_output_path_returns_path_to_file_within_the_directory()
+    public function testHelperForMediaOutputPathReturnsPathToFileWithinTheDirectory()
     {
-        $this->assertEquals(
-            Hyde::path('_site/media/foo.css'),
-            Hyde::siteMediaPath('foo.css')
-        );
+        $this->assertSame(Hyde::path('_site/media/foo.css'), Hyde::siteMediaPath('foo.css'));
     }
 
-    public function test_get_media_output_path_returns_absolute_path()
+    public function testGetMediaOutputPathReturnsAbsolutePath()
     {
-        $this->assertEquals(
-            Hyde::path('_site/media'),
-            Hyde::siteMediaPath()
-        );
+        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
-    public function test_helper_for_site_output_path()
+    public function testHelperForSiteOutputPath()
     {
-        $this->assertEquals(
-            Hyde::path('_site'),
-            Hyde::sitePath()
-        );
+        $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
     }
 
-    public function test_helper_for_site_output_path_returns_path_to_file_within_the_directory()
+    public function testHelperForSiteOutputPathReturnsPathToFileWithinTheDirectory()
     {
-        $this->assertEquals(
-            Hyde::path('_site/foo.html'),
-            Hyde::sitePath('foo.html')
-        );
+        $this->assertSame(Hyde::path('_site/foo.html'), Hyde::sitePath('foo.html'));
     }
 
-    public function test_get_site_output_path_returns_absolute_path()
+    public function testGetSiteOutputPathReturnsAbsolutePath()
     {
-        $this->assertEquals(
-            Hyde::path('_site'),
-            Hyde::sitePath()
-        );
+        $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
     }
 
-    public function test_site_output_path_helper_ignores_trailing_slashes()
+    public function testSiteOutputPathHelperIgnoresTrailingSlashes()
     {
-        $this->assertEquals(
-            Hyde::path('_site/foo.html'),
-            Hyde::sitePath('/foo.html/')
-        );
+        $this->assertSame(Hyde::path('_site/foo.html'), Hyde::sitePath('/foo.html/'));
     }
 
-    public function test_pathToAbsolute()
+    public function testPathToAbsolute()
     {
-        $this->assertSame(
-            Hyde::path('foo'),
-            Hyde::pathToAbsolute('foo')
-        );
+        $this->assertSame(Hyde::path('foo'), Hyde::pathToAbsolute('foo'));
     }
 
-    public function test_path_to_absolute_helper_is_alias_for_path_helper()
+    public function testPathToAbsoluteHelperIsAliasForPathHelper()
     {
-        $this->assertSame(
-            Hyde::path('foo'),
-            $this->filesystem->pathToAbsolute('foo')
-        );
+        $this->assertSame(Hyde::path('foo'), $this->filesystem->pathToAbsolute('foo'));
     }
 
-    public function test_pathToAbsolute_can_convert_array_of_paths()
+    public function testPathToAbsoluteCanConvertArrayOfPaths()
     {
         $this->assertSame(
             [Hyde::path('foo'), Hyde::path('bar')],
@@ -400,27 +325,27 @@ class FilesystemTest extends UnitTestCase
         );
     }
 
-    public function test_path_to_relative_helper_decodes_hyde_path_into_relative()
+    public function testPathToRelativeHelperDecodesHydePathIntoRelative()
     {
-        $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('foo')));
-        $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('/foo/')));
-        $this->assertEquals('foo.md', Hyde::pathToRelative(Hyde::path('foo.md')));
-        $this->assertEquals('foo/bar', Hyde::pathToRelative(Hyde::path('foo/bar')));
-        $this->assertEquals('foo/bar.md', Hyde::pathToRelative(Hyde::path('foo/bar.md')));
+        $this->assertSame('foo', Hyde::pathToRelative(Hyde::path('foo')));
+        $this->assertSame('foo', Hyde::pathToRelative(Hyde::path('/foo/')));
+        $this->assertSame('foo.md', Hyde::pathToRelative(Hyde::path('foo.md')));
+        $this->assertSame('foo/bar', Hyde::pathToRelative(Hyde::path('foo/bar')));
+        $this->assertSame('foo/bar.md', Hyde::pathToRelative(Hyde::path('foo/bar.md')));
     }
 
-    public function test_path_to_relative_helper_does_not_modify_already_relative_paths()
+    public function testPathToRelativeHelperDoesNotModifyAlreadyRelativePaths()
     {
-        $this->assertEquals('foo', Hyde::pathToRelative('foo'));
-        $this->assertEquals('foo/', Hyde::pathToRelative('foo/'));
-        $this->assertEquals('../foo', Hyde::pathToRelative('../foo'));
-        $this->assertEquals('../foo/', Hyde::pathToRelative('../foo/'));
-        $this->assertEquals('foo.md', Hyde::pathToRelative('foo.md'));
-        $this->assertEquals('foo/bar', Hyde::pathToRelative('foo/bar'));
-        $this->assertEquals('foo/bar.md', Hyde::pathToRelative('foo/bar.md'));
+        $this->assertSame('foo', Hyde::pathToRelative('foo'));
+        $this->assertSame('foo/', Hyde::pathToRelative('foo/'));
+        $this->assertSame('../foo', Hyde::pathToRelative('../foo'));
+        $this->assertSame('../foo/', Hyde::pathToRelative('../foo/'));
+        $this->assertSame('foo.md', Hyde::pathToRelative('foo.md'));
+        $this->assertSame('foo/bar', Hyde::pathToRelative('foo/bar'));
+        $this->assertSame('foo/bar.md', Hyde::pathToRelative('foo/bar.md'));
     }
 
-    public function test_path_to_relative_helper_does_not_modify_non_project_paths()
+    public function testPathToRelativeHelperDoesNotModifyNonProjectPaths()
     {
         $testStrings = [
             'C:\Documents\Newsletters\Summer2018.pdf',
@@ -434,7 +359,7 @@ class FilesystemTest extends UnitTestCase
         ];
 
         foreach ($testStrings as $testString) {
-            $this->assertEquals(normalize_slashes($testString), Hyde::pathToRelative($testString));
+            $this->assertSame(normalize_slashes($testString), Hyde::pathToRelative($testString));
         }
     }
 }

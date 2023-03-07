@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
-use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -67,15 +67,16 @@ class HydeKernel implements SerializableContract
 
     protected bool $booted = false;
 
-    protected array $extensions = [
-        HydeCoreExtension::class,
-    ];
+    /** @var array<class-string<\Hyde\Foundation\Concerns\HydeExtension>, \Hyde\Foundation\Concerns\HydeExtension> */
+    protected array $extensions = [];
 
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+
+        $this->registerExtension(HydeCoreExtension::class);
     }
 
     public static function version(): string
@@ -101,7 +102,7 @@ class HydeKernel implements SerializableContract
             'sourceRoot' => $this->sourceRoot,
             'outputDirectory' => $this->outputDirectory,
             'mediaDirectory' => $this->mediaDirectory,
-            'extensions' => $this->extensions,
+            'extensions' => $this->getRegisteredExtensions(),
             'features' => $this->features(),
             'files' => $this->files(),
             'pages' => $this->pages(),

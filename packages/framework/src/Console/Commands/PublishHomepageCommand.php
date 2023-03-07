@@ -7,7 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\ViewDiffService;
-use Hyde\Hyde;
+use Hyde\Pages\BladePage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use function array_key_exists;
@@ -113,7 +113,7 @@ class PublishHomepageCommand extends Command
             return true;
         }
 
-        if (! file_exists(Hyde::getBladePagePath('index.blade.php'))) {
+        if (! file_exists(BladePage::path('index.blade.php'))) {
             return true;
         }
 
@@ -122,6 +122,6 @@ class PublishHomepageCommand extends Command
 
     protected function isTheExistingFileADefaultOne(): bool
     {
-        return ViewDiffService::checksumMatchesAny(unixsum_file(Hyde::getBladePagePath('index.blade.php')));
+        return ViewDiffService::checksumMatchesAny(unixsum_file(BladePage::path('index.blade.php')));
     }
 }

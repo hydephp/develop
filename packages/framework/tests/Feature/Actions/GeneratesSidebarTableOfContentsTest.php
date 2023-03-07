@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
+use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Actions\GeneratesSidebarTableOfContents
+ * @covers \Hyde\Framework\Actions\GeneratesTableOfContents
  */
 class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 {
@@ -20,7 +20,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     public function testCanGenerateTableOfContents()
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
-        $result = (new GeneratesSidebarTableOfContents($markdown))->execute();
+        $result = (new GeneratesTableOfContents($markdown))->execute();
 
         $this->assertIsString($result);
         $this->assertStringContainsString('<ul>', $result);
@@ -31,7 +31,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     public function testReturnStringContainsExpectedContent()
     {
         $markdown = "# Level 1\n## Level 2\n### Level 3\n";
-        $result = (new GeneratesSidebarTableOfContents($markdown))->execute();
+        $result = (new GeneratesTableOfContents($markdown))->execute();
 
         $this->assertEquals('<ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>',
             str_replace("\n", '', $result)

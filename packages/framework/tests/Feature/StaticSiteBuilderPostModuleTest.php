@@ -47,7 +47,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
 
     protected function inspectHtml(array $expectedStrings)
     {
-        new StaticPageBuilder($this->post, true);
+        StaticPageBuilder::handle($this->post);
         $stream = file_get_contents(Hyde::path('_site/posts/test-post.html'));
 
         foreach ($expectedStrings as $expectedString) {
@@ -57,9 +57,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
 
     public function test_can_create_post()
     {
-        $builder = new StaticPageBuilder($this->post);
-
-        $builder->__invoke();
+        StaticPageBuilder::handle($this->post);
 
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
     }

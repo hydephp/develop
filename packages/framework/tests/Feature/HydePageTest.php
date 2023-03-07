@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
@@ -20,11 +22,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * Test the HydePage class.
- *
- * Since the class is abstract, we can't test it directly,
- * so we will use the MarkdownPage class as a proxy,
- * since it's the simplest implementation.
+ * Test the base HydePage class.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
@@ -84,6 +82,14 @@ class HydePageTest extends TestCase
         $this->assertSame(
             Hyde::path('hello-world'),
             HydePage::path('hello-world')
+        );
+    }
+
+    public function testBasePathToIdentifier()
+    {
+        $this->assertSame(
+            'hello-world',
+            HydePage::pathToIdentifier('hello-world')
         );
     }
 
@@ -237,6 +243,22 @@ class HydePageTest extends TestCase
         $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
 
+    public function testToArray()
+    {
+        $this->assertSame([
+            'class',
+            'identifier',
+            'routeKey',
+            'matter',
+            'metadata',
+            'navigation',
+            'title',
+            'canonicalUrl',
+        ],
+            array_keys((new TestPage('hello-world'))->toArray())
+        );
+    }
+
     // Section: In-depth tests
 
     public function test_get_source_directory_returns_static_property()
@@ -344,14 +366,14 @@ class HydePageTest extends TestCase
     {
         Filesystem::touch('_pages/foo.md');
         $this->assertEquals(
-            Hyde::pages()->getPages(MarkdownPage::class),
+            Pages::getPages(MarkdownPage::class),
             MarkdownPage::all()
         );
         $this->assertEquals(
             ['_pages/foo.md' => tap(new MarkdownPage('foo'), function ($page) {
                 $page->title = 'Foo';
             })],
-            MarkdownPage::all()->toArray()
+            MarkdownPage::all()->all()
         );
         Filesystem::unlink('_pages/foo.md');
     }
@@ -463,6 +485,8 @@ class HydePageTest extends TestCase
     public function test_all_page_models_extend_abstract_page()
     {
         $pages = [
+            HtmlPage::class,
+            BladePage::class,
             MarkdownPage::class,
             MarkdownPost::class,
             DocumentationPage::class,
@@ -478,6 +502,7 @@ class HydePageTest extends TestCase
     public function test_all_page_models_have_configured_source_directory()
     {
         $pages = [
+            HtmlPage::class => '_pages',
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
@@ -608,7 +633,7 @@ class HydePageTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $page = MarkdownPage::parse('foo');
-        $this->assertSame(\Hyde\Facades\Route::get('foo'), $page->getRoute());
+        $this->assertSame(Routes::get('foo'), $page->getRoute());
     }
 
     public function test_html_title_returns_site_name_plus_page_title()
@@ -993,7 +1018,7 @@ class HydePageTest extends TestCase
         $this->assertSame("bar\n", file_get_contents(Hyde::path('_pages/foo.md')));
 
         /** @var BaseMarkdownPage $parsed */
-        $parsed = MarkdownPage::all()->getPage('_pages/foo.md');
+        $parsed = Pages::getPage('_pages/foo.md');
         $this->assertSame('bar', $parsed->markdown->body());
 
         $parsed->markdown = new Markdown('baz');
@@ -1083,10 +1108,10 @@ class HydePageTest extends TestCase
 
     public function test_path_helpers_return_same_result_as_fluent_filesystem_helpers()
     {
-        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), Hyde::getBladePagePath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::getMarkdownPagePath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::getMarkdownPostPath('foo'));
-        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), BladePage::path('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), MarkdownPage::path('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), MarkdownPost::path('foo'));
+        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), DocumentationPage::path('foo'));
     }
 
     public function test_all_pages_are_routable()
@@ -1198,80 +1223,70 @@ class HydePageTest extends TestCase
 
 class TestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
     public static string $fileExtension = '.md';
     public static string $template = 'template';
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class ConfigurableSourcesTestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
     public static string $template;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class DiscoverableTestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'bar';
     public static string $fileExtension = 'baz';
     public static string $template;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class NonDiscoverableTestPage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class PartiallyDiscoverablePage extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
     public static string $fileExtension;
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 {
+    use VoidCompiler;
+
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
-
-    public function compile(): string
-    {
-        return '';
-    }
 }
 
 class MissingSourceDirectoryMarkdownPage extends BaseMarkdownPage
 {
     public static string $sourceDirectory = 'foo';
+}
+
+trait VoidCompiler
+{
+    public function compile(): string
+    {
+        return '';
+    }
 }

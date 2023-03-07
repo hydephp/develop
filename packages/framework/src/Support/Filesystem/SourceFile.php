@@ -19,7 +19,7 @@ class SourceFile extends ProjectFile
      *
      * @var class-string<\Hyde\Pages\Concerns\HydePage>
      */
-    public readonly string $model;
+    public readonly string $pageClass;
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */
     public static function make(string $path, string $pageClass = HydePage::class): static
@@ -31,19 +31,20 @@ class SourceFile extends ProjectFile
     public function __construct(string $path, string $pageClass = HydePage::class)
     {
         parent::__construct($path);
-        $this->model = $pageClass;
+        $this->pageClass = $pageClass;
     }
 
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
-            'model' => $this->model,
+            'pageClass' => $this->pageClass,
         ]);
     }
 
+    /** @experimental This method is not used anywhere other than tests and may be removed */
     public function withoutDirectoryPrefix(): string
     {
         // Works like basename, but keeps subdirectory names.
-        return Str::after($this->path, $this->model::sourceDirectory().'/');
+        return Str::after($this->path, $this->pageClass::sourceDirectory().'/');
     }
 }

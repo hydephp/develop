@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Framework\Factories\Concerns\CoreDataObject;
-use Hyde\Framework\Factories\Concerns\PageDataFactory;
-use Hyde\Framework\Factories\HydePageDataFactory;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Testing\TestCase;
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
+use Hyde\Testing\CreatesTemporaryFiles;
+use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\Facades\View;
+use Illuminate\View\Factory;
+use Mockery;
 
 /**
  * Providers helpers and a contract for unit testing for the specified page class.
@@ -17,11 +19,37 @@ use Hyde\Testing\TestCase;
  *
  * @coversNothing
  */
-abstract class BaseHydePageUnitTest extends TestCase
+abstract class BaseHydePageUnitTest extends UnitTestCase
 {
-    protected function mockPageDataFactory(): PageDataFactory
+    use CreatesTemporaryFiles;
+
+    protected function setUp(): void
     {
-        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
+        self::setupKernel();
+        self::mockConfig();
+
+        View::swap($mock = Mockery::mock(Factory::class, [
+            'make' => Mockery::mock(Factory::class, [
+                'render' => 'foo',
+                'with' => Mockery::mock(Factory::class, [
+                    'render' => 'foo',
+                ]),
+            ]),
+            'share' => null,
+        ]));
+        app()->bind(\Illuminate\Contracts\View\Factory::class, fn () =>$mock);
+        app()->bind('view', fn () =>$mock);
+
+        Render::swap(new RenderData());
+    }
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+        View::swap(null);
+        Render::swap(null);
+        app()->forgetInstance(\Illuminate\Contracts\View\Factory::class);
+        app()->forgetInstance('view');
     }
 
     abstract public function testPath();
@@ -75,8 +103,6 @@ abstract class BaseHydePageUnitTest extends TestCase
     abstract public function testHas();
 
     abstract public function testToCoreDataObject();
-
-    abstract public function testConstructFactoryData();
 
     abstract public function testFileExtension();
 

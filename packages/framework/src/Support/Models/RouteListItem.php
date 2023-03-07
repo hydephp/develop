@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-use Hyde\Facades\Site;
+use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -43,7 +43,7 @@ class RouteListItem implements Arrayable
 
     protected function styleOutputPath(string $path): string
     {
-        return Site::getOutputDirectory()."/$path";
+        return Hyde::getOutputDirectory()."/$path";
     }
 
     protected function styleRouteKey(string $key): string

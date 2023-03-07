@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
+use Hyde\Facades\Config;
+use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 
@@ -18,15 +20,13 @@ use Hyde\Support\Models\Route;
  */
 class DocumentationPage extends BaseMarkdownPage
 {
-    use Concerns\UsesFlattenedOutputPaths;
-
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
     public static function home(): ?Route
     {
-        return Route::get(static::homeRouteName());
+        return Routes::get(static::homeRouteName());
     }
 
     public static function homeRouteName(): string
@@ -54,6 +54,30 @@ class DocumentationPage extends BaseMarkdownPage
      */
     public function getTableOfContents(): string
     {
-        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
+        return (new GeneratesTableOfContents($this->markdown))->execute();
+    }
+
+    /**
+     * Get the route key for the page.
+     *
+     * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
+     */
+    public function getRouteKey(): string
+    {
+        return Config::getBool('docs.flattened_output_paths', true)
+            ? unslash(static::outputDirectory().'/'.basename($this->identifier))
+            : parent::getRouteKey();
+    }
+
+    /**
+     * Get the path where the compiled page will be saved.
+     *
+     * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
+     */
+    public function getOutputPath(): string
+    {
+        return Config::getBool('docs.flattened_output_paths', true)
+            ? static::outputPath(basename($this->identifier))
+            : parent::getOutputPath();
     }
 }

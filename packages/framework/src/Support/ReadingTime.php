@@ -6,7 +6,9 @@ namespace Hyde\Support;
 
 use Closure;
 use Hyde\Facades\Filesystem;
+use Stringable;
 use function floor;
+use function round;
 use function sprintf;
 use function str_word_count;
 
@@ -15,7 +17,7 @@ use function str_word_count;
  *
  * @see \Hyde\Framework\Testing\Feature\ReadingTimeTest
  */
-class ReadingTime
+class ReadingTime implements Stringable
 {
     /** @var int How many words per minute is read. Inversely proportional. Increase for a shorter reading time. */
     protected static int $wordsPerMinute = 240;
@@ -44,6 +46,11 @@ class ReadingTime
         $this->text = $text;
 
         $this->generate();
+    }
+
+    public function __toString()
+    {
+        return $this->getFormatted();
     }
 
     public function getWordCount(): int

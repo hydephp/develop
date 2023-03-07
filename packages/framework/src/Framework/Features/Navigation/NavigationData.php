@@ -17,41 +17,35 @@ final class NavigationData extends ArrayObject implements NavigationSchema, Seri
 {
     use Serializable;
 
-    public ?string $label = null;
-    public ?string $group = null;
-    public ?bool $hidden = null;
-    public ?int $priority = null;
+    public readonly string $label;
+    public readonly int $priority;
+    public readonly bool $hidden;
+    public readonly ?string $group;
 
-    public function __construct(?string $label = null, ?string $group = null, ?bool $hidden = null, ?int $priority = null)
+    public function __construct(string $label, int $priority, bool $hidden, string $group = null)
     {
         $this->label = $label;
-        $this->group = $group;
-        $this->hidden = $hidden;
         $this->priority = $priority;
+        $this->hidden = $hidden;
+        $this->group = $group;
 
         parent::__construct($this->toArray());
     }
 
+    /** @param  array{label: string, priority: int, hidden: bool, group: string|null}  $data */
     public static function make(array $data): self
     {
-        return new self(
-            $data['label'] ?? null,
-            $data['group'] ?? null,
-            $data['hidden'] ?? null,
-            $data['priority'] ?? null,
-        );
+        return new self(...$data);
     }
 
-    /**
-     * @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}
-     */
+    /** @return array{label: string,  priority: int, hidden: bool, group: string|null} */
     public function toArray(): array
     {
         return [
             'label' => $this->label,
-            'group' => $this->group,
-            'hidden' => $this->hidden,
             'priority' => $this->priority,
+            'hidden' => $this->hidden,
+            'group' => $this->group,
         ];
     }
 }

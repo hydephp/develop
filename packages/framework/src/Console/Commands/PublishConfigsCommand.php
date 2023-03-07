@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
+use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Artisan;
+use function array_search;
+use function sprintf;
 
 /**
  * Publish the Hyde Config Files.

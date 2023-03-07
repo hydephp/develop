@@ -4,6 +4,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Pages\Concerns\HydePage;
@@ -11,7 +12,6 @@ use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
-use Hyde\Support\Models\Route;
 
 /**
  * Handle routing for a web page request.
@@ -63,7 +63,7 @@ class PageRouter
             return DashboardController::renderIndexPage($page);
         }
 
-        return file_get_contents((new StaticPageBuilder($page))->__invoke());
+        return file_get_contents(StaticPageBuilder::handle($page));
     }
 
     public static function handle(Request $request): Response
@@ -79,6 +79,6 @@ class PageRouter
             return new DocumentationSearchPage();
         }
 
-        return Route::getOrFail($this->normalizePath($this->request->path))->getPage();
+        return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
     }
 }
