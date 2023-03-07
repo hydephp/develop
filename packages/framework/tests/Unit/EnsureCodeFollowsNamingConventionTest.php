@@ -10,6 +10,7 @@ use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Testing\UnitTestCase;
+use ReflectionClass;
 
 class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 {
@@ -49,7 +50,7 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
                 continue;
             }
 
-            $reflection = new \ReflectionClass($class);
+            $reflection = new ReflectionClass($class);
 
             $hasHandleMethod = $reflection->hasMethod('handle') && $reflection->getMethod('handle')->isPublic() && $reflection->getMethod('handle')->isStatic();
             $hasExecuteMethod = $reflection->hasMethod('execute') && $reflection->getMethod('execute')->isPublic() && ! $reflection->getMethod('execute')->isStatic();
