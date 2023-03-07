@@ -24,7 +24,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image.title' => 'title',
             'image.copyright' => 'copyright',
             'image.licenseName' => 'license',
-            'image.licenseNameUrl' => 'licenseUrl',
+            'image.licenseUrl' => 'licenseUrl',
             'image.authorName' => 'author',
             'image.authorUrl' => 'authorUrl',
         ];

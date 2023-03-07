@@ -28,7 +28,7 @@ class FeaturedImageViewTest extends TestCase
             'image.title' => 'FeaturedImage Title',
             'image.authorName' => 'John Doe',
             'image.licenseName' => 'Creative Commons',
-            'image.licenseNameUrl' => 'https://licence.example.com',
+            'image.licenseUrl' => 'https://licence.example.com',
         ]);
 
         $this->assertStringContainsString('src="media/foo.jpg"', $component);
@@ -91,7 +91,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $image = $this->make([
             'image.licenseName' => 'foo',
-            'image.licenseNameUrl' => 'https://example.com/bar.html',
+            'image.licenseUrl' => 'https://example.com/bar.html',
         ]);
         $string = $this->renderComponent($image);
 
@@ -107,7 +107,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_license_string_inverse_with_url()
     {
-        $string = $this->renderComponent(['image.licenseNameUrl' => 'https://example.com/bar.html']);
+        $string = $this->renderComponent(['image.licenseUrl' => 'https://example.com/bar.html']);
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
