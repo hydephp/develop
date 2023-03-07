@@ -11,7 +11,7 @@ on:
 jobs:
 
   build-documentation-preview:
-    if: ! contains(github.event.pull_request.labels.*.name, 'pause-pages') ## Temporary until todo above is fixed
+    if: "! contains(github.event.pull_request.labels.*.name, 'pause-pages')" ## Temporary until todo above is fixed
     environment:
       name: pr-documentation-${{ github.event.pull_request.number }}
       url: https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview
