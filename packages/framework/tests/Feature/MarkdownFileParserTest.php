@@ -15,16 +15,19 @@ class MarkdownFileParserTest extends TestCase
 {
     protected function makeTestPost(): void
     {
-        file_put_contents(Hyde::path('_posts/test-post.md'), '---
-title: My New Post
-category: blog
-author: Mr. Hyde
----
-
-# My New Post
-
-This is a post stub used in the automated tests
-');
+        file_put_contents(Hyde::path('_posts/test-post.md'), <<<'MD'
+            ---
+            title: My New Post
+            category: blog
+            author: Mr. Hyde
+            ---
+            
+            # My New Post
+            
+            This is a post stub used in the automated tests
+            
+            MD
+        );
     }
 
     protected function tearDown(): void
