@@ -19,7 +19,7 @@ class GenerateSearch extends PostBuildTask
 
     public function handle(): void
     {
-        $this->path = GeneratesDocumentationSearchIndex::generate();
+        $this->path = GeneratesDocumentationSearchIndex::handle();
 
         if (DocumentationSearchPage::enabled()) {
             $this->createdSiteFile(DocumentationSearchPage::generate());

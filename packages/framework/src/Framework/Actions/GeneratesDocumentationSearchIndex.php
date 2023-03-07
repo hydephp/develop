@@ -31,7 +31,7 @@ class GeneratesDocumentationSearchIndex
      *
      * @return string The path to the generated file.
      */
-    public static function generate(): string
+    public static function handle(): string
     {
         $service = new static();
         $service->run();

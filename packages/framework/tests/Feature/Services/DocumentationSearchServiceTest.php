@@ -32,7 +32,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
     {
         $this->file('_docs/foo.md');
 
-        GeneratesDocumentationSearchIndex::generate();
+        GeneratesDocumentationSearchIndex::handle();
 
         $this->assertSame(json_encode([[
             'slug' => 'foo',
@@ -53,7 +53,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
     {
-        GeneratesDocumentationSearchIndex::generate();
+        GeneratesDocumentationSearchIndex::handle();
 
         $this->assertSame('[]', file_get_contents('_site/docs/search.json'));
 
@@ -62,7 +62,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
 
     public function test_save_method_saves_the_file_to_the_correct_location()
     {
-        GeneratesDocumentationSearchIndex::generate();
+        GeneratesDocumentationSearchIndex::handle();
 
         $this->assertFileExists('_site/docs/search.json');
 
@@ -134,7 +134,7 @@ class DocumentationSearchServiceTest extends UnitTestCase
 
     protected function getArray(): array
     {
-        GeneratesDocumentationSearchIndex::generate();
+        GeneratesDocumentationSearchIndex::handle();
         $array = json_decode(file_get_contents('_site/docs/search.json'), true);
         Filesystem::unlink('_site/docs/search.json');
 
