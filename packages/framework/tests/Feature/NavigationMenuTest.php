@@ -34,6 +34,11 @@ class NavigationMenuTest extends TestCase
         $this->assertInstanceOf(Collection::class, NavigationMenu::create()->items);
     }
 
+    public function test_get_items_returns_items()
+    {
+        $this->assertEquals(NavigationMenu::create()->items, NavigationMenu::create()->getItems());
+    }
+
     public function test_items_are_sorted_by_priority()
     {
         Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.priority' => 1])));
