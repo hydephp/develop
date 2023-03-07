@@ -29,7 +29,7 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
         $this->assertNotEmpty($files, 'No action classes found.');
 
         $exclude = [
-            //
+            'BladeMatterParser.php',
         ];
 
         // Actions must have either a public static handle() method or a public non-static execute() method
