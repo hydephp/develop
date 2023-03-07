@@ -20,12 +20,13 @@ return [
     // and if so, what (Markdown) text should be used?
     'attribution' => [
         'enabled' => true,
-        'markdown' => '
-<p>
-    <i>
-        Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>
-    </i>
-</p>',
+        'markdown' => <<<'MARKDOWN'
+        <p>
+            <i>
+                Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>
+            </i>
+        </p>
+        MARKDOWN
     ],
 
     // The Torchlight client caches highlighted code blocks. Here
