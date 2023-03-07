@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Contracts\FrontMatter;
 
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\AuthorSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
 /**
@@ -16,13 +17,7 @@ interface BlogPostSchema extends PageSchema
         'description'  => 'string',
         'category'     => 'string',
         'date'         => 'string',
-        'author'       => ['string', BlogPostSchema::AUTHOR_SCHEMA],
+        'author'       => ['string', AuthorSchema::AUTHOR_SCHEMA],
         'image'        => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
-    ];
-
-    public const AUTHOR_SCHEMA = [
-        'name'      => 'string',
-        'username'  => 'string',
-        'website'   => 'string',
     ];
 }

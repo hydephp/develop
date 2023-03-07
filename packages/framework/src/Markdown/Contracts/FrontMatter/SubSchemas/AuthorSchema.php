@@ -11,5 +11,9 @@ use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
  */
 interface AuthorSchema extends BlogPostSchema
 {
-    //
+    public const AUTHOR_SCHEMA = [
+        'name'      => 'string',
+        'username'  => 'string',
+        'website'   => 'string',
+    ];
 }

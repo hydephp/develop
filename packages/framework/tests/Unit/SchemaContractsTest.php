@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Contracts\FrontMatter\FrontMatterSchema;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\AuthorSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\UnitTestCase;
@@ -59,7 +60,7 @@ class SchemaContractsTest extends UnitTestCase
             'description'  => 'string',
             'category'     => 'string',
             'date'         => 'string',
-            'author'       => ['string', BlogPostSchema::AUTHOR_SCHEMA],
+            'author'       => ['string', AuthorSchema::AUTHOR_SCHEMA],
             'image'        => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
         ], BlogPostSchema::BLOG_POST_SCHEMA);
 
@@ -67,7 +68,7 @@ class SchemaContractsTest extends UnitTestCase
             'name'      => 'string',
             'username'  => 'string',
             'website'   => 'string',
-        ], BlogPostSchema::AUTHOR_SCHEMA);
+        ], AuthorSchema::AUTHOR_SCHEMA);
 
         $this->assertSame([
             'source'         => 'string',
