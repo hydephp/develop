@@ -18,6 +18,6 @@ interface FeaturedImageSchema
         'licenseName'    => 'string',
         'licenseUrl'     => 'string',
         'authorName'     => 'string',
-        'authorUrl' => 'string',
+        'authorUrl'      => 'string',
     ];
 }
