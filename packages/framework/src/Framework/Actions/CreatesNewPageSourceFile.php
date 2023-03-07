@@ -49,8 +49,6 @@ class CreatesNewPageSourceFile
         $this->force = $force;
 
         $this->outputPath = $this->makeOutputPath($pageClass);
-
-        $this->save();
     }
 
     public function save(): string
