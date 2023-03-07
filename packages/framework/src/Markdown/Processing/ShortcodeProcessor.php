@@ -56,30 +56,17 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         $this->discoverShortcodes();
     }
 
-    protected function processInput(): static
-    {
-        $this->output = implode("\n", array_map(function (string $line): string {
-            return $this->expandShortcode($line);
-        }, explode("\n", $this->input)));
-
-        return $this;
-    }
-
-    protected function getOutput(): string
-    {
-        return $this->output;
-    }
-
     public function run(): string
     {
         return $this->processInput()->getOutput();
     }
 
-    protected function discoverShortcodes(): void
+    /**
+     * Get the activated shortcode instances.
+     */
+    public function getShortcodes(): array
     {
-        $this->addShortcodesFromArray(
-            ColoredBlockquotes::get()
-        );
+        return $this->shortcodes;
     }
 
     public function addShortcodesFromArray(array $shortcodes): static
@@ -98,6 +85,18 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return $this;
     }
 
+    protected function discoverShortcodes(): void
+    {
+        $this->addShortcodesFromArray(
+            ColoredBlockquotes::get()
+        );
+    }
+
+    protected function getOutput(): string
+    {
+        return $this->output;
+    }
+
     protected function expandShortcode(string $line): string
     {
         return array_key_exists($signature = $this->discoverSignature($line), $this->shortcodes)
@@ -110,11 +109,12 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return str_contains($line, ' ') ? substr($line, 0, strpos($line, ' ')) : $line;
     }
 
-    /**
-     * Get the activated shortcode instances.
-     */
-    public function getShortcodes(): array
+    protected function processInput(): static
     {
-        return $this->shortcodes;
+        $this->output = implode("\n", array_map(function (string $line): string {
+            return $this->expandShortcode($line);
+        }, explode("\n", $this->input)));
+
+        return $this;
     }
 }
