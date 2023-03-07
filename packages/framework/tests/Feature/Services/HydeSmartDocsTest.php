@@ -203,7 +203,6 @@ class HydeSmartDocsTest extends TestCase
         return SemanticDocumentationArticle::make(DocumentationPage::parse('foo'));
     }
 
-
     protected function makePage(string $sourceFileContents = "# Foo\n\nHello world."): DocumentationPage
     {
         $this->file('_docs/foo.md', $sourceFileContents);
