@@ -44,7 +44,7 @@ final class DocumentationSearchService
         $this->filePath = $this->getFilePath();
     }
 
-    public function execute(): self
+    protected function execute(): self
     {
         return $this->run()->save();
     }
