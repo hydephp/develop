@@ -56,6 +56,7 @@ class InMemoryPage extends HydePage
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
      *                              You can then also use the route helper to get a link to it by using the route key "foo/bar".
+     *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
