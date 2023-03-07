@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+
 /**
  * @see \Hyde\Framework\Features\Blogging\Models\FeaturedImage
  * @see \Hyde\Pages\MarkdownPost
  */
-interface FeaturedImageSchema
+interface FeaturedImageSchema extends BlogPostSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
         'source'         => 'string', // Name of a file in _media/ or a remote URL (required)
