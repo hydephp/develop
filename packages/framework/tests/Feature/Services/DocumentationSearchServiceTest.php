@@ -76,7 +76,7 @@ class DocumentationSearchServiceTest extends TestCase
         $this->assertSame(
             '[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]',
-            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+            json_encode($this->getArray())
         );
     }
 
@@ -86,7 +86,7 @@ class DocumentationSearchServiceTest extends TestCase
 
         $this->assertSame(
             "Foo Bar\nHello World",
-            ((new DocumentationSearchService())->run()->searchIndex->toArray())[0]['content']
+            ($this->getArray())[0]['content']
         );
     }
 
@@ -96,7 +96,7 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/index.md');
 
         $this->assertSame('',
-            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
+            $this->getArray()[0]['destination']
         );
     }
 
@@ -106,7 +106,7 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/foo.md');
 
         $this->assertSame('foo',
-            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
+            $this->getArray()[0]['destination']
         );
     }
 
@@ -116,7 +116,7 @@ class DocumentationSearchServiceTest extends TestCase
         config(['docs.exclude_from_search' => ['excluded']]);
 
         $this->assertStringNotContainsString('excluded',
-            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+            json_encode($this->getArray())
         );
     }
 
@@ -126,7 +126,12 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/foo/bar.md');
 
         $this->assertStringNotContainsString('foo',
-            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+            json_encode($this->getArray())
         );
+    }
+
+    protected function getArray(): array
+    {
+        return (new DocumentationSearchService())->run()->searchIndex->toArray();
     }
 }
