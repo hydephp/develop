@@ -12,6 +12,9 @@ namespace Hyde\Markdown\Contracts\FrontMatter;
  * Please note that while the array keys are directly connected to the supported
  * front matter properties, they are covered by the backwards compatibility
  * promise for HydePHP. However, the formats of the values are not.
+ * Furthermore, as interface implementations are just a guideline, a class may
+ * stop implementing an interface at any time, so you should not use
+ * the schema interfaces for type-hinting.
  *
  * Also note that if a root property value is an array, it means that either one of
  * the types are supported. If a type within that array is an array, it means that
