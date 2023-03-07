@@ -17,7 +17,6 @@ use function str_starts_with;
 use function in_array;
 use function collect;
 use function substr;
-use function config;
 use function count;
 use function app;
 
@@ -44,7 +43,7 @@ class Features implements SerializableContract
     public static function enabled(string $feature): bool
     {
         return static::resolveMockedInstance($feature) ?? in_array(
-            $feature, config('hyde.features', static::getDefaultOptions())
+            $feature, Config::getArray('hyde.features', static::getDefaultOptions())
         );
     }
 
@@ -96,7 +95,7 @@ class Features implements SerializableContract
     public static function hasTorchlight(): bool
     {
         return static::enabled(static::torchlight())
-            && (config('torchlight.token') !== null)
+            && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
     }
 
@@ -153,7 +152,7 @@ class Features implements SerializableContract
     public static function sitemap(): bool
     {
         return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
-            && config('hyde.generate_sitemap', true)
+            && Config::getBool('hyde.generate_sitemap', true)
             && extension_loaded('simplexml');
     }
 
@@ -162,7 +161,7 @@ class Features implements SerializableContract
     {
         return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()
-            && config('hyde.generate_rss_feed', true)
+            && Config::getBool('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml')
             && count(MarkdownPost::files()) > 0;
     }
