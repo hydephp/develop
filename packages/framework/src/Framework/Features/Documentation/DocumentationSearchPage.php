@@ -21,11 +21,17 @@ use function view;
  */
 class DocumentationSearchPage extends DocumentationPage
 {
+    /**
+     * Generate the search page and save it to disk.
+     */
     public static function generate(): string
     {
         return (new StaticPageBuilder(new static()))->__invoke();
     }
 
+    /**
+     * Create a new DocumentationSearchPage instance.
+     */
     public function __construct()
     {
         parent::__construct('search', [
