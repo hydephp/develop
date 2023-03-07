@@ -25,9 +25,9 @@ class MarkdownFileParser
      */
     protected string $markdown = '';
 
-    public function __construct(string $localFilepath)
+    public function __construct(string $path)
     {
-        $stream = Filesystem::getContents($localFilepath);
+        $stream = Filesystem::getContents($path);
 
         // Check if the file has Front Matter.
         if (str_starts_with($stream, '---')) {
