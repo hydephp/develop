@@ -15,7 +15,7 @@ class ShortcodeProcessorTest extends TestCase
 {
     public function test_constructor_discovers_default_shortcodes()
     {
-        $shortcodes = (new ShortcodeProcessor('foo'))->shortcodes;
+        $shortcodes = (new ShortcodeProcessor('foo'))->getShortcodes();
 
         $this->assertCount(4, $shortcodes);
         $this->assertContainsOnlyInstancesOf(MarkdownShortcodeContract::class, $shortcodes);
@@ -59,7 +59,7 @@ class ShortcodeProcessorTest extends TestCase
             }
         });
 
-        $this->assertArrayHasKey('foo', $processor->shortcodes);
+        $this->assertArrayHasKey('foo', $processor->getShortcodes());
         $this->assertEquals('bar', $processor->run());
     }
 }
