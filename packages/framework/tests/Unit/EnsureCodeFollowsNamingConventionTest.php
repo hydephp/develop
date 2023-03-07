@@ -35,10 +35,10 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
         $this->assertNotEmpty($files, 'No action classes found.');
 
         $exclude = [
-            BladeMatterParser::class,
             CreatesNewMarkdownPostFile::class,
             CreatesNewPageSourceFile::class,
             MarkdownFileParser::class,
+            BladeMatterParser::class,
             SourceFileParser::class,
         ];
 
