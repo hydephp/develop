@@ -28,6 +28,9 @@ class MarkdownFileParser
      */
     protected string $markdown = '';
 
+    /**
+     * @return MarkdownDocument The processed Markdown file as a MarkdownDocument.
+     */
     public static function parse(string $path): MarkdownDocument
     {
         return (new static($path))->get();
@@ -53,9 +56,6 @@ class MarkdownFileParser
         }
     }
 
-    /**
-     * Get the processed Markdown file as a MarkdownDocument.
-     */
     public function get(): MarkdownDocument
     {
         return new MarkdownDocument($this->matter, $this->markdown);
