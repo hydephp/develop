@@ -28,6 +28,11 @@ class MarkdownFileParser
      */
     protected string $markdown = '';
 
+    public static function parse(string $path): MarkdownDocument
+    {
+        return (new static($path))->get();
+    }
+
     public function __construct(string $path)
     {
         $stream = Filesystem::getContents($path);
@@ -54,10 +59,5 @@ class MarkdownFileParser
     public function get(): MarkdownDocument
     {
         return new MarkdownDocument($this->matter, $this->markdown);
-    }
-
-    public static function parse(string $path): MarkdownDocument
-    {
-        return (new static($path))->get();
     }
 }
