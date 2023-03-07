@@ -7,7 +7,7 @@ namespace Hyde\Markdown\Contracts\FrontMatter;
 /**
  * @see \Hyde\Pages\MarkdownPost
  */
-interface BlogPostSchema
+interface BlogPostSchema extends PageSchema
 {
     public const MARKDOWN_POST_SCHEMA = [
         'title'        => 'string',
