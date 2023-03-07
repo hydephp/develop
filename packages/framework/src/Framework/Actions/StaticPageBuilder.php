@@ -23,7 +23,7 @@ class StaticPageBuilder
     /**
      * Construct a new static page builder instance.
      *
-     * @deprecated 
+     * @deprecated Use the handle method instead
      *
      * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
@@ -37,7 +37,7 @@ class StaticPageBuilder
         }
     }
 
-    /** @deprecated */
+    /** @deprecated Use the handle method instead */
     public function __invoke(): string
     {
         $path = Hyde::sitePath($this->page->getOutputPath());
