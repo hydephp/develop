@@ -20,7 +20,7 @@ class FeaturedImageFactoryTest extends TestCase
     {
         $array = [
             'image.source' => 'source',
-            'image.description' => 'description',
+            'image.altText' => 'description',
             'image.title' => 'title',
             'image.copyright' => 'copyright',
             'image.licenseName' => 'license',

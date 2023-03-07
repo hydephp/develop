@@ -191,7 +191,7 @@ image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) 
 image:
   source: image.jpg # Same as above
   source: https://cdn.example.com/image.jpg # Same as above
-  description: "Alt text for image"
+  altText: "Alt text for image"
   title: "Tooltip title"
   copyright: "Copyright (c) 2022"
   licenseName: "CC-BY-SA-4.0"

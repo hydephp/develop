@@ -24,7 +24,7 @@ class FeaturedImageViewTest extends TestCase
     {
         $component = $this->renderComponent([
             'image.source' => 'foo.jpg',
-            'image.description' => 'This is an image',
+            'image.altText' => 'This is an image',
             'image.title' => 'FeaturedImage Title',
             'image.authorName' => 'John Doe',
             'image.licenseName' => 'Creative Commons',

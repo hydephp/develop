@@ -31,7 +31,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         private readonly FrontMatter $matter,
     ) {
         $this->source = $this->makeSource();
-        $this->altText = $this->getStringMatter('image.description');
+        $this->altText = $this->getStringMatter('image.altText');
         $this->titleText = $this->getStringMatter('image.title');
         $this->authorName = $this->getStringMatter('image.authorName');
         $this->authorUrl = $this->getStringMatter('image.authorUrl');
