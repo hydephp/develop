@@ -20,6 +20,6 @@
         "hyde/framework": "*"
     },
     "suggest": {
-        "hyde/framework": "This package requires Hyde Framework version v0.64.0-beta or higher."
+        "hyde/framework": "This package requires Hyde Framework version v1.0.0 or higher."
     }
 }
