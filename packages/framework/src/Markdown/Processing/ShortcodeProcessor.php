@@ -109,4 +109,12 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
     {
         return str_contains($line, ' ') ? substr($line, 0, strpos($line, ' ')) : $line;
     }
+
+    /**
+     * Get the activated shortcode instances.
+     */
+    public function getShortcodes(): array
+    {
+        return $this->shortcodes;
+    }
 }
