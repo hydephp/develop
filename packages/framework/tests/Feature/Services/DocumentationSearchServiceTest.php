@@ -120,6 +120,7 @@ class DocumentationSearchServiceTest extends TestCase
 
     protected function getArray(): array
     {
-        return (new DocumentationSearchService())->run()->searchIndex->toArray();
+        DocumentationSearchService::generate();
+        return json_decode(file_get_contents('_site/docs/search.json'), true);
     }
 }
