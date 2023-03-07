@@ -62,7 +62,7 @@ class MarkdownFileParserTest extends UnitTestCase
             'author' => 'Mr. Hyde',
         ]), $document->matter);
 
-        $this->assertEquals(
+        $this->assertSame(
             <<<'MARKDOWN'
             # My New Post
             
@@ -77,9 +77,9 @@ class MarkdownFileParserTest extends UnitTestCase
         $this->makeTestPost();
 
         $post = (new MarkdownFileParser('_posts/test-post.md'))->get();
-        $this->assertEquals('My New Post', $post->matter('title'));
-        $this->assertEquals('Mr. Hyde', $post->matter('author'));
-        $this->assertEquals('blog', $post->matter('category'));
+        $this->assertSame('My New Post', $post->matter('title'));
+        $this->assertSame('Mr. Hyde', $post->matter('author'));
+        $this->assertSame('blog', $post->matter('category'));
     }
 
     public function test_static_parse_shorthand()
@@ -87,11 +87,11 @@ class MarkdownFileParserTest extends UnitTestCase
         $this->makeTestPost();
 
         $post = MarkdownFileParser::parse('_posts/test-post.md');
-        $this->assertEquals('My New Post', $post->matter('title'));
-        $this->assertEquals('Mr. Hyde', $post->matter('author'));
-        $this->assertEquals('blog', $post->matter('category'));
+        $this->assertSame('My New Post', $post->matter('title'));
+        $this->assertSame('Mr. Hyde', $post->matter('author'));
+        $this->assertSame('blog', $post->matter('category'));
 
-        $this->assertEquals(
+        $this->assertSame(
             <<<'MARKDOWN'
             # My New Post
             
