@@ -10,6 +10,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\Str;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
@@ -101,5 +102,25 @@ class SchemaContractsTest extends UnitTestCase
         foreach (self::SCHEMAS as $schema) {
             $this->assertTrue(is_subclass_of($schema, FrontMatterSchema::class));
         }
+    }
+
+    public function testAllSchemasHaveConstantMatchingTheirInterfaceName()
+    {
+        foreach (self::SCHEMAS as $schema) {
+            $this->assertClassHasConstant($this->classToConstant($schema), $schema);
+        }
+    }
+
+    private function assertClassHasConstant(string $constant, string $schema)
+    {
+        $this->assertTrue(
+            defined("$schema::$constant"),
+            "Class $schema does not have a constant named $constant."
+        );
+    }
+
+    protected function classToConstant(string $schema): string
+    {
+        return Str::upper(Str::snake(Str::afterLast($schema, '\\')));
     }
 }
