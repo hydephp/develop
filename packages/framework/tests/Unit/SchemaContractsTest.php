@@ -36,6 +36,7 @@ class SchemaContractsTest extends UnitTestCase
     protected const SCHEMAS = [
         BlogPostSchema::class,
         PageSchema::class,
+        AuthorSchema::class,
         FeaturedImageSchema::class,
         NavigationSchema::class,
     ];
