@@ -8,7 +8,6 @@ $timeStart = microtime(true);
 
 $list = (json_decode($contents, true));
 
-
 $list['application']['name'] = 'HydeCLI';
 
 foreach ($list['commands'] as $index => $command) {
