@@ -21,6 +21,8 @@ function find_markdown_files($dir): array
 function handle_file(string $file): void
 {
     echo 'Handling '.$file."\n";
+
+    add_two_lines_above_headings($file);
 }
 
 function add_two_lines_above_headings($filename)
