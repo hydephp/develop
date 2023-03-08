@@ -57,12 +57,9 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 Build the static site
 
-
 ```bash
 php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
 ```
-``
-Build the static site
 
 ### Options
 
@@ -83,7 +80,6 @@ Run the static site builder for a single file
 php hyde rebuild <path>
 ```
 
-Run the static site builder for a single file
 
 ### Arguments
 
@@ -100,7 +96,6 @@ Start the realtime compiler server.
 php hyde serve [--host [HOST]] [--port [PORT]]
 ```
 
-Start the realtime compiler server.
 
 ### Options
 
@@ -118,7 +113,6 @@ Run a series of tests to validate your setup and help you optimize your site.
 php hyde validate
 ```
 
-Run a series of tests to validate your setup and help you optimize your site.
 
 ## `build:rss`
 
@@ -129,7 +123,6 @@ Generate the RSS feed
 php hyde build:rss
 ```
 
-Generate the RSS feed
 
 ## `build:search`
 
@@ -140,7 +133,6 @@ Generate the docs/search.json
 php hyde build:search
 ```
 
-Generate the docs/search.json
 
 ## `build:sitemap`
 
@@ -151,7 +143,6 @@ Generate the sitemap.xml
 php hyde build:sitemap
 ```
 
-Generate the sitemap.xml
 
 ## `make:page`
 
@@ -162,7 +153,6 @@ Scaffold a new Markdown, Blade, or documentation page file
 php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
 ```
 
-Scaffold a new Markdown, Blade, or documentation page file
 
 ### Arguments
 
@@ -188,7 +178,6 @@ Scaffold a new Markdown blog post file
 php hyde make:post [--force] [--] [<title>]
 ```
 
-Scaffold a new Markdown blog post file
 
 ### Arguments
 
@@ -211,7 +200,6 @@ Publish the default configuration files
 php hyde publish:configs
 ```
 
-Publish the default configuration files
 
 ## `publish:homepage`
 
@@ -222,7 +210,6 @@ Publish one of the default homepages to index.blade.php.
 php hyde publish:homepage [--force] [--] [<homepage>]
 ```
 
-Publish one of the default homepages to index.blade.php.
 
 ### Arguments
 
@@ -246,7 +233,6 @@ Publish the hyde components for customization. Note that existing files will be 
 php hyde publish:views [<category>]
 ```
 
-Publish the hyde components for customization. Note that existing files will be overwritten.
 
 ### Arguments
 
@@ -263,7 +249,6 @@ Display all registered routes.
 php hyde route:list
 ```
 
-Display all registered routes.
 
 ## `vendor:publish`
 
@@ -274,7 +259,6 @@ Publish any publishable assets from vendor packages
 php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
 ```
 
-Publish any publishable assets from vendor packages
 
 ### Options
 
