@@ -55,59 +55,6 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`list`](#list)                         | List all available commands.                                                                 |
 
 
----
-
-
-[34m     __ __        __   [33m ___  __ _____
-[34m    / // /_ _____/ /__ [33m/ _ \/ // / _ \
-[34m   / _  / // / _  / -_)[33m ___/ _  / ___/
-[34m  /_//_/\_, /\_,_/\__/[33m_/  /_//_/_/
-[34m       /___/
-
-[0m 1.0.0-RC.1
-=====================================================================================================================================================================================================================
-
-* [`build`](#build)
-* [`rebuild`](#rebuild)
-* [`serve`](#serve)
-* [`validate`](#validate)
-
-**build:**
-
-* [`build:rss`](#buildrss)
-* [`build:search`](#buildsearch)
-* [`build:sitemap`](#buildsitemap)
-
-**change:**
-
-
-
-**make:**
-
-* [`make:page`](#makepage)
-* [`make:post`](#makepost)
-
-**package:**
-
-
-
-**publish:**
-
-* [`publish:configs`](#publishconfigs)
-* [`publish:homepage`](#publishhomepage)
-* [`publish:views`](#publishviews)
-
-**route:**
-
-* [`route:list`](#routelist)
-
-**torchlight:**
-
-* [`torchlight:install`](#torchlightinstall)
-
-**vendor:**
-
-* [`vendor:publish`](#vendorpublish)
 
 `build`
 -------
