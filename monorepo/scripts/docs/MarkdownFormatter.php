@@ -74,7 +74,7 @@ function normalize_lines($filename): void
         $new_lines[] = $line;
         $last_line = $line;
 
-        // Add any links to buffer so we can check them later
+        // Add any links to buffer, so we can check them later
         preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
         if (count($matches) > 0) {
             foreach ($matches[2] as $match) {
