@@ -16,7 +16,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
 
 ### Removed
 - for now removed features.
