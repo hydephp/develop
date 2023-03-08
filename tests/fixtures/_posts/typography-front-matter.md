@@ -9,12 +9,12 @@ date: Nov 7, 2021
 updated: July 30, 2022
 image:
   source: https://hydephp.com/media/fixture-1.jpg
-  description: Alt text
+  altText: Alt text
   title: Tooltip
-  license: "the Unsplash License"
+  licenseName: "the Unsplash License"
   licenseUrl: "https://unsplash.com/license"
-  author: "Blake"
-  attributionUrl: "https://unsplash.com/photos/GFrBMipOd_E"
+  authorName: "Blake"
+  authorUrl: "https://unsplash.com/photos/GFrBMipOd_E"
 ---
 
 ## Write something awesome.

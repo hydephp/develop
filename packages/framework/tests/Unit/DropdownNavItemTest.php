@@ -7,19 +7,35 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\DropdownNavItem
  */
-class DropdownNavItemTest extends TestCase
+class DropdownNavItemTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        Render::swap(new RenderData());
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        Render::swap(new RenderData());
+    }
+
     public function testConstruct()
     {
         $item = new DropdownNavItem('foo', []);
 
-        $this->assertSame('foo', $item->name);
+        $this->assertSame('foo', $item->label);
         $this->assertSame([], $item->items);
     }
 
@@ -27,7 +43,7 @@ class DropdownNavItemTest extends TestCase
     {
         $item = DropdownNavItem::fromArray('foo', []);
 
-        $this->assertSame('foo', $item->name);
+        $this->assertSame('foo', $item->label);
         $this->assertSame([], $item->items);
     }
 

@@ -179,12 +179,6 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertInstanceOf(CoreDataObject::class, (new DocumentationPage('foo'))->toCoreDataObject());
     }
 
-    public function testConstructFactoryData()
-    {
-        (new DocumentationPage())->constructFactoryData($this->mockPageDataFactory());
-        $this->assertTrue(true);
-    }
-
     public function testCompile()
     {
         $page = new DocumentationPage('foo');

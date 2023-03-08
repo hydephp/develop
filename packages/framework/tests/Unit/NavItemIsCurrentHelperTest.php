@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
@@ -26,7 +28,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        Render::swap(new \Hyde\Support\Models\Render());
+        Render::swap(new RenderData());
     }
 
     public function testIsCurrent()
@@ -44,7 +46,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
     public function testIsCurrentUsingCurrentRoute()
     {
         $this->mockRenderData($this->makeRoute('index'));
-        $this->assertTrue(NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->isCurrent());
+        $this->assertTrue(NavItem::fromRoute(Routes::get('index'))->isCurrent());
     }
 
     public function testIsCurrentUsingCurrentLink()
@@ -62,7 +64,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
     public function testIsCurrentUsingNotCurrentRoute()
     {
         $this->mockRenderData($this->makeRoute('foo'));
-        $this->assertFalse(NavItem::fromRoute(\Hyde\Facades\Route::get('index'))->isCurrent());
+        $this->assertFalse(NavItem::fromRoute(Routes::get('index'))->isCurrent());
     }
 
     public function testIsCurrentUsingNotCurrentLink()
@@ -235,7 +237,7 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
 
     protected function mockRenderData(Route $route): void
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(RenderData::class, [
             'getCurrentRoute' => $route,
             'getCurrentPage' => $route->getRouteKey(),
         ]));

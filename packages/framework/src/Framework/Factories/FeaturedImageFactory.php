@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
-use Hyde\Markdown\Models\FrontMatter;
-use Illuminate\Support\Str;
-use function is_string;
 use RuntimeException;
+use Illuminate\Support\Str;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use function str_starts_with;
+use function is_string;
+use function unslash;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {
@@ -30,12 +31,12 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         private readonly FrontMatter $matter,
     ) {
         $this->source = $this->makeSource();
-        $this->altText = $this->getStringMatter('image.description');
-        $this->titleText = $this->getStringMatter('image.title');
-        $this->authorName = $this->getStringMatter('image.author');
-        $this->authorUrl = $this->getStringMatter('image.attributionUrl');
+        $this->altText = $this->getStringMatter('image.altText');
+        $this->titleText = $this->getStringMatter('image.titleText');
+        $this->authorName = $this->getStringMatter('image.authorName');
+        $this->authorUrl = $this->getStringMatter('image.authorUrl');
         $this->copyrightText = $this->getStringMatter('image.copyright');
-        $this->licenseName = $this->getStringMatter('image.license');
+        $this->licenseName = $this->getStringMatter('image.licenseName');
         $this->licenseUrl = $this->getStringMatter('image.licenseUrl');
     }
 
@@ -58,9 +59,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     public static function make(FrontMatter $matter): FeaturedImage
     {
-        $data = (new static($matter))->toArray();
-
-        return new FeaturedImage(...$data);
+        return new FeaturedImage(...(new static($matter))->toArray());
     }
 
     protected function makeSource(): string

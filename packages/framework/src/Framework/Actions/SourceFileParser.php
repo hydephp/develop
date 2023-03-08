@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
+use Hyde\Framework\Concerns\ValidatesExistence;
+use function is_subclass_of;
 
 /**
  * Parses a source file and returns a new page model instance for it.
@@ -53,14 +54,14 @@ class SourceFileParser
     protected function parseBladePage(): BladePage
     {
         return new BladePage(
-            $this->identifier,
-            BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
+            identifier: $this->identifier,
+            matter: BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
         );
     }
 
+    /** @param  class-string<\Hyde\Pages\Concerns\BaseMarkdownPage>  $pageClass */
     protected function parseMarkdownPage(string $pageClass): BaseMarkdownPage
     {
-        /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
             $pageClass::sourcePath($this->identifier)
         );

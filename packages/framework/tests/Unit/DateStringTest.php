@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Unit;
 
 use DateTime;
 use Hyde\Support\Models\DateString;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Support\Models\DateString
  */
-class DateStringTest extends TestCase
+class DateStringTest extends UnitTestCase
 {
     public function test_it_can_parse_date_string()
     {

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\AsksToRebuildSite;
+use Hyde\Pages\BladePage;
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Framework\Services\ViewDiffService;
-use Hyde\Hyde;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Collection;
+use function Hyde\unixsum_file;
 use function array_key_exists;
 use function file_exists;
-use function Hyde\unixsum_file;
 use function str_replace;
 use function strstr;
 
@@ -113,7 +113,7 @@ class PublishHomepageCommand extends Command
             return true;
         }
 
-        if (! file_exists(Hyde::getBladePagePath('index.blade.php'))) {
+        if (! file_exists(BladePage::path('index.blade.php'))) {
             return true;
         }
 
@@ -122,6 +122,6 @@ class PublishHomepageCommand extends Command
 
     protected function isTheExistingFileADefaultOne(): bool
     {
-        return ViewDiffService::checksumMatchesAny(unixsum_file(Hyde::getBladePagePath('index.blade.php')));
+        return ViewDiffService::checksumMatchesAny(unixsum_file(BladePage::path('index.blade.php')));
     }
 }

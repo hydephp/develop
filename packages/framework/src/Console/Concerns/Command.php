@@ -23,7 +23,7 @@ use function str_replace;
  */
 abstract class Command extends BaseCommand
 {
-    public final const USER_EXIT = 130;
+    final public const USER_EXIT = 130;
 
     /**
      * The base handle method that can be overridden by child classes.
@@ -82,9 +82,9 @@ abstract class Command extends BaseCommand
      *                              Note that not all terminals support this, and it may lead to only
      *                              the label being shown, and the path being lost to the void.
      */
-    public static function fileLink(string $filepath, string $label = null): string
+    public static function fileLink(string $path, string $label = null): string
     {
-        $link = 'file://'.str_replace('\\', '/', realpath($filepath) ?: Hyde::path($filepath));
+        $link = 'file://'.str_replace('\\', '/', realpath($path) ?: Hyde::path($path));
 
         return $label ? "<href=$link>$label</>" : $link;
     }

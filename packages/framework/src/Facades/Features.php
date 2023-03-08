@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
-use function count;
-use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Illuminate\Support\Str;
+use function get_class_methods;
+use function extension_loaded;
 use function str_starts_with;
+use function in_array;
+use function collect;
+use function substr;
+use function count;
+use function app;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
+ *
+ * @internal Until this class is split into a service/manager class, it should not be used outside of Hyde as the API is subject to change.
  *
  * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
  *
@@ -35,7 +43,7 @@ class Features implements SerializableContract
     public static function enabled(string $feature): bool
     {
         return static::resolveMockedInstance($feature) ?? in_array(
-            $feature, config('hyde.features', static::getDefaultOptions())
+            $feature, Config::getArray('hyde.features', static::getDefaultOptions())
         );
     }
 
@@ -87,7 +95,7 @@ class Features implements SerializableContract
     public static function hasTorchlight(): bool
     {
         return static::enabled(static::torchlight())
-            && (config('torchlight.token') !== null)
+            && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
     }
 
@@ -144,7 +152,7 @@ class Features implements SerializableContract
     public static function sitemap(): bool
     {
         return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
-            && config('hyde.generate_sitemap', true)
+            && Config::getBool('hyde.generate_sitemap', true)
             && extension_loaded('simplexml');
     }
 
@@ -153,7 +161,7 @@ class Features implements SerializableContract
     {
         return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()
-            && config('hyde.generate_rss_feed', true)
+            && Config::getBool('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml')
             && count(MarkdownPost::files()) > 0;
     }

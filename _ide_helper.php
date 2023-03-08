@@ -28,17 +28,21 @@ $currentPage = \Hyde\Support\Facades\Render::getCurrentPage();
 class Hyde extends \Hyde\Hyde {}
 class Site extends \Hyde\Facades\Site {}
 class Meta extends \Hyde\Facades\Meta {}
-class Route extends \Hyde\Facades\Route {}
 /** @mixin \Hyde\Framework\Services\AssetService */
 class Asset extends \Hyde\Facades\Asset {}
 class Author extends \Hyde\Facades\Author {}
-class Includes extends \Hyde\Facades\Includes {}
 class Features extends \Hyde\Facades\Features {}
 class Config extends \Hyde\Facades\Config {}
+/** @mixin \Illuminate\Filesystem\Filesystem */
+class Filesystem extends \Hyde\Facades\Filesystem {}
+class DataCollections extends \Hyde\Support\DataCollections {}
+class Includes extends \Hyde\Support\Includes {}
+/** @mixin \Hyde\Foundation\Kernel\RouteCollection */
+class Routes extends \Hyde\Foundation\Facades\Routes {}
+
+// Page classes (aliased in app/config.php)
+class HtmlPage extends \Hyde\Pages\HtmlPage {}
 class BladePage extends \Hyde\Pages\BladePage {}
 class MarkdownPage extends \Hyde\Pages\MarkdownPage {}
 class MarkdownPost extends \Hyde\Pages\MarkdownPost {}
 class DocumentationPage extends \Hyde\Pages\DocumentationPage {}
-/** @mixin \Illuminate\Filesystem\Filesystem */
-class Filesystem extends \Hyde\Facades\Filesystem {}
-class DataCollection extends \Hyde\Support\DataCollection {}

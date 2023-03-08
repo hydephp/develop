@@ -14,11 +14,11 @@ class ValidationResult
     final public const SKIPPED = 1;
     final public const FAILED = 2;
 
-    public string $message;
-    public string $tip;
+    protected string $message;
+    protected string $tip;
 
-    public bool $passed;
-    public bool $skipped = false;
+    protected bool $passed = false;
+    protected bool $skipped = false;
 
     public function __construct(string $defaultMessage = 'Generic check')
     {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Features;
-use Hyde\Facades\Site;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -23,7 +22,7 @@ class ConfigFileTest extends TestCase
 {
     public function test_default_output_directory_value_matches_declared_value()
     {
-        expect($this->getConfig('output_directory'))->toBe(Site::getOutputDirectory());
+        expect($this->getConfig('output_directory'))->toBe(Hyde::getOutputDirectory());
     }
 
     public function test_default_media_directory_value_matches_declared_value()

@@ -5,21 +5,34 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\DocumentationSearchService;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Hyde;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\CreatesTemporaryFiles;
+use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Services\DocumentationSearchService
+ * @covers \Hyde\Framework\Actions\GeneratesDocumentationSearchIndex
  */
-class DocumentationSearchServiceTest extends TestCase
+class DocumentationSearchServiceTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected function setUp(): void
+    {
+        self::setupKernel();
+        self::mockConfig();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+    }
+
     public function test_it_generates_a_json_file_with_a_search_index()
     {
         $this->file('_docs/foo.md');
 
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::handle();
 
         $this->assertSame(json_encode([[
             'slug' => 'foo',
@@ -35,12 +48,12 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/bar.md');
         $this->file('_docs/baz.md');
 
-        $this->assertCount(3, (new DocumentationSearchService())->run()->searchIndex);
+        $this->assertCount(3, $this->getArray());
     }
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
     {
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::handle();
 
         $this->assertSame('[]', file_get_contents('_site/docs/search.json'));
 
@@ -49,23 +62,11 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_save_method_saves_the_file_to_the_correct_location()
     {
-        DocumentationSearchService::generate();
+        GeneratesDocumentationSearchIndex::handle();
 
         $this->assertFileExists('_site/docs/search.json');
 
         Filesystem::unlink('_site/docs/search.json');
-    }
-
-    public function test_generate_page_entry_method_generates_a_page_entry()
-    {
-        $this->file('_docs/foo.md', "# Bar\nHello World");
-
-        $this->assertSame([
-            'slug' => 'foo',
-            'title' => 'Bar',
-            'content' => "Bar\nHello World",
-            'destination' => 'foo.html',
-        ], (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo')));
     }
 
     public function test_it_generates_a_valid_JSON()
@@ -74,9 +75,10 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/bar.md', "# Foo\n\nHello World");
 
         $this->assertSame(
-            '[{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},'.
-            '{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]',
-            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+            <<<'JSON'
+            [{"slug":"bar","title":"Foo","content":"Foo\n\nHello World","destination":"bar.html"},{"slug":"foo","title":"Bar","content":"Bar\nHello World","destination":"foo.html"}]
+            JSON,
+            json_encode($this->getArray())
         );
     }
 
@@ -86,37 +88,37 @@ class DocumentationSearchServiceTest extends TestCase
 
         $this->assertSame(
             "Foo Bar\nHello World",
-            ((new DocumentationSearchService())->run()->searchIndex->toArray())[0]['content']
+            $this->getArray()[0]['content']
         );
     }
 
     public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.pretty_urls' => true]);
         $this->file('_docs/index.md');
 
         $this->assertSame('',
-            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
+            $this->getArray()[0]['destination']
         );
     }
 
     public function test_get_destination_for_slug_returns_pretty_url_when_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.pretty_urls' => true]);
         $this->file('_docs/foo.md');
 
         $this->assertSame('foo',
-            (new DocumentationSearchService())->run()->searchIndex->toArray()[0]['destination']
+            $this->getArray()[0]['destination']
         );
     }
 
     public function test_excluded_pages_are_not_present_in_the_search_index()
     {
         $this->file('_docs/excluded.md');
-        config(['docs.exclude_from_search' => ['excluded']]);
+        self::mockConfig(['docs.exclude_from_search' => ['excluded']]);
 
         $this->assertStringNotContainsString('excluded',
-            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+            json_encode($this->getArray())
         );
     }
 
@@ -126,7 +128,16 @@ class DocumentationSearchServiceTest extends TestCase
         $this->file('_docs/foo/bar.md');
 
         $this->assertStringNotContainsString('foo',
-            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+            json_encode($this->getArray())
         );
+    }
+
+    protected function getArray(): array
+    {
+        GeneratesDocumentationSearchIndex::handle();
+        $array = json_decode(file_get_contents('_site/docs/search.json'), true);
+        Filesystem::unlink('_site/docs/search.json');
+
+        return $array;
     }
 }

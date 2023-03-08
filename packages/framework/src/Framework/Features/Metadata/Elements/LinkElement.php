@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Metadata\Elements;
 
 use Hyde\Framework\Features\Metadata\MetadataElementContract;
+use function collect;
+use function sprintf;
+use function e;
 
 class LinkElement implements MetadataElementContract
 {

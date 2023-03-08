@@ -149,6 +149,15 @@ class TypedConfigFacadeTest extends TestCase
         $this->runUnitTest(1.1, 1.1, Config::getFloat(...));
     }
 
+    public function testGetNullableString()
+    {
+        config(['foo' => 'bar']);
+        $this->assertIsString(Config::getNullableString('foo'));
+
+        config(['foo' => null]);
+        $this->assertNull(Config::getNullableString('foo'));
+    }
+
     protected function runUnitTest($actual, $expected, $method): void
     {
         config(['foo' => $actual]);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Collection;
+use function collect;
 
 /**
  * A navigation item that contains other navigation items.
@@ -17,15 +18,12 @@ class DropdownNavItem extends NavItem
 {
     /** @var array<NavItem> */
     public array $items;
-    public string $name;
-    public string $href = '';
 
     /** @param array<NavItem> $items */
-    public function __construct(string $name, array $items)
+    public function __construct(string $label, array $items)
     {
-        parent::__construct('', $name, 999);
+        parent::__construct('', $label, 999);
         $this->items = $items;
-        $this->name = $name;
     }
 
     public static function fromArray(string $name, array $items): static

@@ -8,10 +8,11 @@ use Hyde\Hyde;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use function view;
 
 class LinkComponent extends Component
 {
-    public string $href;
+    public readonly string $href;
 
     public function __construct(string $href)
     {

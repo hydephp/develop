@@ -17,8 +17,8 @@ What is "the rest", you may ask? Well, for starters:
 
 - Hyde compiles your Markdown content into a beautiful static HTML page based on [the Lagrafo frontend](https://github.com/caendesilva/lagrafo)
 - A sidebar (which is responsive) is automatically created based on your Markdown files
-  - If you have an `index.md` in the `_docs/` directory, it will be used as the sidebar header
-  - You can even [customize the order and labels](#sidebar-page-order) of sidebar items
+    - If you have an `index.md` in the `_docs/` directory, it will be used as the sidebar header
+    - You can even [customize the order and labels](#sidebar-page-order) of sidebar items
 - If you have an `index.md` in the `_docs/` directory,
   a link to it will be added to the site navigation menu named "Docs".
 - If you have a Torchlight API token in your .env file, Hyde will even automatically enable Syntax Highlighting for you.
@@ -71,9 +71,9 @@ Here is a quick reference, however, you should take a look at the [dynamic conte
 ---
 title: "Page Title"
 navigation:
-  label: "Sidebar Label"
-  hidden: true
-  priority: 5
+    label: "Sidebar Label"
+    hidden: true
+    priority: 5
 ---
 ```
 
@@ -115,12 +115,12 @@ The default priority is 999. You can override the priority using the following f
 
 ```yaml
 navigation:
-  priority: 5
+    priority: 5
 ```
 
 You can also change the order in the Docs configuration file.
 See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
- _I personally think the config route is easier as it gives an instant overview, however the first way is nice as well._
+_I personally think the config route is easier as it gives an instant overview, however the first way is nice as well._
 
 ### Sidebar labels
 
@@ -129,7 +129,7 @@ You can change it with the following front matter:
 
 ```yaml
 navigation:
-  label: "My Custom Sidebar Label"
+    label: "My Custom Sidebar Label"
 ```
 
 ### Sidebar grouping
@@ -147,7 +147,7 @@ To enable sidebar grouping, you can add the following front matter to your docum
 
 ```yaml
 navigation:
-  group: "Getting Started"
+    group: "Getting Started"
 ```
 
 #### Using subdirectories
@@ -165,7 +165,7 @@ You can hide items from the sidebar by adding the `hidden` property to the front
 
 ```yaml
 navigation:
-  hidden: true
+    hidden: true
 ```
 
 This can be useful to create redirects or other items that should not be shown in the sidebar.

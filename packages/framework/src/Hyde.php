@@ -14,6 +14,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\HtmlString;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * General facade for Hyde services.
@@ -28,18 +29,13 @@ use Illuminate\Support\HtmlString;
  * @method static string vendorPath(string $path = '', string $package = 'framework')
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
- * @method static string getModelSourcePath(string $model, string $path = '')
- * @method static string getBladePagePath(string $path = '') "$basePath/_pages"
- * @method static string getMarkdownPagePath(string $path = '') "$basePath/_pages"
- * @method static string getMarkdownPostPath(string $path = '') "$basePath/_posts"
- * @method static string getDocumentationPagePath(string $path = '') "$basePath/_docs"
  * @method static string sitePath(string $path = '')
  * @method static string mediaPath(string $path = '')
  * @method static string siteMediaPath(string $path = '')
  * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string mediaLink(string $destination, bool $validate = false)
- * @method static string image(string $name, bool $preferQualifiedUrl = false)
+ * @method static string asset(string $name, bool $preferQualifiedUrl = false)
  * @method static string url(string $path = '')
  * @method static string makeTitle(string $value)
  * @method static string normalizeNewlines(string $string)
@@ -87,6 +83,7 @@ class Hyde extends Facade
         return HydeKernel::getInstance();
     }
 
+    #[Pure]
     public static function kernel(): HydeKernel
     {
         return HydeKernel::getInstance();

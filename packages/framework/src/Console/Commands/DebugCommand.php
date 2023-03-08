@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Composer\InstalledVersions;
-use Hyde\Facades\Config;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
+use Composer\InstalledVersions;
 use LaravelZero\Framework\Commands\Command;
+use function str_replace;
+use function realpath;
+use function app;
 
 /**
  * Hyde Command to print debug information.
@@ -24,7 +27,7 @@ class DebugCommand extends Command
     {
         parent::__construct();
 
-        if (config('app.env', 'production') !== 'development') {
+        if (Config::getString('app.env', 'production') !== 'development') {
             $this->setHidden();
         }
     }

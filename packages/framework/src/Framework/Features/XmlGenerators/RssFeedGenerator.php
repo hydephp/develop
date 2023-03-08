@@ -7,14 +7,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
-use Hyde\Facades\Config;
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Support\Filesystem\MediaFile;
-use function date;
-use Hyde\Facades\Site;
 use Hyde\Hyde;
-use Hyde\Pages\MarkdownPost;
 use SimpleXMLElement;
+use Hyde\Facades\Site;
+use Hyde\Facades\Config;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Filesystem\MediaFile;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use function date;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest

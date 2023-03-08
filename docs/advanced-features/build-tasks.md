@@ -21,7 +21,7 @@ Both of these have the exact same helpers and API available, so the only differe
 
 ### About these examples
 
-For most of these examples we will focus on the PostBuildTasks as they are the most common. 
+For most of these examples we will focus on the PostBuildTasks as they are the most common.
 
 For all these examples we assume you put the file in the `App/Actions` directory, but you can put them anywhere.
 

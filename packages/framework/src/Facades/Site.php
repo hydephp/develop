@@ -5,47 +5,31 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
-use Hyde\Hyde;
 
 /**
- * Object representation for the HydePHP site and its configuration.
+ * Facade to quickly get data for the HydePHP site and its configuration.
  *
  * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
-final class Site
+class Site
 {
     public static function url(): ?string
     {
-        return config('hyde.url');
+        return Config::getNullableString('hyde.url');
     }
 
     public static function name(): ?string
     {
-        return config('hyde.name');
+        return Config::getNullableString('hyde.name');
     }
 
     public static function language(): ?string
     {
-        return config('hyde.language');
+        return Config::getNullableString('hyde.language');
     }
 
     public static function metadata(): GlobalMetadataBag
     {
         return GlobalMetadataBag::make();
-    }
-
-    public static function path(string $path = ''): string
-    {
-        return Hyde::kernel()->sitePath($path);
-    }
-
-    public static function getOutputDirectory(): string
-    {
-        return Hyde::kernel()->getOutputDirectory();
-    }
-
-    public static function setOutputDirectory(string $outputDirectory): void
-    {
-        Hyde::kernel()->setOutputDirectory($outputDirectory);
     }
 }

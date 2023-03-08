@@ -19,17 +19,13 @@ class NavigationMenu extends BaseNavigationMenu
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
-            $this->createDropdownsForGroupedItems();
+            $this->moveGroupedItemsIntoDropdowns();
         }
     }
 
     public function hasDropdowns(): bool
     {
-        if (! $this->dropdownsEnabled()) {
-            return false;
-        }
-
-        return count($this->getDropdowns()) >= 1;
+        return $this->dropdownsEnabled() && count($this->getDropdowns()) >= 1;
     }
 
     /** @return array<string, DropdownNavItem> */
@@ -44,11 +40,10 @@ class NavigationMenu extends BaseNavigationMenu
         })->values()->all();
     }
 
-    protected function createDropdownsForGroupedItems(): void
+    protected function moveGroupedItemsIntoDropdowns(): void
     {
         $dropdowns = [];
 
-        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $key => $item) {
             if ($this->canAddItemToDropdown($item)) {
                 // Buffer the item in the dropdowns array

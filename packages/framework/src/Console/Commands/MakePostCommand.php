@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
+use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use LaravelZero\Framework\Commands\Command;
+use function is_string;
+use function sprintf;
 use function ucwords;
 
 /**
@@ -37,7 +39,7 @@ class MakePostCommand extends Command
         if (! $this->confirm('Do you wish to continue?', true)) {
             $this->info('Aborting.');
 
-            return 130;
+            return Command::USER_EXIT;
         }
 
         return $this->createPostFile($creator);
@@ -46,8 +48,8 @@ class MakePostCommand extends Command
     protected function getTitle(): string
     {
         $this->line($this->argument('title')
-                ? '<info>Selected title: '.$this->argument('title')."</info>\n"
-                : 'Please enter the title of the post, it will be used to generate the filename.'
+            ? '<info>Selected title: '.$this->argument('title')."</info>\n"
+            : 'Please enter the title of the post, it will be used to generate the filename.'
         );
 
         return $this->argument('title')

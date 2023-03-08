@@ -9,11 +9,11 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 /**
  * @see \Hyde\Pages\Concerns\HydePage
  */
-interface PageSchema extends NavigationSchema
+interface PageSchema extends FrontMatterSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',
-        'canonicalUrl'  => 'string(url)',
-        'navigation'    => 'array<navigation>',
+        'canonicalUrl'  => 'string',
+        'navigation'    => NavigationSchema::NAVIGATION_SCHEMA,
     ];
 }

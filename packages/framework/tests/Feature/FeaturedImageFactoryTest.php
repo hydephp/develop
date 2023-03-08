@@ -20,13 +20,13 @@ class FeaturedImageFactoryTest extends TestCase
     {
         $array = [
             'image.source' => 'source',
-            'image.description' => 'description',
-            'image.title' => 'title',
+            'image.altText' => 'description',
+            'image.titleText' => 'title',
             'image.copyright' => 'copyright',
-            'image.license' => 'license',
+            'image.licenseName' => 'license',
             'image.licenseUrl' => 'licenseUrl',
-            'image.author' => 'author',
-            'image.attributionUrl' => 'attributionUrl',
+            'image.authorName' => 'author',
+            'image.authorUrl' => 'authorUrl',
         ];
 
         $expected = [
@@ -34,7 +34,7 @@ class FeaturedImageFactoryTest extends TestCase
             'altText' => 'description',
             'titleText' => 'title',
             'authorName' => 'author',
-            'authorUrl' => 'attributionUrl',
+            'authorUrl' => 'authorUrl',
             'copyrightText' => 'copyright',
             'licenseName' => 'license',
             'licenseUrl' => 'licenseUrl',

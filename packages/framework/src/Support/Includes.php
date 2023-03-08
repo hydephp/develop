@@ -2,18 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Facades;
+namespace Hyde\Support;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
+/**
+ * The Includes facade provides a simple way to access partials in the includes directory.
+ *
+ * Both Markdown and Blade includes will be rendered to HTML.
+ */
 class Includes
 {
     /**
      * @var string The directory where includes are stored.
      */
-    protected static string $includesDirectory = 'resources/_includes';
+    protected static string $includesDirectory = 'resources/includes';
 
     /**
      * Return the path to the includes directory, or a partial within it, if requested.
@@ -51,9 +56,9 @@ class Includes
     /**
      * Get the rendered Markdown of a partial file in the includes directory.
      *
-     * @param  string  $filename  The name of the partial file, without the extension.
+     * @param  string  $filename  The name of the partial file, with or without the extension.
      * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return string|null The contents of the partial file, or the default value if not found.
+     * @return string|null The rendered contents of the partial file, or the default value if not found.
      */
     public static function markdown(string $filename, ?string $default = null): ?string
     {
@@ -69,9 +74,9 @@ class Includes
     /**
      * Get the rendered Blade of a partial file in the includes directory.
      *
-     * @param  string  $filename  The name of the partial file, without the extension.
+     * @param  string  $filename  The name of the partial file, with or without the extension.
      * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return string|null The contents of the partial file, or the default value if not found.
+     * @return string|null The rendered contents of the partial file, or the default value if not found.
      */
     public static function blade(string $filename, ?string $default = null): ?string
     {

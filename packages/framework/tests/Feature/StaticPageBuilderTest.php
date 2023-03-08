@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Facades\Site;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
@@ -58,7 +58,7 @@ class StaticPageBuilderTest extends TestCase
 
         $page = new BladePage('foo');
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
@@ -74,7 +74,7 @@ class StaticPageBuilderTest extends TestCase
             'author' => 'bar',
         ], '# Body');
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/posts/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/posts/foo.html')));
@@ -84,7 +84,7 @@ class StaticPageBuilderTest extends TestCase
     {
         $page = MarkdownPage::make('foo', [], '# Body');
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/foo.html')));
@@ -95,7 +95,7 @@ class StaticPageBuilderTest extends TestCase
     {
         $page = DocumentationPage::make('foo', [], '# Body');
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/'.'docs/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/'.'docs/foo.html')));
@@ -106,7 +106,7 @@ class StaticPageBuilderTest extends TestCase
         $this->file('_pages/foo.html', 'bar');
         $page = new HtmlPage('foo');
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
@@ -119,7 +119,7 @@ class StaticPageBuilderTest extends TestCase
         file_put_contents(Hyde::path('_pages/foo/bar.html'), 'baz');
         $page = new HtmlPage('foo/bar');
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/foo/bar.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo/bar.html'), 'baz');
@@ -136,7 +136,7 @@ class StaticPageBuilderTest extends TestCase
         Config::set('hyde.output_directories.documentation-page', 'docs/foo');
         (new HydeServiceProvider($this->app))->register(); // Re-register the service provider to pick up the new config.
 
-        new StaticPageBuilder($page, true);
+        StaticPageBuilder::handle($page);
 
         $this->assertFileExists(Hyde::path('_site/docs/foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/docs/foo/foo.html')));
@@ -145,9 +145,9 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_site_directory_can_be_customized()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::setOutputDirectory('foo');
 
-        new StaticPageBuilder(MarkdownPage::make('foo'), true);
+        StaticPageBuilder::handle(MarkdownPage::make('foo'));
 
         $this->assertFileExists(Hyde::path('foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('foo/foo.html')));
@@ -157,13 +157,49 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_site_directory_can_be_customized_with_nested_pages()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::setOutputDirectory('foo');
 
-        new StaticPageBuilder(MarkdownPost::make('foo'), true);
+        StaticPageBuilder::handle(MarkdownPost::make('foo'));
 
         $this->assertFileExists(Hyde::path('foo/posts/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('foo/posts/foo.html')));
 
         File::deleteDirectory(Hyde::path('foo'));
+    }
+
+    public function test_can_rebuild_blade_page()
+    {
+        $this->file('_pages/foo.blade.php');
+        StaticPageBuilder::handle(Pages::getPage('_pages/foo.blade.php'));
+
+        $this->assertFileExists('_site/foo.html');
+        unlink(Hyde::path('_site/foo.html'));
+    }
+
+    public function test_can_rebuild_markdown_page()
+    {
+        $this->file('_pages/foo.md');
+        StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
+
+        $this->assertFileExists('_site/foo.html');
+        unlink(Hyde::path('_site/foo.html'));
+    }
+
+    public function test_can_rebuild_markdown_post()
+    {
+        $this->file('_posts/foo.md');
+        StaticPageBuilder::handle(Pages::getPage('_posts/foo.md'));
+
+        $this->assertFileExists('_site/posts/foo.html');
+        unlink(Hyde::path('_site/posts/foo.html'));
+    }
+
+    public function test_can_rebuild_documentation_page()
+    {
+        $this->file('_pages/foo.md');
+        StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
+
+        $this->assertFileExists('_site/foo.html');
+        unlink(Hyde::path('_site/foo.html'));
     }
 }

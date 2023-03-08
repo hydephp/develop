@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Facades\Config;
-use function array_flip;
-use function config;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use function array_flip;
 use function in_array;
 use function is_a;
 
@@ -159,7 +158,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        return config("hyde.navigation.order.$this->routeKey");
+        return Config::getArray('hyde.navigation.order', [
+            'index' => 0,
+            'posts' => 10,
+            'docs/index' => 100,
+        ])[$this->routeKey] ?? null;
     }
 
     private function canUseSubdirectoryForGroups(): bool

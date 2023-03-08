@@ -65,4 +65,10 @@ abstract class BaseNavigationMenu
     {
         $this->items = $this->items->sortBy('priority')->values();
     }
+
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
 }

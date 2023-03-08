@@ -67,8 +67,8 @@
             "url": "./packages/*"
         },
         {
-          "type": "vcs",
-          "url": "https://github.com/caendesilva/psalm-coverage"
+            "type": "vcs",
+            "url": "https://github.com/caendesilva/psalm-coverage"
         }
     ]
 }

@@ -4,23 +4,30 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\Concerns;
 
+use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
-use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
 use function unslash;
+use function filled;
+use function ltrim;
+use function rtrim;
 
 /**
  * The base class for all Hyde pages.
@@ -41,9 +48,10 @@ use function unslash;
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class HydePage implements PageSchema
+abstract class HydePage implements PageSchema, SerializableContract
 {
     use InteractsWithFrontMatter;
+    use Serializable;
     use HasFactory;
 
     public static string $sourceDirectory;
@@ -51,15 +59,15 @@ abstract class HydePage implements PageSchema
     public static string $fileExtension;
     public static string $template;
 
-    public string $identifier;
-    public string $routeKey;
+    public readonly string $identifier;
+    public readonly string $routeKey;
 
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
+    public NavigationData $navigation;
 
     public string $title;
-    public ?string $canonicalUrl = null;
-    public ?NavigationData $navigation = null;
+    public ?string $canonicalUrl;
 
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
     {
@@ -70,10 +78,10 @@ abstract class HydePage implements PageSchema
     {
         $this->identifier = $identifier;
         $this->routeKey = RouteKey::fromPage(static::class, $identifier)->get();
-
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
-        $this->constructPageSchemas();
-        $this->metadata = new PageMetadataBag($this);
+
+        $this->constructFactoryData();
+        $this->constructMetadata();
     }
 
     // Section: State
@@ -126,7 +134,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\Concerns\HydePage>
+     * @return \Hyde\Foundation\Kernel\PageCollection<static>
      */
     public static function all(): PageCollection
     {
@@ -238,6 +246,23 @@ abstract class HydePage implements PageSchema
     abstract public function compile(): string;
 
     /**
+     * Get the instance as an array.
+     */
+    public function toArray(): array
+    {
+        return [
+            'class' => static::class,
+            'identifier' => $this->identifier,
+            'routeKey' => $this->routeKey,
+            'matter' => $this->matter,
+            'metadata' => $this->metadata,
+            'navigation' => $this->navigation,
+            'title' => $this->title,
+            'canonicalUrl' => $this->canonicalUrl,
+        ];
+    }
+
+    /**
      * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
@@ -282,7 +307,7 @@ abstract class HydePage implements PageSchema
      */
     public function getRoute(): Route
     {
-        return \Hyde\Facades\Route::get($this->getRouteKey()) ?? new Route($this);
+        return Routes::get($this->getRouteKey()) ?? new Route($this);
     }
 
     /**
@@ -328,7 +353,7 @@ abstract class HydePage implements PageSchema
      */
     public function title(): string
     {
-        return config('hyde.name', 'HydePHP').' - '.$this->title;
+        return Config::getString('hyde.name', 'HydePHP').' - '.$this->title;
     }
 
     public function metadata(): PageMetadataBag
@@ -338,21 +363,26 @@ abstract class HydePage implements PageSchema
 
     public function showInNavigation(): bool
     {
-        return ! $this->navigation['hidden'];
+        return ! $this->navigation->hidden;
     }
 
     public function navigationMenuPriority(): int
     {
-        return $this->navigation['priority'];
+        return $this->navigation->priority;
     }
 
     public function navigationMenuLabel(): string
     {
-        return $this->navigation['label'];
+        return $this->navigation->label;
     }
 
     public function navigationMenuGroup(): ?string
     {
-        return $this->navigation['group'];
+        return $this->navigation->group;
+    }
+
+    protected function constructMetadata(): void
+    {
+        $this->metadata = new PageMetadataBag($this);
     }
 }

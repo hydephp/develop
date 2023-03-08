@@ -60,7 +60,7 @@ class BaseFoundationCollectionTestClass extends BaseFoundationCollection
         $this->discovered = true;
     }
 
-    protected function runExtensionCallbacks(): void
+    protected function runExtensionHandlers(): void
     {
         //
     }
@@ -83,7 +83,7 @@ class ThrowingBaseFoundationCollectionTestClass extends BaseFoundationCollection
         throw new Exception('This is a test exception');
     }
 
-    protected function runExtensionCallbacks(): void
+    protected function runExtensionHandlers(): void
     {
         //
     }

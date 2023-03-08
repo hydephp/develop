@@ -11,7 +11,6 @@ use function config;
 use function get_class;
 use function glob;
 use Hyde\Console\ConsoleServiceProvider;
-use Hyde\Facades\Site;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Services\BuildTaskService;
@@ -142,13 +141,13 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_site_output_directory()
     {
-        $this->assertEquals('_site', Site::getOutputDirectory());
+        $this->assertEquals('_site', Hyde::getOutputDirectory());
 
         config(['hyde.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', Site::getOutputDirectory());
+        $this->assertEquals('foo', Hyde::getOutputDirectory());
     }
 
     public function test_provider_registers_media_directory()

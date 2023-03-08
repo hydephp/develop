@@ -17,14 +17,14 @@ class AnonymousViewCompilerTest extends TestCase
     {
         $this->file('foo.blade.php', "{{ 'Hello World' }}");
 
-        $this->assertSame('Hello World', AnonymousViewCompiler::call('foo.blade.php'));
+        $this->assertSame('Hello World', AnonymousViewCompiler::handle('foo.blade.php'));
     }
 
     public function testCanCompileBladeFileWithData()
     {
         $this->file('foo.blade.php', '{{ $foo }}');
 
-        $this->assertSame('bar', AnonymousViewCompiler::call('foo.blade.php', ['foo' => 'bar']));
+        $this->assertSame('bar', AnonymousViewCompiler::handle('foo.blade.php', ['foo' => 'bar']));
     }
 
     public function testWithMissingView()
@@ -32,6 +32,6 @@ class AnonymousViewCompilerTest extends TestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [foo.blade.php] not found.');
 
-        AnonymousViewCompiler::call('foo.blade.php');
+        AnonymousViewCompiler::handle('foo.blade.php');
     }
 }

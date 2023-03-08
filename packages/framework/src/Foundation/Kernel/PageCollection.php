@@ -33,18 +33,22 @@ final class PageCollection extends BaseFoundationCollection
     protected function runDiscovery(): void
     {
         $this->kernel->files()->each(function (SourceFile $file): void {
-            $this->addPage($file->model::parse(
-                $file->model::pathToIdentifier($file->getPath())
-            ));
+            $this->addPage($this->parsePage($file->pageClass, $file->getPath()));
         });
     }
 
-    protected function runExtensionCallbacks(): void
+    protected function runExtensionHandlers(): void
     {
         /** @var class-string<\Hyde\Foundation\Concerns\HydeExtension> $extension */
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverPages($this);
         }
+    }
+
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */
+    protected static function parsePage(string $pageClass, string $path)
+    {
+        return $pageClass::parse($pageClass::pathToIdentifier($path));
     }
 
     public function getPage(string $sourcePath): HydePage

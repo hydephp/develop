@@ -7,7 +7,15 @@ namespace Hyde\Framework\Services;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
+use function rtrim;
+use function explode;
+use function implode;
+use function md5_file;
+use function file_exists;
+use function str_replace;
+use function preg_replace;
 use function str_contains;
+use function file_get_contents;
 
 /**
  * Handles the retrieval of core asset files. Commonly used through the Asset facade.
@@ -22,10 +30,10 @@ use function str_contains;
 class AssetService
 {
     /** @var string The default HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
-    public final const HYDEFRONT_VERSION = 'v2.0';
+    final public const HYDEFRONT_VERSION = 'v2.0';
 
     /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
-    public final const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
+    final public const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
     protected string $version = self::HYDEFRONT_VERSION;
     protected string $cdnUrl = self::HYDEFRONT_CDN_URL;

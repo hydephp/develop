@@ -62,18 +62,6 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
-    {
-        $this->file('_docs/foo.md', "# Foo\n\nHello world.");
-
-        $page = DocumentationPage::parse('foo');
-
-        $this->assertEquals(
-            new SemanticDocumentationArticle($page),
-            SemanticDocumentationArticle::create($page)
-        );
-    }
-
     public function test_render_header_returns_the_extracted_header()
     {
         $this->assertSame(
@@ -201,7 +189,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_the_documentation_article_view()
     {
         $rendered = view('hyde::components.docs.documentation-article', [
-            'document' => $this->makeArticle(),
+            'page' => $this->makePage(),
         ])->render();
 
         $this->assertStringContainsString('<h1>Foo</h1>', $rendered);
@@ -212,7 +200,14 @@ class HydeSmartDocsTest extends TestCase
     {
         $this->file('_docs/foo.md', $sourceFileContents);
 
-        return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
+        return SemanticDocumentationArticle::make(DocumentationPage::parse('foo'));
+    }
+
+    protected function makePage(string $sourceFileContents = "# Foo\n\nHello world."): DocumentationPage
+    {
+        $this->file('_docs/foo.md', $sourceFileContents);
+
+        return DocumentationPage::parse('foo');
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void

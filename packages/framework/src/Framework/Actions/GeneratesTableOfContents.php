@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Facades\Config;
 use Hyde\Markdown\Models\Markdown;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\MarkdownConverter;
+use function strpos;
+use function substr;
 
 /**
- * Generates a table of contents for the Markdown document.
+ * Generates a table of contents for the Markdown document, most commonly used for the sidebar.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
-class GeneratesSidebarTableOfContents
+class GeneratesTableOfContents
 {
     protected string $markdown;
 
@@ -32,8 +35,8 @@ class GeneratesSidebarTableOfContents
                 'html_class' => 'table-of-contents',
                 'position' => 'top',
                 'style' => 'bullet',
-                'min_heading_level' => config('docs.table_of_contents.min_heading_level', 2),
-                'max_heading_level' => config('docs.table_of_contents.max_heading_level', 4),
+                'min_heading_level' => Config::getInt('docs.table_of_contents.min_heading_level', 2),
+                'max_heading_level' => Config::getInt('docs.table_of_contents.max_heading_level', 4),
                 'normalize' => 'relative',
             ],
             'heading_permalink' => [

@@ -170,23 +170,23 @@ class HydeKernelTest extends TestCase
     public function test_image_helper_returns_image_path_for_given_name()
     {
         Render::share('currentPage', 'foo');
-        $this->assertSame('media/foo.jpg', Hyde::image('foo.jpg'));
-        $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
+        $this->assertSame('media/foo.jpg', Hyde::asset('foo.jpg'));
+        $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
 
         Render::share('currentPage', 'foo/bar');
-        $this->assertSame('../media/foo.jpg', Hyde::image('foo.jpg'));
-        $this->assertSame('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
+        $this->assertSame('../media/foo.jpg', Hyde::asset('foo.jpg'));
+        $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
     }
 
     public function test_image_helper_trims_media_prefix()
     {
-        $this->assertSame('media/foo.jpg', Hyde::image('media/foo.jpg'));
+        $this->assertSame('media/foo.jpg', Hyde::asset('media/foo.jpg'));
     }
 
     public function test_image_helper_supports_custom_media_directories()
     {
         Hyde::setMediaDirectory('_assets');
-        $this->assertSame('assets/foo.jpg', Hyde::image('foo.jpg'));
+        $this->assertSame('assets/foo.jpg', Hyde::asset('foo.jpg'));
     }
 
     public function test_has_site_url_helper_returns_boolean_value_for_when_config_setting_is_set()
@@ -232,16 +232,16 @@ class HydeKernelTest extends TestCase
 
     public function test_fluent_model_source_path_helpers()
     {
-        $this->assertSame(Hyde::path('_posts'), Hyde::getModelSourcePath(MarkdownPost::class));
-        $this->assertSame(Hyde::path('_pages'), Hyde::getModelSourcePath(MarkdownPage::class));
-        $this->assertSame(Hyde::path('_docs'), Hyde::getModelSourcePath(DocumentationPage::class));
-        $this->assertSame(Hyde::path('_pages'), Hyde::getModelSourcePath(BladePage::class));
+        $this->assertSame(Hyde::path('_pages'), BladePage::path());
+        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
+        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
+        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
 
         $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
-        $this->assertSame(Hyde::path('_pages'), Hyde::getBladePagePath());
-        $this->assertSame(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
-        $this->assertSame(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
-        $this->assertSame(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
+        $this->assertSame(Hyde::path('_pages'), BladePage::path());
+        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
+        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
+        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
         $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
@@ -269,7 +269,7 @@ class HydeKernelTest extends TestCase
 
     public function test_json_serialize_method()
     {
-        $this->assertEquals(Hyde::kernel()->jsonSerialize(), Hyde::toArray());
+        $this->assertEquals(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
     }
 
     public function test_to_json_method()

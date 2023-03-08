@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
@@ -33,7 +35,7 @@ class NavItemTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        Render::swap(new \Hyde\Support\Models\Render());
+        Render::swap(new RenderData());
     }
 
     public function test__construct()
@@ -80,7 +82,7 @@ class NavItemTest extends UnitTestCase
     {
         Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
 
-        $this->assertSame('index.html', (string) NavItem::fromRoute(\Hyde\Facades\Route::get('index')));
+        $this->assertSame('index.html', (string) NavItem::fromRoute(Routes::get('index')));
     }
 
     public function testForLink()
@@ -99,7 +101,7 @@ class NavItemTest extends UnitTestCase
 
     public function testForRoute()
     {
-        $route = \Hyde\Facades\Route::get('index');
+        $route = Routes::get('404');
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route->getLink(), $item->destination);
@@ -107,10 +109,20 @@ class NavItemTest extends UnitTestCase
         $this->assertSame(999, $item->priority);
     }
 
+    public function testForIndexRoute()
+    {
+        $route = Routes::get('index');
+        $item = NavItem::forRoute($route, 'foo');
+
+        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame('foo', $item->label);
+        $this->assertSame(0, $item->priority);
+    }
+
     public function testForRouteWithRouteKey()
     {
         $this->assertEquals(
-            NavItem::forRoute(\Hyde\Facades\Route::get('index'), 'foo'),
+            NavItem::forRoute(Routes::get('index'), 'foo'),
             NavItem::forRoute('index', 'foo')
         );
     }
@@ -123,12 +135,12 @@ class NavItemTest extends UnitTestCase
 
     public function testForRouteWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::forRoute(\Hyde\Facades\Route::get('index'), 'foo', 100)->priority);
+        $this->assertSame(100, NavItem::forRoute(Routes::get('index'), 'foo', 100)->priority);
     }
 
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
             'getCurrentPage' => 'foo',
         ]));
@@ -136,7 +148,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
         $this->assertSame('foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar'))),
             'getCurrentPage' => 'foo/bar',
         ]));
@@ -144,7 +156,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('../foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
         $this->assertSame('../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar/baz'))),
             'getCurrentPage' => 'foo/bar/baz',
         ]));
@@ -155,7 +167,7 @@ class NavItemTest extends UnitTestCase
 
     public function testIsCurrent()
     {
-        Render::swap(Mockery::mock(\Hyde\Support\Models\Render::class, [
+        Render::swap(Mockery::mock(RenderData::class, [
             'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
             'getCurrentPage' => 'foo',
         ]));

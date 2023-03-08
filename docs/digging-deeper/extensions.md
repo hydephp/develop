@@ -14,7 +14,7 @@ The Hyde Realtime Compiler is now included with Hyde
 installations and is what powers the `php hyde serve` command.
 
 - **GitHub**: [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler)
-- **Packagist**: [hydephp/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler) 
+- **Packagist**: [hydephp/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler)
 - **YouTube video**: [Introducing the Hyde Realtime Compiler](https://www.youtube.com/watch?v=1ZM4fQMKi64)
 
 

@@ -9,25 +9,35 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
- * Prepares a Markdown file for further usage by extracting the Front Matter and creating MarkdownDocument object.
+ * Prepares a Markdown file for further usage by extracting the Front Matter
+ * and Markdown body, and creating MarkdownDocument object from them.
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownFileParserTest
  */
 class MarkdownFileParser
 {
     /**
+     * @param  string  $path  The path to the Markdown file tp parse.
+     * @return MarkdownDocument The processed Markdown file as a MarkdownDocument.
+     */
+    public static function parse(string $path): MarkdownDocument
+    {
+        return (new static($path))->get();
+    }
+
+    /**
      * The extracted Front Matter.
      */
-    public array $matter = [];
+    protected array $matter = [];
 
     /**
      * The extracted Markdown body.
      */
-    public string $markdown = '';
+    protected string $markdown = '';
 
-    public function __construct(string $localFilepath)
+    protected function __construct(string $path)
     {
-        $stream = Filesystem::getContents($localFilepath);
+        $stream = Filesystem::getContents($path);
 
         // Check if the file has Front Matter.
         if (str_starts_with($stream, '---')) {
@@ -45,16 +55,8 @@ class MarkdownFileParser
         }
     }
 
-    /**
-     * Get the processed Markdown file as a MarkdownDocument.
-     */
-    public function get(): MarkdownDocument
+    protected function get(): MarkdownDocument
     {
         return new MarkdownDocument($this->matter, $this->markdown);
-    }
-
-    public static function parse(string $filepath): MarkdownDocument
-    {
-        return (new self($filepath))->get();
     }
 }

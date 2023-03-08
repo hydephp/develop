@@ -4,25 +4,21 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
-use Hyde\Facades\Site;
+use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
-use Hyde\Hyde;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
-use function array_map;
-use function collect;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
-use function is_array;
-use function is_string;
+use function file_exists;
 use function str_replace;
-use function touch;
-use function unlink;
+use function array_map;
+use function is_string;
+use function is_array;
+use function collect;
 use function unslash;
+use function unlink;
+use function touch;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
@@ -109,12 +105,12 @@ class Filesystem
     public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
-            return $this->path(Site::getOutputDirectory());
+            return $this->path(Hyde::getOutputDirectory());
         }
 
         $path = unslash($path);
 
-        return $this->path(Site::getOutputDirectory()."/$path");
+        return $this->path(Hyde::getOutputDirectory()."/$path");
     }
 
     /**
@@ -187,46 +183,6 @@ class Filesystem
         }
 
         return false;
-    }
-
-    /**
-     * Fluent file helper methods.
-     *
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
-     *
-     * Provides a more fluent way of getting either the absolute path
-     * to a model's source directory, or an absolute path to a file within it.
-     *
-     * These are intended to be used as a dynamic alternative to legacy code
-     * Hyde::path('_pages/foo') becomes Hyde::getBladePagePath('foo')
-     */
-    public function getModelSourcePath(string $model, string $path = ''): string
-    {
-        if (empty($path)) {
-            return $this->path($model::sourceDirectory());
-        }
-
-        return $this->path(path_join($model::sourceDirectory(), unslash($path)));
-    }
-
-    public function getBladePagePath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(BladePage::class, $path);
-    }
-
-    public function getMarkdownPagePath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(MarkdownPage::class, $path);
-    }
-
-    public function getMarkdownPostPath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(MarkdownPost::class, $path);
-    }
-
-    public function getDocumentationPagePath(string $path = ''): string
-    {
-        return $this->getModelSourcePath(DocumentationPage::class, $path);
     }
 
     public function smartGlob(string $pattern, int $flags = 0): Collection

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
-use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -49,7 +49,7 @@ class HydeKernel implements SerializableContract
     use Serializable;
     use Macroable;
 
-    final public const VERSION = '1.0.0-dev';
+    final public const VERSION = '1.0.0-RC.1';
 
     protected static self $instance;
 

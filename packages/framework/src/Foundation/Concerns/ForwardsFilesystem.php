@@ -28,31 +28,6 @@ trait ForwardsFilesystem
         return $this->filesystem->vendorPath($path, $package);
     }
 
-    public function getModelSourcePath(string $model, string $path = ''): string
-    {
-        return $this->filesystem->getModelSourcePath($model, $path);
-    }
-
-    public function getBladePagePath(string $path = ''): string
-    {
-        return $this->filesystem->getBladePagePath($path);
-    }
-
-    public function getMarkdownPagePath(string $path = ''): string
-    {
-        return $this->filesystem->getMarkdownPagePath($path);
-    }
-
-    public function getMarkdownPostPath(string $path = ''): string
-    {
-        return $this->filesystem->getMarkdownPostPath($path);
-    }
-
-    public function getDocumentationPagePath(string $path = ''): string
-    {
-        return $this->filesystem->getDocumentationPagePath($path);
-    }
-
     public function mediaPath(string $path = ''): string
     {
         return $this->filesystem->mediaPath($path);

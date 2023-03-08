@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Facades\Config;
-use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 use function Hyde\unixsum_file;
+use function file_put_contents;
+use function file_exists;
+use function json_encode;
+use function now;
 
 /**
  * The build manifest contains a list of all pages and their source and output paths.

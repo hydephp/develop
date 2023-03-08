@@ -19,7 +19,7 @@ Example: `_posts/hello-world.md`
 
 ### Anatomy of a File Name
 Hyde makes frequent references to file names. Here are some visualizations of the different parts of a file name.
- 
+
 #### Slug (Basename/Identifier)
 _posts/**hello-world**.md
 

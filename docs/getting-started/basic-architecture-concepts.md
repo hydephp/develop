@@ -13,7 +13,7 @@ HydePHP contains a few "magic" features so that you can focus on your content. I
 ## The HydeCLI
 
 When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the
-Hyde Command Line Interface (CLI). 
+Hyde Command Line Interface (CLI).
 Since the CLI is based on the Laravel Artisan Console, so you may actually already be familiar with it.
 
 You should take a look at [the Console Commands page](console-commands)
@@ -70,7 +70,7 @@ Default media file types supported: `.png`, `.svg`, `.jpg`, `.jpeg`, `.gif`, `.i
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
-However, Hyde also strives to be modular and endlessly customizable hackable if you need it. 
+However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
 Take a look at the [customization and configuration guide](customization) to see the endless options available!
 
 ## Front Matter
@@ -135,23 +135,23 @@ Don't worry if this sounds complex, as the key takeaway is that the index is cre
 
 ### Accessing routes
 
-Each route in your site is represented by a Route object. It's very easy to get a Route object instance from the Router's index. There are a few ways to do this, but most commonly you'll use the Route facade's `get()` method where you provide a route key, and it will return the Route object. The route key is generally `<output-directory/slug>`. Here are some examples:
+Each route in your site is represented by a Route object. It's very easy to get a Route object instance from the Router's index. There are a few ways to do this, but most commonly you'll use the Routes facade's `get()` method where you provide a route key, and it will return the Route object. The route key is generally `<output-directory/slug>`. Here are some examples:
 
 ```php
 // Source file: _pages/index.md/index.blade.php
 // Compiled file: _site/index.html
-Route::get('index') 
+Routes::get('index') 
 
 // Source file: _posts/my-post.md
 // Compiled file: _site/posts/my-post.html
-Route::get('posts/my-post')
+Routes::get('posts/my-post')
 
 // Source file: _docs/readme.md
 // Compiled file: _site/docs/readme.html
-Route::get('docs/readme')
+Routes::get('docs/readme')
 ```
 
->info Tip: You can also use "dot notation" instead of slashes, for example `Route::get('posts.my-post')`.
+>info Tip: You can also use "dot notation" instead of slashes, for example `Routes::get('posts.my-post')`.
 
 ### Using the `x-link` component
 
@@ -165,12 +165,12 @@ You can of course, use it just like a normal anchor tag like so:
 But where it really shines is when you supply a route. This will then resolve the proper relative link, and format it to use pretty URLs if your site is configured to use them.
 
 ```blade
-<x-link :href="Route::get('index')">Home</x-link>
+<x-link :href="Routes::get('index')">Home</x-link>
 ```
 
 You can of course, also supply extra attributes like classes:
 ```blade
-<x-link :href="Route::get('index')" class="btn btn-primary">Home</x-link>
+<x-link :href="Routes::get('index')" class="btn btn-primary">Home</x-link>
 ```
 
 ## Nested directories
@@ -187,7 +187,7 @@ Simply put, a nested directory in Hyde is a source directory that contains a sub
 
 #### Automatically routed pages
 
-As it is now, when you put a source file within a subdirectory of one of the following, it will be compiled into the corresponding output directory. 
+As it is now, when you put a source file within a subdirectory of one of the following, it will be compiled into the corresponding output directory.
 
 The following page types use this behaviour:
 - Blade pages (`_pages/`)

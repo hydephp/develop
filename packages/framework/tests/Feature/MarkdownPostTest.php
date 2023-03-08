@@ -101,7 +101,7 @@ class MarkdownPostTest extends TestCase
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_supplied_data_when_matter_is_array()
     {
-        $page = MarkdownPost::make(matter: ['image' => ['source' => 'foo.png', 'title' => 'bar']]);
+        $page = MarkdownPost::make(matter: ['image' => ['source' => 'foo.png', 'titleText' => 'bar']]);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('media/foo.png', $image->getSource());

@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Processing;
 
+use Hyde\Facades\Config;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\HtmlString;
+use function preg_replace;
+use function str_ireplace;
 use function strtolower;
+use function str_replace;
+use function explode;
+use function implode;
+use function sprintf;
+use function trim;
+use function view;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
@@ -16,6 +25,17 @@ use function strtolower;
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
+    protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
+
+    protected static array $patterns = [
+        '// filepath: ',
+        '// filepath ',
+        '/* filepath: ',
+        '/* filepath ',
+        '# filepath: ',
+        '# filepath ',
+    ];
+
     /**
      * Extract lines matching the shortcode pattern and replace them with meta-blocks that will be processed later.
      */
@@ -26,7 +46,8 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         foreach ($lines as $index => $line) {
             if (static::lineMatchesPattern($line)) {
                 // Add the meta-block two lines before the pattern, placing it just above the code block.
-                // This prevents the meta-block from interfering with other processes.
+                // This prevents the meta-block from interfering with other processes during compile.
+                // We then replace these markers in the post-processor.
                 $lines[$index - 2] .= sprintf(
                     "\n<!-- HYDE[Filepath]%s -->",
                     trim(str_ireplace(static::$patterns, '', $line))
@@ -60,24 +81,13 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
                 $label = static::resolveTemplate($path);
 
                 $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
-                ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
-                : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
+                    ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
+                    : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
             }
         }
 
         return implode("\n", $lines);
     }
-
-    protected static array $patterns = [
-        '// filepath: ',
-        '// filepath ',
-        '/* filepath: ',
-        '/* filepath ',
-        '# filepath: ',
-        '# filepath ',
-    ];
-
-    protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
 
     protected static function lineMatchesPattern(string $line): bool
     {
@@ -100,7 +110,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function resolveTemplate(string $path): string
     {
         return view('hyde::components.filepath-label', [
-            'path' => config('markdown.allow_html') ? new HtmlString($path) : $path,
+            'path' => Config::getBool('markdown.allow_html', false) ? new HtmlString($path) : $path,
         ])->render();
     }
 

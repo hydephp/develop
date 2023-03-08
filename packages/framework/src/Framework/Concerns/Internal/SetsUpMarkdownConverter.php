@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Facades\Config;
 use Hyde\Markdown\Processing\BladeDownProcessor;
-use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
+use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
 use Torchlight\Commonmark\V2\TorchlightExtension;
+use function array_merge;
+use function in_array;
 
 /**
  * Sets up the Markdown converter for the Markdown service.
@@ -28,21 +31,21 @@ trait SetsUpMarkdownConverter
             $this->addExtension(TorchlightExtension::class);
         }
 
-        if (config('markdown.allow_html', false)) {
+        if (Config::getBool('markdown.allow_html', false)) {
             $this->enableAllHtmlElements();
         }
     }
 
     protected function enableConfigDefinedExtensions(): void
     {
-        foreach (config('markdown.extensions', []) as $extensionClassName) {
+        foreach (Config::getArray('markdown.extensions', []) as $extensionClassName) {
             $this->addExtension($extensionClassName);
         }
     }
 
     protected function mergeMarkdownConfiguration(): void
     {
-        $this->config = array_merge(config('markdown.config', []), $this->config);
+        $this->config = array_merge(Config::getArray('markdown.config', []), $this->config);
     }
 
     public function initializeExtension(string $extensionClassName): void
@@ -52,7 +55,7 @@ trait SetsUpMarkdownConverter
 
     protected function registerPreProcessors(): void
     {
-        $this->registerPreProcessor(BladeDownProcessor::class, config('markdown.enable_blade', false));
+        $this->registerPreProcessor(BladeDownProcessor::class, Config::getBool('markdown.enable_blade', false));
 
         $this->registerPreProcessor(ShortcodeProcessor::class);
         $this->registerPreProcessor(CodeblockFilepathProcessor::class);
@@ -62,12 +65,12 @@ trait SetsUpMarkdownConverter
     {
         $this->registerPostProcessor(
             BladeDownProcessor::class,
-            config('markdown.enable_blade', false)
+            Config::getBool('markdown.enable_blade', false)
         );
 
         $this->registerPostProcessor(
             CodeblockFilepathProcessor::class,
-            config('markdown.features.codeblock_filepaths', true)
+            Config::getBool('markdown.features.codeblock_filepaths', true)
         );
     }
 

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
-use function app;
-use function array_merge;
-use Composer\InstalledVersions;
-use function config;
-use Desilva\Microserve\Request;
-use function file_get_contents;
-use Hyde\Framework\Actions\AnonymousViewCompiler;
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
-use function sprintf;
-use function str_replace;
+use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Actions\AnonymousViewCompiler;
+use Desilva\Microserve\Request;
+use Composer\InstalledVersions;
+use function file_get_contents;
 use function str_starts_with;
+use function str_replace;
+use function array_merge;
+use function sprintf;
+use function config;
+use function app;
 
 class DashboardController
 {
@@ -29,7 +29,7 @@ class DashboardController
 
     public function show(): string
     {
-        return AnonymousViewCompiler::call(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
+        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
             (array) $this, ['dashboard' => $this, 'request' => Request::capture()],
         ));
     }
@@ -65,7 +65,7 @@ class DashboardController
     // This method is called from the PageRouter and allows us to serve a dynamic welcome page
     public static function renderIndexPage(HydePage $page): string
     {
-        $contents = file_get_contents((new StaticPageBuilder($page))->__invoke());
+        $contents = file_get_contents(StaticPageBuilder::handle($page));
 
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {

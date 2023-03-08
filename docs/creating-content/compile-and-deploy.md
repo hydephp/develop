@@ -80,5 +80,5 @@ Hyde works amazing with GitHub Pages and GitHub Actions and the entire build and
 - You can also copy our sample [GitHub Actions Workflow.yml file](https://github.com/hyde-staging/ci-demo/blob/master/.github/workflows/main.yml).
 
 
-By the way, HydePHP.com is hosted on GitHub Pages, and the site is compiled in a GitHub Action workflow that compiles and 
+By the way, HydePHP.com is hosted on GitHub Pages, and the site is compiled in a GitHub Action workflow that compiles and
 deploys the site automatically when the source is updated using [this GitHub workflow](https://github.com/hydephp/hydephp.com/blob/master/.github/workflows/build.yml).

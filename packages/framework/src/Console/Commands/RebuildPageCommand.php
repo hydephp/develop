@@ -7,10 +7,14 @@ namespace Hyde\Console\Commands;
 use Exception;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Illuminate\Console\OutputStyle;
 use function dirname;
 use function file_exists;
@@ -21,7 +25,7 @@ use function unslash;
 /**
  * Hyde Command to build a single static site file.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\RebuildPageCommand
+ * @see \Hyde\Framework\Testing\Feature\Commands\RebuildPageCommandTest
  */
 class RebuildPageCommand extends Command
 {
@@ -67,7 +71,7 @@ class RebuildPageCommand extends Command
             {
                 $this->validate();
 
-                (new RebuildService($this->path))->execute();
+                StaticPageBuilder::handle(Pages::getPage($this->path));
             }
 
             public function printFinishMessage(): void
@@ -82,11 +86,11 @@ class RebuildPageCommand extends Command
                 $directory = Hyde::pathToRelative(dirname($this->path));
 
                 $directories = [
-                    Hyde::pathToRelative(Hyde::getBladePagePath()),
-                    Hyde::pathToRelative(Hyde::getBladePagePath()),
-                    Hyde::pathToRelative(Hyde::getMarkdownPagePath()),
-                    Hyde::pathToRelative(Hyde::getMarkdownPostPath()),
-                    Hyde::pathToRelative(Hyde::getDocumentationPagePath()),
+                    Hyde::pathToRelative(BladePage::path()),
+                    Hyde::pathToRelative(BladePage::path()),
+                    Hyde::pathToRelative(MarkdownPage::path()),
+                    Hyde::pathToRelative(MarkdownPost::path()),
+                    Hyde::pathToRelative(DocumentationPage::path()),
                 ];
 
                 if (! in_array($directory, $directories)) {

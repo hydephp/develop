@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use function array_combine;
-use function collect;
-use Hyde\Framework\Features\Paginator;
+use Hyde\Support\Paginator;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
-use function range;
 
 /**
- * @covers \Hyde\Framework\Features\Paginator
+ * @covers \Hyde\Support\Paginator
  */
 class PaginatorTest extends TestCase
 {

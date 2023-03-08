@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Facades\Config;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
+use function substr_count;
+use function file_exists;
+use function str_replace;
+use function str_repeat;
+use function substr;
+use function blank;
+use function rtrim;
+use function trim;
 
 /**
  * Contains helpers and logic for resolving web paths for compiled files.
@@ -32,7 +41,7 @@ class Hyperlinks
      */
     public function formatLink(string $destination): string
     {
-        if (config('hyde.pretty_urls', false) === true) {
+        if (Config::getBool('hyde.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';
@@ -93,10 +102,8 @@ class Hyperlinks
      *
      * If true is passed as the second argument, and a base URL is set,
      * the image will be returned with a qualified absolute URL.
-     *
-     * @todo Rename to asset? Or just merge with mediaLink?
      */
-    public function image(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name, bool $preferQualifiedUrl = false): string
     {
         if (str_starts_with($name, 'http')) {
             return $name;
@@ -116,7 +123,7 @@ class Hyperlinks
      */
     public function hasSiteUrl(): bool
     {
-        return ! blank(config('hyde.url'));
+        return ! blank(Config::getNullableString('hyde.url'));
     }
 
     /**
@@ -131,7 +138,7 @@ class Hyperlinks
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim((string) config('hyde.url'), '/')."/$path", '/');
+            return rtrim(rtrim((string) Config::getNullableString('hyde.url'), '/')."/$path", '/');
         }
 
         throw new BaseUrlNotSetException();

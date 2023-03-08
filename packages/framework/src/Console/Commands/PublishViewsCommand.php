@@ -6,6 +6,9 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Artisan;
+use function str_replace;
+use function sprintf;
+use function strstr;
 
 /**
  * Publish the Hyde Blade views.

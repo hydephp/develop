@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -72,7 +71,7 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_search_files_can_be_generated_for_custom_site_output_directory()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::setOutputDirectory('foo');
 
         $this->artisan('build:search')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('foo/docs/search.json'));
@@ -83,7 +82,7 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_search_files_can_be_generated_for_custom_site_and_docs_output_directories()
     {
-        Site::setOutputDirectory('foo');
+        Hyde::setOutputDirectory('foo');
         DocumentationPage::setOutputDirectory('bar');
 
         $this->artisan('build:search')->assertExitCode(0);
@@ -95,7 +94,7 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_search_files_can_be_generated_for_custom_site_and_nested_docs_output_directories()
     {
-        Site::setOutputDirectory('foo/bar');
+        Hyde::setOutputDirectory('foo/bar');
         DocumentationPage::setOutputDirectory('baz');
 
         $this->artisan('build:search')->assertExitCode(0);

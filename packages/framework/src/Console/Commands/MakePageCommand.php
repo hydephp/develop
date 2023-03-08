@@ -63,7 +63,7 @@ class MakePageCommand extends Command
 
         $creator = new CreatesNewPageSourceFile($this->title, $this->pageClass, $this->force);
 
-        $this->info("Created file {$creator->getOutputPath()}");
+        $this->info("Created file {$creator->save()}");
 
         return Command::SUCCESS;
     }

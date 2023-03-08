@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features;
+namespace Hyde\Support;
 
-use function collect;
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use function range;
+use Hyde\Support\Models\Route;
+use Hyde\Foundation\Facades\Routes;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
+use function collect;
 use function sprintf;
+use function range;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PaginatorTest
@@ -81,7 +82,7 @@ class Paginator
         $pageRange = range(1, $this->totalPages());
         if (isset($this->routeBasename)) {
             foreach ($pageRange as $number) {
-                $array[$number] = \Hyde\Facades\Route::get("$this->routeBasename/page-$number") ?? Hyde::formatLink("$this->routeBasename/page-$number");
+                $array[$number] = Routes::get("$this->routeBasename/page-$number") ?? Hyde::formatLink("$this->routeBasename/page-$number");
             }
         } else {
             foreach ($pageRange as $number) {
@@ -200,7 +201,7 @@ class Paginator
 
     protected function getRoute(int $offset): Route|string
     {
-        return \Hyde\Facades\Route::get("$this->routeBasename/{$this->formatPageName($offset)}") ?? Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
+        return Routes::get("$this->routeBasename/{$this->formatPageName($offset)}") ?? Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
     }
 
     protected function firstPage(): int
