@@ -36,7 +36,7 @@ php hyde <command> --help
 Here is a quick reference of all the available commands. You can also run `php hyde list` to see this list.
 
 | Command                                | Description                                                                                  |
-|----------------------------------------|----------------------------------------------------------------------------------------------|
+| -------------------------------------- | -------------------------------------------------------------------------------------------- |
 | [`build`](#build)                      | Build the static site                                                                        |
 | [`serve`](#serve)                      | Start the realtime compiler server.                                                          |
 | [`rebuild`](#rebuild)                  | Run the static site builder for a single file                                                |
@@ -65,9 +65,8 @@ Build the static site
 
 ### Options
 
-
-|         |                                         |
-|------------------|--------------------------------------------|
+|                  |                                            |
+| ---------------- | ------------------------------------------ |
 | `--run-dev`      | Run the NPM dev script after build         |
 | `--run-prod`     | Run the NPM prod script after build        |
 | `--run-prettier` | Format the output using NPM Prettier       |
@@ -86,7 +85,7 @@ Run the static site builder for a single file
 
 ### Arguments
 
-#### `path`  :  The relative file path (example: _posts/hello-world.md) \n - Is required: yes
+#### `path` : The relative file path (example: \_posts/hello-world.md) \n - Is required: yes
 
 ### Options
 
@@ -103,7 +102,7 @@ Start the realtime compiler server.
 ### Options
 
 |          |                                               |
-|----------|-----------------------------------------------|
+| -------- | --------------------------------------------- |
 | `--host` | [default: "localhost"] \n - Accept value: yes |
 | `--port` | [default: 8080] \n - Accept value: yes        |
 
@@ -167,12 +166,12 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Arguments
 
-#### `title`  :  The name of the page file to create. Will be used to generate the slug
+#### `title` : The name of the page file to create. Will be used to generate the slug
 
 ### Options
 
 |           |                                                                                                       |
-|-----------|-------------------------------------------------------------------------------------------------------|
+| --------- | ----------------------------------------------------------------------------------------------------- |
 | `--type`  | The type of page to create (markdown, blade, or docs) \n- Accept value: yes \n- Default: `'markdown'` |
 | `--blade` | Create a Blade page                                                                                   |
 | `--docs`  | Create a Documentation page                                                                           |
@@ -190,12 +189,12 @@ Scaffold a new Markdown blog post file
 
 ### Arguments
 
-#### `title`  :  The title for the Post. Will also be used to generate the filename
+#### `title` : The title for the Post. Will also be used to generate the filename
 
 ### Options
 
 |           |                                                                            |
-|-----------|----------------------------------------------------------------------------|
+| --------- | -------------------------------------------------------------------------- |
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
 ## `publish:configs`
@@ -222,12 +221,12 @@ Publish one of the default homepages to index.blade.php.
 
 ### Arguments
 
-#### `homepage`  :  The name of the page to publish
+#### `homepage` : The name of the page to publish
 
 ### Options
 
 |           |                              |
-|-----------|------------------------------|
+| --------- | ---------------------------- |
 | `--force` | Overwrite any existing files |
 
 ## `publish:views`
@@ -242,7 +241,7 @@ Publish the hyde components for customization. Note that existing files will be 
 
 ### Arguments
 
-#### `category`  :  The category to publish
+#### `category` : The category to publish
 
 ### Options
 
