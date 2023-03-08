@@ -36,23 +36,23 @@ php hyde <command> --help
 Here is a quick reference of all the available commands. You can also run `php hyde list` to see this list.
 
 
-| Command                                 | Description                                                                                  |
-|-----------------------------------------|----------------------------------------------------------------------------------------------|
-| [`build`](#build)                       | Build the static site                                                                        |
-| [`serve`](#serve)                       | Start the realtime compiler server.                                                          |
-| [`rebuild`](#rebuild)                   | Run the static site builder for a single file                                                |
-| [`build:rss`](#build-rss)               | Generate the RSS feed                                                                        |
-| [`build:search`](#build-search)         | Generate the docs/search.json                                                                |
-| [`build:sitemap`](#build-sitemap)       | Generate the sitemap.xml                                                                     |
-| [`make:page`](#make-page)               | Scaffold a new Markdown, Blade, or documentation page file                                   |
-| [`make:post`](#make-post)               | Scaffold a new Markdown blog post file                                                       |
-| [`publish:configs`](#publish-configs)   | Publish the default configuration files                                                      |
-| [`publish:homepage`](#publish-homepage) | Publish one of the default homepages to index.blade.php.                                     |
-| [`publish:views`](#publish-views)       | Publish the hyde components for customization. Note that existing files will be overwritten. |
-| [`vendor:publish`](#vendor-publish)     | Publish any publishable assets from vendor packages                                          |
-| [`route:list`](#route-list)             | Display all registered routes.                                                               |
-| [`validate`](#validate)                 | Run a series of tests to validate your setup and help you optimize your site.                |
-| [`list`](#list)                         | List all available commands.                                                                 |
+| Command                                | Description                                                                                  |
+|----------------------------------------|----------------------------------------------------------------------------------------------|
+| [`build`](#build)                      | Build the static site                                                                        |
+| [`serve`](#serve)                      | Start the realtime compiler server.                                                          |
+| [`rebuild`](#rebuild)                  | Run the static site builder for a single file                                                |
+| [`build:rss`](#buildrss)               | Generate the RSS feed                                                                        |
+| [`build:search`](#buildsearch)         | Generate the docs/search.json                                                                |
+| [`build:sitemap`](#buildsitemap)       | Generate the sitemap.xml                                                                     |
+| [`make:page`](#makepage)               | Scaffold a new Markdown, Blade, or documentation page file                                   |
+| [`make:post`](#makepost)               | Scaffold a new Markdown blog post file                                                       |
+| [`publish:configs`](#publishconfigs)   | Publish the default configuration files                                                      |
+| [`publish:homepage`](#publishhomepage) | Publish one of the default homepages to index.blade.php.                                     |
+| [`publish:views`](#publishviews)       | Publish the hyde components for customization. Note that existing files will be overwritten. |
+| [`vendor:publish`](#vendorpublish)     | Publish any publishable assets from vendor packages                                          |
+| [`route:list`](#routelist)             | Display all registered routes.                                                               |
+| [`validate`](#validate)                | Run a series of tests to validate your setup and help you optimize your site.                |
+| [`list`](#list)                        | List all available commands.                                                                 |
 
 
 
