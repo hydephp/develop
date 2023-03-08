@@ -44,6 +44,7 @@ final class RouteKey implements Stringable
         return $this->key;
     }
 
+    /** @deprecated v1.0.0-RC.2 - This method will be removed before v1.0.0 */
     public static function normalize(string $string): string
     {
         return $string;
