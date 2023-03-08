@@ -42,4 +42,10 @@ The recommended method of installation is using Composer.
 composer create-project hyde/hyde --stability=rc
 ```
 
+Once installed, you can access the HydeCLI from the project root using the `hyde` command.
+
+```bash
+php hyde info
+```
+
 ### To learn more, head over to the [quickstart page](quickstart).
