@@ -66,7 +66,7 @@ Build the static site
 ### Options
 
 
-| ----             | ---                                        |
+|         |                                         |
 |------------------|--------------------------------------------|
 | `--run-dev`      | Run the NPM dev script after build         |
 | `--run-prod`     | Run the NPM prod script after build        |
@@ -102,7 +102,7 @@ Start the realtime compiler server.
 
 ### Options
 
-| ----     | ---                                           |
+|          |                                               |
 |----------|-----------------------------------------------|
 | `--host` | [default: "localhost"] \n - Accept value: yes |
 | `--port` | [default: 8080] \n - Accept value: yes        |
@@ -171,7 +171,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Options
 
-| ----      | ---                                                                                                   |
+|           |                                                                                                       |
 |-----------|-------------------------------------------------------------------------------------------------------|
 | `--type`  | The type of page to create (markdown, blade, or docs) \n- Accept value: yes \n- Default: `'markdown'` |
 | `--blade` | Create a Blade page                                                                                   |
@@ -194,7 +194,7 @@ Scaffold a new Markdown blog post file
 
 ### Options
 
-| ----      | ---                                                                        |
+|           |                                                                            |
 |-----------|----------------------------------------------------------------------------|
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
@@ -226,9 +226,9 @@ Publish one of the default homepages to index.blade.php.
 
 ### Options
 
-| ----        | ---                            |
-|-------------|--------------------------------|
-| `--force`   | Overwrite any existing files   |
+|           |                              |
+|-----------|------------------------------|
+| `--force` | Overwrite any existing files |
 
 ## `publish:views`
 
@@ -282,7 +282,7 @@ Publish any publishable assets from vendor packages
 
 ### Options
 
-| ----         | ---                                                                                                                      |
+|              |                                                                                                                          |
 |--------------|--------------------------------------------------------------------------------------------------------------------------|
 | `--existing` | Publish and overwrite only the files that have already been published                                                    |
 | `--force`    | Overwrite any existing files                                                                                             |
