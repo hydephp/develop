@@ -9,7 +9,6 @@ navigation:
 
 HydePHP contains a few "magic" features so that you can focus on your content. It's encouraged that you read this page to get a high-level overview of what's going on behind the scenes.
 
-
 ## The HydeCLI
 
 When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the
@@ -29,7 +28,7 @@ To take full advantage of the framework, it may first be good to familiarize our
 
 ```
 // torchlight! {"lineNumbers": false}
-├── _docs  // For documentation pages              
+├── _docs  // For documentation pages
 ├── _posts // For blog posts
 ├── _pages // For static Markdown and Blade pages
 ├── _media // Store static assets to be copied to the build directory
@@ -38,7 +37,6 @@ To take full advantage of the framework, it may first be good to familiarize our
 ├── resources/assets // Location for Laravel Mix source files (optional)
 └── resources/views/components // Location for Blade components (optional)
 ```
-
 
 ## File Autodiscovery
 
@@ -117,7 +115,6 @@ To create BladeMatter, you simply use the default Laravel Blade `@php` directive
 
 It will then be available through the global `$page` variable, `$page->matter('title')`.
 
-
 ## Automatic Routing
 
 >info This covers an intermediate topic which is not required for basic usage, but is useful if you want to use the framework to design custom Blade templates.
@@ -137,7 +134,7 @@ Each route in your site is represented by a Route object. It's very easy to get 
 ```php
 // Source file: _pages/index.md/index.blade.php
 // Compiled file: _site/index.html
-Routes::get('index') 
+Routes::get('index')
 
 // Source file: _posts/my-post.md
 // Compiled file: _site/posts/my-post.html

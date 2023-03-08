@@ -24,7 +24,6 @@ You should also have [Composer](https://getcomposer.org/) installed.
 To use some features like [compiling your own assets](managing-assets)
 you also need NodeJS and NPM.
 
-
 ## Using the Hyde CLI
 
 The main way to interact with Hyde is through the [HydeCLI](console-commands).
@@ -42,12 +41,11 @@ php hyde serve
 ```
 Simply run the serve command, and you will be able to preview your site at [http://localhost:8000](http://localhost:8000).
 
-
 ## Creating content
 
 ### Directory structure
 
-Creating content with Hyde is easy! Simply place source files in one of the source directories, 
+Creating content with Hyde is easy! Simply place source files in one of the source directories,
 and Hyde will automatically discover, parse, and compile them to static HTML.
 The directory and file extension of a source file will determine how HydePHP parses and compiles it.
 Please see the [directory structure](architecture-concepts#directory-structure) section for more information.
@@ -76,7 +74,6 @@ php hyde build
 When building the site, Hyde will scan your source directories for files and compile them into static HTML using the appropriate layout depending
 on what kind of page it is. You don't have to worry about routing as Hyde takes care of everything, including creating navigation menus!
 
-
 ### Managing assets
 
 Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to. See more on the [Managing Assets](managing-assets) page.
@@ -89,7 +86,6 @@ Simply copy the `_site` directory to your web server's document root, and you're
 
 You can even use GitHub pages to host your site for free. That's what the Hyde website does,
 using a CI that automatically builds and deploys this site.
-
 
 ## Further reading
 

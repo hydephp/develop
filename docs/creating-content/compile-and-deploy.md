@@ -9,6 +9,7 @@ navigation:
 ## Running the build command
 
 ### Compile the entire site to static HTML
+
 Now that you have some amazing content, you'll want to compile your site into static HTML.
 
 **This is as easy as executing the `build` command:**
@@ -36,8 +37,8 @@ php hyde serve
 - [Rebuild command](console-commands#build-a-single-file)
 - [Serve command](console-commands#start-the-realtime-compiler)
 
-
 #### Key Concept: Autodiscovery
+
 When building the site, Hyde will your source directories for files and compile them into static HTML using the appropriate layout depending on what kind of page it is. You don't have to worry about routing as Hyde takes care of that, including creating navigation menus!
 
 ---
@@ -78,7 +79,6 @@ Hyde works amazing with GitHub Pages and GitHub Actions and the entire build and
 - We have a great blog post on how to do this, [Automate HydePHP sites using GitHub Actions and GitHub Pages](https://hydephp.com/posts/github-actions-deployment).
 
 - You can also copy our sample [GitHub Actions Workflow.yml file](https://github.com/hyde-staging/ci-demo/blob/master/.github/workflows/main.yml).
-
 
 By the way, HydePHP.com is hosted on GitHub Pages, and the site is compiled in a GitHub Action workflow that compiles and
 deploys the site automatically when the source is updated using [this GitHub workflow](https://github.com/hydephp/hydephp.com/blob/master/.github/workflows/build.yml).

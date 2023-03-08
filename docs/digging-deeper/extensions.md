@@ -17,16 +17,17 @@ installations and is what powers the `php hyde serve` command.
 - **Packagist**: [hydephp/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler)
 - **YouTube video**: [Introducing the Hyde Realtime Compiler](https://www.youtube.com/watch?v=1ZM4fQMKi64)
 
-
 ## Integrations with third-party tools
 
 ### Torchlight
 
 #### About Torchlight
+
 Torchlight is an amazing API for syntax highlighting and is what this site uses.
 I cannot recommend it highly enough, especially for documentation sites and code-heavy blogs!
 
 #### Getting started
+
 To get started you need an API token which you can get through the [torchlight.dev website](https://torchlight.dev/).
 It is entirely [free for personal and open source projects](https://torchlight.dev/#pricing).
 
@@ -47,10 +48,6 @@ that use Torchlight. You can of course disable this in the `config/torchlight.ph
 	'markdown' => 'Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>',
 ],
 ```
-
-
-
-
 
 ## Contribute
 

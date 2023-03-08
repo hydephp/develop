@@ -6,7 +6,6 @@ navigation:
 
 # File-based Collections
 
-
 ## Introduction to Hyde Data Collections
 
 Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/9.x/collections) giving you
@@ -149,7 +148,6 @@ $collection = \Hyde\Support\DataCollections::json('name', true);
 
 Since both return values use native PHP types, there are no example returns added here, as I'm sure you can imagine what they look like.
 
-
 ## Markdown Collections - Hands-on Guide
 
 I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
@@ -230,4 +228,3 @@ we are able to get the author from the front matter, and the content from the bo
     </blockquote>
 @endforeach
 ```
-

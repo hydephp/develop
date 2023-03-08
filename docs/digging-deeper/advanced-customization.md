@@ -17,6 +17,7 @@ that you _can_ do, but that you maybe should not. With great power comes great r
 Documentation here will be mainly example driven, as it is assumed you have somewhat of an understanding of what you are doing already.
 
 ### Emoji legend
+
 Each section is marked with an emoji that indicates the level of risk. Note that pretty much all of these
 are experimental features, and are not at all supported. Use at your own risk.
 
@@ -59,6 +60,7 @@ If you're not happy with this, it's easy to change! For example, you might want 
 subdirectory. That's easy enough, just set the value of the `source_root` setting in config/hyde.php to `'src'`!
 
 ### Automatic change 🧪
+
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
 
 When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist, then move all source directories into it.
@@ -78,7 +80,6 @@ If the setting starts with an underscore, that will be removed from the output d
 
 >info You will of course also need to copy over any existing files from the old directory to the new one.
 
-
 ## Customizing the output directory ⚠
 
 >danger Hyde deletes all files in the output directory before compiling the site. Don't set this path to a directory that contains important files!
@@ -95,4 +96,4 @@ return [
 
 ### Setting an absolute path
 
-Since Hyde v0.64.0-beta, the site output directory will always be resolved within the project root. If you want to compile the site to an absolute path outside your project, it's instead recommended that you use a build task to copy the files to the desired location automatically after the site has been compiled. 
+Since Hyde v0.64.0-beta, the site output directory will always be resolved within the project root. If you want to compile the site to an absolute path outside your project, it's instead recommended that you use a build task to copy the files to the desired location automatically after the site has been compiled.

@@ -9,7 +9,6 @@ The built-in Hyde features like sitemap generation and RSS feeds are created usi
 Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory?
 You can also overload the built-in tasks to customize them to your needs.
 
-
 ## Good to know before you start
 
 ### Types of tasks
@@ -32,7 +31,6 @@ In a way, build tasks are like micro-commands, as they can interact directly wit
 In addition, there are some extra helpers available in the base BuildTask class that allow you to fluently format output to the console, which you will see in the examples below.
 
 ## Creating build tasks
-
 
 ### Minimal example
 
@@ -102,7 +100,6 @@ Running this task will produce the following output:
 
 As you can see, there is no execution time tracking here, since we overrode the `printFinishMessage()` method that normally prints this. You can of course call the `withExecutionTime()` method to add this back in. See more in the API reference below.
 
-
 ## Registering the tasks
 
 There are a few ways to register these tasks so Hyde can find them.
@@ -116,7 +113,6 @@ The easiest way to register build tasks, is to not do it. Just let Hyde do it fo
 Any classes that end in `BuildTask.php` that are stored in `app/Actions`  will be autoloaded and registered to run automatically.
 
 For example: `app/Actions/ExampleBuildTask.php`.
-
 
 ### Config file registration
 

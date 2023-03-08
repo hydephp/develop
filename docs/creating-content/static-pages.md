@@ -38,6 +38,7 @@ and how to use it.
 You can create a Markdown page by adding a file to the `_pages` directory where the filename ends in `.md`.
 
 ### Scaffolding Markdown Pages
+
 Scaffolding a Markdown page is as easy as using the [HydeCLI](console-commands).
 
 ```bash
@@ -67,7 +68,6 @@ for the first level one heading (`# Page Title`), and if that fails, it will gen
 
 In the future, more front matter options such as page descriptions and meta tags will be supported.
 
-
 ## Creating Blade Pages
 
 Since Hyde is based on Laravel and uses the Blade templating engine,
@@ -75,8 +75,8 @@ you can use Blade pages to create more complex pages.
 
 If you are not familiar with Blade, you may want to read [the Laravel Blade docs](https://laravel.com/docs/9.x/blade) first.
 
-
 ### Scaffolding Blade Pages
+
 We can scaffold Blade pages using the same CLI command as Markdown pages, however,
 this time we need to specify that we want to use the `blade` page type.
 
@@ -108,7 +108,6 @@ if you don't want to use the scaffolding command.
 > Tip: You don't have to use Blade in Blade pages. It's also perfectly fine to use plain HTML,
 > however you still need to use the `blade.php` extension so Hyde can recognize it.
 
-
 ## When to use which?
 
 Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited.
@@ -126,7 +125,6 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 |                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                         |
 |                                                     | ➖ Takes longer to create as as you need to write the markup                              |
 |                                                     | ➖ You may need to [recompile your CSS](managing-assets) if you add Tailwind classes |
-
 
 ### Live Demos
 

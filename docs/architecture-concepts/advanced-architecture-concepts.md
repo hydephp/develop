@@ -24,4 +24,3 @@ Want to learn more about a particular feature? Click on the links below to visit
 
 [//]: # (This would be better suited for a component, but it's a fun experiment for now)
 [Blade]: <ul>@foreach(glob(\Hyde\Hyde::path('docs/architecture-concepts/*.md')) as $file) <li> <a href="{{ basename($file, '.md') }}.html"> {{ Hyde::makeTitle(basename($file, '.md')) }} </a> </li> @endforeach</ul>
-

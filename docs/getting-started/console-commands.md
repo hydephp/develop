@@ -65,6 +65,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`list`](#available-commands)           | List all available commands.                                                                 |
 
 ## Build the static site
+
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -85,6 +86,7 @@ Build the static site
 | `--no-api`       | Disable API calls, for example, Torchlight |
 
 ## Run the static site builder for a single file
+
 <a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -101,6 +103,7 @@ Run the static site builder for a single file
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
 ## Start the realtime compiler server
+
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -118,6 +121,7 @@ Start the realtime compiler server.
 | `--port=` | [default: 8080]        |
 
 ## Test and validate your project to optimize your site
+
 <a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -128,6 +132,7 @@ php hyde validate
 Run a series of tests to validate your setup and help you optimize your site.
 
 ## Generate the RSS feed
+
 <a name="build-rss" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -138,6 +143,7 @@ php hyde build:rss
 Generate the RSS feed
 
 ## Generate the docs/search.json
+
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -148,6 +154,7 @@ php hyde build:search
 Generate the docs/search.json
 
 ## Generate the sitemap.xml
+
 <a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -158,6 +165,7 @@ php hyde build:sitemap
 Generate the sitemap.xml
 
 ## Scaffold a new Markdown, Blade, or documentation page file
+
 <a name="make-page" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -178,6 +186,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 | `--force`         | Overwrite any existing files                                           |
 
 ## Scaffold a new Markdown blog post file
+
 <a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -195,6 +204,7 @@ Scaffold a new Markdown blog post file
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
 ## Publish the default configuration files
+
 <a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -205,6 +215,7 @@ php hyde publish:configs
 Publish the default configuration files
 
 ## Publish one of the default homepages to index.blade.php.
+
 <a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -222,6 +233,7 @@ Publish one of the default homepages to index.blade.php.
 | `--force`  | Overwrite any existing files    |
 
 ## Publish the hyde components for customization
+
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -238,6 +250,7 @@ Publish the hyde components for customization. Note that existing files will be 
 | `category` | The category to publish |
 
 ## Display all registered routes.
+
 <a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -248,8 +261,8 @@ php hyde route:list
 Display all registered routes.
 
 ## Publish any publishable assets from vendor packages
-<a name="vendor-publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
+<a name="vendor-publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 // torchlight! {"lineNumbers": false}

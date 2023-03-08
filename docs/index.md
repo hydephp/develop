@@ -2,7 +2,6 @@
 
 <style>.images-inline img { display: inline; margin: 4px 2px;}</style>
 
-
 ![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)
 ![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)
 [![Test Coverage](https://codecov.io/gh/hydephp/develop/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/hydephp/develop)
@@ -10,7 +9,6 @@
 [![Psalm Type Coverage](https://shepherd.dev/github/hydephp/develop/coverage.svg)](https://shepherd.dev/github/hydephp/develop)
 ![License MIT](https://img.shields.io/github/license/hydephp/hyde)
 {.images-inline .not-prose}
-
 
 ## About HydePHP
 
@@ -25,10 +23,8 @@ Hyde makes creating websites easy and fun by taking care of the boring stuff, li
 endless configuration. Instead, when you create a new Hyde project, everything you need to get started is already there
 -- including precompiled TailwindCSS, well-crafted Blade templates, and easy-to-use asset management.
 
-
 Hyde was inspired by JekyllRB and is designed for developers who are comfortable writing posts in Markdown and requires
 virtually no configuration out of the box as it favours convention over configuration and is preconfigured with sensible defaults.
-
 
 ## Installation
 

@@ -9,11 +9,11 @@ Since Hyde has a lot of "magic" features which depend on some base assumptions,
 there might be some "gotchas" you might run into. Here are some I can think of,
 did you find a new one? Send a PR to [update the docs](https://github.com/hydephp/docs)!
 
-> Tip: You can run `php hyde validate` to run a series of tests to help you catch common issues.  
+> Tip: You can run `php hyde validate` to run a series of tests to help you catch common issues.
 {.info}
 
-
 ## General Tips
+
 (In no particular order of importance)
 
 1. In general, **Hyde is actually pretty forgiving**. While this article makes it sound like there are a lot of rules to follow,
@@ -22,7 +22,6 @@ did you find a new one? Send a PR to [update the docs](https://github.com/hydeph
 3. You never need front matter, though it is often useful.
    For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
 4. Currently, Hyde support for nested directories besides those already defined is experimental.
-
 
 ## Conventions to follow
 
@@ -39,6 +38,7 @@ All the following filenames are resolved into the same destination file:
 Remember, files retain their slugs when compiled to HTML.
 
 #### Summary
+
 - ✔ **Do** use lowercase filenames and extensions
 - ✔ **Do** use filenames written in kebab-case-format
 - ✔ **Do** use the proper file extensions
@@ -62,11 +62,11 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 
 <style>
 #document-main-content > ul > li > p {
+
     margin-top: 0;
     margin-bottom: 0;
 }
 </style>
-
 
 ## Common issues, causes, and solutions
 
@@ -77,7 +77,7 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 | Page not discovered when compiling                 | The file name may be invalid                                                                                                                            | Ensure you follow the correct file naming convention.                                                                                                                                            |
 | Page compiles slowly                               | The Torchlight extension may cause the compile times to increase as API calls need to be made.                                                          | Try disabling Torchlight                                                                                                                                                                         |
 | Torchlight not working                             | Missing Composer package, missing API token, extension disabled in the config.                                                                          | Reinstall Torchlight, add your token in the .env file, check config                                                                                                                              |
-| Error in Parser.php: "unable to parse"             | Could be an issue with the YAML front matter parser.                                                                                                    | Try adding a block of front matter to the top of the file                                                                                                                                        | 
+| Error in Parser.php: "unable to parse"             | Could be an issue with the YAML front matter parser.                                                                                                    | Try adding a block of front matter to the top of the file                                                                                                                                        |
 | Missing styles and/or assets                       | You may have accidentally deleted the files, or you have added new Tailwind classes.                                                                    | Run `npm run dev`                                                                                                                                                                                |
 | Image not found                                    | You may be using a bad relative path. See [managing-assets](managing-assets#referencing-images).                                                   | Ensure your relative paths are correct.                                                                                                                                                          |
 | Wrong layout used                                  | Hyde determines the layout template to use depending on the directory of the source file                                                                | Ensure your source file is in the right directory.                                                                                                                                               |
@@ -95,6 +95,7 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 ### Extra troubleshooting information
 
 #### Fixing a broken config
+
 If your configuration is broken, you might not be able to run any commands through the HydeCLI.
 To remedy this you can copy the config files from the vendor directory into the project directory.
 You can do this manually, or with the following rescue command:

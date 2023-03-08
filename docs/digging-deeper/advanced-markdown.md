@@ -49,6 +49,7 @@ You can pass data to includes by specifying an array to the second argument.
 ```
 
 ### Enabling Blade-supported Markdown
+
 It's disabled by default since it allows arbitrary PHP to run, which could be a security risk,
 depending on your setup. However, if your Markdown is trusted, and you know it's safe,
 you can enable it in the `config/markdown.php` file.
@@ -66,7 +67,6 @@ For example, using a space before the `[Blade]:` will intentionally cause it to 
 ## Coloured Blockqoutes
 
 The HydePHP Markdown converter also supports some extra directives and features. One of them being four different coloured blockquotes. Simply append the colour after the initial `>` character.
-
 
 ```markdown
 ‎> Normal Blockquote
@@ -123,7 +123,7 @@ Simply add a code comment in the **first line** of a `fenced code block` like so
 ````markdown
 // Filepath: _docs/advanced-markdown.md
 ```php
-‎// Filepath: hello-world.php 
+‎// Filepath: hello-world.php
 
 echo 'Hello World!';
 ```
@@ -132,7 +132,7 @@ echo 'Hello World!';
 Which becomes:
 
 ```php
-// Filepath: hello-world.php 
+// Filepath: hello-world.php
 
 echo 'Hello World!';
 ```

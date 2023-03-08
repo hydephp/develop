@@ -54,7 +54,6 @@ Since HydePHP is based on Laravel we also have a few configuration files related
 
 If any of these files are missing, you can run `php hyde update:configs` to copy the default files to your project.
 
-
 ## Configuration Options
 
 While all options are already documented within the files, here are some further explanations of some of the options.
@@ -82,8 +81,8 @@ You can set the RSS channel description using the following:
 
 If an rss_description is not set one is created by appending "RSS Feed" to your site name.
 
-
 ### Authors
+
 Hyde has support for adding authors in front matter, for example to
 automatically add a link to your website or social media profiles.
 However, it's tedious to have to add those to each and every
@@ -94,6 +93,7 @@ When writing posts, just specify the username in the front matter,
 and the rest of the data will be pulled from a matching entry.
 
 #### Example
+
 ```php
 // torchlight! {"lineNumbers": false}
 'authors' => [
@@ -158,14 +158,17 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 ```
 
 ### Navigation Menu & Sidebar
+
 One of my (the author's) favourite features with Hyde is its automatic navigation menu and documentation sidebar generator.
 
 #### How it works:
+
 The sidebar works by creating a list of all the documentation pages.
 
 The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages. It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
 
 #### Reordering Sidebar Items
+
 Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
 
 Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
@@ -178,10 +181,9 @@ Let's see an example:
     'readme', // This is the first entry, so it gets the priority 0
     'installation', // This gets priority 1
     'getting-started', // And this gets priority 2
-    // Any other pages not listed will get priority 999 
+    // Any other pages not listed will get priority 999
 ]
 ```
-
 
 #### Reordering Navigation Menu Items
 
@@ -230,7 +232,6 @@ Simplified, this will then be rendered as follows:
 <a href="https://github.com/hydephp/hyde">GitHub</a>
 ```
 
-
 #### Excluding Items (Blacklist)
 
 Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
@@ -260,7 +261,6 @@ Hyde makes a few attempts to find a suitable label for the navigation menu items
 
 From the Hyde config you can also override the label of navigation links using the by mapping the route key (identifier/slug relative to the site root) to the desired title. Note that the front matter property will take precedence over the config property.
 
-
 ```php
 // filepath config/hyde.php
 'navigation' => [
@@ -271,8 +271,8 @@ From the Hyde config you can also override the label of navigation links using t
 ]
 ```
 
-
 ## Blade Views
+
 Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
 
 > Before editing Blade views you should familiarize yourself with how they work in the official documentation https://laravel.com/docs/9.x/blade.
@@ -282,8 +282,8 @@ To edit the default component you need to publish them first using the `hyde pub
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
 ## Frontend Styles
-Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly. If you want to customize these, you are free to do so. Please see the [Managing Assets](managing-assets) page to learn more.
 
+Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly. If you want to customize these, you are free to do so. Please see the [Managing Assets](managing-assets) page to learn more.
 
 ## CommonMark environment
 
@@ -323,6 +323,7 @@ Here is an example hyde.yml file showing some of the available options in the no
 
 ```yaml
 # filepath hyde.yml
+
 name: HydePHP
 url: http://localhost
 pretty_urls: false
@@ -330,6 +331,7 @@ generate_sitemap: true
 generate_rss_feed: true
 rss_filename: feed.xml
 # rss_description:
+
 language: en
 output_directory: _site
 ```

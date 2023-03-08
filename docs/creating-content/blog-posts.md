@@ -20,7 +20,6 @@ php hyde make:post
 ```
 Learn more about scaffolding posts, and other files, in the [console commands](console-commands) documentation.
 
-
 ## Short Video Tutorial
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gjpE1U527h8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -56,7 +55,6 @@ Here is a quick primer:
 - The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
   You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
 
-
 **Example:**
 ```markdown
 ---
@@ -64,10 +62,10 @@ title: "My New Post"
 ---
 
 ## Markdown comes here
+
 ```
 
 You can use the `php hyde make:post` command to automatically generate the front matter based on your input.
-
 
 ## A first look at Front Matter
 
@@ -122,7 +120,6 @@ array:
 Here is a quick reference of the supported front matter properties.
 Keep on reading to see further explanations, details, and examples.
 
-
 | **KEY NAME**   | **VALUE TYPE** | **EXAMPLE / FORMAT**             |
 |----------------|----------------|----------------------------------|
 | `title`        | string         | "My New Post"                    |
@@ -131,7 +128,6 @@ Keep on reading to see further explanations, details, and examples.
 | `date`         | string         | "YYYY-MM-DD [HH:MM]"             |
 | `author`       | string/array   | _See [author](#author) section_  |
 | `image`        | string/array   | _See [image](#image) section_    |
-
 
 Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings
 in quotes, but it can help in certain edge cases, thus they are included here.
@@ -144,13 +140,11 @@ In the examples below, when there are multiple keys, they signify various ways t
 title: "My New Post"
 ```
 
-
 ### Description
 
 ```yaml
 description: "A short description used in previews and SEO"
 ```
-
 
 ### Category
 
@@ -159,14 +153,12 @@ category: blog
 category: "My favorite recipes"
 ```
 
-
 ### Date
 
 ```yaml
 date: "2022-01-01 12:00"
-date: "2022-01-01" 
+date: "2022-01-01"
 ```
-
 
 ### Author
 
@@ -211,7 +203,6 @@ and injected into post and page metadata.
 > See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
 { .info }
-
 
 ## Using images in posts
 

@@ -19,14 +19,17 @@ To get you started quickly, all the styles are already compiled minified into `_
 ## Some extra information, and answers to possible questions
 
 ### Do I have to use NPM to use Hyde?
+
 No. NPM is optional as all the compiled styles you need are already installed. You only need NPM if you want to compile your own styles.
 
 ### When do I need to compile assets?
 
 #### When customizing
+
 If you want to customize the Tailwind settings or add custom styles, you will need to take care of compiling the styles yourself.
 
 #### When adding new classes
+
 The `_media/app.css` file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, as well as the HydeFront custom styles.
 
 If you customize the Blade views and add new classes, or if you add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
@@ -44,6 +47,7 @@ The `_media` folder contains **compiled** (and usually minified) files. When Hyd
 The `_site/media` folder contains the files that are served to the user.
 
 ### What is the difference between `_media` and `_site/media`?
+
 It may seem weird to have two folders for storing the compiled assets, but it is quite useful.
 
 The `_site` directory is intended to be excluded from version control while the `_media` folder is included in the version control, though you may choose to exclude the compiled files from the `_media` folder if you want to.
@@ -64,7 +68,6 @@ When running the `npm run dev/prod` command, the following happens:
 
 1. Laravel Mix will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
 2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`, making blend perfectly with the realtime compiler (`php hyde serve`).
-
 
 ## Telling Hyde where to find assets
 
@@ -88,6 +91,7 @@ Then edit the files found in `resources/views/vendor/hyde/layouts` directory of 
 For the absolute majority of the cases, you don't need to mess with these files. Hyde will automatically load the app.css file when it exists in the `_media` directory.
 
 #### Loading from CDN
+
 If you want to load the same pre-compiled file included with Hyde but from a CDN, you can set `load_app_styles_from_cdn` to `true` in the `config/hyde.php` file. While you lose the ability to customize it, your styles will be automatically updated when needed, as the installed Framework version will automatically specify the correct version to load.
 
 ### Using the TailwindCSS Play CDN
@@ -100,6 +104,7 @@ This also means you can tinker around with the TailwindCSS settings without havi
 >warn Note that the Play CDN is not meant for production use, so enabling it will add a warning to the web console.
 
 ## Managing images
+
 As mentioned above, assets stored in the _media folder are automatically copied to the _site/media folder,
 making it the recommended place to store images. You can then easily reference them in your Markdown files.
 
@@ -129,4 +134,3 @@ To improve accessibility, you should always add an `alt` text. Here is a full ex
 Hyde offers great support for creating data-rich and accessible featured images for blog posts.
 
 You can read more about this in the [creating blog posts page](blog-posts#image).
-

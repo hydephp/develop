@@ -43,8 +43,8 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 Like most of HydePHP, the Hyde Documentation module is highly customizable. Much of the frontend is composed using Blade templates and components, which you can customize to your heart's content.
 Since there are so many components, it's hard to list them all here in the documentation, so I encourage you to check out the [source code](https://github.com/hydephp/framework/tree/master/resources/views/components/docs) to see how it's all put together and find the customizations you are looking for.
 
-
 ## Creating Documentation Pages
+
 You can create a Documentation page by adding a file to the `_docs` directory where the filename ends in `.md`.
 
 You can also scaffold one quickly by using the [HydeCLI](console-commands).
@@ -57,6 +57,7 @@ This will create the following file saved as `_docs/page-title.md`
 
 ```markdown
 # Page Title
+
 ```
 
 ### Front Matter is optional
@@ -77,7 +78,6 @@ navigation:
 ---
 ```
 
-
 ## Dynamic content generation
 
 Hyde makes documentation pages easy to create by automatically generating dynamic content such as the sidebar and page title.
@@ -86,14 +86,12 @@ If you are not happy with the results you can customize them in the config or wi
 Before we look at how to override things, here is an overview of the relevant content Hyde generates,
 and where the data is from as well as where it can be overridden.
 
-
 | Property                        | Description                                            | Source                              | Override in          |
 |---------------------------------|--------------------------------------------------------|-------------------------------------|----------------------|
 | `title` (string)                | The title of the page used in the HTML `<title>` tag   | The first H1 heading (`# Foo`)      | Front matter         |
 | `navigation.label` (string)     | The label for the page shown in the sidebar            | The page identifier/basename (slug) | Front matter, config |
 | `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _null_                              | Front matter, config |
 | `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 999                     | Front matter, config |
-
 
 ## Sidebar
 
@@ -106,7 +104,6 @@ Hyde automatically generates a table of contents for the page and adds it to the
 
 The behaviour of this can be changed in the configuration file.
 See [the customization page](customization#navigation-menu--sidebar) for more details.
-
 
 ### Sidebar ordering
 
@@ -157,7 +154,6 @@ Since [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-bet
 For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter in the step above.
 
 > Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled, the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the sub-directories.
-
 
 ### Hiding items
 
@@ -223,7 +219,6 @@ Link items without an entry here will have fall back to the default priority of 
 
 See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
 
-
 ### Table of contents settings
 
 In the `config/docs.php` file you can configure the behavior, content,
@@ -273,7 +268,6 @@ If you have a large page, like a changelog, on your documentation sites you may 
 ```
 
 The page will still be accessible via the URL, but will be added to the search index JSON file. Don't include the file extension.
-
 
 ### Automatic "Edit Page" button
 

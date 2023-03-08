@@ -37,11 +37,11 @@ class MarkdownPost extends BaseMarkdownPage
     public static string $outputDirectory = 'posts';
     public static string $fileExtension = '.md';
     public static string $template = 'post';
-    
+
     public string $identifier;
     public string $routeKey;
     public string $title;
-    
+
     public FrontMatter $matter;
     public Markdown $markdown;
 }
@@ -87,7 +87,7 @@ class MarkdownPost extends BaseMarkdownPage
     public string $identifier;
     public string $routeKey;
     public string $title;
-    
+
     public FrontMatter $matter;
     public Markdown $markdown;
 }
