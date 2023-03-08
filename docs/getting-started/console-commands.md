@@ -65,25 +65,15 @@ Build the static site
 
 ### Options
 
-#### `--run-dev`
+#### `--run-dev`  :  Run the NPM dev script after build
 
-Run the NPM dev script after build
+#### `--run-prod`  :  Run the NPM prod script after build
 
-#### `--run-prod`
+#### `--run-prettier`  :  Format the output using NPM Prettier
 
-Run the NPM prod script after build
+#### `--pretty-urls`  :  Should links in output use pretty URLs?
 
-#### `--run-prettier`
-
-Format the output using NPM Prettier
-
-#### `--pretty-urls`
-
-Should links in output use pretty URLs?
-
-#### `--no-api`
-
-Disable API calls, for example, Torchlight
+#### `--no-api`  :  Disable API calls, for example, Torchlight
 
 ## `rebuild`
 
@@ -97,9 +87,7 @@ Run the static site builder for a single file
 
 ### Arguments
 
-#### `path`
-
-The relative file path (example: _posts/hello-world.md)
+#### `path`  :  The relative file path (example: _posts/hello-world.md)
 
 - Is required: yes
 
@@ -117,15 +105,11 @@ Start the realtime compiler server.
 
 ### Options
 
-#### `--host`
-
-[default: "localhost"]
+#### `--host`  :  [default: "localhost"]
 
 - Accept value: yes
 
-#### `--port`
-
-[default: 8080]
+#### `--port`  :  [default: 8080]
 
 - Accept value: yes
 
@@ -189,30 +173,20 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Arguments
 
-#### `title`
-
-The name of the page file to create. Will be used to generate the slug
+#### `title`  :  The name of the page file to create. Will be used to generate the slug
 
 ### Options
 
-#### `--type`
-
-The type of page to create (markdown, blade, or docs)
+#### `--type`  :  The type of page to create (markdown, blade, or docs)
 
 - Accept value: yes
 - Default: `'markdown'`
 
-#### `--blade`
+#### `--blade`  :  Create a Blade page
 
-Create a Blade page
+#### `--docs`  :  Create a Documentation page
 
-#### `--docs`
-
-Create a Documentation page
-
-#### `--force`
-
-Overwrite any existing files
+#### `--force`  :  Overwrite any existing files
 
 ## `make:post`
 
@@ -226,15 +200,11 @@ Scaffold a new Markdown blog post file
 
 ### Arguments
 
-#### `title`
-
-The title for the Post. Will also be used to generate the filename
+#### `title`  :  The title for the Post. Will also be used to generate the filename
 
 ### Options
 
-#### `--force`
-
-Should the generated file overwrite existing posts with the same filename?
+#### `--force`  :  Should the generated file overwrite existing posts with the same filename?
 
 ## `publish:configs`
 
@@ -260,15 +230,11 @@ Publish one of the default homepages to index.blade.php.
 
 ### Arguments
 
-#### `homepage`
-
-The name of the page to publish
+#### `homepage`  :  The name of the page to publish
 
 ### Options
 
-#### `--force`
-
-Overwrite any existing files
+#### `--force`  :  Overwrite any existing files
 
 ## `publish:views`
 
@@ -282,9 +248,7 @@ Publish the hyde components for customization. Note that existing files will be 
 
 ### Arguments
 
-#### `category`
-
-The category to publish
+#### `category`  :  The category to publish
 
 ### Options
 
@@ -324,27 +288,17 @@ Publish any publishable assets from vendor packages
 
 ### Options
 
-#### `--existing`
+#### `--existing`  :  Publish and overwrite only the files that have already been published
 
-Publish and overwrite only the files that have already been published
+#### `--force`  :  Overwrite any existing files
 
-#### `--force`
+#### `--all`  :  Publish assets for all service providers without prompt
 
-Overwrite any existing files
-
-#### `--all`
-
-Publish assets for all service providers without prompt
-
-#### `--provider`
-
-The service provider that has assets you want to publish
+#### `--provider`  :  The service provider that has assets you want to publish
 
 - Accept value: yes
 
-#### `--tag`
-
-One or many tags that have assets you want to publish
+#### `--tag`  :  One or many tags that have assets you want to publish
 
 - Accept value: yes
 - Is multiple: yes
