@@ -170,12 +170,12 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Options
 
-|           |                                                                                                   |
-| --------- | ------------------------------------------------------------------------------------------------- |
-| `--type=`  | The type of page to create (markdown, blade, or docs) \n- Default: `'markdown'` |
-| `--blade` | Create a Blade page                                                                               |
-| `--docs`  | Create a Documentation page                                                                       |
-| `--force` | Overwrite any existing files                                                                      |
+|           |                                                                                                  |
+| --------- | ------------------------------------------------------------------------------------------------ |
+| `--type=markdown`  | The type of page to create (markdown, blade, or docs) |
+| `--blade` | Create a Blade page                                                                              |
+| `--docs`  | Create a Documentation page                                                                      |
+| `--force` | Overwrite any existing files                                                                     |
 
 ## `make:post`
 
@@ -287,4 +287,4 @@ Publish any publishable assets from vendor packages
 | `--force`    | Overwrite any existing files                                                                                             |
 | `--all`      | Publish assets for all service providers without prompt                                                                  |
 | `--provider=` | The service provider that has assets you want to publish                                           |
-| `--tag=`      | One or many tags that have assets you want to publish \n- Is multiple: yes \n- Default: `array ()` |
+| `--tag=`      | One or many tags that have assets you want to publish \n- Is multiple: yes  |
