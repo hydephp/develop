@@ -105,7 +105,7 @@ class HyperlinkFileHelperRelativeLinkTest extends UnitTestCase
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->mockCurrentPage('foo.html');
-        $this->assertEquals('/', Hyde::relativeLink('index.html'));
+        $this->assertEquals('./', Hyde::relativeLink('index.html'));
         $this->mockCurrentPage('foo/bar.html');
         $this->assertEquals('../', Hyde::relativeLink('index.html'));
         $this->mockCurrentPage('foo/bar/baz.html');

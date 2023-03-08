@@ -78,6 +78,10 @@ class Hyperlinks
         }
         $route .= $this->formatLink($destination);
 
+        if (Config::getBool('hyde.pretty_urls', false) === true && $route === '/') {
+            return './';
+        }
+
         return str_replace('//', '/', $route);
     }
 
