@@ -8,28 +8,14 @@ navigation:
 The primary way of interacting with Hyde is through the command line using the HydeCLI.
 
 If you have ever used the Artisan Console in Laravel you will feel right at home,
-the Hyde CLI is based on Artisan after all!
+the HydeCLI is based on Artisan after all!
 
-## Hyde Commands
+## Introduction
 
 To use the HydeCLI, run `php hyde` from your project directory followed by a command.
 
-### Documentation syntax
-
-Wondering what the different formatting in examples means? Here's a quick guide:
-
-```bash
-<argument> # Comes after the command name.
-[<argument>] # Optional argument. 
-
---option # Sometimes referred to as a flag.
---option=<value> # Option which takes an value.
-[--option] # Optional option.
-```
-
 All HydeCLI commands start with `php hyde`. Anything in `[brackets]` is optional.
 If an argument or option value has a space in it, it needs to be wrapped in quotes.
-
 
 
 ### Got stuck? The CLI can help.
