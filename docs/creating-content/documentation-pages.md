@@ -57,7 +57,6 @@ This will create the following file saved as `_docs/page-title.md`
 
 ```markdown
 # Page Title
-
 ```
 
 ### Front Matter is optional

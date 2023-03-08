@@ -323,7 +323,6 @@ Here is an example hyde.yml file showing some of the available options in the no
 
 ```yaml
 # filepath hyde.yml
-
 name: HydePHP
 url: http://localhost
 pretty_urls: false
@@ -331,7 +330,6 @@ generate_sitemap: true
 generate_rss_feed: true
 rss_filename: feed.xml
 # rss_description:
-
 language: en
 output_directory: _site
 ```

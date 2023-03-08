@@ -62,7 +62,6 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 
 <style>
 #document-main-content > ul > li > p {
-
     margin-top: 0;
     margin-bottom: 0;
 }

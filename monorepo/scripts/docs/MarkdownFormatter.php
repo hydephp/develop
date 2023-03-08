@@ -60,7 +60,7 @@ function normalize_lines($filename): void
         }
 
         // Check if line is a heading
-        if (str_starts_with($line, '#')) {
+        if (str_starts_with($line, '##')) {
             $was_last_line_heading = true;
         } else {
             $was_last_line_heading = false;

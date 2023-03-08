@@ -9,6 +9,7 @@ navigation:
 ## Preface
 
 HydePHP is a simple, yet powerful, static site generator. It is designed to be easy to use and easy to extend.
+
 This section of the documentation will cover some of the more advanced (but optional) features of the framework.
 
 ## Introduction
