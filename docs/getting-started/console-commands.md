@@ -85,7 +85,9 @@ Run the static site builder for a single file
 
 ### Arguments
 
-#### `path` : The relative file path (example: \_posts/hello-world.md) \n - Is required: yes
+|        |                                                                                |
+|--------|--------------------------------------------------------------------------------|
+| `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
 ### Options
 
@@ -166,7 +168,9 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Arguments
 
-#### `title` : The name of the page file to create. Will be used to generate the slug
+|         |                                                                        |
+|---------|------------------------------------------------------------------------|
+| `title` | The name of the page file to create. Will be used to generate the slug |
 
 ### Options
 
@@ -189,7 +193,9 @@ Scaffold a new Markdown blog post file
 
 ### Arguments
 
-#### `title` : The title for the Post. Will also be used to generate the filename
+|         |                                                                    |
+|---------|--------------------------------------------------------------------|
+| `title` | The title for the Post. Will also be used to generate the filename |
 
 ### Options
 
@@ -221,7 +227,10 @@ Publish one of the default homepages to index.blade.php.
 
 ### Arguments
 
-#### `homepage` : The name of the page to publish
+
+|            |                                 |
+|------------|---------------------------------|
+| `homepage` | The name of the page to publish |
 
 ### Options
 
@@ -241,7 +250,9 @@ Publish the hyde components for customization. Note that existing files will be 
 
 ### Arguments
 
-#### `category` : The category to publish
+|            |                         |
+|------------|-------------------------|
+| `category` | The category to publish |
 
 ### Options
 
