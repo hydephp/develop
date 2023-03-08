@@ -59,8 +59,10 @@ Build the static site
 
 ### Usage
 
-- `build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]`
-
+```bash
+php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
+```
+``
 Build the static site
 
 ### Options
@@ -79,7 +81,9 @@ Run the static site builder for a single file
 
 ### Usage
 
-- `rebuild <path>`
+```bash
+php hyde rebuild <path>
+```
 
 Run the static site builder for a single file
 
@@ -97,7 +101,9 @@ Start the realtime compiler server.
 
 ### Usage
 
-- `serve [--host [HOST]] [--port [PORT]]`
+```bash
+php hyde serve [--host [HOST]] [--port [PORT]]
+```
 
 Start the realtime compiler server.
 
@@ -114,7 +120,9 @@ Run a series of tests to validate your setup and help you optimize your site.
 
 ### Usage
 
-- `validate`
+```bash
+php hyde validate
+```
 
 Run a series of tests to validate your setup and help you optimize your site.
 
@@ -126,7 +134,9 @@ Generate the RSS feed
 
 ### Usage
 
-- `build:rss`
+```bash
+php hyde build:rss
+```
 
 Generate the RSS feed
 
@@ -138,7 +148,9 @@ Generate the docs/search.json
 
 ### Usage
 
-- `build:search`
+```bash
+php hyde build:search
+```
 
 Generate the docs/search.json
 
@@ -150,7 +162,9 @@ Generate the sitemap.xml
 
 ### Usage
 
-- `build:sitemap`
+```bash
+php hyde build:sitemap
+```
 
 Generate the sitemap.xml
 
@@ -162,7 +176,9 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Usage
 
-- `make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]`
+```bash
+php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
+```
 
 Scaffold a new Markdown, Blade, or documentation page file
 
@@ -187,7 +203,9 @@ Scaffold a new Markdown blog post file
 
 ### Usage
 
-- `make:post [--force] [--] [<title>]`
+```bash
+php hyde make:post [--force] [--] [<title>]
+```
 
 Scaffold a new Markdown blog post file
 
@@ -209,7 +227,9 @@ Publish the default configuration files
 
 ### Usage
 
-- `publish:configs`
+```bash
+php hyde publish:configs
+```
 
 Publish the default configuration files
 
@@ -221,7 +241,9 @@ Publish one of the default homepages to index.blade.php.
 
 ### Usage
 
-- `publish:homepage [--force] [--] [<homepage>]`
+```bash
+php hyde publish:homepage [--force] [--] [<homepage>]
+```
 
 Publish one of the default homepages to index.blade.php.
 
@@ -244,7 +266,9 @@ Publish the hyde components for customization. Note that existing files will be 
 
 ### Usage
 
-- `publish:views [<category>]`
+```bash
+php hyde publish:views [<category>]
+```
 
 Publish the hyde components for customization. Note that existing files will be overwritten.
 
@@ -262,7 +286,9 @@ Display all registered routes.
 
 ### Usage
 
-- `route:list`
+```bash
+php hyde route:list
+```
 
 Display all registered routes.
 
@@ -274,7 +300,9 @@ Install the Torchlight config file into your app.
 
 ### Usage
 
-- `torchlight:install`
+```bash
+php hyde torchlight:install
+```
 
 Install the Torchlight config file into your app.
 
@@ -286,7 +314,9 @@ Publish any publishable assets from vendor packages
 
 ### Usage
 
-- `vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]`
+```bash
+php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
+```
 
 Publish any publishable assets from vendor packages
 
