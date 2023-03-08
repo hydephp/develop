@@ -79,6 +79,6 @@ class PageRouter
             return new DocumentationSearchPage();
         }
 
-        return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
+        return Routes::getRoute($this->normalizePath($this->request->path))->getPage();
     }
 }
