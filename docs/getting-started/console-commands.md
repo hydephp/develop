@@ -103,8 +103,8 @@ Start the realtime compiler server.
 
 |          |                                               |
 | -------- | --------------------------------------------- |
-| `--host` | [default: "localhost"] \n - Accept value: yes |
-| `--port` | [default: 8080] \n - Accept value: yes        |
+| `--host=` | [default: "localhost"] \n - Accept value: yes |
+| `--port=` | [default: 8080] \n - Accept value: yes        |
 
 ## `validate`
 
@@ -172,7 +172,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 |           |                                                                                                       |
 | --------- | ----------------------------------------------------------------------------------------------------- |
-| `--type`  | The type of page to create (markdown, blade, or docs) \n- Accept value: yes \n- Default: `'markdown'` |
+| `--type=`  | The type of page to create (markdown, blade, or docs) \n- Accept value: yes \n- Default: `'markdown'` |
 | `--blade` | Create a Blade page                                                                                   |
 | `--docs`  | Create a Documentation page                                                                           |
 | `--force` | Overwrite any existing files                                                                          |
@@ -286,5 +286,5 @@ Publish any publishable assets from vendor packages
 | `--existing` | Publish and overwrite only the files that have already been published                                                    |
 | `--force`    | Overwrite any existing files                                                                                             |
 | `--all`      | Publish assets for all service providers without prompt                                                                  |
-| `--provider` | The service provider that has assets you want to publish \n - Accept value: yes                                          |
-| `--tag`      | One or many tags that have assets you want to publish \n- Accept value: yes \n- Is multiple: yes \n- Default: `array ()` |
+| `--provider=` | The service provider that has assets you want to publish \n - Accept value: yes                                          |
+| `--tag=`      | One or many tags that have assets you want to publish \n- Accept value: yes \n- Is multiple: yes \n- Default: `array ()` |
