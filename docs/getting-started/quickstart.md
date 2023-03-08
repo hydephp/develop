@@ -7,17 +7,18 @@ navigation:
 # Quickstart Guide
 
 ## Installing HydePHP using Composer
+
 The recommended method of installing Hyde is using Composer.
+
 ```bash
 // torchlight! {"lineNumbers": false}
 composer create-project hyde/hyde --stability=dev
 ```
 
 ### Requirements
-> These requirements are for your local development environment.
 
-Hyde is based on [Laravel 9](https://laravel.com/docs/9.x/releases)
-which requires a minimum PHP version of 8.0.
+Hyde is based on [Laravel 10](https://laravel.com/docs/10.x/releases)
+which requires a minimum PHP version of 8.1.
 You should also have [Composer](https://getcomposer.org/) installed.
 
 To use some features like [compiling your own assets](managing-assets)
@@ -25,34 +26,31 @@ you also need NodeJS and NPM.
 
 
 ## Using the Hyde CLI
-The main way to interact with Hyde is through HydeCLI.
 
-If you are familiar with Laravel Artisan you will feel right at home.
+The main way to interact with Hyde is through the [HydeCLI](console-commands).
+
+If you are familiar with Laravel Artisan you will feel right at home, as that is what powers the HydeCLI.
 
 Learn more about the HydeCLI in the [console commands](console-commands) documentation.
 
 ## Starting a development server
 
-To make previewing your site a breeze you can use the real-time compiler
-which builds your pages on the fly. Start it using the HydeCLI:
+To make previewing your site a breeze you can use the realtime compiler which builds your pages on the fly.
+
 ```bash
 php hyde serve
 ```
+Simply run the serve command, and you will be able to preview your site at [http://localhost:8000](http://localhost:8000).
+
 
 ## Creating content
 
 ### Directory structure
 
-Creating content with Hyde is easy. Simply place Markdown files in one of the source directories, which are as follows:
-```
-// torchlight! {"lineNumbers": false}
-├── _docs  // For documentation pages              
-├── _posts // For blog posts
-└── _pages // For static Markdown and Blade pages
-```
-
-> There are a few more directories that you should know about. Please see the
-> [directory structure](architecture-concepts#directory-structure) section.
+Creating content with Hyde is easy! Simply place source files in one of the source directories, 
+and Hyde will automatically discover, parse, and compile them to static HTML.
+The directory and file extension of a source file will determine how HydePHP parses and compiles it.
+Please see the [directory structure](architecture-concepts#directory-structure) section for more information.
 
 ### Scaffolding files
 
@@ -61,28 +59,23 @@ You can scaffold blog post files using the `php hyde make:post` command with aut
 You can also scaffold pages with the `php hyde make:page` command.
 
 ```bash
-php hyde make:page "Page Title" # Markdown is the default page type
-php hyde make:page --type=blade # Creates a file extending the default layout
-php hyde make:page --type=docs  # Quickly creates a documentation page
+php hyde make:post
+php hyde make:page
 ```
-
-### Autodiscovery
-
-When building the site, Hyde will your source directories for files and
-compile them into static HTML using the appropriate layout depending
-on what kind of page it is. You don't have to worry about routing
-as Hyde takes care of that, including creating navigation menus!
 
 ## Compiling to static HTML
 
 Now that you have some amazing content, you'll want to compile your site into static HTML.
 
-This is as easy as executing the `build` command:
+This is as easy as executing the `build` command, after which your site is stored in the `_site` directory.
+
 ```bash
 php hyde build
 ```
 
-**Your site is then stored in the `_site` directory.**
+When building the site, Hyde will scan your source directories for files and compile them into static HTML using the appropriate layout depending
+on what kind of page it is. You don't have to worry about routing as Hyde takes care of everything, including creating navigation menus!
+
 
 ### Managing assets
 
