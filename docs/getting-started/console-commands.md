@@ -73,35 +73,30 @@ Build the static site
 
 Run the NPM dev script after build
 
-* Accept value: no
 * Default: `false`
 
 #### `--run-prod`
 
 Run the NPM prod script after build
 
-* Accept value: no
 * Default: `false`
 
 #### `--run-prettier`
 
 Format the output using NPM Prettier
 
-* Accept value: no
 * Default: `false`
 
 #### `--pretty-urls`
 
 Should links in output use pretty URLs?
 
-* Accept value: no
 * Default: `false`
 
 #### `--no-api`
 
 Disable API calls, for example, Torchlight
 
-* Accept value: no
 * Default: `false`
 
 `rebuild`
@@ -240,21 +235,18 @@ The type of page to create (markdown, blade, or docs)
 
 Create a Blade page
 
-* Accept value: no
 * Default: `false`
 
 #### `--docs`
 
 Create a Documentation page
 
-* Accept value: no
 * Default: `false`
 
 #### `--force`
 
 Overwrite any existing files
 
-* Accept value: no
 * Default: `false`
 
 `make:post`
@@ -284,7 +276,6 @@ The title for the Post. Will also be used to generate the filename
 
 Should the generated file overwrite existing posts with the same filename?
 
-* Accept value: no
 * Default: `false`
 
 `publish:configs`
@@ -327,7 +318,6 @@ The name of the page to publish
 
 Overwrite any existing files
 
-* Accept value: no
 * Default: `false`
 
 `publish:views`
@@ -396,21 +386,18 @@ Publish any publishable assets from vendor packages
 
 Publish and overwrite only the files that have already been published
 
-* Accept value: no
 * Default: `false`
 
 #### `--force`
 
 Overwrite any existing files
 
-* Accept value: no
 * Default: `false`
 
 #### `--all`
 
 Publish assets for all service providers without prompt
 
-* Accept value: no
 * Default: `false`
 
 #### `--provider`
