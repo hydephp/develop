@@ -9,6 +9,7 @@ navigation:
 
 HydePHP contains a few "magic" features so that you can focus on your content.
 It's encouraged that you read this page to get a high-level overview of what's going on behind the scenes.
+Later on, you can dive into the details of each feature as you need them.
 
 ## The HydeCLI
 
