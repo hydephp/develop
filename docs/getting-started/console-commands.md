@@ -53,14 +53,13 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`validate`](#validate)                | Run a series of tests to validate your setup and help you optimize your site.                |
 | [`list`](#list)                        | List all available commands.                                                                 |
 
-## `build`
-
-Build the static site
+## Build the static site
 
 
 ```bash
 php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
 ```
+
 Build the static site
 
 ### Options
@@ -73,9 +72,7 @@ Build the static site
 | `--pretty-urls`  | Should links in output use pretty URLs?    |
 | `--no-api`       | Disable API calls, for example, Torchlight |
 
-## `rebuild`
-
-Run the static site builder for a single file
+## Run the static site builder for a single file
 
 
 ```bash
@@ -90,9 +87,7 @@ Run the static site builder for a single file
 |--------|--------------------------------------------------------------------------------|
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
-## `serve`
-
-Start the realtime compiler server.
+## Start the realtime compiler server.
 
 
 ```bash
@@ -108,9 +103,7 @@ Start the realtime compiler server.
 | `--host=` | [default: "localhost"] |
 | `--port=` | [default: 8080]        |
 
-## `validate`
-
-Run a series of tests to validate your setup and help you optimize your site.
+## Run a series of tests to validate your setup and help you optimize your site.
 
 
 ```bash
@@ -119,9 +112,7 @@ php hyde validate
 
 Run a series of tests to validate your setup and help you optimize your site.
 
-## `build:rss`
-
-Generate the RSS feed
+## Generate the RSS feed
 
 
 ```bash
@@ -130,9 +121,7 @@ php hyde build:rss
 
 Generate the RSS feed
 
-## `build:search`
-
-Generate the docs/search.json
+## Generate the docs/search.json
 
 
 ```bash
@@ -141,9 +130,7 @@ php hyde build:search
 
 Generate the docs/search.json
 
-## `build:sitemap`
-
-Generate the sitemap.xml
+## Generate the sitemap.xml
 
 
 ```bash
@@ -152,9 +139,7 @@ php hyde build:sitemap
 
 Generate the sitemap.xml
 
-## `make:page`
-
-Scaffold a new Markdown, Blade, or documentation page file
+## Scaffold a new Markdown, Blade, or documentation page file
 
 
 ```bash
@@ -178,9 +163,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 | `--docs`          | Create a Documentation page                           |
 | `--force`         | Overwrite any existing files                          |
 
-## `make:post`
-
-Scaffold a new Markdown blog post file
+## Scaffold a new Markdown blog post file
 
 
 ```bash
@@ -201,9 +184,7 @@ Scaffold a new Markdown blog post file
 |-----------|----------------------------------------------------------------------------|
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
-## `publish:configs`
-
-Publish the default configuration files
+## Publish the default configuration files
 
 
 ```bash
@@ -212,9 +193,7 @@ php hyde publish:configs
 
 Publish the default configuration files
 
-## `publish:homepage`
-
-Publish one of the default homepages to index.blade.php.
+## Publish one of the default homepages to index.blade.php.
 
 
 ```bash
@@ -236,9 +215,7 @@ Publish one of the default homepages to index.blade.php.
 |-----------|------------------------------|
 | `--force` | Overwrite any existing files |
 
-## `publish:views`
-
-Publish the hyde components for customization. Note that existing files will be overwritten.
+## Publish the hyde components for customization. Note that existing files will be overwritten.
 
 
 ```bash
@@ -253,9 +230,7 @@ Publish the hyde components for customization. Note that existing files will be 
 |------------|-------------------------|
 | `category` | The category to publish |
 
-## `route:list`
-
-Display all registered routes.
+## Display all registered routes.
 
 
 ```bash
@@ -264,9 +239,7 @@ php hyde route:list
 
 Display all registered routes.
 
-## `vendor:publish`
-
-Publish any publishable assets from vendor packages
+## Publish any publishable assets from vendor packages
 
 
 ```bash
