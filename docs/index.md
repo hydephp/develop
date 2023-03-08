@@ -14,15 +14,21 @@
 
 ## About HydePHP
 
-HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static websites, blogs, and documentation pages using Markdown and (optionally) Blade.
+HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static 
+websites, blogs, and documentation pages using Markdown and (optionally) Blade.
 
-Hyde is different from other static site builders. It's blazingly fast and seriously simple to get started with, yet it has the full power of Laravel when you need it.
+Hyde is different from other static site builders. It's blazingly fast and seriously simple to get started with, yet it
+has the full power of Laravel when you need it.
 
-Hyde makes creating websites easy and fun by taking care of the boring stuff, like routing, writing boilerplate, and endless configuration. Instead, when you create a new Hyde project, everything you need to get started is already there -- including precompiled TailwindCSS, well crafted Blade templates, and easy asset management.
+Hyde makes creating websites easy and fun by taking care of the boring stuff, like routing, writing boilerplate, and 
+endless configuration. Instead, when you create a new Hyde project, everything you need to get started is already there 
+-- including precompiled TailwindCSS, well crafted Blade templates, and easy asset management.
 
-Hyde is powered by Laravel Zero which is a stripped-down version of the robust Laravel Framework. Using Blade templates the site is intelligently compiled into static HTML.
+Hyde is powered by Laravel Zero which is a stripped-down version of the robust Laravel Framework. Using Blade templates 
+the site is intelligently compiled into static HTML.
 
-Hyde was inspired by JekyllRB and is created for Developers who are comfortable writing posts in Markdown. It requires virtually no configuration out of the box as it favours convention over configuration and is preconfigured with sensible defaults.
+Hyde was inspired by JekyllRB and is created for Developers who are comfortable writing posts in Markdown. It requires 
+virtually no configuration out of the box as it favours convention over configuration and is preconfigured with sensible defaults.
 
 
 ## Installation
