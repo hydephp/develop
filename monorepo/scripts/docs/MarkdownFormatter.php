@@ -29,7 +29,8 @@ function handle_file(string $file): void
     normalize_lines($file);
 }
 
-function normalize_lines($filename) {
+function normalize_lines($filename): void
+{
     $stream = file_get_contents($filename);
 
     $text = ( $stream);
