@@ -15,9 +15,13 @@
 HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static
 websites, blogs, and documentation pages using Markdown and (optionally) Blade.
 
-Unlike other static site builders, Hyde is blazingly fast and seriously simple to get started with, yet it has the full
-power of Laravel waiting for you when you need it as Hyde is powered by Laravel Zero, a stripped-down version of the
-robust and popular Laravel Framework, optimized for console applications.
+Operated entirely through the command-line, HydePHP provides developers with a fast and efficient way to create high-quality websites with ease.
+Unlike traditional web development frameworks, sites compiled with HydePHP don't require any server to run,
+making it an ideal choice for building lightweight and fast-loading websites.
+
+Compared with other static site builders, Hyde is blazingly fast and seriously simple to get started with, yet it has the
+full power of Laravel waiting for you when you need it, as Hyde is powered by Laravel Zero, a stripped-down version of
+the robust and popular Laravel Framework, optimized for console applications.
 
 Hyde makes creating websites easy and fun by taking care of the boring stuff, like routing, writing boilerplate, and
 endless configuration. Instead, when you create a new Hyde project, everything you need to get started is already there
