@@ -17,12 +17,20 @@ To use the HydeCLI, run `php hyde` from your project directory followed by a com
 All HydeCLI commands start with `php hyde`. Anything in `[brackets]` is optional.
 If an argument or option value has a space in it, it needs to be wrapped in quotes.
 
-### Got stuck? The CLI can help.
-
-You can always run the base command `php hyde`, or `php hyde list`, to show the list of commands.
+The HydeCLI exists at the root of your application as the `hyde` script and provides a number of helpful commands that can
+assist you while you build your site. To view a list of all available Hyde commands, you may use the list command:
 
 ```bash
-php hyde # or `php hyde list`
+php hyde list
+```
+
+### Got stuck? The CLI can help.
+
+Every command also includes a "help" screen which displays and describes the command's available arguments and options.
+To view a help screen, precede the name of the command with `help`:
+
+```bash
+php hyde help <command>
 ```
 
 You can also always add `--help` to a command to show detailed usage information.
