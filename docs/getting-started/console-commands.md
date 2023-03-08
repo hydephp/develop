@@ -62,11 +62,11 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
+Maybe the most important command is the Build command, which -- you guessed it -- builds your static site!
+
 ```bash
 php hyde build          
 ```
-
-Maybe the most important command is the Build command, which -- you guessed it -- builds your static site!
 
 **Supports the following options:**
 ```
