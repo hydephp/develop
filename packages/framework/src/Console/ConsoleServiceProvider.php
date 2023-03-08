@@ -61,4 +61,14 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         //
     }
+
+    /** @internal */
+    public static function getHelp(string $command): ?string
+    {
+        return self::HELP_TEXTS[$command] ?? null;
+    }
+
+    protected const HELP_TEXTS = [
+        //
+    ];
 }
