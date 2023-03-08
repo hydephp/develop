@@ -34,6 +34,7 @@ function normalize_lines($filename): void
     $stream = file_get_contents($filename);
 
     $text = $stream;
+    $text = str_replace("\r\n", "\n", $text);
 
     $lines = explode("\n", $text);
     $new_lines = array();
