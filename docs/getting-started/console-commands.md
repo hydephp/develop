@@ -74,7 +74,7 @@ php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-a
 
 Build the static site
 
-### Options
+#### Options
 
 |                  |                                            |
 |------------------|--------------------------------------------|
@@ -94,7 +94,7 @@ php hyde rebuild <path>
 
 Run the static site builder for a single file
 
-### Arguments
+#### Arguments
 
 |        |                                                                                |
 |--------|--------------------------------------------------------------------------------|
@@ -110,7 +110,7 @@ php hyde serve [--host [HOST]] [--port [PORT]]
 
 Start the realtime compiler server.
 
-### Options
+#### Options
 
 |           |                        |
 |-----------|------------------------|
@@ -167,7 +167,7 @@ php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
 
 Scaffold a new Markdown, Blade, or documentation page file
 
-### Arguments & Options
+#### Arguments & Options
 
 |                   |                                                                        |
 |-------------------|------------------------------------------------------------------------|
@@ -187,7 +187,7 @@ php hyde make:post [--force] [--] [<title>]
 
 Scaffold a new Markdown blog post file
 
-### Arguments & Options
+#### Arguments & Options
 
 |           |                                                                            |
 |-----------|----------------------------------------------------------------------------|
@@ -214,7 +214,7 @@ php hyde publish:homepage [--force] [--] [<homepage>]
 
 Publish one of the default homepages to index.blade.php.
 
-### Arguments & Options
+#### Arguments & Options
 
 |            |                                 |
 |------------|---------------------------------|
@@ -231,7 +231,7 @@ php hyde publish:views [<category>]
 
 Publish the hyde components for customization. Note that existing files will be overwritten.
 
-### Arguments
+#### Arguments
 
 |            |                         |
 |------------|-------------------------|
@@ -258,7 +258,7 @@ php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [
 
 Publish any publishable assets from vendor packages
 
-### Options
+#### Options
 
 |               |                                                                            |
 |---------------|----------------------------------------------------------------------------|
