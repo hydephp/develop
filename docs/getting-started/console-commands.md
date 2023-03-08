@@ -57,4 +57,4 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 ---
 
-[Blade]: {!! class_exists(\App\CommandDocumentationController::class) ? (new \App\CommandDocumentationController())() : 'Command list not available'; !!}
+[Blade]: {!! (new \App\CommandDocumentationController())(); !!}
