@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Exception;
-use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
@@ -25,13 +24,6 @@ use function str_replace;
 abstract class Command extends BaseCommand
 {
     final public const USER_EXIT = 130;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setHelp((string) ($this->help ?? ConsoleServiceProvider::getHelp($this->getName())));
-    }
 
     /**
      * The base handle method that can be overridden by child classes.
