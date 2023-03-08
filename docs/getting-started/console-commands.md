@@ -74,7 +74,6 @@ Build the static site
 Run the NPM dev script after build
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--run-prod`
@@ -82,7 +81,6 @@ Run the NPM dev script after build
 Run the NPM prod script after build
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--run-prettier`
@@ -90,7 +88,6 @@ Run the NPM prod script after build
 Format the output using NPM Prettier
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--pretty-urls`
@@ -98,7 +95,6 @@ Format the output using NPM Prettier
 Should links in output use pretty URLs?
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--no-api`
@@ -106,7 +102,6 @@ Should links in output use pretty URLs?
 Disable API calls, for example, Torchlight
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 `rebuild`
@@ -150,7 +145,6 @@ Start the realtime compiler server.
 [default: "localhost"]
 
 * Accept value: yes
-* Is value required: no
 * Default: `NULL`
 
 #### `--port`
@@ -158,7 +152,6 @@ Start the realtime compiler server.
 [default: 8080]
 
 * Accept value: yes
-* Is value required: no
 * Default: `NULL`
 
 `validate`
@@ -241,7 +234,6 @@ The name of the page file to create. Will be used to generate the slug
 The type of page to create (markdown, blade, or docs)
 
 * Accept value: yes
-* Is value required: no
 * Default: `'markdown'`
 
 #### `--blade`
@@ -249,7 +241,6 @@ The type of page to create (markdown, blade, or docs)
 Create a Blade page
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--docs`
@@ -257,7 +248,6 @@ Create a Blade page
 Create a Documentation page
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--force`
@@ -265,7 +255,6 @@ Create a Documentation page
 Overwrite any existing files
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 `make:post`
@@ -296,7 +285,6 @@ The title for the Post. Will also be used to generate the filename
 Should the generated file overwrite existing posts with the same filename?
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 `publish:configs`
@@ -340,7 +328,6 @@ The name of the page to publish
 Overwrite any existing files
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 `publish:views`
@@ -410,7 +397,6 @@ Publish any publishable assets from vendor packages
 Publish and overwrite only the files that have already been published
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--force`
@@ -418,7 +404,6 @@ Publish and overwrite only the files that have already been published
 Overwrite any existing files
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--all`
@@ -426,7 +411,6 @@ Overwrite any existing files
 Publish assets for all service providers without prompt
 
 * Accept value: no
-* Is value required: no
 * Default: `false`
 
 #### `--provider`
@@ -434,7 +418,6 @@ Publish assets for all service providers without prompt
 The service provider that has assets you want to publish
 
 * Accept value: yes
-* Is value required: no
 * Default: `NULL`
 
 #### `--tag`
@@ -442,6 +425,5 @@ The service provider that has assets you want to publish
 One or many tags that have assets you want to publish
 
 * Accept value: yes
-* Is value required: no
 * Is multiple: yes
 * Default: `array ()`
