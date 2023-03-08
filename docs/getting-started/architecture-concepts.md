@@ -39,8 +39,6 @@ To take full advantage of the framework, it may first be good to familiarize our
 └── resources/views/components // Location for Blade components (optional)
 ```
 
-> Note that the `_site` directory is emptied every time you run the `hyde build` command.
-
 
 ## File Autodiscovery
 
