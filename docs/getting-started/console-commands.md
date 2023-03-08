@@ -59,7 +59,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`vendor:publish`](#vendor-publish)     | Publish any publishable assets from vendor packages                                          |
 | [`route:list`](#route-list)             | Display all registered routes.                                                               |
 | [`validate`](#validate)                 | Run a series of tests to validate your setup and help you optimize your site.                |
-| [`list`](#list)                         | List all available commands.                                                                 |
+| [`list`](#available-commands)           | List all available commands.                                                                 |
 
 ## Build the static site
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
