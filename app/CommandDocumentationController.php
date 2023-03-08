@@ -7,7 +7,6 @@ namespace App;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Facades\Blade;
-
 use function file_get_contents;
 use function implode;
 use function json_decode;
@@ -40,11 +39,11 @@ class CommandDocumentationController
 
         $blade = file_get_contents(DocumentationPage::path('_data/partials/command.blade.php'));
 
-        foreach ($commands as $command){
+        foreach ($commands as $command) {
             $rendered[] = Blade::render($blade, ['command' => $command, 'controller' => $this]);
         }
 
-        foreach ($rendered as $render){
+        foreach ($rendered as $render) {
             $compiled[] = Markdown::render($render, DocumentationPage::class);
         }
 
@@ -53,7 +52,7 @@ class CommandDocumentationController
         $search = '<span style="color: #FFCB6B;">php</span>';
         $marker = '<span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">$</span>';
 
-        return str_replace($search, $marker . $search, $html);
+        return str_replace($search, $marker.$search, $html);
     }
 
     /**
@@ -69,18 +68,18 @@ class CommandDocumentationController
 
         $description = $option['description'];
 
-        return "{$name}" . strip_tags($description);
+        return "{$name}".strip_tags($description);
     }
 
     private function getLengthOfLongestArgument(array $commands)
     {
         $length = 0;
 
-        foreach ($commands as $command){
-            foreach ($command->definition->options as $argument){
+        foreach ($commands as $command) {
+            foreach ($command->definition->options as $argument) {
                 $length = max($length, strlen($argument->name));
             }
-            foreach ($command->definition->arguments as $argument){
+            foreach ($command->definition->arguments as $argument) {
                 $length = max($length, strlen($argument->name));
             }
         }
@@ -88,15 +87,16 @@ class CommandDocumentationController
         return $length;
     }
 
-    private function getLengthOfLongestOption(object  $command)
+    private function getLengthOfLongestOption(object $command)
     {
         $length = 0;
-        foreach ($command->definition->options as $argument){
+        foreach ($command->definition->options as $argument) {
             $length = max($length, strlen($argument->name));
         }
-        foreach ($command->definition->arguments as $argument){
+        foreach ($command->definition->arguments as $argument) {
             $length = max($length, strlen($argument->name));
         }
+
         return $length;
     }
 }
