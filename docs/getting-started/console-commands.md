@@ -35,26 +35,26 @@ php hyde <command> --help
 
 Here is a quick reference of all the available commands. You can also run `php hyde list` to see this list.
 
-| Command                                | Description                                                                                  |
-|----------------------------------------|----------------------------------------------------------------------------------------------|
-| [`build`](#build)                      | Build the static site                                                                        |
-| [`serve`](#serve)                      | Start the realtime compiler server.                                                          |
-| [`rebuild`](#rebuild)                  | Run the static site builder for a single file                                                |
-| [`build:rss`](#buildrss)               | Generate the RSS feed                                                                        |
-| [`build:search`](#buildsearch)         | Generate the docs/search.json                                                                |
-| [`build:sitemap`](#buildsitemap)       | Generate the sitemap.xml                                                                     |
-| [`make:page`](#makepage)               | Scaffold a new Markdown, Blade, or documentation page file                                   |
-| [`make:post`](#makepost)               | Scaffold a new Markdown blog post file                                                       |
-| [`publish:configs`](#publishconfigs)   | Publish the default configuration files                                                      |
-| [`publish:homepage`](#publishhomepage) | Publish one of the default homepages to index.blade.php.                                     |
-| [`publish:views`](#publishviews)       | Publish the hyde components for customization. Note that existing files will be overwritten. |
-| [`vendor:publish`](#vendorpublish)     | Publish any publishable assets from vendor packages                                          |
-| [`route:list`](#routelist)             | Display all registered routes.                                                               |
-| [`validate`](#validate)                | Run a series of tests to validate your setup and help you optimize your site.                |
-| [`list`](#list)                        | List all available commands.                                                                 |
+| Command                                 | Description                                                                                  |
+|-----------------------------------------|----------------------------------------------------------------------------------------------|
+| [`build`](#build)                       | Build the static site                                                                        |
+| [`serve`](#serve)                       | Start the realtime compiler server.                                                          |
+| [`rebuild`](#rebuild)                   | Run the static site builder for a single file                                                |
+| [`build:rss`](#build-rss)               | Generate the RSS feed                                                                        |
+| [`build:search`](#build-search)         | Generate the docs/search.json                                                                |
+| [`build:sitemap`](#build-sitemap)       | Generate the sitemap.xml                                                                     |
+| [`make:page`](#make-page)               | Scaffold a new Markdown, Blade, or documentation page file                                   |
+| [`make:post`](#make-post)               | Scaffold a new Markdown blog post file                                                       |
+| [`publish:configs`](#publish-configs)   | Publish the default configuration files                                                      |
+| [`publish:homepage`](#publish-homepage) | Publish one of the default homepages to index.blade.php.                                     |
+| [`publish:views`](#publish-views)       | Publish the hyde components for customization. Note that existing files will be overwritten. |
+| [`vendor:publish`](#vendor-publish)     | Publish any publishable assets from vendor packages                                          |
+| [`route:list`](#route-list)             | Display all registered routes.                                                               |
+| [`validate`](#validate)                 | Run a series of tests to validate your setup and help you optimize your site.                |
+| [`list`](#list)                         | List all available commands.                                                                 |
 
 ## Build the static site
-
+<a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
@@ -73,7 +73,7 @@ Build the static site
 | `--no-api`       | Disable API calls, for example, Torchlight |
 
 ## Run the static site builder for a single file
-
+<a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde rebuild <path>
@@ -88,7 +88,7 @@ Run the static site builder for a single file
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
 ## Start the realtime compiler server.
-
+<a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde serve [--host [HOST]] [--port [PORT]]
@@ -104,7 +104,7 @@ Start the realtime compiler server.
 | `--port=` | [default: 8080]        |
 
 ## Run a series of tests to validate your setup and help you optimize your site.
-
+<a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde validate
@@ -113,7 +113,7 @@ php hyde validate
 Run a series of tests to validate your setup and help you optimize your site.
 
 ## Generate the RSS feed
-
+<a name="build-rss" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde build:rss
@@ -122,7 +122,7 @@ php hyde build:rss
 Generate the RSS feed
 
 ## Generate the docs/search.json
-
+<a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde build:search
@@ -131,7 +131,7 @@ php hyde build:search
 Generate the docs/search.json
 
 ## Generate the sitemap.xml
-
+<a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde build:sitemap
@@ -140,7 +140,7 @@ php hyde build:sitemap
 Generate the sitemap.xml
 
 ## Scaffold a new Markdown, Blade, or documentation page file
-
+<a name="make-page" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
@@ -164,7 +164,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 | `--force`         | Overwrite any existing files                          |
 
 ## Scaffold a new Markdown blog post file
-
+<a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde make:post [--force] [--] [<title>]
@@ -185,7 +185,7 @@ Scaffold a new Markdown blog post file
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
 ## Publish the default configuration files
-
+<a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde publish:configs
@@ -194,7 +194,7 @@ php hyde publish:configs
 Publish the default configuration files
 
 ## Publish one of the default homepages to index.blade.php.
-
+<a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde publish:homepage [--force] [--] [<homepage>]
@@ -216,7 +216,7 @@ Publish one of the default homepages to index.blade.php.
 | `--force` | Overwrite any existing files |
 
 ## Publish the hyde components for customization. Note that existing files will be overwritten.
-
+<a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde publish:views [<category>]
@@ -231,7 +231,7 @@ Publish the hyde components for customization. Note that existing files will be 
 | `category` | The category to publish |
 
 ## Display all registered routes.
-
+<a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
 php hyde route:list
@@ -240,6 +240,7 @@ php hyde route:list
 Display all registered routes.
 
 ## Publish any publishable assets from vendor packages
+<a name="vendor-publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 
 ```bash
