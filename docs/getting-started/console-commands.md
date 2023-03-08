@@ -36,7 +36,7 @@ php hyde <command> --help
 Here is a quick reference of all the available commands. You can also run `php hyde list` to see this list.
 
 | Command                                | Description                                                                                  |
-| -------------------------------------- | -------------------------------------------------------------------------------------------- |
+|----------------------------------------|----------------------------------------------------------------------------------------------|
 | [`build`](#build)                      | Build the static site                                                                        |
 | [`serve`](#serve)                      | Start the realtime compiler server.                                                          |
 | [`rebuild`](#rebuild)                  | Run the static site builder for a single file                                                |
@@ -66,7 +66,7 @@ Build the static site
 ### Options
 
 |                  |                                            |
-| ---------------- | ------------------------------------------ |
+|------------------|--------------------------------------------|
 | `--run-dev`      | Run the NPM dev script after build         |
 | `--run-prod`     | Run the NPM prod script after build        |
 | `--run-prettier` | Format the output using NPM Prettier       |
@@ -101,10 +101,10 @@ Start the realtime compiler server.
 
 ### Options
 
-|          |                                               |
-| -------- | --------------------------------------------- |
-| `--host=` | [default: "localhost"]  |
-| `--port=` | [default: 8080]         |
+|           |                        |
+|-----------|------------------------|
+| `--host=` | [default: "localhost"] |
+| `--port=` | [default: 8080]        |
 
 ## `validate`
 
@@ -170,12 +170,12 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Options
 
-|           |                                                                                                  |
-| --------- | ------------------------------------------------------------------------------------------------ |
-| `--type=markdown`  | The type of page to create (markdown, blade, or docs) |
-| `--blade` | Create a Blade page                                                                              |
-| `--docs`  | Create a Documentation page                                                                      |
-| `--force` | Overwrite any existing files                                                                     |
+|                   |                                                       |
+|-------------------|-------------------------------------------------------|
+| `--type=markdown` | The type of page to create (markdown, blade, or docs) |
+| `--blade`         | Create a Blade page                                   |
+| `--docs`          | Create a Documentation page                           |
+| `--force`         | Overwrite any existing files                          |
 
 ## `make:post`
 
@@ -194,7 +194,7 @@ Scaffold a new Markdown blog post file
 ### Options
 
 |           |                                                                            |
-| --------- | -------------------------------------------------------------------------- |
+|-----------|----------------------------------------------------------------------------|
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
 ## `publish:configs`
@@ -226,7 +226,7 @@ Publish one of the default homepages to index.blade.php.
 ### Options
 
 |           |                              |
-| --------- | ---------------------------- |
+|-----------|------------------------------|
 | `--force` | Overwrite any existing files |
 
 ## `publish:views`
@@ -281,10 +281,10 @@ Publish any publishable assets from vendor packages
 
 ### Options
 
-|              |                                                                                                                          |
-|--------------|--------------------------------------------------------------------------------------------------------------------------|
-| `--existing` | Publish and overwrite only the files that have already been published                                                    |
-| `--force`    | Overwrite any existing files                                                                                             |
-| `--all`      | Publish assets for all service providers without prompt                                                                  |
-| `--provider=` | The service provider that has assets you want to publish                                           |
-| `--tag=`      | One or many tags that have assets you want to publish \n- Is multiple: yes  |
+|               |                                                                            |
+|---------------|----------------------------------------------------------------------------|
+| `--existing`  | Publish and overwrite only the files that have already been published      |
+| `--force`     | Overwrite any existing files                                               |
+| `--all`       | Publish assets for all service providers without prompt                    |
+| `--provider=` | The service provider that has assets you want to publish                   |
+| `--tag=`      | One or many tags that have assets you want to publish \n- Is multiple: yes |
