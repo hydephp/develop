@@ -9,6 +9,8 @@ $timeStart = microtime(true);
 
 $linesCounted = 0;
 
+$links = [];
+
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 function find_markdown_files($dir): array
@@ -71,6 +73,21 @@ function normalize_lines($filename): void
 
         $new_lines[] = $line;
         $last_line = $line;
+
+        // Add any links to buffer so we can check them later
+        preg_match_all('/\[([^\[]+)\]\((.*)\)/', $line, $matches);
+        if (count($matches) > 0) {
+            foreach ($matches[2] as $match) {
+                // If link is for an anchor, prefix the filename
+                if (str_starts_with($match, '#')) {
+                    $match = basename($filename).$match;
+                }
+
+                global $links;
+                $links[] = $match;
+            }
+        }
+
     }
 
     $new_content = implode("\n", $new_lines);
