@@ -59,6 +59,9 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 
 ### Build the static site
+
+<a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
+
 ```bash
 php hyde build          
 ```
