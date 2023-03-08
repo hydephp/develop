@@ -35,7 +35,9 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     /** @return \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
-        return static::all()->sortByDesc('matter.date');
+        return static::all()->sortByDesc(function (self $post): int {
+            return $post->date?->dateTimeObject->getTimestamp() ?? 0;
+        });
     }
 
     public function toArray(): array
