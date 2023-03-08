@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 $timeStart = microtime(true);
 
+$linesCounted = 0;
+
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 function find_markdown_files($dir): array
@@ -38,6 +40,9 @@ function normalize_lines($filename) {
     $last_line = '';
     $was_last_line_heading = false;
     foreach ($lines as $line) {
+        global $linesCounted;
+        $linesCounted++;
+
         // Remove multiple empty lines
         if (trim($line) == '' && trim($last_line) == '') {
             continue;
@@ -78,4 +83,6 @@ $time = $timeEnd - $timeStart;
 $time *= 1000;
 $time = round($time, 2);
 
-echo 'Done in '.$time.'ms';
+$linesTransformed = number_format($linesCounted);
+
+echo 'Transformed '.$linesTransformed.' lines of Markdown in '.$time.'ms';
