@@ -93,19 +93,19 @@ The code examples here use the Tailwind `@apply` directives, but you could also 
 /* Markdown Features */
 
 .prose blockquote.info {
-	@apply border-blue-500;
+    @apply border-blue-500;
 }
 
 .prose blockquote.success {
-	@apply border-green-500;
+    @apply border-green-500;
 }
 
 .prose blockquote.warning {
-	@apply border-amber-500;
+    @apply border-amber-500;
 }
 
 .prose blockquote.danger {
-	@apply border-red-600;
+    @apply border-red-600;
 }
 ```
 

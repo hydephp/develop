@@ -44,8 +44,8 @@ Note that you need to provide an attribution link, thankfully Hyde injects a cus
 that use Torchlight. You can of course disable this in the `config/torchlight.php` file.
 ```php
 'attribution' => [
-	'enabled' => true,
-	'markdown' => 'Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>',
+    'enabled' => true,
+    'markdown' => 'Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>',
 ],
 ```
 

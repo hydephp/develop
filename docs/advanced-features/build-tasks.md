@@ -83,7 +83,7 @@ class ExampleTask extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-		$this->line('Goodbye World!');
+        $this->line('Goodbye World!');
     }
 }
 ```

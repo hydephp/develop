@@ -99,7 +99,7 @@ if you don't want to use the scaffolding command.
 @php($title = "Page Title")
 
 <main class="mx-auto max-w-7xl py-16 px-8">
-	<h1 class="text-center text-3xl font-bold">Page Title</h1>
+    <h1 class="text-center text-3xl font-bold">Page Title</h1>
 </main>
 
 @endsection

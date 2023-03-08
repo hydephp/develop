@@ -296,9 +296,9 @@ You can add extra CommonMark extensions, or change the default ones, in the `con
 
 ```php
 'extensions' => [
-	\League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
-	\League\CommonMark\Extension\Attributes\AttributesExtension::class,
-	\League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension::class,
+    \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
+    \League\CommonMark\Extension\Attributes\AttributesExtension::class,
+    \League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension::class,
 ],
 ```
 
@@ -306,9 +306,9 @@ In the same file you can also change the config to be passed to the CommonMark e
 
 ```php
 'config' => [
-	'disallowed_raw_html' => [
-		'disallowed_tags' => [],
-	],
+    'disallowed_raw_html' => [
+        'disallowed_tags' => [],
+    ],
 ],
 ```
 
