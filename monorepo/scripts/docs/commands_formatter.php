@@ -30,7 +30,7 @@ function makeMarkdown(array $command)
 {
 
     $template = <<<MARKDOWN
-## [Command Description]
+## [Command Title]
 
 <a name="[Command Anchor]" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -46,12 +46,14 @@ MARKDOWN;
     $name = $command['name'];
     $anchor = str_replace(':', '-', $name);
     $description = $command['description'];
+    $help = $command['help'];
     $example = $command['usage'][0];
     $markdown = $template;
 
     $markdown = str_replace('[Command Name]', $name, $markdown);
     $markdown = str_replace('[Command Anchor]', $anchor, $markdown);
-    $markdown = str_replace('[Command Description]', $description, $markdown);
+    $markdown = str_replace('[Command Title]', $description, $markdown);
+    $markdown = str_replace('[Command Description]', $help, $markdown);
     $markdown = str_replace('[Command Example]', $example, $markdown);
 
 
