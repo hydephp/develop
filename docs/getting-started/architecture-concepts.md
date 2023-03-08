@@ -40,7 +40,6 @@ To take full advantage of the framework, it may first be good to familiarize our
 ```
 
 > Note that the `_site` directory is emptied every time you run the `hyde build` command.
-> It's intended that you keep the directory out of your VCS, for example by adding it to your .gitignore file.
 
 
 ## File Autodiscovery
