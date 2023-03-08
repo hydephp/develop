@@ -170,12 +170,12 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Options
 
-|           |                                                                                                   |
-| --------- | ------------------------------------------------------------------------------------------------- |
-| `--type=`  | The type of page to create (markdown, blade, or docs) \n- Default: `'markdown'` |
-| `--blade` | Create a Blade page                                                                               |
-| `--docs`  | Create a Documentation page                                                                       |
-| `--force` | Overwrite any existing files                                                                      |
+|           |                                                       |                       |
+|-----------|-------------------------------------------------------|-----------------------|
+| `--type=` | The type of page to create (markdown, blade, or docs) | Default: `'markdown'` |   
+| `--blade` | Create a Blade page                                   |                       |
+| `--docs`  | Create a Documentation page                           |                       |
+| `--force` | Overwrite any existing files                          |                       |
 
 ## `make:post`
 
