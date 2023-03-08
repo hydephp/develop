@@ -9,8 +9,8 @@ navigation:
 
 What makes HydePHP special is that it contains "magic" features so that you can focus on your content while the framework does the heavy lifting.
 
-It's encouraged that you read this page to get a high-level overview of what's going on behind the scenes.
-Later on, you can dive into the details of each feature as you need them.
+This page provides a high-level overview of the framework's capabilities, so you can quickly grasp its benefits.
+As you delve deeper into the documentation, you'll discover the details of each feature and learn how to leverage them effectively.
 
 ## The HydeCLI
 
