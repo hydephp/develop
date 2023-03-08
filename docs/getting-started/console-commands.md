@@ -57,7 +57,6 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 Build the static site
 
-### Usage
 
 ```bash
 php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
@@ -79,7 +78,6 @@ Build the static site
 
 Run the static site builder for a single file
 
-### Usage
 
 ```bash
 php hyde rebuild <path>
@@ -99,7 +97,6 @@ Run the static site builder for a single file
 
 Start the realtime compiler server.
 
-### Usage
 
 ```bash
 php hyde serve [--host [HOST]] [--port [PORT]]
@@ -118,7 +115,6 @@ Start the realtime compiler server.
 
 Run a series of tests to validate your setup and help you optimize your site.
 
-### Usage
 
 ```bash
 php hyde validate
@@ -132,7 +128,6 @@ Run a series of tests to validate your setup and help you optimize your site.
 
 Generate the RSS feed
 
-### Usage
 
 ```bash
 php hyde build:rss
@@ -146,7 +141,6 @@ Generate the RSS feed
 
 Generate the docs/search.json
 
-### Usage
 
 ```bash
 php hyde build:search
@@ -160,7 +154,6 @@ Generate the docs/search.json
 
 Generate the sitemap.xml
 
-### Usage
 
 ```bash
 php hyde build:sitemap
@@ -174,7 +167,6 @@ Generate the sitemap.xml
 
 Scaffold a new Markdown, Blade, or documentation page file
 
-### Usage
 
 ```bash
 php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
@@ -201,7 +193,6 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 Scaffold a new Markdown blog post file
 
-### Usage
 
 ```bash
 php hyde make:post [--force] [--] [<title>]
@@ -225,7 +216,6 @@ Scaffold a new Markdown blog post file
 
 Publish the default configuration files
 
-### Usage
 
 ```bash
 php hyde publish:configs
@@ -239,7 +229,6 @@ Publish the default configuration files
 
 Publish one of the default homepages to index.blade.php.
 
-### Usage
 
 ```bash
 php hyde publish:homepage [--force] [--] [<homepage>]
@@ -264,7 +253,6 @@ Publish one of the default homepages to index.blade.php.
 
 Publish the hyde components for customization. Note that existing files will be overwritten.
 
-### Usage
 
 ```bash
 php hyde publish:views [<category>]
@@ -284,7 +272,6 @@ Publish the hyde components for customization. Note that existing files will be 
 
 Display all registered routes.
 
-### Usage
 
 ```bash
 php hyde route:list
@@ -298,7 +285,6 @@ Display all registered routes.
 
 Install the Torchlight config file into your app.
 
-### Usage
 
 ```bash
 php hyde torchlight:install
@@ -312,7 +298,6 @@ Install the Torchlight config file into your app.
 
 Publish any publishable assets from vendor packages
 
-### Usage
 
 ```bash
 php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
