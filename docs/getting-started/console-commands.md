@@ -148,20 +148,15 @@ php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
 
 Scaffold a new Markdown, Blade, or documentation page file
 
-### Arguments
+### Arguments & Options
 
-|         |                                                                        |
-|---------|------------------------------------------------------------------------|
-| `title` | The name of the page file to create. Will be used to generate the slug |
-
-### Options
-
-|                   |                                                       |
-|-------------------|-------------------------------------------------------|
-| `--type=markdown` | The type of page to create (markdown, blade, or docs) |
-| `--blade`         | Create a Blade page                                   |
-| `--docs`          | Create a Documentation page                           |
-| `--force`         | Overwrite any existing files                          |
+|                   |                                                                        |
+|-------------------|------------------------------------------------------------------------|
+| `title`           | The name of the page file to create. Will be used to generate the slug |
+| `--type=markdown` | The type of page to create (markdown, blade, or docs)                  |
+| `--blade`         | Create a Blade page                                                    |
+| `--docs`          | Create a Documentation page                                            |
+| `--force`         | Overwrite any existing files                                           |
 
 ## Scaffold a new Markdown blog post file
 <a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -172,16 +167,11 @@ php hyde make:post [--force] [--] [<title>]
 
 Scaffold a new Markdown blog post file
 
-### Arguments
-
-|         |                                                                    |
-|---------|--------------------------------------------------------------------|
-| `title` | The title for the Post. Will also be used to generate the filename |
-
-### Options
+### Arguments & Options
 
 |           |                                                                            |
 |-----------|----------------------------------------------------------------------------|
+| `title`   | The title for the Post. Will also be used to generate the filename         |
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
 ## Publish the default configuration files
@@ -202,18 +192,12 @@ php hyde publish:homepage [--force] [--] [<homepage>]
 
 Publish one of the default homepages to index.blade.php.
 
-### Arguments
-
+### Arguments & Options
 
 |            |                                 |
 |------------|---------------------------------|
 | `homepage` | The name of the page to publish |
-
-### Options
-
-|           |                              |
-|-----------|------------------------------|
-| `--force` | Overwrite any existing files |
+| `--force`  | Overwrite any existing files    |
 
 ## Publish the hyde components for customization. Note that existing files will be overwritten.
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
