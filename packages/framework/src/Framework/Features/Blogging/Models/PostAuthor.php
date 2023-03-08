@@ -71,7 +71,9 @@ class PostAuthor implements Stringable
     /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
-        return new Collection(Config::getArray('hyde.authors', []));
+        return (new Collection(Config::getArray('hyde.authors', [])))->mapWithKeys(function (self $author): array {
+            return [$author->username => $author];
+        });
     }
 
     public function __toString(): string
