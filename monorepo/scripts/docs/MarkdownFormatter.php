@@ -16,9 +16,14 @@ function find_markdown_files($dir): array
     return $markdown_files;
 }
 
+function handle_file(string $file): void
+{
+    echo 'Handling '.$file."\n";
+}
+
 $dir = __DIR__.'/../../../docs';
 $markdownFiles = find_markdown_files($dir);
 
 foreach ($markdownFiles as $file) {
-    echo $file . "\n";
+    handle_file($file);
 }
