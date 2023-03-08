@@ -36,7 +36,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc(function (self $post): int {
-            return $post->date->dateTimeObject->getTimestamp();
+            return $post->date?->dateTimeObject->getTimestamp();
         });
     }
 
