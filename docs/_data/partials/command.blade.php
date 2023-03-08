@@ -13,6 +13,6 @@ php hyde {!! $command->usage[0] !!}
 **Supports the following options:**
 
 @foreach ($command->definition->options as $data)
-    {{$controller->formatOption((array) $data, $command)}}
+    {!!$controller->formatOption((array) $data, $command)!!}
 @endforeach
 @endif
