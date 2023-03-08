@@ -54,6 +54,9 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`validate`](#validate)                 | Run a series of tests to validate your setup and help you optimize your site.                |
 | [`list`](#list)                         | List all available commands.                                                                 |
 
+
+---
+
 ### Initialize a new Hyde project
 ```bash
 php hyde install         
