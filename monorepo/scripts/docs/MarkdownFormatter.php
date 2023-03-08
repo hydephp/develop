@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 $timeStart = microtime(true);
 
+require_once __DIR__.'/../../../vendor/autoload.php';
+
 function find_markdown_files($dir): array
 {
     $markdown_files = array();
