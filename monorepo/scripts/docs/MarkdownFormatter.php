@@ -33,7 +33,7 @@ function normalize_lines($filename): void
 {
     $stream = file_get_contents($filename);
 
-    $text = ( $stream);
+    $text = $stream;
 
     $lines = explode("\n", $text);
     $new_lines = array();
