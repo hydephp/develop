@@ -75,7 +75,6 @@ Run the NPM dev script after build
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--run-prod`
@@ -84,7 +83,6 @@ Run the NPM prod script after build
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--run-prettier`
@@ -93,7 +91,6 @@ Format the output using NPM Prettier
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--pretty-urls`
@@ -102,7 +99,6 @@ Should links in output use pretty URLs?
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--no-api`
@@ -111,7 +107,6 @@ Disable API calls, for example, Torchlight
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 `rebuild`
@@ -156,7 +151,6 @@ Start the realtime compiler server.
 
 * Accept value: yes
 * Is value required: no
-* Is multiple: no
 * Default: `NULL`
 
 #### `--port`
@@ -165,7 +159,6 @@ Start the realtime compiler server.
 
 * Accept value: yes
 * Is value required: no
-* Is multiple: no
 * Default: `NULL`
 
 `validate`
@@ -249,7 +242,6 @@ The type of page to create (markdown, blade, or docs)
 
 * Accept value: yes
 * Is value required: no
-* Is multiple: no
 * Default: `'markdown'`
 
 #### `--blade`
@@ -258,7 +250,6 @@ Create a Blade page
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--docs`
@@ -267,7 +258,6 @@ Create a Documentation page
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--force`
@@ -276,7 +266,6 @@ Overwrite any existing files
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 `make:post`
@@ -308,7 +297,6 @@ Should the generated file overwrite existing posts with the same filename?
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 `publish:configs`
@@ -353,7 +341,6 @@ Overwrite any existing files
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 `publish:views`
@@ -424,7 +411,6 @@ Publish and overwrite only the files that have already been published
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--force`
@@ -433,7 +419,6 @@ Overwrite any existing files
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--all`
@@ -442,7 +427,6 @@ Publish assets for all service providers without prompt
 
 * Accept value: no
 * Is value required: no
-* Is multiple: no
 * Default: `false`
 
 #### `--provider`
@@ -451,7 +435,6 @@ The service provider that has assets you want to publish
 
 * Accept value: yes
 * Is value required: no
-* Is multiple: no
 * Default: `NULL`
 
 #### `--tag`
