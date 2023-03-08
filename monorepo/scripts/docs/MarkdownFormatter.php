@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+/**
+ * @internal
+ */
+
 $timeStart = microtime(true);
 
 $linesCounted = 0;
