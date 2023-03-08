@@ -91,8 +91,6 @@ Run the static site builder for a single file
 |--------|--------------------------------------------------------------------------------|
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
-### Options
-
 ## `serve`
 
 Start the realtime compiler server.
@@ -122,8 +120,6 @@ php hyde validate
 
 Run a series of tests to validate your setup and help you optimize your site.
 
-### Options
-
 ## `build:rss`
 
 Generate the RSS feed
@@ -134,8 +130,6 @@ php hyde build:rss
 ```
 
 Generate the RSS feed
-
-### Options
 
 ## `build:search`
 
@@ -148,8 +142,6 @@ php hyde build:search
 
 Generate the docs/search.json
 
-### Options
-
 ## `build:sitemap`
 
 Generate the sitemap.xml
@@ -160,8 +152,6 @@ php hyde build:sitemap
 ```
 
 Generate the sitemap.xml
-
-### Options
 
 ## `make:page`
 
@@ -223,8 +213,6 @@ php hyde publish:configs
 
 Publish the default configuration files
 
-### Options
-
 ## `publish:homepage`
 
 Publish one of the default homepages to index.blade.php.
@@ -266,8 +254,6 @@ Publish the hyde components for customization. Note that existing files will be 
 |------------|-------------------------|
 | `category` | The category to publish |
 
-### Options
-
 ## `route:list`
 
 Display all registered routes.
@@ -279,8 +265,6 @@ php hyde route:list
 
 Display all registered routes.
 
-### Options
-
 ## `torchlight:install`
 
 Install the Torchlight config file into your app.
@@ -291,8 +275,6 @@ php hyde torchlight:install
 ```
 
 Install the Torchlight config file into your app.
-
-### Options
 
 ## `vendor:publish`
 
