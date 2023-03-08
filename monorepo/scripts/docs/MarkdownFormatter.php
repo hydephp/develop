@@ -5,7 +5,6 @@ declare(strict_types=1);
 /**
  * @internal
  */
-
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
@@ -88,7 +87,6 @@ function normalize_lines($filename): void
                 $links[] = $match;
             }
         }
-
     }
 
     $new_content = implode("\n", $new_lines);
