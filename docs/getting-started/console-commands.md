@@ -265,17 +265,6 @@ php hyde route:list
 
 Display all registered routes.
 
-## `torchlight:install`
-
-Install the Torchlight config file into your app.
-
-
-```bash
-php hyde torchlight:install
-```
-
-Install the Torchlight config file into your app.
-
 ## `vendor:publish`
 
 Publish any publishable assets from vendor packages
