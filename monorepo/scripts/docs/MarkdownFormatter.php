@@ -5,7 +5,6 @@ declare(strict_types=1);
 /**
  * @internal
  */
-
 $timeStart = microtime(true);
 
 $linesCounted = 0;
@@ -14,7 +13,7 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 
 function find_markdown_files($dir): array
 {
-    $markdown_files = array();
+    $markdown_files = [];
 
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
     foreach ($iterator as $file) {
@@ -42,7 +41,7 @@ function normalize_lines($filename): void
     $text = str_replace("\t", '    ', $text);
 
     $lines = explode("\n", $text);
-    $new_lines = array();
+    $new_lines = [];
 
     $last_line = '';
     $was_last_line_heading = false;
