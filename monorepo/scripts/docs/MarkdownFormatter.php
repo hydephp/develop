@@ -22,7 +22,46 @@ function handle_file(string $file): void
 {
     echo 'Handling '.$file."\n";
 
-    add_two_lines_above_headings($file);
+    normalize_lines($file);
+}
+
+function normalize_lines($filename) {
+    $stream = file_get_contents($filename);
+
+    $text = ( $stream);
+
+    $lines = explode("\n", $text);
+    $new_lines = array();
+
+    $last_line = '';
+    $was_last_line_heading = false;
+    foreach ($lines as $line) {
+        // Remove multiple empty lines
+        if (trim($line) == '' && trim($last_line) == '') {
+            continue;
+        }
+
+        // Make sure there is a space after headings
+        if ($was_last_line_heading && trim($line) != '') {
+            $new_lines[] = '';
+        }
+
+        // Check if line is a heading
+        if (preg_match('/^#+/', $line)) {
+            $was_last_line_heading = true;
+        } else {
+            $was_last_line_heading = false;
+        }
+
+        // Remove trailing spaces
+        $line = rtrim($line);
+
+        $new_lines[] = $line;
+        $last_line = $line;
+    }
+
+    $new_content = implode("\n", $new_lines);
+    file_put_contents($filename, $new_content);
 }
 
 $dir = __DIR__.'/../../../docs';
