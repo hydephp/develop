@@ -46,7 +46,7 @@ final class RouteKey implements Stringable
 
     public static function normalize(string $string): string
     {
-        return str_replace('.', '/', $string);
+        return $string;
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
