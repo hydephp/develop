@@ -61,7 +61,6 @@ Build the static site
 ```bash
 php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
 ```
-``
 Build the static site
 
 ### Options
