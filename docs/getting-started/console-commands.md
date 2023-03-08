@@ -57,16 +57,6 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 ---
 
-### Initialize a new Hyde project
-```bash
-php hyde install         
-```
-
-While Hyde doesn't need much configuration to get started, this command speeds up the little there is.
-
-For example, it updates the config file with the supplied site name and URL,
-and can also publish a starter homepage and rebuild the site.
-
 
 ### Build the static site
 ```bash
