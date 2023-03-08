@@ -112,7 +112,6 @@ Run the static site builder for a single file
 The relative file path (example: _posts/hello-world.md)
 
 * Is required: yes
-* Default: `NULL`
 
 ### Options
 
@@ -134,14 +133,12 @@ Start the realtime compiler server.
 [default: "localhost"]
 
 * Accept value: yes
-* Default: `NULL`
 
 #### `--port`
 
 [default: 8080]
 
 * Accept value: yes
-* Default: `NULL`
 
 `validate`
 ----------
@@ -212,7 +209,6 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 The name of the page file to create. Will be used to generate the slug
 
-* Default: `NULL`
 
 ### Options
 
@@ -255,7 +251,6 @@ Scaffold a new Markdown blog post file
 
 The title for the Post. Will also be used to generate the filename
 
-* Default: `NULL`
 
 ### Options
 
@@ -294,7 +289,6 @@ Publish one of the default homepages to index.blade.php.
 
 The name of the page to publish
 
-* Default: `NULL`
 
 ### Options
 
@@ -320,7 +314,6 @@ Publish the hyde components for customization. Note that existing files will be 
 
 The category to publish
 
-* Default: `NULL`
 
 ### Options
 
@@ -383,7 +376,6 @@ Publish assets for all service providers without prompt
 The service provider that has assets you want to publish
 
 * Accept value: yes
-* Default: `NULL`
 
 #### `--tag`
 
