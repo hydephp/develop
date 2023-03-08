@@ -7,18 +7,20 @@ navigation:
 
 ## Introduction to Hyde
 
-HydePHP contains a few "magic" features so that you can focus on your content. It's encouraged that you read this page to get a high-level overview of what's going on behind the scenes.
+HydePHP contains a few "magic" features so that you can focus on your content.
+It's encouraged that you read this page to get a high-level overview of what's going on behind the scenes.
 
 ## The HydeCLI
 
-When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the
-Hyde Command Line Interface (CLI).
-Since the CLI is based on the Laravel Artisan Console, so you may actually already be familiar with it.
+When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the command line
+using the **HydeCLI**, which is based on the Laravel Artisan Console that you may already be familiar with.
 
-You should take a look at [the Console Commands page](console-commands)
-to learn more and see the available commands and their usage.
+If you want to learn about the available commands and how to use them, you can visit the [Console Commands](console-commands) page,
+or you can run any of the built-in help commands to get a list of available commands and their descriptions.
 
 ```bash
+php hyde list
+php hyde help <command>
 php hyde <command> [--help]
 ```
 
