@@ -12,11 +12,9 @@ $list = (json_decode($contents, true));
 
 $list['application']['name'] = 'HydeCLI';
 
-
 array_map('unlink', glob(OUT_DIR.'/*.md'));
 
 @mkdir(OUT_DIR);
-
 
 foreach ($list['commands'] as $index => $command) {
     if ($command['hidden']
@@ -45,11 +43,9 @@ foreach ($list['commands'] as $index => $command) {
 $list['commands'] = array_values($list['commands']);
 file_put_contents('commands.json', json_encode($list, JSON_PRETTY_PRINT));
 
-
 foreach ($list['commands'] as $command) {
     $matter = (new \Hyde\Framework\Actions\ConvertsArrayToFrontMatter())->execute($command, \Symfony\Component\Yaml\Yaml::DUMP_OBJECT_AS_MAP);
     $markdown = $command['help'];
-
 
     $id = str_replace(':', '-', $command['name']);
     file_put_contents(OUT_DIR.'/'.$id.'.md', "{$matter}\n{$markdown}\n");
