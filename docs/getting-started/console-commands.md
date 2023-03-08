@@ -87,9 +87,7 @@ Run the static site builder for a single file
 
 ### Arguments
 
-#### `path`  :  The relative file path (example: _posts/hello-world.md)
-
-- Is required: yes
+#### `path`  :  The relative file path (example: _posts/hello-world.md) \n - Is required: yes
 
 ### Options
 
@@ -105,13 +103,9 @@ Start the realtime compiler server.
 
 ### Options
 
-#### `--host`  :  [default: "localhost"]
+#### `--host`  :  [default: "localhost"] \n - Accept value: yes
 
-- Accept value: yes
-
-#### `--port`  :  [default: 8080]
-
-- Accept value: yes
+#### `--port`  :  [default: 8080] \n - Accept value: yes
 
 ## `validate`
 
@@ -177,10 +171,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 ### Options
 
-#### `--type`  :  The type of page to create (markdown, blade, or docs)
-
-- Accept value: yes
-- Default: `'markdown'`
+#### `--type`  :  The type of page to create (markdown, blade, or docs) \n- Accept value: yes \n- Default: `'markdown'`
 
 #### `--blade`  :  Create a Blade page
 
@@ -294,12 +285,6 @@ Publish any publishable assets from vendor packages
 
 #### `--all`  :  Publish assets for all service providers without prompt
 
-#### `--provider`  :  The service provider that has assets you want to publish
+#### `--provider`  :  The service provider that has assets you want to publish \n - Accept value: yes
 
-- Accept value: yes
-
-#### `--tag`  :  One or many tags that have assets you want to publish
-
-- Accept value: yes
-- Is multiple: yes
-- Default: `array ()`
+#### `--tag`  :  One or many tags that have assets you want to publish \n- Accept value: yes \n- Is multiple: yes \n- Default: `array ()`
