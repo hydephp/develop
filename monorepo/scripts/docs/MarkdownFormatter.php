@@ -5,13 +5,14 @@ declare(strict_types=1);
 /**
  * @internal
  */
+
+require_once __DIR__.'/../../../vendor/autoload.php';
+
 $timeStart = microtime(true);
 
 $linesCounted = 0;
 
 $links = [];
-
-require_once __DIR__.'/../../../vendor/autoload.php';
 
 function find_markdown_files($dir): array
 {
