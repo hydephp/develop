@@ -75,7 +75,7 @@ function normalize_lines($filename): void
         $last_line = $line;
 
         // Add any links to buffer so we can check them later
-        preg_match_all('/\[([^\[]+)\]\((.*)\)/', $line, $matches);
+        preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
         if (count($matches) > 0) {
             foreach ($matches[2] as $match) {
                 // If link is for an anchor, prefix the filename
