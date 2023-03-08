@@ -95,7 +95,7 @@ Run the static site builder for a single file
 |--------|--------------------------------------------------------------------------------|
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
-## Start the realtime compiler server.
+## Start the realtime compiler server
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -111,7 +111,7 @@ Start the realtime compiler server.
 | `--host=` | [default: "localhost"] |
 | `--port=` | [default: 8080]        |
 
-## Run a series of tests to validate your setup and help you optimize your site.
+## Test and validate your project to optimize your site
 <a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
@@ -207,7 +207,7 @@ Publish one of the default homepages to index.blade.php.
 | `homepage` | The name of the page to publish |
 | `--force`  | Overwrite any existing files    |
 
-## Publish the hyde components for customization. Note that existing files will be overwritten.
+## Publish the hyde components for customization
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
