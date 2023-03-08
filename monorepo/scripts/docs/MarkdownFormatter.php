@@ -69,6 +69,7 @@ function normalize_lines($filename): void
     }
 
     $new_content = implode("\n", $new_lines);
+    $new_content = rtrim($new_content)."\n";
     file_put_contents($filename, $new_content);
 }
 
