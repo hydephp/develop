@@ -1,13 +1,16 @@
 # Elegant and Powerful Static Site Generator
 
-<p> 
-    <!-- <a href="https://packagist.org/packages/hyde/hyde"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/v/hyde/hyde" alt="Latest Version on Packagist" title="Latest version of Hyde/Hyde"></a> -->
-    <a href="https://packagist.org/packages/hyde/framework"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/v/hyde/framework?include_prereleases" alt="Latest Version on Packagist" title="Latest version of Hyde/Framework"></a> 
-    <a href="https://packagist.org/packages/hyde/framework"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/dt/hyde/framework" alt="Total Downloads on Packagist"></a> 
-    <a href="https://github.com/hydephp/hyde/blob/master/LICENSE.md"> <img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/github/license/hydephp/hyde" alt="License MIT"> </a>
-    <a href="https://hydephp.com/developer-tools/coverage-report/"><img style="display: inline; margin: 4px 2px;" src="https://cdn.desilva.se/microservices/coverbadges/badges/9b8f6a9a7a48a2df54e6751790bad8bd910015301e379f334d6ec74c4c3806d1.svg" alt="Test Coverage" title="Average coverage between categories"></a>
-    <img style="display: inline; margin: 4px 2px;" src="https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml/badge.svg" alt="Test Suite">  <img style="display: inline; margin: 4px 2px;" src="https://github.styleci.io/repos/472503421/shield?branch=master" alt="StyleCI Status"> 
-</p>
+<style>.images-inline img { display: inline; margin: 4px 2px;}</style>
+
+
+![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)
+![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)
+[![Test Coverage](https://codecov.io/gh/hydephp/develop/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/hydephp/develop)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hydephp/develop/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/hydephp/develop/?branch=master)
+[![Psalm Type Coverage](https://shepherd.dev/github/hydephp/develop/coverage.svg)](https://shepherd.dev/github/hydephp/develop)
+![License MIT](https://img.shields.io/github/license/hydephp/hyde)
+{.images-inline .not-prose}
+
 
 ## About HydePHP
 
