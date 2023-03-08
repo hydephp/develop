@@ -4,125 +4,38 @@ $autoloader = require __DIR__.'/../../../vendor/autoload.php';
 
 $contents = shell_exec('cd ../../../ && php hyde list --format=json --env=production');
 
-$list = (json_decode($contents, true));
-
 $timeStart = microtime(true);
 
+$list = (json_decode($contents, true));
 
-$buffer = '';
-$table = <<<'MARKDOWN'
-| Command                                 | Description                                                                                  |
-|-----------------------------------------|----------------------------------------------------------------------------------------------|
 
-MARKDOWN;
+$list['application']['name'] = 'HydeCLI';
 
-foreach ($list['commands'] as $command) {
-    if ($command['hidden']) {
+foreach ($list['commands'] as $index => $command) {
+    if ($command['hidden']
+        || $command['name'] === 'list'
+        || $command['name'] === 'help'
+        || $command['name'] === 'torchlight:install'
+        || str_starts_with($command['name'], '_')) {
         echo 'Skipping '.$command['name']."\n";
+        unset($list['commands'][$index]);
     } else {
         echo 'Processing '.$command['name']."\n";
-        makeMarkdown($command);
-        makeTable($command);
+
+        // remove default options
+        $default = ['help', 'quiet', 'verbose', 'version', 'ansi', 'no-ansi', 'no-interaction', 'env'];
+
+        foreach ($command['definition']['options'] as $optionIndex => $option) {
+            if (in_array($optionIndex, $default)) {
+                unset($command['definition']['options'][$optionIndex]);
+            }
+        }
+
+        $list['commands'][$index] = $command;
     }
 }
 
-function makeMarkdown(array $command)
-{
+$list['commands'] = array_values($list['commands']);
+file_put_contents('commands.json', json_encode($list, JSON_PRETTY_PRINT));
 
-    $template = <<<MARKDOWN
-## [Command Title]
-
-<a name="[Command Anchor]" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
-
-[Command Description]
-
-```bash
-php hyde [Command Example]
-```
-
-MARKDOWN;
-
-
-    $name = $command['name'];
-    $anchor = str_replace(':', '-', $name);
-    $description = $command['description'];
-    $help = $command['help'];
-    $example = $command['usage'][0];
-    $markdown = $template;
-
-    $markdown = str_replace('[Command Name]', $name, $markdown);
-    $markdown = str_replace('[Command Anchor]', $anchor, $markdown);
-    $markdown = str_replace('[Command Title]', $description, $markdown);
-    $markdown = str_replace('[Command Description]', $help, $markdown);
-    $markdown = str_replace('[Command Example]', $example, $markdown);
-
-
-    global $buffer;
-    $buffer .= $markdown."\n"."\n";
-}
-
-
-function makeTable(array $command)
-{
-    $template = '| [`[Command Name]`](#[Command Anchor])  | [Command Description] | ';
-
-    $name = $command['name'];
-    $anchor = str_replace(':', '-', $name);
-    $description = $command['description'];
-
-    $markdown = $template;
-
-    $markdown = str_replace('[Command Name]', $name, $markdown);
-    $markdown = str_replace('[Command Anchor]', $anchor, $markdown);
-    $markdown = str_replace('[Command Description]', $description, $markdown);
-
-    global $table;
-    $table .= $markdown."\n";
-
-
-}
-
-
-file_put_contents(__DIR__.'/commands.md', $table ."\n". $buffer);
-
-
-$template = <<<MARKDOWN
-## [Command Description]
-
-<a name="[Command Name]" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
-
-[Command Description]
-
-```bash
-[Command Example]
-```
-
-MARKDOWN;
-
-
-
-$templateWithOptions = <<<MARKDOWN
-## [Command Description]
-
-<a name="[Command Name]" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
-
-[Command Description]
-
-```bash
-[Command Example]
-```
-
-**Supports the following options:**
-
-```
-[Command Options]
-```
-MARKDOWN;
-
-
-$optionsTemplate = <<<TXT
-[Option]       [Option Description]
-TXT;
-
-
-echo 'Done in '.round((microtime(true) - $timeStart) * 1000 ).'ms'."\n";
+echo 'Done in '.round((microtime(true) - $timeStart) * 1000).'ms'."\n";
