@@ -82,8 +82,5 @@ abstract class HydePage
      * The generated page navigation data.
      */
     public NavigationData $navigation;
-
-    public string $title;
-    public ?string $canonicalUrl;
 }
 ```
