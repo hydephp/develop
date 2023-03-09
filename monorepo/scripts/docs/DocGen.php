@@ -136,11 +136,15 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         $signatureTemplate
     );
 
-    $output[] = str_replace(
-        ['{{ $signature }}', '{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}', '{{ $returnType }}'],
+    $markdown = str_replace(
+        [
+            '{{ $signature }}', '{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}',
+            '{{ $returnType }}'
+        ],
         [$signature, $methodName, $description, $className, $argList, $returnType],
         $template
     );
+    $output[] = $markdown;
 }
 
 function parsePHPDocs(string $comment): array
