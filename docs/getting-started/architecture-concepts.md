@@ -129,7 +129,7 @@ php hyde route:list
 To access routes in your code, simply use the Routes facade and specify the route key for the desired page.
 
 ```php
-\Hyde\Facades\Routes\Routes::get('posts/my-post')
+Routes::get('posts/my-post')
 ```
 
 To learn more about the routing system, please visit the [routing documentation](automatic-routing).
