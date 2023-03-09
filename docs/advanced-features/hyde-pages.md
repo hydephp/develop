@@ -99,3 +99,47 @@ abstract class HydePage
     public NavigationData $navigation;
 }
 ```
+
+### Methods
+
+#### `make()`
+
+Static constructor alias for the HydePage class.
+
+```php
+$page = HydePage::make(string $identifier = '', FrontMatter|array $matter = [])
+```
+
+#### `__construct()`
+
+The constructor for the HydePage class.
+
+```php
+$page = new HydePage(string $identifier = '', FrontMatter|array $matter = [])
+```
+
+#### `isDiscoverable()`
+
+Returns whether the page is discoverable.
+
+```php
+bool $isDiscoverable = HydePage::isDiscoverable()
+```
+
+#### `get()`
+
+Get a page instance from the Kernel's page index by its identifier.
+
+```php
+HydePage $page = HydePage::get(string $identifier)
+```
+
+- @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
+
+#### `parse()`
+
+Parse a source file into a page model instance.
+
+```php
+HydePage $page = HydePage::parse(string $identifier)
+```
