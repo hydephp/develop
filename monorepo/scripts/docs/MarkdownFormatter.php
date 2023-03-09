@@ -143,7 +143,6 @@ $time = round($time, 2);
 
 $linesTransformed = number_format($linesCounted);
 
-
 $fileCount = count($markdownFiles);
 
 echo "\nFormatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms";
