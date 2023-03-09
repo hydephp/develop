@@ -125,16 +125,6 @@ For example, it's perfectly valid to have a blog post with the identifier `about
 as the route key will differ due to the different output directories. However, if you customize the output directories,
 you need to keep this in mind. It also means that route keys will change when you change the output directory which can break links.
 
-#### Notes on nested directories:
-
-Since identifiers contain everything between the source directory and the file extension, it is possible to have nested directories.
-These will be retained in the route key. So if you have a page with the path `_pages/about/contact.md`, the identifier will be `about/contact`,
-and the route key (and thus the output path) will be `about/contact`, and a blog post stored as `_posts/2023/my-post.md`
-will have the identifier `2023/my-post` and the route key `posts/2023/my-post`.
-
-In some cases you can configure Hyde to handle nested directories differently, for example, documentation pages can
-utilize the subdirectory name to automatically create a sidebar group, and Markdown/Blade pages can be placed in dropdowns.
-
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
