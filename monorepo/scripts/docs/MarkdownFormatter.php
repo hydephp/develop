@@ -89,7 +89,6 @@ function normalize_lines($filename): void
             }
         }
 
-
         // Check if line is a  fenced code block
         if (str_starts_with($line, '``')) {
             $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
@@ -117,7 +116,7 @@ function normalize_lines($filename): void
                 foreach ($matches[2] as $match) {
                     // If link is for an anchor, prefix the filename
                     if (str_starts_with($match, '#')) {
-                        $match = 'ANCHOR_'. basename($filename).$match;
+                        $match = 'ANCHOR_'.basename($filename).$match;
                     }
 
                     global $links;
@@ -186,7 +185,7 @@ if (count($links) > 0) {
         // Remove anything before spaces (image alt text)
         $link = explode(' ', $link)[0];
 
-        if (!str_starts_with($link, 'ANCHOR_')) {
+        if (! str_starts_with($link, 'ANCHOR_')) {
             // Add to new unique array
             $uniqueLinks[$link] = "$filename:$line";
         }
@@ -204,13 +203,13 @@ if (count($links) > 0) {
         }
 
         // Check does not end with .md
-        if (str_ends_with($link, '.md') ) {
+        if (str_ends_with($link, '.md')) {
             $warnings['Bad links'][] = "Link to $link in $location must not use .md extension";
             continue;
         }
 
         // Check if file exists
-        if (!file_exists($base.'/'.$link)) {
+        if (! file_exists($base.'/'.$link)) {
             $hasMatch = false;
             foreach ($directories as $directory) {
                 if (file_exists($directory.'/'.$link.'.md')) {
@@ -227,7 +226,7 @@ if (count($links) > 0) {
 }
 
 if (count($warnings) > 0) {
-    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings, COUNT_RECURSIVE)-count($warnings)." found \033[0m \n";
+    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings, COUNT_RECURSIVE) - count($warnings)." found \033[0m \n";
     foreach ($warnings as $type => $messages) {
         echo "\n\033[33m$type:\033[0m \n";
         foreach ($messages as $message) {
@@ -235,7 +234,6 @@ if (count($warnings) > 0) {
         }
     }
 }
-
 
 $time = round((microtime(true) - $timeStart) * 1000, 2);
 $linesTransformed = number_format($linesCounted);
