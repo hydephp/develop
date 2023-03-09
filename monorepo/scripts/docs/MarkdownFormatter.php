@@ -108,21 +108,25 @@ function normalize_lines($filename): void
 
         /** Linting */
 
-        // Add any links to buffer, so we can check them later
-        preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
-        if (count($matches) > 0) {
-            foreach ($matches[2] as $match) {
-                // If link is for an anchor, prefix the filename
-                if (str_starts_with($match, '#')) {
-                    $match = basename($filename).$match;
-                }
+        // if not inside fenced code block
+        if (! $is_inside_fenced_code_block) {
 
-                global $links;
-                $links[] = [
-                    'filename' => $filename,
-                    'line' => $index + 1,
-                    'link' => $match,
-                ];
+            // Add any links to buffer, so we can check them later
+            preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
+            if (count($matches) > 0) {
+                foreach ($matches[2] as $match) {
+                    // If link is for an anchor, prefix the filename
+                    if (str_starts_with($match, '#')) {
+                        $match = basename($filename).$match;
+                    }
+
+                    global $links;
+                    $links[] = [
+                        'filename' => $filename,
+                        'line' => $index + 1,
+                        'link' => $match,
+                    ];
+                }
             }
         }
 
