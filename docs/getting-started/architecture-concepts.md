@@ -214,6 +214,28 @@ You can learn more about this in the [documentation pages documentation](documen
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
 This will help you understand the documentation and codebase better, as well as helping you know what to search for when you need help.
 
+### Table of contents
+
+- [HydePHP](#hydephp)
+- [Laravel](#laravel)
+- [Front Matter](#front-matter)
+- [Markdown](#markdown)
+- [Blade](#blade)
+- [YAML](#yaml)
+- [PHP](#php)
+- [HTML](#html)
+- [Tailwind CSS](#tailwind-css)
+- [Composer](#composer)
+- [Static Sites](#static-sites)
+- [Version Control](#version-control)
+- [Git](#git)
+- [Autodiscovery](#autodiscovery)
+- [Page Types](#page-types)
+- [Page Identifiers](#page-identifiers)
+- [Routes](#routes)
+- [Route Keys](#route-keys)
+
+
 [//]: # (Languages and Tools)
 
 ### HydePHP
