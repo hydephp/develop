@@ -101,5 +101,5 @@ how to process a specific page. For example, the identifier property is used to 
 the routeKey property is used to generate the URL for the page.
 
 The matter and markdown properties as I'm sure you can guess, hold the page's front matter and markdown content.
-These can then also be processed by [page factories](dynamic-data-discovery.md) to generate the computed data like the
+These can then also be processed by [page factories](dynamic-data-discovery) to generate the computed data like the
 title property.
