@@ -180,6 +180,20 @@ if (count($links) > 0) {
     }
     foreach ($uniqueLinks as $link => $location) {
         $base = __DIR__.'/../../../docs';
+
+        // Check uses pretty urls
+        if (str_ends_with($link, '.html')) {
+            $warnings[] = "Link to $link in $location should not use .html extension";
+            continue;
+        }
+
+        // Check does not end with .md
+        if (str_ends_with($link, '.md')) {
+            $warnings[] = "Link to $link in $location must not use .md extension";
+            continue;
+        }
+
+        // Check if file exists
         if (!file_exists($base.'/'.$link)) {
            $warnings[] = "Broken link to $link found in $location";
         }
