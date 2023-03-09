@@ -42,7 +42,6 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `resources/assets`           | Location for Laravel Mix source files (optional)            |
 | `resources/views/components` | Location for Blade components (optional)                    |
 
-
 ## Page Types
 
 All pages in HydePHP are internally represented by a page object. The object instance contains all the data HydePHP has parsed and discovered.
@@ -70,7 +69,6 @@ class MarkdownPost extends BaseMarkdownPage
     public readonly string $routeKey; // The key used to access the page in the routing system
 }
 ```
-
 
 ## File Autodiscovery
 
@@ -104,9 +102,9 @@ as the file names and directories they are in will directly influence how the pa
 If you remember our `MarkdownPost` class from above, you'll recall that we have a few important properties:
 
 ```php
-static $sourceDirectory = '_posts'; 
-static $outputDirectory = 'posts'; 
-static $fileExtension = '.md'; 
+static $sourceDirectory = '_posts';
+static $outputDirectory = 'posts';
+static $fileExtension = '.md';
 $identifier; // For example: "my-new-post"
 $routeKey;  // For example: "posts/my-new-post"
 ```
@@ -120,7 +118,7 @@ Now, we can finally look at some examples of how the data is related, by providi
 // The source path relative to the project root:
 $path = '_posts/my-new-post.md';
 
-// Identifier from path: 
+// Identifier from path:
 $identifier = String::between($path, $sourceDirectory, $fileExtension) = 'my-new-post';
 
 // Route key from identifier:
