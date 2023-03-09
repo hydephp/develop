@@ -124,13 +124,13 @@ $path = '_posts/my-new-post.md';
 $identifier = String::between($path, $sourceDirectory, $fileExtension) = 'my-new-post';
 
 // Route key from identifier:
-$routeKey = $outputDirectory . '/' . $identifier = 'posts/my-new-post';
+$routeKey = $outputDirectory.'/'.$identifier = 'posts/my-new-post';
 
 // Output path from route key:
-$outputPath = $routeKey . '.html' = 'posts/my-new-post.html';
+$outputPath = $routeKey.'.html' = 'posts/my-new-post.html';
 
 // Source path from identifier:
-$sourcePath = $sourceDirectory . '/' . $identifier . $fileExtension = '_posts/my-new-post.md';
+$sourcePath = $sourceDirectory.'/'.$identifier.$fileExtension = '_posts/my-new-post.md';
 ```
 
 ## Convention over Configuration
