@@ -131,14 +131,14 @@ $outputPath = $routeKey.'.html' = 'posts/my-new-post.html';
 $sourcePath = $sourceDirectory.'/'.$identifier.$fileExtension = '_posts/my-new-post.md';
 ```
 
-### Notes on duplicate and changing identifiers:
+#### Notes on duplicate and changing identifiers:
 
 Since identifiers are unique to the page type, it is possible to have duplicate identifiers across different page types.
 For example, it's perfectly valid to have a blog post with the identifier `about` and a static page with the identifier `about`,
 as the route key will differ due to the different output directories. However, if you customize the output directories,
 you need to keep this in mind. It also means that route keys will change when you change the output directory which can break links.
 
-### Notes on nested directories:
+#### Notes on nested directories:
 
 Since identifiers contain everything between the source directory and the file extension, it is possible to have nested directories.
 These will be retained in the route key. So if you have a page with the path `_pages/about/contact.md`, the identifier will be `about/contact`,
@@ -147,7 +147,6 @@ will have the identifier `2023/my-post` and the route key `posts/2023/my-post`.
 
 In some cases you can configure Hyde to handle nested directories differently, for example, documentation pages can
 utilize the subdirectory name to automatically create a sidebar group, and Markdown/Blade pages can be placed in dropdowns.
-
 
 ## Convention over Configuration
 
