@@ -48,6 +48,8 @@ foreach ($instanceMethods as $method) {
 // Output the documentation
 echo implode("\n", $output);
 
+// Save the documentation to a file
+file_put_contents('api-docs.md', implode("\n", $output));
 
 // Helpers
 
