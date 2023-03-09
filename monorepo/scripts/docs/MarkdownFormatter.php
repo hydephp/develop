@@ -147,4 +147,4 @@ if (count($warnings) > 0) {
 }
 
 echo "\n";
-echo 'Transformed '.$linesTransformed.' lines of Markdown in '.$time.'ms';
+echo 'Formatted, normalized, and validated '.$linesTransformed.' lines of Markdown in '.$time.'ms';
