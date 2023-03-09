@@ -215,6 +215,12 @@ You can learn more about this in the [documentation pages documentation](documen
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
 This will help you understand the documentation and codebase better, as well as helping you know what to search for when you need help.
 
+### HydePHP
+
+HydePHP is a static site generator written in PHP, designed to make it easy for developers to build fast and secure websites.
+It uses a simple directory structure and templating system to generate static websites from content files,
+and can be easily extended using PHP libraries and packages.
+
 ### Laravel
 
 Laravel is the PHP framework that HydePHP is built on top of. We use a specialized version called Laravel Zero,
@@ -247,7 +253,34 @@ making it a popular choice for many applications and frameworks.
 PHP is a popular server-side scripting language used for web development that can be embedded in HTML.
 HydePHP is built on top of PHP and utilizes its powerful capabilities for generating static websites. 
 
+### HTML
+
+HTML (Hypertext Markup Language) is the standard markup language used to create web pages and web applications.
+HydePHP uses HTML to render the static websites generated from its content files and templates. 
+
+### Tailwind CSS
+
+Tailwind CSS is a utility-first CSS framework used for rapidly building custom user interfaces.
+HydePHP supports Tailwind CSS out of the box through the built-in Blade templates,
+making it easy for developers to create beautiful and responsive websites without writing custom CSS.
+
 ### Composer
 
 Composer is a dependency manager for PHP that simplifies the process of installing and managing packages required by
-PHP applications. HydePHP uses Composer to manage its own dependencies and make it easy for users to install and use the software. 
+PHP applications. HydePHP uses Composer to manage its own dependencies and make it easy for users to install and use the software.
+
+### Static Sites
+
+A static website is a collection of HTML web pages that are delivered to the user's web browser exactly as they are stored
+on the web server. HydePHP generates static websites, making them fast, secure, and easy to deploy.
+
+### Version Control
+
+HydePHP can be easily integrated with Git to manage website source files and track changes over time,
+as one of the many benefits with static sites is that they are designed to be version controlled.
+
+
+### Git
+
+Git is a free and open-source distributed version control system that is widely used for software development.
+Git repositories can be hosted on GitHub, GitLab, BitBucket, or any other Git hosting service.
