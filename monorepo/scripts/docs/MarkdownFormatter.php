@@ -57,6 +57,7 @@ function normalize_lines($filename): void
 
     $last_line = '';
     $was_last_line_heading = false;
+    $is_inside_fenced_fenced_code_block = false;
     foreach ($lines as $index => $line) {
         global $linesCounted;
         $linesCounted++;
@@ -75,7 +76,9 @@ function normalize_lines($filename): void
 
         // Make sure there is a space before opening a fenced code block (search for ```language)
         if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
-            $new_lines[] = '';
+            if (!$is_inside_fenced_fenced_code_block) {
+                $new_lines[] = '';
+            }
         }
 
         // Check if line is a heading
@@ -83,6 +86,11 @@ function normalize_lines($filename): void
             $was_last_line_heading = true;
         } else {
             $was_last_line_heading = false;
+        }
+
+        // Check if line is a escaped fenced code block
+        if (str_starts_with($line, '````')) {
+            $is_inside_fenced_fenced_code_block = !$is_inside_fenced_fenced_code_block;
         }
 
         // Remove trailing spaces
