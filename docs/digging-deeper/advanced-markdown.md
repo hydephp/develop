@@ -162,6 +162,7 @@ anything within the path label will be rendered as HTML. This means you can add 
 ‎// Filepath: <a href="https://github.com">View file on Github</a>
 ```
 ````
+
 #### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.

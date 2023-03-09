@@ -106,6 +106,7 @@ and the rest of the data will be pulled from a matching entry.
 ```
 
 This is equivalent to the following front matter in a blog post:
+
 ```yaml
 author:
     username: mr_hyde
@@ -114,6 +115,7 @@ author:
 ```
 
 But you only have to specify the username:
+
 ```yaml
 author: mr_hyde
 ```
@@ -174,6 +176,7 @@ Sadly, Hyde is not intelligent enough to determine what order items should be in
 Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
 
 Let's see an example:
+
 ```php
 // torchlight! {"lineNumbers": false}
 // This is the default values in the config. It puts the readme.md first in order.

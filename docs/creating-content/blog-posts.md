@@ -15,6 +15,7 @@ To use the full power of the Hyde post module however,
 you'll want to add YAML Front Matter to your posts.
 
 You can scaffold posts with automatic front matter using the HydeCLI:
+
 ```bash
 php hyde make:post
 ```
@@ -38,6 +39,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - Your post will be stored in `_site/posts/<slug>.html`
 
 **Example:**
+
 ```bash
 ✔ _posts/hello-world.md # Valid and will be compiled to _site/posts/hello-world.html
 ```
@@ -56,6 +58,7 @@ Here is a quick primer:
   You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
 
 **Example:**
+
 ```markdown
 ---
 title: "My New Post"

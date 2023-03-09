@@ -13,6 +13,7 @@ navigation:
 Now that you have some amazing content, you'll want to compile your site into static HTML.
 
 **This is as easy as executing the `build` command:**
+
 ```bash
 php hyde build
 ```
@@ -20,11 +21,13 @@ php hyde build
 ### Other ways to compile the site
 
 **You can also compile a single file:**
+
 ```bash
 php hyde rebuild <filepath>
 ```
 
 **And, you can even start a development server to compile your site on the fly:**
+
 ```bash
 php hyde serve
 ```

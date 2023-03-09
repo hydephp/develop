@@ -12,6 +12,7 @@ This guide will help you update Hyde to the latest version. It is recommended to
 ## Updating Hyde/Framework
 
 Run the following command from your Hyde/Hyde installation:
+
 ```bash
 composer update hyde/framework
 ```
@@ -27,16 +28,19 @@ Depending on how you installed Hyde, there are a few different ways to update it
 ### Using Git
 
 Make sure you have a remote set up for the repository.
+
 ```bash
 git remote add upstream https://github.com/hydephp/hyde.git
 ```
 
 Then pull the latest changes from the remote:
+
 ```bash
 git pull upstream master
 ```
 
 After this, you should update your composer dependencies:
+
 ```bash
 composer update
 ```
@@ -50,6 +54,7 @@ Since all resource files are in the content directories you can simply copy thos
 If you have changed any other files, for example in the App directory, you will need to update those files manually as well. But if you have done that you probably know what you are doing. I hope. The same goes if you have created any custom blade components or have modified Hyde ones.
 
 Example CLI workflow, assuming the Hyde/Hyde project is stored as `my-project` in the home directory:
+
 ```bash
 cd ~
 mv my-project my-project-old

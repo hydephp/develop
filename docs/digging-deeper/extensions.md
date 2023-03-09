@@ -42,6 +42,7 @@ TORCHLIGHT_TOKEN=torch_<your-api-token>
 
 Note that you need to provide an attribution link, thankfully Hyde injects a customizable link automatically to all pages
 that use Torchlight. You can of course disable this in the `config/torchlight.php` file.
+
 ```php
 'attribution' => [
     'enabled' => true,

@@ -79,6 +79,7 @@ The specific usage and schemas used for pages are documented in their respective
 - Each key-pair value should be on its own line.
 
 **Example:**
+
 ```markdown
 ---
 title: "My New Post"
@@ -101,6 +102,7 @@ Hyde v0.58.0-beta brings experimental support for creating front-matter in Blade
 To create BladeMatter, you simply use the default Laravel Blade `@php` directive to declare a variable anywhere in the template.
 
 **Example:**
+
 ```blade
 @php($title = 'BladeMatter Demo')
 ```
@@ -142,6 +144,7 @@ Routes::get('docs/readme')
 When designing Blade layouts it can be useful to use the `x-link` component to automatically resolve relative links.
 
 You can of course, use it just like a normal anchor tag like so:
+
 ```blade
 <x-link href="index.html">Home</x-link>
 ```
@@ -153,6 +156,7 @@ But where it really shines is when you supply a route. This will then resolve th
 ```
 
 You can of course, also supply extra attributes like classes:
+
 ```blade
 <x-link :href="Routes::get('index')" class="btn btn-primary">Home</x-link>
 ```
