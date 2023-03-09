@@ -17,7 +17,7 @@ While Hyde offers some support for front matter within Blade files, most of the 
 
 ## Front matter syntax
 
-Here is a quick reference of the syntax Hyde uses and expects:
+Here's a refresher on Yaml, and a quick reference of the syntax Hyde uses and expects:
 
 ```markdown
 ---
