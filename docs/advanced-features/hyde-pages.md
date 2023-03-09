@@ -46,7 +46,8 @@ The base class for all Hyde pages, all other page classes extend this class.
  * The base class for all Hyde pages. Here simplified for the sake of brevity.
  */
 abstract class HydePage
-{    /**
+{
+    /**
      * The directory in which source files are stored. Relative to the project root.
      */
     public static string $sourceDirectory;
