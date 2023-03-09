@@ -118,7 +118,7 @@ function parsePHPDocs(string $comment): array
             $properties[$propertyName] = $propertyValue;
         } else {
             $shouldAddNewline = empty($line);
-            $description .= ($shouldAddNewline ? "\n\n" : ' ').$line;
+            $description .= ($shouldAddNewline ? "\n\n" : '').ltrim($line.' ');
         }
     }
 
