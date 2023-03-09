@@ -66,7 +66,7 @@ as the file names and directories they are in will directly influence how the pa
 There are a few terms that are important to define before we explore their correlations.
 
 - **Path:** The full path to a file, including the file name and extension.
-- **Page identifier:** The unique identifier for a page. Unique only within the same page type.
+- **Identifier:** The unique identifier for a page. Unique only within the same page type.
 - **Route key:** The key used to access the page in the routing system. Unique across all site pages.
 
 
