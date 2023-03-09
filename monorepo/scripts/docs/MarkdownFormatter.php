@@ -48,6 +48,7 @@ function normalize_lines($filename): void
         // Warn
         global $warnings;
         $warnings[] = 'File '.$filename.' is empty';
+
         return;
     }
 
