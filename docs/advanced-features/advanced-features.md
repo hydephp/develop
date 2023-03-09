@@ -14,4 +14,4 @@ This section of the documentation will cover some of the more advanced (but opti
 
 ## Introduction
 
-To fully understand the features described in these chapters, it may be beneficial to first skim through the [Architecture Concepts](architecture-concepts/introduction.html) chapters.
+To fully understand the features described in these chapters, it may be beneficial to first skim through the [Architecture Concepts](architecture-concepts/introduction) chapters.
