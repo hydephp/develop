@@ -72,6 +72,8 @@ Front matter is heavily used in HydePHP to store metadata about pages. Hyde uses
 
 Using front matter is optional, as Hyde will dynamically generate data based on the content itself. (Though any matter you provide will take precedence over the automatically generated data.)
 
+### Front Matter in Markdown
+
 All Markdown content files support Front Matter. Blog posts for example make heavy use of it.
 
 The specific usage and schemas used for pages are documented in their respective documentation, however, here is a primer on the fundamentals.
@@ -95,7 +97,7 @@ author:
 Lorem ipsum dolor sit amet, etc.
 ```
 
-### Blade
+### Front Matter in Blade
 
 >warning 🧪 This feature is experimental, and currently does not support multidimensional arrays or multi-line directives as the BladeMatter is statically parsed.
 
