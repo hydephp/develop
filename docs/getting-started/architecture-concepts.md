@@ -284,3 +284,6 @@ as one of the many benefits with static sites is that they are designed to be ve
 
 Git is a free and open-source distributed version control system that is widely used for software development.
 Git repositories can be hosted on GitHub, GitLab, BitBucket, or any other Git hosting service.
+
+[//]: # (HydePHP Features)
+
