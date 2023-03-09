@@ -162,7 +162,12 @@ function parsePHPDocs(string $comment): array
         if (str_starts_with($line, '@')) {
             $propertyName = substr($line, 1, strpos($line, ' ') - 1) ;
             $propertyValue = substr($line, strpos($line, ' ') + 1);
-            $properties[$propertyName. 's'][] = $propertyValue;
+            // If property allows multiple we add to subarray
+            if ($propertyName === 'return') {
+                $properties[$propertyName] = $propertyValue;
+            } else {
+                $properties[$propertyName. 's'][] = $propertyValue;
+            }
         } else {
             $shouldAddNewline = empty($line);
             $description .= ($shouldAddNewline ? "\n\n" : '').ltrim($line.' ');
