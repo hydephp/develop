@@ -71,4 +71,3 @@ To create BladeMatter, you simply use the default Laravel Blade `@php` directive
 ```
 
 It will then be available through the global `$page` variable, `$page->matter('title')`.
-

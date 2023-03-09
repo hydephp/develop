@@ -173,6 +173,7 @@ Routes::get('posts/my-post')
 
 To learn more about the routing system, please visit the [routing documentation](automatic-routing).
 
+
 ## Global Page Data
 
 During the build of each page, Hyde will inject some data available to all Blade views. If you are not planning to write
@@ -186,6 +187,7 @@ The `$page` variable is likely to the most important one, as it contains all the
 Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
 
 You can see all the helpers in the [Page API](hyde-pages) reference page.
+
 
 ## Terminology
 

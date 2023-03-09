@@ -6,7 +6,8 @@ navigation:
 # HydePage API Reference
 
 >warning This article covers advanced information, and you are expected to already be familiar with the [Page Models](page-models).
- 
+
+
 ## Abstract
 
 This page contains the full API references for the built-in HydePage classes. Most users will not need to know about
@@ -25,4 +26,3 @@ It is especially useful if you're looking to implement your own page classes, or
 | [MarkdownPost](#markdownpost)           | Class for Markdown posts.              |
 | [DocumentationPage](#documentationpage) | Class for documentation pages.         |
 | [HtmlPage](#htmlpage)                   | Class for HTML pages.                  |
-
