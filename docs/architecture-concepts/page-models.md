@@ -47,7 +47,7 @@ class MarkdownPost extends BaseMarkdownPage
 }
 ```
 
-_Note that since Hyde pages are modular and class inheritance and traits, this example has been simplified and
+_Note that since Hyde pages are modular and through class inheritance and traits, this example has been simplified and
 edited to show all the relevant parts inlined into one class._
 
 ## Page Models as Blueprints
