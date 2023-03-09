@@ -146,5 +146,7 @@ if (count($warnings) > 0) {
     }
 }
 
+$fileCount = count($markdownFiles);
+
 echo "\n";
-echo 'Formatted, normalized, and validated '.$linesTransformed.' lines of Markdown in '.$time.'ms';
+echo 'Formatted, normalized, and validated '.$linesTransformed.' lines of Markdown in '.$fileCount.' files in '.$time.'ms';
