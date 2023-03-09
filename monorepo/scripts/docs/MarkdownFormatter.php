@@ -111,7 +111,11 @@ function normalize_lines($filename): void
                 }
 
                 global $links;
-                $links[] = $match;
+                $links[] = [
+                    'filename' => $filename,
+                    'line' => $index + 1,
+                    'link' => $match,
+                ];
             }
         }
 
