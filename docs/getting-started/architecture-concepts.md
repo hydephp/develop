@@ -66,6 +66,8 @@ Take a look at the [customization and configuration guide](customization) to see
 
 ## Front Matter
 
+>info **In a nutshell:** Front Matter is a block of YAML containing metadata, stored at the top of a Markdown file.
+
 Front matter is heavily used in HydePHP to store metadata about pages. Hyde uses the front matter data to generate rich and dynamic content. For example, a blog post category, author website, or featured image.
 
 Using front matter is optional, as Hyde will dynamically generate data based on the content itself. (Though any matter you provide will take precedence over the automatically generated data.)
