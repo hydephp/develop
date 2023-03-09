@@ -158,4 +158,4 @@ $linesTransformed = number_format($linesCounted);
 
 $fileCount = count($markdownFiles);
 
-echo "\nFormatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms";
+echo "\n\n\033[32mAll done!\033[0m Formatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms\n";
