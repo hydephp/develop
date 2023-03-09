@@ -44,6 +44,13 @@ function normalize_lines($filename): void
     $text = str_replace("\r\n", "\n", $text);
     $text = str_replace("\t", '    ', $text);
 
+    if (empty(trim($text))) {
+        // Warn
+        global $warnings;
+        $warnings[] = 'File '.$filename.' is empty';
+        return;
+    }
+
     $lines = explode("\n", $text);
     $new_lines = [];
 
