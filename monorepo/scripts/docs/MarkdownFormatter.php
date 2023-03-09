@@ -144,7 +144,7 @@ foreach ($markdownFiles as $file) {
 }
 
 if (count($warnings) > 0) {
-    echo "\nWarnings:\n";
+    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings)." found \033[0m \n";
     foreach ($warnings as $warning) {
         echo " - $warning\n";
     }
