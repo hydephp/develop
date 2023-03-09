@@ -83,8 +83,6 @@ All source and output directories are configurable, but the defaults are as foll
 Since HydePHP automatically discovers and compiles content files, it is important to understand how HydePHP handles paths,
 as the file names and directories they are in will directly influence how the page will be compiled.
 
-It is also through the source directory and file extension that HydePHP determines which page model to use to compile the page.
-
 As such, it will be helpful for you to know about the following terms:
 
 - **Path:** The full path to a file, including the file name, directory, and extension.
