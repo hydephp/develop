@@ -42,6 +42,7 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `config`           | Configuration files for Hyde and integrations               |
 | `resources/views`  | Location for Blade components (optional)                    |
 | `resources/assets` | Location for Laravel Mix source files (optional)            |
+| `app`              | Location for custom PHP classes (optional)                  |
 
 ## Page Models
 
