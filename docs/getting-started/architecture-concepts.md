@@ -7,7 +7,7 @@ navigation:
 
 ## Introduction to the Hyde Framework
 
-What makes HydePHP special are its "magic" features like autodiscovery and intelligent data generation. 
+What makes HydePHP special are its "magic" features like autodiscovery and intelligent data generation.
 All designed so that you can focus on your content, while the framework does the heavy lifting.
 
 This page provides a high-level overview of the framework's capabilities, so you can quickly grasp its benefits.
