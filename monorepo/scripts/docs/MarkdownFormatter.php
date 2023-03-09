@@ -76,7 +76,7 @@ function normalize_lines($filename): void
 
         // Make sure there is a space before opening a fenced code block (search for ```language)
         if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
-            if (!$is_inside_fenced_fenced_code_block) {
+            if (! $is_inside_fenced_fenced_code_block) {
                 $new_lines[] = '';
             }
         }
@@ -90,7 +90,7 @@ function normalize_lines($filename): void
 
         // Check if line is a escaped fenced code block
         if (str_starts_with($line, '````')) {
-            $is_inside_fenced_fenced_code_block = !$is_inside_fenced_fenced_code_block;
+            $is_inside_fenced_fenced_code_block = ! $is_inside_fenced_fenced_code_block;
         }
 
         // Remove trailing spaces
