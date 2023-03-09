@@ -113,7 +113,7 @@ function normalize_lines($filename): void
         foreach ($markers as $marker) {
             if (str_contains($line, $marker)) {
                 global $warnings;
-                $message = 'Legacy marker found in '. $filename.':'.$index +1 .' Found "'.$marker .'"';
+                $message = 'Legacy marker found in '.$filename.':'.$index + 1 .' Found "'.$marker.'"';
                 $warnings[] = $message;
             }
         }
