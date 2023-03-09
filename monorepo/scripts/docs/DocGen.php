@@ -166,7 +166,8 @@ function parsePHPDocs(string $comment): array
             if ($propertyName === 'return') {
                 $properties[$propertyName] = $propertyValue;
             } else {
-                $properties[$propertyName. 's'][] = $propertyValue;
+                $name = $propertyName.'s';
+                $properties[$name][] = $propertyValue;
             }
         } else {
             $shouldAddNewline = empty($line);
