@@ -11,6 +11,7 @@ use Hyde\Pages\Concerns\HydePage;
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 $class = HydePage::class;
+$instanceVariableName = '$page';
 
 $reflection = new ReflectionClass($class);
 
@@ -124,7 +125,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     $argList = implode(', ', $parameters);
 
-    $instanceVariableName = '$'.lcfirst($className);
+    global $instanceVariableName;
     $signature = str_replace(
         ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
         [$instanceVariableName, $methodName, $className],
