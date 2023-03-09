@@ -183,7 +183,6 @@ if (count($links) > 0) {
         if (!file_exists($base.'/'.$link)) {
            $warnings[] = "Broken link to $link found in $location";
         }
-
     }
 }
 
