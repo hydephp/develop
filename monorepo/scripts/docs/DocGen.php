@@ -31,4 +31,3 @@ $staticMethods = array_filter($methods, function (ReflectionMethod $method) {
 $instanceMethods = array_filter($methods, function (ReflectionMethod $method) {
     return ! $method->isStatic();
 });
-
