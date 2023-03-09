@@ -37,11 +37,17 @@ $output = [];
 // Generate static methods
 foreach ($staticMethods as $method) {
     documentMethod($method, $output);
+
+    // test // FIXME: Remove
+    break;
 }
 
 // Generate instance methods
 foreach ($instanceMethods as $method) {
     documentMethod($method, $output);
+
+    // test // FIXME: Remove
+    break;
 }
 
 // Output the documentation
