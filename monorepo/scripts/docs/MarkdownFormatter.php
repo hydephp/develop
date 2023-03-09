@@ -154,6 +154,21 @@ if (count($warnings) > 0) {
     }
 }
 
+// Just to make PhpStorm happy
+$links[] = [
+    'filename' => '',
+    'line' => 1,
+    'link' => '',
+];
+
+if (count($links) > 0) {
+    foreach ($links as $data) {
+        $link = $data['link'];
+        $filename = $data['filename'];
+        $line = $data['line'];
+    }
+}
+
 $time = round((microtime(true) - $timeStart) * 1000, 2);
 $linesTransformed = number_format($linesCounted);
 $fileCount = count($markdownFiles);
