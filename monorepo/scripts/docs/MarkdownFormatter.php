@@ -170,6 +170,10 @@ if (count($links) > 0) {
         if (str_starts_with($link, 'http')) {
             continue;
         }
+
+        if (str_starts_with($link, '#')) {
+            continue;
+        }
     }
 }
 
