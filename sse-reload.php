@@ -17,13 +17,16 @@ while (true) {
 
     unlink('sse-buffer');
 
-    if (ob_get_contents()) ob_end_clean();
+    if (ob_get_contents()) {
+        ob_end_clean();
+    }
 
-    if (connection_aborted()) break;
+    if (connection_aborted()) {
+        break;
+    }
 
     sleep(1);
 }
-
 
 // To trigger: Run: file_put_contents('sse-buffer', 'refresh');
 
