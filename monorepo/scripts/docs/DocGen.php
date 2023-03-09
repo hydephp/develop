@@ -60,6 +60,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     ```php
     {{ $class }}::{{ $methodName }}({{ $argList }}): {{ $returnType }}
     ```
+
     MARKDOWN;
 
     $methodName = $method->getName();
