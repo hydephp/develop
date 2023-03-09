@@ -43,37 +43,18 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `resources/assets`           | Location for Laravel Mix source files (optional)            |
 | `resources/views/components` | Location for Blade components (optional)                    |
 
-## Page Types
+## Page Models
 
-All pages in HydePHP are internally represented by a page object. The object instance contains all the data HydePHP has parsed and discovered.
-
-HydePHP ships with a few different page types. Each page type is defined as its own page class; all of which extend the base HydePage class.
+The Hyde page models are an integral part of how HydePHP creates your static site. Each page in your site is represented
+by a page model. These are simply PHP classes that in addition to holding both the source content and computed data
+for your pages, also house instructions to Hyde on how to parse, process, and render the pages to static HTML.
 
 The page classes are very important and fill two roles:
 
-1. The classes themselves, act as blueprints, defining information for Hyde to use when parsing and compiling the page.
-2. The instances of the classes, contain the actual data HydePHP has parsed and discovered.
+1. They act as blueprints containing _static_ instructions for how to parse, process, and, render pages.
+2. Each class _instance_ also holds the page source contents, as well as the computed data.
 
-### Overview of a page class
-
-As an example of what they look like, here is a simplified version of the MarkdownPost class.
-
-The static properties define the blueprint for the entire page type, and the instance properties are the actual data HydePHP has parsed or generated from the source file.
-
-```php
-class MarkdownPost extends BaseMarkdownPage
-{
-    public static string $sourceDirectory = '_posts'; // The directory where HydePHP will look for source files
-    public static string $outputDirectory = 'posts'; // The directory where HydePHP will output compiled files
-    public static string $fileExtension = '.md'; // The file extension HydePHP will look for
-
-    public FrontMatter $matter; // The parsed front matter data
-    public Markdown $markdown; // The parsed Markdown content
-
-    public readonly string $identifier; // The unique identifier for the page
-    public readonly string $routeKey; // The key used to access the page in the routing system
-}
-```
+To learn more, you can visit the [Page Models](page-models) page.
 
 ## File Autodiscovery
 
