@@ -186,7 +186,13 @@ if (count($links) > 0) {
         $uniqueLinks[$link] = "$filename:$line";
     }
     foreach ($uniqueLinks as $link => $location) {
-        
+        $base = __DIR__.'/../../../docs';
+        if (!file_exists($base.'/'.$link)) {
+            echo "\n\033[31mError:\033[0m \033[33mBroken link found:\033[0m\n";
+            echo " - Location: $location\n";
+            echo " - Link: $link\n";
+        }
+
     }
 }
 
