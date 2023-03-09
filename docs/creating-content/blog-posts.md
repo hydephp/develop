@@ -38,7 +38,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - The filename is used as the filename for the compiled HTML
 - Filenames should use `kebab-case-slug` followed by the extension `.md`
 - Files prefixed with `_underscores` are ignored by Hyde
-- Your post will be stored in `_site/posts/<slug>.html`
+- Your post will be stored in `_site/posts/<identifier>.html`
 
 **Example:**
 
