@@ -215,72 +215,16 @@ You can learn more about this in the [documentation pages documentation](documen
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
 This will help you understand the documentation and codebase better, as well as helping you know what to search for when you need help.
 
-### HydePHP
-
-HydePHP is a static site generator written in PHP, designed to make it easy for developers to build fast and secure websites.
-It uses a simple directory structure and templating system to generate static websites from content files,
-and can be easily extended using PHP libraries and packages.
-
-### Laravel
-
-Laravel is the PHP framework that HydePHP is built on top of. We use a specialized version called Laravel Zero,
-which is optimized for command-line applications.
-
-### Front Matter
-
-Front Matter is a block of YAML, stored at the top of a Markdown file, enclosed by a set of triple-dashed lines.
-It is commonly used to store metadata about the content, such as the title, author, date, etc.
-
-### Markdown
-
-Markdown is a lightweight markup language that uses plain text formatting syntax, designed to make it easy to create
-structured content for the web. HydePHP uses Markdown as the base for most of its content files.
-
-### Blade
-
-Blade is the templating engine from Laravel, which allows developers to write clean and reusable code for the 
-presentation layer of web applications. HydePHP uses Blade both for the built-in views and components,
-as well as to provide powerful templating capabilities through Blade-based pages.
-
-### YAML
-
-YAML is a human-readable data serialization format used for configuration files and often used as the syntax for 
-Front Matter in HydePHP content files. YAML is designed to be easily read by humans and parsed by machines,
-making it a popular choice for many applications and frameworks.
-
-### PHP
-
-PHP is a popular server-side scripting language used for web development that can be embedded in HTML.
-HydePHP is built on top of PHP and utilizes its powerful capabilities for generating static websites. 
-
-### HTML
-
-HTML (Hypertext Markup Language) is the standard markup language used to create web pages and web applications.
-HydePHP uses HTML to render the static websites generated from its content files and templates. 
-
-### Tailwind CSS
-
-Tailwind CSS is a utility-first CSS framework used for rapidly building custom user interfaces.
-HydePHP supports Tailwind CSS out of the box through the built-in Blade templates,
-making it easy for developers to create beautiful and responsive websites without writing custom CSS.
-
-### Composer
-
-Composer is a dependency manager for PHP that simplifies the process of installing and managing packages required by
-PHP applications. HydePHP uses Composer to manage its own dependencies and make it easy for users to install and use the software.
-
-### Static Sites
-
-A static website is a collection of HTML web pages that are delivered to the user's web browser exactly as they are stored
-on the web server. HydePHP generates static websites, making them fast, secure, and easy to deploy.
-
-### Version Control
-
-HydePHP can be easily integrated with Git to manage website source files and track changes over time,
-as one of the many benefits with static sites is that they are designed to be version controlled.
-
-
-### Git
-
-Git is a free and open-source distributed version control system that is widely used for software development.
-Git repositories can be hosted on GitHub, GitLab, BitBucket, or any other Git hosting service.
+- PHP: A server-side scripting language used for web development.
+- HydePHP: A PHP-based static site generator for creating fast and efficient websites.
+- Laravel: A PHP web application framework that follows the Model-View-Controller (MVC) architecture pattern.
+- Front Matter: Metadata at the top of a Markdown file that defines information such as title, author, and date.
+- Markdown: A lightweight markup language that is used to format text.
+- Blade: Laravel's templating engine for creating reusable templates and layouts.
+- YAML: A human-readable data serialization format used to store configuration data.
+- HTML: The standard markup language used for creating web pages.
+- Tailwind CSS: A utility-first CSS framework that allows developers to rapidly build custom user interfaces.
+- Composer: A dependency manager for PHP that simplifies the process of installing, updating, and managing libraries and frameworks.
+- Static Sites: Websites that are composed of pre-built files and require no server-side processing.
+- Version Control: A system that manages changes to documents or files over time, allowing developers to track and collaborate on code changes.
+- Git: A distributed version control system used by developers to manage source code and track changes over time.
