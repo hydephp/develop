@@ -121,24 +121,17 @@ Front matter is heavily used in HydePHP to store metadata about pages. Hyde uses
 
 Using front matter is optional, as Hyde will dynamically generate data based on the content itself. (Though any matter you provide will take precedence over the automatically generated data.)
 
+To learn more, you can visit the [Front Matter](front-matter) page.
+
 ### Front Matter in Markdown
 
-All Markdown content files support Front Matter. Blog posts for example make heavy use of it.
-
-The specific usage and schemas used for pages are documented in their respective documentation, however, here is a primer on the fundamentals.
-
-- Front matter is stored in a block of YAML that starts and ends with a `---` line.
-- The front matter should be the very first thing in the Markdown file.
-- Each key-pair value should be on its own line.
-
-**To use Front Matter, add Yaml to the top of your Markdown file:**
+All Markdown content files support Front Matter, and blog posts make heavy use of it. Here's what it may look like:
 
 ```markdown
 ---
 title: "My New Post"
-author:
-  name: "John Doe"
-  website: https://example.com
+author: "Mr Hyde"
+date: "2023-03-14"
 ---
 
 ## Markdown comes here
@@ -148,19 +141,14 @@ Lorem ipsum dolor sit amet, etc.
 
 ### Front Matter in Blade
 
-HydePHP has experimental support for creating front-matter in Blade templates, called BladeMatter.
-
-The actual syntax does not use YAML; but instead PHP. However, the parsed end result is the same. Please note that
-BladeMatter currently does not support multidimensional arrays or multi-line directives as the data is statically parsed.
-
-To create BladeMatter, you simply use the default Laravel Blade `@php` directive to declare a variable in the template.
+HydePHP has experimental support for creating front-matter in Blade templates, called [BladeMatter](front-matter#front-matter-in-blade),
+where code in `@php` directives are statically parsed into page object's front matter data where it can be accessed in your templates.
 
 ```blade
-@php($title = 'BladeMatter Demo')
+@php($title = 'BladeMatter Demo') // Equivalent to `title: 'BladeMatter Demo'` in Yaml
 ```
 
-It will then be available through the global `$page` variable, `$page->matter('title')`.
-
+To learn more, you can visit the [Front Matter](front-matter) page.
 
 ## Automatic Routing
 
