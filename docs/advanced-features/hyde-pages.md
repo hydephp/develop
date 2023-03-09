@@ -107,7 +107,7 @@ abstract class HydePage
 Static constructor alias for the HydePage class.
 
 ```php
-$page = HydePage::make(string $identifier = '', FrontMatter|array $matter = [])
+HydePage::make(string $identifier = '', FrontMatter|array $matter = []): HydePage
 ```
 
 #### `__construct()`
@@ -123,7 +123,7 @@ $page = new HydePage(string $identifier = '', FrontMatter|array $matter = [])
 Returns whether the page is discoverable.
 
 ```php
-bool $isDiscoverable = HydePage::isDiscoverable()
+HydePage::isDiscoverable(): bool
 ```
 
 #### `get()`
@@ -131,7 +131,7 @@ bool $isDiscoverable = HydePage::isDiscoverable()
 Get a page instance from the Kernel's page index by its identifier.
 
 ```php
-HydePage $page = HydePage::get(string $identifier)
+HydePage::get(string $identifier): HydePage
 ```
 
 - @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
@@ -141,5 +141,5 @@ HydePage $page = HydePage::get(string $identifier)
 Parse a source file into a page model instance.
 
 ```php
-HydePage $page = HydePage::parse(string $identifier)
+HydePage::parse(string $identifier): HydePage
 ```
