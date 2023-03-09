@@ -182,6 +182,10 @@ any custom Blade templates, you can safely ignore this section. If you are, here
 - `$currentRoute`: The [Route Object](#automatic-routing) for the current page.
 - `$currentPage`: The [Route Key](#paths-identifiers-and-route-keys) for the current page.
 
+The `$page` variable is likely to the most important one, as it contains all the data for the current page.
+Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
+
+
 ## Terminology
 
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
