@@ -73,7 +73,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $docComment = parsePHPDocs($method->getDocComment() ?: '');
     $description = $docComment['description'];
 
-    $class = $method->getDeclaringClass()->getName();
+    global $class;
+
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         $name = '$'.$parameter->getName();
         if ($parameter->getType()) {
