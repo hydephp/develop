@@ -110,4 +110,5 @@ $time = round($time, 2);
 
 $linesTransformed = number_format($linesCounted);
 
+echo "\n";
 echo 'Transformed '.$linesTransformed.' lines of Markdown in '.$time.'ms';
