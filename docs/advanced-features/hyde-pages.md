@@ -15,12 +15,12 @@ It is especially useful if you're looking to implement your own page classes, or
 
 ### Table of Contents
 
-- [`HydePage`](#hydepage)
-- [`BaseMarkdownPage`](#basemarkdownpage)
-- [`HtmlPage`](#basepage)
-- [`BladePage`](#markdownpage)
-- [`MarkdownPage`](#markdownpage)
-- [`MarkdownPost`](#markdownpost)
-- [`DocumentationPage`](#documentationpage)
-- [`InMemoryPage`](#inmemorypage)
+- [HydePage](#hydepage)
+- [BaseMarkdownPage](#basemarkdownpage)
+- [HtmlPage](#basepage)
+- [BladePage](#markdownpage)
+- [MarkdownPage](#markdownpage)
+- [MarkdownPost](#markdownpost)
+- [DocumentationPage](#documentationpage)
+- [InMemoryPage](#inmemorypage)
 
