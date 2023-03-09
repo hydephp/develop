@@ -68,5 +68,5 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         return '$'.$parameter->getName();
     }, $method->getParameters()));
-    $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
+    $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'unknown';
 }
