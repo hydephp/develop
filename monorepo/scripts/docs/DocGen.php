@@ -64,9 +64,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     MARKDOWN;
 
     $methodName = $method->getName();
-
     $docComment = parsePHPDocs($method->getDocComment() ?: '');
-    $description = $docComment['description'] ?: 'No description provided.';
+    $description = $docComment['description'];
 
     $class = $method->getDeclaringClass()->getName();
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
