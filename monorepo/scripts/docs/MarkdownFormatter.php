@@ -166,6 +166,10 @@ if (count($links) > 0) {
         $link = $data['link'];
         $filename = $data['filename'];
         $line = $data['line'];
+
+        if (str_starts_with($link, 'http')) {
+            continue;
+        }
     }
 }
 
