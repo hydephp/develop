@@ -130,7 +130,7 @@ function normalize_lines($filename): void
         foreach ($markers as $marker) {
             if (str_contains($line, $marker)) {
                 global $warnings;
-                $warnings[] = sprintf('Legacy marker: Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
+                $warnings[] = sprintf('Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
             }
         }
     }
@@ -183,19 +183,19 @@ if (count($links) > 0) {
 
         // Check uses pretty urls
         if (str_ends_with($link, '.html')) {
-            $warnings[] = "Bad link: Link to $link in $location should not use .html extension";
+            $warnings[] = "Link to $link in $location should not use .html extension";
             continue;
         }
 
         // Check does not end with .md
         if (str_ends_with($link, '.md')) {
-            $warnings[] = "Bad link: Link to $link in $location must not use .md extension";
+            $warnings[] = "Link to $link in $location must not use .md extension";
             continue;
         }
 
         // Check if file exists
         if (!file_exists($base.'/'.$link)) {
-            $warnings[] = "Broken link: Broken link to $link found in $location";
+            $warnings[] = "Broken link to $link found in $location";
         }
     }
 }
