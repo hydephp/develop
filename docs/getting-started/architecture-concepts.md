@@ -204,6 +204,8 @@ It will then be available through the global `$page` variable, `$page->matter('t
 
 ## Automatic Routing
 
+>info **In a nutshell:** Hyde will automatically create routes for your source files.
+
 If you've ever worked in an MVC framework, you are probably familiar with the concept of routing.
 And you are probably also familiar with how boring and tedious it can be. Thankfully, Hyde takes the pain out of routing by doing it for you!
 
