@@ -145,3 +145,14 @@ HydePage::parse(string $identifier): HydePage
 ```
 
 - @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.
+
+#### `files()`
+
+Get an array of all the source file identifiers for the model.
+
+Note that the values do not include the source directory or file extension.
+
+```php
+HydePage::files(string $identifier): array<string>
+```
+
