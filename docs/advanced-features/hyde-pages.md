@@ -14,6 +14,14 @@ This page contains the full API references for the built-in HydePage classes. Mo
 the inner workings of classes, but if you're interested in extending HydePHP, or just curious, this page is for you.
 It is especially useful if you're looking to implement your own page classes, or if you are creating advanced Blade templates.
 
+
+### About the reference
+
+This document is heavily based around the actual source code, as I believe the best way to understand the code is to read it.
+However, large parts of the code are simplified for brevity and illustration. The code is not meant to be copy-pasted, but
+rather used as a reference so that you know what to look for in the actual source code, if you want to dig deeper.
+
+
 ### Table of Contents
 
 | Class                                   | Description                            |
