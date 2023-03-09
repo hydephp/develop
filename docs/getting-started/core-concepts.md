@@ -103,7 +103,7 @@ This can be visualized as follows, assuming a blog post is stored as `_posts/hel
 
 <pre><code class="torchlight" style="background-color: #292D3E; --theme-selection-background: #00000080;">  <span style="opacity: 0.75">_site/</span><u>posts/hello-world</u><span style="opacity: 0.75">.html</span></code></pre>
 
-As you can see, the route key is simply put the URL you would use to access the page on your site, but without the .html extension.
+As you can see, the route key is simply put the relative page URL, without the .html extension.
 
 ## Convention over Configuration
 
