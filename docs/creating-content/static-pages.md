@@ -29,6 +29,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - Your page will be stored in `_site/<slug>.html`
 - Blade pages will override any Markdown pages with the same filename when compiled
 
+
 ## Creating Markdown Pages
 
 Markdown pages are the easiest way to create static pages, and are similar to [blog posts](blog-posts).
@@ -67,6 +68,7 @@ If you don't supply a front matter title, Hyde will attempt to find a title in t
 for the first level one heading (`# Page Title`), and if that fails, it will generate one from the filename.
 
 In the future, more front matter options such as page descriptions and meta tags will be supported.
+
 
 ## Creating Blade Pages
 
@@ -108,6 +110,7 @@ if you don't want to use the scaffolding command.
 > Tip: You don't have to use Blade in Blade pages. It's also perfectly fine to use plain HTML,
 > however you still need to use the `blade.php` extension so Hyde can recognize it.
 
+
 ## When to use which?
 
 Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited.
@@ -131,6 +134,7 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 The Hyde website ([hydephp.com](https://hydephp.com/)) uses both Markdown and Blade pages. The homepage for example, is a Blade page and uses a bunch of custom HTML.
 
 A great example of a Markdown page can be found at [hydephp.github.io/portfolio-demo](https://hydephp.github.io/portfolio-demo), you can see the [page source here on GitHub](https://github.com/hydephp/portfolio-demo/blob/master/_pages/index.md).
+
 
 ## Bonus: Creating HTML Pages
 

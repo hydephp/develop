@@ -19,6 +19,7 @@ If you want to reference these configuration options in your Blade views, or oth
 
 In some cases, the same options can be set in the front matter of a page or in a configuration file. Both ways are always documented, and it's up to you to choose which one you prefer. Note that in most cases, if a setting is set in both the front matter and the configuration file, the front matter setting will take precedence.
 
+
 ## Configuration Files Overview
 
 There are a few configuration files available in the `config` directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.
@@ -53,6 +54,7 @@ Since HydePHP is based on Laravel we also have a few configuration files related
 {.align-top}
 
 If any of these files are missing, you can run `php hyde update:configs` to copy the default files to your project.
+
 
 ## Configuration Options
 
@@ -274,6 +276,7 @@ From the Hyde config you can also override the label of navigation links using t
 ]
 ```
 
+
 ## Blade Views
 
 Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
@@ -284,9 +287,11 @@ To edit the default component you need to publish them first using the `hyde pub
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
+
 ## Frontend Styles
 
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly. If you want to customize these, you are free to do so. Please see the [Managing Assets](managing-assets) page to learn more.
+
 
 ## CommonMark environment
 
@@ -314,6 +319,7 @@ In the same file you can also change the config to be passed to the CommonMark e
     ],
 ],
 ```
+
 
 ## YAML Configuration
 

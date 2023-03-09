@@ -10,6 +10,7 @@
 ![License MIT](https://img.shields.io/github/license/hydephp/hyde)
 {.images-inline .not-prose}
 
+
 ## About HydePHP
 
 HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static
@@ -29,6 +30,7 @@ endless configuration. Instead, when you create a new Hyde project, everything y
 
 Hyde was inspired by JekyllRB and is designed for developers who are comfortable writing posts in Markdown and requires
 virtually no configuration out of the box as it favours convention over configuration and is preconfigured with sensible defaults.
+
 
 ## Installation
 

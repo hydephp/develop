@@ -3,6 +3,7 @@
 [//]: # (Adds a pseudo-subtitle)
 <h3 style="margin-top: 0px; margin-bottom: 20px;"><i>AKA: Front Matter & Filling in the Gaps</i></h3>
 
+
 ## Introduction
 
 Hyde wants to allow developers to write less, and do more. This is also a major difference between HydePHP and JekyllRB.
@@ -16,6 +17,7 @@ and quite frankly plain boring to have to write a bunch of front matter all the 
 your content, and not your markup, front matter is optional and Hyde will try to fill in the gaps for you.
 
 If you're not happy with Hyde's generated data you can always override it by adding front matter to your files.
+
 
 ## How it Works
 
@@ -34,6 +36,7 @@ that is available at this point, and will assign the rich data needed to make yo
 There are a few factory classes. The one we will be looking at here is the `HydePageDataFactory` class, which is
 responsible for data applicable to all page models. Complex structures and data only relevant to some page types
 have their own factories, making the code more modular and maintainable.
+
 
 ## In-depth overview of a page factory
 

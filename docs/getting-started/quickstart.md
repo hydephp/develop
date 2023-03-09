@@ -24,6 +24,7 @@ You should also have [Composer](https://getcomposer.org/) installed.
 To use some features like [compiling your own assets](managing-assets)
 you also need NodeJS and NPM.
 
+
 ## Using the Hyde CLI
 
 The main way to interact with Hyde is through the [HydeCLI](console-commands).
@@ -31,6 +32,7 @@ The main way to interact with Hyde is through the [HydeCLI](console-commands).
 If you are familiar with Laravel Artisan you will feel right at home, as that is what powers the HydeCLI.
 
 Learn more about the HydeCLI in the [console commands](console-commands) documentation.
+
 
 ## Starting a development server
 
@@ -40,6 +42,7 @@ To make previewing your site a breeze you can use the realtime compiler which bu
 php hyde serve
 ```
 Simply run the serve command, and you will be able to preview your site at [http://localhost:8000](http://localhost:8000).
+
 
 ## Creating content
 
@@ -60,6 +63,7 @@ You can also scaffold pages with the `php hyde make:page` command.
 php hyde make:post
 php hyde make:page
 ```
+
 
 ## Compiling to static HTML
 
@@ -86,6 +90,7 @@ Simply copy the `_site` directory to your web server's document root, and you're
 
 You can even use GitHub pages to host your site for free. That's what the Hyde website does,
 using a CI that automatically builds and deploys this site.
+
 
 ## Further reading
 

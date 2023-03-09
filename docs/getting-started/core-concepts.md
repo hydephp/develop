@@ -14,6 +14,7 @@ All designed so that you can focus on your content, while the framework does the
 This page provides a high-level overview of the framework's capabilities, so you can quickly grasp its benefits.
 As you delve deeper into the documentation, you'll discover the details of each feature and learn how to leverage them effectively.
 
+
 ## The HydeCLI
 
 When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the command line
@@ -27,6 +28,7 @@ php hyde list
 php hyde help <command>
 php hyde <command> [--help]
 ```
+
 
 ## Directory structure
 
@@ -44,6 +46,7 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `resources/views`  | Location for Blade components (optional)                    |
 | `app`              | Location for custom PHP classes (optional)                  |
 
+
 ## Page Models
 
 The Hyde page models are an integral part of how HydePHP creates your static site. Each page in your site is represented
@@ -56,6 +59,7 @@ The page classes are very important and fill two roles:
 2. Each class _instance_ also holds the page source contents, as well as the computed data.
 
 To learn more, you can visit the [Page Models](page-models) page.
+
 
 ## File Autodiscovery
 
@@ -72,6 +76,7 @@ All source and output directories are configurable, but the defaults are as foll
 | Blog Posts     | `_posts/`        | `_site/posts/`   | `.md`               |
 | Documentation  | `_docs/`         | `_site/docs/`    | `.md`               |
 | Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
+
 
 ## Importance of paths
 
@@ -118,11 +123,13 @@ $outputPath = $routeKey.'.html' = 'posts/my-new-post.html';
 $sourcePath = $sourceDirectory.'/'.$identifier.$fileExtension = '_posts/my-new-post.md';
 ```
 
+
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
 However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
 Take a look at the [customization and configuration guide](customization) to see the endless options available!
+
 
 ## Front Matter
 
@@ -152,6 +159,7 @@ author:
   website: https://example.com
 ---
 
+
 ## Markdown comes here
 
 Lorem ipsum dolor sit amet, etc.
@@ -171,6 +179,7 @@ To create BladeMatter, you simply use the default Laravel Blade `@php` directive
 ```
 
 It will then be available through the global `$page` variable, `$page->matter('title')`.
+
 
 ## Automatic Routing
 
@@ -195,6 +204,7 @@ Routes::get('posts/my-post')
 ```
 
 To learn more about the routing system, please visit the [routing documentation](automatic-routing).
+
 
 ## Terminology
 

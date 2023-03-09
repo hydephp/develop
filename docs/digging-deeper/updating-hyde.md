@@ -9,6 +9,7 @@ navigation:
 
 This guide will help you update Hyde to the latest version. It is recommended to back up your source files before updating.
 
+
 ## Updating Hyde/Framework
 
 Run the following command from your Hyde/Hyde installation:
@@ -18,6 +19,7 @@ composer update hyde/framework
 ```
 
 Next, follow the post-update instructions for Hyde/Hyde.
+
 
 ## Updating Hyde/Hyde
 
@@ -68,6 +70,7 @@ cp -r my-old-project/config my-project/config
 ```
 
 Next, follow the post-update instructions for Hyde/Hyde. After verifying that everything is working, you can delete the old project directory.
+
 
 ## Post-update instructions
 

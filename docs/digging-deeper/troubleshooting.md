@@ -12,6 +12,7 @@ did you find a new one? Send a PR to [update the docs](https://github.com/hydeph
 > Tip: You can run `php hyde validate` to run a series of tests to help you catch common issues.
 {.info}
 
+
 ## General Tips
 
 (In no particular order of importance)
@@ -22,6 +23,7 @@ did you find a new one? Send a PR to [update the docs](https://github.com/hydeph
 3. You never need front matter, though it is often useful.
    For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
 4. Currently, Hyde support for nested directories besides those already defined is experimental.
+
 
 ## Conventions to follow
 
@@ -45,6 +47,7 @@ Remember, files retain their slugs when compiled to HTML.
 
 - ❌ **Don't** use conflicting source file names
 
+
 ## Extra Information
 
 ### Definitions
@@ -66,6 +69,7 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
     margin-bottom: 0;
 }
 </style>
+
 
 ## Common issues, causes, and solutions
 

@@ -17,6 +17,7 @@ installations and is what powers the `php hyde serve` command.
 - **Packagist**: [hydephp/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler)
 - **YouTube video**: [Introducing the Hyde Realtime Compiler](https://www.youtube.com/watch?v=1ZM4fQMKi64)
 
+
 ## Integrations with third-party tools
 
 ### Torchlight
@@ -49,6 +50,7 @@ that use Torchlight. You can of course disable this in the `config/torchlight.ph
     'markdown' => 'Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>',
 ],
 ```
+
 
 ## Contribute
 

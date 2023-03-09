@@ -21,9 +21,11 @@ php hyde make:post
 ```
 Learn more about scaffolding posts, and other files, in the [console commands](console-commands) documentation.
 
+
 ## Short Video Tutorial
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gjpE1U527h8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ## Best Practices and Hyde Expectations
 
@@ -64,11 +66,13 @@ Here is a quick primer:
 title: "My New Post"
 ---
 
+
 ## Markdown comes here
 
 ```
 
 You can use the `php hyde make:post` command to automatically generate the front matter based on your input.
+
 
 ## A first look at Front Matter
 
@@ -86,6 +90,7 @@ category: blog
 author: Mr. Hyde
 date: 2022-05-09 18:38
 ---
+
 
 ## Write your Markdown here
 
@@ -115,6 +120,7 @@ array:
   key: value
 ---
 ```
+
 
 ## Supported Front Matter properties
 
@@ -206,6 +212,7 @@ and injected into post and page metadata.
 > See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
 { .info }
+
 
 ## Using images in posts
 

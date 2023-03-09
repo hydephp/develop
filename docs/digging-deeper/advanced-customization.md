@@ -29,6 +29,7 @@ are experimental features, and are not at all supported. Use at your own risk.
 
 When Hyde references files, especially when passing filenames between components, the file path is almost always relative to the root of the project. When an absolute path is required, the path is resolved through the `Hyde::path()` helper. Specifying absolute paths yourself will likely lead to unforeseen problems.
 
+
 ## Customizing source directories 🧪
 
 >warning This may cause integrations such as the realtime compiler to break. You'll also likely need to update route key names in your templates.
@@ -53,6 +54,7 @@ public function register(): void
 }
 ```
 
+
 ## Custom source root directory 🧪
 
 HydePHP will by default look for the underscored source directories in the root of your project.
@@ -64,6 +66,7 @@ subdirectory. That's easy enough, just set the value of the `source_root` settin
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
 
 When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist, then move all source directories into it.
+
 
 ## Custom media directory 🧪
 
@@ -79,6 +82,7 @@ If the setting starts with an underscore, that will be removed from the output d
 >info Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
 
 >info You will of course also need to copy over any existing files from the old directory to the new one.
+
 
 ## Customizing the output directory ⚠
 

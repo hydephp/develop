@@ -10,6 +10,7 @@ The primary way of interacting with Hyde is through the command line using the H
 If you have ever used the Artisan Console in Laravel you will feel right at home,
 the HydeCLI is based on Artisan after all!
 
+
 ## Introduction
 
 To use the HydeCLI, run `php hyde` from your project directory followed by a command.
@@ -42,6 +43,7 @@ You can also always add `--help` to a command to show detailed usage information
 php hyde <command> --help
 ```
 
+
 ## Available Commands
 
 Here is a quick reference of all the available commands. You can also run `php hyde list` to see this list.
@@ -64,6 +66,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`validate`](#validate)                 | Run a series of tests to validate your setup and help you optimize your site.                |
 | [`list`](#available-commands)           | List all available commands.                                                                 |
 
+
 ## Build the static site
 
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -85,6 +88,7 @@ Build the static site
 | `--pretty-urls`  | Should links in output use pretty URLs?    |
 | `--no-api`       | Disable API calls, for example, Torchlight |
 
+
 ## Run the static site builder for a single file
 
 <a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -101,6 +105,7 @@ Run the static site builder for a single file
 |        |                                                                                |
 |--------|--------------------------------------------------------------------------------|
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
+
 
 ## Start the realtime compiler server
 
@@ -120,6 +125,7 @@ Start the realtime compiler server.
 | `--host=` | [default: "localhost"] |
 | `--port=` | [default: 8080]        |
 
+
 ## Test and validate your project to optimize your site
 
 <a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -130,6 +136,7 @@ php hyde validate
 ```
 
 Run a series of tests to validate your setup and help you optimize your site.
+
 
 ## Generate the RSS feed
 
@@ -142,6 +149,7 @@ php hyde build:rss
 
 Generate the RSS feed
 
+
 ## Generate the docs/search.json
 
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -153,6 +161,7 @@ php hyde build:search
 
 Generate the docs/search.json
 
+
 ## Generate the sitemap.xml
 
 <a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -163,6 +172,7 @@ php hyde build:sitemap
 ```
 
 Generate the sitemap.xml
+
 
 ## Scaffold a new Markdown, Blade, or documentation page file
 
@@ -185,6 +195,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 | `--docs`          | Create a Documentation page                                            |
 | `--force`         | Overwrite any existing files                                           |
 
+
 ## Scaffold a new Markdown blog post file
 
 <a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -203,6 +214,7 @@ Scaffold a new Markdown blog post file
 | `title`   | The title for the Post. Will also be used to generate the filename         |
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
+
 ## Publish the default configuration files
 
 <a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -213,6 +225,7 @@ php hyde publish:configs
 ```
 
 Publish the default configuration files
+
 
 ## Publish one of the default homepages to index.blade.php.
 
@@ -232,6 +245,7 @@ Publish one of the default homepages to index.blade.php.
 | `homepage` | The name of the page to publish |
 | `--force`  | Overwrite any existing files    |
 
+
 ## Publish the hyde components for customization
 
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -249,6 +263,7 @@ Publish the hyde components for customization. Note that existing files will be 
 |------------|-------------------------|
 | `category` | The category to publish |
 
+
 ## Display all registered routes.
 
 <a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -259,6 +274,7 @@ php hyde route:list
 ```
 
 Display all registered routes.
+
 
 ## Publish any publishable assets from vendor packages
 

@@ -16,6 +16,7 @@ Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and A
 
 To get you started quickly, all the styles are already compiled minified into `_media/app.css`, which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
+
 ## Some extra information, and answers to possible questions
 
 ### Do I have to use NPM to use Hyde?
@@ -36,6 +37,7 @@ If you customize the Blade views and add new classes, or if you add new classes 
 
 If you stick to using Markdown based pages, you don't need to compile anything.
 
+
 ## How are assets stored and managed?
 
 Currently, the frontend assets are separated into three places.
@@ -54,6 +56,7 @@ The `_site` directory is intended to be excluded from version control while the 
 
 You are of course free to modify this behavior by editing the `webpack.mix.js` file.
 
+
 ## How do I compile assets?
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
@@ -68,6 +71,7 @@ When running the `npm run dev/prod` command, the following happens:
 
 1. Laravel Mix will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
 2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`, making blend perfectly with the realtime compiler (`php hyde serve`).
+
 
 ## Telling Hyde where to find assets
 
@@ -102,6 +106,7 @@ What's even better is that Hyde will also inject the contents of the included `t
 This also means you can tinker around with the TailwindCSS settings without having to compile anything.
 
 >warn Note that the Play CDN is not meant for production use, so enabling it will add a warning to the web console.
+
 
 ## Managing images
 

@@ -43,6 +43,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 Like most of HydePHP, the Hyde Documentation module is highly customizable. Much of the frontend is composed using Blade templates and components, which you can customize to your heart's content.
 Since there are so many components, it's hard to list them all here in the documentation, so I encourage you to check out the [source code](https://github.com/hydephp/framework/tree/master/resources/views/components/docs) to see how it's all put together and find the customizations you are looking for.
 
+
 ## Creating Documentation Pages
 
 You can create a Documentation page by adding a file to the `_docs` directory where the filename ends in `.md`.
@@ -77,6 +78,7 @@ navigation:
 ---
 ```
 
+
 ## Dynamic content generation
 
 Hyde makes documentation pages easy to create by automatically generating dynamic content such as the sidebar and page title.
@@ -91,6 +93,7 @@ and where the data is from as well as where it can be overridden.
 | `navigation.label` (string)     | The label for the page shown in the sidebar            | The page identifier/basename (slug) | Front matter, config |
 | `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _null_                              | Front matter, config |
 | `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 999                     | Front matter, config |
+
 
 ## Sidebar
 
@@ -166,6 +169,7 @@ navigation:
 This can be useful to create redirects or other items that should not be shown in the sidebar.
 
 > The index page is by default not shown as a sidebar item, but instead is linked in the sidebar header. <br>
+
 
 ## Customization
 

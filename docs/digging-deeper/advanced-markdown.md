@@ -10,6 +10,7 @@ navigation:
 
 Since HydePHP makes heavy use of Markdown there are some extra features and helpers created just for Hyde to make using Markdown even easier!
 
+
 ## Raw HTML Tags
 
 HydePHP uses the GitHub Flavored Markdown extension to convert Markdown. This, by default strips out some HTML tags. If you want to allow all arbitrary HTML tags, and understand the risks involved, enable all HTML tags by setting the following option to true in your `config/markdown.php` file.
@@ -21,6 +22,7 @@ HydePHP uses the GitHub Flavored Markdown extension to convert Markdown. This, b
 ```
 
 This, will behind the scenes add the bundled `DisallowedRawHtml` extension, and configure it so that no HTML tags are stripped out.
+
 
 ## Blade Support
 
@@ -63,6 +65,7 @@ you can enable it in the `config/markdown.php` file.
 
 All shortcodes must be the first word on a new line.
 For example, using a space before the `[Blade]:` will intentionally cause it to not render.
+
 
 ## Coloured Blockqoutes
 
@@ -112,6 +115,7 @@ The code examples here use the Tailwind `@apply` directives, but you could also 
 #### Limitations
 
 Note that these currently do not support multi-line blockquotes.
+
 
 ## Code block filepaths
 

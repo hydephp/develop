@@ -61,6 +61,7 @@ function normalize_lines($filename): void
     $was_last_line_heading = false;
     $is_inside_fenced_code_block = false;
     $is_inside_fenced_fenced_code_block = false;
+    $firstHeadingLevel = null;
     foreach ($lines as $index => $line) {
         global $linesCounted;
         $linesCounted++;
@@ -75,6 +76,15 @@ function normalize_lines($filename): void
         // Make sure there is a space after headings
         if ($was_last_line_heading && trim($line) != '') {
             $new_lines[] = '';
+        }
+
+        // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
+        if (str_starts_with($line, '## ') && $index > $firstHeadingLevel +3) {
+            $new_lines[] = '';
+        }
+
+        if ($firstHeadingLevel === null && str_starts_with($line, '# ')) {
+            $firstHeadingLevel = $index;
         }
 
         // Check if line is a heading
