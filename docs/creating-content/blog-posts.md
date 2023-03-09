@@ -58,7 +58,6 @@ and understand how your front matter is used. You can read more about the Front 
 
 Before digging in deeper on all the supported options, let's take a look at what a basic post with front matter looks like.
 
-
 ```markdown
 // filepath _posts/my-new-post.md
 ---
@@ -75,7 +74,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
-
 
 
 ## Supported Front Matter properties

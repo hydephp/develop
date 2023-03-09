@@ -150,6 +150,7 @@ where code in `@php` directives are statically parsed into page object's front m
 
 To learn more, you can visit the [Front Matter](front-matter) page.
 
+
 ## Automatic Routing
 
 >info **In a nutshell:** Hyde will automatically create routes for your source files.
