@@ -73,6 +73,11 @@ function normalize_lines($filename): void
             $new_lines[] = '';
         }
 
+        // Make sure there is a space before opening a fenced code block (search for ```language)
+        if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
+            $new_lines[] = '';
+        }
+
         // Check if line is a heading
         if (str_starts_with($line, '##')) {
             $was_last_line_heading = true;
