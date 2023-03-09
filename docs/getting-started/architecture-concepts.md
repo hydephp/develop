@@ -179,7 +179,7 @@ The specific usage and schemas used for pages are documented in their respective
 title: "My New Post"
 author:
   name: "John Doe"
-  website: https://mrhyde.example.com
+  website: https://example.com
 ---
 
 ## Markdown comes here
