@@ -58,13 +58,7 @@ and the file extensions supported by each. Files starting with an `_underscore` 
 | Static Pages   | `_pages/`        | `_site/`         | `.md`, `.blade.php` |
 | Blog Posts     | `_posts/`        | `_site/posts/`   | `.md`               |
 | Documentation  | `_docs/`         | `_site/docs/`    | `.md`               |
-| Media Assets   | `_media/`        | `_site/media/`   | See full list below |
-
-<small>
-<blockquote>
-Default media file types supported: `.png`, `.svg`, `.jpg`, `.jpeg`, `.gif`, `.ico`, `.css`, `.js`. Can be changed using the `hyde.media_extensions` config setting.
-</blockquote>
-</small>
+| Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
 
 ## Convention over Configuration
 
