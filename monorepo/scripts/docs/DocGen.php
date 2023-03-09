@@ -18,3 +18,14 @@ $fileName = (new \ReflectionClass($class))->getFileName();
 $methods = array_filter($methods, function (\ReflectionMethod $method) use ($fileName) {
     return $method->getFileName() === $fileName;
 });
+
+// Split methods into static and non-static
+
+$staticMethods = array_filter($methods, function (\ReflectionMethod $method) {
+    return $method->isStatic();
+});
+
+$instanceMethods = array_filter($methods, function (\ReflectionMethod $method) {
+    return ! $method->isStatic();
+});
+
