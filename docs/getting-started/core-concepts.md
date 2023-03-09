@@ -92,6 +92,18 @@ As such, it will be helpful for you to know about the following terms:
 Both the identifier and route key are derived from the path of the page. The identifier is the path without the file
 extension, and relative to the page type source directory. The route key is the output directory plus the identifier.
 
+The identifier generation can be visualized as follows, where the identifier is underlined:
+
+<pre><code class="torchlight" style="background-color: #292D3E; --theme-selection-background: #00000080;">  <span style="opacity: 0.75">_pages/</span><u>about/contact</u><span style="opacity: 0.75">.md</span></code></pre>
+
+For a Markdown page, like the example above, the route key would be the same as the identifier, since Markdown pages are
+output to the site root. If it was a Markdown post however, the route key would be: `posts/about/contact`.
+
+This can be visualized as follows, assuming a blog post is stored as `_posts/hello-world.md`:
+
+<pre><code class="torchlight" style="background-color: #292D3E; --theme-selection-background: #00000080;">  <span style="opacity: 0.75">_site/</span><u>posts/hello-world</u><span style="opacity: 0.75">.html</span></code></pre>
+
+As you can see, the route key is simply put the URL you would use to access the page on your site, but without the .html extension.
 
 ## Convention over Configuration
 
