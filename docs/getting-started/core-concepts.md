@@ -1,9 +1,10 @@
 ---
 navigation:
     priority: 10
+    label: Core Concepts
 ---
 
-# Key HydePHP Concepts
+# Core HydePHP Concepts
 
 ## Introduction to the Hyde Framework
 

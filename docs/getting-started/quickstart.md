@@ -48,7 +48,7 @@ Simply run the serve command, and you will be able to preview your site at [http
 Creating content with Hyde is easy! Simply place source files in one of the source directories,
 and Hyde will automatically discover, parse, and compile them to static HTML.
 The directory and file extension of a source file will determine how HydePHP parses and compiles it.
-Please see the [directory structure](architecture-concepts#directory-structure) section for more information.
+Please see the [directory structure](core-concepts#directory-structure) section for more information.
 
 ### Scaffolding files
 
@@ -91,6 +91,6 @@ using a CI that automatically builds and deploys this site.
 
 Here's some ideas of what to read next:
 
-- [Architecture Concepts & Directory Structure](architecture-concepts)
+- [Architecture Concepts & Directory Structure](core-concepts)
 - [Console Commands with the HydeCLI](console-commands)
 - [Creating Blog Posts](blog-posts)
