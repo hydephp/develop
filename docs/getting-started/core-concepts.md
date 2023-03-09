@@ -185,6 +185,7 @@ any custom Blade templates, you can safely ignore this section. If you are, here
 The `$page` variable is likely to the most important one, as it contains all the data for the current page.
 Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
 
+You can see all the helpers in the [Page API](hyde-pages) reference page.
 
 ## Terminology
 
