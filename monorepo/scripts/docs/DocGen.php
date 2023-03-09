@@ -53,12 +53,12 @@ echo implode("\n", $output);
 function documentMethod(ReflectionMethod $method, array &$output): void
 {
     $template = <<<'MARKDOWN'
-    #### `{{ $method }}()`
+    #### `{{ $methodName }}()`
     
     {{ $description }}
     
     ```php
-    {{ $class }}::{{ $method }}({{ $argList }}): {{ $returnType }}
+    {{ $class }}::{{ $methodName }}({{ $argList }}): {{ $returnType }}
     ```
     MARKDOWN;
 }
