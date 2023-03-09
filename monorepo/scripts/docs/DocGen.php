@@ -64,7 +64,10 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     MARKDOWN;
 
     $methodName = $method->getName();
-    $description = formatDocComment($method->getDocComment() ?: 'No description provided.');
+
+    $docComment = parsePHPDocs($method->getDocComment() ?: '');
+    $description = $docComment['description'] ?: 'No description provided.';
+
     $class = $method->getDeclaringClass()->getName();
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         return '$'.$parameter->getName();
@@ -78,7 +81,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     );
 }
 
-function formatDocComment(string $comment): string
+function parsePHPDocs(string $comment): array
 {
-    return $comment;
+    return [];
 }
