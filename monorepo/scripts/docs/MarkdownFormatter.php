@@ -110,5 +110,13 @@ $time = round($time, 2);
 
 $linesTransformed = number_format($linesCounted);
 
+if (count($warnings) > 0) {
+    echo "\n";
+    echo 'Warnings:'."\n";
+    foreach ($warnings as $warning) {
+        echo ' - '.$warning."\n";
+    }
+}
+
 echo "\n";
 echo 'Transformed '.$linesTransformed.' lines of Markdown in '.$time.'ms';
