@@ -44,14 +44,12 @@ To take full advantage of the framework, it may first be good to familiarize our
 
 ## File Autodiscovery
 
-Content files, meaning source Markdown and Blade files, are automatically
-discovered by Hyde and compiled to HTML when building the site.
-This means that you don't need to worry about routing and controllers!
+Content files, meaning source Markdown and Blade files, are automatically discovered by Hyde and compiled to HTML when
+building the site. This means that you don't need to worry about routing and controllers!
 
 The directory a source file is in will determine the Blade template that is used to render it.
 
-Here is an overview of the content source directories, the output directory of the compiled files,
-and the file extensions supported by each. Files starting with an `_underscore` are ignored.
+All source and output directories are configurable, but the defaults are as follows:
 
 | Page/File Type | Source Directory | Output Directory | File Extensions     |
 |----------------|------------------|------------------|---------------------|
