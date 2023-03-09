@@ -93,13 +93,13 @@ All source and output directories are configurable, but the defaults are as foll
 Since HydePHP automatically discovers and compiles content files, it is important to understand how HydePHP handles paths,
 as the file names and directories they are in will directly influence how the page will be compiled.
 
-There are a few terms that are important to define before we explore their correlations.
+**There are a few terms that are important to define before we explore their correlations.**
 
 - **Path:** The full path to a file, including the file name, directory, and extension.
 - **Identifier:** The unique identifier for a page. Unique only within the same page type.
 - **Route key:** The key used to access the page in the routing system. Unique across all site pages.
 
-Now that we have defined the terms, let's explore how they are related.
+**Now that we have defined the terms, let's explore how they are related.**
 
 ## Convention over Configuration
 
