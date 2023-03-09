@@ -317,4 +317,3 @@ The route key is the URL path relative to the site webroot, without the file ext
 identifier binding Page objects to Route objects, and is used to generate the file name for the compiled HTML file.
 
 Route keys generation can be visualised as follows: `<PageClass::OutputDirectory>/<PageIdentifier>`
-
