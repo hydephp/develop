@@ -58,6 +58,18 @@ All source and output directories are configurable, but the defaults are as foll
 | Documentation  | `_docs/`         | `_site/docs/`    | `.md`               |
 | Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
 
+## Importance of paths
+
+Since HydePHP automatically discovers and compiles content files, it is important to understand how HydePHP handles paths,
+as the file names and directories they are in will directly influence how the page will be compiled.
+
+There are a few terms that are important to define before we explore their correlations.
+
+- **Path:** The full path to a file, including the file name and extension. For example: `_posts/my-post.md`
+- **Route key:** The key used to access the page in the routing system. Unique across all site pages.
+- **Page identifier:** The unique identifier for a page. Unique only within the same page type.
+
+
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
