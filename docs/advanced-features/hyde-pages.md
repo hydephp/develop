@@ -30,3 +30,25 @@ It is especially useful if you're looking to implement your own page classes, or
 ## HydePage
 
 The base class for all Hyde pages, all other page classes extend this class.
+
+### Base Structure
+
+```php
+abstract class HydePage
+{
+    public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
+    public static string $template;
+
+    public readonly string $identifier;
+    public readonly string $routeKey;
+
+    public FrontMatter $matter;
+    public PageMetadataBag $metadata;
+    public NavigationData $navigation;
+
+    public string $title;
+    public ?string $canonicalUrl;
+}
+```
