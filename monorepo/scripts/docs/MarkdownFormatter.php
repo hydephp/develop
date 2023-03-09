@@ -79,7 +79,7 @@ function normalize_lines($filename): void
         }
 
         // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
-        if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel +3) {
+        if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel + 3) {
             $new_lines[] = '';
         }
 
