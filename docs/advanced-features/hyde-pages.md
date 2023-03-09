@@ -19,10 +19,10 @@ It is especially useful if you're looking to implement your own page classes, or
 |-----------------------------------------|----------------------------------------|
 | [HydePage](#hydepage)                   | The base class for all Hyde pages.     |
 | [BaseMarkdownPage](#basemarkdownpage)   | The base class for all Markdown pages. |
+| [InMemoryPage](#inmemorypage)           | Extendable class for in-memory pages.  |
 | [HtmlPage](#basepage)                   | Class for HTML pages.                  |
 | [BladePage](#markdownpage)              | Class for Blade pages.                 |
 | [MarkdownPage](#markdownpage)           | Class for Markdown pages.              |
 | [MarkdownPost](#markdownpost)           | Class for Markdown posts.              |
 | [DocumentationPage](#documentationpage) | Class for documentation pages.         |
-| [InMemoryPage](#inmemorypage)           | Extendable class for in-memory pages.  |
 
