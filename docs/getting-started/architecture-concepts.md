@@ -215,39 +215,39 @@ You can learn more about this in the [documentation pages documentation](documen
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
 This will help you understand the documentation and codebase better, as well as helping you know what to search for when you need help.
 
-#### Laravel
+### Laravel
 
 Laravel is the PHP framework that HydePHP is built on top of. We use a specialized version called Laravel Zero,
 which is optimized for command-line applications.
 
-#### Front Matter
+### Front Matter
 
 Front Matter is a block of YAML, stored at the top of a Markdown file, enclosed by a set of triple-dashed lines.
 It is commonly used to store metadata about the content, such as the title, author, date, etc.
 
-#### Markdown
+### Markdown
 
 Markdown is a lightweight markup language that uses plain text formatting syntax, designed to make it easy to create
 structured content for the web. HydePHP uses Markdown as the base for most of its content files.
 
-#### Blade
+### Blade
 
 Blade is the templating engine from Laravel, which allows developers to write clean and reusable code for the 
 presentation layer of web applications. HydePHP uses Blade both for the built-in views and components,
 as well as to provide powerful templating capabilities through Blade-based pages.
 
-#### YAML
+### YAML
 
 YAML is a human-readable data serialization format used for configuration files and often used as the syntax for 
 Front Matter in HydePHP content files. YAML is designed to be easily read by humans and parsed by machines,
 making it a popular choice for many applications and frameworks.
 
-#### PHP
+### PHP
 
 PHP is a popular server-side scripting language used for web development that can be embedded in HTML.
 HydePHP is built on top of PHP and utilizes its powerful capabilities for generating static websites. 
 
-#### Composer
+### Composer
 
 Composer is a dependency manager for PHP that simplifies the process of installing and managing packages required by
 PHP applications. HydePHP uses Composer to manage its own dependencies and make it easy for users to install and use the software. 
