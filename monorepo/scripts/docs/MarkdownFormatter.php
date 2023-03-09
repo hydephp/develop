@@ -57,7 +57,7 @@ function normalize_lines($filename): void
 
     $last_line = '';
     $was_last_line_heading = false;
-    foreach ($lines as $line) {
+    foreach ($lines as $index => $line) {
         global $linesCounted;
         $linesCounted++;
 
