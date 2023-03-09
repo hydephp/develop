@@ -50,6 +50,27 @@ All pages in HydePHP are internally represented by a page object. The object ins
 The page classes are very important, as they act as a blueprints, defining information for the framework to parse a file and generate relevant data.
 HydePHP ships with a few different page types. Each page type is defined as its own page class; all of which extend the base HydePage class.
 
+### Overview of a page class
+
+As an example of what they look like, here is a simplified version of the MarkdownPost class.
+
+The static properties define the blueprint for the entire page type, and the instance properties are the actual data HydePHP has parsed or generated from the source file.
+
+```php
+class MarkdownPost extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_posts'; // The directory where HydePHP will look for source files
+    public static string $outputDirectory = 'posts'; // The directory where HydePHP will output compiled files
+    public static string $fileExtension = '.md'; // The file extension HydePHP will look for
+
+    public FrontMatter $matter; // The parsed front matter data
+    public Markdown $markdown; // The parsed Markdown content
+
+    public readonly string $identifier; // The unique identifier for the page
+    public readonly string $routeKey; // The key used to access the page in the routing system
+}
+```
+
 
 ## File Autodiscovery
 
