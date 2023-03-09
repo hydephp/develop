@@ -47,6 +47,9 @@ foreach ($instanceMethods as $method) {
 // Output the documentation
 echo implode("\n", $output);
 
+
+// Helpers
+
 function documentMethod(ReflectionMethod $method, array &$output): void
 {
     //
