@@ -61,4 +61,12 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     {{ $class }}::{{ $methodName }}({{ $argList }}): {{ $returnType }}
     ```
     MARKDOWN;
+
+    $methodName = $method->getName();
+    $description = $method->getDocComment();
+    $class = $method->getDeclaringClass()->getName();
+    $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
+        return '$'.$parameter->getName();
+    }, $method->getParameters()));
+    $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 }
