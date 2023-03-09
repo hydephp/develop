@@ -105,6 +105,8 @@ This can be visualized as follows, assuming a blog post is stored as `_posts/hel
 
 As you can see, the route key is simply put the relative page URL, without the .html extension.
 
+It is also through the source directory and file extension that HydePHP determines which page model to use to compile the page.
+
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
