@@ -70,7 +70,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     MARKDOWN;
 
     $staticSignatureTemplate = '{{ $className }}::{{ $methodName }}';
-    $instanceSignatureTemplate = '$page->{{ $methodName }}';
+    $instanceSignatureTemplate = '{{ $instanceVariableName }}->{{ $methodName }}';
 
     $signatureTemplate = $method->isStatic() ? $staticSignatureTemplate : $instanceSignatureTemplate;
 
@@ -124,9 +124,10 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     $argList = implode(', ', $parameters);
 
+    $instanceVariableName = '$'.lcfirst($className);
     $signature = str_replace(
-        ['{{ $methodName }}', '{{ $className }}'],
-        [$methodName, $className],
+        ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
+        [$instanceVariableName, $methodName, $className],
         $signatureTemplate
     );
 
