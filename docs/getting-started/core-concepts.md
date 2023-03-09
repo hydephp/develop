@@ -173,6 +173,14 @@ Routes::get('posts/my-post')
 
 To learn more about the routing system, please visit the [routing documentation](automatic-routing).
 
+## Global Page Data
+
+During the build of each page, Hyde will inject some data available to all Blade views. If you are not planning to write
+any custom Blade templates, you can safely ignore this section. If you are, here are the three global variables you can use:
+
+- `$page`: The [Page Object](#page-models) for the current page.
+- `$currentRoute`: The [Route Object](#automatic-routing) for the current page.
+- `$currentPage`: The [Route Key](#paths-identifiers-and-route-keys) for the current page.
 
 ## Terminology
 
