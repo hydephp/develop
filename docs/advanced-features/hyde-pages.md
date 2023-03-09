@@ -34,6 +34,9 @@ The base class for all Hyde pages, all other page classes extend this class.
 ### Base Structure
 
 ```php
+/**
+ * The base class for all Hyde pages. Here simplified for the sake of brevity.
+ */
 abstract class HydePage
 {
     public static string $sourceDirectory;
