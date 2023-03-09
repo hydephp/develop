@@ -69,7 +69,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     $class = $method->getDeclaringClass()->getName();
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
-        return '$'.$parameter->getName();
+        $name = '$'.$parameter->getName();
+        return $name;
     }, $method->getParameters()));
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
