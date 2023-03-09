@@ -246,7 +246,6 @@ $time = round((microtime(true) - $timeStart) * 1000, 2);
 $linesTransformed = number_format($linesCounted);
 $fileCount = count($markdownFiles);
 
-
 echo "\n\n\033[32mAll done!\033[0m Formatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms\n";
 
 if ($filesChanged > 0) {
