@@ -147,9 +147,9 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     // Throws
     if (isset($docComment['properties']['throws'])) {
-        $markdown .= "\n\nThrows:\n\n";
+        $markdown .= "\n";
         foreach ($docComment['properties']['throws'] as $throw) {
-            $markdown .= "- $throw\n";
+            $markdown .= "- Throws: $throw\n";
         }
     }
 
