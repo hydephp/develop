@@ -1,0 +1,4 @@
+---
+navigation:
+    label: "HydePage API"
+---
