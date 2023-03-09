@@ -216,6 +216,7 @@ This will help you understand the documentation and codebase better, as well as 
 
 ### Table of contents
 
+#### Languages and Tools
 - [HydePHP](#hydephp)
 - [Laravel](#laravel)
 - [Front Matter](#front-matter)
@@ -229,6 +230,8 @@ This will help you understand the documentation and codebase better, as well as 
 - [Static Sites](#static-sites)
 - [Version Control](#version-control)
 - [Git](#git)
+
+#### HydePHP Concepts
 - [Autodiscovery](#autodiscovery)
 - [Page Types](#page-types)
 - [Page Identifiers](#page-identifiers)
