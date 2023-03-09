@@ -149,11 +149,8 @@ if (count($warnings) > 0) {
         echo " - $warning\n";
     }
 }
-$timeEnd = microtime(true);
-$time = $timeEnd - $timeStart;
-$time *= 1000;
-$time = round($time, 2);
 
+$time = round((microtime(true) - $timeStart) * 1000, 2);
 $linesTransformed = number_format($linesCounted);
 
 $fileCount = count($markdownFiles);
