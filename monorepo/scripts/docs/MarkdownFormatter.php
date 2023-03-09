@@ -101,6 +101,22 @@ function normalize_lines($filename): void
                 $links[] = $match;
             }
         }
+
+        // Check if line is too long
+        if (strlen($line) > 120) {
+            global $warnings;
+            // $warnings[] = 'Line '.$linesCounted.' in file '.$filename.' is too long';
+        }
+
+        // Warn if documentation contains legacy markers (experimental, beta, etc)
+        $markers = ['experimental', 'beta', 'alpha', 'v0.'];
+        foreach ($markers as $marker) {
+            if (str_contains($line, $marker)) {
+                global $warnings;
+                $message = 'Legacy marker found in '. $filename.':'.$index +1 .' Found "'.$marker .'"';
+                $warnings[] = $message;
+            }
+        }
     }
 
     $new_content = implode("\n", $new_lines);
