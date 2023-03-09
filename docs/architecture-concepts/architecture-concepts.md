@@ -10,7 +10,8 @@ navigation:
 
 These chapters are written for power users and contributors. If you're just looking to get a site up and running,
 you can safely skip this section. The documentation here will cover advanced topics under the presumption that
-the reader has a basic to intermediate understanding of programming, as well as PHP and to some extent Laravel.
+the reader has a basic to intermediate understanding of programming, as well as PHP, object-oriented design,
+and to some extent Laravel, as the articles are heavily driven by code examples.
 
 You, of course, are free to skip this entire section, as you don't need to know these things to use Hyde.
 However, if you want to know the "magic" behind Hyde, or if you want to take advantage of these powerful tools,
