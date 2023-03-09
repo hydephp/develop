@@ -31,22 +31,22 @@ while (true) {
 
 //
 //<script>
-//        const source = new EventSource('http://localhost:8082');
+//    const source = new EventSource('http://localhost:8082');
 //
-//        source.addEventListener('open', function(event) {
-//            console.log('Connection open');
-//        });
+//    source.addEventListener('open', function(event) {
+//        console.log('Connection open');
+//    });
 //
-//        source.addEventListener('message', function(event) {
-//            const data = event.data;
-//            console.log('Received data:', data);
+//    source.addEventListener('message', function(event) {
+//        const data = event.data;
+//        console.log('Received data:', data);
 //
-//            if (data === 'refresh') {
-//                window.location.reload();
-//            }
-//        });
+//        if (data === 'refresh') {
+//            window.location.reload();
+//        }
+//    });
 //
-//        source.addEventListener('error', function(event) {
-//            console.error('EventSource error', event);
-//        });
-//    </script>
+//    source.addEventListener('error', function(event) {
+//        console.error('EventSource error', event);
+//    });
+//</script>
