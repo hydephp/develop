@@ -185,6 +185,9 @@ if (count($links) > 0) {
         // Add to new unique array
         $uniqueLinks[$link] = "$filename:$line";
     }
+    foreach ($uniqueLinks as $link => $location) {
+        
+    }
 }
 
 $time = round((microtime(true) - $timeStart) * 1000, 2);
