@@ -93,6 +93,11 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     }, $method->getParameters()));
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
+    // If higher specificity return type is provided in docblock, use that instead
+    if (isset($docComment['properties']['return'])) {
+        $returnType = $docComment['properties']['return'];
+    }
+
     $output[] = str_replace(
         ['{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}', '{{ $returnType }}'],
         [$methodName, $description, $className, $argList, $returnType],
