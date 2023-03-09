@@ -89,40 +89,6 @@ as the file names and directories they are in will directly influence how the pa
 - **Identifier:** The unique identifier for a page. Unique only within the same page type.
 - **Route key:** The key used to access the page in the routing system. Unique across all site pages.
 
-**Now that we have defined the terms, let's explore how they are related.**
-
-If you remember our `MarkdownPost` class from above, you'll recall that we have a few important properties:
-
-```php
-static $sourceDirectory = '_posts';
-static $outputDirectory = 'posts';
-static $fileExtension = '.md';
-$identifier; // For example: "my-new-post"
-$routeKey;  // For example: "posts/my-new-post"
-```
-
-You may also have noticed that we have no source path property here, this is because all other properties are enough
-to determine all needed data, without needing to store extra information.
-
-Now, we can finally look at some examples of how the data is related, by providing examples of how the properties are generated.
-
-```php
-// The source path relative to the project root:
-$path = '_posts/my-new-post.md';
-
-// Identifier from path:
-$identifier = String::between($path, $sourceDirectory, $fileExtension) = 'my-new-post';
-
-// Route key from identifier:
-$routeKey = $outputDirectory.'/'.$identifier = 'posts/my-new-post';
-
-// Output path from route key:
-$outputPath = $routeKey.'.html' = 'posts/my-new-post.html';
-
-// Source path from identifier:
-$sourcePath = $sourceDirectory.'/'.$identifier.$fileExtension = '_posts/my-new-post.md';
-```
-
 
 ## Convention over Configuration
 
