@@ -47,7 +47,7 @@ function normalize_lines($filename): void
     if (empty(trim($text))) {
         // Warn
         global $warnings;
-        $warnings[] = 'File '.$filename.' is empty';
+        $warnings[] = "File $filename is empty";
 
         return;
     }
@@ -113,8 +113,8 @@ function normalize_lines($filename): void
         foreach ($markers as $marker) {
             if (str_contains($line, $marker)) {
                 global $warnings;
-                $message = 'Legacy marker found in '.$filename.':'.$index + 1 .' Found "'.$marker.'"';
-                $warnings[] = $message;
+                $lineNumber = $index + 1;
+                $warnings[] = "Legacy marker found in $filename:$lineNumber Found \"$marker\"";
             }
         }
     }
@@ -132,10 +132,9 @@ foreach ($markdownFiles as $file) {
 }
 
 if (count($warnings) > 0) {
-    echo "\n";
-    echo 'Warnings:'."\n";
+    echo "\nWarnings:\n";
     foreach ($warnings as $warning) {
-        echo ' - '.$warning."\n";
+        echo " - $warning\n";
     }
 }
 $timeEnd = microtime(true);
@@ -148,5 +147,4 @@ $linesTransformed = number_format($linesCounted);
 
 $fileCount = count($markdownFiles);
 
-echo "\n";
-echo 'Formatted, normalized, and validated '.$linesTransformed.' lines of Markdown in '.$fileCount.' files in '.$time.'ms';
+echo "\nFormatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms";
