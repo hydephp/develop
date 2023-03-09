@@ -130,7 +130,7 @@ function normalize_lines($filename): void
         foreach ($markers as $marker) {
             if (str_contains($line, $marker)) {
                 global $warnings;
-                $warnings[] = sprintf('Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
+                $warnings['Legacy markers'][] = sprintf('Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
             }
         }
     }
@@ -183,27 +183,30 @@ if (count($links) > 0) {
 
         // Check uses pretty urls
         if (str_ends_with($link, '.html')) {
-            $warnings[] = "Link to $link in $location should not use .html extension";
+            $warnings['Bad links'][] = "Link to $link in $location should not use .html extension";
             continue;
         }
 
         // Check does not end with .md
         if (str_ends_with($link, '.md')) {
-            $warnings[] = "Link to $link in $location must not use .md extension";
+            $warnings['Bad links'][] = "Link to $link in $location must not use .md extension";
             continue;
         }
 
         // Check if file exists
         if (!file_exists($base.'/'.$link)) {
-            $warnings[] = "Broken link to $link found in $location";
+            $warnings['Broken links'][] = "Broken link to $link found in $location";
         }
     }
 }
 
 if (count($warnings) > 0) {
-    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings)." found \033[0m \n";
-    foreach ($warnings as $warning) {
-        echo " - $warning\n";
+    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings, COUNT_RECURSIVE)-count($warnings)." found \033[0m \n";
+    foreach ($warnings as $type => $messages) {
+        echo "\n\033[33m$type:\033[0m \n";
+        foreach ($messages as $message) {
+            echo " - $message\n";
+        }
     }
 }
 
