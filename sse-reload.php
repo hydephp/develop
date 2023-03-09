@@ -9,6 +9,10 @@ header('Access-Control-Allow-Origin: *');
 ob_end_clean();
 
 while (true) {
+    if (!file_exists('sse-buffer')) {
+        sleep(1);
+        continue;
+    }
     $data = (file_get_contents('sse-buffer') ?: '');
 
     if ($data) {
