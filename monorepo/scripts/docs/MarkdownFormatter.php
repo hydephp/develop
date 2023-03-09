@@ -117,7 +117,7 @@ function normalize_lines($filename): void
                 foreach ($matches[2] as $match) {
                     // If link is for an anchor, prefix the filename
                     if (str_starts_with($match, '#')) {
-                        $match = basename($filename).$match;
+                        $match = 'ANCHOR_'. basename($filename).$match;
                     }
 
                     global $links;
@@ -199,7 +199,7 @@ if (count($links) > 0) {
         }
 
         // Check does not end with .md
-        if (str_ends_with($link, '.md')) {
+        if (str_ends_with($link, '.md') && !str_starts_with($link, 'ANCHOR_')) {
             $warnings['Bad links'][] = "Link to $link in $location must not use .md extension";
             continue;
         }
