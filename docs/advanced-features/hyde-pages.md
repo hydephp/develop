@@ -68,8 +68,19 @@ abstract class HydePage
      */
     public readonly string $routeKey;
 
+    /**
+     * The parsed front matter.
+     */
     public FrontMatter $matter;
+
+    /**
+     * The generated page metadata.
+     */
     public PageMetadataBag $metadata;
+    
+    /**
+     * The generated page navigation data.
+     */
     public NavigationData $navigation;
 
     public string $title;
