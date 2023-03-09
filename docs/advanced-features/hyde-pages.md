@@ -24,5 +24,5 @@ It is especially useful if you're looking to implement your own page classes, or
 | [MarkdownPage](#markdownpage)           | Class for Markdown pages.              |
 | [MarkdownPost](#markdownpost)           | Class for Markdown posts.              |
 | [DocumentationPage](#documentationpage) | Class for documentation pages.         |
-| [HtmlPage](#basepage)                   | Class for HTML pages.                  |
+| [HtmlPage](#htmlpage)                   | Class for HTML pages.                  |
 
