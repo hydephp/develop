@@ -113,9 +113,9 @@ It will then be available through the global `$page` variable, `$page->matter('t
 
 ### High-level overview
 
-If you've ever worked in a MVC framework, you are probably familiar with the concept of routing. And you are probably also familiar with how boring and tedious it can be. Hyde takes the pain out of routing through the Hyde Autodiscovery process.
+If you've ever worked in an MVC framework, you are probably familiar with the concept of routing. And you are probably also familiar with how boring and tedious it can be. Hyde takes the pain out of routing through the Hyde Autodiscovery process.
 
-Internally, when booting the Hyde application, Hyde will automatically discover all of the content files in the source directory and create a routing index for them. This index works as a two-way link between source files and compiled files.
+Internally, when booting the Hyde application, Hyde will automatically discover all the content files in the source directory and create a routing index for them. This index works as a two-way link between source files and compiled files.
 
 Don't worry if this sounds complex, as the key takeaway is that the index is created and maintained automatically. There is currently no way to manually add or remove files from the index. Making it function more like a source map than a proper router. Nevertheless, the routing system provides several helpers that you can optionally use in your Blade views to automatically resolve relative links and other useful features.
 
