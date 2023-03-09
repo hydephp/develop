@@ -218,29 +218,43 @@ This will help you understand the documentation and codebase better, as well as 
 
 <div class="flex">
 
-<div class="mr-4">
+<div style="margin-right: 2rem;">
 
-#### Languages and Tools
+#### Tools
 
 - [HydePHP](#hydephp)
 - [Laravel](#laravel)
+- [Composer](#composer)
+- [Tailwind CSS](#tailwind-css)
+
+</div>
+
+<div style="margin-right: 2rem;">
+
+#### Languages
+
 - [Front Matter](#front-matter)
 - [Markdown](#markdown)
 - [Blade](#blade)
 - [YAML](#yaml)
 - [PHP](#php)
 - [HTML](#html)
-- [Tailwind CSS](#tailwind-css)
-- [Composer](#composer)
+
+</div>
+
+<div style="margin-right: 2rem;">
+
+#### General Concepts
+
 - [Static Sites](#static-sites)
 - [Version Control](#version-control)
 - [Git](#git)
 
 </div>
 
-<div class="mr-4">
+<div style="margin-right: 2rem;">
 
-#### HydePHP Concepts
+#### HydePHP Features
 
 - [Autodiscovery](#autodiscovery)
 - [Page Types](#page-types)
