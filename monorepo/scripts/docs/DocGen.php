@@ -64,10 +64,15 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     {{ $description }}
     
     ```php
-    {{ $className }}::{{ $methodName }}({{ $argList }}): {{ $returnType }}
+    {{ $signature }}({{ $argList }}): {{ $returnType }}
     ```
 
     MARKDOWN;
+
+    $staticSignatureTemplate = '{{ $className }}::{{ $methodName }}';
+    $instanceSignatureTemplate = '$page->{{ $methodName }}';
+
+    $signatureTemplate = $method->isStatic() ? $staticSignatureTemplate : $instanceSignatureTemplate;
 
     $methodName = $method->getName();
     $docComment = parsePHPDocs($method->getDocComment() ?: '');
@@ -119,9 +124,15 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     $argList = implode(', ', $parameters);
 
+    $signature = str_replace(
+        ['{{ $methodName }}', '{{ $className }}'],
+        [$methodName, $className],
+        $signatureTemplate
+    );
+
     $output[] = str_replace(
-        ['{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}', '{{ $returnType }}'],
-        [$methodName, $description, $className, $argList, $returnType],
+        ['{{ $signature }}', '{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}', '{{ $returnType }}'],
+        [$signature, $methodName, $description, $className, $argList, $returnType],
         $template
     );
 }
