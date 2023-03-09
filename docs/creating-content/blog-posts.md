@@ -52,7 +52,7 @@ Front matter is optional, but highly recommended for blog posts as the front mat
 markup for the post as well as meta tags and post feeds.
 
 You are encouraged to look at the compiled HTML to learn
-and understand how your front matter is used. You can read more about the Front Matter format in the [Front Matter](../getting-started/front-matter.md) documentation.
+and understand how your front matter is used. You can read more about the Front Matter format in the [Front Matter](front-matter) documentation.
 
 ### Blog Post Example
 
