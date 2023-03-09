@@ -216,7 +216,12 @@ This will help you understand the documentation and codebase better, as well as 
 
 ### Table of contents
 
+<div class="flex">
+
+<div class="mr-4">
+
 #### Languages and Tools
+
 - [HydePHP](#hydephp)
 - [Laravel](#laravel)
 - [Front Matter](#front-matter)
@@ -231,13 +236,21 @@ This will help you understand the documentation and codebase better, as well as 
 - [Version Control](#version-control)
 - [Git](#git)
 
+</div>
+
+<div class="mr-4">
+
 #### HydePHP Concepts
+
 - [Autodiscovery](#autodiscovery)
 - [Page Types](#page-types)
 - [Page Identifiers](#page-identifiers)
 - [Routes](#routes)
 - [Route Keys](#route-keys)
 
+</div>
+
+</div>
 
 [//]: # (Languages and Tools)
 
