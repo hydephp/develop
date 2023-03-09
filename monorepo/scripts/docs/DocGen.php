@@ -31,3 +31,20 @@ $staticMethods = array_filter($methods, function (ReflectionMethod $method) {
 $instanceMethods = array_filter($methods, function (ReflectionMethod $method) {
     return ! $method->isStatic();
 });
+
+$output = [];
+
+// Generate static methods
+foreach ($staticMethods as $method) {
+    documentMethod($method, $output);
+}
+
+// Generate instance methods
+foreach ($instanceMethods as $method) {
+    documentMethod($method, $output);
+}
+
+function documentMethod(ReflectionMethod $method, array &$output): void
+{
+    //
+}
