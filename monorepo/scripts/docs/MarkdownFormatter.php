@@ -162,6 +162,8 @@ $links[] = [
 ];
 
 if (count($links) > 0) {
+    $uniqueLinks = [];
+
     foreach ($links as $data) {
         $link = $data['link'];
         $filename = $data['filename'];
@@ -180,6 +182,8 @@ if (count($links) > 0) {
         // Remove anything before spaces (image alt text)
         $link = explode(' ', $link)[0];
 
+        // Add to new unique array
+        $uniqueLinks[$link] = "$filename:$line";
     }
 }
 
