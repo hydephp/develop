@@ -131,13 +131,6 @@ foreach ($markdownFiles as $file) {
     handle_file($file);
 }
 
-$timeEnd = microtime(true);
-$time = $timeEnd - $timeStart;
-$time *= 1000;
-$time = round($time, 2);
-
-$linesTransformed = number_format($linesCounted);
-
 if (count($warnings) > 0) {
     echo "\n";
     echo 'Warnings:'."\n";
@@ -145,6 +138,13 @@ if (count($warnings) > 0) {
         echo ' - '.$warning."\n";
     }
 }
+$timeEnd = microtime(true);
+$time = $timeEnd - $timeStart;
+$time *= 1000;
+$time = round($time, 2);
+
+$linesTransformed = number_format($linesCounted);
+
 
 $fileCount = count($markdownFiles);
 
