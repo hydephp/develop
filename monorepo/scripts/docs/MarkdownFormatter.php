@@ -191,9 +191,12 @@ if (count($links) > 0) {
             $uniqueLinks[$link] = "$filename:$line";
         }
     }
-    foreach ($uniqueLinks as $link => $location) {
-        $base = __DIR__.'/../../../docs';
 
+    $base = __DIR__.'/../../../docs';
+    // find all directories in the docs folder
+    $directories = array_filter(glob($base.'/*'), 'is_dir');
+
+    foreach ($uniqueLinks as $link => $location) {
         // Check uses pretty urls
         if (str_ends_with($link, '.html')) {
             $warnings['Bad links'][] = "Link to $link in $location should not use .html extension";
@@ -208,7 +211,17 @@ if (count($links) > 0) {
 
         // Check if file exists
         if (!file_exists($base.'/'.$link)) {
-            $warnings['Broken links'][] = "Broken link to $link found in $location";
+            $hasMatch = false;
+            foreach ($directories as $directory) {
+                if (file_exists($directory.'/'.$link.'.md')) {
+                    $hasMatch = true;
+                    break;
+                }
+            }
+
+            if (! $hasMatch) {
+                $warnings['Broken links'][] = "Broken link to $link found in $location";
+            }
         }
     }
 }
