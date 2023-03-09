@@ -287,3 +287,34 @@ Git repositories can be hosted on GitHub, GitLab, BitBucket, or any other Git ho
 
 [//]: # (HydePHP Features)
 
+### Autodiscovery
+
+Content files, including Markdown and Blade files, are automatically discovered and compiled to HTML during site builds.
+During autodiscovery, Hyde also generates dynamic data to enrich your content based on the page type.
+
+In short the autodiscovery is split into three steps:
+`File discovery -> Page parsing -> Route generation`
+
+### Page Types
+
+All pages in HydePHP are internally represented by a page object that extends the HydePage class. Each page type has its
+own page class which acts as a blueprint defining information for the framework to parse a file and generate relevant data.
+
+### Page Identifiers
+
+The page identifier is the name of the file without the file extension, relative to the page type's source directory.
+The identifier is used to generate the route key, which is used to generate the file name for the compiled HTML file.
+
+### Routes
+
+All pages are internally bound to a Route object, through the route key. During the build process, each route is
+compiled to HTML using the page object's data, and saved to the output directory with a file name created from the route key.
+Since routes are generated automatically during autodiscovery, there is no need to create them manually.
+
+### Route Keys
+
+The route key is the URL path relative to the site webroot, without the file extension. The route key is the common
+identifier binding Page objects to Route objects, and is used to generate the file name for the compiled HTML file.
+
+Route keys generation can be visualised as follows: `<PageClass::OutputDirectory>/<PageIdentifier>`
+
