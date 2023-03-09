@@ -64,7 +64,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     {{ $description }}
     
     ```php
-    {{ $class }}::{{ $methodName }}({{ $argList }}): {{ $returnType }}
+    {{ $className }}::{{ $methodName }}({{ $argList }}): {{ $returnType }}
     ```
 
     MARKDOWN;
@@ -93,8 +93,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
     $output[] = str_replace(
-        ['{{ $methodName }}', '{{ $description }}', '{{ $class }}', '{{ $argList }}', '{{ $returnType }}'],
-        [$methodName, $description, $class, $argList, $returnType],
+        ['{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}', '{{ $returnType }}'],
+        [$methodName, $description, $className, $argList, $returnType],
         $template
     );
 }
