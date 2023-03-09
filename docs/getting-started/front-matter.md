@@ -3,7 +3,6 @@ navigation:
     priority: 10
 ---
 
-
 # Front Matter
 
 >info **In a nutshell:** Front Matter is a block of YAML containing metadata, stored at the top of a Markdown file.
@@ -32,7 +31,6 @@ array:
 ```
 
 Strings don't need to be quoted, but it can help in certain edge cases, thus they are included here.
-
 
 ### Front Matter in Markdown
 
