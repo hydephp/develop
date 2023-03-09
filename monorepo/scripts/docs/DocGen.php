@@ -87,7 +87,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         } else {
             $type = 'mixed';
         }
-        return $name;
+        return trim($type .' '. $name);
     }, $method->getParameters()));
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
