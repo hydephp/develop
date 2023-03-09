@@ -74,7 +74,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $description = $docComment['description'];
 
     global $class;
-    $className = (new ReflectionClass($class))->getShortName();
+    $className = class_basename($class);
 
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         $name = '$'.$parameter->getName();
