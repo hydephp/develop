@@ -48,40 +48,19 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 ### Front Matter
 
-Front matter is optional, but highly recommended for blog posts.
+Front matter is optional, but highly recommended for blog posts as the front matter is used to construct dynamic HTML
+markup for the post as well as meta tags and post feeds.
 
-You can read more about the Front Matter format in the [Front Matter documentation](core-concepts#front-matter).
-Here is a quick primer:
+You are encouraged to look at the compiled HTML to learn
+and understand how your front matter is used. You can read more about the Front Matter format in the [Front Matter](../getting-started/front-matter.md) documentation.
 
-- Front matter is stored in a block of YAML that starts and ends with a `---` line.
-- The front matter should be the very first thing in the Markdown file.
-- Each key-pair value should be on its own line.
-- The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
-  You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
+### Blog Post Example
 
-**Example:**
+Before digging in deeper on all the supported options, let's take a look at what a basic post with front matter looks like.
+
 
 ```markdown
----
-title: "My New Post"
----
-
-## Markdown comes here
-
-```
-
-You can use the `php hyde make:post` command to automatically generate the front matter based on your input.
-
-
-## A first look at Front Matter
-
-Before digging in deeper on all the supported front matter options,
-let's take a look at what a basic post with front matter looks like.
-
-This file was created using the `make:post` by hitting the `Enter` key to use
-all the defaults (with some extra lorem ipsum to illustrate).
-
-```markdown {: filepath="_posts/my-new-post.md"}
+// filepath _posts/my-new-post.md
 ---
 title: My New Post
 description: A short description used in previews and SEO
@@ -97,27 +76,6 @@ Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
 
-### How the Front Matter is used
-
-The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
-
-You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
-
-### Front matter syntax
-
-Here is a quick reference of the syntax Hyde uses and expects:
-
-```markdown
----
-key: value
-string: "quoted string"
-boolean: true
-integer: 100
-array:
-  key: value
-  key: value
----
-```
 
 
 ## Supported Front Matter properties
