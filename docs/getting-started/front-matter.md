@@ -12,7 +12,7 @@ Front matter is heavily used in HydePHP to store metadata about pages. Hyde uses
 
 Using front matter is optional, as Hyde will dynamically generate data based on the content itself. (Though any matter you provide will take precedence over the automatically generated data.)
 
-### Front matter syntax
+## Front matter syntax
 
 Here is a quick reference of the syntax Hyde uses and expects:
 
