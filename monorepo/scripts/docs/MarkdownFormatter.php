@@ -174,6 +174,12 @@ if (count($links) > 0) {
         if (str_starts_with($link, '#')) {
             continue;
         }
+
+        // Remove hash for anchors
+        $link = explode('#', $link)[0];
+        // Remove anything before spaces (image alt text)
+        $link = explode(' ', $link)[0];
+
     }
 }
 
