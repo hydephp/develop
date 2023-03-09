@@ -195,11 +195,10 @@ if (count($links) > 0) {
 
         // Check if file exists
         if (!file_exists($base.'/'.$link)) {
-           $warnings[] = "Broken link to $link found in $location";
+            $warnings[] = "Broken link to $link found in $location";
         }
     }
 }
-
 
 if (count($warnings) > 0) {
     echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings)." found \033[0m \n";
