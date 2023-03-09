@@ -46,8 +46,12 @@ To take full advantage of the framework, it may first be good to familiarize our
 
 All pages in HydePHP are internally represented by a page object. The object instance contains all the data HydePHP has parsed and discovered.
 
-The page classes are very important, as they act as a blueprints, defining information for the framework to parse a file and generate relevant data.
 HydePHP ships with a few different page types. Each page type is defined as its own page class; all of which extend the base HydePage class.
+
+The page classes are very important and fill two roles:
+
+1. The classes themselves, act as blueprints, defining information for Hyde to use when parsing and compiling the page.
+2. The instances of the classes, contain the actual data HydePHP has parsed and discovered.
 
 ### Overview of a page class
 
