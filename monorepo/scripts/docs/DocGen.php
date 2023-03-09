@@ -144,6 +144,15 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         [$signature, $methodName, $description, $className, $argList, $returnType],
         $template
     );
+
+    // Throws
+    if (isset($docComment['properties']['throws'])) {
+        $markdown .= "\n\nThrows:\n\n";
+        foreach ($docComment['properties']['throws'] as $throw) {
+            $markdown .= "- $throw\n";
+        }
+    }
+
     $output[] = $markdown;
 }
 
