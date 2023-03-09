@@ -131,6 +131,13 @@ $outputPath = $routeKey.'.html' = 'posts/my-new-post.html';
 $sourcePath = $sourceDirectory.'/'.$identifier.$fileExtension = '_posts/my-new-post.md';
 ```
 
+### Notes on duplicate and changing identifiers:
+
+Since identifiers are unique to the page type, it is possible to have duplicate identifiers across different page types.
+For example, it's perfectly valid to have a blog post with the identifier `about` and a static page with the identifier `about`,
+as the route key will differ due to the different output directories. However, if you customize the output directories,
+you need to keep this in mind. It also means that route keys will change when you change the output directory which can break links.
+
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
