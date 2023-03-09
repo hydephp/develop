@@ -186,8 +186,10 @@ if (count($links) > 0) {
         // Remove anything before spaces (image alt text)
         $link = explode(' ', $link)[0];
 
-        // Add to new unique array
-        $uniqueLinks[$link] = "$filename:$line";
+        if (!str_starts_with($link, 'ANCHOR_')) {
+            // Add to new unique array
+            $uniqueLinks[$link] = "$filename:$line";
+        }
     }
     foreach ($uniqueLinks as $link => $location) {
         $base = __DIR__.'/../../../docs';
@@ -199,7 +201,7 @@ if (count($links) > 0) {
         }
 
         // Check does not end with .md
-        if (str_ends_with($link, '.md') && !str_starts_with($link, 'ANCHOR_')) {
+        if (str_ends_with($link, '.md') ) {
             $warnings['Bad links'][] = "Link to $link in $location must not use .md extension";
             continue;
         }
