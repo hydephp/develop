@@ -71,7 +71,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         return '$'.$parameter->getName();
     }, $method->getParameters()));
-    $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'unknown';
+    $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
     $output[] = str_replace(
         ['{{ $methodName }}', '{{ $description }}', '{{ $class }}', '{{ $argList }}', '{{ $returnType }}'],
