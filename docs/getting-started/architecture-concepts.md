@@ -216,7 +216,7 @@ This will help you understand the documentation and codebase better, as well as 
 
 ### Table of contents
 
-<div class="flex">
+<div class="flex flex-wrap">
 
 <div style="margin-right: 2rem;">
 
