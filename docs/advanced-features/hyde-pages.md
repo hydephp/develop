@@ -26,3 +26,7 @@ It is especially useful if you're looking to implement your own page classes, or
 | [MarkdownPost](#markdownpost)           | Class for Markdown posts.              |
 | [DocumentationPage](#documentationpage) | Class for documentation pages.         |
 | [HtmlPage](#htmlpage)                   | Class for HTML pages.                  |
+
+## HydePage
+
+The base class for all Hyde pages, all other page classes extend this class.
