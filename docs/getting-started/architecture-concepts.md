@@ -118,15 +118,29 @@ It will then be available through the global `$page` variable, `$page->matter('t
 
 ### High-level overview
 
-If you've ever worked in an MVC framework, you are probably familiar with the concept of routing. And you are probably also familiar with how boring and tedious it can be. Hyde takes the pain out of routing through the Hyde Autodiscovery process.
+If you've ever worked in an MVC framework, you are probably familiar with the concept of routing.
+And you are probably also familiar with how boring and tedious it can be. Thankfully, Hyde takes the pain out of routing
+through the Hyde Autodiscovery process.
 
-Internally, when booting the Hyde application, Hyde will automatically discover all the content files in the source directory and create a routing index for them. This index works as a two-way link between source files and compiled files.
+Internally, when booting the HydeCLI application, Hyde will automatically discover all the content files in the source
+directories, and create a route index for all of them. This index works as a two-way link between source files and compiled files.
 
-Don't worry if this sounds complex, as the key takeaway is that the index is created and maintained automatically. There is currently no way to manually add or remove files from the index. Making it function more like a source map than a proper router. Nevertheless, the routing system provides several helpers that you can optionally use in your Blade views to automatically resolve relative links and other useful features.
+You can see all the routes and their corresponding source files by running the `hyde route:list` command.
+
+```bash
+php hyde route:list
+```
+
+[//]: # (TODO: Move below to a separate page and link to it.)
+
+Don't worry if this sounds complex, as the key takeaway is that the index is created and maintained automatically.
+Nevertheless, the routing system provides several helpers that you can optionally use in your Blade views to
+automatically resolve relative links and other useful features.
 
 ### Accessing routes
 
-Each route in your site is represented by a Route object. It's very easy to get a Route object instance from the Router's index. There are a few ways to do this, but most commonly you'll use the Routes facade's `get()` method where you provide a route key, and it will return the Route object. The route key is generally `<output-directory/slug>`. Here are some examples:
+Each route in your site is represented by a Route object. It's very easy to get a Route object instance from the Router's index.
+There are a few ways to do this, but most commonly you'll use the Routes facade's `get()` method where you provide a route key, and it will return the Route object. The route key is generally `<output-directory/slug>`. Here are some examples:
 
 ```php
 // Source file: _pages/index.md/index.blade.php
