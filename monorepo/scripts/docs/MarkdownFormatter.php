@@ -147,13 +147,6 @@ foreach ($markdownFiles as $file) {
     handle_file($file);
 }
 
-if (count($warnings) > 0) {
-    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings)." found \033[0m \n";
-    foreach ($warnings as $warning) {
-        echo " - $warning\n";
-    }
-}
-
 // Just to make PhpStorm happy
 $links[] = [
     'filename' => '',
@@ -195,6 +188,15 @@ if (count($links) > 0) {
 
     }
 }
+
+
+if (count($warnings) > 0) {
+    echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings)." found \033[0m \n";
+    foreach ($warnings as $warning) {
+        echo " - $warning\n";
+    }
+}
+
 
 $time = round((microtime(true) - $timeStart) * 1000, 2);
 $linesTransformed = number_format($linesCounted);
