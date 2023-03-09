@@ -61,6 +61,8 @@ function normalize_lines($filename): void
         global $linesCounted;
         $linesCounted++;
 
+        /** Normalization */
+
         // Remove multiple empty lines
         if (trim($line) == '' && trim($last_line) == '') {
             continue;
@@ -83,6 +85,8 @@ function normalize_lines($filename): void
 
         $new_lines[] = $line;
         $last_line = $line;
+
+        /** Linting */
 
         // Add any links to buffer, so we can check them later
         preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
