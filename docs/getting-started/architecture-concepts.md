@@ -209,7 +209,6 @@ So for example, a source file stored as `_docs/getting-started/installation.md` 
 
 You can learn more about this in the [documentation pages documentation](documentation-pages#using-sub-directories).
 
-
 ## Terminology
 
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
@@ -238,25 +237,25 @@ structured content for the web. HydePHP uses Markdown as the base for most of it
 
 ### Blade
 
-Blade is the templating engine from Laravel, which allows developers to write clean and reusable code for the 
+Blade is the templating engine from Laravel, which allows developers to write clean and reusable code for the
 presentation layer of web applications. HydePHP uses Blade both for the built-in views and components,
 as well as to provide powerful templating capabilities through Blade-based pages.
 
 ### YAML
 
-YAML is a human-readable data serialization format used for configuration files and often used as the syntax for 
+YAML is a human-readable data serialization format used for configuration files and often used as the syntax for
 Front Matter in HydePHP content files. YAML is designed to be easily read by humans and parsed by machines,
 making it a popular choice for many applications and frameworks.
 
 ### PHP
 
 PHP is a popular server-side scripting language used for web development that can be embedded in HTML.
-HydePHP is built on top of PHP and utilizes its powerful capabilities for generating static websites. 
+HydePHP is built on top of PHP and utilizes its powerful capabilities for generating static websites.
 
 ### HTML
 
 HTML (Hypertext Markup Language) is the standard markup language used to create web pages and web applications.
-HydePHP uses HTML to render the static websites generated from its content files and templates. 
+HydePHP uses HTML to render the static websites generated from its content files and templates.
 
 ### Tailwind CSS
 
@@ -278,7 +277,6 @@ on the web server. HydePHP generates static websites, making them fast, secure, 
 
 HydePHP can be easily integrated with Git to manage website source files and track changes over time,
 as one of the many benefits with static sites is that they are designed to be version controlled.
-
 
 ### Git
 
