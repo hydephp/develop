@@ -83,5 +83,28 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
 function parsePHPDocs(string $comment): array
 {
-    return [];
+    // Normalize
+    $comment = array_map(function (string $line) {
+        return trim($line, " \t*/");
+    }, explode("\n", $comment));
+
+    $description = '';
+    $properties = [];
+
+    // Parse
+    foreach ($comment as $line) {
+        if (str_starts_with($line, '@')) {
+            $propertyName = substr($line, 1, strpos($line, ' ') - 1);
+            $propertyValue = substr($line, strpos($line, ' ') + 1);
+            $properties[$propertyName] = $propertyValue;
+        } else {
+            $shouldAddNewline = empty($line);
+            $description .= ($shouldAddNewline ? "\n\n" : ' ').$line;
+        }
+    }
+
+    return [
+        'description' => trim($description) ?: 'No description provided.',
+        'properties' => $properties,
+    ];
 }
