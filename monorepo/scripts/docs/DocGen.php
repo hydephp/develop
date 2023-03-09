@@ -64,7 +64,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     MARKDOWN;
 
     $methodName = $method->getName();
-    $description = $method->getDocComment();
+    $description = formatDocComment($method->getDocComment() ?: 'No description provided.');
     $class = $method->getDeclaringClass()->getName();
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         return '$'.$parameter->getName();
@@ -76,4 +76,9 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         [$methodName, $description, $class, $argList, $returnType],
         $template
     );
+}
+
+function formatDocComment(string $comment): string
+{
+    return $comment;
 }
