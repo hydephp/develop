@@ -76,7 +76,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $signatureTemplate = $method->isStatic() ? $staticSignatureTemplate : $instanceSignatureTemplate;
 
     if ($method->getName() === '__construct') {
-        $signatureTemplate = 'new {{ $className }}';
+        $signatureTemplate = '{{ $instanceVariableName }} = new {{ $className }}';
     }
 
     $methodName = $method->getName();
