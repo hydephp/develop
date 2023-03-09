@@ -42,6 +42,15 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `resources/assets`           | Location for Laravel Mix source files (optional)            |
 | `resources/views/components` | Location for Blade components (optional)                    |
 
+
+## Page Types
+
+All pages in HydePHP are internally represented by a page object. The object instance contains all the data HydePHP has parsed and discovered.
+
+The page classes are very important, as they act as a blueprints, defining information for the framework to parse a file and generate relevant data.
+HydePHP ships with a few different page types. Each page type is defined as its own page class; all of which extend the base HydePage class.
+
+
 ## File Autodiscovery
 
 Content files, meaning source Markdown and Blade files, are automatically discovered by Hyde and compiled to HTML when
