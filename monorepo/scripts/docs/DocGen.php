@@ -112,13 +112,15 @@ function parsePHPDocs(string $comment): array
         return trim($line, " \t*/");
     }, explode("\n", $comment));
 
+    $paramCount = 0;
     $description = '';
     $properties = [];
 
     // Parse
     foreach ($comment as $line) {
         if (str_starts_with($line, '@')) {
-            $propertyName = substr($line, 1, strpos($line, ' ') - 1);
+            $paramCount++;
+            $propertyName = substr($line, 1, strpos($line, ' ') - 1) . '__'. $paramCount;
             $propertyValue = substr($line, strpos($line, ' ') + 1);
             $properties[$propertyName] = $propertyValue;
         } else {
