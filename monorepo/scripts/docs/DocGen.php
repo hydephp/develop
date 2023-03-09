@@ -69,4 +69,10 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         return '$'.$parameter->getName();
     }, $method->getParameters()));
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'unknown';
+
+    $output[] = str_replace(
+        ['{{ $methodName }}', '{{ $description }}', '{{ $class }}', '{{ $argList }}', '{{ $returnType }}'],
+        [$methodName, $description, $class, $argList, $returnType],
+        $template
+    );
 }
