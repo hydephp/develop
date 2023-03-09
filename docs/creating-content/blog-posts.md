@@ -66,7 +66,6 @@ Here is a quick primer:
 title: "My New Post"
 ---
 
-
 ## Markdown comes here
 
 ```
@@ -90,7 +89,6 @@ category: blog
 author: Mr. Hyde
 date: 2022-05-09 18:38
 ---
-
 
 ## Write your Markdown here
 
