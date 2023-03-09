@@ -143,3 +143,5 @@ Parse a source file into a page model instance.
 ```php
 HydePage::parse(string $identifier): HydePage
 ```
+
+- @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.
