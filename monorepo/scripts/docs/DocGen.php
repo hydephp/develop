@@ -76,7 +76,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     global $class;
     $className = class_basename($class);
 
-    $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
+    $parameters = array_map(function (ReflectionParameter $parameter) {
         $name = '$'.$parameter->getName();
         if ($parameter->getType()) {
             if ($parameter->getType() instanceof ReflectionUnionType) {
@@ -90,13 +90,34 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             $type = 'mixed';
         }
         return trim($type .' '. $name);
-    }, $method->getParameters()));
+    }, $method->getParameters());
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
     // If higher specificity return type is provided in docblock, use that instead
     if (isset($docComment['properties']['return'])) {
         $returnType = $docComment['properties']['return'];
     }
+
+    // Map docblock params
+    if (isset($docComment['properties']['params'])) {
+        $newParams = array_map(function (string $param) {
+            $param = str_replace('  ', ' ', trim($param));
+            $param = explode(' ', $param);
+            $type = array_shift($param);
+            $name = array_pop($param);
+            return trim($type .' '. $name);
+        }, $docComment['properties']['params']);
+    }
+    // If higher specificity argument types are provided in docblock, merge them with the actual types
+    if (isset($newParams)) {
+        foreach ($newParams as $index => $newParam) {
+            if (isset($parameters[$index])) {
+                $parameters[$index] = $newParam;
+            }
+        }
+    }
+
+    $argList = implode(', ', $parameters);
 
     $output[] = str_replace(
         ['{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}', '{{ $returnType }}'],
@@ -118,9 +139,9 @@ function parsePHPDocs(string $comment): array
     // Parse
     foreach ($comment as $line) {
         if (str_starts_with($line, '@')) {
-            $propertyName = substr($line, 1, strpos($line, ' ') - 1);
+            $propertyName = substr($line, 1, strpos($line, ' ') - 1) . 's';
             $propertyValue = substr($line, strpos($line, ' ') + 1);
-            $properties[$propertyName] = $propertyValue;
+            $properties[$propertyName][] = $propertyValue;
         } else {
             $shouldAddNewline = empty($line);
             $description .= ($shouldAddNewline ? "\n\n" : '').ltrim($line.' ');
