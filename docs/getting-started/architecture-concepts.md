@@ -215,10 +215,6 @@ You can learn more about this in the [documentation pages documentation](documen
 In this quick reference, we'll briefly go over some terminology and concepts used in HydePHP.
 This will help you understand the documentation and codebase better, as well as helping you know what to search for when you need help.
 
-### Languages and Tools
-
-First, here is a list of general concepts and tools that HydePHP uses.
-
 #### Laravel
 
 Laravel is the PHP framework that HydePHP is built on top of. We use a specialized version called Laravel Zero,
