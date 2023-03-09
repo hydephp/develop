@@ -38,13 +38,34 @@ The base class for all Hyde pages, all other page classes extend this class.
  * The base class for all Hyde pages. Here simplified for the sake of brevity.
  */
 abstract class HydePage
-{
+{    /**
+     * The directory in which source files are stored. Relative to the project root.
+     */
     public static string $sourceDirectory;
+
+    /**
+     * The output subdirectory to store compiled HTML. Relative to the _site output directory.
+     */
     public static string $outputDirectory;
+
+    /**
+     * The file extension of the source files.
+     */
     public static string $fileExtension;
+
+    /**
+     * The default template to use for rendering the page.
+     */
     public static string $template;
 
+    /**
+     * The page instance identifier.
+     */
     public readonly string $identifier;
+
+    /**
+     * The page instance route key.
+     */
     public readonly string $routeKey;
 
     public FrontMatter $matter;
