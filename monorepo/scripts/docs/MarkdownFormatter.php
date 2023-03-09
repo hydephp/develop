@@ -9,6 +9,8 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
 
+$filesChanged = 0;
+
 $linesCounted = 0;
 
 $links = [];
@@ -148,6 +150,11 @@ function normalize_lines($filename): void
     $new_content = implode("\n", $new_lines);
     $new_content = trim($new_content)."\n";
     file_put_contents($filename, $new_content);
+
+    if ($new_content !== $stream) {
+        global $filesChanged;
+        $filesChanged++;
+    }
 }
 
 $dir = __DIR__.'/../../../docs';
@@ -239,4 +246,11 @@ $time = round((microtime(true) - $timeStart) * 1000, 2);
 $linesTransformed = number_format($linesCounted);
 $fileCount = count($markdownFiles);
 
+
 echo "\n\n\033[32mAll done!\033[0m Formatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms\n";
+
+if ($filesChanged > 0) {
+    echo "\n\033[32m$filesChanged files were changed\033[0m\n";
+} else {
+    echo "\n\033[32mNo files were changed\033[0m\n";
+}
