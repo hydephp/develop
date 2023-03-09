@@ -241,3 +241,13 @@ as well as to provide powerful templating capabilities through Blade-based pages
 YAML is a human-readable data serialization format used for configuration files and often used as the syntax for 
 Front Matter in HydePHP content files. YAML is designed to be easily read by humans and parsed by machines,
 making it a popular choice for many applications and frameworks.
+
+### PHP
+
+PHP is a popular server-side scripting language used for web development that can be embedded in HTML.
+HydePHP is built on top of PHP and utilizes its powerful capabilities for generating static websites. 
+
+### Composer
+
+Composer is a dependency manager for PHP that simplifies the process of installing and managing packages required by
+PHP applications. HydePHP uses Composer to manage its own dependencies and make it easy for users to install and use the software. 
