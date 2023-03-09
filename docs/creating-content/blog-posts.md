@@ -50,7 +50,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 Front matter is optional, but highly recommended for blog posts.
 
-You can read more about the Front Matter format in the [Front Matter documentation](architecture-concepts#front-matter).
+You can read more about the Front Matter format in the [Front Matter documentation](core-concepts#front-matter).
 Here is a quick primer:
 
 - Front matter is stored in a block of YAML that starts and ends with a `---` line.
