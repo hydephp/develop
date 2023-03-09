@@ -78,16 +78,19 @@ All source and output directories are configurable, but the defaults are as foll
 | Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
 
 
-## Importance of paths
+## Paths, Identifiers, and Route Keys
 
 Since HydePHP automatically discovers and compiles content files, it is important to understand how HydePHP handles paths,
 as the file names and directories they are in will directly influence how the page will be compiled.
 
-**There are a few terms that are important to define before we explore their correlations.**
+As such, it will be helpful for you to know about the following terms:
 
 - **Path:** The full path to a file, including the file name, directory, and extension.
 - **Identifier:** The unique identifier for a page. Unique only within the same page type.
 - **Route key:** The key used to access the page in the routing system. Unique across all site pages.
+
+Both the identifier and route key are derived from the path of the page. The identifier is the path without the file
+extension, and relative to the page type source directory. The route key is the output directory plus the identifier.
 
 
 ## Convention over Configuration
