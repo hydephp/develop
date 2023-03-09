@@ -99,13 +99,12 @@ Lorem ipsum dolor sit amet, etc.
 
 ### Front Matter in Blade
 
->warning 🧪 This feature is experimental, and currently does not support multidimensional arrays or multi-line directives as the BladeMatter is statically parsed.
+HydePHP has experimental support for creating front-matter in Blade templates, called BladeMatter.
 
-Hyde v0.58.0-beta brings experimental support for creating front-matter in Blade templates, called BladeMatter. The actual syntax is does not use YAML; but instead PHP. However, the parsed end result is the same.
+The actual syntax does not use YAML; but instead PHP. However, the parsed end result is the same. Please note that
+BladeMatter currently does not support multidimensional arrays or multi-line directives as the data is statically parsed.
 
-To create BladeMatter, you simply use the default Laravel Blade `@php` directive to declare a variable anywhere in the template.
-
-**Example:**
+To create BladeMatter, you simply use the default Laravel Blade `@php` directive to declare a variable in the template.
 
 ```blade
 @php($title = 'BladeMatter Demo')
