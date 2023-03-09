@@ -57,6 +57,7 @@ function normalize_lines($filename): void
 
     $last_line = '';
     $was_last_line_heading = false;
+    $is_inside_fenced_code_block = false;
     $is_inside_fenced_fenced_code_block = false;
     foreach ($lines as $index => $line) {
         global $linesCounted;
@@ -86,6 +87,12 @@ function normalize_lines($filename): void
             if (! $is_inside_fenced_fenced_code_block) {
                 $new_lines[] = '';
             }
+        }
+
+
+        // Check if line is a  fenced code block
+        if (str_starts_with($line, '``')) {
+            $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
         }
 
         // Check if line is a escaped fenced code block
