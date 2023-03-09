@@ -77,7 +77,13 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $argList = implode(', ', array_map(function (ReflectionParameter $parameter) {
         $name = '$'.$parameter->getName();
         if ($parameter->getType()) {
-            $type = $parameter->getType()->getName();
+            if ($parameter->getType() instanceof ReflectionUnionType) {
+                $type = implode('|', array_map(function (ReflectionNamedType $type) {
+                    return $type->getName();
+                }, $parameter->getType()->getTypes()));
+            } else {
+                $type = $parameter->getType()->getName();
+            }
         } else {
             $type = 'mixed';
         }
