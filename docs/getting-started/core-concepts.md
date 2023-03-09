@@ -148,8 +148,6 @@ where code in `@php` directives are statically parsed into page object's front m
 @php($title = 'BladeMatter Demo') // Equivalent to `title: 'BladeMatter Demo'` in Yaml
 ```
 
-To learn more, you can visit the [Front Matter](front-matter) page.
-
 
 ## Automatic Routing
 
