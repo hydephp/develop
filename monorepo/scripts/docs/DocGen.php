@@ -11,11 +11,9 @@ use Illuminate\Support\Str;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
-
 $options['--class'] = HydePage::class;
 $options['--instanceVariableName'] = '$page';
 $options['--outputFile'] = 'api-docs.md';
-
 
 generate($options);
 
@@ -46,7 +44,7 @@ function generate(array $options): void
     });
 
     $instanceMethods = array_filter($methods, function (ReflectionMethod $method) {
-        return !$method->isStatic();
+        return ! $method->isStatic();
     });
 
     $output = [];
