@@ -336,8 +336,6 @@ abstract class HydePage implements PageSchema, SerializableContract
      *
      * For example, the identifier of a source file stored as '_pages/about/contact.md'
      * would be 'about/contact', and 'pages/about.md' would simply be 'about'.
-     *
-     * @return string The page's identifier.
      */
     public function getIdentifier(): string
     {
