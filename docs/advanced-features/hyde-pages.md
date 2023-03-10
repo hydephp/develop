@@ -23,7 +23,8 @@ rather used as a reference so that you know what to look for in the actual sourc
 
 #### Inheritance
 
-Since all HydePages extend the base `HydePage` class, those shared methods are only listed once, under the `HydePage` class.
+Since all HydePages extend the base `HydePage` class, those shared methods are only listed once,
+under the `HydePage` class documentation which is conveniently located just below this section.
 
 
 ### Table of Contents
