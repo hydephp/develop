@@ -263,3 +263,9 @@ if ($filesChanged > 0) {
 } else {
     echo "\n\033[32mNo files were changed\033[0m\n";
 }
+
+// If --git flag is passed, make a git commit
+if (isset($argv[1]) && $argv[1] === '--git') {
+    echo "\n\033[33mCommitting changes to git...\033[0m\n";
+    passthru('git commit -am "Format Markdown"');
+}
