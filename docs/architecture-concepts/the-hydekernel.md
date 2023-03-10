@@ -40,3 +40,8 @@ HydeKernel::getInstance()->version();
 app(HydeKernel::class)->version();
 hyde()->version();
 ```
+
+## The kernel lifecycle
+
+> FIXME port from autodiscovery.md
+
