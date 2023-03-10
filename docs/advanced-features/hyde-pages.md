@@ -196,8 +196,8 @@ class InMemoryPage extends HydePage
 
 Page class for Blade pages.
 
-Blade pages are stored in the _pages directory and using the .blade.php extension.
-They will be compiled using the Laravel Blade engine the _site/ directory.
+Blade pages are stored in the _`pages` directory and using the `.blade.php` extension.
+They will be compiled using the Laravel Blade engine the `_site/` directory.
 
 ### Quick Reference
 
