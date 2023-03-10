@@ -131,17 +131,17 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     global $instanceVariableName;
     $signature = str_replace(
         ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
-        [e($instanceVariableName), e($methodName), e($className)],
+        [$instanceVariableName, $methodName, $className],
         $signatureTemplate
     );
 
     $replacements = [
-        '{{ $signature }}' => e($signature),
+        '{{ $signature }}' => $signature,
         '{{ $methodName }}' => e($methodName),
         '{{ $description }}' => e($description),
         '{{ $className }}' => e($className),
         '{{ $argList }}' => e($argList),
-        '{{ $returnType }}' => e($returnType),
+        '{{ $returnType }}' => ($returnType),
     ];
     $markdown = str_replace(array_keys($replacements), array_values($replacements), $template);
 
