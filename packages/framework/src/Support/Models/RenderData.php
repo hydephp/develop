@@ -42,7 +42,7 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @deprecated Rename to getRoute() to match renamed property.
+     * @deprecated Renamed to getRoute() to match renamed property.
      */
     public function getCurrentRoute(): ?Route
     {
@@ -55,7 +55,7 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @deprecated Rename to getRouteKey() to match renamed property.
+     * @deprecated Renamed to getRouteKey() to match renamed property.
      */
     public function getCurrentPage(): ?string
     {
