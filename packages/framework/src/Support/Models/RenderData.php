@@ -44,6 +44,7 @@ class RenderData implements Arrayable
 
     /**
      * @deprecated v1.0.0-RC.2 - Renamed to getRoute() to match renamed property.
+     * @codeCoverageIgnore
      */
     #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.', replacement: '%class%->getRoute()')]
     public function getCurrentRoute(): ?Route
@@ -58,6 +59,7 @@ class RenderData implements Arrayable
 
     /**
      * @deprecated v1.0.0-RC.2 - Renamed to getRouteKey() to match renamed property.
+     * @codeCoverageIgnore
      */
     #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.', replacement: '%class%->getRouteKey()')]
     public function getCurrentPage(): ?string
