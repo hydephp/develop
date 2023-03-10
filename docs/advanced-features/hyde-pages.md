@@ -280,3 +280,6 @@ class MarkdownPost extends BaseMarkdownPage
 }
 ```
 
+### Methods
+
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/markdown-post-methods'))->toHtml($page::class) }}
