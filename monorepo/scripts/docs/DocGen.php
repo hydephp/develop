@@ -7,6 +7,7 @@ declare(strict_types=1);
  */
 
 use Hyde\Pages\Concerns\HydePage;
+use Illuminate\Support\Str;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
@@ -57,7 +58,8 @@ $text = implode("\n", $output);
 $startMarker = '<!-- Start generated docs for '.$class.' -->';
 $metadataMarker = "<!-- $metadata -->";
 $endMarker = '<!-- End generated docs for '.$class.' -->';
-$text = "$startMarker\n$metadataMarker\n\n$text\n$endMarker";
+$classKebabName = Str::kebab(class_basename($class));
+$text = "<section id=\"$classKebabName-methods\">\n\n$startMarker\n$metadataMarker\n\n$text\n$endMarker\n\n</section>";
 
 // Output the documentation
 echo $text;
