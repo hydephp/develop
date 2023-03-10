@@ -154,3 +154,9 @@ abstract class BaseMarkdownPage extends HydePage
 ## InMemoryPage
 
 Before we take a look at the common page classes, you'll usually use, let's first take a look at one that's quite interesting.
+
+### Quick Reference
+
+| Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
+|----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `InMemoryPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/InMemoryPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-InMemoryPage.html) |
