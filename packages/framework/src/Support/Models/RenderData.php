@@ -39,10 +39,10 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @deprecated v1.0.0-RC.2 - Renamed to getRoute() to match renamed property.
+     * @deprecated v1.0.0-RC.2 - Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.
      * @codeCoverageIgnore
      */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.', replacement: '%class%->getRoute()')]
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRoute()')]
     public function getCurrentRoute(): ?Route
     {
         return $this->getRoute();
@@ -54,10 +54,10 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @deprecated v1.0.0-RC.2 - Renamed to getRouteKey() to match renamed property.
+     * @deprecated v1.0.0-RC.2 - Renamed to getRouteKey() to match renamed property. This method will be removed before version 1.0.
      * @codeCoverageIgnore
      */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.', replacement: '%class%->getRouteKey()')]
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRouteKey()')]
     public function getCurrentPage(): ?string
     {
         return $this->getRouteKey();
