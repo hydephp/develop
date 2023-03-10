@@ -160,7 +160,13 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $argList = implode(', ', $parameters);
 
     $before = null;
-    
+    if ($parameterDocs) {
+        $before = "##### Arguments\n";
+        foreach ($parameterDocs as $type => $comment) {
+            $before .= "- **$type**$comment\n";
+        }
+    }
+
     global $instanceVariableName;
     $signature = str_replace(
         ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
