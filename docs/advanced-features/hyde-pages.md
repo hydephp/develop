@@ -160,3 +160,9 @@ Before we take a look at the common page classes, you'll usually use, let's firs
 | Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
 |----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | `InMemoryPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/InMemoryPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-InMemoryPage.html) |
+
+#### Introduction
+
+This class is a special page class that is not backed by a file on disk, but rather generated at runtime. While it will
+probably not be useful for the majority of users, it's a great class to know about if you are a package developer,
+but feel free to skip this section if you're not interested in this.
