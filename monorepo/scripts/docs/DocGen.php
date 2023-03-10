@@ -16,6 +16,7 @@ $timeStart = microtime(true);
 // Arguments supported:
 // --class=HydePage
 // --instanceVariableName=$page
+// --outputFile=api-docs.md
 
 // Get argument list from command line
 $arguments = $argv;
@@ -39,9 +40,10 @@ $arguments = array_reduce($arguments, function (array $carry, array $argument) {
 }, []);
 
 // Validate arguments
-$requiredArguments = ['--class', '--instanceVariableName'];
+$requiredArguments = ['--class', '--instanceVariableName', '--outputFile'];
 $defaultArguments['--class'] = HydePage::class;
 $defaultArguments['--instanceVariableName'] = '$page';
+$defaultArguments['--outputFile'] = 'api-docs.md';
 foreach ($requiredArguments as $requiredArgument) {
     if (! isset($arguments[$requiredArgument])) {
         // throw new Exception("Missing required argument: $requiredArgument");
@@ -54,6 +56,7 @@ foreach ($requiredArguments as $requiredArgument) {
 
 $class = $options['--class'];
 $instanceVariableName = $options['--instanceVariableName'];
+$outputFile = $options['--outputFile'];
 
 $reflection = new ReflectionClass($class);
 
@@ -104,7 +107,7 @@ $text = "<section id=\"$classKebabName-methods\">\n\n$startMarker\n$metadataMark
 echo $text;
 
 // Save the documentation to a file
-file_put_contents('api-docs.md', $text);
+file_put_contents($outputFile, $text);
 
 // Helpers
 
