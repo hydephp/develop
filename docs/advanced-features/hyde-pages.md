@@ -165,7 +165,6 @@ You can learn more about the InMemoryPage class in the [InMemoryPage documentati
 |----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | `InMemoryPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/InMemoryPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-InMemoryPage.html) |
 
-[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/in-memory-page-methods'))->toHtml($page::class) }}
 
 ### Base Structure
 
@@ -187,3 +186,5 @@ class InMemoryPage extends HydePage
     protected array $macros = [];
 }
 ```
+
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/in-memory-page-methods'))->toHtml($page::class) }}
