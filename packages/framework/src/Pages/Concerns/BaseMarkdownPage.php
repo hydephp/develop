@@ -24,11 +24,13 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
 
     public static string $fileExtension = '.md';
 
+    /** @inheritDoc */
     public static function make(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = ''): static
     {
         return new static($identifier, $matter, $markdown);
     }
 
+    /** @inheritDoc */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '')
     {
         $this->markdown = $markdown instanceof Markdown ? $markdown : new Markdown($markdown);
