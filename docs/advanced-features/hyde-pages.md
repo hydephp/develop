@@ -121,3 +121,17 @@ The base class for all Markdown-based page models, with additional helpers tailo
 | Class Name         | Namespace             | Source Code                                                                                                | API Docs                                                                                                             |
 |--------------------|-----------------------|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | `BaseMarkdownPage` | `Hyde\Pages\Concerns` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/Concerns/BaseMarkdownPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-Concerns-BaseMarkdownPage.html) |
+
+### Base Structure
+
+```php
+/**
+ * The base class for all Markdown-based page models. Here simplified for the sake of brevity.
+ */
+abstract class BaseMarkdownPage extends HydePage
+{
+    public Markdown $markdown;
+
+    public static string $fileExtension = '.md';
+}
+```
