@@ -291,8 +291,8 @@ class MarkdownPost extends BaseMarkdownPage
 
 Page class for documentation pages.
 
-Documentation pages are stored in the _docs directory and using the .md extension.
-The Markdown will be compiled to HTML using the documentation page layout to the _site/docs/ directory.
+Documentation pages are stored in the `_docs` directory and using the `.md` extension.
+The Markdown will be compiled to HTML using the documentation page layout to the `_site/docs/` directory.
 
 ### Quick Reference
 
