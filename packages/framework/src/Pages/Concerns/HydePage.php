@@ -353,7 +353,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     // Section: Accessors
 
     /**
-     * Get the page title to display in HTML tags like <title> and <meta> tags.
+     * Get the page title to display in HTML tags like `<title>` and `<meta>` tags.
      */
     public function title(): string
     {
