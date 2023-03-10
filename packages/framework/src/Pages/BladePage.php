@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\View;
  * Page class for Blade pages.
  *
  * Blade pages are stored in the _pages directory and using the .blade.php extension.
- * They will be compiled using the Laravel Blade engine the _site/ directory.
+ * They will be compiled using the Laravel Blade engine to the _site/ directory.
  *
  * @see https://hydephp.com/docs/master/static-pages#creating-blade-pages
  * @see https://laravel.com/docs/master/blade
