@@ -69,19 +69,19 @@ Feel free to skip this section if this doesn't interest you.
 
 ```php
 // This will boot the kernel if it hasn't been booted yet
-protected function needsToBeBooted(): void
-{
-    if (! $this->booted) {
-        $this->boot();
-    }
-}
-
-// And here's an example of how it's used
 public function pages(): PageCollection
 {
     $this->needsToBeBooted();
 
     return $this->pages;
+}
+
+// This is the method that triggers the boot process
+protected function needsToBeBooted(): void
+{
+    if (! $this->booted) {
+        $this->boot();
+    }
 }
 ```
 
