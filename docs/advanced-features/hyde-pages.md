@@ -149,3 +149,8 @@ abstract class BaseMarkdownPage extends HydePage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/base-markdown-page-methods'))->toHtml($page::class) }}
+
+
+## InMemoryPage
+
+Before we take a look at the common page classes, you'll usually use, let's first take a look at one that's quite interesting.
