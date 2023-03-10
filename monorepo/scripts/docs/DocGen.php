@@ -45,8 +45,10 @@ foreach ($instanceMethods as $method) {
     documentMethod($method, $output);
 }
 
-// Output the documentation
+// Join the output
 $text = implode("\n", $output);
+
+// Output the documentation
 echo $text;
 
 // Save the documentation to a file
