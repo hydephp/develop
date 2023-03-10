@@ -59,7 +59,7 @@ $startMarker = '<!-- Start generated docs for '.$class.' -->';
 $metadataMarker = "<!-- $metadata -->";
 $endMarker = '<!-- End generated docs for '.$class.' -->';
 $classKebabName = Str::kebab(class_basename($class));
-$text = "<section id=\"$classKebabName-methods\">\n\n$startMarker\n$metadataMarker\n\n$text\n$endMarker\n\n</section>";
+$text = "<section id=\"$classKebabName-methods\">\n\n$startMarker\n$metadataMarker\n\n$text\n$endMarker\n\n</section>\n";
 
 // Output the documentation
 echo $text;
