@@ -45,7 +45,7 @@ class RenderData implements Arrayable
     /**
      * @deprecated Renamed to getRoute() to match renamed property.
      */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.')]
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.', replacement: '%class%->getRoute()')]
     public function getCurrentRoute(): ?Route
     {
         return $this->getRoute();
@@ -59,7 +59,7 @@ class RenderData implements Arrayable
     /**
      * @deprecated Renamed to getRouteKey() to match renamed property.
      */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.')]
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.', replacement: '%class%->getRouteKey()')]
     public function getCurrentPage(): ?string
     {
         return $this->getRouteKey();
