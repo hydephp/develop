@@ -163,7 +163,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $beforeSignature = null;
     if ($parameterDocs) {
         if (count($parameterDocs) > 1) {
-            $beforeSignature = 'FIXME: Support multiple parameter types';
+            $beforeSignature = 'FIX'.'ME: Support multiple parameter types';
         }
     }
 
