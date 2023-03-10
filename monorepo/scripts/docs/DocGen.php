@@ -136,12 +136,12 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     // Map docblock params
     if (isset($docComment['properties']['params'])) {
         $newParams = array_map(function (string $param) use(&$parameterDocs) {
+            $comment = $param;
             $param = str_replace('  ', ' ', trim($param));
             $param = explode(' ', $param, 3);
             $type = $param[0];
             $name = $param[1];
             if (isset($param[2])) {
-                $comment = ' // '.$param[2];
                 $parameterDocs[$type] = $comment;
             }
 
