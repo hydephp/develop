@@ -181,10 +181,10 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     global $instanceVariableName;
     $signature = ($beforeSignature ? $beforeSignature."\n" : '').str_replace(
-        ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
-        [$instanceVariableName, $methodName, $className],
-        $signatureTemplate
-    );
+            ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
+            [$instanceVariableName, $methodName, $className],
+            $signatureTemplate
+        );
 
     $replacements = [
         '{{ $signature }}' => $signature,
