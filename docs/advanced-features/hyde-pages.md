@@ -190,3 +190,29 @@ class InMemoryPage extends HydePage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/in-memory-page-methods'))->toHtml($page::class) }}
+
+
+## BladePage
+
+Page class for Blade pages.
+
+Blade pages are stored in the _pages directory and using the .blade.php extension.
+They will be compiled using the Laravel Blade engine the _site/ directory.
+
+### Quick Reference
+
+| Class Name  | Namespace    | Source Code                                                                                | API Docs                                                                                             |
+|-------------|--------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| `BladePage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/BladePage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-BladePage.html) |
+
+
+### Base Structure
+
+```php
+class BladePage extends HydePage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '.blade.php';
+}
+```
