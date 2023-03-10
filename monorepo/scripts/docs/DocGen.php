@@ -29,6 +29,8 @@ function generate(array $options): void
     $instanceVariableName = $options['instanceVariableName'];
     $outputFile = $options['outputFile'];
 
+    echo "\033[32mGenerating documentation for $class...\033[0m";
+    
     $reflection = new ReflectionClass($class);
 
     $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
