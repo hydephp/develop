@@ -180,8 +180,8 @@ During the build of each page, Hyde will inject some data available to all Blade
 any custom Blade templates, you can safely ignore this section. If you are, here are the three global variables you can use:
 
 - `$page`: The [Page Object](#page-models) for the current page.
-- `$currentRoute`: The [Route Object](#automatic-routing) for the current page.
-- `$currentPage`: The [Route Key](#paths-identifiers-and-route-keys) for the current page.
+- `$route`: The [Route Object](#automatic-routing) for the current page.
+- `$routeKey`: The [Route Key](#paths-identifiers-and-route-keys) for the current page.
 
 The `$page` variable is likely to the most important one, as it contains all the data for the current page.
 Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
