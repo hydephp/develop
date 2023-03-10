@@ -90,7 +90,6 @@ class HydeKernelTest extends TestCase
         Render::share('route', $expected);
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
-        $this->assertSame($expected, Hyde::currentRoute());
     }
 
     public function test_current_page_helper_returns_current_page_object()
@@ -98,7 +97,6 @@ class HydeKernelTest extends TestCase
         $expected = new MarkdownPage();
         Render::share('page', $expected);
         $this->assertInstanceOf(HydePage::class, Hyde::currentPage());
-        $this->assertSame($expected, Hyde::currentPage());
         $this->assertSame($expected, Hyde::currentPage());
     }
 
