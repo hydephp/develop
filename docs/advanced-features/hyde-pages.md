@@ -46,9 +46,9 @@ The base class for all Hyde pages, all other page classes extend this class.
 
 ### Quick Reference
 
-| Class Name | Namespace             | Source Code                                                                                         | API Docs                                                                                                     |
-|------------|-----------------------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| `HydePage` | `Hyde\Pages\Concerns` | [Open in GitHub](https://github.com/hydephp/framework/blob/master//src/Pages/Concerns/HydePage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-Concerns-HydePage.html) |
+| Class Name | Namespace             | Source Code                                                                                        | API Docs                                                                                                     |
+|------------|-----------------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `HydePage` | `Hyde\Pages\Concerns` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/Concerns/HydePage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-Concerns-HydePage.html) |
 
 ### Base Structure
 
