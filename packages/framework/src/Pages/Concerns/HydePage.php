@@ -240,6 +240,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the route key base for the page model.
+     *
+     * This is the same value as the output directory.
      */
     public static function baseRouteKey(): string
     {
@@ -293,13 +295,12 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the route key for the page.
      *
-     * The route key is the URL path relative to the site root.
+     * The route key is the page URL path, relative to the site root, but without any file extensions.
+     * For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
      *
-     * For example, if the compiled page will be saved to _site/docs/index.html,
-     * then this method will return 'docs/index'. Route keys are used to
-     * identify pages, similar to how named routes work in Laravel,
-     * only that here the name is not just arbitrary,
-     * but also defines the output location.
+     * Route keys are used to identify page routes, similar to how named routes work in Laravel,
+     * only that here the name is not just arbitrary, but also defines the output location,
+     * as the route key is used to determine the output path which is `$routeKey.html`.
      *
      * @return string The page's route key.
      */
@@ -309,7 +310,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the route for the page.
+     * Get the route object for the page.
      *
      * @return \Hyde\Support\Models\Route The page's route.
      */
