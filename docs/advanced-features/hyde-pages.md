@@ -43,6 +43,15 @@ under the `HydePage` class documentation which is conveniently located just belo
 
 The base class for all Hyde pages, all other page classes extend this class.
 
+Unlike other frameworks, in general you don't instantiate pages yourself in Hyde, instead, the page models acts as
+blueprints defining information for Hyde to know how to parse a file, and what data around it should be generated.
+
+To create a parsed file instance, you'd typically just create a source file, and you can then access the parsed file
+from the HydeKernel's page index. 
+
+In Blade views, you can always access the current page instance being rendered using the `$page` variable.
+
+
 ### Quick Reference
 
 | Class Name | Namespace             | Source Code                                                                                        | API Docs                                                                                                     |
