@@ -96,7 +96,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         } else {
             $type = 'mixed';
         }
-        return trim($type .' '. $name);
+
+        return trim($type.' '.$name);
     }, $method->getParameters());
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
@@ -112,7 +113,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             $param = explode(' ', $param);
             $type = array_shift($param);
             $name = array_pop($param);
-            return trim($type .' '. $name);
+
+            return trim($type.' '.$name);
         }, $docComment['properties']['params']);
     }
     // If higher specificity argument types are provided in docblock, merge them with the actual types
@@ -136,7 +138,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $markdown = str_replace(
         [
             '{{ $signature }}', '{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}',
-            '{{ $returnType }}'
+            '{{ $returnType }}',
         ],
         [$signature, $methodName, $description, $className, $argList, $returnType],
         $template
@@ -166,7 +168,7 @@ function parsePHPDocs(string $comment): array
     // Parse
     foreach ($comment as $line) {
         if (str_starts_with($line, '@')) {
-            $propertyName = substr($line, 1, strpos($line, ' ') - 1) ;
+            $propertyName = substr($line, 1, strpos($line, ' ') - 1);
             $propertyValue = substr($line, strpos($line, ' ') + 1);
             // If property allows multiple we add to subarray
             if ($propertyName === 'return') {
