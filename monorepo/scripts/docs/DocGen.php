@@ -13,7 +13,7 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 
 echo "\033[32mHydePHP method DocGen\033[0m\n\n";
 
-$basePath = realpath(__DIR__.'/../../../docs/_data/partials/');
+$basePath = realpath(__DIR__.'/../../../docs/_data/partials/hyde-pages-api');
 
 $options = [
     'class' => HydePage::class,
