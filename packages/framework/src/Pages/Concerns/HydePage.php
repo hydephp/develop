@@ -69,11 +69,17 @@ abstract class HydePage implements PageSchema, SerializableContract
     public string $title;
     public ?string $canonicalUrl;
 
+    /**
+     * Create a new page instance. Static alias for the constructor.
+     */
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
     {
         return new static($identifier, $matter);
     }
 
+    /**
+     * Construct a new page instance.
+     */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
