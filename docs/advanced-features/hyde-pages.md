@@ -285,3 +285,32 @@ class MarkdownPost extends BaseMarkdownPage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/markdown-post-methods'))->toHtml($page::class) }}
+
+
+## DocumentationPage
+
+Page class for documentation pages.
+
+Documentation pages are stored in the _docs directory and using the .md extension.
+The Markdown will be compiled to HTML using the documentation page layout to the _site/docs/ directory.
+
+### Quick Reference
+
+| Class Name          | Namespace    | Source Code                                                                                        | API Docs                                                                                                     |
+|---------------------|--------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `DocumentationPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/DocumentationPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-DocumentationPage.html) |
+
+### Base Structure
+
+```php
+class DocumentationPage extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_docs';
+    public static string $outputDirectory = 'docs';
+    public static string $template = 'hyde::layouts/docs';
+}
+```
+
+### Methods
+
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/documentation-page-methods'))->toHtml($page::class) }}
