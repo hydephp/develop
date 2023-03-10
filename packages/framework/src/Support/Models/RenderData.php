@@ -99,8 +99,8 @@ class RenderData implements Arrayable
         return [
             'render' => $this,
             'page' => $this->getPage(),
-            'currentRoute' => $this->getCurrentRoute(),
-            'currentPage' => $this->getCurrentPage(),
+            'currentRoute' => $this->getRoute(),
+            'currentPage' => $this->getRouteKey(),
         ];
     }
 }
