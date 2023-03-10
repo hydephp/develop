@@ -14,7 +14,6 @@ This page contains the full API references for the built-in HydePage classes. Mo
 the inner workings of classes, but if you're interested in extending HydePHP, or just curious, this page is for you.
 It is especially useful if you're looking to implement your own page classes, or if you are creating advanced Blade templates.
 
-
 ### About the reference
 
 This document is heavily based around the actual source code, as I believe the best way to understand the code is to read it.
@@ -25,7 +24,6 @@ rather used as a reference so that you know what to look for in the actual sourc
 
 Since all HydePages extend the base `HydePage` class, those shared methods are only listed once,
 under the `HydePage` class documentation which is conveniently located just below this section.
-
 
 ### Table of Contents
 
@@ -39,6 +37,7 @@ under the `HydePage` class documentation which is conveniently located just belo
 | [MarkdownPost](#markdownpost)           | Class for Markdown posts.              |
 | [DocumentationPage](#documentationpage) | Class for documentation pages.         |
 | [HtmlPage](#htmlpage)                   | Class for HTML pages.                  |
+
 
 ## HydePage
 
@@ -97,7 +96,7 @@ abstract class HydePage
      * The generated page metadata.
      */
     public PageMetadataBag $metadata;
-    
+
     /**
      * The generated page navigation data.
      */
@@ -109,7 +108,7 @@ abstract class HydePage
 
 >warning <p class="p-2" style="padding-right: 1rem"><strong>Heads up!</strong> The following methods are defined in the <code>HydePage</code> class, and are thus available to all page classes. Since the HydePage class is abstract, you cannot instantiate it directly, and many of the static methods are also only callable from the child classes.</p>
 
-[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/hyde-page-methods'))->toHtml($page::class) }} 
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/hyde-page-methods'))->toHtml($page::class) }}
 
 
 ## BaseMarkdownPage
