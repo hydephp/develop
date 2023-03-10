@@ -122,8 +122,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         $returnValue = $docComment['properties']['return'];
         // If there is a description, put it in a comment
         if (str_contains($returnValue, ' ')) {
-            $returnValue = explode(' ', $returnValue, 2);
-            $returnValue = $returnValue[0].' // '.$returnValue[1];
+            $exploded = explode(' ', $returnValue, 2);
+            $returnValue = $exploded[0].' // '.$exploded[1];
         }
         $returnType = $returnValue;
     }
