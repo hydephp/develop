@@ -52,11 +52,12 @@ Let's take a look at a simplified version of the kernel's boot method to see how
 ```php
 public function boot(): void
 {
-    $this->booted = true;
-
     $this->files = FileCollection::boot($this);
     $this->pages = PageCollection::boot($this);
     $this->routes = RouteCollection::boot($this);
+
+    // Scroll down to see what this is used for    
+    $this->booted = true;
 }
 ```
 
