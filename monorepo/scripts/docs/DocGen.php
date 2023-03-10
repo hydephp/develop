@@ -61,6 +61,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     {{ $description }}
     
     ```php
+    // torchlight! {"lineNumbers": false}
     {{ $signature }}({{ $argList }}): {{ $returnType }}
     ```
 
