@@ -139,6 +139,11 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             $param = explode(' ', $param, 3);
             $type = $param[0];
             $name = $param[1];
+            if (isset($param[2])) {
+                $comment = ' // '.$param[2];
+            } else {
+                $comment = null;
+            }
 
             return trim($type.' '.$name);
         }, $docComment['properties']['params']);
