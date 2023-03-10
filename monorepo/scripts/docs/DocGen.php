@@ -13,8 +13,47 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
 
-$class = HydePage::class;
-$instanceVariableName = '$page';
+// Arguments supported:
+// --class=HydePage
+// --instanceVariableName=$page
+
+// Get argument list from command line
+$arguments = $argv;
+array_shift($arguments);
+
+// Parse arguments
+$arguments = array_map(function (string $argument) {
+    $argument = explode('=', $argument, 2);
+    if (count($argument) === 1) {
+        return [$argument[0], true];
+    }
+
+    return $argument;
+}, $arguments);
+
+// Convert to associative array
+$arguments = array_reduce($arguments, function (array $carry, array $argument) {
+    $carry[$argument[0]] = $argument[1];
+
+    return $carry;
+}, []);
+
+// Validate arguments
+$requiredArguments = ['--class', '--instanceVariableName'];
+$defaultArguments['--class'] = HydePage::class;
+$defaultArguments['--instanceVariableName'] = '$page';
+foreach ($requiredArguments as $requiredArgument) {
+    if (! isset($arguments[$requiredArgument])) {
+        // throw new Exception("Missing required argument: $requiredArgument");
+        // Set to default values
+        $options[$requiredArgument] = $defaultArguments[$requiredArgument];
+    } else {
+        $options[$requiredArgument] = $arguments[$requiredArgument];
+    }
+}
+
+$class = $options['--class'];
+$instanceVariableName = $options['--instanceVariableName'];
 
 $reflection = new ReflectionClass($class);
 
