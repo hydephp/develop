@@ -49,6 +49,11 @@ class RenderData implements Arrayable
         return $this->currentRoute ?? null;
     }
 
+    public function getRoute(): ?Route
+    {
+        return $this->currentRoute ?? null;
+    }
+
     /**
      * @deprecated Rename to getRouteKey() to match renamed property.
      */
