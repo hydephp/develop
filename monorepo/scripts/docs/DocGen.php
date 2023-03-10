@@ -19,7 +19,11 @@ $timeStart = microtime(true);
 // --outputFile=api-docs.md
 
 // Get argument list from command line
-$options = parseArguments();
+$requiredArguments = ['--class', '--instanceVariableName', '--outputFile'];
+$defaultArguments['--class'] = HydePage::class;
+$defaultArguments['--instanceVariableName'] = '$page';
+$defaultArguments['--outputFile'] = 'api-docs.md';
+$options = parseArguments($requiredArguments, $defaultArguments);
 
 $class = $options['--class'];
 $instanceVariableName = $options['--instanceVariableName'];
@@ -246,7 +250,7 @@ function parsePHPDocs(string $comment): array
     ];
 }
 
-function parseArguments(): array
+function parseArguments(array $requiredArguments, array $defaultArguments): array
 {
     global $argv;
     $arguments = $argv;
@@ -270,10 +274,6 @@ function parseArguments(): array
     }, []);
 
     // Validate arguments
-    $requiredArguments = ['--class', '--instanceVariableName', '--outputFile'];
-    $defaultArguments['--class'] = HydePage::class;
-    $defaultArguments['--instanceVariableName'] = '$page';
-    $defaultArguments['--outputFile'] = 'api-docs.md';
     foreach ($requiredArguments as $requiredArgument) {
         if (! isset($arguments[$requiredArgument])) {
             // throw new Exception("Missing required argument: $requiredArgument");
