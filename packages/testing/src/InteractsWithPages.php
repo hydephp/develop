@@ -13,7 +13,7 @@ trait InteractsWithPages
 {
     protected function mockRoute(?Route $route = null): void
     {
-        Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));
+        Render::share('route', $route ?? (new Route(new MarkdownPage())));
     }
 
     protected function mockPage(?HydePage $page = null, ?string $currentPage = null): void

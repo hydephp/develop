@@ -52,13 +52,13 @@ class RenderHelperTest extends TestCase
     public function testShareToView()
     {
         $this->assertNull(View::shared('page'));
-        $this->assertNull(View::shared('currentRoute'));
+        $this->assertNull(View::shared('route'));
         $this->assertNull(View::shared('currentPage'));
 
         Render::setPage($page = new MarkdownPage());
 
         $this->assertSame($page, View::shared('page'));
-        $this->assertEquals($page->getRoute(), View::shared('currentRoute'));
+        $this->assertEquals($page->getRoute(), View::shared('route'));
         $this->assertSame($page->getRouteKey(), View::shared('currentPage'));
     }
 
@@ -110,12 +110,12 @@ class RenderHelperTest extends TestCase
         Render::setPage(new MarkdownPage());
 
         $this->assertNotNull(View::shared('page'));
-        $this->assertNotNull(View::shared('currentRoute'));
+        $this->assertNotNull(View::shared('route'));
         $this->assertNotNull(View::shared('currentPage'));
 
         Render::clearData();
         $this->assertNull(View::shared('page'));
-        $this->assertNull(View::shared('currentRoute'));
+        $this->assertNull(View::shared('route'));
         $this->assertNull(View::shared('currentPage'));
     }
 
@@ -143,7 +143,7 @@ class RenderHelperTest extends TestCase
         $this->assertSame([
             'render' => $render,
             'page' => null,
-            'currentRoute' => null,
+            'route' => null,
             'currentPage' => null,
         ], $render->toArray());
 
@@ -151,7 +151,7 @@ class RenderHelperTest extends TestCase
         $this->assertEquals([
             'render' => $render,
             'page' => $page,
-            'currentRoute' => $page->getRoute(),
+            'route' => $page->getRoute(),
             'currentPage' => $page->getRouteKey(),
         ], $render->toArray());
     }

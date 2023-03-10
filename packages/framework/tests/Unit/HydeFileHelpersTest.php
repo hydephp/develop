@@ -27,7 +27,7 @@ class HydeFileHelpersTest extends TestCase
 
     public function test_current_route_returns_current_route_view_property()
     {
-        Render::share('currentRoute', Routes::get('index'));
+        Render::share('route', Routes::get('index'));
         $this->assertEquals(Routes::get('index'), Hyde::currentRoute());
     }
 

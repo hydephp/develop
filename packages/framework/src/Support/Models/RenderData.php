@@ -22,8 +22,7 @@ class RenderData implements Arrayable
 {
     protected HydePage $page;
 
-    /** @deprecated v1.0.0-RC.2 - Rename to $route as "current" is implied */
-    protected Route $currentRoute;
+    protected Route $route;
 
     /** @deprecated v1.0.0-RC.2 - Rename to $routeKey as "current" is implied, and it's not a page */
     protected string $currentPage;
@@ -31,7 +30,7 @@ class RenderData implements Arrayable
     public function setPage(HydePage $page): void
     {
         $this->page = $page;
-        $this->currentRoute = $page->getRoute();
+        $this->route = $page->getRoute();
         $this->currentPage = $page->getRouteKey();
 
         $this->shareToView();
@@ -54,7 +53,7 @@ class RenderData implements Arrayable
 
     public function getRoute(): ?Route
     {
-        return $this->currentRoute ?? null;
+        return $this->route ?? null;
     }
 
     /**
@@ -89,8 +88,8 @@ class RenderData implements Arrayable
 
     public function clearData(): void
     {
-        unset($this->page, $this->currentRoute, $this->currentPage);
-        View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
+        unset($this->page, $this->route, $this->currentPage);
+        View::share(['page' => null, 'route' => null, 'currentPage' => null]);
     }
 
     /**
@@ -101,7 +100,7 @@ class RenderData implements Arrayable
         return [
             'render' => $this,
             'page' => $this->getPage(),
-            'currentRoute' => $this->getRoute(),
+            'route' => $this->getRoute(),
             'currentPage' => $this->getRouteKey(),
         ];
     }

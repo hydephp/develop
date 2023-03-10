@@ -86,7 +86,7 @@ class HydeKernelTest extends TestCase
     public function test_current_route_helper_returns_current_route_object()
     {
         $expected = new Route(new MarkdownPage());
-        Render::share('currentRoute', $expected);
+        Render::share('route', $expected);
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
