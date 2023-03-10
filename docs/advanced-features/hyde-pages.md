@@ -134,3 +134,7 @@ abstract class BaseMarkdownPage extends HydePage
     public static string $fileExtension = '.md';
 }
 ```
+
+### Methods
+
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/base-markdown-page-methods'))->toHtml($page::class) }}
