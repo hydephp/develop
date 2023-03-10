@@ -116,3 +116,8 @@ abstract class HydePage
 
 The base class for all Markdown-based page models, with additional helpers tailored for Markdown pages.
 
+### Quick Reference
+
+| Class Name         | Namespace             | Source Code                                                                                                | API Docs                                                                                                             |
+|--------------------|-----------------------|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `BaseMarkdownPage` | `Hyde\Pages\Concerns` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/Concerns/BaseMarkdownPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-Concerns-BaseMarkdownPage.html) |
