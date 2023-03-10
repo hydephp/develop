@@ -11,9 +11,11 @@ use Illuminate\Support\Str;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
-$options['--class'] = HydePage::class;
-$options['--instanceVariableName'] = '$page';
-$options['--outputFile'] = 'api-docs.md';
+$options = [
+    '--class' => HydePage::class,
+    '--instanceVariableName' => '$page',
+    '--outputFile' => 'api-docs.md',
+];
 
 generate($options);
 
