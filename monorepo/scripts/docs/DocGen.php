@@ -124,8 +124,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         if (str_contains($returnValue, ' ')) {
             $exploded = explode(' ', $returnValue, 2);
             $type = $exploded[0];
-            $comment = $exploded[1];
-            $returnValue = $type.' // '.$comment;
+            $comment = ' // '.$exploded[1];
+            $returnValue = $type.$comment;
         }
         $returnType = $returnValue;
     }
