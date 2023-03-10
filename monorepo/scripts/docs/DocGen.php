@@ -19,8 +19,7 @@ $options['--outputFile'] = 'api-docs.md';
 
 generate($options);
 
-    // Helpers
-
+// Helpers
 
 function generate(array $options): void
 {
