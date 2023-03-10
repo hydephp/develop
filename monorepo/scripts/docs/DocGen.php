@@ -203,3 +203,5 @@ function parsePHPDocs(string $comment): array
         'properties' => $properties,
     ];
 }
+
+echo "\n\n\033[32mAll done in $time ms!\033[0m";
