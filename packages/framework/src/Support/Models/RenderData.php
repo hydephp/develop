@@ -8,6 +8,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
+use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Contains data for the current page being rendered/compiled.
@@ -44,6 +45,7 @@ class RenderData implements Arrayable
     /**
      * @deprecated Renamed to getRoute() to match renamed property.
      */
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.')]
     public function getCurrentRoute(): ?Route
     {
         return $this->getRoute();
@@ -57,6 +59,7 @@ class RenderData implements Arrayable
     /**
      * @deprecated Renamed to getRouteKey() to match renamed property.
      */
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property.')]
     public function getCurrentPage(): ?string
     {
         return $this->getRouteKey();
