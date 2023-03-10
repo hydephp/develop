@@ -19,14 +19,10 @@ This serves two purposes:
 
 ### Deprecated
 - Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
-- Deprecate `RenderData::$currentRoute` pending rename to `$route` as "current" is implied.
-  - This change affects the global $currentRoute variable in Blade templates.
-- Deprecate `RenderData::$currentPage` pending rename to `$routeKey` as "current" is implied, and it's not a page.
-  - This change affects the global $currentPage variable in Blade templates.
-- Deprecate `RenderData::getCurrentRoute()` pending rename to `getRoute()` to match renamed property.
-  - This change affects the `Render::getCurrentRoute()` facade methods.
-- Deprecate `RenderData::getCurrentPage()` pending rename to `getRouteKey()` to match renamed property.
-  - This change affects the `Render::getCurrentPage()` facade methods. 
+- Deprecate `RenderData::getCurrentRoute()` as it is renamed to `getRoute()` to match renamed property.
+  - This change affects the `Render::getCurrentRoute()` and `Hyde::currentRoute()` facade methods.
+- Deprecate `RenderData::getCurrentPage()` as it is renamed to `getRouteKey()` to match renamed property.
+  - This change affects the `Render::getCurrentPage()` and `Hyde::currentPage()` facade methods. 
 
 ### Removed
 - Remove RouteKey normalization for dot notation support by @caendesilva in https://github.com/hydephp/develop/pull/1241
