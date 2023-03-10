@@ -47,8 +47,8 @@ foreach ($instanceMethods as $method) {
 
 // Join the output
 $text = implode("\n", $output);
-$startMarker = '<!-- START GENERATED DOCS FOR '.$class.' -->';
-$endMarker = '<!-- END GENERATED DOCS FOR '.$class.' -->';
+$startMarker = '<!-- Start generated docs for '.$class.' -->';
+$endMarker = '<!-- End generated docs for '.$class.' -->';
 $text = "$startMarker\n$text\n$endMarker";
 
 // Output the documentation
