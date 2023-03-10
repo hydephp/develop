@@ -301,8 +301,6 @@ abstract class HydePage implements PageSchema, SerializableContract
      * Route keys are used to identify page routes, similar to how named routes work in Laravel,
      * only that here the name is not just arbitrary, but also defines the output location,
      * as the route key is used to determine the output path which is `$routeKey.html`.
-     *
-     * @return string The page's route key.
      */
     public function getRouteKey(): string
     {
@@ -311,8 +309,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the route object for the page.
-     *
-     * @return \Hyde\Support\Models\Route The page's route.
      */
     public function getRoute(): Route
     {
