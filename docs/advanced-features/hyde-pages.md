@@ -262,3 +262,21 @@ The Markdown will be compiled to HTML using the blog post layout to the `_site/p
 | Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
 |----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | `MarkdownPost` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/MarkdownPost.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-MarkdownPost.html) |
+
+### Base Structure
+
+```php
+class MarkdownPost extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_posts';
+    public static string $outputDirectory = 'posts';
+    public static string $template = 'hyde::layouts/post';
+
+    public ?string $description;
+    public ?string $category;
+    public ?DateString $date;
+    public ?PostAuthor $author;
+    public ?FeaturedImage $image;
+}
+```
+
