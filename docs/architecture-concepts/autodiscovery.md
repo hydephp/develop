@@ -20,7 +20,9 @@ Before reading this article, you should be familiar with the following concepts:
 
 ### Booting pipeline
 
-As you saw above, the kernel boots the collections in order. This is important as each step depends on the previous one.
+The autodiscovery is run when the HydeKernel boots. It does so in three distinct steps, which run in sequence as each
+step depends on the previous one. Each discovery step runs in a `FoundationCollection` which both runs the actual
+discovery process and stores the discovered data in memory.
 
 1. **Step one:** The file collection discovers all the source files and stores them in memory
 2. **Step two:** The page collection parses all the source files into page model objects
