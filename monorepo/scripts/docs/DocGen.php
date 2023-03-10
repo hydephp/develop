@@ -27,6 +27,11 @@ $matrix = [
         'instanceVariableName' => '$page',
         'outputFile' => "$basePath/base-markdown-page-methods.md",
     ],
+    [
+        'class' => \Hyde\Framework\Concerns\InteractsWithFrontMatter::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/interacts-with-front-matter-methods.md",
+    ],
 ];
 
 foreach ($matrix as $key => $options) {
