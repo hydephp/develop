@@ -46,7 +46,7 @@ class RenderData implements Arrayable
      */
     public function getCurrentRoute(): ?Route
     {
-        return $this->currentRoute ?? null;
+        return $this->getRoute();
     }
 
     public function getRoute(): ?Route
@@ -59,7 +59,7 @@ class RenderData implements Arrayable
      */
     public function getCurrentPage(): ?string
     {
-        return $this->currentPage ?? null;
+        return $this->getRouteKey();
     }
 
     public function getRouteKey(): ?string
