@@ -120,6 +120,11 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     // If higher specificity return type is provided in docblock, use that instead
     if (isset($docComment['properties']['return'])) {
         $returnValue = $docComment['properties']['return'];
+        // If there is a description, put it in a comment
+        if (str_contains($returnValue, ' ')) {
+            $returnValue = explode(' ', $returnValue, 2);
+            $returnValue = $returnValue[0].' // '.$returnValue[1];
+        }
         $returnType = $returnValue;
     }
 
