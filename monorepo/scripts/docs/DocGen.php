@@ -37,6 +37,11 @@ $matrix = [
         'instanceVariableName' => '$page',
         'outputFile' => "$basePath/in-memory-page-methods.md",
     ],
+    [
+        'class' => \Hyde\Pages\BladePage::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/blade-page-methods.md",
+    ]
 ];
 
 foreach ($matrix as $key => $options) {
