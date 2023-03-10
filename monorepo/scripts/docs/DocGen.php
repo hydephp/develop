@@ -298,5 +298,10 @@ function postProcess(string $text): string
     $replace = ['`&lt;' => '`<', '&gt;`' => '>`'];
     $text = str_replace(array_keys($replace), array_values($replace), $text);
 
+    // Trim trailing whitespace
+    $text = implode("\n", array_map(function (string $line) {
+        return rtrim($line);
+    }, explode("\n", $text)));
+
     return $text;
 }
