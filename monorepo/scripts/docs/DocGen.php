@@ -162,9 +162,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $before = null;
     $beforeSignature = null;
     if ($parameterDocs) {
-        $before = "##### Arguments\n";
-        foreach ($parameterDocs as $type => $comment) {
-            $before .= "- **$type**$comment\n";
+        if (count($parameterDocs) > 1) {
+            $beforeSignature = 'FIXME: Support multiple parameter types';
         }
     }
 
