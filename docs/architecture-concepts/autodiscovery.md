@@ -32,8 +32,9 @@ discovery process and stores the discovered data in memory.
 
 #### Interacting with the collections
 
-Usually, you will interact with the collection data through intermediaries. For example, if you call `MarkdownPost::get('my-post')`,
-Hyde will retrieve that page from the page collection. If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection.
+Usually, you will interact with the collection data through intermediaries.
+* For example, if you call `MarkdownPost::get('my-post')`, Hyde will retrieve that page from the page collection.
+* If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection.
 
 ## The HydeKernel
 
