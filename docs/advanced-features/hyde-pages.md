@@ -102,6 +102,8 @@ abstract class HydePage
 
 ### Methods
 
+>warning <p class="p-2" style="padding-right: 1rem"><strong>Heads up!</strong> The following methods are defined in the <code>HydePage</code> class, and are thus available to all page classes. Since the HydePage class is abstract, you cannot instantiate it directly, and many of the static methods are also only callable from the child classes.</p>
+
 #### `make()`
 
 No description provided.
