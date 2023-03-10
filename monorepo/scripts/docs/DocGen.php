@@ -164,6 +164,9 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     if ($parameterDocs) {
         if (count($parameterDocs) > 1) {
             $beforeSignature = 'FIX'.'ME: Support multiple parameter types';
+        } else {
+            $param = array_values($parameterDocs)[0];
+            $beforeSignature = "/** @param $param */";
         }
     }
 
