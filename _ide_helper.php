@@ -16,10 +16,16 @@ declare(strict_types=1);
 /** @var \Hyde\Pages\Concerns\HydePage $page The page being compiled/previewed */
 $page = \Hyde\Support\Facades\Render::getPage();
 
-/** @var \Hyde\Support\Models\Route $currentRoute The route for the page being compiled/previewed */
+/**
+ * @var \Hyde\Support\Models\Route $currentRoute The route for the page being compiled/previewed
+ * @deprecated Rename to $route as "current" is implied
+ */
 $currentRoute = \Hyde\Support\Facades\Render::getCurrentRoute();
 
-/** @var string $currentPage The route key for the page being compiled/previewed */
+/**
+ * @var string $currentPage The route key for the page being compiled/previewed
+ * @deprecated Rename to $routeKey as "current" is implied, and it's not a page
+ */
 $currentPage = \Hyde\Support\Facades\Render::getCurrentPage();
 
 // Facades (aliased in app/config.php)
