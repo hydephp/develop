@@ -12,9 +12,9 @@ use Illuminate\Support\Str;
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 $options = [
-    '--class' => HydePage::class,
-    '--instanceVariableName' => '$page',
-    '--outputFile' => 'api-docs.md',
+    'class' => HydePage::class,
+    'instanceVariableName' => '$page',
+    'outputFile' => 'api-docs.md',
 ];
 
 generate($options);
@@ -25,9 +25,9 @@ function generate(array $options): void
 {
     $timeStart = microtime(true);
 
-    $class = $options['--class'];
-    $instanceVariableName = $options['--instanceVariableName'];
-    $outputFile = $options['--outputFile'];
+    $class = $options['class'];
+    $instanceVariableName = $options['instanceVariableName'];
+    $outputFile = $options['outputFile'];
 
     $reflection = new ReflectionClass($class);
 
