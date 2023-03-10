@@ -126,7 +126,8 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     }
 
     $methodName = $method->getName();
-    $PHPDocs = parsePHPDocs($method->getDocComment() ?: '');
+    $docComment = $method->getDocComment();
+    $PHPDocs = parsePHPDocs($docComment ?: '');
     $description = $PHPDocs['description'];
 
     $className = class_basename($class);
