@@ -314,3 +314,31 @@ class DocumentationPage extends BaseMarkdownPage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/documentation-page-methods'))->toHtml($page::class) }}
+
+## HtmlPage
+
+Page class for HTML pages.
+
+Html pages are stored in the `_pages` directory and using the `.html` extension.
+These pages will be copied exactly as they are to the `_site/` directory.
+
+### Quick Reference
+
+| Class Name | Namespace    | Source Code                                                                               | API Docs                                                                                            |
+|------------|--------------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| `HtmlPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/HtmlPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-HtmlPage.html) |
+
+### Base Structure
+
+```php
+class HtmlPage extends HydePage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '.html';
+}
+```
+
+### Methods
+
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/html-page-methods'))->toHtml($page::class) }}
