@@ -131,17 +131,17 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     global $instanceVariableName;
     $signature = str_replace(
         ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
-        [$instanceVariableName, $methodName, $className],
+        [e($instanceVariableName), e($methodName), e($className)],
         $signatureTemplate
     );
 
     $replacements = [
-        '{{ $signature }}' => $signature,
-        '{{ $methodName }}' => $methodName,
-        '{{ $description }}' => $description,
-        '{{ $className }}' => $className,
-        '{{ $argList }}' => $argList,
-        '{{ $returnType }}' => $returnType,
+        '{{ $signature }}' => e($signature),
+        '{{ $methodName }}' => e($methodName),
+        '{{ $description }}' => e($description),
+        '{{ $className }}' => e($className),
+        '{{ $argList }}' => e($argList),
+        '{{ $returnType }}' => e($returnType),
     ];
     $markdown = str_replace(array_keys($replacements), array_values($replacements), $template);
 
@@ -149,7 +149,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     if (isset($docComment['properties']['throws'])) {
         $markdown .= "\n";
         foreach ($docComment['properties']['throws'] as $throw) {
-            $markdown .= "- **Throws:** $throw\n";
+            $markdown .= e("- **Throws:** $throw\n");
         }
     }
 
