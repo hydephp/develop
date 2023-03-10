@@ -18,15 +18,21 @@ $page = \Hyde\Support\Facades\Render::getPage();
 
 /**
  * @var \Hyde\Support\Models\Route $currentRoute The route for the page being compiled/previewed
- * @deprecated Rename to $route as "current" is implied
+ * @deprecated Renamed to $route as "current" is implied
  */
 $currentRoute = \Hyde\Support\Facades\Render::getRoute();
 
 /**
  * @var string $currentPage The route key for the page being compiled/previewed
- * @deprecated Rename to $routeKey as "current" is implied, and it's not a page
+ * @deprecated Renamed to $routeKey as "current" is implied, and it's not a page
  */
 $currentPage = \Hyde\Support\Facades\Render::getRouteKey();
+
+/*** @var \Hyde\Support\Models\Route $currentRoute The route for the page being compiled/previewed */
+$route = \Hyde\Support\Facades\Render::getRoute();
+
+/** @var string $currentPage The route key for the page being compiled/previewed */
+$routeKey = \Hyde\Support\Facades\Render::getRouteKey();
 
 // Facades (aliased in app/config.php)
 
