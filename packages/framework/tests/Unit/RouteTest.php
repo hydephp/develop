@@ -80,7 +80,7 @@ class RouteTest extends UnitTestCase
     public function testGetLinkReturnsCorrectPathForNestedCurrentPage()
     {
         $route = new Route(new MarkdownPage('foo'));
-        Render::shouldReceive('getCurrentPage')->andReturn('foo/bar');
+        Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
 
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('../foo.html', $route->getLink());

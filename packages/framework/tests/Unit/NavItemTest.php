@@ -80,7 +80,7 @@ class NavItemTest extends UnitTestCase
 
     public function test__toString()
     {
-        Render::shouldReceive('getCurrentPage')->once()->andReturn('index');
+        Render::shouldReceive('getRouteKey')->once()->andReturn('index');
 
         $this->assertSame('index.html', (string) NavItem::fromRoute(Routes::get('index')));
     }
@@ -141,24 +141,24 @@ class NavItemTest extends UnitTestCase
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
-            'getCurrentPage' => 'foo',
+            'getRoute' => (new Route(new InMemoryPage('foo'))),
+            'getRouteKey' => 'foo',
         ]));
 
         $this->assertSame('foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
         $this->assertSame('foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
         Render::swap(Mockery::mock(RenderData::class, [
-            'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar'))),
-            'getCurrentPage' => 'foo/bar',
+            'getRoute' => (new Route(new InMemoryPage('foo/bar'))),
+            'getRouteKey' => 'foo/bar',
         ]));
 
         $this->assertSame('../foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
         $this->assertSame('../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
         Render::swap(Mockery::mock(RenderData::class, [
-            'getCurrentRoute' => (new Route(new InMemoryPage('foo/bar/baz'))),
-            'getCurrentPage' => 'foo/bar/baz',
+            'getRoute' => (new Route(new InMemoryPage('foo/bar/baz'))),
+            'getRouteKey' => 'foo/bar/baz',
         ]));
 
         $this->assertSame('../../foo.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo'))));
@@ -168,8 +168,8 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrent()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getCurrentRoute' => (new Route(new InMemoryPage('foo'))),
-            'getCurrentPage' => 'foo',
+            'getRoute' => (new Route(new InMemoryPage('foo'))),
+            'getRouteKey' => 'foo',
         ]));
         $this->assertTrue(NavItem::fromRoute(new Route(new InMemoryPage('foo')))->isCurrent());
         $this->assertFalse(NavItem::fromRoute(new Route(new InMemoryPage('bar')))->isCurrent());

@@ -28,7 +28,7 @@ trait ManagesViewData
      */
     public function currentPage(): ?string
     {
-        return Render::getCurrentPage();
+        return Render::getRouteKey();
     }
 
     /**
@@ -36,6 +36,6 @@ trait ManagesViewData
      */
     public function currentRoute(): ?Route
     {
-        return Render::getCurrentRoute();
+        return Render::getRoute();
     }
 }

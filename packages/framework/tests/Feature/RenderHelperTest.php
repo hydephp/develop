@@ -33,20 +33,20 @@ class RenderHelperTest extends TestCase
         $this->assertSame($page, View::shared('page'));
     }
 
-    public function testGetCurrentRoute()
+    public function testGetRoute()
     {
-        $this->assertNull(Render::getCurrentRoute());
+        $this->assertNull(Render::getRoute());
 
         Render::setPage($page = new MarkdownPage());
-        $this->assertEquals($page->getRoute(), Render::getCurrentRoute());
+        $this->assertEquals($page->getRoute(), Render::getRoute());
     }
 
-    public function testGetCurrentPage()
+    public function testGetRouteKey()
     {
-        $this->assertNull(Render::getCurrentPage());
+        $this->assertNull(Render::getRouteKey());
 
         Render::setPage($page = new MarkdownPage());
-        $this->assertSame($page->getRouteKey(), Render::getCurrentPage());
+        $this->assertSame($page->getRouteKey(), Render::getRouteKey());
     }
 
     public function testShareToView()
@@ -64,10 +64,10 @@ class RenderHelperTest extends TestCase
 
     public function testShare()
     {
-        $this->assertNull(Render::getCurrentPage());
+        $this->assertNull(Render::getRouteKey());
 
         Render::share('currentPage', 'bar');
-        $this->assertSame('bar', Render::getCurrentPage());
+        $this->assertSame('bar', Render::getRouteKey());
     }
 
     public function testShareInvalidProperty()

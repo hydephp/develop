@@ -61,14 +61,14 @@ class RouteFacadeTest extends UnitTestCase
     public function testCurrentReturnsCurrentRoute()
     {
         $route = new Route(new MarkdownPage('foo'));
-        Render::shouldReceive('getCurrentRoute')->andReturn($route);
+        Render::shouldReceive('getRoute')->andReturn($route);
         $this->assertSame($route, Routes::current());
         Render::swap(new RenderData());
     }
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
     {
-        Render::shouldReceive('getCurrentRoute')->andReturn(null);
+        Render::shouldReceive('getRoute')->andReturn(null);
         $this->assertNull(Routes::current());
         Render::swap(new RenderData());
     }
