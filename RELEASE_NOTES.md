@@ -18,6 +18,9 @@ This serves two purposes:
 - Renamed `Render::getCurrentPage()` to `Render::getRouteKey()` to match renamed property.
 
 ### Deprecated
+
+This release candidate version contains a few deprecations, these will be removed before the final 1.0.0 release.
+
 - Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
 - Deprecate `RenderData::getCurrentRoute()` as it is renamed to `getRoute()` to match renamed property.
   - This change affects the `Render::getCurrentRoute()` and `Hyde::currentRoute()` facade methods.
