@@ -158,7 +158,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     $methodName = $method->getName();
 
     // If method uses inheritdoc, use the parent method's docblock
-    if (str_contains(strtolower($method->getDocComment()), '@inheritdoc')) {
+    if ($method->getDocComment() !== false && str_contains(strtolower($method->getDocComment()), '@inheritdoc')) {
         try {
             $parentMethod = $method->getPrototype();
             $docComment = $parentMethod->getDocComment();
