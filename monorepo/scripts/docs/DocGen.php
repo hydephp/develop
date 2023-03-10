@@ -144,7 +144,14 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             '{{ $argList }}',
             '{{ $returnType }}',
         ],
-        [$signature, $methodName, $description, $className, $argList, $returnType],
+        [
+            $signature,
+            $methodName,
+            $description,
+            $className,
+            $argList,
+            $returnType
+        ],
         $template
     );
 
