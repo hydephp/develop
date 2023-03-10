@@ -22,6 +22,11 @@ $matrix = [
         'outputFile' => "$basePath/hyde-page-methods.md",
 
     ],
+    [
+        'class' => \Hyde\Pages\Concerns\BaseMarkdownPage::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/base-markdown-page-methods.md",
+    ]
 ];
 
 foreach ($matrix as $options) {
