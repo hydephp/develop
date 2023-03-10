@@ -152,7 +152,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     // Section: Filesystem
 
     /**
-     * Get the directory in where source files are stored.
+     * Get the directory where source files are stored.
      */
     public static function sourceDirectory(): string
     {
