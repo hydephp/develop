@@ -10,6 +10,8 @@ use Hyde\Pages\Concerns\HydePage;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
+$timeStart = microtime(true);
+
 $class = HydePage::class;
 $instanceVariableName = '$page';
 
@@ -44,6 +46,10 @@ foreach ($staticMethods as $method) {
 foreach ($instanceMethods as $method) {
     documentMethod($method, $output);
 }
+
+// Assemble end time in milliseconds
+$timeEnd = microtime(true);
+$time = round(($timeEnd - $timeStart) * 1000);
 
 // Join the output
 $text = implode("\n", $output);
