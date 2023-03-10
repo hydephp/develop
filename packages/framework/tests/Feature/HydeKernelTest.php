@@ -13,6 +13,7 @@ use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -90,6 +91,15 @@ class HydeKernelTest extends TestCase
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
+    }
+
+    public function test_current_page_helper_returns_current_page_object()
+    {
+        $expected = new MarkdownPage();
+        Render::share('page', $expected);
+        $this->assertInstanceOf(HydePage::class, Hyde::currentPage());
+        $this->assertSame($expected, Hyde::currentPage());
+        $this->assertSame($expected, Hyde::currentPage());
     }
 
     public function test_make_title_helper_returns_title_from_page_slug()

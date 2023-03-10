@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added a new `HydeKernel::currentPage()` method to return the page being rendered.
 
 ### Changed
 - Renamed global `$currentRoute` and `$currentPage` variables to `$route` and `$routeKey` respectively.

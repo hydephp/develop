@@ -38,4 +38,12 @@ trait ManagesViewData
     {
         return Render::getRoute();
     }
+
+    /**
+     * Get the page being rendered.
+     */
+    public function currentPage(): ?HydePage
+    {
+        return Render::getPage();
+    }
 }
