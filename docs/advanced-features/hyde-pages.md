@@ -124,7 +124,7 @@ HydePage::isDiscoverable(): bool
 
 #### `get()`
 
-Get a page instance from the Kernel's page index by its identifier.
+Get a page instance from the Kernel&#039;s page index by its identifier.
 
 ```php
 // torchlight! {"lineNumbers": false}
@@ -238,7 +238,7 @@ HydePage::outputPath(string $identifier): string
 
 #### `path()`
 
-Get an absolute file path to the page's source directory, or a file within it.
+Get an absolute file path to the page&#039;s source directory, or a file within it.
 
 ```php
 // torchlight! {"lineNumbers": false}
@@ -314,7 +314,7 @@ Get the route key for the page.
 
 The route key is the URL path relative to the site root.
 
-For example, if the compiled page will be saved to _site/docs/index.html, then this method will return 'docs/index'. Route keys are used to identify pages, similar to how named routes work in Laravel, only that here the name is not just arbitrary, but also defines the output location.
+For example, if the compiled page will be saved to _site/docs/index.html, then this method will return &#039;docs/index&#039;. Route keys are used to identify pages, similar to how named routes work in Laravel, only that here the name is not just arbitrary, but also defines the output location.
 
 ```php
 // torchlight! {"lineNumbers": false}
@@ -341,11 +341,11 @@ $page->getLink(): string
 
 #### `getIdentifier()`
 
-Get the page model's identifier property.
+Get the page model&#039;s identifier property.
 
-The identifier is the part between the source directory and the file extension. It may also be known as a 'slug', or previously 'basename'.
+The identifier is the part between the source directory and the file extension. It may also be known as a &#039;slug&#039;, or previously &#039;basename&#039;.
 
-For example, the identifier of a source file stored as '_pages/about/contact.md' would be 'about/contact', and 'pages/about.md' would simply be 'about'.
+For example, the identifier of a source file stored as &#039;_pages/about/contact.md&#039; would be &#039;about/contact&#039;, and &#039;pages/about.md&#039; would simply be &#039;about&#039;.
 
 ```php
 // torchlight! {"lineNumbers": false}
@@ -363,7 +363,7 @@ $page->getBladeView(): string Blade template/view key.
 
 #### `title()`
 
-Get the page title to display in HTML tags like <title> and <meta> tags.
+Get the page title to display in HTML tags like &lt;title&gt; and &lt;meta&gt; tags.
 
 ```php
 // torchlight! {"lineNumbers": false}
