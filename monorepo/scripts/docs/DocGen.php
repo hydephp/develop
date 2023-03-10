@@ -18,7 +18,7 @@ $basePath = realpath(__DIR__.'/../../../docs/_data/partials/hyde-pages-api');
 $options = [
     'class' => HydePage::class,
     'instanceVariableName' => '$page',
-    'outputFile' => 'api-docs.md',
+    'outputFile' => "$basePath/hyde-page-methods.md",
 ];
 
 generate($options);
