@@ -136,7 +136,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     if (isset($docComment['properties']['params'])) {
         $newParams = array_map(function (string $param) {
             $param = str_replace('  ', ' ', trim($param));
-            $param = explode(' ', $param);
+            $param = explode(' ', $param, 3);
             $type = array_shift($param);
             $name = array_pop($param);
 
