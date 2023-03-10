@@ -184,3 +184,21 @@ make sure you register it before the full application is booted so that routes c
 
 _To see how to register the page, see the examples below, first we must look at how to actually create the page._
 
+#### Creating the page
+
+To create an InMemoryPage, you need to instantiate it, and pass it the required parameters.
+
+A page would not be useful without any content to render. The class offers two content options through the constructor.
+
+You can either pass a string to the `$contents` parameter, Hyde will then save that literally as the page's contents.
+
+```php
+$page = new InMemoryPage(contents: 'Hello World!');
+```
+
+Alternatively, you can pass a Blade view name to the `$view` parameter, and Hyde will use that view to render the page
+contents with the supplied front matter during the static site build process.
+
+>warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
+
+You can also register a macro with the name 'compile' to overload the default compile method.
