@@ -26,7 +26,7 @@ trait ManagesViewData
     /**
      * Get the route key for the page being rendered.
      */
-    public function currentPage(): ?string
+    public function currentRouteKey(): ?string
     {
         return Render::getRouteKey();
     }

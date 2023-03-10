@@ -80,7 +80,7 @@ class HydeKernelTest extends TestCase
     public function test_current_page_helper_returns_current_page_name()
     {
         Render::share('routeKey', 'foo');
-        $this->assertSame('foo', Hyde::currentPage());
+        $this->assertSame('foo', Hyde::currentRouteKey());
     }
 
     public function test_current_route_helper_returns_current_route_object()
