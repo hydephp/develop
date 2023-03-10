@@ -62,6 +62,11 @@ class RenderData implements Arrayable
         return $this->currentPage ?? null;
     }
 
+    public function getRouteKey(): ?string
+    {
+        return $this->currentPage ?? null;
+    }
+
     public function shareToView(): void
     {
         View::share($this->toArray());
