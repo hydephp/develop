@@ -316,7 +316,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Format the page instance to a URL path (relative to site root) with support for pretty URLs if enabled.
+     * Format the page instance to a URL path, with support for pretty URLs if enabled.
+     *
+     * Note that the link is always relative to site root, and does not contain `../` segments.
      */
     public function getLink(): string
     {
