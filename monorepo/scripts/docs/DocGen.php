@@ -287,4 +287,4 @@ function parseArguments(array $requiredArguments, array $defaultArguments): arra
     return $options;
 }
 
-echo "\n\n\033[32mAll done in $time ms!\033[0m Convents saved to ".realpath($outputFile);
+echo "\n\n\033[32mAll done in $time ms!\033[0m Convents saved to ".realpath($outputFile) . "\n";
