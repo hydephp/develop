@@ -45,3 +45,7 @@ hyde()->version();
 
 > FIXME port from autodiscovery.md
 
+
+## API Reference
+
+> TODO generate/write
