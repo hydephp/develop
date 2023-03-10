@@ -125,9 +125,9 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             $exploded = explode(' ', $returnValue, 2);
             $type = $exploded[0];
             $comment = ' // '.$exploded[1];
-            $returnValue = $type.$comment;
+            $returnValue = $type;
         }
-        $returnType = $returnValue;
+        $returnType = $returnValue.($comment ?? '');
     }
 
     // Map docblock params
