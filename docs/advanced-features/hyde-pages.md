@@ -249,3 +249,16 @@ class MarkdownPage extends BaseMarkdownPage
 ### Methods
 
 This class does not define any additional methods.
+
+## MarkdownPost
+
+Page class for Markdown blog posts.
+
+Markdown posts are stored in the `_posts` directory and using the `.md` extension.
+The Markdown will be compiled to HTML using the blog post layout to the `_site/posts/` directory.
+
+### Quick Reference
+
+| Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
+|----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `MarkdownPost` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/MarkdownPost.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-MarkdownPost.html) |
