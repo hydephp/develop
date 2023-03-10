@@ -135,7 +135,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     $parameterDocs = [];
     // Map docblock params
     if (isset($docComment['properties']['params'])) {
-        $newParams = array_map(function (string $param) use(&$parameterDocs) {
+        $newParams = array_map(function (string $param) use (&$parameterDocs) {
             $param = str_replace('  ', ' ', trim($param));
             $comment = $param;
             $param = explode(' ', $param, 3);
@@ -171,7 +171,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
     }
 
     global $instanceVariableName;
-    $signature = ($beforeSignature ? $beforeSignature . "\n" : '').  str_replace(
+    $signature = ($beforeSignature ? $beforeSignature."\n" : '').str_replace(
         ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
         [$instanceVariableName, $methodName, $className],
         $signatureTemplate
@@ -185,7 +185,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         '{{ $argList }}' => e($argList),
         '{{ $returnType }}' => ($returnType),
     ];
-    $markdown = ($before ? $before ."\n"  : ''). str_replace(array_keys($replacements), array_values($replacements), $template);
+    $markdown = ($before ? $before."\n" : '').str_replace(array_keys($replacements), array_values($replacements), $template);
 
     // Throws
     if (isset($docComment['properties']['throws'])) {
