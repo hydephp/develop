@@ -61,7 +61,7 @@ $matrix = [
         'class' => \Hyde\Pages\HtmlPage::class,
         'instanceVariableName' => '$page',
         'outputFile' => "$basePath/html-page-methods.md",
-    ]
+    ],
 ];
 
 foreach ($matrix as $key => $options) {
