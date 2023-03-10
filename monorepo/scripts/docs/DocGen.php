@@ -294,5 +294,9 @@ function parseArguments(array $requiredArguments, array $defaultArguments): arra
 
 function postProcess(string $text): string
 {
+    // Unescape escaped code that will be escaped again
+    $replace = ['`&lt;' => '`<', '&gt;`' => '>`'];
+    $text = str_replace(array_keys($replace), array_values($replace), $text);
+
     return $text;
 }
