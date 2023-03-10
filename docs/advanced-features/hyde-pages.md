@@ -21,6 +21,10 @@ This document is heavily based around the actual source code, as I believe the b
 However, large parts of the code are simplified for brevity and illustration. The code is not meant to be copy-pasted, but
 rather used as a reference so that you know what to look for in the actual source code, if you want to dig deeper.
 
+#### Inheritance
+
+Since all HydePages extend the base `HydePage` class, those shared methods are only listed once, under the `HydePage` class.
+
 
 ### Table of Contents
 
