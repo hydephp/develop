@@ -364,26 +364,41 @@ abstract class HydePage implements PageSchema, SerializableContract
         return Config::getString('hyde.name', 'HydePHP').' - '.$this->title;
     }
 
+    /**
+     * Get the generated metadata for the page.
+     */
     public function metadata(): PageMetadataBag
     {
         return $this->metadata;
     }
 
+    /**
+     * Can the page be shown in the navigation menu?
+     */
     public function showInNavigation(): bool
     {
         return ! $this->navigation->hidden;
     }
 
+    /**
+     * Get the priority of the page in the navigation menu.
+     */
     public function navigationMenuPriority(): int
     {
         return $this->navigation->priority;
     }
 
+    /**
+     * Get the label of the page in the navigation menu.
+     */
     public function navigationMenuLabel(): string
     {
         return $this->navigation->label;
     }
 
+    /**
+     * Get the group of the page in the navigation menu, if any.
+     */
     public function navigationMenuGroup(): ?string
     {
         return $this->navigation->group;
