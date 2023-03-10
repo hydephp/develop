@@ -203,6 +203,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Set the file extension for the HydePage class.
+     *
+     * @param  string  $fileExtension  Will be normalized to always have a leading dot.
      */
     public static function setFileExtension(string $fileExtension): void
     {
@@ -211,6 +213,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Qualify a page identifier into a local file path for the page source file relative to the project root.
+     *
+     * @returns string Relative to the Hyde source root.
      */
     public static function sourcePath(string $identifier): string
     {
