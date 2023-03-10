@@ -123,7 +123,9 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         // If there is a description, put it in a comment
         if (str_contains($returnValue, ' ')) {
             $exploded = explode(' ', $returnValue, 2);
-            $returnValue = $exploded[0].' // '.$exploded[1];
+            $type = $exploded[0];
+            $comment = $exploded[1];
+            $returnValue = $type.' // '.$comment;
         }
         $returnType = $returnValue;
     }
