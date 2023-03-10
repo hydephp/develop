@@ -23,6 +23,11 @@ function find_markdown_files($dir): array
 
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
     foreach ($iterator as $file) {
+        // Skip _data directory
+        if (str_contains($file->getPathname(), '_data')) {
+            continue;
+        }
+
         if ($file->isFile() && strtolower($file->getExtension()) == 'md') {
             $markdown_files[] = realpath($file->getPathname());
         }
