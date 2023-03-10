@@ -254,6 +254,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
             $signatureTemplate
         );
 
+    $description =  $description . ($before ? "\n".$before : '');
     $replacements = [
         '{{ $signature }}' => $signature,
         '{{ $methodName }}' => e($methodName),
@@ -262,7 +263,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
         '{{ $argList }}' => e($argList),
         '{{ $returnType }}' => ($returnType),
     ];
-    $markdown = ($before ? $before."\n" : '').str_replace(array_keys($replacements), array_values($replacements), $template);
+    $markdown =str_replace(array_keys($replacements), array_values($replacements), $template);
 
     // Throws
     if (isset($PHPDocs['properties']['throws'])) {
