@@ -315,6 +315,7 @@ class DocumentationPage extends BaseMarkdownPage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/documentation-page-methods'))->toHtml($page::class) }}
 
+
 ## HtmlPage
 
 Page class for HTML pages.
