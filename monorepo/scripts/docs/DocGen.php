@@ -174,6 +174,7 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         '{{ $argList }}' => e($argList),
         '{{ $returnType }}' => ($returnType),
     ];
+    $before = null;
     $markdown = ($before ? $before ."\n"  : ''). str_replace(array_keys($replacements), array_values($replacements), $template);
 
     // Throws
