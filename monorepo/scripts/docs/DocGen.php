@@ -74,6 +74,9 @@ $endMarker = '<!-- End generated docs for '.$class.' -->';
 $classKebabName = Str::kebab(class_basename($class));
 $text = "<section id=\"$classKebabName-methods\">\n\n$startMarker\n$metadataMarker\n\n$text\n$endMarker\n\n</section>\n";
 
+// Run any post-processing
+$text = postProcess($text);
+
 // Output the documentation
 echo $text;
 
@@ -287,4 +290,9 @@ function parseArguments(array $requiredArguments, array $defaultArguments): arra
     }
 
     return $options;
+}
+
+function postProcess(string $text): string
+{
+    return $text;
 }
