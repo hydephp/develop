@@ -137,7 +137,11 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     $markdown = str_replace(
         [
-            '{{ $signature }}', '{{ $methodName }}', '{{ $description }}', '{{ $className }}', '{{ $argList }}',
+            '{{ $signature }}',
+            '{{ $methodName }}',
+            '{{ $description }}',
+            '{{ $className }}',
+            '{{ $argList }}',
             '{{ $returnType }}',
         ],
         [$signature, $methodName, $description, $className, $argList, $returnType],
