@@ -96,7 +96,6 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get a page instance from the Kernel's page index by its identifier.
      *
-     *
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
      */
     public static function get(string $identifier): HydePage
