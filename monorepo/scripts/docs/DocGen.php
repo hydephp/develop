@@ -126,6 +126,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     }
 
     $methodName = $method->getName();
+
     // If method uses inheritdoc, use the parent method's docblock
     if (str_contains($method->getDocComment(), '@inheritdoc')) {
         try {
@@ -137,6 +138,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     } else {
         $docComment = $method->getDocComment();
     }
+
     $PHPDocs = parsePHPDocs($docComment ?: '');
     $description = $PHPDocs['description'];
 
