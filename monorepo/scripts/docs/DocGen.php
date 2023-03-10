@@ -126,8 +126,8 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     }
 
     $methodName = $method->getName();
-    $docComment = parsePHPDocs($method->getDocComment() ?: '');
-    $description = $docComment['description'];
+    $PHPDocs = parsePHPDocs($method->getDocComment() ?: '');
+    $description = $PHPDocs['description'];
 
     $className = class_basename($class);
 
@@ -150,8 +150,8 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
 
     // If higher specificity return type is provided in docblock, use that instead
-    if (isset($docComment['properties']['return'])) {
-        $returnValue = $docComment['properties']['return'];
+    if (isset($PHPDocs['properties']['return'])) {
+        $returnValue = $PHPDocs['properties']['return'];
         // If there is a description, put it in a comment
         if (str_contains($returnValue, ' ')) {
             $exploded = explode(' ', $returnValue, 2);
@@ -166,7 +166,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
 
     $parameterDocs = [];
     // Map docblock params
-    if (isset($docComment['properties']['params'])) {
+    if (isset($PHPDocs['properties']['params'])) {
         $newParams = array_map(function (string $param) use (&$parameterDocs) {
             $param = str_replace('  ', ' ', trim($param));
             $comment = $param;
@@ -178,7 +178,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
             }
 
             return trim($type.' '.$name);
-        }, $docComment['properties']['params']);
+        }, $PHPDocs['properties']['params']);
     }
     // If higher specificity argument types are provided in docblock, merge them with the actual types
     if (isset($newParams)) {
@@ -219,9 +219,9 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     $markdown = ($before ? $before."\n" : '').str_replace(array_keys($replacements), array_values($replacements), $template);
 
     // Throws
-    if (isset($docComment['properties']['throws'])) {
+    if (isset($PHPDocs['properties']['throws'])) {
         $markdown .= "\n";
-        foreach ($docComment['properties']['throws'] as $throw) {
+        foreach ($PHPDocs['properties']['throws'] as $throw) {
             $markdown .= e("- **Throws:** $throw\n");
         }
     }
