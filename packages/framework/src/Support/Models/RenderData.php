@@ -21,9 +21,7 @@ use JetBrains\PhpStorm\Deprecated;
 class RenderData implements Arrayable
 {
     protected HydePage $page;
-
     protected Route $route;
-
     protected string $routeKey;
 
     public function setPage(HydePage $page): void
