@@ -222,6 +222,7 @@ class BladePage extends HydePage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/blade-page-methods'))->toHtml($page::class) }}
 
+
 ## MarkdownPage
 
 Page class for Markdown pages.
@@ -249,6 +250,7 @@ class MarkdownPage extends BaseMarkdownPage
 ### Methods
 
 This class does not define any additional methods.
+
 
 ## MarkdownPost
 
