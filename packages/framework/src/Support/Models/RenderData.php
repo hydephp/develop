@@ -23,6 +23,8 @@ class RenderData implements Arrayable
 
     /** @deprecated Rename to $route as "current" is implied */
     protected Route $currentRoute;
+
+    /** @deprecated Rename to $routeKey as "current" is implied, and it's not a page */
     protected string $currentPage;
 
     public function setPage(HydePage $page): void

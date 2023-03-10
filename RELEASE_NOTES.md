@@ -18,6 +18,7 @@ This serves two purposes:
 ### Deprecated
 - Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
 - Deprecate `RenderData::$currentRoute` pending rename to `$route` as "current" is implied.
+- Deprecate `RenderData::currentPage` pending rename to `$routeKey` as "current" is implied, and it's not a page.
 
 ### Removed
 - Remove RouteKey normalization for dot notation support by @caendesilva in https://github.com/hydephp/develop/pull/1241
