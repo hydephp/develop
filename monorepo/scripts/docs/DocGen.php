@@ -29,7 +29,10 @@ $matrix = [
     ],
 ];
 
-foreach ($matrix as $options) {
+foreach ($matrix as $key => $options) {
+    if($key > 0) {
+        echo "\n";
+    }
     generate($options);
 }
 
