@@ -24,6 +24,8 @@ The autodiscovery is run when the HydeKernel boots. It does so in three distinct
 step depends on the previous one. Each discovery step runs in a `FoundationCollection` which both runs the actual
 discovery process and stores the discovered data in memory.
 
+#### The steps are as follows:
+
 1. **Step one:** The file collection discovers all the source files and stores them in memory
 2. **Step two:** The page collection parses all the source files into page model objects
 3. **Step three:** The route collection generates route objects for all the pages
