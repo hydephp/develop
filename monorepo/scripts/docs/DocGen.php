@@ -133,7 +133,16 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
             $parentMethod = $method->getPrototype();
             $docComment = $parentMethod->getDocComment();
         } catch (ReflectionException $e) {
-            $docComment = null;
+            // if method is for constructor, getPrototype() will throw an exception,
+            // so we check if exception is for constructor and if so, we use the parent class's constructor
+            if ($method->getName() === '__construct') {
+                $parentClass = $method->getDeclaringClass()->getParentClass();
+                $parentMethod = $parentClass->getMethod('__construct');
+                $docComment = $parentMethod->getDocComment();
+                dump($docComment);
+            } else {
+                $docComment = null;
+            }
         }
     } else {
         $docComment = $method->getDocComment();
