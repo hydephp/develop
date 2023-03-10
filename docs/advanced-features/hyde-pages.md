@@ -171,3 +171,16 @@ but feel free to skip this section if you're not interested in this.
 
 This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
 autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.
+
+#### Discovery
+
+Since the InMemoryPages are not present in the filesystem, they cannot be found by the auto-discovery process,
+thus it's up to the developer to manually register them. If you are developing for your own project, you can do this in
+the `boot` method of a service provider, such as the `AppServiceProvider` which is already present in your `app/` directory.
+
+If you are developing a package, you may instead want to register the page in your package extension class, within the
+page collection callback. In either case, if you want your page to be able to be fully processed by Hyde, you need to
+make sure you register it before the full application is booted so that routes can be generated.
+
+_To see how to register the page, see the examples below, first we must look at how to actually create the page._
+
