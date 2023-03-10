@@ -241,7 +241,11 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     $beforeSignature = null;
     if ($parameterDocs) {
         if (count($parameterDocs) > 1) {
-            $beforeSignature = 'FIX'.'ME: Support multiple parameter types';
+            foreach ($parameterDocs as $type => $param) {
+                $name = explode(' ', $param, 3)[1];
+                $desc = explode(' ', $param, 3)[2];
+                $before .= "- **Parameter $name:** $desc \n";
+            }
         } else {
             $param = array_values($parameterDocs)[0];
             $beforeSignature = "/** @param $param */";
