@@ -21,6 +21,8 @@ This serves two purposes:
   - This change affects the global $currentRoute variable in Blade templates.
 - Deprecate `RenderData::$currentPage` pending rename to `$routeKey` as "current" is implied, and it's not a page.
   - This change affects the global $currentPage variable in Blade templates.
+- Deprecate `RenderData::getCurrentRoute()` pending rename to `getRoute()` to match renamed property.
+  - This change affects the `Render::getCurrentRoute()` facade methods.
 - Deprecate `RenderData::getCurrentPage()` pending rename to `getRouteKey()` to match renamed property.
   - This change affects the `Render::getCurrentPage()` facade methods. 
 
