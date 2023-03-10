@@ -104,7 +104,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Parse a source file into a page model instance.
+     * Parse a source file into a new page model instance.
      *
      * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
