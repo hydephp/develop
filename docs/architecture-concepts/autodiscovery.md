@@ -18,7 +18,7 @@ Before reading this article, you should be familiar with the following concepts:
 -  [Page Models](page-models)
 
 
-### Booting pipeline
+## Booting pipeline
 
 The autodiscovery is run when the HydeKernel boots. It does so in three distinct steps, which run in sequence as each
 step depends on the previous one. Each discovery step runs in a `FoundationCollection` which both runs the actual
