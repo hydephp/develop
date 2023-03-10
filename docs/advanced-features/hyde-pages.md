@@ -166,3 +166,8 @@ Before we take a look at the common page classes, you'll usually use, let's firs
 This class is a special page class that is not backed by a file on disk, but rather generated at runtime. While it will
 probably not be useful for the majority of users, it's a great class to know about if you are a package developer,
 but feel free to skip this section if you're not interested in this.
+
+#### When to use
+
+This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
+autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.
