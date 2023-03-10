@@ -78,7 +78,7 @@ function generate(array $options): void
     $text = postProcess($text);
 
     // Output the documentation
-    echo $text;
+    // echo $text;
 
     // Save the documentation to a file
     file_put_contents($outputFile, $text);
