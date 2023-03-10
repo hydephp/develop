@@ -18,3 +18,25 @@ Hyde::version() === app(HydeKernel::class)->version();
 The kernel is created very early on in the application lifecycle, in the bootstrap.php file, where it is also bound
 as a singleton into the application service container.
 
+## Accessing the kernel
+
+The HydeKernel It is stored as a singleton in this class, and is bound into the
+Laravel Application Service Container, and can be accessed in a few ways.
+
+Commonly, you'll use the `Hyde` facade, but you can also use Dependency Injection
+by type-hinting the `HydeKernel::class`, or use the `hyde()` function to get the Kernel.
+
+The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
+
+Here are some examples of how you can call methods on the Kernel. All methods call the same method on the same instance, so it's just a matter of preference.
+
+```php
+use Hyde\Hyde;
+use Hyde\Foundation\HydeKernel;
+
+Hyde::version();
+Hyde::kernel()->version();
+HydeKernel::getInstance()->version();
+app(HydeKernel::class)->version();
+hyde()->version();
+```
