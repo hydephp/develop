@@ -332,7 +332,8 @@ abstract class HydePage implements PageSchema, SerializableContract
      * Get the page model's identifier property.
      *
      * The identifier is the part between the source directory and the file extension.
-     * It may also be known as a 'slug', or previously 'basename'.
+     * It may also be known as a 'slug', or previously 'basename', but it retains
+     * the nested path structure if the page is stored in a subdirectory.
      *
      * For example, the identifier of a source file stored as '_pages/about/contact.md'
      * would be 'about/contact', and 'pages/about.md' would simply be 'about'.
