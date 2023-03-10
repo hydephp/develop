@@ -165,7 +165,6 @@ You can learn more about the InMemoryPage class in the [InMemoryPage documentati
 |----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | `InMemoryPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/InMemoryPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-InMemoryPage.html) |
 
-
 ### Base Structure
 
 As the class is not discoverable, the static path properties are not initialized. Instead, you solely rely on the contents/view properties.
@@ -204,7 +203,6 @@ They will be compiled using the Laravel Blade engine the `_site/` directory.
 | Class Name  | Namespace    | Source Code                                                                                | API Docs                                                                                             |
 |-------------|--------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | `BladePage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/BladePage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-BladePage.html) |
-
 
 ### Base Structure
 

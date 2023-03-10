@@ -24,7 +24,6 @@ If the identifier for an in-memory page is &quot;foo/bar&quot; the page will be 
 - **Parameter $view:** The view key or Blade file for the view to use to render the page contents.
 - **Parameter $matter:** The front matter of the page. When using the Blade view rendering option,
 
-
 ```php
 // torchlight! {"lineNumbers": false}
 $page = new InMemoryPage(string $identifier, \Hyde\Markdown\Models\FrontMatter|array $matter, string $contents, string $view): void
