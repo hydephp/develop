@@ -20,6 +20,8 @@ use InvalidArgumentException;
 class RenderData implements Arrayable
 {
     protected HydePage $page;
+
+    /** @deprecated Rename to $route as "current" is implied */
     protected Route $currentRoute;
     protected string $currentPage;
 
