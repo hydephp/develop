@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static void setPage(HydePage $page)
  * @method static HydePage|null getPage()
- * @method static Route|null getCurrentRoute()
- * @method static string|null getCurrentPage()
+ * @method static Route|null getRoute()
+ * @method static string|null getRouteKey()
  * @method static void share(string $key, mixed $value)
  * @method static void shareToView()
  * @method static void clearData()

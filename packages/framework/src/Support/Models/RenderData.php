@@ -8,6 +8,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
+use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Contains data for the current page being rendered/compiled.
@@ -20,14 +21,14 @@ use InvalidArgumentException;
 class RenderData implements Arrayable
 {
     protected HydePage $page;
-    protected Route $currentRoute;
-    protected string $currentPage;
+    protected Route $route;
+    protected string $routeKey;
 
     public function setPage(HydePage $page): void
     {
         $this->page = $page;
-        $this->currentRoute = $page->getRoute();
-        $this->currentPage = $page->getRouteKey();
+        $this->route = $page->getRoute();
+        $this->routeKey = $page->getRouteKey();
 
         $this->shareToView();
     }
@@ -37,14 +38,34 @@ class RenderData implements Arrayable
         return $this->page ?? null;
     }
 
+    /**
+     * @deprecated v1.0.0-RC.2 - Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.
+     * @codeCoverageIgnore
+     */
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRoute()')]
     public function getCurrentRoute(): ?Route
     {
-        return $this->currentRoute ?? null;
+        return $this->getRoute();
     }
 
+    public function getRoute(): ?Route
+    {
+        return $this->route ?? null;
+    }
+
+    /**
+     * @deprecated v1.0.0-RC.2 - Renamed to getRouteKey() to match renamed property. This method will be removed before version 1.0.
+     * @codeCoverageIgnore
+     */
+    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRouteKey()')]
     public function getCurrentPage(): ?string
     {
-        return $this->currentPage ?? null;
+        return $this->getRouteKey();
+    }
+
+    public function getRouteKey(): ?string
+    {
+        return $this->routeKey ?? null;
     }
 
     public function shareToView(): void
@@ -64,8 +85,8 @@ class RenderData implements Arrayable
 
     public function clearData(): void
     {
-        unset($this->page, $this->currentRoute, $this->currentPage);
-        View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
+        unset($this->page, $this->route, $this->routeKey);
+        View::share(['page' => null, 'route' => null, 'routeKey' => null]);
     }
 
     /**
@@ -76,8 +97,8 @@ class RenderData implements Arrayable
         return [
             'render' => $this,
             'page' => $this->getPage(),
-            'currentRoute' => $this->getCurrentRoute(),
-            'currentPage' => $this->getCurrentPage(),
+            'route' => $this->getRoute(),
+            'routeKey' => $this->getRouteKey(),
         ];
     }
 }

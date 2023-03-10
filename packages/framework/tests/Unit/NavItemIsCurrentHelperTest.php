@@ -238,8 +238,8 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
     protected function mockRenderData(Route $route): void
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getCurrentRoute' => $route,
-            'getCurrentPage' => $route->getRouteKey(),
+            'getRoute' => $route,
+            'getRouteKey' => $route->getRouteKey(),
         ]));
     }
 

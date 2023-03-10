@@ -33,41 +33,41 @@ class RenderHelperTest extends TestCase
         $this->assertSame($page, View::shared('page'));
     }
 
-    public function testGetCurrentRoute()
+    public function testGetRoute()
     {
-        $this->assertNull(Render::getCurrentRoute());
+        $this->assertNull(Render::getRoute());
 
         Render::setPage($page = new MarkdownPage());
-        $this->assertEquals($page->getRoute(), Render::getCurrentRoute());
+        $this->assertEquals($page->getRoute(), Render::getRoute());
     }
 
-    public function testGetCurrentPage()
+    public function testGetRouteKey()
     {
-        $this->assertNull(Render::getCurrentPage());
+        $this->assertNull(Render::getRouteKey());
 
         Render::setPage($page = new MarkdownPage());
-        $this->assertSame($page->getRouteKey(), Render::getCurrentPage());
+        $this->assertSame($page->getRouteKey(), Render::getRouteKey());
     }
 
     public function testShareToView()
     {
         $this->assertNull(View::shared('page'));
-        $this->assertNull(View::shared('currentRoute'));
-        $this->assertNull(View::shared('currentPage'));
+        $this->assertNull(View::shared('route'));
+        $this->assertNull(View::shared('routeKey'));
 
         Render::setPage($page = new MarkdownPage());
 
         $this->assertSame($page, View::shared('page'));
-        $this->assertEquals($page->getRoute(), View::shared('currentRoute'));
-        $this->assertSame($page->getRouteKey(), View::shared('currentPage'));
+        $this->assertEquals($page->getRoute(), View::shared('route'));
+        $this->assertSame($page->getRouteKey(), View::shared('routeKey'));
     }
 
     public function testShare()
     {
-        $this->assertNull(Render::getCurrentPage());
+        $this->assertNull(Render::getRouteKey());
 
-        Render::share('currentPage', 'bar');
-        $this->assertSame('bar', Render::getCurrentPage());
+        Render::share('routeKey', 'bar');
+        $this->assertSame('bar', Render::getRouteKey());
     }
 
     public function testShareInvalidProperty()
@@ -80,10 +80,10 @@ class RenderHelperTest extends TestCase
 
     public function testShareCascadesDataToView()
     {
-        $this->assertNull(View::shared('currentPage'));
+        $this->assertNull(View::shared('routeKey'));
 
-        Render::share('currentPage', 'bar');
-        $this->assertSame('bar', View::shared('currentPage'));
+        Render::share('routeKey', 'bar');
+        $this->assertSame('bar', View::shared('routeKey'));
     }
 
     public function testClearData()
@@ -110,13 +110,13 @@ class RenderHelperTest extends TestCase
         Render::setPage(new MarkdownPage());
 
         $this->assertNotNull(View::shared('page'));
-        $this->assertNotNull(View::shared('currentRoute'));
-        $this->assertNotNull(View::shared('currentPage'));
+        $this->assertNotNull(View::shared('route'));
+        $this->assertNotNull(View::shared('routeKey'));
 
         Render::clearData();
         $this->assertNull(View::shared('page'));
-        $this->assertNull(View::shared('currentRoute'));
-        $this->assertNull(View::shared('currentPage'));
+        $this->assertNull(View::shared('route'));
+        $this->assertNull(View::shared('routeKey'));
     }
 
     public function testClearDataDoesNotClearOtherViewData()
@@ -143,16 +143,16 @@ class RenderHelperTest extends TestCase
         $this->assertSame([
             'render' => $render,
             'page' => null,
-            'currentRoute' => null,
-            'currentPage' => null,
+            'route' => null,
+            'routeKey' => null,
         ], $render->toArray());
 
         Render::setPage($page = new MarkdownPage());
         $this->assertEquals([
             'render' => $render,
             'page' => $page,
-            'currentRoute' => $page->getRoute(),
-            'currentPage' => $page->getRouteKey(),
+            'route' => $page->getRoute(),
+            'routeKey' => $page->getRouteKey(),
         ], $render->toArray());
     }
 }
