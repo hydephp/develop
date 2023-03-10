@@ -275,7 +275,7 @@ function parseArguments(): array
     $defaultArguments['--instanceVariableName'] = '$page';
     $defaultArguments['--outputFile'] = 'api-docs.md';
     foreach ($requiredArguments as $requiredArgument) {
-        if (!isset($arguments[$requiredArgument])) {
+        if (! isset($arguments[$requiredArgument])) {
             // throw new Exception("Missing required argument: $requiredArgument");
             // Set to default values
             $options[$requiredArgument] = $defaultArguments[$requiredArgument];
@@ -283,8 +283,8 @@ function parseArguments(): array
             $options[$requiredArgument] = $arguments[$requiredArgument];
         }
     }
+
     return $options;
 }
-
 
 echo "\n\n\033[32mAll done in $time ms!\033[0m";
