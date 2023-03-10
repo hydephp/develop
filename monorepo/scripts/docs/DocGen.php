@@ -198,7 +198,15 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
 
         return trim($type.' '.$name);
     }, $method->getParameters());
-    $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
+
+    // If return is union type
+    if ($method->getReturnType() instanceof ReflectionUnionType) {
+        $returnType = implode('|', array_map(function (ReflectionNamedType $type) {
+            return $type->getName();
+        }, $method->getReturnType()->getTypes()));
+    } else {
+        $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
+    }
 
     // If higher specificity return type is provided in docblock, use that instead
     if (isset($PHPDocs['properties']['return'])) {
