@@ -155,7 +155,7 @@ function generate(array $options): void
     // Save the documentation to a file
     file_put_contents($outputFile, $text);
 
-    echo "\n\n\033[32mAll done in $time ms!\033[0m Convents saved to ".realpath($outputFile)."\n";
+    echo "\n\033[0m Convents saved to ".realpath($outputFile)."\n";
 }
 
 function documentMethod(ReflectionMethod $method, array &$output, string $class, string $instanceVariableName): void
