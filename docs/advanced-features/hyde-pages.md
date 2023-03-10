@@ -110,6 +110,8 @@ abstract class HydePage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/hyde-page-methods'))->toHtml($page::class) }}
 
+[Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/interacts-with-front-matter-methods'))->toHtml($page::class) }}
+
 
 ## BaseMarkdownPage
 
