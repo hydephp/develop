@@ -152,7 +152,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     // Section: Filesystem
 
     /**
-     * Get the directory where source files are stored.
+     * Get the directory where source files are stored for the page type.
      */
     public static function sourceDirectory(): string
     {
@@ -160,7 +160,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the output subdirectory to store compiled HTML.
+     * Get the output subdirectory to store compiled HTML files for the page type.
      */
     public static function outputDirectory(): string
     {
@@ -168,7 +168,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the file extension of the source files.
+     * Get the file extension of the source files for the page type.
      */
     public static function fileExtension(): string
     {
@@ -176,7 +176,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the output directory for the HydePage class.
+     * Set the output directory for the page type.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
@@ -184,7 +184,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the source directory for the HydePage class.
+     * Set the source directory for the page type.
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
@@ -192,7 +192,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the file extension for the HydePage class.
+     * Set the file extension for the page type.
      */
     public static function setFileExtension(string $fileExtension): void
     {
@@ -200,7 +200,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Qualify a page identifier into a local file path for the page source file relative to the project root.
+     * Qualify a page identifier into file path to the source file, relative to the project root.
      */
     public static function sourcePath(string $identifier): string
     {
@@ -208,7 +208,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Qualify a page identifier into a target output file path relative to the _site output directory.
+     * Qualify a page identifier into a target output file path, relative to the _site output directory.
      */
     public static function outputPath(string $identifier): string
     {
