@@ -143,8 +143,6 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             if (isset($param[2])) {
                 $comment = ' // '.$param[2];
                 $parameterDocs[$type] = $comment;
-            } else {
-                $comment = null;
             }
 
             return trim($type.' '.$name);
