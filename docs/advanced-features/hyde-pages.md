@@ -221,3 +221,31 @@ class BladePage extends HydePage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/blade-page-methods'))->toHtml($page::class) }}
+
+## MarkdownPage
+
+Page class for Markdown pages.
+
+Markdown pages are stored in the _`pages` directory and using the `.md` extension.
+The Markdown will be compiled to HTML using a minimalistic layout to the `_site/` directory.
+
+### Quick Reference
+
+| Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
+|----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `MarkdownPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/MarkdownPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-MarkdownPage.html) |
+
+### Base Structure
+
+```php
+class MarkdownPage extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $template = 'hyde::layouts/page';
+}
+```
+
+### Methods
+
+This class does not define any additional methods.
