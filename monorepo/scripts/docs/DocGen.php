@@ -119,7 +119,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     // If higher specificity return type is provided in docblock, use that instead
     if (isset($docComment['properties']['return'])) {
-        $returnType = $docComment['properties']['return'];
+        $returnValue = $docComment['properties']['return'];
+        $returnType = $returnValue;
     }
 
     // Map docblock params
