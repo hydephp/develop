@@ -47,10 +47,9 @@ Unlike other frameworks, in general you don't instantiate pages yourself in Hyde
 blueprints defining information for Hyde to know how to parse a file, and what data around it should be generated.
 
 To create a parsed file instance, you'd typically just create a source file, and you can then access the parsed file
-from the HydeKernel's page index. 
+from the HydeKernel's page index.
 
 In Blade views, you can always access the current page instance being rendered using the `$page` variable.
-
 
 ### Quick Reference
 
@@ -155,17 +154,15 @@ abstract class BaseMarkdownPage extends HydePage
 
 Before we take a look at the common page classes, you'll usually use, let's first take a look at one that's quite interesting.
 
-This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde 
+This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
 autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.
 
 You can learn more about the InMemoryPage class in the [InMemoryPage documentation](in-memory-pages).
-
 
 ### Quick Reference
 
 | Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
 |----------------|--------------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | `InMemoryPage` | `Hyde\Pages` | [Open in GitHub](https://github.com/hydephp/framework/blob/master/src/Pages/InMemoryPage.php) | [Live API Docs](https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-InMemoryPage.html) |
-
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/in-memory-page-methods'))->toHtml($page::class) }}
