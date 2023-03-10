@@ -30,6 +30,10 @@ discovery process and stores the discovered data in memory.
 2. **Step two:** The page collection parses all the source files into page model objects
 3. **Step three:** The route collection generates route objects for all the pages
 
+#### Interacting with the collections
+
+Usually, you will interact with the collection data through intermediaries. For example, if you call `MarkdownPost::get('my-post')`,
+Hyde will retrieve that page from the page collection. If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection.
 
 ## The HydeKernel
 
