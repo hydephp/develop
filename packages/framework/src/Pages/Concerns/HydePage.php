@@ -153,8 +153,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the directory in where source files are stored.
-     *
-     * @return string Relative to the Hyde source root.
      */
     public static function sourceDirectory(): string
     {
@@ -163,8 +161,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the output subdirectory to store compiled HTML.
-     *
-     * @return string Relative to the Hyde output directory.
      */
     public static function outputDirectory(): string
     {
@@ -173,8 +169,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the file extension of the source files.
-     *
-     * @return string With leading dot.
      */
     public static function fileExtension(): string
     {
@@ -183,8 +177,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Set the output directory for the HydePage class.
-     *
-     * @param  string  $sourceDirectory  Relative to the Hyde source root.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
@@ -193,8 +185,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Set the source directory for the HydePage class.
-     *
-     * @param  string  $outputDirectory  Relative to the Hyde output directory.
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
@@ -203,8 +193,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Set the file extension for the HydePage class.
-     *
-     * @param  string  $fileExtension  Will be normalized to always have a leading dot.
      */
     public static function setFileExtension(string $fileExtension): void
     {
@@ -213,8 +201,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Qualify a page identifier into a local file path for the page source file relative to the project root.
-     *
-     * @returns string Relative to the Hyde source root.
      */
     public static function sourcePath(string $identifier): string
     {
