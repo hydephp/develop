@@ -5,7 +5,7 @@ navigation:
 
 # HydePage API Reference
 
->warning This article covers advanced information, and you are expected to already be familiar with the [Page Models](page-models).
+>warning This article covers advanced information, and you are expected to already be familiar with [Page Models](page-models) and OOP
 
 
 ## Abstract
