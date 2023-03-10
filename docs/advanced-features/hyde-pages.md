@@ -187,4 +187,6 @@ class InMemoryPage extends HydePage
 }
 ```
 
+### Methods
+
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/in-memory-page-methods'))->toHtml($page::class) }}
