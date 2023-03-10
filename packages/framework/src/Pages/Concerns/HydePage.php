@@ -343,9 +343,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the Blade template for the page.
-     *
-     * @return string Blade template/view key.
+     * Get the Blade template/view key for the page.
      */
     public function getBladeView(): string
     {
