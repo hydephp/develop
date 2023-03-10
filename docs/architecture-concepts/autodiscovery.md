@@ -39,18 +39,10 @@ Usually, you will interact with the collection data through intermediaries.
 
 ## The HydeKernel
 
-In the centre, or should I say _core_, of HydePHP is the HydeKernel. The kernel encapsulates a HydePHP project and
-provides helpful methods for interacting with it. You can think of it as the heart of HydePHP, if you're a romantic.
+If you have not yet read the [HydeKernel Documentation](the-hydekernel), here's a quick recap:
 
-The HydeKernel is so important that you have probably used it already. The main entry point for the HydePHP
-API is the Hyde facade, which calls methods on the kernel.
-
-```php
-use Hyde\Hyde;
-use Hyde\Foundation\HydeKernel;
-
-Hyde::version() === app(HydeKernel::class)->version();
-```
+The HydeKernel encapsulates a HydePHP project, providing helpful methods for interacting with it.
+It is also responsible for booting the application, which includes the autodiscovery process.
 
 The kernel is created very early on in the application lifecycle, in the bootstrap.php file, where it is also bound
 as a singleton into the application service container.
