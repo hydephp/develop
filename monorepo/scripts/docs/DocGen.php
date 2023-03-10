@@ -126,6 +126,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
             $type = $exploded[0];
             $comment = ' // '.$exploded[1];
             $returnValue = $type;
+        } else {
+            $comment = null;
         }
         $returnType = $returnValue.($comment ?? '');
     }
