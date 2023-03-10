@@ -129,6 +129,12 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         } else {
             $comment = null;
         }
+        // If return value is FQCN, use the last part of it and put full name in title attribute
+        if (str_contains($returnValue, '\\')) {
+            $name = class_basename($returnValue);
+            $title = $returnValue;
+            $returnValue = "<abbr title=\"$title\">$name</abbr>";
+        }
         $returnType = $returnValue.($comment ?? '');
     }
 
