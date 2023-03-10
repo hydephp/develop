@@ -159,6 +159,8 @@ function documentMethod(ReflectionMethod $method, array &$output): void
 
     $argList = implode(', ', $parameters);
 
+    $before = null;
+    
     global $instanceVariableName;
     $signature = str_replace(
         ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
@@ -174,7 +176,6 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         '{{ $argList }}' => e($argList),
         '{{ $returnType }}' => ($returnType),
     ];
-    $before = null;
     $markdown = ($before ? $before ."\n"  : ''). str_replace(array_keys($replacements), array_values($replacements), $template);
 
     // Throws
