@@ -13,17 +13,9 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
 
-// Arguments supported:
-// --class=HydePage
-// --instanceVariableName=$page
-// --outputFile=api-docs.md
-
-// Get argument list from command line
-$requiredArguments = ['--class', '--instanceVariableName', '--outputFile'];
-$defaultArguments['--class'] = HydePage::class;
-$defaultArguments['--instanceVariableName'] = '$page';
-$defaultArguments['--outputFile'] = 'api-docs.md';
-$options = parseArguments($requiredArguments, $defaultArguments);
+$options['--class'] = HydePage::class;
+$options['--instanceVariableName'] = '$page';
+$options['--outputFile'] = 'api-docs.md';
 
 $class = $options['--class'];
 $instanceVariableName = $options['--instanceVariableName'];
@@ -253,43 +245,6 @@ function parsePHPDocs(string $comment): array
         'description' => trim($description) ?: 'No description provided.',
         'properties' => $properties,
     ];
-}
-
-function parseArguments(array $requiredArguments, array $defaultArguments): array
-{
-    global $argv;
-    $arguments = $argv;
-    array_shift($arguments);
-
-    // Parse arguments
-    $arguments = array_map(function (string $argument) {
-        $argument = explode('=', $argument, 2);
-        if (count($argument) === 1) {
-            return [$argument[0], true];
-        }
-
-        return $argument;
-    }, $arguments);
-
-    // Convert to associative array
-    $arguments = array_reduce($arguments, function (array $carry, array $argument) {
-        $carry[$argument[0]] = $argument[1];
-
-        return $carry;
-    }, []);
-
-    // Validate arguments
-    foreach ($requiredArguments as $requiredArgument) {
-        if (! isset($arguments[$requiredArgument])) {
-            // throw new Exception("Missing required argument: $requiredArgument");
-            // Set to default values
-            $options[$requiredArgument] = $defaultArguments[$requiredArgument];
-        } else {
-            $options[$requiredArgument] = $arguments[$requiredArgument];
-        }
-    }
-
-    return $options;
 }
 
 function postProcess(string $text): string
