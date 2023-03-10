@@ -53,20 +53,20 @@ class RenderHelperTest extends TestCase
     {
         $this->assertNull(View::shared('page'));
         $this->assertNull(View::shared('route'));
-        $this->assertNull(View::shared('currentPage'));
+        $this->assertNull(View::shared('routeKey'));
 
         Render::setPage($page = new MarkdownPage());
 
         $this->assertSame($page, View::shared('page'));
         $this->assertEquals($page->getRoute(), View::shared('route'));
-        $this->assertSame($page->getRouteKey(), View::shared('currentPage'));
+        $this->assertSame($page->getRouteKey(), View::shared('routeKey'));
     }
 
     public function testShare()
     {
         $this->assertNull(Render::getRouteKey());
 
-        Render::share('currentPage', 'bar');
+        Render::share('routeKey', 'bar');
         $this->assertSame('bar', Render::getRouteKey());
     }
 
@@ -80,10 +80,10 @@ class RenderHelperTest extends TestCase
 
     public function testShareCascadesDataToView()
     {
-        $this->assertNull(View::shared('currentPage'));
+        $this->assertNull(View::shared('routeKey'));
 
-        Render::share('currentPage', 'bar');
-        $this->assertSame('bar', View::shared('currentPage'));
+        Render::share('routeKey', 'bar');
+        $this->assertSame('bar', View::shared('routeKey'));
     }
 
     public function testClearData()
@@ -111,12 +111,12 @@ class RenderHelperTest extends TestCase
 
         $this->assertNotNull(View::shared('page'));
         $this->assertNotNull(View::shared('route'));
-        $this->assertNotNull(View::shared('currentPage'));
+        $this->assertNotNull(View::shared('routeKey'));
 
         Render::clearData();
         $this->assertNull(View::shared('page'));
         $this->assertNull(View::shared('route'));
-        $this->assertNull(View::shared('currentPage'));
+        $this->assertNull(View::shared('routeKey'));
     }
 
     public function testClearDataDoesNotClearOtherViewData()
@@ -144,7 +144,7 @@ class RenderHelperTest extends TestCase
             'render' => $render,
             'page' => null,
             'route' => null,
-            'currentPage' => null,
+            'routeKey' => null,
         ], $render->toArray());
 
         Render::setPage($page = new MarkdownPage());
@@ -152,7 +152,7 @@ class RenderHelperTest extends TestCase
             'render' => $render,
             'page' => $page,
             'route' => $page->getRoute(),
-            'currentPage' => $page->getRouteKey(),
+            'routeKey' => $page->getRouteKey(),
         ], $render->toArray());
     }
 }

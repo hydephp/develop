@@ -19,11 +19,11 @@ trait InteractsWithPages
     protected function mockPage(?HydePage $page = null, ?string $currentPage = null): void
     {
         Render::share('page', $page ?? new MarkdownPage());
-        Render::share('currentPage', $currentPage ?? 'PHPUnit');
+        Render::share('routeKey', $currentPage ?? 'PHPUnit');
     }
 
     protected function mockCurrentPage(string $currentPage): void
     {
-        Render::share('currentPage', $currentPage);
+        Render::share('routeKey', $currentPage);
     }
 }

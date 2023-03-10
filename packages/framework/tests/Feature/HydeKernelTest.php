@@ -79,7 +79,7 @@ class HydeKernelTest extends TestCase
 
     public function test_current_page_helper_returns_current_page_name()
     {
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         $this->assertSame('foo', Hyde::currentPage());
     }
 
@@ -151,29 +151,29 @@ class HydeKernelTest extends TestCase
 
     public function test_relative_link_helper_returns_relative_link_to_destination()
     {
-        Render::share('currentPage', 'bar');
+        Render::share('routeKey', 'bar');
         $this->assertSame('foo', Hyde::relativeLink('foo'));
 
-        Render::share('currentPage', 'foo/bar');
+        Render::share('routeKey', 'foo/bar');
         $this->assertSame('../foo', Hyde::relativeLink('foo'));
     }
 
     public function test_media_link_helper_returns_relative_link_to_destination()
     {
-        Render::share('currentPage', 'bar');
+        Render::share('routeKey', 'bar');
         $this->assertSame('media/foo', Hyde::mediaLink('foo'));
 
-        Render::share('currentPage', 'foo/bar');
+        Render::share('routeKey', 'foo/bar');
         $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
     }
 
     public function test_image_helper_returns_image_path_for_given_name()
     {
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         $this->assertSame('media/foo.jpg', Hyde::asset('foo.jpg'));
         $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
 
-        Render::share('currentPage', 'foo/bar');
+        Render::share('routeKey', 'foo/bar');
         $this->assertSame('../media/foo.jpg', Hyde::asset('foo.jpg'));
         $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
     }

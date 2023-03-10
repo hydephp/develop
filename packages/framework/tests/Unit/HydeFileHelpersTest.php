@@ -16,7 +16,7 @@ class HydeFileHelpersTest extends TestCase
 {
     public function test_current_page_returns_current_page_view_property()
     {
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         $this->assertEquals('foo', Hyde::currentPage());
     }
 
