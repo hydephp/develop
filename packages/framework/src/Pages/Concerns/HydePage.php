@@ -153,6 +153,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the directory in where source files are stored.
+     *
+     * @return string Relative to the Hyde source root.
      */
     public static function sourceDirectory(): string
     {
@@ -161,6 +163,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the output subdirectory to store compiled HTML.
+     *
+     * @return string Relative to the Hyde output directory.
      */
     public static function outputDirectory(): string
     {
@@ -169,6 +173,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the file extension of the source files.
+     *
+     * @return string With leading dot.
      */
     public static function fileExtension(): string
     {
