@@ -13,7 +13,9 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Renamed global `$currentRoute` and `$currentPage` variables to `$route` and `$routeKey` respectively.
+- Renamed `Render::getCurrentRoute()` to `Render::getRoute()` to match renamed property.
+- Renamed `Render::getCurrentPage()` to `Render::getRouteKey()` to match renamed property.
 
 ### Deprecated
 - Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
