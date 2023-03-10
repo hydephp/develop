@@ -119,7 +119,7 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add($duplicate);
 
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         Render::share('page', $page);
 
         $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
@@ -134,7 +134,7 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add(Meta::name('foo', 'baz'));
 
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         Render::share('page', $page);
 
         $this->assertEquals([], GlobalMetadataBag::make()->get());

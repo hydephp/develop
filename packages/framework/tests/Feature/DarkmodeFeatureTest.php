@@ -47,7 +47,7 @@ class DarkmodeFeatureTest extends TestCase
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
             'content' => 'foo',
-            'currentPage' => 'foo',
+            'routeKey' => 'foo',
         ])->render();
 
         $this->assertStringContainsString('title="Toggle theme"', $view);
@@ -66,7 +66,7 @@ class DarkmodeFeatureTest extends TestCase
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
             'content' => 'foo',
-            'currentPage' => 'foo',
+            'routeKey' => 'foo',
         ])->render();
 
         $this->assertStringContainsString('title="Toggle theme"', $view);
@@ -83,7 +83,7 @@ class DarkmodeFeatureTest extends TestCase
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
             'content' => 'foo',
-            'currentPage' => 'foo',
+            'routeKey' => 'foo',
         ])->render();
 
         $this->assertStringNotContainsString('title="Toggle theme"', $view);
@@ -101,7 +101,7 @@ class DarkmodeFeatureTest extends TestCase
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
             'content' => 'foo',
-            'currentPage' => 'foo',
+            'routeKey' => 'foo',
         ])->render();
 
         $this->assertStringNotContainsString('title="Toggle theme"', $view);

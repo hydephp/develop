@@ -28,7 +28,7 @@ class LinkComponentTest extends TestCase
 
     public function test_link_component_can_be_rendered_with_route_for_nested_pages()
     {
-        Render::share('currentPage', 'foo/bar');
+        Render::share('routeKey', 'foo/bar');
         $route = Routes::get('index');
         $this->assertEquals('<a href="../index.html">bar</a>', rtrim(
             Blade::render('<x-link href="'.$route.'">bar</x-link>')));

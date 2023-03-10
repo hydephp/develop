@@ -16,6 +16,37 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.2](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.2) - 2023-03-10
+
+### Added
+- Added a new `HydeKernel::currentPage()` method to return the page being rendered.
+
+### Changed
+- Renamed global `$currentRoute` and `$currentPage` variables to `$route` and `$routeKey` respectively.
+- Renamed `Render::getCurrentRoute()` to `Render::getRoute()` to match renamed property.
+- Renamed `Render::getCurrentPage()` to `Render::getRouteKey()` to match renamed property.
+
+### Deprecated
+
+This release candidate version contains a few deprecations, these will be removed before the final 1.0.0 release.
+
+- Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
+- Deprecate `RenderData::getCurrentRoute()` as it is renamed to `getRoute()` to match renamed property.
+  - This change affects the `Render::getCurrentRoute()` and `Hyde::currentRoute()` facade methods.
+- Deprecate `RenderData::getCurrentPage()` as it is renamed to `getRouteKey()` to match renamed property.
+  - This change affects the `Render::getCurrentPage()` and `Hyde::currentPage()` facade methods. 
+
+### Removed
+- Remove RouteKey normalization for dot notation support by @caendesilva in https://github.com/hydephp/develop/pull/1241
+
+### Fixed
+- Update MarkdownPost::getLatestPosts helper to sort using the DateTime object timestamp by @caendesilva in https://github.com/hydephp/develop/pull/1235
+- Update PostAuthor::all() to map entries into array keyed by username by @caendesilva in https://github.com/hydephp/develop/pull/1236
+- Normalize internal author array keys to lowercase to make author usernames case-insensitive by @caendesilva in https://github.com/hydephp/develop/pull/1237
+- Update pretty relative index links to rewrite to `./` instead of `/` by @caendesilva in https://github.com/hydephp/develop/pull/1238
+- Fixed https://github.com/hydephp/develop/issues/1240
+
+
 ## [v1.0.0-RC.1](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.1) - 2023-03-07
 
 ### About

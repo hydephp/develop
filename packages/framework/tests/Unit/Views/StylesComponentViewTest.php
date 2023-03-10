@@ -59,7 +59,7 @@ class StylesComponentViewTest extends TestCase
 
     public function test_styles_can_be_pushed_to_the_component_styles_stack()
     {
-        Render::share('currentPage', '');
+        Render::share('routeKey', '');
 
         $this->assertStringContainsString('foo bar',
              Blade::render('

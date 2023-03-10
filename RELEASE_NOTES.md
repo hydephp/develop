@@ -16,17 +16,13 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- Deprecate `RouteKey::normalize` method as it no longer performs any normalization.
+- for soon-to-be removed features.
 
 ### Removed
-- Remove RouteKey normalization for dot notation support by @caendesilva in https://github.com/hydephp/develop/pull/1241
+- for now removed features.
 
 ### Fixed
-- Update MarkdownPost::getLatestPosts helper to sort using the DateTime object timestamp by @caendesilva in https://github.com/hydephp/develop/pull/1235
-- Update PostAuthor::all() to map entries into array keyed by username by @caendesilva in https://github.com/hydephp/develop/pull/1236
-- Normalize internal author array keys to lowercase to make author usernames case-insensitive by @caendesilva in https://github.com/hydephp/develop/pull/1237
-- Update pretty relative index links to rewrite to `./` instead of `/` by @caendesilva in https://github.com/hydephp/develop/pull/1238
-- Fixed https://github.com/hydephp/develop/issues/1240
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
