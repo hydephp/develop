@@ -179,6 +179,11 @@ function documentMethod(ReflectionMethod $method, array &$output): void
         }
     }
 
+    // Debug breakpoint
+    if (str_contains($markdown, 'foo')) {
+        // dd($markdown);
+    }
+
     $output[] = $markdown;
 }
 
