@@ -42,6 +42,26 @@ $matrix = [
         'instanceVariableName' => '$page',
         'outputFile' => "$basePath/blade-page-methods.md",
     ],
+    [
+        'class' => \Hyde\Pages\MarkdownPage::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/markdown-page-methods.md",
+    ],
+    [
+        'class' => \Hyde\Pages\MarkdownPost::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/markdown-post-methods.md",
+    ],
+    [
+        'class' => \Hyde\Pages\DocumentationPage::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/documentation-page-methods.md",
+    ],
+    [
+        'class' => \Hyde\Pages\HtmlPage::class,
+        'instanceVariableName' => '$page',
+        'outputFile' => "$basePath/html-page-methods.md",
+    ]
 ];
 
 foreach ($matrix as $key => $options) {
