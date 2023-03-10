@@ -139,7 +139,6 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
                 $parentClass = $method->getDeclaringClass()->getParentClass();
                 $parentMethod = $parentClass->getMethod('__construct');
                 $docComment = $parentMethod->getDocComment();
-                dump($docComment);
             } else {
                 $docComment = null;
             }
