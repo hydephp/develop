@@ -172,6 +172,9 @@ As the class is not discoverable, the static path properties are not initialized
 You can also define macros which allow you to both add methods to the instance, but also to overload some built-in ones like the `compile` method.
 
 ```php
+/**
+ * The InMemoryPage class, here simplified for the sake of brevity.
+ */
 class InMemoryPage extends HydePage
 {
     public static string $sourceDirectory;
