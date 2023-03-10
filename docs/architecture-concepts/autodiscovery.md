@@ -18,6 +18,15 @@ Before reading this article, you should be familiar with the following concepts:
 -  [Page Models](page-models)
 
 
+### Booting pipeline
+
+As you saw above, the kernel boots the collections in order. This is important as each step depends on the previous one.
+
+1. **Step one:** The file collection discovers all the source files and stores them in memory
+2. **Step two:** The page collection parses all the source files into page model objects
+3. **Step three:** The route collection generates route objects for all the pages
+
+
 ## The HydeKernel
 
 In the centre, or should I say _core_, of HydePHP is the HydeKernel. The kernel encapsulates a HydePHP project and
@@ -88,11 +97,3 @@ protected function needsToBeBooted(): void
 
 Yeah, it's really unglamorous I know. But it works! Having it like this will ensure that any time you call `Hyde::pages()`,
 that underlying collection will always have been booted and be ready to use.
-
-### Booting pipeline
-
-As you saw above, the kernel boots the collections in order. This is important as each step depends on the previous one.
-
-1. **Step one:** The file collection discovers all the source files and stores them in memory
-2. **Step two:** The page collection parses all the source files into page model objects
-3. **Step three:** The route collection generates route objects for all the pages
