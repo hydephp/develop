@@ -16,6 +16,7 @@ parsed using instructions from the model's class, resulting in data used to cons
 
 Before reading this article, you should be familiar with the following concepts:
 -  [Page Models](page-models)
+-  [The HydeKernel](the-hydekernel)
 
 
 ## Booting pipeline
