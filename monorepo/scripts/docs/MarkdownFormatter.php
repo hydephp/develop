@@ -284,7 +284,9 @@ if (count($headings)) {
             $headingText = trim(str_replace('#', '', $heading));
             $titleCase = Hyde\make_title($headingText);
             $alwaysUppercase = ['PHP', 'HTML', 'CLI'];
+            $alwaysLowercase = ['to'];
             $titleCase =  (str_ireplace($alwaysUppercase, $alwaysUppercase, $titleCase));
+            $titleCase =  (str_ireplace($alwaysLowercase, $alwaysLowercase, $titleCase));
 
             $isTitleCase = $headingText === $titleCase;
             $sentenceCase = \Illuminate\Support\Str::ucfirst($headingText);
