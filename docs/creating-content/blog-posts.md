@@ -162,6 +162,8 @@ Array values here will override all the values in the `authors` config entry.
 
 ### Image
 
+Specify a cover image for the post, either by a local image path for a file in the `_media/` directory, or by a full URL.
+
 ```yaml
 image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL for the built site
 image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) or `//` (protocol-relative)
