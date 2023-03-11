@@ -5,6 +5,9 @@ declare(strict_types=1);
 /**
  * @internal
  */
+
+use Illuminate\Support\Str;
+
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
@@ -289,7 +292,7 @@ if ($checksHeadings && count($headings)) {
             $titleCase = str_ireplace($alwaysLowercase, $alwaysLowercase, $titleCase);
 
             $isTitleCase = $headingText === $titleCase;
-            $sentenceCase = \Illuminate\Support\Str::ucfirst($headingText);
+            $sentenceCase = Str::ucfirst($headingText);
             $isSentenceCase = $headingText === $sentenceCase;
             $something = false;
             if ($headingLevel < 3) {
