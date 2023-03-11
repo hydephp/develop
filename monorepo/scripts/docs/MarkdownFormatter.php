@@ -255,7 +255,10 @@ if (count($links) > 0) {
             }
 
             if (! $hasMatch) {
-                $warnings['Broken links'][] = "Broken link to $link found in $location";
+                // Check that link is not for search (dynamic page)
+                if (! str_contains($link, 'search')) {
+                    $warnings['Broken links'][] = "Broken link to $link found in $location";
+                }
             }
         }
     }
