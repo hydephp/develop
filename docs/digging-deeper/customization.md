@@ -336,7 +336,7 @@ Hyde uses the Laravel templating system called Blade. Most parts of the included
 
 > Before editing Blade views you should familiarize yourself with how they work in the [official documentation](https://laravel.com/docs/10.x/blade).
 
-To edit the default component you need to publish them first using the `hyde publish:views` command.
+To edit a default component you need to publish them first using the `hyde publish:views` command.
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
