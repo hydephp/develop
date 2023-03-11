@@ -268,7 +268,7 @@ The search feature is enabled by default. You can disable it by removing the `do
 
 The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
 
-Two types of search methods are added, one is a full page search screen that will be saved to `docs/search.html`.
+Two ways to access the search methods are added, one is a full page search screen that will be saved to `docs/search.html`.
 > The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
 > Note that the full-page search is used as a fallback for browsers that don't support the `<dialogue>` element, and may lead to 404 errors if disabled.
