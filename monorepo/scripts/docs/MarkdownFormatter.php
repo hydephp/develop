@@ -300,12 +300,16 @@ function getSignatures(): array {
     static $signatures = null;
 
     if ($signatures === null) {
-        $commandRaw = shell_exec('cd ../../../ && php hyde list --raw');
-        foreach (explode("\n", $commandRaw) as $command) {
-            $command = Str::before($command, ' ');
-            if ($command) {
+        $cache = __DIR__.'/../cache/hyde-signatures.php';
+        if (file_exists($cache)) {
+            $signatures = include $cache;
+        } else {
+            $commandRaw = shell_exec('cd ../../../ && php hyde list --raw');
+            foreach (explode("\n", $commandRaw) as $command) {
+                $command = Str::before($command, ' ');
                 $signatures[] = 'php hyde '.$command;
             }
+            file_put_contents($cache, '<?php return '.var_export($signatures, true).';');
         }
     }
     return $signatures;
