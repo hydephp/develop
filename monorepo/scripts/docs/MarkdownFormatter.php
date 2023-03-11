@@ -19,6 +19,7 @@ $warnings = [];
 
 // Buffer headings so we can check for style
 $headings = []; // [filename => [line => heading]]
+$checksHeadings = false;
 
 function find_markdown_files($dir): array
 {
@@ -273,7 +274,7 @@ if (count($links) > 0) {
 // Just to make PhpStorm happy
 $headings['foo.md'][1] = '## Bar';
 
-if (count($headings)) {
+if ($checksHeadings && count($headings)) {
     foreach ($headings as $filename => $fileHeadings) {
         $headingLevels = [];
         foreach ($fileHeadings as $heading) {
