@@ -274,8 +274,7 @@ Two ways to access the search methods are added, one is a full page search scree
 > Note that the full-page search is used as a fallback for browsers that don't support the `<dialogue>` element, and may lead to 404 errors if disabled.
 
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
-Opening it will open a dialog modal with an integrated search screen.
-You can also open the dialog using the keyboard shortcut `/`.
+Opening it will open a dialog modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
 
 ### Hiding pages from indexing
 
