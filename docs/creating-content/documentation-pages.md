@@ -240,8 +240,8 @@ You can also disable the feature completely.
 
 The HydeSearch plugin adds a search feature to documentation pages.
 
-The search feature is enabled by default.
-You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
+The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
+
 
 #### Using the search
 
