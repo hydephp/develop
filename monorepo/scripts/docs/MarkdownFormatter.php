@@ -282,9 +282,10 @@ if (count($headings)) {
 
             // Check for style: 1-2 headings should be title case, 3+ should be sentence case
             $headingText = trim(str_replace('#', '', $heading));
+            $isTitleCase = $headingText === \Illuminate\Support\Str::title($headingText);
             $something = false;
             if ($headingLevel < 3) {
-                if ($something) {
+                if (! $isTitleCase) {
                     $warnings['Headings'][] = "Heading in $filename should be title case: $heading";
                 }
             } else {
