@@ -222,8 +222,7 @@ See [the chapter in the customization page](customization#navigation-menu--sideb
 
 ### Table of contents settings
 
-In the `config/docs.php` file you can configure the behavior, content,
-and the look and feel of the sidebar table of contents.
+In the `config/docs.php` file you can configure the behavior, content, and the look and feel of the sidebar table of contents.
 You can also disable the feature completely.
 
 ```php
