@@ -37,6 +37,7 @@ Usually, you will interact with the collection data through intermediaries.
 * For example, if you call `MarkdownPost::get('my-post')`, Hyde will retrieve that page from the page collection.
 * If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection.
 
+
 ## The HydeKernel
 
 If you have not yet read the [HydeKernel Documentation](the-hydekernel), here's a quick recap:
@@ -67,7 +68,7 @@ public function boot(): void
     $this->pages = PageCollection::boot($this);
     $this->routes = RouteCollection::boot($this);
 
-    // Scroll down to see what this is used for    
+    // Scroll down to see what this is used for
     $this->booted = true;
 }
 ```
