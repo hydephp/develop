@@ -12,7 +12,7 @@ Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuratio
 and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable
 if you need it. This page guides you through the many options available!
 
-All the configuration files are stored in the config directory, abd allow you to customize almost all aspects of your site.
+All the configuration files are stored in the config directory, and allow you to customize almost all aspects of your site.
 Each option is documented, so feel free to look through the files and get familiar with the options available to you.
 
 
