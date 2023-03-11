@@ -80,7 +80,6 @@ Since HydePHP is based on Laravel we also have a few configuration files related
 to edit any of these, unless you want to make changes to the underlying application, they are not present in the
 base HydePHP installation. However, you can publish them to your project by running `php hyde publish:configs`.
 
-
 | Config File                                                                                                            | Description                                                             |
 |------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
 | <a href="https://github.com/hydephp/hyde/blob/master/config/view.php" rel="nofollow noopener">view.php</a>             | Configures the paths for the Blade View compiler.                       |
