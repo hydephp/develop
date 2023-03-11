@@ -49,7 +49,7 @@ If you have ideas to add to the documentation, please send a pull request!
 
 ### General deployment
 
-In essence, all you need to do is copy the contents of the `_site` directory to a web server and you're done.
+In essence, all you need to do is copy the contents of the `_site` directory to a web server, and you're done.
 
 Once the site is compiled there is nothing to configure or worry about.
 
