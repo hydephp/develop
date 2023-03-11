@@ -68,7 +68,7 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     public string $title;
 
-    /** @deprecated This property requires information that is setup-dependent, and will work better through a runtime accessor. Since it is mainly related to blog posts, it will be moved there. */
+    /** @deprecated v1.0.0-RC.3 - This property requires information that is setup-dependent, and will work better through a runtime accessor. Since it is mainly related to blog posts, it will be moved there. */
     public ?string $canonicalUrl;
 
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
