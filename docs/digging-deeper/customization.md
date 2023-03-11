@@ -317,7 +317,7 @@ Hyde makes a few attempts to find a suitable label for the navigation menu items
 You can override the label using the `navigation.label` front matter property.
 
 From the Hyde config you can also override the label of navigation links using the by mapping the route key 
-(identifier/slug relative to the site root) to the desired title. Note that the front matter property will take
+to the desired title. Note that the front matter property will take
 precedence over the config property.
 
 ```php
