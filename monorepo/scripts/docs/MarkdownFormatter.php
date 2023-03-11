@@ -269,6 +269,11 @@ if (count($links) > 0) {
     }
 }
 
+
+if (count($headings)) {
+        
+}
+
 if (count($warnings) > 0) {
     echo "\n\033[31mWarnings:\033[0m \033[33m".count($warnings, COUNT_RECURSIVE) - count($warnings)." found \033[0m \n";
     foreach ($warnings as $type => $messages) {
