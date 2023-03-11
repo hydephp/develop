@@ -270,6 +270,7 @@ The search works by generating a JSON search index which the JavaScript plugin l
 
 Two types of search methods are added, one is a full page search screen that will be saved to `docs/search.html`.
 <blockquote>The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.</blockquote>
+
 > Note that the full-page search is used as a fallback for browsers that don't support the `<dialogue>` element, and may lead to 404 errors if disabled.
 
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
