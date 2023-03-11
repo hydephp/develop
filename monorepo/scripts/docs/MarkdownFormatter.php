@@ -282,16 +282,18 @@ if (count($headings)) {
 
             // Check for style: 1-2 headings should be title case, 3+ should be sentence case
             $headingText = trim(str_replace('#', '', $heading));
-            $isTitleCase = $headingText === \Illuminate\Support\Str::title($headingText);
-            $isSentenceCase = $headingText === \Illuminate\Support\Str::ucfirst($headingText);
+            $titleCase = \Illuminate\Support\Str::title($headingText);
+            $isTitleCase = $headingText === $titleCase;
+            $sentenceCase = \Illuminate\Support\Str::ucfirst($headingText);
+            $isSentenceCase = $headingText === $sentenceCase;
             $something = false;
             if ($headingLevel < 3) {
                 if (! $isTitleCase) {
-                    $warnings['Headings'][] = "Heading '$headingText' should be title case in $filename";
+                    $warnings['Headings'][] = "Heading '$headingText' should be title case in $filename (expected '$titleCase')";
                 }
             } else {
                 if (! $isSentenceCase) {
-                    $warnings['Headings'][] = "Heading '$headingText' should be sentence case in $filename";
+                    $warnings['Headings'][] = "Heading '$headingText' should be sentence case in $filename (expected '$sentenceCase')";
                 }
             }
         }
