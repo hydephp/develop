@@ -73,7 +73,7 @@ These are the main configuration files for HydePHP and lets you customize the lo
 
 >info Tip: The values in hyde.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
 
-### Laravel & Package Configuration Files
+### Publishable Laravel & Package Configuration Files
 
 Since HydePHP is based on Laravel we also have a few configuration files related to them. You probably don't need to edit any of these unless you want to make changes to the application core.
 
