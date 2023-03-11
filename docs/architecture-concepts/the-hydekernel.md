@@ -43,7 +43,9 @@ hyde()->version();
 
 ## The kernel lifecycle
 
-> FIXME port from autodiscovery.md
+Whenever we talk about the kernel being "booted" we are talking about the kernel's role in the autodiscovery process.
+
+You can read all about it in the [Autodiscovery Documentation](autodiscovery).
 
 
 ## API Reference
