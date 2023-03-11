@@ -332,7 +332,7 @@ to the desired title. Note that the front matter property will take precedence o
 
 ## Blade Views
 
-Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
+Hyde uses the Laravel templating system called Blade. Most parts of the included HydePHP templates have been extracted into components to be customized easily.
 
 > Before editing Blade views you should familiarize yourself with how they work in the official documentation https://laravel.com/docs/9.x/blade.
 
