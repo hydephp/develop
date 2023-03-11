@@ -167,6 +167,18 @@ function normalize_lines($filename): void
                     }
                 }
             }
+            // If line contains command
+            if (str_contains($line, 'php hyde') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
+                // Check character before the php hyde is not a backtick
+                $pos = strpos($line, 'php hyde');
+                if ($pos > 0) {
+                    $charBefore = substr($line, $pos - 1, 1);
+                    if ($charBefore !== '`') {
+                        global $warnings;
+                        $warnings['Inline code'][] = sprintf('Unformatted inline command found in %s:%s', $filename, $index + 1);
+                    }
+                }
+            }
 
             // Check for invalid command signatures
             if (str_contains($line, 'php hyde')) {
