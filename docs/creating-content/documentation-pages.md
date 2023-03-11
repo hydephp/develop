@@ -33,7 +33,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - Filenames should use `kebab-case-slug` format, followed by the appropriate extension
 - Files prefixed with `_underscores` are ignored by Hyde
 - You should always have an `index.md` file in the `_docs/` directory
-- Your page will be stored in `_site/docs/<slug>.html` unless you [change it in the config](#output-directory)
+- Your page will be stored in `_site/docs/<identifier>.html` unless you [change it in the config](#output-directory)
 
 ### Advanced usage and customization
 
