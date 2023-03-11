@@ -275,8 +275,9 @@ $headings['foo.md'][1] = '## Bar';
 
 if (count($headings)) {
     foreach ($headings as $filename => $fileHeadings) {
+        $headingLevels = [];
         foreach ($fileHeadings as $heading) {
-            //
+            $headingLevels[] = substr_count($heading, '#');
         }
     }
 }
