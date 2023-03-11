@@ -12,30 +12,25 @@ Managing and compiling assets is a very common task in web development. Unfortun
 With hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
 But as always with Hyde, you can customize everything if you want to.
 
-Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions. Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Laravel Mix.
+Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions.
+Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Laravel Mix.
 
-To get you started quickly, all the styles are already compiled minified into `_media/app.css`, which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
+To get you started quickly, all the styles are already compiled minified into `_media/app.css`, which will be copied
+to the `_site/media/app.css` directory when you run `php hyde build`.
 
+## Additional Information and Answers to Common Questions
 
-## Some extra information, and answers to possible questions
+### Is NodeJS/NPM Required for Using Hyde?
 
-### Do I have to use NPM to use Hyde?
+No, it is optional. All the compiled styles that you need are already installed, and NPM is only necessary if you want to compile your own styles.
 
-No. NPM is optional as all the compiled styles you need are already installed. You only need NPM if you want to compile your own styles.
-
-### When do I need to compile assets?
-
-#### When customizing
-
-If you want to customize the Tailwind settings or add custom styles, you will need to take care of compiling the styles yourself.
-
-#### When adding new classes
+### When Should Assets be Compiled?
 
 The `_media/app.css` file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, as well as the HydeFront custom styles.
+If you want to customize the Tailwind settings or add custom styles, you will need to recompile the styles yourself.
 
-If you customize the Blade views and add new classes, or if you add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
-
-If you stick to using Markdown based pages, you don't need to compile anything.
+For example, if you customize the Blade views and add new classes or add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
+If you use Markdown-based pages, you do not need to compile anything as those styles are already included in the compiled CSS file.
 
 
 ## How are assets stored and managed?
