@@ -69,7 +69,6 @@ These are the main configuration files for HydePHP and lets you customize the lo
 | <a href="https://github.com/hydephp/hyde/blob/master/config/hyde.php" rel="nofollow noopener">hyde.php</a>         | Main HydePHP configuration file. Used for things ranging from site name and base URL to navigation menus and what features to enable. |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/docs.php" rel="nofollow noopener">docs.php</a>         | Options for the HydePHP documentation site generator module.                                                                          |
 | <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.                                                     |
-{.align-top}
 
 >info Tip: The values in hyde.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
 
