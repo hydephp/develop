@@ -12,7 +12,7 @@ API is the Hyde facade, which calls methods on the kernel.
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 
-Hyde::version() === app(HydeKernel::class)->version();
+Hyde::version(); // calls $HydeKernel->version()
 ```
 
 The kernel is created very early on in the application lifecycle, in the bootstrap.php file, where it is also bound
