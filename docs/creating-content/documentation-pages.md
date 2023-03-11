@@ -88,8 +88,8 @@ and where the data is from as well as where it can be overridden.
 |---------------------------------|--------------------------------------------------------|-------------------------------------|----------------------|
 | `title` (string)                | The title of the page used in the HTML `<title>` tag   | The first H1 heading (`# Foo`)      | Front matter         |
 | `navigation.label` (string)     | The label for the page shown in the sidebar            | The page identifier/basename (slug) | Front matter, config |
-| `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _none_                              | Front matter, config |
 | `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 999                     | Front matter, config |
+| `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _none_                              | Front matter, config |
 | `navigation.group` (string)     | The group the page belongs to in the sidebar           | Subdirectory, if nested             | Front matter         |
 
 
