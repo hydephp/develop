@@ -192,7 +192,7 @@ Note that you need to take care as to not set it to something that may conflict 
 
 ### Automatic navigation menu
 
-By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory. Please see the [the customization page](customization#navigation-menu--sidebar) for more information.
+By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory. Please see [the customization page](customization#navigation-menu--sidebar) for more information.
 
 ### Sidebar header name
 
