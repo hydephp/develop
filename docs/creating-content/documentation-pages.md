@@ -287,9 +287,9 @@ The feature is automatically enabled when you specify a base URL in the Docs con
 Hyde expects this to be a GitHub path, but it will probably work with other methods as well,
 if not, please send a PR and/or create an issue on the [GitHub repository](https://github.com/hydephp/framework)!
 
-### Example configuration
+### Configuration
 
-Let's take a practical example for how HydePHP.com uses this feature.
+As an example configuration, let's take a practical example for how HydePHP.com uses this feature.
 
 ```php
 // Filepath: config/docs.php
