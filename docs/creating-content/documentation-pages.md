@@ -151,7 +151,7 @@ navigation:
 
 You can also automatically group your documentation pages by placing source files in sub-directories.
 
-For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter in the step above.
+For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter seen above.
 
 > Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories.
 
