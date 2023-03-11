@@ -30,13 +30,13 @@ php hyde serve
 
 ### Further reading
 
+>info <p><b>Key Concept: Autodiscovery</b></p> <p>When building the site, Hyde will use all the routes generated when the auto-discovery process scanned your source directories for files. The command will then compile them into static HTML using the appropriate layout depending on what kind of page it is. Thanks to Hyde, the days of manually defining routes are over!</p>
+
 #### Learn more about these commands in the [console commands](console-commands) documentation:
 
 - [Build command](console-commands#build-the-static-site)
 - [Rebuild command](console-commands#build-a-single-file)
 - [Serve command](console-commands#start-the-realtime-compiler)
-
->info <p><b>Key Concept: Autodiscovery</b></p> <p>When building the site, Hyde will use all the routes generated when the auto-discovery process scanned your source directories for files. The command will then compile them into static HTML using the appropriate layout depending on what kind of page it is. Thanks to Hyde, the days of manually defining routes are over!</p>
 
 ---
 
