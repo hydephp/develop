@@ -105,7 +105,7 @@ This will in addition to loading the standard app.css file also add a script tag
 What's even better is that Hyde will also inject the contents of the included `tailwind.config.js` file into the script tag, so the Play CDN styles match the ones created by Laravel Mix.
 This also means you can tinker around with the TailwindCSS settings without having to compile anything.
 
->warn Note that the Play CDN is not meant for production use, so enabling it will add a warning to the web console.
+>warning Note that the Play CDN is not meant for production use, so enabling it will add a warning to the web console.
 
 
 ## Managing images
