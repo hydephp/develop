@@ -27,7 +27,7 @@ Laravel Application Service Container, and can be accessed in a few ways.
 Commonly, you'll use the `Hyde` facade, but you can also use Dependency Injection
 by type-hinting the `HydeKernel::class`, or use the `hyde()` function to get the Kernel.
 
-The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
+The Kernel instance is constructed in bootstrap.php, and is available globally as `$hyde`.
 
 Here are some examples of how you can call methods on the Kernel. All methods call the same method on the same instance, so it's just a matter of preference.
 
