@@ -68,6 +68,62 @@ $matrix = [
         'outputFile' => "$basePath/hyde-kernel-base-methods.md",
         'facadeName' => 'Hyde',
     ],
+    // HandlesFoundationCollections
+    [
+        'class' => \Hyde\Foundation\Concerns\HandlesFoundationCollections::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-foundation-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // ImplementsStringHelpers
+    [
+        'class' => \Hyde\Foundation\Concerns\ImplementsStringHelpers::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-string-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // ForwardsHyperlinks
+    [
+        'class' => \Hyde\Foundation\Concerns\ForwardsHyperlinks::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-hyperlink-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // ForwardsFilesystem
+    [
+        'class' => \Hyde\Foundation\Concerns\ForwardsFilesystem::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-filesystem-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // ManagesHydeKernel
+    [
+        'class' => \Hyde\Foundation\Concerns\ManagesHydeKernel::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-kernel-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // ManagesExtensions
+    [
+        'class' => \Hyde\Foundation\Concerns\ManagesExtensions::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-extensions-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // ManagesViewData
+    [
+        'class' => \Hyde\Foundation\Concerns\ManagesViewData::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-view-methods.md",
+        'facadeName' => 'Hyde',
+    ],
+    // BootsHydeKernel
+    [
+        'class' => \Hyde\Foundation\Concerns\BootsHydeKernel::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-boot-methods.md",
+        'facadeName' => 'Hyde',
+    ],
 ];
 $timeStart = microtime(true);
 
