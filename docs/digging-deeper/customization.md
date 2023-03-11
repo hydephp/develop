@@ -205,13 +205,17 @@ One of my (the author's) favourite features with Hyde is its automatic navigatio
 
 The sidebar works by creating a list of all the documentation pages.
 
-The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages. It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
+The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages.
+It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
 
 #### Reordering Sidebar Items
 
-Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
+Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this),
+so you will probably want to set a custom order.
 
-Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If an identifier is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
+Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this.
+When the sidebar is generated it looks through this config array. If an identifier is found here it will get priority 
+according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
 
 Let's see an example:
 
