@@ -84,7 +84,7 @@ If you are not happy with the results you can customize them in the config or wi
 Before we look at how to override things, here is an overview of the relevant content Hyde generates,
 and where the data is from as well as where it can be overridden.
 
-| Property                        | Description                                            | Source                              | Override in          |
+| Property                        | Description                                            | Dynamic Data Source                 | Override in          |
 |---------------------------------|--------------------------------------------------------|-------------------------------------|----------------------|
 | `title` (string)                | The title of the page used in the HTML `<title>` tag   | The first H1 heading (`# Foo`)      | Front matter         |
 | `navigation.label` (string)     | The label for the page shown in the sidebar            | The page identifier/basename (slug) | Front matter, config |
