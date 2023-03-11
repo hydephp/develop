@@ -32,11 +32,8 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 ## Creating Markdown Pages
 
-Markdown pages are the easiest way to create static pages, and are similar to [blog posts](blog-posts).
-You may want to read that page first as it explains [how front matter works](blog-posts#supported-front-matter-properties)
-and how to use it.
-
-You can create a Markdown page by adding a file to the `_pages` directory where the filename ends in `.md`.
+Markdown pages are the easiest way to create static pages. You can create a Markdown page by adding a file to the
+`_pages` directory where the filename ends in `.md`. You can also use [Front Matter](front-matter) to add page metadata.
 
 ### Scaffolding Markdown Pages
 
