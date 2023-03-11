@@ -203,7 +203,7 @@ You can change this in the Docs configuration file.
 'title' => 'API Documentation',
 ```
 
-> Tip: The header will link to the docs/index page, if it exists.
+>info Tip: The header will link to the docs/index page, if it exists.
 
 ### Sidebar page order
 
