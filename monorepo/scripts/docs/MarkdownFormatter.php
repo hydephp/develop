@@ -281,6 +281,7 @@ if (count($headings)) {
             $headingLevels[] = $headingLevel;
 
             // Check for style: 1-2 headings should be title case, 3+ should be sentence case
+            $headingText = trim(str_replace('#', '', $heading));
             $something = false;
             if ($headingLevel < 3) {
                 if ($something) {
