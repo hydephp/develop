@@ -277,7 +277,8 @@ if (count($headings)) {
     foreach ($headings as $filename => $fileHeadings) {
         $headingLevels = [];
         foreach ($fileHeadings as $heading) {
-            $headingLevels[] = substr_count($heading, '#');
+            $headingLevel = substr_count($heading, '#');
+            $headingLevels[] = $headingLevel;
         }
     }
 }
