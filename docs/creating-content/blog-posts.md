@@ -155,9 +155,8 @@ author:
     website: https://twitter.com/HydeFramework
 ```
 
-When specifying an array you don't need all the sub-properties.
-The example just shows all the supported values. Array values here
-will override all the values in the `authors` config entry.
+When specifying an array you don't need all the sub-properties. The example just shows all the supported values.
+Array values here will override all the values in the `authors` config entry.
 
 ### Image
 
