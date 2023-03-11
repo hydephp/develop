@@ -15,10 +15,37 @@ if you need it. This page guides you through the many options available!
 All the configuration files are stored in the config directory, and allow you to customize almost all aspects of your site.
 Each option is documented, so feel free to look through the files and get familiar with the options available to you.
 
+## Accessing Configuration Values
 
-When referencing configuration options, we often use "dot notation" to specify the configuration file. For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.
+### Configuration API Recap
 
-If you want to reference these configuration options in your Blade views, or other integrations, please take a look at the [Laravel Documentation](https://laravel.com/docs/9.x/configuration).
+HydePHP uses the same configuration system as Laravel. Here's a quick recap: from the [Laravel Documentation](https://laravel.com/docs/10.x/configuration).
+
+You may easily access your configuration values using the global `config` function from anywhere in your application.
+The configuration values may be accessed using "dot notation" syntax, which includes the name of the file and option you wish to access.
+A default value may also be specified and will be returned if the configuration option does not exist:
+
+```php
+$value = config('hyde.name');
+
+// Retrieve a default value if the configuration value does not exist...
+$value = config('hyde.name', 'HydePHP');
+```
+
+HydePHP also provides a strongly typed `Config` facade which extends the Laravel `Config` facade, but allows strict types:
+
+```php
+use Hyde\Facades\Config;
+
+// Will always return a string, or it throws a TypeError
+$name = Config::getString('hyde.name', 'HydePHP'): string;
+```
+
+### Dot Notation
+
+As seen in the example above, when referencing configuration options, we often use "dot notation" to specify the configuration file.
+For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.
+
 
 ### Front Matter or Configuration Files?
 
