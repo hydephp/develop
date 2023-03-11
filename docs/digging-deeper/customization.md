@@ -214,7 +214,7 @@ Sadly, Hyde is not intelligent enough to determine what order items should be in
 so you will probably want to set a custom order.
 
 Reordering items in the documentation sidebar is as easy as can be. In the `docs` config, there is an array just for this.
-When the sidebar is generated it looks through this config array. If a page identifier is found here it will get priority 
+If a page identifier is found here it will get priority 
 calculated according to its position in the list, plus an offset of 500. This offset allows you to pages earlier in the list
 using front matter.
 
