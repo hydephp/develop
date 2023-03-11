@@ -304,7 +304,7 @@ function getSignatures(): array {
         if (file_exists($cache)) {
             $signatures = include $cache;
         } else {
-            $signatures = [];
+            $signatures = ['php hyde list'];
             $commandRaw = shell_exec('cd ../../../ && php hyde list --raw');
             foreach (explode("\n", $commandRaw) as $command) {
                 $command = Str::before($command, ' ');
