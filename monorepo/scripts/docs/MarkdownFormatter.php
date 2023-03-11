@@ -144,6 +144,20 @@ function normalize_lines($filename): void
                     ];
                 }
             }
+
+            // Check for un-backtick-ed inline code
+            // If line contains $
+            if (str_contains($line, '$') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
+                // Check character before the $ is not a backtick
+                $pos = strpos($line, '$');
+                if ($pos > 0) {
+                    $charBefore = substr($line, $pos - 1, 1);
+                    if ($charBefore !== '`') {
+                        global $warnings;
+                        $warnings['Inline code'][] = sprintf('Unformatted inline code found in %s:%s', $filename, $index + 1);
+                    }
+                }
+            }
         }
 
         // Check if line is too long
