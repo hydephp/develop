@@ -17,6 +17,9 @@ $links = [];
 
 $warnings = [];
 
+// Buffer headings so we can check for style
+$headings = []; // [filename => [heading => line]]
+
 function find_markdown_files($dir): array
 {
     $markdown_files = [];
