@@ -234,9 +234,9 @@ You can also disable the feature completely.
 ],
 ```
 
-### Search feature
+## Search feature
 
-#### Introduction
+### Introduction
 
 The HydeSearch plugin adds a search feature to documentation pages.
 
@@ -249,7 +249,7 @@ The search feature is enabled by default. You can disable it by removing the `do
 ],
 ```
 
-#### Using the search
+### Using the search
 
 The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
 
@@ -261,7 +261,7 @@ The second method is a button added to the documentation pages, similar to how A
 Opening it will open a dialog modal with an integrated search screen.
 You can also open the dialog using the keyboard shortcut `/`.
 
-#### Hiding pages from indexing
+### Hiding pages from indexing
 
 If you have a large page, like a changelog, on your documentation sites you may want to hide it from the search index. You can do this by adding the page slug to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden.
 
@@ -275,9 +275,9 @@ If you have a large page, like a changelog, on your documentation sites you may 
 
 The page will still be accessible via the URL, but will be added to the search index JSON file. Don't include the file extension.
 
-### Automatic "Edit Page" button
+## Automatic "Edit Page" button
 
-#### Introduction
+### Introduction
 
 Hyde can automatically add links to documentation pages that takes the user
 to a GitHub page (or similar) to edit the page. This makes it great for open-source projects
@@ -287,7 +287,7 @@ The feature is automatically enabled when you specify a base URL in the Docs con
 Hyde expects this to be a GitHub path, but it will probably work with other methods as well,
 if not, please send a PR and/or create an issue on the [GitHub repository](https://github.com/hydephp/framework)!
 
-#### Example configuration
+### Example configuration
 
 Let's take a practical example for how HydePHP.com uses this feature.
 
