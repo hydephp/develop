@@ -272,6 +272,8 @@ When linking to an external site, you should use the `NavItem::forLink()` method
 
 ```php
 // filepath config/hyde.php
+use Hyde\Framework\Features\Navigation\NavItem;
+
 'navigation' => [
     'custom' => [
         NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
