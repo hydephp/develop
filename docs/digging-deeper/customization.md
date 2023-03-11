@@ -264,7 +264,6 @@ navigation:
 ---
 ```
 
-Note that since Blade pages do not support front matter, this will only work for Markdown pages.
 
 #### Adding Custom Navigation Menu Links
 
