@@ -184,8 +184,6 @@ image: https://cdn.example.com/image.jpg
 ```
 
 ```yaml
-image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL for the built site
-image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) or `//` (protocol-relative)
 image:
     source: image.jpg # Same as above
     source: https://cdn.example.com/image.jpg # Same as above
