@@ -167,6 +167,11 @@ function normalize_lines($filename): void
                     }
                 }
             }
+
+            // Check for invalid command signatures
+            if (str_contains($line, 'php hyde')) {
+               
+            }
         }
 
         // Check if line is too long
