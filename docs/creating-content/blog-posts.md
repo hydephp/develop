@@ -95,7 +95,7 @@ Keep on reading to see further explanations, details, and examples.
 Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings
 in quotes, but it can help in certain edge cases, thus they are included here.
 
-In the examples below, when there are multiple keys, they signify various ways to use the parameter.
+In the examples below, when there are multiple examples, they signify various ways to use the same property.
 
 ### Title
 
@@ -113,21 +113,33 @@ description: "A short description used in previews and SEO"
 
 ```yaml
 category: blog
+```
+
+```yaml
 category: "My favorite recipes"
 ```
 
 ### Date
 
 ```yaml
-date: "2022-01-01 12:00"
 date: "2022-01-01"
+```
+
+```yaml
+date: "2022-01-01 12:00"
 ```
 
 ### Author
 
 ```yaml
 author: "Mr. Hyde" # Arbitrary name displayed "as is"
+```
+
+```yaml
 author: mr_hyde # Username defined in `authors` config
+```
+
+```yaml
 author: # Array of author data
     name: "Mr. Hyde"
     username: mr_hyde
