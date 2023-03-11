@@ -254,7 +254,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
         if (str_contains($returnValue, ' ')) {
             $exploded = explode(' ', $returnValue, 2);
             // If is not generic
-            if (!str_contains($exploded[0], '<')) {
+            if (! str_contains($exploded[0], '<')) {
                 $type = $exploded[0];
                 $comment = ' // '.$exploded[1];
                 $returnValue = $type;
