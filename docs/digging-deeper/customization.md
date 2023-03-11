@@ -218,6 +218,8 @@ If a page identifier is found here it will get priority calculated according to 
 plus an offset of 500. This offset allows you to pages earlier in the list using front matter.
 
 If a page does not exist in the list they get priority 999, which puts them last.
+You can also use front matter to set a priority for a page.
+The front matter value will always take precedence.
 
 Let's see an example:
 
