@@ -270,6 +270,9 @@ if (count($links) > 0) {
 }
 
 
+// Just to make PhpStorm happy
+$headings['foo.md'][1] = '## Bar';
+
 if (count($headings)) {
         
 }
