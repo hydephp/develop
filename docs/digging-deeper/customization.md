@@ -236,9 +236,10 @@ Let's see an example:
 
 #### Reordering Navigation Menu Items
 
-Hyde makes an effort to organize the menu items in a sensible way. Putting your most important pages first.
-This of course may not always be how you want, so it's easy to reorder the menu items.
-Simply override the `navigation.order` array in the Hyde config. The priorities set will determine the order of the menu items.
+Hyde makes an effort to organize the menu items in a sensible way, and comes preconfigured to put what may be your most
+important pages first. This may of course not always be how you want, so thankfully it's easy to reorder the menu items!
+
+Simply update the `navigation.order` array in the Hyde config! The priorities set will determine the order of the menu items.
 Lower values are higher in the menu. Any pages not listed will get priority 999.
 
 ```php
