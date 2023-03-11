@@ -234,7 +234,6 @@ You can also disable the feature completely.
 ],
 ```
 
-
 ### Using flattened output paths
 
 If this setting is set to true, Hyde will output all documentation pages into the same configured documentation output directory.
@@ -289,6 +288,7 @@ If you have a large page, like a changelog, on your documentation sites you may 
 ```
 
 The page will still be accessible via the URL, but will be added to the search index JSON file. Don't include the file extension.
+
 
 ## Automatic "Edit Page" button
 
