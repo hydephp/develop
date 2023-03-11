@@ -166,7 +166,8 @@ Specify a cover image for the post, either by a local image path for a file in t
 
 #### Local image path
 
-Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL in the built site.
+When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
+Like all other media files, it will be copied to `_site/media/` when the site is built, so Hyde will resolve links accordingly.
 
 ```yaml
 image: image.jpg
