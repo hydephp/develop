@@ -16,6 +16,15 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.3](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.3) - 2023-03-11
+
+### Changed
+- Made the `HydePage::$title` property readonly
+
+### Deprecated
+- `HydePage::$canonicalUrl`
+
+
 ## [v1.0.0-RC.2](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.2) - 2023-03-10
 
 ### Added
