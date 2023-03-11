@@ -181,7 +181,7 @@ for example to specify a version like the Hyde docs does, you can specify the ou
 The path is relative to the site output, typically `_site`.
 
 ```php
-// filepath: _config/hyde.php
+// filepath: config/hyde.php
 'output_directories' => [
     \Hyde\Pages\DocumentationPage::class => 'docs' // default [tl! --]
     \Hyde\Pages\DocumentationPage::class => 'docs/1.x' // What the Hyde docs use [tl! ++]
