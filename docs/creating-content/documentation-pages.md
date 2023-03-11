@@ -248,7 +248,7 @@ You can disable it by removing the `documentationSearch` from the Hyde `Features
 
 The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
 
-Two types of search methods are added, one is a full page search screen that will saved to `docs/search.html`.
+Two types of search methods are added, one is a full page search screen that will be saved to `docs/search.html`.
 <small><blockquote>The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.</blockquote></small>
 > Note that the fullpage search is used as a fallback for browsers that don't support the `<dialogue>` element, and may lead to 404 errors if disabled.
 
