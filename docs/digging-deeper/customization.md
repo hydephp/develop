@@ -199,7 +199,7 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 
 ### Navigation Menu & Sidebar
 
-One of my (the author's) favourite features with Hyde is its automatic navigation menu and documentation sidebar generator.
+One of my favourite features with Hyde is its automatic navigation menu and documentation sidebar generator.
 
 #### How it works:
 
