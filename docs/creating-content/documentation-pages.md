@@ -147,7 +147,7 @@ navigation:
     group: "Getting Started"
 ```
 
-#### Using subdirectories
+#### Automatic subdirectory grouping
 
 You can also automatically group your documentation pages by placing source files in sub-directories.
 
