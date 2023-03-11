@@ -75,7 +75,7 @@ You can set just one or all of them, as Hyde will fill in the gaps for the rest.
 navigation:
     label: 'string',
     priority: 'int',
-    hidden: 'bool', 
+    hidden: 'bool',
     group: 'string',
 ```
 
@@ -84,10 +84,11 @@ navigation:
 - `hidden` will hide the page from the navigation menu (`visible`) is also supported, but obviously invert the value)
 - `group` will put the page in a dropdown menu with the specified group name (`category`) is also supported)
 
+
 ## Creating Blade Pages
 
 Since Hyde is based on Laravel and uses the powerful Blade templating engine, you can use Blade pages to create more
-complex pages with both standard HTML, PHP code, and the templating opportunities provided by Blade directives. 
+complex pages with both standard HTML, PHP code, and the templating opportunities provided by Blade directives.
 
 If you are not familiar with Blade, you may want to read [the Laravel Blade docs](https://laravel.com/docs/9.x/blade) first.
 
