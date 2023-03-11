@@ -255,7 +255,7 @@ If you set this to false, Hyde will match the directory structure of the source 
 The HydeSearch plugin adds a search feature to documentation pages. It consists of two parts, a search index generator
 that runs during the build command, and a frontend JavaScript plugin that adds the actual search widget.
 
->info Tip: The HydeSearch plugin is what powers the search feature on this site!
+>info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)!
 
 The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
 
