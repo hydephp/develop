@@ -64,8 +64,6 @@ The most common front matter used for Markdown pages is the title, which is used
 If you don't supply a front matter title, Hyde will attempt to find a title in the Markdown body by searching
 for the first level one heading (`# Page Title`), and if that fails, it will generate one from the filename.
 
-You can also set the `canonicalUrl` metadata in the front matter to set the canonical URL for the page.
-
 #### Navigation Front Matter
 
 Furthermore, you can customize how the page appears in the navigation menu using the following front matter options.
