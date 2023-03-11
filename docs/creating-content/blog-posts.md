@@ -192,7 +192,7 @@ You can also supply an array of data to construct a rich image with a fluent cap
 image:
     source: Local image path or full URL
     altText: "Alt text for image"
-    title: "Tooltip title"
+    titleText: "Tooltip title"
     copyright: "Copyright (c) 2022"
     licenseName: "CC-BY-SA-4.0"
     licenseUrl: https://example.com/license/
