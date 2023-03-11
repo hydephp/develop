@@ -28,6 +28,7 @@ The configuration values may be accessed using "dot notation" syntax, which incl
 ```php
 $value = config('hyde.name');
 ```
+
 A default value may also be specified and will be returned if the configuration option does not exist:
 
 ```php
