@@ -75,7 +75,10 @@ These are the main configuration files for HydePHP and lets you customize the lo
 
 ### Publishable Laravel & Package Configuration Files
 
-Since HydePHP is based on Laravel we also have a few configuration files related to them. You probably don't need to edit any of these unless you want to make changes to the application core.
+Since HydePHP is based on Laravel we also have a few configuration files related to them. As you most often don't need
+to edit any of these, unless you want to make changes to the underlying application, they are not present in the
+base HydePHP installation. However, you can publish them to your project by running `php hyde publish:configs`.
+
 
 | Config File                                                                                                            | Description                                                             |
 |------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
