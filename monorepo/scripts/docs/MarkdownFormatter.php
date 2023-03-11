@@ -279,6 +279,18 @@ if (count($headings)) {
         foreach ($fileHeadings as $heading) {
             $headingLevel = substr_count($heading, '#');
             $headingLevels[] = $headingLevel;
+
+            // Check for style: 1-2 headings should be title case, 3+ should be sentence case
+            $something = false;
+            if ($headingLevel < 3) {
+                if ($something) {
+                    $warnings['Headings'][] = "Heading in $filename should be title case: $heading";
+                }
+            } else {
+                if ($something) {
+                    $warnings['Headings'][] = "Heading in $filename should be sentence case: $heading";
+                }
+            }
         }
     }
 }
