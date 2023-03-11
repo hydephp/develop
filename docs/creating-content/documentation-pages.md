@@ -272,7 +272,7 @@ Two ways to access the search methods are added, one is a full page search scree
 > The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
-Opening it will open a dialog modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
+Opening it will open a modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
 
 ### Hiding pages from indexing
 
