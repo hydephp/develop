@@ -66,6 +66,7 @@ $matrix = [
         'class' => \Hyde\Foundation\HydeKernel::class,
         'instanceVariableName' => '$hyde',
         'outputFile' => "$basePath/hyde-kernel-base-methods.md",
+        'facadeName' => 'Hyde',
     ],
 ];
 $timeStart = microtime(true);
@@ -91,6 +92,7 @@ function generate(array $options): void
     $class = $options['class'];
     $instanceVariableName = $options['instanceVariableName'];
     $outputFile = $options['outputFile'];
+    $facadeName = $options['facadeName'] ?? null; // If the class has a facade we use that instead of instance variable names
 
     echo "\033[33mGenerating documentation for $class...\033[0m";
 
@@ -118,12 +120,12 @@ function generate(array $options): void
 
     // Generate static methods
     foreach ($staticMethods as $method) {
-        documentMethod($method, $output, $class, $instanceVariableName);
+        documentMethod($method, $output, $class, $instanceVariableName, $facadeName);
     }
 
     // Generate instance methods
     foreach ($instanceMethods as $method) {
-        documentMethod($method, $output, $class, $instanceVariableName);
+        documentMethod($method, $output, $class, $instanceVariableName, $facadeName);
     }
 
     // Assemble end time in milliseconds
@@ -144,7 +146,7 @@ function generate(array $options): void
     $text = postProcess($text);
 
     // Output the documentation
-    // echo $text;
+     echo $text;
 
     // Check if any changes were made compared to the existing file (excluding metadata markers)
     if (file_exists($outputFile)) {
@@ -164,7 +166,7 @@ function generate(array $options): void
     echo "\n\033[0m Convents saved to ".realpath($outputFile)."\n";
 }
 
-function documentMethod(ReflectionMethod $method, array &$output, string $class, string $instanceVariableName): void
+function documentMethod(ReflectionMethod $method, array &$output, string $class, string $instanceVariableName, ?string $facadeName = null): void
 {
     $template = <<<'MARKDOWN'
     #### `{{ $methodName }}()`
@@ -180,8 +182,13 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
 
     $staticSignatureTemplate = '{{ $className }}::{{ $methodName }}';
     $instanceSignatureTemplate = '{{ $instanceVariableName }}->{{ $methodName }}';
+    $facadeSignatureTemplate = '{{ $facadeName }}::{{ $methodName }}';
 
     $signatureTemplate = $method->isStatic() ? $staticSignatureTemplate : $instanceSignatureTemplate;
+
+    if ($facadeName !== null) {
+        $signatureTemplate = $facadeSignatureTemplate;
+    }
 
     if ($method->getName() === '__construct') {
         $signatureTemplate = '{{ $instanceVariableName }} = new {{ $className }}';
@@ -311,6 +318,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
         '{{ $className }}' => e($className),
         '{{ $argList }}' => e($argList),
         '{{ $returnType }}' => ($returnType),
+        '{{ $facadeName }}' => $facadeName,
     ];
     $markdown = str_replace(array_keys($replacements), array_values($replacements), $template);
 
