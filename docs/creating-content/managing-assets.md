@@ -35,21 +35,24 @@ If you use Markdown-based pages, you do not need to compile anything as those st
 
 ## How are assets stored and managed?
 
-Currently, the frontend assets are separated into three places.
+The frontend assets are separated into three places.
 
-The `resources/assets` contains **source** files, meaning files that will be compiled into something else. Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place to add your custom styles. It is also where we import HydeFront.
+- The `resources/assets` contains **source** files, meaning files that will be compiled into something else.
+Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place 
+to add your custom styles. It is also where we import HydeFront. If you compile this file in the base install,
+it will output the same file that's already included in Hyde.
 
-The `_media` folder contains **compiled** (and usually minified) files. When Hyde compiles your static site, all asset files here will get copied as they are into the `_site/media` folder.
+- The `_media` folder contains **compiled** (and usually minified) files. When Hyde compiles your static site,
+all asset files here will get copied as they are into the `_site/media` folder.
 
-The `_site/media` folder contains the files that are served to the user.
+- The `_site/media` folder contains the files that are served to the user.
 
 ### What is the difference between `_media` and `_site/media`?
 
 It may seem weird to have two folders for storing the compiled assets, but it is quite useful.
 
-The `_site` directory is intended to be excluded from version control while the `_media` folder is included in the version control, though you may choose to exclude the compiled files from the `_media` folder if you want to.
-
-You are of course free to modify this behavior by editing the `webpack.mix.js` file.
+The `_site` directory is intended to be excluded from version control, while the `_media` folder is included in the
+version control. You are of course free to modify this behavior by editing the `webpack.mix.js` file to change the output directory.
 
 
 ## How do I compile assets?
