@@ -16,7 +16,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- HydePage::$canonicalUrl
 
 ### Removed
 - for now removed features.
