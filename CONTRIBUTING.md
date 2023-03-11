@@ -54,7 +54,7 @@ Before submitting a pull request:
 
 If the project maintainer has any additional requirements, you will find them listed here.
 
-We try to follow the Laravel standards, https://laravel.com/docs/9.x/contributions#coding-style
+We try to follow the Laravel standards, https://laravel.com/docs/10.x/contributions#coding-style
 
 - **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)**
 
