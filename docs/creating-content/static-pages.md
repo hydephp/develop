@@ -88,7 +88,7 @@ navigation:
 Since Hyde is based on Laravel and uses the powerful Blade templating engine, you can use Blade pages to create more
 complex pages with both standard HTML, PHP code, and the templating opportunities provided by Blade directives.
 
-If you are not familiar with Blade, you may want to read [the Laravel Blade docs](https://laravel.com/docs/9.x/blade) first.
+If you are not familiar with Blade, you may want to read [the Laravel Blade docs](https://laravel.com/docs/10.x/blade) first.
 
 ### Scaffolding Blade Pages
 

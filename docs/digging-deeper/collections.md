@@ -8,13 +8,13 @@ navigation:
 
 ## Introduction to Hyde Data Collections
 
-Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/9.x/collections) giving you
+Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you
 a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
 it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get
 parsed into objects that you can easily work with.
 
 As you have access to all standard Laravel Collection methods, you are encouraged to read the
-[Laravel Collections documentation](https://laravel.com/docs/9.x/collections) for more information.
+[Laravel Collections documentation](https://laravel.com/docs/10.x/collections) for more information.
 
 This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
 
