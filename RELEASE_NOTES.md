@@ -13,10 +13,10 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- Made the `HydePage::$title` property readonly
+- for changes in existing functionality.
 
 ### Deprecated
-- HydePage::$canonicalUrl
+- for soon-to-be removed features.
 
 ### Removed
 - for now removed features.
