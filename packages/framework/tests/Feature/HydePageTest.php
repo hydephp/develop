@@ -370,9 +370,7 @@ class HydePageTest extends TestCase
             MarkdownPage::all()
         );
         $this->assertEquals(
-            ['_pages/foo.md' => tap(new MarkdownPage('foo'), function ($page) {
-                $page->title = 'Foo';
-            })],
+            ['_pages/foo.md' => (new MarkdownPage('foo'))],
             MarkdownPage::all()->all()
         );
         Filesystem::unlink('_pages/foo.md');
