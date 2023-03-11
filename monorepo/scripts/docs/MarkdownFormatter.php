@@ -184,6 +184,10 @@ function normalize_lines($filename): void
                 }
                 $signature = substr($signature, 0, $end);
                 $signatures = getSignatures();
+                if (! in_array($signature, $signatures)) {
+                    global $warnings;
+                    $warnings['Invalid command signatures'][] = sprintf('Invalid command signature \'%s\' found in %s:%s', $signature, $filename, $index + 1);
+                }
             }
         }
 
