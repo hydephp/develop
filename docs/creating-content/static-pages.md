@@ -24,9 +24,9 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 - Hyde Pages are files are stored in the `_pages` directory
 - The filename is used as the filename for the compiled HTML
-- Filenames should use `kebab-case-slug` format, followed by the appropriate extension
+- Filenames should use `kebab-case-identifier` format, followed by the appropriate extension
 - Files prefixed with `_underscores` are ignored by Hyde
-- Your page will be stored in `_site/<slug>.html`
+- Your page will be stored in `_site/<identifier>.html`
 - Blade pages will override any Markdown pages with the same filename when compiled
 
 
