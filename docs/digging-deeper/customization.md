@@ -15,6 +15,7 @@ if you need it. This page guides you through the many options available!
 All the configuration files are stored in the config directory, and allow you to customize almost all aspects of your site.
 Each option is documented, so feel free to look through the files and get familiar with the options available to you.
 
+
 ## Accessing Configuration Values
 
 ### Configuration API Recap
@@ -45,7 +46,6 @@ $name = Config::getString('hyde.name', 'HydePHP'): string;
 
 As seen in the example above, when referencing configuration options, we often use "dot notation" to specify the configuration file.
 For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.
-
 
 ### Front Matter or Configuration Files?
 
