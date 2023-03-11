@@ -149,7 +149,7 @@ navigation:
 
 #### Using subdirectories
 
-Since [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-beta), you can also automatically group your documentation pages by placing source files in sub-directories.
+You can also automatically group your documentation pages by placing source files in sub-directories.
 
 For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter in the step above.
 
