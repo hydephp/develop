@@ -217,6 +217,19 @@ function normalize_lines($filename): void
                 $warnings['Legacy markers'][] = sprintf('Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
             }
         }
+
+        // Warn when legacy terms are used (for example slug instead of identifier/route key)
+        $legacyTerms = [
+            'slug' => '"identifier" or "route key"',
+            'slugs' => '"identifiers" or "route keys"',
+        ];
+
+        foreach ($legacyTerms as $legacyTerm => $newTerm) {
+            if (str_contains($line, $legacyTerm)) {
+                global $warnings;
+                $warnings['Legacy terms'][] = sprintf('Legacy term found in %s:%s Found "%s", should be %s', $filename, $index + 1, $legacyTerm, $newTerm);
+            }
+        }
     }
 
     $new_content = implode("\n", $new_lines);
