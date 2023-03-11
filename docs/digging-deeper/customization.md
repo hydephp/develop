@@ -224,7 +224,7 @@ Let's see an example:
 
 ```php
 // filepath: config/docs.php
-// This is the default values in the config. It puts the readme.md first in order.
+// These are the default values in the config. It puts the readme.md first in order.
 'sidebar_order' => [
     'readme', // This is the first entry, so it gets the priority 500 + 0
     'installation', // This gets priority 500 + 1
