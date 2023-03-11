@@ -18,6 +18,7 @@ Some extra custom styles are made in the HydeFront package, which is pre-install
 To get you started quickly, all the styles are already compiled minified into `_media/app.css`, which will be copied
 to the `_site/media/app.css` directory when you run `php hyde build`.
 
+
 ## Additional Information and Answers to Common Questions
 
 ### Is NodeJS/NPM Required for Using Hyde?
@@ -38,7 +39,7 @@ If you use Markdown-based pages, you do not need to compile anything as those st
 The frontend assets are separated into three places.
 
 - The `resources/assets` contains **source** files, meaning files that will be compiled into something else.
-Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place 
+Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place
 to add your custom styles. It is also where we import HydeFront. If you compile this file in the base install,
 it will output the same file that's already included in Hyde.
 
