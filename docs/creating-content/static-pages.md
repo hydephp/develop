@@ -59,13 +59,30 @@ You can of course also create the file yourself with your text editor.
 
 ### Front Matter is optional
 
-The only front matter supported is the title, which is used as the HTML `<title>`.
+The most common front matter used for Markdown pages is the title, which is used as the HTML `<title>`.
 
 If you don't supply a front matter title, Hyde will attempt to find a title in the Markdown body by searching
 for the first level one heading (`# Page Title`), and if that fails, it will generate one from the filename.
 
-In the future, more front matter options such as page descriptions and meta tags will be supported.
+You can also set the `canonicalUrl` metadata in the front matter to set the canonical URL for the page.
 
+#### Navigation Front Matter
+
+Furthermore, you can customize how the page appears in the navigation menu using the following front matter options.
+You can set just one or all of them, as Hyde will fill in the gaps for the rest.
+
+```yaml
+navigation:
+    label: 'string',
+    priority: 'int',
+    hidden: 'bool', 
+    group: 'string',
+```
+
+- `label` is the text that will be displayed in the navigation menu
+- `priority` is the order in which the page will appear in the navigation menu (`order` is also supported)
+- `hidden` will hide the page from the navigation menu (`visible`) is also supported, but obviously invert the value)
+- `group` will put the page in a dropdown menu with the specified group name (`category`) is also supported)
 
 ## Creating Blade Pages
 
