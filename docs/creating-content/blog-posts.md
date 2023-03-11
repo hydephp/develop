@@ -134,16 +134,22 @@ date: "2022-01-01 12:00"
 Specify a page author, either by a username for an author defined in the `authors` config, or by an arbitrary name, 
 or by an array of author data. See the [Post Author](#post-authors) section for more details.
 
-```yaml
-author: "Mr. Hyde" # Arbitrary name displayed "as is"
-```
+#### Arbitrary name displayed "as is"
 
 ```yaml
-author: mr_hyde # Username defined in `authors` config
+author: "Mr. Hyde"
 ```
 
+#### Username defined in `authors` config
+
 ```yaml
-author: # Array of author data
+author: mr_hyde
+```
+
+#### Array of author data
+
+```yaml
+author:
     name: "Mr. Hyde"
     username: mr_hyde
     website: https://twitter.com/HydeFramework
