@@ -66,7 +66,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     public PageMetadataBag $metadata;
     public NavigationData $navigation;
 
-    public string $title;
+    public readonly string $title;
     public ?string $canonicalUrl;
 
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
