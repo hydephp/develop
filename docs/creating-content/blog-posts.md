@@ -179,7 +179,6 @@ image: image.jpg
 Full URL starting with `http(s)://`) or `//` (protocol-relative).
 The image source will be used as-is, and no additional processing is done.
 
-
 ```yaml
 image: https://cdn.example.com/image.jpg
 ```
