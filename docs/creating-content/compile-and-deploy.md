@@ -8,8 +8,6 @@ navigation:
 
 ## Running the build command
 
-### Compile the entire site to static HTML
-
 Now that you have some amazing content, you'll want to compile your site into static HTML.
 
 **This is as easy as executing the `build` command:**
@@ -17,8 +15,6 @@ Now that you have some amazing content, you'll want to compile your site into st
 ```bash
 php hyde build
 ```
-
-### Other ways to compile the site
 
 **You can also compile a single file:**
 
