@@ -173,6 +173,16 @@ Like all other media files, it will be copied to `_site/media/` when the site is
 image: image.jpg
 ```
 
+#### Full URL
+
+Full URL starting with `http(s)://`) or `//` (protocol-relative).
+The image source will be used as-is, and no additional processing is done.
+
+
+```yaml
+image: https://cdn.example.com/image.jpg
+```
+
 ```yaml
 image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL for the built site
 image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) or `//` (protocol-relative)
