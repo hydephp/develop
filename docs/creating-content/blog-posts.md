@@ -183,6 +183,10 @@ The image source will be used as-is, and no additional processing is done.
 image: https://cdn.example.com/image.jpg
 ```
 
+#### Data-rich image
+
+You can also supply an array of data to construct a rich image with a fluent caption.
+
 ```yaml
 image:
     source: image.jpg # Same as above
