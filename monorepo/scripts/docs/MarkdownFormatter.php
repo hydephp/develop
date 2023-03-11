@@ -218,6 +218,11 @@ if (count($links) > 0) {
         $line = $data['line'];
 
         if (str_starts_with($link, 'http')) {
+            // Check for outdated links
+            // laravel.com/docs/9.x
+            if (str_contains($link, 'laravel.com/docs/9.x')) {
+                $warnings['Outdated links'][] = "Outdated documentation link to $link found in $filename:$line";
+            }
             continue;
         }
 
