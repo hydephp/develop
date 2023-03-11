@@ -291,7 +291,6 @@ navigation menu items are hidden. The page will still be accessible as normal bu
 ```
 
 
-
 ## Automatic "Edit Page" button
 
 ### Introduction
