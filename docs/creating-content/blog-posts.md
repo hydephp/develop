@@ -190,8 +190,7 @@ You can also supply an array of data to construct a rich image with a fluent cap
 
 ```yaml
 image:
-    source: image.jpg # Same as above
-    source: https://cdn.example.com/image.jpg # Same as above
+    source: Local image path or full URL
     altText: "Alt text for image"
     title: "Tooltip title"
     copyright: "Copyright (c) 2022"
