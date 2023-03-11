@@ -97,6 +97,9 @@ in quotes, but it can help in certain edge cases, thus they are included here.
 
 In the examples below, when there are multiple examples, they signify various ways to use the same property.
 
+When specifying an array you don't need all the sub-properties. The examples generally show all the supported values.
+
+
 ### Title
 
 ```yaml
