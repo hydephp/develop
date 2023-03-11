@@ -223,6 +223,7 @@ If a page does not exist in the list they get priority 999, which puts them last
 Let's see an example:
 
 ```php
+// filepath: config/docs.php
 // torchlight! {"lineNumbers": false}
 // This is the default values in the config. It puts the readme.md first in order.
 'sidebar_order' => [
