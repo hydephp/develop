@@ -89,7 +89,7 @@ base HydePHP installation. However, you can publish them to your project by runn
 
 {.align-top}
 
-If any of these files are missing, you can run `php hyde update:configs` to copy the default files to your project.
+If any of these files are missing, you can run `php hyde publish:configs` to copy the default files to your project.
 
 
 ## Configuration Options
