@@ -92,8 +92,8 @@ Keep on reading to see further explanations, details, and examples.
 | `author`       | string/array   | _See [author](#author) section_  |
 | `image`        | string/array   | _See [image](#image) section_    |
 
-Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings
-in quotes, but it can help in certain edge cases, for example if the text contains special Yaml characters, thus they are included here.
+Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings in quotes,
+but it can help in certain edge cases, for example if the text contains special Yaml characters, thus they are included here.
 
 In the examples below, when there are multiple examples, they signify various ways to use the same property.
 
