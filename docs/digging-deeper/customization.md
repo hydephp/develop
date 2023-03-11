@@ -9,7 +9,12 @@ navigation:
 ## Introduction
 
 Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuration">"Convention over Configuration"</a>
-and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable if you need it. This page guides you through the many options available!
+and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable
+if you need it. This page guides you through the many options available!
+
+All the configuration files are stored in the config directory, abd allow you to customize almost all aspects of your site.
+Each option is documented, so feel free to look through the files and get familiar with the options available to you.
+
 
 When referencing configuration options, we often use "dot notation" to specify the configuration file. For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.
 
