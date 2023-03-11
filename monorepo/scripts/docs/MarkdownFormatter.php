@@ -270,7 +270,6 @@ if (count($links) > 0) {
     }
 }
 
-
 // Just to make PhpStorm happy
 $headings['foo.md'][1] = '## Bar';
 
@@ -286,8 +285,8 @@ if ($checksHeadings && count($headings)) {
             $titleCase = Hyde\make_title($headingText);
             $alwaysUppercase = ['PHP', 'HTML', 'CLI'];
             $alwaysLowercase = ['to'];
-            $titleCase =  (str_ireplace($alwaysUppercase, $alwaysUppercase, $titleCase));
-            $titleCase =  (str_ireplace($alwaysLowercase, $alwaysLowercase, $titleCase));
+            $titleCase = (str_ireplace($alwaysUppercase, $alwaysUppercase, $titleCase));
+            $titleCase = (str_ireplace($alwaysLowercase, $alwaysLowercase, $titleCase));
 
             $isTitleCase = $headingText === $titleCase;
             $sentenceCase = \Illuminate\Support\Str::ucfirst($headingText);
