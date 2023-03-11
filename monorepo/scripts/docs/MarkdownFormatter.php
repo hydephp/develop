@@ -174,7 +174,7 @@ function normalize_lines($filename): void
                 $start = strpos($line, 'php hyde');
                 $substr = substr($line, $start);
                 $explode = explode(' ', $substr, 3);
-                $signature = $explode[0].' '.$explode[1] . ' ' . $explode[2];
+                $signature = $explode[0].' '.$explode[1].' '.$explode[2];
                 $end = strpos($signature, '`');
                 if ($end === false) {
                     $end = strpos($signature, '<');
@@ -300,7 +300,8 @@ if (count($links) > 0) {
     }
 }
 
-function getSignatures(): array {
+function getSignatures(): array
+{
     static $signatures = null;
 
     if ($signatures === null) {
@@ -317,6 +318,7 @@ function getSignatures(): array {
             file_put_contents($cache, '<?php return '.var_export($signatures, true).';');
         }
     }
+
     return $signatures;
 }
 
