@@ -131,6 +131,9 @@ date: "2022-01-01 12:00"
 
 ### Author
 
+Specify a page author, either by a username for an author defined in the `authors` config, or by an arbitrary name, 
+or by an array of author data. See the [Post Author](#post-authors) section for more details.
+
 ```yaml
 author: "Mr. Hyde" # Arbitrary name displayed "as is"
 ```
