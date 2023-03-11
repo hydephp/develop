@@ -298,6 +298,17 @@ if (count($links) > 0) {
 
 function getSignatures(): array {
     static $signatures = null;
+
+    if ($signatures === null) {
+        $commandRaw = shell_exec('cd ../../../ && php hyde list --raw');
+        foreach (explode("\n", $commandRaw) as $command) {
+            $command = Str::before($command, ' ');
+            if ($command) {
+                $signatures[] = 'php hyde '.$command;
+            }
+        }
+    }
+    return $signatures;
 }
 
 // Just to make PhpStorm happy
