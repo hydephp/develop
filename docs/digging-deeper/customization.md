@@ -22,7 +22,7 @@ Each option is documented, so feel free to look through the files and get famili
 
 HydePHP uses the same configuration system as Laravel. Here's a quick recap from the [Laravel Documentation](https://laravel.com/docs/10.x/configuration):
 
-You may easily access your configuration values using the global `config` function from anywhere in your application.
+You may easily access your configuration values using the global `config` function from anywhere in your project code.
 The configuration values may be accessed using "dot notation" syntax, which includes the name of the file and option you wish to access.
 A default value may also be specified and will be returned if the configuration option does not exist:
 
