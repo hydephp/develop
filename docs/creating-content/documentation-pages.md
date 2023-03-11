@@ -242,6 +242,12 @@ The HydeSearch plugin adds a search feature to documentation pages.
 
 The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
 
+```php
+// filepath: config/hyde.php
+'features' => [
+    Features::documentationSearch(), // [tl! --]
+],
+```
 
 #### Using the search
 
