@@ -264,7 +264,6 @@ navigation:
 ---
 ```
 
-
 #### Adding Custom Navigation Menu Links
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
