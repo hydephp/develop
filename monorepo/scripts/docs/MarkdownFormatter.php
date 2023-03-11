@@ -183,6 +183,7 @@ function normalize_lines($filename): void
                     }
                 }
                 $signature = substr($signature, 0, $end);
+                $signatures = getSignatures();
             }
         }
 
@@ -293,6 +294,10 @@ if (count($links) > 0) {
             }
         }
     }
+}
+
+function getSignatures(): array {
+    
 }
 
 // Just to make PhpStorm happy
