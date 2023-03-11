@@ -98,6 +98,8 @@ function normalize_lines($filename): void
         // Check if line is a heading
         if (str_starts_with($line, '##')) {
             $was_last_line_heading = true;
+            global $headings;
+            $headings[$filename][$index + 1] = $line;
         } else {
             $was_last_line_heading = false;
         }
