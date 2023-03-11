@@ -8,13 +8,11 @@ navigation:
 
 ## Introduction to Hyde Posts
 
-Making blog posts with Hyde is easy. At the most basic level,
-all you need is to add a Markdown file to your `_posts` folder.
+Making blog posts with Hyde is easy. At the most basic level, all you need is to add a Markdown file to your `_posts` folder.
 
-To use the full power of the Hyde post module however,
-you'll want to add YAML Front Matter to your posts.
+To use the full power of the Hyde post module however, you'll want to add YAML [Front Matter](front-matter) to your posts.
 
-You can scaffold posts with automatic front matter using the HydeCLI:
+**You can interactively scaffold posts with automatic front matter using the HydeCLI:**
 
 ```bash
 php hyde make:post
