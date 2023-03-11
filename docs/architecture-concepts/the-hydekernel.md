@@ -52,6 +52,9 @@ You can read all about it in the [Autodiscovery Documentation](autodiscovery).
 
 ## API Reference
 
+Since the most common way to interact with the kernel is through the Hyde facade, we will use that for the examples.
+But you could just as well chain the methods on the accessed kernel singleton instance if you wanted.
+
 <section id="hyde-kernel-base-methods">
 
 <!-- Start generated docs for Hyde\Foundation\HydeKernel -->
