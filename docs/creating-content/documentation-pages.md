@@ -183,7 +183,7 @@ The path is relative to the site output, typically `_site`.
 // filepath: _config/hyde.php
 'output_directories' => [
     \Hyde\Pages\DocumentationPage::class => 'docs' // default
-    \Hyde\Pages\DocumentationPage::class => 'docs/master' // What the Hyde docs use
+    \Hyde\Pages\DocumentationPage::class => 'docs/1.x' // What the Hyde docs use
 ]
 ```
 
