@@ -170,7 +170,19 @@ function normalize_lines($filename): void
 
             // Check for invalid command signatures
             if (str_contains($line, 'php hyde')) {
-               
+                // Extract signature from line
+                $start = strpos($line, 'php hyde');
+                $substr = substr($line, $start);
+                $explode = explode(' ', $substr, 3);
+                $signature = $explode[0].' '.$explode[1] . ' ' . $explode[2];
+                $end = strpos($signature, '`');
+                if ($end === false) {
+                    $end = strpos($signature, '<');
+                    if ($end === false) {
+                        $end = strlen($signature);
+                    }
+                }
+                $signature = substr($signature, 0, $end);
             }
         }
 
