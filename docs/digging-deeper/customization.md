@@ -24,12 +24,13 @@ HydePHP uses the same configuration system as Laravel. Here's a quick recap from
 
 You may easily access your configuration values using the global `config` function from anywhere in your project code.
 The configuration values may be accessed using "dot notation" syntax, which includes the name of the file and option you wish to access.
-A default value may also be specified and will be returned if the configuration option does not exist:
 
 ```php
 $value = config('hyde.name');
+```
+A default value may also be specified and will be returned if the configuration option does not exist:
 
-// Retrieve a default value if the configuration value does not exist...
+```php
 $value = config('hyde.name', 'HydePHP');
 ```
 
