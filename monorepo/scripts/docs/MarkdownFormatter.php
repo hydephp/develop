@@ -283,6 +283,9 @@ if (count($headings)) {
             // Check for style: 1-2 headings should be title case, 3+ should be sentence case
             $headingText = trim(str_replace('#', '', $heading));
             $titleCase = Hyde\make_title($headingText);
+            $alwaysUppercase = ['PHP', 'HTML', 'CLI'];
+            $titleCase =  (str_ireplace($alwaysUppercase, $alwaysUppercase, $titleCase));
+
             $isTitleCase = $headingText === $titleCase;
             $sentenceCase = \Illuminate\Support\Str::ucfirst($headingText);
             $isSentenceCase = $headingText === $sentenceCase;
