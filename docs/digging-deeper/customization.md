@@ -211,7 +211,7 @@ The navigation menu is a bit more sophisticated, it adds all the top-level Blade
 
 Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
 
-Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
+Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If an identifier is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
 
 Let's see an example:
 
