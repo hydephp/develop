@@ -307,7 +307,7 @@ function getSignatures(): array {
             $commandRaw = shell_exec('cd ../../../ && php hyde list --raw');
             foreach (explode("\n", $commandRaw) as $command) {
                 $command = Str::before($command, ' ');
-                $signatures[] = 'php hyde '.$command;
+                $signatures[] = trim('php hyde '.$command);
             }
             file_put_contents($cache, '<?php return '.var_export($signatures, true).';');
         }
