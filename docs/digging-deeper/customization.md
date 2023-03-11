@@ -268,7 +268,8 @@ navigation:
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
 
-When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional, and defaults to 500.
+When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the
+destination and label, both required. Third argument is the priority, which is optional, and defaults to 500.
 
 ```php
 // filepath config/hyde.php
