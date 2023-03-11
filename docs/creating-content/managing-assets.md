@@ -100,12 +100,16 @@ If you want to load the same pre-compiled file included with Hyde but from a CDN
 
 ### Using the TailwindCSS Play CDN
 
-If you want to use the [TailwindCSS Play CDN](https://tailwindcss.com/docs/installation/play-cdn), you can set `use_play_cdn` to `true` in the `config/hyde.php` file.
-This will in addition to loading the standard app.css file also add a script tag to load the TailwindCSS Play CDN.
-What's even better is that Hyde will also inject the contents of the included `tailwind.config.js` file into the script tag, so the Play CDN styles match the ones created by Laravel Mix.
-This also means you can tinker around with the TailwindCSS settings without having to compile anything.
-
 >warning Note that the Play CDN is not meant for production use, so enabling it will add a warning to the web console.
+
+If you want to use the [TailwindCSS Play CDN](https://tailwindcss.com/docs/installation/play-cdn), all you need to do is
+set `use_play_cdn` to `true` in the `config/hyde.php` file. This will in addition to loading the standard `app.css` file,
+also add a script tag which loads the TailwindCSS Play CDN.
+
+What's even better is that Hyde will also inject the contents of the included `tailwind.config.js` file into the script tag,
+so the Play CDN styles match the ones created by Laravel Mix.
+
+All in all, this allows you to tinker around with Tailwind without having to compile anything.
 
 
 ## Managing images
