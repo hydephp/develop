@@ -290,9 +290,11 @@ Simplified, this will then be rendered as follows:
 
 #### Excluding Items (Blacklist)
 
-Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
+To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
 
-Note that we don't specify the page type, since only top level pages are added to the navigation menu (with the exception of the automatic documentation page link, which can be hidden in the config by using `docs/index`).
+Note that we don't specify the page type, since only top level pages are added to the navigation menu 
+(with the exception of the automatic documentation page link, which can be hidden in the config by using `docs/index`).
 
 ```php
 'navigation' => [
