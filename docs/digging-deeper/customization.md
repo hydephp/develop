@@ -302,7 +302,7 @@ As you can see, the `404` page has already been filled in for you.
 ]
 ```
 
-You can also specify that a page should be excluded by setting the page front matter. Note that since Blade pages do not support front matter, this will only work for Markdown pages.
+You can also specify that a page should be excluded by setting the page front matter. 
 
 ```markdown
 ---
