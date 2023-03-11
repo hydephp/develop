@@ -222,7 +222,7 @@ Let's see an example:
 ```php
 // torchlight! {"lineNumbers": false}
 // This is the default values in the config. It puts the readme.md first in order.
-'documentationPageOrder' => [
+'sidebar_order' => [
     'readme', // This is the first entry, so it gets the priority 0
     'installation', // This gets priority 1
     'getting-started', // And this gets priority 2
