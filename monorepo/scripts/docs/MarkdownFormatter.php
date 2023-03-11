@@ -274,7 +274,11 @@ if (count($links) > 0) {
 $headings['foo.md'][1] = '## Bar';
 
 if (count($headings)) {
-        
+    foreach ($headings as $filename => $fileHeadings) {
+        foreach ($fileHeadings as $heading) {
+            //
+        }
+    }
 }
 
 if (count($warnings) > 0) {
