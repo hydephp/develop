@@ -81,6 +81,8 @@ navigation:
 Hyde makes documentation pages easy to create by automatically generating dynamic content such as the sidebar and page title.
 If you are not happy with the results you can customize them in the config or with front matter.
 
+### Front Matter reference
+
 Before we look at how to override things, here is an overview of the relevant content Hyde generates,
 and where the data is from as well as where it can be overridden.
 
