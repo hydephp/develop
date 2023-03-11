@@ -200,17 +200,6 @@ image:
     authorName: "John Doe"
 ```
 
-**The following properties are supported:**
-
-- **source:**       Name of a file in _media/ or a remote URL (required)
-- **altText:**      The alt text (important for accessibility)
-- **titleText:**    The title text (hover tooltip & metadata) 
-- **licenseName:**  The name of the license (e.g. "CC BY 4.0")
-- **licenseUrl:**   The URL of the license (e.g. "https://creativecommons.org/licenses/by/4.0/")
-- **authorName:**   The name of the author/photographer of the image (e.g. "John Doe", Wikimedia Commons)
-- **authorUrl:**    The URL of the author/photographer of the image (e.g. "https://commons.wikimedia.org/wiki/User:John_Doe", Wikimedia Commons)
-- **copyright:**    The copyright text (e.g. "© 2023 John Doe")
-
 > See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
 { .info }
