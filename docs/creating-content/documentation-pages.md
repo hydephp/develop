@@ -8,10 +8,8 @@ navigation:
 
 ## Introduction to Hyde Documentation Pages
 
-Hyde makes it easier than ever to create documentation sites.
-By the way, this documentation site is of course made with the Hyde Documentation module!
-
-In short, all you need to do is put standard Markdown files in the `_docs/` directory and Hyde will do the rest.
+Welcome to the Hyde Documentation Pages, where creating professional-looking documentation sites has never been easier.
+Using the Hyde Documentation module, all you need to do is place standard Markdown files in the _docs/ directory, and Hyde takes care of the rest.
 
 What is "the rest", you may ask? Well, for starters:
 
