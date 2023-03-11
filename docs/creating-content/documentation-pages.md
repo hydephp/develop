@@ -96,7 +96,7 @@ and where the data is from as well as where it can be overridden.
 ## Sidebar
 
 The sidebar is automatically generated from the files in the `_docs` directory. You will probably want to change the order
-of these items. You can do this in two ways, either in the config or with front matter using the navigation array.
+of these items. You can do this in two ways, either in the config or with front matter using the navigation array settings.
 
 ### Table of contents
 
