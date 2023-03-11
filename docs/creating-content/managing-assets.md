@@ -129,6 +129,7 @@ The path to use depends on the location of the page. Note the subtle difference 
 - If you are in a **Blog Post or Documentation Page**, use `../media/image.png`
 - If in a **Markdown Page or Blade Page**, use `media/image.png`
 - While not recommended, you can also use absolute paths: `/media/image.png`
+- You can of course also use full URLs, for example when using a CDN.
 
 #### Making images accessible
 
