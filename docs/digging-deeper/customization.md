@@ -255,7 +255,7 @@ Lower values are higher in the menu, and any pages not listed will get priority 
 
 You can also set the priority of a page directly in the front matter. This will override any dynamically inferred or
 config defined priority. While this is useful for one-offs, it can make it harder to reorder items later on.
-It's up to you which method you prefer to use.
+It's up to you which method you prefer to use. This setting can be used both for the navigation menu and the sidebar.
 
 ```markdown
 ---
