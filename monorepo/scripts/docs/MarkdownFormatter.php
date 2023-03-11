@@ -297,7 +297,7 @@ if (count($links) > 0) {
 }
 
 function getSignatures(): array {
-    
+    static $signatures = null;
 }
 
 // Just to make PhpStorm happy
