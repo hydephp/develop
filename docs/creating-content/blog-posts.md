@@ -163,6 +163,7 @@ Array values here will override all the values in the `authors` config entry.
 ### Image
 
 Specify a cover image for the post, either by a local image path for a file in the `_media/` directory, or by a full URL.
+Any array data is constructed into a dynamic fluent caption, and injected into post and page metadata.
 
 #### Local image path
 
@@ -200,13 +201,7 @@ image:
     authorName: "John Doe"
 ```
 
-When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
-Like all other media files, it will be copied to `_site/media/` when the site is built, so Hyde will resolve links accordingly.
 
-When supplying an image with a full URL, the image source will be used as-is, and no additional processing is done.
-
-The image will be used as the cover image, and any array data is constructed into a dynamic fluent caption,
-and injected into post and page metadata.
 
 > See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
