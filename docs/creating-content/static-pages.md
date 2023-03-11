@@ -153,4 +153,6 @@ A great example of a Markdown page can be found at [hydephp.github.io/portfolio-
 
 ## Bonus: Creating HTML Pages
 
-If you have an already created HTML page, simply drop it into the `_pages` directory and Hyde will copy it over as it is into the `_site` directory. Like all other Hyde pages, the page will show up in the navigation menu using a title parsed from the filename.
+If you have an already created `HTML` page, simply drop it into the `_pages` directory and Hyde will copy it over as it is
+into the `_site` directory. Like all other Hyde pages, the page will show up in the navigation menu using a title parsed from the filename.
+You won't be able to change any settings with front matter, however.
