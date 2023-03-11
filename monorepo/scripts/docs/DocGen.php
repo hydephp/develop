@@ -62,6 +62,11 @@ $matrix = [
         'instanceVariableName' => '$page',
         'outputFile' => "$basePath/html-page-methods.md",
     ],
+    [
+        'class' => \Hyde\Foundation\HydeKernel::class,
+        'instanceVariableName' => '$hyde',
+        'outputFile' => "$basePath/hyde-kernel-methods.md",
+    ]
 ];
 $timeStart = microtime(true);
 
