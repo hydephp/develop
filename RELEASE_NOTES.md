@@ -16,7 +16,7 @@ This serves two purposes:
 - Made the `HydePage::$title` property readonly
 
 ### Deprecated
-- for soon-to-be removed features.
+- HydePage::$canonicalUrl
 
 ### Removed
 - for now removed features.
