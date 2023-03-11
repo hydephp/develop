@@ -99,7 +99,6 @@ In the examples below, when there are multiple examples, they signify various wa
 
 When specifying an array you don't need all the sub-properties. The examples generally show all the supported values.
 
-
 ### Title
 
 ```yaml
@@ -134,7 +133,7 @@ date: "2022-01-01 12:00"
 
 ### Author
 
-Specify a page author, either by a username for an author defined in the `authors` config, or by an arbitrary name, 
+Specify a page author, either by a username for an author defined in the `authors` config, or by an arbitrary name,
 or by an array of author data. See the [Post Author](#post-authors) section for more details.
 
 #### Arbitrary name displayed "as is"
