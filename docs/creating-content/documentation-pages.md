@@ -269,10 +269,11 @@ The search feature is enabled by default. You can disable it by removing the `do
 The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
 
 Two ways to access the search methods are added, one is a full page search screen that will be saved to `docs/search.html`.
-> The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
 Opening it will open a modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
+
+> The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
 ### Hiding pages from indexing
 
