@@ -137,7 +137,8 @@ function generate(array $options): void
     $metadataMarker = "<!-- $metadata -->";
     $endMarker = '<!-- End generated docs for '.$class.' -->';
     $classKebabName = Str::kebab(class_basename($class));
-    $text = "<section id=\"$classKebabName-methods\">\n\n$startMarker\n$metadataMarker\n\n$text\n$endMarker\n\n</section>\n";
+    $baseName = basename($outputFile, '.md');
+    $text = "<section id=\"$baseName\">\n\n$startMarker\n$metadataMarker\n\n$text\n$endMarker\n\n</section>\n";
 
     // Run any post-processing
     $text = postProcess($text);
