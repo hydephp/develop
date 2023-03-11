@@ -287,11 +287,11 @@ if (count($headings)) {
             $something = false;
             if ($headingLevel < 3) {
                 if (! $isTitleCase) {
-                    $warnings['Headings'][] = "Heading in $filename should be title case: $heading";
+                    $warnings['Headings'][] = "Heading in $filename should be title case: $headingText";
                 }
             } else {
                 if (! $isSentenceCase) {
-                    $warnings['Headings'][] = "Heading in $filename should be sentence case: $heading";
+                    $warnings['Headings'][] = "Heading in $filename should be sentence case: $headingText";
                 }
             }
         }
