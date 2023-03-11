@@ -62,7 +62,7 @@ Below are two tables over the different configuration files. Click on a file nam
 
 ### HydePHP Configuration Files
 
-These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP.
+These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP itself.
 
 | Config File                                                                                                        | Description                                                                                                                           |
 |--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
