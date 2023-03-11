@@ -291,7 +291,7 @@ Simplified, this will then be rendered as follows:
 #### Excluding Items (Blacklist)
 
 Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
-To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
+To remove items from being automatically added, simply add the page's route key to the blacklist. As you can see, the `404` page has already been filled in for you.
 
 ```php
 'navigation' => [
