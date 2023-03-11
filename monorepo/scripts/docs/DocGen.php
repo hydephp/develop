@@ -146,7 +146,7 @@ function generate(array $options): void
     $text = postProcess($text);
 
     // Output the documentation
-    echo $text;
+    // echo $text;
 
     // Check if any changes were made compared to the existing file (excluding metadata markers)
     if (file_exists($outputFile)) {
