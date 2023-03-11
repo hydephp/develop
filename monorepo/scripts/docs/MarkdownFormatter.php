@@ -312,7 +312,7 @@ function getSignatures(): array
             $signatures = [
                 // Adds any hidden commands we know exist
                 'php hyde list',
-                'php hyde change:sourceDirectory'
+                'php hyde change:sourceDirectory',
             ];
             $commandRaw = shell_exec('cd ../../../ && php hyde list --raw');
             foreach (explode("\n", $commandRaw) as $command) {
