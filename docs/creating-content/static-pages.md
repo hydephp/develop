@@ -86,15 +86,15 @@ navigation:
 
 ## Creating Blade Pages
 
-Since Hyde is based on Laravel and uses the Blade templating engine,
-you can use Blade pages to create more complex pages.
+Since Hyde is based on Laravel and uses the powerful Blade templating engine, you can use Blade pages to create more
+complex pages with both standard HTML, PHP code, and the templating opportunities provided by Blade directives. 
 
 If you are not familiar with Blade, you may want to read [the Laravel Blade docs](https://laravel.com/docs/9.x/blade) first.
 
 ### Scaffolding Blade Pages
 
-We can scaffold Blade pages using the same CLI command as Markdown pages, however,
-this time we need to specify that we want to use the `blade` page type.
+We can scaffold Blade pages using the same CLI command as Markdown pages, however, this time we need to specify that
+we want to use the `blade` page type, by using the `--type` option.
 
 ```bash
 php hyde make:page "Page Title" --type="blade"
