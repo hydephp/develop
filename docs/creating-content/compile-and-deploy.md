@@ -36,9 +36,7 @@ php hyde serve
 - [Rebuild command](console-commands#build-a-single-file)
 - [Serve command](console-commands#start-the-realtime-compiler)
 
-#### Key Concept: Autodiscovery
-
-When building the site, Hyde will your source directories for files and compile them into static HTML using the appropriate layout depending on what kind of page it is. You don't have to worry about routing as Hyde takes care of that, including creating navigation menus!
+>info <p><b>Key Concept: Autodiscovery</b></p> <p>When building the site, Hyde will use all the routes generated when the auto-discovery process scanned your source directories for files. The command will then compile them into static HTML using the appropriate layout depending on what kind of page it is. Thanks to Hyde, the days of manually defining routes are over!</p>
 
 ---
 
