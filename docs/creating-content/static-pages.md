@@ -134,14 +134,14 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 
 ### Comparison
 
-| Markdown                                            | Blade                                                                                    |
-|-----------------------------------------------------|------------------------------------------------------------------------------------------|
-| ➕ Easily created and updated                        | ➕ Full control over the HTML                                                             |
-| ➕ Very fast to create simple and lightweight pages  | ➕ Use the default app layout or create your own                                          |
-| ➕ Suited for content heavy pages such as "about us" | ➕ Use Blade templates and components to keep code DRY                                    |
-| ➖ Not as flexible as Blade pages                    | ➕ Use arbitrary PHP right in the page to create dynamic content                          |
-|                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                         |
-|                                                     | ➖ Takes longer to create as as you need to write the markup                              |
+| Markdown                                            | Blade                                                                               |
+|-----------------------------------------------------|-------------------------------------------------------------------------------------|
+| ➕ Easily created and updated                        | ➕ Full control over the HTML                                                        |
+| ➕ Very fast to create simple and lightweight pages  | ➕ Use the default app layout or create your own                                     |
+| ➕ Suited for content heavy pages such as "about us" | ➕ Use Blade templates and components to keep code DRY                               |
+| ➖ Not as flexible as Blade pages                    | ➕ Use arbitrary PHP right in the page to create dynamic content                     |
+|                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                    |
+|                                                     | ➖ Takes longer to create as as you need to write the markup                         |
 |                                                     | ➖ You may need to [recompile your CSS](managing-assets) if you add Tailwind classes |
 
 ### Live Demos
