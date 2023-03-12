@@ -353,9 +353,8 @@ Please see the [Managing Assets](managing-assets) page to learn more.
 
 ## CommonMark environment
 
-Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converting Markdown into HTML.
-
-Hyde ships with the GitHub Flavored Markdown extension, and the Torchlight extension is enabled automatically when needed.
+Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converting Markdown into HTML, and
+uses the GitHub Flavored Markdown extension.
 
 You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.
 
@@ -367,7 +366,7 @@ You can add extra CommonMark extensions, or change the default ones, in the `con
 ],
 ```
 
-In the same file you can also change the config to be passed to the CommonMark environment.
+In the same file you can also change the configuration values to be passed to the CommonMark environment.
 
 ```php
 'config' => [
