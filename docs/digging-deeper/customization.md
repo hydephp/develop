@@ -387,7 +387,7 @@ Hyde handles many of the options automatically, but you may want to override som
 ],
 ```
 
-Any custom options will be merged with the Hyde defaults at runtime. See the
+Any custom options will be merged with the defaults. See the
 [CommonMark Configuration Docs](https://commonmark.thephpleague.com/2.3/configuration/) for the available options.
 
 ## YAML Configuration
