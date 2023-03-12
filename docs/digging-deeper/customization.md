@@ -388,6 +388,7 @@ HydePHP handles many of the options automatically, but you may want to override 
 ```
 
 Any custom options will be merged with the Hyde defaults at runtime. 
+See the [CommonMark Configuration Docs](https://commonmark.thephpleague.com/2.3/configuration/) for the available options.
 
 ## YAML Configuration
 
