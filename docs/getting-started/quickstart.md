@@ -51,7 +51,7 @@ Please see the [directory structure](core-concepts#directory-structure) section 
 
 ### Scaffolding files
 
-You can scaffold blog post files using the `php hyde make:post` command with automatically creates the front matter based on your input selections.
+You can scaffold blog post files using the `php hyde make:post` command which automatically creates the front matter based on your input selections.
 
 You can also scaffold pages with the `php hyde make:page` command.
 
