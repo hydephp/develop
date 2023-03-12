@@ -901,6 +901,31 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function test_can_create_canonical_url_using_base_url_from_config()
+    {
+        config(['hyde' => [
+            'url' => 'https://example.com',
+        ]]);
+
+        $this->assertSame('https://example.com/foo.html', (new MarkdownPage('foo'))->getCanonicalUrl());
+    }
+
+    public function test_can_create_canonical_url_using_base_url_from_config_using_pretty_urls()
+    {
+        config(['hyde' => [
+            'url' => 'https://example.com',
+            'pretty_urls' => true,
+        ]]);
+
+        $this->assertSame('https://example.com/foo', (new MarkdownPage('foo'))->getCanonicalUrl());
+    }
+
+    public function test_canonical_url_is_null_when_no_base_url_is_set()
+    {
+        config(['hyde' => []]);
+        $this->assertNull((new MarkdownPage('foo'))->getCanonicalUrl());
+    }
+
     public function test_render_page_metadata_returns_string()
     {
         $page = new MarkdownPage('foo');
