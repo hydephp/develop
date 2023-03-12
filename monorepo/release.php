@@ -14,9 +14,9 @@
 
 echo "Preparing a new syndicated HydePHP release!\n";
 
-echo "Using NPM for versioning...\n";
-
-$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
+//echo "Using NPM for versioning...\n";
+//
+//$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
 
 echo "Version: $version\n";
 
