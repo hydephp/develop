@@ -40,11 +40,4 @@ class SourceFile extends ProjectFile
             'pageClass' => $this->pageClass,
         ]);
     }
-
-    /** @deprecated This method is not used anywhere other than tests and may be removed */
-    public function withoutDirectoryPrefix(): string
-    {
-        // Works like basename, but keeps subdirectory names.
-        return Str::after($this->path, $this->pageClass::sourceDirectory().'/');
-    }
 }
