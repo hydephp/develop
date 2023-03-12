@@ -24,7 +24,7 @@
 
 </div>
 
-> This repository holds the source code for the HydePHP core components. If you want to create a website with Hyde, checkout the [HydePHP/Hyde repository](https://github.com/hydephp/hyde).
+> This repository holds the source code for the HydePHP core components. If you want to create a website with Hyde, check out the [HydePHP/Hyde repository](https://github.com/hydephp/hyde).
 
 ## Projects in this monorepo
 
@@ -62,13 +62,9 @@ The two most important components are **Hyde** and **Framework**. We also use **
 
 ### How the monorepo works
 
-Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop` or `master` branches of the readonly repositories seen in the table above. These branches could be unstable.
-
-This monorepo project is still new, and the internal structure of it may be changed without notice.
+Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop` or `master` branches of the readonly repositories seen in the table above.
 
 
 ### Releases
 
-While in the v0.x range, we consider both major and minor release versions to be the same. This means that when a new feature is added, it should be added as a minor version even if it is breaking. Patch versions should always be compatible. Once we reach v1.0 we will follow semantic versioning strictly.
-
-The versioning between the Framework and Hyde packages are linked together Meaning that if Hyde get's a minor release, so must Framework, and vice versa. To make this easier, we also publish minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.
+The versioning between the Framework and Hyde packages are linked together Meaning that if Hyde get's a major release, so must Framework, and vice versa. To make this easier, we also publish major and minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.

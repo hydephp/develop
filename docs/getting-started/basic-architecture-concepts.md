@@ -151,8 +151,6 @@ Routes::get('posts/my-post')
 Routes::get('docs/readme')
 ```
 
->info Tip: You can also use "dot notation" instead of slashes, for example `Routes::get('posts.my-post')`.
-
 ### Using the `x-link` component
 
 When designing Blade layouts it can be useful to use the `x-link` component to automatically resolve relative links.

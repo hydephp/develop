@@ -105,7 +105,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->mockPage(new MarkdownPage('index'));
 
-        $this->assertSame(['/' => 'Home'], (new BreadcrumbsComponent())->breadcrumbs);
+        $this->assertSame(['./' => 'Home'], (new BreadcrumbsComponent())->breadcrumbs);
     }
 
     public function testCanGenerateBreadcrumbsForNestedPageWithPrettyUrls()
@@ -140,7 +140,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
 
     protected function mockPage(MarkdownPage $page): void
     {
-        Render::shouldReceive('getCurrentRoute')->once()->andReturn(new Route($page));
-        Render::shouldReceive('getCurrentPage')->andReturn($page->getOutputPath());
+        Render::shouldReceive('getRoute')->once()->andReturn(new Route($page));
+        Render::shouldReceive('getRouteKey')->andReturn($page->getOutputPath());
     }
 }

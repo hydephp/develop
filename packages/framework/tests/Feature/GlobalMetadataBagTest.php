@@ -84,6 +84,9 @@ class GlobalMetadataBagTest extends TestCase
         config(['hyde.url' => 'foo']);
         config(['hyde.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
+        $config = config('hyde');
+        unset($config['rss_description']);
+        config(['hyde' => $config]);
         $this->file('_posts/foo.md');
 
         $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', GlobalMetadataBag::make()->render());
@@ -119,7 +122,7 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add($duplicate);
 
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         Render::share('page', $page);
 
         $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
@@ -134,7 +137,7 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add(Meta::name('foo', 'baz'));
 
-        Render::share('currentPage', 'foo');
+        Render::share('routeKey', 'foo');
         Render::share('page', $page);
 
         $this->assertEquals([], GlobalMetadataBag::make()->get());

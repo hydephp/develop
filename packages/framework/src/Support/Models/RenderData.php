@@ -20,14 +20,14 @@ use InvalidArgumentException;
 class RenderData implements Arrayable
 {
     protected HydePage $page;
-    protected Route $currentRoute;
-    protected string $currentPage;
+    protected Route $route;
+    protected string $routeKey;
 
     public function setPage(HydePage $page): void
     {
         $this->page = $page;
-        $this->currentRoute = $page->getRoute();
-        $this->currentPage = $page->getRouteKey();
+        $this->route = $page->getRoute();
+        $this->routeKey = $page->getRouteKey();
 
         $this->shareToView();
     }
@@ -37,14 +37,14 @@ class RenderData implements Arrayable
         return $this->page ?? null;
     }
 
-    public function getCurrentRoute(): ?Route
+    public function getRoute(): ?Route
     {
-        return $this->currentRoute ?? null;
+        return $this->route ?? null;
     }
 
-    public function getCurrentPage(): ?string
+    public function getRouteKey(): ?string
     {
-        return $this->currentPage ?? null;
+        return $this->routeKey ?? null;
     }
 
     public function shareToView(): void
@@ -64,8 +64,8 @@ class RenderData implements Arrayable
 
     public function clearData(): void
     {
-        unset($this->page, $this->currentRoute, $this->currentPage);
-        View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
+        unset($this->page, $this->route, $this->routeKey);
+        View::share(['page' => null, 'route' => null, 'routeKey' => null]);
     }
 
     /**
@@ -76,8 +76,8 @@ class RenderData implements Arrayable
         return [
             'render' => $this,
             'page' => $this->getPage(),
-            'currentRoute' => $this->getCurrentRoute(),
-            'currentPage' => $this->getCurrentPage(),
+            'route' => $this->getRoute(),
+            'routeKey' => $this->getRouteKey(),
         ];
     }
 }

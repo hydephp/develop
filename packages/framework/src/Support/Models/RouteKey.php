@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
-use function str_replace;
 use function unslash;
 
 /**
@@ -31,7 +30,7 @@ final class RouteKey implements Stringable
 
     public function __construct(string $key)
     {
-        $this->key = self::normalize($key);
+        $this->key = $key;
     }
 
     public function __toString(): string
@@ -42,11 +41,6 @@ final class RouteKey implements Stringable
     public function get(): string
     {
         return $this->key;
-    }
-
-    public static function normalize(string $string): string
-    {
-        return str_replace('.', '/', $string);
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */

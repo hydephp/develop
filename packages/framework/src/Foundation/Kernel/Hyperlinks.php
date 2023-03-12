@@ -71,12 +71,16 @@ class Hyperlinks
             return $destination;
         }
 
-        $nestCount = substr_count($this->kernel->currentPage() ?? '', '/');
+        $nestCount = substr_count($this->kernel->currentRouteKey() ?? '', '/');
         $route = '';
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
         $route .= $this->formatLink($destination);
+
+        if (Config::getBool('hyde.pretty_urls', false) === true && $route === '/') {
+            return './';
+        }
 
         return str_replace('//', '/', $route);
     }

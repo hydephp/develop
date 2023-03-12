@@ -43,25 +43,18 @@ class RouteKeyTest extends UnitTestCase
         $this->assertSame('foo', (string) new RouteKey('foo'));
     }
 
-    public function testNormalize()
-    {
-        $this->assertSame('foo', RouteKey::normalize('foo'));
-        $this->assertSame('foo/bar', RouteKey::normalize('foo/bar'));
-        $this->assertSame('foo/bar', RouteKey::normalize('foo.bar'));
-    }
-
     public function testConstructorValuesAreNormalized()
     {
         $this->assertEquals(new RouteKey('foo'), new RouteKey('foo'));
         $this->assertEquals(new RouteKey('foo/bar'), new RouteKey('foo/bar'));
-        $this->assertEquals(new RouteKey('foo/bar'), new RouteKey('foo.bar'));
+        $this->assertEquals(new RouteKey('foo.bar'), new RouteKey('foo.bar'));
     }
 
     public function testStaticConstructorValuesAreNormalized()
     {
         $this->assertEquals(RouteKey::make('foo'), RouteKey::make('foo'));
         $this->assertEquals(RouteKey::make('foo/bar'), RouteKey::make('foo/bar'));
-        $this->assertEquals(RouteKey::make('foo/bar'), RouteKey::make('foo.bar'));
+        $this->assertEquals(RouteKey::make('foo.bar'), RouteKey::make('foo.bar'));
     }
 
     public function testFromPage()

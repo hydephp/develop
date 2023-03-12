@@ -39,6 +39,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['hyde.name' => 'Test Blog']);
         config(['hyde.url' => 'https://example.com']);
+        config(['hyde.rss_description' => 'Test Blog RSS Feed']);
 
         $service = new RssFeedGenerator();
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'title'));

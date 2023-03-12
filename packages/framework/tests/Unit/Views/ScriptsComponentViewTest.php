@@ -58,7 +58,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_scripts_can_be_pushed_to_the_component_scripts_stack()
     {
-        view()->share('currentPage', '');
+        view()->share('routeKey', '');
 
         $this->assertStringContainsString('foo bar',
              Blade::render('

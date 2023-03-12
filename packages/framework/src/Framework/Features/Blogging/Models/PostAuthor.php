@@ -8,6 +8,7 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+use function strtolower;
 use function is_string;
 
 /**
@@ -65,13 +66,15 @@ class PostAuthor implements Stringable
     /** Get an Author from the config, or create it. */
     public static function get(string $username): static
     {
-        return static::all()->firstWhere('username', $username) ?? Author::create($username);
+        return static::all()->firstWhere('username', strtolower($username)) ?? Author::create($username);
     }
 
     /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
-        return new Collection(Config::getArray('hyde.authors', []));
+        return (new Collection(Config::getArray('hyde.authors', [])))->mapWithKeys(function (self $author): array {
+            return [strtolower($author->username) => $author];
+        });
     }
 
     public function __toString(): string
