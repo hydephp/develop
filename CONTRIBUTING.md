@@ -62,7 +62,7 @@ We try to follow the Laravel standards, https://laravel.com/docs/10.x/contributi
 **Please add tests!**
 - **Add tests!** - Your patch might not be accepted if it doesn't have tests. When submitting a bug fix, make sure to include one or more tests proving the fix works, When adding features, make sure all aspects are properly tested.
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+- **Document any change in behaviour** - Make sure the `README.md` and the project documentation are kept up-to-date.
 
 - **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option.
 
