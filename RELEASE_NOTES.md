@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Added default RSS feed description value to config stub.
 
 ### Deprecated
 - for soon-to-be removed features.
