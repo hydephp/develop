@@ -64,8 +64,7 @@ We try to follow the Laravel standards, https://laravel.com/docs/10.x/contributi
 
 - **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
-<!-- Will be enabled once we enter GA 
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option. -->
+- **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option.
 
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests. This makes it easier to keep track of changes.
 
