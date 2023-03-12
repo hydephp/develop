@@ -51,6 +51,11 @@ Before submitting a pull request:
 - Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
 - Check the feature is a viable for the project (see above)
 
+## How-to
+
+HydePHP development is made in the HydePHP monorepo found at https://github.com/hydephp/develop.
+To get started, you will need to clone the repository, and run `composer install`. You will then be able to make changes to the packages found in the `packages/` sub-directories.
+
 ## Requirements
 
 If the project maintainer has any additional requirements, you will find them listed here.
