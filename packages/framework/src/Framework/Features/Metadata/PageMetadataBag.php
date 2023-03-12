@@ -47,9 +47,9 @@ class PageMetadataBag extends MetadataBag
         $this->addPostMetadataIfExists($page, 'description');
         $this->addPostMetadataIfExists($page, 'author');
         $this->addPostMetadataIfExists($page, 'category', 'keywords');
-        $this->addPostMetadataIfExists($page, 'canonicalUrl', 'url');
 
         if ($page->getCanonicalUrl()) {
+            $this->add(Meta::name('url', $page->getCanonicalUrl()));
             $this->add(Meta::property('url', $page->getCanonicalUrl()));
         }
 
