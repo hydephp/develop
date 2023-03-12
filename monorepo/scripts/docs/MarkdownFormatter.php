@@ -179,6 +179,19 @@ function normalize_lines($filename): void
                     }
                 }
             }
+            // If word ends in .php
+            if (str_contains($line, '.php') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
+                // Check character after the .php is not a backtick
+                $pos = strpos($line, '.php');
+                if ($pos > 0) {
+                    $charAfter = substr($line, $pos + 4, 1);
+                    if ($charAfter !== '`') {
+                        global $warnings;
+                        $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
+                    }
+                }
+            }
+
 
             // Check for invalid command signatures
             if (str_contains($line, 'php hyde')) {
