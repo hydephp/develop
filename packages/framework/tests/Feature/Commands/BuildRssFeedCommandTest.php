@@ -31,7 +31,7 @@ class BuildRssFeedCommandTest extends TestCase
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.rss.enabled' => true]);
-        config(['hyde.rss_filename' => 'blog.xml']);
+        config(['hyde.rss.filename' => 'blog.xml']);
         $this->file('_posts/foo.md');
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));

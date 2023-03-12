@@ -71,7 +71,7 @@ Note that this requires that a site_url is set!
 You can customize the output filename using the following:
 
 ```php // config/hyde.php
-'rss_filename' => 'feed.rss', // Default is feed.xml
+'rss.filename' => 'feed.rss', // Default is feed.xml
 ```
 
 You can set the RSS channel description using the following:
@@ -328,7 +328,7 @@ url: http://localhost
 pretty_urls: false
 generate_sitemap: true
 rss.enabled: true
-rss_filename: feed.xml
+rss.filename: feed.xml
 # rss_description:
 language: en
 output_directory: _site

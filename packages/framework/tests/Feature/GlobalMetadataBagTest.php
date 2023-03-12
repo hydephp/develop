@@ -97,7 +97,7 @@ class GlobalMetadataBagTest extends TestCase
         $this->emptyConfig();
 
         config(['hyde.url' => 'foo']);
-        config(['hyde.rss_filename' => 'posts.rss']);
+        config(['hyde.rss.filename' => 'posts.rss']);
         config(['hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
