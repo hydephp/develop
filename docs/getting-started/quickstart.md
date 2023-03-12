@@ -77,9 +77,7 @@ Hyde comes bundled with a precompiled and minified `app.css` file, containing al
 
 ### Deploying your site
 
-You are now ready to show your site to the world!
-
-Simply copy the `_site` directory to your web server's document root, and you're ready to go.
+You are now ready to show your site to the world! Simply copy the `_site` directory to your web server's document root, and you're ready to go.
 
 You can even use GitHub pages to host your site for free. That's what the Hyde website does,
 using a CI that automatically builds and deploys this site.
