@@ -17,7 +17,7 @@ class BuildRssFeedCommandTest extends TestCase
     public function test_rss_feed_is_generated_when_conditions_are_met()
     {
         config(['hyde.url' => 'https://example.com']);
-        config(['hyde.generate_rss_feed' => true]);
+        config(['hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
@@ -30,8 +30,8 @@ class BuildRssFeedCommandTest extends TestCase
     public function test_rss_filename_can_be_changed()
     {
         config(['hyde.url' => 'https://example.com']);
-        config(['hyde.generate_rss_feed' => true]);
-        config(['hyde.rss_filename' => 'blog.xml']);
+        config(['hyde.rss.enabled' => true]);
+        config(['hyde.rss.filename' => 'blog.xml']);
         $this->file('_posts/foo.md');
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));

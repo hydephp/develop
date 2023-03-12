@@ -31,7 +31,7 @@ class MetadataTest extends TestCase
 
         config(['hyde.url' => null]);
         config(['hyde.meta' => []]);
-        config(['hyde.generate_rss_feed' => false]);
+        config(['hyde.rss.enabled' => false]);
         config(['hyde.generate_sitemap' => false]);
     }
 

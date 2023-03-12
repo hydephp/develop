@@ -39,7 +39,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['hyde.name' => 'Test Blog']);
         config(['hyde.url' => 'https://example.com']);
-        config(['hyde.rss_description' => 'Test Blog RSS Feed']);
+        config(['hyde.rss.description' => 'Test Blog RSS Feed']);
 
         $service = new RssFeedGenerator();
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'title'));
@@ -70,7 +70,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['hyde.name' => 'Foo']);
         config(['hyde.url' => 'https://blog.foo.com/bar']);
-        config(['hyde.rss_description' => 'Foo is a web log about stuff']);
+        config(['hyde.rss.description' => 'Foo is a web log about stuff']);
 
         $service = new RssFeedGenerator();
         $this->assertEquals('Foo', $service->getXmlElement()->channel->title);
@@ -149,7 +149,7 @@ class RssFeedServiceTest extends TestCase
     public function test_can_generate_feed_helper_returns_false_if_feeds_are_disabled_in_config()
     {
         config(['hyde.url' => 'foo']);
-        config(['hyde.generate_rss_feed' => false]);
+        config(['hyde.rss.enabled' => false]);
         $this->assertFalse(Features::rss());
     }
 }
