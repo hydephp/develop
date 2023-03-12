@@ -294,6 +294,9 @@ if (count($links) > 0) {
         $link = explode('#', $link)[0];
         // Remove anything before spaces (image alt text)
         $link = explode(' ', $link)[0];
+        // Trim any non-alphanumeric characters from the end of the link
+        $link = rtrim($link, '.,;:!?)');
+
 
         if (! str_starts_with($link, 'ANCHOR_')) {
             // Add to new unique array
