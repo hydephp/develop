@@ -69,6 +69,6 @@ We try to follow the Laravel standards, https://laravel.com/docs/10.x/contributi
 
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests. This makes it easier to keep track of changes.
 
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting. Making atomic commits eases the burden on the developer reviewing your pull request.
 
 **Happy coding**!
