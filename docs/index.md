@@ -28,7 +28,7 @@ Hyde makes creating websites easy and fun by taking care of the boring stuff, li
 endless configuration. Instead, when you create a new Hyde project, everything you need to get started is already there
 -- including precompiled TailwindCSS, well-crafted Blade templates, and easy-to-use asset management.
 
-Hyde was inspired by JekyllRB and is designed for developers who are comfortable writing posts in Markdown and requires
+Hyde was inspired by JekyllRB and is designed for developers who are comfortable writing posts in Markdown, and it requires
 virtually no configuration out of the box as it favours convention over configuration and is preconfigured with sensible defaults.
 
 
