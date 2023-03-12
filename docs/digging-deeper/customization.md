@@ -371,6 +371,8 @@ You can add extra CommonMark extensions, or change the default ones, in the `con
 ],
 ```
 
+Remember that you may need to install any third party extensions through Composer before you can use them.
+
 In the same file you can also change the configuration values to be passed to the CommonMark environment.
 
 ```php
