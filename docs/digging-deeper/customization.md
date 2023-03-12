@@ -77,10 +77,10 @@ You can customize the output filename using the following:
 You can set the RSS channel description using the following:
 
 ```php // config/hyde.php
-'rss_description' => 'A collection of articles and tutorials from my blog', // Example
+'rss.description' => 'A collection of articles and tutorials from my blog', // Example
 ```
 
-If an rss_description is not set one is created by appending "RSS Feed" to your site name.
+If an rss.description is not set one is created by appending "RSS Feed" to your site name.
 
 
 ### Authors
@@ -329,7 +329,7 @@ pretty_urls: false
 generate_sitemap: true
 rss.enabled: true
 rss.filename: feed.xml
-# rss_description:
+# rss.description:
 language: en
 output_directory: _site
 ```

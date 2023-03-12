@@ -115,6 +115,6 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public static function getDescription(): string
     {
-        return Config::getString('hyde.rss_description', Site::name().' RSS Feed');
+        return Config::getString('hyde.rss.description', Site::name().' RSS Feed');
     }
 }
