@@ -22,7 +22,7 @@ These are the version ranges of HydePHP, and their support status. We follow [Se
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability within this package, please send an e-mail to the creator, Caen De Silva, via caen@desilva.se.
-You can also report a vulnerability through GitHub with the following link: https://github.com/hydephp/develop/security/advisories.
+You can also report a vulnerability through GitHub on the [Security Advisory](https://github.com/hydephp/develop/security/advisories) page.
 
 
 All security vulnerabilities will be promptly addressed.
