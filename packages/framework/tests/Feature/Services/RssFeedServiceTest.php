@@ -149,7 +149,7 @@ class RssFeedServiceTest extends TestCase
     public function test_can_generate_feed_helper_returns_false_if_feeds_are_disabled_in_config()
     {
         config(['hyde.url' => 'foo']);
-        config(['hyde.generate_rss_feed' => false]);
+        config(['hyde.rss.enabled' => false]);
         $this->assertFalse(Features::rss());
     }
 }

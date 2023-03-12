@@ -161,7 +161,7 @@ class Features implements SerializableContract
     {
         return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()
-            && Config::getBool('hyde.generate_rss_feed', true)
+            && Config::getBool('hyde.rss.enabled', true)
             && extension_loaded('simplexml')
             && count(MarkdownPost::files()) > 0;
     }

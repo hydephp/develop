@@ -65,7 +65,7 @@ When enabled, an RSS feed with your Markdown blog posts will be generated when y
 Note that this requires that a site_url is set!
 
 ```php // config/hyde.php
-'generate_rss_feed' => true, // Default is true
+'rss.enabled' => true, // Default is true
 ```
 
 You can customize the output filename using the following:
@@ -327,7 +327,7 @@ name: HydePHP
 url: http://localhost
 pretty_urls: false
 generate_sitemap: true
-generate_rss_feed: true
+rss.enabled: true
 rss_filename: feed.xml
 # rss_description:
 language: en
