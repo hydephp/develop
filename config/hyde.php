@@ -117,6 +117,17 @@ return [
     // The channel description.
     'rss_description' =>  env('SITE_NAME', 'HydePHP').' RSS Feed',
 
+    'rss' => [
+        // Should the RSS feed be generated?
+        'enabled' => true,
+
+        // What filename should the RSS file use?
+        'filename' => 'feed.xml',
+
+        // The channel description.
+        'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Source Root Directory
