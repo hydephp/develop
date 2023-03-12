@@ -383,6 +383,19 @@ abstract class HydePage implements PageSchema, SerializableContract
         return $this->navigation->group;
     }
 
+    public function getCanonicalUrl(): ?string
+    {
+        if (! empty($this->matter('canonicalUrl'))) {
+            return $this->matter('canonicalUrl');
+        }
+
+        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
+            return Hyde::url($this->getOutputPath());
+        }
+
+        return null;
+    }
+
     protected function constructMetadata(): void
     {
         $this->metadata = new PageMetadataBag($this);
