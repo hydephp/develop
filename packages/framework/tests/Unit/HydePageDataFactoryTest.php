@@ -36,7 +36,7 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     public function testToArrayContainsExpectedKeys()
     {
-        $this->assertSame(['title', 'canonicalUrl', 'navigation'], array_keys($this->factory()->toArray()));
+        $this->assertSame(['title', 'navigation'], array_keys($this->factory()->toArray()));
     }
 
     public function testCanCreateTitleFromMatter()
