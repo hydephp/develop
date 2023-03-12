@@ -14,6 +14,7 @@ This serves two purposes:
 
 ### Changed
 - Added default RSS feed description value to the config stub.
+- Changed the RSS feed configuration structure to be an array of feed configurations.
 
 ### Deprecated
 - for soon-to-be removed features.
