@@ -18,7 +18,7 @@ echo "Preparing a new syndicated HydePHP release!\n";
 //
 //$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
 
-echo "Please enter the new version number: ";
+echo "Please enter the new version number: " . '(current version is ' . trim(shell_exec('git describe --abbrev=0 --tags')) . ')' . "\n";
 $version = trim(fgets(STDIN));
 
 echo "Version: $version\n";
