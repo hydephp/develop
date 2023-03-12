@@ -25,7 +25,7 @@ quality to benefit the project. Many developers have different skill sets, stren
 
 When requesting or submitting new features, first consider whether they might be useful to others. Open
 source projects are used by many developers, who may have entirely different needs from your own. Think about
-whether or not your feature is likely to be used by other users of the project.
+whether or not your feature is likely to be used by other users of the project, or if your feature may instead be better suited as a third party extension.
 
 You may also want to make sure that your feature abides by the goals of HydePHP which are as follows:
 
