@@ -192,7 +192,6 @@ function normalize_lines($filename): void
                 }
             }
 
-
             // Check for invalid command signatures
             if (str_contains($line, 'php hyde')) {
                 // Extract signature from line
