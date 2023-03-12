@@ -2,8 +2,8 @@
          itemtype="https://schema.org/Article"
     @class(['post-article mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Facades\Features::hasTorchlight()])>
     <meta itemprop="identifier" content="{{ $page->identifier }}">
-    @if($page->canonicalUrl !== null)
-        <meta itemprop="url" content="{{ $page->canonicalUrl }}">
+    @if($page->getCanonicalUrl() !== null)
+        <meta itemprop="url" content="{{ $page->getCanonicalUrl() }}">
     @endif
 
     <header aria-label="Header section" role="doc-pageheader">
