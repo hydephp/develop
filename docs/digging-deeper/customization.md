@@ -369,7 +369,7 @@ They will then be loaded into the CommonMark converter environment.
 'extensions' => [
     \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
     \League\CommonMark\Extension\Attributes\AttributesExtension::class,
-    \League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension::class, // [TL! ++]
+    \League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension::class,
 ],
 ```
 
