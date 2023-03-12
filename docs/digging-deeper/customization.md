@@ -381,9 +381,9 @@ Hyde handles many of the options automatically, but you may want to override som
 ```php
 // filepath: config/markdown.php
 'config' => [
-    'disallowed_raw_html' => [ // [TL! ++]
-        'disallowed_tags' => [], // [TL! ++]
-    ], // [TL! ++]
+    'disallowed_raw_html' => [
+        'disallowed_tags' => [],
+    ],
 ],
 ```
 
