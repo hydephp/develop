@@ -2,7 +2,7 @@
          itemtype="https://schema.org/Article"
     @class(['post-article mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Facades\Features::hasTorchlight()])>
     <meta itemprop="identifier" content="{{ $page->identifier }}">
-    @isset($page->canonicalUrl)
+    @if($page->canonicalUrl !== null)
         <meta itemprop="url" content="{{ $page->canonicalUrl }}">
     @endif
 
