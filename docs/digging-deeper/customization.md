@@ -422,7 +422,7 @@ Note that YAML settings cannot call any PHP functions, so you can't access helpe
 nor declare authors or navigation links, as you cannot use facades and objects. But that doesn't stop you from using both
 files if you want to. Just keep in mind that any duplicate settings in the YAML file override any made in the PHP file.
 
-Here is an example hyde.yml file showing some of the available options in the normal hyde.php file.
+Here is an example `hyde.yml` file showing some of the available options in the normal `hyde.php` file.
 
 ```yaml
 # filepath hyde.yml
