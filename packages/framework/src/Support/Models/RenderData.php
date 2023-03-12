@@ -43,16 +43,6 @@ class RenderData implements Arrayable
         return $this->route ?? null;
     }
 
-    /**
-     * @deprecated v1.0.0-RC.2 - Renamed to getRouteKey() to match renamed property. This method will be removed before version 1.0.
-     * @codeCoverageIgnore
-     */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRouteKey()')]
-    public function getCurrentPage(): ?string
-    {
-        return $this->getRouteKey();
-    }
-
     public function getRouteKey(): ?string
     {
         return $this->routeKey ?? null;
