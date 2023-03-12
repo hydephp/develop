@@ -8,7 +8,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Contains data for the current page being rendered/compiled.
@@ -38,29 +37,9 @@ class RenderData implements Arrayable
         return $this->page ?? null;
     }
 
-    /**
-     * @deprecated v1.0.0-RC.2 - Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.
-     * @codeCoverageIgnore
-     */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRoute()')]
-    public function getCurrentRoute(): ?Route
-    {
-        return $this->getRoute();
-    }
-
     public function getRoute(): ?Route
     {
         return $this->route ?? null;
-    }
-
-    /**
-     * @deprecated v1.0.0-RC.2 - Renamed to getRouteKey() to match renamed property. This method will be removed before version 1.0.
-     * @codeCoverageIgnore
-     */
-    #[Deprecated(reason: 'Renamed to getRoute() to match renamed property. This method will be removed before version 1.0.', replacement: '%class%->getRouteKey()')]
-    public function getCurrentPage(): ?string
-    {
-        return $this->getRouteKey();
     }
 
     public function getRouteKey(): ?string
