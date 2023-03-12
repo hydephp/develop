@@ -392,7 +392,7 @@ Any custom options will be merged with the defaults.
 
 ### Allow Raw HTML
 
-Since Hyde uses GitHub Flavored Markdown, some HTML tags are stripped out by default.
+Since Hyde uses [GitHub Flavored Markdown](https://commonmark.thephpleague.com/2.3/extensions/github-flavored-markdown/), some HTML tags are stripped out by default.
 If you want to allow all arbitrary HTML tags, and understand the risks involved, you can use the `allow_html` setting to enable all HTML tags.
 
 ```php
