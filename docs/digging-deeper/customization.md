@@ -392,7 +392,7 @@ Any custom options will be merged with the defaults.
 
 ### Allow Raw HTML
 
-HydePHP uses the GitHub Flavored Markdown extension to convert Markdown. This, by default strips out some HTML tags.
+Since Hyde uses GitHub Flavored Markdown, some HTML tags are stripped out by default.
 If you want to allow all arbitrary HTML tags, and understand the risks involved, you can use the `allow_html` setting to enable all HTML tags.
 
 ```php
