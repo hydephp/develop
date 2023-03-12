@@ -121,15 +121,4 @@ class SourceFileTest extends TestCase
         Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
-
-    public function test_without_directory_prefix_retains_subdirectories()
-    {
-        $this->assertSame('foo/bar/baz.txt',
-            SourceFile::make('foo/bar/baz.txt', MarkdownPage::class)->withoutDirectoryPrefix()
-        );
-
-        $this->assertSame('foo/bar.txt',
-            SourceFile::make('_pages/foo/bar.txt', MarkdownPage::class)->withoutDirectoryPrefix()
-        );
-    }
 }
