@@ -418,8 +418,9 @@ See the [Blade in Markdown](advanced-markdown#blade-support) documentation for m
 
 The settings in the `config/hyde.php` file can also be overridden by creating a `hyde.yml` file in the root of your project directory.
 
-Note that these cannot reference environment variables, and you cannot interact with objects and services.
-But that doesn't stop you from using both files if you want to. Just keep in mind that any values in the YAML file override any made in the PHP config.
+Note that YAML settings cannot call any PHP functions, so you can't access helpers like `env()` for environment variables,
+nor declare authors or navigation links, as you cannot use facades and objects. But that doesn't stop you from using both
+files if you want to. Just keep in mind that any duplicate settings in the YAML file override any made in the PHP file.
 
 Here is an example hyde.yml file showing some of the available options in the normal hyde.php file.
 
