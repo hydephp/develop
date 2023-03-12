@@ -841,7 +841,7 @@ class HydePageTest extends TestCase
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo');
 
-        $this->assertEquals('https://example.com/foo.html', $page->canonicalUrl);
+        $this->assertEquals('https://example.com/foo.html', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
@@ -850,7 +850,7 @@ class HydePageTest extends TestCase
         config(['hyde.pretty_urls' => true]);
         $page = new MarkdownPage('foo');
 
-        $this->assertEquals('https://example.com/foo', $page->canonicalUrl);
+        $this->assertEquals('https://example.com/foo', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_url_for_nested_page()
@@ -858,7 +858,7 @@ class HydePageTest extends TestCase
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo/bar');
 
-        $this->assertEquals('https://example.com/foo/bar.html', $page->canonicalUrl);
+        $this->assertEquals('https://example.com/foo/bar.html', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_url_for_deeply_nested_page()
@@ -866,14 +866,14 @@ class HydePageTest extends TestCase
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo/bar/baz');
 
-        $this->assertEquals('https://example.com/foo/bar/baz.html', $page->canonicalUrl);
+        $this->assertEquals('https://example.com/foo/bar/baz.html', $page->getCanonicalUrl());
     }
 
     public function test_canonical_url_is_not_set_when_identifier_is_null()
     {
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage();
-        $this->assertNull($page->canonicalUrl);
+        $this->assertNull($page->getCanonicalUrl());
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
             $page->metadata()->render()
@@ -884,7 +884,7 @@ class HydePageTest extends TestCase
     {
         config(['hyde.url' => null]);
         $page = new MarkdownPage('foo');
-        $this->assertNull($page->canonicalUrl);
+        $this->assertNull($page->getCanonicalUrl());
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
             $page->metadata()->render()
@@ -895,7 +895,7 @@ class HydePageTest extends TestCase
     {
         config(['hyde.url' => 'https://example.com']);
         $page = MarkdownPage::make(matter: ['canonicalUrl' => 'foo/bar']);
-        $this->assertEquals('foo/bar', $page->canonicalUrl);
+        $this->assertEquals('foo/bar', $page->getCanonicalUrl());
         $this->assertStringContainsString(
             '<link rel="canonical" href="foo/bar">',
             $page->metadata()->render()

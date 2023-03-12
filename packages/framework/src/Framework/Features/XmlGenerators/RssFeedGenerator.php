@@ -52,9 +52,9 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addDynamicItemData(SimpleXMLElement $item, MarkdownPost $post): void
     {
-        if ($post->canonicalUrl !== null) {
-            $this->addChild($item, 'link', $post->canonicalUrl);
-            $this->addChild($item, 'guid', $post->canonicalUrl);
+        if ($post->getCanonicalUrl() !== null) {
+            $this->addChild($item, 'link', $post->getCanonicalUrl());
+            $this->addChild($item, 'guid', $post->getCanonicalUrl());
         }
 
         if (isset($post->date)) {
