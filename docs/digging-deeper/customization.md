@@ -357,10 +357,9 @@ Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converti
 uses the GitHub Flavored Markdown extension. The Markdown related settings are found in the `config/markdown.php` file.
 Below follows an overview of the Markdown configuration options available in Hyde.
 
-
 ### CommonMark Extensions
 
-You can add any extra [CommonMark Extensions](https://commonmark.thephpleague.com/2.3/extensions/overview/), 
+You can add any extra [CommonMark Extensions](https://commonmark.thephpleague.com/2.3/extensions/overview/),
 or change the default ones, using the `extensions` array in the config file.
 They will then be loaded into the CommonMark converter environment.
 
