@@ -60,7 +60,7 @@ We try to follow the Laravel standards, https://laravel.com/docs/10.x/contributi
 - **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)**
 
 **Please add tests!**
-- **Add tests!** - Your patch might not be accepted if it doesn't have tests.
+- **Add tests!** - Your patch might not be accepted if it doesn't have tests. When submitting a bug fix, make sure to include one or more tests proving the fix works, When adding features, make sure all aspects are properly tested.
 
 - **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
