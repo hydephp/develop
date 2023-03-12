@@ -18,6 +18,9 @@ echo "Preparing a new syndicated HydePHP release!\n";
 //
 //$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
 
+echo "Please enter the new version number: ";
+$version = trim(fgets(STDIN));
+
 echo "Version: $version\n";
 
 echo "Updating Hyde composer.json...\n";
