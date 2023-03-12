@@ -260,7 +260,6 @@ abstract class HydePage implements PageSchema, SerializableContract
             'metadata' => $this->metadata,
             'navigation' => $this->navigation,
             'title' => $this->title,
-            'canonicalUrl' => $this->canonicalUrl,
         ];
     }
 

@@ -253,7 +253,6 @@ class HydePageTest extends TestCase
             'metadata',
             'navigation',
             'title',
-            'canonicalUrl',
         ],
             array_keys((new TestPage('hello-world'))->toArray())
         );
