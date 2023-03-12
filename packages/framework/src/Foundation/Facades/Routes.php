@@ -8,7 +8,6 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Facades\Facade;
 
 /**
