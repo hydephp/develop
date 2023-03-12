@@ -13,7 +13,7 @@ interface PageSchema extends FrontMatterSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',
-        'canonicalUrl'  => 'string', // DEPRECATED
+        'canonicalUrl'  => 'string', // While not present in the page data, it is supported as a front matter key
         'navigation'    => NavigationSchema::NAVIGATION_SCHEMA,
     ];
 }
