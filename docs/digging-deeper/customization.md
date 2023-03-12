@@ -433,6 +433,7 @@ generate_sitemap: true
 rss: 
   enabled: true
   filename: feed.xml
+  description: HydePHP RSS Feed
 language: en
 output_directory: _site
 ```
