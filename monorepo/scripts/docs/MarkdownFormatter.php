@@ -296,7 +296,6 @@ if (count($links) > 0) {
         // Trim any non-alphanumeric characters from the end of the link
         $link = rtrim($link, '.,;:!?)');
 
-
         if (! str_starts_with($link, 'ANCHOR_')) {
             // Add to new unique array
             $uniqueLinks[$link] = "$filename:$line";
