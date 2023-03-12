@@ -56,6 +56,8 @@ Before submitting a pull request:
 HydePHP development is made in the HydePHP monorepo found at https://github.com/hydephp/develop.
 To get started, you will need to clone the repository, and run `composer install`. You will then be able to make changes to the packages found in the `packages/` sub-directories.
 
+Once you've made and commited your changes, submit a pull request to the same repository, and explain your changes and how they improve the codebase.
+
 ## Requirements
 
 If the project maintainer has any additional requirements, you will find them listed here.
