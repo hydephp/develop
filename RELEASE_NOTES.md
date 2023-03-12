@@ -13,7 +13,7 @@ This serves two purposes:
 - Added new method `HydePage::getCanonicalUrl()` to replace deprecated `HydePage::$canonicalUrl` property.
 
 ### Changed
-- Added default RSS feed description value to the config stub.
+- Added default RSS feed description value to the config stub in [#1253](https://github.com/hydephp/develop/pull/1253)
 
 ### Deprecated
 - for soon-to-be removed features.
