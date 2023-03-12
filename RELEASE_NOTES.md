@@ -19,6 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
+- Removed `RouteKey::normalize` method deprecated in v1.0.0-RC.2
 - Removed `RenderData:.getCurrentRoute` method deprecated in v1.0.0-RC.2
 - Removed `RenderData:.getCurrentPage` method deprecated in v1.0.0-RC.2
 

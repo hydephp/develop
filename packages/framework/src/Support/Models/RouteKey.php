@@ -30,7 +30,7 @@ final class RouteKey implements Stringable
 
     public function __construct(string $key)
     {
-        $this->key = self::normalize($key);
+        $this->key = $key;
     }
 
     public function __toString(): string
@@ -41,12 +41,6 @@ final class RouteKey implements Stringable
     public function get(): string
     {
         return $this->key;
-    }
-
-    /** @deprecated v1.0.0-RC.2 - This method will be removed before v1.0.0 */
-    public static function normalize(string $string): string
-    {
-        return $string;
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
