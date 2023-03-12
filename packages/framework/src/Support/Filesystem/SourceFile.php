@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Pages\Concerns\HydePage;
-use Illuminate\Support\Str;
 
 /**
  * File abstraction for a project source file.
