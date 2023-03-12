@@ -32,7 +32,7 @@ The main way to interact with Hyde is through the [HydeCLI](console-commands), a
 
 ## Starting a development server
 
-To make previewing your site a breeze you can use the realtime compiler which builds your pages on the fly.
+To make previewing your site a breeze you can use the realtime compiler, which builds your pages on the fly.
 
 ```bash
 php hyde serve
