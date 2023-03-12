@@ -13,16 +13,18 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Added default RSS feed description value to config stub.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed `RouteKey::normalize` method deprecated in v1.0.0-RC.2
+- Removed `RenderData:.getCurrentPage` method deprecated in v1.0.0-RC.2
+- Removed `RenderData:.getCurrentRoute` method deprecated in v1.0.0-RC.2
 
 ### Fixed
-- for any bug fixes.
+- Fixed the blog post article view where metadata assembly used legacy hard-coded paths instead of dynamic path information.
 
 ### Security
 - in case of vulnerabilities.
