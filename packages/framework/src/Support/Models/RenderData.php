@@ -8,7 +8,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
-use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Contains data for the current page being rendered/compiled.
