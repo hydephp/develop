@@ -1,9 +1,9 @@
-<article aria-label="Article" id="{{ Hyde::url("posts/$page->identifier", '') }}" itemscope
+<article aria-label="Article" id="{{ $page->identifier }}" itemscope
          itemtype="https://schema.org/Article"
     @class(['post-article mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Facades\Features::hasTorchlight()])>
     <meta itemprop="identifier" content="{{ $page->identifier }}">
-    @if(Hyde::hasSiteUrl())
-        <meta itemprop="url" content="{{ Hyde::url('posts/' . $page->identifier) }}">
+    @isset($page->canonicalUrl)
+        <meta itemprop="url" content="{{ $page->canonicalUrl }}">
     @endif
 
     <header aria-label="Header section" role="doc-pageheader">
