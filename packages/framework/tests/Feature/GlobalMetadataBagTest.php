@@ -84,6 +84,9 @@ class GlobalMetadataBagTest extends TestCase
         config(['hyde.url' => 'foo']);
         config(['hyde.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
+        $config = config('hyde');
+        unset($config['rss_description']);
+        config(['hyde' => $config]);
         $this->file('_posts/foo.md');
 
         $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', GlobalMetadataBag::make()->render());
