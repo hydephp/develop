@@ -359,6 +359,7 @@ uses the GitHub Flavored Markdown extension.
 You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.
 
 ```php
+// filepath: config/markdown.php
 'extensions' => [
     \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
     \League\CommonMark\Extension\Attributes\AttributesExtension::class,
@@ -369,6 +370,7 @@ You can add extra CommonMark extensions, or change the default ones, in the `con
 In the same file you can also change the configuration values to be passed to the CommonMark environment.
 
 ```php
+// filepath: config/markdown.php
 'config' => [
     'disallowed_raw_html' => [
         'disallowed_tags' => [],
