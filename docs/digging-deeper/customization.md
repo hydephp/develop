@@ -358,7 +358,7 @@ uses the GitHub Flavored Markdown extension. The Markdown related settings are f
 Below follows an overview of the Markdown configuration options available in Hyde.
 
 
-### CommonMark environment
+### CommonMark Extensions
 
 You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.
 
