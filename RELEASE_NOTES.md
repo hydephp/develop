@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added new method `HydePage::getCanonicalUrl()` to replace deprecated `HydePage::$canonicalUrl` property.
 
 ### Changed
 - Added default RSS feed description value to config stub.
@@ -22,6 +22,7 @@ This serves two purposes:
 - Removed `RouteKey::normalize` method deprecated in v1.0.0-RC.2
 - Removed `RenderData:.getCurrentPage` method deprecated in v1.0.0-RC.2
 - Removed `RenderData:.getCurrentRoute` method deprecated in v1.0.0-RC.2
+- Removed deprecated `HydePage::$canonicalUrl` property (replaced with `HydePage::getCanonicalUrl()`).
 
 ### Fixed
 - Fixed the blog post article view where metadata assembly used legacy hard-coded paths instead of dynamic path information.
