@@ -22,14 +22,14 @@ class MarkdownPostHelpersTest extends TestCase
     {
         config(['hyde.url' => 'https://example.com']);
         $post = new MarkdownPost('foo-bar');
-        $this->assertEquals('https://example.com/posts/foo-bar.html', $post->canonicalUrl);
+        $this->assertEquals('https://example.com/posts/foo-bar.html', $post->getCanonicalUrl());
     }
 
     public function test_get_canonical_link_returns_pretty_url_when_enabled()
     {
         config(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
         $post = new MarkdownPost('foo-bar');
-        $this->assertEquals('https://example.com/posts/foo-bar', $post->canonicalUrl);
+        $this->assertEquals('https://example.com/posts/foo-bar', $post->getCanonicalUrl());
     }
 
     public function test_get_post_description_returns_post_description_when_set_in_front_matter()

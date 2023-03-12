@@ -68,9 +68,6 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     public readonly string $title;
 
-    /** @deprecated v1.0.0-RC.3 - This property requires information that is setup-dependent, and will work better through a runtime accessor. Since it is mainly related to blog posts, it will be moved there. */
-    public ?string $canonicalUrl;
-
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
     {
         return new static($identifier, $matter);
@@ -260,7 +257,6 @@ abstract class HydePage implements PageSchema, SerializableContract
             'metadata' => $this->metadata,
             'navigation' => $this->navigation,
             'title' => $this->title,
-            'canonicalUrl' => $this->canonicalUrl,
         ];
     }
 
@@ -381,6 +377,19 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function navigationMenuGroup(): ?string
     {
         return $this->navigation->group;
+    }
+
+    public function getCanonicalUrl(): ?string
+    {
+        if (! empty($this->matter('canonicalUrl'))) {
+            return $this->matter('canonicalUrl');
+        }
+
+        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
+            return Hyde::url($this->getOutputPath());
+        }
+
+        return null;
     }
 
     protected function constructMetadata(): void
