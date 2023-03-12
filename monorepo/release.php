@@ -14,9 +14,17 @@
 
 echo "Preparing a new syndicated HydePHP release!\n";
 
-echo "Using NPM for versioning...\n";
+//echo "Using NPM for versioning...\n";
+//
+//$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
 
-$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
+echo 'Please enter the new version number: '.'(current version is '.trim(shell_exec('git describe --abbrev=0 --tags')).')'."\n";
+$version = trim(fgets(STDIN));
+
+if (empty($version)) {
+    echo "No version entered, aborting.\n";
+    exit(1);
+}
 
 echo "Version: $version\n";
 
