@@ -411,6 +411,8 @@ arbitrary PHP code specified in Markdown to be executed. It's easy to enable how
 'enable_blade' => true,
 ```
 
+See the [Blade in Markdown](advanced-markdown#blade-support) documentation for more information on how to use this feature.
+
 
 ## YAML Configuration
 
