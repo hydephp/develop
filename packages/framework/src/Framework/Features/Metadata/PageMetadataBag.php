@@ -28,8 +28,8 @@ class PageMetadataBag extends MetadataBag
 
     protected function addDynamicPageMetadata(HydePage $page): void
     {
-        if ($page->has('canonicalUrl')) {
-            $this->add(Meta::link('canonical', $page->data('canonicalUrl')));
+        if ($page->getCanonicalUrl()) {
+            $this->add(Meta::link('canonical', $page->getCanonicalUrl()));
         }
 
         if ($page->has('title')) {
@@ -49,8 +49,8 @@ class PageMetadataBag extends MetadataBag
         $this->addPostMetadataIfExists($page, 'category', 'keywords');
         $this->addPostMetadataIfExists($page, 'canonicalUrl', 'url');
 
-        if ($page->has('canonicalUrl')) {
-            $this->add(Meta::property('url', $page->data('canonicalUrl')));
+        if ($page->getCanonicalUrl()) {
+            $this->add(Meta::property('url', $page->getCanonicalUrl()));
         }
 
         if ($page->has('date')) {
