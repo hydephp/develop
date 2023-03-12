@@ -373,6 +373,8 @@ the CommonMark converter environment when being set up by Hyde.
 
 Remember that you may need to install any third party extensions through Composer before you can use them.
 
+### CommonMark Configuration
+
 In the same file you can also change the configuration values to be passed to the CommonMark environment.
 
 ```php
