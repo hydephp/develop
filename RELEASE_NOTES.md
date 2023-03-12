@@ -14,7 +14,7 @@ This serves two purposes:
 
 ### Changed
 - Added default RSS feed description value to the config stub.
-- Changed the RSS feed configuration structure to be an array of feed configurations.
+- Changed the RSS feed configuration structure to be an array of feed configurations in [#1258](https://github.com/hydephp/develop/pull/1258)
   - Replaced option `hyde.generate_rss_feed` with `hyde.rss.enabled`
   - Replaced option `hyde.rss_filename` with `hyde.rss.filename`
   - Replaced option `hyde.rss_description` with `hyde.rss.description`
