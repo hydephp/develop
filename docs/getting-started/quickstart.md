@@ -27,11 +27,7 @@ you also need NodeJS and NPM.
 
 ## Using the Hyde CLI
 
-The main way to interact with Hyde is through the [HydeCLI](console-commands).
-
-If you are familiar with Laravel Artisan you will feel right at home, as that is what powers the HydeCLI.
-
-Learn more about the HydeCLI in the [console commands](console-commands) documentation.
+The main way to interact with Hyde is through the [HydeCLI](console-commands), a Laravel Artisan-based command-line interface. Learn more about the HydeCLI in the [console commands](console-commands) documentation.
 
 
 ## Starting a development server
