@@ -108,15 +108,6 @@ return [
     |
     */
 
-    // Should the RSS feed be generated?
-    'generate_rss_feed' => true,
-
-    // What filename should the RSS file use?
-    'rss_filename' => 'feed.xml',
-
-    // The channel description.
-    'rss_description' =>  env('SITE_NAME', 'HydePHP').' RSS Feed',
-
     'rss' => [
         // Should the RSS feed be generated?
         'enabled' => true,
