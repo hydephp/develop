@@ -355,8 +355,7 @@ Please see the [Managing Assets](managing-assets) page to learn more.
 
 Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converting Markdown into HTML.
 
-Hyde ships with the GitHub Flavored Markdown extension, and
-the Torchlight extension is enabled automatically when needed.
+Hyde ships with the GitHub Flavored Markdown extension, and the Torchlight extension is enabled automatically when needed.
 
 You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.
 
