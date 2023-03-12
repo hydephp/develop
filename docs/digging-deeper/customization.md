@@ -430,7 +430,7 @@ name: HydePHP
 url: http://localhost
 pretty_urls: false
 generate_sitemap: true
-rss: 
+rss:
   enabled: true
   filename: feed.xml
   description: HydePHP RSS Feed
