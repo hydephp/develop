@@ -21,6 +21,11 @@ echo "Preparing a new syndicated HydePHP release!\n";
 echo "Please enter the new version number: " . '(current version is ' . trim(shell_exec('git describe --abbrev=0 --tags')) . ')' . "\n";
 $version = trim(fgets(STDIN));
 
+if (empty($version)) {
+    echo "No version entered, aborting.\n";
+    exit(1);
+}
+
 echo "Version: $version\n";
 
 echo "Updating Hyde composer.json...\n";
