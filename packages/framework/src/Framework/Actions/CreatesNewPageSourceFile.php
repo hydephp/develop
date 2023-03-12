@@ -62,12 +62,6 @@ class CreatesNewPageSourceFile
         return $this->outputPath;
     }
 
-    /** @deprecated This method may be removed as the save method now returns the path. */
-    public function getOutputPath(): string
-    {
-        return $this->outputPath;
-    }
-
     protected function parseTitle(string $title): string
     {
         return Str::afterLast($title, '/');

@@ -28,6 +28,7 @@ This serves two purposes:
 - Removed `RenderData:.getCurrentRoute` method deprecated in v1.0.0-RC.2
 - Removed deprecated `HydePage::$canonicalUrl` property (replaced with `HydePage::getCanonicalUrl()`).
 - Removed deprecated `SourceFile::withoutDirectoryPrefix` method only used in one test.
+- Removed deprecated `CreatesNewPageSourceFile::getOutputPath` method as the save method now returns the path.
 
 ### Fixed
 - Fixed the blog post article view where metadata assembly used legacy hard-coded paths instead of dynamic path information.
