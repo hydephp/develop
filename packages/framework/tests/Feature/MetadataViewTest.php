@@ -149,7 +149,7 @@ class MetadataViewTest extends TestCase
             '<meta property="og:url" content="http://localhost/posts/test.html">',
             '<meta property="og:type" content="article">',
             '<meta itemprop="identifier" content="test">',
-            '<meta itemprop="url" content="http://localhost/posts/test">',
+            '<meta itemprop="url" content="http://localhost/posts/test.html">',
         ]));
 
         $this->assertAllTagsWereCovered('posts/test', $assertions);
@@ -191,7 +191,7 @@ class MetadataViewTest extends TestCase
             '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',
             '<meta property="og:image" content="../media/image.jpg">',
             '<meta itemprop="identifier" content="test">',
-            '<meta itemprop="url" content="http://localhost/posts/test">',
+            '<meta itemprop="url" content="http://localhost/posts/test.html">',
             '<meta itemprop="url" content="../media/image.jpg">',
             '<meta itemprop="contentUrl" content="../media/image.jpg">',
         ]));
