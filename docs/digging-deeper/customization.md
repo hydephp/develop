@@ -376,7 +376,7 @@ Remember that you may need to install any third party extensions through Compose
 ### CommonMark Configuration
 
 In the same file you can also change the configuration values to be passed to the CommonMark converter environment.
-Hyde handles many of the options automatically, but you may want to override some of them and/or add your own.
+HydePHP handles many of the options automatically, but you may want to override some of them and/or add your own.
 Any custom options will be merged with the Hyde defaults at runtime.
 
 ```php
