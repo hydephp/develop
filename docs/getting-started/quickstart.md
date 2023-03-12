@@ -63,7 +63,6 @@ php hyde make:page
 ## Compiling to static HTML
 
 Now that you have some amazing content, you'll want to compile your site into static HTML.
-
 This is as easy as executing the `build` command, after which your site is stored in the `_site` directory.
 
 ```bash
