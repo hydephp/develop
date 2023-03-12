@@ -390,6 +390,12 @@ Hyde handles many of the options automatically, but you may want to override som
 See the [CommonMark Configuration Docs](https://commonmark.thephpleague.com/2.3/configuration/) for the available options.
 Any custom options will be merged with the defaults.
 
+### Allow Raw HTML
+
+```php
+// filepath: config/markdown.php
+'allow_html' => true,
+```
 
 ## YAML Configuration
 
