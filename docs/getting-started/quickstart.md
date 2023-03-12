@@ -37,7 +37,7 @@ To make previewing your site a breeze you can use the realtime compiler, which b
 ```bash
 php hyde serve
 ```
-Simply run the serve command, and you will be able to preview your site at [http://localhost:8000](http://localhost:8000).
+Simply run the serve command, and you will be able to preview your site at [http://localhost:8080](http://localhost:8080).
 
 
 ## Creating content
