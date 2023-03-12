@@ -50,4 +50,12 @@ Once installed, you can access the HydeCLI from the project root using the `hyde
 php hyde info
 ```
 
+## Usage
+
+Creating static pages with HydePHP is incredibly easy. Just drop Markdown files in any of the source directories, then run the build command to compile the content into beautiful static HTML.
+
+```bash
+php hyde build
+```
+
 ### To learn more, head over to the [quickstart page](quickstart).
