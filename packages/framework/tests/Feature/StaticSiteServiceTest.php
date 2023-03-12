@@ -166,7 +166,7 @@ class StaticSiteServiceTest extends TestCase
     public function test_rss_feed_is_not_generated_when_conditions_are_not_met()
     {
         config(['hyde.url' => '']);
-        config(['hyde.generate_rss_feed' => false]);
+        config(['hyde.rss.enabled' => false]);
 
         $this->artisan('build')
             ->doesntExpectOutput('Generating RSS feed...')
@@ -176,7 +176,7 @@ class StaticSiteServiceTest extends TestCase
     public function test_rss_feed_is_generated_when_conditions_are_met()
     {
         config(['hyde.url' => 'https://example.com']);
-        config(['hyde.generate_rss_feed' => true]);
+        config(['hyde.rss.enabled' => true]);
 
         Filesystem::touch('_posts/foo.md');
 
