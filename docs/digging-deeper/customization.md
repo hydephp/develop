@@ -360,7 +360,8 @@ Below follows an overview of the Markdown configuration options available in Hyd
 
 ### CommonMark Extensions
 
-You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.
+You can add extra CommonMark extensions, or change the default ones, using the `extensions` array in the config file.
+They will then be loaded into the CommonMark converter environment.
 
 ```php
 // filepath: config/markdown.php
