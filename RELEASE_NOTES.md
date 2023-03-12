@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed `RouteKey::normalize` method deprecated in v1.0.0-RC.2
 
 ### Fixed
 - for any bug fixes.

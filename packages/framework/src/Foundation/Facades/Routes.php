@@ -28,18 +28,18 @@ class Routes extends Facade
 
     public static function exists(string $routeKey): bool
     {
-        return static::getFacadeRoot()->has(RouteKey::normalize($routeKey));
+        return static::getFacadeRoot()->has($routeKey);
     }
 
     public static function get(string $routeKey): ?Route
     {
-        return static::getFacadeRoot()->get(RouteKey::normalize($routeKey));
+        return static::getFacadeRoot()->get($routeKey);
     }
 
     /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
     public static function getOrFail(string $routeKey): Route
     {
-        return static::getFacadeRoot()->getRoute(RouteKey::normalize($routeKey));
+        return static::getFacadeRoot()->getRoute($routeKey);
     }
 
     /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
