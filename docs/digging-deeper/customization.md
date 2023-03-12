@@ -332,8 +332,8 @@ to the desired title. Note that the front matter property will take precedence o
 
 ## Blade Views
 
-Hyde uses the Laravel templating system called Blade. Most parts of the included HydePHP templates have been extracted into components to be customized easily.
-Before editing Blade views you should familiarize yourself with how they work in the [official documentation](https://laravel.com/docs/10.x/blade).
+Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.
+Before editing the views you should familiarize yourself with the [Laravel Blade Documentation](https://laravel.com/docs/10.x/blade).
 
 To edit a default Hyde component you need to publish them first using the `hyde publish:views` command.
 The files will then be available in the `resources/views/vendor/hyde` directory.
