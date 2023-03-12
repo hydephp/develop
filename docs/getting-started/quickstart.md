@@ -12,7 +12,7 @@ The recommended method of installing Hyde is using Composer, which installs the 
 
 ```bash
 // torchlight! {"lineNumbers": false}
-composer create-project hyde/hyde --stability=dev
+composer create-project hyde/hyde --stability=rc
 ```
 
 ### Requirements
