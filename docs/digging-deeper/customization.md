@@ -117,7 +117,7 @@ You can set the RSS channel description using the following:
 'rss_description' => 'A collection of articles and tutorials from my blog', // Example
 ```
 
-If an rss_description is not set one is created by appending "RSS Feed" to your site name.
+If an `rss_description` is not set one is created by appending "RSS Feed" to your site name.
 
 ### Authors
 
