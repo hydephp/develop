@@ -1,4 +1,4 @@
-<article aria-label="Article" id="{{ $page->routeKey }}" itemscope
+<article aria-label="Article" id="{{ $page->identifier }}" itemscope
          itemtype="https://schema.org/Article"
     @class(['post-article mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Facades\Features::hasTorchlight()])>
     <meta itemprop="identifier" content="{{ $page->identifier }}">
