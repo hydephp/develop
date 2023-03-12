@@ -2,10 +2,8 @@
 
 ## Supported Versions
 
-### Hyde is currently in Beta and has no supported versions.
+These are the version ranges of HydePHP, and their support status. We follow [Semantic Versioning](https://semver.org), and you can read about our [Backwards Compatability](https://github.com/hydephp/policies/blob/master/backwards-compatability.md) promise here.
 
-Versions in the 0.x series are not stable and may change at any time.
-No backwards compatibility guarantees are made and there will be breaking changes without notice.
 
 | Version | Supported | Classification            |
 |---------|-----------|---------------------------|
