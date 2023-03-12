@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-Please read and understand the contribution guide before creating an issue or pull request. Also please note that while HydePHP is still in development, this document is a living standard that like the rest of the codebase may change at any time.
+Please read and understand the contribution guide before creating an issue or pull request. This document is a living standard that may be updated when needed.
 
 ## Resources
 
@@ -25,7 +25,7 @@ quality to benefit the project. Many developers have different skill sets, stren
 
 When requesting or submitting new features, first consider whether they might be useful to others. Open
 source projects are used by many developers, who may have entirely different needs from your own. Think about
-whether or not your feature is likely to be used by other users of the project.
+whether or not your feature is likely to be used by other users of the project, or if your feature may instead be better suited as a third party extension.
 
 You may also want to make sure that your feature abides by the goals of HydePHP which are as follows:
 
@@ -49,6 +49,14 @@ Before submitting a pull request:
 
 - Check the codebase to ensure that your feature doesn't already exist.
 - Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
+- Check the feature is a viable for the project (see above)
+
+## How-to
+
+HydePHP development is made in the HydePHP monorepo found at https://github.com/hydephp/develop.
+To get started, you will need to clone the repository, and run `composer install`. You will then be able to make changes to the packages found in the `packages/` sub-directories.
+
+Once you've made and commited your changes, submit a pull request to the same repository, and explain your changes and how they improve the codebase.
 
 ## Requirements
 
@@ -59,15 +67,14 @@ We try to follow the Laravel standards, https://laravel.com/docs/10.x/contributi
 - **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)**
 
 **Please add tests!**
-- **Add tests!** - Your patch might not be accepted if it doesn't have tests.
+- **Add tests!** - Your patch might not be accepted if it doesn't have tests. When submitting a bug fix, make sure to include one or more tests proving the fix works, When adding features, make sure all aspects are properly tested.
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+- **Document any change in behaviour** - Make sure the `README.md` and the project documentation are kept up-to-date.
 
-<!-- Will be enabled once we enter GA 
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option. -->
+- **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option.
 
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests. This makes it easier to keep track of changes.
 
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting. Making atomic commits eases the burden on the developer reviewing your pull request.
 
 **Happy coding**!
