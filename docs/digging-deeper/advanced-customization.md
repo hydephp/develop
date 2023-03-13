@@ -105,6 +105,24 @@ Each option is relative to the site's `output_directory` setting. Setting a valu
 ],
 ```
 
+### In a service provider
+
+```php
+// filepath app/AppServiceProvider.php
+use Hyde\Framework\Concerns\RegistersFileLocations;
+
+public function register(): void
+{
+    $this->registerOutputDirectories([
+        \Hyde\Pages\HtmlPage::class => '',
+        \Hyde\Pages\BladePage::class => '',
+        \Hyde\Pages\MarkdownPage::class => '',
+        \Hyde\Pages\MarkdownPost::class => 'posts',
+        \Hyde\Pages\DocumentationPage::class => 'docs',
+    ]);
+}
+```
+
 ### Route Key Changes
 
 >warning Note that this change also affects the route keys, as those are based on the output directory.
