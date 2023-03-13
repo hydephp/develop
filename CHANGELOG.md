@@ -17,6 +17,21 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.5](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.5) - 2023-03-13
+
+### Added
+- Add back lost versioning text from compiled HydeFront file by @caendesilva in https://github.com/hydephp/develop/pull/1263
+- Create documentation for the HydePHP v1.0 release by @caendesilva in https://github.com/hydephp/develop/pull/1242
+
+### Changed
+- Use new fixes from StyleCI by @caendesilva in https://github.com/hydephp/develop/pull/1264
+- Remove "Beta Software Warning" from Project Readmes by @caendesilva in https://github.com/hydephp/develop/pull/1268
+- Format Markdown documents by @caendesilva in https://github.com/hydephp/develop/pull/1270
+- Update supported versions in package security policies by @caendesilva in https://github.com/hydephp/develop/pull/1269
+
+### Fixed
+- Bugfix: Fix missing `justify-between` class on the documentation article header [#1265](https://github.com/hydephp/develop/pull/1265)
+
 
 ## [v1.0.0-RC.4](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.4) - 2023-03-12
 

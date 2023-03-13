@@ -22,7 +22,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- Bugfix: Fix missing `justify-between` class on the documentation article header [#1265](https://github.com/hydephp/develop/pull/1265)
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
