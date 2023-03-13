@@ -7,12 +7,12 @@ navigation:
 
 This guide will help you update your HydePHP project to the latest version.
 
-### Before you start
+## Before you start
 
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
 
-#### Which method?
+### Which method?
 
 Depending on how you installed Hyde, there are a few different ways to update it.
 
@@ -20,7 +20,7 @@ We have two methods documented here, one [using Git](#using-git) and one [manual
 
 Regardless of the method you use, make sure you follow the post-update instructions at the end.
 
-### Using Git
+## Using Git
 
 This method works great, especially if you created your project by cloning the [hydephp/hyde](https://github.com/hydephp/hyde) repository.
 
@@ -44,7 +44,7 @@ composer update
 
 Next, follow the post-update instructions for Hyde/Hyde.
 
-### Manual Update
+## Manual Update
 
 Since all resource files are in the content directories you can simply copy those files to the new location.
 
