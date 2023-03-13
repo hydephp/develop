@@ -101,7 +101,7 @@ php hyde change:sourceDirectory <name>
 ```
 
 When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist,
-then move all source directories and their content into it.
+and move all source directories and their content into it.
 
 
 ## Custom media directory 🧪
