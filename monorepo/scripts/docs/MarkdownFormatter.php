@@ -236,7 +236,7 @@ function normalize_lines($filename): void
         ];
 
         foreach ($legacyTerms as $legacyTerm => $newTerm) {
-            if (str_contains($line, $legacyTerm)) {
+            if (str_contains(strtolower($line), $legacyTerm)) {
                 global $warnings;
                 $warnings['Legacy terms'][] = sprintf('Legacy term found in %s:%s Found "%s", should be %s', $filename, $index + 1, $legacyTerm, $newTerm);
             }
