@@ -117,6 +117,12 @@ The media directory houses assets like images and stylesheets. The default direc
 Hyde will copy all files in this directory to `_site/media` (or whatever your configured output and media directories are).
 
 You can change the path to this directory by setting the `media_directory` option in `config/hyde.php`.
+
+```php
+// filepath config/hyde.php
+'media_directory' => '_media',
+```
+
 Note that this change will affect both the source and output directories. For example, if you set the value to `assets`,
 all files from `assets` will be copied to `_site/assets`.
 
