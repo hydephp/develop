@@ -43,7 +43,7 @@ However, if your Markdown is trusted, and you know it's safe, you can enable it 
 'enable_blade' => true,
 ```
 
-#### Limitations
+### Limitations
 
 All shortcodes must be the first word on a new line, and only single-line shortcodes are supported.
 
