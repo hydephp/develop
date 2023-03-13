@@ -7,7 +7,7 @@ These are the version ranges of HydePHP, and their support status. We follow [Se
 | Version | Supported          | Classification       |
 |---------|--------------------|----------------------|
 | 1.x     | :white_check_mark: | General Availability |
-| > 0.64  | :warning:          | Beta (legacy)        |
+| > 0.64  | :x:                | Beta (legacy)        |
 | < 0.64  | :x:                | Beta (legacy)        |
 | < 0.8   | :x:                | Alpha stage          |
 
