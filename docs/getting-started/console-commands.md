@@ -159,7 +159,7 @@ Generate the RSS feed
 php hyde build:search
 ```
 
-Generate the docs/search.json
+Generate the `docs/search.json` file
 
 
 ## Generate the `sitemap.xml` file
@@ -171,7 +171,7 @@ Generate the docs/search.json
 php hyde build:sitemap
 ```
 
-Generate the sitemap.xml
+Generate the `sitemap.xml` file
 
 
 ## Scaffold a new Markdown, Blade, or documentation page file
