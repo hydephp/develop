@@ -434,16 +434,13 @@ if ($filesChanged > 0) {
 }
 $warningCount = count($warnings, COUNT_RECURSIVE) - count($warnings);
 if ($warningCount > 0) {
-    $str = $warningCount === 1 ? "warning" : "warnings";
-    echo sprintf("\033[33m%s %s found.\033[0m", $warningCount, $str);
+    echo sprintf("\033[33m%s %s found.\033[0m", $warningCount, $warningCount === 1 ? "warning" : "warnings");
     if (file_exists(__DIR__.'/../cache/last-run-warnings-count.txt')) {
         $lastRunWarningsCount = (int) file_get_contents(__DIR__.'/../cache/last-run-warnings-count.txt');
         if ($warningCount < $lastRunWarningsCount) {
-            $str =$lastRunWarningsCount - $warningCount === 1 ? 'warning' : 'warnings';
-            echo sprintf(" Good job! You fixed %d%s !", $lastRunWarningsCount - $warningCount, $str);
+            echo sprintf(" Good job! You fixed %d%s !", $lastRunWarningsCount - $warningCount, $lastRunWarningsCount - $warningCount === 1 ? 'warning' : 'warnings');
         } elseif ($warningCount > $lastRunWarningsCount) {
-            $str = $warningCount - $lastRunWarningsCount === 1 ? 'warning' : 'warnings';
-            echo sprintf(" Uh oh! You introduced %d new %s!", $warningCount - $lastRunWarningsCount, $str);
+            echo sprintf(" Uh oh! You introduced %d new %s!", $warningCount - $lastRunWarningsCount, $warningCount - $lastRunWarningsCount === 1 ? 'warning' : 'warnings');
         }
     }
 }
