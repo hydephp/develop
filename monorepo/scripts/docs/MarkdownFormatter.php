@@ -120,7 +120,7 @@ function normalize_lines($filename): void
             $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
         }
 
-        // Check if line is a escaped fenced code block
+        // Check if line is an escaped fenced code block
         if (str_starts_with($line, '````')) {
             $is_inside_fenced_fenced_code_block = ! $is_inside_fenced_fenced_code_block;
         }
