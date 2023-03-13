@@ -3,14 +3,12 @@ navigation:
     priority: 35
 ---
 
-
 <style>
 #document-main-content > ul > li > p {
     margin-top: 0;
     margin-bottom: 0;
 }
 </style>
-
 
 # Troubleshooting
 
