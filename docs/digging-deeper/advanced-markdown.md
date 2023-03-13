@@ -104,7 +104,7 @@ Note that these currently do not support multi-line blockquotes.
 When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
 These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.
 
-Simply add a code comment in the **first line** of a `fenced code block` like so:
+Simply add a code comment in the **first line** of a fenced code block like so:
 
 ````markdown
 // Filepath: _docs/advanced-markdown.md
