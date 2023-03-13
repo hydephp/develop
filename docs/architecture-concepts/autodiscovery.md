@@ -45,7 +45,7 @@ If you have not yet read the [HydeKernel Documentation](the-hydekernel), here's 
 The HydeKernel encapsulates a HydePHP project, providing helpful methods for interacting with it.
 It is also responsible for booting the application, which includes the autodiscovery process.
 
-The kernel is created very early on in the application lifecycle, in the bootstrap.php file, where it is also bound
+The kernel is created very early on in the application lifecycle, in the `bootstrap.php` file, where it is also bound
 as a singleton into the application service container.
 
 At this point you might be wondering why we're talking about the kernel when this article is about autodiscovery.
