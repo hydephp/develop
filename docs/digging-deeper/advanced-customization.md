@@ -46,18 +46,16 @@ is registered, at which point the provider will search for any overrides in the 
 
 ## Customizing source directories
 
-The source directory paths are stored in the PageModel objects.
-You can change them by modifying the static property, for example in a service provider.
-
-Internally, the paths are registered in the HydeServiceProvider using the following method:
+### In a service provider
 
 ```php
-// filepath Hyde\Framework\HydeServiceProvider
+// filepath app/AppServiceProvider.php
 use Hyde\Framework\Concerns\RegistersFileLocations;
 
 public function register(): void
 {
     $this->registerSourceDirectories([
+        HtmlPage::class => '_pages',
         BladePage::class => '_pages',
         MarkdownPage::class => '_pages',
         MarkdownPost::class => '_posts',
