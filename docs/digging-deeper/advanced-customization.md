@@ -37,7 +37,7 @@ These properties are set when the `HydeServiceProvider` is registered, at which 
 
 **This means that there are two options to change the source and output directories:**
 1. You can change the values in the config file, which will be used by the HydeServiceProvider to set the static properties.
-2. You can change the static properties directly in the page model classes, you'd probably want to do this in a service provider.
+2. You can change the static properties directly in the page model classes, you'd probably want to do this in a service provider as it must be done before the Kernel is booted.
 
 ## Customizing source directories 🧪
 
