@@ -100,5 +100,5 @@ If your configuration is broken, you might not be able to run any commands throu
 To remedy this you can copy the config files from the vendor directory into the project directory.
 You can do this manually, or with the following rescue command:
 ```bash
-copy .\vendor\hyde\framework\config\hyde.php .\config\hyde.php
+copy ./vendor/hyde/framework/config/hyde.php ./config/hyde.php
 ```
