@@ -52,10 +52,10 @@ Next, follow the post-update instructions.
 
 If you are not using Git, you can still update your project. This is a bit more involved, but it is still possible.
 
-First, you will need to download the latest release archive from the [releases page](https://github.com/hydephp/hyde/releases).
+1. First, you will need to download the latest release archive from the [releases page](https://github.com/hydephp/hyde/releases).
+2. Then extract the archive, and copy the contents into your project directory.
 
-Then extract the archive, and copy the contents into your project directory. Since this may overwrite modified files,
-it may be safer to use the [hard update](#hard-update) method.
+Since this may overwrite modified files, it may be safer to use the [hard update](#hard-update) method.
 
 ### Hard Update
 
