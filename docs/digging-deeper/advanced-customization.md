@@ -51,15 +51,13 @@ is registered, at which point the provider will search for any overrides in the 
 ```php
 // filepath config/hyde.php
 
-return [
-    'source_directories' => [
-        HtmlPage::class => '_pages',
-        BladePage::class => '_pages',
-        MarkdownPage::class => '_pages',
-        MarkdownPost::class => '_posts',
-        DocumentationPage::class => '_docs',
-    ],
-];
+'source_directories' => [
+    HtmlPage::class => '_pages',
+    BladePage::class => '_pages',
+    MarkdownPage::class => '_pages',
+    MarkdownPost::class => '_posts',
+    DocumentationPage::class => '_docs',
+],
 ```
 
 ### In a service provider
