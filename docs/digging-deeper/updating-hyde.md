@@ -5,7 +5,7 @@ navigation:
 
 # Updating Hyde Projects
 
-This guide will help you update Hyde to the latest version. It is recommended to back up your source files before updating.
+This guide will help you update Hyde to the latest version. 
 
 ## Updating Hyde/Hyde
 
