@@ -54,7 +54,7 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 
 - **Hyde**: The application that you are using.
 - **HydeCLI**: The command-line interface for Hyde.
-- **Framework**: The Hyde core codebase.
+- **Framework**: The package containing the core codebase.
 
 - **Slug**: The filename without the extension (basename) (internally also known as `identifier`).  Example: `hello-world`
 - **Filename**: The full name of a file with the extension. Example: `hello-world.md`
