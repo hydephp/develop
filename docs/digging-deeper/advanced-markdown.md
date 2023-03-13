@@ -159,6 +159,11 @@ The filepaths are hidden on mobile devices using CSS to prevent them from overla
 
 ## Configuration
 
+### Full configuration reference
+
+All Markdown-related configuration options are in the `config/markdown.php` file.
+You can find the full reference on the [Customization](customization#markdown-configuration) page.
+
 ### Raw HTML Tags
 
 To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
