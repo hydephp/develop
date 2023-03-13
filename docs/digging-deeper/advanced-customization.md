@@ -89,7 +89,7 @@ public function register(): void
 ## Customizing output directories
 
 Like source directories, the output directories are also important as they determine the output path for the compiled pages.
->warning Note that changing output directories also affects the route keys, as those are based on the output directory. <br> Scroll down to see the [Route key impact](#route-key-impact) section for more information.
+>warning Note that changing output directories also affects the route keys, as those are based on the output directory. <p>Scroll down to see the [Route key impact](#route-key-impact) section for more information.</p>
 
 Each option is relative to the site's `output_directory` setting. Setting a value to `''` will output the page to the site root.
 
