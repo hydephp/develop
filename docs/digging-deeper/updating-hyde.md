@@ -83,7 +83,7 @@ First, ensure that your dependencies are up to date.
 composer update
 ```
 
-Then, update your config files. This is the hardest part, as you may need to manually merge any changes that have been made to the config files.
+Then, update your config files. This is the hardest part, as you may need to manually merge in your own changes.
 
 ```bash
 php hyde publish:configs
