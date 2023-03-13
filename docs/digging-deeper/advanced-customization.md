@@ -38,7 +38,7 @@ These properties are set when the [`HydeServiceProvider`](https://github.com/hyd
 **This means that there are two options to change the source and output directories:**
 1. You can change the values in the config file, which will be used by the `HydeServiceProvider` to set the static properties.
 2. You can change the static properties directly in the page model classes, you'd probably want to do this in a service provider as it must be done before the Kernel is booted.
-   - You can use the `RegistersFileLocations` trait to use the same registration logic as the `HydeServiceProvider`.
+   - You can use the [`RegistersFileLocations`](https://github.com/hydephp/framework/blob/master/src/Framework/Concerns/RegistersFileLocations.php) trait to use the same registration logic as the `HydeServiceProvider`.
 
 ## Customizing source directories 🧪
 
