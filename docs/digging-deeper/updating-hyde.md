@@ -77,6 +77,8 @@ Next, follow the post-update instructions. After verifying that everything is wo
 After updating Hyde you should update your config and resource files. This is where things can get a tiny bit dangerous
 as existing files may be overwritten. If you are using Git, you can easily take care of any merge conflicts that arise.
 
+First, update your config files.
+
 ```bash
 php hyde publish:configs
 ```
