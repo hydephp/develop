@@ -22,7 +22,6 @@ did you find a new one? Send a PR to [update the docs](https://github.com/hydeph
 2. You don't need to set an H1 heading in blog posts. The H1 is set by Hyde based on the front matter title.
 3. You never need front matter, though it is often useful.
    For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
-4. Currently, Hyde support for nested directories besides those already defined is experimental.
 
 
 ## Conventions to follow
