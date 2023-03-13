@@ -2,16 +2,14 @@
 
 ## Supported Versions
 
-### Hyde is currently in Beta and has no supported versions.
+These are the version ranges of HydePHP, and their support status. We follow [Semantic Versioning](https://semver.org), and you can read about our [Backwards Compatability](https://github.com/hydephp/policies/blob/master/backwards-compatability.md) promise here.
 
-Versions in the 0.x series are not stable and may change at any time.
-No backwards compatibility guarantees are made and there will be breaking changes without notice.
-
-| Version | Supported | Classification            |
-|---------|-----------|---------------------------|
-| > 0.50  | :warning: | Beta (active development) |
-| < 0.50  | :x:       | Beta (legacy)             |
-| < 0.8   | :x:       | Alpha stage               |
+| Version | Supported          | Classification       |
+|---------|--------------------|----------------------|
+| 1.x     | :white_check_mark: | General Availability |
+| < 0.64  | :x:                | Beta (legacy)        |
+| < 0.50  | :x:                | Beta (legacy)        |
+| < 0.8   | :x:                | Alpha stage          |
 
 
 <!-- 
@@ -24,5 +22,6 @@ No backwards compatibility guarantees are made and there will be breaking change
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability within this package, please send an e-mail to the creator, Caen De Silva, via caen@desilva.se.
+You can also report a vulnerability through GitHub on the [Security Advisory](https://github.com/hydephp/develop/security/advisories) page.
 
 All security vulnerabilities will be promptly addressed.
