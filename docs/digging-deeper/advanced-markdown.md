@@ -13,7 +13,7 @@ Since HydePHP makes heavy use of Markdown, there are some extra features and hel
 
 ## Using Blade in Markdown
 
-Another special feature in Hyde, is that you can use Laravel Blade in Markdown files!
+A special feature in Hyde, is that you can use Laravel Blade in Markdown files!
 
 To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
 
