@@ -10,7 +10,7 @@ navigation:
 
 >danger Danger lies ahead! Read this before you proceed.
 
-This page covers advanced usage of potentially experimental and unstable features and is intended for developers
+This page covers advanced usage and is intended for developers
 who know what they are doing and can handle the risk of breaking things. The article will also cover things
 that you _can_ do, but that you maybe should not. With great power comes great responsibility. You have been warned.
 
