@@ -416,13 +416,14 @@ $fileCount = count($markdownFiles);
 echo "\n\n\033[32mAll done!\033[0m Formatted, normalized, and validated $linesTransformed lines of Markdown in $fileCount files in {$time}ms\n";
 
 if ($filesChanged > 0) {
-    echo "\n\033[32m$filesChanged files were changed\033[0m\n";
+    echo "\n\033[32m$filesChanged files were changed.\033[0m ";
 } else {
-    echo "\n\033[32mNo files were changed\033[0m\n";
+    echo "\n\033[32mNo files were changed.\033[0m ";
 }
 if (count($warnings) > 0) {
-    echo "\033[33m".count($warnings, COUNT_RECURSIVE) - count($warnings)." warnings found \033[0m \n";
+    echo "\033[33m".count($warnings, COUNT_RECURSIVE) - count($warnings)." warnings found.\033[0m";
 }
+echo "\n";
 
 // If --git flag is passed, make a git commit
 if (isset($argv[1]) && $argv[1] === '--git') {
