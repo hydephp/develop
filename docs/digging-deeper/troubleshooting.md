@@ -55,9 +55,9 @@ We will use the following definitions to describe the behaviour of Hyde.
 - **HydeCLI**: The command-line interface for Hyde.
 - **Framework**: The package containing the core codebase.
 
-- **Basename**: The filename without the extension. Example: `hello-world`
 - **Identifier**: The filepath without the extension, relative to the page type source directory.
 - **Route Key**: The page type's output directory plus the identifier. Example: `posts/hello-world`
+- **Basename**: The filename without the extension. Example: `hello-world`
 - **Filename**: The full name of a file with the extension. Example: `hello-world.md`
 - **Filepath**: The full file path including extension. Example: `_posts/hello-world.md`
 
