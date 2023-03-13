@@ -53,11 +53,11 @@ is registered, at which point the provider will search for any overrides in the 
 
 return [
     'source_directories' => [
-        \Hyde\Pages\HtmlPage::class => '_pages',
-        \Hyde\Pages\BladePage::class => '_pages',
-        \Hyde\Pages\MarkdownPage::class => '_pages',
-        \Hyde\Pages\MarkdownPost::class => '_posts',
-        \Hyde\Pages\DocumentationPage::class => '_docs',
+        HtmlPage::class => '_pages',
+        BladePage::class => '_pages',
+        MarkdownPage::class => '_pages',
+        MarkdownPost::class => '_posts',
+        DocumentationPage::class => '_docs',
     ],
 ];
 ```
