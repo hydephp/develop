@@ -7,7 +7,7 @@
         'torchlight-enabled' => $document->hasTorchlight()])>
     @yield('content')
 
-    <header id="document-header" class="flex items-center flex-wrap prose-h1:mb-3">
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
         {{ $document->renderHeader() }}
     </header>
     <section id="document-main-content" itemprop="articleBody">
