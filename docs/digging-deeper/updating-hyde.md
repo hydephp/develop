@@ -61,7 +61,7 @@ the safest option as you won't be overriding any of your existing files.
 If you have changed any other files, for example in the App directory, you will need to update those files manually as well.
 The same goes if you have created any custom Blade components or have modified Hyde ones.
 
-Here is an example CLI workflow, but you can do the same using a graphical file manager.
+**Here is an example CLI workflow, but you can do the same using a graphical file manager.**
 
 ```bash
 mv my-project my-project-old
