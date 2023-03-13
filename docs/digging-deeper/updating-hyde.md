@@ -3,7 +3,7 @@ navigation:
     priority: 35
 ---
 
-# Updating Hyde
+# Updating Hyde Projects
 
 This guide will help you update Hyde to the latest version. It is recommended to back up your source files before updating.
 
