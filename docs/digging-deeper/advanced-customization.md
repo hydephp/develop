@@ -6,7 +6,7 @@ navigation:
 
 # Advanced Customization
 
-## Introduction & Warning
+## Introduction 
 
 This page covers advanced usage and is intended for developers who know what they are doing. Documentation here will be
 mainly example driven, as it is assumed you have somewhat of an understanding of what you are doing already.
