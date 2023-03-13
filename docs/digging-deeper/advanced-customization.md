@@ -46,6 +46,22 @@ is registered, at which point the provider will search for any overrides in the 
 
 ## Customizing source directories
 
+### In the config file
+
+```php
+// filepath config/hyde.php
+
+return [
+    'source_directories' => [
+        \Hyde\Pages\HtmlPage::class => '_pages',
+        \Hyde\Pages\BladePage::class => '_pages',
+        \Hyde\Pages\MarkdownPage::class => '_pages',
+        \Hyde\Pages\MarkdownPost::class => '_posts',
+        \Hyde\Pages\DocumentationPage::class => '_docs',
+    ],
+];
+```
+
 ### In a service provider
 
 ```php
