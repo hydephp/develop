@@ -46,6 +46,10 @@ is registered, at which point the provider will search for any overrides in the 
 
 ## Customizing source directories
 
+The directories you place your content in are important. The directory will be used to determine the proper page type and the templates used.
+If you are not happy with defaults, you can change them. Note that these are relative to the `source_root` setting,
+which is the root of your project by default.
+
 ### In the config file
 
 ```php
