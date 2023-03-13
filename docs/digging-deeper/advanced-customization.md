@@ -44,7 +44,7 @@ is registered, at which point the provider will search for any overrides in the 
      trait to use the same registration logic as the `HydeServiceProvider`.
 
 
-## Customizing source directories 🧪
+## Customizing source directories
 
 The source directory paths are stored in the PageModel objects.
 You can change them by modifying the static property, for example in a service provider.
