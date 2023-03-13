@@ -33,7 +33,7 @@ are experimental features, and are not at all supported. Use at your own risk.
 **The following is a summary from the [Page Models](page-models) documentation:**
 
 Each page type is represented by a page model class. Each of those classes have static properties that store the source and output directories.
-These properties are set when the `HydeServiceProvider` is registered, at which point the provider will search for any overrides in the config file.
+These properties are set when the [`HydeServiceProvider`](https://github.com/hydephp/framework/blob/master/src/Framework/HydeServiceProvider.php) is registered, at which point the provider will search for any overrides in the config file.
 
 **This means that there are two options to change the source and output directories:**
 1. You can change the values in the config file, which will be used by the `HydeServiceProvider` to set the static properties.
