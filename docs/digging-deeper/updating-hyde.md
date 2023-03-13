@@ -83,21 +83,21 @@ First, update your config files.
 php hyde publish:configs
 ```
 
-If you have published any of the Hyde Blade components you will need to re-publish them.
+If you have published any of the included Blade components you will need to re-publish them.
 
 ```bash
 php hyde publish:views layouts
 php hyde publish:views components
 ```
 
-Next, recompile your assets if applicable.
+Next, recompile your assets, if you are not using the built-in assets.
 
 ```bash
 npm install
 npm run dev/prod
 ```
 
-Finally, rebuild your site.
+Finally, you can rebuild your site.
 
 ```bash
 php hyde build
