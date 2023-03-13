@@ -33,7 +33,7 @@ First, make sure you have a remote set up for the base project repository.
 git remote add upstream https://github.com/hydephp/hyde.git
 ```
 
-Then pull the latest changes from the remote:
+Then pull the latest release from the upstream repository.
 
 ```bash
 git pull upstream master
