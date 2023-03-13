@@ -44,7 +44,7 @@ The output directory is the directory that Hyde will output the generated site t
 
 ### Nested directories
 
-Nested directories are directories that are nested within the their relative scope. Simply put, a nested directory in Hyde is a source directory that contains a subdirectory. For example, if you have a directory inside the _pages directory, that's a nested directory. This term can also apply to output directories, but it's not as common.
+Nested directories are directories that are nested within their relative scope. Simply put, a nested directory in Hyde is a source directory that contains a subdirectory. For example, if you have a directory inside the `_pages` directory, that's a nested directory. This term can also apply to output directories, but it's not as common.
 
 
 ## URL components
@@ -59,7 +59,7 @@ When we talk about paths, we are talking about the actual file paths on the file
 
 ### Just links
 
-When we talk about just links, we are talking about the URL path that the user will see in their browser. Unless it's specified wether a link is relative or absolute, it's assumed to be relative to the index page of the site and will not contain a leading slash nor path traversal directives,
+When we talk about just links, we are talking about the URL path that the user will see in their browser. Unless it's specified weather a link is relative or absolute, it's assumed to be relative to the index page of the site and will not contain a leading slash nor path traversal directives,
 
 ### Relative links
 
