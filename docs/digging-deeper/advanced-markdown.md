@@ -39,6 +39,7 @@ The feature is disabled by default since it allows arbitrary PHP to run, which c
 However, if your Markdown is trusted, and you know it's safe, you can enable it in the `config/markdown.php` file.
 
 ```php
+// filepath: config/markdown.php
 'enable_blade' => true,
 ```
 
