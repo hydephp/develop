@@ -54,8 +54,8 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`serve`](#serve)                       | Start the realtime compiler server.                                                          |
 | [`rebuild`](#rebuild)                   | Run the static site builder for a single file                                                |
 | [`build:rss`](#build-rss)               | Generate the RSS feed                                                                        |
-| [`build:search`](#build-search)         | Generate the docs/search.json file                                                           |
-| [`build:sitemap`](#build-sitemap)       | Generate the sitemap.xml file                                                                |
+| [`build:search`](#build-search)         | Generate the `docs/search.json` file                                                           |
+| [`build:sitemap`](#build-sitemap)       | Generate the `sitemap.xml` file                                                                |
 | [`make:page`](#make-page)               | Scaffold a new Markdown, Blade, or documentation page file                                   |
 | [`make:post`](#make-post)               | Scaffold a new Markdown blog post file                                                       |
 | [`publish:configs`](#publish-configs)   | Publish the default configuration files                                                      |
