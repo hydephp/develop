@@ -51,10 +51,12 @@ Remember, files retain their base filenames when compiled to HTML.
 
 We will use the following definitions to describe the behaviour of Hyde.
 
+#### General
 - **Hyde**: The application that you are using.
 - **HydeCLI**: The command-line interface for Hyde.
 - **Framework**: The package containing the core codebase.
 
+#### Path components
 - **Identifier**: The filepath without the extension, relative to the page type source directory.
 - **Route Key**: The page type's output directory plus the identifier. Example: `posts/hello-world`
 - **Basename**: The filename without the extension. Example: `hello-world`
