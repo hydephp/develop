@@ -135,7 +135,7 @@ all files from `assets` will be copied to `_site/assets`. If the setting starts 
 from the output directory, so files in `_assets` will be copied to `_site/assets`.
 
 
-## Customizing the output directory ⚠
+## Customizing the output directory
 
 >danger Hyde deletes all files in the output directory before compiling the site. Don't set this path to a directory that contains important files!
 
