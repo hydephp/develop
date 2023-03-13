@@ -7,11 +7,12 @@
 Versions in the 0.x series are not stable and may change at any time.
 No backwards compatibility guarantees are made and there will be breaking changes without notice.
 
-| Version | Supported | Classification  |
-|---------|-----------|-----------------|
-| < 0.64  | :x:       | Beta (legacy)   |
-| < 0.50  | :x:       | Beta (legacy)   |
-| < 0.8   | :x:       | Alpha stage     |
+| Version | Supported          | Classification       |
+|---------|--------------------|----------------------|
+| 1.x     | :white_check_mark: | General Availability |
+| < 0.64  | :x:                | Beta (legacy)        |
+| < 0.50  | :x:                | Beta (legacy)        |
+| < 0.8   | :x:                | Alpha stage          |
 
 
 <!-- 
