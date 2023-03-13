@@ -70,7 +70,7 @@ coloured blockquotes. Simply append the desired colour after the initial `>` cha
 #### Customizations
 
 You can easily customize these styles too by adding and editing the following in your `resources/app.css` file, and then recompiling your site styles.
-The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: blue;` just as well.
+The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: something;` just as well.
 
 ```css
 /* filepath resources/app.css
