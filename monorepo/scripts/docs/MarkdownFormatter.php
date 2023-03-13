@@ -190,6 +190,18 @@ function normalize_lines($filename): void
                     }
                 }
             }
+            // if word ends with ()
+            if (str_contains($line, '()') && ! str_contains($line, '[Blade]:')) {
+                // Check character after the () is not a backtick
+                $pos = strpos($line, '()');
+                if ($pos > 0) {
+                    $charAfter = substr($line, $pos + 2, 1);
+                    if ($charAfter !== '`') {
+                        global $warnings;
+                        $warnings['Inline code'][] = sprintf('Unformatted inline function found in %s:%s', $filename, $index + 1);
+                    }
+                }
+            }
 
             // Check for invalid command signatures
             if (str_contains($line, 'php hyde')) {
