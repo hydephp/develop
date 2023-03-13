@@ -87,9 +87,7 @@ public function register(): void
 
 ## Customizing output directories
 
-Like the source directories, the output directories are also important
-as they determine the final output path for each page type in your
-compiled static site. This change also affects the route keys.
+Like source directories, the output directories are also important as they determine the output path for the compiled pages.
 
 Note that these are relative to the site's `output_directory` setting.
 Setting the value to '' will output the page to the root of the site.
