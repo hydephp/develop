@@ -47,7 +47,7 @@ $name = Config::getString('hyde.name', 'HydePHP'): string;
 ### Dot Notation
 
 As seen in the example above, when referencing configuration options, we often use "dot notation" to specify the configuration file.
-For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.
+For example, `config('hyde.name')` means that we are looking for the `name` option in the `config/hyde.php` file.
 
 ### Front Matter or Configuration Files?
 
