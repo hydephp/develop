@@ -123,7 +123,7 @@ public function register(): void
 }
 ```
 
-### Route Key Changes
+### Route key impact
 
 >warning Note that this change also affects the route keys, as those are based on the output directory.
 
