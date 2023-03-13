@@ -26,6 +26,19 @@ are experimental features, and are not at all supported. Use at your own risk.
 - 💔 = This could seriously break things
 
 
+## Prerequisites for Customizing directories
+
+Before customizing any source and output directories it may be helpful to know how these settings are stored internally.
+
+The following is a summary from the [Page Models](page-models) documentation:
+
+Each page type is represented by a page model class. Each of those classes have static properties that store the source and output directories.
+These properties are set when the `HydeServiceProvider` is registered, at which point the provider will search for any overrides in the config file.
+
+This means that there are two options to change the source and output directories:
+1. You can change the values in the config file, which will be used by the HydeServiceProvider to set the static properties.
+2. You can change the static properties directly in the page model classes, you'd probably want to do this in a service provider.
+
 ## Customizing source directories 🧪
 
 The source directory paths are stored in the PageModel objects.
