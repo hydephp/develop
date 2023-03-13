@@ -28,7 +28,7 @@ are experimental features, and are not at all supported. Use at your own risk.
 
 ## Prerequisites for Customizing directories
 
-Before customizing any source and output directories it may be helpful to know how these settings are stored internally.
+>info Before customizing any source and output directories it may be helpful to know how these settings are stored internally.
 
 **The following is a summary from the [Page Models](page-models) documentation:**
 
