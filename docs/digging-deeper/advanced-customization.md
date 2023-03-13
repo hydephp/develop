@@ -98,6 +98,7 @@ Each option is relative to the site's `output_directory` setting. Setting a valu
 For example, changing the output directory of Markdown posts to `blog` instead of `posts` will change the route key base from `posts` to `blog`.
 This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`,
 this may break your site's configuration, so you should always verify the impact to your site of such a change.
+You can learn more about this in the [route key documentation](core-concepts#paths-identifiers-and-route-keys).
 
 ## Custom source root
 
