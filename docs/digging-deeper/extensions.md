@@ -28,8 +28,8 @@ which is automatically enabled once you add an API token to your `.env` file. No
 
 #### Getting started
 
-To get started you need an API token which you can get through the [torchlight.dev website](https://torchlight.dev/).
-It is entirely [free for personal and open source projects](https://torchlight.dev/#pricing).
+To get started you need an API token which you can get at [Torchlight.dev](https://torchlight.dev/).
+It is entirely free for personal and open source projects, as seen on their [pricing page](https://torchlight.dev/#pricing).
 
 When you have an API token, set it in the `.env` file in the root directory of your project.
 Once a token is set, Hyde will automatically enable the CommonMark extension.
