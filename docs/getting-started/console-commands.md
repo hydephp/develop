@@ -150,7 +150,7 @@ php hyde build:rss
 Generate the RSS feed
 
 
-## Generate the docs/search.json file
+## Generate the `docs/search.json` file
 
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -162,7 +162,7 @@ php hyde build:search
 Generate the docs/search.json
 
 
-## Generate the sitemap.xml file
+## Generate the `sitemap.xml` file
 
 <a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
