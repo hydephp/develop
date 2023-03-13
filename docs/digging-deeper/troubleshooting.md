@@ -55,6 +55,8 @@ We will use the following definitions to describe the behaviour of Hyde.
 - **HydeCLI**: The command-line interface for Hyde.
 - **Framework**: The package containing the core codebase.
 
+### Path components
+
 - **Basename**: The filename without the extension. Example: `hello-world`
 - **Identifier**: The filepath without the extension, relative to the source directory.
 - **Route Key**: The page type's output directory plus the identifier. (In other words, the output path, without the .html extension) Example: `posts/hello-world`
