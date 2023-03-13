@@ -63,8 +63,7 @@ you can enable it in the `config/markdown.php` file.
 
 #### Limitations
 
-All shortcodes must be the first word on a new line.
-
+All shortcodes must be the first word on a new line, and only single-line shortcodes are supported.
 
 ## Coloured Blockquotes
 
