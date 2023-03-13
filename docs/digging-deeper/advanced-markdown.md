@@ -133,7 +133,7 @@ Which becomes:
 echo 'Hello World!';
 ```
 
-#### Alternative syntax
+### Alternative syntax
 
 The syntax is rather forgiving, by design, and supports using both `//` and `#` for comments.
 The colon is also optional, and the 'filepath' string is case-insensitive. So the following is also perfectly valid:
@@ -147,7 +147,7 @@ console.log('Hello World!');
 
 If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
 
-#### Advanced usage
+### Advanced usage
 
 If you have enabled HTML in Markdown by setting the `allow_html` option to true in your `config/markdown.php` file,
 anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
@@ -159,7 +159,7 @@ anything within the path label will be rendered as HTML. This means you can add 
 ```
 ````
 
-#### Limitations
+### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
 
