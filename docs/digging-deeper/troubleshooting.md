@@ -65,6 +65,8 @@ We will use the following definitions to describe the behaviour of Hyde.
 - **Filename**: The full name of a file with the extension. Example: `hello-world.md`
 - **Filepath**: The full file path including extension. Example: `_posts/hello-world.md`
 
+You can read more about some of these in the [Core Concepts](core-concepts#paths-identifiers-and-route-keys) article.
+
 <style>
 #document-main-content > ul > li > p {
     margin-top: 0;
