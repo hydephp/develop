@@ -9,12 +9,6 @@
     <img style="display: inline; margin: 4px 2px;" src="https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml/badge.svg" alt="Test Suite">  <img style="display: inline; margin: 4px 2px;" src="https://github.styleci.io/repos/472503421/shield?branch=master" alt="StyleCI Status"> 
 </p>
 
-## ⚠ Beta Software Warning
-Heads up! HydePHP is still new and currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series might not be stable and may change at any time. No backwards compatibility guarantees are made and there will be breaking changes without notice.
-
-Please wait until v1.0 for production use and remember to back up your source files before updating (use Git!). See https://hydephp.com/docs/master/updating-hyde for the upgrade guide.
-
-
 ## About HydePHP
 
 HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static websites, blogs, and documentation pages using Markdown and (optionally) Blade.
