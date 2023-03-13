@@ -7,10 +7,12 @@ navigation:
 
 This guide will help you update your HydePHP project to the latest version.
 
+
 ## Before you start
 
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
+
 
 ## Methods
 
@@ -25,7 +27,6 @@ The Git method works great, especially if you created your project by cloning th
 Regardless of the method you use, make sure you follow the post-update instructions at the end.
 
 ### Using Git
-
 
 First, make sure you have a remote set up for the base project repository.
 
