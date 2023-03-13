@@ -179,7 +179,7 @@ function normalize_lines($filename): void
                 }
             }
             // If word ends in .php
-            if (str_contains($line, '.php') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php') && ! str_contains($line, 'http') && ! str_contains($line, 'filepath')) {
+            if (str_contains($line, '.php') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php') && ! str_contains($line, 'http') && ! str_contains(strtolower($line), 'filepath')) {
                 // Check character after the .php is not a backtick
                 $pos = strpos($line, '.php');
                 if ($pos > 0) {
