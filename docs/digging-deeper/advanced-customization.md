@@ -36,7 +36,7 @@ Each page type is represented by a page model class. Each of those classes have 
 These properties are set when the [`HydeServiceProvider`](https://github.com/hydephp/framework/blob/master/src/Framework/HydeServiceProvider.php) is registered, at which point the provider will search for any overrides in the config file.
 
 **This means that there are two options to change the source and output directories:**
-1. You can change the values in the config file, which will be used by the `HydeServiceProvider` to set the static properties.
+1. You can change the values in the config file, to let the `HydeServiceProvider` handle it for you.
 2. You can change the static properties directly in the page model classes.
    - You'd probably want to do this in a service provider as it must be done before the Kernel is booted.
    - You can use the [`RegistersFileLocations`](https://github.com/hydephp/framework/blob/master/src/Framework/Concerns/RegistersFileLocations.php) trait to use the same registration logic as the `HydeServiceProvider`.
