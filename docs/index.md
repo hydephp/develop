@@ -53,8 +53,8 @@ php hyde info
 
 ## Usage
 
-Creating static websites with HydePHP is incredibly easy. First you need some content. You can just drop Markdown files in
-any of the source directories, or let Hyde scaffold the files for you using one of the many commands.
+Creating static websites with HydePHP is incredibly easy. First you need some content. You can just drop Markdown files
+in any of the source directories, or let Hyde scaffold the files for you using one of the many commands.
 
 ```bash
 php hyde make:post "My First Post"
