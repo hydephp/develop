@@ -103,21 +103,27 @@ Note that this feature requires that a `site_url` is set!
 
 ```php
 // filepath config/hyde.php
-'rss.enabled' => true, // Default is true
+'rss' => [
+    'enabled' => true, // Default is true
+]
 ```
 
 You can customize the output filename using the following:
 
 ```php
 // filepath config/hyde.php
-'rss.filename' => 'feed.rss', // Default is feed.xml
+'rss' => [
+    'filename' => 'feed.rss', // Default is feed.xml
+]
 ```
 
 You can set the RSS channel description using the following:
 
 ```php
 // filepath config/hyde.php
-'rss.description' => 'A collection of articles and tutorials from my blog', // Example
+'rss' => [
+    'description' => 'A collection of articles and tutorials from my blog', // Example
+]
 ```
 
 If an `rss.description `is not set, one is created by appending "RSS Feed" to your site name.
