@@ -427,7 +427,7 @@ Here is an example showing some of the `config/hyde.php` file settings, and how 
 ```yaml
 # filepath hyde.yml
 name: HydePHP
-url: http://localhost
+url: "http://localhost"
 pretty_urls: false
 generate_sitemap: true
 rss:
