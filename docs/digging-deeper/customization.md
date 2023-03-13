@@ -77,7 +77,7 @@ The main configuration file, `hyde.php`, is used for things ranging from site na
 | <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.                 |
 | <a href="https://github.com/hydephp/hyde/blob/master/app/config.php" rel="nofollow noopener">app/config.php</a>    | Configures the underlying Laravel application. (Commonly found as config/app.php in Laravel apps) |
 
->info Tip: The values in hyde.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
+>info Tip: The values in `hyde.php` can also be set in YAML by creating a `hyde.yml` file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
 
 ### Publishable Laravel & Package Configuration Files
 
