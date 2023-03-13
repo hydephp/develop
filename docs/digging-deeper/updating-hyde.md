@@ -51,7 +51,8 @@ Next, follow the post-update instructions for Hyde/Hyde.
 
 Since all resource files are in the content directories you can simply copy those files to the new location.
 
-If you have changed any other files, for example in the App directory, you will need to update those files manually as well. But if you have done that you probably know what you are doing. I hope. The same goes if you have created any custom blade components or have modified Hyde ones.
+If you have changed any other files, for example in the App directory, you will need to update those files manually as well.
+But if you have done that you probably know what you are doing. I hope. The same goes if you have created any custom blade components or have modified Hyde ones.
 
 Example CLI workflow, assuming the Hyde/Hyde project is stored as `my-project` in the home directory:
 
