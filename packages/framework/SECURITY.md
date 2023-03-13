@@ -12,12 +12,6 @@ These are the version ranges of HydePHP, and their support status. We follow [Se
 | < 0.8   | :x:                | Alpha stage          |
 
 
-<!-- 
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                | -->
-
 
 ## Reporting a Vulnerability
 
