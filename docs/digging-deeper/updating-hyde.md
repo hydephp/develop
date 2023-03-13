@@ -26,7 +26,7 @@ The Git method works great, especially if you created your project by cloning th
 
 Regardless of the method you use, make sure you follow the post-update instructions at the end.
 
-### Using Git (recommended)
+### Recommended: Using Git
 
 First, make sure you have a remote set up for the base project repository.
 
