@@ -123,6 +123,7 @@ You can change the path to this directory by setting the `media_directory` optio
 'media_directory' => '_media',
 ```
 
+#### Setting changes both source and output directories
 Note that this change will affect both the source and output directories. For example, if you set the value to `assets`,
 all files from `assets` will be copied to `_site/assets`.
 
