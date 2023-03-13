@@ -8,40 +8,25 @@ navigation:
 
 ## Introduction
 
-Since HydePHP makes heavy use of Markdown there are some extra features and helpers created just for Hyde to make using Markdown even easier!
+Since HydePHP makes heavy use of Markdown, there are some extra features and helpers created just for Hyde to make using Markdown even easier and more powerful!
 
-## Raw HTML Tags
 
-HydePHP uses the GitHub Flavored Markdown extension to convert Markdown. This, by default strips out some HTML tags. If you want to allow all arbitrary HTML tags, and understand the risks involved, enable all HTML tags by setting the following option to true in your `config/markdown.php` file.
+## Using Blade in Markdown
 
-```php
-// filepath: config/markdown.php
-// torchlight! {"lineNumbers": false}
-'allow_html' => true,
-```
+A special feature in Hyde, is that you can use [Laravel Blade](https://laravel.com/docs/10.x/blade) in Markdown files!
 
-This, will behind the scenes add the bundled `DisallowedRawHtml` extension, and configure it so that no HTML tags are stripped out.
+To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
 
-## Blade Support
-
-Since Hyde v0.30.x you can use Laravel Blade in Markdown files!
-
-### Using Blade in Markdown
-
-To use Blade in your Markdown files, simply use the Blade shortcode directive,
-followed by your desired Blade string.
-
-#### Standard syntax
+### Standard syntax
 
 ```markdown
  [Blade]: {{ "Hello World!" }} // Will render: 'Hello World!'
 ```
 
-#### Blade includes
+### Blade includes
 
-Only single-line shortcode directives are supported. If you need to use multi-line Blade code,
-use an `@include` directive to render a more complex Blade template.
-You can pass data to includes by specifying an array to the second argument.
+Only single-line shortcode directives are supported. If you need to use multi-line Blade code, use an `@include`
+directive to render a more complex Blade template. You can pass data to includes by specifying an array to the second argument.
 
 ```markdown
  [Blade]: @include("hello-world")
@@ -49,24 +34,24 @@ You can pass data to includes by specifying an array to the second argument.
 ```
 
 ### Enabling Blade-supported Markdown
-It's disabled by default since it allows arbitrary PHP to run, which could be a security risk,
-depending on your setup. However, if your Markdown is trusted, and you know it's safe,
-you can enable it in the `config/markdown.php` file.
+
+The feature is disabled by default since it allows arbitrary PHP to run, which could be a security risk, depending on your setup.
+However, if your Markdown is trusted, and you know it's safe, you can enable it in the `config/markdown.php` file.
 
 ```php
-// torchlight! {"lineNumbers": false}
+// filepath: config/markdown.php
 'enable_blade' => true,
 ```
 
-#### Limitations
+### Limitations
 
-All shortcodes must be the first word on a new line.
-For example, using a space before the `[Blade]:` will intentionally cause it to not render.
+All shortcodes must be the first word on a new line, and only single-line shortcodes are supported.
 
-## Coloured Blockqoutes
 
-The HydePHP Markdown converter also supports some extra directives and features. One of them being four different coloured blockquotes. Simply append the colour after the initial `>` character.
+## Coloured Blockquotes
 
+The HydePHP Markdown converter also supports some extra directives and features. One of them being four different
+coloured blockquotes. Simply append the desired colour after the initial `>` character.
 
 ```markdown
 ‎> Normal Blockquote
@@ -82,10 +67,10 @@ The HydePHP Markdown converter also supports some extra directives and features.
 >danger Danger Blockquote
 >success Success Blockquote
 
-#### Customizations
+### Customizations
 
 You can easily customize these styles too by adding and editing the following in your `resources/app.css` file, and then recompiling your site styles.
-The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: blue;` just as well.
+The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: something;` just as well.
 
 ```css
 /* filepath resources/app.css
@@ -93,37 +78,48 @@ The code examples here use the Tailwind `@apply` directives, but you could also 
 /* Markdown Features */
 
 .prose blockquote.info {
-	@apply border-blue-500;
+    @apply border-blue-500;
 }
 
 .prose blockquote.success {
-	@apply border-green-500;
+    @apply border-green-500;
 }
 
 .prose blockquote.warning {
-	@apply border-amber-500;
+    @apply border-amber-500;
 }
 
 .prose blockquote.danger {
-	@apply border-red-600;
+    @apply border-red-600;
 }
 ```
 
-#### Limitations
+### Markdown usage
+
+The coloured blockquotes also support inline Markdown, just like normal blockquotes.
+
+```markdown
+‎>info Formatting is **supported**!
+```
+
+### Limitations
 
 Note that these currently do not support multi-line blockquotes.
+
 
 ## Code block filepaths
 
 When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
 These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.
 
-Simply add a code comment in the **first line** of a `fenced code block` like so:
+### Usage
+
+Simply add a code comment with the path in the **first line** of a fenced code block like so:
 
 ````markdown
 // Filepath: _docs/advanced-markdown.md
 ```php
-‎// Filepath: hello-world.php 
+‎// Filepath: hello-world.php
 
 echo 'Hello World!';
 ```
@@ -132,14 +128,14 @@ echo 'Hello World!';
 Which becomes:
 
 ```php
-// Filepath: hello-world.php 
+// Filepath: hello-world.php
 
 echo 'Hello World!';
 ```
 
-#### Alternative syntax
+### Alternative syntax
 
-The syntax is rather forgiving by design, and supports using both `//` and `#` for comments.
+The syntax is rather forgiving, by design, and supports using both `//` and `#` for comments.
 The colon is also optional, and the 'filepath' string is case-insensitive. So the following is also perfectly valid:
 
 ````markdown
@@ -149,9 +145,9 @@ console.log('Hello World!');
 ```
 ````
 
-If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
+If you have a newline after the filepath, like in the first example, it will be removed so your code stays readable.
 
-#### Advanced usage
+### Advanced usage
 
 If you have enabled HTML in Markdown by setting the `allow_html` option to true in your `config/markdown.php` file,
 anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
@@ -162,6 +158,28 @@ anything within the path label will be rendered as HTML. This means you can add 
 ‎// Filepath: <a href="https://github.com">View file on Github</a>
 ```
 ````
-#### Limitations
+
+### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
+
+
+## Configuration
+
+### Full configuration reference
+
+All Markdown-related configuration options are in the `config/markdown.php` file.
+You can find the full reference on the [Customization](customization#markdown-configuration) page.
+
+### Raw HTML Tags
+
+To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
+If you want to allow all arbitrary HTML tags, and understand the risks involved, you can enable all HTML tags by setting
+the `allow_html` option to `true` in your `config/markdown.php` file.
+
+```php
+// filepath: config/markdown.php
+'allow_html' => true,
+```
+
+This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.

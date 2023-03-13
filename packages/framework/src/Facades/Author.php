@@ -18,7 +18,7 @@ class Author
      * Construct a new Post Author. For Hyde to discover this author,
      * you must call this method from your hyde.php config file.
      *
-     * @see https://hydephp.com/docs/master/customization.html#authors
+     * @see https://hydephp.com/docs/1.x/customization.html#authors
      *
      * @param  string  $username  The username of the author. This is the key used to find authors in the config.
      * @param  string|null  $name  The optional display name of the author, leave blank to use the username.
