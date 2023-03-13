@@ -7,6 +7,7 @@ navigation:
 
 This guide will help you update your HydePHP project to the latest version.
 
+
 ## Updating Hyde/Hyde
 
 ### Before you start
