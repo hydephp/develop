@@ -53,6 +53,11 @@ For example, <code>config('hyde.name')</code> means that we are looking for the 
 
 In some cases, the same options can be set in the front matter of a page or in a configuration file. Both ways are always documented, and it's up to you to choose which one you prefer. Note that in most cases, if a setting is set in both the front matter and the configuration file, the front matter setting will take precedence.
 
+### A note on file paths
+
+When Hyde references files, especially when passing filenames between components, the file path is almost always
+relative to the root of the project. Specifying absolute paths yourself will likely lead to unforeseen problems.
+
 
 ## Configuration Files Overview
 
