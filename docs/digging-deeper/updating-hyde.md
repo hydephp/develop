@@ -25,7 +25,7 @@ Regardless of the method you use, make sure you follow the post-update instructi
 
 ### Using Git
 
-Make sure you have a remote set up for the repository.
+First, make sure you have a remote set up for the base project repository.
 
 ```bash
 git remote add upstream https://github.com/hydephp/hyde.git
