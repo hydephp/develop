@@ -19,7 +19,7 @@ use function array_merge;
  * Markdown posts are stored in the _posts directory and using the .md extension.
  * The Markdown will be compiled to HTML using the blog post layout to the _site/posts/ directory.
  *
- * @see https://hydephp.com/docs/master/blog-posts
+ * @see https://hydephp.com/docs/1.x/blog-posts
  */
 class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
 {

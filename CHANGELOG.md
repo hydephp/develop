@@ -894,7 +894,7 @@ Note that the goal with this release is to make the framework more stable and de
 ### Upgrade Guide
 
 Here are some instructions for upgrading an existing project.
-You should also read the standard upgrade guide first for general advice, https://hydephp.com/docs/master/updating-hyde.
+You should also read the standard upgrade guide first for general advice, https://hydephp.com/docs/1.x/updating-hyde.
 
 If you use Git, you may be able to automatically configure some of these by merging https://github.com/hydephp/hyde into your project. Alternatively, you can download the release and unzip it into your project directory, and using GitHub Desktop or VS Code (or whatever you use) to stage the new changes without affecting your project's configuration.
 
@@ -1141,7 +1141,7 @@ However, if you are a package developer, or if you have published Blade views or
 
 - Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39
 - Adds a safer config option `hyde.output_directory` for customizing the output directory
-- Adds a file-based way to create and interact with collections, https://hydephp.com/docs/master/collections
+- Adds a file-based way to create and interact with collections, https://hydephp.com/docs/1.x/collections
 
 ### Removed
 

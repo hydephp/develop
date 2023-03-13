@@ -16,7 +16,7 @@ use Hyde\Support\Models\Route;
  * Documentation pages are stored in the _docs directory and using the .md extension.
  * The Markdown will be compiled to HTML using the documentation page layout to the _site/docs/ directory.
  *
- * @see https://hydephp.com/docs/master/documentation-pages
+ * @see https://hydephp.com/docs/1.x/documentation-pages
  */
 class DocumentationPage extends BaseMarkdownPage
 {
@@ -34,7 +34,7 @@ class DocumentationPage extends BaseMarkdownPage
         return static::baseRouteKey().'/index';
     }
 
-    /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
+    /** @see https://hydephp.com/docs/1.x/documentation-pages#automatic-edit-page-button */
     public function getOnlineSourcePath(): string|false
     {
         if (config('docs.source_file_location_base') === null) {
