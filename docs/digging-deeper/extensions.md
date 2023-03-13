@@ -56,4 +56,4 @@ Don't have this file? Run `php hyde vendor:publish` to publish it.
 
 Have an idea for an extension or integration? Let me know! I'd love to hear from you.
 
-Get in touch on [GitHub](https://github.com/hydephp/Hyde) or send me a DM on [Twitter](https://twitter.com/CodeWithCaen).
+Get in touch on [GitHub](https://github.com/hydephp/hyde) or send me a DM on [Twitter](https://twitter.com/CodeWithCaen).
