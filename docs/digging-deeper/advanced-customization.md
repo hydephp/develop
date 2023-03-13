@@ -144,7 +144,5 @@ using the following configuration option in `config/hyde.php`. The path is expec
 
 ```php
 // filepath config/hyde.php
-return [
-    'output_directory' => 'docs',
-];
+'output_directory' => 'docs',
 ```
