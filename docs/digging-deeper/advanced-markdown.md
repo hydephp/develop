@@ -94,6 +94,14 @@ The code examples here use the Tailwind `@apply` directives, but you could also 
 }
 ```
 
+### Markdown usage
+
+The coloured blockquotes also support inline Markdown, just like normal blockquotes.
+
+```markdown
+‎>info Formatting is **supported**!
+```
+
 ### Limitations
 
 Note that these currently do not support multi-line blockquotes.
