@@ -12,7 +12,6 @@ These are the version ranges of HydePHP, and their support status. We follow [Se
 | < 0.8   | :x:                | Alpha stage          |
 
 
-
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability within this package, please send an e-mail to the creator, Caen De Silva, via caen@desilva.se.

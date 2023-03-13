@@ -3,8 +3,8 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/testing.svg?style=flat-square)](https://packagist.org/packages/hyde/testing)
 [![Total Downloads](https://img.shields.io/packagist/dt/hyde/testing.svg?style=flat-square)](https://packagist.org/packages/hyde/testing)
 
-
 Warning: This package should only be used as a dev-dependency, and never in production.
+
 
 ## Installation
 
@@ -14,6 +14,7 @@ You can install the package via composer:
 composer require hyde/testing --dev
 ```
 
+
 ## Usage
 
 This package is created for and intended to be used specifically with HydePHP. It will likely not work with other frameworks, and such usage is discouraged.
@@ -21,6 +22,7 @@ This package is created for and intended to be used specifically with HydePHP. I
 ```bash
 php hyde test
 ```
+
 
 ## Contributing
 
@@ -31,6 +33,7 @@ Please see the [hydephp/develop](https://github.com/hydephp/develop/issues) mono
 If you discover any security related issues, please email caen@desilva.se instead of using the issue tracker.
 
 There are no backwards compatibility guarantees other than what is implicitly offered through the HydePHP packages requiring this package.
+
 
 ## License
 
