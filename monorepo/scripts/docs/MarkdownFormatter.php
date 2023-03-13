@@ -190,6 +190,19 @@ function normalize_lines($filename): void
                     }
                 }
             }
+
+            // If word ends in .json
+            if (str_contains($line, '.json') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ json') && ! str_contains($line, 'http') && ! str_contains(strtolower($line), 'filepath')) {
+                // Check character after the .json is not a backtick
+                $pos = strpos($line, '.json');
+                if ($pos > 0) {
+                    $charAfter = substr($line, $pos + 4, 1);
+                    if ($charAfter !== '`') {
+                        global $warnings;
+                        $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
+                    }
+                }
+            }
             // if word ends with ()
             if (str_contains($line, '()') && ! str_contains($line, '[Blade]:')) {
                 // Check character after the () is not a backtick
