@@ -3,13 +3,6 @@ navigation:
     priority: 35
 ---
 
-<style>
-#document-main-content > ul > li > p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-</style>
-
 # Troubleshooting
 
 Since Hyde has a lot of "magic" features which depend on some base assumptions,
