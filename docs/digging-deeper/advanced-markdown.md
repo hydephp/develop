@@ -145,7 +145,7 @@ console.log('Hello World!');
 ```
 ````
 
-If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
+If you have a newline after the filepath, like in the first example, it will be removed so your code stays readable.
 
 ### Advanced usage
 
