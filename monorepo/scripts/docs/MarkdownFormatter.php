@@ -440,7 +440,7 @@ if ($warningCount > 0) {
         $lastRunWarningsCount = (int) file_get_contents(__DIR__.'/../cache/last-run-warnings-count.txt');
         if ($warningCount < $lastRunWarningsCount) {
             $str =$lastRunWarningsCount - $warningCount === 1 ? 'warning' : 'warnings';
-            echo ' Good job! You fixed '.($lastRunWarningsCount - $warningCount).$str.' !';
+            echo sprintf(" Good job! You fixed %d%s !", $lastRunWarningsCount - $warningCount, $str);
         } elseif ($warningCount > $lastRunWarningsCount) {
             $str = $warningCount - $lastRunWarningsCount === 1 ? 'warning' : 'warnings';
             echo ' Uh oh! You introduced '.($warningCount - $lastRunWarningsCount).' new '.$str.'!';
