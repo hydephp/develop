@@ -50,7 +50,6 @@ Remember, files retain their base filenames when compiled to HTML.
 ### Definitions
 
 We will use the following definitions to describe the behaviour of Hyde.
-Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794b0dfd4eedfe975fb02d20523c/_posts/draft-developer-definitions.markdown).
 
 - **Hyde**: The application that you are using.
 - **HydeCLI**: The command-line interface for Hyde.
