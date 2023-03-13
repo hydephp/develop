@@ -426,9 +426,9 @@ if ($warningCount > 0) {
     if (file_exists(__DIR__.'/../cache/last-run-warnings-count.txt')) {
         $lastRunWarningsCount = (int) file_get_contents(__DIR__.'/../cache/last-run-warnings-count.txt');
         if ($warningCount < $lastRunWarningsCount) {
-            echo ' Good job! You fixed '.($warningCount - $lastRunWarningsCount).' warnings!';
+            echo ' Good job! You fixed '.($lastRunWarningsCount - $warningCount).' warnings!';
         } elseif ($warningCount > $lastRunWarningsCount) {
-            echo ' Uh oh! You introduced '.($lastRunWarningsCount - $warningCount).' new warnings!';
+            echo ' Uh oh! You introduced '.($warningCount - $lastRunWarningsCount).' new warnings!';
         }
     }
 }
