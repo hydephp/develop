@@ -23,7 +23,7 @@ the `allow_html` option to `true` in your `config/markdown.php` file.
 'allow_html' => true,
 ```
 
-This, will behind the scenes add the bundled `DisallowedRawHtml` extension, and configure it so that no HTML tags are stripped out.
+This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
 
 
 ## Blade Support
