@@ -443,7 +443,7 @@ if ($warningCount > 0) {
             echo sprintf(" Good job! You fixed %d%s !", $lastRunWarningsCount - $warningCount, $str);
         } elseif ($warningCount > $lastRunWarningsCount) {
             $str = $warningCount - $lastRunWarningsCount === 1 ? 'warning' : 'warnings';
-            echo ' Uh oh! You introduced '.($warningCount - $lastRunWarningsCount).' new '.$str.'!';
+            echo sprintf(" Uh oh! You introduced %d new %s!", $warningCount - $lastRunWarningsCount, $str);
         }
     }
 }
