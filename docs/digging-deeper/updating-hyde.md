@@ -9,6 +9,8 @@ This guide will help you update Hyde to the latest version. It is recommended to
 
 ## Updating Hyde/Hyde
 
+### Before you start
+
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git.
 
