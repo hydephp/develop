@@ -89,8 +89,7 @@ public function register(): void
 
 Like source directories, the output directories are also important as they determine the output path for the compiled pages.
 
-Note that these are relative to the site's `output_directory` setting.
-Setting the value to '' will output the page to the root of the site.
+Each option is relative to the site's `output_directory` setting. Setting a value to `''` will output the page to the site root.
 
 >warning Note that this change also affects the route keys, as those are based on the output directory.
 
