@@ -125,7 +125,7 @@ public function register(): void
 
 ### Route key impact
 
->warning Note that this change also affects the route keys, as those are based on the output directory.
+>warning Note that changing output directories also affects the route keys, as those are based on the output directory.
 
 For example, changing the output directory of Markdown posts to `blog` instead of `posts` will change the route key base from `posts` to `blog`.
 This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`,
