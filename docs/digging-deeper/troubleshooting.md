@@ -99,6 +99,6 @@ You can read more about some of these in the [Core Concepts](core-concepts#paths
 If your configuration is broken, you might not be able to run any commands through the HydeCLI.
 To remedy this you can copy the config files from the vendor directory into the project directory.
 You can do this manually, or with the following rescue command:
-```
+```bash
 copy .\vendor\hyde\framework\config\hyde.php .\config\hyde.php
 ```
