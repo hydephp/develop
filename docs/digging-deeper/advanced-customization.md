@@ -111,7 +111,7 @@ When run, Hyde will update the source directory setting in the config file, then
 and move all source directories and their content into it.
 
 
-## Custom media directory 🧪
+## Custom media directory
 
 The media directory houses assets like images and stylesheets. The default directory is `_media`, and upon building the site,
 Hyde will copy all files in this directory to `_site/media` (or whatever your configured output and media directories are).
