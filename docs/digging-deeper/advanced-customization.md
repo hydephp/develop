@@ -85,6 +85,9 @@ public function register(): void
 }
 ```
 
+## Customizing output directories
+
+
 
 ## Custom source root
 
