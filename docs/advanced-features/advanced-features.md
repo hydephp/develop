@@ -19,3 +19,7 @@ To fully understand the features described in these chapters, it may be benefici
 [Architecture Concepts](architecture-concepts) chapters, or at the very least, the [Core Concepts](core-concepts) page.
 
 You are also expected to have a basic understanding of PHP, and object-oriented programming principles.
+
+## Table of Contents
+
+[Blade]: <ul>@foreach(glob(DocumentationPage::path('advanced-features/*.md')) as $file) <li> <a href="{{ basename($file, '.md') }}.html"> {{ Hyde::makeTitle(basename($file, '.md')) }} </a> </li> @endforeach</ul>
