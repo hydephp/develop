@@ -10,6 +10,7 @@ navigation:
 
 Since HydePHP makes heavy use of Markdown, there are some extra features and helpers created just for Hyde to make using Markdown even easier and more powerful!
 
+
 ## Blade Support
 
 Another special feature in Hyde, is that you can use Laravel Blade in Markdown files!
@@ -155,6 +156,7 @@ anything within the path label will be rendered as HTML. This means you can add 
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
 
+
 ## Configuration
 
 ### Raw HTML Tags
@@ -170,4 +172,3 @@ the `allow_html` option to `true` in your `config/markdown.php` file.
 ```
 
 This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
-
