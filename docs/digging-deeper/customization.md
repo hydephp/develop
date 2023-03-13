@@ -101,19 +101,22 @@ While all options are already documented within the files, here are some further
 When enabled, an RSS feed with your Markdown blog posts will be generated when you compile your static site.
 Note that this requires that a `site_url` is set!
 
-```php // config/hyde.php
+```php
+// filepath config/hyde.php
 'rss.enabled' => true, // Default is true
 ```
 
 You can customize the output filename using the following:
 
-```php // config/hyde.php
+```php
+// filepath config/hyde.php
 'rss.filename' => 'feed.rss', // Default is feed.xml
 ```
 
 You can set the RSS channel description using the following:
 
-```php // config/hyde.php
+```php
+// filepath config/hyde.php
 'rss.description' => 'A collection of articles and tutorials from my blog', // Example
 ```
 
