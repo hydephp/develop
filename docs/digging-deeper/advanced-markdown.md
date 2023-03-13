@@ -8,7 +8,7 @@ navigation:
 
 ## Introduction
 
-Since HydePHP makes heavy use of Markdown there are some extra features and helpers created just for Hyde to make using Markdown even easier!
+Since HydePHP makes heavy use of Markdown there are some extra features and helpers created just for Hyde to make using Markdown even easier, and more powerful!
 
 
 ## Raw HTML Tags
