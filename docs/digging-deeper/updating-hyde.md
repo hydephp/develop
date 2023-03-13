@@ -45,7 +45,7 @@ After this, you should update your composer dependencies:
 composer update
 ```
 
-Next, follow the post-update instructions for Hyde/Hyde.
+Next, follow the post-update instructions.
 
 ### Manual Update
 
@@ -54,7 +54,7 @@ Since all resource files are in the content directories you can simply copy thos
 If you have changed any other files, for example in the App directory, you will need to update those files manually as well.
 But if you have done that you probably know what you are doing. I hope. The same goes if you have created any custom blade components or have modified Hyde ones.
 
-Example CLI workflow, assuming the Hyde/Hyde project is stored as `my-project` in the home directory:
+Example CLI workflow, assuming the project is stored as `my-project` in the home directory:
 
 ```bash
 cd ~
@@ -68,7 +68,7 @@ cp -r my-old-project/_docs my-project/content/_docs
 cp -r my-old-project/config my-project/config
 ```
 
-Next, follow the post-update instructions for Hyde/Hyde. After verifying that everything is working, you can delete the old project directory.
+Next, follow the post-update instructions. After verifying that everything is working, you can delete the old project directory.
 
 
 ## Post-update instructions
