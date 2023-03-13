@@ -35,7 +35,7 @@ Unexpected behaviour might occur if you use conflicting file names.
 All the following filenames are resolved into the same destination file:
 `foo-bar.md`, `Foo-Bar.md`, `foo-bar.blade.php`, causing only one of them to be saved.
 
-Remember, files retain their slugs when compiled to HTML.
+Remember, files retain their base filenames when compiled to HTML.
 
 #### Summary
 
