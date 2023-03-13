@@ -139,7 +139,7 @@ from the output directory, so files in `_assets` will be copied to `_site/assets
 
 >danger <p><strong>Warning: Hyde deletes all files in the output directory before compiling the site.</strong></p> <p>Don't set this path to a directory that contains important files!</p>
 
-If you want to store your compiled website in a different directory than the default `_pages`, you can change the path
+If you want to store your compiled website in a different directory than the default `_site`, you can change the path
 using the following configuration option in `config/hyde.php`. The path is expected to be relative to your project root.
 
 ```php
