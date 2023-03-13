@@ -227,7 +227,7 @@ php hyde publish:configs
 Publish the default configuration files
 
 
-## Publish one of the default homepages to index.blade.php.
+## Publish one of the default homepages as `index.blade.php`.
 
 <a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -236,7 +236,7 @@ Publish the default configuration files
 php hyde publish:homepage [--force] [--] [<homepage>]
 ```
 
-Publish one of the default homepages to index.blade.php.
+Publish one of the default homepages as `index.blade.php`.
 
 #### Arguments & Options
 
