@@ -123,15 +123,15 @@ You can change the path to this directory by setting the `media_directory` optio
 'media_directory' => '_media',
 ```
 
+>info Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
+
+>info You will of course also need to copy over any existing files from the old directory to the new one.
+
 #### Setting changes both source and output directories
 
 Note that this change will affect both the source and output directories. For example, if you set the value to `assets`,
 all files from `assets` will be copied to `_site/assets`. If the setting starts with an underscore, that will be removed
 from the output directory, so files in `_assets` will be copied to `_site/assets`.
-
->info Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
-
->info You will of course also need to copy over any existing files from the old directory to the new one.
 
 
 ## Customizing the output directory ⚠
