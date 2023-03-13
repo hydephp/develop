@@ -92,7 +92,6 @@ That's easy enough, just set the value of the `source_root` setting in `config/h
 'source_root' => 'src', // [TL! ++]
 ```
 
-
 ### Automatic change 🧪
 
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
