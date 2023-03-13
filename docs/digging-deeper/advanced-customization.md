@@ -92,6 +92,19 @@ Like source directories, the output directories are also important as they deter
 
 Each option is relative to the site's `output_directory` setting. Setting a value to `''` will output the page to the site root.
 
+### In the config file
+
+```php
+// filepath config/hyde.php
+'output_directories' => [
+    \Hyde\Pages\HtmlPage::class => '',
+    \Hyde\Pages\BladePage::class => '',
+    \Hyde\Pages\MarkdownPage::class => '',
+    \Hyde\Pages\MarkdownPost::class => 'posts',
+    \Hyde\Pages\DocumentationPage::class => 'docs',
+],
+```
+
 ### Route Key Changes
 
 >warning Note that this change also affects the route keys, as those are based on the output directory.
