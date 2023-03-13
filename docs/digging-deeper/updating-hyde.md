@@ -19,6 +19,10 @@ The recommended way to do this is to use Git as that allows you to smoothly roll
 
 Depending on how you installed Hyde, there are a few different ways to update it.
 
+We have two methods documented here, one [using Git](#using-git) and one [manually](#manual-update).
+
+Regardless of the method you use, make sure you follow the post-update instructions at the end.
+
 ### Using Git
 
 Make sure you have a remote set up for the repository.
