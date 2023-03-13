@@ -88,7 +88,8 @@ That's easy enough, just set the value of the `source_root` setting in `config/h
 ```php
 // filepath config/hyde.php
 
-'source_root' => 'src',
+'source_root' => '', // [TL! --]
+'source_root' => 'src', // [TL! ++]
 ```
 
 
