@@ -86,7 +86,7 @@ public function register(): void
 ```
 
 
-## Custom source root 
+## Custom source root
 
 HydePHP will by default look for the source directories shown above in the root of your project.
 If you're not happy with this, it's easy to change! For example, you might want everything in a `'src'` subdirectory.
