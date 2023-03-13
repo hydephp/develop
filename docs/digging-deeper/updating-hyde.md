@@ -79,7 +79,6 @@ as existing files may be overwritten. If you are using Git, you can easily take 
 
 ```bash
 php hyde publish:configs
-php hyde update:assets
 ```
 
 If you have published any of the Hyde Blade components you will need to re-publish them.
