@@ -135,7 +135,6 @@ function normalize_lines($filename): void
 
         // if not inside fenced code block
         if (! $is_inside_fenced_code_block) {
-
             // Add any links to buffer, so we can check them later
             preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
             if (count($matches) > 0) {

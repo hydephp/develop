@@ -366,10 +366,10 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     }
 
     $signature = ($beforeSignature ? $beforeSignature."\n" : '').str_replace(
-            ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
-            [$instanceVariableName, $methodName, $className],
-            $signatureTemplate
-        );
+        ['{{ $instanceVariableName }}', '{{ $methodName }}', '{{ $className }}'],
+        [$instanceVariableName, $methodName, $className],
+        $signatureTemplate
+    );
 
     $description = $description.($before ? "\n".$before : '');
     $replacements = [
@@ -378,7 +378,7 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
         '{{ $description }}' => e($description),
         '{{ $className }}' => e($className),
         '{{ $argList }}' => e($argList),
-        '{{ $returnType }}' => ($returnType),
+        '{{ $returnType }}' => $returnType,
         '{{ $facadeName }}' => $facadeName,
     ];
     $markdown = str_replace(array_keys($replacements), array_values($replacements), $template);
