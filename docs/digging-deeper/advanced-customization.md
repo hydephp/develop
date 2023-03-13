@@ -85,6 +85,13 @@ HydePHP will by default look for the source directories shown above in the root 
 If you're not happy with this, it's easy to change! For example, you might want everything in a `'src'` subdirectory.
 That's easy enough, just set the value of the `source_root` setting in `config/hyde.php` to `'src'`, or whatever you prefer!
 
+```php
+// filepath config/hyde.php
+
+'source_root' => 'src',
+```
+
+
 ### Automatic change 🧪
 
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
