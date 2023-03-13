@@ -36,7 +36,7 @@ directive to render a more complex Blade template. You can pass data to includes
 ### Enabling Blade-supported Markdown
 
 It's disabled by default since it allows arbitrary PHP to run, which could be a security risk,
-depending on your setup. However, if your Markdown is trusted, and you know it's safe,
+depending on your setup. However, if your Markdown is trusted and you know it's safe,
 you can enable it in the `config/markdown.php` file.
 
 ```php
