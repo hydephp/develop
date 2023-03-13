@@ -10,23 +10,6 @@ navigation:
 
 Since HydePHP makes heavy use of Markdown, there are some extra features and helpers created just for Hyde to make using Markdown even easier and more powerful!
 
-## Configuration
-
-### Raw HTML Tags
-
-To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
-If you want to allow all arbitrary HTML tags, and understand the risks involved, you can enable all HTML tags by setting
-the `allow_html` option to `true` in your `config/markdown.php` file.
-
-```php
-// filepath: config/markdown.php
-// torchlight! {"lineNumbers": false}
-'allow_html' => true,
-```
-
-This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
-
-
 ## Blade Support
 
 Another special feature in Hyde, is that you can use Laravel Blade in Markdown files!
@@ -171,3 +154,20 @@ anything within the path label will be rendered as HTML. This means you can add 
 #### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
+
+## Configuration
+
+### Raw HTML Tags
+
+To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
+If you want to allow all arbitrary HTML tags, and understand the risks involved, you can enable all HTML tags by setting
+the `allow_html` option to `true` in your `config/markdown.php` file.
+
+```php
+// filepath: config/markdown.php
+// torchlight! {"lineNumbers": false}
+'allow_html' => true,
+```
+
+This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
+
