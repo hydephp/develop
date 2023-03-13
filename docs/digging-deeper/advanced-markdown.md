@@ -28,7 +28,7 @@ This, will behind the scenes add the bundled `DisallowedRawHtml` extension, and 
 
 ## Blade Support
 
-Since Hyde v0.30.x you can use Laravel Blade in Markdown files!
+Another special feature in Hyde, is that you can use Laravel Blade in Markdown files!
 
 ### Using Blade in Markdown
 
