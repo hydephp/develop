@@ -20,8 +20,8 @@ The recommended way to do this is to use Git as that allows you to smoothly roll
 
 Depending on how you installed Hyde, there are a few different ways to update it.
 
-We have three methods documented here, one [using Git](#using-git) and two [manual options](#manual-update).
-The [Git method](#using-git) is recommended as it is the easiest and safest way to update your project.
+We have a few methods documented here. The [Git method](#using-git) is recommended as it is the easiest and safest way to
+update your project. If you are not using Git, you can still update your project using any of the [manual methods](#manual-update).
 
 Regardless of the method you use, make sure you follow the [post-update instructions](#post-update-instructions) at the end.
 
