@@ -12,6 +12,7 @@ for your pages, also house instructions to Hyde on how to parse, process, and re
 
 In this article, you'll get a high-level overview of the page models, and some code examples to give you a look inside.
 
+
 ## The short version
 
 #### Page models are classes that have two primary concerns:
@@ -25,6 +26,7 @@ In this article, you'll get a high-level overview of the page models, and some c
 - You don't construct page models yourself. HydePHP does it for you by the [autodiscovery process](autodiscovery).
 - Page models are just PHP classes. You can extend them, and you can implement your own.
 
+
 ## The Page Model
 
 To give you an idea of what a page model class looks like, here's a simplified version of the base `MarkdownPost` class,
@@ -37,18 +39,19 @@ class MarkdownPost extends BaseMarkdownPage
     public static string $outputDirectory = 'posts';
     public static string $fileExtension = '.md';
     public static string $template = 'post';
-    
+
     public string $identifier;
     public string $routeKey;
     public string $title;
-    
+
     public FrontMatter $matter;
     public Markdown $markdown;
 }
 ```
 
-_Note that since Hyde pages are modular and class inheritance and traits, this example has been simplified and
+_Note that since Hyde pages are modular through class inheritance and traits, this example has been simplified and
 edited to show all the relevant parts inlined into one class._
+
 
 ## Page Models as Blueprints
 
@@ -75,6 +78,7 @@ and how the paths relate to each other. So for the class above, Hyde will thanks
 * Compile the page using the `post` Blade template
 * Output the compiled page to the `_site/posts` directory
 
+
 ## Page Models as Data Containers
 
 As mentioned above, each page model instance also holds the page source contents, as well as the computed data.
@@ -87,7 +91,7 @@ class MarkdownPost extends BaseMarkdownPage
     public string $identifier;
     public string $routeKey;
     public string $title;
-    
+
     public FrontMatter $matter;
     public Markdown $markdown;
 }
@@ -101,5 +105,5 @@ how to process a specific page. For example, the identifier property is used to 
 the routeKey property is used to generate the URL for the page.
 
 The matter and markdown properties as I'm sure you can guess, hold the page's front matter and markdown content.
-These can then also be processed by [page factories](dynamic-data-discovery.md) to generate the computed data like the
+These can then also be processed by [page factories](dynamic-data-discovery) to generate the computed data like the
 title property.

@@ -8,13 +8,12 @@ navigation:
 
 ## Introduction to Hyde Posts
 
-Making blog posts with Hyde is easy. At the most basic level,
-all you need is to add a Markdown file to your `_posts` folder.
+Making blog posts with Hyde is easy. At the most basic level, all you need is to add a Markdown file to your `_posts` folder.
 
-To use the full power of the Hyde post module however,
-you'll want to add YAML Front Matter to your posts.
+To use the full power of the Hyde post module however, you'll want to add YAML [Front Matter](front-matter) to your posts.
 
-You can scaffold posts with automatic front matter using the HydeCLI:
+**You can interactively scaffold posts with automatic front matter using the HydeCLI:**
+
 ```bash
 php hyde make:post
 ```
@@ -25,6 +24,7 @@ Learn more about scaffolding posts, and other files, in the [console commands](c
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gjpE1U527h8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+
 ## Best Practices and Hyde Expectations
 
 Since Hyde does a lot of things automatically, there are some things you may need
@@ -34,50 +34,30 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 - Markdown post files are stored in the `_posts` directory
 - The filename is used as the filename for the compiled HTML
-- Filenames should use `kebab-case-slug` followed by the extension `.md`
+- Filenames should use `kebab-case-name` followed by the extension `.md`
 - Files prefixed with `_underscores` are ignored by Hyde
-- Your post will be stored in `_site/posts/<slug>.html`
+- Your post will be stored in `_site/posts/<identifier>.html`
 
 **Example:**
+
 ```bash
 ✔ _posts/hello-world.md # Valid and will be compiled to _site/posts/hello-world.html
 ```
 
 ### Front Matter
 
-Front matter is optional, but highly recommended for blog posts.
+Front matter is optional, but highly recommended for blog posts as the front matter is used to construct dynamic HTML
+markup for the post as well as meta tags and post feeds.
 
-You can read more about the Front Matter format in the [Front Matter documentation](architecture-concepts#front-matter).
-Here is a quick primer:
+You are encouraged to look at the compiled HTML to learn
+and understand how your front matter is used. You can read more about the Front Matter format in the [Front Matter](front-matter) documentation.
 
-- Front matter is stored in a block of YAML that starts and ends with a `---` line.
-- The front matter should be the very first thing in the Markdown file.
-- Each key-pair value should be on its own line.
-- The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
-  You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
+### Blog Post Example
 
+Before digging in deeper on all the supported options, let's take a look at what a basic post with front matter looks like.
 
-**Example:**
 ```markdown
----
-title: "My New Post"
----
-
-## Markdown comes here
-```
-
-You can use the `php hyde make:post` command to automatically generate the front matter based on your input.
-
-
-## A first look at Front Matter
-
-Before digging in deeper on all the supported front matter options,
-let's take a look at what a basic post with front matter looks like.
-
-This file was created using the `make:post` by hitting the `Enter` key to use
-all the defaults (with some extra lorem ipsum to illustrate).
-
-```markdown {: filepath="_posts/my-new-post.md"}
+// filepath _posts/my-new-post.md
 ---
 title: My New Post
 description: A short description used in previews and SEO
@@ -93,27 +73,6 @@ Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
 
-### How the Front Matter is used
-
-The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
-
-You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
-
-### Front matter syntax
-
-Here is a quick reference of the syntax Hyde uses and expects:
-
-```markdown
----
-key: value
-string: "quoted string"
-boolean: true
-integer: 100
-array:
-  key: value
-  key: value
----
-```
 
 ## Supported Front Matter properties
 
@@ -121,7 +80,6 @@ array:
 
 Here is a quick reference of the supported front matter properties.
 Keep on reading to see further explanations, details, and examples.
-
 
 | **KEY NAME**   | **VALUE TYPE** | **EXAMPLE / FORMAT**             |
 |----------------|----------------|----------------------------------|
@@ -132,11 +90,12 @@ Keep on reading to see further explanations, details, and examples.
 | `author`       | string/array   | _See [author](#author) section_  |
 | `image`        | string/array   | _See [image](#image) section_    |
 
+Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings in quotes,
+but it can help in certain edge cases, for example if the text contains special Yaml characters, thus they are included here.
 
-Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings
-in quotes, but it can help in certain edge cases, thus they are included here.
+In the examples below, when there are multiple examples, they signify various ways to use the same property.
 
-In the examples below, when there are multiple keys, they signify various ways to use the parameter.
+When specifying an array you don't need all the sub-properties. The examples generally show all the supported values.
 
 ### Title
 
@@ -144,69 +103,99 @@ In the examples below, when there are multiple keys, they signify various ways t
 title: "My New Post"
 ```
 
-
 ### Description
 
 ```yaml
 description: "A short description used in previews and SEO"
 ```
 
-
 ### Category
 
 ```yaml
 category: blog
-category: "My favorite recipes"
 ```
 
+```yaml
+category: "My favorite recipes"
+```
 
 ### Date
 
 ```yaml
-date: "2022-01-01 12:00"
-date: "2022-01-01" 
+date: "2022-01-01"
 ```
 
+```yaml
+date: "2022-01-01 12:00"
+```
 
 ### Author
 
+Specify a page author, either by a username for an author defined in the `authors` config, or by an arbitrary name,
+or by an array of author data. See the [Post Author](#post-authors) section for more details.
+
+#### Arbitrary name displayed "as is"
+
 ```yaml
-author: "Mr. Hyde" # Arbitrary name displayed "as is"
-author: mr_hyde # Username defined in `authors` config
-author: # Array of author data
+author: "Mr. Hyde"
+```
+
+#### Username defined in `authors` config
+
+```yaml
+author: mr_hyde
+```
+
+#### Array of author data
+
+```yaml
+author:
     name: "Mr. Hyde"
     username: mr_hyde
     website: https://twitter.com/HydeFramework
 ```
 
-When specifying an array you don't need all the sub-properties.
-The example just shows all the supported values. Array values here
-will override all the values in the `authors` config entry.
+When specifying an array you don't need all the sub-properties. The example just shows all the supported values.
+Array values here will override all the values in the `authors` config entry.
 
 ### Image
 
+Specify a cover image for the post, either by a local image path for a file in the `_media/` directory, or by a full URL.
+Any array data is constructed into a dynamic fluent caption, and injected into post and page metadata.
+
+#### Local image path
+
+When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
+Like all other media files, it will be copied to `_site/media/` when the site is built, so Hyde will resolve links accordingly.
+
 ```yaml
-image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically to the correct URL for the built site
-image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`) or `//` (protocol-relative)
+image: image.jpg
+```
+
+#### Full URL
+
+Full URL starting with `http(s)://`) or `//` (protocol-relative).
+The image source will be used as-is, and no additional processing is done.
+
+```yaml
+image: https://cdn.example.com/image.jpg
+```
+
+#### Data-rich image
+
+You can also supply an array of data to construct a rich image with a fluent caption.
+
+```yaml
 image:
-    source: image.jpg # Same as above
-    source: https://cdn.example.com/image.jpg # Same as above
+    source: Local image path or full URL
     altText: "Alt text for image"
-    title: "Tooltip title"
+    titleText: "Tooltip title"
     copyright: "Copyright (c) 2022"
     licenseName: "CC-BY-SA-4.0"
     licenseUrl: https://example.com/license/
     authorUrl: https://photographer.example.com/
     authorName: "John Doe"
 ```
-
-When supplying an image source with a local image path, the image is expected to be stored in the `_media/` directory.
-Like all other media files, it will be copied to `_site/media/` when the site is built, so Hyde will resolve links accordingly.
-
-When supplying an image with a full URL, the image source will be used as-is, and no additional processing is done.
-
-The image will be used as the cover image, and any array data is constructed into a dynamic fluent caption,
-and injected into post and page metadata.
 
 > See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
@@ -218,7 +207,9 @@ and injected into post and page metadata.
 To use images stored in the `_media/` directory, you can use the following syntax:
 
 ```markdown
-![Image Alt](../media/image.png "Image Title") # Note the relative path since the blog post is compiled to `posts/example.html`
+![Image Alt](../media/image.png "Image Title")
 ```
+
+_Note the relative path since the blog post is compiled to `posts/example.html`_
 
 To learn more, check out the [chapter in managing assets](managing-assets#managing-images)
