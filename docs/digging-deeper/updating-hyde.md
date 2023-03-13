@@ -52,7 +52,7 @@ Next, follow the post-update instructions.
 
 TODO: Rewrite this section
 
-### Manual Update
+### Hard Update
 
 Since all resource files are in the content directories you can simply copy those files to the new location.
 
