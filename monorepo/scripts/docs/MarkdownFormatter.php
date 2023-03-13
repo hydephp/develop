@@ -196,7 +196,7 @@ function normalize_lines($filename): void
                 // Check character after the .json is not a backtick
                 $pos = strpos($line, '.json');
                 if ($pos > 0) {
-                    $charAfter = substr($line, $pos + 4, 1);
+                    $charAfter = substr($line, $pos + 5, 1);
                     if ($charAfter !== '`') {
                         global $warnings;
                         $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
