@@ -50,6 +50,9 @@ The directories you place your content in are important. The directory will be u
 If you are not happy with defaults, you can change them. Note that these are relative to the `source_root` setting,
 which is the root of your project by default.
 
+Note that you need to take care of conflicts when changing the source directories. For example, if you store Markdown
+posts in the same directory as documentation pages, Hyde will not know which page type to use.
+
 ### In the config file
 
 ```php
