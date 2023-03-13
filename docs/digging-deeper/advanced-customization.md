@@ -91,7 +91,13 @@ Like source directories, the output directories are also important as they deter
 
 Each option is relative to the site's `output_directory` setting. Setting a value to `''` will output the page to the site root.
 
+### Route Key Changes
+
 >warning Note that this change also affects the route keys, as those are based on the output directory.
+
+For example, changing the output directory of Markdown posts to `blog` instead of `posts` will change the route key base from `posts` to `blog`.
+This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`,
+this may break your site's configuration, so you should always verify the impact to your site of such a change.
 
 ## Custom source root
 
