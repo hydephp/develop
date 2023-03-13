@@ -13,7 +13,7 @@ you can safely skip this section. The documentation here will cover advanced top
 the reader has a basic to intermediate understanding of programming, as well as PHP, object-oriented design,
 and to some extent Laravel, as the articles are heavily driven by code examples.
 
-You, of course, are free to skip this entire section, as you don't need to know these things to use Hyde.
+You are of course free to skip this entire section, as you don't need to know these things to use Hyde.
 However, if you want to know the "magic" behind Hyde, or if you want to take advantage of these powerful tools,
 then by all means, please read on! This is also a great place to start if you want to contribute to the source code.
 
