@@ -64,7 +64,6 @@ you can enable it in the `config/markdown.php` file.
 #### Limitations
 
 All shortcodes must be the first word on a new line.
-For example, using a space before the `[Blade]:` will intentionally cause it to not render.
 
 
 ## Coloured Blockquotes
