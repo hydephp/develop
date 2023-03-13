@@ -28,8 +28,7 @@ are experimental features, and are not at all supported. Use at your own risk.
 ### A note on file paths
 
 When Hyde references files, especially when passing filenames between components, the file path is almost always
-relative to the root of the project.
-Specifying absolute paths yourself will likely lead to unforeseen problems.
+relative to the root of the project. Specifying absolute paths yourself will likely lead to unforeseen problems.
 
 
 ## Customizing source directories 🧪
