@@ -14,6 +14,7 @@ use Hyde\Facades\Config;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+
 use function date;
 
 /**

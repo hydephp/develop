@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Collection;
+
 use function collect;
 
 /**

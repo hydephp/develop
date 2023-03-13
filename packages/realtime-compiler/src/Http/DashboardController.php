@@ -10,6 +10,7 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
 use Composer\InstalledVersions;
+
 use function file_get_contents;
 use function str_starts_with;
 use function str_replace;
@@ -72,7 +73,7 @@ class DashboardController
             if (config('hyde.server.dashboard.welcome-banner', true)) {
                 $contents = str_replace("</div>\n            <!-- End Main Hero Content -->",
                     sprintf("%s\n</div>\n<!-- End Main Hero Content -->", self::welcomeComponent()),
-                $contents);
+                    $contents);
             }
 
             if (config('hyde.server.dashboard.welcome-dashboard', true)) {

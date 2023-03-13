@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Str;
+
 use function class_basename;
 use function array_unique;
 use function array_merge;

@@ -15,6 +15,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Concerns\TracksExecutionTime;
+
 use function filemtime;
 use function in_array;
 use function config;

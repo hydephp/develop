@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
 use InvalidArgumentException;
+
 use function array_keys;
 use function array_map;
 use function array_merge;

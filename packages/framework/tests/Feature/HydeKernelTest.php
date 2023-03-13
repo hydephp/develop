@@ -298,7 +298,7 @@ class HydeKernelTest extends TestCase
     {
         $this->assertTrue(version_compare(
             HydeKernel::VERSION, InstalledVersions::getPrettyVersion('hyde/framework')
-            ) >= 0);
+        ) >= 0);
     }
 
     public function test_version_method_returns_version_constant()

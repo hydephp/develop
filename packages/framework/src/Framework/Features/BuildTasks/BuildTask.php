@@ -10,6 +10,7 @@ use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Command\Command;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 use Illuminate\Console\Concerns\InteractsWithIO;
+
 use function str_replace;
 use function sprintf;
 

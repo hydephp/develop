@@ -90,7 +90,7 @@ class HighLevelViewTest extends DuskTestCase
     {
         $this->artisan('publish:homepage posts -n');
         file_put_contents(Hyde::path('_posts/my-new-post.md'),
-        '---
+            '---
 title: My New Post
 description: A short description used in previews and SEO
 category: blog

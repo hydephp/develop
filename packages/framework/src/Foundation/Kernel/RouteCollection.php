@@ -13,6 +13,7 @@ use Hyde\Support\Models\Route;
  * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
  *
  * @template T of \Hyde\Support\Models\Route
+ *
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, Route> $items The routes in the collection.

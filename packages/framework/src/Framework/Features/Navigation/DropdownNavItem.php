@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Collection;
+
 use function collect;
 
 /**

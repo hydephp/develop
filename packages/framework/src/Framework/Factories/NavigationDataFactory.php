@@ -13,6 +13,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
+
 use function array_flip;
 use function in_array;
 use function is_a;

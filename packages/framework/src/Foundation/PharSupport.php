@@ -7,6 +7,7 @@ namespace Hyde\Foundation;
 use Hyde\Hyde;
 use Phar;
 use BadMethodCallException;
+
 use function dirname;
 use function is_dir;
 use function rtrim;

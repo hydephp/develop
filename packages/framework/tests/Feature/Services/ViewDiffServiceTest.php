@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
 

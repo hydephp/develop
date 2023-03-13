@@ -6,6 +6,7 @@ namespace Hyde\Framework\Exceptions;
 
 use Exception;
 use Hyde\Hyde;
+
 use function sprintf;
 
 class FileConflictException extends Exception

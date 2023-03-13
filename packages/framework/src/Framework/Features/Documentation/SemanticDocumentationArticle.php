@@ -9,6 +9,7 @@ use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+
 use function explode;
 use function in_array;
 use function str_contains;

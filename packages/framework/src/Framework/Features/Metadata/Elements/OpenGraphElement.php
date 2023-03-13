@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Metadata\Elements;
 
 use Hyde\Framework\Features\Metadata\MetadataElementContract;
+
 use function sprintf;
 use function substr;
 use function e;

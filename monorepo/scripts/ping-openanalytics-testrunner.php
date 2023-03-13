@@ -50,7 +50,7 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 //    'runner_os' => 'string:nullable',
 
 $junit = str_replace("''", '""', str_replace('"', '', str_replace('""', "''",
-        substr(substr(explode("\n", file_get_contents('report.xml'))[2], 13), 0, -3)))
+    substr(substr(explode("\n", file_get_contents('report.xml'))[2], 13), 0, -3)))
 );
 foreach (explode(' ', $junit) as $pair) {
     $data[explode('=', $pair)[0]] = explode('=', $pair)[1];

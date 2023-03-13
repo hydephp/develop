@@ -17,6 +17,7 @@ use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
+
 use function array_map;
 use function array_values;
 use function class_basename;

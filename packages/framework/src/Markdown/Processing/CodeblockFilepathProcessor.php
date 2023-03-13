@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\HtmlString;
+
 use function preg_replace;
 use function str_ireplace;
 use function strtolower;

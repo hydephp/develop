@@ -23,6 +23,7 @@ use Stringable;
  * You can also get the front matter object using $page->matter (which is an instance of this class)
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
+ *
  * @phpstan-consistent-constructor
  */
 class FrontMatter implements Stringable, SerializableContract

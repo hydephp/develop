@@ -8,6 +8,7 @@ use Exception;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
+
 use function array_keys;
 use function array_values;
 use function realpath;
