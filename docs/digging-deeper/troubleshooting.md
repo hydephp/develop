@@ -59,7 +59,7 @@ We will use the following definitions to describe the behaviour of Hyde.
 - **Identifier**: The filepath without the extension, relative to the page type source directory.
 - **Route Key**: The page type's output directory plus the identifier. Example: `posts/hello-world`
 - **Filename**: The full name of a file with the extension. Example: `hello-world.md`
-- **Filepath**: The full file path including extension (almost always relative to the Hyde project) Example: `_posts/hello-world.md`
+- **Filepath**: The full file path including extension. Example: `_posts/hello-world.md`
 
 <style>
 #document-main-content > ul > li > p {
