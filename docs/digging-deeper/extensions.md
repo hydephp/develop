@@ -22,10 +22,9 @@ installations and is what powers the `php hyde serve` command.
 
 ### Torchlight
 
-#### About Torchlight
-
-Torchlight is an amazing API for syntax highlighting and is what this site uses.
-I cannot recommend it highly enough, especially for documentation sites and code-heavy blogs!
+Torchlight is an amazing API for syntax highlighting, and is used by this site. I cannot recommend it highly enough,
+especially for documentation sites and code-heavy blogs! As such, HydePHP has built-in support for Torchlight,
+which is automatically enabled once you add an API token to your `.env` file. Nothing else needs to be done!
 
 #### Getting started
 
