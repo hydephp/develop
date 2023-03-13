@@ -434,13 +434,16 @@ if ($filesChanged > 0) {
 }
 $warningCount = count($warnings, COUNT_RECURSIVE) - count($warnings);
 if ($warningCount > 0) {
-    echo "\033[33m".$warningCount." warnings found.\033[0m";
+    $str = $warningCount === 1 ? "warning" : "warnings";
+    echo "\033[33m".$warningCount." {$str} found.\033[0m";
     if (file_exists(__DIR__.'/../cache/last-run-warnings-count.txt')) {
         $lastRunWarningsCount = (int) file_get_contents(__DIR__.'/../cache/last-run-warnings-count.txt');
         if ($warningCount < $lastRunWarningsCount) {
-            echo ' Good job! You fixed '.($lastRunWarningsCount - $warningCount).' warnings!';
+            $str =$lastRunWarningsCount - $warningCount === 1 ? 'warning' : 'warnings';
+            echo ' Good job! You fixed '.($lastRunWarningsCount - $warningCount).$str.' !';
         } elseif ($warningCount > $lastRunWarningsCount) {
-            echo ' Uh oh! You introduced '.($warningCount - $lastRunWarningsCount).' new warnings!';
+            $str = $warningCount - $lastRunWarningsCount === 1 ? 'warning' : 'warnings';
+            echo ' Uh oh! You introduced '.($warningCount - $lastRunWarningsCount).' new '.$str.'!';
         }
     }
 }
