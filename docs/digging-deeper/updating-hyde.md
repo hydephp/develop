@@ -90,7 +90,7 @@ php hyde publish:views layouts
 php hyde publish:views components
 ```
 
-Next, re-build your site.
+Next, rebuild your site.
 
 ```bash
 php hyde build
