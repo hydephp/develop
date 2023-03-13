@@ -56,6 +56,7 @@ We will use the following definitions to describe the behaviour of Hyde.
 - **Framework**: The package containing the core codebase.
 
 - **Basename**: The filename without the extension. Example: `hello-world`
+- **Identifier**: The filepath without the extension, relative to the source directory.
 - **Filename**: The full name of a file with the extension. Example: `hello-world.md`
 - **Filepath**: The full file path including extension (almost always relative to the Hyde project) Example: `_posts/hello-world.md`
 
