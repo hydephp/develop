@@ -16,15 +16,6 @@ that you _can_ do, but that you maybe should not. With great power comes great r
 
 Documentation here will be mainly example driven, as it is assumed you have somewhat of an understanding of what you are doing already.
 
-### Emoji legend
-
-Each section is marked with an emoji that indicates the level of risk. Note that pretty much all of these
-are experimental features, and are not at all supported. Use at your own risk.
-
-- 🧪 = Indicates experimental features bound to change at any time.
-- ⚠ = Exercise caution when using this feature.
-- 💔 = This could seriously break things
-
 
 ## Prerequisites for Customizing directories
 
