@@ -42,7 +42,6 @@ Remember, files retain their base filenames when compiled to HTML.
 - ✔ **Do** use lowercase filenames and extensions
 - ✔ **Do** use filenames written in kebab-case-format
 - ✔ **Do** use the proper file extensions
-
 - ❌ **Don't** use conflicting source file names
 
 
