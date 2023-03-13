@@ -3,6 +3,15 @@ navigation:
     priority: 35
 ---
 
+
+<style>
+#document-main-content > ul > li > p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+</style>
+
+
 # Troubleshooting
 
 Since Hyde has a lot of "magic" features which depend on some base assumptions,
@@ -66,13 +75,6 @@ We will use the following definitions to describe the behaviour of Hyde.
 - **Filepath**: The full file path including extension. Example: `_posts/hello-world.md`
 
 You can read more about some of these in the [Core Concepts](core-concepts#paths-identifiers-and-route-keys) article.
-
-<style>
-#document-main-content > ul > li > p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-</style>
 
 
 ## Common issues, causes, and solutions
