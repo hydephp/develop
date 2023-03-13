@@ -64,7 +64,6 @@ But if you have done that you probably know what you are doing. I hope. The same
 Example CLI workflow, assuming the project is stored as `my-project` in the home directory:
 
 ```bash
-cd ~
 mv my-project my-project-old
 composer create-project hyde/hyde my-project
 
