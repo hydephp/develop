@@ -41,7 +41,7 @@ contents with the supplied front matter during the static site build process.
 
 >warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
 
-You can also register a macro with the name `'compile'` to overload the default compile method.
+You can also register a macro with the name `compile` to overload the default compile method.
 
 
 ## API Reference
