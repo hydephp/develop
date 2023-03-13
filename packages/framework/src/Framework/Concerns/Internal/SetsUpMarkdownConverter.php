@@ -9,6 +9,7 @@ use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
 use Torchlight\Commonmark\V2\TorchlightExtension;
+
 use function array_merge;
 use function in_array;
 

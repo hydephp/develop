@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
 use RuntimeException;
+
 use function file_get_contents;
 use function substr_count;
 use function json_decode;
@@ -21,6 +22,7 @@ use function trim;
  * Accepts a string to make it easier to mock when testing.
  *
  * @see \Hyde\Framework\Testing\Feature\BladeMatterParserTest
+ *
  * @phpstan-consistent-constructor
  *
  * === DOCUMENTATION (draft) ===

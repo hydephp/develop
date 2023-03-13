@@ -6,6 +6,7 @@ namespace Hyde\Foundation;
 
 use LaravelZero\Framework\Kernel;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
+
 use function array_combine;
 use function array_splice;
 use function array_values;

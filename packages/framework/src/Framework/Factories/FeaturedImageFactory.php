@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+
 use function str_starts_with;
 use function is_string;
 use function unslash;

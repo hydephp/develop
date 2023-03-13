@@ -6,6 +6,7 @@ namespace Hyde\Testing;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+
 use function in_array;
 
 trait CreatesTemporaryFiles

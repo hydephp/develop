@@ -12,6 +12,7 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Str;
+
 use function array_filter;
 use function array_map;
 use function array_merge;

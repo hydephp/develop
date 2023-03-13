@@ -81,11 +81,11 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     protected function factory(array $data = []): HydePageDataFactory
     {
-        return $this->factoryFromPage((new InMemoryPage('', $data)));
+        return $this->factoryFromPage(new InMemoryPage('', $data));
     }
 
     protected function factoryFromPage(HydePage $page): HydePageDataFactory
     {
-        return new HydePageDataFactory(($page)->toCoreDataObject());
+        return new HydePageDataFactory($page->toCoreDataObject());
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Facades\Filesystem;
+
 use function dirname;
 
 /**

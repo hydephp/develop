@@ -168,7 +168,7 @@ class MetadataTest extends TestCase
             '<meta property="og:foo" content="bar">',
             'foo',
         ]),
-        $page->metadata->render());
+            $page->metadata->render());
     }
 
     public function test_custom_metadata_overrides_config_defined_metadata()

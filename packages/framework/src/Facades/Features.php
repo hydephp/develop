@@ -11,6 +11,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Illuminate\Support\Str;
+
 use function get_class_methods;
 use function extension_loaded;
 use function str_starts_with;
@@ -178,7 +179,7 @@ class Features implements SerializableContract
         return collect(get_class_methods(static::class))
             ->filter(fn (string $method): bool => str_starts_with($method, 'has'))
             ->mapWithKeys(fn (string $method): array => [
-                Str::kebab(substr($method, 3)) => (static::{$method}()),
+                Str::kebab(substr($method, 3)) => static::{$method}(),
             ])->toArray();
     }
 

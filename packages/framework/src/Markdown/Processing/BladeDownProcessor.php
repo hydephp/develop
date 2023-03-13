@@ -7,6 +7,7 @@ namespace Hyde\Markdown\Processing;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\Facades\Blade;
+
 use function html_entity_decode;
 use function strtolower;
 use function array_map;
@@ -23,9 +24,11 @@ use function e;
  * The preprocessor expands the directive to an HTML comment. The post-processor parses it.
  *
  * @example: [Blade]: {{ time() }}
+ *
  * @example: [Blade]: @include('path/to/view.blade.php')
  *
  * @see \Hyde\Framework\Testing\Feature\Services\BladeDownProcessorTest
+ *
  * @phpstan-consistent-constructor
  */
 class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract

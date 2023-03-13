@@ -13,6 +13,7 @@ use Hyde\Support\Filesystem\SourceFile;
  * The PageCollection contains all the instantiated pages.
  *
  * @template T of \Hyde\Pages\Concerns\HydePage
+ *
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, HydePage> $items The pages in the collection.

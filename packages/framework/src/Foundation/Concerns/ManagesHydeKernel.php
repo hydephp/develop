@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\HydeKernel;
+
 use function ltrim;
 use function rtrim;
 

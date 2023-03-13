@@ -31,6 +31,6 @@ file_put_contents((new CreatesNewPageSourceFile('Markdown Page', MarkdownPage::c
 
 file_put_contents(hyde()->path('_pages/html.html'), '<h1>HTML Page</h1>');
 
-(new CreatesNewPageSourceFile('Blade Page', BladePage::class, true));
+new CreatesNewPageSourceFile('Blade Page', BladePage::class, true);
 
 echo 'Finished in '.round((microtime(true) - $time) * 1000, 2).'ms';

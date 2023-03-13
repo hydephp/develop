@@ -8,6 +8,7 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+
 use function strtolower;
 use function is_string;
 

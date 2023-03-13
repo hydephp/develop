@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
+
 use function config_path;
 
 class ConfigurationServiceProvider extends ServiceProvider

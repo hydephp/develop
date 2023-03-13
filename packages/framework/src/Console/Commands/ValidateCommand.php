@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Framework\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
+
 use function number_format;
 use function microtime;
 use function sprintf;

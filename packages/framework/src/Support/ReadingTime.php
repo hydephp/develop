@@ -7,6 +7,7 @@ namespace Hyde\Support;
 use Closure;
 use Hyde\Facades\Filesystem;
 use Stringable;
+
 use function floor;
 use function round;
 use function sprintf;

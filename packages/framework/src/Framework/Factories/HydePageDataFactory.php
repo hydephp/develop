@@ -11,6 +11,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationData;
+
 use function basename;
 use function dirname;
 use function substr;

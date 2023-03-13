@@ -75,7 +75,7 @@ navigation:
 @extends('hyde::layouts.app')
 @php($navigation = ['label' => 'My custom label'])
 BLADE
-);
+        );
         Hyde::boot();
 
         $this->artisan('rebuild _pages/foo.blade.php');

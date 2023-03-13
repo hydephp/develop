@@ -61,13 +61,13 @@ class ScriptsComponentViewTest extends TestCase
         view()->share('routeKey', '');
 
         $this->assertStringContainsString('foo bar',
-             Blade::render('
+            Blade::render('
                 @push("scripts")
                 foo bar
                 @endpush
                 
                 @include("hyde::layouts.scripts")'
-             )
+            )
         );
     }
 }

@@ -8,6 +8,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\ValidatesExistence;
+
 use function is_subclass_of;
 
 /**
