@@ -67,4 +67,6 @@ Once you have some content, you can run the build command to compile the content
 php hyde build
 ```
 
+And that's it, your amazing website is ready to be shared with the world!
+
 ### To learn more, head over to the [quickstart page](quickstart).
