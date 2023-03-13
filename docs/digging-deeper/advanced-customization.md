@@ -97,11 +97,11 @@ Each option is relative to the site's `output_directory` setting. Setting a valu
 ```php
 // filepath config/hyde.php
 'output_directories' => [
-    \Hyde\Pages\HtmlPage::class => '',
-    \Hyde\Pages\BladePage::class => '',
-    \Hyde\Pages\MarkdownPage::class => '',
-    \Hyde\Pages\MarkdownPost::class => 'posts',
-    \Hyde\Pages\DocumentationPage::class => 'docs',
+    HtmlPage::class => '',
+    BladePage::class => '',
+    MarkdownPage::class => '',
+    MarkdownPost::class => 'posts',
+    DocumentationPage::class => 'docs',
 ],
 ```
 
@@ -114,11 +114,11 @@ use Hyde\Framework\Concerns\RegistersFileLocations;
 public function register(): void
 {
     $this->registerOutputDirectories([
-        \Hyde\Pages\HtmlPage::class => '',
-        \Hyde\Pages\BladePage::class => '',
-        \Hyde\Pages\MarkdownPage::class => '',
-        \Hyde\Pages\MarkdownPost::class => 'posts',
-        \Hyde\Pages\DocumentationPage::class => 'docs',
+        HtmlPage::class => '',
+        BladePage::class => '',
+        MarkdownPage::class => '',
+        MarkdownPost::class => 'posts',
+        DocumentationPage::class => 'docs',
     ]);
 }
 ```
