@@ -133,7 +133,7 @@ echo 'Hello World!';
 
 #### Alternative syntax
 
-The syntax is rather forgiving by design, and supports using both `//` and `#` for comments.
+The syntax is rather forgiving, by design, and supports using both `//` and `#` for comments.
 The colon is also optional, and the 'filepath' string is case-insensitive. So the following is also perfectly valid:
 
 ````markdown
