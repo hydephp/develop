@@ -20,11 +20,12 @@ Depending on how you installed Hyde, there are a few different ways to update it
 
 We have two methods documented here, one [using Git](#using-git) and one [manually](#manual-update).
 
+The Git method works great, especially if you created your project by cloning the [hydephp/hyde](https://github.com/hydephp/hyde) repository.
+
 Regardless of the method you use, make sure you follow the post-update instructions at the end.
 
 ### Using Git
 
-This method works great, especially if you created your project by cloning the [hydephp/hyde](https://github.com/hydephp/hyde) repository.
 
 First, make sure you have a remote set up for the base project repository.
 
