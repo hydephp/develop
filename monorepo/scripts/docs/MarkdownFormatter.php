@@ -438,7 +438,7 @@ if ($warningCount > 0) {
     if (file_exists(__DIR__.'/../cache/last-run-warnings-count.txt')) {
         $lastRunWarningsCount = (int) file_get_contents(__DIR__.'/../cache/last-run-warnings-count.txt');
         if ($warningCount < $lastRunWarningsCount) {
-            echo sprintf(' Good job! You fixed %d%s!', $lastRunWarningsCount - $warningCount, $lastRunWarningsCount - $warningCount === 1 ? 'warning' : 'warnings');
+            echo sprintf(' Good job! You fixed %d %s!', $lastRunWarningsCount - $warningCount, $lastRunWarningsCount - $warningCount === 1 ? 'warning' : 'warnings');
         } elseif ($warningCount > $lastRunWarningsCount) {
             echo sprintf(' Uh oh! You introduced %d new %s!', $warningCount - $lastRunWarningsCount, $warningCount - $lastRunWarningsCount === 1 ? 'warning' : 'warnings');
         }
