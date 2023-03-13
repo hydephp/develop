@@ -125,9 +125,8 @@ You can change the path to this directory by setting the `media_directory` optio
 
 #### Next steps
 
-Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
-
-You will of course also need to copy over any existing files from the old directory to the new one.
+1. Note that you will likely need to manually update `webpack.mix.js` so Laravel Mix can compile the assets correctly.
+2. You will of course also need to copy over any existing files from the old directory to the new one.
 
 #### Setting changes both source and output directories
 
