@@ -260,7 +260,6 @@ jobs:
 
       - name: Remove internal docs
         run: |
-          rm -rf website/_docs/internal
           rm website/_docs/README.md
 
       - name: Commit and push changes
