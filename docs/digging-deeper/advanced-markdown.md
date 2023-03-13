@@ -30,8 +30,7 @@ Since Hyde v0.30.x you can use Laravel Blade in Markdown files!
 
 ### Using Blade in Markdown
 
-To use Blade in your Markdown files, simply use the Blade shortcode directive,
-followed by your desired Blade string.
+To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
 
 #### Standard syntax
 
@@ -41,9 +40,8 @@ followed by your desired Blade string.
 
 #### Blade includes
 
-Only single-line shortcode directives are supported. If you need to use multi-line Blade code,
-use an `@include` directive to render a more complex Blade template.
-You can pass data to includes by specifying an array to the second argument.
+Only single-line shortcode directives are supported. If you need to use multi-line Blade code, use an `@include`
+directive to render a more complex Blade template. You can pass data to includes by specifying an array to the second argument.
 
 ```markdown
  [Blade]: @include("hello-world")
@@ -67,7 +65,8 @@ All shortcodes must be the first word on a new line, and only single-line shortc
 
 ## Coloured Blockquotes
 
-The HydePHP Markdown converter also supports some extra directives and features. One of them being four different coloured blockquotes. Simply append the colour after the initial `>` character.
+The HydePHP Markdown converter also supports some extra directives and features. One of them being four different
+coloured blockquotes. Simply append the colour after the initial `>` character.
 
 ```markdown
 ‎> Normal Blockquote
