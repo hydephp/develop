@@ -83,7 +83,7 @@ public function register(): void
 
 HydePHP will by default look for the source directories shown above in the root of your project.
 If you're not happy with this, it's easy to change! For example, you might want everything in a 'src' subdirectory.
-That's easy enough, just set the value of the `source_root` setting in `config/hyde.php` to `'src'`!
+That's easy enough, just set the value of the `source_root` setting in `config/hyde.php` to `'src'`, or whatever you prefer!
 
 ### Automatic change 🧪
 
