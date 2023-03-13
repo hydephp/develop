@@ -43,6 +43,7 @@ is registered, at which point the provider will search for any overrides in the 
    - You can use the [`RegistersFileLocations`](https://github.com/hydephp/framework/blob/master/src/Framework/Concerns/RegistersFileLocations.php)
      trait to use the same registration logic as the `HydeServiceProvider`.
 
+
 ## Customizing source directories 🧪
 
 The source directory paths are stored in the PageModel objects.
