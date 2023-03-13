@@ -209,7 +209,7 @@ You can change this in the Docs configuration file.
 
 ### Sidebar page order
 
-To quickly arrange the order of items in the sidebar, you can reorder the page slugs in the list and the links will be sorted in that order.
+To quickly arrange the order of items in the sidebar, you can reorder the page identifiers in the list and the links will be sorted in that order.
 Link items without an entry here will have fall back to the default priority of 999, putting them last.
 
 ```php
