@@ -99,7 +99,7 @@ While all options are already documented within the files, here are some further
 ### RSS feed generation
 
 When enabled, an RSS feed with your Markdown blog posts will be generated when you compile your static site.
-Note that this requires that a site_url is set!
+Note that this requires that a `site_url` is set!
 
 ```php // config/hyde.php
 'rss.enabled' => true, // Default is true
