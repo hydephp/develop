@@ -40,8 +40,8 @@ TORCHLIGHT_TOKEN=torch_<your-api-token>
 
 #### Attribution and configuration
 
-Note that you need to provide an attribution link, thankfully Hyde injects a customizable link automatically to all pages
-that use Torchlight. You can of course disable this in the `config/torchlight.php` file.
+Note that for the free plan you need to provide an attribution link. Thankfully Hyde injects a customizable link
+automatically to all pages that use Torchlight. You can of course disable and customize this in the `config/torchlight.php` file.
 
 ```php
 'attribution' => [
@@ -50,6 +50,7 @@ that use Torchlight. You can of course disable this in the `config/torchlight.ph
 ],
 ```
 
+Don't have this file? Run `php hyde vendor:publish` to publish it.
 
 ## Contribute
 
