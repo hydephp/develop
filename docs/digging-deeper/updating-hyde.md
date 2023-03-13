@@ -90,14 +90,14 @@ php hyde publish:views layouts
 php hyde publish:views components
 ```
 
-And recompile your assets if applicable.
+Next, recompile your assets if applicable.
 
 ```bash
 npm install
 npm run dev/prod
 ```
 
-Next, rebuild your site.
+Finally, rebuild your site.
 
 ```bash
 php hyde build
