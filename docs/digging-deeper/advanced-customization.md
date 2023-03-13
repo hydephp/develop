@@ -96,6 +96,10 @@ That's easy enough, just set the value of the `source_root` setting in `config/h
 
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
 
+```bash
+php hyde change:sourceDirectory <name>
+```
+
 When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist,
 then move all source directories and their content into it.
 
