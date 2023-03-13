@@ -29,12 +29,6 @@ Hyde has already been featured in the [Laravel News Podcast](https://laravel-new
 - [HydePHP/Hydefront](https://github.com/hydephp/hydefront) - The Hyde frontend assets. Extracted from the HydePHP/Framework repo to improve testing and allow for easier deployment using a CDN.
 
 
-## ⚠ Beta Software Warning
-Heads up! HydePHP is very new and currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and there will be breaking changes without notice.
-
-Please wait until v1.0 for production use and remember to back up your source files before updating (use Git!).
-See https://hydephp.com/docs/master/updating-hyde for the upgrade guide.
-
 ## Resources
 
 ### Changelog
