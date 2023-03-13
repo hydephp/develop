@@ -420,9 +420,19 @@ if ($filesChanged > 0) {
 } else {
     echo "\n\033[32mNo files were changed.\033[0m ";
 }
-if (count($warnings) > 0) {
-    echo "\033[33m".count($warnings, COUNT_RECURSIVE) - count($warnings)." warnings found.\033[0m";
+$warningCount = count($warnings, COUNT_RECURSIVE) - count($warnings);
+if ($warningCount > 0) {
+    echo "\033[33m".$warningCount." warnings found.\033[0m";
+    if (file_exists(__DIR__.'/../cache/last-run-warnings-count.txt')) {
+        $lastRunWarningsCount = (int) file_get_contents(__DIR__.'/../cache/last-run-warnings-count.txt');
+        if ($warningCount > $lastRunWarningsCount) {
+            echo ' Good job! You fixed '.($warningCount - $lastRunWarningsCount).' warnings!';
+        } elseif ($warningCount < $lastRunWarningsCount) {
+            echo ' Uh oh! You introduced '.($lastRunWarningsCount - $warningCount).' new warnings!';
+        }
+    }
 }
+file_put_contents(__DIR__.'/../cache/last-run-warnings-count.txt', $warningCount);
 echo "\n";
 
 // If --git flag is passed, make a git commit
