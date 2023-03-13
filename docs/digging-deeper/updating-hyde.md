@@ -25,6 +25,8 @@ Regardless of the method you use, make sure you follow the post-update instructi
 
 ### Using Git
 
+This method works great, especially if you created your project by cloning the [hydephp/hyde](https://github.com/hydephp/hyde) repository.
+
 First, make sure you have a remote set up for the base project repository.
 
 ```bash
