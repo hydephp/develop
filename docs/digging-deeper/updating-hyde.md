@@ -5,8 +5,6 @@ navigation:
 
 # Updating Hyde
 
-## While Hyde is in beta, stuff can change rapidly.
-
 This guide will help you update Hyde to the latest version. It is recommended to back up your source files before updating.
 
 
