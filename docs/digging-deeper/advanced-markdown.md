@@ -17,13 +17,13 @@ A special feature in Hyde, is that you can use [Laravel Blade](https://laravel.c
 
 To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
 
-#### Standard syntax
+### Standard syntax
 
 ```markdown
  [Blade]: {{ "Hello World!" }} // Will render: 'Hello World!'
 ```
 
-#### Blade includes
+### Blade includes
 
 Only single-line shortcode directives are supported. If you need to use multi-line Blade code, use an `@include`
 directive to render a more complex Blade template. You can pass data to includes by specifying an array to the second argument.
