@@ -13,6 +13,6 @@ HydePHP is a simple, yet powerful, static site generator. It is designed to be e
 This section of the documentation will cover some of the more advanced (but optional) features of the framework.
 
 
-## Introduction
+## Prerequisites
 
 To fully understand the features described in these chapters, it may be beneficial to first skim through the [Architecture Concepts](architecture-concepts) chapters.
