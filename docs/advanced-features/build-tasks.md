@@ -139,7 +139,7 @@ or you can register the extensions programmatically, I recommend you do this in 
 The build tasks are registered in an internal array of the `BuildService` class, which is bound as a singleton in the underlying Laravel service container.
 To actually register your task, provide the fully qualified class name of the task to the `BuildTaskService::registerTask()` method.
 
-Here is an example of how to do this using in a service provider. Though you could technically do it anywhere using the `app()` helper, just as long as it's done early enough in the application lifecycle so it's registered before the build command is executed.
+Here is an example of how to do this using in a service provider. Though you could technically do it anywhere using the `app()` helper, just as long as it's done early enough in the application lifecycle, so it's registered before the build command is executed.
 
 ```php
 class MyServiceProvider extends ServiceProvider
