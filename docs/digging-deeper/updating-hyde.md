@@ -59,7 +59,7 @@ a brand new project and copying over only your source and resource files. If you
 the safest option as you won't be overriding any of your existing files.
 
 If you have changed any other files, for example in the App directory, you will need to update those files manually as well.
-But if you have done that you probably know what you are doing. I hope. The same goes if you have created any custom blade components or have modified Hyde ones.
+The same goes if you have created any custom blade components or have modified Hyde ones.
 
 Here is an example CLI workflow, but you can do the same using a graphical file manager.
 
