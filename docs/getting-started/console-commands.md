@@ -59,7 +59,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`make:page`](#make-page)               | Scaffold a new Markdown, Blade, or documentation page file                                   |
 | [`make:post`](#make-post)               | Scaffold a new Markdown blog post file                                                       |
 | [`publish:configs`](#publish-configs)   | Publish the default configuration files                                                      |
-| [`publish:homepage`](#publish-homepage) | Publish one of the default homepages to index.blade.php.                                     |
+| [`publish:homepage`](#publish-homepage) | Publish one of the default homepages to `index.blade.php`.                                     |
 | [`publish:views`](#publish-views)       | Publish the hyde components for customization. Note that existing files will be overwritten. |
 | [`vendor:publish`](#vendor-publish)     | Publish any publishable assets from vendor packages                                          |
 | [`route:list`](#route-list)             | Display all registered routes.                                                               |
