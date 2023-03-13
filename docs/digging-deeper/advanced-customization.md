@@ -85,6 +85,7 @@ public function register(): void
 }
 ```
 
+
 ## Customizing output directories
 
 Like source directories, the output directories are also important as they determine the output path for the compiled pages.
@@ -99,6 +100,7 @@ For example, changing the output directory of Markdown posts to `blog` instead o
 This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`,
 this may break your site's configuration, so you should always verify the impact to your site of such a change.
 You can learn more about this in the [route key documentation](core-concepts#paths-identifiers-and-route-keys).
+
 
 ## Custom source root
 
