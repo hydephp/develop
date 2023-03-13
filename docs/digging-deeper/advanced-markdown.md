@@ -67,7 +67,7 @@ coloured blockquotes. Simply append the desired colour after the initial `>` cha
 >danger Danger Blockquote
 >success Success Blockquote
 
-#### Customizations
+### Customizations
 
 You can easily customize these styles too by adding and editing the following in your `resources/app.css` file, and then recompiling your site styles.
 The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: something;` just as well.
@@ -94,7 +94,7 @@ The code examples here use the Tailwind `@apply` directives, but you could also 
 }
 ```
 
-#### Limitations
+### Limitations
 
 Note that these currently do not support multi-line blockquotes.
 
