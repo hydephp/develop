@@ -187,13 +187,13 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 #### Arguments & Options
 
-|                   |                                                                        |
-|-------------------|------------------------------------------------------------------------|
-| `title`           | The name of the page file to create. Will be used to generate the slug |
-| `--type=markdown` | The type of page to create (markdown, blade, or docs)                  |
-| `--blade`         | Create a Blade page                                                    |
-| `--docs`          | Create a Documentation page                                            |
-| `--force`         | Overwrite any existing files                                           |
+|                   |                                                                            |
+|-------------------|----------------------------------------------------------------------------|
+| `title`           | The name of the page file to create. Will be used to generate the filename |
+| `--type=markdown` | The type of page to create (markdown, blade, or docs)                      |
+| `--blade`         | Create a Blade page                                                        |
+| `--docs`          | Create a Documentation page                                                |
+| `--force`         | Overwrite any existing files                                               |
 
 
 ## Scaffold a new Markdown blog post file
