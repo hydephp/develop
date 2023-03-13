@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Symfony\Component\Yaml\Yaml;
+
 use function file_get_contents;
 use function array_merge;
 use function file_exists;

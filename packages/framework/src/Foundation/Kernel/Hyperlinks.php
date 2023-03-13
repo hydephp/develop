@@ -9,6 +9,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
+
 use function substr_count;
 use function file_exists;
 use function str_replace;

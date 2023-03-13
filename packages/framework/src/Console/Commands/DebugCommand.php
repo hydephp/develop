@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Composer\InstalledVersions;
 use LaravelZero\Framework\Commands\Command;
+
 use function str_replace;
 use function realpath;
 use function app;

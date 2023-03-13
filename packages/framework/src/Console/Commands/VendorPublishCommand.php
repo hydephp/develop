@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
 use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
+
 use function ltrim;
 use function realpath;
 use function sprintf;

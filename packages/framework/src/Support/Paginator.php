@@ -10,6 +10,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
+
 use function collect;
 use function sprintf;
 use function range;

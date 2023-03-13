@@ -10,6 +10,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+
 use function basename;
 use function in_array;
 use function trim;

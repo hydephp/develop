@@ -10,6 +10,7 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+
 use function collect;
 
 /**

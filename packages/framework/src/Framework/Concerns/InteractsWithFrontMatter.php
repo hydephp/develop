@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Illuminate\Support\Arr;
+
 use function array_filter;
 use function array_merge;
 use function blank;

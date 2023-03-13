@@ -8,6 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Facades\View;
+
 use function substr;
 
 /**

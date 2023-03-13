@@ -7,6 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
+
 use function rtrim;
 use function explode;
 use function implode;

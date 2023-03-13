@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
 use Throwable;
+
 use function config;
 use function file_put_contents;
 use function realpath;

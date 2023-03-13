@@ -6,10 +6,12 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use function app;
 use function config;
+
 use Hyde\Framework\Features\Documentation\SemanticDocumentationArticle;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
+
 use function str_replace;
 use function view;
 

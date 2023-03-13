@@ -14,6 +14,7 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+
 use function class_basename;
 use function preg_replace;
 use function collect;

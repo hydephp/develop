@@ -12,6 +12,7 @@ use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Http;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+
 use function array_key_exists;
 use function array_flip;
 use function file_exists;

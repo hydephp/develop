@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Collection;
+
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function file_exists;

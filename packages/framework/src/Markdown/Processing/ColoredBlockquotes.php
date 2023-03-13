@@ -6,6 +6,7 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Models\Markdown;
+
 use function str_replace;
 use function sprintf;
 use function strlen;

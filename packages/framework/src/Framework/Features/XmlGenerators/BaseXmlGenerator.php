@@ -8,6 +8,7 @@ namespace Hyde\Framework\Features\XmlGenerators;
 
 use Exception;
 use SimpleXMLElement;
+
 use function extension_loaded;
 use function htmlspecialchars;
 use function throw_unless;

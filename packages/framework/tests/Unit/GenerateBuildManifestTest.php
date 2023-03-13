@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
+
 use function Hyde\unixsum_file;
 
 /**

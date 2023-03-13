@@ -11,6 +11,7 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
+
 use function array_filter;
 use function array_keys;
 
