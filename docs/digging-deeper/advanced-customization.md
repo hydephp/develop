@@ -92,6 +92,8 @@ Like source directories, the output directories are also important as they deter
 Note that these are relative to the site's `output_directory` setting.
 Setting the value to '' will output the page to the root of the site.
 
+>warning Note that this change also affects the route keys, as those are based on the output directory.
+
 ## Custom source root
 
 HydePHP will by default look for the source directories shown above in the root of your project.
