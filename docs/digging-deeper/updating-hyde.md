@@ -24,7 +24,7 @@ We have three methods documented here, one [using Git](#using-git) and two [manu
 
 The Git method works great, especially if you created your project by cloning the [hydephp/hyde](https://github.com/hydephp/hyde) repository.
 
-Regardless of the method you use, make sure you follow the post-update instructions at the end.
+Regardless of the method you use, make sure you follow the [post-update instructions](#post-update-instructions) at the end.
 
 ### Using Git
 
