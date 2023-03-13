@@ -12,7 +12,7 @@ Since HydePHP makes heavy use of Markdown, there are some extra features and hel
 
 ## Configuration
 
-## Raw HTML Tags
+### Raw HTML Tags
 
 To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
 If you want to allow all arbitrary HTML tags, and understand the risks involved, you can enable all HTML tags by setting
