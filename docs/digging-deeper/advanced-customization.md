@@ -12,7 +12,7 @@ This page covers advanced usage and is intended for developers who know what the
 mainly example driven, as it is assumed you have somewhat of an understanding of what you are doing already.
 
 
-## Prerequisites for Customizing directories
+### Prerequisites for Customizing directories
 
 >info Before customizing source and output directories it may be helpful to know how these settings are stored internally.
 
