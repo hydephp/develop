@@ -16,4 +16,4 @@ This section of the documentation will cover some of the more advanced (but opti
 ## Prerequisites
 
 To fully understand the features described in these chapters, it may be beneficial to first skim through the
-[Architecture Concepts](architecture-concepts) chapters.
+[Architecture Concepts](architecture-concepts) chapters, or at the very least, the [Core Concepts](core-concepts) page.
