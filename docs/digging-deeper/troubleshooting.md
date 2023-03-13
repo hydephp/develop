@@ -9,8 +9,7 @@ Since Hyde has a lot of "magic" features which depend on some base assumptions,
 there might be some "gotchas" you might run into. Here are some I can think of,
 did you find a new one? Send a PR to [update the docs](https://github.com/hydephp/docs)!
 
-> Tip: You can run `php hyde validate` to run a series of tests to help you catch common issues.
-{.info}
+>info Tip: You can run `php hyde validate` to run a series of tests to help you catch common issues.
 
 
 ## General Tips
