@@ -98,7 +98,3 @@ return [
     'output_directory' => 'docs',
 ];
 ```
-
-### Setting an absolute path
-
-Since Hyde v0.64.0-beta, the site output directory will always be resolved within the project root. If you want to compile the site to an absolute path outside your project, it's instead recommended that you use a build task to copy the files to the desired location automatically after the site has been compiled.
