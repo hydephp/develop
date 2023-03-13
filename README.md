@@ -26,6 +26,7 @@
 
 > This repository holds the source code for the HydePHP core components. If you want to create a website with Hyde, check out the [HydePHP/Hyde repository](https://github.com/hydephp/hyde).
 
+
 ## Projects in this monorepo
 
 [![Upcoming Documentation](https://img.shields.io/badge/-Upcoming%20Documentation-525252)](https://hydephp.github.io/develop/master/dev-docs/)
@@ -55,14 +56,11 @@ The two most important components are **Hyde** and **Framework**. We also use **
 | **UI Kit**            | [packages/ui-kit](packages/ui-kit)                       | [hydephp/ui-kit](https://github.com/hydephp/ui-kit)                       | [hyde/ui-kit](https://packagist.org/packages/hyde/ui-kit)                       |
 | **HydeFront**         | [packages/hydefront](packages/hydefront)                 | [hydephp/hydefront](https://github.com/hydephp/hydefront)                 | [npm@hydefront](https://www.npmjs.com/package/hydefront)                        |
 
-
 *The Hyde/Hyde project is stored in the monorepo root and works a bit differently from the others. Before pushing to the readonly repository, we apply persisted changes in the [`packages/hyde`](https://github.com/hydephp/develop/tree/master/packages/hyde) directory, then remove monorepo specific files.
-
 
 ### How the monorepo works
 
 Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop` or `master` branches of the readonly repositories seen in the table above.
-
 
 ### Releases
 
