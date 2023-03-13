@@ -7,9 +7,6 @@ navigation:
 
 This guide will help you update your HydePHP project to the latest version.
 
-
-## Updating Hyde/Hyde
-
 ### Before you start
 
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
