@@ -80,10 +80,10 @@ class ReadingTimeTest extends UnitTestCase
 
     public function test_getFormattedFormatsUpToOneMinuteWhenRoundUpIsSet()
     {
-        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(0), true))->getFormatted());
-        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(120), true))->getFormatted());
-        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(240), true))->getFormatted());
-        $this->assertSame('1min, 30sec', (new ReadingTime($this->words(360), true))->getFormatted());
+        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(0)))->getFormatted());
+        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(120)))->getFormatted());
+        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(240)))->getFormatted());
+        $this->assertSame('1min, 30sec', (new ReadingTime($this->words(360)))->getFormatted());
     }
 
     public function test_formatUsingClosure()

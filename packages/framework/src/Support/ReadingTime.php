@@ -42,11 +42,11 @@ class ReadingTime implements Stringable
         return static::fromString(Filesystem::getContents($path));
     }
 
-    public function __construct(string $text, bool $roundUp = false)
+    public function __construct(string $text)
     {
         $this->text = $text;
 
-        $this->generate($roundUp);
+        $this->generate();
     }
 
     public function __toString()
@@ -90,16 +90,12 @@ class ReadingTime implements Stringable
         return $closure($this->getMinutes(), $this->getSecondsOver());
     }
 
-    protected function generate(bool $roundUp = false): void
+    protected function generate(): void
     {
         $wordCount = str_word_count($this->text);
 
         $minutes = $wordCount / static::$wordsPerMinute;
         $seconds = (int) floor($minutes * 60);
-
-        if ($roundUp && $seconds < 60) {
-            $seconds = 60;
-        }
 
         $this->wordCount = $wordCount;
         $this->seconds = $seconds;
