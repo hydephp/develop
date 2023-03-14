@@ -22,7 +22,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed "ReadingTime calculation should never be under one minute" [#1286](https://github.com/hydephp/develop/issues/1286) in [#1285](https://github.com/hydephp/develop/pull/1285)
 
 ### Security
 - in case of vulnerabilities.
