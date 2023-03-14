@@ -93,7 +93,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function lineMatchesPattern(string $line): bool
     {
         foreach (static::$patterns as $pattern) {
-            if (str_starts_with(strtolower($line), $pattern)) {
+            if (str_starts_with(strtolower($line), (string) $pattern)) {
                 return true;
             }
         }
