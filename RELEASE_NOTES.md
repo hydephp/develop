@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed IDE helpers for removed global variables from the IDE helper file.
 
 ### Fixed
 - for any bug fixes.
