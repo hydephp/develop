@@ -73,6 +73,9 @@ $notes = str_replace('## [Unreleased]', "## [$version](https://github.com/hydeph
 $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
 $notes = $notes."\n";
 
+// remove empty sections
+$notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security) \n/', '', $notes);
+
 echo "Done. \n";
 
 echo 'Resetting upcoming release notes stub';
