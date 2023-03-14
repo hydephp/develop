@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added generics to the Hyde facade method annotations https://github.com/hydephp/develop/pull/1280
 
 ### Changed
 - Updated 404 page home link to use the index route instead of the site URL https://github.com/hydephp/develop/pull/1278
