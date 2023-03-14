@@ -24,7 +24,7 @@ Markdown purist? That's all you need. Blade artisan? Go for it.
 Hyde comes with hand-crafted frontend templates, so you can focus on your content.
 You don't _need_ to customize anything. But you _can_ customize everything.
 
-See the documentation and learn more at https://hydephp.com/docs/
+See the documentation and learn more at https://hydephp.com/docs
 
 
 ## Features
@@ -47,7 +47,7 @@ See the documentation and learn more at https://hydephp.com/docs/
 
 ### Easy Asset Managing
 
-- The Hyde starter comes with [HydeFront](https://github.com/hydephp/hydefront/) to serve the base stylesheet and JavaScript through the jsDelivr CDN.
+- The Hyde starter comes with [HydeFront](https://github.com/hydephp/hydefront) to serve the base stylesheet and JavaScript through the jsDelivr CDN.
 - Hyde ships with precompiled and minified TailwindCSS styles in the app.css file, you can also load them through the CDN.
 - This means that all the styles you need are already installed. However, if you want to customize the Tailwind config, or if you add new Tailwind classes through Blade files, you can simply run the `npm run dev` command to recompile the styles using Laravel Mix.
 
