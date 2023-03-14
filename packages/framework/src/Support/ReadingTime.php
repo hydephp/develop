@@ -31,7 +31,6 @@ class ReadingTime implements Stringable
 
     /** @var int The number of seconds it takes to read the text. */
     protected int $seconds;
-    protected bool $roundUp;
 
     public static function fromString(string $text): static
     {
@@ -46,9 +45,8 @@ class ReadingTime implements Stringable
     public function __construct(string $text, bool $roundUp = false)
     {
         $this->text = $text;
-        $this->roundUp = $roundUp;
 
-        $this->generate();
+        $this->generate($roundUp);
     }
 
     public function __toString()
@@ -92,14 +90,14 @@ class ReadingTime implements Stringable
         return $closure($this->getMinutes(), $this->getSecondsOver());
     }
 
-    protected function generate(): void
+    protected function generate(bool $roundUp = false): void
     {
         $wordCount = str_word_count($this->text);
 
         $minutes = $wordCount / static::$wordsPerMinute;
         $seconds = (int) floor($minutes * 60);
 
-        if ($seconds < 60 && $this->roundUp) {
+        if ($seconds < 60 && $roundUp) {
             $seconds = 60;
         }
 
