@@ -27,8 +27,6 @@ use function e;
  *
  * @example: [Blade]: @include('path/to/view.blade.php')
  *
- * @see \Hyde\Framework\Testing\Feature\Services\BladeDownProcessorTest
- *
  * @phpstan-consistent-constructor
  */
 class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract

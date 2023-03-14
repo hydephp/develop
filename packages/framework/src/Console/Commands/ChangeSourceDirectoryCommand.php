@@ -20,9 +20,6 @@ use function str_replace;
 use function basename;
 use function realpath;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
- */
 class ChangeSourceDirectoryCommand extends Command
 {
     /** @var string */

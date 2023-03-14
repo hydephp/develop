@@ -15,7 +15,6 @@ use function implode;
 /**
  * Holds the metadata tags for a page or the site model.
  *
- * @see \Hyde\Framework\Testing\Feature\MetadataTest
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
  * @see \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */

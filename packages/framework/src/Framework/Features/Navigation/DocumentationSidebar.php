@@ -13,9 +13,6 @@ use Illuminate\Support\Str;
 
 use function collect;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
- */
 class DocumentationSidebar extends BaseNavigationMenu
 {
     protected function generate(): void

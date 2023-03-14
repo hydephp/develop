@@ -14,9 +14,6 @@ use Illuminate\Console\Concerns\InteractsWithIO;
 use function str_replace;
 use function sprintf;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
- */
 abstract class BuildTask
 {
     use InteractsWithIO;

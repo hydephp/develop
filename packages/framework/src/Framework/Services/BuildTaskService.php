@@ -30,9 +30,6 @@ use function str_replace;
  * The class is registered as a singleton in the Laravel service container and is run by the build command.
  * Build Tasks can be registered programmatically, through the config, and through autodiscovery.
  * The service determines when to run a task depending on which class it extends.
- *
- * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
- * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  */
 class BuildTaskService
 {

@@ -15,9 +15,6 @@ use Hyde\Facades\Features;
 use function array_filter;
 use function array_keys;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\HydeCoreExtensionTest
- */
 class HydeCoreExtension extends HydeExtension
 {
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */

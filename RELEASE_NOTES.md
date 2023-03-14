@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed test class references from main codebase https://github.com/hydephp/develop/pull/1287
 
 ### Fixed
 - Fixed "ReadingTime calculation should never be under one minute" [#1286](https://github.com/hydephp/develop/issues/1286) in [#1285](https://github.com/hydephp/develop/pull/1285)
