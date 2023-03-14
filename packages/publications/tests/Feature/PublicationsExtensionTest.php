@@ -82,9 +82,9 @@ class PublicationsExtensionTest extends TestCase
         $files = $booted->getAllSourceFiles()->keys()->toArray();
         $this->assertSame(['publication/foo.md'], $files);
 
-        $this->assertInstanceOf(SourceFile::class, $booted->getSourceFiles()->get('publication/foo.md'));
+        $this->assertInstanceOf(SourceFile::class, $booted->getFiles()->get('publication/foo.md'));
         $this->assertEquals(new SourceFile('publication/foo.md', PublicationPage::class),
-            $booted->getSourceFiles()->get('publication/foo.md')
+            $booted->getFiles()->get('publication/foo.md')
         );
     }
 
