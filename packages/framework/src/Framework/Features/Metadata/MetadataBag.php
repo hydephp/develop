@@ -15,7 +15,6 @@ use function implode;
 /**
  * Holds the metadata tags for a page or the site model.
  *
- * @see \Hyde\Framework\Testing\Feature\MetadataTest
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
  * @see \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
@@ -65,7 +64,7 @@ class MetadataBag implements Htmlable
 
     protected function addElement(string $type, MetadataElementContract $element): static
     {
-        $this->$type[$element->uniqueKey()] = $element;
+        $this->{$type}[$element->uniqueKey()] = $element;
 
         return $this;
     }

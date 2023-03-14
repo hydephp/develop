@@ -21,8 +21,6 @@ use function view;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
- *
- * @see \Hyde\Framework\Testing\Feature\Services\Markdown\CodeblockFilepathProcessorTest
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
@@ -93,7 +91,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function lineMatchesPattern(string $line): bool
     {
         foreach (static::$patterns as $pattern) {
-            if (str_starts_with(strtolower($line), $pattern)) {
+            if (str_starts_with(strtolower($line), (string) $pattern)) {
                 return true;
             }
         }

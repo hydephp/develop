@@ -14,8 +14,6 @@ use function sprintf;
 
 /**
  * @experimental
- *
- * @see \Hyde\Framework\Testing\Unit\BuildWarningsTest
  */
 class BuildWarnings
 {

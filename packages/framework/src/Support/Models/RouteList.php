@@ -11,8 +11,6 @@ use Illuminate\Contracts\Support\Arrayable;
  * @internal This class is experimental and is subject to change.
  *
  * @experimental This class is experimental and is subject to change.
- *
- * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
 class RouteList implements Arrayable
 {

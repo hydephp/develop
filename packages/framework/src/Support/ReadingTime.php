@@ -15,8 +15,6 @@ use function str_word_count;
 
 /**
  * Calculate the estimated reading time for a text.
- *
- * @see \Hyde\Framework\Testing\Feature\ReadingTimeTest
  */
 class ReadingTime implements Stringable
 {
@@ -81,7 +79,7 @@ class ReadingTime implements Stringable
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        return sprintf($format, $this->getMinutes(), $this->getSecondsOver());
+        return sprintf($format, $this->getMinutes() ?: 1, $this->getMinutes() >= 1 ? $this->getSecondsOver() : 0);
     }
 
     /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */

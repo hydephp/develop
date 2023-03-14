@@ -18,7 +18,6 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use function date;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
  * @see https://validator.w3.org/feed/docs/rss2.html
  */
 class RssFeedGenerator extends BaseXmlGenerator
