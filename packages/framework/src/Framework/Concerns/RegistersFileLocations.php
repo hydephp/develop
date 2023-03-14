@@ -33,7 +33,7 @@ trait RegistersFileLocations
      *
      * @example registerSourceDirectories([HydePage::class => '_pages'])
      *
-     * @param  array  $directoryMapping{class:  class-string<HydePage>, location: string}
+     * @psalm-param  array  $directoryMapping{class:  class-string<HydePage>, location: string}
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
@@ -51,7 +51,7 @@ trait RegistersFileLocations
      *
      * @example registerOutputDirectories([HydePage::class => 'docs'])
      *
-     * @param  array  $directoryMapping{class:  class-string<HydePage>, location: string}
+     * @psalm-param  array  $directoryMapping{class:  class-string<HydePage>, location: string}
      */
     protected function registerOutputDirectories(array $directoryMapping): void
     {
