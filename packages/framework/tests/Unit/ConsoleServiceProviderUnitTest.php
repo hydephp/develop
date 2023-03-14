@@ -28,9 +28,13 @@ class ConsoleServiceProviderUnitTest extends UnitTestCase
 
     public function testProviderRegistersNoAnsiLogo()
     {
+        $serverBackup = $_SERVER;
+
         $_SERVER['argv'] = ['--no-ansi'];
 
         $this->assertSame('HydePHP', ConsoleServiceProviderTestClass::logo());
+
+        $_SERVER = $serverBackup;
     }
 }
 
