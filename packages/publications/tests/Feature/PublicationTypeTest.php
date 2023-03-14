@@ -7,7 +7,7 @@ namespace Hyde\Publications\Testing\Feature;
 use function array_merge;
 use function array_reverse;
 
-use Hyde\Framework\Features\Paginator;
+use Hyde\Support\Paginator;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationListPage;
