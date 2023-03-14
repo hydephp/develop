@@ -16,7 +16,6 @@ use function pathinfo;
 /**
  * Filesystem abstraction for a file stored in the project.
  *
- * @see \Hyde\Framework\Testing\Feature\Support\ProjectFileTest
  */
 abstract class ProjectFile implements SerializableContract
 {

@@ -19,7 +19,6 @@ use function is_subclass_of;
  *
  * Note that the Page Parsers do not compile any HTML or Markdown.
  *
- * @see \Hyde\Framework\Testing\Feature\SourceFileParserTest
  */
 class SourceFileParser
 {

@@ -47,7 +47,6 @@ use function rtrim;
  * In Blade views, you can always access the current page instance being rendered using the $page variable.
  *
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
- * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class HydePage implements PageSchema, SerializableContract
 {

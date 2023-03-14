@@ -9,7 +9,6 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Convert an array into YAML Front Matter.
  *
- * @see \Hyde\Framework\Testing\Feature\ConvertsArrayToFrontMatterTest
  */
 class ConvertsArrayToFrontMatter
 {

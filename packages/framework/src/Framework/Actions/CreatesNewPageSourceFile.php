@@ -23,7 +23,6 @@ use function rtrim;
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
  */
 class CreatesNewPageSourceFile
 {

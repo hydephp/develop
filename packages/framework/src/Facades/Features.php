@@ -28,7 +28,6 @@ use function app;
  *
  * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
  *
- * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
  *
  * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/

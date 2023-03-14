@@ -16,7 +16,6 @@ use function array_filter;
 use function array_keys;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\HydeCoreExtensionTest
  */
 class HydeCoreExtension extends HydeExtension
 {

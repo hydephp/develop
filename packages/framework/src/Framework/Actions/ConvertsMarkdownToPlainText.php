@@ -16,7 +16,6 @@ use function preg_replace;
 /**
  * Converts Markdown to plain text.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\ConvertsMarkdownToPlainTextTest
  */
 class ConvertsMarkdownToPlainText
 {

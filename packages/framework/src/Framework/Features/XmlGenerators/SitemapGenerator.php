@@ -23,7 +23,6 @@ use function date;
 use function time;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see https://www.sitemaps.org/protocol.html
  */
 class SitemapGenerator extends BaseXmlGenerator

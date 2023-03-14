@@ -25,7 +25,6 @@ use function substr;
  * that is used to identify the shortcode. The built-in shortcodes
  * do not use regex, as that would make them harder to read.
  *
- * @see \Hyde\Framework\Testing\Feature\Services\Markdown\ShortcodeProcessorTest
  *
  * @phpstan-consistent-constructor
  */

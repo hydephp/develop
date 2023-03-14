@@ -19,8 +19,6 @@ use function implode;
 use function sprintf;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
 class ValidationService
 {

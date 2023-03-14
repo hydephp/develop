@@ -19,7 +19,6 @@ use function glob;
  * published Blade views with the original Blade views in the Hyde Framework
  * so the user can be warned before overwriting their customizations.
  *
- * @see \Hyde\Framework\Testing\Feature\Services\ViewDiffServiceTest
  */
 class ViewDiffService
 {

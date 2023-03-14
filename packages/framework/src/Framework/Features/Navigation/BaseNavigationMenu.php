@@ -12,7 +12,6 @@ use Illuminate\Support\Collection;
 use function collect;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  */
 abstract class BaseNavigationMenu
 {

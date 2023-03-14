@@ -20,7 +20,6 @@ use function strstr;
 /**
  * Publish one of the default homepages.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\PublishHomepageCommandTest
  */
 class PublishHomepageCommand extends Command
 {

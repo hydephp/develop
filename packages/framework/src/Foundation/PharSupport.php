@@ -20,7 +20,6 @@ use function str_replace;
  *
  * @internal
  *
- * @see \Hyde\Framework\Testing\Feature\PharSupportTest
  */
 class PharSupport
 {

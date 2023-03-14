@@ -14,7 +14,6 @@ use Stringable;
 /**
  * A simple object representation of a Markdown file, with helpful methods to interact with it.
  *
- * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
 class Markdown implements Arrayable, Stringable, Htmlable
 {

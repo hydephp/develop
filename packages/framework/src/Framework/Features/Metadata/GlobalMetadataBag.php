@@ -18,7 +18,6 @@ use function array_map;
 use function in_array;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
  */
 class GlobalMetadataBag extends MetadataBag
 {

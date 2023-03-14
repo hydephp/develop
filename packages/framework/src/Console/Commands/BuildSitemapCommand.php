@@ -10,7 +10,6 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde command to run the build process for the sitemap.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
  */
 class BuildSitemapCommand extends Command
 {

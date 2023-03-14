@@ -18,7 +18,6 @@ use Stringable;
  * If you visualize a web of this class's properties, you should be able to see how this
  * class links them all together, and what powerful information you can gain from it.
  *
- * @see \Hyde\Framework\Testing\Unit\RouteTest
  */
 class Route implements Stringable, SerializableContract
 {

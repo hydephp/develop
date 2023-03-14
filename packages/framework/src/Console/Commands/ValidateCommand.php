@@ -13,7 +13,6 @@ use function microtime;
 use function sprintf;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
 class ValidateCommand extends Command
 {

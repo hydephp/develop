@@ -18,7 +18,6 @@ use function view;
  * If you want to override this page, you can create a page with the route key "docs/search",
  * then this class will not be applied. For example, `_pages/docs/search.blade.php`.
  *
- * @see \Hyde\Framework\Testing\Feature\DocumentationSearchPageTest
  */
 class DocumentationSearchPage extends DocumentationPage
 {

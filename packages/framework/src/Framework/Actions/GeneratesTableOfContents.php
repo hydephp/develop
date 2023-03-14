@@ -18,7 +18,6 @@ use function substr;
 /**
  * Generates a table of contents for the Markdown document, most commonly used for the sidebar.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
 class GeneratesTableOfContents
 {

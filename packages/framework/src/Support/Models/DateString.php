@@ -10,7 +10,6 @@ use Stringable;
 /**
  * Parse a date string and create normalized formats.
  *
- * @see \Hyde\Framework\Testing\Unit\DateStringTest
  */
 class DateString implements Stringable
 {
