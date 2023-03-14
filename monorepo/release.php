@@ -28,17 +28,17 @@ if (empty($version)) {
 
 echo "Version: $version\n";
 
-echo "Updating Hyde composer.json...\n";
+//echo "Updating Hyde composer.json...\n";
 
 // get just the minor number
-$shortVersion = substr($version, 3);
+//$shortVersion = substr($version, 3);
 // trim everything after the first dot
-$shortVersion = substr($shortVersion, 0, strpos($shortVersion, '.'));
+//$shortVersion = substr($shortVersion, 0, strpos($shortVersion, '.'));
 
-echo "Short version: $shortVersion\n";
-$composerJson = json_decode(file_get_contents(__DIR__.'/../packages/hyde/composer.json'), true);
-$composerJson['require']['hyde/framework'] = "^0.$shortVersion";
-file_put_contents(__DIR__.'/../packages/hyde/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+//echo "Short version: $shortVersion\n";
+//$composerJson = json_decode(file_get_contents(__DIR__.'/../packages/hyde/composer.json'), true);
+//$composerJson['require']['hyde/framework'] = "^0.$shortVersion";
+//file_put_contents(__DIR__.'/../packages/hyde/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
 echo "Transforming upcoming release notes... \n";
 
@@ -57,7 +57,7 @@ $defaults = [
 ];
 
 foreach ($defaults as $default) {
-    $notes = str_replace($default, '', $notes);
+    $notes = str_replace($default, 'DEFAULT', $notes);
 }
 
 $notes = str_replace('Keep an Unreleased section at the top to track upcoming changes.
@@ -72,6 +72,15 @@ $notes = trim($notes);
 $notes = str_replace('## [Unreleased]', "## [$version](https://github.com/hydephp/develop/releases/tag/$version)", $notes);
 $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
 $notes = $notes."\n";
+
+// remove empty sections
+$notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security)\nDEFAULT/', '', $notes);
+
+// remove ### About if it's empty
+$notes = str_replace("### About\n\n\n", "\n", $notes);
+
+// remove empty lines
+$notes = preg_replace('/\n{3,}/', "\n", $notes);
 
 echo "Done. \n";
 
