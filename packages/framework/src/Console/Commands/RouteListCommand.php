@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteList;
 use Hyde\Support\Models\RouteListItem;
@@ -48,7 +49,7 @@ class RouteListCommand extends Command
                         $type = parent::stylePageType($class);
 
                         /** @experimental */
-                        if ($type === 'InMemoryPage' && $this->route->getPage()->hasMacro('typeLabel')) {
+                        if ($this->route->getPage() instanceof InMemoryPage && $this->route->getPage()->hasMacro('typeLabel')) {
                             $type .= sprintf(' <fg=gray>(%s)</>', $this->route->getPage()->typeLabel());
                         }
 
