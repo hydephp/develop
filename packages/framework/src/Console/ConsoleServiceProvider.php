@@ -50,8 +50,8 @@ class ConsoleServiceProvider extends ServiceProvider
             return 'HydePHP';
         }
 
-        $hydeColor = "\033[34m";
-        $phpColor  = "\033[33m";
+        $hydeColor = "\033[91m";
+        $phpColor  = "\033[94m";
 
         return <<<ASCII
         
