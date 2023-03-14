@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Compiled TailwindCSS and HydeFront for production [#1295](https://github.com/hydephp/develop/pull/1295)
 
 ### Deprecated
 - for soon-to-be removed features.
