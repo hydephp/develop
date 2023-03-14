@@ -17,6 +17,17 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.7](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.7) - 2023-03-14
+
+### Added
+- Added generics to the Hyde facade method annotations https://github.com/hydephp/develop/pull/1280
+
+### Changed
+- Updated 404 page home link to use the index route instead of the site URL https://github.com/hydephp/develop/pull/1278
+- Improved generic type usage in the RegisterFileLocations trait https://github.com/hydephp/develop/pull/1279
+- Bumped HydeFront to v3.1 https://github.com/hydephp/develop/pull/1281
+
+
 ## [v1.0.0-RC.6](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.6) - 2023-03-14
 
 ### Removed
