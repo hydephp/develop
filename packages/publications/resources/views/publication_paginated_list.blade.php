@@ -1,4 +1,4 @@
-@php/** @var \Hyde\Publications\Models\PublicationType $publicationType*/@endphp
+@php /** @var \Hyde\Publications\Models\PublicationType $publicationType */ @endphp
 @php
     $paginator = $publicationType->getPaginator($page->matter('paginatorPage'));
 @endphp
