@@ -10,12 +10,10 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added generics to the Hyde facade method annotations https://github.com/hydephp/develop/pull/1280
+- for new features.
 
 ### Changed
-- Updated 404 page home link to use the index route instead of the site URL https://github.com/hydephp/develop/pull/1278
-- Improved generic type usage in the RegisterFileLocations trait https://github.com/hydephp/develop/pull/1279
-- Bumped HydeFront to v3.1 https://github.com/hydephp/develop/pull/1281
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
