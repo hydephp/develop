@@ -79,7 +79,7 @@ class PublicationsExtensionTest extends TestCase
 
         $booted = FileCollection::init(Hyde::getInstance())->boot();
 
-        $files = $booted->getAllSourceFiles()->keys()->toArray();
+        $files = $booted->getFiles()->keys()->toArray();
         $this->assertSame(['publication/foo.md'], $files);
 
         $this->assertInstanceOf(SourceFile::class, $booted->getFiles()->get('publication/foo.md'));
@@ -98,7 +98,7 @@ class PublicationsExtensionTest extends TestCase
 
         $booted = FileCollection::init(Hyde::getInstance())->boot();
 
-        $files = $booted->getAllSourceFiles()->keys()->toArray();
+        $files = $booted->getFiles()->keys()->toArray();
         $this->assertSame(['publication/foo.md', 'publication2/bar.md'], $files);
     }
 
