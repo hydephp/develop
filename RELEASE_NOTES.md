@@ -23,7 +23,7 @@ This serves two purposes:
 - Removed default values from Hyde facade method annotations
 
 ### Fixed
-- for any bug fixes.
+- Added missing version prefix to default generator meta tag value. https://github.com/hydephp/develop/pull/1272
 
 ### Security
 - in case of vulnerabilities.

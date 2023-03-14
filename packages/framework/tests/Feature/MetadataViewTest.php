@@ -80,7 +80,7 @@ class MetadataViewTest extends TestCase
             '<meta name="viewport" content="width=device-width, initial-scale=1">',
             '<meta id="meta-color-scheme" name="color-scheme" content="light">',
             '<link rel="sitemap" href="http://localhost/sitemap.xml" type="application/xml" title="Sitemap">',
-            '<meta name="generator" content="HydePHP '.HydeKernel::VERSION.'">',
+            '<meta name="generator" content="HydePHP v'.HydeKernel::VERSION.'">',
             '<meta property="og:site_name" content="HydePHP">',
         ];
     }
