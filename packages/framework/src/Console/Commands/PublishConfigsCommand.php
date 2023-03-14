@@ -7,13 +7,12 @@ namespace Hyde\Console\Commands;
 use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Artisan;
+
 use function array_search;
 use function sprintf;
 
 /**
  * Publish the Hyde Config Files.
- *
- * @see \Hyde\Framework\Testing\Feature\Commands\UpdateConfigsCommandTest
  */
 class PublishConfigsCommand extends Command
 {

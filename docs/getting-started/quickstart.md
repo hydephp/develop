@@ -7,17 +7,18 @@ navigation:
 # Quickstart Guide
 
 ## Installing HydePHP using Composer
-The recommended method of installing Hyde is using Composer.
+
+The recommended method of installing Hyde is using Composer, which installs the required dependencies on a per-project basis.
+
 ```bash
 // torchlight! {"lineNumbers": false}
-composer create-project hyde/hyde --stability=dev
+composer create-project hyde/hyde
 ```
 
 ### Requirements
-> These requirements are for your local development environment.
 
-Hyde is based on [Laravel 9](https://laravel.com/docs/9.x/releases)
-which requires a minimum PHP version of 8.0.
+Hyde is based on [Laravel 10](https://laravel.com/docs/10.x/releases)
+which requires a minimum PHP version of 8.1.
 You should also have [Composer](https://getcomposer.org/) installed.
 
 To use some features like [compiling your own assets](managing-assets)
@@ -25,83 +26,65 @@ you also need NodeJS and NPM.
 
 
 ## Using the Hyde CLI
-The main way to interact with Hyde is through HydeCLI.
 
-If you are familiar with Laravel Artisan you will feel right at home.
+The main way to interact with Hyde is through the [HydeCLI](console-commands), a Laravel Artisan-based command-line interface. Learn more about the HydeCLI in the [console commands](console-commands) documentation.
 
-Learn more about the HydeCLI in the [console commands](console-commands) documentation.
 
 ## Starting a development server
 
-To make previewing your site a breeze you can use the real-time compiler
-which builds your pages on the fly. Start it using the HydeCLI:
+To make previewing your site a breeze you can use the realtime compiler, which builds your pages on the fly.
+
 ```bash
 php hyde serve
 ```
+Simply run the serve command, and you will be able to preview your site at [http://localhost:8080](http://localhost:8080).
+
 
 ## Creating content
 
 ### Directory structure
 
-Creating content with Hyde is easy. Simply place Markdown files in one of the source directories, which are as follows:
-```
-// torchlight! {"lineNumbers": false}
-├── _docs  // For documentation pages              
-├── _posts // For blog posts
-└── _pages // For static Markdown and Blade pages
-```
-
-> There are a few more directories that you should know about. Please see the
-> [directory structure](architecture-concepts#directory-structure) section.
+Creating content with Hyde is easy! Simply place source files in one of the source directories,
+and Hyde will automatically discover, parse, and compile them to static HTML.
+The directory and file extension of a source file will determine how HydePHP parses and compiles it.
+Please see the [directory structure](core-concepts#directory-structure) section for more information.
 
 ### Scaffolding files
 
-You can scaffold blog post files using the `php hyde make:post` command with automatically creates the front matter based on your input selections.
-
+You can scaffold blog post files using the `php hyde make:post` command which automatically creates the front matter, based on your input selections.
 You can also scaffold pages with the `php hyde make:page` command.
 
 ```bash
-php hyde make:page "Page Title" # Markdown is the default page type
-php hyde make:page --type=blade # Creates a file extending the default layout
-php hyde make:page --type=docs  # Quickly creates a documentation page
+php hyde make:post
+php hyde make:page
 ```
 
-### Autodiscovery
+### Compiling to static HTML
 
-When building the site, Hyde will your source directories for files and
-compile them into static HTML using the appropriate layout depending
-on what kind of page it is. You don't have to worry about routing
-as Hyde takes care of that, including creating navigation menus!
+Now that you have some amazing content, you'll want to compile your site into static HTML. Thankfully, this is as easy as executing the `build` command, after which your compiled site is stored in the `_site` directory.
 
-## Compiling to static HTML
-
-Now that you have some amazing content, you'll want to compile your site into static HTML.
-
-This is as easy as executing the `build` command:
 ```bash
 php hyde build
 ```
 
-**Your site is then stored in the `_site` directory.**
+When building the site, Hyde will scan your source directories for files and compile them into static HTML using the appropriate layout depending
+on what kind of page it is. You don't have to worry about routing as Hyde takes care of everything, including creating navigation menus!
 
 ### Managing assets
 
-Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to. See more on the [Managing Assets](managing-assets) page.
+Hyde comes bundled with a precompiled and minified `app.css` file, containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to build the assets yourself. See more on the [Managing Assets](managing-assets) page.
 
 ### Deploying your site
 
-You are now ready to show your site to the world!
+You are now ready to show your site to the world! Simply copy the `_site` directory to your web server's document root, and you're ready to go.
 
-Simply copy the `_site` directory to your web server's document root, and you're ready to go.
-
-You can even use GitHub pages to host your site for free. That's what the Hyde website does,
-using a CI that automatically builds and deploys this site.
+You can even use GitHub Pages to host your site for free. That's what the Hyde website does, using an Actions CI workflow that automatically builds and deploys this site.
 
 
 ## Further reading
 
 Here's some ideas of what to read next:
 
-- [Architecture Concepts & Directory Structure](architecture-concepts)
+- [Architecture Concepts & Directory Structure](core-concepts)
 - [Console Commands with the HydeCLI](console-commands)
 - [Creating Blog Posts](blog-posts)

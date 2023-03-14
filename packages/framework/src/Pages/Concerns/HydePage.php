@@ -24,6 +24,7 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
+
 use function unslash;
 use function filled;
 use function ltrim;
@@ -46,7 +47,6 @@ use function rtrim;
  * In Blade views, you can always access the current page instance being rendered using the $page variable.
  *
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
- * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class HydePage implements PageSchema, SerializableContract
 {
@@ -61,21 +61,23 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     public readonly string $identifier;
     public readonly string $routeKey;
+    public readonly string $title;
 
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
     public NavigationData $navigation;
 
-    public readonly string $title;
-
-    /** @deprecated v1.0.0-RC.3 - This property requires information that is setup-dependent, and will work better through a runtime accessor. Since it is mainly related to blog posts, it will be moved there. */
-    public ?string $canonicalUrl;
-
+    /**
+     * Create a new page instance. Static alias for the constructor.
+     */
     public static function make(string $identifier = '', FrontMatter|array $matter = []): static
     {
         return new static($identifier, $matter);
     }
 
+    /**
+     * Construct a new page instance.
+     */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
@@ -88,6 +90,9 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     // Section: State
 
+    /**
+     * Returns whether the page type is discoverable through auto-discovery.
+     */
     public static function isDiscoverable(): bool
     {
         return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
@@ -98,7 +103,6 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get a page instance from the Kernel's page index by its identifier.
      *
-     *
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
      */
     public static function get(string $identifier): HydePage
@@ -107,7 +111,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Parse a source file into a page model instance.
+     * Parse a source file into a new page model instance.
      *
      * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
@@ -146,7 +150,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     // Section: Filesystem
 
     /**
-     * Get the directory in where source files are stored.
+     * Get the directory where source files are stored for the page type.
      */
     public static function sourceDirectory(): string
     {
@@ -154,7 +158,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the output subdirectory to store compiled HTML.
+     * Get the output subdirectory to store compiled HTML files for the page type.
      */
     public static function outputDirectory(): string
     {
@@ -162,7 +166,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the file extension of the source files.
+     * Get the file extension of the source files for the page type.
      */
     public static function fileExtension(): string
     {
@@ -170,7 +174,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the output directory for the HydePage class.
+     * Set the output directory for the page type.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
@@ -178,7 +182,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the source directory for the HydePage class.
+     * Set the source directory for the page type.
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
@@ -186,7 +190,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the file extension for the HydePage class.
+     * Set the file extension for the page type.
      */
     public static function setFileExtension(string $fileExtension): void
     {
@@ -194,7 +198,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Qualify a page identifier into a local file path for the page source file relative to the project root.
+     * Qualify a page identifier into file path to the source file, relative to the project root.
      */
     public static function sourcePath(string $identifier): string
     {
@@ -202,7 +206,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Qualify a page identifier into a target output file path relative to the _site output directory.
+     * Qualify a page identifier into a target output file path, relative to the _site output directory.
      */
     public static function outputPath(string $identifier): string
     {
@@ -234,6 +238,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     /**
      * Get the route key base for the page model.
+     *
+     * This is the same value as the output directory.
      */
     public static function baseRouteKey(): string
     {
@@ -260,7 +266,6 @@ abstract class HydePage implements PageSchema, SerializableContract
             'metadata' => $this->metadata,
             'navigation' => $this->navigation,
             'title' => $this->title,
-            'canonicalUrl' => $this->canonicalUrl,
         ];
     }
 
@@ -287,15 +292,12 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the route key for the page.
      *
-     * The route key is the URL path relative to the site root.
+     * The route key is the page URL path, relative to the site root, but without any file extensions.
+     * For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
      *
-     * For example, if the compiled page will be saved to _site/docs/index.html,
-     * then this method will return 'docs/index'. Route keys are used to
-     * identify pages, similar to how named routes work in Laravel,
-     * only that here the name is not just arbitrary,
-     * but also defines the output location.
-     *
-     * @return string The page's route key.
+     * Route keys are used to identify page routes, similar to how named routes work in Laravel,
+     * only that here the name is not just arbitrary, but also defines the output location,
+     * as the route key is used to determine the output path which is `$routeKey.html`.
      */
     public function getRouteKey(): string
     {
@@ -303,9 +305,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the route for the page.
-     *
-     * @return \Hyde\Support\Models\Route The page's route.
+     * Get the route object for the page.
      */
     public function getRoute(): Route
     {
@@ -313,7 +313,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Format the page instance to a URL path (relative to site root) with support for pretty URLs if enabled.
+     * Format the page instance to a URL path, with support for pretty URLs if enabled.
+     *
+     * Note that the link is always relative to site root, and does not contain `../` segments.
      */
     public function getLink(): string
     {
@@ -326,12 +328,11 @@ abstract class HydePage implements PageSchema, SerializableContract
      * Get the page model's identifier property.
      *
      * The identifier is the part between the source directory and the file extension.
-     * It may also be known as a 'slug', or previously 'basename'.
+     * It may also be known as a 'slug', or previously 'basename', but it retains
+     * the nested path structure if the page is stored in a subdirectory.
      *
      * For example, the identifier of a source file stored as '_pages/about/contact.md'
      * would be 'about/contact', and 'pages/about.md' would simply be 'about'.
-     *
-     * @return string The page's identifier.
      */
     public function getIdentifier(): string
     {
@@ -339,9 +340,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the Blade template for the page.
-     *
-     * @return string Blade template/view key.
+     * Get the Blade template/view key for the page.
      */
     public function getBladeView(): string
     {
@@ -351,36 +350,64 @@ abstract class HydePage implements PageSchema, SerializableContract
     // Section: Accessors
 
     /**
-     * Get the page title to display in HTML tags like <title> and <meta> tags.
+     * Get the page title to display in HTML tags like `<title>` and `<meta>` tags.
      */
     public function title(): string
     {
         return Config::getString('hyde.name', 'HydePHP').' - '.$this->title;
     }
 
+    /**
+     * Get the generated metadata for the page.
+     */
     public function metadata(): PageMetadataBag
     {
         return $this->metadata;
     }
 
+    /**
+     * Can the page be shown in the navigation menu?
+     */
     public function showInNavigation(): bool
     {
         return ! $this->navigation->hidden;
     }
 
+    /**
+     * Get the priority of the page in the navigation menu.
+     */
     public function navigationMenuPriority(): int
     {
         return $this->navigation->priority;
     }
 
+    /**
+     * Get the label of the page in the navigation menu.
+     */
     public function navigationMenuLabel(): string
     {
         return $this->navigation->label;
     }
 
+    /**
+     * Get the group of the page in the navigation menu, if any.
+     */
     public function navigationMenuGroup(): ?string
     {
         return $this->navigation->group;
+    }
+
+    public function getCanonicalUrl(): ?string
+    {
+        if (! empty($this->matter('canonicalUrl'))) {
+            return $this->matter('canonicalUrl');
+        }
+
+        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
+            return Hyde::url($this->getOutputPath());
+        }
+
+        return null;
     }
 
     protected function constructMetadata(): void

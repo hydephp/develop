@@ -10,6 +10,7 @@ use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
+
 use function memory_get_peak_usage;
 use function number_format;
 use function array_search;
@@ -20,8 +21,6 @@ use function app;
 
 /**
  * Hyde Command to run the Build Process.
- *
- * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
 class BuildSiteCommand extends Command
 {

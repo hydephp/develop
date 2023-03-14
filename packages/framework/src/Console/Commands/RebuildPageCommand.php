@@ -16,6 +16,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Console\OutputStyle;
+
 use function dirname;
 use function file_exists;
 use function in_array;
@@ -24,8 +25,6 @@ use function unslash;
 
 /**
  * Hyde Command to build a single static site file.
- *
- * @see \Hyde\Framework\Testing\Feature\Commands\RebuildPageCommandTest
  */
 class RebuildPageCommand extends Command
 {

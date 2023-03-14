@@ -31,7 +31,8 @@ namespace Hyde {
     use Hyde\Foundation\HydeKernel;
     use Illuminate\Contracts\Support\Arrayable;
     use Symfony\Component\Yaml\Yaml;
-    use function function_exists;
+
+use function function_exists;
     use function array_merge;
     use function str_replace;
     use function implode;

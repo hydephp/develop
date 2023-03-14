@@ -6,6 +6,7 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
+
 use function array_key_exists;
 use function array_map;
 use function explode;
@@ -24,7 +25,7 @@ use function substr;
  * that is used to identify the shortcode. The built-in shortcodes
  * do not use regex, as that would make them harder to read.
  *
- * @see \Hyde\Framework\Testing\Feature\Services\Markdown\ShortcodeProcessorTest
+ *
  * @phpstan-consistent-constructor
  */
 class ShortcodeProcessor implements MarkdownPreProcessorContract

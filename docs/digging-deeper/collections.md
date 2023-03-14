@@ -6,18 +6,18 @@ navigation:
 
 # File-based Collections
 
-
 ## Introduction to Hyde Data Collections
 
-Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/9.x/collections) giving you
+Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you
 a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
 it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get
 parsed into objects that you can easily work with.
 
 As you have access to all standard Laravel Collection methods, you are encouraged to read the
-[Laravel Collections documentation](https://laravel.com/docs/9.x/collections) for more information.
+[Laravel Collections documentation](https://laravel.com/docs/10.x/collections) for more information.
 
 This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
+
 
 ## High-Level Concept Overview
 
@@ -33,6 +33,7 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 7. Unlike source files for pages, files starting with underscores are not ignored.
 8. You can customize the source directory for collections through a service provider.
 9. If the base source directory does not exist, it will be created for you.
+
 
 ## Available Collection Types
 
@@ -53,6 +54,7 @@ The following facade methods for creating data collections are available:
 | **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php)                                          | `.md`                 |
 | **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)                                                    | `.yaml`,&nbsp; `.yml` |
 | **[Json](#json-collections)**         | `::json()`     | [`stdClass`](https://www.php.net/manual/en/class.stdclass.php) <small>OR&nbsp;</small> [`array`](https://www.php.net/manual/en/language.types.array.php) | `.json`               |
+
 
 ## Markdown Collections
 
@@ -100,6 +102,7 @@ author: "John Doe"
 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 ```
 
+
 ## Yaml Collections
 
 ### Usage
@@ -132,6 +135,7 @@ email: "john@example.org"
 ```
 
 >warning Note that the Yaml file should start with `---` to be parsed correctly.
+
 
 ## Json Collections
 
@@ -230,4 +234,3 @@ we are able to get the author from the front matter, and the content from the bo
     </blockquote>
 @endforeach
 ```
-

@@ -12,13 +12,11 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Facades\Render;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
+
 use function array_filter;
 use function array_map;
 use function in_array;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
- */
 class GlobalMetadataBag extends MetadataBag
 {
     public static function make(): static

@@ -45,13 +45,18 @@ class ConsoleServiceProvider extends ServiceProvider
 
     protected static function logo(): string
     {
+        // Check if no-ansi flag is set
+        if (isset($_SERVER['argv']) && in_array('--no-ansi', $_SERVER['argv'], true)) {
+            return 'HydePHP';
+        }
+
         return <<<ASCII
         
-        \033[34m     __ __        __   \033[33m ___  __ _____
-        \033[34m    / // /_ _____/ /__ \033[33m/ _ \/ // / _ \
-        \033[34m   / _  / // / _  / -_)\033[33m ___/ _  / ___/
-        \033[34m  /_//_/\_, /\_,_/\__/\033[33m_/  /_//_/_/
-        \033[34m       /___/
+        \033[94m     __ __        __   \033[91m ___  __ _____
+        \033[94m    / // /_ _____/ /__ \033[91m/ _ \/ // / _ \
+        \033[94m   / _  / // / _  / -_)\033[91m ___/ _  / ___/
+        \033[94m  /_//_/\_, /\_,_/\__/\033[91m_/  /_//_/_/
+        \033[94m       /___/
             
         \033[0m
         ASCII;

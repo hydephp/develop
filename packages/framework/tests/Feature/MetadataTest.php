@@ -31,7 +31,7 @@ class MetadataTest extends TestCase
 
         config(['hyde.url' => null]);
         config(['hyde.meta' => []]);
-        config(['hyde.generate_rss_feed' => false]);
+        config(['hyde.rss.enabled' => false]);
         config(['hyde.generate_sitemap' => false]);
     }
 
@@ -168,7 +168,7 @@ class MetadataTest extends TestCase
             '<meta property="og:foo" content="bar">',
             'foo',
         ]),
-        $page->metadata->render());
+            $page->metadata->render());
     }
 
     public function test_custom_metadata_overrides_config_defined_metadata()

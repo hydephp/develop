@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Exceptions;
 
 use Exception;
+
 use function sprintf;
 
 class UnsupportedPageTypeException extends Exception

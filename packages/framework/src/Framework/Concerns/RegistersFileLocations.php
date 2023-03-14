@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Str;
+
 use function class_basename;
 use function array_unique;
 use function array_merge;
@@ -32,12 +33,12 @@ trait RegistersFileLocations
      *
      * @example registerSourceDirectories([HydePage::class => '_pages'])
      *
-     * @param  array  $directoryMapping{class:  string<HydePage>, location: string}
+     * @param  array<class-string<HydePage>, string>  $directoryMapping
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
+        /** @var class-string<HydePage> $class */
         foreach ($directoryMapping as $class => $location) {
-            /** @var HydePage $class */
             $class::setSourceDirectory(unslash(Hyde::getSourceRoot().'/'.unslash($location)));
         }
     }
@@ -50,12 +51,12 @@ trait RegistersFileLocations
      *
      * @example registerOutputDirectories([HydePage::class => 'docs'])
      *
-     * @param  array  $directoryMapping{class:  string<HydePage>, location: string}
+     * @param  array<class-string<HydePage>, string>  $directoryMapping
      */
     protected function registerOutputDirectories(array $directoryMapping): void
     {
+        /** @var class-string<HydePage> $class */
         foreach ($directoryMapping as $class => $location) {
-            /** @var HydePage $class */
             $class::setOutputDirectory(unslash($location));
         }
     }

@@ -10,6 +10,7 @@ use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Framework\Services\ViewDiffService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Collection;
+
 use function Hyde\unixsum_file;
 use function array_key_exists;
 use function file_exists;
@@ -18,8 +19,6 @@ use function strstr;
 
 /**
  * Publish one of the default homepages.
- *
- * @see \Hyde\Framework\Testing\Feature\Commands\PublishHomepageCommandTest
  */
 class PublishHomepageCommand extends Command
 {

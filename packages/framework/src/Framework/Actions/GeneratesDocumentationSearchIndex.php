@@ -10,14 +10,13 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+
 use function basename;
 use function in_array;
 use function trim;
 
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
- *
- * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
 class GeneratesDocumentationSearchIndex
 {

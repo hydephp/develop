@@ -7,11 +7,13 @@ namespace Hyde\Framework\Testing\Feature;
 use function app;
 use function config;
 use function file_put_contents;
+
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+
 use function mkdir;
 
 /**

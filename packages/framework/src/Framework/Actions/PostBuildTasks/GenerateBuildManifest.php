@@ -10,6 +10,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
+
 use function Hyde\unixsum_file;
 use function file_put_contents;
 use function file_exists;
@@ -26,8 +27,6 @@ use function now;
  * may not want to commit the manifest file to their repository or their deployed site.
  * However, a great alternate location is in `_site/build-manifest.json`,
  * if you don't mind it the file being publicly accessible.
- *
- * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
  */
 class GenerateBuildManifest extends PostBuildTask
 {

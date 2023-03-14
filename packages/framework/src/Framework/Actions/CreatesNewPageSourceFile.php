@@ -12,6 +12,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
+
 use function file_put_contents;
 use function file_exists;
 use function basename;
@@ -21,8 +22,6 @@ use function rtrim;
 
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
- *
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
  */
 class CreatesNewPageSourceFile
 {
@@ -59,12 +58,6 @@ class CreatesNewPageSourceFile
             DocumentationPage::class => $this->createDocumentationFile(),
         };
 
-        return $this->outputPath;
-    }
-
-    /** @deprecated This method may be removed as the save method now returns the path. */
-    public function getOutputPath(): string
-    {
         return $this->outputPath;
     }
 

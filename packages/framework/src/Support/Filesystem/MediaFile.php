@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
+
 use function extension_loaded;
 use function file_exists;
 use function array_merge;

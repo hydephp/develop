@@ -19,6 +19,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
+
 use function app;
 
 /**

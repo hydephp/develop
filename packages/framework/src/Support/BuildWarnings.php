@@ -8,13 +8,12 @@ use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\BuildWarning;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Symfony\Component\Console\Style\OutputStyle;
+
 use function app;
 use function sprintf;
 
 /**
  * @experimental
- *
- * @see \Hyde\Framework\Testing\Unit\BuildWarningsTest
  */
 class BuildWarnings
 {

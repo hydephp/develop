@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Hyde\Framework\Views\Components\LinkComponent;
 use Hyde\Framework\Views\Components\BreadcrumbsComponent;
+
 use function resource_path;
 
 /**

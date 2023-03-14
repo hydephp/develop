@@ -8,6 +8,7 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
+
 use function date;
 
 /**

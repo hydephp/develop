@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Collection;
+
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function file_exists;
@@ -25,8 +26,6 @@ use function touch;
  *
  * All paths arguments are relative to the root of the application,
  * and will be automatically resolved to absolute paths.
- *
- * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
 class Filesystem
 {

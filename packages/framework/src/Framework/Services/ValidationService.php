@@ -11,16 +11,13 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ValidationResult as Result;
+
 use function get_class_methods;
 use function array_intersect;
 use function file_exists;
 use function implode;
 use function sprintf;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
- */
 class ValidationService
 {
     /** @return string[] */

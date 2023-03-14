@@ -11,7 +11,6 @@ use function collect;
  * Automatically serializes an Arrayable implementation when JSON is requested.
  *
  * @see \Hyde\Support\Contracts\SerializableContract
- * @see \Hyde\Framework\Testing\Unit\SerializableTest
  */
 trait Serializable
 {

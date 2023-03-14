@@ -8,13 +8,12 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+
 use function strtolower;
 use function is_string;
 
 /**
  * The Post Author model object.
- *
- * @see \Hyde\Framework\Testing\Unit\PostAuthorTest
  */
 class PostAuthor implements Stringable
 {

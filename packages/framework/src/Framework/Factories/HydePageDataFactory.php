@@ -11,6 +11,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationData;
+
 use function basename;
 use function dirname;
 use function substr;
@@ -26,7 +27,6 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     final public const SCHEMA = PageSchema::PAGE_SCHEMA;
 
     protected readonly string $title;
-    protected readonly ?string $canonicalUrl;
     protected readonly ?NavigationData $navigation;
     private readonly string $routeKey;
     private readonly string $outputPath;
@@ -45,18 +45,16 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         $this->routeKey = $this->pageData->routeKey;
 
         $this->title = $this->makeTitle();
-        $this->canonicalUrl = $this->makeCanonicalUrl();
         $this->navigation = $this->makeNavigation();
     }
 
     /**
-     * @return array{title: string, canonicalUrl: string|null, navigation: \Hyde\Framework\Features\Navigation\NavigationData|null}
+     * @return array{title: string, navigation: \Hyde\Framework\Features\Navigation\NavigationData|null}
      */
     public function toArray(): array
     {
         return [
             'title' => $this->title,
-            'canonicalUrl' => $this->canonicalUrl,
             'navigation' => $this->navigation,
         ];
     }
@@ -64,11 +62,6 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     protected function makeTitle(): string
     {
         return trim($this->findTitleForPage());
-    }
-
-    protected function makeCanonicalUrl(): ?string
-    {
-        return $this->getCanonicalUrl();
     }
 
     protected function makeNavigation(): NavigationData
@@ -101,19 +94,6 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     {
         if (str_contains($this->identifier, '/') && str_ends_with($this->identifier, '/index')) {
             return Hyde::makeTitle(basename(dirname($this->identifier)));
-        }
-
-        return null;
-    }
-
-    private function getCanonicalUrl(): ?string
-    {
-        if (! empty($this->matter('canonicalUrl'))) {
-            return $this->matter('canonicalUrl');
-        }
-
-        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
-            return Hyde::url($this->outputPath);
         }
 
         return null;

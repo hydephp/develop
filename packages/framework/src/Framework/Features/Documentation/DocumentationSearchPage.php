@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
+
 use function view;
 
 /**
@@ -16,8 +17,6 @@ use function view;
  * It is not based on a source file, but is dynamically generated when the Search feature is enabled.
  * If you want to override this page, you can create a page with the route key "docs/search",
  * then this class will not be applied. For example, `_pages/docs/search.blade.php`.
- *
- * @see \Hyde\Framework\Testing\Feature\DocumentationSearchPageTest
  */
 class DocumentationSearchPage extends DocumentationPage
 {

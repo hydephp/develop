@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Illuminate\Foundation\Console\VendorPublishCommand as BaseCommand;
 use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
+
 use function ltrim;
 use function realpath;
 use function sprintf;
@@ -15,8 +16,6 @@ use function str_replace;
 
 /**
  * Publish any publishable assets from vendor packages.
- *
- * @see \Hyde\Framework\Testing\Feature\Commands\VendorPublishCommandTest
  */
 class VendorPublishCommand extends BaseCommand
 {

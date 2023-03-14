@@ -11,6 +11,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Illuminate\Support\Str;
+
 use function get_class_methods;
 use function extension_loaded;
 use function str_starts_with;
@@ -26,10 +27,8 @@ use function app;
  * @internal Until this class is split into a service/manager class, it should not be used outside of Hyde as the API is subject to change.
  *
  * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
- *
- * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
- *
  * Based entirely on Laravel Jetstream (License MIT)
+ *
  * @see https://jetstream.laravel.com/
  */
 class Features implements SerializableContract
@@ -161,7 +160,7 @@ class Features implements SerializableContract
     {
         return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()
-            && Config::getBool('hyde.generate_rss_feed', true)
+            && Config::getBool('hyde.rss.enabled', true)
             && extension_loaded('simplexml')
             && count(MarkdownPost::files()) > 0;
     }
@@ -178,7 +177,7 @@ class Features implements SerializableContract
         return collect(get_class_methods(static::class))
             ->filter(fn (string $method): bool => str_starts_with($method, 'has'))
             ->mapWithKeys(fn (string $method): array => [
-                Str::kebab(substr($method, 3)) => (static::{$method}()),
+                Str::kebab(substr($method, 3)) => static::{$method}(),
             ])->toArray();
     }
 

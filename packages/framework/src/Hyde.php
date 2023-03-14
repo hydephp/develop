@@ -12,6 +12,7 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
+use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\HtmlString;
 use JetBrains\PhpStorm\Pure;
@@ -25,7 +26,7 @@ use JetBrains\PhpStorm\Pure;
  * @copyright 2022 Caen De Silva
  * @license MIT License
  *
- * @method static string path(string $path = '') $basePath
+ * @method static string path(string $path = '')
  * @method static string vendorPath(string $path = '', string $package = 'framework')
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
@@ -43,15 +44,15 @@ use JetBrains\PhpStorm\Pure;
  * @method static string trimSlashes(string $string)
  * @method static HtmlString markdown(string $text, bool $stripIndentation = false)
  * @method static string currentPage()
- * @method static string getBasePath() $basePath
- * @method static string getSourceRoot() ''
- * @method static string getOutputDirectory() '_site'
- * @method static string getMediaDirectory() '_media'
- * @method static string getMediaOutputDirectory() 'media'
+ * @method static string getBasePath()
+ * @method static string getSourceRoot()
+ * @method static string getOutputDirectory()
+ * @method static string getMediaDirectory()
+ * @method static string getMediaOutputDirectory()
  * @method static Features features()
- * @method static FileCollection files()
- * @method static PageCollection pages()
- * @method static RouteCollection routes()
+ * @method static FileCollection<SourceFile> files()
+ * @method static PageCollection<HydePage> pages()
+ * @method static RouteCollection<Route> routes()
  * @method static Route|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static Filesystem filesystem()

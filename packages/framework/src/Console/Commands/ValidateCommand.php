@@ -7,13 +7,11 @@ namespace Hyde\Console\Commands;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Framework\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
+
 use function number_format;
 use function microtime;
 use function sprintf;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
- */
 class ValidateCommand extends Command
 {
     use TracksExecutionTime;
@@ -22,7 +20,10 @@ class ValidateCommand extends Command
     protected $signature = 'validate';
 
     /** @var string */
-    protected $description = 'Run a series of tests to validate your setup and help you optimize your site.';
+    protected $description = 'Test and validate your project to optimize your site.';
+
+    /** @var string */
+    protected $help = 'Run a series of tests to validate your setup and help you optimize your site.';
 
     protected ValidationService $service;
 

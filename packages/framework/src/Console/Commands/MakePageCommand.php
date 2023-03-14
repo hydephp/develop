@@ -10,13 +10,12 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use LaravelZero\Framework\Commands\Command;
+
 use function strtolower;
 use function ucfirst;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
- *
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
  */
 class MakePageCommand extends Command
 {

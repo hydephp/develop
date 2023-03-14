@@ -4,10 +4,12 @@ Contributions are **welcome** and will be fully **credited**.
 
 Please read and understand the contribution guide before creating an issue or pull request. This document is a living standard that may be updated when needed.
 
+
 ## Resources
 
 If you're new to HydePHP and are looking to contribute, it may be helpful to learn how the ecosystem and core development works.
 It's thus highly advised you visit our [Developer Resources](https://hydephp.com/community) to learn how HydePHP is structured.
+
 
 ## Etiquette
 
@@ -20,6 +22,7 @@ world that developers are civilized and selfless people.
 
 It's the duty of the maintainer to ensure that all submissions to the project are of sufficient
 quality to benefit the project. Many developers have different skill sets, strengths, and weaknesses. Respect the maintainer's decision, and do not be upset or abusive if your submission is not used.
+
 
 ## Viability
 
@@ -51,12 +54,14 @@ Before submitting a pull request:
 - Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
 - Check the feature is a viable for the project (see above)
 
+
 ## How-to
 
 HydePHP development is made in the HydePHP monorepo found at https://github.com/hydephp/develop.
 To get started, you will need to clone the repository, and run `composer install`. You will then be able to make changes to the packages found in the `packages/` sub-directories.
 
 Once you've made and commited your changes, submit a pull request to the same repository, and explain your changes and how they improve the codebase.
+
 
 ## Requirements
 

@@ -14,6 +14,7 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+
 use function class_basename;
 use function preg_replace;
 use function collect;
@@ -25,7 +26,6 @@ use function copy;
  * Handles the build loop which generates the static site.
  *
  * @see \Hyde\Console\Commands\BuildSiteCommand
- * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
 class BuildService
 {

@@ -27,8 +27,8 @@ class HydeStan
     {
         $this->console->newline();
         $this->console->info(sprintf('HydeStan has exited after scanning %s total lines in %s files.',
-                number_format($this->scannedLines),
-                number_format(count($this->files)))
+            number_format($this->scannedLines),
+            number_format(count($this->files)))
         );
 
         if (count(self::$warnings) > 0) {
@@ -53,9 +53,9 @@ class HydeStan
 
         $endTime = microtime(true) - $time;
         $this->console->info(sprintf('HydeStan has finished in %s seconds (%sms) using %s KB RAM',
-                number_format($endTime, 2),
-                number_format($endTime * 1000, 2),
-                number_format(memory_get_peak_usage(true) / 1024, 2))
+            number_format($endTime, 2),
+            number_format($endTime * 1000, 2),
+            number_format(memory_get_peak_usage(true) / 1024, 2))
         );
 
         if ($this->hasErrors()) {
@@ -102,6 +102,12 @@ class HydeStan
                     $this->console->debugComment('Adding error: '.$error);
                 }
                 $this->errors[] = $error;
+            }
+
+            foreach (explode("\n", $contents) as $lineNumber => $line) {
+                if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
+                    $this->errors[] = sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1);
+                }
             }
         }
 

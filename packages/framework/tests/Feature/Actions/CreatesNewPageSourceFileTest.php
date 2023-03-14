@@ -137,16 +137,16 @@ class CreatesNewPageSourceFileTest extends TestCase
     {
         $this->assertSame(
             Hyde::path('_pages/test-page.md'),
-            (new CreatesNewPageSourceFile('Test Page'))->getOutputPath()
+            (new CreatesNewPageSourceFile('Test Page'))->save()
         );
 
         $this->assertSame(
             Hyde::path('_pages/test-page.blade.php'),
-            (new CreatesNewPageSourceFile('Test Page', BladePage::class))->getOutputPath()
+            (new CreatesNewPageSourceFile('Test Page', BladePage::class))->save()
         );
 
-        // Filesystem::unlink('_pages/test-page.md');
-        // Filesystem::unlink('_pages/test-page.blade.php');
+        Filesystem::unlink('_pages/test-page.md');
+        Filesystem::unlink('_pages/test-page.blade.php');
     }
 
     public function test_file_is_created_using_slug_generated_from_title()

@@ -45,13 +45,13 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testToJsonUsesJsonEncodedArray()
     {
         $page = new InstantiableHydePage();
-        $this->assertSame(json_encode(($page)->toArray()), $page->toJson());
+        $this->assertSame(json_encode($page->toArray()), $page->toJson());
     }
 
     public function testHydePageToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title'],
             array_keys((new InstantiableHydePage())->toArray())
         );
     }
@@ -59,7 +59,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testHtmlPageToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title'],
             array_keys((new HtmlPage())->toArray())
         );
     }
@@ -67,7 +67,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testBladePageToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title'],
             array_keys((new BladePage())->toArray())
         );
     }
@@ -75,7 +75,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testMarkdownPageToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title'],
             array_keys((new MarkdownPage())->toArray())
         );
     }
@@ -83,7 +83,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testMarkdownPostToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl', 'description', 'category', 'date', 'author', 'image'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'description', 'category', 'date', 'author', 'image'],
             array_keys((new MarkdownPost())->toArray())
         );
     }
@@ -91,7 +91,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testDocumentationPageToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'canonicalUrl'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title'],
             array_keys((new DocumentationPage())->toArray())
         );
     }
@@ -107,7 +107,6 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'metadata' => $page->metadata,
             'navigation' => $page->navigation,
             'title' => $page->title,
-            'canonicalUrl' => $page->canonicalUrl,
         ],
             $page->toArray()
         );
@@ -124,7 +123,6 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'metadata' => $page->metadata,
             'navigation' => $page->navigation,
             'title' => $page->title,
-            'canonicalUrl' => $page->canonicalUrl,
         ],
             $page->toArray()
         );
@@ -141,7 +139,6 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'metadata' => $page->metadata,
             'navigation' => $page->navigation,
             'title' => $page->title,
-            'canonicalUrl' => $page->canonicalUrl,
         ],
             $page->toArray()
         );
@@ -158,7 +155,6 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'metadata' => $page->metadata,
             'navigation' => $page->navigation,
             'title' => $page->title,
-            'canonicalUrl' => $page->canonicalUrl,
         ],
             $page->toArray()
         );
@@ -175,7 +171,6 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'metadata' => $page->metadata,
             'navigation' => $page->navigation,
             'title' => $page->title,
-            'canonicalUrl' => $page->canonicalUrl,
             'description' => $page->description,
             'category' => $page->category,
             'date' => $page->date,
@@ -197,7 +192,6 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'metadata' => $page->metadata,
             'navigation' => $page->navigation,
             'title' => $page->title,
-            'canonicalUrl' => $page->canonicalUrl,
         ],
             $page->toArray()
         );
@@ -218,8 +212,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                     "hidden": false,
                     "group": null
                 },
-                "title": "",
-                "canonicalUrl": null
+                "title": ""
             }
             JSON, (new InstantiableHydePage())->toJson(128)
         );

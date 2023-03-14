@@ -14,14 +14,12 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Console\Concerns\Command;
 use InvalidArgumentException;
+
 use function array_unique;
 use function str_replace;
 use function basename;
 use function realpath;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Commands\ChangeSourceDirectoryCommandTest
- */
 class ChangeSourceDirectoryCommand extends Command
 {
     /** @var string */

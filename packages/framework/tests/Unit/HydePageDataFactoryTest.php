@@ -36,7 +36,7 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     public function testToArrayContainsExpectedKeys()
     {
-        $this->assertSame(['title', 'canonicalUrl', 'navigation'], array_keys($this->factory()->toArray()));
+        $this->assertSame(['title', 'navigation'], array_keys($this->factory()->toArray()));
     }
 
     public function testCanCreateTitleFromMatter()
@@ -74,30 +74,6 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertSame('Bar', $this->factoryFromPage(new MarkdownPage('foo/bar/index'))->toArray()['title']);
     }
 
-    public function testCanCreateCanonicalUrlUsingBaseUrlFromConfig()
-    {
-        self::mockConfig(['hyde' => [
-            'url' => 'https://example.com',
-        ]]);
-
-        $this->assertSame('https://example.com/foo.html', $this->factoryFromPage(new MarkdownPage('foo'))->toArray()['canonicalUrl']);
-    }
-
-    public function testCanCreateCanonicalUrlUsingBaseUrlFromConfigUsingPrettyUrls()
-    {
-        self::mockConfig(['hyde' => [
-            'url' => 'https://example.com',
-            'pretty_urls' => true,
-        ]]);
-
-        $this->assertSame('https://example.com/foo', $this->factoryFromPage(new MarkdownPage('foo'))->toArray()['canonicalUrl']);
-    }
-
-    public function testCanonicalUrlIsNullWhenNoBaseUrlIsSet()
-    {
-        $this->assertNull($this->factoryFromPage(new MarkdownPage('foo'))->toArray()['canonicalUrl']);
-    }
-
     public function testNavigationDataIsGeneratedByNavigationDataFactory()
     {
         $this->assertInstanceOf(NavigationData::class, $this->factory()->toArray()['navigation']);
@@ -105,11 +81,11 @@ class HydePageDataFactoryTest extends UnitTestCase
 
     protected function factory(array $data = []): HydePageDataFactory
     {
-        return $this->factoryFromPage((new InMemoryPage('', $data)));
+        return $this->factoryFromPage(new InMemoryPage('', $data));
     }
 
     protected function factoryFromPage(HydePage $page): HydePageDataFactory
     {
-        return new HydePageDataFactory(($page)->toCoreDataObject());
+        return new HydePageDataFactory($page->toCoreDataObject());
     }
 }

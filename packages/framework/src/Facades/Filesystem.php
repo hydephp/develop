@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\File;
  *
  * @see \Hyde\Foundation\Kernel\Filesystem
  * @see \Illuminate\Filesystem\Filesystem
- * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
 class Filesystem
 {

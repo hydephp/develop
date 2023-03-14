@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+
 use function Hyde\unixsum_file;
 use function str_replace;
 use function in_array;
@@ -17,8 +18,6 @@ use function glob;
  * Helper methods to interact with the virtual filecache that is used to compare
  * published Blade views with the original Blade views in the Hyde Framework
  * so the user can be warned before overwriting their customizations.
- *
- * @see \Hyde\Framework\Testing\Feature\Services\ViewDiffServiceTest
  */
 class ViewDiffService
 {
