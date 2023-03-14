@@ -28,6 +28,7 @@ use function app;
  *
  * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
  * Based entirely on Laravel Jetstream (License MIT)
+ *
  * @see https://jetstream.laravel.com/
  */
 class Features implements SerializableContract
