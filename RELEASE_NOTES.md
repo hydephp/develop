@@ -13,17 +13,16 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- General compatible code quality improvements https://github.com/hydephp/develop/pull/1284
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Removed test class references from main codebase https://github.com/hydephp/develop/pull/1287
+- for now removed features.
 
 ### Fixed
-- Fixed "ReadingTime calculation should never be under one minute" [#1286](https://github.com/hydephp/develop/issues/1286) in [#1285](https://github.com/hydephp/develop/pull/1285)
-- Fixed "The HydeCLI list command logo should respect the --no-ansi setting" [#1127](https://github.com/hydephp/develop/issues/1127) in [#1288](https://github.com/hydephp/develop/pull/1288)
+- for any bug fixes.
 
 ### Security
-- in case of vulnerabilities.
+- Bump Webpack from 5.73.0 to 5.76.1 [#1292](https://github.com/hydephp/develop/pull/1292)
