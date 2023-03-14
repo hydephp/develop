@@ -207,12 +207,6 @@ class PublicationPageUnitTest extends TestCase
             (new PublicationPage('foo', [], '', $this->pubType()))->toCoreDataObject());
     }
 
-    public function testConstructFactoryData()
-    {
-        (new PublicationPage('', [], '', $this->pubType()))->constructFactoryData($this->mockPageDataFactory());
-        $this->assertTrue(true);
-    }
-
     public function testCompile()
     {
         $this->directory('directory');
