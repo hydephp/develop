@@ -41,7 +41,7 @@ To use HydePHP, your system must have PHP version 8.1 or later installed, along 
 The recommended method of installation is using Composer.
 
 ```bash
-composer create-project hyde/hyde --stability=rc
+composer create-project hyde/hyde
 ```
 
 Once installed, you can access the HydeCLI from the project root using the `hyde` command.
