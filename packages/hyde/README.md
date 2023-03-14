@@ -21,7 +21,7 @@ Build sites in record-time with a full batteries-included TailwindCSS frontend t
 Hyde is all about letting you get started quickly by giving you a full-featured frontend starter kit, while also giving you the power and freedom of doing things the way you want to.
 
 Markdown purist? That's all you need. Blade artisan? Go for it.
-Hyde comes with hand-crafted frontend templates so you can focus on your content.
+Hyde comes with hand-crafted frontend templates, so you can focus on your content.
 You don't _need_ to customize anything. But you _can_ customize everything.
 
 See the documentation and learn more at https://hydephp.com/docs/
@@ -39,7 +39,7 @@ See the documentation and learn more at https://hydephp.com/docs/
 
 ### Built-in Frontend
 
-- Hyde comes with a TailwindCSS starter kit so you can start making content right away.
+- Hyde comes with a TailwindCSS starter kit, so you can start making content right away.
 - The starter kit is fully responsive, has a dark mode theme, and is customizable.
 - The frontend is accessible to screenreaders and rich with semantic HTML and microdata.
 - Hyde automatically chooses the right layout to use depending on the content being rendered.
@@ -55,7 +55,7 @@ See the documentation and learn more at https://hydephp.com/docs/
 
 - You don't need to configure anything as Hyde is shipped with sensible defaults.
 - You can, however, customize nearly everything. Here are some examples:
-- All frontend components and page layouts are created with Blade so you
+- All frontend components and page layouts are created with Blade, so you
   can publish the vendor views, just like in Laravel.
 - Override many of the dynamic content features like the menus and footer.
 
