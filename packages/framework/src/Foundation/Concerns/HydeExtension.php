@@ -26,8 +26,6 @@ use Hyde\Foundation\Kernel\RouteCollection;
  * which you can access via the Hyde\Hyde facade, or via the service container.
  *
  * @example `$this->app->make(HydeKernel::class)->registerExtension(MyExtension::class);`
- *
- * @see \Hyde\Framework\Testing\Feature\HydeExtensionTest
  */
 abstract class HydeExtension
 {

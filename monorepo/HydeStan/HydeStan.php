@@ -103,6 +103,12 @@ class HydeStan
                 }
                 $this->errors[] = $error;
             }
+
+            foreach (explode("\n", $contents) as $lineNumber => $line) {
+                if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
+                    $this->errors[] = sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1);
+                }
+            }
         }
 
         $this->scannedLines += substr_count($contents, "\n");

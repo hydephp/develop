@@ -27,8 +27,6 @@ use function now;
  * may not want to commit the manifest file to their repository or their deployed site.
  * However, a great alternate location is in `_site/build-manifest.json`,
  * if you don't mind it the file being publicly accessible.
- *
- * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
  */
 class GenerateBuildManifest extends PostBuildTask
 {

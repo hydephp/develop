@@ -15,7 +15,6 @@ use InvalidArgumentException;
  * All public data here will be available in the Blade views through {@see ManagesViewData::shareViewData()}.
  *
  * @see \Hyde\Support\Facades\Render
- * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
  */
 class RenderData implements Arrayable
 {

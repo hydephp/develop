@@ -9,9 +9,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use BadMethodCallException;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
- */
 class NavigationMenu extends BaseNavigationMenu
 {
     protected function generate(): void

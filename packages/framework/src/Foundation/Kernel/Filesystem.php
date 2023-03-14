@@ -26,8 +26,6 @@ use function touch;
  *
  * All paths arguments are relative to the root of the application,
  * and will be automatically resolved to absolute paths.
- *
- * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
 class Filesystem
 {

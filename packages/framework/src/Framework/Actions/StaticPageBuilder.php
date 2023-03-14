@@ -11,8 +11,6 @@ use Hyde\Pages\Concerns\HydePage;
 
 /**
  * Converts a Page Model into a static HTML page.
- *
- * @see \Hyde\Framework\Testing\Feature\StaticPageBuilderTest
  */
 class StaticPageBuilder
 {

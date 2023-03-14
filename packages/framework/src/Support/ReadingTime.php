@@ -15,8 +15,6 @@ use function str_word_count;
 
 /**
  * Calculate the estimated reading time for a text.
- *
- * @see \Hyde\Framework\Testing\Feature\ReadingTimeTest
  */
 class ReadingTime implements Stringable
 {
