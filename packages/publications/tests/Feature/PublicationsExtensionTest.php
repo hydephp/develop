@@ -107,11 +107,9 @@ class PublicationsExtensionTest extends TestCase
         $this->directory('_media/publication');
         $this->file('_media/publication/foo.jpg', 'foo');
 
-        $booted = FileCollection::init(Hyde::getInstance())->boot();
-
-        $files = $booted->getMediaFiles()->keys()->toArray();
-        $this->assertSame(['_media/app.css', '_media/publication/foo.jpg'], $files);
-        $this->assertInstanceOf(MediaFile::class, $booted->getMediaFiles()->get('_media/publication/foo.jpg'));
+        $files = collect(MediaFile::all());
+        $this->assertSame(['app.css', 'publication/foo.jpg'], MediaFile::files());
+        $this->assertInstanceOf(MediaFile::class, $files->get('publication/foo.jpg'));
     }
 
     public function test_base_publication_pages_are_discovered()

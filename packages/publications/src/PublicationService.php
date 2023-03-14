@@ -52,7 +52,7 @@ class PublicationService
      */
     public static function getMediaForType(PublicationType $publicationType): Collection
     {
-        return Files::getMediaFiles()->filter(function (MediaFile $file) use ($publicationType): bool {
+        return collect(MediaFile::all())->filter(function (MediaFile $file) use ($publicationType): bool {
             return Str::startsWith($file->getPath(), Hyde::getMediaDirectory().'/'.$publicationType->getDirectory());
         })->keys()->toBase();
     }
