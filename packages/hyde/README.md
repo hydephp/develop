@@ -70,7 +70,7 @@ It's a breeze to get started with Hyde. Create a new Hyde project using Composer
 composer create-project hyde/hyde
 ```
 
-Next, place your Markdown files in one of the content directories:  `_posts`, `_docs`, and `_pages` which also accepts Blade files. You can also use use the `hyde:make` command to scaffold them.
+Next, place your Markdown files in one of the content directories:  `_posts`, `_docs`, and `_pages` which also accepts Blade files. You can also use the `hyde:make` commands to scaffold them.
 
 When you're ready, run the build command to compile your static site which will save your HTML files in the `_site` directory.
 
