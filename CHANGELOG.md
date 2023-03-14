@@ -17,6 +17,16 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0](https://github.com/hydephp/develop/releases/tag/v1.0.0) - 2023-03-14
+
+### Changed
+- Compiled TailwindCSS and HydeFront for production [#1295](https://github.com/hydephp/develop/pull/1295)
+- Updated to HydeFront v3.2 [#1297](https://github.com/hydephp/develop/pull/1297)
+
+### Security
+- Bumped Webpack from 5.73.0 to 5.76.1 [#1292](https://github.com/hydephp/develop/pull/1292)
+
+
 ## [v1.0.0-RC.8](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.8) - 2023-03-14
 
 ### Changed
