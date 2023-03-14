@@ -17,6 +17,29 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.8](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.8) - 2023-03-14
+
+### Changed
+- General compatible code quality improvements https://github.com/hydephp/develop/pull/1284
+
+### Removed
+- Removed test class references from main codebase https://github.com/hydephp/develop/pull/1287
+
+### Fixed
+- Fixed "ReadingTime calculation should never be under one minute" [#1286](https://github.com/hydephp/develop/issues/1286) in [#1285](https://github.com/hydephp/develop/pull/1285)
+- Fixed "The HydeCLI list command logo should respect the --no-ansi setting" [#1127](https://github.com/hydephp/develop/issues/1127) in [#1288](https://github.com/hydephp/develop/pull/1288)
+
+## [v1.0.0-RC.7](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.7) - 2023-03-14
+
+### Added
+- Added generics to the Hyde facade method annotations https://github.com/hydephp/develop/pull/1280
+
+### Changed
+- Updated 404 page home link to use the index route instead of the site URL https://github.com/hydephp/develop/pull/1278
+- Improved generic type usage in the RegisterFileLocations trait https://github.com/hydephp/develop/pull/1279
+- Bumped HydeFront to v3.1 https://github.com/hydephp/develop/pull/1281
+
+
 ## [v1.0.0-RC.6](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.6) - 2023-03-14
 
 ### Removed

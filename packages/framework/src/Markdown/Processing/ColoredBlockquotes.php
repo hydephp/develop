@@ -14,8 +14,6 @@ use function substr;
 use function trim;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\ColoredBlockquoteShortcodesTest
- *
  * @internal This class may be refactored to work with a single class instead of five, thus extending this class is discouraged.
  */
 abstract class ColoredBlockquotes implements MarkdownShortcodeContract

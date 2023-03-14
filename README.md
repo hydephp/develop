@@ -64,4 +64,4 @@ Changes to HydePHP including some first-party packages are made here. The change
 
 ### Releases
 
-The versioning between the Framework and Hyde packages are linked together Meaning that if Hyde get's a major release, so must Framework, and vice versa. To make this easier, we also publish major and minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.
+The versioning between the Framework and Hyde packages are linked together, meaning that if Hyde gets a major release, so must Framework, and vice versa. To make this easier, we also publish major and minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.

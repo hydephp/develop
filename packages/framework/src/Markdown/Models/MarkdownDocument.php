@@ -13,8 +13,6 @@ use Stringable;
  * A MarkdownDocument is a simpler alternative to a MarkdownPage.
  *
  * It's an object that contains a parsed FrontMatter split from the body of the Markdown file.
- *
- * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
 class MarkdownDocument implements MarkdownDocumentContract, Stringable
 {

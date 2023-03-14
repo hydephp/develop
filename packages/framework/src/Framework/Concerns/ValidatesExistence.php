@@ -9,8 +9,6 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * Validate the existence of a Page class's source file.
- *
- * @see \Hyde\Framework\Testing\Unit\ValidatesExistenceTest
  */
 trait ValidatesExistence
 {

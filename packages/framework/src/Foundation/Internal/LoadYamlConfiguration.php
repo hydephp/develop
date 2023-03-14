@@ -14,8 +14,6 @@ use function file_exists;
 
 /**
  * @internal
- *
- * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
  */
 class LoadYamlConfiguration
 {

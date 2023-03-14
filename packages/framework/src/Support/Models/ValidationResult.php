@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
- */
 class ValidationResult
 {
     final public const PASSED = 0;

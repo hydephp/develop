@@ -12,7 +12,6 @@ use TypeError;
  *
  * @see \Illuminate\Config\Repository
  * @see \Illuminate\Support\Facades\Config
- * @see \Hyde\Framework\Testing\Feature\TypedConfigFacadeTest
  */
 class Config extends \Illuminate\Support\Facades\Config
 {

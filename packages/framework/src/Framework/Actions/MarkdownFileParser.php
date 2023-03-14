@@ -11,8 +11,6 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 /**
  * Prepares a Markdown file for further usage by extracting the Front Matter
  * and Markdown body, and creating MarkdownDocument object from them.
- *
- * @see \Hyde\Framework\Testing\Feature\MarkdownFileParserTest
  */
 class MarkdownFileParser
 {

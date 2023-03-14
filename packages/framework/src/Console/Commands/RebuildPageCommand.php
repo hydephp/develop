@@ -25,8 +25,6 @@ use function unslash;
 
 /**
  * Hyde Command to build a single static site file.
- *
- * @see \Hyde\Framework\Testing\Feature\Commands\RebuildPageCommandTest
  */
 class RebuildPageCommand extends Command
 {

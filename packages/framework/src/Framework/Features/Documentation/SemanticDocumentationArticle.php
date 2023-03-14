@@ -19,8 +19,6 @@ use function view;
 /**
  * Class to make Hyde documentation pages smarter,
  * by dynamically enriching them with semantic HTML.
- *
- * @see \Hyde\Framework\Testing\Feature\Services\HydeSmartDocsTest
  */
 class SemanticDocumentationArticle
 {
