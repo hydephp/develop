@@ -220,27 +220,23 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
     {
         $this->assertHtmlHas(<<<'HTML'
             <div class="px-2">
-                <strong>1</strong>
-                <a href="../test-publication/page-2.html">2</a>
-                <a href="../test-publication/page-3.html">3</a>
-            </div>
+            <strong>1</strong>
+            <a href="../test-publication/page-2.html">2</a>                                                <a href="../test-publication/page-3.html">3</a>                        </div>
+            
+            <a href="../test-publication/page-2.html">&#8250;</a>    </nav>        </div>
             HTML, Filesystem::get('_site/test-publication/page-1.html')
         );
 
         $this->assertHtmlHas(<<<'HTML'
             <div class="px-2">
-                <a href="../test-publication/page-1.html">1</a>
-                <strong>2</strong>
-                <a href="../test-publication/page-3.html">3</a>
-            </div>
+            <a href="../test-publication/page-1.html">1</a>                                                <strong>2</strong>
+            <a href="../test-publication/page-3.html">3</a>                        </div>
             HTML, Filesystem::get('_site/test-publication/page-2.html')
         );
 
         $this->assertHtmlHas(<<<'HTML'
             <div class="px-2">
-                <a href="../test-publication/page-1.html">1</a>
-                <a href="../test-publication/page-2.html">2</a>
-                <strong>3</strong>
+            <a href="../test-publication/page-1.html">1</a>                                                <a href="../test-publication/page-2.html">2</a>                                                <strong>3</strong>
             </div>
             HTML, Filesystem::get('_site/test-publication/page-3.html')
         );
