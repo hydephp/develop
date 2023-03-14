@@ -57,7 +57,7 @@ $defaults = [
 ];
 
 foreach ($defaults as $default) {
-    $notes = str_replace($default, '', $notes);
+    $notes = str_replace($default, 'DEFAULT', $notes);
 }
 
 $notes = str_replace('Keep an Unreleased section at the top to track upcoming changes.
@@ -74,7 +74,7 @@ $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
 $notes = $notes."\n";
 
 // remove empty sections
-$notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security) \n/', '', $notes);
+$notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security)\nDEFAULT/', '', $notes);
 
 // remove empty lines
 $notes = preg_replace('/\n{2,}/', "\n", $notes);
