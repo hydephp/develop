@@ -76,6 +76,9 @@ $notes = $notes."\n";
 // remove empty sections
 $notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security)\nDEFAULT/', '', $notes);
 
+// remove ### About if it's empty
+$notes = str_replace("### About\n\n\n", "\n", $notes);
+
 // remove empty lines
 $notes = preg_replace('/\n{3,}/', "\n", $notes);
 
