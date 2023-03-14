@@ -231,7 +231,7 @@ class MarkdownService
 
         foreach ($lines as $lineNumber => $line) {
             if ($lineNumber >= $startNumber) {
-                $lines[$lineNumber] = substr($line, $indentationLevel);
+                $lines[$lineNumber] = substr((string) $line, $indentationLevel);
             }
         }
 
@@ -247,9 +247,9 @@ class MarkdownService
     protected static function findLineContentPositions(array $lines): array
     {
         foreach ($lines as $lineNumber => $line) {
-            if (filled(trim($line))) {
-                $lineLen = strlen($line);
-                $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
+            if (filled(trim((string) $line))) {
+                $lineLen = strlen((string) $line);
+                $stripLen = strlen(ltrim((string) $line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
 
                 if ($lineLen !== $stripLen) {
                     return [$lineNumber, $lineLen - $stripLen];
