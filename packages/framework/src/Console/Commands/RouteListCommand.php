@@ -49,8 +49,9 @@ class RouteListCommand extends Command
                         $type = parent::stylePageType($class);
 
                         /** @experimental */
-                        if ($this->route->getPage() instanceof InMemoryPage && $this->route->getPage()->hasMacro('typeLabel')) {
-                            $type .= sprintf(' <fg=gray>(%s)</>', $this->route->getPage()->typeLabel());
+                        $page = $this->route->getPage();
+                        if ($page instanceof InMemoryPage && $page->hasMacro('typeLabel')) {
+                            $type .= sprintf(' <fg=gray>(%s)</>', $page->typeLabel());
                         }
 
                         return $type;
