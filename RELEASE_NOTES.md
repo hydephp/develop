@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Fixed
 - Fixed "ReadingTime calculation should never be under one minute" [#1286](https://github.com/hydephp/develop/issues/1286) in [#1285](https://github.com/hydephp/develop/pull/1285)
+- Fixed "The HydeCLI list command logo should respect the --no-ansi setting" [#1127](https://github.com/hydephp/develop/issues/1127) in [#1288](https://github.com/hydephp/develop/pull/1288)
 
 ### Security
 - in case of vulnerabilities.
