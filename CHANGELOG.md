@@ -17,6 +17,16 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.0.0-RC.6](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.6) - 2023-03-14
+
+### Removed
+- Removed IDE helpers for removed global variables from the IDE helper file. https://github.com/hydephp/develop/pull/1274
+- Removed default values from Hyde facade method annotations. https://github.com/hydephp/develop/pull/1275
+
+### Fixed
+- Added missing version prefix to default generator meta tag value. https://github.com/hydephp/develop/pull/1272
+
+
 ## [v1.0.0-RC.5](https://github.com/hydephp/develop/releases/tag/v1.0.0-RC.5) - 2023-03-13
 
 ### Added
