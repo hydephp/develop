@@ -11,7 +11,7 @@ use Exception;
 use function file_get_contents;
 use function file_put_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Features\Paginator;
+use Hyde\Support\Paginator;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\PublicationSchemaValidator;
 use Hyde\Publications\PublicationService;
