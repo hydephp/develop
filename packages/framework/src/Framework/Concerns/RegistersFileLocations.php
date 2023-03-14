@@ -38,7 +38,7 @@ trait RegistersFileLocations
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
-        /** @var HydePage $class */
+        /** @var class-string<HydePage> $class */
         foreach ($directoryMapping as $class => $location) {
             $class::setSourceDirectory(unslash(Hyde::getSourceRoot().'/'.unslash($location)));
         }
@@ -57,7 +57,7 @@ trait RegistersFileLocations
      */
     protected function registerOutputDirectories(array $directoryMapping): void
     {
-        /** @var HydePage $class */
+        /** @var class-string<HydePage> $class */
         foreach ($directoryMapping as $class => $location) {
             $class::setOutputDirectory(unslash($location));
         }
