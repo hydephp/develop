@@ -19,8 +19,6 @@ use function str_replace;
  * @experimental
  *
  * @internal
- *
- * @see \Hyde\Framework\Testing\Feature\PharSupportTest
  */
 class PharSupport
 {

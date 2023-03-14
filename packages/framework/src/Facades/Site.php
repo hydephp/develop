@@ -8,8 +8,6 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 
 /**
  * Facade to quickly get data for the HydePHP site and its configuration.
- *
- * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
 class Site
 {

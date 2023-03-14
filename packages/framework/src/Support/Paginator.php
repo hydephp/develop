@@ -15,9 +15,6 @@ use function collect;
 use function sprintf;
 use function range;
 
-/**
- * @see \Hyde\Framework\Testing\Feature\PaginatorTest
- */
 class Paginator
 {
     protected Collection $paginatedItems;

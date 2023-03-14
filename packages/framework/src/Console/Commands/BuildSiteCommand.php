@@ -21,8 +21,6 @@ use function app;
 
 /**
  * Hyde Command to run the Build Process.
- *
- * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
 class BuildSiteCommand extends Command
 {
