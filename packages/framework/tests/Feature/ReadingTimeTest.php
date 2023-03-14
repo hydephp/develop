@@ -65,7 +65,7 @@ class ReadingTimeTest extends UnitTestCase
     public function test_getFormatted()
     {
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(0)))->getFormatted());
-        $this->assertSame('1min, 30sec', (new ReadingTime($this->words(120)))->getFormatted());
+        $this->assertSame('1min, 0sec', (new ReadingTime($this->words(120)))->getFormatted());
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(240)))->getFormatted());
         $this->assertSame('1min, 30sec', (new ReadingTime($this->words(360)))->getFormatted());
     }
@@ -73,7 +73,7 @@ class ReadingTimeTest extends UnitTestCase
     public function test_getFormattedWithCustomFormatting()
     {
         $this->assertSame('1:00', (new ReadingTime($this->words(0)))->getFormatted('%d:%02d'));
-        $this->assertSame('1:30', (new ReadingTime($this->words(120)))->getFormatted('%d:%0d'));
+        $this->assertSame('1:00', (new ReadingTime($this->words(120)))->getFormatted('%d:%02d'));
         $this->assertSame('1:00', (new ReadingTime($this->words(240)))->getFormatted('%d:%02d'));
         $this->assertSame('1:30', (new ReadingTime($this->words(360)))->getFormatted('%d:%02d'));
     }
