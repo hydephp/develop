@@ -6,6 +6,7 @@ namespace Hyde\Publications\Testing\Feature;
 
 use function array_merge;
 use function array_reverse;
+
 use Hyde\Framework\Features\Paginator;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -236,7 +237,7 @@ class PublicationTypeTest extends TestCase
     public function test_get_method_fails_if_publication_type_does_not_exist()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Could not parse schema file '.('missing/schema.json'));
+        $this->expectExceptionMessage('Could not parse schema file '.'missing/schema.json');
         PublicationType::get('missing');
     }
 
@@ -294,7 +295,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(
-            (new Paginator(paginationRouteBasename: 'test-publication')),
+            new Paginator(paginationRouteBasename: 'test-publication'),
             $publicationType->getPaginator()
         );
     }
@@ -305,7 +306,7 @@ class PublicationTypeTest extends TestCase
             'pageSize' => 10,
         ]));
         $this->assertEquals(
-            (new Paginator(pageSize: 10, paginationRouteBasename: 'test-publication')),
+            new Paginator(pageSize: 10, paginationRouteBasename: 'test-publication'),
             $publicationType->getPaginator()
         );
     }
@@ -326,7 +327,7 @@ class PublicationTypeTest extends TestCase
         $pages[4] = (new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType))->save();
 
         $this->assertEquals(
-            (new Paginator(array_reverse($pages), paginationRouteBasename: 'test-publication')),
+            new Paginator(array_reverse($pages), paginationRouteBasename: 'test-publication'),
             $publicationType->getPaginator()
         );
     }
@@ -347,7 +348,7 @@ class PublicationTypeTest extends TestCase
         $pages[4] = (new PublicationPage('test-publication/page-5', ['myNumber' => 1], type: $publicationType))->save();
 
         $this->assertEquals(
-            (new Paginator($pages, paginationRouteBasename: 'test-publication')),
+            new Paginator($pages, paginationRouteBasename: 'test-publication'),
             $publicationType->getPaginator()
         );
     }

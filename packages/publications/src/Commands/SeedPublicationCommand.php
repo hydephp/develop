@@ -51,7 +51,7 @@ class SeedPublicationCommand extends ValidatingCommand
         $ms = round((microtime(true) - $timeStart) * 1000);
         $each = round($ms / $number, 2);
         $this->info(sprintf("<comment>$number</comment> publication{$this->pluralize($number)} for <comment>$publicationType->name</comment> created! <fg=gray>Took {$ms}ms%s",
-                ($number > 1) ? " ({$each}ms/each)</>" : ''));
+            ($number > 1) ? " ({$each}ms/each)</>" : ''));
 
         return Command::SUCCESS;
     }

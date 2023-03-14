@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Publications\Providers;
 
 use function config;
+
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
+
 use function is_dir;
 use function lang_path;
 

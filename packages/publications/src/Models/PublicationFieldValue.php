@@ -9,6 +9,7 @@ namespace Hyde\Publications\Models;
 use DateTime;
 use Hyde\Publications\Concerns\ParsesPublicationFieldInputs;
 use Hyde\Publications\PublicationFieldTypes;
+
 use function is_array;
 
 /**

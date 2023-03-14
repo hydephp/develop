@@ -11,6 +11,7 @@ use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\Concerns;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 use Illuminate\Support\Str;
+
 use function str_starts_with;
 
 /**

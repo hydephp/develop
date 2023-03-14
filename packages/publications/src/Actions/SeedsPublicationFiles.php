@@ -11,6 +11,7 @@ use Hyde\Publications\PublicationService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+
 use function in_array;
 use function mt_getrandmax;
 use function mt_rand;
@@ -72,8 +73,8 @@ class SeedsPublicationFiles
     protected function getDateTimeValue(): string
     {
         return date('Y-m-d H:i:s', rand(
-            time() - 86400 + (rand(0, 86400)),
-            time() - (86400 * 365) + (rand(0, 86400))
+            time() - 86400 + rand(0, 86400),
+            time() - (86400 * 365) + rand(0, 86400)
         ));
     }
 
@@ -94,7 +95,7 @@ class SeedsPublicationFiles
             'array' => $this->getArrayItems(),
             'boolean' => rand(0, 100) < 50,
             'datetime' => $this->getDateTimeValue(),
-            'float' => ((mt_rand() / mt_getrandmax()) * (200000)) + -100000,
+            'float' => ((mt_rand() / mt_getrandmax()) * 200000) + -100000,
             'media' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
             'integer' => rand(-100000, 100000),
             'string' => substr($this->fakeSentence(10), 0, rand(1, 255)),

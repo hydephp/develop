@@ -6,6 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use function array_keys;
 use function count;
+
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -13,11 +14,16 @@ use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationFieldTypes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+
 use function in_array;
+
 use InvalidArgumentException;
+
 use function is_dir;
 use function is_file;
+
 use LaravelZero\Framework\Commands\Command;
+
 use function scandir;
 use function strtolower;
 use function trim;
