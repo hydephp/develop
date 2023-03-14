@@ -14,6 +14,7 @@ This serves two purposes:
 
 ### Changed
 - Compiled TailwindCSS and HydeFront for production [#1295](https://github.com/hydephp/develop/pull/1295)
+- Updated to HydeFront v3.2 [#1297](https://github.com/hydephp/develop/pull/1297)
 
 ### Deprecated
 - for soon-to-be removed features.

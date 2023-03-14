@@ -3,6 +3,8 @@
 [![jsDelivr hits (NPM)](https://data.jsdelivr.com/v1/package/npm/hydefront/badge?style=rounded)](https://www.jsdelivr.com/package/npm/hydefront)
 ![NPM Downloads](https://img.shields.io/npm/dm/hydefront)
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/hydephp/hydefront)
+![NPM Version](https://img.shields.io/npm/v/hydefront)
 
 
 ## About this repository
