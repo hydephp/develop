@@ -27,7 +27,6 @@ use function e;
  *
  * @example: [Blade]: @include('path/to/view.blade.php')
  *
- *
  * @phpstan-consistent-constructor
  */
 class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract

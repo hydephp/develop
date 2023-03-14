@@ -9,7 +9,6 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde command to run the build process for the RSS feed.
- *
  */
 class BuildRssFeedCommand extends Command
 {

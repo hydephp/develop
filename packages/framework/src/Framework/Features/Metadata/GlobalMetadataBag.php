@@ -17,8 +17,6 @@ use function array_filter;
 use function array_map;
 use function in_array;
 
-/**
- */
 class GlobalMetadataBag extends MetadataBag
 {
     public static function make(): static

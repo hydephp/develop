@@ -20,8 +20,6 @@ use function str_replace;
 use function basename;
 use function realpath;
 
-/**
- */
 class ChangeSourceDirectoryCommand extends Command
 {
     /** @var string */

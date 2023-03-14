@@ -8,7 +8,6 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * Convert an array into YAML Front Matter.
- *
  */
 class ConvertsArrayToFrontMatter
 {

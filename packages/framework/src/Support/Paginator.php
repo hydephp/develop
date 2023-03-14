@@ -15,8 +15,6 @@ use function collect;
 use function sprintf;
 use function range;
 
-/**
- */
 class Paginator
 {
     protected Collection $paginatedItems;

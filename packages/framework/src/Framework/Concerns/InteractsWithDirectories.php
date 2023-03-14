@@ -8,8 +8,6 @@ use Hyde\Facades\Filesystem;
 
 use function dirname;
 
-/**
- */
 trait InteractsWithDirectories
 {
     /**

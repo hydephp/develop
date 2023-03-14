@@ -14,7 +14,6 @@ use function file_exists;
 
 /**
  * @internal
- *
  */
 class LoadYamlConfiguration
 {

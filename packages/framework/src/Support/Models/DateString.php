@@ -9,7 +9,6 @@ use Stringable;
 
 /**
  * Parse a date string and create normalized formats.
- *
  */
 class DateString implements Stringable
 {

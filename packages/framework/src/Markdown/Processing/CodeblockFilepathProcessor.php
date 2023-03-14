@@ -21,7 +21,6 @@ use function view;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
- *
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {

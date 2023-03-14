@@ -13,7 +13,6 @@ use function strstr;
 
 /**
  * Publish the Hyde Blade views.
- *
  */
 class PublishViewsCommand extends Command
 {

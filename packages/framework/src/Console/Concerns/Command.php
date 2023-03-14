@@ -19,7 +19,6 @@ use function str_replace;
 /**
  * A base class for HydeCLI command that adds some extra functionality and output
  * helpers to reduce repeated code and to provide a consistent user interface.
- *
  */
 abstract class Command extends BaseCommand
 {

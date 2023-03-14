@@ -14,8 +14,6 @@ use Illuminate\Console\Concerns\InteractsWithIO;
 use function str_replace;
 use function sprintf;
 
-/**
- */
 abstract class BuildTask
 {
     use InteractsWithIO;

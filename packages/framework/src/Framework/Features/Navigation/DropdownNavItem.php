@@ -12,7 +12,6 @@ use function collect;
  * A navigation item that contains other navigation items.
  *
  * Unlike a regular navigation items, a dropdown item does not have a route or URL destination.
- *
  */
 class DropdownNavItem extends NavItem
 {

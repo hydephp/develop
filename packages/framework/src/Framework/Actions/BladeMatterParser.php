@@ -21,7 +21,6 @@ use function trim;
  *
  * Accepts a string to make it easier to mock when testing.
  *
- *
  * @phpstan-consistent-constructor
  *
  * === DOCUMENTATION (draft) ===

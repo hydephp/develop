@@ -23,7 +23,6 @@ use function trim;
  * Contains helpers and logic for resolving web paths for compiled files.
  *
  * It's bound to the HydeKernel instance, and is an integral part of the framework.
- *
  */
 class Hyperlinks
 {

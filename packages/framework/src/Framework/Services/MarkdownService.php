@@ -29,7 +29,6 @@ use function trim;
 /**
  * Dynamically creates a Markdown converter tailored for the target model and setup,
  * then converts the Markdown to HTML using both pre- and post-processors.
- *
  */
 class MarkdownService
 {

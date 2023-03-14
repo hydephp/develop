@@ -12,8 +12,6 @@ use function number_format;
 use function microtime;
 use function sprintf;
 
-/**
- */
 class ValidateCommand extends Command
 {
     use TracksExecutionTime;

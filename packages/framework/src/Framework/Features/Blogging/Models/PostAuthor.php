@@ -14,7 +14,6 @@ use function is_string;
 
 /**
  * The Post Author model object.
- *
  */
 class PostAuthor implements Stringable
 {

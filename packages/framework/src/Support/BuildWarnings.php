@@ -14,7 +14,6 @@ use function sprintf;
 
 /**
  * @experimental
- *
  */
 class BuildWarnings
 {

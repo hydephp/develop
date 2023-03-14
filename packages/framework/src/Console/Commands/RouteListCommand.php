@@ -16,7 +16,6 @@ use function sprintf;
 
 /**
  * Hyde command to display the list of site routes.
- *
  */
 class RouteListCommand extends Command
 {

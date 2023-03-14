@@ -18,8 +18,6 @@ use function file_exists;
 use function implode;
 use function sprintf;
 
-/**
- */
 class ValidationService
 {
     /** @return string[] */

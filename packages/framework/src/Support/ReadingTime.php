@@ -15,7 +15,6 @@ use function str_word_count;
 
 /**
  * Calculate the estimated reading time for a text.
- *
  */
 class ReadingTime implements Stringable
 {

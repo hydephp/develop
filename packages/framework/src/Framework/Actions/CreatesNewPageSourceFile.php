@@ -22,7 +22,6 @@ use function rtrim;
 
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
- *
  */
 class CreatesNewPageSourceFile
 {

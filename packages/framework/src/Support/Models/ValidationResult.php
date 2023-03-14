@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-/**
- */
 class ValidationResult
 {
     final public const PASSED = 0;

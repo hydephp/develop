@@ -13,8 +13,6 @@ use Illuminate\Support\Str;
 
 use function collect;
 
-/**
- */
 class DocumentationSidebar extends BaseNavigationMenu
 {
     protected function generate(): void

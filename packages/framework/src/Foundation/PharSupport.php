@@ -19,7 +19,6 @@ use function str_replace;
  * @experimental
  *
  * @internal
- *
  */
 class PharSupport
 {

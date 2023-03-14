@@ -18,7 +18,6 @@ use function glob;
  * Helper methods to interact with the virtual filecache that is used to compare
  * published Blade views with the original Blade views in the Hyde Framework
  * so the user can be warned before overwriting their customizations.
- *
  */
 class ViewDiffService
 {

@@ -19,7 +19,6 @@ use function strstr;
 
 /**
  * Publish one of the default homepages.
- *
  */
 class PublishHomepageCommand extends Command
 {

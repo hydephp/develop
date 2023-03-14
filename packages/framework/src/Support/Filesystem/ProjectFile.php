@@ -15,7 +15,6 @@ use function pathinfo;
 
 /**
  * Filesystem abstraction for a file stored in the project.
- *
  */
 abstract class ProjectFile implements SerializableContract
 {

@@ -15,7 +15,6 @@ use function preg_replace;
 
 /**
  * Converts Markdown to plain text.
- *
  */
 class ConvertsMarkdownToPlainText
 {

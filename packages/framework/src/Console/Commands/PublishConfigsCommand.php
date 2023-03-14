@@ -13,7 +13,6 @@ use function sprintf;
 
 /**
  * Publish the Hyde Config Files.
- *
  */
 class PublishConfigsCommand extends Command
 {

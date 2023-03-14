@@ -16,7 +16,6 @@ use function ucfirst;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
- *
  */
 class MakePageCommand extends Command
 {

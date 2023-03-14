@@ -17,7 +17,6 @@ use function substr;
 
 /**
  * Generates a table of contents for the Markdown document, most commonly used for the sidebar.
- *
  */
 class GeneratesTableOfContents
 {

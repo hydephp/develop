@@ -16,7 +16,6 @@ use function str_replace;
 
 /**
  * Publish any publishable assets from vendor packages.
- *
  */
 class VendorPublishCommand extends BaseCommand
 {

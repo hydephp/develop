@@ -9,7 +9,6 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde command to run the build process for the documentation search index.
- *
  */
 class BuildSearchCommand extends Command
 {

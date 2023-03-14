@@ -11,7 +11,6 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 
 /**
  * Helpers to fluently declare HTML meta elements using their object representations.
- *
  */
 class Meta
 {
