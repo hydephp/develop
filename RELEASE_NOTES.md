@@ -15,6 +15,7 @@ This serves two purposes:
 ### Changed
 - Updated 404 page home link to use the index route instead of the site URL https://github.com/hydephp/develop/pull/1278
 - Improved generic type usage in the RegisterFileLocations trait https://github.com/hydephp/develop/pull/1279
+- Bumped HydeFront to v3.1 https://github.com/hydephp/develop/pull/1281
 
 ### Deprecated
 - for soon-to-be removed features.
