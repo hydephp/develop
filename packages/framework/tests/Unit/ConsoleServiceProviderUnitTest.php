@@ -25,6 +25,13 @@ class ConsoleServiceProviderUnitTest extends UnitTestCase
         \033[0m
         ASCII, ConsoleServiceProviderTestClass::logo());
     }
+
+    public function testProviderRegistersNoAnsiLogo()
+    {
+        $_SERVER['argv'] = ['--no-ansi'];
+
+        $this->assertSame('HydePHP', ConsoleServiceProviderTestClass::logo());
+    }
 }
 
 class ConsoleServiceProviderTestClass extends ConsoleServiceProvider
