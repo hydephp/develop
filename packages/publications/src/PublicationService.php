@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Hyde;
-use Hyde\Foundation\Facades\Files;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationTags;
