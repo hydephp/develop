@@ -76,16 +76,12 @@ class ReadingTime implements Stringable
 
     public function getSecondsOver(): int
     {
-        if ($this->getMinutes() < 1) {
-            return 0;
-        }
-
         return (int) round(($this->getMinutesAsFloat() - $this->getMinutes()) * 60);
     }
 
     public function getFormatted(string $format = '%dmin, %dsec'): string
     {
-        return sprintf($format, $this->getMinutes() ?: 1, $this->getSecondsOver());
+        return sprintf($format, $this->getMinutes() ?: 1, $this->getMinutes() < 1 ? 0 : $this->getSecondsOver());
     }
 
     /** @param  \Closure(int, int): string $closure The closure will receive the minutes and seconds as integers and should return a string. */
