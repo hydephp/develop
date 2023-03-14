@@ -25,4 +25,4 @@ This serves two purposes:
 - for any bug fixes.
 
 ### Security
-- in case of vulnerabilities.
+- Bump Webpack from 5.73.0 to 5.76.1 [#1292](https://github.com/hydephp/develop/pull/1292)
