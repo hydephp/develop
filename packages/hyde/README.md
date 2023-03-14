@@ -104,12 +104,3 @@ All vulnerabilities will be promptly addressed.
 ### License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-### Attributions
-
-> Please see the respective authors' repositories for their license files
-
-- The Hyde core is built with [Laravel Zero](https://laravel-zero.com/) which is based on [Laravel](https://laravel.com/)
-- The documentation frontend was originally based on [Lagrafo - Docs for Laravel apps](https://github.com/caendesilva/lagrafo)
-- The dark mode switch is based on a component from [Flowbite](https://flowbite.com/docs/customize/dark-mode/).
-- The frontend is built with [TailwindCSS](https://tailwindcss.com/).
