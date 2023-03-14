@@ -193,7 +193,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                '_media/test-publication/image.png',
+                'test-publication/image.png',
             ]),
             PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
@@ -208,7 +208,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                '_assets/test-publication/image.png',
+                'test-publication/image.png',
             ]),
             PublicationService::getMediaForType(PublicationType::get('test-publication'))
         );
