@@ -92,6 +92,7 @@ trait ManagesExtensions
 
     /**
      * @internal This method is for testing purposes only.
+     *
      * @codeCoverageIgnore
      */
     public function unRegisterExtension(string $extension): void

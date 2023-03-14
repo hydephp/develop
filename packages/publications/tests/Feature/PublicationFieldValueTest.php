@@ -22,7 +22,7 @@ class PublicationFieldValueTest extends TestCase
     public function testConstruct()
     {
         $this->assertInstanceOf(PublicationFieldValue::class,
-            (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))
+            new PublicationFieldValue(PublicationFieldTypes::String, 'foo')
         );
     }
 

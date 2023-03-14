@@ -6,10 +6,12 @@ namespace Hyde\Publications\Models;
 
 use function array_filter;
 use function array_merge;
+
 use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
+
 use function str_contains;
 use function strtolower;
 
