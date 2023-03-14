@@ -77,7 +77,7 @@ $notes = $notes."\n";
 $notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security)\nDEFAULT/', '', $notes);
 
 // remove empty lines
-$notes = preg_replace('/\n{2,}/', "\n", $notes);
+$notes = preg_replace('/\n{3,}/', "\n", $notes);
 
 echo "Done. \n";
 
