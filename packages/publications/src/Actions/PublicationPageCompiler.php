@@ -52,7 +52,7 @@ class PublicationPageCompiler
     protected function compileView(string $template, array $data): string
     {
         return str_ends_with($template, '.blade.php')
-            ? AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data)
+            ? AnonymousViewCompiler::handle($this->getTemplateFilePath($template), $data)
             : View::make($template, $data)->render();
     }
 
