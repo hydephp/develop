@@ -65,7 +65,7 @@ class MetadataBag implements Htmlable
 
     protected function addElement(string $type, MetadataElementContract $element): static
     {
-        $this->$type[$element->uniqueKey()] = $element;
+        $this->{$type}[$element->uniqueKey()] = $element;
 
         return $this;
     }
