@@ -68,6 +68,11 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         );
     }
 
+    public static function pathToIdentifier(string $path): string
+    {
+        return Str::before($path, static::fileExtension());
+    }
+
     protected function renderComponent(): string
     {
         return PublicationPageCompiler::call($this);
