@@ -50,13 +50,16 @@ class ConsoleServiceProvider extends ServiceProvider
             return 'HydePHP';
         }
 
+        $hydeColor = "\033[34m";
+        $phpColor  = "\033[33m";
+
         return <<<ASCII
         
-        \033[34m     __ __        __   \033[33m ___  __ _____
-        \033[34m    / // /_ _____/ /__ \033[33m/ _ \/ // / _ \
-        \033[34m   / _  / // / _  / -_)\033[33m ___/ _  / ___/
-        \033[34m  /_//_/\_, /\_,_/\__/\033[33m_/  /_//_/_/
-        \033[34m       /___/
+        $hydeColor     __ __        __   {$phpColor} ___  __ _____
+        $hydeColor    / // /_ _____/ /__ {$phpColor}/ _ \/ // / _ \
+        $hydeColor   / _  / // / _  / -_){$phpColor} ___/ _  / ___/
+        $hydeColor  /_//_/\_, /\_,_/\__/{$phpColor}_/  /_//_/_/
+        $hydeColor       /___/
             
         \033[0m
         ASCII;
