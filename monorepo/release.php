@@ -28,17 +28,17 @@ if (empty($version)) {
 
 echo "Version: $version\n";
 
-echo "Updating Hyde composer.json...\n";
+//echo "Updating Hyde composer.json...\n";
 
 // get just the minor number
-$shortVersion = substr($version, 3);
+//$shortVersion = substr($version, 3);
 // trim everything after the first dot
-$shortVersion = substr($shortVersion, 0, strpos($shortVersion, '.'));
+//$shortVersion = substr($shortVersion, 0, strpos($shortVersion, '.'));
 
-echo "Short version: $shortVersion\n";
-$composerJson = json_decode(file_get_contents(__DIR__.'/../packages/hyde/composer.json'), true);
-$composerJson['require']['hyde/framework'] = "^0.$shortVersion";
-file_put_contents(__DIR__.'/../packages/hyde/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+//echo "Short version: $shortVersion\n";
+//$composerJson = json_decode(file_get_contents(__DIR__.'/../packages/hyde/composer.json'), true);
+//$composerJson['require']['hyde/framework'] = "^0.$shortVersion";
+//file_put_contents(__DIR__.'/../packages/hyde/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
 echo "Transforming upcoming release notes... \n";
 
