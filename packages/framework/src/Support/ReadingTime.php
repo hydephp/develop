@@ -97,7 +97,7 @@ class ReadingTime implements Stringable
         $minutes = $wordCount / static::$wordsPerMinute;
         $seconds = (int) floor($minutes * 60);
 
-        if ($seconds < 60 && $roundUp) {
+        if ($roundUp && $seconds < 60) {
             $seconds = 60;
         }
 
