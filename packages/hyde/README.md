@@ -41,7 +41,7 @@ See the documentation and learn more at https://hydephp.com/docs
 
 - Hyde comes with a TailwindCSS starter kit, so you can start making content right away.
 - The starter kit is fully responsive, has a dark mode theme, and is customizable.
-- The frontend is accessible to screenreaders and rich with semantic HTML and microdata.
+- The frontend is accessible to screen-readers and rich with semantic HTML and microdata.
 - Hyde automatically chooses the right layout to use depending on the content being rendered.
 - Hyde also fills in and creates content like navigation menus and sidebars automatically.
 
