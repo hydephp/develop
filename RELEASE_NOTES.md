@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Updated 404 page home link to use the index route instead of the site URL https://github.com/hydephp/develop/pull/1278
 
 ### Deprecated
 - for soon-to-be removed features.
