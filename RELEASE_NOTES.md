@@ -13,8 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- Compiled TailwindCSS and HydeFront for production [#1295](https://github.com/hydephp/develop/pull/1295)
-- Updated to HydeFront v3.2 [#1297](https://github.com/hydephp/develop/pull/1297)
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -26,4 +25,4 @@ This serves two purposes:
 - for any bug fixes.
 
 ### Security
-- Bumped Webpack from 5.73.0 to 5.76.1 [#1292](https://github.com/hydephp/develop/pull/1292)
+- in case of vulnerabilities.
