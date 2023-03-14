@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- Removed IDE helpers for removed global variables from the IDE helper file.
+- Removed IDE helpers for removed global variables from the IDE helper file. https://github.com/hydephp/develop/pull/1274
 - Removed default values from Hyde facade method annotations
 
 ### Fixed
