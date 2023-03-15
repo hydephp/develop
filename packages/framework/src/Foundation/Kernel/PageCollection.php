@@ -67,4 +67,16 @@ final class PageCollection extends BaseFoundationCollection
             return $page instanceof $pageClass;
         }) : $this;
     }
+
+    /**
+     * Get an item from the collection by key.
+     *
+     * @param  string  $key
+     * @param  \Hyde\Pages\Concerns\HydePage $default
+     * @return \Hyde\Pages\Concerns\HydePage|null
+     */
+    public function get($key, $default = null): ?HydePage
+    {
+        return parent::get($key, $default);
+    }
 }
