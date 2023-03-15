@@ -11,37 +11,37 @@ class HydeHelperFacadeMakeTitleTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    public function test_make_title_helper_parses_kebab_case_into_title()
+    public function testMakeTitleHelperParsesKebabCaseIntoTitle()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('hello-world'));
     }
 
-    public function test_make_title_helper_parses_snake_case_into_title()
+    public function testMakeTitleHelperParsesSnakeCaseIntoTitle()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('hello_world'));
     }
 
-    public function test_make_title_helper_parses_camel_case_into_title()
+    public function testMakeTitleHelperParsesCamelCaseIntoTitle()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('helloWorld'));
     }
 
-    public function test_make_title_helper_parses_pascal_case_into_title()
+    public function testMakeTitleHelperParsesPascalCaseIntoTitle()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('HelloWorld'));
     }
 
-    public function test_make_title_helper_parses_title_case_into_title()
+    public function testMakeTitleHelperParsesTitleCaseIntoTitle()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('Hello World'));
     }
 
-    public function test_make_title_helper_parses_title_case_with_spaces_into_title()
+    public function testMakeTitleHelperParsesTitleCaseWithSpacesIntoTitle()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('Hello World'));
     }
 
-    public function test_make_title_helper_does_not_capitalize_auxiliary_words()
+    public function testMakeTitleHelperDoesNotCapitalizeAuxiliaryWords()
     {
         $this->assertEquals('The a an the in on by with of and or but',
             Hyde::makeTitle('the_a_an_the_in_on_by_with_of_and_or_but'));
