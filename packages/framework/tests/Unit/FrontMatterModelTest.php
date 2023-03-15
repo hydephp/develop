@@ -14,20 +14,17 @@ class FrontMatterModelTest extends UnitTestCase
 {
     public function testConstructorCreatesNewFrontMatterModel()
     {
-        $matter = new FrontMatter([]);
-        $this->assertInstanceOf(FrontMatter::class, $matter);
+        $this->assertInstanceOf(FrontMatter::class, new FrontMatter([]));
     }
 
     public function testConstructorArgumentsAreOptional()
     {
-        $matter = new FrontMatter();
-        $this->assertInstanceOf(FrontMatter::class, $matter);
+        $this->assertInstanceOf(FrontMatter::class, new FrontMatter());
     }
 
     public function testConstructorArgumentsAreAssigned()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals(['foo' => 'bar'], $matter->toArray());
+        $this->assertEquals(['foo' => 'bar'], (new FrontMatter(['foo' => 'bar']))->toArray());
     }
 
     public function testStaticFromArrayMethodCreatesNewFrontMatterModel()
@@ -40,37 +37,32 @@ class FrontMatterModelTest extends UnitTestCase
     public function testToStringMagicMethodConvertsModelArrayIntoYamlFrontMatter()
     {
         $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals("---\nfoo: bar\n---\n", (string) $matter);
+        $this->assertEquals("---\nfoo: bar\n---\n", (string) (new FrontMatter(['foo' => 'bar'])));
     }
 
     public function testMagicGetMethodReturnsFrontMatterProperty()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals('bar', $matter->foo);
+        $this->assertEquals('bar', (new FrontMatter(['foo' => 'bar']))->foo);
     }
 
     public function testMagicGetMethodReturnsNullIfPropertyDoesNotExist()
     {
-        $matter = new FrontMatter();
-        $this->assertNull($matter->foo);
+        $this->assertNull((new FrontMatter())->foo);
     }
 
     public function testGetMethodReturnsDataWhenNoArgumentIsSpecified()
     {
-        $matter = new FrontMatter();
-        $this->assertSame([], $matter->get());
+        $this->assertSame([], (new FrontMatter())->get());
     }
 
     public function testGetMethodReturnsDataWhenNoArgumentIsSpecifiedWithData()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertSame(['foo' => 'bar'], $matter->get());
+        $this->assertSame(['foo' => 'bar'], (new FrontMatter(['foo' => 'bar']))->get());
     }
 
     public function testGetMethodReturnsNullIfSpecifiedFrontMatterKeyDoesNotExist()
     {
-        $matter = new FrontMatter();
-        $this->assertNull($matter->get('bar'));
+        $this->assertNull((new FrontMatter())->get('bar'));
     }
 
     public function testGetMethodReturnsSpecifiedDefaultValueIfPropertyDoesNotExist()
@@ -81,15 +73,12 @@ class FrontMatterModelTest extends UnitTestCase
 
     public function testGetMethodReturnsSpecifiedFrontMatterValueIfKeyIsSpecified()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals('bar', $matter->get('foo'));
+        $this->assertEquals('bar', (new FrontMatter(['foo' => 'bar']))->get('foo'));
     }
 
     public function testSetMethodSetsFrontMatterProperty()
     {
-        $matter = new FrontMatter();
-        $matter->set('foo', 'bar');
-        $this->assertEquals('bar', $matter->get('foo'));
+        $this->assertEquals('bar', (new FrontMatter())->set('foo', 'bar')->get('foo'));
     }
 
     public function testSetMethodReturnsSelf()
@@ -100,19 +89,16 @@ class FrontMatterModelTest extends UnitTestCase
 
     public function testHasMethodReturnsTrueIfPropertyExists()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertTrue($matter->has('foo'));
+        $this->assertTrue((new FrontMatter(['foo' => 'bar']))->has('foo'));
     }
 
     public function testHasMethodReturnsFalseIfPropertyDoesNotExist()
     {
-        $matter = new FrontMatter();
-        $this->assertFalse($matter->has('foo'));
+        $this->assertFalse((new FrontMatter())->has('foo'));
     }
 
     public function testToArrayReturnsFrontMatterArray()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals(['foo' => 'bar'], $matter->toArray());
+        $this->assertEquals(['foo' => 'bar'], (new FrontMatter(['foo' => 'bar']))->toArray());
     }
 }
