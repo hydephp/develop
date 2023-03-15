@@ -18,7 +18,7 @@ use function sprintf;
  */
 class BuildWarnings
 {
-    /** @var array<array-key<int>, \Hyde\Framework\Exceptions\BuildWarning> */
+    /** @var array<int, \Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
     public static function getInstance(): static
@@ -37,7 +37,7 @@ class BuildWarnings
         static::getInstance()->warnings[] = $warning instanceof BuildWarning ? $warning : new BuildWarning($warning);
     }
 
-    /** @return array<array-key<int>, \Hyde\Framework\Exceptions\BuildWarning> */
+    /** @return array<int, \Hyde\Framework\Exceptions\BuildWarning> */
     public static function getWarnings(): array
     {
         return static::getInstance()->warnings;
