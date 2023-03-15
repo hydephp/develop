@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
-class HydeHelperFacadeMakeTitleTest extends TestCase
+class HydeHelperFacadeMakeTitleTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     public function test_make_title_helper_parses_kebab_case_into_title()
     {
         $this->assertEquals('Hello World', Hyde::makeTitle('hello-world'));
