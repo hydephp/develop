@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
 
 ### Deprecated
 - for soon-to-be removed features.
