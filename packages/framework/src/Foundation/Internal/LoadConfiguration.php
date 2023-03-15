@@ -34,6 +34,8 @@ class LoadConfiguration extends BaseLoadConfiguration
         parent::loadConfigurationFiles($app, $repository);
 
         $this->mergeConfigurationFiles($repository);
+
+        $this->loadRuntimeConfiguration($app, $repository);
     }
 
     private function mergeConfigurationFiles(RepositoryContract $repository): void
@@ -71,6 +73,16 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         if (Phar::running() && (! is_dir($files['app']))) {
             $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
+        }
+    }
+
+    private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository)
+    {
+        if ($app->runningInConsole() && isset($_SERVER['argv'])) {
+            // Check if the `--pretty-urls` CLI argument is set, and if so, set the config value accordingly.
+            if (in_array('--pretty-urls', $_SERVER['argv'], true)) {
+                $repository->set('hyde.pretty_urls', true);
+            }
         }
     }
 }
