@@ -12,14 +12,17 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use ReflectionClass;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\HydeConfigFilesAreMatchingTest
  */
-class ConfigFileTest extends TestCase
+class ConfigFileTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function test_default_output_directory_value_matches_declared_value()
     {
         expect($this->getConfig('output_directory'))->toBe(Hyde::getOutputDirectory());
