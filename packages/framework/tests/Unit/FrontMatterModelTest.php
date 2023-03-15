@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Models\FrontMatter;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Markdown\Models\FrontMatter
  */
-class FrontMatterModelTest extends TestCase
+class FrontMatterModelTest extends UnitTestCase
 {
     public function test_constructor_creates_new_front_matter_model()
     {
