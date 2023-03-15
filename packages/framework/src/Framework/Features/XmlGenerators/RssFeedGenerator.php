@@ -43,7 +43,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addItem(MarkdownPost $post): void
     {
-        $item = $this->xmlElement->channel->addChild('item');
+        $item = $this->getChannel()->addChild('item');
         $this->addChild($item, 'title', $post->title);
         $this->addChild($item, 'description', $post->description);
 
@@ -79,7 +79,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addBaseChannelItems(): void
     {
-        $channel = $this->xmlElement->channel;
+        $channel = $this->getChannel();
 
         $this->addChild($channel, 'title', Site::name());
         $this->addChild($channel, 'link', Site::url());
@@ -91,7 +91,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addAtomLinkItem(): void
     {
-        $atomLink = $this->xmlElement->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
+        $atomLink = $this->getChannel()->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
         $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
@@ -116,5 +116,10 @@ class RssFeedGenerator extends BaseXmlGenerator
     public static function getDescription(): string
     {
         return Config::getString('hyde.rss.description', Site::name().' RSS Feed');
+    }
+
+    protected function getChannel(): SimpleXMLElement
+    {
+        return $this->xmlElement->channel;
     }
 }
