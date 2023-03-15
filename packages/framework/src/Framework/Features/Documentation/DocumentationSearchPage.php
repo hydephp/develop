@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
-
 use Illuminate\Support\Facades\View;
 
 /**
