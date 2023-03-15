@@ -22,7 +22,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed https://github.com/hydephp/develop/issues/1301 in https://github.com/hydephp/develop/pull/1302
 
 ### Security
 - in case of vulnerabilities.
