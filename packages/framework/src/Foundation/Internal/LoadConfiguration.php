@@ -78,6 +78,8 @@ class LoadConfiguration extends BaseLoadConfiguration
 
     private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository)
     {
-        //
+        if ($app->runningInConsole()) {
+            //
+        }
     }
 }
