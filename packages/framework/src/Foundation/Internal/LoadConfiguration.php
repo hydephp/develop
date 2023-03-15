@@ -78,7 +78,7 @@ class LoadConfiguration extends BaseLoadConfiguration
 
     private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository)
     {
-        if ($app->runningInConsole()) {
+        if ($app->runningInConsole() && isset($_SERVER['argv'])) {
             // Check if the `--pretty-urls` CLI argument is set, and if so, set the config value accordingly.
             if (in_array('--pretty-urls', $_SERVER['argv'], true)) {
                 $repository->set('hyde.pretty_urls', true);
