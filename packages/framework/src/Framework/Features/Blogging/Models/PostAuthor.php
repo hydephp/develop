@@ -90,7 +90,7 @@ class PostAuthor implements Stringable
         return $this->name ?? $this->username;
     }
 
-    /** @param array{username?: string, name?: string} $data  */
+    /** @param array{username?: string, name?: string, website?: string} $data */
     protected static function findUsername(array $data): string
     {
         return $data['username'] ?? $data['name'] ?? 'Guest';
