@@ -35,7 +35,7 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         $this->mergeConfigurationFiles($repository);
 
-        $this->loadRuntimeConfiguration($repository);
+        $this->loadRuntimeConfiguration($app, $repository);
     }
 
     private function mergeConfigurationFiles(RepositoryContract $repository): void
@@ -76,7 +76,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         }
     }
 
-    private function loadRuntimeConfiguration(RepositoryContract $repository)
+    private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository)
     {
         //
     }
