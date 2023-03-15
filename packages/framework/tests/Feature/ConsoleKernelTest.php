@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Contracts\Console\Kernel;
