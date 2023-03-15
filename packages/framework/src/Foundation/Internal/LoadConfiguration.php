@@ -34,6 +34,8 @@ class LoadConfiguration extends BaseLoadConfiguration
         parent::loadConfigurationFiles($app, $repository);
 
         $this->mergeConfigurationFiles($repository);
+
+        $this->loadRuntimeConfiguration($repository);
     }
 
     private function mergeConfigurationFiles(RepositoryContract $repository): void
@@ -72,5 +74,10 @@ class LoadConfiguration extends BaseLoadConfiguration
         if (Phar::running() && (! is_dir($files['app']))) {
             $files['app'] = dirname(__DIR__, 6).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
         }
+    }
+
+    private function loadRuntimeConfiguration(RepositoryContract $repository)
+    {
+        //
     }
 }
