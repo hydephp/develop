@@ -5,114 +5,100 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Models\FrontMatter;
-use PHPUnit\Framework\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Markdown\Models\FrontMatter
  */
-class FrontMatterModelTest extends TestCase
+class FrontMatterModelTest extends UnitTestCase
 {
-    public function test_constructor_creates_new_front_matter_model()
+    public function testConstructorCreatesNewFrontMatterModel()
     {
-        $matter = new FrontMatter([]);
-        $this->assertInstanceOf(FrontMatter::class, $matter);
+        $this->assertInstanceOf(FrontMatter::class, new FrontMatter([]));
     }
 
-    public function test_constructor_arguments_are_optional()
+    public function testConstructorArgumentsAreOptional()
     {
-        $matter = new FrontMatter();
-        $this->assertInstanceOf(FrontMatter::class, $matter);
+        $this->assertInstanceOf(FrontMatter::class, new FrontMatter());
     }
 
-    public function test_constructor_arguments_are_assigned()
+    public function testConstructorArgumentsAreAssigned()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals(['foo' => 'bar'], $matter->toArray());
+        $this->assertEquals(['foo' => 'bar'], (new FrontMatter(['foo' => 'bar']))->toArray());
     }
 
-    public function test_static_from_array_method_creates_new_front_matter_model()
+    public function testStaticFromArrayMethodCreatesNewFrontMatterModel()
     {
         $matter = FrontMatter::fromArray(['foo' => 'bar']);
         $this->assertInstanceOf(FrontMatter::class, $matter);
         $this->assertEquals(['foo' => 'bar'], $matter->toArray());
     }
 
-    public function test_to_string_magic_method_converts_model_array_into_yaml_front_matter()
+    public function testToStringMagicMethodConvertsModelArrayIntoYamlFrontMatter()
     {
         $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals("---\nfoo: bar\n---\n", (string) $matter);
+        $this->assertEquals("---\nfoo: bar\n---\n", (string) (new FrontMatter(['foo' => 'bar'])));
     }
 
-    public function test_magic_get_method_returns_front_matter_property()
+    public function testMagicGetMethodReturnsFrontMatterProperty()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals('bar', $matter->foo);
+        $this->assertEquals('bar', (new FrontMatter(['foo' => 'bar']))->foo);
     }
 
-    public function test_magic_get_method_returns_null_if_property_does_not_exist()
+    public function testMagicGetMethodReturnsNullIfPropertyDoesNotExist()
     {
-        $matter = new FrontMatter();
-        $this->assertNull($matter->foo);
+        $this->assertNull((new FrontMatter())->foo);
     }
 
-    public function test_get_method_returns_data_when_no_argument_is_specified()
+    public function testGetMethodReturnsDataWhenNoArgumentIsSpecified()
     {
-        $matter = new FrontMatter();
-        $this->assertSame([], $matter->get());
+        $this->assertSame([], (new FrontMatter())->get());
     }
 
-    public function test_get_method_returns_data_when_no_argument_is_specified_with_data()
+    public function testGetMethodReturnsDataWhenNoArgumentIsSpecifiedWithData()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertSame(['foo' => 'bar'], $matter->get());
+        $this->assertSame(['foo' => 'bar'], (new FrontMatter(['foo' => 'bar']))->get());
     }
 
-    public function test_get_method_returns_null_if_specified_front_matter_key_does_not_exist()
+    public function testGetMethodReturnsNullIfSpecifiedFrontMatterKeyDoesNotExist()
     {
-        $matter = new FrontMatter();
-        $this->assertNull($matter->get('bar'));
+        $this->assertNull((new FrontMatter())->get('bar'));
     }
 
-    public function test_get_method_returns_specified_default_value_if_property_does_not_exist()
+    public function testGetMethodReturnsSpecifiedDefaultValueIfPropertyDoesNotExist()
     {
         $matter = new FrontMatter();
         $this->assertEquals('default', $matter->get('bar', 'default'));
     }
 
-    public function test_get_method_returns_specified_front_matter_value_if_key_is_specified()
+    public function testGetMethodReturnsSpecifiedFrontMatterValueIfKeyIsSpecified()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals('bar', $matter->get('foo'));
+        $this->assertEquals('bar', (new FrontMatter(['foo' => 'bar']))->get('foo'));
     }
 
-    public function test_set_method_sets_front_matter_property()
+    public function testSetMethodSetsFrontMatterProperty()
     {
-        $matter = new FrontMatter();
-        $matter->set('foo', 'bar');
-        $this->assertEquals('bar', $matter->get('foo'));
+        $this->assertEquals('bar', (new FrontMatter())->set('foo', 'bar')->get('foo'));
     }
 
-    public function test_set_method_returns_self()
+    public function testSetMethodReturnsSelf()
     {
         $matter = new FrontMatter();
         $this->assertSame($matter, $matter->set('foo', 'bar'));
     }
 
-    public function test_has_method_returns_true_if_property_exists()
+    public function testHasMethodReturnsTrueIfPropertyExists()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertTrue($matter->has('foo'));
+        $this->assertTrue((new FrontMatter(['foo' => 'bar']))->has('foo'));
     }
 
-    public function test_has_method_returns_false_if_property_does_not_exist()
+    public function testHasMethodReturnsFalseIfPropertyDoesNotExist()
     {
-        $matter = new FrontMatter();
-        $this->assertFalse($matter->has('foo'));
+        $this->assertFalse((new FrontMatter())->has('foo'));
     }
 
-    public function test_to_array_returns_front_matter_array()
+    public function testToArrayReturnsFrontMatterArray()
     {
-        $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals(['foo' => 'bar'], $matter->toArray());
+        $this->assertEquals(['foo' => 'bar'], (new FrontMatter(['foo' => 'bar']))->toArray());
     }
 }
