@@ -89,7 +89,7 @@ class PostAuthor implements Stringable
     /**
      * Find the username in the given data array.
      *
-     * @param array{username?: string, name?: string} $data The data array containing the username or name.
+     * @param  array{username?: string, name?: string}  $data  The data array containing the username or name.
      * @return string The username if found, the name if found, otherwise 'Guest'.
      */
     protected static function findUsername(array $data): string
