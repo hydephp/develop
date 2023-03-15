@@ -76,7 +76,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         }
     }
 
-    private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository)
+    private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository): void
     {
         if ($app->runningInConsole() && isset($_SERVER['argv'])) {
             // Check if the `--pretty-urls` CLI argument is set, and if so, set the config value accordingly.
