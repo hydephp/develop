@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\BuildWarning;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -22,11 +23,13 @@ class BuildWarnings
 
     public static function getInstance(): static
     {
-        if (! app()->bound(self::class)) {
-            app()->singleton(self::class);
+        $app = Container::getInstance();
+
+        if (! $app->bound(self::class)) {
+            $app->singleton(self::class);
         }
 
-        return app(self::class);
+        return $app->make(self::class);
     }
 
     public static function report(BuildWarning|string $warning): void
