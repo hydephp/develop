@@ -51,7 +51,7 @@ abstract class BaseFoundationCollection extends Collection
             $this->runDiscovery();
             $this->runExtensionHandlers();
         } catch (Throwable $exception) {
-            throw new RuntimeException('An error occurred during the discovery process.', previous: $exception);
+            throw new RuntimeException("An error occurred during the discovery process: {$exception->getMessage()}", previous: $exception);
         }
 
         return $this;
