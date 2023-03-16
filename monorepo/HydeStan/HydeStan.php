@@ -101,7 +101,7 @@ final class HydeStan
     private function analyseFile(string $file, string $contents): void
     {
         $fileAnalysers = [
-            new NoFixMeAnalyser()
+            new NoFixMeAnalyser($file, $contents)
         ];
 
         foreach ($fileAnalysers as $analyser) {
