@@ -14,6 +14,7 @@ use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 
+use function str_contains;
 use function str_replace;
 use function array_merge;
 use function array_diff;
