@@ -5,18 +5,27 @@ declare(strict_types=1);
 /**
  * @internal
  */
-class HydeStan
+final class HydeStan
 {
     const VERSION = '0.0.0-dev';
 
-    protected array $files;
-    protected array $errors = [];
-    protected int $scannedLines = 0;
-    protected Console $console;
-    protected static array $warnings = [];
+    private array $files;
+    private array $errors = [];
+    private int $scannedLines = 0;
+    private int $aggregateLines = 0;
+    private Console $console;
+    private static array $warnings = [];
+    private static self $instance;
 
-    public function __construct(protected bool $debug = false)
+    public static function getInstance(): self
     {
+        return self::$instance;
+    }
+
+    public function __construct(private readonly bool $debug = false)
+    {
+        self::$instance = $this;
+
         $this->console = new Console();
 
         $this->console->info(sprintf('HydeStan v%s is running!', self::VERSION));
@@ -26,10 +35,11 @@ class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info(sprintf('HydeStan has exited after scanning %s total lines in %s files.',
+        $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files.',
             number_format($this->scannedLines),
-            number_format(count($this->files)))
-        );
+            number_format($this->aggregateLines),
+            number_format(count($this->files))
+        ));
 
         if (count(self::$warnings) > 0) {
             // Forward warnings to GitHub Actions
@@ -55,8 +65,8 @@ class HydeStan
         $this->console->info(sprintf('HydeStan has finished in %s seconds (%sms) using %s KB RAM',
             number_format($endTime, 2),
             number_format($endTime * 1000, 2),
-            number_format(memory_get_peak_usage(true) / 1024, 2))
-        );
+            number_format(memory_get_peak_usage(true) / 1024, 2)
+        ));
 
         if ($this->hasErrors()) {
             $this->console->error(sprintf('HydeStan has found %s errors!', count($this->errors)));
@@ -72,6 +82,16 @@ class HydeStan
     public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    public function addError(string $error): void
+    {
+        $this->errors[] = $error;
+    }
+
+    public function addErrors(array $errors): void
+    {
+        $this->errors = array_merge($this->errors, $errors);
     }
 
     private function getFiles(): array
@@ -91,39 +111,37 @@ class HydeStan
 
     private function analyseFile(string $file, string $contents): void
     {
-        foreach ($this->analysers() as $analyser) {
+        $fileAnalysers = [
+            new NoFixMeAnalyser($file, $contents),
+            new UnImportedFunctionAnalyser($file, $contents),
+        ];
+
+        foreach ($fileAnalysers as $analyser) {
             if ($this->debug) {
                 $this->console->debugComment('Running  '.$analyser::class);
             }
 
-            $result = $analyser->run($file, $contents);
-            foreach ($result as $error) {
-                if ($this->debug) {
-                    $this->console->debugComment('Adding error: '.$error);
-                }
-                $this->errors[] = $error;
-            }
+            $analyser->run($file, $contents);
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
-                if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
-                    $this->errors[] = sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1);
+                $lineAnalysers = [
+                    new NoTestReferenceAnalyser($file, $lineNumber, $line),
+                ];
+
+                foreach ($lineAnalysers as $analyser) {
+                    $analyser->run($file, $lineNumber, $line);
+                    $this->aggregateLines++;
                 }
             }
         }
 
         $this->scannedLines += substr_count($contents, "\n");
+        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
     }
 
     private function getFileContents(string $file): string
     {
         return file_get_contents(BASE_PATH.'/'.$file);
-    }
-
-    private function analysers(): array
-    {
-        return [
-            new NoFixMeAnalyser(),
-        ];
     }
 
     public function hasErrors(): bool
@@ -139,12 +157,34 @@ class HydeStan
     }
 }
 
-class NoFixMeAnalyser
+abstract class Analyser
 {
-    public function run(string $file, string $contents): array
+    protected function fail(string $error): void
     {
-        $errors = [];
+        HydeStan::getInstance()->addError($error);
+    }
+}
 
+abstract class FileAnalyser extends Analyser implements FileAnalyserContract
+{
+    public function __construct(protected string $file, protected string $contents)
+    {
+        //
+    }
+}
+
+abstract class LineAnalyser extends Analyser implements LineAnalyserContract
+{
+    public function __construct(protected string $file, protected int $lineNumber, protected string $line)
+    {
+        //
+    }
+}
+
+class NoFixMeAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
         $searches = [
             'fixme',
             'fix me',
@@ -159,14 +199,74 @@ class NoFixMeAnalyser
                 $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
                 $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
 
-                $errors[] = "Found $search in $file on line $lineNumber";
+                $this->fail("Found $search in $file on line $lineNumber");
 
                 HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
                 // Todo we might want to check for more errors after the first marker
             }
         }
-
-        return $errors;
     }
+}
+
+class UnImportedFunctionAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        $lines = explode("\n", $contents);
+
+        $functionImports = [];
+        foreach ($lines as $line) {
+            if (str_starts_with($line, 'use function ')) {
+                $functionImports[] = rtrim(substr($line, 13), ';');
+            }
+        }
+
+        $calledFunctions = [];
+        foreach ($lines as $line) {
+            // Find all function calls
+            preg_match_all('/([a-zA-Z0-9_]+)\(/', $line, $matches);
+
+            foreach ($matches[1] as $match) {
+                if (! str_contains($line, '->')) {
+                    $calledFunctions[] = $match;
+                }
+            }
+        }
+
+        // Filter out everything that is not global function
+        $calledFunctions = array_filter($calledFunctions, fn ($calledFunction) => function_exists($calledFunction));
+        $calledFunctions = array_unique($calledFunctions);
+
+        foreach ($calledFunctions as $calledFunction) {
+            if (! in_array($calledFunction, $functionImports)) {
+                echo("Found unimported function '$calledFunction' in ".realpath(__DIR__.'/../../packages/framework/'.$file))."\n";
+            }
+        }
+    }
+}
+
+class NoTestReferenceAnalyser extends LineAnalyser
+{
+    public function run(string $file, int $lineNumber, string $line): void
+    {
+        if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
+            $this->fail(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)),
+                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
+        }
+    }
+}
+
+interface FileAnalyserContract
+{
+    public function __construct(string $file, string $contents);
+
+    public function run(string $file, string $contents): void;
+}
+
+interface LineAnalyserContract
+{
+    public function __construct(string $file, int $lineNumber, string $line);
+
+    public function run(string $file, int $lineNumber, string $line): void;
 }
