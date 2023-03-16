@@ -136,6 +136,7 @@ final class HydeStan
         }
 
         $this->scannedLines += substr_count($contents, "\n");
+        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
     }
 
     private function getFileContents(string $file): string
