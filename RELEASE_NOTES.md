@@ -14,12 +14,13 @@ This serves two purposes:
 
 ### Changed
 - Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
+- Cleaned up NavigationDataFactory internals for better type safety in https://github.com/hydephp/develop/pull/1312
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Class NavigationDataFactory no longer uses InteractsWithFrontMatter trait
 
 ### Fixed
 - Fixed https://github.com/hydephp/develop/issues/1301 in https://github.com/hydephp/develop/pull/1302
