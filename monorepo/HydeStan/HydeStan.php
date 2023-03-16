@@ -175,3 +175,8 @@ interface FileAnalyser
 {
     public function run(string $file, string $contents): array;
 }
+
+interface LineAnalyser
+{
+    public function run(string $file, string $contents, int $lineNumber, string $line): array;
+}
