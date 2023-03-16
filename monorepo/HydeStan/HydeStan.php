@@ -9,14 +9,14 @@ class HydeStan
 {
     const VERSION = '0.0.0-dev';
 
-    protected array $files;
-    protected array $errors = [];
-    protected int $scannedLines = 0;
-    protected int $aggregateLines = 0;
-    protected Console $console;
-    protected static array $warnings = [];
+    private array $files;
+    private array $errors = [];
+    private int $scannedLines = 0;
+    private int $aggregateLines = 0;
+    private Console $console;
+    private static array $warnings = [];
 
-    public function __construct(protected bool $debug = false)
+    public function __construct(private bool $debug = false)
     {
         $this->console = new Console();
 
