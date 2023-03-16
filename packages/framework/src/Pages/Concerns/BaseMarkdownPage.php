@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\View;
 use function dirname;
 use function ltrim;
 use function trim;
-use function view;
 
 /**
  * The base class for all Markdown-based page models.
