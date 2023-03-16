@@ -113,6 +113,7 @@ final class HydeStan
     {
         $fileAnalysers = [
             new NoFixMeAnalyser($file, $contents),
+            new UnImportedFunctionAnalyser($file, $contents),
         ];
 
         foreach ($fileAnalysers as $analyser) {
@@ -203,6 +204,43 @@ class NoFixMeAnalyser extends FileAnalyser
                 HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
                 // Todo we might want to check for more errors after the first marker
+            }
+        }
+    }
+}
+
+class UnImportedFunctionAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        $lines = explode("\n", $contents);
+
+        $functionImports = [];
+        foreach ($lines as $line) {
+            if (str_starts_with($line, 'use function ')) {
+                $functionImports[] = rtrim(substr($line, 13), ';');
+            }
+        }
+
+        $calledFunctions = [];
+        foreach ($lines as $line) {
+            // Find all function calls
+            preg_match_all('/([a-zA-Z0-9_]+)\(/', $line, $matches);
+
+            foreach ($matches[1] as $match) {
+                if (!str_contains($line, '->')) {
+                    $calledFunctions[] = $match;
+                }
+            }
+        }
+
+        // Filter out everything that is not global function
+        $calledFunctions = array_filter($calledFunctions, fn ($calledFunction) => function_exists($calledFunction));
+        $calledFunctions = array_unique($calledFunctions);
+
+        foreach ($calledFunctions as $calledFunction) {
+            if (!in_array($calledFunction, $functionImports)) {
+                $this->fail("Found unimported function '$calledFunction' in ".realpath(__DIR__.'/../../packages/framework/'.$file));
             }
         }
     }
