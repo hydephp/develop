@@ -120,13 +120,7 @@ final class HydeStan
                 $this->console->debugComment('Running  '.$analyser::class);
             }
 
-            $result = $analyser->run($file, $contents);
-            foreach ($result as $error) {
-                if ($this->debug) {
-                    $this->console->debugComment('Adding error: '.$error);
-                }
-                $this->errors[] = $error;
-            }
+            $analyser->run($file, $contents);
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
                 $lineAnalysers = [
@@ -180,10 +174,8 @@ abstract class LineAnalyser implements LineAnalyserContract
 
 class NoFixMeAnalyser extends FileAnalyser
 {
-    public function run(string $file, string $contents): array
+    public function run(string $file, string $contents): void
     {
-        $errors = [];
-
         $searches = [
             'fixme',
             'fix me',
@@ -205,8 +197,6 @@ class NoFixMeAnalyser extends FileAnalyser
                 // Todo we might want to check for more errors after the first marker
             }
         }
-
-        return $errors;
     }
 }
 
@@ -223,7 +213,7 @@ class NoTestReferenceAnalyser extends LineAnalyser
 interface FileAnalyserContract
 {
     public function __construct(string $file, string $contents);
-    public function run(string $file, string $contents): array;
+    public function run(string $file, string $contents): void;
 }
 
 interface LineAnalyserContract
