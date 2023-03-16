@@ -74,7 +74,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     private function findTitleForPage(): string
     {
-        return $this->matter('title')
+        return $this->getMatter('title')
             ?? $this->findTitleFromMarkdownHeadings()
             ?? $this->findTitleFromParentIdentifier()
             ?? Hyde::makeTitle(basename($this->identifier));
@@ -100,5 +100,10 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         }
 
         return null;
+    }
+
+    protected function getMatter(string $key): string|null
+    {
+        return $this->matter->get($key);
     }
 }
