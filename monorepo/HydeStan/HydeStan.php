@@ -129,8 +129,12 @@ final class HydeStan
             }
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
-                if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
-                    HydeStan::getInstance()->addError(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
+                $lineAnalysers = [
+                    new NoTestReferenceAnalyser($file, $contents, $lineNumber, $line),
+                ];
+
+                foreach ($lineAnalysers as $analyser) {
+                    $analyser->run($file, $contents, $lineNumber, $line);
                 }
             }
         }
