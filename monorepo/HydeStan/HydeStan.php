@@ -100,7 +100,7 @@ final class HydeStan
 
     private function analyseFile(string $file, string $contents): void
     {
-        foreach ($this->fileAnalysers() as $analyser) {
+        foreach ([new NoFixMeAnalyser()] as $analyser) {
             if ($this->debug) {
                 $this->console->debugComment('Running  '.$analyser::class);
             }
@@ -126,13 +126,6 @@ final class HydeStan
     private function getFileContents(string $file): string
     {
         return file_get_contents(BASE_PATH.'/'.$file);
-    }
-
-    private function fileAnalysers(): array
-    {
-        return [
-            new NoFixMeAnalyser(),
-        ];
     }
 
     public function hasErrors(): bool
