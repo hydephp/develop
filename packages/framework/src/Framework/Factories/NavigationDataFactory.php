@@ -76,7 +76,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->searchForLabelInFrontMatter()
             ?? $this->searchForLabelInConfig()
-            ?? $this->matter('title')
+            ?? $this->getMatter('title')
             ?? $this->title;
     }
 
@@ -106,26 +106,26 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInFrontMatter(): ?string
     {
-        return $this->matter('navigation.label')
-            ?? $this->matter('navigation.title');
+        return $this->getMatter('navigation.label')
+            ?? $this->getMatter('navigation.title');
     }
 
     private function searchForGroupInFrontMatter(): ?string
     {
-        return $this->matter('navigation.group')
-            ?? $this->matter('navigation.category');
+        return $this->getMatter('navigation.group')
+            ?? $this->getMatter('navigation.category');
     }
 
     private function searchForHiddenInFrontMatter(): ?bool
     {
-        return $this->matter('navigation.hidden')
-            ?? $this->invert($this->matter('navigation.visible'));
+        return $this->getMatter('navigation.hidden')
+            ?? $this->invert($this->getMatter('navigation.visible'));
     }
 
     private function searchForPriorityInFrontMatter(): ?int
     {
-        return $this->matter('navigation.priority')
-            ?? $this->matter('navigation.order');
+        return $this->getMatter('navigation.priority')
+            ?? $this->getMatter('navigation.order');
     }
 
     private function searchForLabelInConfig(): ?string
@@ -205,5 +205,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function offset(?int $value, int $offset): ?int
     {
         return $value === null ? null : $value + $offset;
+    }
+
+    protected function getMatter(string $key): string|null|int|bool
+    {
+        return $this->matter->get($key);
     }
 }
