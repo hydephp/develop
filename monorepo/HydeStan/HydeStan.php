@@ -124,11 +124,11 @@ final class HydeStan
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
                 $lineAnalysers = [
-                    new NoTestReferenceAnalyser($file, $contents, $lineNumber, $line),
+                    new NoTestReferenceAnalyser($file, $lineNumber, $line),
                 ];
 
                 foreach ($lineAnalysers as $analyser) {
-                    $analyser->run($file, $contents, $lineNumber, $line);
+                    $analyser->run($file, $lineNumber, $line);
                     $this->aggregateLines++;
                 }
             }
@@ -166,7 +166,7 @@ abstract class FileAnalyser implements FileAnalyserContract
 
 abstract class LineAnalyser implements LineAnalyserContract
 {
-    public function __construct(protected string $file, protected string $contents, protected int $lineNumber, protected string $line)
+    public function __construct(protected string $file, protected int $lineNumber, protected string $line)
     {
         //
     }
@@ -202,7 +202,7 @@ class NoFixMeAnalyser extends FileAnalyser
 
 class NoTestReferenceAnalyser extends LineAnalyser
 {
-    public function run(string $file, string $contents, int $lineNumber, string $line): void
+    public function run(string $file, int $lineNumber, string $line): void
     {
         if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
             HydeStan::getInstance()->addError(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
@@ -218,6 +218,6 @@ interface FileAnalyserContract
 
 interface LineAnalyserContract
 {
-    public function __construct(string $file, string $contents, int $lineNumber, string $line);
-    public function run(string $file, string $contents, int $lineNumber, string $line): void;
+    public function __construct(string $file, int $lineNumber, string $line);
+    public function run(string $file, int $lineNumber, string $line): void;
 }
