@@ -110,6 +110,6 @@ trait ForwardsIlluminateFilesystem
     {
         return is_array($path)
             ? array_map(fn (string $path): string => (string) self::qualifyPathArgument($path), $path)
-            : self::absolutePath($path);
+            : (string) self::absolutePath($path);
     }
 }
