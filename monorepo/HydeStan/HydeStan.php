@@ -156,7 +156,12 @@ final class HydeStan
     }
 }
 
-abstract class FileAnalyser implements FileAnalyserContract
+abstract class Analyser
+{
+    //
+}
+
+abstract class FileAnalyser extends Analyser implements FileAnalyserContract
 {
     public function __construct(protected string $file, protected string $contents)
     {
@@ -164,7 +169,7 @@ abstract class FileAnalyser implements FileAnalyserContract
     }
 }
 
-abstract class LineAnalyser implements LineAnalyserContract
+abstract class LineAnalyser extends Analyser implements LineAnalyserContract
 {
     public function __construct(protected string $file, protected int $lineNumber, protected string $line)
     {
