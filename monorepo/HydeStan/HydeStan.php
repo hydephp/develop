@@ -145,6 +145,14 @@ final class HydeStan
     }
 }
 
+abstract class FileAnalyser implements FileAnalyserContract
+{
+    public function __construct(protected string $file, protected string $contents)
+    {
+        //
+    }
+}
+
 class NoFixMeAnalyser extends FileAnalyser implements FileAnalyserContract
 {
     public function run(string $file, string $contents): array
@@ -187,12 +195,4 @@ interface LineAnalyserContract
 {
     public function __construct(string $file, string $contents, int $lineNumber, string $line);
     public function run(string $file, string $contents, int $lineNumber, string $line): array;
-}
-
-abstract class FileAnalyser implements FileAnalyserContract
-{
-    public function __construct(protected string $file, protected string $contents)
-    {
-        //
-    }
 }
