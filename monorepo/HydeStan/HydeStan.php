@@ -198,7 +198,7 @@ class NoFixMeAnalyser extends FileAnalyser
                 $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
                 $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
 
-                $errors[] = "Found $search in $file on line $lineNumber";
+                HydeStan::getInstance()->addError("Found $search in $file on line $lineNumber");
 
                 HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
