@@ -9,8 +9,8 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\View;
 use Illuminate\View\Factory;
 use Mockery;
 
@@ -44,11 +44,15 @@ class BreadcrumbsComponentTest extends UnitTestCase
     {
         $this->mockPage(new MarkdownPage());
 
-        app()->instance(ViewFactory::class, Mockery::mock(Factory::class, function ($mock) {
-            $mock->shouldReceive('make')->once()->andReturn($mock);
-        }));
+        $view = Mockery::mock(\Illuminate\View\View::class);
+        $mock = Mockery::mock(Factory::class);
+        $mock->shouldReceive('make')->once()->with('hyde::components.breadcrumbs')->andReturn($view);
+        app()->singleton('view', fn () =>$mock);
+        View::swap($mock);
 
-        $this->assertInstanceOf(Factory::class, (new BreadcrumbsComponent())->render());
+        $this->assertSame($view, (new BreadcrumbsComponent())->render());
+
+        Mockery::close();
     }
 
     public function testCanGenerateBreadcrumbs()

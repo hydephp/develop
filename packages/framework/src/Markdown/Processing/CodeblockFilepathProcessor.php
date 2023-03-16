@@ -7,6 +7,7 @@ namespace Hyde\Markdown\Processing;
 use Hyde\Facades\Config;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
 
 use function preg_replace;
@@ -19,7 +20,6 @@ use function explode;
 use function implode;
 use function sprintf;
 use function trim;
-use function view;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
@@ -110,7 +110,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 
     protected static function resolveTemplate(string $path): string
     {
-        return view('hyde::components.filepath-label', [
+        return View::make('hyde::components.filepath-label', [
             'path' => Config::getBool('markdown.allow_html', false) ? new HtmlString($path) : $path,
         ])->render();
     }
