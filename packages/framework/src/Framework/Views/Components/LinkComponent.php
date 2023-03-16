@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\View;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\View\Component;
-use Illuminate\View\Factory;
 
 class LinkComponent extends Component
 {
@@ -20,7 +19,7 @@ class LinkComponent extends Component
     }
 
     /** @interitDoc */
-    public function render(): Factory|ViewContract
+    public function render(): ViewContract
     {
         return View::make('hyde::components.link');
     }
