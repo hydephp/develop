@@ -139,7 +139,7 @@ class HydeStan
     }
 }
 
-class NoFixMeAnalyser
+class NoFixMeAnalyser implements FileAnalyser
 {
     public function run(string $file, string $contents): array
     {
@@ -169,4 +169,9 @@ class NoFixMeAnalyser
 
         return $errors;
     }
+}
+
+interface FileAnalyser
+{
+    public function run(string $file, string $contents): array;
 }
