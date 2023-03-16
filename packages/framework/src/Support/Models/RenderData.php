@@ -70,7 +70,7 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @return array{render: $this, page: \Hyde\Pages\Concerns\HydePage|null, currentRoute: \Hyde\Support\Models\Route|null, currentPage: string|null}
+     * @return array{render: \Hyde\Support\Models\RenderData, page: \Hyde\Pages\Concerns\HydePage|null, currentRoute: \Hyde\Support\Models\Route|null, currentPage: string|null}
      */
     public function toArray(): array
     {
