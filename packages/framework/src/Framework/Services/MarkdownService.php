@@ -45,7 +45,10 @@ class MarkdownService
     protected string $html;
     protected array $features = [];
 
+    /** @var array<class-string<\Hyde\Markdown\Contracts\MarkdownPreProcessorContract>> */
     protected array $preprocessors = [];
+
+    /** @var array<class-string<\Hyde\Markdown\Contracts\MarkdownPostProcessorContract>> */
     protected array $postprocessors = [];
 
     public function __construct(string $markdown, ?string $pageClass = null)
