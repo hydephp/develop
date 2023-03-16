@@ -173,10 +173,14 @@ class NoFixMeAnalyser implements FileAnalyserContract
 
 interface FileAnalyserContract
 {
-    public function run(string $file, string $contents): array;
+    public function __construct(string $file, string $contents);
+
+    public function run(): array;
 }
 
 interface LineAnalyserContract
 {
-    public function run(string $file, string $contents, int $lineNumber, string $line): array;
+    public function __construct(string $file, string $contents, int $lineNumber, string $line);
+
+    public function run(): array;
 }
