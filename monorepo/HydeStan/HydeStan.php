@@ -112,7 +112,7 @@ final class HydeStan
     private function analyseFile(string $file, string $contents): void
     {
         $fileAnalysers = [
-            new NoFixMeAnalyser($file, $contents)
+            new NoFixMeAnalyser($file, $contents),
         ];
 
         foreach ($fileAnalysers as $analyser) {
@@ -222,11 +222,13 @@ class NoTestReferenceAnalyser extends LineAnalyser
 interface FileAnalyserContract
 {
     public function __construct(string $file, string $contents);
+
     public function run(string $file, string $contents): void;
 }
 
 interface LineAnalyserContract
 {
     public function __construct(string $file, int $lineNumber, string $line);
+
     public function run(string $file, int $lineNumber, string $line): void;
 }
