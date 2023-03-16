@@ -106,6 +106,10 @@ trait ForwardsIlluminateFilesystem
         });
     }
 
+    /**
+     * @param  string|string[]  $path
+     * @return string|string[]
+     */
     protected static function qualifyPathArgument(array|string $path): string|array
     {
         return is_array($path)
