@@ -17,6 +17,11 @@ class HydeStan
     private static array $warnings = [];
     private static self $instance;
 
+    public static function getInstance(): self
+    {
+        return self::$instance;
+    }
+
     public function __construct(private readonly bool $debug = false)
     {
         self::$instance = $this;
