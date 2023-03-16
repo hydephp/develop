@@ -35,9 +35,9 @@ final class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info(sprintf('HydeStan has exited after scanning %s/%s total lines in %s files.',
-            number_format($this->aggregateLines),
+        $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files.',
             number_format($this->scannedLines),
+            number_format($this->aggregateLines),
             number_format(count($this->files))
         ));
 
