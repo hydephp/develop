@@ -6,8 +6,9 @@ namespace Hyde\Framework\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
-use Illuminate\Support\Facades\View;
+use Illuminate\View\Factory;
 use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
 
 use function count;
@@ -23,7 +24,7 @@ class BreadcrumbsComponent extends Component
     }
 
     /** @interitDoc */
-    public function render(): ViewContract
+    public function render(): Factory|ViewContract
     {
         return View::make('hyde::components.breadcrumbs');
     }
