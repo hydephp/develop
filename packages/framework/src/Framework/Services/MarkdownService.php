@@ -242,9 +242,9 @@ class MarkdownService
     }
 
     /**
-     * Find the indentation level and position of the first line that has content
+     * Find the indentation level and position of the first line that has content.
      *
-     * @param array<int, string> $lines
+     * @param  array<int, string>  $lines
      * @return array<int, int>
      */
     protected static function findLineContentPositions(array $lines): array
