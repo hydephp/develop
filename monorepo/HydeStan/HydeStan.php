@@ -139,7 +139,7 @@ class HydeStan
     }
 }
 
-class NoFixMeAnalyser implements FileAnalyser
+class NoFixMeAnalyser implements FileAnalyserContract
 {
     public function run(string $file, string $contents): array
     {
@@ -171,12 +171,12 @@ class NoFixMeAnalyser implements FileAnalyser
     }
 }
 
-interface FileAnalyser
+interface FileAnalyserContract
 {
     public function run(string $file, string $contents): array;
 }
 
-interface LineAnalyser
+interface LineAnalyserContract
 {
     public function run(string $file, string $contents, int $lineNumber, string $line): array;
 }
