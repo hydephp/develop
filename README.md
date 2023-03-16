@@ -18,9 +18,9 @@
 
 <div align=center>
 
-![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)
-![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)
-![License MIT](https://img.shields.io/github/license/hydephp/hyde)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)](https://packagist.org/packages/hyde/framework)
+[![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)](https://packagist.org/packages/hyde/framework)
+[![License MIT](https://img.shields.io/github/license/hydephp/hyde)](https://github.com/hydephp/develop/blob/master/LICENSE.md)
 
 </div>
 
