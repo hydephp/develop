@@ -237,6 +237,7 @@ class MarkdownService
         return implode("\n", $lines);
     }
 
+    /** @return array<int, string> */
     protected static function getNormalizedLines(string $string): array
     {
         return explode("\n", str_replace(["\t", "\r\n"], ['    ', "\n"], $string));
