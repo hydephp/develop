@@ -135,6 +135,7 @@ final class HydeStan
 
                 foreach ($lineAnalysers as $analyser) {
                     $analyser->run($file, $contents, $lineNumber, $line);
+                    $this->aggregateLines++;
                 }
             }
         }
