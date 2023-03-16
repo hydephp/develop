@@ -11,6 +11,7 @@ use Hyde\Support\Filesystem\SourceFile;
 
 use function basename;
 use function glob;
+use function str_starts_with;
 
 /**
  * The FileCollection contains all the discovered source files.

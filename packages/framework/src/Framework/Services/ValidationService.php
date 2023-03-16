@@ -12,11 +12,13 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ValidationResult as Result;
 
+use function count;
 use function get_class_methods;
 use function array_intersect;
 use function file_exists;
 use function implode;
 use function sprintf;
+use function str_starts_with;
 
 class ValidationService
 {

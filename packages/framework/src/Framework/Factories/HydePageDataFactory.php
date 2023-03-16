@@ -14,6 +14,9 @@ use Hyde\Framework\Features\Navigation\NavigationData;
 
 use function basename;
 use function dirname;
+use function str_contains;
+use function str_ends_with;
+use function str_starts_with;
 use function substr;
 use function trim;
 

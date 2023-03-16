@@ -11,6 +11,8 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 
+use function sprintf;
+
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
  *

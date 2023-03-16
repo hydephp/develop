@@ -8,6 +8,8 @@ use Hyde\Hyde;
 use RuntimeException;
 
 use function file_get_contents;
+use function str_ends_with;
+use function str_starts_with;
 use function substr_count;
 use function json_decode;
 use function explode;

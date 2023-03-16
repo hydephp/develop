@@ -8,6 +8,9 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Contracts\Support\Arrayable;
 
+use function class_basename;
+use function str_starts_with;
+
 /**
  * @internal This class is experimental and is subject to change.
  *

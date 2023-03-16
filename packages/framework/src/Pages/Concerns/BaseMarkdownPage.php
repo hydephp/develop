@@ -9,6 +9,11 @@ use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 
+use function dirname;
+use function ltrim;
+use function trim;
+use function view;
+
 /**
  * The base class for all Markdown-based page models.
  *

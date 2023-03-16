@@ -9,6 +9,8 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
+use function property_exists;
+
 /**
  * Contains data for the current page being rendered/compiled.
  *

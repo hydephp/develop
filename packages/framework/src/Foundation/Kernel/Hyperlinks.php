@@ -10,6 +10,8 @@ use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
+use function str_ends_with;
+use function str_starts_with;
 use function substr_count;
 use function file_exists;
 use function str_replace;

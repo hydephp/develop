@@ -6,6 +6,8 @@ namespace Hyde\Facades;
 
 use TypeError;
 
+use function sprintf;
+
 /**
  * An extension of the Laravel Config facade with extra
  * accessors that ensure the types of the returned values.
