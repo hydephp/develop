@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * @internal
  */
-class HydeStan
+final class HydeStan
 {
     const VERSION = '0.0.0-dev';
 
