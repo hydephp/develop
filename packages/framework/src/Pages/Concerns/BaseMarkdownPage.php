@@ -8,6 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
+use Illuminate\Support\Facades\View;
 
 /**
  * The base class for all Markdown-based page models.
@@ -46,7 +47,7 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
     /** @inheritDoc */
     public function compile(): string
     {
-        return view($this->getBladeView())->with([
+        return View::make($this->getBladeView())->with([
             'title' => $this->title,
             'content' => $this->markdown->toHtml(static::class),
         ])->render();
