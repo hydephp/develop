@@ -228,7 +228,7 @@ class UnImportedFunctionAnalyser extends FileAnalyser
             preg_match_all('/([a-zA-Z0-9_]+)\(/', $line, $matches);
 
             foreach ($matches[1] as $match) {
-                if (!str_contains($line, '->')) {
+                if (! str_contains($line, '->')) {
                     $calledFunctions[] = $match;
                 }
             }
@@ -239,7 +239,7 @@ class UnImportedFunctionAnalyser extends FileAnalyser
         $calledFunctions = array_unique($calledFunctions);
 
         foreach ($calledFunctions as $calledFunction) {
-            if (!in_array($calledFunction, $functionImports)) {
+            if (! in_array($calledFunction, $functionImports)) {
                 $this->fail("Found unimported function '$calledFunction' in ".realpath(__DIR__.'/../../packages/framework/'.$file));
             }
         }
