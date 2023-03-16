@@ -97,7 +97,7 @@ class MarkdownService
 
     protected function runPreProcessing(): void
     {
-        /** @var PreProcessor $processor */
+        /** @var class-string<PreProcessor> $processor */
         foreach ($this->preprocessors as $preprocessor) {
             $this->markdown = $preprocessor::preprocess($this->markdown);
         }
@@ -109,7 +109,7 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        /** @var PostProcessor $postprocessor */
+        /** @var class-string<PostProcessor> $postprocessor */
         foreach ($this->postprocessors as $postprocessor) {
             $this->html = $postprocessor::postprocess($this->html);
         }
