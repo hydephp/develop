@@ -83,6 +83,16 @@ final class HydeStan
         return $this->errors;
     }
 
+    public function addError(string $error): void
+    {
+        $this->errors[] = $error;
+    }
+
+    public function addErrors(array $errors): void
+    {
+        $this->errors = array_merge($this->errors, $errors);
+    }
+
     private function getFiles(): array
     {
         $files = [];
