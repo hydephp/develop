@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Views\Components;
 
 use Hyde\Hyde;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\View\Component;
-
-use function view;
 
 class LinkComponent extends Component
 {
@@ -21,8 +19,8 @@ class LinkComponent extends Component
     }
 
     /** @interitDoc */
-    public function render(): Factory|View
+    public function render(): ViewContract
     {
-        return view('hyde::components.link');
+        return View::make('hyde::components.link');
     }
 }
