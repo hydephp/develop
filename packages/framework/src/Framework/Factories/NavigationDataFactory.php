@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 
@@ -23,8 +22,6 @@ use function is_a;
  */
 class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
-    use InteractsWithFrontMatter;
-
     /**
      * The front matter properties supported by this factory.
      *
