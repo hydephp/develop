@@ -39,6 +39,8 @@ class MarkdownService
     protected ?string $pageClass = null;
 
     protected array $config = [];
+
+    /** @var array<class-string<\League\CommonMark\Extension\ExtensionInterface>> */
     protected array $extensions = [];
     protected MarkdownConverter $converter;
 
