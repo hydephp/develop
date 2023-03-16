@@ -230,7 +230,7 @@ class MarkdownService
 
         foreach ($lines as $lineNumber => $line) {
             if ($lineNumber >= $startNumber) {
-                $lines[$lineNumber] = substr((string) $line, $indentationLevel);
+                $lines[$lineNumber] = substr($line, $indentationLevel);
             }
         }
 
