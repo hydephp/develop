@@ -9,6 +9,11 @@ use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
+use function str_ireplace;
+use function str_replace;
+use function trim;
+use function ucfirst;
+
 /**
  * @internal Single-use trait for the HydeKernel class.
  *

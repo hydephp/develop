@@ -16,6 +16,7 @@ use Hyde\Console\Concerns\Command;
 use InvalidArgumentException;
 
 use function array_unique;
+use function str_contains;
 use function str_replace;
 use function basename;
 use function realpath;

@@ -7,6 +7,12 @@ namespace Hyde\Support\Models;
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 
+use function array_keys;
+use function array_map;
+use function collect;
+use function str_replace;
+use function ucwords;
+
 /**
  * @internal This class is experimental and is subject to change.
  *

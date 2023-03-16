@@ -8,6 +8,8 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Contracts\Support\Arrayable;
 
+use function class_basename;
+
 /**
  * @internal This class is experimental and is subject to change.
  *
