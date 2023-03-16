@@ -173,7 +173,7 @@ abstract class LineAnalyser implements LineAnalyserContract
     }
 }
 
-class NoFixMeAnalyser extends FileAnalyser implements FileAnalyserContract
+class NoFixMeAnalyser extends FileAnalyser
 {
     public function run(string $file, string $contents): array
     {
