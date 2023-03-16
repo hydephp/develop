@@ -97,7 +97,7 @@ class MarkdownService
 
     protected function runPreProcessing(): void
     {
-        /** @var class-string<PreProcessor> $processor */
+        /** @var class-string<PreProcessor> $preprocessor */
         foreach ($this->preprocessors as $preprocessor) {
             $this->markdown = $preprocessor::preprocess($this->markdown);
         }
