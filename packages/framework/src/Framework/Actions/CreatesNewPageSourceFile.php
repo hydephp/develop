@@ -17,6 +17,7 @@ use function file_put_contents;
 use function file_exists;
 use function basename;
 use function in_array;
+use function str_contains;
 use function unslash;
 use function rtrim;
 

@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Metadata\Elements;
 use Hyde\Framework\Features\Metadata\MetadataElementContract;
 
 use function sprintf;
+use function str_starts_with;
 use function substr;
 use function e;
 

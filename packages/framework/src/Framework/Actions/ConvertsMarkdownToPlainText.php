@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use function rtrim;
+use function str_ends_with;
+use function str_starts_with;
 use function substr;
 use function explode;
 use function implode;

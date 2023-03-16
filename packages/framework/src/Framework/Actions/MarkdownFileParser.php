@@ -8,6 +8,8 @@ use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
+use function str_starts_with;
+
 /**
  * Prepares a Markdown file for further usage by extracting the Front Matter
  * and Markdown body, and creating MarkdownDocument object from them.

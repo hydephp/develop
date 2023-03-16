@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 use function array_merge;
 use function dirname;
+use function in_array;
 use function is_dir;
 use function tap;
 
