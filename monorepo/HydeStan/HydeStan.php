@@ -37,8 +37,8 @@ final class HydeStan
         $this->console->newline();
         $this->console->info(sprintf('HydeStan has exited after scanning %s total lines in %s files.',
             number_format($this->scannedLines),
-            number_format(count($this->files)))
-        );
+            number_format(count($this->files))
+        ));
 
         if (count(self::$warnings) > 0) {
             // Forward warnings to GitHub Actions
@@ -64,8 +64,8 @@ final class HydeStan
         $this->console->info(sprintf('HydeStan has finished in %s seconds (%sms) using %s KB RAM',
             number_format($endTime, 2),
             number_format($endTime * 1000, 2),
-            number_format(memory_get_peak_usage(true) / 1024, 2))
-        );
+            number_format(memory_get_peak_usage(true) / 1024, 2)
+        ));
 
         if ($this->hasErrors()) {
             $this->console->error(sprintf('HydeStan has found %s errors!', count($this->errors)));
