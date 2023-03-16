@@ -16,7 +16,7 @@ class HydeStan
     private Console $console;
     private static array $warnings = [];
 
-    public function __construct(private bool $debug = false)
+    public function __construct(private readonly bool $debug = false)
     {
         $this->console = new Console();
 
