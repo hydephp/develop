@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationData;
 
@@ -22,8 +21,6 @@ use function trim;
 
 class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 {
-    use InteractsWithFrontMatter;
-
     /**
      * The front matter properties supported by this factory.
      */
@@ -74,7 +71,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     private function findTitleForPage(): string
     {
-        return $this->matter('title')
+        return $this->getMatter('title')
             ?? $this->findTitleFromMarkdownHeadings()
             ?? $this->findTitleFromParentIdentifier()
             ?? Hyde::makeTitle(basename($this->identifier));
@@ -100,5 +97,10 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         }
 
         return null;
+    }
+
+    protected function getMatter(string $key): string|null
+    {
+        return $this->matter->get($key);
     }
 }
