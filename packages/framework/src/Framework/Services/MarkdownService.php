@@ -241,7 +241,10 @@ class MarkdownService
         return explode("\n", str_replace(["\t", "\r\n"], ['    ', "\n"], $string));
     }
 
-    /** @return array<int, int>  Find the indentation level and position of the first line that has content */
+    /**
+     * @param array<int, string> $lines
+     * @return array<int, int>  Find the indentation level and position of the first line that has content
+     */
     protected static function findLineContentPositions(array $lines): array
     {
         foreach ($lines as $lineNumber => $line) {
