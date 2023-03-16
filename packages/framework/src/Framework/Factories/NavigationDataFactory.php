@@ -149,10 +149,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // This is all to make it easier to mix ways of adding priorities.
 
         return $this->offset(
-            Arr::get(
-                array_flip(Config::getArray('docs.sidebar_order', [])),
-                $this->identifier
-            ),
+            array_flip(Config::getArray('docs.sidebar_order', []))[$this->identifier] ?? null,
             self::CONFIG_OFFSET
         );
     }
