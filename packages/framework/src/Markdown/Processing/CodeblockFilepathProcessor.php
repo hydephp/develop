@@ -10,7 +10,9 @@ use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\HtmlString;
 
 use function preg_replace;
+use function str_contains;
 use function str_ireplace;
+use function str_starts_with;
 use function strtolower;
 use function str_replace;
 use function explode;

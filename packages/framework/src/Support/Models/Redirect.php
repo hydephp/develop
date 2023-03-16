@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Facades\View;
 
+use function str_ends_with;
 use function substr;
 
 /**

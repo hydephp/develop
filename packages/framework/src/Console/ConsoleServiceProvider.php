@@ -7,6 +7,8 @@ namespace Hyde\Console;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Support\ServiceProvider;
 
+use function in_array;
+
 /**
  * Register the HydeCLI console commands.
  */

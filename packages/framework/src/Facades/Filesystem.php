@@ -9,6 +9,8 @@ use Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
+use function app;
+
 /**
  * Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.
  *

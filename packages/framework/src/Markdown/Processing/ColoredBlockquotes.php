@@ -9,6 +9,7 @@ use Hyde\Markdown\Models\Markdown;
 
 use function str_replace;
 use function sprintf;
+use function str_starts_with;
 use function strlen;
 use function substr;
 use function trim;

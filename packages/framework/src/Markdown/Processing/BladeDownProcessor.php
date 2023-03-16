@@ -9,6 +9,7 @@ use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\Facades\Blade;
 
 use function html_entity_decode;
+use function str_starts_with;
 use function strtolower;
 use function array_map;
 use function explode;

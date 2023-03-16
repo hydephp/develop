@@ -8,6 +8,7 @@ use Hyde\Facades\Meta;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
 
+use function str_starts_with;
 use function substr_count;
 use function str_repeat;
 

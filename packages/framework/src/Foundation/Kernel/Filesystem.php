@@ -17,6 +17,7 @@ use function array_map;
 use function is_string;
 use function is_array;
 use function collect;
+use function str_starts_with;
 use function unslash;
 use function unlink;
 use function touch;
