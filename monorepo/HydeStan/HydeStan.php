@@ -100,7 +100,9 @@ final class HydeStan
 
     private function analyseFile(string $file, string $contents): void
     {
-        foreach ([new NoFixMeAnalyser()] as $analyser) {
+        $fileAnalysers = [new NoFixMeAnalyser()];
+
+        foreach ($fileAnalysers as $analyser) {
             if ($this->debug) {
                 $this->console->debugComment('Running  '.$analyser::class);
             }
