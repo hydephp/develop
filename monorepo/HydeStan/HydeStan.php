@@ -12,6 +12,7 @@ class HydeStan
     protected array $files;
     protected array $errors = [];
     protected int $scannedLines = 0;
+    protected int $aggregateLines = 0;
     protected Console $console;
     protected static array $warnings = [];
 
