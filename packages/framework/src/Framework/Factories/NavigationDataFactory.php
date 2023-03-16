@@ -148,7 +148,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
         // This is all to make it easier to mix ways of adding priorities.
 
-        return $this->offset((int) Arr::get(
+        return $this->offset(Arr::get(
             array_flip(Config::getArray('docs.sidebar_order', [])), $this->identifier),
             self::CONFIG_OFFSET
         );
