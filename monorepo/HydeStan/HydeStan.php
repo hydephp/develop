@@ -153,6 +153,14 @@ abstract class FileAnalyser implements FileAnalyserContract
     }
 }
 
+abstract class LineAnalyser implements LineAnalyserContract
+{
+    public function __construct(protected string $file, protected string $contents, protected int $lineNumber, protected string $line)
+    {
+        //
+    }
+}
+
 class NoFixMeAnalyser extends FileAnalyser implements FileAnalyserContract
 {
     public function run(string $file, string $contents): array
