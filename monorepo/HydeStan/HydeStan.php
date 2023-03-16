@@ -205,6 +205,16 @@ class NoFixMeAnalyser extends FileAnalyser
     }
 }
 
+class NoTestReferenceAnalyser extends LineAnalyser
+{
+    public function run(string $file, string $contents, int $lineNumber, string $line): void
+    {
+        if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
+            HydeStan::getInstance()->addError(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
+        }
+    }
+}
+
 interface FileAnalyserContract
 {
     public function __construct(string $file, string $contents);
