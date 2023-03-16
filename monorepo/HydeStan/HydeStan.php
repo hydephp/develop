@@ -15,9 +15,12 @@ class HydeStan
     private int $aggregateLines = 0;
     private Console $console;
     private static array $warnings = [];
+    private static self $instance;
 
     public function __construct(private readonly bool $debug = false)
     {
+        self::$instance = $this;
+
         $this->console = new Console();
 
         $this->console->info(sprintf('HydeStan v%s is running!', self::VERSION));
