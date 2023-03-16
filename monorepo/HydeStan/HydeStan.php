@@ -158,7 +158,10 @@ final class HydeStan
 
 abstract class Analyser
 {
-    //
+    protected function fail(string $error): void
+    {
+        HydeStan::getInstance()->addError($error);
+    }
 }
 
 abstract class FileAnalyser extends Analyser implements FileAnalyserContract
@@ -195,7 +198,7 @@ class NoFixMeAnalyser extends FileAnalyser
                 $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
                 $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
 
-                HydeStan::getInstance()->addError("Found $search in $file on line $lineNumber");
+                $this->fail("Found $search in $file on line $lineNumber");
 
                 HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
@@ -210,7 +213,8 @@ class NoTestReferenceAnalyser extends LineAnalyser
     public function run(string $file, int $lineNumber, string $line): void
     {
         if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
-            HydeStan::getInstance()->addError(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)), realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
+            $this->fail(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)),
+                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
         }
     }
 }
