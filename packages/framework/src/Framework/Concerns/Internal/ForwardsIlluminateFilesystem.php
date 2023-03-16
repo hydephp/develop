@@ -85,6 +85,7 @@ trait ForwardsIlluminateFilesystem
         );
     }
 
+    /** @param  string[]  $parameterNames */
     protected static function qualifyArguments(array $parameterNames, array $arguments): Collection
     {
         return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
