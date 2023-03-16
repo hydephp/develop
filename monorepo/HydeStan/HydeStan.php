@@ -214,5 +214,5 @@ interface FileAnalyserContract
 interface LineAnalyserContract
 {
     public function __construct(string $file, string $contents, int $lineNumber, string $line);
-    public function run(string $file, string $contents, int $lineNumber, string $line): array;
+    public function run(string $file, string $contents, int $lineNumber, string $line): void;
 }
