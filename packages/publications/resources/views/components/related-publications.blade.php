@@ -11,7 +11,7 @@
                         <a href="{{ $publication->getRoute() }}">
                             {{ $publication->title }}
                         </a>
-                        ({{ $date }})
+                        <time datetime="{{ $date }}">({{ $date }})</time>
                     </li>
                 @endforeach
             </ul>
