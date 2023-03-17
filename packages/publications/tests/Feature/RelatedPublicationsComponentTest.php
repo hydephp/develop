@@ -189,6 +189,34 @@ class RelatedPublicationsComponentTest extends TestCase
         ]), $component->relatedPublications);
     }
 
+    public function testResultsAreSortedByDateWithLatestFirst()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
+        $this->mockRoute(new Route($page));
+
+        $page1 = new PublicationPage('page-1', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(1)], type: $type);
+        $page2 = new PublicationPage('page-2', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(2)], type: $type);
+        $page3 = new PublicationPage('page-3', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(3)], type: $type);
+        $page4 = new PublicationPage('page-4', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(4)], type: $type);
+        $page5 = new PublicationPage('page-5', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(5)], type: $type);
+        Hyde::pages()->addPage($page);
+        Hyde::pages()->addPage($page1);
+        Hyde::pages()->addPage($page2);
+        Hyde::pages()->addPage($page3);
+        Hyde::pages()->addPage($page4);
+        Hyde::pages()->addPage($page5);
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertSame([
+            'foo/page-1',
+            'foo/page-2',
+            'foo/page-3',
+            'foo/page-4',
+            'foo/page-5',
+        ], $component->relatedPublications->keys()->all());
+    }
+    
     public function testTheRenderMethod()
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
