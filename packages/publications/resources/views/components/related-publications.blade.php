@@ -2,7 +2,7 @@
     <section {{ $attributes->merge(['class' => 'prose dark:prose-invert']) }}>
         <h2>{{ $title }}</h2>
         <nav aria-label="related">
-            <ol>
+            <ul>
                 @foreach ($relatedPublications as $publication)
                     @php $carbon = \Carbon\Carbon::parse($publication->matter->__createdAt); @endphp
                     <li>
@@ -10,7 +10,7 @@
                         <time datetime="{{ $carbon }}">({{ $carbon->format('Y-m-d') }})</time>
                     </li>
                 @endforeach
-            </ol>
+            </ul>
         </nav>
     </section>
 @endif
