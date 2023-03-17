@@ -47,12 +47,7 @@ class BreadcrumbsComponent extends Component
             // if it's not the last basename, add index.html (since it must be a directory) otherwise add .html
             $path = $previous.$basename.($index < count($fields) - 1 ? '/index.html' : '.html');
 
-            // makeTitle() will place spaces between words, so we need to remove them if the title is all uppercase
-            $title = Hyde::makeTitle($basename);
-            if (strtoupper($title) === $title) {
-                $title = str_replace(' ', '', $title);
-            }
-            $breadcrumbs[Hyde::relativeLink($path)] = $title;
+            $breadcrumbs[Hyde::relativeLink($path)] = Hyde::makeTitle($basename);
 
             $previous .= $basename.'/';
         }
