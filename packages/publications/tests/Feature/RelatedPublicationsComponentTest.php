@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 use Hyde\Hyde;
@@ -21,17 +23,11 @@ class RelatedPublicationsComponentTest extends TestCase
 {
     public function test_it_returns_empty_collection_if_publication_type_is_not_set()
     {
-        // arrange
-        $mockCurrentRoute = $this->createMock(Hyde::class);
-        $mockCurrentRoute->method('getPage')->willReturn(new PublicationPage(['type' => null]));
-        $this->mockHyde($mockCurrentRoute);
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
 
         $component = new RelatedPublicationsComponent();
+        $result = $component->relatedPublications;
 
-        // act
-        $result = $component->makeRelatedPublications();
-
-        // assert
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertTrue($result->isEmpty());
     }
