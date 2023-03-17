@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
+use function in_array;
 use function array_key_exists;
 use function array_flip;
 use function file_exists;
@@ -224,15 +225,17 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForRemoteImage(): int
     {
-        $headers = Http::withHeaders([
-            'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
-        ])->head($this->getSource())->headers();
+        if (! (isset($_SERVER['argv']) && in_array('--no-api', $_SERVER['argv'], true))) {
+            $headers = Http::withHeaders([
+                'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
+            ])->head($this->getSource())->headers();
 
-        if (array_key_exists('Content-Length', $headers)) {
-            return (int) key(array_flip($headers['Content-Length']));
+            if (array_key_exists('Content-Length', $headers)) {
+                return (int) key(array_flip($headers['Content-Length']));
+            }
+
+            BuildWarnings::report('The image "'.$this->getSource().'" has a content length of zero.');
         }
-
-        BuildWarnings::report('The image "'.$this->getSource().'" has a content length of zero.');
 
         return 0;
     }
