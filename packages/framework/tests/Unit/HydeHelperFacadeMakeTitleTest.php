@@ -46,4 +46,18 @@ class HydeHelperFacadeMakeTitleTest extends UnitTestCase
         $this->assertSame('The a an the in on by with of and or but',
             Hyde::makeTitle('the_a_an_the_in_on_by_with_of_and_or_but'));
     }
+
+    public function testMakeTitleHelperDoesNotModifyOnlyUppercaseInput()
+    {
+        $this->assertSame('FOO', Hyde::makeTitle('FOO'));
+        $this->assertSame('HELLO WORLD', Hyde::makeTitle('HELLO WORLD'));
+        $this->assertSame('HELLO_WORLD', Hyde::makeTitle('HELLO_WORLD'));
+    }
+
+    public function testMakeTitleHelperModifiesPartiallyUppercaseInput()
+    {
+        $this->assertSame('Hello World', Hyde::makeTitle('Hello WORLD'));
+        $this->assertSame('Hello World', Hyde::makeTitle('hello WORLD'));
+        $this->assertSame('Hello World', Hyde::makeTitle('hello WORLD'));
+    }
 }
