@@ -16,6 +16,14 @@ use Illuminate\Support\Collection;
  */
 class RelatedPublicationsComponentTest extends TestCase
 {
+    public function testWithStandardPage()
+    {
+        $this->mockRoute();
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertEquals(new Collection(), $component->relatedPublications);
+    }
+
     public function testWithBlankPublicationType()
     {
         $type = new PublicationType('foo');
