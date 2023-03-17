@@ -32,6 +32,12 @@ class RelatedPublicationsComponent extends Component
     {
         // Get current publicationType from the current page
         $currentHydePage = Hyde::currentRoute()->getPage();
+
+        // If not a publication page, exit early
+        if (! $currentHydePage instanceof PublicationPage) {
+            return collect();
+        }
+
         $publicationType = $currentHydePage->getType();
         if (! $publicationType) {
             return collect();
