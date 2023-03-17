@@ -30,14 +30,14 @@ class RelatedPublicationsComponent extends Component
 
     protected function makeRelatedPublications(int $max = 5): Collection
     {
-        // Get current publicationType
+        // Get current publicationType from the current page
         $currentHydePage = Hyde::currentRoute()->getPage();
         $publicationType = $currentHydePage->getType();
         if (! $publicationType) {
             return collect();
         }
 
-        // Get the tag fields for the current publicationType -> exit if there aren't any
+        // Get the tag fields for the current publicationType or exit early if there aren't any
         $publicationTypeTagFields = $publicationType->getFields()->filter(function ($field) {
             return $field->tagGroup !== null;
         });
@@ -74,7 +74,7 @@ class RelatedPublicationsComponent extends Component
     {
         $thisPageTags = collect();
 
-        // There could be multiple tag fields, most pubTypes will only have one
+        // There could be multiple tag fields, but most publication types will only have one
         foreach ($tagFields as $tagField) {
             $thisPageTags = $thisPageTags->merge($publicationPage->matter->get($tagField->name, []));
         }
@@ -109,15 +109,15 @@ class RelatedPublicationsComponent extends Component
     {
         $relatedPages = collect();
 
-        // Group related pages by the number of shared tags and then sort by keys (# of shared tags) descending
+        // Group related pages by the number of shared tags and then sort by keys (number of shared tags) descending
         $allRelatedPagesGrouped = $allRelatedPages->groupBy('count')->sortKeysDesc(SORT_NUMERIC);
 
         // Iterate over groups
         foreach ($allRelatedPagesGrouped as $relatedPagesGroup) {
-            // Sort group by recency, newest pages first
+            // Sort group by recency, with the latest pages first
             $sortedPageGroup = $relatedPagesGroup->sortByDesc('page.matter.__createdAt');
 
-            // Now add to $relatedPages, quit at $max
+            // Now add to $relatedPages, and stop when hitting $max
             foreach ($sortedPageGroup as $page) {
                 $relatedPages->put($page['identifier'], $page['page']);
                 if (count($relatedPages) >= $max) {
