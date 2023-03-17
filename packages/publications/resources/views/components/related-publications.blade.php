@@ -1,5 +1,5 @@
 @if (count($relatedPublications) > 0)
-    <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mt-8 mb-2">Related Posts</h2>
+    <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mt-8 mb-2">{{ $title }}</h2>
     <nav {{ $attributes->merge(['aria-label' => 'related']) }} class="text-xl mb-4">
         <ul class="flex pl-6">
             @foreach ($relatedPublications as $publication)

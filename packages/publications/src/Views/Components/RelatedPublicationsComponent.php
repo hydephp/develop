@@ -18,9 +18,12 @@ class RelatedPublicationsComponent extends Component
     /** @var Collection<string, PublicationPage> */
     public Collection $relatedPublications;
 
-    public function __construct()
+    public string $title = 'Related Publications';
+
+    public function __construct(string $title = 'Related Publications')
     {
         $this->relatedPublications = $this->makeRelatedPublications();
+        $this->title = $title;
     }
 
     /** @interitDoc */
