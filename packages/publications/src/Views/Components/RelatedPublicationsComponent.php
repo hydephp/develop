@@ -20,9 +20,9 @@ class RelatedPublicationsComponent extends Component
 
     public string $title = 'Related Publications';
 
-    public function __construct(string $title = 'Related Publications')
+    public function __construct(string $title = 'Related Publications', int $limit = 5)
     {
-        $this->relatedPublications = $this->makeRelatedPublications();
+        $this->relatedPublications = $this->makeRelatedPublications($limit);
         $this->title = $title;
     }
 
