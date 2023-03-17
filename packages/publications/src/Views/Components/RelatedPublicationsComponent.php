@@ -6,38 +6,43 @@ namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class RelatedPublicationsComponent extends Component
 {
+    /** @var Collection<string, PublicationPage> */
     public Collection $relatedPublications;
 
-    public function __construct()
+    public string $title = 'Related Publications';
+
+    public function __construct(string $title = 'Related Publications', int $limit = 5)
     {
-        $this->relatedPublications = $this->makeRelatedPublications();
+        $this->relatedPublications = $this->makeRelatedPublications($limit);
+        $this->title = $title;
     }
 
     /** @interitDoc */
-    public function render(): Factory|View
+    public function render(): View
     {
         return view('hyde-publications::components.related-publications');
     }
 
-    protected function makeRelatedPublications(int $max = 5): Collection
+    protected function makeRelatedPublications(int $limit = 5): Collection
     {
-        // Get current publicationType
+        // Get current publicationType from the current page
         $currentHydePage = Hyde::currentRoute()->getPage();
-        $publicationType = $currentHydePage->getType();
-        if (! $publicationType) {
+
+        // If not a publication page, exit early
+        if (! $currentHydePage instanceof PublicationPage) {
             return collect();
         }
 
-        // Get the tag fields for the current publicationType -> exit if there aren't any
+        $publicationType = $currentHydePage->getType();
+
+        // Get the tag fields for the current publicationType or exit early if there aren't any
         $publicationTypeTagFields = $publicationType->getFields()->filter(function ($field) {
             return $field->tagGroup !== null;
         });
@@ -67,14 +72,14 @@ class RelatedPublicationsComponent extends Component
         }
 
         // Sort them by relevance (count of shared tags & newest dates)
-        return $this->sortRelatedPagesByRelevance($allRelatedPages, $max);
+        return $this->sortRelatedPagesByRelevance($allRelatedPages, $limit);
     }
 
     protected function getTagsForPage(PublicationPage $publicationPage, Collection $tagFields): Collection
     {
         $thisPageTags = collect();
 
-        // There could be multiple tag fields, most pubTypes will only have one
+        // There could be multiple tag fields, but most publication types will only have one
         foreach ($tagFields as $tagField) {
             $thisPageTags = $thisPageTags->merge($publicationPage->matter->get($tagField->name, []));
         }
@@ -109,15 +114,15 @@ class RelatedPublicationsComponent extends Component
     {
         $relatedPages = collect();
 
-        // Group related pages by the number of shared tags and then sort by keys (# of shared tags) descending
+        // Group related pages by the number of shared tags and then sort by keys (number of shared tags) descending
         $allRelatedPagesGrouped = $allRelatedPages->groupBy('count')->sortKeysDesc(SORT_NUMERIC);
 
         // Iterate over groups
         foreach ($allRelatedPagesGrouped as $relatedPagesGroup) {
-            // Sort group by recency, newest pages first
+            // Sort group by recency, with the latest pages first
             $sortedPageGroup = $relatedPagesGroup->sortByDesc('page.matter.__createdAt');
 
-            // Now add to $relatedPages, quit at $max
+            // Now add to $relatedPages, and stop when hitting $max
             foreach ($sortedPageGroup as $page) {
                 $relatedPages->put($page['identifier'], $page['page']);
                 if (count($relatedPages) >= $max) {
