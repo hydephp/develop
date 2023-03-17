@@ -216,7 +216,7 @@ class RelatedPublicationsComponentTest extends TestCase
             'foo/page-5',
         ], $component->relatedPublications->keys()->all());
     }
-    
+
     public function testTheRenderMethod()
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
