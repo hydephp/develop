@@ -6,7 +6,6 @@ namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\PublicationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
