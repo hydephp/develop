@@ -5,13 +5,13 @@
             <ul>
                 @foreach ($relatedPublications as $publication)
                     @php
-                        $date = \Carbon\Carbon::parse($publication->matter->__createdAt)->format('Y-m-d');
+                        $carbon = \Carbon\Carbon::parse($publication->matter->__createdAt);
                     @endphp
                     <li>
                         <a href="{{ $publication->getRoute() }}">
                             {{ $publication->title }}
                         </a>
-                        <time datetime="{{ $date }}">({{ $date }})</time>
+                        <time datetime="{{ $carbon }}">({{ $carbon->format('Y-m-d') }})</time>
                     </li>
                 @endforeach
             </ul>
