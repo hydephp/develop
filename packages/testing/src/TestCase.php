@@ -69,10 +69,4 @@ abstract class TestCase extends BaseTestCase
     {
         config(['app.throw_on_console_exception' => $throw]);
     }
-
-    /** @deprecated Temporary method to reboot kernel to rediscover types during refactor. Usages can then be found and refactored to be handled in memory for much faster and cleanertests. */
-    protected function rebootToDiscoverPublicationPages()
-    {
-        Hyde::boot(); // Reboot to rediscover types
-    }
 }
