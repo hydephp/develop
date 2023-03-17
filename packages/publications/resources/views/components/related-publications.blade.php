@@ -1,7 +1,7 @@
 @if (count($relatedPublications) > 0)
-    <section class="prose dark:prose-invert">
+    <section {{ $attributes->merge(['class' => 'prose dark:prose-invert']) }}>
         <h2>{{ $title }}</h2>
-        <nav {{ $attributes->merge(['aria-label' => 'related']) }}>
+        <nav aria-label="related">
             <ul>
                 @foreach ($relatedPublications as $publication)
                     @php
