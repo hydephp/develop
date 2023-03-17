@@ -164,6 +164,31 @@ class RelatedPublicationsComponentTest extends TestCase
         ]), $component->relatedPublications);
     }
 
+    public function testOnlyPublicationsWithTheSameTagAreIncluded()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
+        $this->mockRoute(new Route($page));
+
+        $page1 = new PublicationPage('page-1', ['foo' => 'foo'], type: $type);
+        $page2 = new PublicationPage('page-2', ['foo' => 'bar'], type: $type);
+        $page3 = new PublicationPage('page-3', ['foo' => 'baz'], type: $type);
+        $page4 = new PublicationPage('page-4', ['foo' => 'hat'], type: $type);
+        $page5 = new PublicationPage('page-5', ['foo' => 'cat'], type: $type);
+
+        Hyde::pages()->addPage($page);
+        Hyde::pages()->addPage($page1);
+        Hyde::pages()->addPage($page2);
+        Hyde::pages()->addPage($page3);
+        Hyde::pages()->addPage($page4);
+        Hyde::pages()->addPage($page5);
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertEquals(new Collection([
+            'foo/page-2' => $page2,
+        ]), $component->relatedPublications);
+    }
+
     public function testTheRenderMethod()
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
