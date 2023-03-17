@@ -4,9 +4,7 @@
         <nav aria-label="related">
             <ul>
                 @foreach ($relatedPublications as $publication)
-                    @php
-                        $carbon = \Carbon\Carbon::parse($publication->matter->__createdAt);
-                    @endphp
+                    @php $carbon = \Carbon\Carbon::parse($publication->matter->__createdAt); @endphp
                     <li>
                         <a href="{{ $publication->getRoute() }}">
                             {{ $publication->title }}
