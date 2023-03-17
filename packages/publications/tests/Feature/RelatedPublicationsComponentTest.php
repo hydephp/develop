@@ -134,4 +134,30 @@ class RelatedPublicationsComponentTest extends TestCase
             'foo/page-5' => $page5,
         ]), $component->relatedPublications);
     }
+
+    public function testWithMultipleRelatedPagesAndLimit()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
+        $this->mockRoute(new Route($page));
+
+        $page1 = new PublicationPage('page-1', ['foo' => 'bar'], type: $type);
+        $page2 = new PublicationPage('page-2', ['foo' => 'bar'], type: $type);
+        $page3 = new PublicationPage('page-3', ['foo' => 'bar'], type: $type);
+        $page4 = new PublicationPage('page-4', ['foo' => 'bar'], type: $type);
+        $page5 = new PublicationPage('page-5', ['foo' => 'bar'], type: $type);
+        Hyde::pages()->addPage($page);
+        Hyde::pages()->addPage($page1);
+        Hyde::pages()->addPage($page2);
+        Hyde::pages()->addPage($page3);
+        Hyde::pages()->addPage($page4);
+        Hyde::pages()->addPage($page5);
+
+        $component = new RelatedPublicationsComponent(limit: 3);
+        $this->assertEquals(new Collection([
+            'foo/page-1' => $page1,
+            'foo/page-2' => $page2,
+            'foo/page-3' => $page3,
+        ]), $component->relatedPublications);
+    }
 }
