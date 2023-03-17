@@ -7,7 +7,6 @@ namespace Hyde\Publications\Views\Components;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\PublicationService;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
@@ -26,7 +25,7 @@ class RelatedPublicationsComponent extends Component
     }
 
     /** @interitDoc */
-    public function render(): Factory|View
+    public function render(): View
     {
         return view('hyde-publications::components.related-publications');
     }
