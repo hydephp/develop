@@ -9,8 +9,9 @@
                     @endphp
                     <li>
                         <a href="{{ $publication->getRoute() }}">
-                            {{ $publication->title }} ({{ $date }})
+                            {{ $publication->title }}
                         </a>
+                        ({{ $date }})
                     </li>
                 @endforeach
             </ul>
