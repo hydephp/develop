@@ -64,7 +64,7 @@ class RelatedPublicationsComponentTest extends TestCase
         $component = new RelatedPublicationsComponent();
         $this->assertEquals(new Collection(), $component->relatedPublications);
     }
-    
+
     public function testWithMoreTaggedPublications()
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
