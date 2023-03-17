@@ -19,8 +19,7 @@ use Hyde\Publications\Views\Components\RelatedPublicationsComponent;
  */
 class RelatedPublicationsComponentTest extends TestCase
 {
-    /** @test */
-    public function it_returns_empty_collection_if_publication_type_is_not_set()
+    public function test_it_returns_empty_collection_if_publication_type_is_not_set()
     {
         // arrange
         $mockCurrentRoute = $this->createMock(Hyde::class);
@@ -37,8 +36,7 @@ class RelatedPublicationsComponentTest extends TestCase
         $this->assertTrue($result->isEmpty());
     }
 
-    /** @test */
-    public function it_returns_empty_collection_if_publication_type_has_no_tag_fields()
+    public function test_it_returns_empty_collection_if_publication_type_has_no_tag_fields()
     {
         // arrange
         $mockPublicationType = $this->createMock(PublicationType::class);
@@ -57,8 +55,7 @@ class RelatedPublicationsComponentTest extends TestCase
         $this->assertTrue($result->isEmpty());
     }
 
-    /** @test */
-    public function it_returns_empty_collection_if_there_are_no_related_publications()
+    public function test_it_returns_empty_collection_if_there_are_no_related_publications()
     {
         // arrange
         $mockPublicationType = $this->createMock(PublicationType::class);
