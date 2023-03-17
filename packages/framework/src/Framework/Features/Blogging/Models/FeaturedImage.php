@@ -19,6 +19,7 @@ use function file_exists;
 use function filesize;
 use function sprintf;
 use function key;
+use function str_starts_with;
 
 /**
  * Object representation of a blog post's featured image.

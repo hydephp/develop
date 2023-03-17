@@ -32,7 +32,7 @@ class VendorPublishCommand extends BaseCommand
 
         // Rename the config group to be more helpful
         if (isset(ServiceProvider::$publishGroups['config'])) {
-            ServiceProvider::$publishGroups['vendor-configs'] = ServiceProvider::$publishGroups['config'];
+            ServiceProvider::$publishGroups['vendor-configs'] = (array) ServiceProvider::$publishGroups['config'];
             unset(ServiceProvider::$publishGroups['config']);
         }
 

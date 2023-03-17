@@ -6,6 +6,8 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Pages\Concerns\HydePage;
 
+use function array_merge;
+
 /**
  * File abstraction for a project source file.
  *

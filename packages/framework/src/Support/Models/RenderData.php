@@ -9,6 +9,8 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
+use function property_exists;
+
 /**
  * Contains data for the current page being rendered/compiled.
  *
@@ -68,7 +70,7 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @return array{render: $this, page: \Hyde\Pages\Concerns\HydePage|null, currentRoute: \Hyde\Support\Models\Route|null, currentPage: string|null}
+     * @return array{render: \Hyde\Support\Models\RenderData, page: \Hyde\Pages\Concerns\HydePage|null, route: \Hyde\Support\Models\Route|null, routeKey: string|null}
      */
     public function toArray(): array
     {

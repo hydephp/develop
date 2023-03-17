@@ -7,6 +7,12 @@ namespace Hyde\Support\Models;
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 
+use function array_keys;
+use function array_map;
+use function collect;
+use function str_replace;
+use function ucwords;
+
 /**
  * @internal This class is experimental and is subject to change.
  *
@@ -14,6 +20,7 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class RouteList implements Arrayable
 {
+    /** @var array<integer, array<string, string>> */
     protected array $routes;
 
     public function __construct()

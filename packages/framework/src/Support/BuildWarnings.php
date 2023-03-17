@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\BuildWarning;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -17,16 +18,18 @@ use function sprintf;
  */
 class BuildWarnings
 {
-    /** @var array<\Hyde\Framework\Exceptions\BuildWarning> */
+    /** @var array<int, \Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
     public static function getInstance(): static
     {
-        if (! app()->bound(self::class)) {
-            app()->singleton(self::class);
+        $app = Container::getInstance();
+
+        if (! $app->bound(self::class)) {
+            $app->singleton(self::class);
         }
 
-        return app(self::class);
+        return $app->make(self::class);
     }
 
     public static function report(BuildWarning|string $warning): void
@@ -34,7 +37,7 @@ class BuildWarnings
         static::getInstance()->warnings[] = $warning instanceof BuildWarning ? $warning : new BuildWarning($warning);
     }
 
-    /** @return array<\Hyde\Framework\Exceptions\BuildWarning> */
+    /** @return array<int, \Hyde\Framework\Exceptions\BuildWarning> */
     public static function getWarnings(): array
     {
         return static::getInstance()->warnings;

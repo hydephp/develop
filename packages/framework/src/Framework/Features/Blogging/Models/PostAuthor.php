@@ -52,7 +52,11 @@ class PostAuthor implements Stringable
         $this->website = $website;
     }
 
-    /** Dynamically get or create an author based on a username string or front matter array */
+    /**
+     * Dynamically get or create an author based on a username string or front matter array.
+     *
+     * @param  string|array{username?: string, name?: string, website?: string}  $data
+     */
     public static function getOrCreate(string|array $data): static
     {
         if (is_string($data)) {
@@ -68,7 +72,7 @@ class PostAuthor implements Stringable
         return static::all()->firstWhere('username', strtolower($username)) ?? Author::create($username);
     }
 
-    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor> */
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
         return (new Collection(Config::getArray('hyde.authors', [])))->mapWithKeys(function (self $author): array {
@@ -86,6 +90,7 @@ class PostAuthor implements Stringable
         return $this->name ?? $this->username;
     }
 
+    /** @param array{username?: string, name?: string, website?: string} $data */
     protected static function findUsername(array $data): string
     {
         return $data['username'] ?? $data['name'] ?? 'Guest';

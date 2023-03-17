@@ -8,8 +8,7 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
-
-use function view;
+use Illuminate\Support\Facades\View;
 
 /**
  * @internal This page is used to render the search page for the documentation.
@@ -42,7 +41,7 @@ class DocumentationSearchPage extends DocumentationPage
 
     public function compile(): string
     {
-        return view('hyde::pages.documentation-search')->render();
+        return View::make('hyde::pages.documentation-search')->render();
     }
 
     public static function enabled(): bool

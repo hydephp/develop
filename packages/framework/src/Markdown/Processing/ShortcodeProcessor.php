@@ -11,6 +11,7 @@ use function array_key_exists;
 use function array_map;
 use function explode;
 use function implode;
+use function str_contains;
 use function strpos;
 use function substr;
 

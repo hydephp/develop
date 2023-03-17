@@ -8,6 +8,11 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
+use function basename;
+use function file_exists;
+use function file_get_contents;
+use function mkdir;
+
 /**
  * The Includes facade provides a simple way to access partials in the includes directory.
  *

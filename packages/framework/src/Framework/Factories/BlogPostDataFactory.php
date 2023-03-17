@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
@@ -26,8 +25,6 @@ use function substr;
  */
 class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSchema
 {
-    use InteractsWithFrontMatter;
-
     /**
      * The front matter properties supported by this factory.
      *
@@ -72,18 +69,18 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function makeDescription(): string
     {
-        return $this->matter('description') ?? $this->getTruncatedMarkdown($this->markdown->body());
+        return $this->getMatter('description') ?? $this->getTruncatedMarkdown($this->markdown->body());
     }
 
     protected function makeCategory(): ?string
     {
-        return $this->matter('category');
+        return $this->getMatter('category');
     }
 
     protected function makeDate(): ?DateString
     {
-        if ($this->matter('date')) {
-            return new DateString($this->matter('date'));
+        if ($this->getMatter('date')) {
+            return new DateString($this->getMatter('date'));
         }
 
         return null;
@@ -91,8 +88,8 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function makeAuthor(): ?PostAuthor
     {
-        if ($this->matter('author')) {
-            return PostAuthor::getOrCreate($this->matter('author'));
+        if ($this->getMatter('author')) {
+            return PostAuthor::getOrCreate($this->getMatter('author'));
         }
 
         return null;
@@ -100,7 +97,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function makeImage(): ?FeaturedImage
     {
-        if ($this->matter('image')) {
+        if ($this->getMatter('image')) {
             return FeaturedImageFactory::make($this->matter);
         }
 
@@ -114,5 +111,10 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         }
 
         return $markdown;
+    }
+
+    protected function getMatter(string $key): string|null|array
+    {
+        return $this->matter->get($key);
     }
 }

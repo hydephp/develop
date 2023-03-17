@@ -9,7 +9,9 @@ use Hyde\Facades\Config;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Illuminate\Support\Facades\File;
 
+use function array_map;
 use function basename;
+use function glob;
 use function in_array;
 use function sprintf;
 

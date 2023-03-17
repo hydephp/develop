@@ -13,7 +13,7 @@ use function collect;
 
 abstract class BaseNavigationMenu
 {
-    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     public Collection $items;
 
     final protected function __construct()

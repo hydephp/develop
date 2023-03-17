@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Facades\Config;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 
@@ -23,8 +21,6 @@ use function is_a;
  */
 class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
-    use InteractsWithFrontMatter;
-
     /**
      * The front matter properties supported by this factory.
      *
@@ -76,7 +72,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->searchForLabelInFrontMatter()
             ?? $this->searchForLabelInConfig()
-            ?? $this->matter('title')
+            ?? $this->getMatter('title')
             ?? $this->title;
     }
 
@@ -106,34 +102,34 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInFrontMatter(): ?string
     {
-        return $this->matter('navigation.label')
-            ?? $this->matter('navigation.title');
+        return $this->getMatter('navigation.label')
+            ?? $this->getMatter('navigation.title');
     }
 
     private function searchForGroupInFrontMatter(): ?string
     {
-        return $this->matter('navigation.group')
-            ?? $this->matter('navigation.category');
+        return $this->getMatter('navigation.group')
+            ?? $this->getMatter('navigation.category');
     }
 
     private function searchForHiddenInFrontMatter(): ?bool
     {
-        return $this->matter('navigation.hidden')
-            ?? $this->invert($this->matter('navigation.visible'));
+        return $this->getMatter('navigation.hidden')
+            ?? $this->invert($this->getMatter('navigation.visible'));
     }
 
     private function searchForPriorityInFrontMatter(): ?int
     {
-        return $this->matter('navigation.priority')
-            ?? $this->matter('navigation.order');
+        return $this->getMatter('navigation.priority')
+            ?? $this->getMatter('navigation.order');
     }
 
     private function searchForLabelInConfig(): ?string
     {
-        return Arr::get(Config::getArray('hyde.navigation.labels', [
+        return Config::getArray('hyde.navigation.labels', [
             'index' => 'Home',
             DocumentationPage::homeRouteName() => 'Docs',
-        ]), $this->routeKey);
+        ])[$this->routeKey] ?? null;
     }
 
     private function searchForPriorityInConfigs(): ?int
@@ -151,8 +147,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
         // This is all to make it easier to mix ways of adding priorities.
 
-        return $this->offset(Arr::get(
-            array_flip(Config::getArray('docs.sidebar_order', [])), $this->identifier),
+        return $this->offset(
+            array_flip(Config::getArray('docs.sidebar_order', []))[$this->identifier] ?? null,
             self::CONFIG_OFFSET
         );
     }
@@ -205,5 +201,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function offset(?int $value, int $offset): ?int
     {
         return $value === null ? null : $value + $offset;
+    }
+
+    protected function getMatter(string $key): string|null|int|bool
+    {
+        return $this->matter->get($key);
     }
 }

@@ -11,6 +11,7 @@ use Hyde\Support\Filesystem\SourceFile;
 
 use function basename;
 use function glob;
+use function str_starts_with;
 
 /**
  * The FileCollection contains all the discovered source files.
@@ -20,6 +21,8 @@ use function glob;
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, SourceFile> $items The files in the collection.
+ *
+ * @method SourceFile|null get(string $key, SourceFile $default = null)
  *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via the facade or Hyde helper:

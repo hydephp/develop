@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Documentation;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
@@ -14,7 +15,6 @@ use function explode;
 use function in_array;
 use function str_contains;
 use function trim;
-use function view;
 
 /**
  * Class to make Hyde documentation pages smarter,
@@ -135,7 +135,7 @@ class SemanticDocumentationArticle
 
     protected function renderSourceLink(): string
     {
-        return view('hyde::components.docs.edit-source-button', [
+        return View::make('hyde::components.docs.edit-source-button', [
             'href' => $this->page->getOnlineSourcePath(),
         ])->render();
     }

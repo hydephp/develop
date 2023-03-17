@@ -49,7 +49,7 @@ class RouteListCommand extends Command
                         $page = $this->route->getPage();
                         /** @experimental The typeLabel macro is experimental */
                         if ($page instanceof InMemoryPage && $page->hasMacro('typeLabel')) {
-                            $type .= sprintf(' <fg=gray>(%s)</>', $page->__call('typeLabel', []));
+                            $type .= sprintf(' <fg=gray>(%s)</>', (string) $page->__call('typeLabel', []));
                         }
 
                         return $type;

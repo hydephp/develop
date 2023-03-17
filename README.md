@@ -18,9 +18,9 @@
 
 <div align=center>
 
-![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)
-![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)
-![License MIT](https://img.shields.io/github/license/hydephp/hyde)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)](https://packagist.org/packages/hyde/framework)
+[![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)](https://packagist.org/packages/hyde/framework)
+[![License MIT](https://img.shields.io/github/license/hydephp/hyde)](https://github.com/hydephp/develop/blob/master/LICENSE.md)
 
 </div>
 
@@ -66,3 +66,7 @@ Changes to HydePHP including some first-party packages are made here. The change
 ### Releases
 
 The versioning between the Framework and Hyde packages are linked together, meaning that if Hyde gets a major release, so must Framework, and vice versa. To make this easier, we also publish major and minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.
+
+## Contributing
+
+We welcome contributions to HydePHP. Please read our [contributing guidelines](CONTRIBUTING.md) to learn how you can help.
