@@ -78,4 +78,32 @@ class RelatedPublicationsComponentTest extends TestCase
         $component = new RelatedPublicationsComponent();
         $this->assertEquals(new Collection(['foo/bar' => $otherPage]), $component->relatedPublications);
     }
+
+    public function testWithPublicationsWithOtherTagValue()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
+        $this->mockRoute(new Route($page));
+
+        $otherPage = new PublicationPage('bar', ['foo' => 'baz'], type: $type);
+        Hyde::pages()->addPage($page);
+        Hyde::pages()->addPage($otherPage);
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertEquals(new Collection(), $component->relatedPublications);
+    }
+
+    public function testWithPublicationsWithCurrentOneBeingUntagged()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $page = new PublicationPage('foo', type: $type);
+        $this->mockRoute(new Route($page));
+
+        $otherPage = new PublicationPage('bar', ['foo' => 'bar'], type: $type);
+        Hyde::pages()->addPage($page);
+        Hyde::pages()->addPage($otherPage);
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertEquals(new Collection(), $component->relatedPublications);
+    }
 }
