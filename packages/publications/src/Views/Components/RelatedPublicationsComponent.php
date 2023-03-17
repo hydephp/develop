@@ -32,7 +32,7 @@ class RelatedPublicationsComponent extends Component
         return view('hyde-publications::components.related-publications');
     }
 
-    protected function makeRelatedPublications(int $max = 5): Collection
+    protected function makeRelatedPublications(int $limit = 5): Collection
     {
         // Get current publicationType from the current page
         $currentHydePage = Hyde::currentRoute()->getPage();
@@ -74,7 +74,7 @@ class RelatedPublicationsComponent extends Component
         }
 
         // Sort them by relevance (count of shared tags & newest dates)
-        return $this->sortRelatedPagesByRelevance($allRelatedPages, $max);
+        return $this->sortRelatedPagesByRelevance($allRelatedPages, $limit);
     }
 
     protected function getTagsForPage(PublicationPage $publicationPage, Collection $tagFields): Collection
