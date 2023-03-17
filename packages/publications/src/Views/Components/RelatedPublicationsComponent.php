@@ -15,6 +15,7 @@ use Illuminate\View\Component;
 
 class RelatedPublicationsComponent extends Component
 {
+    /** @var Collection<string, PublicationPage> */
     public Collection $relatedPublications;
 
     public function __construct()
