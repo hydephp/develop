@@ -22,6 +22,8 @@ use function str_starts_with;
  *
  * @property array<string, SourceFile> $items The files in the collection.
  *
+ * @method SourceFile|null get(string $key, SourceFile $default = null)
+ *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via the facade or Hyde helper:
  *

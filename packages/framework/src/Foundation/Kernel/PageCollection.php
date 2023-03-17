@@ -18,6 +18,8 @@ use Hyde\Support\Filesystem\SourceFile;
  *
  * @property array<string, HydePage> $items The pages in the collection.
  *
+ * @method HydePage|null get(string $key, HydePage $default = null)
+ *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via the facade or Hyde helper:
  *

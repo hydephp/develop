@@ -14,6 +14,7 @@ use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 
+use function str_contains;
 use function str_replace;
 use function array_merge;
 use function array_diff;
@@ -38,13 +39,18 @@ class MarkdownService
     protected ?string $pageClass = null;
 
     protected array $config = [];
+
+    /** @var array<class-string<\League\CommonMark\Extension\ExtensionInterface>> */
     protected array $extensions = [];
     protected MarkdownConverter $converter;
 
     protected string $html;
     protected array $features = [];
 
+    /** @var array<class-string<\Hyde\Markdown\Contracts\MarkdownPreProcessorContract>> */
     protected array $preprocessors = [];
+
+    /** @var array<class-string<\Hyde\Markdown\Contracts\MarkdownPostProcessorContract>> */
     protected array $postprocessors = [];
 
     public function __construct(string $markdown, ?string $pageClass = null)
@@ -93,7 +99,7 @@ class MarkdownService
 
     protected function runPreProcessing(): void
     {
-        /** @var PreProcessor $processor */
+        /** @var class-string<PreProcessor> $preprocessor */
         foreach ($this->preprocessors as $preprocessor) {
             $this->markdown = $preprocessor::preprocess($this->markdown);
         }
@@ -105,7 +111,7 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        /** @var PostProcessor $postprocessor */
+        /** @var class-string<PostProcessor> $postprocessor */
         foreach ($this->postprocessors as $postprocessor) {
             $this->html = $postprocessor::postprocess($this->html);
         }
@@ -229,25 +235,31 @@ class MarkdownService
 
         foreach ($lines as $lineNumber => $line) {
             if ($lineNumber >= $startNumber) {
-                $lines[$lineNumber] = substr((string) $line, $indentationLevel);
+                $lines[$lineNumber] = substr($line, $indentationLevel);
             }
         }
 
         return implode("\n", $lines);
     }
 
+    /** @return array<int, string> */
     protected static function getNormalizedLines(string $string): array
     {
         return explode("\n", str_replace(["\t", "\r\n"], ['    ', "\n"], $string));
     }
 
-    /** @return int[]  Find the indentation level and position of the first line that has content */
+    /**
+     * Find the indentation level and position of the first line that has content.
+     *
+     * @param  array<int, string>  $lines
+     * @return array<int, int>
+     */
     protected static function findLineContentPositions(array $lines): array
     {
         foreach ($lines as $lineNumber => $line) {
-            if (filled(trim((string) $line))) {
-                $lineLen = strlen((string) $line);
-                $stripLen = strlen(ltrim((string) $line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
+            if (filled(trim($line))) {
+                $lineLen = strlen($line);
+                $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets us know its indentation level, and thus how much to strip from each line
 
                 if ($lineLen !== $stripLen) {
                     return [$lineNumber, $lineLen - $stripLen];

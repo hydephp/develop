@@ -20,6 +20,7 @@ use function ucwords;
  */
 class RouteList implements Arrayable
 {
+    /** @var array<integer, array<string, string>> */
     protected array $routes;
 
     public function __construct()

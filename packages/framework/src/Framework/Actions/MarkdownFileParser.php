@@ -44,7 +44,7 @@ class MarkdownFileParser
             $document = YamlFrontMatter::markdownCompatibleParse($stream);
 
             if ($document->matter()) {
-                $this->matter = $document->matter();
+                $this->matter = (array) $document->matter();
             }
 
             if ($document->body()) {

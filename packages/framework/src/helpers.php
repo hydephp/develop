@@ -11,7 +11,7 @@ namespace {
          */
         function hyde(): HydeKernel
         {
-            return app(HydeKernel::class);
+            return HydeKernel::getInstance();
         }
     }
 
@@ -37,7 +37,6 @@ use function function_exists;
     use function str_replace;
     use function implode;
     use function trim;
-    use function app;
     use function md5;
 
     if (! function_exists('\Hyde\hyde')) {
@@ -46,7 +45,7 @@ use function function_exists;
          */
         function hyde(): HydeKernel
         {
-            return app(HydeKernel::class);
+            return HydeKernel::getInstance();
         }
     }
 

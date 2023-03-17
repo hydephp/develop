@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Facades\Config;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
@@ -127,10 +126,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfig(): ?string
     {
-        return Arr::get(Config::getArray('hyde.navigation.labels', [
+        return Config::getArray('hyde.navigation.labels', [
             'index' => 'Home',
             DocumentationPage::homeRouteName() => 'Docs',
-        ]), $this->routeKey);
+        ])[$this->routeKey] ?? null;
     }
 
     private function searchForPriorityInConfigs(): ?int
@@ -148,8 +147,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
         // This is all to make it easier to mix ways of adding priorities.
 
-        return $this->offset(Arr::get(
-            array_flip(Config::getArray('docs.sidebar_order', [])), $this->identifier),
+        return $this->offset(
+            array_flip(Config::getArray('docs.sidebar_order', []))[$this->identifier] ?? null,
             self::CONFIG_OFFSET
         );
     }

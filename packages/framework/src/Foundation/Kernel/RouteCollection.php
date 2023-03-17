@@ -18,6 +18,8 @@ use Hyde\Support\Models\Route;
  *
  * @property array<string, Route> $items The routes in the collection.
  *
+ * @method Route|null get(string $key, Route $default = null)
+ *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via the facade or Hyde helper:
  *
