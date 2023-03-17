@@ -225,6 +225,9 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForRemoteImage(): int
     {
+        // TODO: We may want to globalize this check in the config, but for now,
+        // we just check the server arguments and skip remote requests if
+        // the --no-api flag is present (in the build command call)
         if (! (isset($_SERVER['argv']) && in_array('--no-api', $_SERVER['argv'], true))) {
             $headers = Http::withHeaders([
                 'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
