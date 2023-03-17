@@ -34,48 +34,31 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function test_it_returns_empty_collection_if_publication_type_has_no_tag_fields()
     {
-        // arrange
-        $mockPublicationType = $this->createMock(PublicationType::class);
-        $mockPublicationType->method('getFields')->willReturn(collect());
-        $mockCurrentRoute = $this->createMock(Hyde::class);
-        $mockCurrentRoute->method('getPage')->willReturn(new PublicationPage(['type' => $mockPublicationType]));
-        $this->mockHyde($mockCurrentRoute);
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
 
         $component = new RelatedPublicationsComponent();
+        $result = $component->relatedPublications;
 
-        // act
-        $result = $component->makeRelatedPublications();
-
-        // assert
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertTrue($result->isEmpty());
     }
 
     public function test_it_returns_empty_collection_if_there_are_no_related_publications()
     {
-        // arrange
-        $mockPublicationType = $this->createMock(PublicationType::class);
-        $mockPublicationType->method('getFields')->willReturn(collect(['tagGroup' => 'tag']));
-        $mockPublicationService = $this->createMock(PublicationService::class);
-        $mockPublicationService->method('getPublicationsForType')->willReturn(collect([
-            new PublicationPage(['identifier' => '1', 'matter' => collect(['tag' => ['tag1']])])
-        ]));
-        $mockCurrentRoute = $this->createMock(Hyde::class);
-        $mockCurrentRoute->method('getPage')->willReturn(new PublicationPage(['type' => $mockPublicationType, 'identifier' => '1']));
-        $this->mockHyde($mockCurrentRoute);
+        $mockPublicationType = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
+        $this->mockRoute(new Route(new PublicationPage(type: $mockPublicationType)));
 
         $component = new RelatedPublicationsComponent();
+        $result = $component->relatedPublications;
 
-        // act
-        $result = $component->makeRelatedPublications();
-
-        // assert
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertTrue($result->isEmpty());
     }
 
     public function testRenderMethodReturnsView(): void
     {
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
+
         $component = new RelatedPublicationsComponent();
 
         $this->assertInstanceOf(\Illuminate\Contracts\View\View::class, $component->render());
@@ -83,6 +66,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testMakeRelatedPublicationsReturnsCollection(): void
     {
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
         $component = new RelatedPublicationsComponent();
 
         $this->assertInstanceOf(Collection::class, $component->relatedPublications);
@@ -90,26 +74,24 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testMakeRelatedPublicationsReturnsEmptyCollectionWhenNoPublicationType(): void
     {
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
         $component = new RelatedPublicationsComponent();
-        $component->makeRelatedPublications();
 
         $this->assertEmpty($component->relatedPublications);
     }
 
     public function testMakeRelatedPublicationsReturnsEmptyCollectionWhenNoTagFields(): void
     {
-        $publicationType = new PublicationType(['fields' => collect()]);
-        $publicationPage = new PublicationPage(['type' => $publicationType]);
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
         $component = new RelatedPublicationsComponent();
-        $component->makeRelatedPublications();
+        $component->relatedPublications;
 
         $this->assertEmpty($component->relatedPublications);
     }
 
     public function testGetTagsForPageReturnsCollection(): void
     {
-        $publicationType = new PublicationType(['fields' => collect()]);
-        $publicationPage = new PublicationPage(['type' => $publicationType]);
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
         $tagFields = collect();
         $component = new RelatedPublicationsComponent();
 
@@ -118,6 +100,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testGetAllRelatedPagesReturnsCollection(): void
     {
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
         $publicationPages = collect();
         $tagFields = collect();
         $currentPageTags = collect();
@@ -128,6 +111,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testSortRelatedPagesByRelevanceReturnsCollection(): void
     {
+        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
         $allRelatedPages = collect();
         $max = 5;
         $component = new RelatedPublicationsComponent();
