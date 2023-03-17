@@ -166,7 +166,6 @@ Hello World
 
     public function testOutput()
     {
-        $this->markTestSkipped('Disabled due to side effect introduced by https://github.com/hydephp/develop/pull/1138');
         $this->createFullRangeTestFixtures();
 
         $this->artisan('validate:publications')
@@ -191,7 +190,6 @@ Hello World
 
     public function testWithVerboseOutput()
     {
-        $this->markTestSkipped('Disabled due to side effect introduced by https://github.com/hydephp/develop/pull/1138');
         $this->createFullRangeTestFixtures();
 
         $this->artisan('validate:publications --verbose')
@@ -218,7 +216,6 @@ Hello World
 
     public function testWithJsonOutput()
     {
-        $this->markTestSkipped('Disabled due to side effect introduced by https://github.com/hydephp/develop/pull/1138');
         $this->createFullRangeTestFixtures();
 
         $this->artisan('validate:publications --json')
@@ -309,8 +306,9 @@ Hello World
             MD
         );
 
-        $this->file('test-publication/extra-field.md', <<<'MD'
+        $this->file('test-publication/invalid-field-and-extra-field.md', <<<'MD'
             ---
+            title: false
             extra: field
             ---
             
@@ -320,6 +318,15 @@ Hello World
 
         $this->file('test-publication/missing-field.md', <<<'MD'
             ---
+            ---
+            
+            # My Page
+            MD
+        );
+
+        $this->file('test-publication/invalid-field.md', <<<'MD'
+            ---
+            title: false
             ---
             
             # My Page
