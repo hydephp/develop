@@ -73,4 +73,65 @@ class RelatedPublicationsComponentTest extends TestCase
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertTrue($result->isEmpty());
     }
+
+    public function testRenderMethodReturnsView(): void
+    {
+        $component = new RelatedPublicationsComponent();
+
+        $this->assertInstanceOf(\Illuminate\Contracts\View\View::class, $component->render());
+    }
+
+    public function testMakeRelatedPublicationsReturnsCollection(): void
+    {
+        $component = new RelatedPublicationsComponent();
+
+        $this->assertInstanceOf(Collection::class, $component->relatedPublications);
+    }
+
+    public function testMakeRelatedPublicationsReturnsEmptyCollectionWhenNoPublicationType(): void
+    {
+        $component = new RelatedPublicationsComponent();
+        $component->makeRelatedPublications();
+
+        $this->assertEmpty($component->relatedPublications);
+    }
+
+    public function testMakeRelatedPublicationsReturnsEmptyCollectionWhenNoTagFields(): void
+    {
+        $publicationType = new PublicationType(['fields' => collect()]);
+        $publicationPage = new PublicationPage(['type' => $publicationType]);
+        $component = new RelatedPublicationsComponent();
+        $component->makeRelatedPublications();
+
+        $this->assertEmpty($component->relatedPublications);
+    }
+
+    public function testGetTagsForPageReturnsCollection(): void
+    {
+        $publicationType = new PublicationType(['fields' => collect()]);
+        $publicationPage = new PublicationPage(['type' => $publicationType]);
+        $tagFields = collect();
+        $component = new RelatedPublicationsComponent();
+
+        $this->assertInstanceOf(Collection::class, $component->getTagsForPage($publicationPage, $tagFields));
+    }
+
+    public function testGetAllRelatedPagesReturnsCollection(): void
+    {
+        $publicationPages = collect();
+        $tagFields = collect();
+        $currentPageTags = collect();
+        $component = new RelatedPublicationsComponent();
+
+        $this->assertInstanceOf(Collection::class, $component->getAllRelatedPages($publicationPages, $tagFields, $currentPageTags));
+    }
+
+    public function testSortRelatedPagesByRelevanceReturnsCollection(): void
+    {
+        $allRelatedPages = collect();
+        $max = 5;
+        $component = new RelatedPublicationsComponent();
+
+        $this->assertInstanceOf(Collection::class, $component->sortRelatedPagesByRelevance($allRelatedPages, $max));
+    }
 }
