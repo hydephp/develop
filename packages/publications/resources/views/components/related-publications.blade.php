@@ -6,9 +6,7 @@
                 @foreach ($relatedPublications as $publication)
                     @php $carbon = \Carbon\Carbon::parse($publication->matter->__createdAt); @endphp
                     <li>
-                        <a href="{{ $publication->getRoute() }}">
-                            {{ $publication->title }}
-                        </a>
+                        <a href="{{ $publication->getRoute() }}">{{ $publication->title }}</a>
                         <time datetime="{{ $carbon }}">({{ $carbon->format('Y-m-d') }})</time>
                     </li>
                 @endforeach
