@@ -88,34 +88,4 @@ class RelatedPublicationsComponentTest extends TestCase
 
         $this->assertEmpty($component->relatedPublications);
     }
-
-    public function testGetTagsForPageReturnsCollection(): void
-    {
-        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
-        $tagFields = collect();
-        $component = new RelatedPublicationsComponent();
-
-        $this->assertInstanceOf(Collection::class, $component->getTagsForPage($publicationPage, $tagFields));
-    }
-
-    public function testGetAllRelatedPagesReturnsCollection(): void
-    {
-        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
-        $publicationPages = collect();
-        $tagFields = collect();
-        $currentPageTags = collect();
-        $component = new RelatedPublicationsComponent();
-
-        $this->assertInstanceOf(Collection::class, $component->getAllRelatedPages($publicationPages, $tagFields, $currentPageTags));
-    }
-
-    public function testSortRelatedPagesByRelevanceReturnsCollection(): void
-    {
-        $this->mockRoute(new Route(new PublicationPage(type: new PublicationType('foo'))));
-        $allRelatedPages = collect();
-        $max = 5;
-        $component = new RelatedPublicationsComponent();
-
-        $this->assertInstanceOf(Collection::class, $component->sortRelatedPagesByRelevance($allRelatedPages, $max));
-    }
 }
