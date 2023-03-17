@@ -2,28 +2,26 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release is the first since the official release of HydePHP 1.0.0. It contains a number of bug fixes and improvements, but no breaking changes as the project has reached general availability and adheres to the semantic versioning backwards compatibility promise.
 
 ### Added
 - for new features.
 
 ### Changed
 - Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
-- Cleaned up PageDataFactory, NavigationDataFactory, and BlogPostDataFactory internals for better type safety in https://github.com/hydephp/develop/pull/1312
+- Cleaned up `PageDataFactory`, `NavigationDataFactory`, and `BlogPostDataFactory` internals for better type safety in https://github.com/hydephp/develop/pull/1312
+- Refactored internals to use the `View` facade over the `view` function for better type safety in https://github.com/hydephp/develop/pull/1310
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Classes PageDataFactory, NavigationDataFactory, and BlogPostDataFactory no longer use the InteractsWithFrontMatter trait
+- Classes `PageDataFactory`, `NavigationDataFactory`, and `BlogPostDataFactory` no longer use the `InteractsWithFrontMatter` trait
 
 ### Fixed
 - Fixed https://github.com/hydephp/develop/issues/1301 in https://github.com/hydephp/develop/pull/1302
+- Fixed https://github.com/hydephp/develop/issues/1313 in https://github.com/hydephp/develop/commit/134776a1e4af395dab5c15d611fc64c9ebce8596
+- Added missing function imports in https://github.com/hydephp/develop/pull/1309
 
 ### Security
 - in case of vulnerabilities.
