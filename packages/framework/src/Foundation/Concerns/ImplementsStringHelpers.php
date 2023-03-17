@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 use function str_ireplace;
 use function str_replace;
+use function strtoupper;
 use function trim;
 use function ucfirst;
 
@@ -23,6 +24,11 @@ trait ImplementsStringHelpers
 {
     public static function makeTitle(string $value): string
     {
+        // Don't modify all-uppercase input
+        if ($value === strtoupper($value)) {
+            return $value;
+        }
+
         $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
 
         return ucfirst(str_ireplace(
