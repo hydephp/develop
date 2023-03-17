@@ -7,7 +7,9 @@
                     $date = \Carbon\Carbon::parse($publication->matter->__createdAt)->format('Y-m-d');
                 @endphp
                 <li class="list-disc">
-                    <a href="{{ $publication->getRoute() }}" class="text-primary-600 hover:text-primary-400 dark:text-primary-500 dark:hover:text-primary-600">{{ $publication->title }} ({{ $date }})</a>
+                    <a href="{{ $publication->getRoute() }}" class="text-primary-600 hover:text-primary-400 dark:text-primary-500 dark:hover:text-primary-600">
+                        {{ $publication->title }} ({{ $date }})
+                    </a>
                 </li>
             @endforeach
         </ul>
