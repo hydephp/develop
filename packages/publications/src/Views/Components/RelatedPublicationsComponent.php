@@ -39,9 +39,6 @@ class RelatedPublicationsComponent extends Component
         }
 
         $publicationType = $currentHydePage->getType();
-        if (! $publicationType) {
-            return collect();
-        }
 
         // Get the tag fields for the current publicationType or exit early if there aren't any
         $publicationTypeTagFields = $publicationType->getFields()->filter(function ($field) {
