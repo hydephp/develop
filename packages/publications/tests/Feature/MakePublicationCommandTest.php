@@ -82,7 +82,6 @@ class MakePublicationCommandTest extends TestCase
                 'fields'         =>  [],
             ])
         );
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication')
             ->expectsOutputToContain('Creating a new publication!')
@@ -109,7 +108,6 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile();
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
@@ -128,7 +126,6 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile();
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
@@ -145,7 +142,6 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile();
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication', ['--force' => true])
              ->expectsOutputToContain('Creating a new publication!')
@@ -159,7 +155,6 @@ class MakePublicationCommandTest extends TestCase
     public function test_command_with_publication_type_passed_as_argument()
     {
         $this->makeSchemaFile();
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication test-publication')
              ->expectsOutput('Creating a new publication of type [test-publication]')
@@ -187,7 +182,6 @@ class MakePublicationCommandTest extends TestCase
             'canonicalField' => '__createdAt',
             'fields' => [],
         ]);
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
@@ -214,7 +208,6 @@ class MakePublicationCommandTest extends TestCase
                 'name' => '__createdAt',
             ]],
         ]);
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication test-publication')
             ->doesntExpectOutput('Enter data for field </>[<comment>__createdAt</comment>]')
@@ -235,7 +228,6 @@ class MakePublicationCommandTest extends TestCase
             ],
             ],
         ]);
-        $this->rebootToDiscoverPublicationPages();
 
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
@@ -600,7 +592,6 @@ class MakePublicationCommandTest extends TestCase
                 ],
             ], $merge))
         );
-        $this->rebootToDiscoverPublicationPages();
     }
 
     protected function assertPublicationFileWasCreatedCorrectly(): void
