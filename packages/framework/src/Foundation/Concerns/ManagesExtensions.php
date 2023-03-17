@@ -90,20 +90,6 @@ trait ManagesExtensions
         return $this->extensions;
     }
 
-    /**
-     * @internal This method is for testing purposes only.
-     *
-     * @codeCoverageIgnore
-     */
-    public function unRegisterExtension(string $extension): void
-    {
-        if (($key = array_search($extension, $this->extensions, true)) !== false) {
-            unset($this->extensions[$key]);
-
-            $this->extensions = array_values($this->extensions);
-        }
-    }
-
     /** @return array<class-string<\Hyde\Foundation\Concerns\HydeExtension>> */
     public function getRegisteredExtensions(): array
     {
