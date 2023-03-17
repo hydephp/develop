@@ -33,4 +33,24 @@ class RelatedPublicationsComponentTest extends TestCase
         $component = new RelatedPublicationsComponent();
         $this->assertEquals(new Collection(), $component->relatedPublications);
     }
+
+    public function testWithTagFieldButNoTagGroup()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
+        $page = new PublicationPage('foo', type: $type);
+        $this->mockRoute(new Route($page));
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertEquals(new Collection(), $component->relatedPublications);
+    }
+
+    public function testWithEmptyTagGroup()
+    {
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $page = new PublicationPage('foo', type: $type);
+        $this->mockRoute(new Route($page));
+
+        $component = new RelatedPublicationsComponent();
+        $this->assertEquals(new Collection(), $component->relatedPublications);
+    }
 }
