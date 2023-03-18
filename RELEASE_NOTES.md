@@ -25,6 +25,7 @@ This release is the first since the official release of HydePHP 1.0.0. It contai
 - Fixed https://github.com/hydephp/develop/issues/1318 in https://github.com/hydephp/develop/pull/1319
 - Fixed https://github.com/hydephp/develop/issues/1320 in https://github.com/hydephp/develop/pull/1321
 - Fixed https://github.com/hydephp/develop/issues/1322 in https://github.com/hydephp/develop/issues/1323
+- Fixed https://github.com/hydephp/develop/issues/1324 in https://github.com/hydephp/develop/pull/1325
 - Added missing function imports in https://github.com/hydephp/develop/pull/1309
 
 ### Security
