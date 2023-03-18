@@ -8,7 +8,7 @@
         <ul class="dropdown-items px-3 py-2">
             @isset($items)
                 @foreach ($items as $item)
-                    <li>
+                    <li class="whitespace-nowrap">
                         @include('hyde::components.navigation.navigation-link')
                     </li>
                 @endforeach
