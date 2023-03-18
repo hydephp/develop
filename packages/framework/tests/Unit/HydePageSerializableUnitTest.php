@@ -205,7 +205,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 999,
