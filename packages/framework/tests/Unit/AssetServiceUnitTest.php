@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\UnitTestCase;
+use Hyde\Hyde;
 
 /**
  * @covers \Hyde\Framework\Services\AssetService
@@ -106,5 +107,13 @@ class AssetServiceUnitTest extends UnitTestCase
         $this->assertStringContainsString('extend: {', $config);
         $this->assertStringContainsString('typography: {', $config);
         $this->assertStringNotContainsString('plugins', $config);
+    }
+
+    public function testInjectTailwindConfigHandlesMissingConfigFileGracefully()
+    {
+        rename(Hyde::path('tailwind.config.js'), Hyde::path('tailwind.config.js.bak'));
+        $this->assertIsString((new AssetService())->injectTailwindConfig());
+        $this->assertSame('', (new AssetService())->injectTailwindConfig());
+        rename(Hyde::path('tailwind.config.js.bak'), Hyde::path('tailwind.config.js'));
     }
 }
