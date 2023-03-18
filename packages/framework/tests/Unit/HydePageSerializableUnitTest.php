@@ -220,6 +220,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
 
     public function testJsonSerializedHydePageContents()
     {
+        $page = new InstantiableHydePage();
         $this->assertSame(<<<'JSON'
             {
                 "class": "Hyde\\Framework\\Testing\\Unit\\InstantiableHydePage",
@@ -235,12 +236,13 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 },
                 "title": ""
             }
-            JSON, (new InstantiableHydePage())->toJson(128)
+            JSON, $page->toJson(128)
         );
     }
 
     public function testJsonSerializedHtmlPageContents()
     {
+        $page = new HtmlPage();
         $this->assertSame(<<<'JSON'
             {
                 "class": "Hyde\\Pages\\HtmlPage",
@@ -256,12 +258,13 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 },
                 "title": ""
             }
-            JSON, (new HtmlPage())->toJson(128)
+            JSON, $page->toJson(128)
         );
     }
 
     public function testJsonSerializedBladePageContents()
     {
+        $page = new BladePage();
         $this->assertSame(<<<'JSON'
             {
                 "class": "Hyde\\Pages\\BladePage",
@@ -277,12 +280,13 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 },
                 "title": ""
             }
-            JSON, (new BladePage())->toJson(128)
+            JSON, $page->toJson(128)
         );
     }
 
     public function testJsonSerializedMarkdownPageContents()
     {
+        $page = new MarkdownPage();
         $this->assertSame(<<<'JSON'
             {
                 "class": "Hyde\\Pages\\MarkdownPage",
@@ -298,12 +302,13 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 },
                 "title": ""
             }
-            JSON, (new MarkdownPage())->toJson(128)
+            JSON, $page->toJson(128)
         );
     }
 
     public function testJsonSerializedMarkdownPostContents()
     {
+        $page = new MarkdownPost();
         $this->assertSame(<<<'JSON'
             {
                 "class": "Hyde\\Pages\\MarkdownPost",
@@ -324,12 +329,13 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "author": null,
                 "image": null
             }
-            JSON, (new MarkdownPost())->toJson(128)
+            JSON, $page->toJson(128)
         );
     }
 
     public function testJsonSerializedDocumentationPageContents()
     {
+        $page = new DocumentationPage();
         $this->assertSame(<<<'JSON'
             {
                 "class": "Hyde\\Pages\\DocumentationPage",
@@ -345,7 +351,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 },
                 "title": ""
             }
-            JSON, (new DocumentationPage())->toJson(128)
+            JSON, $page->toJson(128)
         );
     }
 }
