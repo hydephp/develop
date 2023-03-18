@@ -468,4 +468,15 @@ class MetadataTest extends TestCase
 
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="author"');
     }
+
+    public function test_to_array_method_returns_same_result_as_get_method()
+    {
+        $page = MarkdownPost::make(matter: [
+            'author' => [
+                'name' => 'Name',
+            ],
+        ]);
+
+        $this->assertSame($page->metadata->toArray(), $page->metadata->get());
+    }
 }

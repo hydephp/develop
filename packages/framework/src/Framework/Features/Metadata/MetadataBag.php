@@ -46,6 +46,11 @@ class MetadataBag implements SerializableContract, Htmlable
         );
     }
 
+    public function toArray(): array
+    {
+        return $this->get();
+    }
+
     public function add(MetadataElementContract|string $element): static
     {
         if ($element instanceof LinkElement) {
