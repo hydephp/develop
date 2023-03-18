@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Metadata;
 use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Htmlable;
 
 use function array_merge;
@@ -18,7 +19,7 @@ use function implode;
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
  * @see \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
-class MetadataBag implements Htmlable
+class MetadataBag implements Htmlable, SerializableContract
 {
     protected array $links = [];
     protected array $metadata = [];
