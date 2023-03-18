@@ -469,6 +469,20 @@ class MetadataTest extends TestCase
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="author"');
     }
 
+    public function test_metadata_bag_is_arrayable()
+    {
+        $page = MarkdownPost::make(matter: [
+            'author' => [
+                'name' => 'Name',
+            ],
+        ]);
+
+        $this->assertEquals([
+            'metadata:author' => Meta::name('author', 'Name'),
+            'properties:type' => Meta::property('og:type', 'article'),
+        ], $page->metadata->toArray());
+    }
+
     public function test_to_array_method_returns_same_result_as_get_method()
     {
         $page = MarkdownPost::make(matter: [
@@ -478,5 +492,16 @@ class MetadataTest extends TestCase
         ]);
 
         $this->assertSame($page->metadata->toArray(), $page->metadata->get());
+    }
+
+    public function test_metadata_bag_is_jsonable()
+    {
+        $page = MarkdownPost::make(matter: [
+            'author' => [
+                'name' => 'Name',
+            ],
+        ]);
+
+        $this->assertSame('{"metadata:author":{},"properties:type":{}}', $page->metadata->toJson());
     }
 }
