@@ -31,7 +31,7 @@ use function file_get_contents;
 class AssetService
 {
     /** @var string The default HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
-    final public const HYDEFRONT_VERSION = 'v2.0';
+    final public const HYDEFRONT_VERSION = 'v3.3';
 
     /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
     final public const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
@@ -67,6 +67,10 @@ class AssetService
 
     public function injectTailwindConfig(): string
     {
+        if (! file_exists(Hyde::path('tailwind.config.js'))) {
+            return '';
+        }
+
         $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
 
         // Remove the plugins array, as it is not used in the frontend.

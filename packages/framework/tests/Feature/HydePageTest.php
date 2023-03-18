@@ -1224,6 +1224,13 @@ class HydePageTest extends TestCase
         }
     }
 
+    public function test_nested_index_pages_show_up_in_navigation()
+    {
+        $page = MarkdownPage::make('foo/index');
+        $this->assertTrue($page->showInNavigation());
+        $this->assertSame('Foo', $page->navigationMenuLabel());
+    }
+
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
     {
         $this->assertSame(

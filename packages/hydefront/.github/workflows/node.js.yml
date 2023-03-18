@@ -27,8 +27,8 @@ jobs:
       run: npm run prod
 
     - name: Add copyright text to compiled file
-      # add '/*! HydeFront v3.0.0 | MIT License | https://hydephp.com*/' to the top of the dist/hyde.css file
-      run: sed -i '1s/^/\/\*! HydeFront v3.0.0 | MIT License | https:\/\/hydephp.com\*\/\n/' dist/hyde.css
+      # add '/*! HydeFront v3.3.0 | MIT License | https://hydephp.com*/' to the top of the dist/hyde.css file
+      run: sed -i '1s/^/\/\*! HydeFront v3.3.0 | MIT License | https:\/\/hydephp.com\*\/\n/' dist/hyde.css
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v1
