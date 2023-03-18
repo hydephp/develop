@@ -19,7 +19,7 @@ use function implode;
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
  * @see \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
-class MetadataBag implements Htmlable, SerializableContract
+class MetadataBag implements SerializableContract, Htmlable
 {
     protected array $links = [];
     protected array $metadata = [];
