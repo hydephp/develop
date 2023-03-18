@@ -11,6 +11,7 @@ This release is the first since the official release of HydePHP 1.0.0. It contai
 - Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
 - Cleaned up `PageDataFactory`, `NavigationDataFactory`, and `BlogPostDataFactory` internals for better type safety in https://github.com/hydephp/develop/pull/1312
 - Refactored internals to use the `View` facade over the `view` function for better type safety in https://github.com/hydephp/develop/pull/1310
+- Updated to HydeFront v3.3.0 in https://github.com/hydephp/develop/pull/1329
 
 ### Deprecated
 - for soon-to-be removed features.
