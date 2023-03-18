@@ -66,7 +66,13 @@ class DashboardController
     // This method is called from the PageRouter and allows us to serve a dynamic welcome page
     public static function renderIndexPage(HydePage $page): string
     {
-        $contents = file_get_contents(StaticPageBuilder::handle($page));
+        if (config('hyde.server.save_pages')) {
+            $contents = file_get_contents(StaticPageBuilder::handle($page));
+        } else {
+            Hyde::shareViewData($page);
+
+            $contents = $page->compile();
+        }
 
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
