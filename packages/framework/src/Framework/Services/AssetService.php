@@ -67,6 +67,10 @@ class AssetService
 
     public function injectTailwindConfig(): string
     {
+        if (! file_exists(Hyde::path('tailwind.config.js'))) {
+            return '';
+        }
+
         $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
 
         // Remove the plugins array, as it is not used in the frontend.
