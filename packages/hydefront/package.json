@@ -1,6 +1,6 @@
 {
   "name": "hydefront",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Frontend assets for HydePHP",
   "scripts": {
     "prod": "sass hyde.scss dist/hyde.css --style=compressed",
