@@ -36,21 +36,18 @@ class TracksExecutionTimeTest extends UnitTestCase
 
     public function test_getExecutionTimeInMs()
     {
-        $class = new TracksExecutionTimeTestClass();
-        $class->startClock();
+        $class = new FixedStopClockTestClass();
 
         $this->assertIsFloat($class->getExecutionTimeInMs());
-        $this->assertLessThan(1, $class->getExecutionTimeInMs());
+        $this->assertSame(3.14, $class->getExecutionTimeInMs());
     }
 
     public function test_getExecutionTimeString()
     {
-        $class = new TracksExecutionTimeTestClass();
-        $class->startClock();
+        $class = new FixedStopClockTestClass();
 
         $this->assertIsString($class->getExecutionTimeString());
-        $this->assertTrue(str_starts_with($class->getExecutionTimeString(), '0'));
-        $this->assertTrue(str_ends_with($class->getExecutionTimeString(), 'ms'));
+        $this->assertSame('3.14ms', $class->getExecutionTimeString());
     }
 }
 
@@ -71,5 +68,13 @@ class TracksExecutionTimeTestClass
     public function isset(string $name): bool
     {
         return isset($this->$name);
+    }
+}
+
+class FixedStopClockTestClass extends TracksExecutionTimeTestClass
+{
+    protected function stopClock(): float
+    {
+        return 3.14 / 1000;
     }
 }
