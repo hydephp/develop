@@ -23,7 +23,7 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testVersionStringConstant()
     {
-        $this->assertSame('v3.0', AssetService::HYDEFRONT_VERSION);
+        $this->assertSame('v3.3', AssetService::HYDEFRONT_VERSION);
     }
 
     public function testServiceHasVersionString()
@@ -56,7 +56,7 @@ class AssetServiceUnitTest extends UnitTestCase
     public function testCanUseCustomCdnUrlWithVersion()
     {
         self::mockConfig(['hyde.hydefront_url' => '{{ $version }}']);
-        $this->assertSame('v3.0', (new AssetService())->cdnLink(''));
+        $this->assertSame('v3.3', (new AssetService())->cdnLink(''));
     }
 
     public function testCanUseCustomCdnUrlWithFile()
@@ -68,7 +68,7 @@ class AssetServiceUnitTest extends UnitTestCase
     public function testCanUseCustomCdnUrlWithVersionAndFile()
     {
         self::mockConfig(['hyde.hydefront_url' => '{{ $version }}/{{ $file }}']);
-        $this->assertSame('v3.0/styles.css', (new AssetService())->cdnLink('styles.css'));
+        $this->assertSame('v3.3/styles.css', (new AssetService())->cdnLink('styles.css'));
     }
 
     public function testCanUseCustomCdnUrlWithCustomVersion()
@@ -83,7 +83,7 @@ class AssetServiceUnitTest extends UnitTestCase
     public function testCdnLinkHelper()
     {
         $this->assertSame(
-            'https://cdn.jsdelivr.net/npm/hydefront@v3.0/dist/styles.css',
+            'https://cdn.jsdelivr.net/npm/hydefront@v3.3/dist/styles.css',
             (new AssetService())->cdnLink('styles.css')
         );
     }

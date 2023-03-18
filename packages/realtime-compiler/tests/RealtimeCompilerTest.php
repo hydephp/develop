@@ -82,7 +82,7 @@ test('handle routes static assets', function () {
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK');
 
-    expect($response->body)->toContain('/*! HydeFront v3.0.0');
+    expect($response->body)->toContain('/*! HydeFront v3.3.0');
 });
 
 test('handle throws route not found exception for missing route', function () {
