@@ -12,6 +12,7 @@ use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\HtmlResponse;
+use Hyde\Hyde;
 
 /**
  * Handle routing for a web page request.
@@ -63,7 +64,13 @@ class PageRouter
             return DashboardController::renderIndexPage($page);
         }
 
-        return file_get_contents(StaticPageBuilder::handle($page));
+        if (config('hyde.server.save_preview')) {
+            return file_get_contents(StaticPageBuilder::handle($page));
+        } else {
+            Hyde::shareViewData($page);
+
+            return $page->compile();
+        }
     }
 
     public static function handle(Request $request): Response

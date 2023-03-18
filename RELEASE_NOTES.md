@@ -5,7 +5,7 @@
 This release is the first since the official release of HydePHP 1.0.0. It contains a number of bug fixes and improvements, but no breaking changes as the project has reached general availability and adheres to the semantic versioning backwards compatibility promise.
 
 ### Added
-- for new features.
+- Added a RealtimeCompiler config option to disable rendered pages being stored to disk in https://github.com/hydephp/develop/pull/1334
 
 ### Changed
 - Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
