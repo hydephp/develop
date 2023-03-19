@@ -32,17 +32,11 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         );
     }
 
-    protected function tearDown(): void
-    {
-        Filesystem::unlink('_site/docs/test-page.html');
-
-        parent::tearDown();
-    }
-
     protected function inspectHtml(array $expectedStrings, string $path = null)
     {
         StaticPageBuilder::handle($this->page);
         $stream = file_get_contents(Hyde::path($path ?? '_site/docs/test-page.html'));
+        $this->cleanUpWhenDone($path ?? '_site/docs/test-page.html');
 
         foreach ($expectedStrings as $expectedString) {
             $this->assertStringContainsString($expectedString, $stream);
@@ -54,6 +48,8 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         StaticPageBuilder::handle($this->page);
 
         $this->assertFileExists(Hyde::path('_site/docs/test-page.html'));
+
+        unlink(Hyde::path('_site/docs/test-page.html'));
     }
 
     public function test_page_contains_expected_content()
