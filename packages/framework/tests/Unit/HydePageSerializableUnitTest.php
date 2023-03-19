@@ -217,6 +217,190 @@ class HydePageSerializableUnitTest extends UnitTestCase
             JSON, (new InstantiableHydePage())->toJson(128)
         );
     }
+
+    public function testJsonSerializedHydePageContents()
+    {
+        $page = new InstantiableHydePage();
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Framework\\Testing\\Unit\\InstantiableHydePage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 999,
+                    "hidden": false,
+                    "group": null
+                },
+                "title": ""
+            }
+            JSON, $page->toJson(128)
+        );
+    }
+
+    public function testJsonSerializedHtmlPageContents()
+    {
+        $page = new HtmlPage();
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\HtmlPage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 999,
+                    "hidden": false,
+                    "group": null
+                },
+                "title": ""
+            }
+            JSON, $page->toJson(128)
+        );
+    }
+
+    public function testJsonSerializedBladePageContents()
+    {
+        $page = new BladePage();
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\BladePage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 999,
+                    "hidden": false,
+                    "group": null
+                },
+                "title": ""
+            }
+            JSON, $page->toJson(128)
+        );
+    }
+
+    public function testJsonSerializedMarkdownPageContents()
+    {
+        $page = new MarkdownPage();
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\MarkdownPage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 999,
+                    "hidden": false,
+                    "group": null
+                },
+                "title": ""
+            }
+            JSON, $page->toJson(128)
+        );
+    }
+
+    public function testJsonSerializedMarkdownPostContents()
+    {
+        $page = new MarkdownPost();
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\MarkdownPost",
+                "identifier": "",
+                "routeKey": "posts",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 10,
+                    "hidden": true,
+                    "group": null
+                },
+                "title": "",
+                "description": "",
+                "category": null,
+                "date": null,
+                "author": null,
+                "image": null
+            }
+            JSON, $page->toJson(128)
+        );
+    }
+
+    public function testJsonSerializedDocumentationPageContents()
+    {
+        $page = new DocumentationPage();
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\DocumentationPage",
+                "identifier": "",
+                "routeKey": "docs",
+                "matter": [],
+                "metadata": {},
+                "navigation": {
+                    "label": "",
+                    "priority": 999,
+                    "hidden": false,
+                    "group": "other"
+                },
+                "title": ""
+            }
+            JSON, $page->toJson(128)
+        );
+    }
+
+    public function testJsonSerializedMarkdownPageWithFrontMatter()
+    {
+        $page = new MarkdownPage(matter: [
+            'title' => 'Test Title',
+            'description' => 'Test Description',
+            'priority' => 10,
+            'hidden' => false,
+            'author.name' => 'foo',
+            'navigation' => [
+                'label' => 'Test Label',
+                'priority' => 20,
+                'hidden' => true,
+                'group' => 'test',
+            ],
+        ]);
+
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\MarkdownPage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": {
+                    "title": "Test Title",
+                    "description": "Test Description",
+                    "priority": 10,
+                    "hidden": false,
+                    "author.name": "foo",
+                    "navigation": {
+                        "label": "Test Label",
+                        "priority": 20,
+                        "hidden": true,
+                        "group": "test"
+                    }
+                },
+                "metadata": {},
+                "navigation": {
+                    "label": "Test Label",
+                    "priority": 20,
+                    "hidden": true,
+                    "group": "test"
+                },
+                "title": "Test Title"
+            }
+            JSON, $page->toJson(128)
+        );
+    }
 }
 
 class InstantiableHydePage extends HydePage
