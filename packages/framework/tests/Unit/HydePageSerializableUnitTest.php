@@ -315,7 +315,9 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "posts",
                 "matter": [],
-                "metadata": [],
+                "metadata": {
+                    "properties:type": {}
+                },
                 "navigation": {
                     "label": "",
                     "priority": 10,
@@ -389,7 +391,10 @@ class HydePageSerializableUnitTest extends UnitTestCase
                         "group": "test"
                     }
                 },
-                "metadata": [],
+                "metadata": {
+                    "metadata:twitter:title": {},
+                    "properties:title": {}
+                },
                 "navigation": {
                     "label": "Test Label",
                     "priority": 20,
