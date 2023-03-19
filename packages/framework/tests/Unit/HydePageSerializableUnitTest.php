@@ -227,7 +227,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 999,
@@ -249,7 +249,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 999,
@@ -271,7 +271,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 999,
@@ -293,7 +293,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 999,
@@ -315,7 +315,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "posts",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 10,
@@ -342,7 +342,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "identifier": "",
                 "routeKey": "docs",
                 "matter": [],
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "",
                     "priority": 999,
@@ -389,7 +389,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                         "group": "test"
                     }
                 },
-                "metadata": {},
+                "metadata": [],
                 "navigation": {
                     "label": "Test Label",
                     "priority": 20,
