@@ -39,10 +39,10 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         parent::tearDown();
     }
 
-    protected function inspectHtml(array $expectedStrings)
+    protected function inspectHtml(array $expectedStrings, string $path = null)
     {
         StaticPageBuilder::handle($this->page);
-        $stream = file_get_contents(Hyde::path('_site/docs/test-page.html'));
+        $stream = file_get_contents(Hyde::path($path ?? '_site/docs/test-page.html'));
 
         foreach ($expectedStrings as $expectedString) {
             $this->assertStringContainsString($expectedString, $stream);
