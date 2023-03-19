@@ -354,6 +354,53 @@ class HydePageSerializableUnitTest extends UnitTestCase
             JSON, $page->toJson(128)
         );
     }
+
+    public function testJsonSerializedMarkdownPageWithFrontMatter()
+    {
+        $page = new MarkdownPage(matter: [
+            'title' => 'Test Title',
+            'description' => 'Test Description',
+            'priority' => 10,
+            'hidden' => false,
+            'author.name' => 'foo',
+            'navigation' => [
+                'label' => 'Test Label',
+                'priority' => 20,
+                'hidden' => true,
+                'group' => 'test',
+            ],
+        ]);
+
+        $this->assertSame(<<<'JSON'
+            {
+                "class": "Hyde\\Pages\\MarkdownPage",
+                "identifier": "",
+                "routeKey": "",
+                "matter": {
+                    "title": "Test Title",
+                    "description": "Test Description",
+                    "priority": 10,
+                    "hidden": false,
+                    "author.name": "foo",
+                    "navigation": {
+                        "label": "Test Label",
+                        "priority": 20,
+                        "hidden": true,
+                        "group": "test"
+                    }
+                },
+                "metadata": {},
+                "navigation": {
+                    "label": "Test Label",
+                    "priority": 20,
+                    "hidden": true,
+                    "group": "test"
+                },
+                "title": "Test Title"
+            }
+            JSON, $page->toJson(128)
+        );
+    }
 }
 
 class InstantiableHydePage extends HydePage
