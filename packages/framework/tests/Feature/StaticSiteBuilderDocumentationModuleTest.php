@@ -104,6 +104,8 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
             MARKDOWN
         );
 
+        $this->page->save();
+
         $this->inspectHtml([
             'Adventures in Wonderland',
             '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" aria-hidden="true" title="Permalink">#</a></h2>',
@@ -126,6 +128,8 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
 
             MARKDOWN
         );
+
+        $this->page->save();
 
         $this->inspectHtml([
             'Adventures in Wonderland',
