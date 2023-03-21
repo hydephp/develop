@@ -105,6 +105,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         );
 
         $this->page->save();
+        $this->cleanUpWhenDone($this->page->getSourcePath());
 
         $this->inspectHtml([
             'Adventures in Wonderland',
@@ -130,6 +131,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         );
 
         $this->page->save();
+        $this->cleanUpWhenDone($this->page->getSourcePath());
 
         $this->inspectHtml([
             'Adventures in Wonderland',
