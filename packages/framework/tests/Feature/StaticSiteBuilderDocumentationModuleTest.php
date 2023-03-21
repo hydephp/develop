@@ -83,11 +83,38 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
             MARKDOWN
         );
 
+        $this->page->save();
+        $this->cleanUpWhenDone($this->page->getSourcePath());
+
         $this->inspectHtml([
             'Adventures in Wonderland',
             '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" aria-hidden="true" title="Permalink">#</a></h2>',
             '<p>So she was considering in her own mind, as well as she could',
         ]);
+    }
+
+    public function test_can_compile_page_to_root_output_directory_with_atx_headers()
+    {
+        DocumentationPage::setOutputDirectory('');
+
+        $this->page = DocumentationPage::make('test-page', markdown: <<<'MARKDOWN'
+            # Adventures in Wonderland
+
+            ## CHAPTER I. DOWN THE RABBIT-HOLE.
+
+            So she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.
+
+            MARKDOWN
+        );
+
+        $this->page->save();
+        $this->cleanUpWhenDone($this->page->getSourcePath());
+
+        $this->inspectHtml([
+            'Adventures in Wonderland',
+            '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" aria-hidden="true" title="Permalink">#</a></h2>',
+            '<p>So she was considering in her own mind, as well as she could',
+        ], '_site/test-page.html');
     }
 
     public function test_can_compile_page_with_setext_headers()
