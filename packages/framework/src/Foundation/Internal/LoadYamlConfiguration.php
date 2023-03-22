@@ -57,7 +57,7 @@ class LoadYamlConfiguration
         // that only applies the namespace data to each configuration namespace.
         // (A configuration namespace is defined as the first level in the service container
         // configuration repository array, and usually corresponds 1:1 with a file in the config directory.)
-        if (array_keys($yaml) === ['hyde']) {
+        if ($this->configurationContainsNamespaces($yaml)) {
             $this->mergeConfiguration('hyde', $yaml['hyde']);
 
             return;
@@ -73,5 +73,10 @@ class LoadYamlConfiguration
             Config::getArray($namespace, []),
             $yamlData
         ));
+    }
+
+    protected function configurationContainsNamespaces(array $yaml): bool
+    {
+        return array_keys($yaml) === ['hyde'];
     }
 }
