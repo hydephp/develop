@@ -38,7 +38,226 @@ class MarkdownFormatter
 
     protected function run(): void
     {
-        $this->output = $this->input;
+        $stream = $this->input;
+
+        $text = $stream;
+        $text = str_replace("\r\n", "\n", $text);
+        $text = str_replace("\t", '    ', $text);
+
+        if (empty(trim($text))) {
+            // Warn
+            global $warnings;
+            $warnings[] = "File $filename is empty";
+
+            return;
+        }
+
+        $lines = explode("\n", $text);
+        $new_lines = [];
+
+        $last_line = '';
+        $was_last_line_heading = false;
+        $is_inside_fenced_code_block = false;
+        $is_inside_fenced_fenced_code_block = false;
+        $firstHeadingLevel = null;
+        foreach ($lines as $index => $line) {
+            global $linesCounted;
+            $linesCounted++;
+
+            /** Normalization */
+
+            // Remove multiple empty lines
+            if (trim($line) == '' && trim($last_line) == '') {
+                continue;
+            }
+
+            // Make sure there is a space after headings
+            if ($was_last_line_heading && trim($line) != '') {
+                $new_lines[] = '';
+            }
+
+            // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
+            if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel + 3) {
+                $new_lines[] = '';
+            }
+
+            if ($firstHeadingLevel === null && str_starts_with($line, '# ')) {
+                $firstHeadingLevel = $index;
+            }
+
+            // Check if line is a heading
+            if (str_starts_with($line, '##')) {
+                $was_last_line_heading = true;
+                global $headings;
+                $headings[$filename][$index + 1] = $line;
+            } else {
+                $was_last_line_heading = false;
+            }
+
+            // Make sure there is a space before opening a fenced code block (search for ```language)
+            if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
+                if (! $is_inside_fenced_fenced_code_block) {
+                    $new_lines[] = '';
+                }
+            }
+
+            // Check if line is a  fenced code block
+            if (str_starts_with($line, '``')) {
+                $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
+            }
+
+            // Check if line is an escaped fenced code block
+            if (str_starts_with($line, '````')) {
+                $is_inside_fenced_fenced_code_block = ! $is_inside_fenced_fenced_code_block;
+            }
+
+            // Remove trailing spaces
+            $line = rtrim($line);
+
+            $new_lines[] = $line;
+            $last_line = $line;
+
+            /** Linting */
+
+            // if not inside fenced code block
+            if (! $is_inside_fenced_code_block) {
+                // Add any links to buffer, so we can check them later
+                preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
+                if (count($matches) > 0) {
+                    foreach ($matches[2] as $match) {
+                        // If link is for an anchor, prefix the filename
+                        if (str_starts_with($match, '#')) {
+                            $match = 'ANCHOR_'.basename($filename).$match;
+                        }
+
+                        global $links;
+                        $links[] = [
+                            'filename' => $filename,
+                            'line' => $index + 1,
+                            'link' => $match,
+                        ];
+                    }
+                }
+
+                // Check for un-backtick-ed inline code
+                // If line contains $
+                if (str_contains($line, '$') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
+                    // Check character before the $ is not a backtick
+                    $pos = strpos($line, '$');
+                    if ($pos > 0) {
+                        $charBefore = substr($line, $pos - 1, 1);
+                        if ($charBefore !== '`') {
+                            global $warnings;
+                            $warnings['Inline code'][] = sprintf('Unformatted inline code found in %s:%s', $filename, $index + 1);
+                        }
+                    }
+                }
+                // If line contains command
+                if (str_contains($line, 'php hyde') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
+                    // Check character before the php hyde is not a backtick
+                    $pos = strpos($line, 'php hyde');
+                    if ($pos > 0) {
+                        $charBefore = substr($line, $pos - 1, 1);
+                        if ($charBefore !== '`') {
+                            global $warnings;
+                            $warnings['Inline code'][] = sprintf('Unformatted inline command found in %s:%s', $filename, $index + 1);
+                        }
+                    }
+                }
+                // If word ends in .php
+                if (str_contains($line, '.php') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php') && ! str_contains($line, 'http') && ! str_contains(strtolower($line), 'filepath')) {
+                    // Check character after the .php is not a backtick
+                    $pos = strpos($line, '.php');
+                    if ($pos > 0) {
+                        $charAfter = substr($line, $pos + 4, 1);
+                        if ($charAfter !== '`') {
+                            global $warnings;
+                            $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
+                        }
+                    }
+                }
+
+                // If word ends in .json
+                if (str_contains($line, '.json') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ json') && ! str_contains($line, 'http') && ! str_contains(strtolower($line), 'filepath')) {
+                    // Check character after the .json is not a backtick
+                    $pos = strpos($line, '.json');
+                    if ($pos > 0) {
+                        $charAfter = substr($line, $pos + 5, 1);
+                        if ($charAfter !== '`') {
+                            global $warnings;
+                            $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
+                        }
+                    }
+                }
+                // if word ends with ()
+                if (str_contains($line, '()') && ! str_contains($line, '[Blade]:')) {
+                    // Check character after the () is not a backtick
+                    $pos = strpos($line, '()');
+                    if ($pos > 0) {
+                        $charAfter = substr($line, $pos + 2, 1);
+                        if ($charAfter !== '`') {
+                            global $warnings;
+                            $warnings['Inline code'][] = sprintf('Unformatted inline function found in %s:%s', $filename, $index + 1);
+                        }
+                    }
+                }
+
+                // Check for invalid command signatures
+                if (str_contains($line, 'php hyde')) {
+                    // Extract signature from line
+                    $start = strpos($line, 'php hyde');
+                    $substr = substr($line, $start);
+                    $explode = explode(' ', $substr, 3);
+                    $signature = $explode[0].' '.$explode[1].' '.$explode[2];
+                    $end = strpos($signature, '`');
+                    if ($end === false) {
+                        $end = strpos($signature, '<');
+                        if ($end === false) {
+                            $end = strlen($signature);
+                        }
+                    }
+                    $signature = substr($signature, 0, $end);
+                    $signatures = getSignatures();
+                    if (! in_array($signature, $signatures)) {
+                        global $warnings;
+                        $warnings['Invalid command signatures'][] = sprintf('Invalid command signature \'%s\' found in %s:%s', $signature, $filename, $index + 1);
+                    }
+                }
+            }
+
+            // Check if line is too long
+            if (strlen($line) > 120) {
+                global $warnings;
+                // $warnings[] = 'Line '.$linesCounted.' in file '.$filename.' is too long';
+            }
+
+            // Warn if documentation contains legacy markers (experimental, beta, etc)
+            $markers = ['experimental', 'beta', 'alpha', 'v0.'];
+            foreach ($markers as $marker) {
+                if (str_contains($line, $marker)) {
+                    global $warnings;
+                    $warnings['Legacy markers'][] = sprintf('Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
+                }
+            }
+
+            // Warn when legacy terms are used (for example slug instead of identifier/route key)
+            $legacyTerms = [
+                'slug' => '"identifier" or "route key"',
+                'slugs' => '"identifiers" or "route keys"',
+            ];
+
+            foreach ($legacyTerms as $legacyTerm => $newTerm) {
+                if (str_contains(strtolower($line), $legacyTerm)) {
+                    global $warnings;
+                    $warnings['Legacy terms'][] = sprintf('Legacy term found in %s:%s Found "%s", should be %s', $filename, $index + 1, $legacyTerm, $newTerm);
+                }
+            }
+        }
+
+        $new_content = implode("\n", $new_lines);
+        $new_content = trim($new_content)."\n";
+
+        $this->output = $new_content;
     }
 
     public function getOutput(): string
@@ -77,222 +296,8 @@ function normalize_lines($filename): void
 {
     $stream = file_get_contents($filename);
 
-    $text = $stream;
-    $text = str_replace("\r\n", "\n", $text);
-    $text = str_replace("\t", '    ', $text);
+    //
 
-    if (empty(trim($text))) {
-        // Warn
-        global $warnings;
-        $warnings[] = "File $filename is empty";
-
-        return;
-    }
-
-    $lines = explode("\n", $text);
-    $new_lines = [];
-
-    $last_line = '';
-    $was_last_line_heading = false;
-    $is_inside_fenced_code_block = false;
-    $is_inside_fenced_fenced_code_block = false;
-    $firstHeadingLevel = null;
-    foreach ($lines as $index => $line) {
-        global $linesCounted;
-        $linesCounted++;
-
-        /** Normalization */
-
-        // Remove multiple empty lines
-        if (trim($line) == '' && trim($last_line) == '') {
-            continue;
-        }
-
-        // Make sure there is a space after headings
-        if ($was_last_line_heading && trim($line) != '') {
-            $new_lines[] = '';
-        }
-
-        // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
-        if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel + 3) {
-            $new_lines[] = '';
-        }
-
-        if ($firstHeadingLevel === null && str_starts_with($line, '# ')) {
-            $firstHeadingLevel = $index;
-        }
-
-        // Check if line is a heading
-        if (str_starts_with($line, '##')) {
-            $was_last_line_heading = true;
-            global $headings;
-            $headings[$filename][$index + 1] = $line;
-        } else {
-            $was_last_line_heading = false;
-        }
-
-        // Make sure there is a space before opening a fenced code block (search for ```language)
-        if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
-            if (! $is_inside_fenced_fenced_code_block) {
-                $new_lines[] = '';
-            }
-        }
-
-        // Check if line is a  fenced code block
-        if (str_starts_with($line, '``')) {
-            $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
-        }
-
-        // Check if line is an escaped fenced code block
-        if (str_starts_with($line, '````')) {
-            $is_inside_fenced_fenced_code_block = ! $is_inside_fenced_fenced_code_block;
-        }
-
-        // Remove trailing spaces
-        $line = rtrim($line);
-
-        $new_lines[] = $line;
-        $last_line = $line;
-
-        /** Linting */
-
-        // if not inside fenced code block
-        if (! $is_inside_fenced_code_block) {
-            // Add any links to buffer, so we can check them later
-            preg_match_all('/\[([^\[]+)]\((.*)\)/', $line, $matches);
-            if (count($matches) > 0) {
-                foreach ($matches[2] as $match) {
-                    // If link is for an anchor, prefix the filename
-                    if (str_starts_with($match, '#')) {
-                        $match = 'ANCHOR_'.basename($filename).$match;
-                    }
-
-                    global $links;
-                    $links[] = [
-                        'filename' => $filename,
-                        'line' => $index + 1,
-                        'link' => $match,
-                    ];
-                }
-            }
-
-            // Check for un-backtick-ed inline code
-            // If line contains $
-            if (str_contains($line, '$') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
-                // Check character before the $ is not a backtick
-                $pos = strpos($line, '$');
-                if ($pos > 0) {
-                    $charBefore = substr($line, $pos - 1, 1);
-                    if ($charBefore !== '`') {
-                        global $warnings;
-                        $warnings['Inline code'][] = sprintf('Unformatted inline code found in %s:%s', $filename, $index + 1);
-                    }
-                }
-            }
-            // If line contains command
-            if (str_contains($line, 'php hyde') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php')) {
-                // Check character before the php hyde is not a backtick
-                $pos = strpos($line, 'php hyde');
-                if ($pos > 0) {
-                    $charBefore = substr($line, $pos - 1, 1);
-                    if ($charBefore !== '`') {
-                        global $warnings;
-                        $warnings['Inline code'][] = sprintf('Unformatted inline command found in %s:%s', $filename, $index + 1);
-                    }
-                }
-            }
-            // If word ends in .php
-            if (str_contains($line, '.php') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ php') && ! str_contains($line, 'http') && ! str_contains(strtolower($line), 'filepath')) {
-                // Check character after the .php is not a backtick
-                $pos = strpos($line, '.php');
-                if ($pos > 0) {
-                    $charAfter = substr($line, $pos + 4, 1);
-                    if ($charAfter !== '`') {
-                        global $warnings;
-                        $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
-                    }
-                }
-            }
-
-            // If word ends in .json
-            if (str_contains($line, '.json') && ! str_contains($line, '[Blade]:') && ! str_contains($line, '$ json') && ! str_contains($line, 'http') && ! str_contains(strtolower($line), 'filepath')) {
-                // Check character after the .json is not a backtick
-                $pos = strpos($line, '.json');
-                if ($pos > 0) {
-                    $charAfter = substr($line, $pos + 5, 1);
-                    if ($charAfter !== '`') {
-                        global $warnings;
-                        $warnings['Inline code'][] = sprintf('Unformatted inline filename found in %s:%s', $filename, $index + 1);
-                    }
-                }
-            }
-            // if word ends with ()
-            if (str_contains($line, '()') && ! str_contains($line, '[Blade]:')) {
-                // Check character after the () is not a backtick
-                $pos = strpos($line, '()');
-                if ($pos > 0) {
-                    $charAfter = substr($line, $pos + 2, 1);
-                    if ($charAfter !== '`') {
-                        global $warnings;
-                        $warnings['Inline code'][] = sprintf('Unformatted inline function found in %s:%s', $filename, $index + 1);
-                    }
-                }
-            }
-
-            // Check for invalid command signatures
-            if (str_contains($line, 'php hyde')) {
-                // Extract signature from line
-                $start = strpos($line, 'php hyde');
-                $substr = substr($line, $start);
-                $explode = explode(' ', $substr, 3);
-                $signature = $explode[0].' '.$explode[1].' '.$explode[2];
-                $end = strpos($signature, '`');
-                if ($end === false) {
-                    $end = strpos($signature, '<');
-                    if ($end === false) {
-                        $end = strlen($signature);
-                    }
-                }
-                $signature = substr($signature, 0, $end);
-                $signatures = getSignatures();
-                if (! in_array($signature, $signatures)) {
-                    global $warnings;
-                    $warnings['Invalid command signatures'][] = sprintf('Invalid command signature \'%s\' found in %s:%s', $signature, $filename, $index + 1);
-                }
-            }
-        }
-
-        // Check if line is too long
-        if (strlen($line) > 120) {
-            global $warnings;
-            // $warnings[] = 'Line '.$linesCounted.' in file '.$filename.' is too long';
-        }
-
-        // Warn if documentation contains legacy markers (experimental, beta, etc)
-        $markers = ['experimental', 'beta', 'alpha', 'v0.'];
-        foreach ($markers as $marker) {
-            if (str_contains($line, $marker)) {
-                global $warnings;
-                $warnings['Legacy markers'][] = sprintf('Legacy marker found in %s:%s Found "%s"', $filename, $index + 1, $marker);
-            }
-        }
-
-        // Warn when legacy terms are used (for example slug instead of identifier/route key)
-        $legacyTerms = [
-            'slug' => '"identifier" or "route key"',
-            'slugs' => '"identifiers" or "route keys"',
-        ];
-
-        foreach ($legacyTerms as $legacyTerm => $newTerm) {
-            if (str_contains(strtolower($line), $legacyTerm)) {
-                global $warnings;
-                $warnings['Legacy terms'][] = sprintf('Legacy term found in %s:%s Found "%s", should be %s', $filename, $index + 1, $legacyTerm, $newTerm);
-            }
-        }
-    }
-
-    $new_content = implode("\n", $new_lines);
-    $new_content = trim($new_content)."\n";
     file_put_contents($filename, $new_content);
 
     if ($new_content !== $stream) {
