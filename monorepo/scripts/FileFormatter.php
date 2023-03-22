@@ -111,8 +111,21 @@ function linediff(string $a, string $b): string
     $a = explode("\n", $a);
     $b = explode("\n", $b);
 
-    $diff = array_diff($a, $b);
-    return implode("\n", $diff);
+    $diffed = array_diff($a, $b);
+    $wasLastLineEmpty = false;
+    $diff = '';
+    foreach ($diffed as $line) {
+        if (trim($line) == '') {
+            if ($wasLastLineEmpty) {
+                continue;
+            }
+            $wasLastLineEmpty = true;
+        } else {
+            $wasLastLineEmpty = false;
+        }
+        $diff .= "\u{0394}".$line."\n";
+    }
+    return $diff;
 }
 
 function find_files(): array
