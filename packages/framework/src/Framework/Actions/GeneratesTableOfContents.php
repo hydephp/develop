@@ -59,6 +59,11 @@ class GeneratesTableOfContents
     {
         // The table of contents is always at the end of the document, so we can just strip everything before it.
         $position = strpos($html, '<ul class="table-of-contents">');
+        if ($position === false) {
+            // The document has no headings, so we'll just return an empty string.
+            return '';
+        }
+
         return substr($html, $position);
     }
 }
