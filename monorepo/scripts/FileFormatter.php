@@ -84,7 +84,7 @@ class CodeFormatter
 
 function format_file($filename): void
 {
-    echo 'Handling '.$filename."\n";
+    // echo 'Handling '.$filename."\n";
     $stream = file_get_contents($filename);
 
     $formatter = new CodeFormatter($stream, $filename);
@@ -96,6 +96,7 @@ function format_file($filename): void
     }
 
     if ($new_content !== $stream) {
+        echo 'Saving '.$filename."\n";
         global $filesChanged;
         $filesChanged++;
     }
