@@ -39,7 +39,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 
         $result = (new GeneratesTableOfContents($markdown))->execute();
 
-        $this->assertSame(<<<'HTML'
+        $this->assertSameIgnoringIndentation(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
@@ -54,5 +54,18 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             HTML,
             $result
         );
+    }
+
+    protected function assertSameIgnoringIndentation(string $expected, string $actual)
+    {
+        $this->assertSame(
+            $this->removeIndentation($expected),
+            $this->removeIndentation($actual)
+        );
+    }
+
+    protected function removeIndentation(string $actual): string
+    {
+        return implode("\n", array_map('trim', explode("\n", $actual)));
     }
 }
