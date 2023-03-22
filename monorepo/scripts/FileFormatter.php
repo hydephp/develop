@@ -22,7 +22,7 @@ class CodeFormatter
     protected string $output;
     protected string $filename;
 
-    public function __construct(string $input, string $filename = 'Input')
+    public function __construct(string $input, string $filename)
     {
         $this->input = $input;
         $this->filename = $filename;
