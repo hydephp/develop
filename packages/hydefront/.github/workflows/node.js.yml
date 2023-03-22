@@ -13,31 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
 
-    - name: Install Node.js dependencies
-      run: npm ci
+      - name: Install Node.js dependencies
+        run: npm ci
 
-    - name: Build assets for production
-      run: npm run prod
+      - name: Build assets for production
+        run: npm run prod
 
-    - name: Add copyright text to compiled file
-      # add '/*! HydeFront v3.3.0 | MIT License | https://hydephp.com*/' to the top of the dist/hyde.css file
-      run: sed -i '1s/^/\/\*! HydeFront v3.3.0 | MIT License | https:\/\/hydephp.com\*\/\n/' dist/hyde.css
+      - name: Add copyright text to compiled file
+        # add '/*! HydeFront v3.3.0 | MIT License | https://hydephp.com*/' to the top of the dist/hyde.css file
+        run: sed -i '1s/^/\/\*! HydeFront v3.3.0 | MIT License | https:\/\/hydephp.com\*\/\n/' dist/hyde.css
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: 'assets'
-        path: 'dist'
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: 'assets'
+          path: 'dist'
 
-    - name: Push assets to GitHub
-      uses: EndBug/add-and-commit@v9
-      with:
-        add: 'dist'
-        message: 'Update assets'
+      - name: Push assets to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'dist'
+          message: 'Update assets'
