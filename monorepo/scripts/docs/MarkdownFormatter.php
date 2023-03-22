@@ -33,6 +33,11 @@ class MarkdownFormatter
     {
         $this->input = $input;
     }
+
+    protected function run(): void
+    {
+        $this->output = $this->input;
+    }
 }
 
 function find_markdown_files($dir): array
