@@ -41,14 +41,14 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 
         $this->assertSame(<<<'HTML'
             <ul class="table-of-contents">
-            <li>
-            <a href="#level-2">Level 2</a>
-            <ul>
-            <li>
-            <a href="#level-3">Level 3</a>
-            </li>
-            </ul>
-            </li>
+                <li>
+                    <a href="#level-2">Level 2</a>
+                    <ul>
+                        <li>
+                            <a href="#level-3">Level 3</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
             HTML,
