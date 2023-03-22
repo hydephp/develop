@@ -18,11 +18,11 @@ $dryRun = true;
 
 interface Settings
 {
-    public const useUnixFileEndings = true;
-    public const replaceTabsWithSpaces = true;
-    public const trimTrailingSpaces = true;
-    public const trimMultipleEmptyLines = true;
-    public const trimEmptyLinesAtEndOfFile = true;
+    public const useUnixFileEndings = 'useUnixFileEndings';
+    public const replaceTabsWithSpaces = 'replaceTabsWithSpaces';
+    public const trimTrailingSpaces = 'trimTrailingSpaces';
+    public const trimMultipleEmptyLines = 'trimMultipleEmptyLines';
+    public const trimEmptyLinesAtEndOfFile = 'trimEmptyLinesAtEndOfFile';
 }
 
 class CodeFormatter
