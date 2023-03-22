@@ -111,7 +111,7 @@ class DashboardController
                     transition: 0.5s;
                     background-size: 200% auto;
                     background-position: right center;
-                    color: white;            
+                    color: white;
                     box-shadow: 0 0 20px #162134;
                     border-radius: 10px;
                     display: block;
@@ -119,7 +119,7 @@ class DashboardController
                     right: 1rem;
                     top: 1rem
                  }
-        
+
                  .dashboard-btn:hover {
                     background-position: left center;
                     color: #fff;
@@ -152,7 +152,7 @@ class DashboardController
                     ">New</span> When using the Realtime Compiler, you now have a content dashboard!
                     $dashboardMessage
                 </p>
-                
+
                 <a href="#dashboard" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'}); return false;">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                 </a>

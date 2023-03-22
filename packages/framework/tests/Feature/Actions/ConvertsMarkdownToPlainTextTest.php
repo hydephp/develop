@@ -15,11 +15,11 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     public function testItRemovesHeadings()
     {
         $markdown = <<<'MD'
-        # Heading level 1       
-        ## Heading level 2	       
-        ### Heading level 3	       
-        #### Heading level 4	       
-        ##### Heading level 5	       
+        # Heading level 1
+        ## Heading level 2
+        ### Heading level 3
+        #### Heading level 4
+        ##### Heading level 5
         ###### Heading level 6
         MD;
 
@@ -40,16 +40,16 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $markdown = <<<'MD'
         Heading level 1
         ================
-        
+
         Heading level 2
         ---------------
         MD;
 
         $text = <<<'TXT'
         Heading level 1
-        
+
         Heading level 2
-        
+
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
@@ -59,13 +59,13 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         I really like using Markdown.
-        
+
         I think I'll use it to format all of my documents from now on.
         MD;
 
         $text = <<<'TXT'
         I really like using Markdown.
-        
+
         I think I'll use it to format all of my documents from now on.
         TXT;
 
@@ -90,9 +90,9 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     public function testItRemovesLinebreaks()
     {
         $markdown = <<<'MD'
-        First line with two spaces after.  
+        First line with two spaces after.
         And the next line.
-        
+
         First line with the HTML tag after.<br>
         And the next line.
         MD;
@@ -100,7 +100,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $text = <<<'TXT'
         First line with two spaces after.
         And the next line.
-        
+
         First line with the HTML tag after.
         And the next line.
         TXT;
@@ -186,7 +186,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
         $text = <<<'TXT'
         Dorothy followed her through many of the beautiful rooms in her castle.
-        
+
         The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
         TXT;
 
@@ -200,7 +200,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         2. Second item
         3. Third item
         4. Fourth item
-        
+
         15. Fifth item
             1. Indented item
             2. Indented item
@@ -219,17 +219,17 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         - Second item
         - Third item
         - Fourth item
-        
+
         * First item
         * Second item
         * Third item
         * Fourth item
-        
+
         + First item
         + Second item
         + Third item
         + Fourth item
-        
+
         - First item
         - Second item
         - Third item
@@ -273,9 +273,9 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         ***
-        
+
         ---
-        
+
         _________________
         MD;
 
@@ -290,32 +290,32 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
-        
+
         My favorite search engine is [Duck Duck Go](https://duckduckgo.com "The best search engine for privacy").
-        
+
         <https://www.markdownguide.org>
         <fake@example.com>
-        
+
         I love supporting the **[EFF](https://eff.org)**.
         This is the *[Markdown Guide](https://www.markdownguide.org)*.
         See the section on [`code`](#code).
-        
+
         [link](https://www.example.com/my%20great%20page)
-        
+
         <a href="https://www.example.com/my great page">link</a>
         MD;
 
         $text = <<<'TXT'
         My favorite search engine is Duck Duck Go.
-        
+
         My favorite search engine is Duck Duck Go.
-        
+
         I love supporting the EFF.
         This is the Markdown Guide.
         See the section on code.
-        
+
         link
-        
+
         link
         TXT;
 
@@ -381,14 +381,14 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         Here's a sentence with a footnote.[^1]
-        
+
         [^1]: This is the footnote.
         MD;
 
         $text = <<<'TXT'
         Here's a sentence with a footnote.
-        
-        
+
+
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
@@ -398,14 +398,14 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         Here's a sentence with a footnote.[^note]
-        
+
         [^note]: This is the footnote.
         MD;
 
         $text = <<<'TXT'
         Here's a sentence with a footnote.
-        
-        
+
+
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
@@ -415,21 +415,21 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     {
         $markdown = <<<'MD'
         Start
-        
-        
+
+
         Break
-        
-        
-        
-        
+
+
+
+
         End
         MD;
 
         $text = <<<'TXT'
         Start
-        
+
         Break
-        
+
         End
         TXT;
 
@@ -446,7 +446,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
         $text = <<<'TXT'
         echo 'Hello World';
-        
+
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
@@ -462,7 +462,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
         $text = <<<'TXT'
         echo 'Hello World';
-        
+
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));

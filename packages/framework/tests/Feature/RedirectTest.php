@@ -31,14 +31,14 @@ class RedirectTest extends TestCase
                     <meta charset="UTF-8" />
                     <meta http-equiv="refresh" content="0;url='bar'" />
                     <style>@media (prefers-color-scheme:dark){html{background-color:#111827;color:white;}a{color:#9e9eff}}</style>
-            
+
                     <title>Redirecting to bar</title>
                 </head>
             <body>
                 Redirecting to <a href="bar">bar</a>.
             </body>
             </html>
-            
+
             HTML), str_replace("\r", '', $redirect->compile())
         );
 

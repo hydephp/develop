@@ -25,7 +25,7 @@ use function app;
 class BuildSiteCommand extends Command
 {
     /** @var string */
-    protected $signature = 'build 
+    protected $signature = 'build
         {--run-dev : Run the NPM dev script after build}
         {--run-prod : Run the NPM prod script after build}
         {--run-prettier : Format the output using NPM Prettier}
