@@ -30,11 +30,13 @@ class CodeFormatter
     protected string $input;
     protected string $output;
     protected string $filename;
+    protected array $settings;
 
-    public function __construct(string $input, string $filename)
+    public function __construct(string $input, string $filename, array $settings)
     {
         $this->input = $input;
         $this->filename = $filename;
+        $this->settings = $settings;
 
         $this->run();
     }
