@@ -37,4 +37,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             str_replace("\n", '', $result)
         );
     }
+
+    public function testCanGenerateTableOfContentsForDocumentUsingSetextHeaders()
+    {
+        $markdown = "Level 1\n=======\nLevel 2\n-------\nLevel 3\n-------\n";
+
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+    }
 }
