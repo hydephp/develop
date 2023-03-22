@@ -77,8 +77,10 @@ class CodeFormatter
             /** Normalization */
 
             // Remove multiple empty lines
-            if (trim($line) == '' && trim($last_line) == '') {
-                continue;
+           if (in_array(Settings::TrimMultipleEmptyLines, $this->settings)) {
+               if (trim($line) == '' && trim($last_line) == '') {
+                   continue;
+               }
             }
 
             $line = $this->trimTrailingSpaces($line);
@@ -88,12 +90,13 @@ class CodeFormatter
         }
 
         $new_content = implode("\n", $new_lines);
-        $new_content = trim($new_content);
-        $shouldEndWithNewLine = ! str_ends_with($filename, '.blade.php');
-        if($shouldEndWithNewLine) {
-            $new_content .= "\n";
+        if (in_array(Settings::TrimEmptyLinesAtEndOfFile, $this->settings)) {
+            $new_content = trim($new_content);
+            $shouldEndWithNewLine = ! str_ends_with($filename, '.blade.php');
+            if($shouldEndWithNewLine) {
+                $new_content .= "\n";
+            }
         }
-
         $this->output = $new_content;
     }
 
@@ -104,16 +107,28 @@ class CodeFormatter
 
     protected function useUnixFileEndings(string $text): string
     {
+        if (! in_array(Settings::UseUnixFileEndings, $this->settings)) {
+            return $text;
+        }
+
         return str_replace("\r\n", "\n", $text);
     }
 
     protected function replaceTabsWithSpaces(string $text): string
     {
+        if (! in_array(Settings::ReplaceTabsWithSpaces, $this->settings)) {
+            return $text;
+        }
+
         return str_replace("\t", '    ', $text);
     }
 
     protected function trimTrailingSpaces(string $line): string
     {
+        if (! in_array(Settings::TrimTrailingSpaces, $this->settings)) {
+            return $line;
+        }
+
         $line = rtrim($line);
         return $line;
     }
