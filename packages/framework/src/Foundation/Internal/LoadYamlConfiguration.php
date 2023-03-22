@@ -16,6 +16,10 @@ use function file_exists;
 /**
  * @internal Bootstrap service that loads the YAML configuration file.
  *
+ * It also supports loading multiple configuration namespaces, where a configuration namespace is defined
+ * as the first level in the service container configuration repository array, and usually corresponds
+ * one-to-one with a file in the config directory.
+ *
  * @see docs/digging-deeper/customization.md#yaml-configuration
  */
 class LoadYamlConfiguration
@@ -55,8 +59,6 @@ class LoadYamlConfiguration
 
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
-        // (A configuration namespace is defined as the first level in the service container
-        // configuration repository array, and usually corresponds 1:1 with a file in the config directory.)
         if ($this->configurationContainsNamespaces($yaml)) {
             foreach ($yaml as $namespace => $data) {
                 $this->mergeConfiguration($namespace, (array) $data);
