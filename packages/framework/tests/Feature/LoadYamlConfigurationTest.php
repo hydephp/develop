@@ -44,6 +44,27 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('_site', Config::get('hyde.output_directory'));
     }
 
+    public function testCanDefineMultipleConfigSettingsInHydeYmlFile()
+    {
+        config(['hyde' => []]);
+        config(['docs' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: HydePHP
+            url: "http://localhost"
+        docs:
+            sidebar: 
+                header: "My Docs"
+        YAML);
+
+        $this->runBootstrapper();
+
+        $this->assertSame('HydePHP', Config::get('hyde.name'));
+        $this->assertSame('http://localhost', Config::get('hyde.url'));
+        $this->assertSame('My Docs', Config::get('docs.sidebar.header'));
+    }
+
     public function testBootstrapperAppliesYamlConfigurationWhenPresent()
     {
         $this->file('hyde.yml', 'name: Foo');
