@@ -137,8 +137,6 @@ function lint(string $filename): void
     $stream = $contents;
 
     $text = $stream;
-    $text = str_replace("\r\n", "\n", $text);
-    $text = str_replace("\t", '    ', $text);
 
     if (empty(trim($text))) {
         // Warn
