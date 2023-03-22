@@ -15,6 +15,35 @@ use function config;
  */
 class LoadYamlConfigurationTest extends TestCase
 {
+    public function testCanDefineHydeConfigSettingsInHydeYmlFile()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        name: HydePHP
+        url: "http://localhost"
+        pretty_urls: false
+        generate_sitemap: true
+        rss:
+          enabled: true
+          filename: feed.xml
+          description: HydePHP RSS Feed
+        language: en
+        output_directory: _site
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('HydePHP', Config::get('hyde.name'));
+        $this->assertSame('http://localhost', Config::get('hyde.url'));
+        $this->assertSame(false, Config::get('hyde.pretty_urls'));
+        $this->assertSame(true, Config::get('hyde.generate_sitemap'));
+        $this->assertSame(true, Config::get('hyde.rss.enabled'));
+        $this->assertSame('feed.xml', Config::get('hyde.rss.filename'));
+        $this->assertSame('HydePHP RSS Feed', Config::get('hyde.rss.description'));
+        $this->assertSame('en', Config::get('hyde.language'));
+        $this->assertSame('_site', Config::get('hyde.output_directory'));
+    }
+
     public function testBootstrapperAppliesYamlConfigurationWhenPresent()
     {
         $this->file('hyde.yml', 'name: Foo');
