@@ -37,7 +37,6 @@ class LoadYamlConfiguration
             || file_exists(Hyde::path('hyde.yaml'));
     }
 
-    /** @return array|array<string, array> */
     protected function getYaml(): array
     {
         return (array) Yaml::parse(file_get_contents($this->getFile()));
