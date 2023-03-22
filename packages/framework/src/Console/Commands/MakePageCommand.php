@@ -21,11 +21,11 @@ class MakePageCommand extends Command
 {
     /** @var string */
     protected $signature = 'make:page 
-		{title? : The name of the page file to create. Will be used to generate the slug}
-		{--type=markdown : The type of page to create (markdown, blade, or docs)}
+        {title? : The name of the page file to create. Will be used to generate the slug}
+        {--type=markdown : The type of page to create (markdown, blade, or docs)}
         {--blade : Create a Blade page}
         {--docs : Create a Documentation page}
-		{--force : Overwrite any existing files}';
+        {--force : Overwrite any existing files}';
 
     /** @var string */
     protected $description = 'Scaffold a new Markdown, Blade, or documentation page file';
