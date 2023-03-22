@@ -6,11 +6,13 @@ This release is the first since the official release of HydePHP 1.0.0. It contai
 
 ### Added
 - Added a RealtimeCompiler config option to disable rendered pages being stored to disk in https://github.com/hydephp/develop/pull/1334
+- Documentation sidebars now support table of contents when using Setext headings in https://github.com/hydephp/develop/pull/1343
 
 ### Changed
 - Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
 - Cleaned up `PageDataFactory`, `NavigationDataFactory`, and `BlogPostDataFactory` internals for better type safety in https://github.com/hydephp/develop/pull/1312
 - Refactored internals to use the `View` facade over the `view` function for better type safety in https://github.com/hydephp/develop/pull/1310
+- Refactored the `GeneratesTableOfContents` class internals to be more accurate in https://github.com/hydephp/develop/pull/1343
 - Updated to HydeFront v3.3.0 in https://github.com/hydephp/develop/pull/1329
 
 ### Deprecated
@@ -29,6 +31,7 @@ This release is the first since the official release of HydePHP 1.0.0. It contai
 - Fixed https://github.com/hydephp/develop/issues/1324 in https://github.com/hydephp/develop/pull/1325
 - Fixed https://github.com/hydephp/develop/issues/1326 in https://github.com/hydephp/develop/pull/1327
 - Fixed https://github.com/hydephp/develop/issues/1330 in https://github.com/hydephp/develop/pull/1331
+- Fixed https://github.com/hydephp/develop/issues/1337 in https://github.com/hydephp/develop/pull/1343
 - Fixed navigation dropdowns flickering on page load in Fixed https://github.com/hydephp/develop/issues/1330 in https://github.com/hydephp/develop/pull/1332
 - Added missing function imports in https://github.com/hydephp/develop/pull/1309
 

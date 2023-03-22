@@ -53,6 +53,41 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testCanGenerateTableOfContentsForDocumentUsingSetextHeaders()
+    {
+        $markdown = <<<'MARKDOWN'
+        Level 1
+        =======
+        Level 2
+        -------
+        Level 2B
+        --------
+        MARKDOWN;
+
+        $expected = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ## Level 2B
+        MARKDOWN;
+
+        $this->assertSame(
+            (new GeneratesTableOfContents($expected))->execute(),
+            (new GeneratesTableOfContents($markdown))->execute()
+        );
+
+        $this->assertSameIgnoringIndentation(<<<'HTML'
+            <ul class="table-of-contents">
+                <li>
+                    <a href="#level-2">Level 2</a>
+                </li>
+                <li>
+                    <a href="#level-2b">Level 2B</a>
+                </li>
+            </ul>
+            HTML, (new GeneratesTableOfContents($markdown))->execute()
+        );
+    }
+
     public function testNonHeadingMarkdownIsRemoved()
     {
         $expected = <<<'MARKDOWN'
