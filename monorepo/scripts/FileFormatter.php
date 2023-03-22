@@ -16,13 +16,13 @@ $filesChanged = 0;
 $linesCounted = 0;
 $dryRun = true;
 
-interface Settings
+enum Settings: string
 {
-    public const useUnixFileEndings = 'useUnixFileEndings';
-    public const replaceTabsWithSpaces = 'replaceTabsWithSpaces';
-    public const trimTrailingSpaces = 'trimTrailingSpaces';
-    public const trimMultipleEmptyLines = 'trimMultipleEmptyLines';
-    public const trimEmptyLinesAtEndOfFile = 'trimEmptyLinesAtEndOfFile';
+    case UseUnixFileEndings = 'useUnixFileEndings';
+    case ReplaceTabsWithSpaces = 'replaceTabsWithSpaces';
+    case TrimTrailingSpaces = 'trimTrailingSpaces';
+    case TrimMultipleEmptyLines = 'trimMultipleEmptyLines';
+    case TrimEmptyLinesAtEndOfFile = 'trimEmptyLinesAtEndOfFile';
 }
 
 class CodeFormatter
