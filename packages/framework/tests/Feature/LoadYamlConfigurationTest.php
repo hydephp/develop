@@ -49,7 +49,6 @@ class LoadYamlConfigurationTest extends TestCase
     public function test_service_gracefully_handles_empty_file()
     {
         $this->file('hyde.yml', '');
-
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
 
         $this->assertSame('HydePHP', Config::get('hyde.name'));
