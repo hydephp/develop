@@ -25,6 +25,14 @@ enum Settings: string
     case TrimEmptyLinesAtEndOfFile = 'trimEmptyLinesAtEndOfFile';
 }
 
+$settings = [
+    Settings::UseUnixFileEndings,
+    Settings::ReplaceTabsWithSpaces,
+    Settings::TrimTrailingSpaces,
+    Settings::TrimMultipleEmptyLines,
+    Settings::TrimEmptyLinesAtEndOfFile,
+];
+
 class CodeFormatter
 {
     protected string $input;
