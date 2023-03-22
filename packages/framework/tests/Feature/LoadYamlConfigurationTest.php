@@ -104,7 +104,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('bar', Config::get('hyde.foo'));
     }
 
-    public function testCanAddConfigurationOptionsInPrefixedArray()
+    public function testCanAddConfigurationOptionsInNamespacedArray()
     {
         config(['hyde' => []]);
 
