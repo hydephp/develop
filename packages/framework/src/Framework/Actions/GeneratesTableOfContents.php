@@ -33,6 +33,7 @@ class GeneratesTableOfContents
             'table_of_contents' => [
                 'html_class' => 'table-of-contents',
                 'position' => 'placeholder',
+                'placeholder' => '[[START_TOC]]',
                 'style' => 'bullet',
                 'min_heading_level' => Config::getInt('docs.table_of_contents.min_heading_level', 2),
                 'max_heading_level' => Config::getInt('docs.table_of_contents.max_heading_level', 4),
