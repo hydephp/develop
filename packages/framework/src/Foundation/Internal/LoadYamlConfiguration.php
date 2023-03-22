@@ -16,6 +16,8 @@ use function file_exists;
 /**
  * @internal Bootstrap service that loads the YAML configuration file.
  *
+ * @see docs/digging-deeper/customization.md#yaml-configuration
+ *
  * It also supports loading multiple configuration namespaces, where a configuration namespace is defined
  * as the first level in the service container configuration repository array, and usually corresponds
  * one-to-one with a file in the config directory. This feature, by design, requires a top-level
@@ -23,8 +25,6 @@ use function file_exists;
  * will be parsed as normal, but can be migrated by indenting all entries by one
  * level, and adding a top-level 'hyde' key. Then additional namespaces can
  * be added underneath as needed.
- *
- * @see docs/digging-deeper/customization.md#yaml-configuration
  */
 class LoadYamlConfiguration
 {
