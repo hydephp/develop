@@ -204,6 +204,11 @@ function find_files(): array
 function find_files_in_directory(string $directory): array
 {
     $files = [];
+    $excludedDirectories = [
+        'node_modules',
+        'vendor',
+    ];
+
     $extensions = [
         'php',
         'blade.php',
