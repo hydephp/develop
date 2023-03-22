@@ -30,7 +30,7 @@ class MarkdownFormatter
     protected string $output;
     protected string $filename;
 
-    public function __construct(string $input, string $filename)
+    public function __construct(string $input, string $filename = 'Input')
     {
         $this->input = $input;
         $this->filename = $filename;
