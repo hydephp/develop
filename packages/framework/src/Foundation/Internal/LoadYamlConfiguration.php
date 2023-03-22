@@ -53,12 +53,15 @@ class LoadYamlConfiguration
     {
         $yaml = $this->getYaml();
 
+        // If the Yaml file contains namespaces, we merge those using more granular logic
+        // that only applies the namespace data to each configuration namespace.
         if (array_keys($yaml) === ['hyde']) {
             $this->mergeConfiguration('hyde', $yaml['hyde']);
 
             return;
         }
 
+        // Otherwise, we can merge using the default strategy, which is simply applying all the data.
         $this->mergeUsingDefaultStrategy($yaml);
     }
 
