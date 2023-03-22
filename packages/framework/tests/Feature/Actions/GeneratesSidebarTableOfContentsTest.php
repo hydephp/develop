@@ -78,6 +78,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             HTML, (new GeneratesTableOfContents($markdown))->execute()
         );
     }
+
     public function testNonHeadingMarkdownIsRemoved()
     {
         $expected = <<<'MARKDOWN'
