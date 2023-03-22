@@ -36,13 +36,6 @@ class LoadYamlConfiguration
             || file_exists(Hyde::path('hyde.yaml'));
     }
 
-    protected function mergeParsedConfiguration(): void
-    {
-        $yaml = $this->getYaml();
-
-        $this->mergeUsingDefaultStrategy($yaml);
-    }
-
     protected function getYaml(): array
     {
         return (array) Yaml::parse(file_get_contents($this->getFile()));
@@ -53,6 +46,13 @@ class LoadYamlConfiguration
         return file_exists(Hyde::path('hyde.yml'))
             ? Hyde::path('hyde.yml')
             : Hyde::path('hyde.yaml');
+    }
+
+    protected function mergeParsedConfiguration(): void
+    {
+        $yaml = $this->getYaml();
+
+        $this->mergeUsingDefaultStrategy($yaml);
     }
 
     protected function mergeUsingDefaultStrategy(array $yaml): void
