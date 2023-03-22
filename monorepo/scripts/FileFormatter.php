@@ -192,6 +192,7 @@ function find_files(): array
     $directories = [
         __DIR__.'/../../packages',
         __DIR__.'/../../tests',
+        __DIR__.'/../../.github',
     ];
 
     foreach ($directories as $directory) {
