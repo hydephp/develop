@@ -101,8 +101,7 @@ function format_file($filename): void
 
     if ($new_content !== $stream) {
         echo 'Saving '.$filename."\n";
-        if ($dryRun)
-        {
+        if ($dryRun) {
             echo "\33[37m";
             echo linediff($stream, $new_content);
             echo "\33[0m";
@@ -132,7 +131,7 @@ function linediff(string $a, string $b): string
         $diff .= "\u{0394}".$line."\n";
     }
     if (trim($diff) === "\u{0394}") {
-        return 'Added newline at end of file' . "\n";
+        return 'Added newline at end of file'."\n";
     }
     return $diff;
 }
