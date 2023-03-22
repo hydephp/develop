@@ -57,7 +57,7 @@ class GeneratesTableOfContents
 
     protected function extractTableOfContents(string $html): string
     {
-        // Return everything before the [[END_TOC]] marker.
-        return substr($html, 0, strpos($html, '<p>[[END_TOC]]'));
+        // The table of contents is always at the bottom of the document, so we can just extract it from the bottom of the HTML.
+        return substr($html, strpos($html, '<ul class="table-of-contents">'));
     }
 }
