@@ -179,6 +179,21 @@ class LoadYamlConfigurationTest extends TestCase
        $this->assertSame('baz', Config::get('foo.bar'));
     }
 
+    public function testHydeNamespaceCanBeNull()
+    {
+        // This is essentially the same as the empty state test above, at least according to the YAML spec.
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde: null
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('baz', Config::get('foo.bar'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
