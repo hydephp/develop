@@ -58,6 +58,7 @@ class GeneratesTableOfContents
     protected function extractTableOfContents(string $html): string
     {
         // The table of contents is always at the end of the document, so we can just strip everything before it.
-        return substr($html, strpos($html, '<ul class="table-of-contents">'));
+        $position = strpos($html, '<ul class="table-of-contents">');
+        return substr($html, $position);
     }
 }
