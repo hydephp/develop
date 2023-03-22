@@ -204,6 +204,7 @@ function find_files(): array
 function find_files_in_directory(string $directory): array
 {
     $files = [];
+    $extensions = ['php'];
 
     $directory = realpath($directory);
     if ($directory === false) {
@@ -221,9 +222,7 @@ function find_files_in_directory(string $directory): array
             continue;
         }
 
-        $filename = $file->getFilename();
-
-        if (Str::endsWith($filename, '.php')) {
+        if (in_array($file->getExtension(), $extensions)) {
             $files[] = $file->getPathname();
         }
     }
