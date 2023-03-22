@@ -22,9 +22,9 @@ class ValidationServiceTest extends TestCase
 {
     protected ValidationService $service;
 
-    public function __construct()
+    protected function setUp(): void
     {
-        parent::__construct();
+        parent::setUp();
 
         $this->service = new ValidationService();
     }
