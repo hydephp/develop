@@ -55,6 +55,8 @@ class LoadYamlConfiguration
 
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
+        // (A configuration namespace is defined as the first level in the service container
+        // configuration repository array, and usually corresponds 1:1 with a file in the config directory.)
         if (array_keys($yaml) === ['hyde']) {
             $this->mergeConfiguration('hyde', $yaml['hyde']);
 
