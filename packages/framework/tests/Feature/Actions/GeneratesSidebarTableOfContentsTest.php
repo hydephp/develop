@@ -51,8 +51,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
                 </li>
             </ul>
 
-            HTML,
-            (new GeneratesTableOfContents($markdown))->execute()
+            HTML, (new GeneratesTableOfContents($markdown))->execute()
         );
     }
 
