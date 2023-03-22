@@ -64,6 +64,17 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         --------
         MARKDOWN;
 
+        $expected = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ## Level 2B
+        MARKDOWN;
+
+        $this->assertSame(
+            (new GeneratesTableOfContents($expected))->execute(),
+            (new GeneratesTableOfContents($markdown))->execute()
+        );
+
         $this->assertSameIgnoringIndentation(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
