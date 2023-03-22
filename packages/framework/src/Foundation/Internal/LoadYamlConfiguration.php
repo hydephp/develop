@@ -13,7 +13,7 @@ use function array_merge;
 use function file_exists;
 
 /**
- * @internal
+ * @internal Bootstrap service that loads the YAML configuration file.
  */
 class LoadYamlConfiguration
 {
