@@ -16,6 +16,15 @@ $filesChanged = 0;
 $linesCounted = 0;
 $dryRun = true;
 
+interface Settings
+{
+    public const useUnixFileEndings = true;
+    public const replaceTabsWithSpaces = true;
+    public const trimTrailingSpaces = true;
+    public const trimMultipleEmptyLines = true;
+    public const trimEmptyLinesAtEndOfFile = true;
+}
+
 class CodeFormatter
 {
     protected string $input;
