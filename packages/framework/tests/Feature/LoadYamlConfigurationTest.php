@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
-
-use function config;
 
 /**
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
@@ -42,6 +40,27 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('HydePHP RSS Feed', Config::get('hyde.rss.description'));
         $this->assertSame('en', Config::get('hyde.language'));
         $this->assertSame('_site', Config::get('hyde.output_directory'));
+    }
+
+    public function testCanDefineMultipleConfigSettingsInHydeYmlFile()
+    {
+        config(['hyde' => []]);
+        config(['docs' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: HydePHP
+            url: "http://localhost"
+        docs:
+            sidebar: 
+                header: "My Docs"
+        YAML);
+
+        $this->runBootstrapper();
+
+        $this->assertSame('HydePHP', Config::get('hyde.name'));
+        $this->assertSame('http://localhost', Config::get('hyde.url'));
+        $this->assertSame('My Docs', Config::get('docs.sidebar.header'));
     }
 
     public function testBootstrapperAppliesYamlConfigurationWhenPresent()
@@ -102,6 +121,110 @@ class LoadYamlConfigurationTest extends TestCase
         $this->runBootstrapper();
 
         $this->assertSame('bar', Config::get('hyde.foo'));
+    }
+
+    public function testCanAddConfigurationOptionsInNamespacedArray()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          name: HydePHP
+          foo: bar
+          bar:
+            baz: qux
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('HydePHP', Config::get('hyde.name'));
+        $this->assertSame('bar', Config::get('hyde.foo'));
+        $this->assertSame('qux', Config::get('hyde.bar.baz'));
+    }
+
+    public function testCanAddArbitraryNamespacedData()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          some: thing 
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('baz', Config::get('foo.bar'));
+    }
+
+    public function testAdditionalNamespacesRequireTheHydeNamespaceToBePresent()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertNull(Config::get('foo.bar'));
+    }
+
+    public function testAdditionalNamespacesRequiresHydeNamespaceToBeTheFirstEntry()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        foo:
+          bar: baz
+        hyde:
+          some: thing
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertNull(Config::get('foo.bar'));
+    }
+
+    public function testHydeNamespaceCanBeEmpty()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('baz', Config::get('foo.bar'));
+    }
+
+    public function testHydeNamespaceCanBeNull()
+    {
+        // This is essentially the same as the empty state test above, at least according to the YAML spec.
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde: null
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('baz', Config::get('foo.bar'));
+    }
+
+    public function testHydeNamespaceCanBlank()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde: ''
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('baz', Config::get('foo.bar'));
     }
 
     protected function runBootstrapper(): void
