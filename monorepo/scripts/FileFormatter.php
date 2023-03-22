@@ -22,7 +22,7 @@ enum Settings: string
     case ReplaceTabsWithSpaces = 'replaceTabsWithSpaces';
     case TrimTrailingSpaces = 'trimTrailingSpaces';
     case TrimMultipleEmptyLines = 'trimMultipleEmptyLines';
-    case TrimEmptyLinesAtEndOfFile = 'trimEmptyLinesAtEndOfFile';
+    case ForceEmptyLinesAtEndOfFile = 'forceEmptyLinesAtEndOfFile';
 }
 
 $settings = [
@@ -30,7 +30,7 @@ $settings = [
     Settings::ReplaceTabsWithSpaces,
     Settings::TrimTrailingSpaces,
     Settings::TrimMultipleEmptyLines,
-    Settings::TrimEmptyLinesAtEndOfFile,
+    Settings::ForceEmptyLinesAtEndOfFile,
 ];
 
 class CodeFormatter
@@ -90,7 +90,7 @@ class CodeFormatter
         }
 
         $new_content = implode("\n", $new_lines);
-        if (in_array(Settings::TrimEmptyLinesAtEndOfFile, $this->settings)) {
+        if (in_array(Settings::ForceEmptyLinesAtEndOfFile, $this->settings)) {
             $new_content = trim($new_content);
             $shouldEndWithNewLine = ! str_ends_with($filename, '.blade.php');
             if($shouldEndWithNewLine) {
