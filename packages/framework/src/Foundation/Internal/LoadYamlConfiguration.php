@@ -62,11 +62,6 @@ class LoadYamlConfiguration
         }
 
         // Otherwise, we can merge using the default strategy, which is simply applying all the data.
-        $this->mergeUsingDefaultStrategy($yaml);
-    }
-
-    protected function mergeUsingDefaultStrategy(array $yaml): void
-    {
         $this->mergeConfiguration('hyde', $yaml);
     }
 
