@@ -32,7 +32,7 @@ class GeneratesTableOfContents
         $config = [
             'table_of_contents' => [
                 'html_class' => 'table-of-contents',
-                'position' => 'top',
+                'position' => 'placeholder',
                 'style' => 'bullet',
                 'min_heading_level' => Config::getInt('docs.table_of_contents.min_heading_level', 2),
                 'max_heading_level' => Config::getInt('docs.table_of_contents.max_heading_level', 4),
