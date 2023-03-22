@@ -13,11 +13,8 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 $timeStart = microtime(true);
 
 $filesChanged = 0;
-
 $linesCounted = 0;
-
 $links = [];
-
 $warnings = [];
 
 // Buffer headings so we can check for style
