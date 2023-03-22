@@ -77,10 +77,10 @@ class CodeFormatter
             /** Normalization */
 
             // Remove multiple empty lines
-           if (in_array(Settings::TrimMultipleEmptyLines, $this->settings)) {
-               if (trim($line) == '' && trim($last_line) == '') {
-                   continue;
-               }
+            if (in_array(Settings::TrimMultipleEmptyLines, $this->settings)) {
+                if (trim($line) == '' && trim($last_line) == '') {
+                    continue;
+                }
             }
 
             $line = $this->trimTrailingSpaces($line);
