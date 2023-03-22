@@ -165,6 +165,20 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertNull(Config::get('foo.bar'));
     }
 
+    public function testHydeNamespaceCanBeEmpty()
+    {
+       config(['hyde' => []]);
+
+       $this->file('hyde.yml', <<<'YAML'
+        hyde:
+        foo:
+          bar: baz
+        YAML);
+       $this->runBootstrapper();
+
+       $this->assertSame('baz', Config::get('foo.bar'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
