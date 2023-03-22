@@ -22,14 +22,14 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Foo', config('hyde.name'));
     }
 
-    public function test_changes_in_yaml_file_override_changes_in_site_config()
+    public function test_changes_in_yaml_file_override_changes_in_hyde_config()
     {
         $this->file('hyde.yml', 'name: Foo');
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
-    public function test_changes_in_yaml_file_override_changes_in_site_config_when_using_yaml_extension()
+    public function test_changes_in_yaml_file_override_changes_in_hyde_config_when_using_yaml_extension()
     {
         $this->file('hyde.yaml', 'name: Foo');
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
