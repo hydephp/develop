@@ -212,6 +212,11 @@ function find_files_in_directory(string $directory): array
     $extensions = [
         'php',
         'blade.php',
+        'js',
+        'css',
+        'yml',
+        'json',
+        'md',
     ];
 
     $directory = realpath($directory);
