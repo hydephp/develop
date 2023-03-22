@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection HtmlUnknownAnchorTarget */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
