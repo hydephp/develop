@@ -33,6 +33,7 @@ This release is the first since the official release of HydePHP 1.0.0. It contai
 - Fixed https://github.com/hydephp/develop/issues/1330 in https://github.com/hydephp/develop/pull/1331
 - Fixed https://github.com/hydephp/develop/issues/1337 in https://github.com/hydephp/develop/pull/1343
 - Fixed navigation dropdowns flickering on page load in Fixed https://github.com/hydephp/develop/issues/1330 in https://github.com/hydephp/develop/pull/1332
+- Fixed https://github.com/hydephp/develop/issues/1340 in https://github.com/hydephp/develop/pull/1345
 - Added missing function imports in https://github.com/hydephp/develop/pull/1309
 
 ### Security
