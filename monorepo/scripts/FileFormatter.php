@@ -230,6 +230,14 @@ function find_files_in_directory(string $directory): array
             continue;
         }
 
+        // Skip excluded directories
+        $path = $file->getPath();
+        foreach ($excludedDirectories as $excludedDirectory) {
+            if (str_contains($path, $excludedDirectory)) {
+                continue 2;
+            }
+        }
+
         if (in_array($file->getExtension(), $extensions)) {
             $files[] = $file->getPathname();
         }
