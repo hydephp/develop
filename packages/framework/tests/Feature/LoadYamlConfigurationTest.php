@@ -91,6 +91,19 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('bar', Config::get('hyde.foo'));
     }
 
+    public function testConfigurationOptionsAreMerged()
+    {
+        config(['hyde' => [
+            'foo' => 'bar',
+            'baz' => 'qux',
+        ]]);
+
+        $this->file('hyde.yml', 'baz: hat');
+        $this->runBootstrapper();
+
+        $this->assertSame('bar', Config::get('hyde.foo'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
