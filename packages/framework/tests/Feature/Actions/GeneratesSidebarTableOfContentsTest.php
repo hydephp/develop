@@ -39,7 +39,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 
         $result = (new GeneratesTableOfContents($markdown))->execute();
 
-        $this->assertEquals(<<<'HTML'
+        $this->assertSame(<<<'HTML'
             <ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>
             HTML,
             str_replace("\n", '', $result)
