@@ -24,6 +24,11 @@ $warnings = [];
 $headings = []; // [filename => [line => heading]]
 $checksHeadings = false;
 
+class MarkdownFormatter
+{
+    //
+}
+
 function find_markdown_files($dir): array
 {
     $markdown_files = [];
