@@ -76,6 +76,28 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testWithNoLevelOneHeading()
+    {
+        $markdown = <<<'MARKDOWN'
+        ## Level 2
+        ### Level 3
+        MARKDOWN;
+
+        $this->assertSameIgnoringIndentation(<<<'HTML'
+            <ul class="table-of-contents">
+                <li>
+                    <a href="#level-2">Level 2</a>
+                    <ul>
+                        <li>
+                            <a href="#level-3">Level 3</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            HTML, (new GeneratesTableOfContents($markdown))->execute()
+        );
+    }
+
     protected function assertSameIgnoringIndentation(string $expected, string $actual): void
     {
         $this->assertSame(
