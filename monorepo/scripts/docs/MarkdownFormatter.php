@@ -13,50 +13,127 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 $timeStart = microtime(true);
 
 $filesChanged = 0;
-
 $linesCounted = 0;
-
 $links = [];
-
 $warnings = [];
 
 // Buffer headings so we can check for style
 $headings = []; // [filename => [line => heading]]
 $checksHeadings = false;
 
-function find_markdown_files($dir): array
+class MarkdownFormatter
 {
-    $markdown_files = [];
+    protected string $input;
+    protected string $output;
+    protected string $filename;
 
-    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
-    foreach ($iterator as $file) {
-        // Skip _data directory
-        if (str_contains($file->getPathname(), '_data')) {
-            continue;
-        }
+    public function __construct(string $input, string $filename = 'Input')
+    {
+        $this->input = $input;
+        $this->filename = $filename;
 
-        if ($file->isFile() && strtolower($file->getExtension()) == 'md') {
-            $markdown_files[] = realpath($file->getPathname());
-        }
+        $this->run();
     }
 
-    return $markdown_files;
+    protected function run(): void
+    {
+        $stream = $this->input;
+        $filename = $this->filename;
+
+        $text = $stream;
+        $text = str_replace("\r\n", "\n", $text);
+        $text = str_replace("\t", '    ', $text);
+
+        if (empty(trim($text))) {
+            // Warn
+            global $warnings;
+            $warnings[] = "File $filename is empty";
+
+            return;
+        }
+
+        $lines = explode("\n", $text);
+        $new_lines = [];
+
+        $last_line = '';
+        $was_last_line_heading = false;
+        $is_inside_fenced_code_block = false;
+        $is_inside_fenced_fenced_code_block = false;
+        $firstHeadingLevel = null;
+        foreach ($lines as $index => $line) {
+            global $linesCounted;
+            $linesCounted++;
+
+            /** Normalization */
+
+            // Remove multiple empty lines
+            if (trim($line) == '' && trim($last_line) == '') {
+                continue;
+            }
+
+            // Make sure there is a space after headings
+            if ($was_last_line_heading && trim($line) != '') {
+                $new_lines[] = '';
+            }
+
+            // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
+            if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel + 3) {
+                $new_lines[] = '';
+            }
+
+            if ($firstHeadingLevel === null && str_starts_with($line, '# ')) {
+                $firstHeadingLevel = $index;
+            }
+
+            // Check if line is a heading
+            if (str_starts_with($line, '##')) {
+                $was_last_line_heading = true;
+                global $headings;
+                $headings[$filename][$index + 1] = $line;
+            } else {
+                $was_last_line_heading = false;
+            }
+
+            // Make sure there is a space before opening a fenced code block (search for ```language)
+            if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
+                if (! $is_inside_fenced_fenced_code_block) {
+                    $new_lines[] = '';
+                }
+            }
+
+            // Check if line is a  fenced code block
+            if (str_starts_with($line, '``')) {
+                $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
+            }
+
+            // Check if line is an escaped fenced code block
+            if (str_starts_with($line, '````')) {
+                $is_inside_fenced_fenced_code_block = ! $is_inside_fenced_fenced_code_block;
+            }
+
+            // Remove trailing spaces
+            $line = rtrim($line);
+
+            $new_lines[] = $line;
+            $last_line = $line;
+        }
+
+        $new_content = implode("\n", $new_lines);
+        $new_content = trim($new_content)."\n";
+
+        $this->output = $new_content;
+    }
+
+    public function getOutput(): string
+    {
+        return $this->output;
+    }
 }
 
-function handle_file(string $file): void
+function lint(string $filename): void
 {
-    echo 'Handling '.$file."\n";
-
-    normalize_lines($file);
-}
-
-function normalize_lines($filename): void
-{
-    $stream = file_get_contents($filename);
-
-    $text = $stream;
-    $text = str_replace("\r\n", "\n", $text);
-    $text = str_replace("\t", '    ', $text);
+    /** Linting */
+    $text = file_get_contents($filename);
 
     if (empty(trim($text))) {
         // Warn
@@ -67,71 +144,12 @@ function normalize_lines($filename): void
     }
 
     $lines = explode("\n", $text);
-    $new_lines = [];
-
-    $last_line = '';
-    $was_last_line_heading = false;
     $is_inside_fenced_code_block = false;
-    $is_inside_fenced_fenced_code_block = false;
-    $firstHeadingLevel = null;
     foreach ($lines as $index => $line) {
-        global $linesCounted;
-        $linesCounted++;
-
-        /** Normalization */
-
-        // Remove multiple empty lines
-        if (trim($line) == '' && trim($last_line) == '') {
-            continue;
-        }
-
-        // Make sure there is a space after headings
-        if ($was_last_line_heading && trim($line) != '') {
-            $new_lines[] = '';
-        }
-
-        // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
-        if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel + 3) {
-            $new_lines[] = '';
-        }
-
-        if ($firstHeadingLevel === null && str_starts_with($line, '# ')) {
-            $firstHeadingLevel = $index;
-        }
-
-        // Check if line is a heading
-        if (str_starts_with($line, '##')) {
-            $was_last_line_heading = true;
-            global $headings;
-            $headings[$filename][$index + 1] = $line;
-        } else {
-            $was_last_line_heading = false;
-        }
-
-        // Make sure there is a space before opening a fenced code block (search for ```language)
-        if (str_starts_with($line, '```') && $line !== '```' && trim($last_line) != '') {
-            if (! $is_inside_fenced_fenced_code_block) {
-                $new_lines[] = '';
-            }
-        }
-
         // Check if line is a  fenced code block
         if (str_starts_with($line, '``')) {
             $is_inside_fenced_code_block = ! $is_inside_fenced_code_block;
         }
-
-        // Check if line is an escaped fenced code block
-        if (str_starts_with($line, '````')) {
-            $is_inside_fenced_fenced_code_block = ! $is_inside_fenced_fenced_code_block;
-        }
-
-        // Remove trailing spaces
-        $line = rtrim($line);
-
-        $new_lines[] = $line;
-        $last_line = $line;
-
-        /** Linting */
 
         // if not inside fenced code block
         if (! $is_inside_fenced_code_block) {
@@ -267,9 +285,42 @@ function normalize_lines($filename): void
             }
         }
     }
+}
 
-    $new_content = implode("\n", $new_lines);
-    $new_content = trim($new_content)."\n";
+function find_markdown_files($dir): array
+{
+    $markdown_files = [];
+
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+    foreach ($iterator as $file) {
+        // Skip _data directory
+        if (str_contains($file->getPathname(), '_data')) {
+            continue;
+        }
+
+        if ($file->isFile() && strtolower($file->getExtension()) == 'md') {
+            $markdown_files[] = realpath($file->getPathname());
+        }
+    }
+
+    return $markdown_files;
+}
+
+function handle_file(string $file): void
+{
+    echo 'Handling '.$file."\n";
+
+    normalize_lines($file);
+    lint($file);
+}
+
+function normalize_lines($filename): void
+{
+    $stream = file_get_contents($filename);
+
+    $formatter = new MarkdownFormatter($stream, $filename);
+    $new_content = $formatter->getOutput();
+
     file_put_contents($filename, $new_content);
 
     if ($new_content !== $stream) {
