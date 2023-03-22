@@ -12,6 +12,7 @@ use function array_keys;
 use function file_get_contents;
 use function array_merge;
 use function file_exists;
+use function in_array;
 
 /**
  * @internal Bootstrap service that loads the YAML configuration file.
@@ -78,6 +79,6 @@ class LoadYamlConfiguration
     protected function configurationContainsNamespaces(array $yaml): bool
     {
         // Todo support namespaces without hyde key
-        return array_keys($yaml) === ['hyde'];
+        return in_array('hyde', array_keys($yaml));
     }
 }
