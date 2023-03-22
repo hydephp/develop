@@ -19,6 +19,7 @@ class LoadYamlConfigurationTest extends TestCase
     {
         $this->file('hyde.yml', 'name: Foo');
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+
         $this->assertSame('Foo', config('hyde.name'));
     }
 
@@ -26,6 +27,7 @@ class LoadYamlConfigurationTest extends TestCase
     {
         $this->file('hyde.yml', 'name: Foo');
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
@@ -33,12 +35,14 @@ class LoadYamlConfigurationTest extends TestCase
     {
         $this->file('hyde.yaml', 'name: Foo');
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
     public function test_service_gracefully_handles_missing_file()
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+
         $this->assertSame('HydePHP', Config::get('hyde.name'));
     }
 
@@ -47,6 +51,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->file('hyde.yml', '');
 
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+
         $this->assertSame('HydePHP', Config::get('hyde.name'));
     }
 }
