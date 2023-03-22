@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Symfony\Component\Yaml\Yaml;
 
-use function array_keys;
+use function array_key_first;
 use function file_get_contents;
 use function array_merge;
 use function file_exists;
@@ -81,6 +81,6 @@ class LoadYamlConfiguration
 
     protected function configurationContainsNamespaces(array $yaml): bool
     {
-        return in_array('hyde', array_keys($yaml), true);
+        return array_key_first($yaml) === 'hyde';
     }
 }
