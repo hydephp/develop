@@ -5,9 +5,6 @@ declare(strict_types=1);
 /**
  * @internal
  */
-
-use Illuminate\Support\Str;
-
 require_once __DIR__.'/../../vendor/autoload.php';
 
 $timeStart = microtime(true);
@@ -93,7 +90,7 @@ class CodeFormatter
         if (in_array(Settings::ForceEmptyLinesAtEndOfFile, $this->settings)) {
             $new_content = trim($new_content);
             $shouldEndWithNewLine = ! str_ends_with($filename, '.blade.php');
-            if($shouldEndWithNewLine) {
+            if ($shouldEndWithNewLine) {
                 $new_content .= "\n";
             }
         }
@@ -130,6 +127,7 @@ class CodeFormatter
         }
 
         $line = rtrim($line);
+
         return $line;
     }
 }
@@ -144,7 +142,7 @@ function format_file($filename): void
     $new_content = $formatter->getOutput();
 
     global $dryRun;
-    if (!$dryRun) {
+    if (! $dryRun) {
         file_put_contents($filename, $new_content);
     }
 
@@ -182,6 +180,7 @@ function linediff(string $a, string $b): string
     if (trim($diff) === "\u{0394}") {
         return 'Added newline at end of file'."\n";
     }
+
     return $diff;
 }
 
