@@ -71,7 +71,7 @@ class LoadYamlConfiguration
             return;
         }
 
-        // Otherwise, we can merge using the default strategy, which is simply applying all the data.
+        // Otherwise, we can merge using the default strategy, which is simply applying all the data to the hyde namespace.
         $this->mergeConfiguration('hyde', $yaml);
     }
 
