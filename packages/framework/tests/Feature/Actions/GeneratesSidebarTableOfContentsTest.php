@@ -43,5 +43,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $markdown = "Level 1\n=======\nLevel 2\n-------\nLevel 3\n-------\n";
 
         $result = (new GeneratesTableOfContents($markdown))->execute();
+
+        $this->assertEquals('<ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>',
+            str_replace("\n", '', $result)
+        );
     }
 }
