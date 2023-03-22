@@ -28,10 +28,12 @@ class MarkdownFormatter
 {
     protected string $input;
     protected string $output;
+    protected string $filename;
 
-    public function __construct(string $input)
+    public function __construct(string $input, string $filename)
     {
         $this->input = $input;
+        $this->filename = $filename;
 
         $this->run();
     }
@@ -39,6 +41,7 @@ class MarkdownFormatter
     protected function run(): void
     {
         $stream = $this->input;
+        $filename = $this->filename;
 
         $text = $stream;
         $text = str_replace("\r\n", "\n", $text);
@@ -296,7 +299,7 @@ function normalize_lines($filename): void
 {
     $stream = file_get_contents($filename);
 
-    $formatter = new MarkdownFormatter($stream);
+    $formatter = new MarkdownFormatter($stream, $filename);
     $new_content = $formatter->getOutput();
 
     file_put_contents($filename, $new_content);
