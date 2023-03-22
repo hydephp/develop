@@ -296,7 +296,8 @@ function normalize_lines($filename): void
 {
     $stream = file_get_contents($filename);
 
-    //
+    $formatter = new MarkdownFormatter($stream);
+    $new_content = $formatter->getOutput();
 
     file_put_contents($filename, $new_content);
 
