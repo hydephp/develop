@@ -104,6 +104,24 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('bar', Config::get('hyde.foo'));
     }
 
+    public function testCanAddConfigurationOptionsInPrefixedArray()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          name: HydePHP
+          foo: bar
+          bar:
+            baz: qux
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('HydePHP', Config::get('hyde.name'));
+        $this->assertSame('bar', Config::get('hyde.foo'));
+        $this->assertSame('qux', Config::get('hyde.bar.baz'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);

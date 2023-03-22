@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Symfony\Component\Yaml\Yaml;
 
+use function array_keys;
 use function file_get_contents;
 use function array_merge;
 use function file_exists;
@@ -51,6 +52,12 @@ class LoadYamlConfiguration
     protected function mergeParsedConfiguration(): void
     {
         $yaml = $this->getYaml();
+
+        if (array_keys($yaml) === ['hyde']) {
+            $this->mergeUsingDefaultStrategy($yaml['hyde']);
+
+            return;
+        }
 
         $this->mergeUsingDefaultStrategy($yaml);
     }
