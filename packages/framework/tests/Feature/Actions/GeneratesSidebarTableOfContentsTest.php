@@ -50,7 +50,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
                     </ul>
                 </li>
             </ul>
-
             HTML, (new GeneratesTableOfContents($markdown))->execute()
         );
     }
@@ -58,8 +57,8 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     protected function assertSameIgnoringIndentation(string $expected, string $actual)
     {
         $this->assertSame(
-            $this->removeIndentation($expected),
-            $this->removeIndentation($actual)
+            $this->removeIndentation(trim($expected)),
+            $this->removeIndentation(trim($actual))
         );
     }
 
