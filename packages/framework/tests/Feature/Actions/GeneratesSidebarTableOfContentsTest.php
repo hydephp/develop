@@ -54,7 +54,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
-    protected function assertSameIgnoringIndentation(string $expected, string $actual)
+    protected function assertSameIgnoringIndentation(string $expected, string $actual): void
     {
         $this->assertSame(
             $this->removeIndentation(trim($expected)),
