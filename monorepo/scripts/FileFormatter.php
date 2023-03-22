@@ -71,7 +71,11 @@ class CodeFormatter
         }
 
         $new_content = implode("\n", $new_lines);
-        $new_content = trim($new_content)."\n";
+        $new_content = trim($new_content);
+        $shouldEndWithNewLine = ! str_ends_with($filename, '.blade.php');
+        if($shouldEndWithNewLine) {
+            $new_content .= "\n";
+        }
 
         $this->output = $new_content;
     }
