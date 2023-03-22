@@ -15,7 +15,7 @@ use function config;
  */
 class LoadYamlConfigurationTest extends TestCase
 {
-    public function test_bootstrapper_applies_yaml_configuration_when_present()
+    public function testBootstrapperAppliesYamlConfigurationWhenPresent()
     {
         $this->file('hyde.yml', 'name: Foo');
         $this->runBootstrapper();
@@ -23,7 +23,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Foo', config('hyde.name'));
     }
 
-    public function test_changes_in_yaml_file_override_changes_in_hyde_config()
+    public function testChangesInYamlFileOverrideChangesInHydeConfig()
     {
         $this->file('hyde.yml', 'name: Foo');
         $this->runBootstrapper();
@@ -31,7 +31,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
-    public function test_changes_in_yaml_file_override_changes_in_hyde_config_when_using_yaml_extension()
+    public function testChangesInYamlFileOverrideChangesInHydeConfigWhenUsingYamlExtension()
     {
         $this->file('hyde.yaml', 'name: Foo');
         $this->runBootstrapper();
@@ -39,14 +39,14 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
-    public function test_service_gracefully_handles_missing_file()
+    public function testServiceGracefullyHandlesMissingFile()
     {
         $this->runBootstrapper();
 
         $this->assertSame('HydePHP', Config::get('hyde.name'));
     }
 
-    public function test_service_gracefully_handles_empty_file()
+    public function testServiceGracefullyHandlesEmptyFile()
     {
         $this->file('hyde.yml', '');
         $this->runBootstrapper();
