@@ -97,9 +97,22 @@ function format_file($filename): void
 
     if ($new_content !== $stream) {
         echo 'Saving '.$filename."\n";
+        if ($dryRun)
+        {
+            echo linediff($stream, $new_content);
+        }
         global $filesChanged;
         $filesChanged++;
     }
+}
+
+function linediff(string $a, string $b): string
+{
+    $a = explode("\n", $a);
+    $b = explode("\n", $b);
+
+    $diff = array_diff($a, $b);
+    return implode("\n", $diff);
 }
 
 function find_files(): array
