@@ -133,10 +133,7 @@ class MarkdownFormatter
 function lint(string $filename): void
 {
     /** Linting */
-    $contents = file_get_contents($filename);
-    $stream = $contents;
-
-    $text = $stream;
+    $text = file_get_contents($filename);
 
     if (empty(trim($text))) {
         // Warn
