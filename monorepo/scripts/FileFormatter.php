@@ -36,8 +36,8 @@ class CodeFormatter
         $filename = $this->filename;
 
         $text = $stream;
-        $text = str_replace("\r\n", "\n", $text);
-        $text = str_replace("\t", '    ', $text);
+        $text = $this->useUnixFileEndings($text);
+        $text = $this->replaceTabsWithSpaces($text);
 
         if (empty(trim($text))) {
             // Warn
@@ -83,6 +83,16 @@ class CodeFormatter
     public function getOutput(): string
     {
         return $this->output;
+    }
+
+    protected function useUnixFileEndings(string $text): string
+    {
+        return str_replace("\r\n", "\n", $text);
+    }
+
+    protected function replaceTabsWithSpaces(string $text): string
+    {
+        return str_replace("\t", '    ', $text);
     }
 }
 
