@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
-
-use function config;
 
 /**
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
