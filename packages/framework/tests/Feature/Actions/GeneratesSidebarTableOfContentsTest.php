@@ -223,6 +223,16 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testWithNoHeadings()
+    {
+        $this->assertSame('', (new GeneratesTableOfContents("Foo bar\nBaz foo"))->execute());
+    }
+
+    public function testWithNoContent()
+    {
+        $this->assertSame('', (new GeneratesTableOfContents(''))->execute());
+    }
+
     protected function assertSameIgnoringIndentation(string $expected, string $actual): void
     {
         $this->assertSame(
