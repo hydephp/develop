@@ -28,6 +28,11 @@ class MarkdownFormatter
 {
     protected string $input;
     protected string $output;
+
+    public function __construct(string $input)
+    {
+        $this->input = $input;
+    }
 }
 
 function find_markdown_files($dir): array
