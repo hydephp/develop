@@ -51,6 +51,11 @@ class GeneratesTableOfContents
         $converter = new MarkdownConverter($environment);
         $html = $converter->convert("[[END_TOC]]\n".$this->markdown)->getContent();
 
+        return $this->extractTableOfContents($html);
+    }
+
+    protected function extractTableOfContents(string $html): string
+    {
         // Return everything before the [[END_TOC]] marker.
         return substr($html, 0, strpos($html, '<p>[[END_TOC]]'));
     }
