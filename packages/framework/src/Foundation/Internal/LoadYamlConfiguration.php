@@ -61,7 +61,7 @@ class LoadYamlConfiguration
         // configuration repository array, and usually corresponds 1:1 with a file in the config directory.)
         if ($this->configurationContainsNamespaces($yaml)) {
             foreach ($yaml as $namespace => $data) {
-                $this->mergeConfiguration($namespace, $data ?? []);
+                $this->mergeConfiguration($namespace, $data ?: []);
             }
 
             return;
