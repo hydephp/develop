@@ -83,6 +83,14 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('HydePHP', Config::get('hyde.name'));
     }
 
+    public function testCanAddArbitraryConfigKeys()
+    {
+        $this->file('hyde.yml', 'foo: bar');
+        $this->runBootstrapper();
+
+        $this->assertSame('bar', Config::get('hyde.foo'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
