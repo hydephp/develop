@@ -30,10 +30,18 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 
     public function testReturnStringContainsExpectedContent()
     {
-        $markdown = "# Level 1\n## Level 2\n### Level 3\n";
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        
+        MARKDOWN;
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
 
-        $this->assertEquals('<ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>',
+        $this->assertEquals(<<<'HTML'
+            <ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>
+            HTML,
             str_replace("\n", '', $result)
         );
     }
