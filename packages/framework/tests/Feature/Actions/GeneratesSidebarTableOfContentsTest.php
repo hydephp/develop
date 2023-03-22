@@ -53,6 +53,29 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testNonHeadingMarkdownIsRemoved()
+    {
+        $expected = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        MARKDOWN;
+
+        $actual = <<<'MARKDOWN'
+        # Level 1
+        Foo bar
+        ## Level 2
+        Bar baz
+        ### Level 3
+        Baz foo
+        MARKDOWN;
+
+        $this->assertSame(
+            (new GeneratesTableOfContents($expected))->execute(),
+            (new GeneratesTableOfContents($actual))->execute()
+        );
+    }
+
     protected function assertSameIgnoringIndentation(string $expected, string $actual): void
     {
         $this->assertSame(
