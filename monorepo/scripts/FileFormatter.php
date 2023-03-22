@@ -124,7 +124,8 @@ function format_file($filename): void
     // echo 'Handling '.$filename."\n";
     $stream = file_get_contents($filename);
 
-    $formatter = new CodeFormatter($stream, $filename);
+    global $settings;
+    $formatter = new CodeFormatter($stream, $filename, $settings);
     $new_content = $formatter->getOutput();
 
     global $dryRun;
