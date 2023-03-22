@@ -60,19 +60,17 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         =======
         Level 2
         -------
-        Level 3
-        -------
+        Level 2B
+        --------
         MARKDOWN;
 
         $this->assertSameIgnoringIndentation(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3">Level 3</a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a href="#level-2b">Level 2B</a>
                 </li>
             </ul>
             HTML, (new GeneratesTableOfContents($markdown))->execute()
