@@ -32,6 +32,8 @@ class MarkdownFormatter
     public function __construct(string $input)
     {
         $this->input = $input;
+
+        $this->run();
     }
 
     protected function run(): void
