@@ -49,7 +49,7 @@ class GeneratesTableOfContents
         $environment->addExtension(new TableOfContentsExtension());
 
         $converter = new MarkdownConverter($environment);
-        $html = $converter->convert("[[END_TOC]]\n".$this->markdown)->getContent();
+        $html = $converter->convert($this->markdown."\n[[START_TOC]]")->getContent();
 
         return $this->extractTableOfContents($html);
     }
