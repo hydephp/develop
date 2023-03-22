@@ -62,8 +62,7 @@ class CodeFormatter
                 continue;
             }
 
-            // Remove trailing spaces
-            $line = rtrim($line);
+            $line = $this->trimTrailingSpaces($line);
 
             $new_lines[] = $line;
             $last_line = $line;
@@ -92,6 +91,12 @@ class CodeFormatter
     protected function replaceTabsWithSpaces(string $text): string
     {
         return str_replace("\t", '    ', $text);
+    }
+
+    protected function trimTrailingSpaces(string $line): string
+    {
+        $line = rtrim($line);
+        return $line;
     }
 }
 
