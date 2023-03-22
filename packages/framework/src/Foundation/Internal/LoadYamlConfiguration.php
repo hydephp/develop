@@ -38,9 +38,11 @@ class LoadYamlConfiguration
 
     protected function mergeParsedConfiguration(): void
     {
+        $yaml = $this->getYaml();
+
         Config::set('hyde', array_merge(
             Config::getArray('hyde', []),
-            $this->getYaml()
+            $yaml
         ));
     }
 
