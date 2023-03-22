@@ -12,7 +12,6 @@ use function array_key_first;
 use function file_get_contents;
 use function array_merge;
 use function file_exists;
-use function in_array;
 
 /**
  * @internal Bootstrap service that loads the YAML configuration file.

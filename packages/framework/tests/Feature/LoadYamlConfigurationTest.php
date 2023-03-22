@@ -167,16 +167,16 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testHydeNamespaceCanBeEmpty()
     {
-       config(['hyde' => []]);
+        config(['hyde' => []]);
 
-       $this->file('hyde.yml', <<<'YAML'
+        $this->file('hyde.yml', <<<'YAML'
         hyde:
         foo:
           bar: baz
         YAML);
-       $this->runBootstrapper();
+        $this->runBootstrapper();
 
-       $this->assertSame('baz', Config::get('foo.bar'));
+        $this->assertSame('baz', Config::get('foo.bar'));
     }
 
     public function testHydeNamespaceCanBeNull()
