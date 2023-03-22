@@ -39,8 +39,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         
         MARKDOWN;
 
-        $result = (new GeneratesTableOfContents($markdown))->execute();
-
         $this->assertSameIgnoringIndentation(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
@@ -54,7 +52,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             </ul>
 
             HTML,
-            $result
+            (new GeneratesTableOfContents($markdown))->execute()
         );
     }
 
