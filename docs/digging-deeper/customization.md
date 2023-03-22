@@ -440,3 +440,26 @@ rss:
 language: en
 output_directory: _site
 ```
+
+### Namespaced YAML Configuration
+
+If you are running `v1.2` or higher, you can also use namespaced configuration options in the YAML file.
+
+This allows you to set the settings of **any** configuration file normally found in the `config` directory.
+
+This feature is automatically enabled when you have a `hyde:` entry **first** in your `hyde.yml` file
+
+```yaml
+# filepath hyde.yml
+hyde:
+  name: HydePHP
+
+docs:
+  sidebar:
+    header: "My Docs"
+```
+
+This would set the `name` setting in the `config/hyde.php` file, and the `sidebar.header` setting in the `config/docs.php` file.
+
+Each top level key in the YAML file is treated as a namespace, and the settings are set in the corresponding configuration file.
+You can of course use arrays like normal even in namespaced configuration.
