@@ -21,7 +21,7 @@
         "illuminate/support": "^10.0",
         "laravel/dusk": "^7.6",
         "mockery/mockery": "^1.4.4",
-        "pestphp/pest": "^1.21.1"
+        "pestphp/pest": "^v2.1.0"
     },
     "autoload": {
         "psr-4": {
