@@ -15,40 +15,97 @@ use function config;
  */
 class LoadYamlConfigurationTest extends TestCase
 {
-    public function test_bootstrapper_applies_yaml_configuration_when_present()
+    public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
-        $this->assertSame('HydePHP', config('hyde.name'));
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        name: HydePHP
+        url: "http://localhost"
+        pretty_urls: false
+        generate_sitemap: true
+        rss:
+          enabled: true
+          filename: feed.xml
+          description: HydePHP RSS Feed
+        language: en
+        output_directory: _site
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('HydePHP', Config::get('hyde.name'));
+        $this->assertSame('http://localhost', Config::get('hyde.url'));
+        $this->assertSame(false, Config::get('hyde.pretty_urls'));
+        $this->assertSame(true, Config::get('hyde.generate_sitemap'));
+        $this->assertSame(true, Config::get('hyde.rss.enabled'));
+        $this->assertSame('feed.xml', Config::get('hyde.rss.filename'));
+        $this->assertSame('HydePHP RSS Feed', Config::get('hyde.rss.description'));
+        $this->assertSame('en', Config::get('hyde.language'));
+        $this->assertSame('_site', Config::get('hyde.output_directory'));
+    }
+
+    public function testBootstrapperAppliesYamlConfigurationWhenPresent()
+    {
         $this->file('hyde.yml', 'name: Foo');
-        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+        $this->runBootstrapper();
+
         $this->assertSame('Foo', config('hyde.name'));
     }
 
-    public function test_changes_in_yaml_file_override_changes_in_site_config()
+    public function testChangesInYamlFileOverrideChangesInHydeConfig()
     {
-        $this->assertSame('HydePHP', Config::get('hyde.name'));
         $this->file('hyde.yml', 'name: Foo');
-        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+        $this->runBootstrapper();
+
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
-    public function test_changes_in_yaml_file_override_changes_in_site_config_when_using_yaml_extension()
+    public function testChangesInYamlFileOverrideChangesInHydeConfigWhenUsingYamlExtension()
     {
-        $this->assertSame('HydePHP', Config::get('hyde.name'));
         $this->file('hyde.yaml', 'name: Foo');
-        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+        $this->runBootstrapper();
+
         $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
-    public function test_service_gracefully_handles_missing_file()
+    public function testServiceGracefullyHandlesMissingFile()
     {
-        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+        $this->runBootstrapper();
+
         $this->assertSame('HydePHP', Config::get('hyde.name'));
     }
 
-    public function test_service_gracefully_handles_empty_file()
+    public function testServiceGracefullyHandlesEmptyFile()
     {
         $this->file('hyde.yml', '');
-        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+        $this->runBootstrapper();
+
         $this->assertSame('HydePHP', Config::get('hyde.name'));
+    }
+
+    public function testCanAddArbitraryConfigKeys()
+    {
+        $this->file('hyde.yml', 'foo: bar');
+        $this->runBootstrapper();
+
+        $this->assertSame('bar', Config::get('hyde.foo'));
+    }
+
+    public function testConfigurationOptionsAreMerged()
+    {
+        config(['hyde' => [
+            'foo' => 'bar',
+            'baz' => 'qux',
+        ]]);
+
+        $this->file('hyde.yml', 'baz: hat');
+        $this->runBootstrapper();
+
+        $this->assertSame('bar', Config::get('hyde.foo'));
+    }
+
+    protected function runBootstrapper(): void
+    {
+        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
     }
 }
