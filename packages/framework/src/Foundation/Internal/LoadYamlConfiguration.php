@@ -54,7 +54,7 @@ class LoadYamlConfiguration
         $yaml = $this->getYaml();
 
         if (array_keys($yaml) === ['hyde']) {
-            $this->mergeUsingDefaultStrategy($yaml['hyde']);
+            $this->mergeConfiguration('hyde', $yaml['hyde']);
 
             return;
         }
@@ -64,9 +64,14 @@ class LoadYamlConfiguration
 
     protected function mergeUsingDefaultStrategy(array $yaml): void
     {
-        Config::set('hyde', array_merge(
-            Config::getArray('hyde', []),
-            $yaml
+        $this->mergeConfiguration('hyde', $yaml);
+    }
+
+    protected function mergeConfiguration(string $namespace, array $yamlData): void
+    {
+        Config::set($namespace, array_merge(
+            Config::getArray($namespace, []),
+            $yamlData
         ));
     }
 }
