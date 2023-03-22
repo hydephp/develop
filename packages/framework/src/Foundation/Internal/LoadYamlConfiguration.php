@@ -79,6 +79,6 @@ class LoadYamlConfiguration
     protected function configurationContainsNamespaces(array $yaml): bool
     {
         // Todo support namespaces without hyde key
-        return in_array('hyde', array_keys($yaml));
+        return in_array('hyde', array_keys($yaml), true);
     }
 }
