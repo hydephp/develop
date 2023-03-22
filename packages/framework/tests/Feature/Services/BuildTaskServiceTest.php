@@ -126,11 +126,11 @@ class BuildTaskServiceTest extends TestCase
     {
         return <<<'PHP'
         <?php
-        
+
         namespace App\Actions;
-        
+
         use Hyde\Framework\Features\BuildTasks\PostBuildTask;
-        
+
         class FooBuildTask extends PostBuildTask {
             public function handle(): void {
                 echo "FooBuildTask";

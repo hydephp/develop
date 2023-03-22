@@ -65,7 +65,7 @@ class ScriptsComponentViewTest extends TestCase
                 @push("scripts")
                 foo bar
                 @endpush
-                
+
                 @include("hyde::layouts.scripts")'
             )
         );

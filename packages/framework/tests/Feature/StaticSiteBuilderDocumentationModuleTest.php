@@ -24,8 +24,8 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
             'title' => 'Adventures in Wonderland',
             'description' => 'All in the golden afternoon, full leisurely we glide.',
         ], <<<'MARKDOWN'
-            ## CHAPTER I. DOWN THE RABBIT-HOLE. 
-            
+            ## CHAPTER I. DOWN THE RABBIT-HOLE.
+
             So she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.
             MARKDOWN
         );

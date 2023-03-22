@@ -142,7 +142,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         #### Level 4
         ##### Level 5
         ###### Level 6
-        
+
         ## Level 2B
         ### Level 3B
         ### Level 3C

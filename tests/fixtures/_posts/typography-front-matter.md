@@ -2,7 +2,7 @@
 title: Typography Should Be Easy. With Images.
 description: A TailwindCSS Typography demo with a bit more front matter, and a featured image.
 category: testing
-author: 
+author:
   name: TailwindLabs
   website: https://tailwindcss.com
 date: Nov 7, 2021

@@ -20,7 +20,7 @@ use function ucfirst;
 class MakePageCommand extends Command
 {
     /** @var string */
-    protected $signature = 'make:page 
+    protected $signature = 'make:page
         {title? : The name of the page file to create. Will be used to generate the slug}
         {--type=markdown : The type of page to create (markdown, blade, or docs)}
         {--blade : Create a Blade page}
