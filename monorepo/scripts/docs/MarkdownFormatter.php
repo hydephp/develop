@@ -26,7 +26,8 @@ $checksHeadings = false;
 
 class MarkdownFormatter
 {
-    //
+    protected string $input;
+    protected string $output;
 }
 
 function find_markdown_files($dir): array
