@@ -49,9 +49,9 @@ class GeneratesTableOfContents
         $environment->addExtension(new TableOfContentsExtension());
 
         $converter = new MarkdownConverter($environment);
-        $html = $converter->convert("[[END_TOC]]\n".$this->markdown)->getContent();
+        $html = $converter->convert($this->markdown)->getContent();
 
-        // Return everything before the [[END_TOC]] marker.
-        return substr($html, 0, strpos($html, '<p>[[END_TOC]]'));
+        // Return everything before the closing </ul> tag
+        return substr($html, 0, strpos($html, '</ul>') + 5);
     }
 }

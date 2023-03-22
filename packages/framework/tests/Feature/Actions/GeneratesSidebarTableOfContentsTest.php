@@ -25,7 +25,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertIsString($result);
         $this->assertStringContainsString('<ul>', $result);
         $this->assertStringContainsString('<a href="#level-2">Level 2</a>', $result);
-        $this->assertStringNotContainsString('[[END_TOC]]', $result);
+        $this->assertStringContainsString('</ul>', $result);
     }
 
     public function testReturnStringContainsExpectedContent()
