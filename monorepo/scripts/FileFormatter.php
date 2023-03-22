@@ -32,10 +32,9 @@ class CodeFormatter
 
     protected function run(): void
     {
-        $stream = $this->input;
+        $text = $this->input;
         $filename = $this->filename;
 
-        $text = $stream;
         $text = $this->useUnixFileEndings($text);
         $text = $this->replaceTabsWithSpaces($text);
 
