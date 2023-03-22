@@ -204,7 +204,7 @@ function find_files(): array
 function find_files_in_directory(string $directory): array
 {
     $files = [];
-    $extensions = ['php'];
+    $extensions = ['php', 'blade.php'];
 
     $directory = realpath($directory);
     if ($directory === false) {
