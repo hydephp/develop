@@ -40,10 +40,7 @@ class LoadYamlConfiguration
     {
         $yaml = $this->getYaml();
 
-        Config::set('hyde', array_merge(
-            Config::getArray('hyde', []),
-            $yaml
-        ));
+        $this->mergeUsingDefaultStrategy($yaml);
     }
 
     protected function getYaml(): array
@@ -56,5 +53,13 @@ class LoadYamlConfiguration
         return file_exists(Hyde::path('hyde.yml'))
             ? Hyde::path('hyde.yml')
             : Hyde::path('hyde.yaml');
+    }
+
+    protected function mergeUsingDefaultStrategy(array $yaml): void
+    {
+        Config::set('hyde', array_merge(
+            Config::getArray('hyde', []),
+            $yaml
+        ));
     }
 }
