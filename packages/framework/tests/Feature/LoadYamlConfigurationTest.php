@@ -122,6 +122,21 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('qux', Config::get('hyde.bar.baz'));
     }
 
+    public function testCanAddArbitraryNamespacedData()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          some: thing 
+        foo:
+          bar: baz
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('baz', Config::get('foo.bar'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
