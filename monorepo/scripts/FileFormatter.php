@@ -29,7 +29,7 @@ $settings = [
     Settings::UseUnixFileEndings,
     Settings::ReplaceTabsWithSpaces,
     Settings::TrimTrailingSpaces,
-    Settings::TrimMultipleEmptyLines,
+    // Settings::TrimMultipleEmptyLines,
     Settings::ForceEmptyLinesAtEndOfFile,
 ];
 
