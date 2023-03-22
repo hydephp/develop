@@ -98,6 +98,62 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testWithMultipleNestedHeadings()
+    {
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        #### Level 4
+        ##### Level 5
+        ###### Level 6
+        
+        ## Level 2B
+        ### Level 3B
+        ### Level 3C
+        ## Level 2C
+        ### Level 3D
+        MARKDOWN;
+
+        $this->assertSameIgnoringIndentation(<<<'HTML'
+            <ul class="table-of-contents">
+                <li>
+                    <a href="#level-2">Level 2</a>
+                    <ul>
+                        <li>
+                            <a href="#level-3">Level 3</a>
+                            <ul>
+                                <li>
+                                    <a href="#level-4">Level 4</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#level-2b">Level 2B</a>
+                    <ul>
+                        <li>
+                            <a href="#level-3b">Level 3B</a>
+                        </li>
+                        <li>
+                            <a href="#level-3c">Level 3C</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#level-2c">Level 2C</a>
+                    <ul>
+                        <li>
+                            <a href="#level-3d">Level 3D</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            HTML, (new GeneratesTableOfContents($markdown))->execute()
+        );
+    }
+
     protected function assertSameIgnoringIndentation(string $expected, string $actual): void
     {
         $this->assertSame(
