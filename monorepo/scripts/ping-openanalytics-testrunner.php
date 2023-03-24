@@ -11,6 +11,7 @@ echo "Pinging statistics server\n";
 
 $runner = $argv[1] ?? exit(400);
 $token = $argv[2] ?? null;
+$branch = $argv[3] ?? null;
 if ($token === null) {
     // Probably running in a fork
     echo "::warning:: No token provided, skipping ping\n";
@@ -57,7 +58,7 @@ foreach (explode(' ', $junit) as $pair) {
 }
 
 $data['commit'] = shell_exec('git rev-parse HEAD');
-$data['branch'] = shell_exec('git branch --show-current');
+$data['branch'] = $branch ?? shell_exec('git branch --show-current');
 $data['runner_os'] = php_uname('s');
 
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
