@@ -3,7 +3,7 @@
 /**
  * @internal This script is used to ping the OpenAnalytics server with the test results.
  *
- * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }} ${{ GITHUB_REF }}
+ * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name }}
  *
  * @uses vendor/bin/pest --stop-on-failure --log-junit report.xml
  */
