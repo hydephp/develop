@@ -3,7 +3,7 @@
 /**
  * @internal This script is used to ping the OpenAnalytics server with the test results.
  *
- * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }}
+ * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name }}
  *
  * @uses vendor/bin/pest --stop-on-failure --log-junit report.xml
  */
@@ -11,6 +11,7 @@ echo "Pinging statistics server\n";
 
 $runner = $argv[1] ?? exit(400);
 $token = $argv[2] ?? null;
+$branch = $argv[3] ?? null;
 if ($token === null) {
     // Probably running in a fork
     echo "::warning:: No token provided, skipping ping\n";
@@ -55,6 +56,10 @@ $junit = str_replace("''", '""', str_replace('"', '', str_replace('""', "''",
 foreach (explode(' ', $junit) as $pair) {
     $data[explode('=', $pair)[0]] = explode('=', $pair)[1];
 }
+
+$data['commit'] = shell_exec('git rev-parse HEAD');
+$data['branch'] = $branch ?? shell_exec('git branch --show-current');
+$data['runner_os'] = php_uname('s');
 
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
