@@ -56,6 +56,10 @@ foreach (explode(' ', $junit) as $pair) {
     $data[explode('=', $pair)[0]] = explode('=', $pair)[1];
 }
 
+$data['commit'] = shell_exec('git rev-parse HEAD');
+$data['branch'] = shell_exec('git rev-parse --abbrev-ref HEAD');
+$data['runner_os'] = php_uname('s');
+
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
 $resp = curl_exec($curl);
