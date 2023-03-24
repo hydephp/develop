@@ -49,6 +49,8 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 //    'commit' => 'string:nullable',
 //    'branch' => 'string:nullable',
 //    'runner_os' => 'string:nullable',
+//    // Upcoming
+//.   'pull_request_number' => 'integer:nullable',   
 
 $junit = str_replace("''", '""', str_replace('"', '', str_replace('""', "''",
     substr(substr(explode("\n", file_get_contents('report.xml'))[2], 13), 0, -3)))
