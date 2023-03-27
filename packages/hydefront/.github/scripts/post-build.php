@@ -7,6 +7,24 @@ require_once __DIR__ . '/minima.php';
 exit(main(function (): int {
     $baseDir = __DIR__.'/../../';
 
+    if ($this->hasOption('inject-version')) {
+        $package = json_decode(file_get_contents($baseDir.'package.json'), true);
+        $version = $package['version'];
+        $css = file_get_contents($baseDir.'dist/hyde.css');
+
+        if (str_contains($css, '/*! HydeFront')) {
+            $this->error('Version already injected in dist/hyde.css');
+            return 1;
+        }
+
+        $template = '/*! HydeFront v{{ $version }} | MIT License | https://hydephp.com*/';
+        $versionString = str_replace('{{ $version }}', $version, $template);
+        $css = "$versionString\n$css";
+        file_put_contents($baseDir.'dist/hyde.css', $css);
+
+        return 0;
+    }
+
     $this->info('Verifying build files...');
     $exitCode = 0;
 
