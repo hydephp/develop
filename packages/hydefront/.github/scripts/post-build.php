@@ -33,15 +33,19 @@ exit(main(function (): int {
     if ($this->hasOption('fix')) {
         $this->info('Fixing build files...');
 
-        $this->line(' > Updating dist/hyde.css...');
-        $contents = file_get_contents($baseDir.'dist/hyde.css');
-        $contents = str_replace($hydeCssVersion, $version, $contents);
-        file_put_contents($baseDir.'dist/hyde.css', $contents);
+        if ($version !== $hydeCssVersion) {
+            $this->line(' > Updating dist/hyde.css...');
+            $contents = file_get_contents($baseDir.'dist/hyde.css');
+            $contents = str_replace($hydeCssVersion, $version, $contents);
+            file_put_contents($baseDir.'dist/hyde.css', $contents);
+        }
 
-        $this->line(' > Updating dist/app.css...');
-        $contents = file_get_contents($baseDir.'dist/app.css');
-        $contents = str_replace($appCssVersion, $version, $contents);
-        file_put_contents($baseDir.'dist/app.css', $contents);
+        if ($version !== $appCssVersion) {
+            $this->line(' > Updating dist/app.css...');
+            $contents = file_get_contents($baseDir.'dist/app.css');
+            $contents = str_replace($appCssVersion, $version, $contents);
+            file_put_contents($baseDir.'dist/app.css', $contents);
+        }
 
         $this->info('Build files fixed');
     }
