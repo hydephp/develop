@@ -588,3 +588,16 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+
+
+  hydefront-lint:
+    name: HydeFront Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run linter
+        uses: php packages/hydefront/.github/scripts/post-build.php
