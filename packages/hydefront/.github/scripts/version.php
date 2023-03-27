@@ -17,6 +17,7 @@ exit(main(function (): int {
         $this->error('Missing version type (supply as first argument)');
         return 1;
     }
+    /** @noinspection SpellCheckingInspection */
     if (! in_array($version, ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'])) {
         $this->error('Invalid version type: ' . $version);
         $this->warning('Must be one of: major, minor, patch, premajor, preminor, prepatch, prerelease');
