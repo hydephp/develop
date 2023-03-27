@@ -47,5 +47,9 @@ exit(main(function (): int {
     $this->info('All done!');
     $this->warning("Don't forget to verify the changes, tag them, push them, then publish the NPM package and create the release on GitHub!");
 
+    if (! str_contains($versionType, 'patch')) {
+        $this->warning('This is not a patch version, so you should also update the version in the monorepo package.json');
+    }
+
     return 0;
 }));
