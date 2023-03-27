@@ -12,20 +12,20 @@ exit(main(function (): int {
     }
 
     global $argv;
-    $version = $argv[1] ?? null;
-    if ($version === null) {
+    $versionType = $argv[1] ?? null;
+    if ($versionType === null) {
         $this->error('Missing version type (supply as first argument)');
         return 1;
     }
     /** @noinspection SpellCheckingInspection */
     $nodeJsVersions = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'];
-    if (! in_array($version, $nodeJsVersions)) {
-        $this->error('Invalid version type: ' . $version);
+    if (! in_array($versionType, $nodeJsVersions)) {
+        $this->error('Invalid version type: ' . $versionType);
         $this->warning('Must be one of: '.implode(', ', $nodeJsVersions));
         return 1;
     }
 
-    $this->info("Creating a new HydeFront $version version...");
+    $this->info("Creating a new HydeFront $versionType version...");
 
     return 0;
 }));
