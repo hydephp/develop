@@ -18,6 +18,18 @@ main(function (): int {
     $appCssVersion = getCssVersion($baseDir . 'dist/app.css');
     $this->line("Found version '$appCssVersion' in dist/app.css");
 
+    if ($version !== $hydeCssVersion) {
+        $this->error("Version mismatch in package.json and dist/hyde.css.");
+        $this->warning("Expected hyde.css to have version '$version', but found '$hydeCssVersion'.");
+        return 1;
+    }
+
+    if ($version !== $appCssVersion) {
+        $this->error("Version mismatch in package.json and dist/app.css.");
+        $this->warning("Expected app.css to have version '$version', but found '$appCssVersion'.");
+        return 1;
+    }
+
     if ($this->hasOption('fix')) {
         $this->info('Fixing build files...');
     }
