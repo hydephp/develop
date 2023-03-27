@@ -7,25 +7,25 @@ require_once __DIR__ . '/minima.php';
 exit(main(function (): int {
     $this->info('Verifying build files...');
 
-    $baseDir = __DIR__ . '/../../';
-    $package = json_decode(file_get_contents($baseDir . 'package.json'), true);
+    $baseDir = __DIR__.'/../../';
+    $package = json_decode(file_get_contents($baseDir.'package.json'), true);
     $version = $package['version'];
     $this->line("Found version '$version' in package.json");
 
-    $hydeCssVersion = getCssVersion($baseDir . 'dist/hyde.css');
+    $hydeCssVersion = getCssVersion($baseDir.'dist/hyde.css');
     $this->line("Found version '$hydeCssVersion' in dist/hyde.css");
 
-    $appCssVersion = getCssVersion($baseDir . 'dist/app.css');
+    $appCssVersion = getCssVersion($baseDir.'dist/app.css');
     $this->line("Found version '$appCssVersion' in dist/app.css");
 
     if ($version !== $hydeCssVersion) {
-        $this->error("Version mismatch in package.json and dist/hyde.css.");
+        $this->error('Version mismatch in package.json and dist/hyde.css.');
         $this->warning("Expected hyde.css to have version '$version', but found '$hydeCssVersion'.");
         $exitCode = 1;
     }
 
     if ($version !== $appCssVersion) {
-        $this->error("Version mismatch in package.json and dist/app.css.");
+        $this->error('Version mismatch in package.json and dist/app.css.');
         $this->warning("Expected app.css to have version '$version', but found '$appCssVersion'.");
         $exitCode = 1;
     }
