@@ -38,6 +38,7 @@ exit(main(function (): int {
             $contents = file_get_contents($baseDir.'dist/hyde.css');
             $contents = str_replace($hydeCssVersion, $version, $contents);
             file_put_contents($baseDir.'dist/hyde.css', $contents);
+            $filesChanged = true;
         }
 
         if ($version !== $appCssVersion) {
@@ -45,9 +46,14 @@ exit(main(function (): int {
             $contents = file_get_contents($baseDir.'dist/app.css');
             $contents = str_replace($appCssVersion, $version, $contents);
             file_put_contents($baseDir.'dist/app.css', $contents);
+            $filesChanged = true;
         }
 
-        $this->info('Build files fixed');
+        if (isset($filesChanged)) {
+            $this->info('Build files fixed');
+        } else {
+            $this->warning('Nothing to fix!');
+        }
     }
 
     return $exitCode ?? 0;
