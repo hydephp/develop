@@ -7,6 +7,7 @@ require_once __DIR__ . '/minima.php';
 exit(main(function (): int {
     $this->info('Verifying build files...');
 
+    $exitCode = 0;
     $baseDir = __DIR__.'/../../';
     $package = json_decode(file_get_contents($baseDir.'package.json'), true);
     $version = $package['version'];
@@ -56,7 +57,7 @@ exit(main(function (): int {
         }
     }
 
-    return $exitCode ?? 0;
+    return $exitCode;
 }));
 
 function getCssVersion(string $path): string
