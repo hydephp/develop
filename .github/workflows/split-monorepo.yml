@@ -76,7 +76,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hyde.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hyde.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
@@ -125,7 +125,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/framework.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/framework.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
@@ -174,7 +174,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/realtime-compiler.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/realtime-compiler.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
@@ -222,7 +222,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydefront.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydefront.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
@@ -274,7 +274,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydephp.com.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydephp.com.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
@@ -323,7 +323,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/testing.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/testing.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
@@ -372,7 +372,7 @@ jobs:
 
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git remote add upstream https://${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/ui-kit.git
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/ui-kit.git
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
