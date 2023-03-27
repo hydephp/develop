@@ -17,4 +17,4 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run linter
-        uses: php .github/scripts/post-build.php
+        run: php .github/scripts/post-build.php
