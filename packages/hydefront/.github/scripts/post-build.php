@@ -13,10 +13,10 @@ main(function (): int {
     $this->line("Found version '$version' in package.json");
 
     $hydeCssVersion = getCssVersion($baseDir . 'dist/hyde.css');
-    $this->line("Found version '$hydeCssVersion' in hyde.css");
+    $this->line("Found version '$hydeCssVersion' in dist/hyde.css");
 
     $appCssVersion = getCssVersion($baseDir . 'dist/app.css');
-    $this->line("Found version '$appCssVersion' in app.css");
+    $this->line("Found version '$appCssVersion' in dist/app.css");
 
     if ($this->hasOption('fix')) {
         $this->info('Fixing build files...');
