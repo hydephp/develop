@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Added Markdown configuration option for the Tailwind prose classes in https://github.com/hydephp/develop/pull/1357
+- Added `prose-img:inline` to bundled TailwindCSS classes in https://github.com/hydephp/develop/pull/1359
 
 ### Changed
 - for changes in existing functionality.
