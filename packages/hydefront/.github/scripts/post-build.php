@@ -9,6 +9,7 @@ exit(main(function (): int {
 
     $exitCode = 0;
     $baseDir = __DIR__.'/../../';
+
     $package = json_decode(file_get_contents($baseDir.'package.json'), true);
     $version = $package['version'];
     $this->line("Found version '$version' in package.json");
