@@ -38,5 +38,11 @@ exit(main(function (): int {
     }
     $this->line('---');
 
+    $this->info('Committing changes in HydeFront...');
+    passthru('cd packages/hydefront && git add . && git commit -m "HydeFront ' . $version . '"');
+
+    $this->info('Committing changes in monorepo...');
+    passthru('git add packages/hydefront && git commit -m "HydeFront ' . $version . '"');
+
     return 0;
 }));
