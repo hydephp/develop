@@ -5,10 +5,10 @@ declare(strict_types=1);
 require_once __DIR__ . '/minima.php';
 
 exit(main(function (): int {
-    $exitCode = 0;
     $baseDir = __DIR__.'/../../';
 
     $this->info('Verifying build files...');
+    $exitCode = 0;
 
     $package = json_decode(file_get_contents($baseDir.'package.json'), true);
     $version = $package['version'];
