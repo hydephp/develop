@@ -42,7 +42,7 @@ exit(main(function (): int {
     passthru('cd packages/hydefront && git add . && git commit -m "HydeFront ' . $version . '"');
 
     $this->info('Committing changes in monorepo...');
-    passthru('git add packages/hydefront && git commit -m "HydeFront ' . $version . '"');
+    passthru('git add packages/hydefront && git commit -m "Create HydeFront ' . $version . '"');
 
     $this->info('All done!');
     $this->warning("Don't forget to verify the changes, tag them, push them, then publish the NPM package and create the release on GitHub!");
