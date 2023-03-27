@@ -106,10 +106,6 @@ jobs:
         working-directory: 'packages/hydefront'
         run: npm run prod
 
-      - name: Add copyright text to compiled file
-        # add '/*! HydeFront v3.3.0 | MIT License | https://hydephp.com*/' to the top of the packages/hydefront/dist/hyde.css file
-        run: sed -i '1s/^/\/\*! HydeFront v3.3.0 | MIT License | https:\/\/hydephp.com\*\/\n/' packages/hydefront/dist/hyde.css
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -588,3 +584,16 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+
+
+  hydefront-lint:
+    name: HydeFront Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run linter
+        run: php packages/hydefront/.github/scripts/post-build.php
