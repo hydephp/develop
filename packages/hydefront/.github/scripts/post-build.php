@@ -58,6 +58,12 @@ exit(main(function (): int {
         }
     }
 
+    if ($exitCode > 0) {
+        $this->error('Exiting with errors.');
+    } else {
+        $this->info('Build files verified. All looks good!');
+    }
+
     return $exitCode;
 }));
 
