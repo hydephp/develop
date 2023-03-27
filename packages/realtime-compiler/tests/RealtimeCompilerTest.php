@@ -82,7 +82,7 @@ test('handle routes static assets', function () {
         ->and($response->statusCode)->toBe(200)
         ->and($response->statusMessage)->toBe('OK');
 
-    expect($response->body)->toBeFile(\Hyde\Hyde::path('_media/app.css'));
+    expect($response->body)->toBe(file_get_contents(\Hyde\Hyde::path('_media/app.css')));
 });
 
 test('handle throws route not found exception for missing route', function () {
