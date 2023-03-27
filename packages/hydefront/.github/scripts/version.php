@@ -29,5 +29,10 @@ exit(main(function (): int {
     $version = trim(shell_exec('npm version ' . $versionType . ' --no-git-tag-version'));
     $this->line("Updated package.json version to $version");
 
+    $this->info('Updating version in dist files...');
+    $this->line('---');
+    passthru('php packages/hydefront/.github/scripts/post-build.php --fix');
+    $this->line('---');
+
     return 0;
 }));
