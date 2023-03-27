@@ -183,3 +183,18 @@ the `allow_html` option to `true` in your `config/markdown.php` file.
 ```
 
 This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
+
+### Tailwind Typography Prose Classes
+
+HydePHP uses the [Tailwind Typography](https://tailwindcss.com/docs/typography-plugin) to style rendered Markdown.
+We do this by adding the `.prose` CSS class to the HTML elements containing the rendered Markdown, using the built-in Blade components.
+
+You can easily edit these classes, for example if you want to customize the prose colours, in the `config/markdown.php` file.
+
+```php
+// filepath: config/markdown.php
+'prose_classes' => 'prose dark:prose-invert', // [tl! remove]
+'prose_classes' => 'prose dark:prose-invert prose-img:inline', // [tl! add]
+```
+
+Please note that if you add any new classes, you may need to recompile your CSS file.
