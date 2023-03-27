@@ -25,5 +25,7 @@ exit(main(function (): int {
         return 1;
     }
 
+    $this->info("Creating a new HydeFront $version version...");
+
     return 0;
 }));
