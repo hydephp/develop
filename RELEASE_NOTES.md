@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added Markdown configuration option for the Tailwind prose classes in https://github.com/hydephp/develop/pull/1357
 
 ### Changed
 - for changes in existing functionality.
