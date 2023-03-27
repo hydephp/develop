@@ -3,7 +3,7 @@
   "version": "3.3.1",
   "description": "Frontend assets for HydePHP",
   "scripts": {
-    "prod": "sass hyde.scss dist/hyde.css --style=compressed",
+    "prod": "sass hyde.scss dist/hyde.css --style=compressed && php .github/scripts/post-build.php --inject-version",
     "dev": "sass hyde.scss dist/hyde.css",
     "watch": "sass hyde.scss dist/hyde.css --watch"
   },
