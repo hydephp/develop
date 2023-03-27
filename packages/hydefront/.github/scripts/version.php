@@ -11,5 +11,17 @@ exit(main(function (): int {
         return 1;
     }
 
+    global $argv;
+    $version = $argv[1] ?? null;
+    if ($version === null) {
+        $this->error('Missing version type (supply as first argument)');
+        return 1;
+    }
+    if (! in_array($version, ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'])) {
+        $this->error('Invalid version type: ' . $version);
+        $this->warning('Must be one of: major, minor, patch, premajor, preminor, prepatch, prerelease');
+        return 1;
+    }
+
     return 0;
 }));
