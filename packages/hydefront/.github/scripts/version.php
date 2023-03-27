@@ -26,7 +26,7 @@ exit(main(function (): int {
     }
 
     $this->info("Creating a new HydeFront $versionType version...");
-    $version = trim(shell_exec('npm version ' . $versionType . ' --no-git-tag-version'));
+    $version = trim(shell_exec('cd packages/hydefront && npm version ' . $versionType . ' --no-git-tag-version'));
     $this->line("Updated package.json version to $version");
 
     $this->info('Updating version in dist files...');
