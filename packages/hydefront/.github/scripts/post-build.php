@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/minima.php';
 
-main(function (): int {
+exit(main(function (): int {
     $this->info('Verifying build files...');
 
     $baseDir = __DIR__ . '/../../';
@@ -35,7 +35,7 @@ main(function (): int {
     }
 
     return $exitCode ?? 0;
-});
+}));
 
 function getCssVersion(string $path): string
 {
