@@ -21,7 +21,7 @@ exit(main(function (): int {
     $nodeJsVersions = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'];
     if (! in_array($version, $nodeJsVersions)) {
         $this->error('Invalid version type: ' . $version);
-        $this->warning('Must be one of: major, minor, patch, premajor, preminor, prepatch, prerelease');
+        $this->warning('Must be one of: '.implode(', ', $nodeJsVersions));
         return 1;
     }
 
