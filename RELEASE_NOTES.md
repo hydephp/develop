@@ -20,7 +20,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed the Tailwind safelist from the hyde/hyde package (as it is not required there) in https://github.com/hydephp/develop/pull/1362
 
 ### Fixed
 - for any bug fixes.
