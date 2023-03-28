@@ -49,12 +49,12 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createDetailTemplate(): void
     {
-        $this->publishPublicationFile('detail', 'publication_detail');
+        $this->publishPublicationFile('detail', 'detail');
     }
 
     protected function createListTemplate(): void
     {
-        $this->publishPublicationFile('list', $this->usesPagination() ? 'publication_paginated_list' : 'publication_list');
+        $this->publishPublicationFile('list', $this->usesPagination() ? 'paginated_list' : 'list');
     }
 
     protected function publishPublicationFile(string $filename, string $viewName): void
