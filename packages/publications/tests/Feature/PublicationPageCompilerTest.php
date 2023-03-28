@@ -34,7 +34,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Detail: My Publication', $string);
     }
 
-    public function test_can_compile_publication_list_pages()
+    public function test_can_compile_list_pages()
     {
         $this->setupPublicationType();
 
@@ -61,7 +61,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Registered detail view', PublicationPageCompiler::call($publicationPage));
     }
 
-    public function test_can_compile_publication_list_pages_with_registered_view()
+    public function test_can_compile_list_pages_with_registered_view()
     {
         $this->setupPublicationType();
 
@@ -89,7 +89,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertStringContainsString('My Publication', PublicationPageCompiler::call($publicationPage));
     }
 
-    public function test_can_compile_publication_list_pages_with_registered_namespaced_view()
+    public function test_can_compile_list_pages_with_registered_namespaced_view()
     {
         $this->setupPublicationType();
         $this->file('vendor/hyde/framework/resources/views/layouts/test.blade.php', 'Registered list view');

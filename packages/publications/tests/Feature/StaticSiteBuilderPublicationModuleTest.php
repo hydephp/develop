@@ -103,7 +103,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         (new CreatesNewPublicationType('Test Publication', collect([])))->create();
         $type = PublicationType::get('test-publication');
         $type->detailTemplate = 'hyde-publications::detail';
-        $type->listTemplate = 'hyde-publications::publication_list';
+        $type->listTemplate = 'hyde-publications::list';
         $type->save();
 
         foreach (range(1, 5) as $i) {

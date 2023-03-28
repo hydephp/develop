@@ -93,7 +93,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertFileEquals(__DIR__.'/../../resources/views/detail.blade.php',
             Hyde::path('test-publication/detail.blade.php')
         );
-        $this->assertFileEquals(__DIR__.'/../../resources/views/publication_list.blade.php',
+        $this->assertFileEquals(__DIR__.'/../../resources/views/list.blade.php',
             Hyde::path('test-publication/list.blade.php')
         );
     }
