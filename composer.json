@@ -5,8 +5,8 @@
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/hydephp/hyde/issues",
-        "source": "https://github.com/hydephp/hyde"
+        "issues": "https://github.com/hydephp/develop/issues",
+        "source": "https://github.com/hydephp/develop"
     },
     "authors": [
         {
