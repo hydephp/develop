@@ -1,6 +1,6 @@
 {
     "name": "hyde/monorepo",
-    "description": "Static Site Generator to rapidly create Blogs, Documentation, and more, using Markdown and Blade.",
+    "description": "The HydePHP source code monorepo.",
     "keywords": ["framework", "hyde", "hyde framework"],
     "homepage": "https://hydephp.com",
     "type": "project",
