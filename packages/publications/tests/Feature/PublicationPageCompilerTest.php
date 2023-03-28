@@ -81,7 +81,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupPublicationType();
 
         $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
-        $schema->detailTemplate = 'hyde-publications::publication_detail';
+        $schema->detailTemplate = 'hyde-publications::detail';
         file_put_contents(Hyde::path('test-publication/schema.json'), json_encode($schema));
 
         $publicationPage = new PublicationPage('my-publication', type: PublicationType::get('test-publication'));

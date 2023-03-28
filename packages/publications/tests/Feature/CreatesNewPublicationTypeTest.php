@@ -90,7 +90,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
         $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
 
-        $this->assertFileEquals(__DIR__.'/../../resources/views/publication_detail.blade.php',
+        $this->assertFileEquals(__DIR__.'/../../resources/views/detail.blade.php',
             Hyde::path('test-publication/detail.blade.php')
         );
         $this->assertFileEquals(__DIR__.'/../../resources/views/publication_list.blade.php',
@@ -111,7 +111,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
         $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
 
-        $this->assertFileEquals(__DIR__.'/../../resources/views/publication_detail.blade.php',
+        $this->assertFileEquals(__DIR__.'/../../resources/views/detail.blade.php',
             Hyde::path('test-publication/detail.blade.php')
         );
         $this->assertFileEquals(__DIR__.'/../../resources/views/publication_paginated_list.blade.php',

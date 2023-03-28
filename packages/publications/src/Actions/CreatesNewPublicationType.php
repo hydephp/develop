@@ -49,7 +49,7 @@ class CreatesNewPublicationType extends CreateAction
 
     protected function createDetailTemplate(): void
     {
-        $this->publishPublicationFile('detail', 'publication_detail');
+        $this->publishPublicationFile('detail', 'detail');
     }
 
     protected function createListTemplate(): void
