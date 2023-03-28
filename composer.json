@@ -1,5 +1,5 @@
 {
-    "name": "hyde/hyde",
+    "name": "hyde/monorepo",
     "description": "Static Site Generator to rapidly create Blogs, Documentation, and more, using Markdown and Blade.",
     "keywords": ["framework", "hyde", "hyde framework"],
     "homepage": "https://hydephp.com",
