@@ -14,7 +14,7 @@ This serves two purposes:
 - Added `prose-img:inline` to bundled TailwindCSS classes in https://github.com/hydephp/develop/pull/1359
 
 ### Changed
-- for changes in existing functionality.
+- Internal: Decoupled the monorepo `composer.json` settings in https://github.com/hydephp/develop/pull/1361
 
 ### Deprecated
 - for soon-to-be removed features.
