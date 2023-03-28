@@ -2,35 +2,28 @@
 
 ### About
 
-This release is the first since the official release of HydePHP 1.0.0. It contains a number of bug fixes and improvements, but no breaking changes as the project has reached general availability and adheres to the semantic versioning backwards compatibility promise.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added Markdown configuration option for the Tailwind prose classes in https://github.com/hydephp/develop/pull/1357
+- Added `prose-img:inline` to bundled TailwindCSS classes in https://github.com/hydephp/develop/pull/1359
 
 ### Changed
-- Updated discovery exception message to include the causing exception message in https://github.com/hydephp/develop/pull/1305
-- Cleaned up `PageDataFactory`, `NavigationDataFactory`, and `BlogPostDataFactory` internals for better type safety in https://github.com/hydephp/develop/pull/1312
-- Refactored internals to use the `View` facade over the `view` function for better type safety in https://github.com/hydephp/develop/pull/1310
-- Updated to HydeFront v3.3.0 in https://github.com/hydephp/develop/pull/1329
+- Internal: Decoupled the monorepo `composer.json` settings in https://github.com/hydephp/develop/pull/1361
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Classes `PageDataFactory`, `NavigationDataFactory`, and `BlogPostDataFactory` no longer use the `InteractsWithFrontMatter` trait
+- Removed the Tailwind safelist from the hyde/hyde package (as it is not required there) in https://github.com/hydephp/develop/pull/1362
 
 ### Fixed
-- Fixed https://github.com/hydephp/develop/issues/1301 in https://github.com/hydephp/develop/pull/1302
-- Fixed https://github.com/hydephp/develop/issues/1313 in https://github.com/hydephp/develop/commit/134776a1e4af395dab5c15d611fc64c9ebce8596
-- Fixed https://github.com/hydephp/develop/issues/1316 in https://github.com/hydephp/develop/pull/1317
-- Fixed https://github.com/hydephp/develop/issues/1318 in https://github.com/hydephp/develop/pull/1319
-- Fixed https://github.com/hydephp/develop/issues/1320 in https://github.com/hydephp/develop/pull/1321
-- Fixed https://github.com/hydephp/develop/issues/1322 in https://github.com/hydephp/develop/issues/1323
-- Fixed https://github.com/hydephp/develop/issues/1324 in https://github.com/hydephp/develop/pull/1325
-- Fixed https://github.com/hydephp/develop/issues/1326 in https://github.com/hydephp/develop/pull/1327
-- Fixed https://github.com/hydephp/develop/issues/1330 in https://github.com/hydephp/develop/pull/1331
-- Fixed navigation dropdowns flickering on page load in Fixed https://github.com/hydephp/develop/issues/1330 in https://github.com/hydephp/develop/pull/1332
-- Added missing function imports in https://github.com/hydephp/develop/pull/1309
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.

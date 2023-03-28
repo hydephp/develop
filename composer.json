@@ -1,13 +1,12 @@
 {
-    "name": "hyde/hyde",
-    "description": "Static Site Generator to rapidly create Blogs, Documentation, and more, using Markdown and Blade.",
-    "keywords": ["framework", "hyde", "hyde framework"],
+    "name": "hyde/monorepo",
+    "description": "The HydePHP source code monorepo.",
     "homepage": "https://hydephp.com",
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/hydephp/hyde/issues",
-        "source": "https://github.com/hydephp/hyde"
+        "issues": "https://github.com/hydephp/develop/issues",
+        "source": "https://github.com/hydephp/develop"
     },
     "authors": [
         {

@@ -89,9 +89,9 @@ class RssFeedServiceTest extends TestCase
             category: test
             image: _media/rss-test.jpg
             ---
-            
+
             # RSS Post
-            
+
             Foo bar
             MD
         );

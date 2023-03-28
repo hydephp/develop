@@ -14,6 +14,15 @@ use Hyde\Testing\TestCase;
  */
 class HydeConfigFilesAreMatchingTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (file_exists(Hyde::path('README.md')) && ! str_contains(file_get_contents(Hyde::path('README.md')), 'HydePHP - Source Monorepo')) {
+            $this->markTestSkipped('Test skipped when not running in the monorepo.');
+        }
+    }
+
     public function test_hyde_config_files_are_matching()
     {
         $this->assertFileEqualsIgnoringNewlineType(

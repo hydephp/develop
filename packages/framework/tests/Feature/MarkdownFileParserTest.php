@@ -23,11 +23,11 @@ class MarkdownFileParserTest extends UnitTestCase
             category: blog
             author: Mr. Hyde
             ---
-            
+
             # My New Post
-            
+
             This is a post stub used in the automated tests
-            
+
             MD
         );
     }
@@ -65,7 +65,7 @@ class MarkdownFileParserTest extends UnitTestCase
         $this->assertSame(
             <<<'MARKDOWN'
             # My New Post
-            
+
             This is a post stub used in the automated tests
             MARKDOWN,
             (string) $document->markdown

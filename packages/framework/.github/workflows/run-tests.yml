@@ -1,0 +1,65 @@
+name: Framework Tests (Matrix)
+on:
+  push:
+    branches: ["master", "develop"]
+  pull_request:
+    branches: ["master", "develop"]
+
+jobs:
+
+  run-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        php: [8.1, 8.2]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: fileinfo, zip
+
+      - name: Echo GitHub ref
+        run: echo ${{ github.ref }}
+
+      - name: Install Hyde (master)
+        if: "github.ref == 'refs/heads/master'"
+        run: git clone -b master https://github.com/hydephp/hyde.git
+
+      - name: Install Hyde (develop)
+        if: "github.ref != 'refs/heads/master'"
+        run: git clone -b develop https://github.com/hydephp/hyde.git
+
+      - name: Require latest framework version
+        if: "github.ref == 'refs/heads/master'"
+        run: cd hyde && composer require hyde/framework:dev-master hyde/testing:dev-master
+
+      - name: Require latest development framework version
+        if: "github.ref == 'refs/heads/develop'"
+        run: cd hyde && composer require hyde/framework:dev-develop hyde/testing:dev-master
+
+      - name: Require pull request framework version
+        if: "github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'"
+        run: cd hyde && composer require hyde/framework:dev-${{ github.head_ref }} hyde/testing:dev-master
+
+      - name: Copy over test files
+        run: cp -r ./tests/. ./hyde/tests
+
+      - name: Download test runner configuration
+        run: cd hyde && curl https://raw.githubusercontent.com/hydephp/develop/master/packages/hyde/phpunit.xml.dist -o phpunit.xml.dist
+
+      - name: Set environment to testing
+        run: cd hyde && echo "ENV=testing" > .env
+      - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+        run: cd hyde && vendor/bin/pest
+        env:
+          ENV: testing
+
+      - name: Ping statistics server with test results
+        run: |
+          cd hyde
+          curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Framework CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}

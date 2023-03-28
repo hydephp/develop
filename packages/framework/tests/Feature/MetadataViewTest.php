@@ -167,9 +167,9 @@ class MetadataViewTest extends TestCase
             author: "Mr. Hyde"
             image: image.jpg
             ---
-            
-            ## Hello World 
-            
+
+            ## Hello World
+
             Lorem Ipsum Dolor Amet.
             MARKDOWN
         );

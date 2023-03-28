@@ -58,7 +58,7 @@ class NavigationMenuViewTest extends TestCase
     public function test_navigation_menu_label_can_be_changed_in_front_matter()
     {
         $this->file('_pages/foo.md', '---
-navigation: 
+navigation:
   label: "My custom label"
 ---
 ');
