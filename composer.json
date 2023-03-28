@@ -1,7 +1,6 @@
 {
     "name": "hyde/monorepo",
     "description": "The HydePHP source code monorepo.",
-    "keywords": ["framework", "hyde", "hyde framework"],
     "homepage": "https://hydephp.com",
     "type": "project",
     "license": "MIT",
