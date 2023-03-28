@@ -164,7 +164,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
         (new CreatesNewPublicationType('Test Publication', collect([])))->create();
 
         $type = PublicationType::get('test-publication');
-        $type->listTemplate = 'hyde-publications::publication_paginated_list';
+        $type->listTemplate = 'hyde-publications::paginated_list';
         $type->pageSize = 2;
         $type->save();
 
