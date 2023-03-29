@@ -12,6 +12,8 @@ use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function collect;
+
 /**
  * @todo Since this class is now so simplified it may be better suited if renamed to a facade, eg Publications.
  *

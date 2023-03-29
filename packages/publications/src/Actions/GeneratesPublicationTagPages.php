@@ -8,6 +8,8 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\PublicationService;
 
+use function arsort;
+
 /**
  * Called by the PublicationsExtension::discoverPages method,
  * during the HydePHP autodiscovery boot process.

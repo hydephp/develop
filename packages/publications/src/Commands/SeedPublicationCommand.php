@@ -11,6 +11,10 @@ use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 
+use function microtime;
+use function round;
+use function sprintf;
+
 /**
  * Hyde Command to seed publication files for a publication type.
  *

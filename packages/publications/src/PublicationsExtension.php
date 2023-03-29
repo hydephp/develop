@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Hyde;
-use Hyde\Pages\InMemoryPage;
 use Hyde\Facades\Filesystem;
-use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\GeneratesPublicationTagPages;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;

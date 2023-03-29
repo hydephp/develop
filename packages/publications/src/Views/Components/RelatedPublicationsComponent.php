@@ -11,6 +11,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
+use function collect;
+use function count;
+use function view;
+
 class RelatedPublicationsComponent extends Component
 {
     /** @var Collection<string, PublicationPage> */

@@ -6,6 +6,9 @@ namespace Hyde\Publications;
 
 use Illuminate\Support\Collection;
 
+use function collect;
+use function in_array;
+
 /**
  * The supported field types for publication types.
  *

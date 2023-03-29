@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use function array_merge;
-use function collect;
-
-use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Publications\PublicationService;
+use Hyde\Publications\PublicationFieldTypes;
+use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Validator;
+use Hyde\Publications\Models\PublicationFieldDefinition;
 
+use function collect;
 use function validator;
+use function array_merge;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationFieldValidatorTest

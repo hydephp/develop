@@ -7,12 +7,10 @@ namespace Hyde\Publications\Commands;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\PublicationService;
-
-use function implode;
-
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 
+use function implode;
 use function sprintf;
 
 /**

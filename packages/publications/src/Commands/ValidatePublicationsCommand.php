@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
+use Hyde\Hyde;
+use Hyde\Publications\Actions\PublicationPageValidator;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\PublicationService;
+use Illuminate\Support\Collection;
+use InvalidArgumentException;
+use LaravelZero\Framework\Commands\Command;
+
+use function array_key_last;
 use function array_map;
 use function array_values;
 use function basename;
@@ -12,23 +21,14 @@ use function count;
 use function explode;
 use function filled;
 use function glob;
-
-use Hyde\Hyde;
-use Hyde\Publications\Actions\PublicationPageValidator;
-use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
-use Illuminate\Support\Collection;
-use InvalidArgumentException;
-
+use function in_array;
 use function json_encode;
-
-use LaravelZero\Framework\Commands\Command;
-
 use function memory_get_peak_usage;
 use function microtime;
 use function round;
 use function sprintf;
 use function str_repeat;
+use function str_replace;
 use function str_starts_with;
 use function strlen;
 use function substr_count;

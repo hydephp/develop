@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Publications\Actions;
 
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationType;
 use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Publications\Models\PublicationType;
+
+use function copy;
 
 /**
  * Scaffold a new publication type schema.

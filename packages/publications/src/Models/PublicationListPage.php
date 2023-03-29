@@ -7,6 +7,9 @@ namespace Hyde\Publications\Models;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 
+use function config;
+use function in_array;
+
 /**
  * @see \Hyde\Publications\Models\PublicationPage
  * @see \Hyde\Publications\Testing\Feature\PublicationListPageTest

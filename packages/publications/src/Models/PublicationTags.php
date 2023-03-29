@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use function file_exists;
-
-use Hyde\Facades\Filesystem;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Illuminate\Support\Collection;
-use Symfony\Component\Yaml\Exception\ParseException;
+use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Collection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use Symfony\Component\Yaml\Exception\ParseException;
+use function assert;
+use function is_int;
+use function is_array;
+use function is_string;
+use function array_merge;
+use function file_exists;
 
 /**
  * Object representation for the tags.yml file.
