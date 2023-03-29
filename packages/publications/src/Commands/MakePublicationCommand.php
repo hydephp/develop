@@ -6,20 +6,20 @@ namespace Hyde\Publications\Commands;
 
 use Closure;
 use Hyde\Hyde;
-use Hyde\Publications\Actions\CreatesNewPublicationPage;
-use Hyde\Publications\Commands\Helpers\InputStreamHandler;
-use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationFieldValue;
-use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationFieldTypes;
-use Hyde\Publications\PublicationService;
-use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Illuminate\Support\Collection;
+use Hyde\Publications\PublicationService;
 use LaravelZero\Framework\Commands\Command;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Models\PublicationFieldValue;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Publications\Actions\CreatesNewPublicationPage;
+use Hyde\Publications\Models\PublicationFieldDefinition;
+use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
 use function implode;
-use function in_array;
 use function sprintf;
+use function in_array;
 use function str_starts_with;
 
 /**

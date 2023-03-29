@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 
 /**
- * @covers \Hyde\Publications\PublicationFieldTypes
+ * @covers \Hyde\Publications\Concerns\PublicationFieldTypes
  */
 class PublicationFieldTypesEnumTest extends TestCase
 {
