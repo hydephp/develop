@@ -10,6 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
+
 use function assert;
 use function is_int;
 use function is_array;
@@ -106,9 +107,9 @@ class PublicationTags
      *
      * @return array<string>
      */
-    public static function getValuesForTagGroup(string $tagName): array
+    public static function getValuesForTagGroup(string $groupName): array
     {
-        return self::getAllTags()->get($tagName) ?? [];
+        return self::getAllTags()->get($groupName) ?? [];
     }
 
     /**
