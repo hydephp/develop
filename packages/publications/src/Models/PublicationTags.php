@@ -93,7 +93,7 @@ class PublicationTags
     }
 
     /**
-     * Get all available tags.
+     * Get all available tags, arranged by their tag group.
      *
      * @return Collection<string, array<string>>
      */
@@ -103,7 +103,7 @@ class PublicationTags
     }
 
     /**
-     * Get all values for a given tag name.
+     * Get all values for a given tag group, by its name.
      *
      * @return array<string>
      */
@@ -113,7 +113,7 @@ class PublicationTags
     }
 
     /**
-     * Get all tag names.
+     * Get all tag group names.
      *
      * @return array<string>
      */
