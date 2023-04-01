@@ -8,7 +8,7 @@ use Exception;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\PublicationSchemaValidator;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Paginator;
@@ -192,7 +192,7 @@ class PublicationType implements SerializableContract
     /** @return \Illuminate\Support\Collection<\Hyde\Publications\Models\PublicationPage> */
     public function getPublications(): Collection
     {
-        return PublicationService::getPublicationsForType($this);
+        return Publications::getPublicationsForType($this);
     }
 
     public function getPaginator(int $currentPageNumber = null): Paginator

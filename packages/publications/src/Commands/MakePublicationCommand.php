@@ -8,7 +8,7 @@ use Closure;
 use Hyde\Hyde;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use LaravelZero\Framework\Commands\Command;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Models\PublicationFieldValue;
@@ -72,7 +72,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function getPublicationTypeSelection(): PublicationType
     {
-        $publicationTypes = PublicationService::getPublicationTypes();
+        $publicationTypes = Publications::getPublicationTypes();
         if ($this->argument('publicationType')) {
             $publicationTypeSelection = $this->argument('publicationType');
         } else {
@@ -147,7 +147,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->infoComment("Select file for image field [$field->name]");
 
-        $mediaFiles = PublicationService::getMediaForType($this->publicationType);
+        $mediaFiles = Publications::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
             return $this->handleEmptyOptionsCollection($field, 'media file',
                 sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
@@ -164,7 +164,7 @@ class MakePublicationCommand extends ValidatingCommand
         $tagGroup = $field->tagGroup ?? throw new InvalidArgumentException("Tag field '$field->name' is missing the 'tagGroup' property");
         $this->infoComment(/** @lang Text */ "Select a tag for field [$field->name] from the $tagGroup group");
 
-        $options = PublicationService::getValuesForTagName($tagGroup);
+        $options = Publications::getValuesForTagName($tagGroup);
         if ($options->isEmpty()) {
             return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags for this publication type found in tags.yml');
         }
@@ -220,7 +220,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function getReloadableTagValuesArrayClosure(string $tagGroup): Closure
     {
         return function () use ($tagGroup): array {
-            return PublicationService::getValuesForTagName($tagGroup)->toArray();
+            return Publications::getValuesForTagName($tagGroup)->toArray();
         };
     }
 }

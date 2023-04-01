@@ -6,7 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -93,7 +93,7 @@ class SeedPublicationCommand extends ValidatingCommand
      */
     protected function getPublicationTypes(): Collection
     {
-        $publicationTypes = PublicationService::getPublicationTypes();
+        $publicationTypes = Publications::getPublicationTypes();
         if ($publicationTypes->isEmpty()) {
             throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }

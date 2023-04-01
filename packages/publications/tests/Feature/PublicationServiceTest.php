@@ -10,14 +10,14 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 use function json_encode;
 
 /**
- * @covers \Hyde\Publications\PublicationService
+ * @covers \Hyde\Publications\Publications
  * @covers \Hyde\Publications\PublicationsExtension
  */
 class PublicationServiceTest extends TestCase
@@ -31,7 +31,7 @@ class PublicationServiceTest extends TestCase
 
     public function testGetPublicationTypes()
     {
-        $this->assertEquals(new Collection(), PublicationService::getPublicationTypes());
+        $this->assertEquals(new Collection(), Publications::getPublicationTypes());
     }
 
     public function testGetPublicationTypesWithTypes()
@@ -41,14 +41,14 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(new Collection([
             'test-publication' => PublicationType::get('test-publication'),
-        ]), PublicationService::getPublicationTypes());
+        ]), Publications::getPublicationTypes());
     }
 
     public function testGetPublicationTypesMethodReturnsTheSameInstances()
     {
         $this->createPublicationType();
 
-        $this->assertSame(PublicationService::getPublicationTypes(), PublicationService::getPublicationTypes());
+        $this->assertSame(Publications::getPublicationTypes(), Publications::getPublicationTypes());
     }
 
     public function testGetPublicationsForPubType()
@@ -57,7 +57,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection(),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
+            Publications::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -70,7 +70,7 @@ class PublicationServiceTest extends TestCase
             new Collection([
                 PublicationPage::parse('test-publication/foo'),
             ]),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
+            Publications::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -81,7 +81,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertContainsOnlyInstancesOf(
             PublicationPage::class,
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
+            Publications::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -99,7 +99,7 @@ class PublicationServiceTest extends TestCase
                 PublicationPage::parse('test-publication/two'),
                 PublicationPage::parse('test-publication/three'),
             ]),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
+            Publications::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -117,7 +117,7 @@ class PublicationServiceTest extends TestCase
                 PublicationPage::parse('test-publication/two'),
                 PublicationPage::parse('test-publication/one'),
             ]),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'))
+            Publications::getPublicationsForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -135,7 +135,7 @@ class PublicationServiceTest extends TestCase
                 PublicationPage::parse('test-publication/two'),
                 PublicationPage::parse('test-publication/three'),
             ]),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount')
+            Publications::getPublicationsForType(PublicationType::get('test-publication'), 'readCount')
         );
     }
 
@@ -153,7 +153,7 @@ class PublicationServiceTest extends TestCase
                 PublicationPage::parse('test-publication/two'),
                 PublicationPage::parse('test-publication/one'),
             ]),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'readCount', false)
+            Publications::getPublicationsForType(PublicationType::get('test-publication'), 'readCount', false)
         );
     }
 
@@ -171,7 +171,7 @@ class PublicationServiceTest extends TestCase
                 PublicationPage::parse('test-publication/three'),
                 PublicationPage::parse('test-publication/two'),
             ]),
-            PublicationService::getPublicationsForType(PublicationType::get('test-publication'), 'invalid')
+            Publications::getPublicationsForType(PublicationType::get('test-publication'), 'invalid')
         );
     }
 
@@ -181,7 +181,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection(),
-            PublicationService::getMediaForType(PublicationType::get('test-publication'))
+            Publications::getMediaForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -195,7 +195,7 @@ class PublicationServiceTest extends TestCase
             new Collection([
                 'test-publication/image.png',
             ]),
-            PublicationService::getMediaForType(PublicationType::get('test-publication'))
+            Publications::getMediaForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -210,7 +210,7 @@ class PublicationServiceTest extends TestCase
             new Collection([
                 'test-publication/image.png',
             ]),
-            PublicationService::getMediaForType(PublicationType::get('test-publication'))
+            Publications::getMediaForType(PublicationType::get('test-publication'))
         );
     }
 
@@ -238,8 +238,8 @@ class PublicationServiceTest extends TestCase
     {
         $this->createPublicationType();
 
-        $this->assertTrue(PublicationService::publicationTypeExists('test-publication'));
-        $this->assertFalse(PublicationService::publicationTypeExists('foo'));
+        $this->assertTrue(Publications::publicationTypeExists('test-publication'));
+        $this->assertFalse(Publications::publicationTypeExists('foo'));
     }
 
     public function testGetAllTags()
@@ -251,7 +251,7 @@ class PublicationServiceTest extends TestCase
             ],
         ];
         $this->file('tags.yml', json_encode($tags));
-        $this->assertSame($tags, PublicationService::getAllTags()->toArray());
+        $this->assertSame($tags, Publications::getAllTags()->toArray());
     }
 
     public function testGetValuesForTagName()
@@ -269,7 +269,7 @@ class PublicationServiceTest extends TestCase
 
         $this->file('tags.yml', json_encode($tags));
 
-        $this->assertSame(['bar', 'baz'], PublicationService::getValuesForTagName('foo')->toArray());
+        $this->assertSame(['bar', 'baz'], Publications::getValuesForTagName('foo')->toArray());
     }
 
     protected function createPublicationType(): void

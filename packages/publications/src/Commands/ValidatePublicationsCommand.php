@@ -7,7 +7,7 @@ namespace Hyde\Publications\Commands;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\PublicationPageValidator;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -95,7 +95,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
     protected function getPublicationTypesToValidate(): Collection
     {
-        $publicationTypes = PublicationService::getPublicationTypes();
+        $publicationTypes = Publications::getPublicationTypes();
         $name = $this->argument('publicationType');
 
         if (filled($name)) {

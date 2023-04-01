@@ -7,7 +7,7 @@ namespace Hyde\Publications\Actions;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -133,7 +133,7 @@ class SeedsPublicationFiles
 
     protected function getTags(string $tagGroup): string
     {
-        $tags = PublicationService::getValuesForTagName($tagGroup);
+        $tags = Publications::getValuesForTagName($tagGroup);
 
         return $tags->isEmpty() ? '' : $tags->random();
     }

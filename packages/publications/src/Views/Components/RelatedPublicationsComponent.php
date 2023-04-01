@@ -6,7 +6,7 @@ namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
@@ -55,7 +55,7 @@ class RelatedPublicationsComponent extends Component
         }
 
         // Get a list of all pages for this page's publicationType: 1 means we only have current page & no related pages exist
-        $publicationPages = PublicationService::getPublicationsForType($publicationType)->keyBy('identifier');
+        $publicationPages = Publications::getPublicationsForType($publicationType)->keyBy('identifier');
         if ($publicationPages->count() <= 1) {
             return collect();
         }

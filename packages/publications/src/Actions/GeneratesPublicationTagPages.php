@@ -6,7 +6,7 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 
 use function arsort;
 
@@ -31,7 +31,7 @@ class GeneratesPublicationTagPages
         $collection = $this->collection;
 
         // Retrieve publication types
-        $publicationTypes = PublicationService::getPublicationTypes();
+        $publicationTypes = Publications::getPublicationTypes();
 
         // Initialize arrays to hold tag counts and pages by tag
         $tagCounts = [];
@@ -53,7 +53,7 @@ class GeneratesPublicationTagPages
             }
 
             // Retrieve publications for the current publication type
-            $publications = PublicationService::getPublicationsForType($publicationType);
+            $publications = Publications::getPublicationsForType($publicationType);
 
             // Loop through each publication to retrieve associated tags
             foreach ($publications as $publication) {

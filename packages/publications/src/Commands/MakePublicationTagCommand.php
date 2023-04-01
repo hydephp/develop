@@ -6,7 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Publications\Models\PublicationTags;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 
@@ -66,7 +66,7 @@ class MakePublicationTagCommand extends ValidatingCommand
 
     protected function validateTagName(): void
     {
-        if (PublicationService::getAllTags()->has($this->tagName)) {
+        if (Publications::getAllTags()->has($this->tagName)) {
             throw new RuntimeException("Tag [$this->tagName] already exists");
         }
     }

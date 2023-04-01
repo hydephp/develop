@@ -6,7 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use Hyde\Hyde;
 use Hyde\Publications\Actions\PublicationSchemaValidator;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 
@@ -67,7 +67,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
 
     protected function validateSchemaFiles(): void
     {
-        /** Uses the same glob pattern as {@see PublicationService::getSchemaFiles()} */
+        /** Uses the same glob pattern as {@see Publications::getSchemaFiles()} */
         $schemaFiles = glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
 
         if (empty($schemaFiles)) {
