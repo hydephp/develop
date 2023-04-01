@@ -106,7 +106,7 @@ class PublicationTags
      *
      * @return array<string>
      */
-    public static function getValuesForTagName(string $tagName): array
+    public static function getValuesForTagGroup(string $tagName): array
     {
         return self::getAllTags()->get($tagName) ?? [];
     }

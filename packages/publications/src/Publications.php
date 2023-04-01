@@ -69,7 +69,7 @@ class Publications
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
-        return collect(PublicationTags::getValuesForTagName($tagName));
+        return collect(PublicationTags::getValuesForTagGroup($tagName));
     }
 
     /**
