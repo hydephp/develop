@@ -32,7 +32,7 @@ final class PublicationFieldValue
         $this->type = $type;
 
         if (is_array($value)) {
-            // This means the value is already parsed and validated
+            // This means the value is already parsed and validated // wait what? // fixme
             $this->value = $value;
         } else {
             $this->value = self::parseFieldValue($type, $value);
