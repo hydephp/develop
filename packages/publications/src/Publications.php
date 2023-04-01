@@ -12,12 +12,12 @@ use Hyde\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function collect;
+
 /**
- * @todo Since this class is now so simplified it may be better suited if renamed to a facade, eg Publications.
- *
  * @see \Hyde\Publications\Testing\Feature\PublicationServiceTest
  */
-class PublicationService
+class Publications
 {
     /**
      * Return a collection of all defined publication types, indexed by the directory name.
@@ -69,7 +69,7 @@ class PublicationService
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
-        return collect(PublicationTags::getValuesForTagName($tagName));
+        return collect(PublicationTags::getValuesForTagGroup($tagName));
     }
 
     /**

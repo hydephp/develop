@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationPage;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
+
+use function collect;
+use function count;
+use function view;
 
 class RelatedPublicationsComponent extends Component
 {
@@ -43,7 +48,7 @@ class RelatedPublicationsComponent extends Component
         $publicationType = $currentHydePage->getType();
 
         // Get the tag fields for the current publicationType or exit early if there aren't any
-        $publicationTypeTagFields = $publicationType->getFields()->filter(function ($field) {
+        $publicationTypeTagFields = $publicationType->getFields()->filter(function (PublicationFieldDefinition $field): bool {
             return $field->tagGroup !== null;
         });
         if ($publicationTypeTagFields->isEmpty()) {
@@ -51,7 +56,7 @@ class RelatedPublicationsComponent extends Component
         }
 
         // Get a list of all pages for this page's publicationType: 1 means we only have current page & no related pages exist
-        $publicationPages = PublicationService::getPublicationsForType($publicationType)->keyBy('identifier');
+        $publicationPages = Publications::getPublicationsForType($publicationType)->keyBy('identifier');
         if ($publicationPages->count() <= 1) {
             return collect();
         }

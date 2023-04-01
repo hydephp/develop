@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
+use stdClass;
 use Hyde\Facades\Filesystem;
 use Illuminate\Contracts\Validation\Validator;
 
-use function json_decode;
-
-use stdClass;
-
+use function collect;
+use function is_array;
 use function validator;
+use function json_decode;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationSchemaValidatorTest

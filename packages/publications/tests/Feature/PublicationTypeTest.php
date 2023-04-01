@@ -13,7 +13,7 @@ use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -286,7 +286,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(
-            PublicationService::getPublicationsForType($publicationType),
+            Publications::getPublicationsForType($publicationType),
             $publicationType->getPublications()
         );
     }

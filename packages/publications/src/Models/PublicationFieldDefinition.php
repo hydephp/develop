@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use function array_filter;
-use function array_merge;
-
-use Hyde\Publications\PublicationFieldTypes;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 
+use function array_filter;
+use function array_merge;
 use function str_contains;
 use function strtolower;
 
@@ -19,7 +18,7 @@ use function strtolower;
  * Represents an entry in the "fields" array of a publication type schema.
  *
  * @see \Hyde\Publications\Models\PublicationFieldValue
- * @see \Hyde\Publications\PublicationFieldTypes
+ * @see \Hyde\Publications\Concerns\PublicationFieldTypes
  * @see \Hyde\Publications\Testing\Feature\PublicationFieldDefinitionTest
  */
 class PublicationFieldDefinition implements SerializableContract

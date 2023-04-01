@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use function file_exists;
-
-use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
+use Hyde\Framework\Exceptions\FileConflictException;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
+
+use function file_exists;
+use function file_put_contents;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\CreateActionTest

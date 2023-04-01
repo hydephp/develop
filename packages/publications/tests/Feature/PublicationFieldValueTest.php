@@ -6,11 +6,11 @@ namespace Hyde\Publications\Testing\Feature;
 
 use DateTime;
 use Exception;
-use Hyde\Publications\Models\PublicationFieldValue;
-use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
+use Hyde\Publications\Models\PublicationFieldValue;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationFieldValue

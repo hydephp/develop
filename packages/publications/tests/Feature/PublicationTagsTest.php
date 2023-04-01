@@ -239,7 +239,7 @@ class PublicationTagsTest extends TestCase
 
         $this->file('tags.yml', json_encode($tags));
 
-        $this->assertSame(['bar', 'baz'], PublicationTags::getValuesForTagName('foo'));
+        $this->assertSame(['bar', 'baz'], PublicationTags::getValuesForTagGroup('foo'));
     }
 
     public function testGetValuesForTagNameWithMissingTagName()
@@ -253,12 +253,12 @@ class PublicationTagsTest extends TestCase
 
         $this->file('tags.yml', json_encode($tags));
 
-        $this->assertSame([], PublicationTags::getValuesForTagName('bar'));
+        $this->assertSame([], PublicationTags::getValuesForTagGroup('bar'));
     }
 
     public function testGetValuesForTagNameWithNoTags()
     {
-        $this->assertSame([], PublicationTags::getValuesForTagName('foo'));
+        $this->assertSame([], PublicationTags::getValuesForTagGroup('foo'));
     }
 
     public function testValidateTagsFileWithValidFile()

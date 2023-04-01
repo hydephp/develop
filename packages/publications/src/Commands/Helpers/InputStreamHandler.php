@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands\Helpers;
 
-use function array_shift;
-use function explode;
-use function fgets;
-
 use Hyde\Hyde;
 
-use function str_contains;
 use function trim;
+use function fgets;
+use function sprintf;
+use function explode;
+use function array_shift;
+use function str_contains;
 
 /**
  * Collects an array of lines from the standard input stream. Feed is terminated by a blank line.

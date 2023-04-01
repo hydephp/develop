@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use function array_merge;
-use function collect;
-
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationFieldTypes;
-use Hyde\Publications\PublicationService;
+use Hyde\Publications\Publications;
 use Illuminate\Contracts\Validation\Validator;
 
+use function array_merge;
+use function collect;
 use function validator;
 
 /**
@@ -46,14 +45,14 @@ class PublicationFieldValidator
     protected function makeDynamicRules(): array
     {
         if ($this->fieldDefinition->type == PublicationFieldTypes::Media) {
-            $mediaFiles = PublicationService::getMediaForType($this->publicationType);
+            $mediaFiles = Publications::getMediaForType($this->publicationType);
             $valueList = $mediaFiles->implode(',');
 
             return ["in:$valueList"];
         }
 
         if ($this->fieldDefinition->type == PublicationFieldTypes::Tag) {
-            $tagValues = PublicationService::getValuesForTagName($this->publicationType->getIdentifier()) ?? collect([]);
+            $tagValues = Publications::getValuesForTagName($this->publicationType->getIdentifier()) ?? collect([]);
             $valueList = $tagValues->implode(',');
 
             return ["in:$valueList"];

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\PublicationFieldTypes;
-use Hyde\Testing\TestCase;
 use ValueError;
+use Hyde\Testing\TestCase;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Publications\Models\PublicationFieldDefinition;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationFieldDefinition

@@ -4,30 +4,26 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
+use Exception;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Hyde;
+use Hyde\Publications\Actions\PublicationSchemaValidator;
+use Hyde\Publications\Publications;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
+use Hyde\Support\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use RuntimeException;
+
 use function array_filter;
 use function array_merge;
 use function dirname;
-
-use Exception;
-
 use function file_get_contents;
 use function file_put_contents;
-
-use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Support\Paginator;
-use Hyde\Hyde;
-use Hyde\Publications\Actions\PublicationSchemaValidator;
-use Hyde\Publications\PublicationService;
-use Hyde\Support\Concerns\Serializable;
-use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-
+use function is_null;
 use function json_decode;
 use function json_encode;
-
-use RuntimeException;
-
 use function str_starts_with;
 
 /**
@@ -196,7 +192,7 @@ class PublicationType implements SerializableContract
     /** @return \Illuminate\Support\Collection<\Hyde\Publications\Models\PublicationPage> */
     public function getPublications(): Collection
     {
-        return PublicationService::getPublicationsForType($this);
+        return Publications::getPublicationsForType($this);
     }
 
     public function getPaginator(int $currentPageNumber = null): Paginator

@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace Hyde\Publications\Models;
 
 use DateTime;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Concerns\ParsesPublicationFieldInputs;
-use Hyde\Publications\PublicationFieldTypes;
 
 use function is_array;
 
@@ -17,7 +17,7 @@ use function is_array;
  * following rules defined in the "fields" array of the publication type's schema.
  *
  * @see \Hyde\Publications\Models\PublicationFieldDefinition
- * @see \Hyde\Publications\PublicationFieldTypes
+ * @see \Hyde\Publications\Concerns\PublicationFieldTypes
  * @see \Hyde\Publications\Testing\Feature\PublicationFieldValueTest
  */
 final class PublicationFieldValue

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Foundation\HydeKernel;
-use Hyde\Publications\Views\Components\RelatedPublicationsComponent;
-use Hyde\Publications\Providers\TranslationServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\ValidationServiceProvider;
+use Hyde\Publications\Providers\TranslationServiceProvider;
+use Hyde\Publications\Views\Components\RelatedPublicationsComponent;
+
+use function resource_path;
 
 class PublicationsServiceProvider extends ServiceProvider
 {

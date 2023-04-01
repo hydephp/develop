@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Publications\Models\PublicationFieldValue;
-use Hyde\Publications\Models\PublicationType;
-use Hyde\Publications\PublicationFieldTypes;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use RuntimeException;
+use Illuminate\Support\Carbon;
+use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Collection;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Models\PublicationFieldValue;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 
 use function substr;
-
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Scaffold a publication file.

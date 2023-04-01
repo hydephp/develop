@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use function __;
-use function array_merge;
-
 use Hyde\Console\Concerns\Command;
 use Illuminate\Support\Facades\Validator;
-
-use function in_array;
-
 use RuntimeException;
 
+use function __;
+use function array_merge;
+use function implode;
+use function in_array;
+use function sprintf;
+use function trim;
 use function ucfirst;
 
 /**

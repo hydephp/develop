@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use function file_exists;
-
-use Hyde\Facades\Filesystem;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Illuminate\Support\Collection;
-use Symfony\Component\Yaml\Exception\ParseException;
+use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Collection;
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use Symfony\Component\Yaml\Exception\ParseException;
+
+use function assert;
+use function is_int;
+use function is_array;
+use function is_string;
+use function array_merge;
+use function file_exists;
 
 /**
  * Object representation for the tags.yml file.
@@ -88,7 +93,7 @@ class PublicationTags
     }
 
     /**
-     * Get all available tags.
+     * Get all available tags, arranged by their tag group.
      *
      * @return Collection<string, array<string>>
      */
@@ -98,17 +103,17 @@ class PublicationTags
     }
 
     /**
-     * Get all values for a given tag name.
+     * Get all values for a given tag group, by its name.
      *
      * @return array<string>
      */
-    public static function getValuesForTagName(string $tagName): array
+    public static function getValuesForTagGroup(string $groupName): array
     {
-        return self::getAllTags()->get($tagName) ?? [];
+        return self::getAllTags()->get($groupName) ?? [];
     }
 
     /**
-     * Get all tag names.
+     * Get all tag group names.
      *
      * @return array<string>
      */

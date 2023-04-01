@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
-use Hyde\Publications\Commands\Helpers\InputStreamHandler;
-use Hyde\Publications\Models\PublicationTags;
-use Hyde\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use Hyde\Facades\Filesystem;
+use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
 /**
  * @covers \Hyde\Publications\Commands\MakePublicationTypeCommand

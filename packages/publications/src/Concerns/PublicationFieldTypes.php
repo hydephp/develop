@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications;
+namespace Hyde\Publications\Concerns;
 
 use Illuminate\Support\Collection;
+
+use function collect;
+use function in_array;
 
 /**
  * The supported field types for publication types.
