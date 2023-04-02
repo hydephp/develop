@@ -1,8 +1,8 @@
+@php/** @var \Hyde\Publications\Models\PublicationPage $publication*/@endphp
 @extends('hyde::layouts.app')
 @section('content')
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
         <article class="prose dark:prose-invert">
-            @php/** @var \Hyde\Publications\Models\PublicationPage $publication*/@endphp
             <h1>{{ $publication->title }}</h1>
             <p>
                 {{ $publication->markdown }}
