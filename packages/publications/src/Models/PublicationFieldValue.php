@@ -10,8 +10,6 @@ use DateTime;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Concerns\ParsesPublicationFieldInputs;
 
-use function is_array;
-
 /**
  * Represents a single value for a field in a publication's front matter,
  * following rules defined in the "fields" array of the publication type's schema.
@@ -31,12 +29,7 @@ final class PublicationFieldValue
     {
         $this->type = $type;
 
-        if (is_array($value)) {
-            // This means the value is already parsed and validated // wait what? // fixme
-            $this->value = $value;
-        } else {
-            $this->value = self::parseFieldValue($type, $value);
-        }
+        $this->value = self::parseFieldValue($type, $value);
     }
 
     public function getType(): PublicationFieldTypes
