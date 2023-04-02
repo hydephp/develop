@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpDuplicateMatchArmBodyInspection */
-
 declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
