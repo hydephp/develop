@@ -19,7 +19,7 @@
                 @foreach($publication->matter->toArray() as $key => $value)
                     <dt class="font-bold">{{ $key }}</dt>
                     <dd class="ml-4">
-                        {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}
+                        {{ is_array($value) ? ('(array) '. implode(', ', $value)) : $value }}
                     </dd>
                 @endforeach
             </div>
