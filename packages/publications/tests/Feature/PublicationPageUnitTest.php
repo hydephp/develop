@@ -13,13 +13,13 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Publications\Models\PublicationPage
+ * @covers \Hyde\Publications\Pages\PublicationPage
  */
 class PublicationPageUnitTest extends TestCase
 {

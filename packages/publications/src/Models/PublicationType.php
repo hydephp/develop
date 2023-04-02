@@ -189,7 +189,7 @@ class PublicationType implements SerializableContract
         return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
     }
 
-    /** @return \Illuminate\Support\Collection<\Hyde\Publications\Models\PublicationPage> */
+    /** @return \Illuminate\Support\Collection<\Hyde\Publications\Pages\PublicationPage> */
     public function getPublications(): Collection
     {
         return Publications::getPublicationsForType($this);

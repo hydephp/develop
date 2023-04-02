@@ -7,8 +7,8 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
 /**

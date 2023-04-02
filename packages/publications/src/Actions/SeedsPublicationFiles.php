@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Publications\Actions;
 
 use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;

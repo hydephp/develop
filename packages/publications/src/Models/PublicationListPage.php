@@ -11,7 +11,7 @@ use function config;
 use function in_array;
 
 /**
- * @see \Hyde\Publications\Models\PublicationPage
+ * @see \Hyde\Publications\Pages\PublicationPage
  * @see \Hyde\Publications\Testing\Feature\PublicationListPageTest
  */
 class PublicationListPage extends InMemoryPage

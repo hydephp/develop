@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Models;
+namespace Hyde\Publications\Pages;
 
+use Hyde\Pages\Concerns;
+use Illuminate\Support\Str;
+use Hyde\Markdown\Models\Markdown;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Publications\Models\PublicationType;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Concerns\ValidatesExistence;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\Concerns;
 use Hyde\Publications\Actions\PublicationPageCompiler;
-use Illuminate\Support\Str;
 
 use function str_starts_with;
 

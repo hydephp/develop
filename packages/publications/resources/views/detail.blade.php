@@ -1,4 +1,4 @@
-@php /** @var \Hyde\Publications\Models\PublicationPage $publication*/ @endphp
+@php /** @var \Hyde\Publications\Pages\PublicationPage $publication*/ @endphp
 @extends('hyde::layouts.app')
 @section('content')
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
