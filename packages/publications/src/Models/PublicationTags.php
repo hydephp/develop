@@ -39,13 +39,19 @@ class PublicationTags
         return $this->tags;
     }
 
-    /** @return array<string> */
+    /**
+     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
+     *
+     * @return array<string>
+     */
     public function getTagsInGroup(string $name): array
     {
         return $this->tags->get($name) ?? [];
     }
 
     /**
+     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
+     *
      * @param  array<string>|string  $values
      * @return $this
      */
@@ -57,6 +63,8 @@ class PublicationTags
     }
 
     /**
+     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
+     *
      * @param  array<string, array<string>|string>  $tags
      * @return $this
      */
@@ -70,6 +78,8 @@ class PublicationTags
     }
 
     /**
+     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
+     *
      * @param  array<string>|string  $values
      * @return $this
      */
@@ -105,6 +115,8 @@ class PublicationTags
     /**
      * Get all values for a given tag group, by its name.
      *
+     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
+     *
      * @return array<string>
      */
     public static function getValuesForTagGroup(string $groupName): array
@@ -114,6 +126,8 @@ class PublicationTags
 
     /**
      * Get all tag group names.
+     *
+     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
      *
      * @return array<string>
      */
