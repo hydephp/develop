@@ -6,7 +6,7 @@ namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationPage;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;

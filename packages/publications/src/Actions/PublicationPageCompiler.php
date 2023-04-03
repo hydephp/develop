@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Actions;
 
-use Illuminate\Support\Facades\View;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
-use Hyde\Publications\Models\PublicationListPage;
+use Hyde\Publications\Pages\PublicationListPage;
+use Hyde\Publications\Pages\PublicationPage;
+use Illuminate\Support\Facades\View;
 
 use function basename;
 use function str_ends_with;

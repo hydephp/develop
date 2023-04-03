@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Hyde;
-use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
+use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -32,7 +32,7 @@ class Publications
     /**
      * Return all publications for a given publication type.
      *
-     * @return Collection<int, PublicationPage>
+     * @return Collection<int, \Hyde\Publications\Pages\PublicationPage>
      */
     public static function getPublicationsForType(PublicationType $publicationType, ?string $sortField = null, ?bool $sortAscending = null): Collection
     {

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function file_put_contents;
-
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
+use function file_put_contents;
+
 /**
- * @covers \Hyde\Publications\Models\PublicationPage
+ * @covers \Hyde\Publications\Pages\PublicationPage
  */
 class PublicationPageTest extends TestCase
 {

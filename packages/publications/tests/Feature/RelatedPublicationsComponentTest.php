@@ -6,8 +6,8 @@ namespace Hyde\Publications\Testing\Feature;
 
 use Carbon\Carbon;
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Views\Components\RelatedPublicationsComponent;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;

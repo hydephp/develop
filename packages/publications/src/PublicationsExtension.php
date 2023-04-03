@@ -12,9 +12,9 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\GeneratesPublicationTagPages;
-use Hyde\Publications\Models\PublicationListPage;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationListPage;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -114,7 +114,7 @@ class PublicationsExtension extends HydeExtension
         (new GeneratesPublicationTagPages($collection))->__invoke();
     }
 
-    /** @return Collection<string, PublicationPage> */
+    /** @return Collection<string, \Hyde\Publications\Pages\PublicationPage> */
     protected function parsePublicationTypes(): Collection
     {
         return Collection::make($this->getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {

@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function array_merge;
-use function array_reverse;
-
-use Hyde\Support\Paginator;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationListPage;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationListPage;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
+use Hyde\Support\Paginator;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
+
+use function array_merge;
+use function array_reverse;
 
 /**
  * @covers \Hyde\Publications\Models\PublicationType

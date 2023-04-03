@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function file_put_contents;
-
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
+use function file_put_contents;
 use function json_encode;
 
 /**
