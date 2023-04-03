@@ -6,8 +6,8 @@ namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationFieldDefinition;
-use Hyde\Publications\Models\PublicationListPage;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationListPage;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
 use Hyde\Support\Paginator;

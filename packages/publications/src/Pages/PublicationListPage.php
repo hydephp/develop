@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Publications\Models;
+namespace Hyde\Publications\Pages;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
+use Hyde\Publications\Models\PublicationType;
 
 use function config;
 use function in_array;

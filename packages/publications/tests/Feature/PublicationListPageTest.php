@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationListPage;
-use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationListPage;
 
 /**
- * @covers \Hyde\Publications\Models\PublicationListPage
+ * @covers \Hyde\Publications\Pages\PublicationListPage
  */
 class PublicationListPageTest extends TestCase
 {

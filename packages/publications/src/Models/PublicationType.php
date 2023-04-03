@@ -8,6 +8,7 @@ use Exception;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\PublicationSchemaValidator;
+use Hyde\Publications\Pages\PublicationListPage;
 use Hyde\Publications\Publications;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
