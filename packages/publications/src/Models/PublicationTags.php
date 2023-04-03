@@ -139,6 +139,8 @@ class PublicationTags
     /**
      * Validate the tags.yml file is valid.
      *
+     * @deprecated Will not be needed for the new tags.yml file format.
+     *
      * @internal This method is experimental and may be removed without notice
      */
     public static function validateTagsFile(): void
