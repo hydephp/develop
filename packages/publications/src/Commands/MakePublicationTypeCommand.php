@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use LaravelZero\Framework\Commands\Command;
-use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Publications\Models\PublicationFieldDefinition;

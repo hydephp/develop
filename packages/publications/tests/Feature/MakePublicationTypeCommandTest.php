@@ -9,7 +9,6 @@ use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
-use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
 /**
  * @covers \Hyde\Publications\Commands\MakePublicationTypeCommand
