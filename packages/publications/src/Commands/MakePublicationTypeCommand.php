@@ -137,6 +137,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         )));
     }
 
+    /** @deprecated */
     protected function getTagGroup(): string
     {
         if (empty(PublicationTags::getTagGroups())) {
