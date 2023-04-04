@@ -43,14 +43,13 @@ class PublicationTagsTest extends TestCase
     public function testCanSaveTagsToDisk()
     {
         $tags = new PublicationTags();
-        $tags->addTagGroup('test', ['test1', 'test2']);
+        $tags->addTags(['test1', 'test2']);
         $tags->save();
 
         $this->assertSame(
             <<<'YAML'
-            test:
-                - test1
-                - test2
+            - test1
+            - test2
 
             YAML, file_get_contents(Hyde::path('tags.yml'))
         );

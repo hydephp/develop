@@ -33,6 +33,19 @@ class PublicationTags
     }
 
     /**
+     * Add one or more tags to the collection.
+     *
+     * @param  array<string>|string  $values
+     * @return $this
+     */
+    public function addTags(array|string $values): self
+    {
+        $this->tags = $this->tags->merge((array) $values);
+
+        return $this;
+    }
+
+    /**
      * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
      *
      * @param  array<string>|string  $values
