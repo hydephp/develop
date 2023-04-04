@@ -461,6 +461,7 @@ class MakePublicationCommandTest extends TestCase
              ->expectsOutput('Warning: No tags found in tags.yml')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
+             // ->doesntExpectOutput('Error: Unable to locate any tags') // TODO: Change to this
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
