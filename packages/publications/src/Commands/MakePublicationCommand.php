@@ -150,6 +150,7 @@ class MakePublicationCommand extends ValidatingCommand
         $mediaFiles = Publications::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
             return $this->handleEmptyOptionsCollection($field, 'media file',
+                // TODO Ask to pick from root media directory?
                 sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
                     $this->publicationType->getIdentifier()
                 )
