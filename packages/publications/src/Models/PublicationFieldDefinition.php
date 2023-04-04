@@ -28,6 +28,8 @@ class PublicationFieldDefinition implements SerializableContract
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
     public readonly array $rules;
+
+    /** @deprecated Tag groups are being removed, there this property will have no function and will be removed. */
     public readonly ?string $tagGroup;
 
     public static function fromArray(array $array): static
