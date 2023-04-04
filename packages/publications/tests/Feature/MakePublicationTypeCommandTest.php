@@ -195,17 +195,12 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->directory('test-publication');
 
-        (new PublicationTags())->addTagGroups([
-            'foo' => ['bar', 'baz'],
-            'bar' => ['foo', 'baz'],
-        ])->save();
+        (new PublicationTags())->addTags(['foo', 'bar', 'baz'])->save();
 
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 self::expectedEnumCases)
-            ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
-
             ->expectsConfirmation('Field #1 added! Add another field?')
             ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
             ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
