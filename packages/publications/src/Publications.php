@@ -66,6 +66,8 @@ class Publications
 
     /**
      * Get all values for a given tag name.
+     *
+     * @deprecated Deprecated as tag groups are being removed in favour of a single tag list.
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
