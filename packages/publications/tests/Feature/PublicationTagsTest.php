@@ -23,9 +23,9 @@ class PublicationTagsTest extends TestCase
 
     public function testConstructorAutomaticallyLoadsTagsFile()
     {
-        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['bar', 'baz']));
 
-        $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags()->toArray());
+        $this->assertSame(['bar', 'baz'], (new PublicationTags())->getTags()->toArray());
     }
 
     public function testConstructorAddsEmptyArrayWhenThereIsNoTagsFile()
@@ -35,9 +35,9 @@ class PublicationTagsTest extends TestCase
 
     public function testGetTags()
     {
-        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
+        $this->file('tags.yml', json_encode(['bar', 'baz']));
 
-        $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
+        $this->assertEquals(new Collection(['bar', 'baz']), (new PublicationTags())->getTags());
     }
 
     public function testCanSaveTagsToDisk()
@@ -60,55 +60,44 @@ class PublicationTagsTest extends TestCase
     public function testCanLoadTagsFromJsonFile()
     {
         $this->file('tags.yml', <<<'JSON'
-            {
-                "Foo": [
-                    "one",
-                    "two",
-                    "three"
-                ],
-                "Second": [
-                    "foo",
-                    "bar",
-                    "baz"
-                ]
-            }
+            [
+                "one",
+                "two",
+                "three",
+                "foo",
+                "bar",
+                "baz"
+            ]
             JSON
         );
 
-        $this->assertSame([
-            'Foo' => ['one', 'two', 'three'],
-            'Second' => ['foo', 'bar', 'baz'],
-        ], PublicationTags::getAllTags()->toArray());
+        $this->assertSame(
+            ['one', 'two', 'three', 'foo', 'bar', 'baz'],
+            PublicationTags::getAllTags()->toArray()
+        );
     }
 
     public function testCanLoadTagsFromYamlFile()
     {
         $this->file('tags.yml', <<<'YAML'
-            Foo:
-                - one
-                - two
-                - three
-            Second:
-                - foo
-                - bar
-                - baz
+            - one
+            - two
+            - three
+            - foo
+            - bar
+            - baz
             YAML
         );
 
-        $this->assertSame([
-            'Foo' => ['one', 'two', 'three'],
-            'Second' => ['foo', 'bar', 'baz'],
-        ], PublicationTags::getAllTags()->toArray());
+        $this->assertSame(
+            ['one', 'two', 'three', 'foo', 'bar', 'baz'],
+            PublicationTags::getAllTags()->toArray()
+        );
     }
 
     public function testGetAllTags()
     {
-        $tags = [
-            'foo' => [
-                'bar',
-                'baz',
-            ],
-        ];
+        $tags = ['bar', 'baz'];
         $this->file('tags.yml', json_encode($tags));
         $this->assertSame($tags, PublicationTags::getAllTags()->toArray());
     }
