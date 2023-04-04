@@ -23,7 +23,7 @@ class PublicationTags
 
     public function __construct()
     {
-        $this->tags = Collection::make($this->parseTagsFile())->flatten();
+        $this->tags = Collection::make($this->parseTagsFile());
     }
 
     /** @return \Illuminate\Support\Collection<string, array<string>> */
