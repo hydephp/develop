@@ -107,18 +107,6 @@ class PublicationTags
         return self::getAllTags()->get($groupName) ?? [];
     }
 
-    /**
-     * Get all tag group names.
-     *
-     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
-     *
-     * @return array<string>
-     */
-    public static function getTagGroups(): array
-    {
-        return self::getAllTags()->keys()->toArray();
-    }
-
     /** @return array<string, array<string>> */
     protected function parseTagsFile(): array
     {
