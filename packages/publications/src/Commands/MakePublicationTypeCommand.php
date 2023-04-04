@@ -140,19 +140,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     /** @deprecated */
     protected function getTagGroup(): string
     {
-        if (empty(PublicationTags::getTagGroups())) {
-            $this->error('No tag groups have been added to tags.yml');
-            if ($this->confirm('Would you like to add some tags now?')) {
-                $this->call('make:publicationTag');
-
-                $this->newLine();
-                $this->comment("Okay, we're back on track!");
-            } else {
-                throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.yml');
-            }
-        }
-
-        return $this->choice("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups());
+        //
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition
