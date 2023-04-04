@@ -99,7 +99,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->line('');
 
         $fieldName = $this->getFieldName();
-
         $fieldType = $this->getFieldType();
 
         return new PublicationFieldDefinition($fieldType, $fieldName);
