@@ -228,8 +228,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "fields": [
                     {
                         "type": "tag",
-                        "name": "my-tag",
-                        "tagGroup": "foo"
+                        "name": "my-tag"
                     }
                 ]
             }
