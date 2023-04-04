@@ -104,7 +104,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $fieldType = $this->getFieldType();
 
         if ($fieldType === PublicationFieldTypes::Tag) {
-            $tagGroup = $this->getTagGroup();
+            $this->getTagGroup();
 
             return new PublicationFieldDefinition($fieldType, $fieldName);
         }
