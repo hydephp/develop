@@ -8,14 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Support\Collection;
-use Hyde\Framework\Exceptions\FileNotFoundException;
-use Symfony\Component\Yaml\Exception\ParseException;
 
-use function assert;
-use function is_int;
-use function is_array;
-use function is_string;
-use function array_merge;
 use function file_exists;
 
 /**
@@ -42,16 +35,6 @@ class PublicationTags
     /**
      * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
      *
-     * @return array<string>
-     */
-    public function getTagsInGroup(string $name): array
-    {
-        return $this->tags->get($name) ?? [];
-    }
-
-    /**
-     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
-     *
      * @param  array<string>|string  $values
      * @return $this
      */
@@ -73,19 +56,6 @@ class PublicationTags
         foreach ($tags as $name => $values) {
             $this->addTagGroup($name, $values);
         }
-
-        return $this;
-    }
-
-    /**
-     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
-     *
-     * @param  array<string>|string  $values
-     * @return $this
-     */
-    public function addTagsToGroup(string $name, array|string $values): self
-    {
-        $this->tags->put($name, array_merge($this->getTagsInGroup($name), (array) $values));
 
         return $this;
     }
@@ -134,35 +104,6 @@ class PublicationTags
     public static function getTagGroups(): array
     {
         return self::getAllTags()->keys()->toArray();
-    }
-
-    /**
-     * Validate the tags.yml file is valid.
-     *
-     * @deprecated Will not be needed for the new tags.yml file format.
-     *
-     * @internal This method is experimental and may be removed without notice
-     */
-    public static function validateTagsFile(): void
-    {
-        if (! file_exists(Hyde::path('tags.yml'))) {
-            throw new FileNotFoundException('tags.yml');
-        }
-
-        $tags = Yaml::parseFile(Hyde::path('tags.yml'));
-
-        if (! is_array($tags) || empty($tags)) {
-            throw new ParseException('Could not decode tags.yml');
-        }
-
-        foreach ($tags as $name => $values) {
-            assert(is_string($name));
-            assert(is_array($values));
-            foreach ($values as $key => $value) {
-                assert(is_int($key));
-                assert(is_string($value));
-            }
-        }
     }
 
     /** @return array<string, array<string>> */
