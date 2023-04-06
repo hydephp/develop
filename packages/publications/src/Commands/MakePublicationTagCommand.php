@@ -66,10 +66,7 @@ class MakePublicationTagCommand extends ValidatingCommand
 
     protected function printSelectionInformation(): void
     {
-        $this->line('Adding the following tags:');
-        foreach ($this->tags as $tag => $values) {
-            $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
-        }
+        $this->line(sprintf('<comment>Adding the following tags</comment>: %s', implode(', ', $this->tags)));
         $this->newLine();
     }
 
