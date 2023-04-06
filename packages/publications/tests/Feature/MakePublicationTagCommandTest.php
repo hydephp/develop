@@ -8,23 +8,16 @@ use Hyde\Hyde;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
 
-use function unlink;
-
 /**
  * @covers \Hyde\Publications\Commands\MakePublicationTagCommand
  * @covers \Hyde\Publications\Commands\Helpers\InputStreamHandler
  */
 class MakePublicationTagCommandTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        unlink(Hyde::path('tags.yml'));
-
-        parent::tearDown();
-    }
-
     public function testCanCreateNewPublicationTag()
     {
+        $this->cleanUpWhenDone('tags.yml');
+
         InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationTag')
