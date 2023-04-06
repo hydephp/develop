@@ -42,7 +42,6 @@ class PublicationFieldDefinition implements SerializableContract
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = str_contains($name, ' ') ? Str::kebab($name) : Str::ascii($name);
         $this->rules = $rules;
-        $this->tagGroup = $tagGroup;
     }
 
     public function toArray(): array
