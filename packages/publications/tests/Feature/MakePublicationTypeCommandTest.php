@@ -9,7 +9,6 @@ use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
-use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
 /**
  * @covers \Hyde\Publications\Commands\MakePublicationTypeCommand
@@ -195,17 +194,12 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->directory('test-publication');
 
-        (new PublicationTags())->addTagGroups([
-            'foo' => ['bar', 'baz'],
-            'bar' => ['foo', 'baz'],
-        ])->save();
+        (new PublicationTags())->addTags(['foo', 'bar', 'baz'])->save();
 
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
                 self::expectedEnumCases)
-            ->expectsChoice('Enter tag group for field #1', 'foo', ['bar', 'foo'], true)
-
             ->expectsConfirmation('Field #1 added! Add another field?')
             ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
             ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
@@ -228,8 +222,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "fields": [
                     {
                         "type": "tag",
-                        "name": "my-tag",
-                        "tagGroup": "foo"
+                        "name": "my-tag"
                     }
                 ]
             }
@@ -237,56 +230,5 @@ class MakePublicationTypeCommandTest extends TestCase
             'test-publication/schema.json');
 
         unlink(Hyde::path('tags.yml'));
-    }
-
-    public function testWithTagFieldInputButNoTags()
-    {
-        $this->throwOnConsoleException(false);
-        $this->directory('test-publication');
-
-        $this->artisan('make:publicationType "Test Publication"')
-            ->expectsQuestion('Enter name for field #1', 'MyTag')
-            ->expectsChoice('Enter type for field #1', 'Tag',
-                self::expectedEnumCases, true)
-            ->expectsOutput('No tag groups have been added to tags.yml')
-            ->expectsConfirmation('Would you like to add some tags now?')
-            ->expectsOutput('Error: Can not create a tag field without any tag groups defined in tags.yml')
-            ->assertExitCode(1);
-
-        $this->assertFileDoesNotExist(Hyde::path('test-publication/schema.json'));
-    }
-
-    public function testWithTagFieldInputButNoTagsCanPromptToCreateTags()
-    {
-        $this->directory('test-publication');
-        $this->cleanUpWhenDone('tags.yml');
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
-
-        $this->artisan('make:publicationType "Test Publication"')
-            ->expectsQuestion('Enter name for field #1', 'MyTag')
-            ->expectsChoice('Enter type for field #1', 'Tag',
-                self::expectedEnumCases)
-            ->expectsOutput('No tag groups have been added to tags.yml')
-            ->expectsConfirmation('Would you like to add some tags now?', 'yes')
-            ->expectsQuestion('Tag name', 'foo')
-            ->expectsOutput("Okay, we're back on track!")
-            ->expectsChoice('Enter tag group for field #1', 'foo', ['foo'], true)
-            ->expectsConfirmation('Field #1 added! Add another field?')
-
-            ->expectsChoice(self::selectCanonicalNameQuestion, '__createdAt', ['__createdAt'])
-
-            ->expectsChoice('Choose the field you wish to sort by', '__createdAt', ['__createdAt'])
-            ->expectsChoice('Choose the sort direction', 'Ascending', ['Ascending', 'Descending'])
-            ->expectsQuestion(self::selectPageSizeQuestion, 0)
-
-            ->doesntExpectOutput('Error: Can not create a tag field without any tag groups defined in tags.yml')
-           ->assertSuccessful();
-
-        $this->assertCommandCalled('make:publicationTag');
-        $this->assertFileExists(Hyde::path('tags.yml'));
-        $this->assertSame(
-            "foo:\n    - foo\n    - bar\n    - baz\n",
-            file_get_contents(Hyde::path('tags.yml'))
-        );
     }
 }

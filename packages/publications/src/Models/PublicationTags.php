@@ -8,14 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Support\Collection;
-use Hyde\Framework\Exceptions\FileNotFoundException;
-use Symfony\Component\Yaml\Exception\ParseException;
 
-use function assert;
-use function is_int;
-use function is_array;
-use function is_string;
-use function array_merge;
 use function file_exists;
 
 /**
@@ -39,43 +32,15 @@ class PublicationTags
         return $this->tags;
     }
 
-    /** @return array<string> */
-    public function getTagsInGroup(string $name): array
-    {
-        return $this->tags->get($name) ?? [];
-    }
-
     /**
+     * Add one or more tags to the collection.
+     *
      * @param  array<string>|string  $values
      * @return $this
      */
-    public function addTagGroup(string $name, array|string $values): self
+    public function addTags(array|string $values): self
     {
-        $this->tags->put($name, (array) $values);
-
-        return $this;
-    }
-
-    /**
-     * @param  array<string, array<string>|string>  $tags
-     * @return $this
-     */
-    public function addTagGroups(array $tags): self
-    {
-        foreach ($tags as $name => $values) {
-            $this->addTagGroup($name, $values);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param  array<string>|string  $values
-     * @return $this
-     */
-    public function addTagsToGroup(string $name, array|string $values): self
-    {
-        $this->tags->put($name, array_merge($this->getTagsInGroup($name), (array) $values));
+        $this->tags = $this->tags->merge((array) $values);
 
         return $this;
     }
@@ -100,53 +65,6 @@ class PublicationTags
     public static function getAllTags(): Collection
     {
         return (new self())->getTags()->sortKeys();
-    }
-
-    /**
-     * Get all values for a given tag group, by its name.
-     *
-     * @return array<string>
-     */
-    public static function getValuesForTagGroup(string $groupName): array
-    {
-        return self::getAllTags()->get($groupName) ?? [];
-    }
-
-    /**
-     * Get all tag group names.
-     *
-     * @return array<string>
-     */
-    public static function getTagGroups(): array
-    {
-        return self::getAllTags()->keys()->toArray();
-    }
-
-    /**
-     * Validate the tags.yml file is valid.
-     *
-     * @internal This method is experimental and may be removed without notice
-     */
-    public static function validateTagsFile(): void
-    {
-        if (! file_exists(Hyde::path('tags.yml'))) {
-            throw new FileNotFoundException('tags.yml');
-        }
-
-        $tags = Yaml::parseFile(Hyde::path('tags.yml'));
-
-        if (! is_array($tags) || empty($tags)) {
-            throw new ParseException('Could not decode tags.yml');
-        }
-
-        foreach ($tags as $name => $values) {
-            assert(is_string($name));
-            assert(is_array($values));
-            foreach ($values as $key => $value) {
-                assert(is_int($key));
-                assert(is_string($value));
-            }
-        }
     }
 
     /** @return array<string, array<string>> */

@@ -101,7 +101,7 @@ class SeedsPublicationFiles
             'media' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
             'integer' => rand(-100000, 100000),
             'string' => substr($this->fakeSentence(10), 0, rand(1, 255)),
-            'tag' => $this->getTags($field->tagGroup),
+            'tag' => $this->getTags(),
             'text' => $this->getTextValue(rand(3, 20)),
             'url' => $this->fakeUrl(),
         };
@@ -131,9 +131,9 @@ class SeedsPublicationFiles
         return $arrayItems;
     }
 
-    protected function getTags(string $tagGroup): string
+    protected function getTags(): string
     {
-        $tags = Publications::getValuesForTagName($tagGroup);
+        $tags = Publications::getAllTags();
 
         return $tags->isEmpty() ? '' : $tags->random();
     }

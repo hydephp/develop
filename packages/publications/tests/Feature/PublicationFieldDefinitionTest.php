@@ -107,22 +107,4 @@ class PublicationFieldDefinitionTest extends TestCase
         $field = new PublicationFieldDefinition('string', 'test', ['required', 'foo']);
         $this->assertSame(['string', 'required', 'foo'], $field->getRules());
     }
-
-    public function test_can_construct_with_tag_group()
-    {
-        $field = new PublicationFieldDefinition('tag', 'test', [], 'myTags');
-        $this->assertSame('myTags', $field->tagGroup);
-    }
-
-    public function test_can_serialize_tag_group()
-    {
-        $field = new PublicationFieldDefinition('tag', 'test', [], 'myTags');
-        $this->assertSame([
-            'type' => 'tag',
-            'name' => 'test',
-            'tagGroup' => 'myTags',
-        ], $field->toArray());
-
-        $this->assertSame('{"type":"tag","name":"test","tagGroup":"myTags"}', json_encode($field));
-    }
 }

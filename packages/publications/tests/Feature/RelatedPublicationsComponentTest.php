@@ -38,7 +38,7 @@ class RelatedPublicationsComponentTest extends TestCase
         $this->assertEquals(new Collection(), $component->relatedPublications);
     }
 
-    public function testWithTagFieldButNoTagGroup()
+    public function testWithEmptyTags()
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', type: $type);
@@ -48,19 +48,9 @@ class RelatedPublicationsComponentTest extends TestCase
         $this->assertEquals(new Collection(), $component->relatedPublications);
     }
 
-    public function testWithEmptyTagGroup()
-    {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
-        $page = new PublicationPage('foo', type: $type);
-        $this->mockRoute(new Route($page));
-
-        $component = new RelatedPublicationsComponent();
-        $this->assertEquals(new Collection(), $component->relatedPublications);
-    }
-
     public function testWithPublicationWithTag()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -70,7 +60,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testWithMoreTaggedPublications()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -84,7 +74,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testWithPublicationsWithOtherTagValue()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -98,7 +88,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testWithPublicationsWithCurrentOneBeingUntagged()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', type: $type);
         $this->mockRoute(new Route($page));
 
@@ -112,7 +102,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testWithMultipleRelatedPages()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -140,7 +130,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testWithMultipleRelatedPagesAndLimit()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -166,7 +156,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testOnlyPublicationsWithTheSameTagAreIncluded()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -191,7 +181,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testResultsAreSortedByDateWithLatestFirst()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
@@ -219,7 +209,7 @@ class RelatedPublicationsComponentTest extends TestCase
 
     public function testTheRenderMethod()
     {
-        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag', 'tagGroup' => 'foo']]);
+        $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
         $this->mockRoute(new Route($page));
 
