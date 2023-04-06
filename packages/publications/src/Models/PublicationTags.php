@@ -46,34 +46,6 @@ class PublicationTags
     }
 
     /**
-     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
-     *
-     * @param  array<string>|string  $values
-     * @return $this
-     */
-    public function addTagGroup(string $name, array|string $values): self
-    {
-        $this->tags->put($name, (array) $values);
-
-        return $this;
-    }
-
-    /**
-     * @deprecated Tag groups are being removed, in favour of a flat list array of tags.
-     *
-     * @param  array<string, array<string>|string>  $tags
-     * @return $this
-     */
-    public function addTagGroups(array $tags): self
-    {
-        foreach ($tags as $name => $values) {
-            $this->addTagGroup($name, $values);
-        }
-
-        return $this;
-    }
-
-    /**
      * Save the tags collection to disk.
      *
      * @return $this
