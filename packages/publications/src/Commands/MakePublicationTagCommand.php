@@ -33,10 +33,6 @@ class MakePublicationTagCommand extends ValidatingCommand
     {
         $this->title('Creating a new Publication Type Tag!');
 
-        $this->getTagName();
-
-        $this->validateTagName();
-
         $this->collectTags();
 
         $this->printSelectionInformation();
@@ -44,18 +40,6 @@ class MakePublicationTagCommand extends ValidatingCommand
         $this->saveTagsToDisk();
 
         return Command::SUCCESS;
-    }
-
-    protected function getTagName(): void
-    {
-        $this->tagName = $this->askWithValidation('name', 'Tag name', ['required', 'string']);
-    }
-
-    protected function validateTagName(): void
-    {
-        if (Publications::getAllTags()->has($this->tagName)) {
-            throw new RuntimeException("Tag [$this->tagName] already exists");
-        }
     }
 
     protected function collectTags(): void

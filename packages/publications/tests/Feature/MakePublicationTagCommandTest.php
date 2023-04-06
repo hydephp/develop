@@ -28,7 +28,6 @@ class MakePublicationTagCommandTest extends TestCase
         InputStreamHandler::mockInput("foo\nbar\nbaz\n<<<");
 
         $this->artisan('make:publicationTag')
-            ->expectsQuestion('Tag name', 'foo')
             ->expectsOutputToContain('Enter the tag values:')
             ->expectsOutput('Adding the following tags: foo, bar, baz')
             ->expectsOutput('Saving tag data to [file://'.str_replace('\\', '/', Hyde::path('tags.yml')).']')
