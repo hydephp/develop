@@ -21,7 +21,7 @@ use function sprintf;
 class MakePublicationTagCommand extends ValidatingCommand
 {
     /** @var string */
-    protected $signature = 'make:publicationTag {tagName? : The name of the tag to create}';
+    protected $signature = 'make:publicationTag';
 
     /** @var string */
     protected $description = 'Create a new publication type tag definition';
@@ -48,20 +48,7 @@ class MakePublicationTagCommand extends ValidatingCommand
 
     protected function getTagName(): void
     {
-        $this->tagName = $this->getTagNameFromArgument($this->argument('tagName'))
-            ?? $this->askWithValidation('name', 'Tag name', ['required', 'string']);
-    }
-
-    protected function getTagNameFromArgument(?string $value): ?string
-    {
-        if ($value) {
-            $this->infoComment("Using tag name [$value] from command line argument");
-            $this->newLine();
-
-            return $value;
-        }
-
-        return null;
+        $this->tagName = $this->askWithValidation('name', 'Tag name', ['required', 'string']);
     }
 
     protected function validateTagName(): void
