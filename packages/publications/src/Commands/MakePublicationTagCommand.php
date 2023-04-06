@@ -27,7 +27,6 @@ class MakePublicationTagCommand extends ValidatingCommand
     protected $description = 'Create a new publication type tag definition';
 
     protected array $tags;
-    protected string $tagName;
 
     public function safeHandle(): int
     {
