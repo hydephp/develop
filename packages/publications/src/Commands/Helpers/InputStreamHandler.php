@@ -53,6 +53,8 @@ class InputStreamHandler
 
     protected function shouldTerminate(string $line): bool
     {
+        // TODO add option to terminate with two blank lines (useful for tags input, but is default to false, for example to accept paragraphs)
+
         return $line === self::TERMINATION_SEQUENCE || str_contains($line, self::END_OF_TRANSMISSION);
     }
 
