@@ -65,16 +65,6 @@ class Publications
     }
 
     /**
-     * Get all values for a given tag name.
-     *
-     * @deprecated Deprecated as tag groups are being removed in favour of a single tag list.
-     */
-    public static function getValuesForTagName(string $tagName): Collection
-    {
-        return collect(PublicationTags::getValuesForTagGroup($tagName));
-    }
-
-    /**
      * Check whether a given publication type exists.
      */
     public static function publicationTypeExists(string $publicationTypeName): bool
