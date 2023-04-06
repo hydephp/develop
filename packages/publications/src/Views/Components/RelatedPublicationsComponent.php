@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Publications\Views\Components;
 
 use Hyde\Hyde;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
@@ -49,7 +50,7 @@ class RelatedPublicationsComponent extends Component
 
         // Get the tag fields for the current publicationType or exit early if there aren't any
         $publicationTypeTagFields = $publicationType->getFields()->filter(function (PublicationFieldDefinition $field): bool {
-            return $field->tagGroup !== null;
+            return $field->type === PublicationFieldTypes::Tag;
         });
         if ($publicationTypeTagFields->isEmpty()) {
             return collect();

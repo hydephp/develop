@@ -181,7 +181,7 @@ class PublicationsExtensionTest extends TestCase
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [
-            ['name' => 'tags', 'type' => 'tag', 'tagGroup' => 'general'],
+            ['name' => 'tags', 'type' => 'tag'],
         ]))->save();
 
         $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
@@ -252,7 +252,7 @@ class PublicationsExtensionTest extends TestCase
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [
-            ['name' => 'tags', 'type' => 'tag', 'tagGroup' => 'general'],
+            ['name' => 'tags', 'type' => 'tag'],
         ]))->save();
 
         $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");

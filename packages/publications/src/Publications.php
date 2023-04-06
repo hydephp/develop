@@ -65,14 +65,6 @@ class Publications
     }
 
     /**
-     * Get all values for a given tag name.
-     */
-    public static function getValuesForTagName(string $tagName): Collection
-    {
-        return collect(PublicationTags::getValuesForTagGroup($tagName));
-    }
-
-    /**
      * Check whether a given publication type exists.
      */
     public static function publicationTypeExists(string $publicationTypeName): bool

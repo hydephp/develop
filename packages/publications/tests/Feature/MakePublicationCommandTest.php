@@ -336,7 +336,6 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
-                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -360,7 +359,6 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tags',
-                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
@@ -435,13 +433,12 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
-                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags for this publication type found in tags.yml')
+             ->expectsOutput('Warning: No tags found in tags.yml')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(1);
@@ -456,15 +453,15 @@ class MakePublicationCommandTest extends TestCase
             'fields'         =>  [[
                 'type' => 'tag',
                 'name' => 'tag',
-                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags for this publication type found in tags.yml')
+             ->expectsOutput('Warning: No tags found in tags.yml')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
+             // ->doesntExpectOutput('Error: Unable to locate any tags') // TODO: Change to this
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
@@ -480,25 +477,6 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, $this->getDatedPublicationContents());
     }
 
-    public function test_tag_input_for_field_without_tagGroup_specified()
-    {
-        $this->throwOnConsoleException(false);
-        $this->makeSchemaFile([
-            'canonicalField' => '__createdAt',
-            'fields'         =>  [[
-                'type' => 'tag',
-                'name' => 'tag',
-            ],
-            ],
-        ]);
-
-        $this->artisan('make:publication test-publication')
-            ->expectsOutput("Error: Tag field 'tag' is missing the 'tagGroup' property")
-            ->assertExitCode(1);
-
-        $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
-    }
-
     public function test_handleEmptyOptionsCollection_for_required_field()
     {
         $this->throwOnConsoleException(false);
@@ -508,14 +486,13 @@ class MakePublicationCommandTest extends TestCase
                 'type' => 'tag',
                 'name' => 'tag',
                 'rules' => ['required'],
-                'tagGroup' => 'test-publication',
             ],
             ],
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->doesntExpectOutput('Warning: No tags for this publication type found in tags.yml')
-            ->expectsOutput('Error: Unable to create publication: No tags for this publication type found in tags.yml')
+            ->doesntExpectOutput('Warning: No tags found in tags.yml')
+            ->expectsOutput('Error: Unable to create publication: No tags found in tags.yml')
             ->assertExitCode(1);
     }
 

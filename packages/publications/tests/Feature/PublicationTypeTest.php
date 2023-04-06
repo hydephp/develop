@@ -214,14 +214,14 @@ class PublicationTypeTest extends TestCase
             'name' => 'Test Publication',
             'fields' => [
                 ['name' => 'title', 'type' => 'string', 'rules' => ['foo', 'bar']],
-                ['name' => 'tags', 'type' => 'tag', 'tagGroup' => 'myTags'],
+                ['name' => 'tags', 'type' => 'tag'],
             ],
         ]));
 
         $publicationType = PublicationType::fromFile('test-publication/schema.json');
         $this->assertEquals(new Collection([
             new PublicationFieldDefinition('string', 'title', ['foo', 'bar']),
-            new PublicationFieldDefinition('tag', 'tags', tagGroup: 'myTags'),
+            new PublicationFieldDefinition('tag', 'tags'),
         ]), $publicationType->getFields());
     }
 

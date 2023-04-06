@@ -28,19 +28,17 @@ class PublicationFieldDefinition implements SerializableContract
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
     public readonly array $rules;
-    public readonly ?string $tagGroup;
 
     public static function fromArray(array $array): static
     {
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [], ?string $tagGroup = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [])
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = str_contains($name, ' ') ? Str::kebab($name) : Str::ascii($name);
         $this->rules = $rules;
-        $this->tagGroup = $tagGroup;
     }
 
     public function toArray(): array
@@ -49,7 +47,6 @@ class PublicationFieldDefinition implements SerializableContract
             'type' => $this->type->value,
             'name' => $this->name,
             'rules' => $this->rules,
-            'tagGroup' => $this->tagGroup,
         ]);
     }
 

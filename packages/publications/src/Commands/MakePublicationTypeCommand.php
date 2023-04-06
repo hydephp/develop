@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use LaravelZero\Framework\Commands\Command;
-use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Publications\Models\PublicationFieldDefinition;
@@ -100,14 +99,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->line('');
 
         $fieldName = $this->getFieldName();
-
         $fieldType = $this->getFieldType();
-
-        if ($fieldType === PublicationFieldTypes::Tag) {
-            $tagGroup = $this->getTagGroup();
-
-            return new PublicationFieldDefinition($fieldType, $fieldName, tagGroup: $tagGroup);
-        }
 
         return new PublicationFieldDefinition($fieldType, $fieldName);
     }
@@ -135,23 +127,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
             PublicationFieldTypes::names(),
             'String'
         )));
-    }
-
-    protected function getTagGroup(): string
-    {
-        if (empty(PublicationTags::getTagGroups())) {
-            $this->error('No tag groups have been added to tags.yml');
-            if ($this->confirm('Would you like to add some tags now?')) {
-                $this->call('make:publicationTag');
-
-                $this->newLine();
-                $this->comment("Okay, we're back on track!");
-            } else {
-                throw new InvalidArgumentException('Can not create a tag field without any tag groups defined in tags.yml');
-            }
-        }
-
-        return $this->choice("Enter tag group for field #{$this->getCount()}", PublicationTags::getTagGroups());
     }
 
     protected function getCanonicalField(): PublicationFieldDefinition

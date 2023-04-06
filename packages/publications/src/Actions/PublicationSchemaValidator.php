@@ -81,7 +81,6 @@ class PublicationSchemaValidator
             'type' => 'required|string',
             'name' => 'required|string',
             'rules' => 'nullable|array',
-            'tagGroup' => 'nullable|string',
         ];
 
         if (is_array($this->schema->fields)) {

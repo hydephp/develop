@@ -253,24 +253,6 @@ class PublicationServiceTest extends TestCase
         $this->assertSame($tags, Publications::getAllTags()->toArray());
     }
 
-    public function testGetValuesForTagName()
-    {
-        $tags = [
-            'foo' => [
-                'bar',
-                'baz',
-            ],
-            'bar' => [
-                'baz',
-                'qux',
-            ],
-        ];
-
-        $this->file('tags.yml', json_encode($tags));
-
-        $this->assertSame(['bar', 'baz'], Publications::getValuesForTagName('foo')->toArray());
-    }
-
     protected function createPublicationType(): void
     {
         (new PublicationType('test-publication'))->save();
