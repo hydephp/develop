@@ -76,6 +76,6 @@ class MakePublicationTagCommand extends ValidatingCommand
             \Hyde\Console\Concerns\Command::fileLink('tags.yml')
         ));
 
-        (new PublicationTags)->addTagGroups($this->tags)->save();
+        (new PublicationTags)->addTags($this->tags)->save();
     }
 }
