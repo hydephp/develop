@@ -37,10 +37,9 @@ class MakePublicationTagCommandTest extends TestCase
         $this->assertFileExists(Hyde::path('tags.yml'));
         $this->assertSame(
             <<<'YAML'
-            foo:
-                - foo
-                - bar
-                - baz
+            - foo
+            - bar
+            - baz
 
             YAML,
             file_get_contents(Hyde::path('tags.yml'))
