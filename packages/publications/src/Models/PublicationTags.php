@@ -8,7 +8,9 @@ use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
+use function ksort;
 use function file_exists;
+use function array_merge;
 
 /**
  * Object representation for the tags.yml file.
@@ -39,7 +41,7 @@ class PublicationTags
      */
     public function addTags(array|string $values): self
     {
-        $this->tags = collect($this->tags)->merge((array) $values)->all();
+        $this->tags = array_merge($this->tags, (array) $values);
 
         return $this;
     }
@@ -63,7 +65,9 @@ class PublicationTags
      */
     public static function getAllTags(): array
     {
-        return collect((new self())->getTags())->sortKeys()->all();
+        $tags = (new self())->getTags();
+        ksort($tags);
+        return $tags;
     }
 
     /** @return array<string> */
