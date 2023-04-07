@@ -7,7 +7,6 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationTags;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Collection;
 
 use function json_encode;
 
