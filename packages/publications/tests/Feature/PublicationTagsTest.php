@@ -25,19 +25,19 @@ class PublicationTagsTest extends TestCase
     {
         $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
-        $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags()->toArray());
+        $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags());
     }
 
     public function testConstructorAddsEmptyArrayWhenThereIsNoTagsFile()
     {
-        $this->assertEquals(new Collection(), (new PublicationTags())->getTags());
+        $this->assertEquals([], (new PublicationTags())->getTags());
     }
 
     public function testGetTags()
     {
         $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
 
-        $this->assertEquals(new Collection(['foo' => ['bar', 'baz']]), (new PublicationTags())->getTags());
+        $this->assertEquals(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags());
     }
 
     public function testCanSaveTagsToDisk()
@@ -78,7 +78,7 @@ class PublicationTagsTest extends TestCase
         $this->assertSame([
             'Foo' => ['one', 'two', 'three'],
             'Second' => ['foo', 'bar', 'baz'],
-        ], PublicationTags::getAllTags()->toArray());
+        ], PublicationTags::getAllTags());
     }
 
     public function testCanLoadTagsFromYamlFile()
@@ -98,7 +98,7 @@ class PublicationTagsTest extends TestCase
         $this->assertSame([
             'Foo' => ['one', 'two', 'three'],
             'Second' => ['foo', 'bar', 'baz'],
-        ], PublicationTags::getAllTags()->toArray());
+        ], PublicationTags::getAllTags());
     }
 
     public function testGetAllTags()
@@ -110,11 +110,11 @@ class PublicationTagsTest extends TestCase
             ],
         ];
         $this->file('tags.yml', json_encode($tags));
-        $this->assertSame($tags, PublicationTags::getAllTags()->toArray());
+        $this->assertSame($tags, PublicationTags::getAllTags());
     }
 
     public function testGetAllTagsWithNoTags()
     {
-        $this->assertSame([], PublicationTags::getAllTags()->toArray());
+        $this->assertSame([], PublicationTags::getAllTags());
     }
 }

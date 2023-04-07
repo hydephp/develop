@@ -7,7 +7,6 @@ namespace Hyde\Publications\Models;
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
-use Illuminate\Support\Collection;
 
 use function file_exists;
 
@@ -18,16 +17,16 @@ use function file_exists;
  */
 class PublicationTags
 {
-    /** @var Collection<string> */
-    protected Collection $tags;
+    /** @var array<string> */
+    protected array $tags;
 
     public function __construct()
     {
-        $this->tags = Collection::make($this->parseTagsFile());
+        $this->tags = $this->parseTagsFile();
     }
 
-    /** @return \Illuminate\Support\Collection<string> */
-    public function getTags(): Collection
+    /** @return \Illuminate\Support\array<string> */
+    public function getTags(): array
     {
         return $this->tags;
     }
@@ -40,19 +39,19 @@ class PublicationTags
      */
     public function addTags(array|string $values): self
     {
-        $this->tags = $this->tags->merge((array) $values);
+        $this->tags = collect($this->tags)->merge((array) $values)->all();
 
         return $this;
     }
 
     /**
-     * Save the tags collection to disk.
+     * Save the tags array to disk.
      *
      * @return $this
      */
     public function save(): self
     {
-        Filesystem::putContents('tags.yml', Yaml::dump($this->tags->toArray()));
+        Filesystem::putContents('tags.yml', Yaml::dump($this->tags));
 
         return $this;
     }
@@ -60,11 +59,11 @@ class PublicationTags
     /**
      * Get all available tags.
      *
-     * @return Collection<string>
+     * @return array<string>
      */
-    public static function getAllTags(): Collection
+    public static function getAllTags(): array
     {
-        return (new self())->getTags()->sortKeys();
+        return collect((new self())->getTags())->sortKeys()->all();
     }
 
     /** @return array<string> */
