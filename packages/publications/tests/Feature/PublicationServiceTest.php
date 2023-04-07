@@ -250,7 +250,7 @@ class PublicationServiceTest extends TestCase
             ],
         ];
         $this->file('tags.yml', json_encode($tags));
-        $this->assertSame($tags, Publications::getAllTags()->toArray());
+        $this->assertSame($tags, Publications::getAllTags());
     }
 
     protected function createPublicationType(): void

@@ -59,7 +59,7 @@ class Publications
     /**
      * Get all available tags.
      */
-    public static function getAllTags(): Collection
+    public static function getAllTags(): array
     {
         return PublicationTags::getAllTags();
     }

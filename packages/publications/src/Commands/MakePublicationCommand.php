@@ -165,7 +165,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->infoComment(/** @lang Text */ "Select a tag for field [$field->name]");
 
         $options = Publications::getAllTags();
-        if ($options->isEmpty()) {
+        if (empty($options)) {
             // TODO: Add option to create a new tag
             return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags found in tags.yml');
         }
@@ -221,7 +221,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function getReloadableTagValuesArrayClosure(): Closure
     {
         return function (): array {
-            return Publications::getAllTags()->toArray();
+            return Publications::getAllTags();
         };
     }
 }
