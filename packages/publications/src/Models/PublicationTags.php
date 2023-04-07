@@ -18,7 +18,7 @@ use function file_exists;
  */
 class PublicationTags
 {
-    /** @var Collection<string, array<string>> */
+    /** @var Collection<string> */
     protected Collection $tags;
 
     public function __construct()
@@ -26,7 +26,7 @@ class PublicationTags
         $this->tags = Collection::make($this->parseTagsFile());
     }
 
-    /** @return \Illuminate\Support\Collection<string, array<string>> */
+    /** @return \Illuminate\Support\Collection<string> */
     public function getTags(): Collection
     {
         return $this->tags;
@@ -58,16 +58,16 @@ class PublicationTags
     }
 
     /**
-     * Get all available tags, arranged by their tag group.
+     * Get all available tags.
      *
-     * @return Collection<string, array<string>>
+     * @return Collection<string>
      */
     public static function getAllTags(): Collection
     {
         return (new self())->getTags()->sortKeys();
     }
 
-    /** @return array<string, array<string>> */
+    /** @return array<string> */
     protected function parseTagsFile(): array
     {
         if (file_exists(Hyde::path('tags.yml'))) {
