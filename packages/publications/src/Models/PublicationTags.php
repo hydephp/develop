@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
-use function ksort;
 use function file_exists;
 use function array_merge;
 
@@ -65,9 +64,7 @@ class PublicationTags
      */
     public static function getAllTags(): array
     {
-        $tags = (new self())->getTags();
-        ksort($tags);
-        return $tags;
+        return (new self())->getTags();
     }
 
     /** @return array<string> */
