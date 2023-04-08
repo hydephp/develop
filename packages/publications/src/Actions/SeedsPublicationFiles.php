@@ -135,7 +135,7 @@ class SeedsPublicationFiles
     {
         $tags = collect(Publications::getAllTags());
 
-        return $tags->isEmpty() ? '' : $tags->random();
+        return empty($tags) ? '' : $tags->random();
     }
 
     private const WORDS = [
