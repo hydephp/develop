@@ -133,9 +133,9 @@ class SeedsPublicationFiles
 
     protected function getTags(): string
     {
-        $tags = collect(Publications::getAllTags());
+        $tags = Publications::getAllTags();
 
-        return empty($tags) ? '' : $tags->random();
+        return empty($tags) ? '' : collect($tags)->random();
     }
 
     private const WORDS = [
