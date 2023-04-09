@@ -21,6 +21,16 @@ class PublicationTags
     /** @var array<string> */
     protected array $tags;
 
+    /**
+     * Get all available tags.
+     *
+     * @return array<string>
+     */
+    public static function getAllTags(): array
+    {
+        return (new self())->getTags();
+    }
+
     public function __construct()
     {
         $this->tags = $this->parseTagsFile();
@@ -55,16 +65,6 @@ class PublicationTags
         Filesystem::putContents('tags.yml', Yaml::dump($this->tags));
 
         return $this;
-    }
-
-    /**
-     * Get all available tags.
-     *
-     * @return array<string>
-     */
-    public static function getAllTags(): array
-    {
-        return (new self())->getTags();
     }
 
     /** @return array<string> */
