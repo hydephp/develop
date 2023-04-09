@@ -12,7 +12,7 @@ use function file_exists;
 use function array_merge;
 
 /**
- * Object representation for the tags.yml file.
+ * Object representation for the tags.yml file, as well as a static facade helper.
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationTagsTest
  */
