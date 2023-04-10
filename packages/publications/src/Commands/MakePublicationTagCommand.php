@@ -14,6 +14,7 @@ use function sprintf;
 /**
  * Hyde Command to create a new publication type.
  *
+ * @deprecated Tags are now handled dynamically.
  * @see \Hyde\Publications\Testing\Feature\MakePublicationTagCommandTest
  */
 class MakePublicationTagCommand extends ValidatingCommand
