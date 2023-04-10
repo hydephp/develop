@@ -69,6 +69,8 @@ class PublicationTagsTest extends TestCase
         $this->assertSame(['foo', 'bar', 'baz'], PublicationTags::all());
     }
 
+    // CSV?
+
     public function testAllTagsMethodReturnsEmptyArrayWhenThereAreNoTagsUsed()
     {
         $this->assertSame([], PublicationTags::all());
