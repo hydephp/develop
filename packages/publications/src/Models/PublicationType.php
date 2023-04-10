@@ -183,7 +183,7 @@ class PublicationType implements SerializableContract
 
     public function getCanonicalFieldDefinition(): PublicationFieldDefinition
     {
-        if (str_starts_with($this->canonicalField, '__')) {
+        if (str_starts_with($this->canonicalField, '__')) { // Todo check directly against __createdAt
             return new PublicationFieldDefinition('string', $this->canonicalField);
         }
 
