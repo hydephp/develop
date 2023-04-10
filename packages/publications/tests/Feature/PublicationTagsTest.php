@@ -29,7 +29,7 @@ class PublicationTagsTest extends TestCase
         ], type: $type);
 
         Hyde::kernel()->pages()->addPage($page);
-        
+
         $this->assertSame(['foo', 'bar'], PublicationTags::all());
     }
 
@@ -75,7 +75,7 @@ class PublicationTagsTest extends TestCase
     {
         $this->assertSame([], PublicationTags::all());
     }
-    
+
     public function canConstructNewTagsInstance()
     {
         $this->assertInstanceOf(PublicationTags::class, new PublicationTags());

@@ -7,9 +7,9 @@ namespace Hyde\Publications\Models;
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
-
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
+
 use function file_exists;
 use function array_merge;
 use function array_unique;
