@@ -22,6 +22,16 @@ class PublicationTags
     protected array $tags;
 
     /**
+     * Get all available tags used in the project's publications.
+     *
+     * @return array<string>
+     */
+    public static function all(): array
+    {
+        //
+    }
+
+    /**
      * Get all available tags.
      *
      * @return array<string>
