@@ -8,8 +8,11 @@ use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
+use Hyde\Publications\Pages\PublicationPage;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use function file_exists;
 use function array_merge;
+use function array_unique;
 
 /**
  * Object representation for the tags.yml file, as well as a static facade helper.
@@ -28,7 +31,22 @@ class PublicationTags
      */
     public static function all(): array
     {
-        //
+        $tags = [];
+        $pages = PublicationPage::all();
+
+        /** @var PublicationPage $page */
+        foreach ($pages as $page) {
+            // We need to get the schema, so that we know which front matter fields are tags.
+            $schema = $page->getType()->getFields();
+
+            foreach ($schema as $field) {
+                if ($field->type === PublicationFieldTypes::Tag) {
+                    $tags = array_merge($tags, (array) $page->matter($field->name));
+                }
+            }
+        }
+
+        return array_values(array_unique($tags));
     }
 
     /**
