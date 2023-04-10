@@ -54,6 +54,8 @@ class PublicationTags
     /**
      * Get all available tags.
      *
+     * @deprecated Use the `all()` method instead.
+     *
      * @return array<string>
      */
     public static function getAllTags(): array
