@@ -23,7 +23,6 @@ class PublicationsServiceProvider extends ServiceProvider
         $this->app->make(HydeKernel::class)->registerExtension(PublicationsExtension::class);
 
         $this->commands([
-            Commands\MakePublicationTagCommand::class,
             Commands\MakePublicationTypeCommand::class,
             Commands\MakePublicationCommand::class,
 
