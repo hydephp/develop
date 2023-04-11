@@ -166,7 +166,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $options = Publications::getAllTags();
         if (empty($options)) {
-            // TODO: Add option to create a new tag
+            //
         }
 
         $this->tip('You can enter multiple tags separated by commas');
