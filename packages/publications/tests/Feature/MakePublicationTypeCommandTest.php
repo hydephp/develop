@@ -7,7 +7,6 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
-use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 
 /**
@@ -194,8 +193,6 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->directory('test-publication');
 
-        (new PublicationTags())->addTags(['foo', 'bar', 'baz'])->save();
-
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'MyTag')
             ->expectsChoice('Enter type for field #1', 'Tag',
@@ -228,7 +225,5 @@ class MakePublicationTypeCommandTest extends TestCase
             }
             JSON,
             'test-publication/schema.json');
-
-        unlink(Hyde::path('tags.yml'));
     }
 }
