@@ -168,7 +168,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
             'Which tag would you like to use?',
-            'Reload tags.yml',
+            'Reload used tags',
             true
         );
 
