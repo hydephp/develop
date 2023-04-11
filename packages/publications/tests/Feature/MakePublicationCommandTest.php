@@ -485,16 +485,16 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
-                'type' => 'tag',
-                'name' => 'tag',
+                'type' => 'media',
+                'name' => 'media',
                 'rules' => ['required'],
             ],
             ],
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->doesntExpectOutput('Warning: No tags found in tags.yml')
-            ->expectsOutput('Error: Unable to create publication: No tags found in tags.yml')
+            ->doesntExpectOutput('Warning: No media files found in directory _media/test-publication/')
+            ->expectsOutput('Error: Unable to create publication: No media files found in directory _media/test-publication/')
             ->assertExitCode(1);
     }
 
