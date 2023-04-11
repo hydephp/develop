@@ -341,7 +341,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion('Which tag would you like to use?', 'foo')
+             ->expectsQuestion('Enter tag(s)', 'foo')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
@@ -365,7 +365,7 @@ class MakePublicationCommandTest extends TestCase
 
         /** @noinspection PhpParamsInspection as array is allowed by this method */
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion('Which tag would you like to use?', ['foo', 'bar'])
+             ->expectsQuestion('Enter tag(s)', ['foo', 'bar'])
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();

@@ -6,6 +6,7 @@ namespace Hyde\Publications\Commands;
 
 use Closure;
 use Hyde\Hyde;
+use Hyde\Publications\Models\PublicationTags;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Hyde\Publications\Publications;
@@ -166,11 +167,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->tip('You can enter multiple tags separated by commas');
 
-        $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
-            'Which tag would you like to use?',
-            'Reload used tags',
-            true
-        );
+        $choice = $this->askWithCompletion('Enter tag(s)', PublicationTags::all());
 
         return new PublicationFieldValue(PublicationFieldTypes::Tag, $choice);
     }
