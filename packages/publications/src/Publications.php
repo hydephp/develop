@@ -61,7 +61,7 @@ class Publications
      */
     public static function getAllTags(): array
     {
-        return PublicationTags::getAllTags();
+        return PublicationTags::all();
     }
 
     /**
