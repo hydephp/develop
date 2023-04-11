@@ -164,8 +164,6 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->infoComment(/** @lang Text */ "Select a tag for field [$field->name]");
 
-        Publications::getAllTags();
-
         $this->tip('You can enter multiple tags separated by commas');
 
         $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
