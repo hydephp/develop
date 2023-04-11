@@ -75,19 +75,6 @@ class PublicationTags
     }
 
     /**
-     * Add one or more tags to the collection.
-     *
-     * @param  array<string>|string  $values
-     * @return $this
-     */
-    public function addTags(array|string $values): self
-    {
-        $this->tags = array_merge($this->tags, (array) $values);
-
-        return $this;
-    }
-
-    /**
      * Save the tags array to disk.
      *
      * @return $this

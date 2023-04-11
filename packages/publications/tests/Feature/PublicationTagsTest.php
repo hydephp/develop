@@ -99,21 +99,4 @@ class PublicationTagsTest extends TestCase
 
         $this->assertEquals(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags());
     }
-
-    public function testCanSaveTagsToDisk()
-    {
-        $tags = new PublicationTags();
-        $tags->addTags(['test1', 'test2']);
-        $tags->save();
-
-        $this->assertSame(
-            <<<'YAML'
-            - test1
-            - test2
-
-            YAML, file_get_contents(Hyde::path('tags.yml'))
-        );
-
-        unlink(Hyde::path('tags.yml'));
-    }
 }
