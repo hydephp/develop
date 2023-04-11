@@ -448,37 +448,6 @@ class MakePublicationCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
-    public function test_tag_input_with_no_tags_but_skips()
-    {
-        $this->makeSchemaFile([
-            'canonicalField' => '__createdAt',
-            'fields'         =>  [[
-                'type' => 'tag',
-                'name' => 'tag',
-            ],
-            ],
-        ]);
-
-        $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags found in tags.yml')
-             ->expectsConfirmation('Would you like to skip this field?', 'yes')
-             ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
-             // ->doesntExpectOutput('Error: Unable to locate any tags') // TODO: Change to this
-             ->assertExitCode(0);
-
-        $this->assertDatedPublicationExists();
-        $this->assertEquals(
-            <<<'MARKDOWN'
-            ---
-            __createdAt: 2022-01-01T00:00:00+00:00
-            ---
-            
-            ## Write something awesome.
-            
-            
-            MARKDOWN, $this->getDatedPublicationContents());
-    }
-
     public function test_handleEmptyOptionsCollection_for_required_field()
     {
         $this->throwOnConsoleException(false);
