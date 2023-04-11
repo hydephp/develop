@@ -68,7 +68,7 @@ class PublicationTags
         $this->tags = $this->parseTagsFile();
     }
 
-    /** @return \Illuminate\Support\array<string> */
+    /** @deprecated Use the `all()` method instead. */
     public function getTags(): array
     {
         return $this->tags;
