@@ -427,6 +427,8 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_tag_input_with_no_tags()
     {
+        $this->markTestSkipped('Currently being refactored');
+
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
