@@ -18,6 +18,7 @@ use Hyde\Publications\Actions\CreatesNewPublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
+use function array_merge;
 use function implode;
 use function sprintf;
 use function in_array;
@@ -163,9 +164,15 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $this->infoComment("Enter one or more tags for field [$field->name] <fg=gray>(multiple tags separated by commas)</>");
+        $this->infoComment("Select one or more tags for field [$field->name]");
 
-        $choice = $this->askWithCompletion('Enter tag(s)', PublicationTags::all());
+        $choice = $this->choice(/** @lang Text */ 'Select from existing, or select <fg=white>[</><comment>0</><fg=white>]</> to add a new one', array_merge([
+            '<comment>Add new tag</comment>',
+        ], PublicationTags::all()), 0);
+
+        if ($choice === '<comment>Add new tag</comment>') {
+            $choice = $this->askWithCompletion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', PublicationTags::all());
+        }
 
         return new PublicationFieldValue(PublicationFieldTypes::Tag, $choice);
     }
