@@ -166,7 +166,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->infoComment("Select one or more tags for field [$field->name]");
 
-        $choice = $this->choice(/** @lang Text */ 'Select from existing, or select <comment>0</> to add a new one', array_merge([
+        $choice = $this->choice(/** @lang Text */ 'Select from existing or', array_merge([
             '<comment>Add new tag</comment>',
         ], PublicationTags::all()), 0);
 
