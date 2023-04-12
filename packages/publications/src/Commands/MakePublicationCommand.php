@@ -163,7 +163,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $this->infoComment(/** @lang Text */ "Select a tag for field [$field->name]");
+        $this->infoComment(/** @lang Text */ "Select one or more tags for field [$field->name]");
 
         $this->tip('You can enter multiple tags separated by commas');
 
