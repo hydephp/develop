@@ -364,9 +364,8 @@ class MakePublicationCommandTest extends TestCase
             ],
         ]);
 
-        /** @noinspection PhpParamsInspection as array is allowed by this method */
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion(/** @lang Text */'Select from existing or', ['foo', 'bar'])
+             ->expectsQuestion(/** @lang Text */'Select from existing or', 'foo, bar')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
