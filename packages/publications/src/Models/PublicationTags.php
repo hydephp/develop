@@ -48,8 +48,6 @@ class PublicationTags
 
         // Todo this is an excellent place to count the number of times a tag is used.
 
-        sort($tags);
-
         return array_values(array_unique($tags));
     }
 
