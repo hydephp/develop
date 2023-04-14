@@ -133,7 +133,7 @@ class SeedsPublicationFiles
 
     protected function getTags(): string
     {
-        $tags = Publications::getAllTags();
+        $tags = Publications::getPublicationTags();
 
         return empty($tags) ? '' : Arr::random($tags);
     }

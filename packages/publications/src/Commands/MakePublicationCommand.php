@@ -221,7 +221,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function getReloadableTagValuesArrayClosure(): Closure
     {
         return function (): array {
-            return Publications::getAllTags();
+            return Publications::getPublicationTags();
         };
     }
 

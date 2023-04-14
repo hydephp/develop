@@ -51,7 +51,7 @@ class PublicationFieldValidator
         }
 
         if ($this->fieldDefinition->type == PublicationFieldTypes::Tag) {
-            $tagValues = Publications::getAllTags() ?? [];
+            $tagValues = Publications::getPublicationTags() ?? [];
             $valueList = implode(',', $tagValues);
 
             return ["in:$valueList"];
