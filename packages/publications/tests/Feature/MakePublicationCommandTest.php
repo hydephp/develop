@@ -347,7 +347,6 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
 
-        // TODO? $this->assertCreatedPublicationMatterEquals('tag: foo');
         $this->assertCreatedPublicationMatterEquals("tag:\n    - foo");
     }
 
