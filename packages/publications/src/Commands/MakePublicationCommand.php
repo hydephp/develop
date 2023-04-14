@@ -18,7 +18,9 @@ use Hyde\Publications\Actions\CreatesNewPublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
+use function array_map;
 use function array_merge;
+use function explode;
 use function implode;
 use function sprintf;
 use function in_array;
