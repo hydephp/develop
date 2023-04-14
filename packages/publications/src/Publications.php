@@ -57,7 +57,7 @@ class Publications
     }
 
     /**
-     * Get all available tags.
+     * Get all available tags used in the publications.
      */
     public static function getPublicationTags(): array
     {
