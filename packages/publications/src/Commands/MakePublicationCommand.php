@@ -172,6 +172,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         if ($choice === '<comment>Add new tag</comment>') {
             $choice = $this->askWithCompletion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', PublicationTags::all());
+
+            // Parse CSV
+            $choice = array_map('trim', explode(',', $choice));
         }
 
         return new PublicationFieldValue(PublicationFieldTypes::Tag, $choice);
