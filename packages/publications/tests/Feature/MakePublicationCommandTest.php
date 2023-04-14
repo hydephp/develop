@@ -341,7 +341,8 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion(/** @lang Text */'Select from existing or', 'foo')
+             ->expectsQuestion(/** @lang Text */'Select from existing or', '<comment>Add new tag</comment>')
+             ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
@@ -365,7 +366,8 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion(/** @lang Text */'Select from existing or', 'foo, bar')
+            ->expectsQuestion(/** @lang Text */'Select from existing or', '<comment>Add new tag</comment>')
+            ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo, bar')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
