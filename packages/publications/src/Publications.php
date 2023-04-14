@@ -58,6 +58,8 @@ class Publications
 
     /**
      * Get all available tags used in the publications.
+     *
+     * The tags are aggregated from the front matter of all publication pages, where the field type is "tag".
      */
     public static function getPublicationTags(): array
     {
