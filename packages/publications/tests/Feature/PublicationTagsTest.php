@@ -71,9 +71,4 @@ class PublicationTagsTest extends TestCase
     {
         $this->assertSame([], PublicationTags::all());
     }
-
-    public function canConstructNewTagsInstance()
-    {
-        $this->assertInstanceOf(PublicationTags::class, new PublicationTags());
-    }
 }

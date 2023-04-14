@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Models;
 
-use Hyde\Hyde;
-use Symfony\Component\Yaml\Yaml;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 
-use function file_exists;
 use function array_merge;
 use function array_unique;
 
@@ -48,20 +45,5 @@ class PublicationTags
         // Todo this is an excellent place to count the number of times a tag is used.
 
         return array_values(array_unique($tags));
-    }
-
-    public function __construct()
-    {
-        $this->tags = $this->parseTagsFile();
-    }
-
-    /** @return array<string> */
-    protected function parseTagsFile(): array
-    {
-        if (file_exists(Hyde::path('tags.yml'))) {
-            return Yaml::parseFile(Hyde::path('tags.yml'));
-        }
-
-        return [];
     }
 }
