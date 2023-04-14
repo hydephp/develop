@@ -25,7 +25,7 @@ enum PublicationFieldTypes: string
     case Array = 'array';
     case Media = 'media';
     case Text = 'text';
-    case Tag = 'tag';
+    case Tag = 'tag'; // TODO: Rename to "tags"?
     case Url = 'url';
 
     /** Get the default validation rules for this field type. */
