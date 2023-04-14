@@ -17,9 +17,6 @@ use function array_unique;
  */
 class PublicationTags
 {
-    /** @var array<string> */
-    protected array $tags;
-
     /**
      * Get all available tags used in the project's publications.
      *
