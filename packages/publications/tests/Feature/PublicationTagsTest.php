@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationTags;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
+use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 
 /**
@@ -28,7 +28,7 @@ class PublicationTagsTest extends TestCase
 
         Hyde::kernel()->pages()->addPage($page);
 
-        $this->assertSame(['foo', 'bar'], PublicationTags::all());
+        $this->assertSame(['foo', 'bar'], Publications::getPublicationTags());
     }
 
     public function testMultipleOccurringTagsAreAggregatedUniquely()
@@ -46,7 +46,7 @@ class PublicationTagsTest extends TestCase
             'tag' => ['foo', 'baz'],
         ], type: $type));
 
-        $this->assertSame(['foo', 'bar', 'baz'], PublicationTags::all());
+        $this->assertSame(['foo', 'bar', 'baz'], Publications::getPublicationTags());
     }
 
     public function testAllTagsMethodFindsBothArrayAndSingleTagValues()
@@ -64,11 +64,11 @@ class PublicationTagsTest extends TestCase
             'tag' => ['bar', 'baz'],
         ], type: $type));
 
-        $this->assertSame(['foo', 'bar', 'baz'], PublicationTags::all());
+        $this->assertSame(['foo', 'bar', 'baz'], Publications::getPublicationTags());
     }
 
     public function testAllTagsMethodReturnsEmptyArrayWhenThereAreNoTagsUsed()
     {
-        $this->assertSame([], PublicationTags::all());
+        $this->assertSame([], Publications::getPublicationTags());
     }
 }
