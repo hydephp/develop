@@ -25,10 +25,9 @@ class PublicationTags
     public static function all(): array
     {
         $tags = [];
-        $pages = PublicationPage::all();
 
         /** @var PublicationPage $page */
-        foreach ($pages as $page) {
+        foreach (PublicationPage::all() as $page) {
             // We need to get the schema, so that we know which front matter fields are tags.
             $schema = $page->getType()->getFields();
 
