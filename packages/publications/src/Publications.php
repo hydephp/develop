@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function array_merge;
+use function array_unique;
+use function array_values;
 use function collect;
 
 /**
@@ -65,7 +68,20 @@ class Publications
      */
     public static function getPublicationTags(): array
     {
-        return PublicationTags::all();
+        $tags = [];
+
+        /** @var PublicationPage $page */
+        foreach (PublicationPage::all() as $page) {
+            foreach ($page->getType()->getFields() as $field) {
+                if ($field->type === PublicationFieldTypes::Tag) {
+                    $tags = array_merge($tags, (array) $page->matter($field->name));
+                }
+            }
+        }
+
+        // Todo this is an excellent place to count the number of times a tag is used.
+
+        return array_values(array_unique($tags));
     }
 
     /**

@@ -13,7 +13,6 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 use function file_put_contents;
-use function json_encode;
 
 /**
  * @covers \Hyde\Publications\Publications
@@ -241,18 +240,61 @@ class PublicationServiceTest extends TestCase
         $this->assertFalse(Publications::publicationTypeExists('foo'));
     }
 
-    public function testGetAllTags()
+    public function testCanGetTagsUsedInPublications()
     {
-        $this->markTestSkipped('Test being refactored.');
+        $type = new PublicationType('test-publication', fields: [[
+            'name' => 'tag',
+            'type' => 'tag',
+        ]]);
 
-        $tags = [
-            'foo' => [
-                'bar',
-                'baz',
-            ],
-        ];
-        $this->file('tags.yml', json_encode($tags));
-        $this->assertSame($tags, Publications::getPublicationTags());
+        $page = new PublicationPage(matter: [
+            'tag' => ['foo', 'bar'],
+        ], type: $type);
+
+        Hyde::kernel()->pages()->addPage($page);
+
+        $this->assertSame(['foo', 'bar'], Publications::getPublicationTags());
+    }
+
+    public function testMultipleOccurringTagsAreAggregatedUniquely()
+    {
+        $type = new PublicationType('test-publication', fields: [[
+            'name' => 'tag',
+            'type' => 'tag',
+        ]]);
+
+        Hyde::kernel()->pages()->addPage(new PublicationPage('1', [
+            'tag' => ['foo', 'bar'],
+        ], type: $type));
+
+        Hyde::kernel()->pages()->addPage(new PublicationPage('2', [
+            'tag' => ['foo', 'baz'],
+        ], type: $type));
+
+        $this->assertSame(['foo', 'bar', 'baz'], Publications::getPublicationTags());
+    }
+
+    public function testAllTagsMethodFindsBothArrayAndSingleTagValues()
+    {
+        $type = new PublicationType('test-publication', fields: [[
+            'name' => 'tag',
+            'type' => 'tag',
+        ]]);
+
+        Hyde::kernel()->pages()->addPage(new PublicationPage('1', [
+            'tag' => 'foo',
+        ], type: $type));
+
+        Hyde::kernel()->pages()->addPage(new PublicationPage('2', [
+            'tag' => ['bar', 'baz'],
+        ], type: $type));
+
+        $this->assertSame(['foo', 'bar', 'baz'], Publications::getPublicationTags());
+    }
+
+    public function testAllTagsMethodReturnsEmptyArrayWhenThereAreNoTagsUsed()
+    {
+        $this->assertSame([], Publications::getPublicationTags());
     }
 
     protected function createPublicationType(): void
