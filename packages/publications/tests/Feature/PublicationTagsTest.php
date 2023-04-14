@@ -10,8 +10,6 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
-use function json_encode;
-
 /**
  * @covers \Hyde\Publications\Models\PublicationTags
  */
@@ -79,24 +77,5 @@ class PublicationTagsTest extends TestCase
     public function canConstructNewTagsInstance()
     {
         $this->assertInstanceOf(PublicationTags::class, new PublicationTags());
-    }
-
-    public function testConstructorAutomaticallyLoadsTagsFile()
-    {
-        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
-
-        $this->assertSame(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags());
-    }
-
-    public function testConstructorAddsEmptyArrayWhenThereIsNoTagsFile()
-    {
-        $this->assertEquals([], (new PublicationTags())->getTags());
-    }
-
-    public function testGetTags()
-    {
-        $this->file('tags.yml', json_encode(['foo' => ['bar', 'baz']]));
-
-        $this->assertEquals(['foo' => ['bar', 'baz']], (new PublicationTags())->getTags());
     }
 }

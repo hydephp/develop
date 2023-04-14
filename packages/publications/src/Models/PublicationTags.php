@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Models;
 
 use Hyde\Hyde;
-use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
@@ -51,39 +50,9 @@ class PublicationTags
         return array_values(array_unique($tags));
     }
 
-    /**
-     * Get all available tags.
-     *
-     * @deprecated Use the `all()` method instead.
-     *
-     * @return array<string>
-     */
-    public static function getAllTags(): array
-    {
-        return (new self())->getTags();
-    }
-
     public function __construct()
     {
         $this->tags = $this->parseTagsFile();
-    }
-
-    /** @deprecated Use the `all()` method instead. */
-    public function getTags(): array
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Save the tags array to disk.
-     *
-     * @return $this
-     */
-    public function save(): self
-    {
-        Filesystem::putContents('tags.yml', Yaml::dump($this->tags));
-
-        return $this;
     }
 
     /** @return array<string> */
