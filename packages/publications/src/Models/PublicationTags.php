@@ -28,7 +28,6 @@ class PublicationTags
 
         /** @var PublicationPage $page */
         foreach (PublicationPage::all() as $page) {
-            // We need to get the schema, so that we know which front matter fields are tags.
             foreach ($page->getType()->getFields() as $field) {
                 if ($field->type === PublicationFieldTypes::Tag) {
                     $tags = array_merge($tags, (array) $page->matter($field->name));
