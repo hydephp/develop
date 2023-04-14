@@ -11,7 +11,7 @@ use function array_merge;
 use function array_unique;
 
 /**
- * Object representation for the tags.yml file, as well as a static facade helper.
+ * Facade for the tags used in publication pages.
  *
  * @see \Hyde\Publications\Testing\Feature\PublicationTagsTest
  */
