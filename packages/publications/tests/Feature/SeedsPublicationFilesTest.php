@@ -9,6 +9,7 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
+use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
 use function key;
@@ -132,7 +133,8 @@ class SeedsPublicationFilesTest extends TestCase
     public function testWithTagType()
     {
         $tags = ['foo', 'bar', 'baz'];
-        $this->file('tags.yml', json_encode($tags));
+        $page = new PublicationPage('test', ['tag' => $tags], type: $this->pubType);
+        $page->save();
         $this->pubType->fields = collect([
             new PublicationFieldDefinition('tag', 'tag'),
         ]);
@@ -145,6 +147,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertNotEmpty($publication->matter('tag'));
         $this->assertIsString($publication->matter('tag'));
         $this->assertTrue(in_array($publication->matter('tag'), $tags));
+        unlink($page->getSourcePath());
     }
 
     public function testWithTextType()
