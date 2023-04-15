@@ -36,7 +36,7 @@ class RelatedPublicationsComponent extends Component
         return view('hyde-publications::components.related-publications');
     }
 
-    protected function makeRelatedPublications(int $limit = 5): Collection
+    protected function makeRelatedPublications(int $limit = 5): Collection // Todo it's probably easier to return array here, and collect the method call in constructor
     {
         // Get current publicationType from the current page
         $currentHydePage = Hyde::currentRoute()->getPage();
