@@ -9,6 +9,8 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Pages\PublicationPage;
 
+use function array_map;
+
 /**
  * Called by the PublicationsExtension::discoverPages method,
  * during the HydePHP autodiscovery boot process.
