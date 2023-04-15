@@ -83,9 +83,10 @@ class GeneratesPublicationTagPages
 
         arsort($tagCounts, SORT_NUMERIC);
 
+        $pageCollection = $this->collection;
+
         // Build the index tags page
         $indexTagsPage = new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list');
-        $pageCollection = $this->collection;
         $pageCollection->addPage($indexTagsPage);
 
         // Build individual page lists for each tag
