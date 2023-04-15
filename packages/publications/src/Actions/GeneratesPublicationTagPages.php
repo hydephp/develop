@@ -57,22 +57,20 @@ class GeneratesPublicationTagPages
                     foreach ($publicationTagFieldsByName as $tagFieldName) {
                         $tags = (array) $publication->matter->get($tagFieldName);
                         foreach ($tags as $tag) {
-                            // Skip empty tags
-                            if (empty($tag)) {
-                                continue;
-                            }
+                            // Only continue if the current tag is not empty
+                            if (! empty($tag)) {
+                                // Increment tag count for the current tag
+                                if (! isset($tagCounts[$tag])) {
+                                    $tagCounts[$tag] = 0;
+                                }
+                                $tagCounts[$tag]++;
 
-                            // Increment tag count for the current tag
-                            if (! isset($tagCounts[$tag])) {
-                                $tagCounts[$tag] = 0;
+                                // Add the current publication to the list of pages for the current tag
+                                if (! isset($pagesByTag[$tag])) {
+                                    $pagesByTag[$tag] = [];
+                                }
+                                $pagesByTag[$tag][] = $publication;
                             }
-                            $tagCounts[$tag]++;
-
-                            // Add the current publication to the list of pages for the current tag
-                            if (! isset($pagesByTag[$tag])) {
-                                $pagesByTag[$tag] = [];
-                            }
-                            $pagesByTag[$tag][] = $publication;
                         }
                     }
                 }
