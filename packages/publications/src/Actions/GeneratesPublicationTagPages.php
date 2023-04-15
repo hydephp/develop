@@ -14,6 +14,8 @@ use function array_map;
  * Called by the PublicationsExtension::discoverPages method,
  * during the HydePHP autodiscovery boot process.
  *
+ * @todo: Refactor to use page models, or at the very least, view components
+ *
  * @see \Hyde\Publications\PublicationsExtension::discoverPages()
  * @see \Hyde\Publications\Testing\Feature\GeneratesPublicationTagPagesTest
  */
