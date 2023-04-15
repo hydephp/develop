@@ -31,7 +31,6 @@ class GeneratesPublicationTagPages
         $publicationTypes = Publications::getPublicationTypes();
 
         // Initialize arrays to hold tag counts and pages by tag
-        $tagCounts = [];
         /** @var array<string, array<\Hyde\Publications\Pages\PublicationPage>> $pagesByTag */
         $pagesByTag = [];
 
@@ -60,12 +59,6 @@ class GeneratesPublicationTagPages
                         foreach ($tags as $tag) {
                             // Only continue if the current tag is not empty
                             if ($tag) {
-                                // Increment tag count for the current tag
-                                if (! isset($tagCounts[$tag])) {
-                                    $tagCounts[$tag] = 0;
-                                }
-                                $tagCounts[$tag]++;
-
                                 // Add the current publication to the list of pages for the current tag
                                 if (! isset($pagesByTag[$tag])) {
                                     $pagesByTag[$tag] = [];
