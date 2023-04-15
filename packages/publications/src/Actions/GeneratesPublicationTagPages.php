@@ -34,7 +34,9 @@ class GeneratesPublicationTagPages
         $publicationTypes = Publications::getPublicationTypes();
 
         // Initialize arrays to hold tag counts and pages by tag
+        /** @var array<string, int> $tagCounts */
         $tagCounts = [];
+        /** @var array<string, array<\Hyde\Publications\Pages\PublicationPage>> $pagesByTag */
         $pagesByTag = [];
 
         // Loop through each publication type to retrieve publications and associated tags
