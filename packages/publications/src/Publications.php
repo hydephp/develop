@@ -86,7 +86,7 @@ class Publications
      * Get all pages grouped by their tags. Note that pages with multiple tags will appear multiple times.
      * It's also useful to count the number of times a tag is used.
      *
-     * @return array<string, array<PublicationPage>>
+     * @return array<string, array<\Hyde\Publications\Pages\PublicationPage>>
      */
     public static function getPublicationsGroupedByTags(): array
     {
