@@ -86,12 +86,11 @@ class GeneratesPublicationTagPages
 
         // Build individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
-            $tagPage = new InMemoryPage(
+            $pageCollection->addPage(new InMemoryPage(
                 "tags/$tag",
                 ['tag' => $tag, 'publications' => $pages],
                 view: 'hyde-publications::tags_detail'
-            );
-            $pageCollection->addPage($tagPage);
+            ));
         }
     }
 }
