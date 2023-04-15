@@ -47,35 +47,33 @@ class GeneratesPublicationTagPages
                 }
             }
 
-            // Skip the current publication type if no tag fields are found
-            if (! $publicationTagFieldsByName) {
-                continue;
-            }
+            // Only continue with current publication type if tag fields are found
+            if ($publicationTagFieldsByName) {
+                // Retrieve publications for the current publication type
+                $publications = Publications::getPublicationsForType($publicationType);
 
-            // Retrieve publications for the current publication type
-            $publications = Publications::getPublicationsForType($publicationType);
+                // Loop through each publication to retrieve associated tags
+                foreach ($publications as $publication) {
+                    foreach ($publicationTagFieldsByName as $tagFieldName) {
+                        $tags = (array) $publication->matter->get($tagFieldName);
+                        foreach ($tags as $tag) {
+                            // Skip empty tags
+                            if (empty($tag)) {
+                                continue;
+                            }
 
-            // Loop through each publication to retrieve associated tags
-            foreach ($publications as $publication) {
-                foreach ($publicationTagFieldsByName as $tagFieldName) {
-                    $tags = (array) $publication->matter->get($tagFieldName);
-                    foreach ($tags as $tag) {
-                        // Skip empty tags
-                        if (empty($tag)) {
-                            continue;
+                            // Increment tag count for the current tag
+                            if (! isset($tagCounts[$tag])) {
+                                $tagCounts[$tag] = 0;
+                            }
+                            $tagCounts[$tag]++;
+
+                            // Add the current publication to the list of pages for the current tag
+                            if (! isset($pagesByTag[$tag])) {
+                                $pagesByTag[$tag] = [];
+                            }
+                            $pagesByTag[$tag][] = $publication;
                         }
-
-                        // Increment tag count for the current tag
-                        if (! isset($tagCounts[$tag])) {
-                            $tagCounts[$tag] = 0;
-                        }
-                        $tagCounts[$tag]++;
-
-                        // Add the current publication to the list of pages for the current tag
-                        if (! isset($pagesByTag[$tag])) {
-                            $pagesByTag[$tag] = [];
-                        }
-                        $pagesByTag[$tag][] = $publication;
                     }
                 }
             }
