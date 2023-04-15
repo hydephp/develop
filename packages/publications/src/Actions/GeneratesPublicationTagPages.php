@@ -81,15 +81,12 @@ class GeneratesPublicationTagPages
             }
         }
 
-        // Retrieve the kernel page collection reference
-        $pageCollection = $this->pageCollection;
-
         // Build the index tags page
-        $pageCollection->addPage(new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list'));
+        $this->pageCollection->addPage(new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list'));
 
         // Build individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
-            $pageCollection->addPage(new InMemoryPage(
+            $this->pageCollection->addPage(new InMemoryPage(
                 "$tagsRouteBasename/$tag",
                 ['tag' => $tag, 'publications' => $pages],
                 view: 'hyde-publications::tags_detail'
