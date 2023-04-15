@@ -9,8 +9,6 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Publications;
 
-use function filled;
-
 /**
  * Called by the PublicationsExtension::discoverPages method,
  * during the HydePHP autodiscovery boot process.
@@ -62,7 +60,7 @@ class GeneratesPublicationTagPages
                         $tags = (array) $publication->matter->get($tagFieldName);
                         foreach ($tags as $tag) {
                             // Only continue if the current tag is not empty
-                            if (filled($tag)) {
+                            if ($tag) {
                                 // Increment tag count for the current tag
                                 if (! isset($tagCounts[$tag])) {
                                     $tagCounts[$tag] = 0;
