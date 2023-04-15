@@ -20,11 +20,11 @@ use function filled;
  */
 class GeneratesPublicationTagPages
 {
-    protected PageCollection $collection;
+    protected PageCollection $pageCollection;
 
     public function __construct(PageCollection $collection)
     {
-        $this->collection = $collection;
+        $this->pageCollection = $collection;
     }
 
     public function __invoke(): void
@@ -82,7 +82,7 @@ class GeneratesPublicationTagPages
         }
 
         // Retrieve the kernel page collection reference
-        $pageCollection = $this->collection;
+        $pageCollection = $this->pageCollection;
 
         // Build the index tags page
         $pageCollection->addPage(new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list'));
