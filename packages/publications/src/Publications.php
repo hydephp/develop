@@ -72,10 +72,8 @@ class Publications
 
         /** @var PublicationPage $page */
         foreach (PublicationPage::all() as $page) {
-            foreach ($page->getType()->getFields() as $field) {
-                if ($field->type === PublicationFieldTypes::Tag) {
-                    $tags = array_merge($tags, (array) $page->matter($field->name));
-                }
+            foreach ($page->getType()->getFields()->where('type', PublicationFieldTypes::Tag) as $field) {
+                $tags = array_merge($tags, (array) $page->matter($field->name));
             }
         }
 
