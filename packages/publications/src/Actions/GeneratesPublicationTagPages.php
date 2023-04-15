@@ -6,6 +6,7 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Publications;
 
 use function filled;
@@ -42,7 +43,7 @@ class GeneratesPublicationTagPages
             // Retrieve tag fields for the current publication type
             $publicationTagFieldsByName = [];
             foreach ($publicationType->getFields() as $fieldDefinition) {
-                if ($fieldDefinition->type->name === 'Tag') {
+                if ($fieldDefinition->type === PublicationFieldTypes::Tag) {
                     $publicationTagFieldsByName[] = $fieldDefinition->name;
                 }
             }
