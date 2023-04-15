@@ -8,7 +8,6 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Publications;
 
-use function arsort;
 use function filled;
 
 /**
@@ -77,8 +76,6 @@ class GeneratesPublicationTagPages
                 }
             }
         }
-
-        arsort($tagCounts, SORT_NUMERIC);
 
         // Retrieve the kernel page collection reference
         $pageCollection = $this->collection;
