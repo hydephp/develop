@@ -83,6 +83,29 @@ class Publications
     }
 
     /**
+     * Get all pages grouped by tag. It's also useful to count the number of times a tag is used.
+     *
+     * @return array<string, array<PublicationPage>>
+     */
+    public static function getPublicationsGroupedByTags(): array
+    {
+        $pagesByTag = [];
+
+        foreach (PublicationPage::all() as $publication) {
+            foreach ($publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
+                foreach ((array) $publication->matter->get($field->name) as $tag) {
+                    if ($tag) {
+                        // Add the current publication to the list of pages for the current tag
+                        $pagesByTag[$tag][] = $publication;
+                    }
+                }
+            }
+        }
+
+        return $pagesByTag;
+    }
+
+    /**
      * Check whether a given publication type exists.
      */
     public static function publicationTypeExists(string $publicationTypeName): bool

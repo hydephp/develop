@@ -6,8 +6,7 @@ namespace Hyde\Publications\Actions;
 
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Publications\Concerns\PublicationFieldTypes;
-use Hyde\Publications\Pages\PublicationPage;
+use Hyde\Publications\Publications;
 
 use function array_map;
 
@@ -37,16 +36,8 @@ class GeneratesPublicationTagPages
         $tagsRouteBasename = 'tags';
 
         // Loop through each publication to retrieve associated tags
-        foreach (PublicationPage::all() as $publication) {
-            foreach ($publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
-                foreach ((array) $publication->matter->get($field->name) as $tag) {
-                    if ($tag) {
-                        // Add the current publication to the list of pages for the current tag
-                        $pagesByTag[$tag][] = $publication;
-                    }
-                }
-            }
-        }
+
+        $pagesByTag = Publications::getPublicationsGroupedByTags();
 
         // Build the index tags page
         $this->pageCollection->addPage(new InMemoryPage('tags/index', [
