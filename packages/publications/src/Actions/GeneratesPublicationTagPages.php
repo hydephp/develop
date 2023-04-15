@@ -42,7 +42,7 @@ class GeneratesPublicationTagPages
             // Retrieve tag fields for the current publication type
             $publicationTagFieldsByName = [];
             foreach ($publicationType->getFields() as $fieldDefinition) {
-                if ($fieldDefinition->type->name == 'Tag') {
+                if ($fieldDefinition->type->name === 'Tag') {
                     $publicationTagFieldsByName[] = $fieldDefinition->name;
                 }
             }
