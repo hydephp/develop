@@ -7,7 +7,7 @@ namespace Hyde\Publications\Actions;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
-use Hyde\Publications\Publications;
+use Hyde\Publications\Pages\PublicationPage;
 
 /**
  * Called by the PublicationsExtension::discoverPages method,
@@ -27,9 +27,6 @@ class GeneratesPublicationTagPages
 
     public function __invoke(): void
     {
-        // Retrieve publication types
-        $publicationTypes = Publications::getPublicationTypes();
-
         // Initialize arrays to hold tag counts and pages by tag
         /** @var array<string, array<\Hyde\Publications\Pages\PublicationPage>> $pagesByTag */
         $pagesByTag = [];
@@ -37,31 +34,14 @@ class GeneratesPublicationTagPages
         // Set the basename for the tags route (generated pages will be located at /tags/{tag})
         $tagsRouteBasename = 'tags';
 
-        // Loop through each publication type to retrieve publications and associated tags
-        foreach ($publicationTypes as $publicationType) {
-            // Retrieve tag fields for the current publication type
-            $publicationTagFieldsByName = [];
-            foreach ($publicationType->getFields() as $fieldDefinition) {
-                if ($fieldDefinition->type === PublicationFieldTypes::Tag) {
-                    $publicationTagFieldsByName[] = $fieldDefinition->name;
-                }
-            }
-
-            // Only continue with current publication type if tag fields are found
-            if ($publicationTagFieldsByName) {
-                // Retrieve publications for the current publication type
-                $publications = Publications::getPublicationsForType($publicationType);
-
-                // Loop through each publication to retrieve associated tags
-                foreach ($publications as $publication) {
-                    foreach ($publicationTagFieldsByName as $tagFieldName) {
-                        $tags = (array) $publication->matter->get($tagFieldName);
-                        foreach ($tags as $tag) {
-                            if ($tag) {
-                                // Add the current publication to the list of pages for the current tag
-                                $pagesByTag[$tag][] = $publication;
-                            }
-                        }
+        // Loop through each publication to retrieve associated tags
+        foreach (PublicationPage::all() as $publication) {
+            foreach ($publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
+                $tags = (array) $publication->matter->get($field->name);
+                foreach ($tags as $tag) {
+                    if ($tag) {
+                        // Add the current publication to the list of pages for the current tag
+                        $pagesByTag[$tag][] = $publication;
                     }
                 }
             }
