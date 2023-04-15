@@ -38,6 +38,9 @@ class GeneratesPublicationTagPages
         /** @var array<string, array<\Hyde\Publications\Pages\PublicationPage>> $pagesByTag */
         $pagesByTag = [];
 
+        // Set the basename for the tags route (generated pages will be located at /tags/{tag})
+        $tagsRouteBasename = 'tags';
+
         // Loop through each publication type to retrieve publications and associated tags
         foreach ($publicationTypes as $publicationType) {
             // Retrieve tag fields for the current publication type
@@ -87,7 +90,7 @@ class GeneratesPublicationTagPages
         // Build individual page lists for each tag
         foreach ($pagesByTag as $tag => $pages) {
             $pageCollection->addPage(new InMemoryPage(
-                "tags/$tag",
+                "$tagsRouteBasename/$tag",
                 ['tag' => $tag, 'publications' => $pages],
                 view: 'hyde-publications::tags_detail'
             ));
