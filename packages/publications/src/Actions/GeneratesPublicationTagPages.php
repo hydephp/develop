@@ -9,6 +9,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Publications;
 
 use function arsort;
+use function filled;
 
 /**
  * Called by the PublicationsExtension::discoverPages method,
@@ -58,7 +59,7 @@ class GeneratesPublicationTagPages
                         $tags = (array) $publication->matter->get($tagFieldName);
                         foreach ($tags as $tag) {
                             // Only continue if the current tag is not empty
-                            if (! empty($tag)) {
+                            if (filled($tag)) {
                                 // Increment tag count for the current tag
                                 if (! isset($tagCounts[$tag])) {
                                     $tagCounts[$tag] = 0;
