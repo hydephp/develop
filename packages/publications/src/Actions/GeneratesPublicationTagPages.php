@@ -57,7 +57,6 @@ class GeneratesPublicationTagPages
                     foreach ($publicationTagFieldsByName as $tagFieldName) {
                         $tags = (array) $publication->matter->get($tagFieldName);
                         foreach ($tags as $tag) {
-                            // Only continue if the current tag is not empty
                             if ($tag) {
                                 // Add the current publication to the list of pages for the current tag
                                 if (! isset($pagesByTag[$tag])) {
