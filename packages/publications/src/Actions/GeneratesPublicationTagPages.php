@@ -59,9 +59,6 @@ class GeneratesPublicationTagPages
                         foreach ($tags as $tag) {
                             if ($tag) {
                                 // Add the current publication to the list of pages for the current tag
-                                if (! isset($pagesByTag[$tag])) {
-                                    $pagesByTag[$tag] = [];
-                                }
                                 $pagesByTag[$tag][] = $publication;
                             }
                         }
