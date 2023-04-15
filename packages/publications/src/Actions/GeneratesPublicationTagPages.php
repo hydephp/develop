@@ -83,6 +83,7 @@ class GeneratesPublicationTagPages
 
         arsort($tagCounts, SORT_NUMERIC);
 
+        // Retrieve the kernel page collection reference
         $pageCollection = $this->collection;
 
         // Build the index tags page
