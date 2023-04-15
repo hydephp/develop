@@ -28,8 +28,6 @@ class GeneratesPublicationTagPages
 
     public function __invoke(): void
     {
-        $collection = $this->collection;
-
         // Retrieve publication types
         $publicationTypes = Publications::getPublicationTypes();
 
@@ -87,6 +85,7 @@ class GeneratesPublicationTagPages
 
         // Build the index tags page
         $indexTagsPage = new InMemoryPage('tags/index', ['tags' => $tagCounts], view: 'hyde-publications::tags_list');
+        $collection = $this->collection;
         $pageCollection = $collection;
         $pageCollection->addPage($indexTagsPage);
 
