@@ -73,7 +73,7 @@ class Publications
 
     /**
      * Get all pages grouped by their tags. Note that pages with multiple tags will appear multiple times.
-     * It's also useful to count the number of times a tag is used.
+     * It's also useful to count the number of times a tag is used by using `array_map('count', $pagesByTag)`.
      *
      * @return array<string, array<\Hyde\Publications\Pages\PublicationPage>>
      */
