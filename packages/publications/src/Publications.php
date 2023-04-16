@@ -12,9 +12,6 @@ use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-use function array_merge;
-use function array_unique;
-use function array_values;
 use function collect;
 
 /**
