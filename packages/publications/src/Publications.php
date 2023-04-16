@@ -68,14 +68,9 @@ class Publications
      */
     public static function getPublicationTags(): array
     {
-        $pagesByTag = self::getPublicationsGroupedByTags();
-
-        $tags = [];
-        foreach ($pagesByTag as $tag => $pages) {
-            $tags[] = $tag;
-        }
-
-        return array_values(array_unique($tags));
+        return collect(self::getPublicationsGroupedByTags())->map(function (array $pages, string $tag): string {
+            return $tag;
+        })->unique()->values()->all();
     }
 
     /**
