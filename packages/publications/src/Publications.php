@@ -70,10 +70,10 @@ class Publications
     {
         $tags = [];
 
-        /** @var PublicationPage $page */
-        foreach (PublicationPage::all() as $page) {
-            foreach (self::getPublicationTagFields($page) as $field) {
-                $tags = array_merge($tags, (array) $page->matter($field->name));
+        /** @var PublicationPage $publication */
+        foreach (PublicationPage::all() as $publication) {
+            foreach (self::getPublicationTagFields($publication) as $field) {
+                $tags = array_merge($tags, (array) $publication->matter($field->name));
             }
         }
 
@@ -90,7 +90,7 @@ class Publications
     {
         $pagesByTag = [];
 
-        /** @var PublicationPage $page */
+        /** @var PublicationPage $publication */
         foreach (PublicationPage::all() as $publication) {
             foreach (self::getPublicationTagFields($publication) as $field) {
                 foreach ((array) $publication->matter->get($field->name) as $tag) {
