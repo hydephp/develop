@@ -12,6 +12,9 @@ use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function array_keys;
+use function array_unique;
+use function array_values;
 use function collect;
 
 /**
@@ -65,7 +68,7 @@ class Publications
      */
     public static function getPublicationTags(): array
     {
-        return collect(self::getPublicationsGroupedByTags())->map(fn(array $pages, string $tag): string => $tag)->unique()->values()->all();
+        return array_values(array_unique(array_keys(self::getPublicationsGroupedByTags())));
     }
 
     /**
