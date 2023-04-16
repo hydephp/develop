@@ -68,13 +68,11 @@ class Publications
      */
     public static function getPublicationTags(): array
     {
-        $tags = [];
+        $pagesByTag = self::getPublicationsGroupedByTags();
 
-        /** @var PublicationPage $publication */
-        foreach (PublicationPage::all() as $publication) {
-            foreach (self::getPublicationTagFields($publication) as $field) {
-                $tags = array_merge($tags, (array) $publication->matter($field->name));
-            }
+        $tags = [];
+        foreach ($pagesByTag as $tag => $pages) {
+            $tags[] = $tag;
         }
 
         return array_values(array_unique($tags));
