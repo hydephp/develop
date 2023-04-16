@@ -28,14 +28,8 @@ class GeneratesPublicationTagPages
 
     public function __invoke(): void
     {
-        // Initialize arrays to hold tag counts and pages by tag
-        /** @var array<string, array<\Hyde\Publications\Pages\PublicationPage>> $pagesByTag */
-        $pagesByTag = [];
-
         // Set the basename for the tags route (generated pages will be located at /tags/{tag})
         $tagsRouteBasename = 'tags';
-
-        // Loop through each publication to retrieve associated tags
 
         $pagesByTag = Publications::getPublicationsGroupedByTags();
 
