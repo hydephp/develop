@@ -72,7 +72,7 @@ class Publications
 
         /** @var PublicationPage $page */
         foreach (PublicationPage::all() as $page) {
-            foreach ($page->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
+            foreach (self::getPublicationTagFields($page) as $field) {
                 $tags = array_merge($tags, (array) $page->matter($field->name));
             }
         }
@@ -92,7 +92,7 @@ class Publications
 
         /** @var PublicationPage $page */
         foreach (PublicationPage::all() as $publication) {
-            foreach ($publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
+            foreach (self::getPublicationTagFields($publication) as $field) {
                 foreach ((array) $publication->matter->get($field->name) as $tag) {
                     $pagesByTag[$tag][] = $publication;
                 }
@@ -108,5 +108,10 @@ class Publications
     public static function publicationTypeExists(string $publicationTypeName): bool
     {
         return static::getPublicationTypes()->has(Str::slug($publicationTypeName));
+    }
+
+    protected static function getPublicationTagFields(PublicationPage $publication): Collection
+    {
+        return $publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag);
     }
 }
