@@ -94,7 +94,6 @@ class Publications
         foreach (PublicationPage::all() as $publication) {
             foreach ($publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
                 foreach ((array) $publication->matter->get($field->name) as $tag) {
-                    // Add the current publication to the list of pages for the current tag
                     $pagesByTag[$tag][] = $publication;
                 }
             }
