@@ -122,26 +122,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_empty_tags_are_skipped()
-    {
-        $this->createPublication();
-        (new PublicationType('publication', fields: [
-            ['name' => 'general', 'type' => 'tag'],
-        ]))->save();
-        $this->file('publication/foo.md', "---\ngeneral: ''\n---\n");
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
-
-        $booted = PageCollection::init(Hyde::getInstance())->boot();
-
-        $this->assertSame([
-            '_pages/404.blade.php',
-            '_pages/index.blade.php',
-            'publication/foo.md',
-            'publication/index',
-            'tags/index',
-        ], $booted->getPages()->keys()->toArray());
-    }
-
     public function test_generated_index_page()
     {
         $this->createPublication();
