@@ -90,6 +90,7 @@ class Publications
     {
         $pagesByTag = [];
 
+        /** @var PublicationPage $page */
         foreach (PublicationPage::all() as $publication) {
             foreach ($publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag) as $field) {
                 foreach ((array) $publication->matter->get($field->name) as $tag) {
