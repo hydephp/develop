@@ -93,7 +93,7 @@ class Publications
         /** @var PublicationPage $publication */
         foreach (PublicationPage::all() as $publication) {
             foreach (self::getPublicationTagFields($publication) as $field) {
-                foreach ((array) $publication->matter->get($field->name) as $tag) {
+                foreach ((array) $publication->matter($field->name) as $tag) {
                     $pagesByTag[$tag][] = $publication;
                 }
             }
