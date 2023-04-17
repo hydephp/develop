@@ -428,8 +428,6 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_tag_input_with_no_tags()
     {
-        $this->markTestSkipped('Currently being refactored');
-
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -441,12 +439,11 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->expectsOutput('Warning: No tags found in tags.yml')
-            ->expectsConfirmation('Would you like to skip this field?')
-            ->expectsOutput('Error: Unable to locate any tags for this publication type')
-            ->assertExitCode(1);
+            ->expectsQuestion(/** @lang Text */'Select from existing or', '<comment>Add new tag</comment>')
+            ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo, bar')
+            ->assertExitCode(0);
 
-        $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
     public function test_handleEmptyOptionsCollection_for_required_field()
