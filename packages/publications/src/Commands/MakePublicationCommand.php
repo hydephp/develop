@@ -173,7 +173,8 @@ class MakePublicationCommand extends ValidatingCommand
             '<comment>Add new tag</comment>',
         ], $existingTags), 0, multiple: true);
 
-        if ((is_array($choice) ? $choice[0] : $choice) === '<comment>Add new tag</comment>') {
+        $addNew = (is_array($choice) ? $choice[0] : $choice) === '<comment>Add new tag</comment>';
+        if ($addNew) {
             $choice = $this->askWithCompletion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>',
                 $existingTags);
 
