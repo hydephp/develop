@@ -328,9 +328,9 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_single_tag_input()
     {
-        $this->file('tags.yml', json_encode([
-            'test-publication' => ['foo', 'bar', 'baz'],
-        ]));
+        $this->markdown('test-publication/existing.md', matter: [
+            'tag' => ['foo', 'bar', 'baz'],
+        ]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -352,9 +352,9 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_multiple_tag_inputs()
     {
-        $this->file('tags.yml', json_encode([
-            'test-publication' => ['foo', 'bar', 'baz'],
-        ]));
+        $this->markdown('test-publication/existing.md', matter: [
+            'tags' => ['foo', 'bar', 'baz'],
+        ]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
