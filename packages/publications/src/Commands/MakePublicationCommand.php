@@ -169,11 +169,16 @@ class MakePublicationCommand extends ValidatingCommand
 
         $existingTags = Publications::getPublicationTags();
 
-        $choice = $this->choice(/** @lang Text */ 'Select from existing or', array_merge([
-            '<comment>Add new tag</comment>',
-        ], $existingTags), 0, multiple: true);
+        if ($existingTags) {
+            $choice = $this->choice(/** @lang Text */ 'Select from existing or', array_merge([
+                '<comment>Add new tag</comment>',
+            ], $existingTags), 0, multiple: true);
 
-        $addNew = (is_array($choice) ? $choice[0] : $choice) === '<comment>Add new tag</comment>';
+            $addNew = (is_array($choice) ? $choice[0] : $choice) === '<comment>Add new tag</comment>';
+        } else {
+            $addNew = true;
+        }
+
         if ($addNew) {
             $choice = $this->askWithCompletion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>',
                 $existingTags);

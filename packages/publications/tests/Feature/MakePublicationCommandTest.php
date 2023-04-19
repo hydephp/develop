@@ -439,8 +439,6 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-            // TODO should not show first question when no tags exist
-            ->expectsQuestion(/** @lang Text */'Select from existing or', '<comment>Add new tag</comment>')
             ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo, bar')
             ->assertExitCode(0);
 
