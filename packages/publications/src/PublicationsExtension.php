@@ -65,7 +65,7 @@ class PublicationsExtension extends HydeExtension
     {
         $this->discoverPublicationPages($collection);
 
-        // TODO this cannot be done as tags.yml is removed
+        // FIXME this cannot be done as tags.yml is removed
         if (Filesystem::exists('tags.yml')) {
             $this->generatePublicationTagPages($collection);
         }
