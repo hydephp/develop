@@ -65,8 +65,7 @@ class PublicationsExtension extends HydeExtension
     {
         $this->discoverPublicationPages($collection);
 
-        // FIXME this cannot be done as tags.yml is removed
-        if (Filesystem::exists('tags.yml')) {
+        if (self::shouldGeneratePublicationTagPages()) {
             $this->generatePublicationTagPages($collection);
         }
     }
@@ -138,5 +137,12 @@ class PublicationsExtension extends HydeExtension
     protected function getPublicationFilesForType(PublicationType $type): array
     {
         return $this->getPublicationFiles($type->getDirectory());
+    }
+
+    protected static function shouldGeneratePublicationTagPages(): bool
+    {
+        // FIXME this cannot be done as tags.yml is removed
+
+        return Filesystem::exists('tags.yml');
     }
 }
