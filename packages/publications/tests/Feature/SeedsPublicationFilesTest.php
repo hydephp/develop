@@ -12,8 +12,6 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
-use function key;
-
 /**
  * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
  */
