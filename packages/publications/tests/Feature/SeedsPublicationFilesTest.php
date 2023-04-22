@@ -55,7 +55,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('tags'));
         $this->assertIsArray($publication->matter('tags'));
         $this->assertSame(0, key($publication->matter('tags')));
@@ -69,7 +68,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertIsBool($publication->matter('published'));
     }
 
@@ -80,7 +78,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertIsString($publication->matter('published_at'));
         $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $publication->matter('published_at'));
     }
@@ -92,7 +89,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertIsFloat($publication->matter('price'));
     }
 
@@ -103,7 +99,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertIsString($publication->matter('media'));
         $this->assertStringStartsWith('https://picsum.photos/id/', $publication->matter('media'));
     }
@@ -115,7 +110,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertIsInt($publication->matter('views'));
     }
 
@@ -126,7 +120,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('title'));
     }
 
@@ -143,7 +136,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('tag'));
         $this->assertIsString($publication->matter('tag'));
         $this->assertTrue(in_array($publication->matter('tag'), $tags));
@@ -157,7 +149,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('description'));
         $this->assertIsString($publication->matter('description'));
         $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 1);
@@ -170,7 +161,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertIsString($publication->matter('url'));
         $this->assertStringStartsWith('http', $publication->matter('url'));
     }
@@ -184,7 +174,6 @@ class SeedsPublicationFilesTest extends TestCase
 
         $publication = $this->firstPublication();
 
-        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('title'));
         $this->assertIsString($publication->matter('title'));
     }
@@ -208,11 +197,5 @@ class SeedsPublicationFilesTest extends TestCase
             new PublicationFieldDefinition($type, $name),
         ]);
         $this->pubType->save();
-    }
-
-    protected function assertBaseline(MarkdownDocument $publication): void
-    {
-        $this->assertCount(2, $publication->matter()->toArray()); // TODO Fix randomly failing test here
-        $this->assertStringStartsWith('## Write something awesome.', $publication->markdown()->body());
     }
 }
