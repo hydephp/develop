@@ -42,12 +42,12 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile();
 
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
-             ->expectsOutput('Creating a new publication of type [test-publication]')
-             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('All done! Created file [test-publication/hello-world.md]')
-             ->assertExitCode(0);
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
+            ->expectsOutput('Creating a new publication of type [test-publication]')
+            ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
+            ->expectsOutput('All done! Created file [test-publication/hello-world.md]')
+            ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
         $this->assertPublicationFileWasCreatedCorrectly();
@@ -57,9 +57,9 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->throwOnConsoleException(false);
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new publication!')
-             ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
-             ->assertExitCode(1);
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
+            ->assertExitCode(1);
     }
 
     public function test_command_selects_the_right_publication_using_the_names()
@@ -110,14 +110,14 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
-             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('Error: A publication already exists with the same canonical field value')
-             ->expectsConfirmation('Do you wish to overwrite the existing file?')
-             ->expectsOutput('Exiting without overwriting existing publication file!')
-             ->doesntExpectOutput('Publication created successfully!')
-             ->assertExitCode(130);
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
+            ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
+            ->expectsOutput('Error: A publication already exists with the same canonical field value')
+            ->expectsConfirmation('Do you wish to overwrite the existing file?')
+            ->expectsOutput('Exiting without overwriting existing publication file!')
+            ->doesntExpectOutput('Publication created successfully!')
+            ->assertExitCode(130);
 
         $this->assertSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
@@ -128,12 +128,12 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
-             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('Error: A publication already exists with the same canonical field value')
-             ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
-             ->assertExitCode(0);
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
+            ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
+            ->expectsOutput('Error: A publication already exists with the same canonical field value')
+            ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
+            ->assertExitCode(0);
 
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
@@ -144,10 +144,10 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication', ['--force' => true])
-             ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
-             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->assertExitCode(0);
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
+            ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
+            ->assertExitCode(0);
 
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
@@ -157,10 +157,10 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile();
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Creating a new publication of type [test-publication]')
-             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('All done! Created file [test-publication/hello-world.md]')
-             ->assertExitCode(0);
+            ->expectsOutput('Creating a new publication of type [test-publication]')
+            ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
+            ->expectsOutput('All done! Created file [test-publication/hello-world.md]')
+            ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
         $this->assertPublicationFileWasCreatedCorrectly();
@@ -172,8 +172,8 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile();
 
         $this->artisan('make:publication foo')
-             ->expectsOutput('Error: Unable to locate publication type [foo]')
-             ->assertExitCode(1);
+            ->expectsOutput('Error: Unable to locate publication type [foo]')
+            ->assertExitCode(1);
     }
 
     public function test_command_with_schema_using_canonical_meta_field()
@@ -184,7 +184,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->assertExitCode(0);
+            ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(
@@ -230,7 +230,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->assertExitCode(0);
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('description: |
@@ -251,7 +251,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
         $this->artisan('make:publication test-publication')
             ->expectsQuestion('Enter data for field </>[<comment>published</comment>]', 'true')
-             ->assertExitCode(0);
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('published: true');
@@ -270,7 +270,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->assertExitCode(0);
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals(
@@ -295,8 +295,8 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/image.jpg')
-             ->assertExitCode(0);
+            ->expectsQuestion('Which file would you like to use?', '_media/test-publication/image.jpg')
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('media: _media/test-publication/image.jpg');
@@ -319,8 +319,8 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/bar.png')
-             ->assertExitCode(0);
+            ->expectsQuestion('Which file would you like to use?', '_media/test-publication/bar.png')
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('media: _media/test-publication/bar.png');
@@ -328,9 +328,9 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_single_tag_input()
     {
-        $this->file('tags.yml', json_encode([
-            'test-publication' => ['foo', 'bar', 'baz'],
-        ]));
+        $this->markdown('test-publication/existing.md', matter: [
+            'tag' => ['foo', 'bar', 'baz'],
+        ]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -341,8 +341,9 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion('Which tag would you like to use?', 'foo')
-             ->assertExitCode(0);
+            ->expectsQuestion(/** @lang Text */'Select from existing or', '<comment>Add new tag</comment>')
+            ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo')
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
 
@@ -351,9 +352,9 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_multiple_tag_inputs()
     {
-        $this->file('tags.yml', json_encode([
-            'test-publication' => ['foo', 'bar', 'baz'],
-        ]));
+        $this->markdown('test-publication/existing.md', matter: [
+            'tags' => ['foo', 'bar', 'baz'],
+        ]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
@@ -363,10 +364,10 @@ class MakePublicationCommandTest extends TestCase
             ],
         ]);
 
-        /** @noinspection PhpParamsInspection as array is allowed by this method */
         $this->artisan('make:publication test-publication')
-             ->expectsQuestion('Which tag would you like to use?', ['foo', 'bar'])
-             ->assertExitCode(0);
+            ->expectsQuestion(/** @lang Text */'Select from existing or', '<comment>Add new tag</comment>')
+            ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo, bar')
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('tags:
@@ -387,10 +388,10 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
-             ->expectsConfirmation('Would you like to skip this field?')
-             ->expectsOutput('Error: Unable to locate any media files for this publication type')
-             ->assertExitCode(1);
+            ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
+            ->expectsConfirmation('Would you like to skip this field?')
+            ->expectsOutput('Error: Unable to locate any media files for this publication type')
+            ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
@@ -407,10 +408,10 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
-             ->expectsConfirmation('Would you like to skip this field?', 'yes')
-             ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
-             ->assertExitCode(0);
+            ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
+            ->expectsConfirmation('Would you like to skip this field?', 'yes')
+            ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertEquals(
@@ -438,43 +439,10 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags found in tags.yml')
-             ->expectsConfirmation('Would you like to skip this field?')
-             ->expectsOutput('Error: Unable to locate any tags for this publication type')
-             ->assertExitCode(1);
+            ->expectsQuestion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>', 'foo, bar')
+            ->assertExitCode(0);
 
-        $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
-    }
-
-    public function test_tag_input_with_no_tags_but_skips()
-    {
-        $this->makeSchemaFile([
-            'canonicalField' => '__createdAt',
-            'fields'         =>  [[
-                'type' => 'tag',
-                'name' => 'tag',
-            ],
-            ],
-        ]);
-
-        $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags found in tags.yml')
-             ->expectsConfirmation('Would you like to skip this field?', 'yes')
-             ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
-             // ->doesntExpectOutput('Error: Unable to locate any tags') // TODO: Change to this
-             ->assertExitCode(0);
-
-        $this->assertDatedPublicationExists();
-        $this->assertEquals(
-            <<<'MARKDOWN'
-            ---
-            __createdAt: 2022-01-01T00:00:00+00:00
-            ---
-            
-            ## Write something awesome.
-            
-            
-            MARKDOWN, $this->getDatedPublicationContents());
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
     public function test_handleEmptyOptionsCollection_for_required_field()
@@ -483,16 +451,16 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
-                'type' => 'tag',
-                'name' => 'tag',
+                'type' => 'media',
+                'name' => 'media',
                 'rules' => ['required'],
             ],
             ],
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->doesntExpectOutput('Warning: No tags found in tags.yml')
-            ->expectsOutput('Error: Unable to create publication: No tags found in tags.yml')
+            ->doesntExpectOutput('Warning: No media files found in directory _media/test-publication/')
+            ->expectsOutput('Error: Unable to create publication: No media files found in directory _media/test-publication/')
             ->assertExitCode(1);
     }
 

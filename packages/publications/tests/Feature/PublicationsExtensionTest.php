@@ -168,9 +168,13 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_publication_tag_list_pages_are_generated()
     {
-        $this->createPublication();
+        $this->directory('publication');
 
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+        (new PublicationType('publication', fields: [
+            ['name' => 'tags', 'type' => 'tag'],
+        ]))->save();
+
+        $this->markdown('publication/foo.md', matter: ['tags' => ['foo', 'bar']]);
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -184,7 +188,6 @@ class PublicationsExtensionTest extends TestCase
             ['name' => 'tags', 'type' => 'tag'],
         ]))->save();
 
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
         $this->markdown('publication/foo.md', matter: ['tags' => ['foo', 'bar']]);
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
@@ -229,9 +232,13 @@ class PublicationsExtensionTest extends TestCase
 
     public function test_publication_tag_list_routes_are_discovered()
     {
-        $this->createPublication();
+        $this->directory('publication');
 
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+        (new PublicationType('publication', fields: [
+            ['name' => 'tag', 'type' => 'tag'],
+        ]))->save();
+
+        $this->markdown('publication/foo.md', matter: ['tag' => ['foo']]);
 
         $booted = RouteCollection::init(Hyde::getInstance())->boot();
         $routes = $booted->getRoutes()->keys()->toArray();
@@ -240,12 +247,13 @@ class PublicationsExtensionTest extends TestCase
             'publication/foo',
             'publication/index',
             'tags/index',
+            'tags/foo',
         ], $routes);
 
         // test tags
         $tagPage = $booted->getRoutes()->get('tags/index')->getPage();
         $this->assertInstanceOf(InMemoryPage::class, $tagPage);
-        $this->assertSame([], $tagPage->matter('tags'));
+        $this->assertSame(['foo' => 1], $tagPage->matter('tags'));
     }
 
     public function test_publication_tag_list_routes_with_tags_are_discovered()
@@ -255,7 +263,6 @@ class PublicationsExtensionTest extends TestCase
             ['name' => 'tags', 'type' => 'tag'],
         ]))->save();
 
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
         $this->markdown('publication/foo.md', matter: ['tags' => ['foo', 'bar']]);
 
         $booted = RouteCollection::init(Hyde::getInstance())->boot();

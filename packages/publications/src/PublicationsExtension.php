@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -65,7 +64,7 @@ class PublicationsExtension extends HydeExtension
     {
         $this->discoverPublicationPages($collection);
 
-        if (Filesystem::exists('tags.yml')) {
+        if (self::shouldGeneratePublicationTagPages()) {
             $this->generatePublicationTagPages($collection);
         }
     }
@@ -137,5 +136,10 @@ class PublicationsExtension extends HydeExtension
     protected function getPublicationFilesForType(PublicationType $type): array
     {
         return $this->getPublicationFiles($type->getDirectory());
+    }
+
+    protected static function shouldGeneratePublicationTagPages(): bool
+    {
+        return count(Publications::getPublicationTags()) > 0;
     }
 }

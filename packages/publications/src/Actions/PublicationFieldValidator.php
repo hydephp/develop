@@ -11,7 +11,6 @@ use Hyde\Publications\Publications;
 use Illuminate\Contracts\Validation\Validator;
 
 use function array_merge;
-use function collect;
 use function validator;
 
 /**
@@ -52,8 +51,8 @@ class PublicationFieldValidator
         }
 
         if ($this->fieldDefinition->type == PublicationFieldTypes::Tag) {
-            $tagValues = Publications::getAllTags() ?? collect([]);
-            $valueList = $tagValues->implode(',');
+            $tagValues = Publications::getPublicationTags() ?? [];
+            $valueList = implode(',', $tagValues);
 
             return ["in:$valueList"];
         }

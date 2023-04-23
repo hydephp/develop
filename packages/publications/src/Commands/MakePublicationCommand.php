@@ -17,6 +17,9 @@ use Hyde\Publications\Actions\CreatesNewPublicationPage;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
+use function array_map;
+use function array_merge;
+use function explode;
 use function implode;
 use function sprintf;
 use function in_array;
@@ -162,21 +165,26 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $this->infoComment(/** @lang Text */ "Select a tag for field [$field->name]");
+        $this->infoComment("Select one or more tags for field [$field->name]");
 
-        $options = Publications::getAllTags();
-        if ($options->isEmpty()) {
-            // TODO: Add option to create a new tag
-            return $this->handleEmptyOptionsCollection($field, 'tag', 'No tags found in tags.yml');
+        $existingTags = Publications::getPublicationTags();
+
+        if ($existingTags) {
+            $choice = $this->choice(/** @lang Text */ 'Select from existing or', array_merge([
+                '<comment>Add new tag</comment>',
+            ], $existingTags), 0, multiple: true);
+
+            $addNew = (is_array($choice) ? $choice[0] : $choice) === '<comment>Add new tag</comment>';
+        } else {
+            $addNew = true;
         }
 
-        $this->tip('You can enter multiple tags separated by commas');
+        if ($addNew) {
+            $choice = $this->askWithCompletion('Enter tag(s) <fg=gray>(multiple tags separated by commas)</>',
+                $existingTags);
 
-        $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
-            'Which tag would you like to use?',
-            'Reload tags.yml',
-            true
-        );
+            $choice = $this->parseCommaSeparatedValues($choice);
+        }
 
         return new PublicationFieldValue(PublicationFieldTypes::Tag, $choice);
     }
@@ -221,7 +229,12 @@ class MakePublicationCommand extends ValidatingCommand
     protected function getReloadableTagValuesArrayClosure(): Closure
     {
         return function (): array {
-            return Publications::getAllTags()->toArray();
+            return Publications::getPublicationTags();
         };
+    }
+
+    protected function parseCommaSeparatedValues(string $choice): array
+    {
+        return array_map('trim', explode(',', $choice));
     }
 }

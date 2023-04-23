@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Hyde\Publications;
 
 use Hyde\Hyde;
-use Hyde\Publications\Models\PublicationTags;
+use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function array_keys;
+use function array_unique;
+use function array_values;
 use function collect;
 
 /**
@@ -57,11 +60,39 @@ class Publications
     }
 
     /**
-     * Get all available tags.
+     * Get all available tags used in the publications.
+     *
+     * The tags are aggregated from the front matter of all publication pages, where the field type is "tag".
+     *
+     * @return array<string>
      */
-    public static function getAllTags(): Collection
+    public static function getPublicationTags(): array
     {
-        return PublicationTags::getAllTags();
+        return array_values(array_unique(array_keys(self::getPublicationsGroupedByTags())));
+    }
+
+    /**
+     * Get all pages grouped by their tags. Note that pages with multiple tags will appear multiple times.
+     * It's also useful to count the number of times a tag is used by using `array_map('count', $pagesByTag)`.
+     *
+     * @experimental May be renamed to `getPublicationsGroupedByTags` before release.
+     *
+     * @return array<string, array<\Hyde\Publications\Pages\PublicationPage>>
+     */
+    public static function getPublicationsGroupedByTags(): array
+    {
+        $pagesByTag = [];
+
+        /** @var PublicationPage $publication */
+        foreach (PublicationPage::all() as $publication) {
+            foreach (self::getPublicationTagFields($publication) as $field) {
+                foreach ((array) $publication->matter($field->name) as $tag) {
+                    $pagesByTag[$tag][] = $publication;
+                }
+            }
+        }
+
+        return $pagesByTag;
     }
 
     /**
@@ -70,5 +101,10 @@ class Publications
     public static function publicationTypeExists(string $publicationTypeName): bool
     {
         return static::getPublicationTypes()->has(Str::slug($publicationTypeName));
+    }
+
+    protected static function getPublicationTagFields(PublicationPage $publication): Collection
+    {
+        return $publication->getType()->getFields()->whereStrict('type', PublicationFieldTypes::Tag);
     }
 }
