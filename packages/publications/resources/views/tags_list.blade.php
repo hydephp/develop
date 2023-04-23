@@ -7,7 +7,7 @@
             <ol>
                 @foreach($tags as $tag => $count)
                     <li>
-                        <x-link :href="Route::get('tags/'.$tag)">
+                        <x-link :href="Routes::get('tags/'.$tag)">
                             <span>{{ $tag }}</span>
                             <small>({{ $count }})</small>
                         </x-link>
