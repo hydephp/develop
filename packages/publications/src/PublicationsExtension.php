@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications;
 
-use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -141,8 +140,6 @@ class PublicationsExtension extends HydeExtension
 
     protected static function shouldGeneratePublicationTagPages(): bool
     {
-        // FIXME this cannot be done as tags.yml is removed
-
-        return Filesystem::exists('tags.yml');
+        return count(Publications::getPublicationTags()) > 0;
     }
 }

@@ -16,9 +16,20 @@ use Hyde\Testing\TestCase;
  */
 class GeneratesPublicationTagPagesTest extends TestCase
 {
-    public function test_tags_index_page_is_generated_when_tags_file_exists()
+    public function test_tags_index_page_is_generated_when_tags_are_used()
     {
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
+        $this->directory('test-publication');
+
+        $type = new PublicationType('test-publication', fields: [[
+            'name' => 'tag',
+            'type' => 'tag',
+        ]]);
+        $type->save();
+
+        $page = new PublicationPage('foo', [
+            'tag' => 'bar',
+        ], type: $type);
+        $page->save();
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -30,33 +41,20 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->assertSame([
             '_pages/404.blade.php',
             '_pages/index.blade.php',
+            'test-publication/foo.md',
+            'test-publication/index',
             'tags/index',
+            'tags/bar',
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_tags_index_page_is_not_generated_when_tags_file_does_not_exist()
+    public function test_tags_index_page_is_not_generated_when_tags_are_not_used()
     {
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
         $this->assertSame([
             '_pages/404.blade.php',
             '_pages/index.blade.php',
-        ], $booted->getPages()->keys()->toArray());
-    }
-
-    public function test_no_tags_pages_for_publications_are_generated_when_no_publication_types_have_tag_fields()
-    {
-        $this->directory('publication');
-        (new PublicationType('publication'))->save();
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
-
-        $booted = PageCollection::init(Hyde::getInstance())->boot();
-
-        $this->assertSame([
-            '_pages/404.blade.php',
-            '_pages/index.blade.php',
-            'publication/index',
-            'tags/index',
         ], $booted->getPages()->keys()->toArray());
     }
 
@@ -67,7 +65,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
             ['name' => 'general', 'type' => 'tag'],
         ]))->save();
         $this->file('publication/foo.md', "---\ngeneral: foo\n---\n");
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -88,7 +85,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
             ['name' => 'general', 'type' => 'tag'],
         ]))->save();
         $this->markdown('publication/foo.md', matter: ['general' => ['foo', 'bar']]);
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -109,7 +105,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
         (new PublicationType('publication', fields: [
             ['name' => 'general', 'type' => 'tag'],
         ]))->save();
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -118,7 +113,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
             '_pages/index.blade.php',
             'publication/foo.md',
             'publication/index',
-            'tags/index',
         ], $booted->getPages()->keys()->toArray());
     }
 
@@ -131,7 +125,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->file('publication/foo.md', "---\ngeneral: 'foo'\n---\n");
         $this->file('publication/bar.md', "---\ngeneral: 'bar'\n---\n");
         $this->file('publication/baz.md', "---\ngeneral: 'bar'\n---\n");
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -156,7 +149,6 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->file('publication/foo.md', "---\ngeneral: 'foo'\n---\n");
         $this->file('publication/bar.md', "---\ngeneral: 'bar'\n---\n");
         $this->file('publication/baz.md', "---\ngeneral: 'bar'\n---\n");
-        $this->file('tags.yml', "general:\n    - foo\n    - bar\n    - baz\n");
 
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
