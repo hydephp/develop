@@ -132,12 +132,12 @@ class SeedsPublicationFilesTest extends TestCase
         $this->pubType->save();
         (new SeedsPublicationFiles($this->pubType))->create();
 
+        unlink($page->getSourcePath());
         $publication = $this->firstPublication();
 
         $this->assertNotEmpty($publication->matter('tag'));
         $this->assertIsString($publication->matter('tag'));
         $this->assertTrue(in_array($publication->matter('tag'), $tags));
-        unlink($page->getSourcePath());
     }
 
     public function testWithTextType()
