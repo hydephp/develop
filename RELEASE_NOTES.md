@@ -23,7 +23,7 @@ This serves two purposes:
 - Removed the Tailwind safelist from the hyde/hyde package (as it is not required there) in https://github.com/hydephp/develop/pull/1362
 
 ### Fixed
-- for any bug fixes.
+- Fixed two improper type annotations in `FrontMatter` methods
 
 ### Security
 - in case of vulnerabilities.
