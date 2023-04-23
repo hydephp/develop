@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Commands;
 
-use Closure;
 use Hyde\Hyde;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
@@ -218,19 +217,6 @@ class MakePublicationCommand extends ValidatingCommand
         } else {
             throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
         }
-    }
-
-    protected function tip(string $message): void
-    {
-        $this->line("<fg=bright-blue>Tip:</> $message");
-    }
-
-    /** @return Closure<array<string>> */
-    protected function getReloadableTagValuesArrayClosure(): Closure
-    {
-        return function (): array {
-            return Publications::getPublicationTags();
-        };
     }
 
     protected function parseCommaSeparatedValues(string $choice): array
