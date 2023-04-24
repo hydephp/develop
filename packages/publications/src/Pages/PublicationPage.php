@@ -50,7 +50,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function compile(): string
     {
-        return $this->renderComponent();
+        return PublicationPageCompiler::call($this);
     }
 
     public static function parse(string $identifier): self
@@ -72,11 +72,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     public static function pathToIdentifier(string $path): string
     {
         return Str::before($path, static::fileExtension());
-    }
-
-    protected function renderComponent(): string
-    {
-        return PublicationPageCompiler::call($this);
     }
 
     protected static function normalizeIdentifier(string $directory, string $identifier): string
