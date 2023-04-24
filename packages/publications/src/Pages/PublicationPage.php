@@ -25,7 +25,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 {
     use ValidatesExistence;
 
-    public PublicationType $type;
+    public readonly PublicationType $type;
 
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
