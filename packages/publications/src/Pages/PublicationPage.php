@@ -38,9 +38,9 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '', ?PublicationType $type = null)
     {
-        $this->type = $type;
-
         parent::__construct(static::normalizeIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
+
+        $this->type = $type;
     }
 
     public function getType(): PublicationType
