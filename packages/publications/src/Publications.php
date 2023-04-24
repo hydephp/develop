@@ -41,8 +41,8 @@ class Publications
     {
         $publications = Hyde::pages()->getPages(PublicationPage::class);
 
-        $sortAscending = $sortAscending !== null ? $sortAscending : $publicationType->sortAscending;
-        $sortField = $sortField !== null ? $sortField : $publicationType->sortField;
+        $sortAscending ??= $publicationType->sortAscending;
+        $sortField ??= $publicationType->sortField;
 
         return $publications->sortBy(function (PublicationPage $page) use ($sortField): mixed {
             return $page->matter($sortField);
