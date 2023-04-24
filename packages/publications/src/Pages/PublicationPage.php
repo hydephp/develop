@@ -25,7 +25,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 {
     use ValidatesExistence;
 
-    // Fixme: can we make this private or protected without breaking other stuff?
     public PublicationType $type;
 
     public static string $sourceDirectory = '';
