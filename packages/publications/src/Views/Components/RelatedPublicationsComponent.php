@@ -26,7 +26,7 @@ class RelatedPublicationsComponent extends Component
 
     public function __construct(string $title = 'Related Publications', int $limit = 5)
     {
-        $this->relatedPublications = $this->makeRelatedPublications($limit);
+        $this->relatedPublications = collect($this->makeRelatedPublications($limit));
         $this->title = $title;
     }
 
@@ -36,14 +36,14 @@ class RelatedPublicationsComponent extends Component
         return view('hyde-publications::components.related-publications');
     }
 
-    protected function makeRelatedPublications(int $limit = 5): Collection // Todo it's probably easier to return array here, and collect the method call in constructor
+    protected function makeRelatedPublications(int $limit = 5): array
     {
         // Get current publicationType from the current page
         $currentHydePage = Hyde::currentRoute()->getPage();
 
         // If not a publication page, exit early
         if (! $currentHydePage instanceof PublicationPage) {
-            return collect();
+            return [];
         }
 
         $publicationType = $currentHydePage->getType();
@@ -53,19 +53,19 @@ class RelatedPublicationsComponent extends Component
             return $field->type === PublicationFieldTypes::Tag;
         });
         if ($publicationTypeTagFields->isEmpty()) {
-            return collect();
+            return [];
         }
 
         // Get a list of all pages for this page's publicationType: 1 means we only have current page & no related pages exist
         $publicationPages = Publications::getPublicationsForType($publicationType)->keyBy('identifier');
         if ($publicationPages->count() <= 1) {
-            return collect();
+            return [];
         }
 
         // Get all tags for the current page
         $currentPageTags = $this->getTagsForPage($publicationPages->get($currentHydePage->getIdentifier()), $publicationTypeTagFields);
         if ($currentPageTags->isEmpty()) {
-            return collect();
+            return [];
         }
 
         // Forget the current page pages since we don't want to show it as a related page against itself
@@ -74,11 +74,11 @@ class RelatedPublicationsComponent extends Component
         // Get all related pages
         $allRelatedPages = $this->getAllRelatedPages($publicationPages, $publicationTypeTagFields, $currentPageTags);
         if ($allRelatedPages->isEmpty()) {
-            return collect();
+            return [];
         }
 
         // Sort them by relevance (count of shared tags & newest dates)
-        return $this->sortRelatedPagesByRelevance($allRelatedPages, $limit);
+        return $this->sortRelatedPagesByRelevance($allRelatedPages, $limit)->all();
     }
 
     protected function getTagsForPage(PublicationPage $publicationPage, Collection $tagFields): Collection
