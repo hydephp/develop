@@ -180,8 +180,10 @@ class MakePublicationCommand extends ValidatingCommand
         $this->newLine();
         $this->warn("<fg=red>Warning:</> $message");
         // TODO Ask to pick from root media directory?
-        if ($this->confirm('Would you like to skip this field?', true)) {
-            return null;
+        if (! count($filesInRootMediaDirectory)) {
+            if ($this->confirm('Would you like to skip this field?', true)) {
+                return null;
+            }
         }
 
         throw new InvalidArgumentException('Unable to locate any media files for this publication type');
