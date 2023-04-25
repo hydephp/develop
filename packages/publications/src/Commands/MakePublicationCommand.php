@@ -164,14 +164,12 @@ class MakePublicationCommand extends ValidatingCommand
             $this->publicationType->getIdentifier()
         );
 
-        $message = "No media files found in $directory";
-
         if (in_array('required', $field->rules)) {
             throw new InvalidArgumentException("Unable to create publication as no media files were found in $directory");
         }
 
         $this->newLine();
-        $this->warn("<fg=red>Warning:</> $message");
+        $this->warn("<fg=red>Warning:</> No media files found in $directory");
         if ($this->confirm('Would you like to skip this field?', true)) {
             // TODO We could have a choice here, where 0 skips, and 1 reloads the media files
             return null;
