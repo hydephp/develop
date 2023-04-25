@@ -162,6 +162,22 @@ class MakePublicationCommand extends ValidatingCommand
         return new PublicationFieldValue(PublicationFieldTypes::Media, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
+    /** @return null */
+    protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field, string $type, string $message)
+    {
+        if (in_array('required', $field->rules)) {
+            throw new InvalidArgumentException("Unable to create publication: $message");
+        }
+
+        $this->newLine();
+        $this->warn("<fg=red>Warning:</> $message");
+        if ($this->confirm('Would you like to skip this field?', true)) {
+            return null;
+        } else {
+            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
+        }
+    }
+
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $this->infoComment("Select one or more tags for field [$field->name]");
@@ -201,22 +217,6 @@ class MakePublicationCommand extends ValidatingCommand
     protected function askForFieldData(string $name, array $rules): string
     {
         return $this->askWithValidation($name, "Enter data for field </>[<comment>$name</comment>]", $rules);
-    }
-
-    /** @return null */
-    protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field, string $type, string $message)
-    {
-        if (in_array('required', $field->rules)) {
-            throw new InvalidArgumentException("Unable to create publication: $message");
-        }
-
-        $this->newLine();
-        $this->warn("<fg=red>Warning:</> $message");
-        if ($this->confirm('Would you like to skip this field?', true)) {
-            return null;
-        } else {
-            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
-        }
     }
 
     protected function parseCommaSeparatedValues(string $choice): array
