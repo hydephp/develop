@@ -182,11 +182,6 @@ class MakePublicationCommand extends ValidatingCommand
         if (! count($filesInRootMediaDirectory)) {
             if ($this->confirm('Would you like to skip this field?', true)) {
                 return null;
-            } else {
-                $response = $this->choice('What would you like to do?', [
-                    'Skip this field',
-                    'Select file from root media directory',
-                ], 0);
             }
         }
 
