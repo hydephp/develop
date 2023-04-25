@@ -167,7 +167,7 @@ class MakePublicationCommand extends ValidatingCommand
         $message = "No media files found in $directory";
 
         if (in_array('required', $field->rules)) {
-            throw new InvalidArgumentException("Unable to create publication as no media files were found in $directory");
+            throw new InvalidArgumentException("Unable to create publication as no media files were found in $directory for field $field->name.");
         }
 
         $this->newLine();
