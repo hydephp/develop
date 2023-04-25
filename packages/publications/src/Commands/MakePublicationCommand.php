@@ -182,9 +182,9 @@ class MakePublicationCommand extends ValidatingCommand
         // TODO Ask to pick from root media directory?
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
-        } else {
-            throw new InvalidArgumentException('Unable to locate any media files for this publication type');
         }
+
+        throw new InvalidArgumentException('Unable to locate any media files for this publication type');
     }
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
