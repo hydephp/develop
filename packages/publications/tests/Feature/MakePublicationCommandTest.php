@@ -460,7 +460,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication test-publication')
             ->doesntExpectOutput('Warning: No media files found in directory _media/test-publication/')
-            ->expectsOutput('Error: Unable to create publication: No media files found in directory _media/test-publication/')
+            ->expectsOutput('Error: Unable to create publication as no media files were found in directory _media/test-publication/')
             ->assertExitCode(1);
     }
 
