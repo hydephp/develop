@@ -179,7 +179,6 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->newLine();
         $this->warn("<fg=red>Warning:</> $message");
-        // TODO Ask to pick from root media directory?
         if (! count($filesInRootMediaDirectory)) {
             if ($this->confirm('Would you like to skip this field?', true)) {
                 return null;
