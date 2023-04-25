@@ -151,9 +151,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = Publications::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyMediaFilesCollection($field,
-                // TODO Ask to pick from root media directory?
-            );
+            return $this->handleEmptyMediaFilesCollection($field);
         }
 
         return new PublicationFieldValue(PublicationFieldTypes::Media, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
@@ -172,6 +170,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->newLine();
         $this->warn("<fg=red>Warning:</> $message");
+        // TODO Ask to pick from root media directory?
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
         } else {
