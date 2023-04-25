@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Publications\Commands;
 
 use Hyde\Hyde;
-use Hyde\Support\Filesystem\MediaFile;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Hyde\Publications\Publications;
@@ -19,8 +18,6 @@ use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 
 use function array_map;
 use function array_merge;
-use function collect;
-use function dirname;
 use function explode;
 use function implode;
 use function sprintf;
@@ -168,10 +165,6 @@ class MakePublicationCommand extends ValidatingCommand
         );
 
         $message = "No media files found in $directory";
-
-        $filesInRootMediaDirectory = collect(MediaFile::all())->filter(function (MediaFile $file): bool {
-            return dirname($file->getPath()) === Hyde::getMediaDirectory();
-        })->keys()->toArray();
 
         if (in_array('required', $field->rules)) {
             throw new InvalidArgumentException("Unable to create publication as no media files were found in $directory");
