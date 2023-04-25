@@ -151,7 +151,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = Publications::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyOptionsCollection($field, 'media file',
+            return $this->handleEmptyMediaFilesCollection($field, 'media file',
                 // TODO Ask to pick from root media directory?
                 sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
                     $this->publicationType->getIdentifier()
@@ -204,7 +204,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return null */
-    protected function handleEmptyOptionsCollection(PublicationFieldDefinition $field, string $type, string $message)
+    protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field, string $type, string $message)
     {
         if (in_array('required', $field->rules)) {
             throw new InvalidArgumentException("Unable to create publication: $message");
