@@ -160,9 +160,11 @@ class MakePublicationCommand extends ValidatingCommand
     /** @return null */
     protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field)
     {
-        $message = sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
+        $directory = sprintf('directory %s/%s/', Hyde::getMediaDirectory(),
             $this->publicationType->getIdentifier()
         );
+
+        $message = "No media files found in $directory";
 
         if (in_array('required', $field->rules)) {
             throw new InvalidArgumentException("Unable to create publication: $message");
