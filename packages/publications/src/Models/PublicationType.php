@@ -25,7 +25,6 @@ use function file_put_contents;
 use function is_null;
 use function json_decode;
 use function json_encode;
-use function str_starts_with;
 
 /**
  * @see \Hyde\Publications\Testing\Feature\PublicationTypeTest
@@ -183,7 +182,7 @@ class PublicationType implements SerializableContract
 
     public function getCanonicalFieldDefinition(): PublicationFieldDefinition
     {
-        if (str_starts_with($this->canonicalField, '__')) { // Todo check directly against __createdAt
+        if ($this->canonicalField === '__createdAt') {
             return new PublicationFieldDefinition('string', $this->canonicalField);
         }
 

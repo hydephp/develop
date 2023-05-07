@@ -151,15 +151,31 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = Publications::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyOptionsCollection($field, 'media file',
-                // TODO Ask to pick from root media directory?
-                sprintf('No media files found in directory %s/%s/', Hyde::getMediaDirectory(),
-                    $this->publicationType->getIdentifier()
-                )
-            );
+            return $this->handleEmptyMediaFilesCollection($field);
         }
 
         return new PublicationFieldValue(PublicationFieldTypes::Media, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
+    }
+
+    /** @return null */
+    protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field)
+    {
+        $directory = sprintf('directory %s/%s/', Hyde::getMediaDirectory(),
+            $this->publicationType->getIdentifier()
+        );
+
+        if (in_array('required', $field->rules)) {
+            throw new InvalidArgumentException("Unable to create publication as no media files were found in $directory");
+        }
+
+        $this->newLine();
+        $this->warn("<fg=red>Warning:</> No media files found in $directory");
+        if ($this->confirm('Would you like to skip this field?', true)) {
+            // TODO We could have a choice here, where 0 skips, and 1 reloads the media files
+            return null;
+        } else {
+            throw new InvalidArgumentException('Unable to locate any media files for this publication type');
+        }
     }
 
     protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
@@ -201,22 +217,6 @@ class MakePublicationCommand extends ValidatingCommand
     protected function askForFieldData(string $name, array $rules): string
     {
         return $this->askWithValidation($name, "Enter data for field </>[<comment>$name</comment>]", $rules);
-    }
-
-    /** @return null */
-    protected function handleEmptyOptionsCollection(PublicationFieldDefinition $field, string $type, string $message)
-    {
-        if (in_array('required', $field->rules)) {
-            throw new InvalidArgumentException("Unable to create publication: $message");
-        }
-
-        $this->newLine();
-        $this->warn("<fg=red>Warning:</> $message");
-        if ($this->confirm('Would you like to skip this field?', true)) {
-            return null;
-        } else {
-            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
-        }
     }
 
     protected function parseCommaSeparatedValues(string $choice): array

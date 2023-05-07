@@ -131,7 +131,8 @@ class PublicationPageUnitTest extends TestCase
 
     public function testGetBladeView()
     {
-        $this->assertSame('__dynamic', (new PublicationPage('foo', [], '', $this->pubType()))->getBladeView());
+        $this->expectException(\Error::class);
+        $this->assertSame('', (new PublicationPage('foo', [], '', $this->pubType()))->getBladeView());
     }
 
     public function testFiles()

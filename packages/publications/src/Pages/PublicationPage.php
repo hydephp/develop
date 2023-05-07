@@ -25,12 +25,11 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 {
     use ValidatesExistence;
 
-    // Fixme: can we make this private or protected without breaking other stuff?
-    public PublicationType $type;
+    public readonly PublicationType $type;
 
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
-    public static string $template = '__dynamic';
+    public static string $template;
 
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Markdown $markdown = '', ?PublicationType $type = null): static
     {
@@ -39,9 +38,9 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '', ?PublicationType $type = null)
     {
-        $this->type = $type;
-
         parent::__construct(static::normalizeIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
+
+        $this->type = $type;
     }
 
     public function getType(): PublicationType
@@ -51,7 +50,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function compile(): string
     {
-        return $this->renderComponent();
+        return PublicationPageCompiler::call($this);
     }
 
     public static function parse(string $identifier): self
@@ -73,11 +72,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     public static function pathToIdentifier(string $path): string
     {
         return Str::before($path, static::fileExtension());
-    }
-
-    protected function renderComponent(): string
-    {
-        return PublicationPageCompiler::call($this);
     }
 
     protected static function normalizeIdentifier(string $directory, string $identifier): string
