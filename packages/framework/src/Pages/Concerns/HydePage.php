@@ -105,7 +105,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      *
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
      */
-    public static function get(string $identifier): HydePage
+    public static function get(string $identifier): static
     {
         return Pages::getPage(static::sourcePath($identifier));
     }
@@ -118,7 +118,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      *
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.
      */
-    public static function parse(string $identifier): HydePage
+    public static function parse(string $identifier): static
     {
         return (new SourceFileParser(static::class, $identifier))->get();
     }
