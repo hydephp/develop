@@ -15,6 +15,7 @@ This serves two purposes:
 
 ### Changed
 - Internal: Decoupled the monorepo `composer.json` settings in https://github.com/hydephp/develop/pull/1361
+- Changed HydePage return types to static in https://github.com/hydephp/develop/pull/1371
 
 ### Deprecated
 - for soon-to-be removed features.
