@@ -10,6 +10,8 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" packagePrefix="Hyde\Framework\Testing\Feature\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" packagePrefix="Hyde\Framework\Testing\Unit\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/publications/src" isTestSource="false" packagePrefix="Hyde\Publications\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/publications/tests" isTestSource="true" packagePrefix="Hyde\Publications\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
@@ -20,6 +22,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/felixfbecker/language-server-protocol" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/netresearch/jsonmapper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/translation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/validation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jetbrains/phpstorm-attributes" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/_laravel_idea" />
       <excludeFolder url="file://$MODULE_DIR$/app/storage/app" />

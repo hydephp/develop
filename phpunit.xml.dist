@@ -18,6 +18,9 @@
         <testsuite name="UnitFramework">
             <directory suffix="Test.php">./packages/framework/tests/Unit</directory>
         </testsuite>
+        <testsuite name="Publications">
+            <directory suffix="Test.php">./packages/publications/tests</directory>
+        </testsuite>
         <testsuite name="Realtime Compiler">
             <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
         </testsuite>
@@ -25,6 +28,7 @@
     <coverage>
         <include>
             <directory suffix=".php">./packages/framework/src</directory>
+            <directory suffix=".php">./packages/publications/src</directory>
         </include>
     </coverage>
     <php>
