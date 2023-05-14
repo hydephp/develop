@@ -53,7 +53,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         return PublicationPageCompiler::call($this);
     }
 
-    public static function parse(string $identifier): self
+    public static function parse(string $identifier): static
     {
         static::validateExistence(static::class, $identifier);
 
