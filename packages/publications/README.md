@@ -1,1 +1,3 @@
-# hyde/publications
+# `hyde/publications`
+
+Upcoming Publications Feature - HydePHP Extension
