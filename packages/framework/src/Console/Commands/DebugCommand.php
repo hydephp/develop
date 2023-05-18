@@ -36,22 +36,21 @@ class DebugCommand extends Command
     public function handle(): int
     {
         $this->info('HydePHP Debug Screen');
-
         $this->newLine();
+
         $this->comment('Git Version: '.(string) app('git.version'));
         $this->comment('Hyde Version: '.((InstalledVersions::isInstalled('hyde/hyde') ? InstalledVersions::getPrettyVersion('hyde/hyde') : null) ?: 'unreleased'));
         $this->comment('Framework Version: '.(InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased'));
-
         $this->newLine();
+
         $this->comment('App Env: '.(string) app('env'));
-
         $this->newLine();
+
         if ($this->getOutput()->isVerbose()) {
             $this->printVerbosePathInformation();
         } else {
             $this->comment('Project directory: '.Hyde::path());
         }
-
         $this->newLine();
 
         $this->line('Enabled features:');
