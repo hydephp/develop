@@ -36,39 +36,42 @@ class DebugCommand extends Command
     public function handle(): int
     {
         $this->info('HydePHP Debug Screen');
-
         $this->newLine();
+
         $this->comment('Git Version: '.(string) app('git.version'));
         $this->comment('Hyde Version: '.((InstalledVersions::isInstalled('hyde/hyde') ? InstalledVersions::getPrettyVersion('hyde/hyde') : null) ?: 'unreleased'));
         $this->comment('Framework Version: '.(InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased'));
-
         $this->newLine();
+
         $this->comment('App Env: '.(string) app('env'));
-
         $this->newLine();
-        if ($this->getOutput()->isVerbose()) {
-            $this->line('Project directory:');
-            $this->line(' > '.realpath(Hyde::path()));
-            $this->line('Framework vendor path:');
-            $this->line(' > '.(str_replace('/', DIRECTORY_SEPARATOR, Hyde::vendorPath()).' (vendor)'));
-            $this->line(' > '.realpath(Hyde::vendorPath()).' (real)');
+
+        if ($this->output->isVerbose()) {
+            $this->printVerbosePathInformation();
         } else {
             $this->comment('Project directory: '.Hyde::path());
         }
-
         $this->newLine();
 
         $this->line('Enabled features:');
-        foreach ($this->enabledFeatures() as $feature) {
-            $this->line(" - $feature");
-        }
+        $this->printEnabledFeatures();
 
         return Command::SUCCESS;
     }
 
-    /** @return array<string> */
-    protected function enabledFeatures(): array
+    protected function printVerbosePathInformation(): void
     {
-        return Config::getArray('hyde.features');
+        $this->line('Project directory:');
+        $this->line(' > '.realpath(Hyde::path()));
+        $this->line('Framework vendor path:');
+        $this->line(' > '.(str_replace('/', DIRECTORY_SEPARATOR, Hyde::vendorPath()).' (vendor)'));
+        $this->line(' > '.realpath(Hyde::vendorPath()).' (real)');
+    }
+
+    protected function printEnabledFeatures(): void
+    {
+        foreach (Config::getArray('hyde.features') as $feature) {
+            $this->line(" - $feature");
+        }
     }
 }
