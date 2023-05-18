@@ -46,7 +46,7 @@ class DebugCommand extends Command
         $this->comment('App Env: '.(string) app('env'));
         $this->newLine();
 
-        if ($this->getOutput()->isVerbose()) {
+        if ($this->output->isVerbose()) {
             $this->printVerbosePathInformation();
         } else {
             $this->comment('Project directory: '.Hyde::path());
