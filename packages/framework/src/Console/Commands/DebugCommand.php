@@ -60,13 +60,6 @@ class DebugCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function printEnabledFeatures(): void
-    {
-        foreach (Config::getArray('hyde.features') as $feature) {
-            $this->line(" - $feature");
-        }
-    }
-
     protected function printVerbosePathInformation(): void
     {
         $this->line('Project directory:');
@@ -74,5 +67,12 @@ class DebugCommand extends Command
         $this->line('Framework vendor path:');
         $this->line(' > ' . (str_replace('/', DIRECTORY_SEPARATOR, Hyde::vendorPath()) . ' (vendor)'));
         $this->line(' > ' . realpath(Hyde::vendorPath()) . ' (real)');
+    }
+
+    protected function printEnabledFeatures(): void
+    {
+        foreach (Config::getArray('hyde.features') as $feature) {
+            $this->line(" - $feature");
+        }
     }
 }
