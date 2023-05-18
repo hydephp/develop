@@ -47,11 +47,7 @@ class DebugCommand extends Command
 
         $this->newLine();
         if ($this->getOutput()->isVerbose()) {
-            $this->line('Project directory:');
-            $this->line(' > '.realpath(Hyde::path()));
-            $this->line('Framework vendor path:');
-            $this->line(' > '.(str_replace('/', DIRECTORY_SEPARATOR, Hyde::vendorPath()).' (vendor)'));
-            $this->line(' > '.realpath(Hyde::vendorPath()).' (real)');
+            $this->printVerbosePathInformation();
         } else {
             $this->comment('Project directory: '.Hyde::path());
         }
@@ -70,5 +66,14 @@ class DebugCommand extends Command
     protected function enabledFeatures(): array
     {
         return Config::getArray('hyde.features');
+    }
+
+    protected function printVerbosePathInformation(): void
+    {
+        $this->line('Project directory:');
+        $this->line(' > ' . realpath(Hyde::path()));
+        $this->line('Framework vendor path:');
+        $this->line(' > ' . (str_replace('/', DIRECTORY_SEPARATOR, Hyde::vendorPath()) . ' (vendor)'));
+        $this->line(' > ' . realpath(Hyde::vendorPath()) . ' (real)');
     }
 }
