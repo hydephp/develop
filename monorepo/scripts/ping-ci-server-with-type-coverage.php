@@ -20,7 +20,7 @@ $data = [
     'report' => file_get_contents('type-coverage.json') ?? exit(404),
 ];
 
-$url = 'https://ci.hydephp.se/api/github/actions/type-coverage';
+$url = 'https://ci.hydephp.com/api/github/actions/type-coverage';
 
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_URL, $url);

@@ -22,7 +22,7 @@ if (! file_exists('report.xml')) {
     exit(404);
 }
 
-$url = 'https://analytics.hydephp.se/api/test_runs';
+$url = 'https://analytics.hydephp.com/api/test_runs';
 $data = [
     'runner' => json_encode($runner),
 ];
