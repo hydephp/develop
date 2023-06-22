@@ -17,6 +17,21 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v1.2.0](https://github.com/hydephp/develop/releases/tag/v1.2.0) - 2023-06-22
+### Added
+- Added Markdown configuration option for the Tailwind prose classes in https://github.com/hydephp/develop/pull/1357
+- Added `prose-img:inline` to bundled TailwindCSS classes in https://github.com/hydephp/develop/pull/1359
+
+### Changed
+- Internal: Decoupled the monorepo `composer.json` settings in https://github.com/hydephp/develop/pull/1361
+- Changed HydePage return types to static in https://github.com/hydephp/develop/pull/1371
+### Removed
+- Removed the Tailwind safelist from the hyde/hyde package (as it is not required there) in https://github.com/hydephp/develop/pull/1362
+
+### Fixed
+- Fixed two improper method type annotations in the `FrontMatter` class in https://github.com/hydephp/develop/pull/1369
+
+
 ## [v1.1.0](https://github.com/hydephp/develop/releases/tag/v1.1.0) - 2023-03-22
 
 ### About

@@ -10,21 +10,19 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added Markdown configuration option for the Tailwind prose classes in https://github.com/hydephp/develop/pull/1357
-- Added `prose-img:inline` to bundled TailwindCSS classes in https://github.com/hydephp/develop/pull/1359
+- for new features.
 
 ### Changed
-- Internal: Decoupled the monorepo `composer.json` settings in https://github.com/hydephp/develop/pull/1361
-- Changed HydePage return types to static in https://github.com/hydephp/develop/pull/1371
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Removed the Tailwind safelist from the hyde/hyde package (as it is not required there) in https://github.com/hydephp/develop/pull/1362
+- for now removed features.
 
 ### Fixed
-- Fixed two improper method type annotations in the `FrontMatter` class in https://github.com/hydephp/develop/pull/1369
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
