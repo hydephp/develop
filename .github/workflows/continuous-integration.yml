@@ -244,7 +244,7 @@ jobs:
           chmod +x phpDocumentor.phar
 
       - name: Run phpDocumentor
-        run: php phpDocumentor.phar -d packages/framework/src -t build/api-documentation --title="API Documentation"
+        run:  php phpDocumentor.phar --directory="packages/framework/src" --target="build/api-documentation" --title="API Documentation"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
