@@ -71,3 +71,6 @@ To create BladeMatter, you simply use the default Laravel Blade `@php` directive
 ```
 
 It will then be available through the global `$page` variable, `$page->matter('title')`.
+Hyde will of course also use the data for contextual autoconfiguration in the same way it would with Markdown and use the value as the page title.
+
+Another idea is to use `@php($navigation = ['hidden' => true])` if you want to hide a page from the navigation. The opportunities are limitless!
