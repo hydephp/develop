@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
+use OutOfBoundsException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
@@ -46,8 +47,8 @@ class DashboardController
     {
         return [
             'Git Version:' => app('git.version'),
-            'Hyde Version:' => InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased',
-            'Framework Version:' => InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased',
+            'Hyde Version:' => self::getPackageVersion('hyde/hyde'),
+            'Framework Version:' => self::getPackageVersion('hyde/framework'),
             'Project Path:' => Hyde::path(),
         ];
     }
@@ -168,5 +169,16 @@ class DashboardController
                 <iframe id="dashboard" src="/dashboard?embedded=true" frameborder="0" style="width: 100vw; height: 100vh; position: absolute;"></iframe>
             </aside>
         HTML;
+    }
+
+    protected function getPackageVersion(string $packageName): string
+    {
+        try {
+            $prettyVersion = InstalledVersions::getPrettyVersion($packageName);
+        } catch (OutOfBoundsException) {
+            //
+        }
+
+        return $prettyVersion ?? 'unreleased';
     }
 }
