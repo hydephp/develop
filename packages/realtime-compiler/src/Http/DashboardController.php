@@ -171,7 +171,7 @@ class DashboardController
         HTML;
     }
 
-    protected function getPackageVersion(string $packageName): string
+    protected static function getPackageVersion(string $packageName): string
     {
         try {
             $prettyVersion = InstalledVersions::getPrettyVersion($packageName);
