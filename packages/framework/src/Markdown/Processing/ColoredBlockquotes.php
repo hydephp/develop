@@ -16,6 +16,8 @@ use function trim;
 
 /**
  * @internal This class may be refactored to work with a single class instead of five, thus extending this class is discouraged.
+ *
+ * @todo See if we can extract an arbitrary class name from the signature.
  */
 abstract class ColoredBlockquotes implements MarkdownShortcodeContract
 {
