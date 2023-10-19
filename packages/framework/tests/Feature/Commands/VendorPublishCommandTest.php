@@ -44,9 +44,9 @@ class VendorPublishCommandTest extends TestCase
 
         $this->artisan('vendor:publish')
             ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: example-configs', [
-                '<comment>Publish files from all providers and tags listed below</comment>',
                 '<fg=gray>Provider:</> ExampleProvider',
                 '<fg=gray>Tag:</> example-configs',
+                'All providers and tags',
             ])
             ->assertExitCode(0);
     }
@@ -60,7 +60,7 @@ class VendorPublishCommandTest extends TestCase
 
         $this->artisan('vendor:publish')
             ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: example-configs', [
-                '<comment>Publish files from all providers and tags listed below</comment>',
+                'All providers and tags',
             ])->assertExitCode(0);
     }
 
@@ -73,7 +73,7 @@ class VendorPublishCommandTest extends TestCase
 
         $this->artisan('vendor:publish')
             ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'Tag: vendor-configs', [
-                '<comment>Publish files from all providers and tags listed below</comment>',
+                'All providers and tags',
                 '<fg=gray>Tag:</> vendor-configs',
             ])->assertExitCode(0);
     }
