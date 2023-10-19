@@ -267,6 +267,8 @@ navigation:
 ---
 ```
 
+>info Tip: If you are using automatic subdirectory dropdowns, you can also set their priority in the config. Just use the directory name instead of the page identifier.
+
 #### Adding Custom Navigation Menu Links
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.

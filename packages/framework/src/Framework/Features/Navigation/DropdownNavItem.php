@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -19,9 +20,9 @@ class DropdownNavItem extends NavItem
     public array $items;
 
     /** @param array<NavItem> $items */
-    public function __construct(string $label, array $items)
+    public function __construct(string $label, array $items, ?int $priority = null)
     {
-        parent::__construct('', $label, 999);
+        parent::__construct('', $label, $priority ?? $this->searchForDropdownPriorityInNavigationConfig($label) ?? 999);
         $this->items = $items;
     }
 
@@ -33,5 +34,14 @@ class DropdownNavItem extends NavItem
     public function getItems(): Collection
     {
         return collect($this->items);
+    }
+
+    private function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
+    {
+        return Config::getArray('hyde.navigation.order', [
+            'index' => 0,
+            'posts' => 10,
+            'docs/index' => 100,
+        ])[$groupKey] ?? null;
     }
 }

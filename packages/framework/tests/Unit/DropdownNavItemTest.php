@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Facades\Config;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\MarkdownPage;
@@ -37,6 +38,21 @@ class DropdownNavItemTest extends UnitTestCase
 
         $this->assertSame('foo', $item->label);
         $this->assertSame([], $item->items);
+        $this->assertSame(999, $item->priority);
+    }
+
+    public function testConstructWithCustomPriority()
+    {
+        $item = new DropdownNavItem('foo', [], 500);
+
+        $this->assertSame(500, $item->priority);
+    }
+
+    public function testConstructWithNullPriority()
+    {
+        $item = new DropdownNavItem('foo', [], null);
+
+        $this->assertSame(999, $item->priority);
     }
 
     public function testFromArray()
@@ -71,5 +87,19 @@ class DropdownNavItemTest extends UnitTestCase
 
         $item = DropdownNavItem::fromArray('foo', $children);
         $this->assertSame($children, $item->getItems()->all());
+    }
+
+    public function testCanSetPriorityInConfig()
+    {
+        $root = Config::getFacadeRoot();
+        $mock = clone $root;
+        Config::swap($mock);
+
+        Config::set('hyde.navigation.order.foo', 500);
+        $item = new DropdownNavItem('foo', []);
+
+        $this->assertSame(500, $item->priority);
+
+        Config::swap($root);
     }
 }
