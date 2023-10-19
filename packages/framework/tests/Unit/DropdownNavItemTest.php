@@ -37,6 +37,16 @@ class DropdownNavItemTest extends UnitTestCase
 
         $this->assertSame('foo', $item->label);
         $this->assertSame([], $item->items);
+        $this->assertSame(999, $item->priority);
+    }
+
+    public function testConstructWithCustomPriority()
+    {
+        $item = new DropdownNavItem('foo', [], 500);
+
+        $this->assertSame('foo', $item->label);
+        $this->assertSame([], $item->items);
+        $this->assertSame(500, $item->priority);
     }
 
     public function testFromArray()
