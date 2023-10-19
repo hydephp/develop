@@ -18,8 +18,8 @@ test('can install composer dependencies', function () {
 
 test('can run the HydeCLI binary', function () {
     $output = shell_exec('cd '.BASE_PATH.' && php hyde --no-ansi');
-    $this->assert(str_contains($output, 'USAGE: hyde <command> [options] [arguments]'),
-        'HydeCLI output does not contain "USAGE: hyde <command> [options] [arguments]"'
+    $this->assert(str_contains($output, 'USAGE:  <command> [options] [arguments]'),
+        'HydeCLI output does not contain "USAGE:  <command> [options] [arguments]"'
     );
 });
 
