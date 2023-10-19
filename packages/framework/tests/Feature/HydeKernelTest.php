@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Throwable;
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
@@ -294,11 +295,30 @@ class HydeKernelTest extends TestCase
         );
     }
 
-    public function test_version_constant_is_up_to_date()
+    public function test_version_constant_is_up_to_date_with_composer()
     {
-        $this->assertTrue(version_compare(
-            HydeKernel::VERSION, InstalledVersions::getPrettyVersion('hyde/framework')
-        ) >= 0);
+        $version = InstalledVersions::getPrettyVersion('hyde/framework');
+
+        if (str_starts_with($version, 'dev-')) {
+            $this->markTestSkipped('Installed version is for development');
+        }
+
+        $this->assertSame(HydeKernel::VERSION, $version);
+    }
+
+    public function test_version_constant_is_up_to_date_with_git()
+    {
+        try {
+            $version = trim(shell_exec('git describe --abbrev=0 --tags'));
+        } catch (Throwable) {
+            $this->markTestSkipped('Could not get version from Git');
+        }
+
+        if ('v'.HydeKernel::VERSION === $version) {
+            $this->assertSame('v'.HydeKernel::VERSION, $version);
+        } else {
+            $this->markTestSkipped('Version constant does not match Git version!');
+        }
     }
 
     public function test_version_method_returns_version_constant()
