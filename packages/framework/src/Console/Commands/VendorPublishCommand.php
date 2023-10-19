@@ -13,6 +13,7 @@ use function ltrim;
 use function realpath;
 use function sprintf;
 use function str_replace;
+use function Laravel\Prompts\select;
 
 /**
  * Publish any publishable assets from vendor packages.
@@ -40,6 +41,26 @@ class VendorPublishCommand extends BaseCommand
 
         ServiceProvider::$publishes = $originalPublishers;
         ServiceProvider::$publishGroups = $originalGroups;
+    }
+
+    /**
+     * Our child method only uses the select function, instead of the search one.
+     */
+    protected function promptForProviderOrTag(): void
+    {
+        $choices = $this->publishableChoices();
+
+        $choice = select(
+            "Which provider or tag's files would you like to publish?",
+            $choices,
+            scroll: 15,
+        );
+
+        if ($choice == $choices[0]) {
+            return;
+        }
+
+        $this->parseChoice($choice);
     }
 
     /**
