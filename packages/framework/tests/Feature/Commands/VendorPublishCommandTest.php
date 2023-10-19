@@ -78,6 +78,17 @@ class VendorPublishCommandTest extends TestCase
             ])->assertExitCode(0);
     }
 
+    public function test_can_select_default()
+    {
+        ServiceProvider::$publishes = [];
+        ServiceProvider::$publishGroups = [];
+
+        $this->artisan('vendor:publish')
+            ->expectsChoice('Which provider or tag\'s files would you like to publish?', 'All providers and tags', [
+                'All providers and tags',
+            ])->assertExitCode(0);
+    }
+
     public function test_status_method()
     {
         $command = new StatusMethodTestClass($this->createMock(Filesystem::class));
