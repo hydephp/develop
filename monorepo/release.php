@@ -126,6 +126,7 @@ file_put_contents(__DIR__.'/../CHANGELOG.md', $changelog);
 
 echo "Done. \n";
 
+$message = 'Version '.$version;
 $title = "$version - ".date('Y-m-d');
 $body = ltrim(substr($notes, strpos($notes, "\n") + 2));
 $companionBody = sprintf('Please see the release notes in the development monorepo https://github.com/hydephp/develop/releases/tag/%s', $version);
@@ -153,7 +154,10 @@ file_put_contents(getcwd().'/release.html', <<<HTML
     </details>
     <p>
         <h2>Create the Git commit</h2>
-        <label>Suggested message:</label><br>
+        <label>Suggested commit message:</label><br>
+        <input readonly type="text" value="$message">
+        <br><br>
+        <label>Suggested release title:</label><br>
         <input readonly type="text" value="$title">
     </p>
     <p>
