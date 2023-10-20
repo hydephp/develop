@@ -10,11 +10,18 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\HtmlString;
+use Hyde\Foundation\Facades\Routes;
+use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
 use Composer\InstalledVersions;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use function abort;
+use function basename;
+use function array_combine;
+use function escapeshellarg;
 use function file_get_contents;
 use function str_starts_with;
 use function str_replace;
@@ -34,12 +41,37 @@ class DashboardController
         'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
         'Found a bug stuck? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
         'You can disable tips using by setting `server.tips` to `false` in `config/hyde.php`.',
+        'By default this dashboard can make changes to your project files. You can disable this by setting `server.editor` to `false` in `config/hyde.php`.',
     ];
 
     public function __construct()
     {
         $this->title = config('hyde.name').' - Dashboard';
         $this->request = Request::capture();
+
+        if ($this->request->method === 'POST') {
+            if (! $this->enableEditor()) {
+                abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+            }
+
+            $this->handlePostRequest();
+        }
+    }
+
+    protected function handlePostRequest(): void
+    {
+        $actions = array_combine($actions = [
+            'openInEditor',
+        ], $actions);
+
+        $action = $this->request->data['action'] ?? abort(400, 'Must provide action');
+        $action = $actions[$action] ?? abort(403, 'Invalid action');
+
+        if ($action === 'openInEditor') {
+            $routeKey = $this->request->data['routeKey'] ?? abort(400, 'Must provide routeKey');
+            $page = Routes::getOrFail($routeKey)->getPage();
+            $this->openInEditor($page);
+        }
     }
 
     public function show(): string
@@ -116,6 +148,30 @@ class DashboardController
         }
 
         return $contents;
+    }
+
+    public function enableEditor(): bool
+    {
+        return config('hyde.server.editor', true);
+    }
+
+    protected function openInEditor(HydePage $page): void
+    {
+        if ($this->enableEditor()) {
+            $binary = match (PHP_OS_FAMILY) {
+                'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
+                'Darwin' => 'open',
+                'Linux' => 'xdg-open',
+                default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
+            };
+            $path = Hyde::path($page->getSourcePath());
+
+            if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
+                abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
+            }
+
+            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
     }
 
     protected static function injectDashboardButton(string $contents): string

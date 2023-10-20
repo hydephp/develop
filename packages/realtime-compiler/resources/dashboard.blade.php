@@ -86,6 +86,13 @@
                                     {{ $route->getPageIdentifier() }}
                                 </td>
                                 <td class="text-end">
+                                    @if($dashboard->enableEditor())
+                                        <form action="" method="POST">
+                                            <input type="hidden" name="action" value="openInEditor">
+                                            <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
+                                            <button type="submit" class="btn btn-outline-primary btn-sm">Edit</button>
+                                        </form>
+                                    @endif
                                     <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm">View</a>
                                 </td>
                             </tr>

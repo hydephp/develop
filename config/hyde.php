@@ -407,6 +407,7 @@ return [
         'host' => env('SERVER_HOST', 'localhost'),
         'dashboard' => env('SERVER_DASHBOARD', true),
         'save_preview' => true,
+        'editor' => true,
         'tips' => true,
     ],
 
