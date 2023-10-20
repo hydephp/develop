@@ -6,7 +6,10 @@ namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
 use OutOfBoundsException;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Hyde\Pages\Concerns\HydePage;
+use Illuminate\Support\HtmlString;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
@@ -23,6 +26,13 @@ use function app;
 class DashboardController
 {
     public string $title;
+
+    protected static array $tips = [
+        'This dashboard won\'t be saved to your static site.',
+        'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
+        'Found a bug stuck? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
+        'You can disable tips using by setting `server.tips` to `false` in `config/hyde.php`.',
+    ];
 
     public function __construct()
     {
@@ -57,6 +67,16 @@ class DashboardController
     public function getPageList(): array
     {
         return Hyde::routes()->all();
+    }
+
+    public function showTips(): bool
+    {
+        return config('hyde.server.tips', true);
+    }
+
+    public function getTip(): HtmlString
+    {
+        return new HtmlString(Str::inlineMarkdown(Arr::random(static::$tips)));
     }
 
     public static function enabled(): bool

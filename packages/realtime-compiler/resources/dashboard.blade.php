@@ -95,6 +95,16 @@
             </div>
         </div>
     </section>
+    @if($dashboard->showTips())
+        <section>
+            <div class="col-xl-10 mx-auto pt-3 px-5">
+                <div class="alert alert-success">
+                    <strong>Tip:</strong>
+                    {{ $dashboard->getTip() }}
+                </div>
+            </div>
+        </section>
+    @endif
 </main>
 <footer class="bg-light text-center py-3 mt-3">
     <div class="container d-flex align-items-center justify-content-between">
