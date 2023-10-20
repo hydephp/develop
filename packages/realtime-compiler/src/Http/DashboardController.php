@@ -27,6 +27,8 @@ class DashboardController
 {
     public string $title;
 
+    protected Request $request;
+
     protected static array $tips = [
         'This dashboard won\'t be saved to your static site.',
         'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
@@ -37,12 +39,13 @@ class DashboardController
     public function __construct()
     {
         $this->title = config('hyde.name').' - Dashboard';
+        $this->request = Request::capture();
     }
 
     public function show(): string
     {
         return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this, 'request' => Request::capture()],
+            (array) $this, ['dashboard' => $this, 'request' => $this->request],
         ));
     }
 
