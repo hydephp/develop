@@ -86,14 +86,16 @@
                                     {{ $route->getPageIdentifier() }}
                                 </td>
                                 <td class="text-end">
-                                    @if($dashboard->enableEditor())
-                                        <form action="" method="POST">
-                                            <input type="hidden" name="action" value="openInEditor">
-                                            <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
-                                            <button type="submit" class="btn btn-outline-primary btn-sm">Edit</button>
-                                        </form>
-                                    @endif
-                                    <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm">View</a>
+                                    <div class="d-flex justify-content-end">
+                                        @if($dashboard->enableEditor())
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="action" value="openInEditor">
+                                                <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
+                                            </form>
+                                        @endif
+                                        <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
