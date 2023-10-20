@@ -88,7 +88,7 @@
                                 <td class="text-end">
                                     <div class="d-flex justify-content-end">
                                         @if($dashboard->enableEditor())
-                                            <form action="" method="POST">
+                                            <form class="openInEditorForm" action="" method="POST">
                                                 <input type="hidden" name="action" value="openInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
@@ -126,5 +126,35 @@
         <div class="col-lg-3"></div>
     </div>
 </footer>
+@if($dashboard->enableEditor())
+    <script>
+        /**
+         * Progressive enhancement when JavaScript is enabled to intercept form requests
+         * and instead handle them with an asynchronous Fetch instead of refreshing the page.
+         */
+        const forms = document.querySelectorAll(".openInEditorForm");
+        forms.forEach(form => {
+            form.addEventListener("submit", function (event) {
+                // Disable default form submit
+                event.preventDefault();
+
+                fetch("", {
+                    method: "POST",
+                    body: new FormData(event.target),
+                }).then(response => {
+                    if (response.ok) {
+                        // Request was successful, no need to do anything.
+                    } else {
+                        // Request failed, let's log it.
+                        console.error("Fetch request failed.");
+                    }
+                }).catch(error => {
+                    // Handle any network-related errors
+                    console.error("Network error:", error);
+                });
+            });
+        });
+    </script>
+@endif
 </body>
 </html>
