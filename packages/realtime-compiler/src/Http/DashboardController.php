@@ -178,6 +178,11 @@ class DashboardController
         return config('hyde.server.editor', true);
     }
 
+    public function getScripts(): string
+    {
+        return file_get_contents(__DIR__.'/../../resources/dashboard.js');
+    }
+
     protected function openInEditor(HydePage $page): void
     {
         if ($this->enableEditor()) {
