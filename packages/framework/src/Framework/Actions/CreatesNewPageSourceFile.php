@@ -13,6 +13,8 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 
+use function trim;
+use function sprintf;
 use function file_put_contents;
 use function file_exists;
 use function basename;
@@ -37,7 +39,9 @@ class CreatesNewPageSourceFile
     protected string $subDir = '';
     protected bool $force;
 
-    public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false)
+    protected ?string $customContent;
+
+    public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false, ?string $customContent = null)
     {
         $this->validateType($pageClass);
         $this->pageClass = $pageClass;
@@ -45,6 +49,7 @@ class CreatesNewPageSourceFile
         $this->title = $this->parseTitle($title);
         $this->filename = $this->fileName($title);
         $this->force = $force;
+        $this->customContent = $customContent;
 
         $this->outputPath = $this->makeOutputPath($pageClass);
     }
@@ -100,7 +105,7 @@ class CreatesNewPageSourceFile
             @php(\$title = "$this->title")
 
             <main class="mx-auto max-w-7xl py-16 px-8">
-                <h1 class="text-center text-3xl font-bold">$this->title</h1>
+                {$this->getBladePageContent()}
             </main>
 
             @endsection
@@ -111,7 +116,7 @@ class CreatesNewPageSourceFile
 
     protected function createMarkdownFile(): void
     {
-        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], "# $this->title"))->save();
+        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], $this->getMarkdownPageContent()))->save();
     }
 
     protected function createDocumentationFile(): void
@@ -136,5 +141,19 @@ class CreatesNewPageSourceFile
         if ($this->force !== true && file_exists($path)) {
             throw new FileConflictException($path);
         }
+    }
+
+    protected function getBladePageContent(): string
+    {
+        $baseContent = "<h1 class=\"text-center text-3xl font-bold\">$this->title</h1>";
+
+        return $this->customContent
+            ? trim(sprintf("%s\n\n    <div>\n        %s\n    </div>", $baseContent, $this->customContent))
+            : $baseContent;
+    }
+
+    protected function getMarkdownPageContent(): string
+    {
+        return trim(sprintf("# $this->title\n\n%s", $this->customContent ?? ''));
     }
 }
