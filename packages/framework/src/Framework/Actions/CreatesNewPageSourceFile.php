@@ -149,6 +149,10 @@ class CreatesNewPageSourceFile
 
         $customContent = $this->customContent ?? '';
 
+        if ($this->pageClass === BladePage::class && $customContent) {
+            $customContent = "    <div>\n        $customContent\n    </div>";
+        }
+
         return trim("$baseContent\n\n$customContent");
     }
 }

@@ -172,7 +172,9 @@ class CreatesNewPageSourceFileTest extends TestCase
             <main class="mx-auto max-w-7xl py-16 px-8">
                 <h1 class="text-center text-3xl font-bold">Test Page</h1>
 
-            Hello World!
+                <div>
+                    Hello World!
+                </div>
             </main>
 
             @endsection
