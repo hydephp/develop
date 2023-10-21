@@ -71,7 +71,7 @@ class DashboardController
                     throw $exception;
                 }
 
-                $this->sendJsonResponse($exception);
+                $this->sendJsonErrorResponse($exception);
             }
         }
     }
@@ -320,16 +320,30 @@ class DashboardController
         return $prettyVersion ?? 'unreleased';
     }
 
-    protected function sendJsonResponse(HttpException $exception): never
+    protected function sendJsonResponse(int $statusCode, string $body): never
     {
-        $statusMessage = match ($exception->getStatusCode()) {
+        $statusMessage = match ($statusCode) {
             200 => 'OK',
             201 => 'Created',
+            default => 'Internal Server Error',
+        };
+
+        (new JsonResponse($statusCode, $statusMessage, [
+            'body' => $body,
+        ]))->send();
+
+        exit;
+    }
+
+    protected function sendJsonErrorResponse(HttpException $exception): never
+    {
+        $statusMessage = match ($exception->getStatusCode()) {
             400 => 'Bad Request',
             403 => 'Forbidden',
             409 => 'Conflict',
             default => 'Internal Server Error',
         };
+
         (new JsonResponse($exception->getStatusCode(), $statusMessage, [
             'error' => $exception->getMessage(),
         ]))->send();
