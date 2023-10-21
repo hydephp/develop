@@ -133,7 +133,6 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_docs/test-page.md');
     }
 
-
     public function test_that_a_markdown_file_can_be_created_with_custom_content()
     {
         (new CreatesNewPageSourceFile('Test Page', customContent: 'Hello World!'))->save();
@@ -141,7 +140,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/test-page.md'));
 
         $this->assertSame(
-            <<<MARKDOWN
+            <<<'MARKDOWN'
             ---
             title: 'Test Page'
             ---
@@ -151,7 +150,7 @@ class CreatesNewPageSourceFileTest extends TestCase
             Hello World!
 
             MARKDOWN
-,
+            ,
             file_get_contents(Hyde::path('_pages/test-page.md'))
         );
         Filesystem::unlink('_pages/test-page.md');
