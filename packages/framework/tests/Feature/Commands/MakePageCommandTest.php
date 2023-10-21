@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\MakePageCommand
+ * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
  */
 class MakePageCommandTest extends TestCase
 {

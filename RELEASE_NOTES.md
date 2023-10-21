@@ -10,7 +10,8 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added support for setting custom content when calling source file creator actions directly in https://github.com/hydephp/develop/pull/1393
+- Added support for setting a custom post date when calling post file creator action directly in https://github.com/hydephp/develop/pull/1393
 
 ### Changed
 - for changes in existing functionality.
@@ -22,7 +23,10 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Catch RealtimeCompiler dashboard OutOfBoundsException in https://github.com/hydephp/develop/pull/1384
+- Updated dropdown navigation menus to support setting priority in config in https://github.com/hydephp/develop/pull/1387 (fixing https://github.com/hydephp/hyde/issues/229)
+- Updated the vendor publish command to support parent Laravel Prompts implementation in https://github.com/hydephp/develop/pull/1388
+- Fixed wrong version constant in https://github.com/hydephp/develop/pull/1391
 
 ### Security
 - in case of vulnerabilities.

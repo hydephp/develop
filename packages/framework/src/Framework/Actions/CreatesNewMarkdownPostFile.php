@@ -7,9 +7,8 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\MarkdownPost;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-
-use function date;
 
 /**
  * Offloads logic for the make:post command.
@@ -28,6 +27,7 @@ class CreatesNewMarkdownPostFile
     protected string $author;
     protected string $date;
     protected string $identifier;
+    protected ?string $customContent;
 
     /**
      * Construct the class.
@@ -36,15 +36,18 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $description  The Post Meta Description.
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
+     * @param  string|null  $date  Optionally specify a custom date.
+     * @param  string|null  $customContent  Optionally specify custom post content.
      */
-    public function __construct(string $title, ?string $description, ?string $category, ?string $author)
+    public function __construct(string $title, ?string $description, ?string $category, ?string $author, ?string $date = null, ?string $customContent = null)
     {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
         $this->category = $category ?? 'blog';
         $this->author = $author ?? 'default';
+        $this->customContent = $customContent;
 
-        $this->date = date('Y-m-d H:i');
+        $this->date = Carbon::make($date ?? Carbon::now())->format('Y-m-d H:i');
         $this->identifier = Str::slug($title);
     }
 
@@ -58,7 +61,7 @@ class CreatesNewMarkdownPostFile
      */
     public function save(bool $force = false): string
     {
-        $page = new MarkdownPost($this->identifier, $this->toArray(), '## Write something awesome.');
+        $page = new MarkdownPost($this->identifier, $this->toArray(), $this->customContent ?? '## Write something awesome.');
 
         if ($force !== true && Filesystem::exists($page->getSourcePath())) {
             throw new FileConflictException($page->getSourcePath());
