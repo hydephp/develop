@@ -168,63 +168,6 @@
                                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-sm btn-primary" id="createPageButton" title="Please select a page type first" disabled>Create page</button>
                                             </div>
-                                            <script>
-                                                // Focus when modal is opened
-                                                const modal = document.getElementById('createPageModal')
-                                                const firstInput = document.getElementById('pageTypeSelection')
-
-                                                modal.addEventListener('shown.bs.modal', () => {
-                                                    firstInput.focus()
-                                                })
-
-                                                // Handle form interactivity
-
-                                                const createPageModalLabel = document.getElementById('createPageModalLabel');
-                                                const titleInputLabel = document.getElementById('titleInputLabel');
-                                                const contentInputLabel = document.getElementById('contentInputLabel');
-
-                                                const contentInput = document.getElementById('contentInput');
-                                                const pageTypeSelection = document.getElementById('pageTypeSelection');
-                                                const createPageButton = document.getElementById('createPageButton');
-
-                                                const baseInfo = document.getElementById('baseInfo');
-                                                const createsPost = document.getElementById('createsPost');
-
-                                                const createPageModalLabelDefault = createPageModalLabel.innerText;
-                                                const titleInputLabelDefault = titleInputLabel.innerText;
-                                                const contentInputLabelDefault = contentInputLabel.innerText;
-                                                const contentInputPlaceholderDefault = contentInput.placeholder;
-
-                                                pageTypeSelection.addEventListener('change', function (event) {
-                                                    createPageModalLabel.innerText = createPageModalLabelDefault;
-                                                    titleInputLabel.innerText = titleInputLabelDefault;
-                                                    contentInputLabel.innerText = contentInputLabelDefault;
-                                                    contentInput.placeholder = contentInputPlaceholderDefault;
-
-                                                    createPageButton.disabled = false;
-                                                    createPageButton.title = '';
-
-                                                    baseInfo.style.display = 'none';
-                                                    createsPost.style.display = 'none';
-
-                                                    let selection = event.target.value;
-
-                                                    if (selection === 'markdown-post') {
-                                                        baseInfo.style.display = 'block';
-                                                        createsPost.style.display = 'block';
-                                                        createPageModalLabel.innerText = 'Creating a new Markdown post';
-                                                        titleInputLabel.innerText = 'Post title';
-                                                    } else {
-                                                        baseInfo.style.display = 'block';
-                                                        createPageModalLabel.innerText = 'Creating a new ' + selection.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase());
-                                                    }
-
-                                                    if (selection === 'blade-page') {
-                                                        contentInputLabel.innerText = 'Blade content';
-                                                        contentInput.placeholder = 'Enter your Blade content';
-                                                    }
-                                                });
-                                            </script>
                                         </form>
                                     </div>
                                 </div>
