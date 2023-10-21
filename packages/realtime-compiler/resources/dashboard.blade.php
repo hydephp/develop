@@ -37,7 +37,15 @@
         <div class="col-xl-10 mx-auto">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0">Project Information</h2>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h2 class="h5 mb-0">Site Pages & Routes</h2>
+                        @if($dashboard->enableEditor())
+                            <form class="buttonActionForm" action="" method="POST">
+                                <input type="hidden" name="action" value="openInExplorer">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" title="Open in system file explorer">Open folder</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">

@@ -79,12 +79,17 @@ class DashboardController
     protected function handlePostRequest(): void
     {
         $actions = array_combine($actions = [
+            'openInExplorer',
             'openInEditor',
             'createPage',
         ], $actions);
 
         $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
         $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
+
+        if ($action === 'openInExplorer') {
+            $this->openInExplorer();
+        }
 
         if ($action === 'openInEditor') {
             $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
@@ -181,6 +186,21 @@ class DashboardController
     public function getScripts(): string
     {
         return file_get_contents(__DIR__.'/../../resources/dashboard.js');
+    }
+
+    protected function openInExplorer(): void
+    {
+        if ($this->enableEditor()) {
+            $binary = match (PHP_OS_FAMILY) {
+                'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
+                'Darwin' => 'open',
+                'Linux' => 'xdg-open',
+                default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
+            };
+            $path = Hyde::path();
+
+            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
     }
 
     protected function openInEditor(HydePage $page): void
