@@ -8,6 +8,10 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
+/**
+ * @covers \Hyde\Console\Commands\MakePostCommand
+ * @covers \Hyde\Framework\Actions\CreatesNewMarkdownPostFile
+ */
 class MakePostCommandTest extends TestCase
 {
     public function test_command_has_expected_output_and_creates_valid_file()
