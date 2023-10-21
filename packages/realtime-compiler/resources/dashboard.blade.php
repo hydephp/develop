@@ -58,7 +58,150 @@
         <div class="col-xl-10 mx-auto">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0">Site Pages & Routes</h2>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h2 class="h5 mb-0">Site Pages & Routes</h2>
+                        @if($dashboard->enableEditor())
+                            <noscript><style>#createPageModalButton { display: none; }</style></noscript>
+                            <!-- Button trigger modal -->
+                            <button id="createPageModalButton" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createPageModal">
+                                Create page
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="createPageModal" tabindex="-1" aria-labelledby="createPageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="createPageModalLabel">Create new page</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="" method="POST">
+                                            <input type="hidden" name="action" value="createPage">
+
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="pageTypeSelection" class="form-label">Select page type</label>
+                                                    <select id="pageTypeSelection" name="pageTypeSelection" class="form-select" aria-label="Select page type">
+                                                        <option selected disabled>Select page type</option>
+                                                        @foreach(['BladePage', 'MarkdownPage', 'MarkdownPost', 'DocumentationPage'] as $page)
+                                                            <option value="{{ str($page)->kebab() }}">{{ $page }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="page-creation-group" id="baseInfo" style="display: none">
+                                                    <div class="px-3 d-flex align-items-center justify-content-between">
+                                                        <div class="col"><hr role="presentation"></div>
+                                                        <div class="col-auto px-2"><small class="text-muted">Required Details</small></div>
+                                                        <div class="col"><hr role="presentation"></div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="titleInput" id="titleInputLabel" class="form-label">Page title</label>
+                                                        <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter a title" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="contentInput" id="contentInputLabel" class="form-label">Markdown text</label>
+                                                        <textarea class="form-control" id="contentInput" name="contentInput" rows="8" placeholder="Enter your Markdown text" required></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="page-creation-group" id="createsPost" style="display: none">
+                                                    <div class="px-3 d-flex align-items-center justify-content-between">
+                                                        <div class="col"><hr role="presentation"></div>
+                                                        <div class="col-auto px-2"><small class="text-muted">Extra Details</small></div>
+                                                        <div class="col"><hr role="presentation"></div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="postDescription" class="form-label">Post description</label>
+                                                        <input type="text" class="form-control" id="postDescription" name="postDescription" placeholder="Enter a post description (optional)">
+                                                    </div>
+
+                                                    <div class="mb-3 row">
+                                                        <div class="col-lg-4">
+                                                            <label for="postCategory" class="form-label">Post category</label>
+                                                            <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter a post category (optional)">
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <label for="postAuthor" class="form-label">Post author</label>
+                                                            <input type="text" class="form-control" id="postAuthor" name="postAuthor" placeholder="Enter a post author (optional)">
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <label for="postDate" class="form-label">Post date</label>
+                                                            <input type="datetime-local" class="form-control" id="postDate" name="postDate" placeholder="Enter a post date (optional)" value="{{ date('Y-m-d H:i') }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="https://github.com/hydephp/realtime-compiler/issues/new?{{ http_build_query(['title' => 'Feedback on the dashboard create page modal', 'body' => 'Write something nice!']) }}" class="btn btn-sm btn-outline-success me-auto" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
+
+                                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-sm btn-primary">Create page</button>
+                                            </div>
+                                            <script>
+                                                // Focus when modal is opened
+                                                const modal = document.getElementById('createPageModal')
+                                                const firstInput = document.getElementById('pageTypeSelection')
+
+                                                modal.addEventListener('shown.bs.modal', () => {
+                                                    firstInput.focus()
+                                                })
+
+                                                // Handle form interactivity
+
+                                                const createPageModalLabel = document.getElementById('createPageModalLabel');
+                                                const titleInputLabel = document.getElementById('titleInputLabel');
+                                                const contentInputLabel = document.getElementById('contentInputLabel');
+
+                                                const contentInput = document.getElementById('contentInput');
+
+                                                const pageTypeSelection = document.getElementById('pageTypeSelection');
+
+                                                const baseInfo = document.getElementById('baseInfo');
+                                                const createsPost = document.getElementById('createsPost');
+
+                                                const createPageModalLabelDefault = createPageModalLabel.innerText;
+                                                const titleInputLabelDefault = titleInputLabel.innerText;
+                                                const contentInputLabelDefault = contentInputLabel.innerText;
+                                                const contentInputPlaceholderDefault = contentInput.placeholder;
+
+                                                pageTypeSelection.addEventListener('change', function (event) {
+                                                    createPageModalLabel.innerText = createPageModalLabelDefault;
+                                                    titleInputLabel.innerText = titleInputLabelDefault;
+                                                    contentInputLabel.innerText = contentInputLabelDefault;
+                                                    contentInput.placeholder = contentInputPlaceholderDefault;
+
+                                                    baseInfo.style.display = 'none';
+                                                    createsPost.style.display = 'none';
+
+                                                    let selection = event.target.value;
+
+                                                    if (selection === 'markdown-post') {
+                                                        baseInfo.style.display = 'block';
+                                                        createsPost.style.display = 'block';
+                                                        createPageModalLabel.innerText = 'Creating a new Markdown post';
+                                                        titleInputLabel.innerText = 'Post title';
+                                                    } else {
+                                                        baseInfo.style.display = 'block';
+                                                        createPageModalLabel.innerText = 'Creating a new ' + selection.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase());
+                                                    }
+
+                                                    if (selection === 'blade-page') {
+                                                        contentInputLabel.innerText = 'Blade content';
+                                                        contentInput.placeholder = 'Enter your Blade content';
+                                                    }
+                                                });
+                                            </script>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
