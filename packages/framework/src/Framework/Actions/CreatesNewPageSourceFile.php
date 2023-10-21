@@ -103,7 +103,7 @@ class CreatesNewPageSourceFile
             @php(\$title = "$this->title")
 
             <main class="mx-auto max-w-7xl py-16 px-8">
-                {$this->getPageContent()}
+                {$this->getBladePageContent()}
             </main>
 
             @endsection
@@ -114,7 +114,7 @@ class CreatesNewPageSourceFile
 
     protected function createMarkdownFile(): void
     {
-        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], $this->getPageContent()))->save();
+        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], $this->getMarkdownPageContent()))->save();
     }
 
     protected function createDocumentationFile(): void
@@ -141,18 +141,17 @@ class CreatesNewPageSourceFile
         }
     }
 
-    protected function getPageContent(): string
+    protected function getBladePageContent(): string
     {
-        $baseContent = $this->pageClass === BladePage::class
-            ? "<h1 class=\"text-center text-3xl font-bold\">$this->title</h1>"
-            : "# $this->title";
+        $baseContent = "<h1 class=\"text-center text-3xl font-bold\">$this->title</h1>";
 
-        $customContent = $this->customContent ?? '';
+        return $this->customContent
+            ? trim(sprintf("%s\n\n    <div>\n        %s\n    </div>", $baseContent, $this->customContent))
+            : $baseContent;
+    }
 
-        if ($this->pageClass === BladePage::class && $customContent) {
-            $customContent = "    <div>\n        $customContent\n    </div>";
-        }
-
-        return trim("$baseContent\n\n$customContent");
+    protected function getMarkdownPageContent(): string
+    {
+        return trim(sprintf("# $this->title\n\n%s", $this->customContent ?? ''));
     }
 }
