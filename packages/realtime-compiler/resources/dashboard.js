@@ -53,7 +53,7 @@ document.querySelectorAll(".openInEditorForm").forEach(form => {
 function registerCreateFormModalHandlers() {
     let createPageModal = null;
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
         createPageModal = new bootstrap.Modal('#createPageModal');
     });
 
@@ -62,7 +62,7 @@ function registerCreateFormModalHandlers() {
     const createPageFormError = document.getElementById("createPageFormError");
     const createPageFormErrorContents = document.getElementById("createPageFormErrorContents");
 
-    const okHandler = async function (response) {
+    const okHandler = async response => {
         let data = await response.json();
         createPageModal.hide();
         Swal.fire({
@@ -75,19 +75,19 @@ function registerCreateFormModalHandlers() {
         createPageForm.reset()
     };
 
-    const errorHandler = async function (response) {
+    const errorHandler = async response => {
         let data = await response.json();
         createPageFormError.style.display = 'block';
         createPageFormErrorContents.innerText = data.error;
     };
 
-    const beforeCallHandler = function () {
+    const beforeCallHandler = () => {
         createPageFormSubmit.disabled = true;
         createPageFormError.style.display = 'none';
         createPageFormErrorContents.innerText = '';
     };
 
-    const afterCallHandler = function () {
+    const afterCallHandler = () => {
         createPageFormSubmit.disabled = false;
     };
 
