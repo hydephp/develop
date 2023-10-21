@@ -281,8 +281,8 @@
          * Progressive enhancement when JavaScript is enabled to intercept form requests
          * and instead handle them with an asynchronous Fetch instead of refreshing the page.
          */
-        const forms = document.querySelectorAll(".openInEditorForm");
-        forms.forEach(form => {
+
+        function registerAsyncForm(form) {
             form.addEventListener("submit", function (event) {
                 // Disable default form submit
                 event.preventDefault();
@@ -305,6 +305,10 @@
                     console.error("Network error:", error);
                 });
             });
+        }
+
+        document.querySelectorAll(".openInEditorForm").forEach(form => {
+            registerAsyncForm(form);
         });
     </script>
 @endif
