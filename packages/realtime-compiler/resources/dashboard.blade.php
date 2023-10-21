@@ -7,6 +7,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>{{ $title }}</title>
     <base target="_parent">
+    <style>
+        .justCreatedPage td {
+            animation: 2s ease-out 0s 1 FadeOut;
+        }
+
+        @keyframes FadeOut {
+            0% {
+                background-color: rgba(25, 135, 84, 0.4);
+            }
+            100% {
+                background-color: white;
+            }
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-2">
@@ -227,7 +241,7 @@
                             <th class="text-end">Actions</th>
                         </tr>
                         @foreach($dashboard->getPageList() as $route)
-                            <tr>
+                            <tr id="pageRow-{{ $route->getRouteKey() }}" @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage active' : ''])>
                                 <td>
                                     <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
                                 </td>
@@ -287,7 +301,6 @@
 @if($dashboard->enableEditor())
     {{-- Interactivity is not needed when editor is disabled --}}
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>{!! $dashboard->getScripts() !!}</script>
 @endif

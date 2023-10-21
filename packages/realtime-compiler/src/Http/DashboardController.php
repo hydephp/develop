@@ -13,6 +13,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\HtmlString;
 use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
@@ -26,7 +27,10 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use function time;
 use function basename;
+use function json_decode;
+use function json_encode;
 use function array_combine;
 use function escapeshellarg;
 use function file_get_contents;
@@ -44,6 +48,8 @@ class DashboardController
     protected Request $request;
     protected bool $isAsync = false;
 
+    protected array $flashes = [];
+
     protected static array $tips = [
         'This dashboard won\'t be saved to your static site.',
         'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
@@ -56,6 +62,8 @@ class DashboardController
     {
         $this->title = config('hyde.name').' - Dashboard';
         $this->request = Request::capture();
+
+        $this->loadFlashData();
 
         if ($this->request->method === 'POST') {
             $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
@@ -188,6 +196,24 @@ class DashboardController
         return file_get_contents(__DIR__.'/../../resources/dashboard.js');
     }
 
+    public function getFlash(string $key, $default = null): ?string
+    {
+        return $this->flashes[$key] ?? $default;
+    }
+
+    protected function flash(string $string, string $value): void
+    {
+        setcookie('hyde-rc-flash', json_encode([$string => $value]), time() + 180, '/') ?: $this->abort(500, 'Failed to flash session cookie');
+    }
+
+    protected function loadFlashData(): void
+    {
+        if ($flashData = $_COOKIE['hyde-rc-flash'] ?? null) {
+            $this->flashes = json_decode($flashData, true);
+            setcookie('hyde-rc-flash', ''); // Clear cookie
+        }
+    }
+
     protected function openInExplorer(): void
     {
         if ($this->enableEditor()) {
@@ -256,6 +282,7 @@ class DashboardController
                 $this->abort($exception->getCode(), $exception->getMessage());
             }
 
+            $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
             $this->sendJsonResponse(201, "Created file '$path'!");
         }
     }

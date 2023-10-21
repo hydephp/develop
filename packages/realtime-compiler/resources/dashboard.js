@@ -61,14 +61,10 @@ function registerCreateFormModalHandlers() {
     const okHandler = async response => {
         let data = await response.json();
         createPageModal.hide();
-        Swal.fire({
-            title: 'Page created!',
-            text: data.body,
-            icon: 'success',
-            timer: 3000,
-            timerProgressBar: true,
-        })
-        createPageForm.reset()
+        createPageForm.reset();
+
+        // Reload so new page shows up in the table
+        location.reload();
     };
 
     const errorHandler = async response => {
