@@ -280,12 +280,21 @@
         /**
          * Progressive enhancement when JavaScript is enabled to intercept form requests
          * and instead handle them with an asynchronous Fetch instead of refreshing the page.
+         *
+         * @param {Element} form
+         * @param {?callback} okHandler
+         * @param {?callback} errorHandler
+         * @param {?callback} beforeCallHandler
+         * @param {?callback} afterCallHandler
          */
-
-        function registerAsyncForm(form) {
+        function registerAsyncForm(form, okHandler = null, errorHandler = null, beforeCallHandler = null, afterCallHandler = null) {
             form.addEventListener("submit", function (event) {
                 // Disable default form submit
                 event.preventDefault();
+
+                if (beforeCallHandler) {
+                    beforeCallHandler();
+                }
 
                 fetch("", {
                     method: "POST",
@@ -295,15 +304,24 @@
                     }),
                 }).then(response => {
                     if (response.ok) {
-                        // Request was successful, no need to do anything.
+                        if (okHandler) {
+                            okHandler(response);
+                        }
                     } else {
-                        // Request failed, let's log it.
-                        console.error("Fetch request failed.");
+                        if (errorHandler) {
+                            errorHandler(response);
+                        } else {
+                            console.error("Fetch request failed.");
+                        }
                     }
                 }).catch(error => {
                     // Handle any network-related errors
                     console.error("Network error:", error);
                 });
+
+                if (afterCallHandler) {
+                    afterCallHandler();
+                }
             });
         }
 
