@@ -26,7 +26,6 @@ class CreatesNewMarkdownPostFileTest extends TestCase
     public function testWithDefaultData()
     {
         $action = new CreatesNewMarkdownPostFile('Example Title', null, null, null);
-        $array = $action->toArray();
 
         $this->assertSame([
             'title' => 'Example Title',
@@ -34,13 +33,12 @@ class CreatesNewMarkdownPostFileTest extends TestCase
             'category' => 'blog',
             'author' => 'default',
             'date' => '2024-01-01 00:00',
-        ], $array);
+        ], $action->toArray());
     }
 
     public function testWithCustomData()
     {
         $action = new CreatesNewMarkdownPostFile('foo', 'bar', 'baz', 'qux', '2024-06-01 12:20');
-        $array = $action->toArray();
 
         $this->assertSame([
             'title' => 'foo',
@@ -48,7 +46,7 @@ class CreatesNewMarkdownPostFileTest extends TestCase
             'category' => 'baz',
             'author' => 'qux',
             'date' => '2024-06-01 12:20',
-        ], $array);
+        ], $action->toArray());
     }
 
     public function testSave()
@@ -101,8 +99,6 @@ class CreatesNewMarkdownPostFileTest extends TestCase
     {
         $action = new CreatesNewMarkdownPostFile('Example Post', null, null, null, 'Jan 1 2024 8am');
 
-        $array = $action->toArray();
-
-        $this->assertSame('2024-01-01 08:00', $array['date']);
+        $this->assertSame('2024-01-01 08:00', $action->toArray()['date']);
     }
 }
