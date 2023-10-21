@@ -100,7 +100,7 @@ class CreatesNewPageSourceFile
             @php(\$title = "$this->title")
 
             <main class="mx-auto max-w-7xl py-16 px-8">
-                <h1 class="text-center text-3xl font-bold">$this->title</h1>
+                {$this->getPageContent()}
             </main>
 
             @endsection
@@ -111,7 +111,7 @@ class CreatesNewPageSourceFile
 
     protected function createMarkdownFile(): void
     {
-        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], "# $this->title"))->save();
+        (new MarkdownPage($this->formatIdentifier(), ['title' => $this->title], $this->getPageContent()))->save();
     }
 
     protected function createDocumentationFile(): void
@@ -136,5 +136,12 @@ class CreatesNewPageSourceFile
         if ($this->force !== true && file_exists($path)) {
             throw new FileConflictException($path);
         }
+    }
+
+    protected function getPageContent(): string
+    {
+        return $this->pageClass === BladePage::class
+            ? "<h1 class=\"text-center text-3xl font-bold\">$this->title</h1>"
+            : "# $this->title";
     }
 }
