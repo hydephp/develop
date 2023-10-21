@@ -7,9 +7,8 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\MarkdownPost;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-
-use function date;
 
 /**
  * Offloads logic for the make:post command.
@@ -44,7 +43,7 @@ class CreatesNewMarkdownPostFile
         $this->category = $category ?? 'blog';
         $this->author = $author ?? 'default';
 
-        $this->date = date('Y-m-d H:i');
+        $this->date = Carbon::now()->format('Y-m-d H:i');
         $this->identifier = Str::slug($title);
     }
 
