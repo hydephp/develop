@@ -73,4 +73,27 @@ class CreatesNewMarkdownPostFileTest extends TestCase
 
         unlink($path);
     }
+
+    public function testSaveWithCustomContent()
+    {
+        $action = new CreatesNewMarkdownPostFile('Example Post', null, null, null, 'Hello World!');
+        $action->save();
+
+        $path = Hyde::path('_posts/example-post.md');
+
+        $this->assertSame(<<<'MARKDOWN'
+        ---
+        title: 'Example Post'
+        description: 'A short description used in previews and SEO'
+        category: blog
+        author: default
+        date: '2024-01-01 00:00'
+        ---
+
+        Hello World!
+        
+        MARKDOWN, file_get_contents($path));
+
+        unlink($path);
+    }
 }

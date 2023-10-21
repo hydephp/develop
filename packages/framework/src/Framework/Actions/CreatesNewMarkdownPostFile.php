@@ -27,6 +27,7 @@ class CreatesNewMarkdownPostFile
     protected string $author;
     protected string $date;
     protected string $identifier;
+    protected ?string $customContent;
 
     /**
      * Construct the class.
@@ -36,12 +37,13 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
      */
-    public function __construct(string $title, ?string $description, ?string $category, ?string $author)
+    public function __construct(string $title, ?string $description, ?string $category, ?string $author, ?string $customContent = null)
     {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
         $this->category = $category ?? 'blog';
         $this->author = $author ?? 'default';
+        $this->customContent = $customContent;
 
         $this->date = Carbon::now()->format('Y-m-d H:i');
         $this->identifier = Str::slug($title);
@@ -57,7 +59,7 @@ class CreatesNewMarkdownPostFile
      */
     public function save(bool $force = false): string
     {
-        $page = new MarkdownPost($this->identifier, $this->toArray(), '## Write something awesome.');
+        $page = new MarkdownPost($this->identifier, $this->toArray(), $this->customContent ?? '## Write something awesome.');
 
         if ($force !== true && Filesystem::exists($page->getSourcePath())) {
             throw new FileConflictException($page->getSourcePath());
