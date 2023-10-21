@@ -75,10 +75,14 @@
                                             <h1 class="modal-title fs-5" id="createPageModalLabel">Create new page</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="" method="POST">
+                                        <form id="createPageForm" action="" method="POST">
                                             <input type="hidden" name="action" value="createPage">
 
                                             <div class="modal-body">
+                                                <div id="createPageFormError" class="alert alert-danger" style="display: none;">
+                                                    <strong>Error:</strong>
+                                                    <span id="createPageFormErrorContents"></span>
+                                                </div>
                                                 <div class="mb-3">
                                                     <label for="pageTypeSelection" class="form-label">Select page type</label>
                                                     <select id="pageTypeSelection" name="pageTypeSelection" class="form-select" aria-label="Select page type">
@@ -275,6 +279,7 @@
 @if($dashboard->enableEditor())
     {{-- Interactivity is not needed when editor is disabled --}}
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         /**
@@ -327,6 +332,40 @@
 
         document.querySelectorAll(".openInEditorForm").forEach(form => {
             registerAsyncForm(form);
+        });
+
+        let createPageModal = null;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            createPageModal = new bootstrap.Modal('#createPageModal');
+        });
+
+        const createPageForm = document.getElementById("createPageForm");
+        const createPageFormSubmit = document.getElementById("createPageButton");
+        const createPageFormError = document.getElementById("createPageFormError");
+        const createPageFormErrorContents = document.getElementById("createPageFormErrorContents");
+
+        registerAsyncForm(createPageForm, async function (response) {
+            let data = await response.json();
+            createPageModal.hide();
+            Swal.fire({
+                title: 'Page created!',
+                text: data.body,
+                icon: 'success',
+                timer: 3000,
+                timerProgressBar: true,
+            })
+            createPageForm.reset()
+        }, async function (response) {
+            let data = await response.json();
+            createPageFormError.style.display = 'block';
+            createPageFormErrorContents.innerText = data.error;
+        }, function () {
+            createPageFormSubmit.disabled = true;
+            createPageFormError.style.display = 'none';
+            createPageFormErrorContents.innerText = '';
+        }, function () {
+            createPageFormSubmit.disabled = false;
         });
     </script>
 @endif

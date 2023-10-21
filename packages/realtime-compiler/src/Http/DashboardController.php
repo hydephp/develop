@@ -226,10 +226,12 @@ class DashboardController
                 $creator = new CreatesNewPageSourceFile($title, $pageClass, false, $content);
             }
             try {
-                $creator->save();
+                $path = $creator->save();
             } catch (FileConflictException $exception) {
                 $this->abort($exception->getCode(), $exception->getMessage());
             }
+
+            $this->sendJsonResponse(201, "Created file '$path'!");
         }
     }
 
