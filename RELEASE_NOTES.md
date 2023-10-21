@@ -23,7 +23,10 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Catch RealtimeCompiler dashboard OutOfBoundsException in https://github.com/hydephp/develop/pull/1384
+- Updated dropdown navigation menus to support setting priority in config in https://github.com/hydephp/develop/pull/1387 (fixing https://github.com/hydephp/hyde/issues/229)
+- Updated the vendor publish command to support parent Laravel Prompts implementation in https://github.com/hydephp/develop/pull/1388
+- Fixed wrong version constant in https://github.com/hydephp/develop/pull/1391
 
 ### Security
 - in case of vulnerabilities.
