@@ -287,6 +287,9 @@
                 fetch("", {
                     method: "POST",
                     body: new FormData(event.target),
+                    headers: new Headers({
+                        "X-RC-Handler": "Async",
+                    }),
                 }).then(response => {
                     if (response.ok) {
                         // Request was successful, no need to do anything.

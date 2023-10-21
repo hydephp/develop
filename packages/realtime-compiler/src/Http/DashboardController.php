@@ -15,16 +15,17 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\HtmlString;
 use Hyde\Foundation\Facades\Routes;
+use Desilva\Microserve\JsonResponse;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
 use Composer\InstalledVersions;
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
+use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-use function abort;
 use function basename;
 use function array_combine;
 use function escapeshellarg;
@@ -41,6 +42,7 @@ class DashboardController
     public string $title;
 
     protected Request $request;
+    protected bool $isAsync = false;
 
     protected static array $tips = [
         'This dashboard won\'t be saved to your static site.',
@@ -56,11 +58,21 @@ class DashboardController
         $this->request = Request::capture();
 
         if ($this->request->method === 'POST') {
+            $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+
             if (! $this->enableEditor()) {
-                abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+                $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
-            $this->handlePostRequest();
+            try {
+                $this->handlePostRequest();
+            } catch (HttpException $exception) {
+                if (! $this->isAsync) {
+                    throw $exception;
+                }
+
+                $this->sendJsonResponse($exception);
+            }
         }
     }
 
@@ -71,11 +83,11 @@ class DashboardController
             'createPage',
         ], $actions);
 
-        $action = $this->request->data['action'] ?? abort(400, 'Must provide action');
-        $action = $actions[$action] ?? abort(403, 'Invalid action');
+        $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
+        $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
 
         if ($action === 'openInEditor') {
-            $routeKey = $this->request->data['routeKey'] ?? abort(400, 'Must provide routeKey');
+            $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
             $page = Routes::getOrFail($routeKey)->getPage();
             $this->openInEditor($page);
         }
@@ -178,7 +190,7 @@ class DashboardController
             $path = Hyde::path($page->getSourcePath());
 
             if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
-                abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
+                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
             }
 
             Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
@@ -189,9 +201,9 @@ class DashboardController
     {
         if ($this->enableEditor()) {
             // Required data
-            $title = $this->request->data['titleInput'] ?? abort(400, 'Must provide title');
-            $content = $this->request->data['contentInput'] ?? abort(400, 'Must provide content');
-            $pageType = $this->request->data['pageTypeSelection'] ?? abort(400, 'Must provide page type');
+            $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
+            $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
+            $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
 
             // Optional data
             $postDescription = $this->request->data['postDescription'] ?? null;
@@ -213,7 +225,11 @@ class DashboardController
             } else {
                 $creator = new CreatesNewPageSourceFile($title, $pageClass, false, $content);
             }
-            $creator->save();
+            try {
+                $creator->save();
+            } catch (FileConflictException $exception) {
+                $this->abort($exception->getCode(), $exception->getMessage());
+            }
         }
     }
 
@@ -302,5 +318,27 @@ class DashboardController
         }
 
         return $prettyVersion ?? 'unreleased';
+    }
+
+    protected function sendJsonResponse(HttpException $exception): never
+    {
+        $statusMessage = match ($exception->getStatusCode()) {
+            200 => 'OK',
+            201 => 'Created',
+            400 => 'Bad Request',
+            403 => 'Forbidden',
+            409 => 'Conflict',
+            default => 'Internal Server Error',
+        };
+        (new JsonResponse($exception->getStatusCode(), $statusMessage, [
+            'error' => $exception->getMessage(),
+        ]))->send();
+
+        exit;
+    }
+
+    protected function abort(int $code, string $message): never
+    {
+        throw new HttpException($code, $message);
     }
 }
