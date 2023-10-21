@@ -36,6 +36,8 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $description  The Post Meta Description.
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
+     * @param  string|null  $date  Optionally specify a custom date.
+     * @param  string|null  $customContent  Optionally specify custom post content.
      */
     public function __construct(string $title, ?string $description, ?string $category, ?string $author, ?string $date = null, ?string $customContent = null)
     {
