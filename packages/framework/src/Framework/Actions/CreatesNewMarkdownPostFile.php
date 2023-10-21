@@ -45,7 +45,7 @@ class CreatesNewMarkdownPostFile
         $this->author = $author ?? 'default';
         $this->customContent = $customContent;
 
-        $this->date = $date ?? Carbon::now()->format('Y-m-d H:i');
+        $this->date = Carbon::make($date ?? Carbon::now())->format('Y-m-d H:i');
         $this->identifier = Str::slug($title);
     }
 

@@ -96,4 +96,13 @@ class CreatesNewMarkdownPostFileTest extends TestCase
 
         unlink($path);
     }
+
+    public function testCustomDateNormalisation()
+    {
+        $action = new CreatesNewMarkdownPostFile('Example Post', null, null, null, 'Jan 1 2024 8am');
+
+        $array = $action->toArray();
+
+        $this->assertSame('2024-01-01 08:00', $array['date']);
+    }
 }
