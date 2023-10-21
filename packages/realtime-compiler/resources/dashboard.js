@@ -50,36 +50,40 @@ document.querySelectorAll(".openInEditorForm").forEach(form => {
     registerAsyncForm(form);
 });
 
-let createPageModal = null;
+function registerCreateFormModalHandlers() {
+    let createPageModal = null;
 
-document.addEventListener('DOMContentLoaded', function () {
-    createPageModal = new bootstrap.Modal('#createPageModal');
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        createPageModal = new bootstrap.Modal('#createPageModal');
+    });
 
-const createPageForm = document.getElementById("createPageForm");
-const createPageFormSubmit = document.getElementById("createPageButton");
-const createPageFormError = document.getElementById("createPageFormError");
-const createPageFormErrorContents = document.getElementById("createPageFormErrorContents");
+    const createPageForm = document.getElementById("createPageForm");
+    const createPageFormSubmit = document.getElementById("createPageButton");
+    const createPageFormError = document.getElementById("createPageFormError");
+    const createPageFormErrorContents = document.getElementById("createPageFormErrorContents");
 
-registerAsyncForm(createPageForm, async function (response) {
-    let data = await response.json();
-    createPageModal.hide();
-    Swal.fire({
-        title: 'Page created!',
-        text: data.body,
-        icon: 'success',
-        timer: 3000,
-        timerProgressBar: true,
-    })
-    createPageForm.reset()
-}, async function (response) {
-    let data = await response.json();
-    createPageFormError.style.display = 'block';
-    createPageFormErrorContents.innerText = data.error;
-}, function () {
-    createPageFormSubmit.disabled = true;
-    createPageFormError.style.display = 'none';
-    createPageFormErrorContents.innerText = '';
-}, function () {
-    createPageFormSubmit.disabled = false;
-});
+    registerAsyncForm(createPageForm, async function (response) {
+        let data = await response.json();
+        createPageModal.hide();
+        Swal.fire({
+            title: 'Page created!',
+            text: data.body,
+            icon: 'success',
+            timer: 3000,
+            timerProgressBar: true,
+        })
+        createPageForm.reset()
+    }, async function (response) {
+        let data = await response.json();
+        createPageFormError.style.display = 'block';
+        createPageFormErrorContents.innerText = data.error;
+    }, function () {
+        createPageFormSubmit.disabled = true;
+        createPageFormError.style.display = 'none';
+        createPageFormErrorContents.innerText = '';
+    }, function () {
+        createPageFormSubmit.disabled = false;
+    });
+}
+
+registerCreateFormModalHandlers();
