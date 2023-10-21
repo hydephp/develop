@@ -39,7 +39,7 @@ class CreatesNewMarkdownPostFileTest extends TestCase
 
     public function testWithCustomData()
     {
-        $action = new CreatesNewMarkdownPostFile('foo', 'bar', 'baz', 'qux');
+        $action = new CreatesNewMarkdownPostFile('foo', 'bar', 'baz', 'qux', '2024-06-01 12:20');
         $array = $action->toArray();
 
         $this->assertSame([
@@ -47,7 +47,7 @@ class CreatesNewMarkdownPostFileTest extends TestCase
             'description' => 'bar',
             'category' => 'baz',
             'author' => 'qux',
-            'date' => '2024-01-01 00:00',
+            'date' => '2024-06-01 12:20',
         ], $array);
     }
 
@@ -76,7 +76,7 @@ class CreatesNewMarkdownPostFileTest extends TestCase
 
     public function testSaveWithCustomContent()
     {
-        $action = new CreatesNewMarkdownPostFile('Example Post', null, null, null, 'Hello World!');
+        $action = new CreatesNewMarkdownPostFile('Example Post', null, null, null, null, 'Hello World!');
         $action->save();
 
         $path = Hyde::path('_posts/example-post.md');

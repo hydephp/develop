@@ -37,7 +37,7 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
      */
-    public function __construct(string $title, ?string $description, ?string $category, ?string $author, ?string $customContent = null)
+    public function __construct(string $title, ?string $description, ?string $category, ?string $author, ?string $date = null, ?string $customContent = null)
     {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
@@ -45,7 +45,7 @@ class CreatesNewMarkdownPostFile
         $this->author = $author ?? 'default';
         $this->customContent = $customContent;
 
-        $this->date = Carbon::now()->format('Y-m-d H:i');
+        $this->date = $date ?? Carbon::now()->format('Y-m-d H:i');
         $this->identifier = Str::slug($title);
     }
 
