@@ -6,9 +6,13 @@ namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
 use OutOfBoundsException;
+use Hyde\Pages\BladePage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\HtmlString;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Facades\Process;
@@ -16,6 +20,8 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
 use Composer\InstalledVersions;
+use Hyde\Framework\Actions\CreatesNewPageSourceFile;
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 use function abort;
@@ -62,6 +68,7 @@ class DashboardController
     {
         $actions = array_combine($actions = [
             'openInEditor',
+            'createPage',
         ], $actions);
 
         $action = $this->request->data['action'] ?? abort(400, 'Must provide action');
@@ -71,6 +78,10 @@ class DashboardController
             $routeKey = $this->request->data['routeKey'] ?? abort(400, 'Must provide routeKey');
             $page = Routes::getOrFail($routeKey)->getPage();
             $this->openInEditor($page);
+        }
+
+        if ($action === 'createPage') {
+            $this->createPage();
         }
     }
 
@@ -171,6 +182,38 @@ class DashboardController
             }
 
             Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
+    }
+
+    protected function createPage(): void
+    {
+        if ($this->enableEditor()) {
+            // Required data
+            $title = $this->request->data['titleInput'] ?? abort(400, 'Must provide title');
+            $content = $this->request->data['contentInput'] ?? abort(400, 'Must provide content');
+            $pageType = $this->request->data['pageTypeSelection'] ?? abort(400, 'Must provide page type');
+
+            // Optional data
+            $postDescription = $this->request->data['postDescription'] ?? null;
+            $postCategory = $this->request->data['postCategory'] ?? null;
+            $postAuthor = $this->request->data['postAuthor'] ?? null;
+            $postDate = $this->request->data['postDate'] ?? null;
+
+            // Match page class
+            $pageClass = match ($pageType) {
+                'blade-page' => BladePage::class,
+                'markdown-page' => MarkdownPage::class,
+                'markdown-post' => MarkdownPost::class,
+                'documentation-page' => DocumentationPage::class,
+                default => throw new HttpException(400, "Invalid page type '$pageType'"),
+            };
+
+            if ($pageClass === MarkdownPost::class) {
+                $creator = new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content);
+            } else {
+                $creator = new CreatesNewPageSourceFile($title, $pageClass, false, $content);
+            }
+            $creator->save();
         }
     }
 
