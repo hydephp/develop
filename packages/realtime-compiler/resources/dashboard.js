@@ -90,7 +90,7 @@ function registerCreateFormModalHandlers() {
     registerAsyncForm(createPageForm, okHandler, errorHandler, beforeCallHandler, afterCallHandler);
 }
 
-document.querySelectorAll(".openInEditorForm").forEach(form => {
+document.querySelectorAll(".buttonActionForm").forEach(form => {
     registerAsyncForm(form);
 });
 
