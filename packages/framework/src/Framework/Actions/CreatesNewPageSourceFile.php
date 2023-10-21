@@ -13,6 +13,8 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 
+use function trim;
+use function sprintf;
 use function file_put_contents;
 use function file_exists;
 use function basename;
