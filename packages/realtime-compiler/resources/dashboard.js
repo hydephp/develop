@@ -58,8 +58,8 @@ function registerCreateFormModalHandlers() {
     const createPageFormError = document.getElementById("createPageFormError");
     const createPageFormErrorContents = document.getElementById("createPageFormErrorContents");
 
-    const okHandler = async response => {
-        let data = await response.json();
+    const okHandler = () => {
+        // let data = await response.json();
         createPageModal.hide();
         createPageForm.reset();
 
