@@ -16,10 +16,15 @@ use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
  */
 class CreatesNewMarkdownPostFileTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow(Carbon::create(2024));
+    }
+
     public function testWithDefaultData()
     {
-        Carbon::setTestNow(Carbon::create(2024));
-
         $action = new CreatesNewMarkdownPostFile('Example Title', null, null, null);
         $array = $action->toArray();
 
@@ -34,8 +39,6 @@ class CreatesNewMarkdownPostFileTest extends TestCase
 
     public function testWithCustomData()
     {
-        Carbon::setTestNow(Carbon::create(2024));
-
         $action = new CreatesNewMarkdownPostFile('foo', 'bar', 'baz', 'qux');
         $array = $action->toArray();
 
@@ -50,8 +53,6 @@ class CreatesNewMarkdownPostFileTest extends TestCase
 
     public function testSave()
     {
-        Carbon::setTestNow(Carbon::create(2024));
-
         $action = new CreatesNewMarkdownPostFile('Example Post', null, null, null);
         $action->save();
 
