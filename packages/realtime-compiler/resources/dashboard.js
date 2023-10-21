@@ -62,7 +62,7 @@ function registerCreateFormModalHandlers() {
     const createPageFormError = document.getElementById("createPageFormError");
     const createPageFormErrorContents = document.getElementById("createPageFormErrorContents");
 
-    registerAsyncForm(createPageForm, async function (response) {
+    const okHandler = async function (response) {
         let data = await response.json();
         createPageModal.hide();
         Swal.fire({
@@ -73,17 +73,25 @@ function registerCreateFormModalHandlers() {
             timerProgressBar: true,
         })
         createPageForm.reset()
-    }, async function (response) {
+    };
+
+    const errorHandler = async function (response) {
         let data = await response.json();
         createPageFormError.style.display = 'block';
         createPageFormErrorContents.innerText = data.error;
-    }, function () {
+    };
+
+    const beforeCallHandler = function () {
         createPageFormSubmit.disabled = true;
         createPageFormError.style.display = 'none';
         createPageFormErrorContents.innerText = '';
-    }, function () {
+    };
+
+    const afterCallHandler = function () {
         createPageFormSubmit.disabled = false;
-    });
+    };
+
+    registerAsyncForm(createPageForm, okHandler, errorHandler, beforeCallHandler, afterCallHandler);
 }
 
 registerCreateFormModalHandlers();
