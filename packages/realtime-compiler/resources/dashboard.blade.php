@@ -140,7 +140,7 @@
                                                 <a href="https://github.com/hydephp/realtime-compiler/issues/new?{{ http_build_query(['title' => 'Feedback on the dashboard create page modal', 'body' => 'Write something nice!']) }}" class="btn btn-sm btn-outline-success me-auto" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
 
                                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-sm btn-primary">Create page</button>
+                                                <button type="submit" class="btn btn-sm btn-primary" id="createPageButton" title="Please select a page type first" disabled>Create page</button>
                                             </div>
                                             <script>
                                                 // Focus when modal is opened
@@ -158,8 +158,8 @@
                                                 const contentInputLabel = document.getElementById('contentInputLabel');
 
                                                 const contentInput = document.getElementById('contentInput');
-
                                                 const pageTypeSelection = document.getElementById('pageTypeSelection');
+                                                const createPageButton = document.getElementById('createPageButton');
 
                                                 const baseInfo = document.getElementById('baseInfo');
                                                 const createsPost = document.getElementById('createsPost');
@@ -174,6 +174,9 @@
                                                     titleInputLabel.innerText = titleInputLabelDefault;
                                                     contentInputLabel.innerText = contentInputLabelDefault;
                                                     contentInput.placeholder = contentInputPlaceholderDefault;
+
+                                                    createPageButton.disabled = false;
+                                                    createPageButton.title = '';
 
                                                     baseInfo.style.display = 'none';
                                                     createsPost.style.display = 'none';
