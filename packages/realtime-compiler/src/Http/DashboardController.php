@@ -47,7 +47,7 @@ class DashboardController
     protected static array $tips = [
         'This dashboard won\'t be saved to your static site.',
         'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
-        'Found a bug stuck? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
+        'Found a bug? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
         'You can disable tips using by setting `server.tips` to `false` in `config/hyde.php`.',
         'By default this dashboard can make changes to your project files. You can disable this by setting `server.editor` to `false` in `config/hyde.php`.',
     ];
