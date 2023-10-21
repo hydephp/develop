@@ -143,8 +143,12 @@ class CreatesNewPageSourceFile
 
     protected function getPageContent(): string
     {
-        return $this->customContent ?? ($this->pageClass === BladePage::class
+        $baseContent = $this->pageClass === BladePage::class
             ? "<h1 class=\"text-center text-3xl font-bold\">$this->title</h1>"
-            : "# $this->title");
+            : "# $this->title";
+
+        $customContent = $this->customContent ?? '';
+
+        return trim("$baseContent\n\n$customContent");
     }
 }

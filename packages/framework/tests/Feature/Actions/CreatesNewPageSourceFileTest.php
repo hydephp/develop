@@ -141,7 +141,17 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/test-page.md'));
 
         $this->assertSame(
-            "---\ntitle: 'Test Page'\n---\n\nHello World!\n",
+            <<<MARKDOWN
+            ---
+            title: 'Test Page'
+            ---
+            
+            # Test Page
+
+            Hello World!
+
+            MARKDOWN
+,
             file_get_contents(Hyde::path('_pages/test-page.md'))
         );
         Filesystem::unlink('_pages/test-page.md');
@@ -160,7 +170,9 @@ class CreatesNewPageSourceFileTest extends TestCase
             @php($title = "Test Page")
 
             <main class="mx-auto max-w-7xl py-16 px-8">
-                Hello World!
+                <h1 class="text-center text-3xl font-bold">Test Page</h1>
+
+            Hello World!
             </main>
 
             @endsection
