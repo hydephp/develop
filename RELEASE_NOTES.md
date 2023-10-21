@@ -10,7 +10,8 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added support for setting custom content when calling source file creator actions directly in https://github.com/hydephp/develop/pull/1393
+- Added support for setting a custom post date when calling post file creator action directly in https://github.com/hydephp/develop/pull/1393
 
 ### Changed
 - for changes in existing functionality.
