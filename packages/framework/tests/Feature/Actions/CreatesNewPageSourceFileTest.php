@@ -133,6 +133,44 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_docs/test-page.md');
     }
 
+
+    public function test_that_a_markdown_file_can_be_created_with_custom_content()
+    {
+        (new CreatesNewPageSourceFile('Test Page', customContent: 'Hello World!'))->save();
+
+        $this->assertFileExists(Hyde::path('_pages/test-page.md'));
+
+        $this->assertSame(
+            "---\ntitle: 'Test Page'\n---\n\nHello World!\n",
+            file_get_contents(Hyde::path('_pages/test-page.md'))
+        );
+        Filesystem::unlink('_pages/test-page.md');
+    }
+
+    public function test_that_a_blade_file_can_be_created_with_custom_content()
+    {
+        (new CreatesNewPageSourceFile('Test Page', BladePage::class, customContent: 'Hello World!'))->save();
+
+        $this->assertFileExists(Hyde::path('_pages/test-page.blade.php'));
+
+        $this->assertEquals(
+            <<<'BLADE'
+            @extends('hyde::layouts.app')
+            @section('content')
+            @php($title = "Test Page")
+
+            <main class="mx-auto max-w-7xl py-16 px-8">
+                Hello World!
+            </main>
+
+            @endsection
+
+            BLADE, file_get_contents(Hyde::path('_pages/test-page.blade.php'))
+        );
+
+        Filesystem::unlink('_pages/test-page.blade.php');
+    }
+
     public function test_that_the_file_path_can_be_returned()
     {
         $this->assertSame(

@@ -37,7 +37,9 @@ class CreatesNewPageSourceFile
     protected string $subDir = '';
     protected bool $force;
 
-    public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false)
+    protected ?string $customContent;
+
+    public function __construct(string $title, string $pageClass = MarkdownPage::class, bool $force = false, ?string $customContent = null)
     {
         $this->validateType($pageClass);
         $this->pageClass = $pageClass;
@@ -45,6 +47,7 @@ class CreatesNewPageSourceFile
         $this->title = $this->parseTitle($title);
         $this->filename = $this->fileName($title);
         $this->force = $force;
+        $this->customContent = $customContent;
 
         $this->outputPath = $this->makeOutputPath($pageClass);
     }
@@ -140,8 +143,8 @@ class CreatesNewPageSourceFile
 
     protected function getPageContent(): string
     {
-        return $this->pageClass === BladePage::class
+        return $this->customContent ?? ($this->pageClass === BladePage::class
             ? "<h1 class=\"text-center text-3xl font-bold\">$this->title</h1>"
-            : "# $this->title";
+            : "# $this->title");
     }
 }
