@@ -178,7 +178,7 @@ class DashboardController
                 $contents = str_replace('</body>', sprintf("%s\n</body>", self::welcomeFrame()), $contents);
             }
 
-            if (config('hyde.server.dashboard.button', false)) {
+            if (config('hyde.server.dashboard.button', true)) {
                 $contents = self::injectDashboardButton($contents);
             }
         }
