@@ -406,9 +406,9 @@ return [
         'port' => env('SERVER_PORT', 8080),
         'host' => env('SERVER_HOST', 'localhost'),
         'dashboard' => env('SERVER_DASHBOARD', true),
+        'dashboard_editor' => true,
+        'dashboard_tips' => true,
         'save_preview' => true,
-        'editor' => true,
-        'tips' => true,
     ],
 
     /*
