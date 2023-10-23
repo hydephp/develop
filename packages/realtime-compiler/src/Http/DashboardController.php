@@ -88,7 +88,7 @@ class DashboardController
     {
         $actions = array_combine($actions = [
             'openInExplorer',
-            'openInEditor',
+            'openPageInEditor',
             'createPage',
         ], $actions);
 
@@ -99,10 +99,10 @@ class DashboardController
             $this->openInExplorer();
         }
 
-        if ($action === 'openInEditor') {
+        if ($action === 'openPageInEditor') {
             $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
             $page = Routes::getOrFail($routeKey)->getPage();
-            $this->openInEditor($page);
+            $this->openPageInEditor($page);
         }
 
         if ($action === 'createPage') {
@@ -229,7 +229,7 @@ class DashboardController
         }
     }
 
-    protected function openInEditor(HydePage $page): void
+    protected function openPageInEditor(HydePage $page): void
     {
         if ($this->enableEditor()) {
             $binary = match (PHP_OS_FAMILY) {

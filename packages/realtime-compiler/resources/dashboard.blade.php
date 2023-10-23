@@ -204,7 +204,7 @@
                                     <div class="d-flex justify-content-end">
                                         @if($dashboard->enableEditor())
                                             <form class="buttonActionForm" action="" method="POST">
-                                                <input type="hidden" name="action" value="openInEditor">
+                                                <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
                                             </form>
