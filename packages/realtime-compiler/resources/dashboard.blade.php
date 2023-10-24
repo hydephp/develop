@@ -21,6 +21,7 @@
             }
         }
     </style>
+    <style>/*! fileicon.css v0.1.1 | MIT License | github.com/picturepan2/fileicon.css */.file-icon{font-family:Arial,Tahoma,sans-serif;font-weight:300;display:inline-block;width:24px;height:32px;background:#018fef;position:relative;border-radius:2px;text-align:left;-webkit-font-smoothing:antialiased}.file-icon::before{display:block;content:"";position:absolute;top:0;right:0;width:0;height:0;border-bottom-left-radius:2px;border-width:5px;border-style:solid;border-color:#fff #fff rgba(255,255,255,.35) rgba(255,255,255,.35)}.file-icon::after{display:block;content:attr(data-type);position:absolute;bottom:0;left:0;font-size:10px;color:#fff;text-transform:lowercase;width:100%;padding:2px;white-space:nowrap;overflow:hidden}.file-icon-xs{width:12px;height:16px;border-radius:2px}.file-icon-xs::before{border-bottom-left-radius:1px;border-width:3px}.file-icon-xs::after{content:"";border-bottom:2px solid rgba(255,255,255,.45);width:auto;left:2px;right:2px;bottom:3px}.file-icon-sm{width:18px;height:24px;border-radius:2px}.file-icon-sm::before{border-bottom-left-radius:2px;border-width:4px}.file-icon-sm::after{font-size:7px;padding:2px}.file-icon-md{width:33px;height:44px;border-radius:3px}.file-icon-md::before{border-bottom-left-radius:2px;border-width:6px}.file-icon-md::after{font-size:12px;padding:3px 5px}.file-icon-lg{width:48px;height:64px;border-radius:3px}.file-icon-lg::before{border-bottom-left-radius:2px;border-width:8px}.file-icon-lg::after{font-size:16px;padding:4px 6px}.file-icon-xl{width:96px;height:128px;border-radius:4px}.file-icon-xl::before{border-bottom-left-radius:4px;border-width:16px}.file-icon-xl::after{font-size:24px;padding:4px 10px}.file-icon[data-type=rar],.file-icon[data-type=zip]{background:#acacac}.file-icon[data-type^=doc]{background:#307cf1}.file-icon[data-type^=xls]{background:#0f9d58}.file-icon[data-type^=ppt]{background:#d24726}.file-icon[data-type=pdf]{background:#e13d34}.file-icon[data-type=txt]{background:#5eb533}.file-icon[data-type=flac],.file-icon[data-type=m4a],.file-icon[data-type=mp3],.file-icon[data-type=wma]{background:#8e44ad}.file-icon[data-type=avi],.file-icon[data-type=mkv],.file-icon[data-type=mov],.file-icon[data-type=mp4],.file-icon[data-type=wmv]{background:#7a3ce7}.file-icon[data-type=bmp],.file-icon[data-type=gif],.file-icon[data-type=jpeg],.file-icon[data-type=jpg],.file-icon[data-type=png]{background:#f4b400}</style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-2">
@@ -215,6 +216,63 @@
                             </tr>
                         @endforeach
                     </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="col-xl-10 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h2 class="h5 mb-0">Media Library</h2>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container d-flex flex-wrap" style="margin: 0 -0.5rem">
+                        @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
+                            <div class="col-lg-4 p-2 d-flex flex-grow-1">
+                                <figure class="card w-100 p-2 mb-0">
+                                    @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif']))
+                                        <img src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
+                                    @else
+                                        <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);"><pre style="{{ (substr_count(trim($mediaFile->getContents()), "\n") < 3 && strlen($mediaFile->getContents()) > 200) ? 'white-space: normal;' : '' }}">{{ substr($mediaFile->getContents(), 0, 400) }}</pre></code>
+                                    @endif
+                                    <figcaption class="container mt-3">
+                                        <div class="row flex-nowrap">
+                                            <div class="col-auto px-0">
+                                                <div class="file-icon file-icon-md" data-type="{{ $mediaFile->getExtension() }}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row flex-nowrap justify-content-start">
+                                                    <p class="col-auto text-truncate mb-0 pe-2">
+                                                        <strong title="{{ $mediaFile->getPath() }}">{{ $mediaFile->getName() }}</strong>
+                                                    </p>
+                                                    <div class="col px-0 text-nowrap">
+                                                        <small class="text-muted">({{ $dashboard::bytesToHuman($mediaFile->getContentLength()) }})</small>
+                                                    </div>
+                                                </div>
+                                                <div class="row small align-items-center">
+                                                    <div class="w-auto pe-0">
+                                                        <a href="media/{{ $mediaFile->getIdentifier() }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
+                                                    </div>
+                                                    @if($dashboard->enableEditor())
+                                                        <div class="w-auto ps-0">
+                                                            <form class="buttonActionForm" action="" method="POST">
+                                                                <input type="hidden" name="action" value="openMediaFileInEditor">
+                                                                <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
+                                                                <button type="submit" class="btn btn-link btn-sm py-0" title="Open this image in the system editor">Edit</button>
+                                                            </form>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
