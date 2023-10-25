@@ -237,12 +237,7 @@ class DashboardController
     protected function openInExplorer(): void
     {
         if ($this->enableEditor()) {
-            $binary = match (PHP_OS_FAMILY) {
-                'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
-                'Darwin' => 'open',
-                'Linux' => 'xdg-open',
-                default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
-            };
+            $binary = $this->findGeneralOpenBinary();
             $path = Hyde::path();
 
             Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
@@ -252,12 +247,7 @@ class DashboardController
     protected function openPageInEditor(HydePage $page): void
     {
         if ($this->enableEditor()) {
-            $binary = match (PHP_OS_FAMILY) {
-                'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
-                'Darwin' => 'open',
-                'Linux' => 'xdg-open',
-                default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
-            };
+            $binary = $this->findGeneralOpenBinary();
             $path = Hyde::path($page->getSourcePath());
 
             if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
@@ -271,12 +261,7 @@ class DashboardController
     protected function openMediaFileInEditor(MediaFile $file): void
     {
         if ($this->enableEditor()) {
-            $binary = match (PHP_OS_FAMILY) {
-                'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
-                'Darwin' => 'open',
-                'Linux' => 'xdg-open',
-                default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
-            };
+            $binary = $this->findGeneralOpenBinary();
             $path = $file->getAbsolutePath();
 
             if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico'])) {
@@ -448,5 +433,15 @@ class DashboardController
     protected function abort(int $code, string $message): never
     {
         throw new HttpException($code, $message);
+    }
+
+    protected function findGeneralOpenBinary(): string
+    {
+        return match (PHP_OS_FAMILY) {
+            'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
+            'Darwin' => 'open',
+            'Linux' => 'xdg-open',
+            default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
+        };
     }
 }
