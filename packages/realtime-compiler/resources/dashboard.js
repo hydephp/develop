@@ -23,7 +23,7 @@ function registerAsyncForm(form, okHandler = null, errorHandler = null, beforeCa
             headers: new Headers({
                 "X-RC-Handler": "Async",
             }),
-        }).then(response => {
+        }).then(async response => {
             if (response.ok) {
                 if (okHandler) {
                     okHandler(response);
@@ -32,7 +32,14 @@ function registerAsyncForm(form, okHandler = null, errorHandler = null, beforeCa
                 if (errorHandler) {
                     errorHandler(response);
                 } else {
-                    console.error("Fetch request failed.");
+                    let asyncErrorToast = document.getElementById("asyncErrorToast");
+                    let asyncErrorToastHeader = document.getElementById("asyncErrorToastHeader");
+                    let asyncErrorToastBody = document.getElementById("asyncErrorToastBody");
+
+                    asyncErrorToastHeader.innerText = `Error: ${response.status} ${response.statusText}`
+                    asyncErrorToastBody.innerText = (await response.json()).error;
+
+                    bootstrap.Toast.getOrCreateInstance(asyncErrorToast).show()
                 }
             }
         }).catch(error => {
