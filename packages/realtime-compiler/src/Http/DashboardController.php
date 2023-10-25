@@ -28,10 +28,14 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use function e;
+use function str;
 use function time;
 use function trim;
 use function round;
+use function rtrim;
 use function strlen;
+use function substr;
 use function basename;
 use function in_array;
 use function json_decode;
@@ -167,6 +171,51 @@ class DashboardController
     public static function isMediaFileProbablyMinified(string $contents): bool
     {
         return substr_count(trim($contents), "\n") < 3 && strlen($contents) > 200;
+    }
+
+    /** @internal */
+    public static function highlightMediaLibraryCode(string $contents): HtmlString
+    {
+        $contents = e($contents);
+
+        if (static::isMediaFileProbablyMinified($contents)) {
+            return new HtmlString(substr($contents, 0, 800));
+        }
+
+        $highlighted = str($contents)->explode("\n")->slice(0, 25)->map(function (string $line): string {
+            $line = rtrim($line);
+
+            if (str_starts_with($line, '//')) {
+                return "<span style='font-size: 80%; color: gray'>$line</span>";
+            }
+
+            if (str_starts_with($line, '/*') && str_ends_with($line, '*/')) {
+                // Commented code should not be additionally formatted, though we always want to comment multiline blocks
+                $quickReturn = true;
+            }
+
+            $line = str_replace('/*', "<span style='font-size: 80%; color: gray'>/*", $line);
+            $line = str_replace('*/', '*/</span>', $line);
+
+            if ($quickReturn ?? false) {
+                return rtrim($line);
+            }
+
+            $line = strtr($line, [
+                '{' => "<span style='color: #0f6674'>{</span>",
+                '}' => "<span style='color: #0f6674'>}</span>",
+                '(' => "<span style='color: #0f6674'>(</span><span style=\"color: #f77243;\">",
+                ')' => "</span><span style='color: #0f6674'>)</span>",
+                ':' => "<span style='color: #0f6674'>:</span>",
+                ';' => "<span style='color: #0f6674'>;</span>",
+                'return' => "<span style='color: #8e44ad'>return</span>",
+                'function' => "<span style='color: #8e44ad'>function</span>",
+            ]);
+
+            return rtrim($line);
+        })->implode("\n");
+
+        return new HtmlString($highlighted);
     }
 
     public function showTips(): bool
