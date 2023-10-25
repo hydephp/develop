@@ -17,6 +17,7 @@ use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\HtmlString;
 use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
+use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
@@ -28,7 +29,9 @@ use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 use function time;
+use function round;
 use function basename;
+use function in_array;
 use function json_decode;
 use function json_encode;
 use function array_combine;
@@ -89,6 +92,7 @@ class DashboardController
         $actions = array_combine($actions = [
             'openInExplorer',
             'openPageInEditor',
+            'openMediaFileInEditor',
             'createPage',
         ], $actions);
 
@@ -103,6 +107,12 @@ class DashboardController
             $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
             $page = Routes::getOrFail($routeKey)->getPage();
             $this->openPageInEditor($page);
+        }
+
+        if ($action === 'openMediaFileInEditor') {
+            $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
+            $asset = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
+            $this->openMediaFileInEditor($asset);
         }
 
         if ($action === 'createPage') {
@@ -138,6 +148,16 @@ class DashboardController
     public function getPageList(): array
     {
         return Hyde::routes()->all();
+    }
+
+    /** @internal */
+    public static function bytesToHuman(int $bytes, int $precision = 2): string
+    {
+        for ($i = 0; $bytes > 1024; $i++) {
+            $bytes /= 1024;
+        }
+
+        return round($bytes, $precision).' '.['B', 'KB', 'MB', 'GB', 'TB'][$i];
     }
 
     public function showTips(): bool
@@ -241,6 +261,25 @@ class DashboardController
             $path = Hyde::path($page->getSourcePath());
 
             if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
+                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
+            }
+
+            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
+    }
+
+    protected function openMediaFileInEditor(MediaFile $file): void
+    {
+        if ($this->enableEditor()) {
+            $binary = match (PHP_OS_FAMILY) {
+                'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
+                'Darwin' => 'open',
+                'Linux' => 'xdg-open',
+                default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
+            };
+            $path = $file->getAbsolutePath();
+
+            if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico'])) {
                 $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
             }
 
@@ -394,6 +433,7 @@ class DashboardController
         $statusMessage = match ($exception->getStatusCode()) {
             400 => 'Bad Request',
             403 => 'Forbidden',
+            404 => 'Not Found',
             409 => 'Conflict',
             default => 'Internal Server Error',
         };
