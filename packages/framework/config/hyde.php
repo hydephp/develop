@@ -409,6 +409,9 @@ return [
         // The default host the preview is served on
         'host' => env('SERVER_HOST', 'localhost'),
 
+        // Should preview pages be saved to the output directory?
+        'save_preview' => true,
+
         // Should the realtime compiler dashboard be enabled?
         'dashboard' => env('SERVER_DASHBOARD', true),
 
@@ -418,8 +421,6 @@ return [
         // Should the dashboard show tips?
         'dashboard_tips' => true,
 
-        // Should preview pages be saved to the output directory?
-        'save_preview' => true,
     ],
 
     /*
