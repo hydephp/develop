@@ -236,7 +236,7 @@
                                     @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif']))
                                         <img src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
                                     @else
-                                        <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);"><pre style="{{ (substr_count(trim($mediaFile->getContents()), "\n") < 3 && strlen($mediaFile->getContents()) > 200) ? 'white-space: normal;' : '' }}">{{ substr($mediaFile->getContents(), 0, 400) }}</pre></code>
+                                        <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);"><pre style="{{ $dashboard::isMediaFileProbablyMinified($mediaFile->getContents()) ? 'white-space: normal;' : '' }}">{{ substr($mediaFile->getContents(), 0, 400) }}</pre></code>
                                     @endif
                                     <figcaption class="container mt-3">
                                         <div class="row flex-nowrap">

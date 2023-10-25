@@ -29,11 +29,14 @@ use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 use function time;
+use function trim;
 use function round;
+use function strlen;
 use function basename;
 use function in_array;
 use function json_decode;
 use function json_encode;
+use function substr_count;
 use function array_combine;
 use function escapeshellarg;
 use function file_get_contents;
@@ -158,6 +161,12 @@ class DashboardController
         }
 
         return round($bytes, $precision).' '.['B', 'KB', 'MB', 'GB', 'TB'][$i];
+    }
+
+    /** @internal */
+    public static function isMediaFileProbablyMinified(string $contents): bool
+    {
+        return substr_count(trim($contents), "\n") < 3 && strlen($contents) > 200;
     }
 
     public function showTips(): bool
