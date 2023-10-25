@@ -25,7 +25,15 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-2">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
+    <a class="navbar-brand col-md-3 col-lg-auto me-0 ps-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
+    @if(! $dashboard->isInteractive())
+        <span class="nav-item text-nowrap px-3 me-auto">
+            <span class="badge rounded-pill text-bg-info" title="This dashboard is readonly. You can change this in the `hyde.php` config.">
+                Readonly
+            </span>
+        </span>
+    @endif
+
     <div class="navbar-nav">
         @if($request->embedded)
             <div class="nav-item text-nowrap pe-4">
