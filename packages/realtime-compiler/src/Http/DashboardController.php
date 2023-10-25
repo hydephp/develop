@@ -78,7 +78,7 @@ class DashboardController
         if ($this->request->method === 'POST') {
             $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
 
-            if (! $this->enableEditor()) {
+            if (! $this->isInteractive()) {
                 $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
@@ -264,7 +264,7 @@ class DashboardController
         return $contents;
     }
 
-    public function enableEditor(): bool
+    public function isInteractive(): bool
     {
         return config('hyde.server.editor', true);
     }
@@ -294,7 +294,7 @@ class DashboardController
 
     protected function openInExplorer(): void
     {
-        if ($this->enableEditor()) {
+        if ($this->isInteractive()) {
             $binary = $this->findGeneralOpenBinary();
             $path = Hyde::path();
 
@@ -304,7 +304,7 @@ class DashboardController
 
     protected function openPageInEditor(HydePage $page): void
     {
-        if ($this->enableEditor()) {
+        if ($this->isInteractive()) {
             $binary = $this->findGeneralOpenBinary();
             $path = Hyde::path($page->getSourcePath());
 
@@ -318,7 +318,7 @@ class DashboardController
 
     protected function openMediaFileInEditor(MediaFile $file): void
     {
-        if ($this->enableEditor()) {
+        if ($this->isInteractive()) {
             $binary = $this->findGeneralOpenBinary();
             $path = $file->getAbsolutePath();
 
@@ -332,7 +332,7 @@ class DashboardController
 
     protected function createPage(): void
     {
-        if ($this->enableEditor()) {
+        if ($this->isInteractive()) {
             // Required data
             $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
             $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');

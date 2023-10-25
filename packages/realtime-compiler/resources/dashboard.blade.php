@@ -54,7 +54,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
                         <h2 class="h5 mb-0">Site Pages & Routes</h2>
-                        @if($dashboard->enableEditor())
+                        @if($dashboard->isInteractive())
                             <form class="buttonActionForm" action="" method="POST">
                                 <input type="hidden" name="action" value="openInExplorer">
                                 <button type="submit" class="btn btn-outline-primary btn-sm" title="Open in system file explorer">Open folder</button>
@@ -83,7 +83,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
                         <h2 class="h5 mb-0">Site Pages & Routes</h2>
-                        @if($dashboard->enableEditor())
+                        @if($dashboard->isInteractive())
                             <noscript><style>#createPageModalButton { display: none; }</style></noscript>
                             <!-- Button trigger modal -->
                             <button id="createPageModalButton" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createPageModal">
@@ -203,7 +203,7 @@
                                 </td>
                                 <td class="text-end">
                                     <div class="d-flex justify-content-end">
-                                        @if($dashboard->enableEditor())
+                                        @if($dashboard->isInteractive())
                                             <form class="buttonActionForm" action="" method="POST">
                                                 <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
@@ -262,7 +262,7 @@
                                                     <div class="w-auto pe-0">
                                                         <a href="media/{{ $mediaFile->getIdentifier() }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
                                                     </div>
-                                                    @if($dashboard->enableEditor())
+                                                    @if($dashboard->isInteractive())
                                                         <div class="w-auto ps-0">
                                                             <form class="buttonActionForm" action="" method="POST">
                                                                 <input type="hidden" name="action" value="openMediaFileInEditor">
@@ -305,7 +305,7 @@
         <div class="col-lg-3"></div>
     </div>
 </footer>
-@if($dashboard->enableEditor())
+@if($dashboard->isInteractive())
     {{-- Interactivity is not needed when editor is disabled --}}
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
