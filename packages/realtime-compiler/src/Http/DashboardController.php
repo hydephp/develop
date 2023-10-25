@@ -220,7 +220,7 @@ class DashboardController
 
     public function showTips(): bool
     {
-        return config('hyde.server.tips', true);
+        return config('hyde.server.dashboard_tips', true);
     }
 
     public function getTip(): HtmlString
@@ -266,7 +266,7 @@ class DashboardController
 
     public function isInteractive(): bool
     {
-        return config('hyde.server.editor', true);
+        return config('hyde.server.dashboard_editor', true);
     }
 
     public function getScripts(): string
