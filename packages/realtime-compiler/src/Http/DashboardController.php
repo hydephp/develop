@@ -209,6 +209,7 @@ class DashboardController
                 ')' => "</span><span style='color: #0f6674'>)</span>",
                 ':' => "<span style='color: #0f6674'>:</span>",
                 ';' => "<span style='color: #0f6674'>;</span>",
+                '+' => "<span style='color: #0f6674'>+</span>",
                 'return' => "<span style='color: #8e44ad'>return</span>",
                 'function' => "<span style='color: #8e44ad'>function</span>",
             ]);
