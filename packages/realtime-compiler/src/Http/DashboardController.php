@@ -496,10 +496,13 @@ class DashboardController
     protected function findGeneralOpenBinary(): string
     {
         return match (PHP_OS_FAMILY) {
-            'Windows' => 'powershell Start-Process', // Using PowerShell allows us to open the file in the background
+            // Using PowerShell allows us to open the file in the background
+            'Windows' => 'powershell Start-Process',
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
-            default => throw new HttpException(500, sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY))
+            default => throw new HttpException(500,
+                sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY)
+            )
         };
     }
 }
