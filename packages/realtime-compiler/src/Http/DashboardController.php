@@ -6,12 +6,43 @@ namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
 use OutOfBoundsException;
+use Hyde\Pages\BladePage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\RouteKey;
+use Illuminate\Support\HtmlString;
+use Hyde\Foundation\Facades\Routes;
+use Desilva\Microserve\JsonResponse;
+use Hyde\Support\Filesystem\MediaFile;
+use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
 use Composer\InstalledVersions;
+use Hyde\Framework\Actions\CreatesNewPageSourceFile;
+use Hyde\Framework\Exceptions\FileConflictException;
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use function e;
+use function str;
+use function time;
+use function trim;
+use function round;
+use function rtrim;
+use function strlen;
+use function substr;
+use function basename;
+use function in_array;
+use function json_decode;
+use function json_encode;
+use function substr_count;
+use function array_combine;
+use function escapeshellarg;
 use function file_get_contents;
 use function str_starts_with;
 use function str_replace;
@@ -27,15 +58,82 @@ class DashboardController
 {
     public string $title;
 
+    protected Request $request;
+    protected bool $isAsync = false;
+
+    protected array $flashes = [];
+
+    protected static array $tips = [
+        'This dashboard won\'t be saved to your static site.',
+        'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
+        'Found a bug? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
+        'You can disable tips using by setting `server.dashboard_tips` to `false` in `config/hyde.php`.',
+        'The dashboard update your project files. You can disable this by setting `server.dashboard_editor` to `false` in `config/hyde.php`.',
+    ];
+
     public function __construct()
     {
         $this->title = config('hyde.name').' - Dashboard';
+        $this->request = Request::capture();
+
+        $this->loadFlashData();
+
+        if ($this->request->method === 'POST') {
+            $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+
+            if (! $this->isInteractive()) {
+                $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+            }
+
+            try {
+                $this->handlePostRequest();
+            } catch (HttpException $exception) {
+                if (! $this->isAsync) {
+                    throw $exception;
+                }
+
+                $this->sendJsonErrorResponse($exception);
+            }
+        }
+    }
+
+    protected function handlePostRequest(): void
+    {
+        $actions = array_combine($actions = [
+            'openInExplorer',
+            'openPageInEditor',
+            'openMediaFileInEditor',
+            'createPage',
+        ], $actions);
+
+        $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
+        $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
+
+        if ($action === 'openInExplorer') {
+            $this->openInExplorer();
+        }
+
+        if ($action === 'openPageInEditor') {
+            $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
+            $page = Routes::getOrFail($routeKey)->getPage();
+            $this->openPageInEditor($page);
+        }
+
+        if ($action === 'openMediaFileInEditor') {
+            $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
+            $asset = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
+            $this->openMediaFileInEditor($asset);
+        }
+
+        if ($action === 'createPage') {
+            $this->createPage();
+        }
     }
 
     public function show(): string
     {
         return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this, 'request' => Request::capture()],
+            (array) $this, ['dashboard' => $this, 'request' => $this->request],
         ));
     }
 
@@ -49,10 +147,10 @@ class DashboardController
     public function getProjectInformation(): array
     {
         return [
-            'Git Version:' => app('git.version'),
-            'Hyde Version:' => self::getPackageVersion('hyde/hyde'),
-            'Framework Version:' => self::getPackageVersion('hyde/framework'),
-            'Project Path:' => Hyde::path(),
+            'Git Version' => app('git.version'),
+            'Hyde Version' => self::getPackageVersion('hyde/hyde'),
+            'Framework Version' => self::getPackageVersion('hyde/framework'),
+            'Project Path' => Hyde::path(),
         ];
     }
 
@@ -60,6 +158,81 @@ class DashboardController
     public function getPageList(): array
     {
         return Hyde::routes()->all();
+    }
+
+    /** @internal */
+    public static function bytesToHuman(int $bytes, int $precision = 2): string
+    {
+        for ($i = 0; $bytes > 1024; $i++) {
+            $bytes /= 1024;
+        }
+
+        return round($bytes, $precision).' '.['B', 'KB', 'MB', 'GB', 'TB'][$i];
+    }
+
+    /** @internal */
+    public static function isMediaFileProbablyMinified(string $contents): bool
+    {
+        return substr_count(trim($contents), "\n") < 3 && strlen($contents) > 200;
+    }
+
+    /** @internal */
+    public static function highlightMediaLibraryCode(string $contents): HtmlString
+    {
+        $contents = e($contents);
+        $contents = str_replace(['&#039;', '&quot;'], ['%SQT%', '%DQT%'], $contents); // Temporarily replace escaped quotes
+
+        if (static::isMediaFileProbablyMinified($contents)) {
+            return new HtmlString(substr($contents, 0, 800));
+        }
+
+        $highlighted = str($contents)->explode("\n")->slice(0, 25)->map(function (string $line): string {
+            $line = rtrim($line);
+
+            if (str_starts_with($line, '//')) {
+                return "<span style='font-size: 80%; color: gray'>$line</span>";
+            }
+
+            if (str_starts_with($line, '/*') && str_ends_with($line, '*/')) {
+                // Commented code should not be additionally formatted, though we always want to comment multiline blocks
+                $quickReturn = true;
+            }
+
+            $line = str_replace('/*', "<span style='font-size: 80%; color: gray'>/*", $line);
+            $line = str_replace('*/', '*/</span>', $line);
+
+            if ($quickReturn ?? false) {
+                return rtrim($line);
+            }
+
+            $line = strtr($line, [
+                '{' => "<span style='color: #0f6674'>{</span>",
+                '}' => "<span style='color: #0f6674'>}</span>",
+                '(' => "<span style='color: #0f6674'>(</span><span style=\"color: #f77243;\">",
+                ')' => "</span><span style='color: #0f6674'>)</span>",
+                ':' => "<span style='color: #0f6674'>:</span>",
+                ';' => "<span style='color: #0f6674'>;</span>",
+                '+' => "<span style='color: #0f6674'>+</span>",
+                'return' => "<span style='color: #8e44ad'>return</span>",
+                'function' => "<span style='color: #8e44ad'>function</span>",
+            ]);
+
+            return rtrim($line);
+        })->implode("\n");
+
+        $highlighted = str_replace(['%SQT%', '%DQT%'], ['&#039;', '&quot;'], $highlighted);
+
+        return new HtmlString($highlighted);
+    }
+
+    public function showTips(): bool
+    {
+        return config('hyde.server.dashboard_tips', true);
+    }
+
+    public function getTip(): HtmlString
+    {
+        return new HtmlString(Str::inlineMarkdown(Arr::random(static::$tips)));
     }
 
     public static function enabled(): bool
@@ -90,12 +263,117 @@ class DashboardController
                 $contents = str_replace('</body>', sprintf("%s\n</body>", self::welcomeFrame()), $contents);
             }
 
-            if (config('hyde.server.dashboard.button', false)) {
+            if (config('hyde.server.dashboard.button', true)) {
                 $contents = self::injectDashboardButton($contents);
             }
         }
 
         return $contents;
+    }
+
+    public function isInteractive(): bool
+    {
+        return config('hyde.server.dashboard_editor', true);
+    }
+
+    public function getScripts(): string
+    {
+        return file_get_contents(__DIR__.'/../../resources/dashboard.js');
+    }
+
+    public function getFlash(string $key, $default = null): ?string
+    {
+        return $this->flashes[$key] ?? $default;
+    }
+
+    protected function flash(string $string, string $value): void
+    {
+        setcookie('hyde-rc-flash', json_encode([$string => $value]), time() + 180, '/') ?: $this->abort(500, 'Failed to flash session cookie');
+    }
+
+    protected function loadFlashData(): void
+    {
+        if ($flashData = $_COOKIE['hyde-rc-flash'] ?? null) {
+            $this->flashes = json_decode($flashData, true);
+            setcookie('hyde-rc-flash', ''); // Clear cookie
+        }
+    }
+
+    protected function openInExplorer(): void
+    {
+        if ($this->isInteractive()) {
+            $binary = $this->findGeneralOpenBinary();
+            $path = Hyde::path();
+
+            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
+    }
+
+    protected function openPageInEditor(HydePage $page): void
+    {
+        if ($this->isInteractive()) {
+            $binary = $this->findGeneralOpenBinary();
+            $path = Hyde::path($page->getSourcePath());
+
+            if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
+                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
+            }
+
+            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
+    }
+
+    protected function openMediaFileInEditor(MediaFile $file): void
+    {
+        if ($this->isInteractive()) {
+            $binary = $this->findGeneralOpenBinary();
+            $path = $file->getAbsolutePath();
+
+            if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'])) {
+                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
+            }
+
+            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        }
+    }
+
+    protected function createPage(): void
+    {
+        if ($this->isInteractive()) {
+            // Required data
+            $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
+            $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
+            $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
+
+            // Optional data
+            $postDescription = $this->request->data['postDescription'] ?? null;
+            $postCategory = $this->request->data['postCategory'] ?? null;
+            $postAuthor = $this->request->data['postAuthor'] ?? null;
+            $postDate = $this->request->data['postDate'] ?? null;
+
+            // Match page class
+            $pageClass = match ($pageType) {
+                'blade-page' => BladePage::class,
+                'markdown-page' => MarkdownPage::class,
+                'markdown-post' => MarkdownPost::class,
+                'documentation-page' => DocumentationPage::class,
+                default => throw new HttpException(400, "Invalid page type '$pageType'"),
+            };
+
+            if ($pageClass === MarkdownPost::class) {
+                $creator = new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content);
+            } else {
+                $creator = new CreatesNewPageSourceFile($title, $pageClass, false, $content);
+            }
+            try {
+                $path = $creator->save();
+            } catch (FileConflictException $exception) {
+                $this->abort($exception->getCode(), $exception->getMessage());
+            }
+
+            $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
+            $this->sendJsonResponse(201, "Created file '$path'!");
+        }
     }
 
     protected static function injectDashboardButton(string $contents): string
@@ -183,5 +461,55 @@ class DashboardController
         }
 
         return $prettyVersion ?? 'unreleased';
+    }
+
+    protected function sendJsonResponse(int $statusCode, string $body): never
+    {
+        $statusMessage = match ($statusCode) {
+            200 => 'OK',
+            201 => 'Created',
+            default => 'Internal Server Error',
+        };
+
+        (new JsonResponse($statusCode, $statusMessage, [
+            'body' => $body,
+        ]))->send();
+
+        exit;
+    }
+
+    protected function sendJsonErrorResponse(HttpException $exception): never
+    {
+        $statusMessage = match ($exception->getStatusCode()) {
+            400 => 'Bad Request',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            409 => 'Conflict',
+            default => 'Internal Server Error',
+        };
+
+        (new JsonResponse($exception->getStatusCode(), $statusMessage, [
+            'error' => $exception->getMessage(),
+        ]))->send();
+
+        exit;
+    }
+
+    protected function abort(int $code, string $message): never
+    {
+        throw new HttpException($code, $message);
+    }
+
+    protected function findGeneralOpenBinary(): string
+    {
+        return match (PHP_OS_FAMILY) {
+            // Using PowerShell allows us to open the file in the background
+            'Windows' => 'powershell Start-Process',
+            'Darwin' => 'open',
+            'Linux' => 'xdg-open',
+            default => throw new HttpException(500,
+                sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY)
+            )
+        };
     }
 }
