@@ -12,9 +12,10 @@ This serves two purposes:
 ### Added
 - Added support for setting custom content when calling source file creator actions directly in https://github.com/hydephp/develop/pull/1393
 - Added support for setting a custom post date when calling post file creator action directly in https://github.com/hydephp/develop/pull/1393
+- The realtime compiler dashboard is now interactive, and allows you to make edits to your project right from the browser https://github.com/hydephp/develop/pull/1392
 
 ### Changed
-- Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package.
+- Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package https://github.com/hydephp/develop/pull/1394
 
 ### Deprecated
 - for soon-to-be removed features.
