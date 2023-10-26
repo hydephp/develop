@@ -65,7 +65,7 @@
                         @if($dashboard->isInteractive())
                             <form class="buttonActionForm" action="" method="POST">
                                 <input type="hidden" name="action" value="openInExplorer">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" title="Open in system file explorer">Open folder</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm" title="Open project in system file explorer">Open folder</button>
                             </form>
                         @endif
                     </div>
@@ -75,7 +75,7 @@
                         <tr>
                             @foreach($dashboard->getProjectInformation() as $type => $info)
                                 <td>
-                                    <strong class="h6">{{ $type }}</strong>
+                                    <strong class="h6">{{ $type }}:</strong>
                                     <span class="card-text">{{ $info }}</span>
                                 </td>
                             @endforeach

@@ -144,10 +144,10 @@ class DashboardController
     public function getProjectInformation(): array
     {
         return [
-            'Git Version:' => app('git.version'),
-            'Hyde Version:' => self::getPackageVersion('hyde/hyde'),
-            'Framework Version:' => self::getPackageVersion('hyde/framework'),
-            'Project Path:' => Hyde::path(),
+            'Git Version' => app('git.version'),
+            'Hyde Version' => self::getPackageVersion('hyde/hyde'),
+            'Framework Version' => self::getPackageVersion('hyde/framework'),
+            'Project Path' => Hyde::path(),
         ];
     }
 
