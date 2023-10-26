@@ -177,6 +177,7 @@ class DashboardController
     public static function highlightMediaLibraryCode(string $contents): HtmlString
     {
         $contents = e($contents);
+        $contents = str_replace(['&#039;', '&quot;'], ['%SQT%', '%DQT%'], $contents); // Temporarily replace escaped quotes
 
         if (static::isMediaFileProbablyMinified($contents)) {
             return new HtmlString(substr($contents, 0, 800));
@@ -214,6 +215,8 @@ class DashboardController
 
             return rtrim($line);
         })->implode("\n");
+
+        $highlighted = str_replace(['%SQT%', '%DQT%'], ['&#039;', '&quot;'], $highlighted);
 
         return new HtmlString($highlighted);
     }
