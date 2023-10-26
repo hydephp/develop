@@ -20,6 +20,9 @@ use function sprintf;
 use function config;
 use function app;
 
+/**
+ * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
+ */
 class DashboardController
 {
     public string $title;
