@@ -271,7 +271,7 @@
                             <div class="col-lg-4 p-2 d-flex flex-grow-1">
                                 <figure class="card w-100 p-2 mb-0">
                                     @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif']))
-                                        <img src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
+                                        <img loading="lazy" src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
                                     @else
                                         <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);" role="presentation">
                                             @if($dashboard::isMediaFileProbablyMinified($mediaFile->getContents()))
