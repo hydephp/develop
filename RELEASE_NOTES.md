@@ -14,7 +14,7 @@ This serves two purposes:
 - Added support for setting a custom post date when calling post file creator action directly in https://github.com/hydephp/develop/pull/1393
 
 ### Changed
-- for changes in existing functionality.
+- Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package.
 
 ### Deprecated
 - for soon-to-be removed features.
