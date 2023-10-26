@@ -326,7 +326,7 @@ class DashboardController
             $binary = $this->findGeneralOpenBinary();
             $path = $file->getAbsolutePath();
 
-            if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico'])) {
+            if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'])) {
                 $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
             }
 
