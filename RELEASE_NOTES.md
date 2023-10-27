@@ -12,6 +12,7 @@ This serves two purposes:
 ### Added
 - Added support for setting custom content when calling source file creator actions directly in https://github.com/hydephp/develop/pull/1393
 - Added support for setting a custom post date when calling post file creator action directly in https://github.com/hydephp/develop/pull/1393
+- Added optional `FileNotFoundException` constructor parameter to set a custom exception message https://github.com/hydephp/develop/pull/1398
 - The realtime compiler dashboard is now interactive, and allows you to make edits to your project right from the browser https://github.com/hydephp/develop/pull/1392
 
 ### Changed
