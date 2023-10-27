@@ -16,6 +16,7 @@ This serves two purposes:
 
 ### Changed
 - Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package https://github.com/hydephp/develop/pull/1394
+- Updated the realtime compiler server configuration options in https://github.com/hydephp/develop/pull/1395 (backwards compatible)
 
 ### Deprecated
 - for soon-to-be removed features.
