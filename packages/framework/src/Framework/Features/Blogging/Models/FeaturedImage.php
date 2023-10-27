@@ -217,7 +217,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         $storagePath = Hyde::mediaPath($this->source);
 
         if (! file_exists($storagePath)) {
-            throw new FileNotFoundException(sprintf('Image at %s does not exist', Hyde::pathToRelative($storagePath)));
+            throw new FileNotFoundException(customMessage: sprintf('Featured image [%s] not found.', Hyde::pathToRelative($storagePath)));
         }
 
         return filesize($storagePath);

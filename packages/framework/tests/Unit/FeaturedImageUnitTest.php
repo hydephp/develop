@@ -124,7 +124,7 @@ class FeaturedImageUnitTest extends UnitTestCase
     public function testFeaturedImageGetContentLengthWithNoSource()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Image at _media/foo does not exist');
+        $this->expectExceptionMessage('Featured image [_media/foo] not found.');
 
         $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
