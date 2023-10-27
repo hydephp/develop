@@ -36,12 +36,14 @@ use function round;
 use function rtrim;
 use function strlen;
 use function substr;
+use function is_bool;
 use function basename;
 use function in_array;
 use function json_decode;
 use function json_encode;
 use function substr_count;
 use function array_combine;
+use function trigger_error;
 use function escapeshellarg;
 use function file_get_contents;
 use function str_starts_with;
@@ -67,8 +69,8 @@ class DashboardController
         'This dashboard won\'t be saved to your static site.',
         'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
         'Found a bug? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
-        'You can disable tips using by setting `server.dashboard_tips` to `false` in `config/hyde.php`.',
-        'The dashboard update your project files. You can disable this by setting `server.dashboard_editor` to `false` in `config/hyde.php`.',
+        'You can disable tips using by setting `server.dashboard.tips` to `false` in `config/hyde.php`.',
+        'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
 
     public function __construct()
@@ -227,7 +229,7 @@ class DashboardController
 
     public function showTips(): bool
     {
-        return config('hyde.server.dashboard_tips', true);
+        return config('hyde.server.dashboard.tips', true);
     }
 
     public function getTip(): HtmlString
@@ -237,7 +239,14 @@ class DashboardController
 
     public static function enabled(): bool
     {
-        return config('hyde.server.dashboard', true);
+        // Previously, the setting was hyde.server.dashboard, so for backwards compatability we need this
+        if (is_bool($oldConfig = config('hyde.server.dashboard'))) {
+            trigger_error('Using `hyde.server.dashboard` as boolean is deprecated. Please use `hyde.server.dashboard.enabled` instead.', E_USER_DEPRECATED);
+
+            return $oldConfig;
+        }
+
+        return config('hyde.server.dashboard.enabled', true);
     }
 
     // This method is called from the PageRouter and allows us to serve a dynamic welcome page
@@ -273,7 +282,7 @@ class DashboardController
 
     public function isInteractive(): bool
     {
-        return config('hyde.server.dashboard_editor', true);
+        return config('hyde.server.dashboard.interactive', true);
     }
 
     public function getScripts(): string
