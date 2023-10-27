@@ -89,10 +89,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
             if (empty($schemaErrors)) {
                 $this->line('<info>  No top-level schema errors found</info>');
             } else {
-                $this->line(sprintf('  <fg=red>Found %s top-level schema errors:</>', count($schemaErrors)));
-                foreach ($schemaErrors as $error) {
-                    $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, $error));
-                }
+                $this->displayTopLevelSchemaErrors($schemaErrors);
             }
 
             $schemaFields = $errors['fields'];
@@ -100,17 +97,30 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
                 $this->line('<info>  No field-level schema errors found</info>');
             } else {
                 $this->newLine();
-                $this->line(sprintf('  <fg=red>Found errors in %s field definitions:</>', count($schemaFields)));
-                foreach ($schemaFields as $fieldNumber => $fieldErrors) {
-                    $this->line(sprintf('    <fg=cyan>Field #%s:</>', $fieldNumber + 1));
-                    foreach ($fieldErrors as $error) {
-                        $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, $error));
-                    }
-                }
+                $this->displayFieldDefinitionErrors($schemaFields);
             }
 
             if (next($this->results)) {
                 $this->newLine();
+            }
+        }
+    }
+
+    protected function displayTopLevelSchemaErrors(array $schemaErrors): void
+    {
+        $this->line(sprintf('  <fg=red>Found %s top-level schema errors:</>', count($schemaErrors)));
+        foreach ($schemaErrors as $error) {
+            $this->line(sprintf('    <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, $error));
+        }
+    }
+
+    protected function displayFieldDefinitionErrors(array $schemaFields): void
+    {
+        $this->line(sprintf('  <fg=red>Found errors in %s field definitions:</>', count($schemaFields)));
+        foreach ($schemaFields as $fieldNumber => $fieldErrors) {
+            $this->line(sprintf('    <fg=cyan>Field #%s:</>', $fieldNumber + 1));
+            foreach ($fieldErrors as $error) {
+                $this->line(sprintf('      <fg=red>%s</> <comment>%s</comment>', self::CROSS_MARK, $error));
             }
         }
     }
