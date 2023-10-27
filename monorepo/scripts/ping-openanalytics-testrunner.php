@@ -19,6 +19,7 @@ if ($token === null) {
 }
 
 if (! file_exists('report.xml')) {
+    echo "::error:: Must provide a Junit report file\n";
     exit(404);
 }
 
