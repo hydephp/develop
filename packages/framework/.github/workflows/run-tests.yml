@@ -61,5 +61,5 @@ jobs:
       - name: Ping statistics server with test results
         run: |
           cd hyde
-          curl https://raw.githubusercontent.com/hydephp/develop/cfbf8fb97505359266f849edef4757ae76a922b5/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Framework CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
