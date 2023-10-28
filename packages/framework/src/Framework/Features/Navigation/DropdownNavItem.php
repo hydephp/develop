@@ -32,6 +32,7 @@ class DropdownNavItem extends NavItem
         return new static($name, $items);
     }
 
+    /** @return Collection<NavItem> */
     public function getItems(): Collection
     {
         return collect($this->items);
