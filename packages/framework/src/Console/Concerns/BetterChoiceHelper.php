@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Closure;
+use RuntimeException;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Output\NullOutput;
@@ -53,6 +54,11 @@ trait BetterChoiceHelper
         $selection = $choices[$answer] ?? null;
 
         if ($selection === null) {
+            // High enough to not impact normal usage, but low enough to break loops
+            if ($this->retryCount > 30) {
+                throw new RuntimeException('Maximum retries exceeded');
+            }
+
             $this->retryCount++;
             $this->output->error(sprintf('Invalid option "%s"', $answer));
             $this->betterChoice(...func_get_args());
