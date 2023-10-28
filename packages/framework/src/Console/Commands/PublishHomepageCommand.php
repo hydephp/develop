@@ -31,6 +31,7 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
+    /** @var array<string, array{name: string, description: string, group: string}> */
     protected array $options = [
         'welcome'=> [
             'name' => 'Welcome',
@@ -96,6 +97,7 @@ class PublishHomepageCommand extends Command
         })->values()->toArray();
     }
 
+    /** @return Collection<array{name: string, description: string, group: string}> */
     protected function getTemplateOptions(): Collection
     {
         return new Collection($this->options);
