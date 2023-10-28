@@ -31,20 +31,24 @@ trait BetterChoiceHelper
             $this->newLine();
         }
 
-        $defaultText = $choices[$default] ?? $default;
-        if ($displayDefaultUsing !== null) {
-            $defaultText = $displayDefaultUsing($defaultText);
-        }
-        $this->line(sprintf(' <info>%s</info> [<comment>%s</comment>]:', $question, OutputFormatter::escape($defaultText)));
+        if ($this->input->isInteractive()) {
+            $defaultText = $choices[$default] ?? $default;
+            if ($displayDefaultUsing !== null) {
+                $defaultText = $displayDefaultUsing($defaultText);
+            }
+            $this->line(sprintf(' <info>%s</info> [<comment>%s</comment>]:', $question, OutputFormatter::escape($defaultText)));
 
-        $maxWidth = max(array_map([Helper::class, 'width'], array_keys($choices)));
-        foreach ($choices as $key => $value) {
-            $padding = str_repeat(' ', $maxWidth - Helper::width((string) $key));
-            $this->line(sprintf("  [<comment>%s$padding</comment>] %s", $key, $value));
-        }
+            $maxWidth = max(array_map([Helper::class, 'width'], array_keys($choices)));
+            foreach ($choices as $key => $value) {
+                $padding = str_repeat(' ', $maxWidth - Helper::width((string) $key));
+                $this->line(sprintf("  [<comment>%s$padding</comment>] %s", $key, $value));
+            }
 
-        $this->output->write(' > ');
-        $answer = (new SymfonyQuestionHelper())->ask($this->input, new NullOutput, new Question($question, $default));
+            $this->output->write(' > ');
+            $answer = (new SymfonyQuestionHelper())->ask($this->input, new NullOutput, new Question($question, $default));
+        } else {
+            $answer = $default;
+        }
 
         $selection = $choices[$answer] ?? null;
 
@@ -53,7 +57,9 @@ trait BetterChoiceHelper
             $this->output->error(sprintf('Invalid option "%s"', $answer));
             $this->betterChoice(...func_get_args());
         } else {
-            $this->newLine();
+            if ($this->input->isInteractive()) {
+                $this->newLine();
+            }
             $this->retryCount = 0;
         }
 
