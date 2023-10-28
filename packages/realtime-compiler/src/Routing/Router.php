@@ -74,14 +74,14 @@ class Router
      */
     protected function proxyStatic(): Response
     {
+        if ($this->request->path === '/docs/search.json') {
+            $this->generateSearchIndex();
+        }
+
         $path = AssetFileLocator::find($this->request->path);
 
         if ($path === null) {
-            if ($this->request->path === '/docs/search.json') {
-                $path = $this->generateSearchIndex();
-            } else {
-                return $this->notFound();
-            }
+            return $this->notFound();
         }
 
         $file = new FileObject($path);
@@ -95,16 +95,12 @@ class Router
     }
 
     /**
-     * Generate and serve the documentation search index.
-     *
-     * Note that this only gets called if the index is not
-     * yet generated. It does not keep track of if the
-     * index is up-to-date or not.
+     * Generate the documentation search index.
      */
-    protected function generateSearchIndex(): string
+    protected function generateSearchIndex(): void
     {
         $this->bootApplication();
 
-        return GeneratesDocumentationSearchIndex::handle();
+        GeneratesDocumentationSearchIndex::handle();
     }
 }
