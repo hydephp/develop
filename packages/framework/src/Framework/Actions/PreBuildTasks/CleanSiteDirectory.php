@@ -60,6 +60,7 @@ class CleanSiteDirectory extends PreBuildTask
     /** @return array<string> */
     protected function safeOutputDirectories(): array
     {
+        /** @var array<string> $directories */
         return Config::getArray('hyde.safe_output_directories', ['_site', 'docs', 'build']);
     }
 }
