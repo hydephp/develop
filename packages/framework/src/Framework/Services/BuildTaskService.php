@@ -52,7 +52,7 @@ class BuildTaskService
         $this->output = $output;
     }
 
-    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
     public function getRegisteredTasks(): array
     {
         return array_map(fn (BuildTask $task): string => $task::class, array_values($this->buildTasks));
@@ -103,13 +103,13 @@ class BuildTaskService
         }
     }
 
-    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
     protected function findTasksInConfig(): array
     {
         return Config::getArray('hyde.build_tasks', []);
     }
 
-    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
     protected function findTasksInAppDirectory(): array
     {
         return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
