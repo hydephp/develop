@@ -42,7 +42,7 @@ class BuildTaskService
     {
         $this->registerFrameworkTasks();
 
-        $this->registerTasks(Config::getArray('hyde.build_tasks', []));
+        $this->registerTasks($this->findTasksInConfig());
 
         $this->registerTasks($this->findTasksInAppDirectory());
     }
@@ -52,7 +52,7 @@ class BuildTaskService
         $this->output = $output;
     }
 
-    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
     public function getRegisteredTasks(): array
     {
         return array_map(fn (BuildTask $task): string => $task::class, array_values($this->buildTasks));
@@ -87,6 +87,7 @@ class BuildTaskService
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
     }
 
+    /** @param class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask> $task */
     protected function registerIf(string $task, bool $condition): void
     {
         if ($condition) {
@@ -94,6 +95,7 @@ class BuildTaskService
         }
     }
 
+    /** @param array<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask|class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask>> $tasks */
     protected function registerTasks(array $tasks): void
     {
         foreach ($tasks as $task) {
@@ -101,6 +103,13 @@ class BuildTaskService
         }
     }
 
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
+    protected function findTasksInConfig(): array
+    {
+        return Config::getArray('hyde.build_tasks', []);
+    }
+
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
     protected function findTasksInAppDirectory(): array
     {
         return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {

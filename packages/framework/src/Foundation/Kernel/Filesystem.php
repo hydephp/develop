@@ -65,6 +65,8 @@ class Filesystem
      * Get an absolute file path from a supplied relative path.
      *
      * Input types are matched, meaning that if the input is a string so will the output be.
+     *
+     * @param  string|array<string>  $path
      */
     public function pathToAbsolute(string|array $path): string|array
     {
@@ -143,6 +145,8 @@ class Filesystem
 
     /**
      * Touch one or more files in the project's directory.
+     *
+     * @param  string|array<string>  $path
      */
     public function touch(string|array $path): bool
     {
@@ -159,6 +163,8 @@ class Filesystem
 
     /**
      * Unlink one or more files in the project's directory.
+     *
+     * @param  string|array<string>  $path
      */
     public function unlink(string|array $path): bool
     {
@@ -185,9 +191,11 @@ class Filesystem
         return false;
     }
 
+    /** @return \Illuminate\Support\Collection<int, string> */
     public function smartGlob(string $pattern, int $flags = 0): Collection
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
-            ->map(fn (string $path): string => $this->pathToRelative($path));
+            ->map(fn (string $path): string => $this->pathToRelative($path))
+            ->values();
     }
 }
