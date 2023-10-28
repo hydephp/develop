@@ -20,6 +20,7 @@ This serves two purposes:
 - Updated the realtime compiler server configuration options in https://github.com/hydephp/develop/pull/1395 (backwards compatible)
 - Updated the realtime compiler to generate the documentation search index each time it's requested in https://github.com/hydephp/develop/pull/1405 (fixes https://github.com/hydephp/develop/issues/1404)
 - Updated the navigation menu generator to remove duplicates after running the sorting method in https://github.com/hydephp/develop/pull/1407 (fixes https://github.com/hydephp/develop/issues/1406)
+- Narrows down parsed `BladeMatter` array types to `array<string, scalar>` (Experimental feature not covered by BC promise) in https://github.com/hydephp/develop/pull/1410
 
 ### Deprecated
 - for soon-to-be removed features.

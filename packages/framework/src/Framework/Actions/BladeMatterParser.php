@@ -121,6 +121,7 @@ class BladeMatterParser
         return trim($key);
     }
 
+    /** @return scalar|array<string, scalar> */
     protected static function getValueWithType(string $value): mixed
     {
         $value = trim($value);
@@ -138,6 +139,7 @@ class BladeMatterParser
         return json_decode($value) ?? $value;
     }
 
+    /** @return array<string, scalar> */
     protected static function parseArrayString(string $string): array
     {
         $array = [];
@@ -167,7 +169,9 @@ class BladeMatterParser
             $pair = explode('=>', $token);
 
             // Add key/value pair to array
-            $array[static::getValueWithType(trim(trim($pair[0]), "'"))] = static::getValueWithType(trim(trim($pair[1]), "'"));
+            $key = (string) static::getValueWithType(trim(trim($pair[0]), "'"));
+            $value = static::getValueWithType(trim(trim($pair[1]), "'"));
+            $array[$key] = $value;
         }
 
         return $array;
