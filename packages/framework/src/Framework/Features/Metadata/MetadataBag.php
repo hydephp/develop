@@ -20,9 +20,16 @@ use function implode;
  */
 class MetadataBag implements Htmlable
 {
+    /** @var array<string, MetadataElementContract> */
     protected array $links = [];
+
+    /** @var array<string, MetadataElementContract> */
     protected array $metadata = [];
+
+    /** @var array<string, MetadataElementContract> */
     protected array $properties = [];
+
+    /** @var array<string> */
     protected array $generics = [];
 
     public function toHtml(): string
