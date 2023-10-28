@@ -10,6 +10,7 @@ use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Framework\Services\ViewDiffService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Collection;
+use Hyde\Console\Concerns\BetterChoiceHelper;
 
 use function Hyde\unixsum_file;
 use function array_key_exists;
@@ -23,6 +24,7 @@ use function strstr;
 class PublishHomepageCommand extends Command
 {
     use AsksToRebuildSite;
+    use BetterChoiceHelper;
 
     /** @var string */
     protected $signature = 'publish:homepage {homepage? : The name of the page to publish}
@@ -82,7 +84,7 @@ class PublishHomepageCommand extends Command
 
     protected function promptForHomepage(): string
     {
-        return $this->choice(
+        return $this->betterChoice(
             'Which homepage do you want to publish?',
             $this->formatPublishableChoices(),
             0
