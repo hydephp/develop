@@ -292,12 +292,9 @@ navigation menu items are hidden. The page will still be accessible as normal bu
 ]
 ```
 
-### Search with realtime compiler
+### Live search with the realtime compiler
 
-While the Realtime Compiler (what powers the `php hyde serve` command) serves the search index, however, it does not
-compile the index automatically. So if you're missing the search when previewing your site, run either `php hyde build`
-or `php hyde build:search` to compile the search index.
-
+The Realtime Compiler that powers the `php hyde serve` command will automatically generate a fresh search index each time the browser requests it.
 
 ## Automatic "Edit Page" button
 
