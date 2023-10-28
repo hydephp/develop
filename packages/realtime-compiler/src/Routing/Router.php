@@ -8,10 +8,13 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Models\FileObject;
+use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 class Router
 {
     use SendsErrorResponses;
+    use InteractsWithLaravel;
 
     protected Request $request;
 
@@ -74,7 +77,11 @@ class Router
         $path = AssetFileLocator::find($this->request->path);
 
         if ($path === null) {
-            return $this->notFound();
+            if ($this->request->path === '/docs/search.json') {
+                $path = $this->generateSearchIndex();
+            } else {
+                return $this->notFound();
+            }
         }
 
         $file = new FileObject($path);
@@ -85,5 +92,19 @@ class Router
             'Content-Type'   => $file->getMimeType(),
             'Content-Length' => $file->getContentLength(),
         ]);
+    }
+
+    /**
+     * Generate and serve the documentation search index.
+     *
+     * Note that this only gets called if the index is not
+     * yet generated. It does not keep track of if the
+     * index is up-to-date or not.
+     */
+    protected function generateSearchIndex(): string
+    {
+        $this->bootApplication();
+
+        return GeneratesDocumentationSearchIndex::handle();
     }
 }
