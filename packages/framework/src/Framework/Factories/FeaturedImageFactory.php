@@ -30,6 +30,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     public function __construct(
         private readonly FrontMatter $matter,
+        private readonly ?string $filePath = null,
     ) {
         $this->source = $this->makeSource();
         $this->altText = $this->getStringMatter('image.altText');
@@ -58,9 +59,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         ];
     }
 
-    public static function make(FrontMatter $matter): FeaturedImage
+    public static function make(FrontMatter $matter, ?string $filePath = null): FeaturedImage
     {
-        return new FeaturedImage(...(new static($matter))->toArray());
+        return new FeaturedImage(...(new static($matter, $filePath))->toArray());
     }
 
     protected function makeSource(): string
@@ -68,9 +69,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $value = $this->getStringMatter('image') ?? $this->getStringMatter('image.source');
 
         if (empty($value)) {
-            // Todo, we might want to add a note about which file caused the error.
-            // We could also check for these before calling the factory, and just ignore the image if it's not valid.
-            throw new RuntimeException('No featured image source was found');
+            throw new RuntimeException(sprintf('No featured image source was found in "%s"', $this->filePath ?? 'unknown file'));
         }
 
         if (FeaturedImage::isRemote($value)) {

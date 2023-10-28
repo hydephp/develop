@@ -41,10 +41,13 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected readonly ?PostAuthor $author;
     protected readonly ?FeaturedImage $image;
 
+    private readonly string $filePath;
+
     public function __construct(CoreDataObject $pageData)
     {
         $this->matter = $pageData->matter;
         $this->markdown = $pageData->markdown;
+        $this->filePath = $pageData->sourcePath;
 
         $this->description = $this->makeDescription();
         $this->category = $this->makeCategory();
@@ -98,7 +101,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected function makeImage(): ?FeaturedImage
     {
         if ($this->getMatter('image')) {
-            return FeaturedImageFactory::make($this->matter);
+            return FeaturedImageFactory::make($this->matter, $this->filePath);
         }
 
         return null;
