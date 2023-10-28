@@ -11,6 +11,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\PublishHomepageCommand
  * @covers \Hyde\Console\Concerns\AsksToRebuildSite
+ * @covers \Hyde\Console\Concerns\BetterChoiceHelper
  */
 class PublishHomepageCommandTest extends TestCase
 {
