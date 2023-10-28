@@ -18,6 +18,7 @@ This serves two purposes:
 ### Changed
 - Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package https://github.com/hydephp/develop/pull/1394
 - Updated the realtime compiler server configuration options in https://github.com/hydephp/develop/pull/1395 (backwards compatible)
+- Updated the realtime compiler to generate the documentation search index each time it's requested in https://github.com/hydephp/develop/pull/1405 (fixes https://github.com/hydephp/develop/issues/1404)
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -31,6 +32,7 @@ This serves two purposes:
 - Updated the vendor publish command to support parent Laravel Prompts implementation in https://github.com/hydephp/develop/pull/1388
 - Fixed wrong version constant in https://github.com/hydephp/develop/pull/1391
 - Fixed improperly formatted exception message in https://github.com/hydephp/develop/pull/1399
+- Fixed missing support for missing and out of date search indexes when previewing site https://github.com/hydephp/develop/issues/1404 in https://github.com/hydephp/develop/pull/1405
 
 ### Security
 - in case of vulnerabilities.
