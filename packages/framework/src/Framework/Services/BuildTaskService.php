@@ -94,6 +94,7 @@ class BuildTaskService
         }
     }
 
+    /** @param array<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask|class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask>> $tasks */
     protected function registerTasks(array $tasks): void
     {
         foreach ($tasks as $task) {
