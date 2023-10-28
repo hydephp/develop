@@ -54,19 +54,12 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataElementContract|string $element): static
     {
-        if ($element instanceof LinkElement) {
-            return $this->addElement('links', $element);
-        }
-
-        if ($element instanceof MetadataElement) {
-            return $this->addElement('metadata', $element);
-        }
-
-        if ($element instanceof OpenGraphElement) {
-            return $this->addElement('properties', $element);
-        }
-
-        return $this->addGenericElement((string) $element);
+        return match (true) {
+            $element instanceof LinkElement => $this->addElement('links', $element),
+            $element instanceof MetadataElement => $this->addElement('metadata', $element),
+            $element instanceof OpenGraphElement => $this->addElement('properties', $element),
+            default => $this->addGenericElement((string) $element),
+        };
     }
 
     protected function addElement(string $type, MetadataElementContract $element): static
