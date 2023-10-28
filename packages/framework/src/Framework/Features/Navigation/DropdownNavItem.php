@@ -26,11 +26,13 @@ class DropdownNavItem extends NavItem
         $this->items = $items;
     }
 
+    /** @param array<NavItem> $items */
     public static function fromArray(string $name, array $items): static
     {
         return new static($name, $items);
     }
 
+    /** @return Collection<NavItem> */
     public function getItems(): Collection
     {
         return collect($this->items);
@@ -38,10 +40,13 @@ class DropdownNavItem extends NavItem
 
     private function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
-        return Config::getArray('hyde.navigation.order', [
+        /** @var array<string, int> $config */
+        $config = Config::getArray('hyde.navigation.order', [
             'index' => 0,
             'posts' => 10,
             'docs/index' => 100,
-        ])[$groupKey] ?? null;
+        ]);
+
+        return $config[$groupKey] ?? null;
     }
 }
