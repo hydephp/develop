@@ -19,6 +19,7 @@ This serves two purposes:
 - Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package https://github.com/hydephp/develop/pull/1394
 - Updated the realtime compiler server configuration options in https://github.com/hydephp/develop/pull/1395 (backwards compatible)
 - Updated the realtime compiler to generate the documentation search index each time it's requested in https://github.com/hydephp/develop/pull/1405 (fixes https://github.com/hydephp/develop/issues/1404)
+- Updated the navigation menu generator to remove duplicates after running the sorting method in https://github.com/hydephp/develop/pull/1407 (fixes https://github.com/hydephp/develop/issues/1406)
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -33,6 +34,7 @@ This serves two purposes:
 - Fixed wrong version constant in https://github.com/hydephp/develop/pull/1391
 - Fixed improperly formatted exception message in https://github.com/hydephp/develop/pull/1399
 - Fixed missing support for missing and out of date search indexes when previewing site https://github.com/hydephp/develop/issues/1404 in https://github.com/hydephp/develop/pull/1405
+- Fixed duplicate navigation items not giving precedence to config defined items https://github.com/hydephp/develop/issues/1406 in https://github.com/hydephp/develop/pull/1407
 
 ### Security
 - in case of vulnerabilities.
