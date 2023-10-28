@@ -83,6 +83,7 @@ class MetadataBag implements Htmlable
         return $this;
     }
 
+    /** @return array<string, MetadataElementContract> */
     protected function getPrefixedArray(string $type): array
     {
         $array = [];
