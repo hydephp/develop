@@ -161,7 +161,22 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    // TODO test when there are duplicates, config items take precedence
+    public function test_config_items_take_precedence_over_generated_items()
+    {
+        $this->file('_pages/foo.md');
+
+        config(['hyde.navigation.custom' => [NavItem::forLink('bar', 'Foo')]]);
+
+        $menu = NavigationMenu::create();
+
+        $expected = collect([
+            NavItem::fromRoute(Routes::get('index')),
+            NavItem::forLink('bar', 'Foo'),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
 
     public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
     {
