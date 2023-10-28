@@ -201,6 +201,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return Config::getString('hyde.navigation.subdirectories', 'hidden');
     }
 
+    /** @param class-string $class */
     protected function isInstanceOf(string $class): bool
     {
         return is_a($this->pageClass, $class, true);
