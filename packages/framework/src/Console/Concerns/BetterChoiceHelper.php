@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
+use Closure;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Output\NullOutput;
@@ -24,13 +25,17 @@ trait BetterChoiceHelper
 {
     private int $retryCount = 0;
 
-    protected function betterChoice(string $question, array $choices, int|string $default = null): string|array
+    protected function betterChoice(string $question, array $choices, int|string $default = null, ?Closure $displayDefaultUsing = null): string|array
     {
         if ($this->input->isInteractive() && $this->retryCount === 0) {
             $this->newLine();
         }
 
-        $this->line(sprintf(' <info>%s</info> [<comment>%s</comment>]:', $question, OutputFormatter::escape($choices[$default] ?? $default)));
+        $defaultText = $choices[$default] ?? $default;
+        if ($displayDefaultUsing !== null) {
+            $defaultText = $displayDefaultUsing($defaultText);
+        }
+        $this->line(sprintf(' <info>%s</info> [<comment>%s</comment>]:', $question, OutputFormatter::escape($defaultText)));
 
         $maxWidth = max(array_map([Helper::class, 'width'], array_keys($choices)));
         foreach ($choices as $key => $value) {

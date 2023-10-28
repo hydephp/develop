@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Pages\BladePage;
+use Illuminate\Support\Str;
 use Hyde\Console\Concerns\Command;
 use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Framework\Services\ViewDiffService;
@@ -16,6 +17,7 @@ use function Hyde\unixsum_file;
 use function array_key_exists;
 use function file_exists;
 use function str_replace;
+use function strip_tags;
 use function strstr;
 
 /**
@@ -87,7 +89,10 @@ class PublishHomepageCommand extends Command
         return $this->betterChoice(
             'Which homepage do you want to publish?',
             $this->formatPublishableChoices(),
-            0
+            0,
+            displayDefaultUsing: function (string $default): string {
+                return strip_tags(Str::before($default, ':'));
+            }
         );
     }
 
