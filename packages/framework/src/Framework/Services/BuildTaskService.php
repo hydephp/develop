@@ -42,7 +42,7 @@ class BuildTaskService
     {
         $this->registerFrameworkTasks();
 
-        $this->registerTasks(Config::getArray('hyde.build_tasks', []));
+        $this->registerTasks($this->findTasksInConfig());
 
         $this->registerTasks($this->findTasksInAppDirectory());
     }
@@ -101,6 +101,12 @@ class BuildTaskService
         foreach ($tasks as $task) {
             $this->registerTask($task);
         }
+    }
+
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
+    protected function findTasksInConfig(): array
+    {
+        return Config::getArray('hyde.build_tasks', []);
     }
 
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
