@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Http;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
-use function in_array;
 use function array_key_exists;
 use function array_flip;
 use function file_exists;
@@ -226,7 +225,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     protected function getContentLengthForRemoteImage(): int
     {
         // Check if the --no-api flag is set when running the build command, and if so, skip the API call.
-        if (! (isset($_SERVER['argv']) && in_array('--no-api', $_SERVER['argv'], true))) {
+        if (Config::getBool('hyde.api_calls', true)) {
             $headers = Http::withHeaders([
                 'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
             ])->head($this->getSource())->headers();
