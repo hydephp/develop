@@ -87,6 +87,7 @@ class BuildTaskService
         $this->buildTasks[$this->makeTaskIdentifier($task)] = $task;
     }
 
+    /** @param class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask|\Hyde\Framework\Features\BuildTasks\PostBuildTask> $task */
     protected function registerIf(string $task, bool $condition): void
     {
         if ($condition) {
