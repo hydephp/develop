@@ -1,7 +1,5 @@
 name: Deploy Documentation Preview
 
-# TODO: Add check to only rerun if docs have changed since last run on the PR
-
 on:
   pull_request:
     branches: [ "master" ]
@@ -11,7 +9,10 @@ on:
 jobs:
 
   build-documentation-preview:
-    if: "! contains(github.event.pull_request.labels.*.name, 'pause-pages')" ## Temporary until todo above is fixed
+    # We could add a check to only rerun if docs have changed since last run on the PR
+    # But this would require a state storage, and the current version is good enough.
+    if: "! contains(github.event.pull_request.labels.*.name, 'pause-pages')"
+
     environment:
       name: pr-documentation-${{ github.event.pull_request.number }}
       url: https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview
