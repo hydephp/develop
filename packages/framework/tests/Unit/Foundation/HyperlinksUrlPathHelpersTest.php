@@ -10,8 +10,7 @@ use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Foundation\Kernel\Hyperlinks::hasSiteUrl
- * @covers \Hyde\Foundation\Kernel\Hyperlinks::url
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks
  * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  */
 class HyperlinksUrlPathHelpersTest extends TestCase

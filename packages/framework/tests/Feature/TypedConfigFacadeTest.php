@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use TypeError;
+use stdClass;
 
 use function config;
 
@@ -157,6 +158,14 @@ class TypedConfigFacadeTest extends TestCase
 
         config(['foo' => null]);
         $this->assertNull(Config::getNullableString('foo'));
+    }
+
+    public function testInvalidTypeMessage()
+    {
+        config(['foo' => new stdClass()]);
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Hyde\Facades\Config::validated(): Config value foo must be of type array, object given');
+        Config::getArray('foo');
     }
 
     protected function runUnitTest($actual, $expected, $method): void
