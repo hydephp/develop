@@ -8,10 +8,13 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Models\FileObject;
+use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 class Router
 {
     use SendsErrorResponses;
+    use InteractsWithLaravel;
 
     protected Request $request;
 
@@ -71,6 +74,10 @@ class Router
      */
     protected function proxyStatic(): Response
     {
+        if ($this->request->path === '/docs/search.json') {
+            $this->generateSearchIndex();
+        }
+
         $path = AssetFileLocator::find($this->request->path);
 
         if ($path === null) {
@@ -85,5 +92,15 @@ class Router
             'Content-Type'   => $file->getMimeType(),
             'Content-Length' => $file->getContentLength(),
         ]);
+    }
+
+    /**
+     * Generate the documentation search index.
+     */
+    protected function generateSearchIndex(): void
+    {
+        $this->bootApplication();
+
+        GeneratesDocumentationSearchIndex::handle();
     }
 }
