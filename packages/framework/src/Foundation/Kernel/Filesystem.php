@@ -185,6 +185,7 @@ class Filesystem
         return false;
     }
 
+    /** @return \Illuminate\Support\Collection<string> */
     public function smartGlob(string $pattern, int $flags = 0): Collection
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
