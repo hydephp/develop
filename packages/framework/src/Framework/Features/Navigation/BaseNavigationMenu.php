@@ -26,8 +26,8 @@ abstract class BaseNavigationMenu
         $menu = new static();
 
         $menu->generate();
-        $menu->removeDuplicateItems();
         $menu->sortByPriority();
+        $menu->removeDuplicateItems();
 
         return $menu;
     }
