@@ -85,6 +85,11 @@ class LoadConfiguration extends BaseLoadConfiguration
             if (in_array('--pretty-urls', $_SERVER['argv'], true)) {
                 $repository->set('hyde.pretty_urls', true);
             }
+
+            // Check if the `--no-api` CLI argument is set, and if so, set the config value accordingly.
+            if (in_array('--no-api', $_SERVER['argv'], true)) {
+                $repository->set('hyde.api_calls', false);
+            }
         }
     }
 }
