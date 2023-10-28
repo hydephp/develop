@@ -86,10 +86,12 @@ class MetadataBag implements Htmlable
     /** @return array<string, MetadataElementContract> */
     protected function getPrefixedArray(string $type): array
     {
+        /** @var array<string, MetadataElementContract> $bag */
+        $bag = $this->{$type};
+
         $array = [];
 
-        /** @var MetadataElementContract $element */
-        foreach ($this->{$type} as $key => $element) {
+        foreach ($bag as $key => $element) {
             $array["$type:$key"] = $element;
         }
 
