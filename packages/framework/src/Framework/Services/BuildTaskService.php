@@ -103,6 +103,7 @@ class BuildTaskService
         }
     }
 
+    /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\BuildTask>> */
     protected function findTasksInAppDirectory(): array
     {
         return Filesystem::smartGlob('app/Actions/*BuildTask.php')->map(function (string $file): string {
