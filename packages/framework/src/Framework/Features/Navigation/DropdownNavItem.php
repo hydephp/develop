@@ -39,10 +39,13 @@ class DropdownNavItem extends NavItem
 
     private function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
-        return Config::getArray('hyde.navigation.order', [
+        /** @var array<string, int> $config */
+        $config = Config::getArray('hyde.navigation.order', [
             'index' => 0,
             'posts' => 10,
             'docs/index' => 100,
-        ])[$groupKey] ?? null;
+        ]);
+
+        return $config[$groupKey] ?? null;
     }
 }
