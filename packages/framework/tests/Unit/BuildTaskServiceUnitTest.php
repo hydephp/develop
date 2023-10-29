@@ -111,7 +111,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRegisterTaskWithBaseClassThrowsException()
     {
         $this->expectException(TypeError::class);
-        $this->service->registerTask(InstansiableTestBuildTask::class);
+        $this->service->registerTask(InstantiableTestBuildTask::class);
     }
 
     public function testRegisterTaskWithAlreadyRegisteredTask()
@@ -322,7 +322,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     }
 }
 
-class InstansiableTestBuildTask extends BuildTask
+class InstantiableTestBuildTask extends BuildTask
 {
     public function handle(): void
     {
