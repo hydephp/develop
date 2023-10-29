@@ -14,27 +14,40 @@ use Hyde\Testing\UnitTestCase;
  */
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
-    public function testGetMethod()
+    public function testSignature()
     {
-        $this->assertCount(4, ColoredBlockquotes::get());
-        $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
-            ColoredBlockquotes::get()
+        $this->assertSame('>', ColoredBlockquotes::signature());
+    }
+
+    public function testSignatures()
+    {
+        $this->assertSame(
+            ['>danger', '>info', '>success', '>warning'],
+            ColoredBlockquotes::getSignatures()
         );
     }
 
     public function testResolveMethod()
     {
         $this->assertSame(
-            '<blockquote class="color"><p>foo</p></blockquote>',
-            ColoredBlockquotes::resolve('>color foo')
+            '<blockquote class="info"><p>foo</p></blockquote>',
+            ColoredBlockquotes::resolve('>info foo')
         );
     }
 
     public function testCanUseMarkdownWithinBlockquote()
     {
         $this->assertSame(
-            '<blockquote class="color"><p>foo <strong>bar</strong></p></blockquote>',
-            ColoredBlockquotes::resolve('>color foo **bar**')
+            '<blockquote class="info"><p>foo <strong>bar</strong></p></blockquote>',
+            ColoredBlockquotes::resolve('>info foo **bar**')
+        );
+    }
+
+    public function testWithUnrelatedClass()
+    {
+        $this->assertSame(
+            '>foo foo',
+            ColoredBlockquotes::resolve('>foo foo')
         );
     }
 }

@@ -62,4 +62,25 @@ class ShortcodeProcessorTest extends UnitTestCase
         $this->assertArrayHasKey('foo', $processor->getShortcodes());
         $this->assertEquals('bar', $processor->run());
     }
+
+    public function test_shortcodes_can_be_added_to_processor_using_array()
+    {
+        $processor = new ShortcodeProcessor('foo');
+
+        $processor->addShortcodesFromArray([new class implements MarkdownShortcodeContract
+        {
+            public static function signature(): string
+            {
+                return 'foo';
+            }
+
+            public static function resolve(string $input): string
+            {
+                return 'bar';
+            }
+        }]);
+
+        $this->assertArrayHasKey('foo', $processor->getShortcodes());
+        $this->assertEquals('bar', $processor->run());
+    }
 }
