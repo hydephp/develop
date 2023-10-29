@@ -29,4 +29,12 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
             ColoredBlockquotes::resolve('>info foo **bar**')
         );
     }
+
+    public function testWithUnrelatedClass()
+    {
+        $this->assertSame(
+            '>foo foo',
+            ColoredBlockquotes::resolve('>foo foo')
+        );
+    }
 }
