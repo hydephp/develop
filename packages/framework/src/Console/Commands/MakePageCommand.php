@@ -9,7 +9,7 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Console\Concerns\Command;
 
 use function strtolower;
 use function ucfirst;
@@ -115,10 +115,5 @@ class MakePageCommand extends Command
         }
 
         return null;
-    }
-
-    protected function askForString(string $question, ?string $default = null): ?string
-    {
-        return $this->ask($question, $default);
     }
 }
