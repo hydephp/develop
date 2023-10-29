@@ -22,7 +22,7 @@ This serves two purposes:
 - Updated the navigation menu generator to remove duplicates after running the sorting method in https://github.com/hydephp/develop/pull/1407 (fixes https://github.com/hydephp/develop/issues/1406)
 - Updated the exception message caused by missing source option for featured images to include the path of the file that caused the error in https://github.com/hydephp/develop/pull/1409
 - Narrows down parsed `BladeMatter` array types to `array<string, scalar>` (Experimental feature not covered by BC promise) in https://github.com/hydephp/develop/pull/1410
-- Internal code refactors and improvements in https://github.com/hydephp/develop/pull/1410 and https://github.com/hydephp/develop/pull/1411
+- Internal code refactors and improvements in https://github.com/hydephp/develop/pull/1410, https://github.com/hydephp/develop/pull/1411, and https://github.com/hydephp/develop/pull/1413
 
 ### Deprecated
 - for soon-to-be removed features.
