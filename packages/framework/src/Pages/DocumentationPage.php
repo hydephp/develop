@@ -46,7 +46,7 @@ class DocumentationPage extends BaseMarkdownPage
 
     public static function hasTableOfContents(): bool
     {
-        return config('docs.table_of_contents.enabled', true);
+        return Config::getBool('docs.table_of_contents.enabled', true);
     }
 
     /**
