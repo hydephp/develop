@@ -23,16 +23,6 @@ class ColoredBlockquotes implements MarkdownShortcodeContract
 
     protected static array $signatures = ['>danger', '>info', '>success', '>warning'];
 
-    /**
-     * @internal
-     *
-     * @return string[]
-     */
-    public static function getSignatures(): array
-    {
-        return self::$signatures;
-    }
-
     public static function signature(): string
     {
         return static::$signature;
@@ -43,6 +33,16 @@ class ColoredBlockquotes implements MarkdownShortcodeContract
         return self::stringStartsWithSignature($input)
             ? static::expand($input)
             : $input;
+    }
+
+    /**
+     * @internal
+     *
+     * @return string[]
+     */
+    public static function getSignatures(): array
+    {
+        return self::$signatures;
     }
 
     protected static function expand(string $input): string
