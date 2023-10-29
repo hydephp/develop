@@ -97,9 +97,15 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     protected function discoverShortcodes(): void
     {
-        $this->addShortcodesFromArray(
-            ColoredBlockquotes::get()
-        );
+        // Add the built-in shortcodes.
+
+        foreach (ColoredBlockquotes::getSignatures() as $signature) {
+            $this->shortcodes[$signature] = new ColoredBlockquotes();
+        }
+
+        $this->addShortcodesFromArray([
+            //
+        ]);
     }
 
     protected function getOutput(): string

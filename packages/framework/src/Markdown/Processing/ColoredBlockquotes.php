@@ -7,21 +7,31 @@ namespace Hyde\Markdown\Processing;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Models\Markdown;
 
-use function str_replace;
+use function ltrim;
+use function explode;
 use function sprintf;
 use function str_starts_with;
-use function strlen;
-use function substr;
 use function trim;
 
 /**
- * @internal This class may be refactored to work with a single class instead of five, thus extending this class is discouraged.
- *
- * @todo See if we can extract an arbitrary class name from the signature.
+ * @internal This class may be refactored further, thus extending this class is discouraged.
  */
-abstract class ColoredBlockquotes implements MarkdownShortcodeContract
+class ColoredBlockquotes implements MarkdownShortcodeContract
 {
-    protected static string $signature = '>color';
+    /** @var string The core signature. We combine this with an additional check for color later. */
+    protected static string $signature = '>';
+
+    protected static array $signatures = ['>danger', '>info', '>success', '>warning'];
+
+    /**
+     * @internal
+     *
+     * @return string[]
+     */
+    public static function getSignatures(): array
+    {
+        return self::$signatures;
+    }
 
     public static function signature(): string
     {
@@ -30,49 +40,30 @@ abstract class ColoredBlockquotes implements MarkdownShortcodeContract
 
     public static function resolve(string $input): string
     {
-        return str_starts_with($input, static::signature())
+        return self::stringStartsWithSignature($input)
             ? static::expand($input)
             : $input;
     }
 
     protected static function expand(string $input): string
     {
-        return sprintf(
-            '<blockquote class="%s">%s</blockquote>',
-            static::getClassNameFromSignature(static::signature()),
-            trim(Markdown::render(trim(substr($input, strlen(static::signature())), ' ')))
+        $parts = explode(' ', $input, 2);
+        $class = ltrim($parts[0], '>');
+        $contents = trim($parts[1] ?? '', ' ');
+
+        return sprintf('<blockquote class="%s">%s</blockquote>',
+            $class, trim(Markdown::render($contents))
         );
     }
 
-    protected static function getClassNameFromSignature(string $signature): string
+    protected static function stringStartsWithSignature(string $input): bool
     {
-        return str_replace('>', '', $signature);
-    }
+        foreach (static::$signatures as $signature) {
+            if (str_starts_with($input, $signature)) {
+                return true;
+            }
+        }
 
-    /** @return ColoredBlockquotes[] */
-    public static function get(): array
-    {
-        return [
-            /** @internal */
-            new class extends ColoredBlockquotes
-            {
-                protected static string $signature = '>danger';
-            },
-            /** @internal */
-            new class extends ColoredBlockquotes
-            {
-                protected static string $signature = '>info';
-            },
-            /** @internal */
-            new class extends ColoredBlockquotes
-            {
-                protected static string $signature = '>success';
-            },
-            /** @internal */
-            new class extends ColoredBlockquotes
-            {
-                protected static string $signature = '>warning';
-            },
-        ];
+        return false;
     }
 }
