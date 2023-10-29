@@ -111,7 +111,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRegisterTaskWithBaseClassThrowsException()
     {
         $this->expectException(TypeError::class);
-        $this->service->registerTask(InstansiableTestBuildTask::class);
+        $this->service->registerTask(InstantiableTestBuildTask::class);
     }
 
     public function testRegisterTaskWithAlreadyRegisteredTask()
@@ -293,9 +293,9 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $filesystem = Mockery::mock(Filesystem::class, [$kernel])->makePartial()
             ->shouldReceive('smartGlob')->once()
             ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect([/** TODO */]))->getMock();
+            ->andReturn(collect())->getMock();
 
-        // Inject mock into Kernel (No better way to do this at the moment)
+        // Inject mock into Kernel
         (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
 
         $this->createService();
@@ -322,7 +322,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     }
 }
 
-class InstansiableTestBuildTask extends BuildTask
+class InstantiableTestBuildTask extends BuildTask
 {
     public function handle(): void
     {
