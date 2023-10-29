@@ -18,7 +18,7 @@ use function sprintf;
  */
 class BuildWarnings
 {
-    /** @var array<int, \Hyde\Framework\Exceptions\BuildWarning> */
+    /** @var array<\Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
     public static function getInstance(): self
