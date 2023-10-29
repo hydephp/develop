@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
 
+use function is_string;
 use function array_keys;
 use function array_values;
 use function realpath;
@@ -127,5 +128,13 @@ abstract class Command extends BaseCommand
     public function indentedLine(int $spaces, string $string): void
     {
         $this->line(str_repeat(' ', $spaces).$string);
+    }
+
+    public function askForString(string $question, ?string $default = null): ?string
+    {
+        /** @var string|null $answer */
+        $answer = $this->output->ask($question, $default);
+
+        return is_string($answer) ? $answer : $default;
     }
 }

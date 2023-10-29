@@ -215,11 +215,51 @@ class CommandTest extends UnitTestCase
         $this->assertSame(1, $code);
     }
 
+    public function testAskForString()
+    {
+        $this->testOutput(function ($command) {
+            $this->assertSame('foo', $command->askForString('foo'));
+        }, function ($output) {
+            $output->shouldReceive('ask')->once()->withArgs(function (string $question, ?string $default): bool {
+                return $this->assertIsSame('foo', $question) && $this->assertIsNull($default);
+            })->andReturn('foo');
+        });
+    }
+
+    public function testAskForStringWithDefaultValue()
+    {
+        $this->testOutput(function ($command) {
+            $this->assertSame('foo', $command->askForString('foo', 'bar'));
+        }, function ($output) {
+            $output->shouldReceive('ask')->once()->withArgs(function (string $question, ?string $default): bool {
+                return $this->assertIsSame('foo', $question) && $this->assertIsSame('bar', $default);
+            })->andReturn('foo');
+        });
+    }
+
+    public function testAskForStringWithDefaultValueSupplyingNull()
+    {
+        $this->testOutput(function ($command) {
+            $this->assertSame('bar', $command->askForString('foo', 'bar'));
+        }, function ($output) {
+            $output->shouldReceive('ask')->once()->withArgs(function (string $question, ?string $default): bool {
+                return $this->assertIsSame('foo', $question) && $this->assertIsSame('bar', $default);
+            })->andReturn(null);
+        });
+    }
+
     protected function assertIsSame(string $expected, string $actual): bool
     {
         $this->assertSame($expected, $actual);
 
         return $actual === $expected;
+    }
+
+    protected function assertIsNull(mixed $expected): bool
+    {
+        $this->assertNull($expected);
+
+        return $expected === null;
     }
 
     protected function testOutput(Closure $closure, Closure $expectations = null): void

@@ -8,7 +8,6 @@ use Exception;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 
-use function is_string;
 use function sprintf;
 use function ucwords;
 
@@ -98,10 +97,5 @@ class MakePostCommand extends Command
 
             return (int) $exception->getCode();
         }
-    }
-
-    protected function askForString(string $question, ?string $default = null): ?string
-    {
-        return is_string($answer = $this->output->ask($question, $default)) ? $answer : null;
     }
 }
