@@ -13,6 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ValidationResult as Result;
 
 use function count;
+use function call_user_func;
 use function get_class_methods;
 use function array_intersect;
 use function file_exists;
@@ -38,7 +39,7 @@ class ValidationService
 
     public function run(string $check): Result
     {
-        return $this->$check(new Result);
+        return call_user_func([$this, $check], new Result);
     }
 
     public function check_validators_can_run(Result $result): Result

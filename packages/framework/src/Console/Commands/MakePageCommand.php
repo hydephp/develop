@@ -80,7 +80,7 @@ class MakePageCommand extends Command
     protected function getTitle(): string
     {
         return $this->argument('title')
-            ?? $this->ask('What is the title of the page?')
+            ?? $this->askForString('What is the title of the page?')
             ?? 'My New Page';
     }
 
@@ -115,5 +115,10 @@ class MakePageCommand extends Command
         }
 
         return null;
+    }
+
+    protected function askForString(string $question, ?string $default = null): ?string
+    {
+        return $this->ask($question, $default);
     }
 }

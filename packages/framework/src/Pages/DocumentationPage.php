@@ -10,6 +10,11 @@ use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 
+use function trim;
+use function sprintf;
+use function unslash;
+use function basename;
+
 /**
  * Page class for documentation pages.
  *
@@ -37,16 +42,16 @@ class DocumentationPage extends BaseMarkdownPage
     /** @see https://hydephp.com/docs/1.x/documentation-pages#automatic-edit-page-button */
     public function getOnlineSourcePath(): string|false
     {
-        if (config('docs.source_file_location_base') === null) {
+        if (Config::getNullableString('docs.source_file_location_base') === null) {
             return false;
         }
 
-        return trim((string) config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
+        return sprintf('%s/%s.md', trim(Config::getString('docs.source_file_location_base'), '/'), $this->identifier);
     }
 
     public static function hasTableOfContents(): bool
     {
-        return config('docs.table_of_contents.enabled', true);
+        return Config::getBool('docs.table_of_contents.enabled', true);
     }
 
     /**

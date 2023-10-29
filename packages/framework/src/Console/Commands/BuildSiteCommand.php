@@ -46,8 +46,7 @@ class BuildSiteCommand extends Command
 
         $this->service = new BuildService($this->output);
 
-        $this->taskService = app(BuildTaskService::class);
-        $this->taskService->setOutput($this->output);
+        $this->configureBuildTaskService();
 
         $this->runPreBuildActions();
 
@@ -62,11 +61,21 @@ class BuildSiteCommand extends Command
         return $this->getExitCode();
     }
 
+    protected function configureBuildTaskService(): void
+    {
+        /** @var BuildTaskService $taskService */
+        $taskService = app(BuildTaskService::class);
+
+        $this->taskService = $taskService;
+        $this->taskService->setOutput($this->output);
+    }
+
     protected function runPreBuildActions(): void
     {
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
+            /** @var array<string, string> $config */
             $config = Config::getArray('hyde.features', []);
             unset($config[array_search('torchlight', $config)]);
             Config::set(['hyde.features' => $config]);
@@ -132,7 +141,7 @@ class BuildSiteCommand extends Command
 
         $output = shell_exec(sprintf(
             '%s%s',
-            app()->environment() === 'testing' ? 'echo ' : '',
+            (string) app()->environment() === 'testing' ? 'echo ' : '',
             $command
         ));
 
@@ -150,7 +159,7 @@ class BuildSiteCommand extends Command
     protected function getExitCode(): int
     {
         if ($this->hasWarnings() && BuildWarnings::reportsWarningsAsExceptions()) {
-            return self::INVALID;
+            return Command::INVALID;
         }
 
         return Command::SUCCESS;

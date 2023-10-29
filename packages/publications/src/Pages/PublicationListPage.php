@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Pages;
 
+use Hyde\Facades\Config;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Actions\PublicationPageCompiler;
 use Hyde\Publications\Models\PublicationType;
 
-use function config;
 use function in_array;
 
 /**
@@ -35,6 +35,6 @@ class PublicationListPage extends InMemoryPage
 
     public function showInNavigation(): bool
     {
-        return ! in_array($this->type->getDirectory(), config('hyde.navigation.exclude', []));
+        return ! in_array($this->type->getDirectory(), Config::getArray('hyde.navigation.exclude', []));
     }
 }

@@ -46,6 +46,7 @@ class Config extends \Illuminate\Support\Facades\Config
     /** @experimental Could possibly be merged by allowing null returns if default is null? Preferably with generics so the type is matched by IDE support. */
     public static function getNullableString(string $key, string $default = null): ?string
     {
+        /** @var array|string|int|bool|float|null $value */
         $value = static::get($key, $default);
 
         if ($value === null) {

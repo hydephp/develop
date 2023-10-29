@@ -45,6 +45,7 @@ class LoadYamlConfiguration
             || file_exists(Hyde::path('hyde.yaml'));
     }
 
+    /** @return array<string, mixed> */
     protected function getYaml(): array
     {
         return (array) Yaml::parse(file_get_contents($this->getFile()));
@@ -64,6 +65,7 @@ class LoadYamlConfiguration
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
         if ($this->configurationContainsNamespaces($yaml)) {
+            /** @var array<string, array<string, scalar>> $yaml */
             foreach ($yaml as $namespace => $data) {
                 $this->mergeConfiguration($namespace, (array) $data);
             }

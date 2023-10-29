@@ -28,6 +28,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 {
     protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
 
+    /** @var array<string> */
     protected static array $patterns = [
         '// filepath: ',
         '// filepath ',

@@ -226,6 +226,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     {
         // Check if the --no-api flag is set when running the build command, and if so, skip the API call.
         if (Config::getBool('hyde.api_calls', true)) {
+            /** @var string[][] $headers */
             $headers = Http::withHeaders([
                 'User-Agent' => Config::getString('hyde.http_user_agent', 'RSS Request Client'),
             ])->head($this->getSource())->headers();

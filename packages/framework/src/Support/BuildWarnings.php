@@ -18,10 +18,10 @@ use function sprintf;
  */
 class BuildWarnings
 {
-    /** @var array<int, \Hyde\Framework\Exceptions\BuildWarning> */
+    /** @var array<\Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
-    public static function getInstance(): static
+    public static function getInstance(): self
     {
         $app = Container::getInstance();
 
@@ -29,7 +29,10 @@ class BuildWarnings
             $app->singleton(self::class);
         }
 
-        return $app->make(self::class);
+        /** @var \Hyde\Support\BuildWarnings $instance */
+        $instance = $app->make(self::class);
+
+        return $instance;
     }
 
     public static function report(BuildWarning|string $warning): void
@@ -79,8 +82,11 @@ class BuildWarnings
 
     protected static function renderWarningsAsExceptions(OutputStyle $output): void
     {
+        /** @var ExceptionHandler $handler */
+        $handler = app(ExceptionHandler::class);
+
         foreach (static::getWarnings() as $warning) {
-            app(ExceptionHandler::class)->renderForConsole($output, $warning);
+            $handler->renderForConsole($output, $warning);
         }
     }
 }

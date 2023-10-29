@@ -7,7 +7,6 @@ namespace Hyde\Facades;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 
 use function app;
 
