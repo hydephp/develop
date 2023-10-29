@@ -59,7 +59,6 @@ jobs:
           rm hyde/phpunit.dusk.xml -v
           rm hyde/phpunit.xml.dist -v
           rm hyde/psalm.xml -v
-          rm hyde/psalm-baseline.xml -v
           rm hyde/rector.php -v
           rm hyde/ide.json -v
           rm hyde/_ide_helper.php -v
