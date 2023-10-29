@@ -21,6 +21,7 @@ class ColoredBlockquotes implements MarkdownShortcodeContract
     /** @var string The core signature. We combine this with an additional check for color later. */
     protected static string $signature = '>';
 
+    /** @var array<string> */
     protected static array $signatures = ['>danger', '>info', '>success', '>warning'];
 
     public static function signature(): string
@@ -38,7 +39,7 @@ class ColoredBlockquotes implements MarkdownShortcodeContract
     /**
      * @internal
      *
-     * @return string[]
+     * @return array<string>
      */
     public static function getSignatures(): array
     {
