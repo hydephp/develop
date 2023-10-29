@@ -14,6 +14,19 @@ use Hyde\Testing\UnitTestCase;
  */
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
+    public function testSignature()
+    {
+        $this->assertSame('>', ColoredBlockquotes::signature());
+    }
+
+    public function testSignatures()
+    {
+        $this->assertSame(
+            ['>danger', '>info', '>success', '>warning'],
+            ColoredBlockquotes::getSignatures()
+        );
+    }
+
     public function testResolveMethod()
     {
         $this->assertSame(
