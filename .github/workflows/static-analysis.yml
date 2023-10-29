@@ -16,14 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Psalm Laravel Plugin
-        run: composer require --dev psalm/plugin-laravel --no-update
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Enable Psalm Laravel Plugin
-        run: vendor/bin/psalm enable psalm/plugin-laravel
 
       - name: Run Psalm
         id: analysis
