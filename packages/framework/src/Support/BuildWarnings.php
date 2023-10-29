@@ -29,7 +29,10 @@ class BuildWarnings
             $app->singleton(self::class);
         }
 
-        return $app->make(self::class);
+        /** @var \Hyde\Support\BuildWarnings $instance */
+        $instance = $app->make(self::class);
+
+        return $instance;
     }
 
     public static function report(BuildWarning|string $warning): void
