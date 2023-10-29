@@ -37,11 +37,11 @@ class DocumentationPage extends BaseMarkdownPage
     /** @see https://hydephp.com/docs/1.x/documentation-pages#automatic-edit-page-button */
     public function getOnlineSourcePath(): string|false
     {
-        if (config('docs.source_file_location_base') === null) {
+        if (Config::getNullableString('docs.source_file_location_base') === null) {
             return false;
         }
 
-        return trim((string) config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
+        return trim(Config::getString('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
     public static function hasTableOfContents(): bool
