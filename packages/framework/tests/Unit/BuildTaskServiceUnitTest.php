@@ -293,9 +293,9 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $filesystem = Mockery::mock(Filesystem::class, [$kernel])->makePartial()
             ->shouldReceive('smartGlob')->once()
             ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect([/** TODO */]))->getMock();
+            ->andReturn(collect())->getMock();
 
-        // Inject mock into Kernel (No better way to do this at the moment)
+        // Inject mock into Kernel
         (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
 
         $this->createService();
