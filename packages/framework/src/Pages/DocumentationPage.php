@@ -10,6 +10,11 @@ use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 
+use function trim;
+use function sprintf;
+use function unslash;
+use function basename;
+
 /**
  * Page class for documentation pages.
  *
