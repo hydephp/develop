@@ -79,8 +79,11 @@ class BuildWarnings
 
     protected static function renderWarningsAsExceptions(OutputStyle $output): void
     {
+        /** @var ExceptionHandler $handler */
+        $handler = app(ExceptionHandler::class);
+
         foreach (static::getWarnings() as $warning) {
-            app(ExceptionHandler::class)->renderForConsole($output, $warning);
+            $handler->renderForConsole($output, $warning);
         }
     }
 }
