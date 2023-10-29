@@ -8,6 +8,7 @@ namespace Hyde\Framework\Features\XmlGenerators;
 
 use Hyde\Hyde;
 use SimpleXMLElement;
+use Hyde\Facades\Config;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -18,7 +19,6 @@ use Hyde\Framework\Concerns\TracksExecutionTime;
 
 use function filemtime;
 use function in_array;
-use function config;
 use function date;
 use function time;
 
@@ -61,7 +61,7 @@ class SitemapGenerator extends BaseXmlGenerator
         $this->addChild($urlItem, 'lastmod', $this->getLastModDate($route->getSourcePath()));
         $this->addChild($urlItem, 'changefreq', 'daily');
 
-        if (config('hyde.sitemap.dynamic_priority', true)) {
+        if (Config::getBool('hyde.sitemap.dynamic_priority', true)) {
             $this->addChild($urlItem, 'priority', $this->getPriority(
                 $route->getPageClass(), $route->getPage()->getIdentifier()
             ));
