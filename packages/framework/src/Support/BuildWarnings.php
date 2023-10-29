@@ -21,7 +21,7 @@ class BuildWarnings
     /** @var array<int, \Hyde\Framework\Exceptions\BuildWarning> */
     protected array $warnings = [];
 
-    public static function getInstance(): static
+    public static function getInstance(): self
     {
         $app = Container::getInstance();
 
