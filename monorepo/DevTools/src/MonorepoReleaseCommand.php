@@ -354,11 +354,13 @@ This serves two purposes:
 
     protected function prepareMonorepoPR(): void
     {
-        $title = $this->isPatch()
-            ? "Framework version v$this->newVersion"
-            : "HydePHP v$this->newVersion - ".date('Y-m-d');
-
-        $body = $this->releaseBody;
+        if ($this->isPatch()) {
+            $title = "Framework version v$this->newVersion";
+            $body = '';
+        } else {
+            $title = "HydePHP v$this->newVersion - " . date('Y-m-d');
+            $body = $this->releaseBody;
+        }
 
         // Inject "version" before version in PR body
         $body = preg_replace('/## \[(.*)]/', '## Version [v$1]', $body, 1);
