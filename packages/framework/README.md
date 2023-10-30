@@ -39,7 +39,9 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ### Contributing
 
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+HydePHP is an open-source project, contributions are very welcome!
+
+Development is made in the HydePHP Monorepo, which you can find here https://github.com/hydephp/develop.
 
 ### Security
 
