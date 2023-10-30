@@ -326,7 +326,7 @@ This serves two purposes:
 
     protected function prepareDocsPR(): void
     {
-        $this->preparePackagePR('hyde', 'upcoming', 'Merge upcoming documentation', 'This PR merges the upcoming documentation for v'.$this->newVersion.' into the master branch.');
+        $this->preparePackagePR('hydephp.com', 'upcoming', 'Merge upcoming documentation', 'This PR merges the upcoming documentation for v'.$this->newVersion.' into the master branch.');
     }
 
     protected function getTitle(): string
