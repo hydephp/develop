@@ -358,7 +358,7 @@ This serves two purposes:
             $title = "Framework version v$this->newVersion";
             $body = '';
         } else {
-            $title = "HydePHP v$this->newVersion - " . date('Y-m-d');
+            $title = "HydePHP v$this->newVersion - ".date('Y-m-d');
             $body = $this->releaseBody;
         }
 
