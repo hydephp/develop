@@ -119,6 +119,14 @@ class MonorepoReleaseCommand extends Command
     {
         $this->newVersionType = $this->choice('What type of release is this?', static::VERSION_TYPES, 1);
 
+        if ($this->newVersionType === 'patch') {
+            if ($this->currentVersion !== 'v'.HydeKernel::VERSION) {
+                $this->info('Updating base to use framework constant');
+            }
+            $this->currentVersion = 'v'.HydeKernel::VERSION;
+            $this->currentVersionParts = explode('.', ltrim($this->currentVersion, 'v'));
+        }
+
         $major = $this->currentVersionParts[0];
         $minor = $this->currentVersionParts[1];
         $patch = $this->currentVersionParts[2];
