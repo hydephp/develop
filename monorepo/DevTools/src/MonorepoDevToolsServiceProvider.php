@@ -15,6 +15,8 @@ class MonorepoDevToolsServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        $this->commands([
+            MonorepoReleaseCommand::class,
+        ]);
     }
 }
