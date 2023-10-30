@@ -101,7 +101,7 @@ class MonorepoReleaseCommand extends Command
         $this->currentVersionParts = explode('.', ltrim($this->currentVersion, 'v'));
         $frameworkVersion = HydeKernel::VERSION;
 
-        $this->info("Current version: {$this->currentVersion} <fg=gray>(Framework: v$frameworkVersion)</>");
+        $this->info("Current version: $this->currentVersion <fg=gray>(Framework: v$frameworkVersion)</>");
     }
 
     protected function askForNewVersion(): void
@@ -344,7 +344,7 @@ This serves two purposes:
         $body = $this->releaseBody;
 
         // Inject "version" before version in PR body
-        $body = preg_replace('/## \[(.*)\]/', '## Version [v$1]', $body, 1);
+        $body = preg_replace('/## \[(.*)]/', '## Version [v$1]', $body, 1);
 
         $link = sprintf('https://github.com/hydephp/develop/compare/master...'.$this->branch.'?expand=1&draft=1&title=%s&body=%s',
             urlencode($title),
