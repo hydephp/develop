@@ -44,29 +44,29 @@ class MonorepoReleaseCommand extends Command
         $this->createNewBranch();
 
         $this->updateVersionConstant();
-        if ($this->newVersionType === 'patch') {
+        if ($this->isPatch()) {
             $this->commitFrameworkVersion();
         }
 
-        if ($this->newVersionType === 'major') {
+        if ($this->isMajor()) {
             $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
-        } elseif ($this->newVersionType === 'minor') {
+        } elseif ($this->isMinor()) {
             $this->warn('Please make sure to update the framework version in the Hyde composer.json file!');
         }
 
-        if ($this->newVersionType === 'patch') {
+        if ($this->isPatch()) {
             $this->comment('Skipping release notes preparation for patch release.');
         } else {
             $this->prepareReleaseNotes();
         }
 
-        if ($this->newVersionType !== 'patch') {
+        if ($this->isNotPatch()) {
             $this->makeMonorepoCommit();
         }
 
         $this->prepareFrameworkPR();
 
-        if ($this->newVersionType !== 'patch') {
+        if ($this->isNotPatch()) {
             $this->prepareHydePR();
             $this->prepareDocsPR();
         }
@@ -335,7 +335,7 @@ This serves two purposes:
         // Create link to draft pull request merging develop into master
         $link = sprintf('https://github.com/hydephp/'.$package.'/compare/master...'.$branch.'?expand=1&draft=1&title=%s&body=%s',
             urlencode($title ?? $this->getTitle()),
-            $body ?? ($this->newVersionType === 'patch' ? '' : $this->getCompanionBody())
+            $body ?? ($this->isPatch() ? '' : $this->getCompanionBody())
         );
 
         $this->info("Opening $package pull request link in browser. Please review and submit the PR once all changes are propagated.");
@@ -344,7 +344,7 @@ This serves two purposes:
 
     protected function prepareMonorepoPR(): void
     {
-        $title = $this->newVersionType === 'patch'
+        $title = $this->isPatch()
             ? "Framework version v$this->newVersion"
             : "HydePHP v$this->newVersion - ".date('Y-m-d');
 
@@ -355,7 +355,7 @@ This serves two purposes:
 
         $link = sprintf('https://github.com/hydephp/develop/compare/master...'.$this->branch.'?expand=1&draft=1&title=%s&body=%s',
             urlencode($title),
-            $this->newVersionType === 'patch' ? 'Framework patch release' : urlencode($body)
+            $this->isPatch() ? 'Framework patch release' : urlencode($body)
         );
 
         if ($this->dryRun) {
@@ -372,7 +372,7 @@ This serves two purposes:
 
     protected function createNewBranch(): void
     {
-        $prefix = $this->newVersionType === 'patch' ? 'framework' : 'release';
+        $prefix = $this->isPatch() ? 'framework' : 'release';
         $name = "$prefix-v$this->newVersion";
         $this->branch = $name;
 
@@ -389,5 +389,25 @@ This serves two purposes:
         $this->exitIfFailed();
 
         $this->line('Checked out new branch.');
+    }
+
+    protected function isMajor(): bool
+    {
+        return $this->newVersionType === 'major';
+    }
+
+    protected function isMinor(): bool
+    {
+        return $this->newVersionType === 'minor';
+    }
+
+    protected function isPatch(): bool
+    {
+        return $this->newVersionType === 'patch';
+    }
+
+    protected function isNotPatch(): bool
+    {
+        return $this->newVersionType !== 'patch';
     }
 }
