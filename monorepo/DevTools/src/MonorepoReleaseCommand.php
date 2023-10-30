@@ -264,26 +264,12 @@ This serves two purposes:
 
     protected function prepareFrameworkPR(): void
     {
-        // Create link to draft pull request merging develop into master
-        $link = sprintf('https://github.com/hydephp/framework/compare/master...develop?expand=1&?&title=%s&body=%s&draft=true',
-            urlencode($this->getTitle()),
-            $this->newVersionType === 'patch' ? '' : $this->getCompanionBody()
-        );
-
-        $this->info('Opening pull request link in browser. Please review and submit the PR once all changes are propagated.');
-        shell_exec((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open'). ' '. escapeshellarg($link));
+        $this->preparePackagePR('framework');
     }
 
     protected function prepareHydePR(): void
     {
-        // Create link to draft pull request merging develop into master
-        $link = sprintf('https://github.com/hydephp/hyde/compare/master...develop?expand=1&?&title=%s&body=%s&draft=true',
-            urlencode($this->getTitle()),
-            $this->newVersionType === 'patch' ? '' : $this->getCompanionBody()
-        );
-
-        $this->info('Opening pull request link in browser. Please review and submit the PR once all changes are propagated.');
-        shell_exec((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open'). ' '. escapeshellarg($link));
+        $this->preparePackagePR('hyde');
     }
 
     protected function getTitle(): string
@@ -294,5 +280,17 @@ This serves two purposes:
     protected function getCompanionBody(): string
     {
         return sprintf('Please see the release notes in the development monorepo [`Release v%s`](https://github.com/hydephp/develop/releases/tag/v%s)', $this->newVersion, $this->newVersion);
+    }
+
+    protected function preparePackagePR(string $package): void
+    {
+        // Create link to draft pull request merging develop into master
+        $link = sprintf('https://github.com/hydephp/' . $package . '/compare/master...develop?expand=1&draft=1&title=%s&body=%s',
+            urlencode($this->getTitle()),
+            $this->newVersionType === 'patch' ? '' : $this->getCompanionBody()
+        );
+
+        $this->info("Opening $package pull request link in browser. Please review and submit the PR once all changes are propagated.");
+        shell_exec((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open') . ' ' . escapeshellarg($link));
     }
 }
