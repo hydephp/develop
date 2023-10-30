@@ -39,6 +39,7 @@ class MonorepoReleaseCommand extends Command
         $this->getCurrentVersion();
         $this->askForNewVersion();
         $this->newLine();
+        $this->createNewBranch();
 
         $this->updateVersionConstant();
         $this->commitFrameworkVersion();
@@ -307,5 +308,25 @@ This serves two purposes:
 
         $this->info("Opening $package pull request link in browser. Please review and submit the PR once all changes are propagated.");
         shell_exec((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open') . ' ' . escapeshellarg($link));
+    }
+
+    protected function createNewBranch(): void
+    {
+        $prefix = $this->newVersionType === 'patch' ? 'framework' : 'release';
+        $name = "$prefix-v$this->newVersion";
+
+        $this->info("Creating new branch $name... ");
+        $this->runUnlessDryRun('git checkout -b ' . $name, true);
+
+        // Verify changed to new branch
+        $state = $this->runUnlessDryRun('git branch --show-current');
+
+        if ($this->dryRun !== true && trim($state ?? '') !== $name) {
+            $this->fail("Failed to checkout new branch $name, aborting.");
+        }
+
+        $this->exitIfFailed();
+
+        $this->line('Checked out new branch.');
     }
 }
