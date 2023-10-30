@@ -41,6 +41,7 @@ class MonorepoReleaseCommand extends Command
         $this->newLine();
 
         $this->updateVersionConstant();
+        $this->commitFrameworkVersion();
 
         if ($this->newVersionType === 'major') {
             $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
@@ -120,7 +121,7 @@ class MonorepoReleaseCommand extends Command
         $this->info("New version: v$this->newVersion <fg=gray>($this->newVersionType)</>");
     }
 
-    protected function runUnlessDryRun(string $command): string|null|false
+    protected function runUnlessDryRun(string $command, bool $allowSilent = false): string|null|false
     {
         if ($this->dryRun) {
             $this->gray("DRY RUN: $command");
@@ -129,8 +130,10 @@ class MonorepoReleaseCommand extends Command
 
         $state = shell_exec($command);
 
-        if ($state === false || $state === null) {
-            $this->fail("Command failed: $command");
+        if ($allowSilent === false) {
+            if ($state === false || ($state === null)) {
+                $this->fail("Command failed: $command");
+            }
         }
 
         return $state;
@@ -258,6 +261,18 @@ This serves two purposes:
         $hydeKernel = file_get_contents($kernelPath);
         $hydeKernel = preg_replace('/final public const VERSION = \'(.*)\';/', "final public const VERSION = '$version';", $hydeKernel);
         file_put_contents($kernelPath, $hydeKernel);
+
+        $this->line('Done. ');
+    }
+
+    protected function commitFrameworkVersion(): void
+    {
+        $this->output->write('Committing framework version change... ');
+
+        $this->runUnlessDryRun('git add packages/framework/src/Foundation/HydeKernel.php', true);
+        $this->runUnlessDryRun('git commit -m "Framework version v'.$this->newVersion.'"');
+
+        $this->exitIfFailed();
 
         $this->line('Done. ');
     }
