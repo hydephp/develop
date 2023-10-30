@@ -29,6 +29,8 @@ class MonorepoReleaseCommand extends Command
     protected string $newVersion;
 
     protected bool $failed = false;
+    protected string $branch;
+    protected string $releaseBody;
 
     public function handle(): int
     {
@@ -67,6 +69,8 @@ class MonorepoReleaseCommand extends Command
         if ($this->newVersionType !== 'patch') {
             $this->prepareHydePR();
         }
+
+        $this->prepareMonorepoPR();
 
         return Command::SUCCESS;
     }
@@ -209,6 +213,8 @@ This serves two purposes:
         // remove empty lines
         $notes = preg_replace('/\n{3,}/', "\n", $notes);
 
+        $this->releaseBody = $notes;
+
         $this->line('Done.');
 
         $this->output->write('Resetting upcoming release notes stub... ');
@@ -329,10 +335,39 @@ This serves two purposes:
         $this->runUnlessDryRun((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open').' '.escapeshellarg($link), true);
     }
 
+    protected function prepareMonorepoPR(): void
+    {
+        $title = $this->newVersionType === 'patch'
+            ? "Framework version v$this->newVersion"
+            : "HydePHP v$this->newVersion - ".date('Y-m-d');
+
+        $body = $this->releaseBody;
+
+        // Inject "version" before version in PR body
+        $body = preg_replace('/## \[(.*)\]/', '## Version [v$1]', $body, 1);
+
+        $link = sprintf('https://github.com/hydephp/develop/compare/master...'.$this->branch.'?expand=1&draft=1&title=%s&body=%s',
+            urlencode($title),
+            $this->newVersionType === 'patch' ? 'Framework patch release' : urlencode($body)
+        );
+
+        if ($this->dryRun) {
+            $this->info('Opening release pull request link in browser. Please review and submit the PR.');
+        } else {
+            if (PHP_OS_FAMILY === 'Windows') {
+                // Seems to be the most reliable way to get the encoding right
+                shell_exec('powershell -Command "Start-Process \''.$link.'\'"');
+            } else {
+                shell_exec('open'.' '.escapeshellarg($link));
+            }
+        }
+    }
+
     protected function createNewBranch(): void
     {
         $prefix = $this->newVersionType === 'patch' ? 'framework' : 'release';
         $name = "$prefix-v$this->newVersion";
+        $this->branch = $name;
 
         $this->info("Creating new branch $name... ");
         $this->runUnlessDryRun('git checkout -b '.$name, true);
