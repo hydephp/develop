@@ -39,6 +39,8 @@ class MonorepoReleaseCommand extends Command
         $this->getCurrentVersion();
         $this->askForNewVersion();
 
+        $this->prepareReleaseNotes();
+
         return Command::SUCCESS;
     }
 
@@ -128,5 +130,90 @@ class MonorepoReleaseCommand extends Command
         if ($this->failed) {
             exit(1);
         }
+    }
+
+    protected function prepareReleaseNotes(): void
+    {
+        $this->output->write("\nTransforming upcoming release notes... ");
+
+        $version = $this->newVersion;
+        $baseDir = __DIR__ . '/../../../';
+
+        $notes = file_get_contents($baseDir .'RELEASE_NOTES.md');
+
+        $notes = str_replace("\r", '', $notes);
+
+        // remove default release notes
+        $defaults = [
+            '- for new features.',
+            '- for changes in existing functionality.',
+            '- for soon-to-be removed features.',
+            '- for now removed features.',
+            '- for any bug fixes.',
+            '- in case of vulnerabilities.',
+        ];
+
+        foreach ($defaults as $default) {
+            $notes = str_replace($default, 'DEFAULT', $notes);
+        }
+
+        $notes = str_replace('Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.', '', $notes);
+
+        $notes = trim($notes);
+
+        $notes = str_replace('## [Unreleased]', "## [$version](https://github.com/hydephp/develop/releases/tag/$version)", $notes);
+        $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
+        $notes = $notes."\n";
+
+        // remove empty sections
+        $notes = preg_replace('/### (Added|Changed|Deprecated|Removed|Fixed|Security)\nDEFAULT/', '', $notes);
+
+        // remove ### About if it's empty
+        $notes = str_replace("### About\n\n\n", "\n", $notes);
+
+        // remove empty lines
+        $notes = preg_replace('/\n{3,}/', "\n", $notes);
+
+        $this->line('Done. ');
+
+        $this->output->write('Resetting upcoming release notes stub... ');
+        file_put_contents($baseDir.'RELEASE_NOTES.md', <<<'MARKDOWN'
+        ## [Unreleased] - YYYY-MM-DD
+
+        ### About
+        
+        Keep an Unreleased section at the top to track upcoming changes.
+        
+        This serves two purposes:
+        
+        1. People can see what changes they might expect in upcoming releases
+        2. At release time, you can move the Unreleased section changes into a new release version section.
+        
+        ### Added
+        - for new features.
+        
+        ### Changed
+        - for changes in existing functionality.
+        
+        ### Deprecated
+        - for soon-to-be removed features.
+        
+        ### Removed
+        - for now removed features.
+        
+        ### Fixed
+        - for any bug fixes.
+        
+        ### Security
+        - in case of vulnerabilities.
+        
+        MARKDOWN);
+
+        $this->line('Done. ');
     }
 }
