@@ -40,6 +40,8 @@ class MonorepoReleaseCommand extends Command
         $this->askForNewVersion();
         $this->newLine();
 
+        $this->updateVersionConstant();
+
         if ($this->newVersionType === 'major') {
             $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
         }
@@ -235,5 +237,20 @@ This serves two purposes:
         file_put_contents($baseDir.'/CHANGELOG.md', $changelog);
 
         echo "Done. \n";
+    }
+
+    protected function updateVersionConstant(): void
+    {
+        $this->output->write('Updating version constant... ');
+
+        $baseDir = __DIR__ . '/../../../';
+        $version = ltrim($this->newVersion, 'v');
+
+        $kernelPath = $baseDir . '/packages/framework/src/Foundation/HydeKernel.php';
+        $hydeKernel = file_get_contents($kernelPath);
+        $hydeKernel = preg_replace('/final public const VERSION = \'(.*)\';/', "final public const VERSION = '$version';", $hydeKernel);
+        file_put_contents($kernelPath, $hydeKernel);
+
+        $this->line('Done. ');
     }
 }
