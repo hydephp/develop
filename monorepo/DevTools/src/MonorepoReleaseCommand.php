@@ -236,7 +236,7 @@ This serves two purposes:
         $changelog = substr_replace($changelog, $needle."\n\n".$notes, strpos($changelog, $needle), strlen($needle));
         file_put_contents($baseDir.'/CHANGELOG.md', $changelog);
 
-        echo "Done. \n";
+        $this->line('Done. ');
     }
 
     protected function updateVersionConstant(): void
