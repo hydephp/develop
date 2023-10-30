@@ -274,7 +274,7 @@ This serves two purposes:
 
     protected function getTitle(): string
     {
-        return "v$this->newVersion - ".date('Y-m-d');
+        return "HydePHP v$this->newVersion - ".date('Y-m-d');
     }
 
     protected function getCompanionBody(): string
