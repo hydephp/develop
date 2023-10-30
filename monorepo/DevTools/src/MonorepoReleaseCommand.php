@@ -38,8 +38,17 @@ class MonorepoReleaseCommand extends Command
         $this->fetchAndCheckoutMaster();
         $this->getCurrentVersion();
         $this->askForNewVersion();
+        $this->newLine();
 
-        $this->prepareReleaseNotes();
+        if ($this->newVersionType === 'major') {
+            $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
+        }
+
+        if ($this->newVersionType === 'patch') {
+            $this->comment('Skipping release notes preparation for patch release.');
+        } else {
+            $this->prepareReleaseNotes();
+        }
 
         return Command::SUCCESS;
     }
@@ -134,7 +143,7 @@ class MonorepoReleaseCommand extends Command
 
     protected function prepareReleaseNotes(): void
     {
-        $this->output->write("\nTransforming upcoming release notes... ");
+        $this->output->write('Transforming upcoming release notes... ');
 
         $version = $this->newVersion;
         $baseDir = __DIR__ . '/../../../';
