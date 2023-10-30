@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f585f8c80714ba92d5ef81bbbbda3a1",
+    "content-hash": "9194ad421963a9d22d666a6ad2b1de18",
     "packages": [
         {
             "name": "brick/math",
@@ -7727,6 +7727,32 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "hyde/monorepo-dev-tools",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./monorepo/DevTools",
+                "reference": "05678dfdc4948bcfe869951ab312d831ff27302c"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\MonorepoDevTools\\MonorepoDevToolsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyde\\MonorepoDevTools\\": "src/"
+                }
+            },
+            "description": "Internal devtools for the monorepo",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "hyde/realtime-compiler",
             "version": "dev-master",
             "dist": {
@@ -10836,9 +10862,10 @@
         "hyde/framework": 20,
         "hyde/publications": 20,
         "hyde/ui-kit": 20,
+        "desilva/psalm-coverage": 20,
+        "hyde/monorepo-dev-tools": 20,
         "hyde/realtime-compiler": 20,
-        "hyde/testing": 20,
-        "desilva/psalm-coverage": 20
+        "hyde/testing": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
