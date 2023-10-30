@@ -307,7 +307,7 @@ This serves two purposes:
         $this->output->write('Committing framework version change... ');
 
         $this->runUnlessDryRun('git add .', true);
-        $this->runUnlessDryRun('git commit -m "Version v'.$this->newVersion.'"');
+        $this->runUnlessDryRun('git commit -m "HydePHP v'.$this->newVersion.' - '.date('Y-m-d').'"');
 
         $this->exitIfFailed();
 
