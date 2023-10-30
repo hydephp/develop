@@ -1,0 +1,17 @@
+{
+    "name": "hyde/monorepo-dev-tools",
+    "description": "Internal devtools for the monorepo",
+    "autoload": {
+        "psr-4": {
+            "Hyde\\MonorepoDevTools\\": "src/"
+        }
+    },
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hyde\\MonorepoDevTools\\MonorepoDevToolsServiceProvider"
+            ]
+        }
+    }
+}
