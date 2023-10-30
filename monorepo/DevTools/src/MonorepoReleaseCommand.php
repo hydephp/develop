@@ -48,7 +48,7 @@ class MonorepoReleaseCommand extends Command
 
         if ($this->newVersionType === 'major') {
             $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
-        } else if ($this->newVersionType === 'minor') {
+        } elseif ($this->newVersionType === 'minor') {
             $this->warn('Please make sure to update the framework version in the Hyde composer.json file!');
         }
 
@@ -123,7 +123,7 @@ class MonorepoReleaseCommand extends Command
                 break;
         }
 
-        $this->newVersion = $major . '.' . $minor . '.' . $patch;
+        $this->newVersion = $major.'.'.$minor.'.'.$patch;
 
         $this->info("New version: v$this->newVersion <fg=gray>($this->newVersionType)</>");
     }
@@ -132,6 +132,7 @@ class MonorepoReleaseCommand extends Command
     {
         if ($this->dryRun) {
             $this->gray("DRY RUN: $command");
+
             return null;
         }
 
@@ -166,9 +167,9 @@ class MonorepoReleaseCommand extends Command
         $this->output->write('Transforming upcoming release notes... ');
 
         $version = $this->newVersion;
-        $baseDir = __DIR__ . '/../../../';
+        $baseDir = __DIR__.'/../../../';
 
-        $notes = file_get_contents($baseDir .'RELEASE_NOTES.md');
+        $notes = file_get_contents($baseDir.'RELEASE_NOTES.md');
 
         $notes = str_replace("\r", '', $notes);
 
@@ -208,7 +209,7 @@ This serves two purposes:
         // remove empty lines
         $notes = preg_replace('/\n{3,}/', "\n", $notes);
 
-        $this->line('Done. ');
+        $this->line('Done.');
 
         $this->output->write('Resetting upcoming release notes stub... ');
         file_put_contents($baseDir.'RELEASE_NOTES.md', <<<'MARKDOWN'
@@ -243,7 +244,7 @@ This serves two purposes:
         
         MARKDOWN);
 
-        $this->line('Done. ');
+        $this->line('Done.');
 
         $this->output->write('Updating changelog with the upcoming release notes... ');
 
@@ -254,22 +255,22 @@ This serves two purposes:
         $changelog = substr_replace($changelog, $needle."\n\n".$notes, strpos($changelog, $needle), strlen($needle));
         file_put_contents($baseDir.'/CHANGELOG.md', $changelog);
 
-        $this->line('Done. ');
+        $this->line('Done.');
     }
 
     protected function updateVersionConstant(): void
     {
         $this->output->write('Updating version constant... ');
 
-        $baseDir = __DIR__ . '/../../../';
+        $baseDir = __DIR__.'/../../../';
         $version = ltrim($this->newVersion, 'v');
 
-        $kernelPath = $baseDir . '/packages/framework/src/Foundation/HydeKernel.php';
+        $kernelPath = $baseDir.'/packages/framework/src/Foundation/HydeKernel.php';
         $hydeKernel = file_get_contents($kernelPath);
         $hydeKernel = preg_replace('/final public const VERSION = \'(.*)\';/', "final public const VERSION = '$version';", $hydeKernel);
         file_put_contents($kernelPath, $hydeKernel);
 
-        $this->line('Done. ');
+        $this->line('Done.');
     }
 
     protected function commitFrameworkVersion(): void
@@ -281,7 +282,7 @@ This serves two purposes:
 
         $this->exitIfFailed();
 
-        $this->line('Done. ');
+        $this->line('Done.');
     }
 
     protected function makeMonorepoCommit(): void
@@ -293,7 +294,7 @@ This serves two purposes:
 
         $this->exitIfFailed();
 
-        $this->line('Done. ');
+        $this->line('Done.');
     }
 
     protected function prepareFrameworkPR(): void
@@ -319,13 +320,13 @@ This serves two purposes:
     protected function preparePackagePR(string $package): void
     {
         // Create link to draft pull request merging develop into master
-        $link = sprintf('https://github.com/hydephp/' . $package . '/compare/master...develop?expand=1&draft=1&title=%s&body=%s',
+        $link = sprintf('https://github.com/hydephp/'.$package.'/compare/master...develop?expand=1&draft=1&title=%s&body=%s',
             urlencode($this->getTitle()),
             $this->newVersionType === 'patch' ? '' : $this->getCompanionBody()
         );
 
         $this->info("Opening $package pull request link in browser. Please review and submit the PR once all changes are propagated.");
-        shell_exec((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open') . ' ' . escapeshellarg($link));
+        $this->runUnlessDryRun((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open').' '.escapeshellarg($link), true);
     }
 
     protected function createNewBranch(): void
@@ -334,7 +335,7 @@ This serves two purposes:
         $name = "$prefix-v$this->newVersion";
 
         $this->info("Creating new branch $name... ");
-        $this->runUnlessDryRun('git checkout -b ' . $name, true);
+        $this->runUnlessDryRun('git checkout -b '.$name, true);
 
         // Verify changed to new branch
         $state = $this->runUnlessDryRun('git branch --show-current');
