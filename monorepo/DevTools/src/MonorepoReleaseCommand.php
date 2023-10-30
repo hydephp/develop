@@ -73,6 +73,15 @@ class MonorepoReleaseCommand extends Command
 
         $this->prepareMonorepoPR();
 
+        $this->confirm('Once the pull requests are merged and propagated, press enter to proceed and draft the releases.', true);
+
+        $this->prepareFrameworkRelease();
+
+        if ($this->isNotPatch()) {
+            $this->prepareHydeRelease();
+            $this->prepareMonorepoRelease();
+        }
+
         $this->info('All done!');
 
         return Command::SUCCESS;
@@ -327,7 +336,8 @@ This serves two purposes:
 
     protected function getCompanionBody(): string
     {
-        return sprintf('Please see the release notes in the development monorepo [`Release v%s`](https://github.com/hydephp/develop/releases/tag/v%s)', $this->newVersion, $this->newVersion);
+        // return sprintf('Please see the release notes in the development monorepo [`Release v%s`](https://github.com/hydephp/develop/releases/tag/v%s)', $this->newVersion, $this->newVersion);
+        return sprintf('Please see the release notes in the development monorepo https://github.com/hydephp/develop/releases/tag/v%s', $this->newVersion);
     }
 
     protected function preparePackagePR(string $package, string $branch = 'develop', ?string $title = null, ?string $body = null): void
@@ -368,6 +378,40 @@ This serves two purposes:
                 shell_exec('open'.' '.escapeshellarg($link));
             }
         }
+    }
+
+    protected function prepareFrameworkRelease(): void
+    {
+        $this->preparePackageRelease('framework');
+    }
+
+    protected function prepareHydeRelease(): void
+    {
+        $this->preparePackageRelease('hyde');
+    }
+
+    protected function preparePackageRelease(string $package): void
+    {
+        $version = "v$this->newVersion";
+        $title = "$version - ".date('Y-m-d');
+        $companionBody = $this->getCompanionBody();
+
+        $link = "https://github.com/hydephp/$package/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody);
+
+        $this->info("Opening $package release link in browser. Please review and submit the release.");
+        $this->runUnlessDryRun(sprintf("%s '%s'", PHP_OS_FAMILY === 'Windows' ? 'powershell -Command "Start-Process ' : 'open', $link), true);
+    }
+
+    protected function prepareMonorepoRelease(): void
+    {
+        $version = "v$this->newVersion";
+        $title = "$version - ".date('Y-m-d');
+        $body = "$this->releaseBody\n## What's Changed in the Monorepo";
+
+        $link = "https://github.com/hydephp/develop/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($body);
+
+        $this->info('Opening monorepo release link in browser. Please review and submit the release.');
+        $this->runUnlessDryRun(sprintf("%s '%s'", PHP_OS_FAMILY === 'Windows' ? 'powershell -Command "Start-Process ' : 'open', $link), true);
     }
 
     protected function createNewBranch(): void
