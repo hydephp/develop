@@ -44,6 +44,8 @@ class MonorepoReleaseCommand extends Command
 
         if ($this->newVersionType === 'major') {
             $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
+        } else if ($this->newVersionType === 'minor') {
+            $this->warn('Please make sure to update the framework version in the Hyde composer.json file!');
         }
 
         if ($this->newVersionType === 'patch') {
