@@ -72,6 +72,8 @@ class MonorepoReleaseCommand extends Command
 
         $this->prepareMonorepoPR();
 
+        $this->info('All done!');
+
         return Command::SUCCESS;
     }
 
