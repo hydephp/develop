@@ -88,8 +88,7 @@ class MonorepoReleaseCommand extends Command
         $this->exitIfFailed();
 
         // $this->info('Checking that the working directory is clean...');
-        $state = $this->runUnlessDryRun('git status --porcelain', true);
-        if ($state) {
+        if ($this->runUnlessDryRun('git status --porcelain', true)) {
             $this->fail('Working directory is not clean, aborting.');
         }
 
