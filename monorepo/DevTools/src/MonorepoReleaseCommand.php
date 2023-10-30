@@ -68,6 +68,7 @@ class MonorepoReleaseCommand extends Command
 
         if ($this->newVersionType !== 'patch') {
             $this->prepareHydePR();
+            $this->prepareDocsPR();
         }
 
         $this->prepareMonorepoPR();
@@ -314,6 +315,11 @@ This serves two purposes:
         $this->preparePackagePR('hyde');
     }
 
+    protected function prepareDocsPR(): void
+    {
+        $this->preparePackagePR('hyde', 'upcoming', 'Merge upcoming documentation', 'This PR merges the upcoming documentation for v'.$this->newVersion.' into the master branch.');
+    }
+
     protected function getTitle(): string
     {
         return "HydePHP v$this->newVersion - ".date('Y-m-d');
@@ -324,12 +330,12 @@ This serves two purposes:
         return sprintf('Please see the release notes in the development monorepo [`Release v%s`](https://github.com/hydephp/develop/releases/tag/v%s)', $this->newVersion, $this->newVersion);
     }
 
-    protected function preparePackagePR(string $package): void
+    protected function preparePackagePR(string $package, string $branch = 'develop', ?string $title = null, ?string $body = null): void
     {
         // Create link to draft pull request merging develop into master
-        $link = sprintf('https://github.com/hydephp/'.$package.'/compare/master...develop?expand=1&draft=1&title=%s&body=%s',
-            urlencode($this->getTitle()),
-            $this->newVersionType === 'patch' ? '' : $this->getCompanionBody()
+        $link = sprintf('https://github.com/hydephp/'.$package.'/compare/master...'.$branch.'?expand=1&draft=1&title=%s&body=%s',
+            urlencode($title ?? $this->getTitle()),
+            $body ?? ($this->newVersionType === 'patch' ? '' : $this->getCompanionBody())
         );
 
         $this->info("Opening $package pull request link in browser. Please review and submit the PR once all changes are propagated.");
