@@ -42,7 +42,9 @@ class MonorepoReleaseCommand extends Command
         $this->createNewBranch();
 
         $this->updateVersionConstant();
-        $this->commitFrameworkVersion();
+        if ($this->newVersionType === 'patch') {
+            $this->commitFrameworkVersion();
+        }
 
         if ($this->newVersionType === 'major') {
             $this->warn('This is a major release, please make sure to update the framework version in the Hyde composer.json file!');
@@ -54,6 +56,10 @@ class MonorepoReleaseCommand extends Command
             $this->comment('Skipping release notes preparation for patch release.');
         } else {
             $this->prepareReleaseNotes();
+        }
+
+        if ($this->newVersionType !== 'patch') {
+            $this->makeMonorepoCommit();
         }
 
         $this->prepareFrameworkPR();
@@ -272,6 +278,18 @@ This serves two purposes:
 
         $this->runUnlessDryRun('git add packages/framework/src/Foundation/HydeKernel.php', true);
         $this->runUnlessDryRun('git commit -m "Framework version v'.$this->newVersion.'"');
+
+        $this->exitIfFailed();
+
+        $this->line('Done. ');
+    }
+
+    protected function makeMonorepoCommit(): void
+    {
+        $this->output->write('Committing framework version change... ');
+
+        $this->runUnlessDryRun('git add .', true);
+        $this->runUnlessDryRun('git commit -m "Version v'.$this->newVersion.'"');
 
         $this->exitIfFailed();
 
