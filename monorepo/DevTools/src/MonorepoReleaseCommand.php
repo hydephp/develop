@@ -215,5 +215,16 @@ This serves two purposes:
         MARKDOWN);
 
         $this->line('Done. ');
+
+        $this->output->write('Updating changelog with the upcoming release notes... ');
+
+        $changelog = file_get_contents($baseDir.'/CHANGELOG.md');
+
+        $needle = '<!-- CHANGELOG_START -->';
+
+        $changelog = substr_replace($changelog, $needle."\n\n".$notes, strpos($changelog, $needle), strlen($needle));
+        file_put_contents($baseDir.'/CHANGELOG.md', $changelog);
+
+        echo "Done. \n";
     }
 }
