@@ -17,6 +17,32 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [1.3.0](https://github.com/hydephp/develop/releases/tag/1.3.0) - 2023-10-30
+### Added
+- Added support for setting custom content when calling source file creator actions directly in https://github.com/hydephp/develop/pull/1393
+- Added support for setting a custom post date when calling post file creator action directly in https://github.com/hydephp/develop/pull/1393
+- Added optional `FileNotFoundException` constructor parameter to set a custom exception message https://github.com/hydephp/develop/pull/1398
+- Added a new helper method to the base `Command` class to ask for a string input from the user in https://github.com/hydephp/develop/pull/1416
+- The realtime compiler dashboard is now interactive, and allows you to make edits to your project right from the browser https://github.com/hydephp/develop/pull/1392
+
+### Changed
+- Realtime Compiler: The `DashboardController` class is now marked as internal, as it is not intended to be used outside of the package https://github.com/hydephp/develop/pull/1394
+- Updated the realtime compiler server configuration options in https://github.com/hydephp/develop/pull/1395 (backwards compatible)
+- Updated the realtime compiler to generate the documentation search index each time it's requested in https://github.com/hydephp/develop/pull/1405 (fixes https://github.com/hydephp/develop/issues/1404)
+- Updated the navigation menu generator to remove duplicates after running the sorting method in https://github.com/hydephp/develop/pull/1407 (fixes https://github.com/hydephp/develop/issues/1406)
+- Updated the exception message caused by missing source option for featured images to include the path of the file that caused the error in https://github.com/hydephp/develop/pull/1409
+- Narrows down parsed `BladeMatter` array types to `array<string, scalar>` (Experimental feature not covered by BC promise) in https://github.com/hydephp/develop/pull/1410
+- Internal code refactors and improvements in https://github.com/hydephp/develop/pull/1410, https://github.com/hydephp/develop/pull/1411, and https://github.com/hydephp/develop/pull/1413
+### Fixed
+- Catch RealtimeCompiler dashboard OutOfBoundsException in https://github.com/hydephp/develop/pull/1384
+- Updated dropdown navigation menus to support setting priority in config in https://github.com/hydephp/develop/pull/1387 (fixing https://github.com/hydephp/hyde/issues/229)
+- Updated the vendor publish command to support parent Laravel Prompts implementation in https://github.com/hydephp/develop/pull/1388
+- Fixed wrong version constant in https://github.com/hydephp/develop/pull/1391
+- Fixed improperly formatted exception message in https://github.com/hydephp/develop/pull/1399
+- Fixed missing support for missing and out of date search indexes when previewing site https://github.com/hydephp/develop/issues/1404 in https://github.com/hydephp/develop/pull/1405
+- Fixed duplicate navigation items not giving precedence to config defined items https://github.com/hydephp/develop/issues/1406 in https://github.com/hydephp/develop/pull/1407
+
+
 ## [v1.2.0](https://github.com/hydephp/develop/releases/tag/v1.2.0) - 2023-06-22
 ### Added
 - Added Markdown configuration option for the Tailwind prose classes in https://github.com/hydephp/develop/pull/1357
