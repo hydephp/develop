@@ -307,7 +307,7 @@ This serves two purposes:
         $this->output->write('Committing framework version change... ');
 
         $this->runUnlessDryRun('git add .', true);
-        $this->runUnlessDryRun('git commit -m "Version v'.$this->newVersion.'"');
+        $this->runUnlessDryRun('git commit -m "HydePHP v'.$this->newVersion.' - '.date('Y-m-d').'"');
 
         $this->exitIfFailed();
 
@@ -326,7 +326,7 @@ This serves two purposes:
 
     protected function prepareDocsPR(): void
     {
-        $this->preparePackagePR('hyde', 'upcoming', 'Merge upcoming documentation', 'This PR merges the upcoming documentation for v'.$this->newVersion.' into the master branch.');
+        $this->preparePackagePR('hydephp.com', 'upcoming', 'Merge upcoming documentation', 'This PR merges the upcoming documentation for `v'.$this->newVersion.'` into the master branch.');
     }
 
     protected function getTitle(): string
@@ -354,11 +354,13 @@ This serves two purposes:
 
     protected function prepareMonorepoPR(): void
     {
-        $title = $this->isPatch()
-            ? "Framework version v$this->newVersion"
-            : "HydePHP v$this->newVersion - ".date('Y-m-d');
-
-        $body = $this->releaseBody;
+        if ($this->isPatch()) {
+            $title = "Framework version v$this->newVersion";
+            $body = '';
+        } else {
+            $title = "HydePHP v$this->newVersion - ".date('Y-m-d');
+            $body = $this->releaseBody;
+        }
 
         // Inject "version" before version in PR body
         $body = preg_replace('/## \[(.*)]/', '## Version [v$1]', $body, 1);
