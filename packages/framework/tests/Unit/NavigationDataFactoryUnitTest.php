@@ -37,7 +37,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(10, $factory->makePriority());
     }
 
-    public function testSearchForPriorityInNavigationConfigForDocumentationPageWithList()
+    public function testSearchForPriorityInNavigationConfigForDocumentationPageWithListConfig()
     {
         self::mockConfig(['docs.sidebar_order' => [
             'foo',
