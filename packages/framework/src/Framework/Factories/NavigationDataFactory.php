@@ -12,9 +12,11 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 
+use function basename;
 use function array_flip;
 use function in_array;
 use function is_a;
+use function array_key_exists;
 
 /**
  * Discover data used for navigation menus and the documentation sidebar.
