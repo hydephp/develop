@@ -157,21 +157,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInSidebarConfig(): ?int
     {
-        // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
-        // This is all to make it easier to mix ways of adding priorities.
-
         /** @var array<string>|array<string, int> $config */
         $config = Config::getArray('docs.sidebar_order', []);
 
-        // Check if the config entry is a flat array or a keyed array.
-        if (! array_key_exists($this->identifier, $config)) {
-            return $this->offset(
-                array_flip($config)[$this->identifier] ?? null,
-                self::CONFIG_OFFSET
-            );
-        }
-
-        return $config[$this->identifier] ?? null;
+        return $this->parseNavigationPriorityConfig($config);
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
@@ -183,15 +172,29 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             'docs/index' => 100,
         ]);
 
+        return $this->parseNavigationPriorityConfig($config);
+    }
+
+    /** @param array<string, int>|array<string> $config */
+    private function parseNavigationPriorityConfig(array $config): ?int
+    {
+        $pageKey = $this->isInstanceOf(DocumentationPage::class)
+            ? $this->identifier // Required for backwards compatibility.
+            : $this->routeKey;
+
         // Check if the config entry is a flat array or a keyed array.
-        if (! array_key_exists($this->routeKey, $config)) {
+        if (! array_key_exists($pageKey, $config)) {
+            // Adding an offset makes so that pages with a front matter priority, or
+            // explicit keyed priority selection that is lower can be shown first.
+            // This is all to make it easier to mix ways of adding priorities.
+
             return $this->offset(
-                array_flip($config)[$this->routeKey] ?? null,
+                array_flip($config)[$pageKey] ?? null,
                 self::CONFIG_OFFSET
             );
         }
 
-        return $config[$this->routeKey] ?? null;
+        return $config[$pageKey] ?? null;
     }
 
     private function canUseSubdirectoryForGroups(): bool
