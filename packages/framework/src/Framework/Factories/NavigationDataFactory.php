@@ -181,8 +181,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             'docs/index' => 100,
         ]);
 
-        // Check if type is array<string>
-        if (collect($config)->every(fn (string|int $item): bool => is_string($item))) {
+        // Check if the config entry is a flat array or a keyed array.
+        if (! array_key_exists($this->routeKey, $config)) {
             return $this->offset(
                 array_flip($config)[$this->routeKey] ?? null,
                 self::CONFIG_OFFSET
