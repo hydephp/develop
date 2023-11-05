@@ -174,12 +174,20 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        /** @var array<string, int> $config */
+        /** @var array<string, int>|array<string> $config */
         $config = Config::getArray('hyde.navigation.order', [
             'index' => 0,
             'posts' => 10,
             'docs/index' => 100,
         ]);
+
+        // Check if type is array<string>
+        if (collect($config)->every(fn (string|int $item): bool => is_string($item))) {
+            return $this->offset(
+                array_flip($config)[$this->routeKey] ?? null,
+                self::CONFIG_OFFSET
+            );
+        }
 
         return $config[$this->routeKey] ?? null;
     }
