@@ -29,7 +29,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
             'foo' => 15
         ]]);
 
-        $factory = new NavigationConfigTestClass(new CoreDataObject(new FrontMatter(), new Markdown(), MarkdownPage::class, '', '', '', 'foo'), '');
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'foo'));
 
         $this->assertSame(15, $factory->makePriority());
     }
@@ -41,16 +41,26 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
             'bar',
         ]]);
 
-        $factory = new NavigationConfigTestClass(new CoreDataObject(new FrontMatter(), new Markdown(), DocumentationPage::class, 'foo', '', '', ''), '');
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', pageClass: DocumentationPage::class));
         $this->assertSame(500, $factory->makePriority());
 
-        $factory = new NavigationConfigTestClass(new CoreDataObject(new FrontMatter(), new Markdown(), DocumentationPage::class, 'bar', '', '', ''), '');
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('bar', pageClass: DocumentationPage::class));
         $this->assertSame(501, $factory->makePriority());
+    }
+
+    protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
+    {
+        return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
     }
 }
 
 class NavigationConfigTestClass extends NavigationDataFactory
 {
+    public function __construct(CoreDataObject $pageData)
+    {
+        parent::__construct($pageData, '');
+    }
+
     public function makePriority(): int
     {
         return parent::makePriority();
