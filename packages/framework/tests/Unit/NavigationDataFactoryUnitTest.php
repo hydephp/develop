@@ -26,12 +26,15 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
     public function testSearchForPriorityInNavigationConfigForMarkdownPageWithKeyedConfig()
     {
         self::mockConfig(['hyde.navigation.order' => [
-            'foo' => 15
+            'foo' => 15,
+            'bar' => 10,
         ]]);
 
         $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'foo'));
-
         $this->assertSame(15, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'bar'));
+        $this->assertSame(10, $factory->makePriority());
     }
 
     public function testSearchForPriorityInNavigationConfigForDocumentationPageWithList()
