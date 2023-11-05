@@ -75,15 +75,57 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
     public function testSearchForPriorityInNavigationConfigForDocumentationPageWithListConfig()
     {
         self::mockConfig(['docs.sidebar_order' => [
+            'foo' => 15,
+            'bar' => 10,
+        ]]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', pageClass: DocumentationPage::class));
+        $this->assertSame(15, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('bar', pageClass: DocumentationPage::class));
+        $this->assertSame(10, $factory->makePriority());
+    }
+
+    public function testSearchForPriorityInNavigationConfigForDocumentationPageWithKeyedConfig()
+    {
+        self::mockConfig(['docs.sidebar_order' => [
             'foo',
-            'bar',
+            'bar' => 10,
+            'baz'
         ]]);
 
         $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', pageClass: DocumentationPage::class));
         $this->assertSame(500, $factory->makePriority());
 
         $factory = new NavigationConfigTestClass($this->makeCoreDataObject('bar', pageClass: DocumentationPage::class));
+        $this->assertSame(10, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('baz', pageClass: DocumentationPage::class));
         $this->assertSame(501, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('qux', pageClass: DocumentationPage::class));
+        $this->assertSame(999, $factory->makePriority());
+    }
+
+    public function testSearchForPriorityInNavigationConfigForDocumentationPageSupportsMixingKeyedAndListConfig()
+    {
+        self::mockConfig(['docs.sidebar_order' => [
+            'foo',
+            'bar' => 10,
+            'baz'
+        ]]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', pageClass: DocumentationPage::class));
+        $this->assertSame(500, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('bar', pageClass: DocumentationPage::class));
+        $this->assertSame(10, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('baz', pageClass: DocumentationPage::class));
+        $this->assertSame(501, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('qux', pageClass: DocumentationPage::class));
+        $this->assertSame(999, $factory->makePriority());
     }
 
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject

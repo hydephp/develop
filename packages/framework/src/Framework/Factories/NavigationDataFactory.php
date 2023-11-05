@@ -157,19 +157,21 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInSidebarConfig(): ?int
     {
-        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array.
-        // TODO: In the future we could normalize this with the standard navigation config so both strategies can be auto-detected and used.
-
         // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
         // This is all to make it easier to mix ways of adding priorities.
 
-        /** @var array<string> $config */
+        /** @var array<string>|array<string, int> $config */
         $config = Config::getArray('docs.sidebar_order', []);
 
-        return $this->offset(
-            array_flip($config)[$this->identifier] ?? null,
-            self::CONFIG_OFFSET
-        );
+        // Check if the config entry is a flat array or a keyed array.
+        if (! array_key_exists($this->identifier, $config)) {
+            return $this->offset(
+                array_flip($config)[$this->identifier] ?? null,
+                self::CONFIG_OFFSET
+            );
+        }
+
+        return $config[$this->identifier] ?? null;
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
