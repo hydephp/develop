@@ -32,15 +32,8 @@ jobs:
       - name: Prepare the Environment
         run: echo -e "APP_URL=http://localhost:8080 \nDUSK_ENABLED=true\nSERVER_DASHBOARD=false" > .env
 
-      - name: Downgrade Chrome browser to v114
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 1134343 # Last commit number for Chrome v114
-        id: setup-chrome
-      - run: sudo ln -fs ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
-      - name: Downgrade Chrome driver to v114
-        run: php hyde dusk:chrome-driver `/usr/bin/google-chrome --version | cut -d " " -f3 | cut -d "." -f1`
-
+      - name: Upgrade Chrome Driver
+        run: php hyde dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &
 

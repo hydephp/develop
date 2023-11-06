@@ -19,7 +19,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/support": "^10.0",
-        "laravel/dusk": "^7.6",
+        "laravel/dusk": "^7.11.3",
         "mockery/mockery": "^1.4.4",
         "pestphp/pest": "^v2.1.0"
     },
