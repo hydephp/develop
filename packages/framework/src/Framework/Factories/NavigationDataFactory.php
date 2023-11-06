@@ -12,9 +12,11 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 
+use function basename;
 use function array_flip;
 use function in_array;
 use function is_a;
+use function array_key_exists;
 
 /**
  * Discover data used for navigation menus and the documentation sidebar.
@@ -157,31 +159,44 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInSidebarConfig(): ?int
     {
-        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array.
-        // TODO: In the future we could normalize this with the standard navigation config so both strategies can be auto-detected and used.
-
-        // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
-        // This is all to make it easier to mix ways of adding priorities.
-
-        /** @var array<string> $config */
+        /** @var array<string>|array<string, int> $config */
         $config = Config::getArray('docs.sidebar_order', []);
 
-        return $this->offset(
-            array_flip($config)[$this->identifier] ?? null,
-            self::CONFIG_OFFSET
-        );
+        return $this->parseNavigationPriorityConfig($config);
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
     {
-        /** @var array<string, int> $config */
+        /** @var array<string, int>|array<string> $config */
         $config = Config::getArray('hyde.navigation.order', [
             'index' => 0,
             'posts' => 10,
             'docs/index' => 100,
         ]);
 
-        return $config[$this->routeKey] ?? null;
+        return $this->parseNavigationPriorityConfig($config);
+    }
+
+    /** @param array<string, int>|array<string> $config */
+    private function parseNavigationPriorityConfig(array $config): ?int
+    {
+        $pageKey = $this->isInstanceOf(DocumentationPage::class)
+            ? $this->identifier // Required for backwards compatibility.
+            : $this->routeKey;
+
+        // Check if the config entry is a flat array or a keyed array.
+        if (! array_key_exists($pageKey, $config)) {
+            // Adding an offset makes so that pages with a front matter priority, or
+            // explicit keyed priority selection that is lower can be shown first.
+            // This is all to make it easier to mix ways of adding priorities.
+
+            return $this->offset(
+                array_flip($config)[$pageKey] ?? null,
+                self::CONFIG_OFFSET
+            );
+        }
+
+        return $config[$pageKey] ?? null;
     }
 
     private function canUseSubdirectoryForGroups(): bool
