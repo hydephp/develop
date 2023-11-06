@@ -91,7 +91,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         self::mockConfig(['docs.sidebar_order' => [
             'foo',
             'bar' => 10,
-            'baz'
+            'baz',
         ]]);
 
         $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', pageClass: DocumentationPage::class));
@@ -112,7 +112,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         self::mockConfig(['docs.sidebar_order' => [
             'foo',
             'bar' => 10,
-            'baz'
+            'baz',
         ]]);
 
         $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', pageClass: DocumentationPage::class));
