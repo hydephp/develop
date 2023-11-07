@@ -56,7 +56,7 @@ In some cases, the same options can be set in the front matter of a page or in a
 ### A note on file paths
 
 When Hyde references files, especially when passing filenames between components, the file path is almost always
-relative to the root of the project. Specifying absolute paths yourself will likely lead to unforeseen problems.
+relative to the root of the project. Specifying absolute paths yourself could lead to unforeseen problems.
 
 
 ## Configuration Files Overview
