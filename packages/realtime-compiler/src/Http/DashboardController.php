@@ -88,6 +88,7 @@ class DashboardController
             }
 
             try {
+                $this->blockUnsafeRequests();
                 $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {
@@ -470,6 +471,21 @@ class DashboardController
         }
 
         return $prettyVersion ?? 'unreleased';
+    }
+
+    protected function blockUnsafeRequests(): void
+    {
+        // As the dashboard is not password-protected, and it can make changes to the file system,
+        // we block any requests that are not coming from the host machine. While we are clear
+        // in the documentation that the realtime compiler should only be used for local
+        // development, we still want to be extra careful in case someone forgets.
+
+        $requestIp = $_SERVER['REMOTE_ADDR'];
+        $allowedIps = ['::1', '127.0.0.1', 'localhost'];
+
+        if (! in_array($requestIp, $allowedIps, true)) {
+            $this->abort(403, "Refusing to serve request from address '$requestIp' (must be on localhost)");
+        }
     }
 
     protected function sendJsonResponse(int $statusCode, string $body): never
