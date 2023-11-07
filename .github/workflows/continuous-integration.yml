@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
           extensions: fileinfo
@@ -54,7 +54,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
@@ -169,7 +169,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
           coverage: xdebug
@@ -263,7 +263,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
 
@@ -311,7 +311,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
 
@@ -362,7 +362,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
 
@@ -468,7 +468,7 @@ jobs:
   check-coding-standards:
     runs-on: ubuntu-latest
     steps:
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
       - uses: actions/checkout@v3
@@ -486,7 +486,7 @@ jobs:
   run-static-analysis-psalm:
     runs-on: ubuntu-latest
     steps:
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
       - uses: actions/checkout@v3
@@ -504,7 +504,7 @@ jobs:
   run-static-analysis-phpstan:
     runs-on: ubuntu-latest
     steps:
-      - uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+      - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
         with:
           php-version: "8.1"
       - uses: actions/checkout@v3
