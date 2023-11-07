@@ -128,6 +128,24 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(999, $factory->makePriority());
     }
 
+    public function testRouteKeysCanBeUsedForDocumentationSidebarPriorities()
+    {
+        self::mockConfig(['docs.sidebar_order' => [
+            'key/foo',
+            'key/bar',
+            'baz',
+        ]]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('foo', routeKey: 'key/foo', pageClass: DocumentationPage::class));
+        $this->assertSame(500, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('bar', routeKey: 'key/bar', pageClass: DocumentationPage::class));
+        $this->assertSame(501, $factory->makePriority());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('baz', routeKey: 'key', pageClass: DocumentationPage::class));
+        $this->assertSame(502, $factory->makePriority());
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
