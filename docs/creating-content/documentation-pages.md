@@ -199,13 +199,11 @@ By default, a link to the documentation page is added to the navigation menu whe
 ### Sidebar header name
 
 By default, the site title shown in the sidebar header is generated from the configured site name suffixed with "docs".
-You can change this in the Docs configuration file.
+You can change this in the Docs configuration file. Tip: The header will link to the docs/index page, if it exists.
 
 ```php
 'title' => 'API Documentation',
 ```
-
->info Tip: The header will link to the docs/index page, if it exists.
 
 ### Sidebar page order
 
