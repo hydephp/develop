@@ -63,12 +63,14 @@ class PageRouter
         }
 
         if (config('hyde.server.save_preview')) {
-            return file_get_contents(StaticPageBuilder::handle($page));
+            $contents = file_get_contents(StaticPageBuilder::handle($page));
         } else {
             Hyde::shareViewData($page);
 
-            return $page->compile();
+            $contents = $page->compile();
         }
+
+        return $contents;
     }
 
     public static function handle(Request $request): Response
