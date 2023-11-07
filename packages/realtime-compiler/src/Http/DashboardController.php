@@ -186,7 +186,7 @@ class DashboardController
         $contents = str_replace(['&#039;', '&quot;'], ['%SQT%', '%DQT%'], $contents); // Temporarily replace escaped quotes
 
         if (static::isMediaFileProbablyMinified($contents)) {
-            return new HtmlString(substr($contents, 0, 800));
+            return new HtmlString(substr($contents, 0, count(MediaFile::files()) === 1 ? 2000 : 800));
         }
 
         $highlighted = str($contents)->explode("\n")->slice(0, 25)->map(function (string $line): string {
