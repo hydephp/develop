@@ -162,7 +162,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         /** @var array<string>|array<string, int> $config */
         $config = Config::getArray('docs.sidebar_order', []);
 
-        return $this->parseNavigationPriorityConfig($config, 'identifier');
+        return $this->parseNavigationPriorityConfig($config, 'routeKey') // For consistency with the navigation config.
+            ?? $this->parseNavigationPriorityConfig($config, 'identifier'); // For backwards compatibility and ease of use
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
