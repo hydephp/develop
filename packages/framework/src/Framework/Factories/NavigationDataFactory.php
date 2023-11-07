@@ -162,7 +162,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         /** @var array<string>|array<string, int> $config */
         $config = Config::getArray('docs.sidebar_order', []);
 
-        return $this->parseNavigationPriorityConfig($config);
+        return $this->parseNavigationPriorityConfig($config, 'identifier');
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
@@ -178,11 +178,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     }
 
     /** @param array<string, int>|array<string> $config */
-    private function parseNavigationPriorityConfig(array $config): ?int
+    private function parseNavigationPriorityConfig(array $config, string $pageKeyName = 'routeKey'): ?int
     {
-        $pageKey = $this->isInstanceOf(DocumentationPage::class)
-            ? $this->identifier // Required for backwards compatibility.
-            : $this->routeKey;
+        $pageKey = $this->{$pageKeyName};
 
         // Check if the config entry is a flat array or a keyed array.
         if (! array_key_exists($pageKey, $config)) {
