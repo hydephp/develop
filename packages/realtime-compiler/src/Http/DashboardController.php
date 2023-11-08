@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Desilva\Microserve\Response;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
@@ -73,6 +74,13 @@ class DashboardController
                 $this->sendJsonErrorResponse($exception);
             }
         }
+    }
+
+    public function handle(): Response
+    {
+        return new HtmlResponse(200, 'OK', [
+            'body' => $this->show(),
+        ]);
     }
 
     public function show(): string
