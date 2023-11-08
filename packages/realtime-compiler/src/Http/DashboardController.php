@@ -65,11 +65,11 @@ class DashboardController
     {
         if ($this->request->method === 'POST') {
             if (! $this->isInteractive()) {
-               $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+               return $this->sendJsonErrorResponse(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
             if ($this->shouldUnsafeRequestBeBlocked()) {
-                $this->abort(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
+                return $this->sendJsonErrorResponse(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
             }
 
             try {
@@ -79,7 +79,7 @@ class DashboardController
                     throw $exception;
                 }
 
-                $this->sendJsonErrorResponse($exception->getStatusCode(), $exception->getMessage());
+                return $this->sendJsonErrorResponse($exception->getStatusCode(), $exception->getMessage());
             }
         }
 
@@ -489,7 +489,7 @@ class DashboardController
         exit;
     }
 
-    protected function sendJsonErrorResponse(int $statusCode, string $message): never
+    protected function sendJsonErrorResponse(int $statusCode, string $message): JsonResponse
     {
         $statusMessage = match ($statusCode) {
             400 => 'Bad Request',
@@ -499,11 +499,9 @@ class DashboardController
             default => 'Internal Server Error',
         };
 
-        (new JsonResponse($statusCode, $statusMessage, [
+        return new JsonResponse($statusCode, $statusMessage, [
             'error' => $message,
-        ]))->send();
-
-        exit;
+        ]);
     }
 
     protected function abort(int $code, string $message): never
