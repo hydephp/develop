@@ -79,7 +79,7 @@ class DashboardController
                     throw $exception;
                 }
 
-                $this->sendJsonErrorResponse($exception);
+                $this->sendJsonErrorResponse($exception->getStatusCode(), $exception->getMessage());
             }
         }
 
@@ -489,9 +489,9 @@ class DashboardController
         exit;
     }
 
-    protected function sendJsonErrorResponse(HttpException $exception): never
+    protected function sendJsonErrorResponse(int $statusCode, string $message): never
     {
-        $statusMessage = match ($exception->getStatusCode()) {
+        $statusMessage = match ($statusCode) {
             400 => 'Bad Request',
             403 => 'Forbidden',
             404 => 'Not Found',
@@ -499,8 +499,8 @@ class DashboardController
             default => 'Internal Server Error',
         };
 
-        (new JsonResponse($exception->getStatusCode(), $statusMessage, [
-            'error' => $exception->getMessage(),
+        (new JsonResponse($statusCode, $statusMessage, [
+            'error' => $message,
         ]))->send();
 
         exit;
