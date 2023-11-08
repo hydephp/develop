@@ -14,6 +14,7 @@ echo "Pinging CI server\n";
 $token = $argv[1] ?? exit(400);
 $commit = $argv[2] ?? exit(400);
 $branch = $argv[3] ?? 'master';
+$runId = $argv[4] ?? null;
 
 if (file_exists('psalmout.txt')) {
     // Count the number of errors in the output
@@ -25,6 +26,7 @@ $data = [
     'report' => file_get_contents('type-coverage.json') ?? exit(404),
     'branch' => $branch,
     'psalmErrors' => $psalmErrors ?? null,
+    'runId' => $runId,
 ];
 
 $url = 'https://ci.hydephp.com/api/github/actions/type-coverage';
