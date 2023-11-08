@@ -28,31 +28,6 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-use function e;
-use function str;
-use function time;
-use function trim;
-use function round;
-use function rtrim;
-use function strlen;
-use function substr;
-use function is_bool;
-use function basename;
-use function in_array;
-use function json_decode;
-use function json_encode;
-use function substr_count;
-use function array_combine;
-use function trigger_error;
-use function escapeshellarg;
-use function file_get_contents;
-use function str_starts_with;
-use function str_replace;
-use function array_merge;
-use function sprintf;
-use function config;
-use function app;
-
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
  */
