@@ -15,10 +15,16 @@ $token = $argv[1] ?? exit(400);
 $commit = $argv[2] ?? exit(400);
 $branch = $argv[3] ?? 'master';
 
+if (file_exists('psalmout.txt')) {
+    // Count the number of errors in the output
+    $psalmErrors = substr_count(file_get_contents('psalmout.txt'), 'ERROR: ');
+}
+
 $data = [
     'commit' => $commit,
     'report' => file_get_contents('type-coverage.json') ?? exit(404),
     'branch' => $branch,
+    'psalmErrors' => $psalmErrors ?? null,
 ];
 
 $url = 'https://ci.hydephp.com/api/github/actions/type-coverage';
