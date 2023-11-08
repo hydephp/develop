@@ -20,7 +20,7 @@ use function sprintf;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>} {--fancy= : <comment>[default: true]</comment>}';
+    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
@@ -57,13 +57,13 @@ class ServeCommand extends Command
     protected function runServerProcess(string $command): void
     {
         Process::forever()->run($command, function (string $type, string $line): void {
-            $this->option('fancy') ? $this->handleOutput($line) : $this->output->write($line);
+            $this->option('no-ansi') ? $this->output->write($line) : $this->handleOutput($line);
         });
     }
 
     protected function printStartMessage(): void
     {
-        if ($this->option('fancy')) {
+        if ($this->option('no-ansi')) {
             $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
         } else {
             $title = 'HydePHP Realtime Compiler';
