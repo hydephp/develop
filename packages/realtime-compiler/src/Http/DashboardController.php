@@ -75,6 +75,13 @@ class DashboardController
         }
     }
 
+    public function show(): string
+    {
+        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
+            (array) $this, ['dashboard' => $this, 'request' => $this->request],
+        ));
+    }
+
     protected function handlePostRequest(): void
     {
         $actions = array_combine($actions = [
@@ -106,13 +113,6 @@ class DashboardController
         if ($action === 'createPage') {
             $this->createPage();
         }
-    }
-
-    public function show(): string
-    {
-        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this, 'request' => $this->request],
-        ));
     }
 
     public function getVersion(): string
