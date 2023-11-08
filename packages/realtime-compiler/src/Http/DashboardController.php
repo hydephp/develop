@@ -109,24 +109,23 @@ class DashboardController
         $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
         $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
 
-        if ($action === 'openInExplorer') {
-            $this->openInExplorer();
-        }
-
-        if ($action === 'openPageInEditor') {
-            $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
-            $page = Routes::getOrFail($routeKey)->getPage();
-            $this->openPageInEditor($page);
-        }
-
-        if ($action === 'openMediaFileInEditor') {
-            $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
-            $asset = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
-            $this->openMediaFileInEditor($asset);
-        }
-
-        if ($action === 'createPage') {
-            $this->createPage();
+        switch ($action) {
+            case 'openInExplorer':
+                $this->openInExplorer();
+                break;
+            case 'openPageInEditor':
+                $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
+                $page = Routes::getOrFail($routeKey)->getPage();
+                $this->openPageInEditor($page);
+                break;
+            case 'openMediaFileInEditor':
+                $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
+                $asset = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
+                $this->openMediaFileInEditor($asset);
+                break;
+            case 'createPage':
+                $this->createPage();
+                break;
         }
 
         return $this->response ?? new JsonResponse(200, 'OK', [
