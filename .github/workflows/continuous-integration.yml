@@ -495,7 +495,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run static analysis (Psalm/Shepherd)
-        run: vendor/bin/psalm --shepherd || true
+        run: vendor/bin/psalm --shepherd > psalmout.txt|| true
 
       - name: Ping CI server with type coverage results
         run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.sha }} master ${{ github.run_id }}
