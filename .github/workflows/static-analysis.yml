@@ -22,4 +22,4 @@ jobs:
 
         # Send the reports to the CI server to calculate type coverage and send back commit status checks
       - name: Ping CI server with type coverage results
-        run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }} ${{ github.head_ref }}
+        run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }} ${{ github.head_ref }} ${{ github.run_id }}
