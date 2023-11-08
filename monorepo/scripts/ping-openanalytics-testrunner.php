@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @internal This script is used to ping the OpenAnalytics server with the test results.
+ * @internal This script is used to ping the OpenAnalytics/CI server with the test results.
  *
  * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name }}
  *
@@ -23,6 +23,7 @@ if (! file_exists('report.xml')) {
     exit(404);
 }
 
+// Shared database with the CI server
 $url = 'https://analytics.hydephp.com/api/test_runs';
 $data = [
     'runner' => json_encode($runner),
