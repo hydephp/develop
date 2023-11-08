@@ -68,7 +68,11 @@ class ServeCommand extends Command
             return;
         }
 
-        //
+        $isRequestLine = str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing');
+
+        if ($isRequestLine && ! $this->output->isVerbose()) {
+            return;
+        }
 
         $this->output->write($line);
     }
