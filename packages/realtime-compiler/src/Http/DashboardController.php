@@ -65,7 +65,7 @@ class DashboardController
     {
         if ($this->request->method === 'POST') {
             if (! $this->isInteractive()) {
-               $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+                $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
             try {
