@@ -109,20 +109,12 @@ class DashboardController
         $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
         $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
 
-        switch ($action) {
-            case 'openInExplorer':
-                $this->openInExplorer();
-                break;
-            case 'openPageInEditor':
-                $this->openPageInEditor();
-                break;
-            case 'openMediaFileInEditor':
-                $this->openMediaFileInEditor();
-                break;
-            case 'createPage':
-                $this->createPage();
-                break;
-        }
+        match ($action) {
+            'openInExplorer' => $this->openInExplorer(),
+            'openPageInEditor' => $this->openPageInEditor(),
+            'openMediaFileInEditor' => $this->openMediaFileInEditor(),
+            'createPage' => $this->createPage(),
+        };
 
         return $this->response ?? new JsonResponse(200, 'OK', [
             'message' => 'Action completed successfully',
