@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @internal This script is used to ping the OpenAnalytics server with the test results.
+ * @internal This script is used to ping the OpenAnalytics/CI server with the test results.
  *
  * @example php ping.php 'Monorepo Smoke Tests' ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name }}
  *
