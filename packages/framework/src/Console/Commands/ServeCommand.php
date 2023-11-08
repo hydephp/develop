@@ -19,7 +19,7 @@ use function sprintf;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>}';
+    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>} {--fancy : <comment>[default: false]</comment>}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
@@ -62,6 +62,14 @@ class ServeCommand extends Command
 
     protected function handleOutput(string $line): void
     {
+        if (! $this->option('fancy')) {
+            $this->output->write($line);
+
+            return;
+        }
+
+        //
+
         $this->output->write($line);
     }
 }
