@@ -49,6 +49,8 @@ class DashboardController
         'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
 
+    protected JsonResponse $response;
+
     public function __construct()
     {
         $this->title = config('hyde.name').' - Dashboard';
@@ -73,7 +75,7 @@ class DashboardController
             }
 
             try {
-                $this->handlePostRequest();
+                return $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {
                     throw $exception;
@@ -95,7 +97,7 @@ class DashboardController
         ));
     }
 
-    protected function handlePostRequest(): void
+    protected function handlePostRequest(): JsonResponse
     {
         $actions = array_combine($actions = [
             'openInExplorer',
@@ -126,6 +128,10 @@ class DashboardController
         if ($action === 'createPage') {
             $this->createPage();
         }
+
+        return $this->response ?? new JsonResponse(200, 'OK', [
+            'message' => 'Action completed successfully',
+        ]);
     }
 
     public function getVersion(): string
@@ -370,7 +376,7 @@ class DashboardController
             }
 
             $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
-            $this->sendJsonResponse(201, "Created file '$path'!");
+            $this->setJsonResponse(201, "Created file '$path'!");
         }
     }
 
@@ -474,13 +480,11 @@ class DashboardController
         return ! in_array($requestIp, $allowedIps, true);
     }
 
-    protected function sendJsonResponse(int $statusCode, string $body): never
+    protected function setJsonResponse(int $statusCode, string $body): void
     {
-        (new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
+        $this->response = new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
             'body' => $body,
-        ]))->send();
-
-        exit;
+        ]);
     }
 
     protected function sendJsonErrorResponse(int $statusCode, string $message): JsonResponse
