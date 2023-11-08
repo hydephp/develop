@@ -4,8 +4,8 @@
 <div align=center>
 
 [![Test & Build](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml)
-[![Framework Tests (Matrix)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml/badge.svg)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml)
-[![Hyde Tests](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml/badge.svg)](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml)
+[![Framework Tests (Matrix)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml/badge.svg?branch=develop)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml)
+[![Hyde Tests](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml/badge.svg?branch=develop)](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml)
 </div>
 
 <div align=center>
