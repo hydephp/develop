@@ -99,21 +99,14 @@ class DashboardController
 
     protected function handlePostRequest(): JsonResponse
     {
-        $actions = array_combine($actions = [
-            'openInExplorer',
-            'openPageInEditor',
-            'openMediaFileInEditor',
-            'createPage',
-        ], $actions);
-
         $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
-        $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
 
         match ($action) {
             'openInExplorer' => $this->openInExplorer(),
             'openPageInEditor' => $this->openPageInEditor(),
             'openMediaFileInEditor' => $this->openMediaFileInEditor(),
             'createPage' => $this->createPage(),
+            default => $this->abort(403, "Invalid action '$action'"),
         };
 
         return $this->response ?? new JsonResponse(200, 'OK', [
