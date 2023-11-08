@@ -68,8 +68,11 @@ class DashboardController
                $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
+            if ($this->shouldUnsafeRequestBeBlocked()) {
+                $this->abort(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
+            }
+
             try {
-                $this->blockUnsafeRequests();
                 $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {
@@ -458,7 +461,7 @@ class DashboardController
         return $prettyVersion ?? 'unreleased';
     }
 
-    protected function blockUnsafeRequests(): void
+    protected function shouldUnsafeRequestBeBlocked(): bool
     {
         // As the dashboard is not password-protected, and it can make changes to the file system,
         // we block any requests that are not coming from the host machine. While we are clear
@@ -468,9 +471,7 @@ class DashboardController
         $requestIp = $_SERVER['REMOTE_ADDR'];
         $allowedIps = ['::1', '127.0.0.1', 'localhost'];
 
-        if (! in_array($requestIp, $allowedIps, true)) {
-            $this->abort(403, "Refusing to serve request from address '$requestIp' (must be on localhost)");
-        }
+        return in_array($requestIp, $allowedIps, true);
     }
 
     protected function sendJsonResponse(int $statusCode, string $body): never
