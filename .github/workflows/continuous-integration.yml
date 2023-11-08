@@ -569,7 +569,6 @@ jobs:
 
 
   snyk-security:
-    if: false # Temporarily disabled due to unknown downstream error
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
