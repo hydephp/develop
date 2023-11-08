@@ -305,78 +305,70 @@ class DashboardController
 
     protected function openInExplorer(): void
     {
-        if ($this->isInteractive()) {
-            $binary = $this->findGeneralOpenBinary();
-            $path = Hyde::path();
+        $binary = $this->findGeneralOpenBinary();
+        $path = Hyde::path();
 
-            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
-        }
+        Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
     protected function openPageInEditor(HydePage $page): void
     {
-        if ($this->isInteractive()) {
-            $binary = $this->findGeneralOpenBinary();
-            $path = Hyde::path($page->getSourcePath());
+        $binary = $this->findGeneralOpenBinary();
+        $path = Hyde::path($page->getSourcePath());
 
-            if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
-                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
-            }
-
-            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
+            $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
         }
+
+        Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
     protected function openMediaFileInEditor(MediaFile $file): void
     {
-        if ($this->isInteractive()) {
-            $binary = $this->findGeneralOpenBinary();
-            $path = $file->getAbsolutePath();
+        $binary = $this->findGeneralOpenBinary();
+        $path = $file->getAbsolutePath();
 
-            if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'])) {
-                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
-            }
-
-            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'])) {
+            $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
         }
+
+        Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
     protected function createPage(): void
     {
-        if ($this->isInteractive()) {
-            // Required data
-            $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
-            $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
-            $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
+        // Required data
+        $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
+        $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
+        $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
 
-            // Optional data
-            $postDescription = $this->request->data['postDescription'] ?? null;
-            $postCategory = $this->request->data['postCategory'] ?? null;
-            $postAuthor = $this->request->data['postAuthor'] ?? null;
-            $postDate = $this->request->data['postDate'] ?? null;
+        // Optional data
+        $postDescription = $this->request->data['postDescription'] ?? null;
+        $postCategory = $this->request->data['postCategory'] ?? null;
+        $postAuthor = $this->request->data['postAuthor'] ?? null;
+        $postDate = $this->request->data['postDate'] ?? null;
 
-            // Match page class
-            $pageClass = match ($pageType) {
-                'blade-page' => BladePage::class,
-                'markdown-page' => MarkdownPage::class,
-                'markdown-post' => MarkdownPost::class,
-                'documentation-page' => DocumentationPage::class,
-                default => $this->abort(400, "Unsupported page type '$pageType'"),
-            };
+        // Match page class
+        $pageClass = match ($pageType) {
+            'blade-page' => BladePage::class,
+            'markdown-page' => MarkdownPage::class,
+            'markdown-post' => MarkdownPost::class,
+            'documentation-page' => DocumentationPage::class,
+            default => $this->abort(400, "Unsupported page type '$pageType'"),
+        };
 
-            $creator = $pageClass === MarkdownPost::class
-                ? new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content)
-                : new CreatesNewPageSourceFile($title, $pageClass, false, $content);
+        $creator = $pageClass === MarkdownPost::class
+            ? new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content)
+            : new CreatesNewPageSourceFile($title, $pageClass, false, $content);
 
-            try {
-                $path = $creator->save();
-            } catch (FileConflictException $exception) {
-                $this->abort($exception->getCode(), $exception->getMessage());
-            }
-
-            $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
-            $this->setJsonResponse(201, "Created file '$path'!");
+        try {
+            $path = $creator->save();
+        } catch (FileConflictException $exception) {
+            $this->abort($exception->getCode(), $exception->getMessage());
         }
+
+        $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
+        $this->setJsonResponse(201, "Created file '$path'!");
     }
 
     protected static function injectDashboardButton(string $contents): string
