@@ -18,6 +18,7 @@ $branch = $argv[3] ?? 'master';
 $data = [
     'commit' => $commit,
     'report' => file_get_contents('type-coverage.json') ?? exit(404),
+    'branch' => $branch,
 ];
 
 $url = 'https://ci.hydephp.com/api/github/actions/type-coverage';
