@@ -9,9 +9,6 @@ jobs:
   psalm:
     name: Run Analysis
     runs-on: ubuntu-latest
-    continue-on-error: true
-    outputs:
-      exit-code: ${{ steps.analysis.outputs.EXIT_CODE }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -21,7 +18,7 @@ jobs:
 
       - name: Run Psalm
         id: analysis
-        run: vendor/bin/psalm > psalmout.txt || echo EXIT_CODE=$? >> $GITHUB_OUTPUT || exit 0
+        run: vendor/bin/psalm > psalmout.txt || exit 0
 
         # Send the reports to the CI server to calculate type coverage and send back commit status checks
       - name: Ping CI server with type coverage results
