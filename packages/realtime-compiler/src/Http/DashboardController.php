@@ -476,13 +476,7 @@ class DashboardController
 
     protected function sendJsonResponse(int $statusCode, string $body): never
     {
-        $statusMessage = match ($statusCode) {
-            200 => 'OK',
-            201 => 'Created',
-            default => 'Internal Server Error',
-        };
-
-        (new JsonResponse($statusCode, $statusMessage, [
+        (new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
             'body' => $body,
         ]))->send();
 
@@ -491,15 +485,7 @@ class DashboardController
 
     protected function sendJsonErrorResponse(int $statusCode, string $message): JsonResponse
     {
-        $statusMessage = match ($statusCode) {
-            400 => 'Bad Request',
-            403 => 'Forbidden',
-            404 => 'Not Found',
-            409 => 'Conflict',
-            default => 'Internal Server Error',
-        };
-
-        return new JsonResponse($statusCode, $statusMessage, [
+        return new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
             'error' => $message,
         ]);
     }
@@ -519,6 +505,19 @@ class DashboardController
             default => throw new HttpException(500,
                 sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY)
             )
+        };
+    }
+
+    protected function matchStatusCode(int $statusCode): string
+    {
+        return match ($statusCode) {
+            200 => 'OK',
+            201 => 'Created',
+            400 => 'Bad Request',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            409 => 'Conflict',
+            default => 'Internal Server Error',
         };
     }
 }
