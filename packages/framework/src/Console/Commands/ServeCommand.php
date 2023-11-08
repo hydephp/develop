@@ -9,6 +9,7 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 
+use function Termwind\{render};
 use function sprintf;
 
 /**
@@ -26,7 +27,7 @@ class ServeCommand extends Command
 
     public function handle(): int
     {
-        $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
+        $this->printStartMessage();
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
@@ -58,6 +59,38 @@ class ServeCommand extends Command
         Process::forever()->run($command, function (string $type, string $line): void {
             $this->option('fancy') ? $this->handleOutput($line) : $this->output->write($line);
         });
+    }
+
+    protected function printStartMessage(): void
+    {
+        if ($this->option('fancy')) {
+            $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
+        } else {
+            $title = 'HydePHP Realtime Compiler';
+            $version = ' v'.Hyde::version();
+
+            $url = sprintf('http://%s:%d', $this->getHostSelection(), $this->getPortSelection());
+
+            $width = max(strlen("$title $version"), strlen("Listening on $url") + 1) + 1;
+            $spacing = str_repeat('&nbsp;', $width);
+            $lines = str_repeat('─', $width);
+
+            $line1 = '&nbsp;'.sprintf('<span class="text-blue-500">%s</span>&nbsp;<span class="text-gray">%s</span>', $title, $version).str_repeat('&nbsp;', $width - strlen("$title $version"));
+            $line2 = '&nbsp;'.sprintf('<span class="text-white">Listening on </span>&nbsp;<a href="%s" class="text-yellow-500">%s</a>', $url, $url).str_repeat('&nbsp;', $width - strlen("Listening on $url") - 1);
+            render(<<<HTML
+<div class="text-green-500">
+<br>
+&nbsp;╭{$lines}╮<br>
+&nbsp;│{$spacing}│<br>
+&nbsp;│{$line1}│<br>
+&nbsp;│{$spacing}│<br>
+&nbsp;│{$line2}│<br>
+&nbsp;│{$spacing}│<br>
+&nbsp;╰{$lines}╯
+<br>
+</div>
+HTML);
+        }
     }
 
     protected function handleOutput(string $line): void
