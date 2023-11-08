@@ -114,14 +114,10 @@ class DashboardController
                 $this->openInExplorer();
                 break;
             case 'openPageInEditor':
-                $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
-                $page = Routes::getOrFail($routeKey)->getPage();
-                $this->openPageInEditor($page);
+                $this->openPageInEditor();
                 break;
             case 'openMediaFileInEditor':
-                $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
-                $asset = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
-                $this->openMediaFileInEditor($asset);
+                $this->openMediaFileInEditor();
                 break;
             case 'createPage':
                 $this->createPage();
@@ -310,8 +306,11 @@ class DashboardController
         Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
-    protected function openPageInEditor(HydePage $page): void
+    protected function openPageInEditor(): void
     {
+        $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
+        $page = Routes::getOrFail($routeKey)->getPage();
+
         $binary = $this->findGeneralOpenBinary();
         $path = Hyde::path($page->getSourcePath());
 
@@ -322,8 +321,11 @@ class DashboardController
         Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
-    protected function openMediaFileInEditor(MediaFile $file): void
+    protected function openMediaFileInEditor(): void
     {
+        $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
+        $file = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
+
         $binary = $this->findGeneralOpenBinary();
         $path = $file->getAbsolutePath();
 
