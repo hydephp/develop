@@ -56,7 +56,6 @@ jobs:
         run: rm resources/views/vendor/hyde/components/docs/documentation-article.blade.php
 
       - name: Create component to add an information badge
-        # TODO 1. Extract to component. 2. Add feature to hide card which is stored in local session storage for the duration of the visit (so it's reset on next PR page visit)
         run: |
           mkdir -p resources/views/vendor/hyde/layouts
           cp vendor/hyde/framework/resources/views/layouts/docs.blade.php resources/views/vendor/hyde/layouts/docs.blade.php
