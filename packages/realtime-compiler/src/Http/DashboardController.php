@@ -471,7 +471,7 @@ class DashboardController
         $requestIp = $_SERVER['REMOTE_ADDR'];
         $allowedIps = ['::1', '127.0.0.1', 'localhost'];
 
-        return in_array($requestIp, $allowedIps, true);
+        return ! in_array($requestIp, $allowedIps, true);
     }
 
     protected function sendJsonResponse(int $statusCode, string $body): never
