@@ -23,19 +23,6 @@ jobs:
         id: analysis
         run: vendor/bin/psalm > psalmout.txt || echo EXIT_CODE=$? >> $GITHUB_OUTPUT || exit 0
 
+        # Send the reports to the CI server to calculate type coverage and send back commit status checks
       - name: Ping CI server with type coverage results
         run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }} ${{ github.head_ref }}
-
-
-  # Deprecated
-  # Since GitHub Actions for some reason doesn't support exiting with warnings, we work around this by
-  # adding a second job. If the first job fails, this one won't run, thus resulting with a skipped status.
-  # TODO refactor to use CI server to report status if there are new issues encountered compared to the base branch
-  report-psalm:
-    name: Psalm Static Analysis
-    runs-on: ubuntu-latest
-    needs: psalm
-    if: needs.psalm.outputs.exit-code == 0
-    steps:
-      - name: Report analysis passed
-        run: echo "Got code ${{ needs.psalm.outputs.exit-code }}" && exit 0;
