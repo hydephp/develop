@@ -17,7 +17,7 @@ $branch = $argv[3] ?? 'master';
 
 if (file_exists('psalmout.txt')) {
     // Count the number of errors in the output
-    $psalmErrors = substr_count(file_get_contents('psalmout.txt'), 'ERROR: ');
+    $psalmErrors = substr_count(file_get_contents('psalmout.txt'), '[0;31mERROR[0m: ');
 }
 
 $data = [
