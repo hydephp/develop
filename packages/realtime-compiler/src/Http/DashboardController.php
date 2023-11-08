@@ -65,7 +65,7 @@ class DashboardController
     {
         if ($this->request->method === 'POST') {
             if (! $this->isInteractive()) {
-               return $this->sendJsonErrorResponse(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+                return $this->sendJsonErrorResponse(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
             if ($this->shouldUnsafeRequestBeBlocked()) {
