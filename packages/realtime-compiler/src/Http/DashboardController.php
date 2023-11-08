@@ -507,7 +507,7 @@ class DashboardController
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
             default => throw new HttpException(500,
-                sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY)
+                sprintf("Unable to find a matching 'open' binary for OS family '%s'", PHP_OS_FAMILY)
             )
         };
     }
