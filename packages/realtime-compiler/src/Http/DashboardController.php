@@ -364,11 +364,10 @@ class DashboardController
                 default => $this->abort(400, "Unsupported page type '$pageType'"),
             };
 
-            if ($pageClass === MarkdownPost::class) {
-                $creator = new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content);
-            } else {
-                $creator = new CreatesNewPageSourceFile($title, $pageClass, false, $content);
-            }
+            $creator = $pageClass === MarkdownPost::class
+                ? new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content)
+                : new CreatesNewPageSourceFile($title, $pageClass, false, $content);
+
             try {
                 $path = $creator->save();
             } catch (FileConflictException $exception) {
