@@ -361,7 +361,7 @@ class DashboardController
                 'markdown-page' => MarkdownPage::class,
                 'markdown-post' => MarkdownPost::class,
                 'documentation-page' => DocumentationPage::class,
-                default => throw new HttpException(400, "Unsupported page type '$pageType'"),
+                default => $this->abort(400, "Unsupported page type '$pageType'"),
             };
 
             if ($pageClass === MarkdownPost::class) {
@@ -506,7 +506,7 @@ class DashboardController
             'Windows' => 'powershell Start-Process',
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
-            default => throw new HttpException(500,
+            default => $this->abort(500,
                 sprintf("Unable to find a matching 'open' binary for OS family '%s'", PHP_OS_FAMILY)
             )
         };
