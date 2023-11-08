@@ -15,6 +15,7 @@ $token = $argv[1] ?? exit(400);
 $commit = $argv[2] ?? exit(400);
 $branch = $argv[3] ?? 'master';
 $runId = $argv[4] ?? null;
+$jobId = $argv[5] ?? null;
 
 if (file_exists('psalmout.txt')) {
     // Count the number of errors in the output
@@ -27,6 +28,7 @@ $data = [
     'branch' => $branch,
     'psalmErrors' => $psalmErrors ?? null,
     'runId' => $runId,
+    'jobId' => $jobId,
 ];
 
 $url = 'https://ci.hydephp.com/api/github/actions/type-coverage';
