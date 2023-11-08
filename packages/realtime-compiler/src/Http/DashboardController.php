@@ -361,7 +361,7 @@ class DashboardController
                 'markdown-page' => MarkdownPage::class,
                 'markdown-post' => MarkdownPost::class,
                 'documentation-page' => DocumentationPage::class,
-                default => throw new HttpException(400, "Invalid page type '$pageType'"),
+                default => throw new HttpException(400, "Unsupported page type '$pageType'"),
             };
 
             if ($pageClass === MarkdownPost::class) {
