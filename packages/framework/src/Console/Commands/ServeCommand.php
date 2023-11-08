@@ -19,7 +19,7 @@ use function sprintf;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>} {--fancy : <comment>[default: false]</comment>}';
+    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>} {--fancy : <comment>[default: true]</comment>}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
@@ -56,18 +56,12 @@ class ServeCommand extends Command
     protected function runServerProcess(string $command): void
     {
         Process::forever()->run($command, function (string $type, string $line): void {
-            $this->handleOutput($line);
+            $this->option('fancy') ? $this->handleOutput($line) : $this->output->write($line);
         });
     }
 
     protected function handleOutput(string $line): void
     {
-        if (! $this->option('fancy')) {
-            $this->output->write($line);
-
-            return;
-        }
-
         $isRequestLine = str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing');
 
         if ($isRequestLine && ! $this->output->isVerbose()) {
