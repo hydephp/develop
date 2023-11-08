@@ -58,9 +58,14 @@ class DashboardController
 
         if ($this->request->method === 'POST') {
             $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+        }
+    }
 
+    public function handle(): Response
+    {
+        if ($this->request->method === 'POST') {
             if (! $this->isInteractive()) {
-                $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+               $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
             try {
@@ -74,10 +79,7 @@ class DashboardController
                 $this->sendJsonErrorResponse($exception);
             }
         }
-    }
 
-    public function handle(): Response
-    {
         return new HtmlResponse(200, 'OK', [
             'body' => $this->show(),
         ]);
