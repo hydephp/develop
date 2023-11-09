@@ -100,7 +100,7 @@ HTML);
         $isRequestLine = str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing');
 
         if ($isRequestLine) {
-            $this->writeDebugLine($this->formatRequestLine($line));
+            $this->line($this->formatRequestLine($line));
             return;
         }
 
@@ -120,6 +120,6 @@ HTML);
         $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
         $address = trim(Str::between($line, ']', ' '));
 
-        return sprintf("%s %s %s\n", $date->format('Y-m-d H:i:s'), $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing');
+        return sprintf('%s %s %s', $date->format('Y-m-d H:i:s'), $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing');
     }
 }
