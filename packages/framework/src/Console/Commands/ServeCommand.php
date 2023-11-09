@@ -95,21 +95,23 @@ HTML);
         }
     }
 
-    protected function handleOutput(string $line): void
+    protected function handleOutput(string $buffer): void
     {
-        if (str_contains($line, 'Development Server (http:')) {
-            $line = $this->formatServerStartedLine($line);
-        } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-            if ($this->output->isVerbose()) {
-                $line = $this->formatRequestStatusLine($line);
+        str($buffer)->trim()->explode("\n")->each(function (string $line): void {
+            if (str_contains($line, 'Development Server (http:')) {
+                $line = $this->formatServerStartedLine($line);
+            } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
+                if ($this->output->isVerbose()) {
+                    $line = $this->formatRequestStatusLine($line);
+                } else {
+                    return;
+                }
             } else {
-                return;
+                $line = $this->formatLine($line, Carbon::now());
             }
-        } else {
-            $line = $this->formatLine($line, Carbon::now());
-        }
 
-        render($line);
+            render($line);
+        });
     }
 
     protected function formatServerStartedLine(string $line): string
