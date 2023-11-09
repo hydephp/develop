@@ -125,7 +125,15 @@ HTML);
 
     protected function formatLine(string $message, Carbon $date): string
     {
-        return sprintf('<div class="flex w-full justify-between"><span><span class="text-blue-500">i</span> %s</span><span class="text-gray">%s</span></div>', $message, $date->format('Y-m-d H:i:s'));
+        return sprintf(<<<'HTML'
+        <div class="flex w-full justify-between">
+            <span>
+                <span class="text-blue-500">i</span>
+                %s
+            </span>
+            <span class="text-gray">%s</span>
+        </div>
+        HTML, $message, $date->format('Y-m-d H:i:s'));
     }
 
     protected function parseDate(string $line): Carbon
