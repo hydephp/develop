@@ -55,7 +55,6 @@ class ServeCommand extends Command
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
     }
 
-    /** @codeCoverageIgnore Until output is testable */
     protected function runServerProcess(string $command): void
     {
         Process::forever()->run($command, function (string $type, string $line): void {

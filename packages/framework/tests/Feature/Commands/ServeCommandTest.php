@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Closure;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Process;
@@ -135,16 +136,24 @@ class ServeCommandTest extends TestCase
 
     public function test_hyde_serve_command_passes_through_process_output()
     {
-        $this->markTestSkipped('Unable to access the output of the process. Assuming vendor bug for now.');
+        Process::shouldReceive('forever')
+            ->once()
+            ->withNoArgs()
+            ->andReturnSelf();
 
-        Process::fake(['php -S localhost:8080 {$this->binaryPath()}' => 'foo']);
+        Process::shouldReceive('run')
+            ->once()
+            ->withArgs(function (string $command, Closure $handle) {
+                $handle('type', 'foo');
+
+                return $command === "php -S localhost:8080 {$this->binaryPath()}";
+            })
+            ->andReturnSelf();
 
         $this->artisan('serve')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->expectsOutput('foo')
             ->assertExitCode(0);
-
-        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
     }
 
     protected function binaryPath(): string
