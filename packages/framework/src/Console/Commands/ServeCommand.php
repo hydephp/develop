@@ -101,7 +101,7 @@ HTML);
             $line = $this->formatServerStartedLine($line);
         } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             if ($this->output->isVerbose()) {
-                $line = $this->formatRequestLine($line);
+                $line = $this->formatRequestStatusLine($line);
             } else {
                 return;
             }
@@ -117,7 +117,7 @@ HTML);
         return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line));
     }
 
-    protected function formatRequestLine(string $line): string
+    protected function formatRequestStatusLine(string $line): string
     {
         $address = trim(Str::between($line, ']', ' '));
         $status = str_contains($line, 'Accepted') ? 'Accepted' : 'Closing';
