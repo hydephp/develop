@@ -97,6 +97,11 @@ HTML);
 
     protected function handleOutput(string $line): void
     {
+        if (str_contains($line, 'Development Server (http:')) {
+            $this->line($this->formatServerStartedLine($line));
+            return;
+        }
+
         if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             $this->line($this->formatRequestLine($line));
             return;
@@ -111,6 +116,13 @@ HTML);
             $debugIcon = 'I';
             $this->output->write(sprintf('<comment>%s</comment> %s', $debugIcon, $line));
         }
+    }
+
+    protected function formatServerStartedLine(string $line): string
+    {
+        $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
+
+        return sprintf('%s PHP %s Development Server started. <comment>Press Ctrl+C to stop.</comment>', $date->format('Y-m-d H:i:s'), PHP_VERSION);
     }
 
     protected function formatRequestLine(string $line): string
