@@ -99,11 +99,13 @@ HTML);
     {
         if (str_contains($line, 'Development Server (http:')) {
             render($this->formatServerStartedLine($line));
+
             return;
         }
 
         if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             render($this->formatRequestLine($line));
+
             return;
         }
 
