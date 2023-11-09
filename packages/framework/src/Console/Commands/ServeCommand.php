@@ -112,17 +112,14 @@ HTML);
 
     protected function formatServerStartedLine(string $line): string
     {
-        $date = $this->parseDate($line);
-
-        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $date);
+        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line));
     }
 
     protected function formatRequestLine(string $line): string
     {
-        $date = $this->parseDate($line);
         $address = trim(Str::between($line, ']', ' '));
 
-        return $this->formatLine(sprintf('%s %s', $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing'), $date);
+        return $this->formatLine(sprintf('%s %s', $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing'), $this->parseDate($line));
     }
 
     protected function formatLine(string $message, Carbon $date): string
