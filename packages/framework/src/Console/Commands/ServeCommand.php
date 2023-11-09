@@ -100,7 +100,9 @@ HTML);
         if (str_contains($line, 'Development Server (http:')) {
             $line = $this->formatServerStartedLine($line);
         } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-            $line = $this->formatRequestLine($line);
+            if ($this->output->isVerbose()) {
+                $line = $this->formatRequestLine($line);
+            }
         } else {
             $line = $this->formatLine($line, Carbon::now());
         }
