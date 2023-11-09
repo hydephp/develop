@@ -98,18 +98,14 @@ HTML);
     protected function handleOutput(string $line): void
     {
         if (str_contains($line, 'Development Server (http:')) {
-            render($this->formatServerStartedLine($line));
-
-            return;
+            $line = $this->formatServerStartedLine($line);
+        } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
+            $line = $this->formatRequestLine($line);
+        } else {
+            $line = $this->formatLine($line, Carbon::now());
         }
 
-        if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-            render($this->formatRequestLine($line));
-
-            return;
-        }
-
-        $this->output->write($line);
+        render($line);
     }
 
     protected function formatServerStartedLine(string $line): string
