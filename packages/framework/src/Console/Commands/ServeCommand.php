@@ -58,7 +58,9 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->run($command, $this->getOutputHandler());
+        $outputHandler = $this->option('no-ansi') ? $this->getDefaultOutputHandler() : $this->getFancyOutputHandler();
+
+        Process::forever()->run($command, $outputHandler);
     }
 
     protected function printStartMessage(): void
@@ -161,10 +163,17 @@ HTML);
         return Carbon::parse(Str::betweenFirst($line, '[', ']'));
     }
 
-    protected function getOutputHandler(): Closure
+    protected function getDefaultOutputHandler(): Closure
     {
         return function (string $type, string $line): void {
-            $this->option('no-ansi') ? $this->output->write($line) : $this->handleOutput($line);
+            $this->output->write($line);
+        };
+    }
+
+    protected function getFancyOutputHandler(): Closure
+    {
+        return function (string $type, string $line): void {
+            $this->handleOutput($line);
         };
     }
 }
