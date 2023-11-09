@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Hyde\RealtimeCompiler\Console;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 
@@ -179,6 +180,6 @@ HTML);
 
     protected function useBasicOutput(): bool
     {
-        return $this->option('no-ansi');
+        return $this->option('no-ansi') || ! class_exists(Console::class);
     }
 }
