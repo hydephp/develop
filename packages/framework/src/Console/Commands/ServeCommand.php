@@ -98,12 +98,12 @@ HTML);
     protected function handleOutput(string $line): void
     {
         if (str_contains($line, 'Development Server (http:')) {
-            $this->line($this->formatServerStartedLine($line));
+            render($this->formatServerStartedLine($line));
             return;
         }
 
         if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-            $this->line($this->formatRequestLine($line));
+            render($this->formatRequestLine($line));
             return;
         }
 
@@ -122,7 +122,7 @@ HTML);
     {
         $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
 
-        return sprintf('%s PHP %s Development Server started. <comment>Press Ctrl+C to stop.</comment>', $date->format('Y-m-d H:i:s'), PHP_VERSION);
+        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $date);
     }
 
     protected function formatRequestLine(string $line): string
@@ -130,6 +130,11 @@ HTML);
         $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
         $address = trim(Str::between($line, ']', ' '));
 
-        return sprintf('%s %s %s', $date->format('Y-m-d H:i:s'), $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing');
+        return $this->formatLine(sprintf('%s %s', $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing'), $date);
+    }
+
+    protected function formatLine(string $message, Carbon $date): string
+    {
+        return sprintf('<div class="flex w-full justify-between"><span>%s</span><span class="text-gray">%s</span></div>', $message, $date->format('Y-m-d H:i:s'));
     }
 }
