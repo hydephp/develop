@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
@@ -57,9 +58,7 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->run($command, function (string $type, string $line): void {
-            $this->option('no-ansi') ? $this->output->write($line) : $this->handleOutput($line);
-        });
+        Process::forever()->run($command, $this->getOutputHandler());
     }
 
     protected function printStartMessage(): void
@@ -160,5 +159,12 @@ HTML);
     protected function parseDate(string $line): Carbon
     {
         return Carbon::parse(Str::betweenFirst($line, '[', ']'));
+    }
+
+    protected function getOutputHandler(): Closure
+    {
+        return function (string $type, string $line): void {
+            $this->option('no-ansi') ? $this->output->write($line) : $this->handleOutput($line);
+        };
     }
 }
