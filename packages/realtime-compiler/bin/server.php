@@ -8,8 +8,18 @@ try {
 
     try {
         $app = \Desilva\Microserve\Microserve::boot(\Hyde\RealtimeCompiler\Http\HttpKernel::class);
-        $app->handle() // Process the request and create the response
-            ->send(); // Send the response to the client
+        $response = $app->handle(); // Process the request and create the response
+        $response->send(); // Send the response to the client
+
+        // Write to console to emulate the built-in PHP server output
+        file_put_contents('php://stderr', sprintf(
+            "[%s] %s [%d]: %s %s\n",
+            date('D M j H:i:s Y'),
+            str_replace('::1', '[::1]', $_SERVER['REMOTE_ADDR'] ). ':' . $_SERVER['REMOTE_PORT'],
+            $response->statusCode,
+            \Desilva\Microserve\Request::capture()->method,
+            \Desilva\Microserve\Request::capture()->path,
+        ));
     } catch (Throwable $exception) {
         \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception)->send();
         exit($exception->getCode());
