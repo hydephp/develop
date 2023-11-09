@@ -100,6 +100,8 @@ HTML);
         str($buffer)->trim()->explode("\n")->each(function (string $line): void {
             if (str_contains($line, 'Development Server (http:')) {
                 $line = $this->formatServerStartedLine($line);
+            } else if (str_contains($line, ']: ')) {
+                $line = $this->formatRequestLine($line);
             } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
                 if ($this->output->isVerbose()) {
                     $line = $this->formatRequestStatusLine($line);
@@ -117,6 +119,13 @@ HTML);
     protected function formatServerStartedLine(string $line): string
     {
         return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line));
+    }
+
+    protected function formatRequestLine(string $line): string
+    {
+        $dateString = Str::betweenFirst($line, '[', ']');
+
+        return $this->formatLine(substr($line, strlen($dateString) + 3), $this->parseDate($line));
     }
 
     protected function formatRequestStatusLine(string $line): string
