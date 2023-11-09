@@ -129,10 +129,6 @@ HTML);
         $statusCode = Str::between($message, ' [', ']:');
         if ($statusCode >= 400) {
             $message = str_replace($statusCode, sprintf('<span class="text-red-500">%s</span>', $statusCode), $message);
-        } else if ($statusCode >= 300) {
-            $message = str_replace($statusCode, sprintf('<span class="text-yellow-500">%s</span>', $statusCode), $message);
-        } else {
-            $message = str_replace($statusCode, sprintf('<span class="text-green-500">%s</span>', $statusCode), $message);
         }
 
         return $this->formatLine($message, $this->parseDate($line));
