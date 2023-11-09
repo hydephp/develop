@@ -58,14 +58,14 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        $outputHandler = $this->option('no-ansi') ? $this->getDefaultOutputHandler() : $this->getFancyOutputHandler();
+        $outputHandler = $this->useBasicOutput() ? $this->getDefaultOutputHandler() : $this->getFancyOutputHandler();
 
         Process::forever()->run($command, $outputHandler);
     }
 
     protected function printStartMessage(): void
     {
-        if ($this->option('no-ansi')) {
+        if ($this->useBasicOutput()) {
             $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
         } else {
             $title = 'HydePHP Realtime Compiler';
@@ -175,5 +175,10 @@ HTML);
         return function (string $type, string $line): void {
             $this->handleOutput($line);
         };
+    }
+
+    protected function useBasicOutput(): bool
+    {
+        return $this->option('no-ansi');
     }
 }
