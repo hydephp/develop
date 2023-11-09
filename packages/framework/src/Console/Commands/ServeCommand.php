@@ -97,9 +97,7 @@ HTML);
 
     protected function handleOutput(string $line): void
     {
-        $isRequestLine = str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing');
-
-        if ($isRequestLine) {
+        if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             $this->line($this->formatRequestLine($line));
             return;
         }
