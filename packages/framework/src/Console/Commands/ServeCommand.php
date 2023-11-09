@@ -99,9 +99,9 @@ HTML);
         str($buffer)->trim()->explode("\n")->each(function (string $line): void {
             if (str_contains($line, 'Development Server (http:')) {
                 $line = $this->formatServerStartedLine($line);
-            } else if (str_contains($line, ']: ')) {
+            } elseif (str_contains($line, ']: ')) {
                 $line = $this->formatRequestLine($line);
-            } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
+            } elseif (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
                 if ($this->output->isVerbose()) {
                     $line = $this->formatRequestStatusLine($line);
                 } else {

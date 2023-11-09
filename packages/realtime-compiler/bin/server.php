@@ -25,7 +25,7 @@ try {
     file_put_contents('php://stderr', sprintf(
         "[%s] %s [%d]: %s %s\n",
         date('D M j H:i:s Y'),
-        str_replace('::1', '[::1]', $_SERVER['REMOTE_ADDR'] ). ':' . $_SERVER['REMOTE_PORT'],
+        str_replace('::1', '[::1]', $_SERVER['REMOTE_ADDR']).':'.$_SERVER['REMOTE_PORT'],
         $response->statusCode ?? ((isset($exception) && $exception->getCode() >= 400) ? $exception->getCode() : 500),
         $request->method,
         $request->path,
