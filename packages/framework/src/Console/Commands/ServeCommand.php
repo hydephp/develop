@@ -6,6 +6,8 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 
@@ -97,10 +99,29 @@ HTML);
     {
         $isRequestLine = str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing');
 
-        if ($isRequestLine && ! $this->output->isVerbose()) {
+        if ($isRequestLine) {
+            $this->writeDebugLine($this->formatRequestLine($line));
             return;
         }
 
         $this->output->write($line);
+    }
+
+    protected function writeDebugLine(string $line): void
+    {
+        if ($this->output->isVerbose()) {
+            $debugIcon = 'I';
+            $this->output->write(sprintf('<comment>%s</comment> %s', $debugIcon, $line));
+        }
+    }
+
+    protected function formatRequestLine(string $line): string
+    {
+        $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
+        $address = trim(Str::between($line, ']', ' '));
+
+        $formattedDate = sprintf('<fg=gray>%s</> %s', $date->format('Y-m-d'), $date->format('H:i:s'));
+
+        return sprintf("%s %s %s\n", $formattedDate, $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing');
     }
 }
