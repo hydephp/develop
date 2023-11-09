@@ -112,14 +112,14 @@ HTML);
 
     protected function formatServerStartedLine(string $line): string
     {
-        $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
+        $date = $this->parseDate($line);
 
         return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $date);
     }
 
     protected function formatRequestLine(string $line): string
     {
-        $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
+        $date = $this->parseDate($line);
         $address = trim(Str::between($line, ']', ' '));
 
         return $this->formatLine(sprintf('%s %s', $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing'), $date);
@@ -128,5 +128,10 @@ HTML);
     protected function formatLine(string $message, Carbon $date): string
     {
         return sprintf('<div class="flex w-full justify-between"><span><span class="text-blue-500">i</span> %s</span><span class="text-gray">%s</span></div>', $message, $date->format('Y-m-d H:i:s'));
+    }
+
+    protected function parseDate(string $line): Carbon
+    {
+        return Carbon::parse(Str::betweenFirst($line, '[', ']'));
     }
 }
