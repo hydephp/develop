@@ -125,6 +125,7 @@ HTML);
     {
         $dateString = Str::betweenFirst($line, '[', ']');
         $message = substr($line, strlen($dateString) + 3);
+        $message = str_replace('[::1]', 'localhost', $message);
 
         return $this->formatLine($message, $this->parseDate($line));
     }
