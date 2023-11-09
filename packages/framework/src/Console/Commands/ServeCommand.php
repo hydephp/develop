@@ -102,6 +102,8 @@ HTML);
         } else if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             if ($this->output->isVerbose()) {
                 $line = $this->formatRequestLine($line);
+            } else {
+                return;
             }
         } else {
             $line = $this->formatLine($line, Carbon::now());
