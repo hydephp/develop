@@ -118,8 +118,9 @@ HTML);
     protected function formatRequestLine(string $line): string
     {
         $address = trim(Str::between($line, ']', ' '));
+        $status = str_contains($line, 'Accepted') ? 'Accepted' : 'Closing';
 
-        return $this->formatLine(sprintf('%s %s', $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing'), $this->parseDate($line));
+        return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
     protected function formatLine(string $message, Carbon $date): string
