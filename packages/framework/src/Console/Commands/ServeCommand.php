@@ -124,8 +124,9 @@ HTML);
     protected function formatRequestLine(string $line): string
     {
         $dateString = Str::betweenFirst($line, '[', ']');
+        $message = substr($line, strlen($dateString) + 3);
 
-        return $this->formatLine(substr($line, strlen($dateString) + 3), $this->parseDate($line));
+        return $this->formatLine($message, $this->parseDate($line));
     }
 
     protected function formatRequestStatusLine(string $line): string
