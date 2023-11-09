@@ -26,7 +26,7 @@ try {
         "[%s] %s [%d]: %s %s\n",
         date('D M j H:i:s Y'),
         str_replace('::1', '[::1]', $_SERVER['REMOTE_ADDR'] ). ':' . $_SERVER['REMOTE_PORT'],
-        $response->statusCode ?? 500,
+        $response->statusCode ?? $exception->getCode() ?? 500,
         $request->method,
         $request->path,
     ));
