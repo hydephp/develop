@@ -120,8 +120,6 @@ HTML);
         $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
         $address = trim(Str::between($line, ']', ' '));
 
-        $formattedDate = sprintf('<fg=gray>%s</> %s', $date->format('Y-m-d'), $date->format('H:i:s'));
-
-        return sprintf("%s %s %s\n", $formattedDate, $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing');
+        return sprintf("%s %s %s\n", $date->format('Y-m-d H:i:s'), $address, str_contains($line, 'Accepted') ? 'Accepted' : 'Closing');
     }
 }
