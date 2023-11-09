@@ -110,14 +110,6 @@ HTML);
         $this->output->write($line);
     }
 
-    protected function writeDebugLine(string $line): void
-    {
-        if ($this->output->isVerbose()) {
-            $debugIcon = 'I';
-            $this->output->write(sprintf('<comment>%s</comment> %s', $debugIcon, $line));
-        }
-    }
-
     protected function formatServerStartedLine(string $line): string
     {
         $date = Carbon::parse(Str::betweenFirst($line, '[', ']'));
