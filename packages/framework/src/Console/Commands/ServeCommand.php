@@ -7,14 +7,12 @@ namespace Hyde\Console\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 
-use function Termwind\{render};
 use function sprintf;
+use function class_exists;
 
 /**
  * Start the realtime compiler server.
@@ -69,99 +67,8 @@ class ServeCommand extends Command
         if ($this->useBasicOutput()) {
             $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
         } else {
-            $title = 'HydePHP Realtime Compiler';
-            $version = ' v'.Hyde::version();
-
-            $url = sprintf('http://%s:%d', $this->getHostSelection(), $this->getPortSelection());
-
-            $width = max(strlen("$title $version"), strlen("Listening on $url") + 1) + 1;
-            $spacing = str_repeat('&nbsp;', $width);
-            $lines = str_repeat('─', $width);
-
-            $line1 = '&nbsp;'.sprintf('<span class="text-blue-500">%s</span>&nbsp;<span class="text-gray">%s</span>', $title, $version).str_repeat('&nbsp;', $width - strlen("$title $version"));
-            $line2 = '&nbsp;'.sprintf('<span class="text-white">Listening on </span>&nbsp;<a href="%s" class="text-yellow-500">%s</a>', $url, $url).str_repeat('&nbsp;', $width - strlen("Listening on $url") - 1);
-            render(<<<HTML
-<div class="text-green-500">
-<br>
-&nbsp;╭{$lines}╮<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;│{$line1}│<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;│{$line2}│<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;╰{$lines}╯
-<br>
-</div>
-HTML);
+            ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
         }
-    }
-
-    protected function handleOutput(string $buffer): void
-    {
-        str($buffer)->trim()->explode("\n")->each(function (string $line): void {
-            if (str_contains($line, 'Development Server (http:')) {
-                $line = $this->formatServerStartedLine($line);
-            } elseif (str_contains($line, ']: ')) {
-                $line = $this->formatRequestLine($line);
-            } elseif (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-                if ($this->output->isVerbose()) {
-                    $line = $this->formatRequestStatusLine($line);
-                } else {
-                    return;
-                }
-            } else {
-                $line = $this->formatLine($line, Carbon::now());
-            }
-
-            render($line);
-        });
-    }
-
-    protected function formatServerStartedLine(string $line): string
-    {
-        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line));
-    }
-
-    protected function formatRequestLine(string $line): string
-    {
-        $dateString = Str::betweenFirst($line, '[', ']');
-        $message = substr($line, strlen($dateString) + 3);
-
-        $statusCode = Str::between($message, ' [', ']:');
-        if ($statusCode >= 400) {
-            $message = str_replace($statusCode, sprintf('<span class="text-red-500">%s</span>', $statusCode), $message);
-            $iconColor = 'yellow-500';
-        }
-
-        return $this->formatLine($message, $this->parseDate($line), $iconColor ?? 'green-500');
-    }
-
-    protected function formatRequestStatusLine(string $line): string
-    {
-        $address = trim(Str::between($line, ']', ' '));
-        $status = str_contains($line, 'Accepted') ? 'Accepted' : 'Closing';
-
-        return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
-    }
-
-    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500'): string
-    {
-        return sprintf(<<<'HTML'
-            <div class="flex w-full justify-between">
-                <span>
-                    <span class="text-%s">i</span>
-                    %s
-                </span>
-                <span class="text-gray">%s</span>
-            </div>
-            HTML,
-            $iconColor, $message, $date->format('Y-m-d H:i:s')
-        );
-    }
-
-    protected function parseDate(string $line): Carbon
-    {
-        return Carbon::parse(Str::betweenFirst($line, '[', ']'));
     }
 
     protected function getDefaultOutputHandler(): Closure
@@ -173,9 +80,7 @@ HTML);
 
     protected function getFancyOutputHandler(): Closure
     {
-        return function (string $type, string $line): void {
-            $this->handleOutput($line);
-        };
+        return ConsoleOutput::getFormatter($this->output->isVerbose());
     }
 
     protected function useBasicOutput(): bool
