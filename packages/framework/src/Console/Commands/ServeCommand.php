@@ -129,9 +129,10 @@ HTML);
         $statusCode = Str::between($message, ' [', ']:');
         if ($statusCode >= 400) {
             $message = str_replace($statusCode, sprintf('<span class="text-red-500">%s</span>', $statusCode), $message);
+            $iconColor = 'yellow-500';
         }
 
-        return $this->formatLine($message, $this->parseDate($line));
+        return $this->formatLine($message, $this->parseDate($line), $iconColor ?? 'green-500');
     }
 
     protected function formatRequestStatusLine(string $line): string
@@ -142,18 +143,18 @@ HTML);
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
-    protected function formatLine(string $message, Carbon $date): string
+    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500'): string
     {
         return sprintf(<<<'HTML'
             <div class="flex w-full justify-between">
                 <span>
-                    <span class="text-blue-500">i</span>
+                    <span class="text-%s">i</span>
                     %s
                 </span>
                 <span class="text-gray">%s</span>
             </div>
             HTML,
-            $message, $date->format('Y-m-d H:i:s')
+            $iconColor, $message, $date->format('Y-m-d H:i:s')
         );
     }
 
