@@ -76,7 +76,7 @@ HTML);
         });
     }
 
-    function formatLineForOutput(string $line): ?string
+    protected function formatLineForOutput(string $line): ?string
     {
         if (str_contains($line, 'Development Server (http:')) {
             return $this->formatServerStartedLine($line);
