@@ -34,10 +34,10 @@ class ConsoleOutput
         $spacing = str_repeat('&nbsp;', $width);
         $lines = str_repeat('─', $width);
 
-        $line1 = '&nbsp;'.sprintf('<span class="text-blue">%s</span>&nbsp;<span class="text-gray">%s</span>', $title, $version).str_repeat('&nbsp;', $width - strlen("$title $version"));
-        $line2 = '&nbsp;'.sprintf('<span class="text-white">Listening on </span>&nbsp;<a href="%s" class="text-yellow">%s</a>', $url, $url).str_repeat('&nbsp;', $width - strlen("Listening on $url") - 1);
+        $line1 = '&nbsp;'.sprintf('<span class="text-blue-500">%s</span>&nbsp;<span class="text-gray">%s</span>', $title, $version).str_repeat('&nbsp;', $width - strlen("$title $version"));
+        $line2 = '&nbsp;'.sprintf('<span class="text-white">Listening on </span>&nbsp;<a href="%s" class="text-yellow-500">%s</a>', $url, $url).str_repeat('&nbsp;', $width - strlen("Listening on $url") - 1);
         render(<<<HTML
-<div class="text-green">
+<div class="text-green-500">
 <br>
 &nbsp;╭{$lines}╮<br>
 &nbsp;│{$spacing}│<br>
@@ -93,7 +93,7 @@ HTML);
 
     protected function formatServerStartedLine(string $line): string
     {
-        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line), 'green');
+        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line), 'green-500');
     }
 
     protected function formatRequestLine(string $line): string
@@ -103,11 +103,11 @@ HTML);
 
         $statusCode = Str::between($message, ' [', ']:');
         if ($statusCode >= 400) {
-            $message = str_replace($statusCode, sprintf('<span class="text-red">%s</span>', $statusCode), $message);
-            $iconColor = 'yellow';
+            $message = str_replace($statusCode, sprintf('<span class="text-red-500">%s</span>', $statusCode), $message);
+            $iconColor = 'yellow-500';
         }
 
-        return $this->formatLine($message, $this->parseDate($line), $iconColor ?? 'blue');
+        return $this->formatLine($message, $this->parseDate($line), $iconColor ?? 'blue-500');
     }
 
     protected function formatRequestStatusLine(string $line): string
@@ -118,7 +118,7 @@ HTML);
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
-    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue'): string
+    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500'): string
     {
         return sprintf(<<<'HTML'
             <div class="flex w-full justify-between">
