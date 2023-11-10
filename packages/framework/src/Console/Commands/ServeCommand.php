@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
 
 use function sprintf;
+use function class_exists;
 
 /**
  * Start the realtime compiler server.
@@ -26,7 +29,7 @@ class ServeCommand extends Command
 
     public function handle(): int
     {
-        $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
+        $this->printStartMessage();
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
@@ -54,8 +57,32 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->run($command, function (string $type, string $line): void {
+        Process::forever()->env($this->getEnvironmentVariables())->run($command, $this->getOutputHandler());
+    }
+
+    protected function getEnvironmentVariables(): array
+    {
+        return [
+            'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
+        ];
+    }
+
+    protected function printStartMessage(): void
+    {
+        $this->useBasicOutput()
+            ? $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
+            : ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
+    }
+
+    protected function getOutputHandler(): Closure
+    {
+        return $this->useBasicOutput() ? function (string $type, string $line): void {
             $this->output->write($line);
-        });
+        } : ConsoleOutput::getFormatter($this->output->isVerbose());
+    }
+
+    protected function useBasicOutput(): bool
+    {
+        return $this->option('no-ansi') || ! class_exists(ConsoleOutput::class);
     }
 }

@@ -24,7 +24,7 @@ class ServeCommandTest extends TestCase
 
     public function test_hyde_serve_command()
     {
-        $this->artisan('serve')
+        $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -33,7 +33,7 @@ class ServeCommandTest extends TestCase
 
     public function test_hyde_serve_command_with_port_option()
     {
-        $this->artisan('serve --port=8081')
+        $this->artisan('serve --no-ansi --port=8081')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -42,7 +42,7 @@ class ServeCommandTest extends TestCase
 
     public function test_hyde_serve_command_with_host_option()
     {
-        $this->artisan('serve --host=foo')
+        $this->artisan('serve --no-ansi --host=foo')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -51,7 +51,7 @@ class ServeCommandTest extends TestCase
 
     public function test_hyde_serve_command_with_port_and_host_option()
     {
-        $this->artisan('serve --port=8081 --host=foo')
+        $this->artisan('serve --no-ansi --port=8081 --host=foo')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -62,7 +62,7 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.port' => 8081]);
 
-        $this->artisan('serve')
+        $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -73,7 +73,7 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.port' => 8081]);
 
-        $this->artisan('serve --port=8082')
+        $this->artisan('serve --no-ansi --port=8082')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -84,7 +84,7 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.port' => null]);
 
-        $this->artisan('serve --port=8081')
+        $this->artisan('serve --no-ansi --port=8081')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -95,7 +95,7 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.host' => 'foo']);
 
-        $this->artisan('serve')
+        $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -106,7 +106,7 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.host' => 'foo']);
 
-        $this->artisan('serve --host=bar')
+        $this->artisan('serve --no-ansi --host=bar')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -117,7 +117,7 @@ class ServeCommandTest extends TestCase
     {
         config(['hyde.server.host' => null]);
 
-        $this->artisan('serve --host=foo')
+        $this->artisan('serve --no-ansi --host=foo')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
 
@@ -129,7 +129,7 @@ class ServeCommandTest extends TestCase
         $this->expectException(TypeError::class);
         config(['hyde.server.port' => 'foo']);
 
-        $this->artisan('serve')
+        $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
     }
@@ -141,6 +141,11 @@ class ServeCommandTest extends TestCase
             ->withNoArgs()
             ->andReturnSelf();
 
+        Process::shouldReceive('env')
+            ->once()
+            ->with(['HYDE_RC_REQUEST_OUTPUT' => false])
+            ->andReturnSelf();
+
         Process::shouldReceive('run')
             ->once()
             ->withArgs(function (string $command, Closure $handle) {
@@ -150,10 +155,21 @@ class ServeCommandTest extends TestCase
             })
             ->andReturnSelf();
 
-        $this->artisan('serve')
+        $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->expectsOutput('foo')
             ->assertExitCode(0);
+    }
+
+    public function testWithFancyOutput()
+    {
+        Process::fake(['php -S localhost:8080 {$this->binaryPath()}' => 'foo']);
+
+        $this->artisan('serve')
+            ->expectsOutputToContain('HydePHP Realtime Compiler')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
     }
 
     protected function binaryPath(): string
