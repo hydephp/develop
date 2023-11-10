@@ -68,22 +68,29 @@ HTML);
     protected function handleOutput(string $buffer): void
     {
         str($buffer)->trim()->explode("\n")->each(function (string $line): void {
-            if (str_contains($line, 'Development Server (http:')) {
-                $line = $this->formatServerStartedLine($line);
-            } elseif (str_contains($line, ']: ')) {
-                $line = $this->formatRequestLine($line);
-            } elseif (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-                if ($this->verbose) {
-                    $line = $this->formatRequestStatusLine($line);
-                } else {
-                    return;
-                }
-            } else {
-                $line = $this->formatLine($line, Carbon::now());
-            }
+            $line = $this->formatLineForOutput($line);
 
-            render($line);
+            if ($line !== null) {
+                render($line);
+            }
         });
+    }
+
+    function formatLineForOutput(string $line): ?string
+    {
+        if (str_contains($line, 'Development Server (http:')) {
+            return $this->formatServerStartedLine($line);
+        } elseif (str_contains($line, ']: ')) {
+            return $this->formatRequestLine($line);
+        } elseif (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
+            if ($this->verbose) {
+                return $this->formatRequestStatusLine($line);
+            } else {
+                return null;
+            }
+        }
+
+        return $this->formatLine($line, Carbon::now());
     }
 
     protected function formatServerStartedLine(string $line): string
