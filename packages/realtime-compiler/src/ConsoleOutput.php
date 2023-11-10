@@ -85,11 +85,7 @@ HTML);
             return $this->formatRequestLine($line);
         }
         if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
-            if ($this->verbose) {
-                return $this->formatRequestStatusLine($line);
-            } else {
-                return null;
-            }
+            return $this->verbose ? $this->formatRequestStatusLine($line) : null;
         }
 
         return $this->formatLine($line, Carbon::now());
