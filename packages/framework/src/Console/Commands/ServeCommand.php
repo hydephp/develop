@@ -57,30 +57,21 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        $outputHandler = $this->useBasicOutput() ? $this->getDefaultOutputHandler() : $this->getFancyOutputHandler();
-
-        Process::forever()->run($command, $outputHandler);
+        Process::forever()->run($command, $this->getOutputHandler());
     }
 
     protected function printStartMessage(): void
     {
-        if ($this->useBasicOutput()) {
-            $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
-        } else {
-            ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
-        }
+        $this->useBasicOutput()
+            ? $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
+            : ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
     }
 
-    protected function getDefaultOutputHandler(): Closure
+    protected function getOutputHandler(): Closure
     {
-        return function (string $type, string $line): void {
+        return $this->useBasicOutput() ? function (string $type, string $line): void {
             $this->output->write($line);
-        };
-    }
-
-    protected function getFancyOutputHandler(): Closure
-    {
-        return ConsoleOutput::getFormatter($this->output->isVerbose());
+        } : ConsoleOutput::getFormatter($this->output->isVerbose());
     }
 
     protected function useBasicOutput(): bool
