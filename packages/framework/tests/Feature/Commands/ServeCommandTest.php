@@ -156,6 +156,17 @@ class ServeCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function testWithFancyOutput()
+    {
+        Process::fake(['php -S localhost:8080 {$this->binaryPath()}' => 'foo']);
+
+        $this->artisan('serve')
+            ->expectsOutputToContain('HydePHP Realtime Compiler')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
+    }
+
     protected function binaryPath(): string
     {
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
