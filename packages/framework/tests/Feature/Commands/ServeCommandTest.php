@@ -141,6 +141,11 @@ class ServeCommandTest extends TestCase
             ->withNoArgs()
             ->andReturnSelf();
 
+        Process::shouldReceive('env')
+            ->once()
+            ->with(['HYDE_RC_REQUEST_OUTPUT' => false])
+            ->andReturnSelf();
+
         Process::shouldReceive('run')
             ->once()
             ->withArgs(function (string $command, Closure $handle) {
