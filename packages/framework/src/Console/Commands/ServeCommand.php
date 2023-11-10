@@ -57,9 +57,14 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->env([
+        Process::forever()->env($this->getEnvironmentVariables())->run($command, $this->getOutputHandler());
+    }
+
+    protected function getEnvironmentVariables(): array
+    {
+        return [
             'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
-        ])->run($command, $this->getOutputHandler());
+        ];
     }
 
     protected function printStartMessage(): void
