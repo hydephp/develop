@@ -93,7 +93,7 @@ HTML);
 
     protected function formatServerStartedLine(string $line): string
     {
-        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line));
+        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line), 'green-500');
     }
 
     protected function formatRequestLine(string $line): string
@@ -107,7 +107,7 @@ HTML);
             $iconColor = 'yellow-500';
         }
 
-        return $this->formatLine($message, $this->parseDate($line), $iconColor ?? 'green-500');
+        return $this->formatLine($message, $this->parseDate($line), $iconColor ?? 'blue-500');
     }
 
     protected function formatRequestStatusLine(string $line): string
