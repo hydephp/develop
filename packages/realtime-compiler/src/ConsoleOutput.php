@@ -80,9 +80,11 @@ HTML);
     {
         if (str_contains($line, 'Development Server (http:')) {
             return $this->formatServerStartedLine($line);
-        } elseif (str_contains($line, ']: ')) {
+        }
+        if (str_contains($line, ']: ')) {
             return $this->formatRequestLine($line);
-        } elseif (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
+        }
+        if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             if ($this->verbose) {
                 return $this->formatRequestStatusLine($line);
             } else {
