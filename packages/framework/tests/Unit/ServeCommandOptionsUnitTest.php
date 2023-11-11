@@ -58,6 +58,45 @@ class ServeCommandOptionsUnitTest extends TestCase
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
+    public function test_getDashboardSelection()
+    {
+        $this->assertSame(true, $this->getMock()->getDashboardSelection());
+    }
+
+    public function test_getDashboardSelection_withDashboardOption()
+    {
+        $this->assertSame(false, $this->getMock(['dashboard' => false])->getDashboardSelection());
+    }
+
+    public function test_getDashboardSelection_withConfigOption()
+    {
+        $this->app['config']->set('hyde.server.dashboard.enabled', false);
+        $this->assertSame(false, $this->getMock()->getDashboardSelection());
+    }
+
+    public function test_getDashboardSelection_withDashboardOptionAndConfigOption()
+    {
+        $this->app['config']->set('hyde.server.dashboard.enabled', false);
+        $this->assertSame(true, $this->getMock(['dashboard' => true])->getDashboardSelection());
+    }
+
+    public function test_getDashboardSelection_propagatesToEnvironmentVariables()
+    {
+        $command = $this->getMock();
+
+        $this->app['config']->set('hyde.server.dashboard.enabled', false);
+        $this->assertSame(false, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+
+        $this->app['config']->set('hyde.server.dashboard.enabled', true);
+        $this->assertSame(true, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+
+        $command = $this->getMock(['dashboard' => false]);
+        $this->assertSame(false, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+
+        $command = $this->getMock(['dashboard' => true]);
+        $this->assertSame(true, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+    }
+
     protected function getMock(array $options = []): ServeCommandMock
     {
         return new ServeCommandMock($options);
@@ -67,6 +106,8 @@ class ServeCommandOptionsUnitTest extends TestCase
 /**
  * @method getHostSelection
  * @method getPortSelection
+ * @method getDashboardSelection
+ * @method getEnvironmentVariables
  */
 class ServeCommandMock extends ServeCommand
 {

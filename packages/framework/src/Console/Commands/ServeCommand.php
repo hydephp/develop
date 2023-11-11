@@ -25,6 +25,7 @@ class ServeCommand extends Command
     protected $signature = 'serve 
         {--host= : <comment>[default: "localhost"]</comment>}}
         {--port= : <comment>[default: 8080]</comment>}
+        {--dashboard= : Enable the realtime compiler dashboard. (Defaults to config option)}
     ';
 
     /** @var string */
@@ -56,6 +57,13 @@ class ServeCommand extends Command
         return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
     }
 
+    protected function getDashboardSelection(): bool
+    {
+        return $this->option('dashboard') !== null
+            ? (bool) $this->option('dashboard')
+            : Config::getBool('hyde.server.dashboard.enabled', true);
+    }
+
     protected function getExecutablePath(): string
     {
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
@@ -70,6 +78,7 @@ class ServeCommand extends Command
     {
         return [
             'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
+            'SERVER_DASHBOARD' => $this->getDashboardSelection(),
         ];
     }
 
