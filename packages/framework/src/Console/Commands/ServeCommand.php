@@ -27,8 +27,11 @@ class ServeCommand extends Command
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
 
+    protected ConsoleOutput $console;
+
     public function handle(): int
     {
+        $this->configureOutput();
         $this->printStartMessage();
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
@@ -67,18 +70,25 @@ class ServeCommand extends Command
         ];
     }
 
+    protected function configureOutput(): void
+    {
+        if (! $this->useBasicOutput()) {
+            $this->console = new ConsoleOutput($this->output->isVerbose());
+        }
+    }
+
     protected function printStartMessage(): void
     {
         $this->useBasicOutput()
-            ? $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
-            : ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
+            ? $this->output->writeln('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
+            : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection());
     }
 
     protected function getOutputHandler(): Closure
     {
         return $this->useBasicOutput() ? function (string $type, string $line): void {
             $this->output->write($line);
-        } : ConsoleOutput::getFormatter($this->output->isVerbose());
+        } : $this->console->getFormatter();
     }
 
     protected function useBasicOutput(): bool

@@ -8,28 +8,27 @@ use Closure;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Symfony\Component\Console\Output\ConsoleOutput as SymfonyOutput;
 
-use function max;
-use function str;
-use function trim;
-use function strlen;
-use function substr;
-use function sprintf;
-use function str_repeat;
-use function str_replace;
-use function str_contains;
 use function Termwind\render;
 
 class ConsoleOutput
 {
     protected bool $verbose;
+    protected SymfonyOutput $output;
 
-    public static function printStartMessage(string $host, int $port): void
+    public function __construct(bool $verbose = false, ?SymfonyOutput $output = null)
+    {
+        $this->verbose = $verbose;
+        $this->output = $output ?? new SymfonyOutput();
+    }
+
+    public function printStartMessage(string $host, int $port): void
     {
         $title = 'HydePHP Realtime Compiler';
         $version = ' v'.Hyde::version();
 
-        $url = sprintf('http://%s:%d', $host, $port);
+        $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
         $width = max(strlen("$title $version"), strlen("Listening on $url") + 1) + 1;
         $spacing = str_repeat('&nbsp;', $width);
@@ -52,36 +51,31 @@ class ConsoleOutput
 HTML);
     }
 
-    public static function getFormatter(bool $verbose): Closure
+    public function getFormatter(): Closure
     {
-        $console = (new static($verbose));
-
-        return function (string $type, string $line) use ($console): void {
-            $console->handleOutput($line);
+        return function (string $type, string $line): void {
+            $this->handleOutput($line);
         };
     }
 
     /** @experimental */
-    public static function printMessage(string $message, string $context): void
+    public function printMessage(string $message, string $context): void
     {
-        $consoleOutput = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $consoleOutput->writeln(sprintf('%s [%s]', $message, $context));
-    }
-
-    public function __construct(bool $verbose = false)
-    {
-        $this->verbose = $verbose;
+        $this->output->writeln(sprintf('%s [%s]', $message, $context));
     }
 
     protected function handleOutput(string $buffer): void
     {
         str($buffer)->trim()->explode("\n")->each(function (string $line): void {
-            $line = $this->formatLineForOutput($line);
-
-            if ($line !== null) {
-                render($line);
-            }
+            $this->renderLine($this->formatLineForOutput($line));
         });
+    }
+
+    protected function renderLine(?string $line): void
+    {
+        if ($line !== null) {
+            render($line);
+        }
     }
 
     protected function formatLineForOutput(string $line): ?string
@@ -96,11 +90,7 @@ HTML);
             return $this->verbose ? $this->formatRequestStatusLine($line) : null;
         }
         if (str_contains($line, '[dashboard@')) {
-            $message = trim(Str::before($line, '[dashboard@'));
-            $context = trim(trim(Str::after($line, $message)), '[]');
-            $success = str_contains($message, 'Created') || str_contains($message, 'Updated');
-
-            return $this->formatLine($message, Carbon::now(), $success ? 'green-500' : 'blue-500', $context);
+            return $this->formatDashboardContextLine($line);
         }
 
         return $this->formatLine($line, Carbon::now());
@@ -133,7 +123,16 @@ HTML);
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
-    protected static function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500', string $context = ''): string
+    protected function formatDashboardContextLine(string $line): string
+    {
+        $message = trim(Str::before($line, '[dashboard@'));
+        $context = trim(trim(Str::after($line, $message)), '[]');
+        $success = str_contains($message, 'Created') || str_contains($message, 'Updated');
+
+        return $this->formatLine($message, Carbon::now(), $success ? 'green-500' : 'blue-500', $context);
+    }
+
+    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500', string $context = ''): string
     {
         if ($context) {
             $context = "$context ";
