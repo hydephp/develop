@@ -20,6 +20,7 @@ use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Facades\Process;
+use Hyde\RealtimeCompiler\ConsoleOutput;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
@@ -352,6 +353,8 @@ class DashboardController
         } catch (FileConflictException $exception) {
             $this->abort($exception->getCode(), $exception->getMessage());
         }
+
+        ConsoleOutput::printMessage("Created file '$path'", 'dashboard@createPage');
 
         $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
         $this->setJsonResponse(201, "Created file '$path'!");

@@ -17,6 +17,7 @@ use function substr;
 use function sprintf;
 use function str_repeat;
 use function str_replace;
+use function str_contains;
 use function Termwind\render;
 
 class ConsoleOutput
@@ -60,6 +61,13 @@ HTML);
         };
     }
 
+    /** @experimental */
+    public static function printMessage(string $message, string $context): void
+    {
+        $consoleOutput = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $consoleOutput->writeln(sprintf('%s [%s]', $message, $context));
+    }
+
     public function __construct(bool $verbose = false)
     {
         $this->verbose = $verbose;
@@ -86,6 +94,13 @@ HTML);
         }
         if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             return $this->verbose ? $this->formatRequestStatusLine($line) : null;
+        }
+        if (str_contains($line, '[dashboard@')) {
+            $message = trim(Str::before($line, '[dashboard@'));
+            $context = trim(trim(Str::after($line, $message)), '[]');
+            $success = str_contains($message, 'Created') || str_contains($message, 'Updated');
+
+            return $this->formatLine($message, Carbon::now(), $success ? 'green-500' : 'blue-500', $context);
         }
 
         return $this->formatLine($line, Carbon::now());
@@ -118,18 +133,22 @@ HTML);
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
-    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500'): string
+    protected static function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500', string $context = ''): string
     {
+        if ($context) {
+            $context = "$context ";
+        }
+
         return sprintf(<<<'HTML'
             <div class="flex w-full justify-between">
                 <span>
                     <span class="text-%s">i</span>
                     %s
                 </span>
-                <span class="text-gray">%s</span>
+                <span class="text-gray">%s%s</span>
             </div>
             HTML,
-            $iconColor, $message, $date->format('Y-m-d H:i:s')
+            $iconColor, $message, $context, $date->format('Y-m-d H:i:s')
         );
     }
 
