@@ -111,7 +111,7 @@ class ServeCommand extends ValidatingCommand
 
     protected function parseEnvironmentOption(string $name): ?string
     {
-        $value = $this->option($name);
+        $value = $this->option($name) ?? $this->checkArgvForOption($name);
 
         if ($value !== null) {
             return match ($value) {
@@ -119,6 +119,18 @@ class ServeCommand extends ValidatingCommand
                 'false' => 'disabled',
                 default => throw new InvalidArgumentException(sprintf('Invalid boolean value for --%s option.', $name))
             };
+        }
+
+        return null;
+    }
+
+    /** Fallback check so that an environment option without a value is acknowledged as true. */
+    protected function checkArgvForOption(string $name): ?string
+    {
+        if (isset($_SERVER['argv'])) {
+            if (in_array("--$name", $_SERVER['argv'], true)) {
+                return 'true';
+            }
         }
 
         return null;
