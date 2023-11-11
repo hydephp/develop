@@ -66,6 +66,13 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
+    public function test_getEnvironmentVariables()
+    {
+        $this->assertSame([
+            'HYDE_RC_REQUEST_OUTPUT' => true,
+        ], $this->getMock()->getEnvironmentVariables());
+    }
+
     public function testDashboardOptionPropagatesToEnvironmentVariables()
     {
         $command = $this->getMock(['dashboard' => 'false']);
