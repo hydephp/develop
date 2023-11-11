@@ -56,7 +56,10 @@ class DashboardController
     {
         $this->title = config('hyde.name').' - Dashboard';
         $this->request = Request::capture();
-        $this->console = new ConsoleOutput();
+
+        if (((bool) env('HYDE_RC_REQUEST_OUTPUT', false)) === true) {
+            $this->console = new ConsoleOutput();
+        }
 
         $this->loadFlashData();
 
@@ -355,7 +358,7 @@ class DashboardController
             $this->abort($exception->getCode(), $exception->getMessage());
         }
 
-        $this->console->printMessage("Created file '$path'", 'dashboard@createPage');
+        $this->writeToConsole("Created file '$path'", 'dashboard@createPage');
 
         $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
         $this->setJsonResponse(201, "Created file '$path'!");
@@ -509,5 +512,12 @@ class DashboardController
     protected function hasAsyncHeaders(): bool
     {
         return (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+    }
+
+    protected function writeToConsole(string $message, string $context = 'dashboard'): void
+    {
+        if (isset($this->console)) {
+            $this->console->printMessage($message, $context);
+        }
     }
 }
