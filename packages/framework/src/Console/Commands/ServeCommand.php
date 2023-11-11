@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
+use Hyde\Publications\Commands\ValidatingCommand;
 
 use function sprintf;
 use function class_exists;
@@ -20,7 +21,7 @@ use function class_exists;
  *
  * @see https://github.com/hydephp/realtime-compiler
  */
-class ServeCommand extends Command
+class ServeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'serve 
@@ -35,7 +36,7 @@ class ServeCommand extends Command
 
     protected ConsoleOutput $console;
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->configureOutput();
         $this->printStartMessage();
