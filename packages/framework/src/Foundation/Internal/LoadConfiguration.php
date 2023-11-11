@@ -92,12 +92,17 @@ class LoadConfiguration extends BaseLoadConfiguration
                 if (in_array('--no-api', $_SERVER['argv'], true)) {
                     $repository->set('hyde.api_calls', false);
                 }
-            } else {
-                // Check if HYDE_RC_SERVER_DASHBOARD environment variable is set, and if so, set the config value accordingly.
-                if (getenv('HYDE_RC_SERVER_DASHBOARD') !== false) {
-                    $repository->set('hyde.server.dashboard.enabled', getenv('HYDE_RC_SERVER_DASHBOARD') === 'enabled');
-                }
+            }
+
+            // Check if HYDE_RC_SERVER_DASHBOARD environment variable is set, and if so, set the config value accordingly.
+            if ($this->getEnv('HYDE_RC_SERVER_DASHBOARD') !== false) {
+                $repository->set('hyde.server.dashboard.enabled', $this->getEnv('HYDE_RC_SERVER_DASHBOARD') === 'enabled');
             }
         }
+    }
+
+    protected function getEnv(string $name): string|false
+    {
+        return getenv($name);
     }
 }
