@@ -15,21 +15,17 @@ class LoadConfigurationTest extends UnitTestCase
 {
     public function testItLoadsRuntimeConfiguration()
     {
-        $serverBackup = $_SERVER;
-
-        $_SERVER['argv'] = ['--pretty-urls', '--no-api'];
-
         $app = new Application(getcwd());
 
-        $loader = new LoadConfiguration();
+        $loader = new LoadConfigurationTestClass(['--pretty-urls', '--no-api']);
         $loader->bootstrap($app);
 
         $this->assertTrue(config('hyde.pretty_urls'));
         $this->assertFalse(config('hyde.api_calls'));
 
-        $_SERVER = $serverBackup;
-
+        $loader = new LoadConfigurationTestClass([]);
         $loader->bootstrap($app);
+
         $this->assertFalse(config('hyde.pretty_urls'));
         $this->assertNull(config('hyde.api_calls'));
     }
@@ -41,6 +37,21 @@ class LoadConfigurationTest extends UnitTestCase
 
         (new LoadConfigurationEnvironmentTestClass(['HYDE_SERVER_DASHBOARD' => 'disabled']))->bootstrap(new Application(getcwd()));
         $this->assertFalse(config('hyde.server.dashboard.enabled'));
+    }
+}
+
+class LoadConfigurationTestClass extends LoadConfiguration
+{
+    protected array $argv;
+
+    public function __construct(array $argv)
+    {
+        $this->argv = $argv;
+    }
+
+    protected function getArgv(): ?array
+    {
+        return $this->argv;
     }
 }
 
