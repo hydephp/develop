@@ -16,54 +16,46 @@ class ServeCommandOptionsUnitTest extends TestCase
 {
     public function test_getHostSelection()
     {
-        $command = new ServeCommandMock();
-        $this->assertSame('localhost', $command->getHostSelection());
+        $this->assertSame('localhost', (new ServeCommandMock())->getHostSelection());
     }
 
     public function test_getHostSelection_withHostOption()
     {
-        $command = new ServeCommandMock(['host' => 'foo']);
-        $this->assertSame('foo', $command->getHostSelection());
+        $this->assertSame('foo', (new ServeCommandMock(['host' => 'foo']))->getHostSelection());
     }
 
     public function test_getHostSelection_withConfigOption()
     {
         $this->app['config']->set('hyde.server.host', 'foo');
-        $command = new ServeCommandMock();
-        $this->assertSame('foo', $command->getHostSelection());
+        $this->assertSame('foo', (new ServeCommandMock())->getHostSelection());
     }
 
     public function test_getHostSelection_withHostOptionAndConfigOption()
     {
         $this->app['config']->set('hyde.server.host', 'foo');
-        $command = new ServeCommandMock(['host' => 'bar']);
-        $this->assertSame('bar', $command->getHostSelection());
+        $this->assertSame('bar', (new ServeCommandMock(['host' => 'bar']))->getHostSelection());
     }
 
     public function test_getPortSelection()
     {
-        $command = new ServeCommandMock();
-        $this->assertSame(8080, $command->getPortSelection());
+        $this->assertSame(8080, (new ServeCommandMock())->getPortSelection());
     }
 
     public function test_getPortSelection_withPortOption()
     {
-        $command = new ServeCommandMock(['port' => 8081]);
-        $this->assertSame(8081, $command->getPortSelection());
+        $this->assertSame(8081, (new ServeCommandMock(['port' => 8081]))->getPortSelection());
     }
 
     public function test_getPortSelection_withConfigOption()
     {
         $this->app['config']->set('hyde.server.port', 8082);
-        $command = new ServeCommandMock();
-        $this->assertSame(8082, $command->getPortSelection());
+        $this->assertSame(8082, (new ServeCommandMock())->getPortSelection());
     }
 
     public function test_getPortSelection_withPortOptionAndConfigOption()
     {
         $this->app['config']->set('hyde.server.port', 8082);
-        $command = new ServeCommandMock(['port' => 8081]);
-        $this->assertSame(8081, $command->getPortSelection());
+        $this->assertSame(8081, (new ServeCommandMock(['port' => 8081]))->getPortSelection());
     }
 }
 
