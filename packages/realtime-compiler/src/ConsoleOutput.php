@@ -14,8 +14,8 @@ use function Termwind\render;
 
 class ConsoleOutput
 {
-    protected SymfonyOutput $output;
     protected bool $verbose;
+    protected SymfonyOutput $output;
 
     public function __construct(bool $verbose = false, ?SymfonyOutput $output = null)
     {
