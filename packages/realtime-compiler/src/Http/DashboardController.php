@@ -39,8 +39,9 @@ class DashboardController
 
     protected Request $request;
     protected ConsoleOutput $console;
-    protected bool $isAsync = false;
+    protected JsonResponse $response;
 
+    protected bool $isAsync = false;
     protected array $flashes = [];
 
     protected static array $tips = [
@@ -51,8 +52,6 @@ class DashboardController
         'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
 
-    protected JsonResponse $response;
-
     public function __construct()
     {
         $this->title = config('hyde.name').' - Dashboard';
@@ -62,7 +61,7 @@ class DashboardController
         $this->loadFlashData();
 
         if ($this->request->method === 'POST') {
-            $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+            $this->isAsync = $this->hasAsyncHeaders();
         }
     }
 
@@ -505,5 +504,10 @@ class DashboardController
             409 => 'Conflict',
             default => 'Internal Server Error',
         };
+    }
+
+    protected function hasAsyncHeaders(): bool
+    {
+        return (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
     }
 }
