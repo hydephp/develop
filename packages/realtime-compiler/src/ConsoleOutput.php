@@ -8,6 +8,7 @@ use Closure;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Symfony\Component\Console\Output\ConsoleOutput as SymfonyOutput;
 
 use function max;
 use function str;
@@ -22,6 +23,7 @@ use function Termwind\render;
 
 class ConsoleOutput
 {
+    protected static SymfonyOutput $output;
     protected bool $verbose;
 
     public static function printStartMessage(string $host, int $port): void
@@ -64,8 +66,7 @@ HTML);
     /** @experimental */
     public static function printMessage(string $message, string $context): void
     {
-        $consoleOutput = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $consoleOutput->writeln(sprintf('%s [%s]', $message, $context));
+        static::getConsoleOutput()->writeln(sprintf('%s [%s]', $message, $context));
     }
 
     public function __construct(bool $verbose = false)
@@ -155,5 +156,10 @@ HTML);
     protected function parseDate(string $line): Carbon
     {
         return Carbon::parse(Str::betweenFirst($line, '[', ']'));
+    }
+
+    protected static function getConsoleOutput(): SymfonyOutput
+    {
+        return static::$output ??= new SymfonyOutput();
     }
 }
