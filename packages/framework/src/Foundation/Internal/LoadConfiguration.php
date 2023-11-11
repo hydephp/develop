@@ -98,6 +98,11 @@ class LoadConfiguration extends BaseLoadConfiguration
             if ($this->getEnv('HYDE_RC_SERVER_DASHBOARD') !== false) {
                 $repository->set('hyde.server.dashboard.enabled', $this->getEnv('HYDE_RC_SERVER_DASHBOARD') === 'enabled');
             }
+
+            // Check if HYDE_PRETTY_URLS environment variable is set, and if so, set the config value accordingly.
+            if ($this->getEnv('HYDE_PRETTY_URLS') !== false) {
+                $repository->set('hyde.pretty_urls', $this->getEnv('HYDE_PRETTY_URLS') === 'enabled');
+            }
         }
     }
 

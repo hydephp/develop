@@ -26,6 +26,7 @@ class ServeCommand extends Command
         {--host= : <comment>[default: "localhost"]</comment>}}
         {--port= : <comment>[default: 8080]</comment>}
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
+        {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
     ';
 
     /** @var string */
@@ -74,6 +75,9 @@ class ServeCommand extends Command
         ];
         if ($this->option('dashboard') !== null) {
             $vars['HYDE_RC_SERVER_DASHBOARD'] = $this->option('dashboard') !== 'false' ? 'enabled' : 'disabled';
+        }
+        if ($this->option('pretty-urls') !== null) {
+            $vars['HYDE_PRETTY_URLS'] = $this->option('pretty-urls') !== 'false' ? 'enabled' : 'disabled';
         }
 
         return $vars;
