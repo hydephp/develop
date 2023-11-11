@@ -111,7 +111,11 @@ class ServeCommand extends ValidatingCommand
     protected function parseEnvironmentOption(string $name): ?string
     {
         if ($this->option($name) !== null) {
-            return $this->option($name) !== 'false' ? 'enabled' : 'disabled';
+            return match ($this->option($name)) {
+                'true', '' => 'enabled',
+                'false' => 'disabled',
+                default => null
+            };
         }
 
         return null;
