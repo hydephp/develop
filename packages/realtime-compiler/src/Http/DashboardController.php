@@ -61,7 +61,7 @@ class DashboardController
         $this->loadFlashData();
 
         if ($this->request->method === 'POST') {
-            $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+            $this->isAsync = $this->hasAsyncHeaders();
         }
     }
 
@@ -504,5 +504,10 @@ class DashboardController
             409 => 'Conflict',
             default => 'Internal Server Error',
         };
+    }
+
+    protected function hasAsyncHeaders(): bool
+    {
+        return (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
     }
 }
