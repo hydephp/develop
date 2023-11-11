@@ -81,14 +81,14 @@ class ServeCommand extends Command
     {
         $this->useBasicOutput()
             ? $this->output->writeln('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
-            : ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
+            : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection());
     }
 
     protected function getOutputHandler(): Closure
     {
         return $this->useBasicOutput() ? function (string $type, string $line): void {
             $this->output->write($line);
-        } : ConsoleOutput::getFormatter($this->output->isVerbose());
+        } : $this->console->getFormatter();
     }
 
     protected function useBasicOutput(): bool

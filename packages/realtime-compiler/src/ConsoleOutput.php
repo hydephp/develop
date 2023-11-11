@@ -22,7 +22,7 @@ class ConsoleOutput
         $this->verbose = $verbose;
     }
 
-    public static function printStartMessage(string $host, int $port): void
+    public function printStartMessage(string $host, int $port): void
     {
         $title = 'HydePHP Realtime Compiler';
         $version = ' v'.Hyde::version();
@@ -50,12 +50,10 @@ class ConsoleOutput
 HTML);
     }
 
-    public static function getFormatter(bool $verbose): Closure
+    public function getFormatter(): Closure
     {
-        $console = (new static($verbose));
-
-        return function (string $type, string $line) use ($console): void {
-            $console->handleOutput($line);
+        return function (string $type, string $line): void {
+            $this->handleOutput($line);
         };
     }
 
