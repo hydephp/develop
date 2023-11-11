@@ -73,9 +73,11 @@ class ServeCommand extends Command
         $vars = [
             'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
         ];
+
         if ($this->option('dashboard') !== null) {
             $vars['HYDE_RC_SERVER_DASHBOARD'] = $this->option('dashboard') !== 'false' ? 'enabled' : 'disabled';
         }
+
         if ($this->option('pretty-urls') !== null) {
             $vars['HYDE_PRETTY_URLS'] = $this->option('pretty-urls') !== 'false' ? 'enabled' : 'disabled';
         }
