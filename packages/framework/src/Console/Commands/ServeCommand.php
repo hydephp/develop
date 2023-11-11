@@ -111,8 +111,8 @@ class ServeCommand extends Command
     {
         if ($this->option($name) !== null) {
             return $this->option($name) !== 'false' ? 'enabled' : 'disabled';
-        } else {
-            return null;
         }
+
+        return null;
     }
 }
