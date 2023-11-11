@@ -116,6 +116,50 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PRETTY_URLS']));
     }
 
+    public function test_parseEnvironmentOption()
+    {
+        $command = $this->getMock(['foo' => 'true']);
+        $this->assertSame('enabled', $command->parseEnvironmentOption('foo'));
+
+        $command = $this->getMock(['foo' => 'false']);
+        $this->assertSame('disabled', $command->parseEnvironmentOption('foo'));
+    }
+
+    public function test_parseEnvironmentOption_withEmptyString()
+    {
+        $command = $this->getMock(['foo' => '']);
+        $this->assertSame('enabled', $command->parseEnvironmentOption('foo'));
+    }
+
+    public function test_parseEnvironmentOption_withNull()
+    {
+        $command = $this->getMock(['foo' => null]);
+        $this->assertNull($command->parseEnvironmentOption('foo'));
+    }
+
+    public function test_parseEnvironmentOption_withInvalidValue()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid boolean value for --foo option.');
+
+        $command = $this->getMock(['foo' => 'bar']);
+        $command->parseEnvironmentOption('foo');
+    }
+
+    public function test_checkArgvForOption()
+    {
+        $serverBackup = $_SERVER;
+
+        $_SERVER['argv'] = ['--pretty-urls'];
+
+        $command = $this->getMock();
+
+        $this->assertSame('true', $command->checkArgvForOption('pretty-urls'));
+        $this->assertSame(null, $command->checkArgvForOption('dashboard'));
+
+        $_SERVER = $serverBackup;
+    }
+
     protected function getMock(array $options = []): ServeCommandMock
     {
         return new ServeCommandMock($options);
@@ -126,6 +170,8 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
  * @method getHostSelection
  * @method getPortSelection
  * @method getEnvironmentVariables
+ * @method parseEnvironmentOption(string $name)
+ * @method checkArgvForOption(string $name)
  */
 class ServeCommandMock extends ServeCommand
 {
