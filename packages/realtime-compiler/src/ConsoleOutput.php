@@ -90,11 +90,7 @@ HTML);
             return $this->verbose ? $this->formatRequestStatusLine($line) : null;
         }
         if (str_contains($line, '[dashboard@')) {
-            $message = trim(Str::before($line, '[dashboard@'));
-            $context = trim(trim(Str::after($line, $message)), '[]');
-            $success = str_contains($message, 'Created') || str_contains($message, 'Updated');
-
-            return $this->formatLine($message, Carbon::now(), $success ? 'green-500' : 'blue-500', $context);
+            return $this->formatDashboardContextLine($line);
         }
 
         return $this->formatLine($line, Carbon::now());
@@ -125,6 +121,15 @@ HTML);
         $status = str_contains($line, 'Accepted') ? 'Accepted' : 'Closing';
 
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
+    }
+
+    protected function formatDashboardContextLine(string $line): string
+    {
+        $message = trim(Str::before($line, '[dashboard@'));
+        $context = trim(trim(Str::after($line, $message)), '[]');
+        $success = str_contains($message, 'Created') || str_contains($message, 'Updated');
+
+        return $this->formatLine($message, Carbon::now(), $success ? 'green-500' : 'blue-500', $context);
     }
 
     protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500', string $context = ''): string
