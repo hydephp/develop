@@ -94,15 +94,15 @@ class LoadConfiguration extends BaseLoadConfiguration
                 }
             }
 
-            // Check if HYDE_SERVER_DASHBOARD environment variable is set, and if so, set the config value accordingly.
-            if ($this->getEnv('HYDE_SERVER_DASHBOARD') !== false) {
-                $repository->set('hyde.server.dashboard.enabled', $this->getEnv('HYDE_SERVER_DASHBOARD') === 'enabled');
-            }
+            $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_SERVER_DASHBOARD', 'hyde.server.dashboard.enabled');
+            $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_PRETTY_URLS', 'hyde.pretty_urls');
+        }
+    }
 
-            // Check if HYDE_PRETTY_URLS environment variable is set, and if so, set the config value accordingly.
-            if ($this->getEnv('HYDE_PRETTY_URLS') !== false) {
-                $repository->set('hyde.pretty_urls', $this->getEnv('HYDE_PRETTY_URLS') === 'enabled');
-            }
+    private function mergeRealtimeCompilerEnvironment(RepositoryContract $repository, string $environmentKey, string $configKey): void
+    {
+        if ($this->getEnv($environmentKey) !== false) {
+            $repository->set($configKey, $this->getEnv($environmentKey) === 'enabled');
         }
     }
 
