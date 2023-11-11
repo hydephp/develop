@@ -17,17 +17,17 @@ class LoadConfigurationTest extends UnitTestCase
     {
         $app = new Application(getcwd());
 
-        $loader = new LoadConfigurationTestClass(['--pretty-urls', '--no-api']);
-        $loader->bootstrap($app);
-
-        $this->assertTrue(config('hyde.pretty_urls'));
-        $this->assertFalse(config('hyde.api_calls'));
-
         $loader = new LoadConfigurationTestClass([]);
         $loader->bootstrap($app);
 
         $this->assertFalse(config('hyde.pretty_urls'));
         $this->assertNull(config('hyde.api_calls'));
+
+        $loader = new LoadConfigurationTestClass(['--pretty-urls', '--no-api']);
+        $loader->bootstrap($app);
+
+        $this->assertTrue(config('hyde.pretty_urls'));
+        $this->assertFalse(config('hyde.api_calls'));
     }
 
     public function testItLoadsRealtimeCompilerEnvironmentConfiguration()
