@@ -10,15 +10,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyOutput;
 
-use function max;
-use function str;
-use function trim;
-use function strlen;
-use function substr;
-use function sprintf;
-use function str_repeat;
-use function str_replace;
-use function str_contains;
 use function Termwind\render;
 
 class ConsoleOutput
