@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Support\Arr;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
@@ -74,15 +75,10 @@ class ServeCommand extends Command
             'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
         ];
 
-        if ($this->option('dashboard') !== null) {
-            $vars['HYDE_RC_SERVER_DASHBOARD'] = $this->option('dashboard') !== 'false' ? 'enabled' : 'disabled';
-        }
+        $vars['HYDE_RC_SERVER_DASHBOARD'] = $this->parseEnvironmentOption('dashboard');
+        $vars['HYDE_PRETTY_URLS'] = $this->parseEnvironmentOption('pretty-urls');
 
-        if ($this->option('pretty-urls') !== null) {
-            $vars['HYDE_PRETTY_URLS'] = $this->option('pretty-urls') !== 'false' ? 'enabled' : 'disabled';
-        }
-
-        return $vars;
+        return Arr::whereNotNull($vars);
     }
 
     protected function configureOutput(): void
@@ -109,5 +105,14 @@ class ServeCommand extends Command
     protected function useBasicOutput(): bool
     {
         return $this->option('no-ansi') || ! class_exists(ConsoleOutput::class);
+    }
+
+    protected function parseEnvironmentOption(string $name): ?string
+    {
+        if ($this->option($name) !== null) {
+            return $this->option($name) !== 'false' ? 'enabled' : 'disabled';
+        } else {
+            return null;
+        }
     }
 }
