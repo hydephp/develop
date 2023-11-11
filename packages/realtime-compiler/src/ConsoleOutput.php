@@ -17,6 +17,11 @@ class ConsoleOutput
     protected static SymfonyOutput $output;
     protected bool $verbose;
 
+    public function __construct(bool $verbose = false)
+    {
+        $this->verbose = $verbose;
+    }
+
     public static function printStartMessage(string $host, int $port): void
     {
         $title = 'HydePHP Realtime Compiler';
@@ -58,11 +63,6 @@ HTML);
     public static function printMessage(string $message, string $context): void
     {
         static::getConsoleOutput()->writeln(sprintf('%s [%s]', $message, $context));
-    }
-
-    public function __construct(bool $verbose = false)
-    {
-        $this->verbose = $verbose;
     }
 
     protected function handleOutput(string $buffer): void
