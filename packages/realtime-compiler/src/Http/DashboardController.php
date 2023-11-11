@@ -39,8 +39,9 @@ class DashboardController
 
     protected Request $request;
     protected ConsoleOutput $console;
-    protected bool $isAsync = false;
+    protected JsonResponse $response;
 
+    protected bool $isAsync = false;
     protected array $flashes = [];
 
     protected static array $tips = [
@@ -50,8 +51,6 @@ class DashboardController
         'You can disable tips using by setting `server.dashboard.tips` to `false` in `config/hyde.php`.',
         'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
-
-    protected JsonResponse $response;
 
     public function __construct()
     {
