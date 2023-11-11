@@ -73,6 +73,13 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         ], $this->getMock()->getEnvironmentVariables());
     }
 
+    public function test_getEnvironmentVariables_withNoAnsiOption()
+    {
+        $this->assertSame([
+            'HYDE_RC_REQUEST_OUTPUT' => false,
+        ], $this->getMock(['no-ansi' => true])->getEnvironmentVariables());
+    }
+
     public function testDashboardOptionPropagatesToEnvironmentVariables()
     {
         $command = $this->getMock(['dashboard' => 'false']);
