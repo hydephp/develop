@@ -58,7 +58,7 @@ class ServeCommandOptionsUnitTest extends TestCase
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
-    public function test_getDashboardSelection_propagatesToEnvironmentVariables()
+    public function testDashboardOptionPropagatesToEnvironmentVariables()
     {
         $command = $this->getMock(['dashboard' => 'false']);
         $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']);
