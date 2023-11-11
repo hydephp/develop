@@ -46,14 +46,14 @@ class ServeCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function getPortSelection(): int
-    {
-        return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
-    }
-
     protected function getHostSelection(): string
     {
         return (string) $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
+    }
+
+    protected function getPortSelection(): int
+    {
+        return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
     }
 
     protected function getExecutablePath(): string
