@@ -76,6 +76,24 @@ class ServeCommandOptionsUnitTest extends TestCase
         $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']));
     }
 
+    public function testPrettyUrlsOptionPropagatesToEnvironmentVariables()
+    {
+        $command = $this->getMock(['pretty-urls' => 'false']);
+        $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_PRETTY_URLS']);
+
+        $command = $this->getMock(['pretty-urls' => 'true']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_PRETTY_URLS']);
+
+        $command = $this->getMock(['pretty-urls' => '']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_PRETTY_URLS']);
+
+        $command = $this->getMock(['pretty-urls' => null]);
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PRETTY_URLS']));
+
+        $command = $this->getMock();
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PRETTY_URLS']));
+    }
+
     protected function getMock(array $options = []): ServeCommandMock
     {
         return new ServeCommandMock($options);
