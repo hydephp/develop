@@ -57,13 +57,6 @@ class ServeCommand extends Command
         return (int) ($this->option('port') ?: Config::getInt('hyde.server.port', 8080));
     }
 
-    protected function getDashboardSelection(): ?bool
-    {
-        return $this->option('dashboard') !== null
-            ? $this->option('dashboard') !== 'false'
-            : null;
-    }
-
     protected function getExecutablePath(): string
     {
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
@@ -79,8 +72,8 @@ class ServeCommand extends Command
         $vars = [
             'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
         ];
-        if ($this->getDashboardSelection() !== null) {
-            $vars['HYDE_RC_SERVER_DASHBOARD'] = $this->getDashboardSelection() ? 'enabled' : 'disabled';
+        if ($this->option('dashboard') !== null) {
+            $vars['HYDE_RC_SERVER_DASHBOARD'] = $this->option('dashboard') !== 'false' ? 'enabled' : 'disabled';
         }
 
         return $vars;
