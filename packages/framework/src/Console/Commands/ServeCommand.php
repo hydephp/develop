@@ -8,6 +8,7 @@ use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 use LaravelZero\Framework\Commands\Command;
@@ -114,7 +115,7 @@ class ServeCommand extends ValidatingCommand
             return match ($this->option($name)) {
                 'true', '' => 'enabled',
                 'false' => 'disabled',
-                default => null
+                default => throw new InvalidArgumentException(sprintf('Invalid boolean value for --%s option.', $name))
             };
         }
 
