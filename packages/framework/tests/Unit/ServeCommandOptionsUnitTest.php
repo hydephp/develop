@@ -69,33 +69,33 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     public function test_getEnvironmentVariables()
     {
         $this->assertSame([
-            'HYDE_RC_REQUEST_OUTPUT' => true,
+            'HYDE_SERVER_REQUEST_OUTPUT' => true,
         ], $this->getMock()->getEnvironmentVariables());
     }
 
     public function test_getEnvironmentVariables_withNoAnsiOption()
     {
         $this->assertSame([
-            'HYDE_RC_REQUEST_OUTPUT' => false,
+            'HYDE_SERVER_REQUEST_OUTPUT' => false,
         ], $this->getMock(['no-ansi' => true])->getEnvironmentVariables());
     }
 
     public function testDashboardOptionPropagatesToEnvironmentVariables()
     {
         $command = $this->getMock(['dashboard' => 'false']);
-        $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']);
+        $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']);
 
         $command = $this->getMock(['dashboard' => 'true']);
-        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']);
 
         $command = $this->getMock(['dashboard' => '']);
-        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']);
 
         $command = $this->getMock(['dashboard' => null]);
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']));
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']));
 
         $command = $this->getMock();
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']));
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']));
     }
 
     public function testPrettyUrlsOptionPropagatesToEnvironmentVariables()

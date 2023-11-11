@@ -20,7 +20,7 @@ try {
     echo '<h2>Initial exception:</h2><pre>'.print_r($exception, true).'</pre>';
     echo '<h2>Auxiliary exception:</h2><pre>'.print_r($th, true).'</pre>';
 } finally {
-    if (getenv('HYDE_RC_REQUEST_OUTPUT')) {
+    if (getenv('HYDE_SERVER_REQUEST_OUTPUT')) {
         // Write to console to emulate the standard built-in PHP server output
         $request = \Desilva\Microserve\Request::capture();
         file_put_contents('php://stderr', sprintf(

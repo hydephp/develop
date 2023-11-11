@@ -74,8 +74,8 @@ class ServeCommand extends ValidatingCommand
     protected function getEnvironmentVariables(): array
     {
         return Arr::whereNotNull([
-            'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
-            'HYDE_RC_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
+            'HYDE_SERVER_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
+            'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
         ]);
     }

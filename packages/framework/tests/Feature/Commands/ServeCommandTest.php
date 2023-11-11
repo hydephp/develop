@@ -146,7 +146,7 @@ class ServeCommandTest extends TestCase
 
         Process::shouldReceive('env')
             ->once()
-            ->with(['HYDE_RC_REQUEST_OUTPUT' => false])
+            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
             ->andReturnSelf();
 
         Process::shouldReceive('run')

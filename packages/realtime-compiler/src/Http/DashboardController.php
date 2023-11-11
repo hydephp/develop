@@ -57,7 +57,7 @@ class DashboardController
         $this->title = config('hyde.name').' - Dashboard';
         $this->request = Request::capture();
 
-        if (((bool) env('HYDE_RC_REQUEST_OUTPUT', false)) === true) {
+        if (((bool) env('HYDE_SERVER_REQUEST_OUTPUT', false)) === true) {
             $this->console = new ConsoleOutput();
         }
 

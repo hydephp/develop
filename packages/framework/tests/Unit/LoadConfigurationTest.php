@@ -36,10 +36,10 @@ class LoadConfigurationTest extends UnitTestCase
 
     public function testItLoadsRealtimeCompilerEnvironmentConfiguration()
     {
-        (new LoadConfigurationEnvironmentTestClass(['HYDE_RC_SERVER_DASHBOARD' => 'enabled']))->bootstrap(new Application(getcwd()));
+        (new LoadConfigurationEnvironmentTestClass(['HYDE_SERVER_DASHBOARD' => 'enabled']))->bootstrap(new Application(getcwd()));
         $this->assertTrue(config('hyde.server.dashboard.enabled'));
 
-        (new LoadConfigurationEnvironmentTestClass(['HYDE_RC_SERVER_DASHBOARD' => 'disabled']))->bootstrap(new Application(getcwd()));
+        (new LoadConfigurationEnvironmentTestClass(['HYDE_SERVER_DASHBOARD' => 'disabled']))->bootstrap(new Application(getcwd()));
         $this->assertFalse(config('hyde.server.dashboard.enabled'));
     }
 }
