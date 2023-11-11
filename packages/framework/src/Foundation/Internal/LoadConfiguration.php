@@ -106,7 +106,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         }
     }
 
-    protected function getEnv(string $name): string|false
+    protected function getEnv(string $name): string|false|null
     {
         return getenv($name);
     }
