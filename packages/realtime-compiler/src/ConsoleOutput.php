@@ -14,12 +14,13 @@ use function Termwind\render;
 
 class ConsoleOutput
 {
-    protected static SymfonyOutput $output;
+    protected SymfonyOutput $output;
     protected bool $verbose;
 
-    public function __construct(bool $verbose = false)
+    public function __construct(bool $verbose = false, ?SymfonyOutput $output = null)
     {
         $this->verbose = $verbose;
+        $this->output = $output ?? new SymfonyOutput();
     }
 
     public function printStartMessage(string $host, int $port): void
@@ -58,9 +59,9 @@ HTML);
     }
 
     /** @experimental */
-    public static function printMessage(string $message, string $context): void
+    public function printMessage(string $message, string $context): void
     {
-        static::getConsoleOutput()->writeln(sprintf('%s [%s]', $message, $context));
+        $this->output->writeln(sprintf('%s [%s]', $message, $context));
     }
 
     protected function handleOutput(string $buffer): void
@@ -126,7 +127,7 @@ HTML);
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
-    protected static function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500', string $context = ''): string
+    protected function formatLine(string $message, Carbon $date, string $iconColor = 'blue-500', string $context = ''): string
     {
         if ($context) {
             $context = "$context ";
@@ -148,10 +149,5 @@ HTML);
     protected function parseDate(string $line): Carbon
     {
         return Carbon::parse(Str::betweenFirst($line, '[', ']'));
-    }
-
-    protected static function getConsoleOutput(): SymfonyOutput
-    {
-        return static::$output ??= new SymfonyOutput();
     }
 }

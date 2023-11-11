@@ -38,6 +38,7 @@ class DashboardController
     public string $title;
 
     protected Request $request;
+    protected ConsoleOutput $console;
     protected bool $isAsync = false;
 
     protected array $flashes = [];
@@ -56,6 +57,7 @@ class DashboardController
     {
         $this->title = config('hyde.name').' - Dashboard';
         $this->request = Request::capture();
+        $this->console = new ConsoleOutput();
 
         $this->loadFlashData();
 
@@ -354,7 +356,7 @@ class DashboardController
             $this->abort($exception->getCode(), $exception->getMessage());
         }
 
-        ConsoleOutput::printMessage("Created file '$path'", 'dashboard@createPage');
+        $this->console->printMessage("Created file '$path'", 'dashboard@createPage');
 
         $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
         $this->setJsonResponse(201, "Created file '$path'!");
