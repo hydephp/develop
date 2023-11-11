@@ -60,24 +60,26 @@ class ServeCommandOptionsUnitTest extends TestCase
 
     public function test_getDashboardSelection()
     {
-        $this->assertSame(true, $this->getMock()->getDashboardSelection());
+        $this->assertSame(null, $this->getMock()->getDashboardSelection());
     }
 
     public function test_getDashboardSelection_withDashboardOption()
     {
-        $this->assertSame(false, $this->getMock(['dashboard' => false])->getDashboardSelection());
+        $this->assertSame(false, $this->getMock(['dashboard' => 'false'])->getDashboardSelection());
+        $this->assertSame(true, $this->getMock(['dashboard' => 'true'])->getDashboardSelection());
+        $this->assertSame(true, $this->getMock(['dashboard' => ''])->getDashboardSelection());
     }
 
     public function test_getDashboardSelection_withConfigOption()
     {
         $this->app['config']->set('hyde.server.dashboard.enabled', false);
-        $this->assertSame(false, $this->getMock()->getDashboardSelection());
+        $this->assertSame(null, $this->getMock()->getDashboardSelection());
     }
 
     public function test_getDashboardSelection_withDashboardOptionAndConfigOption()
     {
         $this->app['config']->set('hyde.server.dashboard.enabled', false);
-        $this->assertSame(true, $this->getMock(['dashboard' => true])->getDashboardSelection());
+        $this->assertSame(true, $this->getMock(['dashboard' => 'true'])->getDashboardSelection());
     }
 
     public function test_getDashboardSelection_propagatesToEnvironmentVariables()
@@ -85,16 +87,16 @@ class ServeCommandOptionsUnitTest extends TestCase
         $command = $this->getMock();
 
         $this->app['config']->set('hyde.server.dashboard.enabled', false);
-        $this->assertSame(false, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+        $this->assertSame(false, isset($command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']));
 
         $this->app['config']->set('hyde.server.dashboard.enabled', true);
-        $this->assertSame(true, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+        $this->assertSame(false, isset($command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']));
 
-        $command = $this->getMock(['dashboard' => false]);
-        $this->assertSame(false, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+        $command = $this->getMock(['dashboard' => 'false']);
+        $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']);
 
-        $command = $this->getMock(['dashboard' => true]);
-        $this->assertSame(true, $command->getEnvironmentVariables()['SERVER_DASHBOARD']);
+        $command = $this->getMock(['dashboard' => 'true']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_RC_SERVER_DASHBOARD']);
     }
 
     protected function getMock(array $options = []): ServeCommandMock

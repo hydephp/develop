@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
+use function getenv;
 use function array_merge;
 use function dirname;
 use function in_array;
@@ -90,6 +91,11 @@ class LoadConfiguration extends BaseLoadConfiguration
                 // Check if the `--no-api` CLI argument is set, and if so, set the config value accordingly.
                 if (in_array('--no-api', $_SERVER['argv'], true)) {
                     $repository->set('hyde.api_calls', false);
+                }
+            } else {
+                // Check if HYDE_RC_SERVER_DASHBOARD environment variable is set, and if so, set the config value accordingly.
+                if (getenv('HYDE_RC_SERVER_DASHBOARD') !== false) {
+                    $repository->set('hyde.server.dashboard.enabled', getenv('HYDE_RC_SERVER_DASHBOARD') === 'enabled');
                 }
             }
         }
