@@ -80,15 +80,17 @@ class LoadConfiguration extends BaseLoadConfiguration
 
     private function loadRuntimeConfiguration(Application $app, RepositoryContract $repository): void
     {
-        if ($app->runningInConsole() && isset($_SERVER['argv'])) {
-            // Check if the `--pretty-urls` CLI argument is set, and if so, set the config value accordingly.
-            if (in_array('--pretty-urls', $_SERVER['argv'], true)) {
-                $repository->set('hyde.pretty_urls', true);
-            }
+        if ($app->runningInConsole()) {
+            if (isset($_SERVER['argv'])) {
+                // Check if the `--pretty-urls` CLI argument is set, and if so, set the config value accordingly.
+                if (in_array('--pretty-urls', $_SERVER['argv'], true)) {
+                    $repository->set('hyde.pretty_urls', true);
+                }
 
-            // Check if the `--no-api` CLI argument is set, and if so, set the config value accordingly.
-            if (in_array('--no-api', $_SERVER['argv'], true)) {
-                $repository->set('hyde.api_calls', false);
+                // Check if the `--no-api` CLI argument is set, and if so, set the config value accordingly.
+                if (in_array('--no-api', $_SERVER['argv'], true)) {
+                    $repository->set('hyde.api_calls', false);
+                }
             }
         }
     }
