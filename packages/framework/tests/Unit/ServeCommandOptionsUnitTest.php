@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Commands\ServeCommand;
 
 /**
@@ -12,8 +12,16 @@ use Hyde\Console\Commands\ServeCommand;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\ServeCommandTest
  */
-class ServeCommandOptionsUnitTest extends TestCase
+class ServeCommandOptionsUnitTest extends UnitTestCase
 {
+    protected function setUp(): void
+    {
+        self::mockConfig([
+            'hyde.server.host' => 'localhost',
+            'hyde.server.port' => 8080,
+        ]);
+    }
+
     public function test_getHostSelection()
     {
         $this->assertSame('localhost', $this->getMock()->getHostSelection());
@@ -26,13 +34,13 @@ class ServeCommandOptionsUnitTest extends TestCase
 
     public function test_getHostSelection_withConfigOption()
     {
-        $this->app['config']->set('hyde.server.host', 'foo');
+        self::mockConfig(['hyde.server.host' => 'foo']);
         $this->assertSame('foo', $this->getMock()->getHostSelection());
     }
 
     public function test_getHostSelection_withHostOptionAndConfigOption()
     {
-        $this->app['config']->set('hyde.server.host', 'foo');
+        self::mockConfig(['hyde.server.host' => 'foo']);
         $this->assertSame('bar', $this->getMock(['host' => 'bar'])->getHostSelection());
     }
 
@@ -48,13 +56,13 @@ class ServeCommandOptionsUnitTest extends TestCase
 
     public function test_getPortSelection_withConfigOption()
     {
-        $this->app['config']->set('hyde.server.port', 8082);
+        self::mockConfig(['hyde.server.port' => 8082]);
         $this->assertSame(8082, $this->getMock()->getPortSelection());
     }
 
     public function test_getPortSelection_withPortOptionAndConfigOption()
     {
-        $this->app['config']->set('hyde.server.port', 8082);
+        self::mockConfig(['hyde.server.port' => 8082]);
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
