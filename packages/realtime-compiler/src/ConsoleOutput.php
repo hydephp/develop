@@ -66,12 +66,15 @@ HTML);
     protected function handleOutput(string $buffer): void
     {
         str($buffer)->trim()->explode("\n")->each(function (string $line): void {
-            $line = $this->formatLineForOutput($line);
-
-            if ($line !== null) {
-                render($line);
-            }
+            $this->renderLine($this->formatLineForOutput($line));
         });
+    }
+
+    protected function renderLine(?string $line): void
+    {
+        if ($line !== null) {
+            render($line);
+        }
     }
 
     protected function formatLineForOutput(string $line): ?string
