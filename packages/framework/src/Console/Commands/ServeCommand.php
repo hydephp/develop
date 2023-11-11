@@ -80,7 +80,7 @@ class ServeCommand extends Command
     protected function printStartMessage(): void
     {
         $this->useBasicOutput()
-            ? $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
+            ? $this->output->writeln('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
             : ConsoleOutput::printStartMessage($this->getHostSelection(), $this->getPortSelection());
     }
 
