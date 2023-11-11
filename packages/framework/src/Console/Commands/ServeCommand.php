@@ -22,7 +22,7 @@ use function class_exists;
 class ServeCommand extends Command
 {
     /** @var string */
-    protected $signature = 'serve {--host= : <comment>[default: "localhost"]</comment>}} {--port= : <comment>[default: 8080]</comment>}';
+    protected $signature = 'serve {--host=localhost} {--port=8080}';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
