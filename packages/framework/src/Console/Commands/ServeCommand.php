@@ -27,8 +27,11 @@ class ServeCommand extends Command
     /** @var string */
     protected $description = 'Start the realtime compiler server.';
 
+    protected ConsoleOutput $console;
+
     public function handle(): int
     {
+        $this->configureOutput();
         $this->printStartMessage();
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
@@ -65,6 +68,13 @@ class ServeCommand extends Command
         return [
             'HYDE_RC_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
         ];
+    }
+
+    protected function configureOutput(): void
+    {
+        if (! $this->useBasicOutput()) {
+            $this->console = new ConsoleOutput($this->output->isVerbose());
+        }
     }
 
     protected function printStartMessage(): void
