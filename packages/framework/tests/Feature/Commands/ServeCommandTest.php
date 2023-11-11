@@ -13,6 +13,7 @@ use Hyde\RealtimeCompiler\ConsoleOutput;
 
 /**
  * @covers \Hyde\Console\Commands\ServeCommand
+ *
  * @see \Hyde\Framework\Testing\Unit\ServeCommandOptionsUnitTest
  */
 class ServeCommandTest extends TestCase
