@@ -28,7 +28,7 @@ class ConsoleOutput
         $title = 'HydePHP Realtime Compiler';
         $version = ' v'.Hyde::version();
 
-        $url = sprintf('http://%s:%d', $host, $port);
+        $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
         $width = max(strlen("$title $version"), strlen("Listening on $url") + 1) + 1;
         $spacing = str_repeat('&nbsp;', $width);
