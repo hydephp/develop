@@ -45,8 +45,7 @@ class ConsoleOutput
 &nbsp;│{$spacing}│<br>
 &nbsp;│{$line2}│<br>
 &nbsp;│{$spacing}│<br>
-&nbsp;╰{$lines}╯
-<br>
+&nbsp;╰{$lines}╯<br>
 </div>
 HTML);
     }
