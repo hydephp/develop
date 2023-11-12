@@ -47,9 +47,7 @@ class ConsoleOutput
         $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
         $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
 
-        $lines = array_merge([$topLine], $lines, [$bottomLine]);
-
-        $body = implode('<br>', array_merge([''], $lines, ['']));
+        $body = implode('<br>', array_merge([''], [$topLine], $lines, [$bottomLine], ['']));
 
         render("<div class=\"text-green-500\">$body</div>");
     }
