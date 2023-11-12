@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Str;
 
-require_once __DIR__.'/../../../vendor/autoload.php';
+// require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
 
