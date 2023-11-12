@@ -83,19 +83,19 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         if ($app->runningInConsole()) {
             if ($this->getArgv() !== null) {
-                // Check if the `--pretty-urls` CLI argument is set, and if so, set the config value accordingly.
-                if (in_array('--pretty-urls', $this->getArgv(), true)) {
-                    $repository->set('hyde.pretty_urls', true);
-                }
-
-                // Check if the `--no-api` CLI argument is set, and if so, set the config value accordingly.
-                if (in_array('--no-api', $this->getArgv(), true)) {
-                    $repository->set('hyde.api_calls', false);
-                }
+                $this->mergeCommandLineArguments($repository, '--pretty-urls', 'hyde.pretty_urls', true);
+                $this->mergeCommandLineArguments($repository, '--no-api', 'hyde.api_calls', false);
             }
 
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_SERVER_DASHBOARD', 'hyde.server.dashboard.enabled');
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_PRETTY_URLS', 'hyde.pretty_urls');
+        }
+    }
+
+    private function mergeCommandLineArguments(RepositoryContract $repository, string $argumentName, string $configKey, bool $value): void
+    {
+        if (in_array($argumentName, $this->getArgv(), true)) {
+            $repository->set($configKey, $value);
         }
     }
 
