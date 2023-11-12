@@ -33,7 +33,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
  */
-class DashboardController
+class DashboardController extends BaseController
 {
     public string $title;
 
