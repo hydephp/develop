@@ -296,6 +296,7 @@ navigation menu items are hidden. The page will still be accessible as normal bu
 
 The Realtime Compiler that powers the `php hyde serve` command will automatically generate a fresh search index each time the browser requests it.
 
+
 ## Automatic "Edit Page" button
 
 ### Introduction
