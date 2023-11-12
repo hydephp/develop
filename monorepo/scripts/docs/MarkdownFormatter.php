@@ -534,7 +534,7 @@ class Str
 
     public static function ucfirst($string): string
     {
-        return mb_strtoupper(static::substr($string, 0, 1), 'UTF-8') .static::substr($string, 1);
+        return mb_strtoupper(static::substr($string, 0, 1), 'UTF-8').static::substr($string, 1);
     }
 
     protected static function substr($string, $start, $length = null, $encoding = 'UTF-8'): string
