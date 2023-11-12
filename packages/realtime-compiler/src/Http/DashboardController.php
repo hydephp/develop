@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Desilva\Microserve\Response;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
@@ -19,6 +20,7 @@ use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Facades\Process;
+use Hyde\RealtimeCompiler\ConsoleOutput;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Desilva\Microserve\Request;
@@ -28,31 +30,6 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-use function e;
-use function str;
-use function time;
-use function trim;
-use function round;
-use function rtrim;
-use function strlen;
-use function substr;
-use function is_bool;
-use function basename;
-use function in_array;
-use function json_decode;
-use function json_encode;
-use function substr_count;
-use function array_combine;
-use function trigger_error;
-use function escapeshellarg;
-use function file_get_contents;
-use function str_starts_with;
-use function str_replace;
-use function array_merge;
-use function sprintf;
-use function config;
-use function app;
-
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
  */
@@ -61,8 +38,10 @@ class DashboardController
     public string $title;
 
     protected Request $request;
-    protected bool $isAsync = false;
+    protected ConsoleOutput $console;
+    protected JsonResponse $response;
 
+    protected bool $isAsync = false;
     protected array $flashes = [];
 
     protected static array $tips = [
@@ -78,65 +57,66 @@ class DashboardController
         $this->title = config('hyde.name').' - Dashboard';
         $this->request = Request::capture();
 
+        if (((bool) env('HYDE_SERVER_REQUEST_OUTPUT', false)) === true) {
+            $this->console = new ConsoleOutput();
+        }
+
         $this->loadFlashData();
 
         if ($this->request->method === 'POST') {
-            $this->isAsync = (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+            $this->isAsync = $this->hasAsyncHeaders();
+        }
+    }
 
+    public function handle(): Response
+    {
+        if ($this->request->method === 'POST') {
             if (! $this->isInteractive()) {
-                $this->abort(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+                return $this->sendJsonErrorResponse(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
+            }
+
+            if ($this->shouldUnsafeRequestBeBlocked()) {
+                return $this->sendJsonErrorResponse(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
             }
 
             try {
-                $this->handlePostRequest();
+                return $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {
                     throw $exception;
                 }
 
-                $this->sendJsonErrorResponse($exception);
+                return $this->sendJsonErrorResponse($exception->getStatusCode(), $exception->getMessage());
             }
         }
+
+        return new HtmlResponse(200, 'OK', [
+            'body' => $this->show(),
+        ]);
     }
 
-    protected function handlePostRequest(): void
-    {
-        $actions = array_combine($actions = [
-            'openInExplorer',
-            'openPageInEditor',
-            'openMediaFileInEditor',
-            'createPage',
-        ], $actions);
-
-        $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
-        $action = $actions[$action] ?? $this->abort(403, "Invalid action '$action'");
-
-        if ($action === 'openInExplorer') {
-            $this->openInExplorer();
-        }
-
-        if ($action === 'openPageInEditor') {
-            $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
-            $page = Routes::getOrFail($routeKey)->getPage();
-            $this->openPageInEditor($page);
-        }
-
-        if ($action === 'openMediaFileInEditor') {
-            $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
-            $asset = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
-            $this->openMediaFileInEditor($asset);
-        }
-
-        if ($action === 'createPage') {
-            $this->createPage();
-        }
-    }
-
-    public function show(): string
+    protected function show(): string
     {
         return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
             (array) $this, ['dashboard' => $this, 'request' => $this->request],
         ));
+    }
+
+    protected function handlePostRequest(): JsonResponse
+    {
+        $action = $this->request->data['action'] ?? $this->abort(400, 'Must provide action');
+
+        match ($action) {
+            'openInExplorer' => $this->openInExplorer(),
+            'openPageInEditor' => $this->openPageInEditor(),
+            'openMediaFileInEditor' => $this->openMediaFileInEditor(),
+            'createPage' => $this->createPage(),
+            default => $this->abort(403, "Invalid action '$action'"),
+        };
+
+        return $this->response ?? new JsonResponse(200, 'OK', [
+            'message' => 'Action completed successfully',
+        ]);
     }
 
     public function getVersion(): string
@@ -185,7 +165,7 @@ class DashboardController
         $contents = str_replace(['&#039;', '&quot;'], ['%SQT%', '%DQT%'], $contents); // Temporarily replace escaped quotes
 
         if (static::isMediaFileProbablyMinified($contents)) {
-            return new HtmlString(substr($contents, 0, 800));
+            return new HtmlString(substr($contents, 0, count(MediaFile::files()) === 1 ? 2000 : 800));
         }
 
         $highlighted = str($contents)->explode("\n")->slice(0, 25)->map(function (string $line): string {
@@ -239,7 +219,7 @@ class DashboardController
 
     public static function enabled(): bool
     {
-        // Previously, the setting was hyde.server.dashboard, so for backwards compatability we need this
+        /** @deprecated Previously, the setting was hyde.server.dashboard, so for backwards compatability we need this */
         if (is_bool($oldConfig = config('hyde.server.dashboard'))) {
             trigger_error('Using `hyde.server.dashboard` as boolean is deprecated. Please use `hyde.server.dashboard.enabled` instead.', E_USER_DEPRECATED);
 
@@ -310,79 +290,78 @@ class DashboardController
 
     protected function openInExplorer(): void
     {
-        if ($this->isInteractive()) {
-            $binary = $this->findGeneralOpenBinary();
-            $path = Hyde::path();
+        $binary = $this->findGeneralOpenBinary();
+        $path = Hyde::path();
 
-            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
-        }
+        Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
-    protected function openPageInEditor(HydePage $page): void
+    protected function openPageInEditor(): void
     {
-        if ($this->isInteractive()) {
-            $binary = $this->findGeneralOpenBinary();
-            $path = Hyde::path($page->getSourcePath());
+        $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
+        $page = Routes::getOrFail($routeKey)->getPage();
 
-            if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
-                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
-            }
+        $binary = $this->findGeneralOpenBinary();
+        $path = Hyde::path($page->getSourcePath());
 
-            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        if (! (str_ends_with($path, '.md') || str_ends_with($path, '.blade.php'))) {
+            $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
         }
+
+        Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
-    protected function openMediaFileInEditor(MediaFile $file): void
+    protected function openMediaFileInEditor(): void
     {
-        if ($this->isInteractive()) {
-            $binary = $this->findGeneralOpenBinary();
-            $path = $file->getAbsolutePath();
+        $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
+        $file = @MediaFile::all()[$identifier] ?? $this->abort(404, "Invalid media identifier '$identifier'");
 
-            if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'])) {
-                $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
-            }
+        $binary = $this->findGeneralOpenBinary();
+        $path = $file->getAbsolutePath();
 
-            Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+        if (! in_array($file->getExtension(), ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'])) {
+            $this->abort(403, sprintf("Refusing to open unsafe file '%s'", basename($path)));
         }
+
+        Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
     protected function createPage(): void
     {
-        if ($this->isInteractive()) {
-            // Required data
-            $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
-            $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
-            $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
+        // Required data
+        $title = $this->request->data['titleInput'] ?? $this->abort(400, 'Must provide title');
+        $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
+        $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
 
-            // Optional data
-            $postDescription = $this->request->data['postDescription'] ?? null;
-            $postCategory = $this->request->data['postCategory'] ?? null;
-            $postAuthor = $this->request->data['postAuthor'] ?? null;
-            $postDate = $this->request->data['postDate'] ?? null;
+        // Optional data
+        $postDescription = $this->request->data['postDescription'] ?? null;
+        $postCategory = $this->request->data['postCategory'] ?? null;
+        $postAuthor = $this->request->data['postAuthor'] ?? null;
+        $postDate = $this->request->data['postDate'] ?? null;
 
-            // Match page class
-            $pageClass = match ($pageType) {
-                'blade-page' => BladePage::class,
-                'markdown-page' => MarkdownPage::class,
-                'markdown-post' => MarkdownPost::class,
-                'documentation-page' => DocumentationPage::class,
-                default => throw new HttpException(400, "Invalid page type '$pageType'"),
-            };
+        // Match page class
+        $pageClass = match ($pageType) {
+            'blade-page' => BladePage::class,
+            'markdown-page' => MarkdownPage::class,
+            'markdown-post' => MarkdownPost::class,
+            'documentation-page' => DocumentationPage::class,
+            default => $this->abort(400, "Unsupported page type '$pageType'"),
+        };
 
-            if ($pageClass === MarkdownPost::class) {
-                $creator = new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content);
-            } else {
-                $creator = new CreatesNewPageSourceFile($title, $pageClass, false, $content);
-            }
-            try {
-                $path = $creator->save();
-            } catch (FileConflictException $exception) {
-                $this->abort($exception->getCode(), $exception->getMessage());
-            }
+        $creator = $pageClass === MarkdownPost::class
+            ? new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content)
+            : new CreatesNewPageSourceFile($title, $pageClass, false, $content);
 
-            $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
-            $this->sendJsonResponse(201, "Created file '$path'!");
+        try {
+            $path = $creator->save();
+        } catch (FileConflictException $exception) {
+            $this->abort($exception->getCode(), $exception->getMessage());
         }
+
+        $this->writeToConsole("Created file '$path'", 'dashboard@createPage');
+
+        $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
+        $this->setJsonResponse(201, "Created file '$path'!");
     }
 
     protected static function injectDashboardButton(string $contents): string
@@ -472,36 +451,31 @@ class DashboardController
         return $prettyVersion ?? 'unreleased';
     }
 
-    protected function sendJsonResponse(int $statusCode, string $body): never
+    protected function shouldUnsafeRequestBeBlocked(): bool
     {
-        $statusMessage = match ($statusCode) {
-            200 => 'OK',
-            201 => 'Created',
-            default => 'Internal Server Error',
-        };
+        // As the dashboard is not password-protected, and it can make changes to the file system,
+        // we block any requests that are not coming from the host machine. While we are clear
+        // in the documentation that the realtime compiler should only be used for local
+        // development, we still want to be extra careful in case someone forgets.
 
-        (new JsonResponse($statusCode, $statusMessage, [
-            'body' => $body,
-        ]))->send();
+        $requestIp = $_SERVER['REMOTE_ADDR'];
+        $allowedIps = ['::1', '127.0.0.1', 'localhost'];
 
-        exit;
+        return ! in_array($requestIp, $allowedIps, true);
     }
 
-    protected function sendJsonErrorResponse(HttpException $exception): never
+    protected function setJsonResponse(int $statusCode, string $body): void
     {
-        $statusMessage = match ($exception->getStatusCode()) {
-            400 => 'Bad Request',
-            403 => 'Forbidden',
-            404 => 'Not Found',
-            409 => 'Conflict',
-            default => 'Internal Server Error',
-        };
+        $this->response = new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
+            'body' => $body,
+        ]);
+    }
 
-        (new JsonResponse($exception->getStatusCode(), $statusMessage, [
-            'error' => $exception->getMessage(),
-        ]))->send();
-
-        exit;
+    protected function sendJsonErrorResponse(int $statusCode, string $message): JsonResponse
+    {
+        return new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
+            'error' => $message,
+        ]);
     }
 
     protected function abort(int $code, string $message): never
@@ -516,9 +490,34 @@ class DashboardController
             'Windows' => 'powershell Start-Process',
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
-            default => throw new HttpException(500,
-                sprintf("Unable to find a matching binary for OS family '%s'", PHP_OS_FAMILY)
+            default => $this->abort(500,
+                sprintf("Unable to find a matching 'open' binary for OS family '%s'", PHP_OS_FAMILY)
             )
         };
+    }
+
+    protected function matchStatusCode(int $statusCode): string
+    {
+        return match ($statusCode) {
+            200 => 'OK',
+            201 => 'Created',
+            400 => 'Bad Request',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            409 => 'Conflict',
+            default => 'Internal Server Error',
+        };
+    }
+
+    protected function hasAsyncHeaders(): bool
+    {
+        return (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
+    }
+
+    protected function writeToConsole(string $message, string $context = 'dashboard'): void
+    {
+        if (isset($this->console)) {
+            $this->console->printMessage($message, $context);
+        }
     }
 }

@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
