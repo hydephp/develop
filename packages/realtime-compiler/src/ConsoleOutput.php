@@ -7,6 +7,7 @@ namespace Hyde\RealtimeCompiler;
 use Closure;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyOutput;
 
@@ -23,32 +24,34 @@ class ConsoleOutput
         $this->output = $output ?? new SymfonyOutput();
     }
 
-    public function printStartMessage(string $host, int $port): void
+    public function printStartMessage(string $host, int $port, array $environment = []): void
     {
-        $title = 'HydePHP Realtime Compiler';
-        $version = ' v'.Hyde::version();
-
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
-        $width = max(strlen("$title $version"), strlen("Listening on $url") + 1) + 1;
-        $spacing = str_repeat('&nbsp;', $width);
-        $lines = str_repeat('─', $width);
+        $lines = Arr::whereNotNull([
+            '',
+            sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
+            '',
+            sprintf('<span class="text-white">Listening on:</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
+            (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled' ?
+                sprintf('<span class="text-white">Live dashboard:</span> <a href="%s/dashboard" class="text-yellow-500">%s/dashboard</a>', $url, $url) : null,
+            '',
+        ]);
 
-        $line1 = '&nbsp;'.sprintf('<span class="text-blue-500">%s</span>&nbsp;<span class="text-gray">%s</span>', $title, $version).str_repeat('&nbsp;', $width - strlen("$title $version"));
-        $line2 = '&nbsp;'.sprintf('<span class="text-white">Listening on </span>&nbsp;<a href="%s" class="text-yellow-500">%s</a>', $url, $url).str_repeat('&nbsp;', $width - strlen("Listening on $url") - 1);
-        render(<<<HTML
-<div class="text-green-500">
-<br>
-&nbsp;╭{$lines}╮<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;│{$line1}│<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;│{$line2}│<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;╰{$lines}╯
-<br>
-</div>
-HTML);
+        $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
+
+        $lines = array_map(function (string $line) use ($lineLength): string {
+            return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
+                $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
+            );
+        }, $lines);
+
+        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
+        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
+
+        $body = implode('<br>', array_merge([''], [$topLine], $lines, [$bottomLine], ['']));
+
+        render("<div class=\"text-green-500\">$body</div>");
     }
 
     public function getFormatter(): Closure
