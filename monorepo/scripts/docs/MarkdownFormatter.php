@@ -6,8 +6,6 @@ declare(strict_types=1);
  * @internal
  */
 
-use Illuminate\Support\Str;
-
 // require_once __DIR__.'/../../../vendor/autoload.php';
 
 $timeStart = microtime(true);
@@ -518,5 +516,29 @@ if (isset($argv[1]) && $argv[1] === '--git') {
         passthru('git commit -am "Format Markdown"');
     } else {
         echo "\n\033[33mNo changes to commit\033[0m\n";
+    }
+}
+
+class Str
+{
+    public static function before($subject, $search)
+    {
+        if ($search === '') {
+            return $subject;
+        }
+
+        $result = strstr($subject, (string) $search, true);
+
+        return $result === false ? $subject : $result;
+    }
+
+    public static function ucfirst($string): string
+    {
+        return mb_strtoupper(static::substr($string, 0, 1), 'UTF-8') .static::substr($string, 1);
+    }
+
+    protected static function substr($string, $start, $length = null, $encoding = 'UTF-8'): string
+    {
+        return mb_substr($string, $start, $length, $encoding);
     }
 }
