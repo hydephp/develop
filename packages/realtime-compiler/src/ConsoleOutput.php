@@ -26,28 +26,32 @@ class ConsoleOutput
     public function printStartMessage(string $host, int $port): void
     {
         $title = 'HydePHP Realtime Compiler';
-        $version = ' v'.Hyde::version();
+        $version = 'v'.Hyde::version();
 
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
-        $width = max(strlen("$title $version"), strlen("Listening on $url") + 1) + 1;
-        $spacing = str_repeat('&nbsp;', $width);
-        $lines = str_repeat('─', $width);
+        $lines = [
+            sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', $title, $version),
+            '',
+            sprintf('<span class="text-white">Listening on</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
+        ];
 
-        $line1 = '&nbsp;'.sprintf('<span class="text-blue-500">%s</span>&nbsp;<span class="text-gray">%s</span>', $title, $version).str_repeat('&nbsp;', $width - strlen("$title $version"));
-        $line2 = '&nbsp;'.sprintf('<span class="text-white">Listening on </span>&nbsp;<a href="%s" class="text-yellow-500">%s</a>', $url, $url).str_repeat('&nbsp;', $width - strlen("Listening on $url") - 1);
-        render(<<<HTML
-<div class="text-green-500">
-<br>
-&nbsp;╭{$lines}╮<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;│{$line1}│<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;│{$line2}│<br>
-&nbsp;│{$spacing}│<br>
-&nbsp;╰{$lines}╯<br>
-</div>
-HTML);
+        $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
+
+        $lines = array_map(function (string $line) use ($lineLength): string {
+            return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
+                $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
+            );
+        }, array_merge([''], $lines, ['']));
+
+        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
+        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
+
+        $lines = array_merge([$topLine], $lines, [$bottomLine]);
+
+        $body = implode('<br>', array_merge([''], $lines, ['']));
+
+        render("<div class=\"text-green-500\">$body</div>");
     }
 
     public function getFormatter(): Closure
