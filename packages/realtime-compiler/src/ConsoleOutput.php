@@ -24,11 +24,11 @@ class ConsoleOutput
         $this->output = $output ?? new SymfonyOutput();
     }
 
-    public function printStartMessage(string $host, int $port, array $environment): void
+    public function printStartMessage(string $host, int $port, array $environment = []): void
     {
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
-        $lines = [
+        $lines = Arr::whereNotNull([
             '',
             sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
             '',
@@ -36,7 +36,7 @@ class ConsoleOutput
             (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled' ?
                 sprintf('<span class="text-white">Live dashboard:</span> <a href="%s/dashboard" class="text-yellow-500">%s/dashboard</a>', $url, $url) : null,
             '',
-        ];
+        ]);
 
         $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
 
