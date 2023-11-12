@@ -9,10 +9,9 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
+use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
-use LaravelZero\Framework\Commands\Command;
-use Hyde\Publications\Commands\ValidatingCommand;
 
 use function sprintf;
 use function class_exists;
@@ -22,7 +21,7 @@ use function class_exists;
  *
  * @see https://github.com/hydephp/realtime-compiler
  */
-class ServeCommand extends ValidatingCommand
+class ServeCommand extends Command
 {
     /** @var string */
     protected $signature = 'serve 
