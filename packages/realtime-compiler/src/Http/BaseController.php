@@ -57,12 +57,12 @@ abstract class BaseController
 
     protected function authorizePostRequest(): void
     {
-        if ($this->shouldUnsafeRequestBeBlocked()) {
+        if (! $this->isRequestMadeFromLocalhost()) {
             throw new HttpException(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
         }
     }
 
-    protected function shouldUnsafeRequestBeBlocked(): bool
+    protected function isRequestMadeFromLocalhost(): bool
     {
         // As the dashboard is not password-protected, and it can make changes to the file system,
         // we block any requests that are not coming from the host machine. While we are clear
@@ -72,7 +72,7 @@ abstract class BaseController
         $requestIp = $_SERVER['REMOTE_ADDR'];
         $allowedIps = ['::1', '127.0.0.1', 'localhost'];
 
-        return ! in_array($requestIp, $allowedIps, true);
+        return in_array($requestIp, $allowedIps, true);
     }
 
     protected function writeToConsole(string $message, string $context = 'dashboard'): void
