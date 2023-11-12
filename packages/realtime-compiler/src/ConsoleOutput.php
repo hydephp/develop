@@ -39,15 +39,16 @@ class ConsoleOutput
         $dashboardStatus = $dashboardOverridden ? 'overridden' : ($dashboardStatusValue ? 'enabled' : 'disabled');
         $dashboardStatusMessage = sprintf('<span class="text-white">Dashboard:</span> <span class="text-%s">%s</span>', $statusOptions[$dashboardStatus], $dashboardStatusValue ? 'enabled' : 'disabled');
 
-        $lines = [
+        $isDashboardEnabled = (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled';
+        $lines = Arr::whereNotNull([
             '',
             sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
             '',
-            sprintf('<span class="text-white">Listening on</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
+            sprintf('<span class="text-white">Listening on:</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
+            $isDashboardEnabled ?
+                sprintf('<span class="text-white">Live dashboard:</span> <a href="%s/dashboard" class="text-yellow-500">%s/dashboard</a>', $url, $url) : null,
             '',
-            $dashboardStatusMessage,
-            '',
-        ];
+        ]);
 
         $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
 
