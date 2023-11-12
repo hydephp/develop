@@ -56,7 +56,7 @@ In some cases, the same options can be set in the front matter of a page or in a
 ### A note on file paths
 
 When Hyde references files, especially when passing filenames between components, the file path is almost always
-relative to the root of the project. Specifying absolute paths yourself will likely lead to unforeseen problems.
+relative to the root of the project. Specifying absolute paths yourself could lead to unforeseen problems.
 
 
 ## Configuration Files Overview
@@ -202,57 +202,65 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 
 ### Navigation Menu & Sidebar
 
-One of my favourite features with Hyde is its automatic navigation menu and documentation sidebar generator.
+A great time-saving feature of HydePHP is the automatic navigation menu and documentation sidebar generation.
+Hyde is designed to automatically configure these menus for you based on the content you have in your project.
 
-#### How it works:
+Still, you will likely want to customize some parts of these menus, and thankfully, Hyde makes it easy to do so.
 
-The sidebar works by creating a list of all the documentation pages.
+#### Customizing the navigation menu
 
-The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages.
-It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
+- To customize the navigation menu, use the setting `navigation.order` in the `hyde.php` config.
+- When customizing the navigation menu, you should use the [route key](core-concepts#route-keys) of the page.
 
-#### Reordering Sidebar Items
+Learn more in the [Navigation Menu](navigation-menus) documentation.
 
-Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this),
-so you will probably want to set a custom order.
+#### Customizing the documentation sidebar
 
-Reordering items in the documentation sidebar is as easy as can be. In the `docs` config, there is an array just for this.
-If a page identifier is found here it will get priority calculated according to its position in the list,
-plus an offset of 500. This offset allows you to pages earlier in the list using front matter.
+- To customize the sidebar, use the setting `sidebar_order` in the `docs.php` config.
+- When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page. 
 
-If a page does not exist in the list they get priority 999, which puts them last.
-You can also use front matter to set a priority for a page.
-The front matter value will always take precedence.
+Learn more in the [Documentation Pages](documentation-pages) documentation.
 
-Let's see an example:
+>info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
+
+### Primer on priorities
+
+All navigation menu items have an internal priority value that determines its order in the navigation.
+Lower values means that the item will be higher up in the menu. The default for pages is `999` which puts them last.
+However, some pages are autoconfigured to have a lower priority, for example, the `index` page defaults to a priority of `0`,
+
+#### Basic syntax for changing the priorities
+
+The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`. 
+The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
 
 ```php
-// filepath: config/docs.php
-// These are the default values in the config. It puts the readme.md first in order.
-'sidebar_order' => [
-    'readme', // This is the first entry, so it gets the priority 500 + 0
-    'installation', // This gets priority 500 + 1
-    'getting-started', // And this gets priority 500 + 2
-    // Any other pages not listed will get priority 999
+[
+    'readme', // Gets priority 500
+    'installation', // Gets priority 501
+    'getting-started', // Gets priority 502
 ]
 ```
 
-#### Reordering Navigation Menu Items
+#### Explicit syntax for changing the priorities
 
-As Hyde makes an effort to organize the menu items in a sensible way, your project comes preconfigured to put what it thinks are your most
-important pages first. This may of course not always match what you want, so thankfully it's easy to reorder the menu items!
-
-Simply update the `navigation.order` array in the Hyde config! The priorities set will determine the order of the menu items.
-Lower values are higher in the menu, and any pages not listed will get priority 999, which puts them last.
+You can also specify explicit priorities by adding a value to the array key:
 
 ```php
-// filepath config/hyde.php
-'navigation' => [
-    'order' => [
-        'index' => 0, // _pages/index.md (or .blade.php)
-        'posts' => 10, // _pages/posts.md (or .blade.php)
-        'docs/index' => 100, // _docs/index.md
-    ]
+[
+    'readme' => 10, // Gets priority 10
+    'installation' => 15, // Gets priority 15
+    'getting-started' => 20, // Gets priority 20
+]
+```
+
+You can also combine these options if you want:
+
+```php
+[
+    'readme' => 10, // Gets priority 10
+    'installation', // Gets priority 500
+    'getting-started', // Gets priority 501
 ]
 ```
 
@@ -263,11 +271,51 @@ It's up to you which method you prefer to use. This setting can be used both for
 ```markdown
 ---
 navigation:
-    priority: 10
+    priority: 25
 ---
 ```
 
->info Tip: If you are using automatic subdirectory dropdowns, you can also set their priority in the config. Just use the directory name instead of the page identifier.
+#### Changing the menu item labels
+
+Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
+You can override the label using the `navigation.label` front matter property.
+
+From the Hyde config you can also override the label of navigation links using the by mapping the route key
+to the desired title. Note that the front matter property will take precedence over the config property.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'labels' => [
+        'index' => 'Start',
+        'docs/index' => 'Documentation',
+    ]
+]
+```
+
+#### Excluding Items (Blacklist)
+
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
+To remove items from being automatically added, simply add the page's route key to the blacklist.
+As you can see, the `404` page has already been filled in for you.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'exclude' => [
+        '404'
+    ]
+]
+```
+
+You can also specify that a page should be excluded by setting the page front matter.
+
+```markdown
+---
+navigation:
+    hidden: true
+---
+
 
 #### Adding Custom Navigation Menu Links
 
@@ -292,48 +340,6 @@ Simplified, this will then be rendered as follows:
 ```html
 <a href="https://github.com/hydephp/hyde">GitHub</a>
 ```
-
-#### Excluding Items (Blacklist)
-
-Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
-To remove items from being automatically added, simply add the page's route key to the blacklist.
-As you can see, the `404` page has already been filled in for you.
-
-```php
-'navigation' => [
-    'exclude' => [
-        '404'
-    ]
-]
-```
-
-You can also specify that a page should be excluded by setting the page front matter.
-
-```markdown
----
-navigation:
-    hidden: true
----
-```
-
-#### Changing the menu item labels
-
-Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
-You can override the label using the `navigation.label` front matter property.
-
-From the Hyde config you can also override the label of navigation links using the by mapping the route key
-to the desired title. Note that the front matter property will take precedence over the config property.
-
-```php
-// filepath config/hyde.php
-'navigation' => [
-    'labels' => [
-        'index' => 'Start',
-        'docs/index' => 'Documentation',
-    ]
-]
-```
-
 
 ## Blade Views
 
