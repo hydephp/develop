@@ -28,7 +28,7 @@ class ConsoleOutput
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
         $lines = [
-            sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::version()),
+            sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
             '',
             sprintf('<span class="text-white">Listening on</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
         ];

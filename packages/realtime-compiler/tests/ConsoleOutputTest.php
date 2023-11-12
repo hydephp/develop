@@ -1,5 +1,6 @@
 <?php
 
+use Hyde\Foundation\HydeKernel;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Termwind\Repositories\Styles;
 
@@ -13,10 +14,18 @@ afterEach(function () {
     renderUsing(null);
 
     Styles::flush();
+
+    HydeKernel::setInstance(new HydeKernel());
 });
 
 test('printStartMessage method', function () {
-    // Todo handle version dynamically
+    HydeKernel::setInstance(new class extends HydeKernel
+    {
+        public static function version(): string
+        {
+            return '1.2.3';
+        }
+    });
 
     $output = new \Hyde\RealtimeCompiler\ConsoleOutput();
     $output->printStartMessage('localhost', 8000);
@@ -24,7 +33,7 @@ test('printStartMessage method', function () {
 
      ╭────────────────────────────────────╮
      │                                    │
-     │ HydePHP Realtime Compiler v1.3.3   │
+     │ HydePHP Realtime Compiler v1.2.3   │
      │                                    │
      │ Listening on http://localhost:8000 │
      │                                    │
