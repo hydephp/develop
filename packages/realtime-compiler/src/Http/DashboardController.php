@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
@@ -50,9 +51,9 @@ class DashboardController extends BaseController
         'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
 
-    public function __construct()
+    public function __construct(?Request $request = null)
     {
-        parent::__construct();
+        parent::__construct($request);
 
         $this->title = config('hyde.name').' - Dashboard';
 

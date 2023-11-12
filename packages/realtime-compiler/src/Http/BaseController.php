@@ -21,9 +21,9 @@ abstract class BaseController
 
     abstract public function handle(): Response;
 
-    public function __construct()
+    public function __construct(?Request $request = null)
     {
-        $this->request = Request::capture();
+        $this->request = $request ?? Request::capture();
 
         if ($this->withConsoleOutput && ((bool) env('HYDE_SERVER_REQUEST_OUTPUT', false)) === true) {
             $this->console = new ConsoleOutput();
