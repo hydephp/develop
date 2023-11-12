@@ -1,4 +1,4 @@
-<h1 align=center>HydePHP - Source Monorepo</h1>
+<h1 align=center>HydePHP - Source Code Monorepo</h1>
 <h2 align=center>Contribute to the Core HydePHP Components in one place</h2>
 
 <div align=center>
