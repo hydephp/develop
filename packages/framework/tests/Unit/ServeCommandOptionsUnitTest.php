@@ -116,6 +116,24 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PRETTY_URLS']));
     }
 
+    public function testPlayCdnOptionPropagatesToEnvironmentVariables()
+    {
+        $command = $this->getMock(['play-cdn' => 'false']);
+        $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_PLAY_CDN']);
+
+        $command = $this->getMock(['play-cdn' => 'true']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_PLAY_CDN']);
+
+        $command = $this->getMock(['play-cdn' => '']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_PLAY_CDN']);
+
+        $command = $this->getMock(['play-cdn' => null]);
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PLAY_CDN']));
+
+        $command = $this->getMock();
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PLAY_CDN']));
+    }
+
     public function test_parseEnvironmentOption()
     {
         $command = $this->getMock(['foo' => 'true']);

@@ -30,6 +30,7 @@ class ServeCommand extends ValidatingCommand
         {--port= : <comment>[default: 8080]</comment>}
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
+        {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
     ';
 
     /** @var string */
@@ -77,6 +78,7 @@ class ServeCommand extends ValidatingCommand
             'HYDE_SERVER_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
+            'HYDE_PLAY_CDN' => $this->parseEnvironmentOption('play-cdn'),
         ]);
     }
 
