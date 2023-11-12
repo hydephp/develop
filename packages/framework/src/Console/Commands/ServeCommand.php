@@ -95,7 +95,7 @@ class ServeCommand extends ValidatingCommand
     {
         $this->useBasicOutput()
             ? $this->output->writeln('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
-            : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection());
+            : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection(), $this->getEnvironmentVariables());
     }
 
     protected function getOutputHandler(): Closure

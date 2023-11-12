@@ -7,6 +7,7 @@ namespace Hyde\RealtimeCompiler;
 use Closure;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Symfony\Component\Console\Output\ConsoleOutput as SymfonyOutput;
 
@@ -23,15 +24,28 @@ class ConsoleOutput
         $this->output = $output ?? new SymfonyOutput();
     }
 
-    public function printStartMessage(string $host, int $port): void
+    public function printStartMessage(string $host, int $port, array $environment): void
     {
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
+
+        $statusOptions = [
+            'enabled' => 'green-500',
+            'disabled' => 'red-500',
+            'overridden' => 'yellow-500',
+        ];
+
+        $dashboardStatusValue = config('hyde.server.dashboard.enabled');
+        $dashboardOverridden = Arr::has($environment, 'HYDE_SERVER_DASHBOARD');
+        $dashboardStatus = $dashboardOverridden ? 'overridden' : ($dashboardStatusValue ? 'enabled' : 'disabled');
+        $dashboardStatusMessage = sprintf('<span class="text-white">Dashboard:</span> <span class="text-%s">%s</span>', $statusOptions[$dashboardStatus], $dashboardStatusValue ? 'enabled' : 'disabled');
 
         $lines = [
             '',
             sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
             '',
             sprintf('<span class="text-white">Listening on</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
+            '',
+            $dashboardStatusMessage,
             '',
         ];
 
