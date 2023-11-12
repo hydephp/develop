@@ -28,17 +28,6 @@ class ConsoleOutput
     {
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
-        $statusOptions = [
-            'enabled' => 'green-500',
-            'disabled' => 'red-500',
-            'overridden' => 'yellow-500',
-        ];
-
-        $dashboardStatusValue = config('hyde.server.dashboard.enabled');
-        $dashboardOverridden = Arr::has($environment, 'HYDE_SERVER_DASHBOARD');
-        $dashboardStatus = $dashboardOverridden ? 'overridden' : ($dashboardStatusValue ? 'enabled' : 'disabled');
-        $dashboardStatusMessage = sprintf('<span class="text-white">Dashboard:</span> <span class="text-%s">%s</span>', $statusOptions[$dashboardStatus], $dashboardStatusValue ? 'enabled' : 'disabled');
-
         $isDashboardEnabled = (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled';
         $lines = Arr::whereNotNull([
             '',
