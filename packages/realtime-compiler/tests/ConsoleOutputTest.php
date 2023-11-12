@@ -14,3 +14,22 @@ afterEach(function () {
 
     Styles::flush();
 });
+
+test('printStartMessage method', function () {
+    // Todo handle version dynamically
+
+    $output = new \Hyde\RealtimeCompiler\ConsoleOutput();
+    $output->printStartMessage('localhost', 8000);
+    $this->assertSame(<<<'TXT'
+
+     ╭────────────────────────────────────╮
+     │                                    │
+     │ HydePHP Realtime Compiler v1.3.3   │
+     │                                    │
+     │ Listening on http://localhost:8000 │
+     │                                    │
+     ╰────────────────────────────────────╯
+
+
+    TXT, str_replace(["\u{A0}", "\r"], [' ', ''], $this->output->fetch()));
+});
