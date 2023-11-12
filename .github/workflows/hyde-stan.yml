@@ -18,3 +18,13 @@ jobs:
 
       - name: Run Static Analysis
         run: php ./monorepo/HydeStan/run.php
+
+      - name: Check Documentation Formatting
+        run: |
+          php ./monorepo/scripts/docs/MarkdownFormatter.php
+          if git diff --exit-code > /dev/null; then
+            echo "Documentation formatting is valid."
+          else
+            echo "Documentation formatting is not valid. Please run 'php ./monorepo/scripts/docs/MarkdownFormatter.php' to fix it."
+            exit 1
+          fi
