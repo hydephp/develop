@@ -71,11 +71,8 @@ class DashboardController extends BaseController
                 return $this->sendJsonErrorResponse(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
-            if ($this->shouldUnsafeRequestBeBlocked()) {
-                return $this->sendJsonErrorResponse(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
-            }
-
             try {
+                $this->authorizePostRequest();
                 return $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {

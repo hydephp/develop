@@ -55,6 +55,13 @@ abstract class BaseController
         };
     }
 
+    protected function authorizePostRequest(): void
+    {
+        if ($this->shouldUnsafeRequestBeBlocked()) {
+            throw new HttpException(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
+        }
+    }
+
     protected function shouldUnsafeRequestBeBlocked(): bool
     {
         // As the dashboard is not password-protected, and it can make changes to the file system,
