@@ -28,16 +28,15 @@ class ConsoleOutput
     {
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
-        $isDashboardEnabled = (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled';
-        $lines = Arr::whereNotNull([
+        $lines = [
             '',
             sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
             '',
             sprintf('<span class="text-white">Listening on:</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
-            $isDashboardEnabled ?
+            (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled' ?
                 sprintf('<span class="text-white">Live dashboard:</span> <a href="%s/dashboard" class="text-yellow-500">%s/dashboard</a>', $url, $url) : null,
             '',
-        ]);
+        ];
 
         $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
 
