@@ -73,6 +73,7 @@ class DashboardController extends BaseController
 
             try {
                 $this->authorizePostRequest();
+
                 return $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {
