@@ -80,6 +80,24 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         ], $this->getMock(['no-ansi' => true])->getEnvironmentVariables());
     }
 
+    public function testSavePreviewOptionPropagatesToEnvironmentVariables()
+    {
+        $command = $this->getMock(['save-preview' => 'false']);
+        $this->assertSame('disabled', $command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']);
+
+        $command = $this->getMock(['save-preview' => 'true']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']);
+
+        $command = $this->getMock(['save-preview' => '']);
+        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']);
+
+        $command = $this->getMock(['save-preview' => null]);
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']));
+
+        $command = $this->getMock();
+        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']));
+    }
+
     public function testDashboardOptionPropagatesToEnvironmentVariables()
     {
         $command = $this->getMock(['dashboard' => 'false']);

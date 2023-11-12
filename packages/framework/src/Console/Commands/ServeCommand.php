@@ -28,6 +28,7 @@ class ServeCommand extends ValidatingCommand
     protected $signature = 'serve 
         {--host= : <comment>[default: "localhost"]</comment>}}
         {--port= : <comment>[default: 8080]</comment>}
+        {--save-preview= : Should the served page be saved to disk? (Overrides config setting)}
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
@@ -76,6 +77,7 @@ class ServeCommand extends ValidatingCommand
     {
         return Arr::whereNotNull([
             'HYDE_SERVER_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
+            'HYDE_SERVER_SAVE_PREVIEW' => $this->parseEnvironmentOption('save-preview'),
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
             'HYDE_PLAY_CDN' => $this->parseEnvironmentOption('play-cdn'),

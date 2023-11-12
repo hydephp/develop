@@ -87,6 +87,7 @@ class LoadConfiguration extends BaseLoadConfiguration
                 $this->mergeCommandLineArguments($repository, '--no-api', 'hyde.api_calls', false);
             }
 
+            $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_SERVER_SAVE_PREVIEW', 'hyde.server.save_preview');
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_SERVER_DASHBOARD', 'hyde.server.dashboard.enabled');
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_PRETTY_URLS', 'hyde.pretty_urls');
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_PLAY_CDN', 'hyde.use_play_cdn');
