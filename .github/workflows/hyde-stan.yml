@@ -22,7 +22,7 @@ jobs:
       - name: Check Documentation Formatting
         run: |
           php ./monorepo/scripts/docs/MarkdownFormatter.php
-          if git diff --exit-code > /dev/null; then
+          if git diff --exit-code; then
             echo "Documentation formatting is valid."
           else
             echo "Documentation formatting is not valid. Please run 'php ./monorepo/scripts/docs/MarkdownFormatter.php' to fix it."
