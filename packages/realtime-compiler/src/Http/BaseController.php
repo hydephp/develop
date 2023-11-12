@@ -17,7 +17,7 @@ abstract class BaseController
 {
     protected Request $request;
     protected ConsoleOutput $console;
-    protected bool $withConsoleOutput = true;
+    protected bool $withConsoleOutput = false;
 
     abstract public function handle(): Response;
 
