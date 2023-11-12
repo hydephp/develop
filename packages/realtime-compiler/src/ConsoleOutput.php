@@ -24,9 +24,20 @@ class ConsoleOutput
         $this->output = $output ?? new SymfonyOutput();
     }
 
-    public function printStartMessage(string $host, int $port, array $environment = []): void
+    public function printStartMessage(string $host, int $port, array $environment): void
     {
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
+
+        $statusOptions = [
+            'enabled' => 'green-500',
+            'disabled' => 'red-500',
+            'overridden' => 'yellow-500',
+        ];
+
+        $dashboardStatusValue = config('hyde.server.dashboard.enabled');
+        $dashboardOverridden = Arr::has($environment, 'HYDE_SERVER_DASHBOARD');
+        $dashboardStatus = $dashboardOverridden ? 'overridden' : ($dashboardStatusValue ? 'enabled' : 'disabled');
+        $dashboardStatusMessage = sprintf('<span class="text-white">Dashboard:</span> <span class="text-%s">%s</span>', $statusOptions[$dashboardStatus], $dashboardStatusValue ? 'enabled' : 'disabled');
 
         $lines = [
             '',
@@ -34,30 +45,9 @@ class ConsoleOutput
             '',
             sprintf('<span class="text-white">Listening on</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
             '',
+            $dashboardStatusMessage,
+            '',
         ];
-
-        if ($environment !== []) {
-            $statusOptions = [
-                'enabled' => 'green-500',
-                'disabled' => 'red-500',
-            ];
-
-            if (Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) {
-                $dashboardStatus = Arr::get($environment, 'HYDE_SERVER_DASHBOARD');
-                $dashboardStatusValue = $dashboardStatus === 'enabled';
-                $dashboardStatusMessage = sprintf('<span class="text-white">Dashboard:</span> <span class="text-%s">%s</span>', $statusOptions[$dashboardStatus], $dashboardStatusValue ? 'enabled' : 'disabled');
-            }
-
-            $optionLines = Arr::whereNotNull([
-                $dashboardStatusMessage ?? null,
-            ]);
-
-            if ($optionLines !== []) {
-                $optionLines[] = '';
-            }
-
-            $lines = array_merge($lines, $optionLines);
-        }
 
         $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
 
