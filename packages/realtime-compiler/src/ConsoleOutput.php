@@ -28,9 +28,11 @@ class ConsoleOutput
         $url = sprintf('%s://%s:%d', $port === 443 ? 'https' : 'http', $host, $port);
 
         $lines = [
+            '',
             sprintf('<span class="text-blue-500">%s</span> <span class="text-gray">%s</span>', 'HydePHP Realtime Compiler', 'v'.Hyde::getInstance()->version()),
             '',
             sprintf('<span class="text-white">Listening on</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
+            '',
         ];
 
         $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
@@ -39,7 +41,7 @@ class ConsoleOutput
             return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
                 $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
             );
-        }, array_merge([''], $lines, ['']));
+        }, $lines);
 
         $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
         $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
