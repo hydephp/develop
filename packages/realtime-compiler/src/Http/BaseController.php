@@ -18,6 +18,9 @@ abstract class BaseController
     protected Request $request;
     protected ConsoleOutput $console;
     protected bool $withConsoleOutput = false;
+    protected bool $withSession = false;
+
+    protected static bool $sessionStarted = false;
 
     abstract public function handle(): Response;
 
@@ -27,6 +30,19 @@ abstract class BaseController
 
         if ($this->withConsoleOutput && ((bool) env('HYDE_SERVER_REQUEST_OUTPUT', false)) === true) {
             $this->console = new ConsoleOutput();
+        }
+
+        if ($this->withSession && ! self::$sessionStarted) {
+            session_start();
+            self::$sessionStarted = true;
+        }
+    }
+
+    public function __destruct()
+    {
+        if ($this->withSession && self::$sessionStarted) {
+            session_write_close();
+            self::$sessionStarted = false;
         }
     }
 

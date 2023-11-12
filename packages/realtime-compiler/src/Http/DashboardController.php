@@ -37,6 +37,7 @@ class DashboardController extends BaseController
     public string $title;
 
     protected bool $withConsoleOutput = true;
+    protected bool $withSession = true;
 
     protected JsonResponse $response;
 
