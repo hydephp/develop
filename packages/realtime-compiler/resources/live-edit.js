@@ -16,7 +16,7 @@ function initLiveEdit() {
         }
 
         function hasEditorBeenSetUp() {
-            return getLiveEditor() === null;
+            return getLiveEditor() !== null;
         }
 
         function setupEditor() {
