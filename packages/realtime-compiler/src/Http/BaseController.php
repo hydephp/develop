@@ -86,7 +86,7 @@ abstract class BaseController
         return in_array($requestIp, $allowedIps, true);
     }
 
-    protected function generateCSRFToken(): string
+    protected static function generateCSRFToken(): string
     {
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
