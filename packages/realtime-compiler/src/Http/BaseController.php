@@ -20,8 +20,6 @@ abstract class BaseController
     protected bool $withConsoleOutput = false;
     protected bool $withSession = false;
 
-    protected static bool $sessionStarted = false;
-
     abstract public function handle(): Response;
 
     public function __construct(?Request $request = null)
@@ -32,17 +30,8 @@ abstract class BaseController
             $this->console = new ConsoleOutput();
         }
 
-        if ($this->withSession && ! self::$sessionStarted) {
+        if ($this->withSession) {
             session_start();
-            self::$sessionStarted = true;
-        }
-    }
-
-    public function __destruct()
-    {
-        if ($this->withSession && self::$sessionStarted) {
-            session_write_close();
-            self::$sessionStarted = false;
         }
     }
 
