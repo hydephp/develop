@@ -29,7 +29,8 @@ function initLiveEdit() {
         }
 
         function showEditor() {
-            //
+            article.style.display = 'none';
+            getLiveEditor().style.display = '';
         }
 
         if (hasEditorBeenSetUp()) {
