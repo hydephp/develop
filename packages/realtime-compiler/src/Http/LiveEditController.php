@@ -47,7 +47,9 @@ class LiveEditController extends BaseController
         $page->markdown = new Markdown($content);
         $page->save();
 
-        //
+        return new JsonResponse(200, 'OK', [
+            'message' => 'Page saved successfully.',
+        ]);
     }
 
     public static function enabled(): bool
