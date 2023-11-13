@@ -110,4 +110,9 @@ abstract class BaseController
             $this->console->printMessage($message, $context);
         }
     }
+
+    protected function expectsJson(): bool
+    {
+        return getallheaders()['Accept'] === 'application/json';
+    }
 }
