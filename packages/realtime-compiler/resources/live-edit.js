@@ -27,6 +27,10 @@ function initLiveEdit() {
             article.parentNode.insertBefore(editor, article.nextSibling);
 
             showEditor();
+
+            document.getElementById('liveEditCancel').addEventListener('click', function () {
+                hideEditor();
+            });
         }
 
         function showEditor() {
