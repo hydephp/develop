@@ -111,7 +111,7 @@ class ConsoleOutput
 
         $statusCode = Str::between($message, ' [', ']:');
         if ($statusCode >= 400) {
-            $message = str_replace($statusCode, sprintf('<span class="text-red-500">%s</span>', $statusCode), $message);
+            $message = Str::replaceLast($statusCode, sprintf('<span class="text-red-500">%s</span>', $statusCode), $message);
             $iconColor = 'yellow-500';
         }
 
