@@ -88,9 +88,12 @@ class DashboardController extends BaseController
 
     protected function show(): string
     {
-        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php',
-            ['title' => config('hyde.name').' - Dashboard', 'dashboard' => $this, 'request' => $this->request, 'csrfToken' => $this->generateCSRFToken()],
-        );
+        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', [
+            'title' => config('hyde.name').' - Dashboard',
+            'dashboard' => $this,
+            'request' => $this->request,
+            'csrfToken' => $this->generateCSRFToken(),
+        ]);
     }
 
     protected function handlePostRequest(): JsonResponse
