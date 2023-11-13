@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ $csrfToken }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>{{ $title }}</title>
     <base target="_parent">
@@ -64,6 +65,7 @@
                         <h2 class="h5 mb-0">Site Pages & Routes</h2>
                         @if($dashboard->isInteractive())
                             <form class="buttonActionForm" action="" method="POST">
+                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                 <input type="hidden" name="action" value="openInExplorer">
                                 <button type="submit" class="btn btn-outline-primary btn-sm" title="Open project in system file explorer">Open folder</button>
                             </form>
@@ -136,6 +138,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form id="createPageForm" action="" method="POST">
+                                            <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                             <input type="hidden" name="action" value="createPage">
 
                                             <div class="modal-body">
@@ -242,6 +245,7 @@
                                     <div class="d-flex justify-content-end">
                                         @if($dashboard->isInteractive())
                                             <form class="buttonActionForm" action="" method="POST">
+                                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                 <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
                                                 <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
@@ -302,6 +306,7 @@
                                                     @if($dashboard->isInteractive())
                                                         <div class="w-auto ps-0">
                                                             <form class="buttonActionForm" action="" method="POST">
+                                                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                                 <input type="hidden" name="action" value="openMediaFileInEditor">
                                                                 <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
                                                                 <button type="submit" class="btn btn-link btn-sm py-0" title="Open this image in the system editor">Edit</button>

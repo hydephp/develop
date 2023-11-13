@@ -93,7 +93,7 @@ class DashboardController extends BaseController
     protected function show(): string
     {
         return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this, 'request' => $this->request],
+            (array) $this, ['dashboard' => $this, 'request' => $this->request, 'csrfToken' => $this->generateCSRFToken()],
         ));
     }
 

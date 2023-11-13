@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use BadMethodCallException;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Desilva\Microserve\JsonResponse;
@@ -76,6 +77,14 @@ abstract class BaseController
         if (! $this->isRequestMadeFromLocalhost()) {
             throw new HttpException(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
         }
+
+        if ($this->withSession) {
+            if (! $this->validateCSRFToken($this->request->get('_token'))) {
+                throw new HttpException(403, 'Invalid CSRF token');
+            } else {
+                $this->expireCSRFToken();
+            }
+        }
     }
 
     protected function isRequestMadeFromLocalhost(): bool
@@ -89,6 +98,41 @@ abstract class BaseController
         $allowedIps = ['::1', '127.0.0.1', 'localhost'];
 
         return in_array($requestIp, $allowedIps, true);
+    }
+
+    protected function generateCSRFToken(): string
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            throw new BadMethodCallException('Session not started');
+        }
+
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        return $_SESSION['csrf_token'];
+    }
+
+    protected function validateCSRFToken(?string $suppliedToken): bool
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            throw new BadMethodCallException('Session not started');
+        }
+
+        if ($suppliedToken === null) {
+            return false;
+        }
+
+        return ! empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $suppliedToken);
+    }
+
+    protected function expireCSRFToken(): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            throw new BadMethodCallException('Session not started');
+        }
+
+        unset($_SESSION['csrf_token']);
     }
 
     protected function writeToConsole(string $message, string $context = 'dashboard'): void
