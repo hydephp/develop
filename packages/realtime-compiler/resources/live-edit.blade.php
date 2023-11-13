@@ -25,9 +25,5 @@
         </section>
     </template>
     <script>{!! $scripts !!}</script>
-    <script>
-        const markdown = {{ Illuminate\Support\Js::from($markdown) }};
-        const sourcePath = {{ Illuminate\Support\Js::from($page->getSourcePath()) }};
-        initLiveEdit(markdown, sourcePath)
-</script>
+    <script>initLiveEdit()</script>
 </div>
