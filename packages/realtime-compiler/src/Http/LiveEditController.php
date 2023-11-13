@@ -32,6 +32,9 @@ class LiveEditController extends BaseController
 
     protected function handleRequest(): JsonResponse
     {
+        $pagePath = $this->request->data['pagePath'] ?? $this->abort(400, 'Must provide page path');
+        $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
+
         //
     }
 
