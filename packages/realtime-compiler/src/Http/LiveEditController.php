@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
+use Hyde\Markdown\Models\Markdown;
 use Desilva\Microserve\JsonResponse;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -42,6 +43,9 @@ class LiveEditController extends BaseController
         if (! $page instanceof BaseMarkdownPage) {
             $this->abort(400, 'Page is not a markdown page');
         }
+
+        $page->markdown = new Markdown($content);
+        $page->save();
 
         //
     }
