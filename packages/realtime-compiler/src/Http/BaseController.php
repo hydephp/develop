@@ -110,4 +110,9 @@ abstract class BaseController
             $this->console->printMessage($message, $context);
         }
     }
+
+    protected function expectsJson(): bool
+    {
+        return array_change_key_case(getallheaders())['accept'] === 'application/json';
+    }
 }
