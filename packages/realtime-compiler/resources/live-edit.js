@@ -11,7 +11,23 @@ function initLiveEdit() {
     }
 
     function switchToEditor() {
-        // TODO
+        function hasEditorBeenSetUp() {
+            return document.querySelector('#live-edit-container') === null;
+        }
+
+        function setupEditor() {
+            //
+        }
+
+        function showEditor() {
+            //
+        }
+
+        if (! hasEditorBeenSetUp()) {
+            setupEditor();
+        } else {
+            showEditor();
+        }
     }
 
     const article = getArticle();
