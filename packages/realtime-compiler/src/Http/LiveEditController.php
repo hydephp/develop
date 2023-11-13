@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
+use Hyde\Hyde;
 use Desilva\Microserve\JsonResponse;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -34,6 +36,12 @@ class LiveEditController extends BaseController
     {
         $pagePath = $this->request->data['pagePath'] ?? $this->abort(400, 'Must provide page path');
         $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
+
+        $page = Hyde::pages()->getPage($pagePath);
+
+        if (! $page instanceof BaseMarkdownPage) {
+            $this->abort(400, 'Page is not a markdown page');
+        }
 
         //
     }
