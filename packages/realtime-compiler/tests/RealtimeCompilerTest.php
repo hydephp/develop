@@ -17,6 +17,10 @@ if (BASE_PATH === false || ! file_exists(BASE_PATH.'/hyde')) {
 
 ob_start();
 
+beforeEach(function () {
+    putenv('SERVER_LIVE_EDIT=false');
+});
+
 test('handle routes index page', function () {
     putenv('SERVER_DASHBOARD=false');
     mockRoute('');

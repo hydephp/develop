@@ -5,6 +5,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
@@ -73,6 +74,10 @@ class PageRouter
             Hyde::shareViewData($page);
 
             $contents = $page->compile();
+        }
+
+        if ($page instanceof BaseMarkdownPage && LiveEditController::enabled()) {
+            $contents = LiveEditController::injectLiveEditScript($contents);
         }
 
         return $contents;
