@@ -28,9 +28,7 @@ function initLiveEdit() {
 
             showEditor();
 
-            document.getElementById('liveEditCancel').addEventListener('click', function () {
-                hideEditor();
-            });
+            document.getElementById('liveEditCancel').addEventListener('click', hideEditor);
         }
 
         function showEditor() {
