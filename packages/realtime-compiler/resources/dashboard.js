@@ -21,7 +21,7 @@ function registerAsyncForm(form, okHandler = null, errorHandler = null, beforeCa
             method: "POST",
             body: new FormData(event.target),
             headers: new Headers({
-                "X-RC-Handler": "Async",
+                "Accept": "application/json",
             }),
         }).then(async response => {
             if (response.ok) {

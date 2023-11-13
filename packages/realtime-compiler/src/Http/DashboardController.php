@@ -57,7 +57,7 @@ class DashboardController extends BaseController
         $this->loadFlashData();
 
         if ($this->request->method === 'POST') {
-            $this->isAsync = $this->hasAsyncHeaders();
+            $this->isAsync = $this->expectsJson();
         }
     }
 
@@ -463,10 +463,5 @@ class DashboardController extends BaseController
                 sprintf("Unable to find a matching 'open' binary for OS family '%s'", PHP_OS_FAMILY)
             )
         };
-    }
-
-    protected function hasAsyncHeaders(): bool
-    {
-        return (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
     }
 }

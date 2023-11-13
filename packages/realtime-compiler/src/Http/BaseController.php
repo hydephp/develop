@@ -113,6 +113,6 @@ abstract class BaseController
 
     protected function expectsJson(): bool
     {
-        return getallheaders()['Accept'] === 'application/json';
+        return array_change_key_case(getallheaders())['accept'] === 'application/json';
     }
 }
