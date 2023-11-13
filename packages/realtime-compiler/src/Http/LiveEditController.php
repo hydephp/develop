@@ -16,7 +16,7 @@ class LiveEditController extends BaseController
 
     public function handle(): Response
     {
-        // TODO: Implement handle() method.
+        $this->authorizePostRequest();
     }
 
     public static function enabled(): bool
