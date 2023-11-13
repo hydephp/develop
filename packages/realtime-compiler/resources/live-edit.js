@@ -34,6 +34,11 @@ function initLiveEdit() {
             getLiveEditor().style.display = '';
         }
 
+        function hideEditor() {
+            article.style.display = '';
+            getLiveEditor().style.display = 'none';
+        }
+
         if (hasEditorBeenSetUp()) {
             showEditor();
         } else {
