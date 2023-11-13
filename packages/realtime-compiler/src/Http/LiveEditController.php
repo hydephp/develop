@@ -18,4 +18,9 @@ class LiveEditController extends BaseController
     {
         // TODO: Implement handle() method.
     }
+
+    public static function enabled(): bool
+    {
+        return config('hyde.server.live_edit', true);
+    }
 }
