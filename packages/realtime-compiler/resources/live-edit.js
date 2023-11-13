@@ -11,8 +11,12 @@ function initLiveEdit() {
     }
 
     function switchToEditor() {
+        function getLiveEditor() {
+            return document.querySelector('#live-edit-container');
+        }
+
         function hasEditorBeenSetUp() {
-            return document.querySelector('#live-edit-container') === null;
+            return getLiveEditor() === null;
         }
 
         function setupEditor() {
