@@ -7,6 +7,7 @@ namespace Hyde\RealtimeCompiler\Http;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Desilva\Microserve\JsonResponse;
+use Illuminate\Support\Facades\Blade;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -55,5 +56,14 @@ class LiveEditController extends BaseController
     public static function enabled(): bool
     {
         return config('hyde.server.live_edit', true);
+    }
+
+    public static function injectLiveEditScript(string $html): string
+    {
+        return str_replace('</body>', sprintf('%s</body>', Blade::render(file_get_contents(__DIR__.'/../../resources/live-edit.blade.php'), [
+            'styles' => file_get_contents(__DIR__.'/../../resources/live-edit.css'),
+            'scripts' => file_get_contents(__DIR__.'/../../resources/live-edit.js'),
+            'csrfToken' => self::generateCSRFToken(),
+        ])), $html);
     }
 }
