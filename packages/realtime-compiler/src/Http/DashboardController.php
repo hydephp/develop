@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
@@ -20,10 +21,8 @@ use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Facades\Process;
-use Hyde\RealtimeCompiler\ConsoleOutput;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
-use Desilva\Microserve\Request;
 use Composer\InstalledVersions;
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Exceptions\FileConflictException;
@@ -33,12 +32,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
  */
-class DashboardController
+class DashboardController extends BaseController
 {
     public string $title;
 
-    protected Request $request;
-    protected ConsoleOutput $console;
+    protected bool $withConsoleOutput = true;
+    protected bool $withSession = true;
+
     protected JsonResponse $response;
 
     protected bool $isAsync = false;
@@ -52,14 +52,11 @@ class DashboardController
         'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
 
-    public function __construct()
+    public function __construct(?Request $request = null)
     {
-        $this->title = config('hyde.name').' - Dashboard';
-        $this->request = Request::capture();
+        parent::__construct($request);
 
-        if (((bool) env('HYDE_SERVER_REQUEST_OUTPUT', false)) === true) {
-            $this->console = new ConsoleOutput();
-        }
+        $this->title = config('hyde.name').' - Dashboard';
 
         $this->loadFlashData();
 
@@ -75,11 +72,9 @@ class DashboardController
                 return $this->sendJsonErrorResponse(403, 'Enable `server.editor` in `config/hyde.php` to use interactive dashboard features.');
             }
 
-            if ($this->shouldUnsafeRequestBeBlocked()) {
-                return $this->sendJsonErrorResponse(403, "Refusing to serve request from address {$_SERVER['REMOTE_ADDR']} (must be on localhost)");
-            }
-
             try {
+                $this->authorizePostRequest();
+
                 return $this->handlePostRequest();
             } catch (HttpException $exception) {
                 if (! $this->isAsync) {
@@ -98,7 +93,7 @@ class DashboardController
     protected function show(): string
     {
         return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this, 'request' => $this->request],
+            (array) $this, ['dashboard' => $this, 'request' => $this->request, 'csrfToken' => $this->generateCSRFToken()],
         ));
     }
 
@@ -451,36 +446,11 @@ class DashboardController
         return $prettyVersion ?? 'unreleased';
     }
 
-    protected function shouldUnsafeRequestBeBlocked(): bool
-    {
-        // As the dashboard is not password-protected, and it can make changes to the file system,
-        // we block any requests that are not coming from the host machine. While we are clear
-        // in the documentation that the realtime compiler should only be used for local
-        // development, we still want to be extra careful in case someone forgets.
-
-        $requestIp = $_SERVER['REMOTE_ADDR'];
-        $allowedIps = ['::1', '127.0.0.1', 'localhost'];
-
-        return ! in_array($requestIp, $allowedIps, true);
-    }
-
     protected function setJsonResponse(int $statusCode, string $body): void
     {
         $this->response = new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
             'body' => $body,
         ]);
-    }
-
-    protected function sendJsonErrorResponse(int $statusCode, string $message): JsonResponse
-    {
-        return new JsonResponse($statusCode, $this->matchStatusCode($statusCode), [
-            'error' => $message,
-        ]);
-    }
-
-    protected function abort(int $code, string $message): never
-    {
-        throw new HttpException($code, $message);
     }
 
     protected function findGeneralOpenBinary(): string
@@ -496,28 +466,8 @@ class DashboardController
         };
     }
 
-    protected function matchStatusCode(int $statusCode): string
-    {
-        return match ($statusCode) {
-            200 => 'OK',
-            201 => 'Created',
-            400 => 'Bad Request',
-            403 => 'Forbidden',
-            404 => 'Not Found',
-            409 => 'Conflict',
-            default => 'Internal Server Error',
-        };
-    }
-
     protected function hasAsyncHeaders(): bool
     {
         return (getallheaders()['X-RC-Handler'] ?? getallheaders()['x-rc-handler'] ?? null) === 'Async';
-    }
-
-    protected function writeToConsole(string $message, string $context = 'dashboard'): void
-    {
-        if (isset($this->console)) {
-            $this->console->printMessage($message, $context);
-        }
     }
 }

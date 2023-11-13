@@ -33,7 +33,7 @@ class PageRouter
     protected function handlePageRequest(): Response
     {
         if ($this->request->path === '/dashboard' && DashboardController::enabled()) {
-            return (new DashboardController())->handle();
+            return (new DashboardController($this->request))->handle();
         }
 
         return new HtmlResponse(200, 'OK', [
