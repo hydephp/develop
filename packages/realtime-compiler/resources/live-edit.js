@@ -20,7 +20,12 @@ function initLiveEdit() {
         }
 
         function setupEditor() {
-            //
+            const template = document.getElementById('live-edit-template');
+            const editor = document.importNode(template.content, true);
+            const article = getArticle();
+
+            article.parentNode.insertBefore(editor, article.nextSibling);
+            article.style.display = 'none';
         }
 
         function showEditor() {
