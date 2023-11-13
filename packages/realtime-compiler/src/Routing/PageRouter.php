@@ -6,6 +6,7 @@ use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
@@ -34,6 +35,10 @@ class PageRouter
     {
         if ($this->request->path === '/dashboard' && DashboardController::enabled()) {
             return (new DashboardController($this->request))->handle();
+        }
+
+        if ($this->request->path === '/_hyde/live-edit' && LiveEditController::enabled()) {
+            return (new LiveEditController($this->request))->handle();
         }
 
         return new HtmlResponse(200, 'OK', [
