@@ -80,8 +80,6 @@ abstract class BaseController
         if ($this->withSession) {
             if (! $this->validateCSRFToken($this->request->get('_token'))) {
                 throw new HttpException(403, 'Invalid CSRF token');
-            } else {
-                $this->expireCSRFToken();
             }
         }
     }
@@ -115,11 +113,6 @@ abstract class BaseController
         }
 
         return ! empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $suppliedToken);
-    }
-
-    protected function expireCSRFToken(): void
-    {
-        unset($_SESSION['csrf_token']);
     }
 
     protected function writeToConsole(string $message, string $context = 'dashboard'): void
