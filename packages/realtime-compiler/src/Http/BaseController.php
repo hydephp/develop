@@ -110,11 +110,7 @@ abstract class BaseController
 
     protected function validateCSRFToken(?string $suppliedToken): bool
     {
-        if ($suppliedToken === null) {
-            return false;
-        }
-
-        return ! empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $suppliedToken);
+        return $suppliedToken !== null && ! empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $suppliedToken);
     }
 
     protected function expireCSRFToken(): void
