@@ -23,10 +23,10 @@ function initLiveEdit() {
             //
         }
 
-        if (! hasEditorBeenSetUp()) {
-            setupEditor();
-        } else {
+        if (hasEditorBeenSetUp()) {
             showEditor();
+        } else {
+            setupEditor();
         }
     }
 
