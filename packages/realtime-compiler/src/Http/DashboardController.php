@@ -34,8 +34,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class DashboardController extends BaseController
 {
-    public string $title;
-
     protected bool $withConsoleOutput = true;
     protected bool $withSession = true;
 
@@ -55,8 +53,6 @@ class DashboardController extends BaseController
     public function __construct(?Request $request = null)
     {
         parent::__construct($request);
-
-        $this->title = config('hyde.name').' - Dashboard';
 
         $this->loadFlashData();
 
@@ -92,9 +88,9 @@ class DashboardController extends BaseController
 
     protected function show(): string
     {
-        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php', array_merge(
-            (array) $this, ['dashboard' => $this, 'request' => $this->request, 'csrfToken' => $this->generateCSRFToken()],
-        ));
+        return AnonymousViewCompiler::handle(__DIR__.'/../../resources/dashboard.blade.php',
+            ['title' => config('hyde.name').' - Dashboard', 'dashboard' => $this, 'request' => $this->request, 'csrfToken' => $this->generateCSRFToken()],
+        );
     }
 
     protected function handlePostRequest(): JsonResponse
