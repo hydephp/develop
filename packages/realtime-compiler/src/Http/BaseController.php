@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Http;
 
-use BadMethodCallException;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Desilva\Microserve\JsonResponse;
@@ -102,10 +101,6 @@ abstract class BaseController
 
     protected function generateCSRFToken(): string
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            throw new BadMethodCallException('Session not started');
-        }
-
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
@@ -115,10 +110,6 @@ abstract class BaseController
 
     protected function validateCSRFToken(?string $suppliedToken): bool
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            throw new BadMethodCallException('Session not started');
-        }
-
         if ($suppliedToken === null) {
             return false;
         }
@@ -128,10 +119,6 @@ abstract class BaseController
 
     protected function expireCSRFToken(): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            throw new BadMethodCallException('Session not started');
-        }
-
         unset($_SESSION['csrf_token']);
     }
 
