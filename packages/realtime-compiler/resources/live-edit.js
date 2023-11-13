@@ -25,7 +25,8 @@ function initLiveEdit() {
             const article = getArticle();
 
             article.parentNode.insertBefore(editor, article.nextSibling);
-            article.style.display = 'none';
+
+            showEditor();
         }
 
         function showEditor() {
