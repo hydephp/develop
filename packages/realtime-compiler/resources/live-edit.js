@@ -10,5 +10,11 @@ function initLiveEdit() {
         return article;
     }
 
+    function switchToEditor() {
+        // TODO
+    }
+
     const article = getArticle();
+
+    article.addEventListener('dblclick', switchToEditor);
 }
