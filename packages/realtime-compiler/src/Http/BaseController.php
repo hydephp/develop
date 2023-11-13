@@ -97,11 +97,11 @@ abstract class BaseController
 
     protected function validateCSRFToken(?string $suppliedToken): bool
     {
-        if ($suppliedToken === null) {
+        if ($suppliedToken === null || empty($_SESSION['csrf_token'])) {
             return false;
         }
 
-        return ! empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $suppliedToken);
+        return hash_equals($_SESSION['csrf_token'], $suppliedToken);
     }
 
     protected function writeToConsole(string $message, string $context = 'dashboard'): void
