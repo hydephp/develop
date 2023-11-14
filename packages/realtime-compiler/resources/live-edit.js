@@ -21,8 +21,8 @@ function initLiveEdit() {
 
         function setupEditor() {
             const template = document.getElementById('live-edit-template');
-            const editor = document.importNode(template.content, true);
             const article = getArticle();
+            const editor = document.importNode(template.content, true);
 
             article.parentNode.insertBefore(editor, article.nextSibling);
 
