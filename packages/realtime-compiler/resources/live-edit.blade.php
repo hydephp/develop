@@ -8,7 +8,7 @@
     <template id="live-edit-template">
         <section id="live-edit-container">
             <form id="liveEditForm" action="/_hyde/live-edit" method="POST">
-                <header id="liveEditHeader">
+                <header id="liveEditHeader" class="prose dark:prose-invert">
                     <h2>Live Editor</h2>
                     <menu id="liveEditFormActions">
                         <button id="liveEditCancel" type="button">
