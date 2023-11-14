@@ -6,7 +6,7 @@
     @endphp
     <style>{!! $styles !!}</style>
     <template id="live-edit-template">
-        <section id="live-edit-container")>
+        <section id="live-edit-container">
             <form id="liveEditForm" action="/_hyde/live-edit" method="POST">
                 <header id="liveEditHeader">
                     <h2>Live Editor</h2>
