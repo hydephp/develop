@@ -48,6 +48,8 @@ class LiveEditController extends BaseController
         $page->markdown = new Markdown($content);
         $page->save();
 
+        $this->writeToConsole("Updated file '$pagePath'", 'hyde@live-edit');
+
         return new JsonResponse(200, 'OK', [
             'message' => 'Page saved successfully.',
         ]);
