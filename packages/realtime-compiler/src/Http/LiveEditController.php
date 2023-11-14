@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Support\Models\Redirect;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
@@ -41,14 +42,7 @@ class LiveEditController extends BaseController
 
         $this->writeToConsole("Updated file '$pagePath'", 'hyde@live-edit');
 
-        $redirectPage = new Redirect($this->request->path, "../".$page->getRoute());
-        Hyde::shareViewData($redirectPage);
-
-        return (new HtmlResponse(303, 'Redirect', [
-            'body' => $redirectPage->compile(),
-        ]))->withHeaders( [
-            'Location' => $page->getRoute(),
-        ]);
+        return $this->redirectToPage($page->getRoute());
     }
 
     public static function enabled(): bool
@@ -65,5 +59,17 @@ class LiveEditController extends BaseController
             'scripts' => file_get_contents(__DIR__.'/../../resources/live-edit.js'),
             'csrfToken' => self::generateCSRFToken(),
         ])), $html);
+    }
+
+    protected function redirectToPage(Route $route): HtmlResponse
+    {
+        $redirectPage = new Redirect($this->request->path, "../" . $route);
+        Hyde::shareViewData($redirectPage);
+
+        return (new HtmlResponse(303, 'Redirect', [
+            'body' => $redirectPage->compile(),
+        ]))->withHeaders([
+            'Location' => $route,
+        ]);
     }
 }
