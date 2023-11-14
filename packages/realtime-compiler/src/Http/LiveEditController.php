@@ -66,7 +66,7 @@ class LiveEditController extends BaseController
         $redirectPage = new Redirect($this->request->path, "../$route");
         Hyde::shareViewData($redirectPage);
 
-        return (new HtmlResponse(303, 'Redirect', [
+        return (new HtmlResponse(303, 'See Other', [
             'body' => $redirectPage->compile(),
         ]))->withHeaders([
             'Location' => $route,
