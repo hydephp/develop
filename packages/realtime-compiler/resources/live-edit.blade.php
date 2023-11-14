@@ -23,6 +23,13 @@
                 <input type="hidden" name="page" value="{{ $page->getSourcePath() }}">
                 <label for="live-editor" class="sr-only">Edit page contents</label>
                 <textarea name="markdown" id="live-editor" cols="30" rows="20" class="rounded-lg bg-gray-200 dark:bg-gray-800">{{ $markdown }}</textarea>
+                <footer class="prose dark:prose-invert">
+                    <small>
+                        <a id="#liveEditSettingsButton" role="button" href="javascript:liveEditSettings();">
+                            Editor preferences
+                        </a>
+                    </small>
+                </footer>
             </form>
         </section>
     </template>
