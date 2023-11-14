@@ -116,7 +116,7 @@ function initLiveEdit() {
     }
 
     function shortcutsEnabled() {
-        return true; // Todo: Add option to disable all keyboard shortcuts
+        return localStorage.getItem('hydephp.live-edit.shortcuts') !== 'false';
     }
 
     const article = getArticle();
