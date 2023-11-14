@@ -26,6 +26,9 @@ function initLiveEdit() {
             article.parentNode.insertBefore(editor, article.nextSibling);
             editor = getLiveEditor();
 
+            // Apply CSS classes from article to editor to match layout
+            editor.classList.add(...article.classList);
+
             showEditor();
 
             document.getElementById('liveEditCancel').addEventListener('click', hideEditor);
