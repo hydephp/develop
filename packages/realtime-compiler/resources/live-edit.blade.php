@@ -3,6 +3,9 @@
     @php
         /** @var \Hyde\Pages\Concerns\BaseMarkdownPage $page */
         $markdown = $page->markdown()->body();
+
+        $markdownLines = substr_count($markdown, "\n");
+        $rows = max(8, $markdownLines < 32 ? $markdownLines + 2 : 32)
     @endphp
     <style>{!! $styles !!}</style>
     <template id="live-edit-template">
@@ -22,7 +25,7 @@
                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                 <input type="hidden" name="pagePath" value="{{ $page->getSourcePath() }}">
                 <label for="live-editor" class="sr-only">Edit page contents</label>
-                <textarea name="contentInput" id="live-editor" cols="30" rows="20">{{ $markdown }}</textarea>
+                <textarea name="contentInput" id="live-editor" cols="30" rows="{{ $rows }}">{{ $markdown }}</textarea>
             </form>
         </section>
     </template>
