@@ -6,7 +6,7 @@
     @endphp
     <style>{!! $styles !!}</style>
     <template id="live-edit-template">
-        <section id="live-edit-container">
+        <section id="live-edit-container" style="margin-top: {{ $page instanceof \Hyde\Pages\DocumentationPage ? '1rem' : '-1rem'}};">
             <form id="liveEditForm" action="/_hyde/live-edit" method="POST">
                 <header class="prose dark:prose-invert">
                     <h2>Live Editor</h2>
