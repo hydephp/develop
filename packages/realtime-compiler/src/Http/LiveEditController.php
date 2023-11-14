@@ -63,7 +63,7 @@ class LiveEditController extends BaseController
 
     protected function redirectToPage(Route $route): HtmlResponse
     {
-        $redirectPage = new Redirect($this->request->path, "../" . $route);
+        $redirectPage = new Redirect($this->request->path, "../$route");
         Hyde::shareViewData($redirectPage);
 
         return (new HtmlResponse(303, 'Redirect', [
