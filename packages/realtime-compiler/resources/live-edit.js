@@ -10,10 +10,29 @@ function initLiveEdit() {
         return article;
     }
 
+    function getLiveEditor() {
+        return document.querySelector('#live-edit-container');
+    }
+
+    function showEditor() {
+        article.style.display = 'none';
+        getLiveEditor().style.display = '';
+        focusOnTextarea();
+    }
+
+    function hideEditor() {
+        article.style.display = '';
+        getLiveEditor().style.display = 'none';
+    }
+
+    function focusOnTextarea() {
+        const textarea = getLiveEditor().querySelector('textarea');
+
+        textarea.selectionStart = textarea.value.length;
+        textarea.focus();
+    }
+
     function switchToEditor() {
-        function getLiveEditor() {
-            return document.querySelector('#live-edit-container');
-        }
 
         function hasEditorBeenSetUp() {
             return getLiveEditor() !== null;
@@ -36,24 +55,6 @@ function initLiveEdit() {
             document.getElementById('liveEditForm').addEventListener('submit', function(event) {
                 handleFormSubmit(event, editor);
             });
-        }
-
-        function showEditor() {
-            article.style.display = 'none';
-            getLiveEditor().style.display = '';
-            focusOnTextarea();
-        }
-
-        function hideEditor() {
-            article.style.display = '';
-            getLiveEditor().style.display = 'none';
-        }
-
-        function focusOnTextarea() {
-            const textarea = getLiveEditor().querySelector('textarea');
-
-            textarea.selectionStart = textarea.value.length;
-            textarea.focus();
         }
 
         if (hasEditorBeenSetUp()) {
