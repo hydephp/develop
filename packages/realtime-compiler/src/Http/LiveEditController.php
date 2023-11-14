@@ -60,6 +60,8 @@ class LiveEditController extends BaseController
 
     public static function injectLiveEditScript(string $html): string
     {
+        session_start();
+
         return str_replace('</body>', sprintf('%s</body>', Blade::render(file_get_contents(__DIR__.'/../../resources/live-edit.blade.php'), [
             'styles' => file_get_contents(__DIR__.'/../../resources/live-edit.css'),
             'scripts' => file_get_contents(__DIR__.'/../../resources/live-edit.js'),
