@@ -64,7 +64,7 @@ class ConsoleOutput
     /** @experimental */
     public function printMessage(string $message, string $context): void
     {
-        $this->output->writeln(sprintf('%s [%s]', $message, $context));
+        $this->output->writeln(sprintf('%s ::context=[%s]', $message, $context));
     }
 
     protected function handleOutput(string $buffer): void
@@ -92,8 +92,8 @@ class ConsoleOutput
         if (str_ends_with(trim($line), 'Accepted') || str_ends_with(trim($line), 'Closing')) {
             return $this->verbose ? $this->formatRequestStatusLine($line) : null;
         }
-        if (str_contains($line, '[dashboard@')) {
-            return $this->formatDashboardContextLine($line);
+        if (str_contains($line, '::context=')) {
+            return $this->formatContextLine($line);
         }
 
         return $this->formatLine($line, Carbon::now());
@@ -126,10 +126,10 @@ class ConsoleOutput
         return $this->formatLine(sprintf('%s %s', $address, $status), $this->parseDate($line));
     }
 
-    protected function formatDashboardContextLine(string $line): string
+    protected function formatContextLine(string $line): string
     {
-        $message = trim(Str::before($line, '[dashboard@'));
-        $context = trim(trim(Str::after($line, $message)), '[]');
+        $message = trim(Str::before($line, '::context='), '[]');
+        $context = Str::between($line, '::context=[', ']');
         $success = str_contains($message, 'Created') || str_contains($message, 'Updated');
 
         return $this->formatLine($message, Carbon::now(), $success ? 'green-500' : 'blue-500', $context);
