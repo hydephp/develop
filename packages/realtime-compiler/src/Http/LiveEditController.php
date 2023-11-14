@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
+use Desilva\Microserve\Response;
+use Hyde\Support\Models\Redirect;
 use Hyde\Markdown\Models\Markdown;
 use Desilva\Microserve\JsonResponse;
 use Illuminate\Support\Facades\Blade;
@@ -19,7 +21,7 @@ class LiveEditController extends BaseController
     protected bool $withConsoleOutput = true;
     protected bool $withSession = true;
 
-    public function handle(): JsonResponse
+    public function handle(): Response
     {
         try {
             $this->authorizePostRequest();
@@ -34,7 +36,7 @@ class LiveEditController extends BaseController
         }
     }
 
-    protected function handleRequest(): JsonResponse
+    protected function handleRequest(): Response
     {
         $pagePath = $this->request->data['page'] ?? $this->abort(400, 'Must provide page path');
         $content = $this->request->data['markdown'] ?? $this->abort(400, 'Must provide content');
@@ -49,6 +51,17 @@ class LiveEditController extends BaseController
         $page->save();
 
         $this->writeToConsole("Updated file '$pagePath'", 'hyde@live-edit');
+
+        if (! $this->expectsJson()) {
+            $redirectPage = new Redirect($this->request->path, "../".$page->getRoute());
+            Hyde::shareViewData($redirectPage);
+
+            return (new HtmlResponse(303, 'Redirect', [
+                'body' => $redirectPage->compile(),
+            ]))->withHeaders( [
+                'Location' => $page->getRoute(),
+            ]);
+        }
 
         return new JsonResponse(200, 'OK', [
             'message' => 'Page saved successfully.',
