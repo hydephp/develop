@@ -29,6 +29,10 @@ function initLiveEdit() {
             showEditor();
 
             document.getElementById('liveEditCancel').addEventListener('click', hideEditor);
+
+            document.getElementById('liveEditForm').addEventListener('submit', function(event) {
+                handleFormSubmit(event, editor);
+            });
         }
 
         function showEditor() {
@@ -54,6 +58,10 @@ function initLiveEdit() {
         } else {
             setupEditor();
         }
+    }
+
+    function handleFormSubmit(event, editor) {
+        //
     }
 
     const article = getArticle();
