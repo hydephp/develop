@@ -7,7 +7,7 @@
     <style>{!! $styles !!}</style>
     <template id="live-edit-template">
         <section id="live-edit-container")>
-            <form action="/_hyde/live-edit" method="POST">
+            <form id="liveEditForm" action="/_hyde/live-edit" method="POST">
                 <header id="liveEditHeader">
                     <h2>Live Editor</h2>
                     <menu id="liveEditFormActions">
