@@ -22,7 +22,7 @@
                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                 <input type="hidden" name="pagePath" value="{{ $page->getSourcePath() }}">
                 <label for="live-editor" class="sr-only">Edit page contents</label>
-                <textarea name="markdown" id="live-editor" cols="30" rows="20">{{ $markdown }}</textarea>
+                <textarea name="contentInput" id="live-editor" cols="30" rows="20">{{ $markdown }}</textarea>
             </form>
         </section>
     </template>
