@@ -61,7 +61,21 @@ function initLiveEdit() {
     }
 
     function handleFormSubmit(event, editor) {
-        //
+        event.preventDefault();
+
+        fetch('/_hyde/live-edit', {
+            method: "POST",
+            body: new FormData(event.target),
+            headers: new Headers({
+                "Accept": "application/json",
+            }),
+        }).then(async response => {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                alert(`Error saving content: ${response.status} ${response.statusText}\n${JSON.parse(await response.text()).error ?? 'Unknown error'}`);
+            }
+        });
     }
 
     const article = getArticle();
