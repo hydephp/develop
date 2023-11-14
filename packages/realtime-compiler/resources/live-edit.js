@@ -60,6 +60,8 @@ function initLiveEdit() {
         }
     }
 
+    // Todo: By adding a return redirect we could do this part without JavaScript,
+    //       but then we might need client-side validation, nullifying the value.
     function handleFormSubmit(event, editor) {
         event.preventDefault();
 
