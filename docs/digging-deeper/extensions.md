@@ -6,27 +6,55 @@ navigation:
 
 # Extensions and Integrations
 
-## First party extensions
+# First party extensions
 
-### Realtime Compiler
 
-The Hyde Realtime Compiler is now included with Hyde
-installations and is what powers the `php hyde serve` command.
+## Realtime Compiler
+
+The Hyde Realtime Compiler is included with Hyde installations and is what powers the `php hyde serve` command,
+allowing you to preview your static site on a local development server without having to rebuild the site.
+
+### Usage
+
+To start the server, run the following command from a terminal in your project directory:
+
+```bash
+php hyde serve
+```
+
+This will start a local development server at `http://localhost:8080`
+
+### Configuration
+
+The server can be configured in the `config/hyde.php` file to change the port, host, and to customize its features.
+
+```php
+// filepath config/hyde.php
+
+'server' => [
+    'port' => env('SERVER_PORT', 8080),
+    'host' => env('SERVER_HOST', 'localhost'),
+    'save_preview' => true,
+],
+```
+
+### Source code
 
 - **GitHub**: [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler)
 - **Packagist**: [hydephp/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler)
-- **YouTube video**: [Introducing the Hyde Realtime Compiler](https://www.youtube.com/watch?v=1ZM4fQMKi64)
+
+---
+
+# Integrations with third-party tools
 
 
-## Integrations with third-party tools
-
-### Torchlight
+## Torchlight
 
 Torchlight is an amazing API for syntax highlighting, and is used by this site. I cannot recommend it highly enough,
 especially for documentation sites and code-heavy blogs! As such, HydePHP has built-in support for Torchlight,
 which is automatically enabled once you add an API token to your `.env` file. Nothing else needs to be done!
 
-#### Getting started
+### Getting started
 
 To get started you need an API token which you can get at [Torchlight.dev](https://torchlight.dev/).
 It is entirely free for personal and open source projects, as seen on their [pricing page](https://torchlight.dev/#pricing).
@@ -38,7 +66,7 @@ Once a token is set, Hyde will automatically enable the CommonMark extension.
 TORCHLIGHT_TOKEN=torch_<your-api-token>
 ```
 
-#### Attribution and configuration
+### Attribution and configuration
 
 Note that for the free plan you need to provide an attribution link. Thankfully Hyde injects a customizable link
 automatically to all pages that use Torchlight. You can of course disable and customize this in the `config/torchlight.php` file.

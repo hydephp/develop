@@ -217,7 +217,7 @@ Learn more in the [Navigation Menu](navigation-menus) documentation.
 #### Customizing the documentation sidebar
 
 - To customize the sidebar, use the setting `sidebar_order` in the `docs.php` config.
-- When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page. 
+- When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
 
 Learn more in the [Documentation Pages](documentation-pages) documentation.
 
@@ -231,7 +231,7 @@ However, some pages are autoconfigured to have a lower priority, for example, th
 
 #### Basic syntax for changing the priorities
 
-The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`. 
+The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`.
 The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
 
 ```php
@@ -316,7 +316,6 @@ navigation:
     hidden: true
 ---
 
-
 #### Adding Custom Navigation Menu Links
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
@@ -354,13 +353,11 @@ php hyde publish:views
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
-
 ## Frontend Styles
 
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
 for you to get up and running quickly. If you want to customize these, you are free to do so.
 Please see the [Managing Assets](managing-assets) page to learn more.
-
 
 ## Markdown Configuration
 
@@ -423,7 +420,6 @@ arbitrary PHP code specified in Markdown to be executed. It's easy to enable how
 ```
 
 See the [Blade in Markdown](advanced-markdown#blade-support) documentation for more information on how to use this feature.
-
 
 ## YAML Configuration
 
