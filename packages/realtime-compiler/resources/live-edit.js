@@ -51,10 +51,6 @@ function initLiveEdit() {
             showEditor();
 
             document.getElementById('liveEditCancel').addEventListener('click', hideEditor);
-
-            document.getElementById('liveEditForm').addEventListener('submit', function(event) {
-                handleFormSubmit(event, editor);
-            });
         }
 
         if (hasEditorBeenSetUp()) {
@@ -62,26 +58,6 @@ function initLiveEdit() {
         } else {
             setupEditor();
         }
-    }
-
-    // Todo: By adding a return redirect we could do this part without JavaScript,
-    //       but then we might need client-side validation, nullifying the value.
-    function handleFormSubmit(event, editor) {
-        event.preventDefault();
-
-        fetch('/_hyde/live-edit', {
-            method: "POST",
-            body: new FormData(event.target),
-            headers: new Headers({
-                "Accept": "application/json",
-            }),
-        }).then(async response => {
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                alert(`Error saving content: ${response.status} ${response.statusText}\n${JSON.parse(await response.text()).error ?? 'Unknown error'}`);
-            }
-        });
     }
 
     function handleShortcut(event) {

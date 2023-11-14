@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
-use Desilva\Microserve\Response;
 use Hyde\Support\Models\Redirect;
 use Hyde\Markdown\Models\Markdown;
-use Desilva\Microserve\JsonResponse;
 use Illuminate\Support\Facades\Blade;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
@@ -21,22 +18,14 @@ class LiveEditController extends BaseController
     protected bool $withConsoleOutput = true;
     protected bool $withSession = true;
 
-    public function handle(): Response
+    public function handle(): HtmlResponse
     {
-        try {
-            $this->authorizePostRequest();
+        $this->authorizePostRequest();
 
-            return $this->handleRequest();
-        } catch (HttpException $exception) {
-            if ($this->expectsJson()) {
-                return $this->sendJsonErrorResponse($exception->getStatusCode(), $exception->getMessage());
-            }
-
-            throw $exception;
-        }
+        return $this->handleRequest();
     }
 
-    protected function handleRequest(): Response
+    protected function handleRequest(): HtmlResponse
     {
         $pagePath = $this->request->data['page'] ?? $this->abort(400, 'Must provide page path');
         $content = $this->request->data['markdown'] ?? $this->abort(400, 'Must provide content');
@@ -52,19 +41,13 @@ class LiveEditController extends BaseController
 
         $this->writeToConsole("Updated file '$pagePath'", 'hyde@live-edit');
 
-        if (! $this->expectsJson()) {
-            $redirectPage = new Redirect($this->request->path, "../".$page->getRoute());
-            Hyde::shareViewData($redirectPage);
+        $redirectPage = new Redirect($this->request->path, "../".$page->getRoute());
+        Hyde::shareViewData($redirectPage);
 
-            return (new HtmlResponse(303, 'Redirect', [
-                'body' => $redirectPage->compile(),
-            ]))->withHeaders( [
-                'Location' => $page->getRoute(),
-            ]);
-        }
-
-        return new JsonResponse(200, 'OK', [
-            'message' => 'Page saved successfully.',
+        return (new HtmlResponse(303, 'Redirect', [
+            'body' => $redirectPage->compile(),
+        ]))->withHeaders( [
+            'Location' => $page->getRoute(),
         ]);
     }
 
