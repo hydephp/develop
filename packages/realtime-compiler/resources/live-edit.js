@@ -84,7 +84,46 @@ function initLiveEdit() {
         });
     }
 
+    function handleShortcut(event) {
+        let isEditorHidden = getLiveEditor() === null || getLiveEditor().style.display === 'none';
+        let isEditorVisible = getLiveEditor() !== null && getLiveEditor().style.display !== 'none';
+
+        if (event.ctrlKey && event.key === 'e') {
+            event.preventDefault();
+
+            if (isEditorHidden) {
+                switchToEditor();
+            } else {
+                hideEditor();
+            }
+        }
+
+        if (event.ctrlKey && event.key === 's') {
+            if (isEditorVisible) {
+                event.preventDefault();
+
+                document.getElementById('liveEditSubmit').click();
+            }
+        }
+
+        if (event.key === 'Escape') {
+            if (isEditorVisible) {
+                event.preventDefault();
+
+                hideEditor();
+            }
+        }
+    }
+
+    function shortcutsEnabled() {
+        return true; // Todo: Add option to disable all keyboard shortcuts
+    }
+
     const article = getArticle();
 
     article.addEventListener('dblclick', switchToEditor);
+
+    if (shortcutsEnabled()) {
+        document.addEventListener('keydown', handleShortcut);
+    }
 }
