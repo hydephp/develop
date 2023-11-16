@@ -156,3 +156,8 @@ the package is installed in a HydePHP project!
   }
 }
 ```
+
+### Telling the world about your extension
+
+Next up, why not send us a Tweet at [@HydeFramework](https://twitter.com/HydeFramework) and tell us about your extension,
+so we can feature it?
