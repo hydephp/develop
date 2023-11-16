@@ -20,6 +20,8 @@ so you can understand how your code works with the internals.
 - [Architecture concepts](architecture-concepts)
 - [Autodiscovery](autodiscovery)
 
+This documentation page will function heavily through examples, so it's recommended that you first read the sections in order.
+
 ### The why and how of the Extensions API
 
 HydePHP being a static site generator, the Extensions API is centered around [Page Models](page-models),
