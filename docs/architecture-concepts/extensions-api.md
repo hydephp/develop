@@ -10,6 +10,8 @@ The Extensions API a powerful interface designed for package developers who want
 
 Using the API, you can hook directly into the HydePHP Kernel and extend sites with custom page types and new features.
 
+This documentation page functions heavily through examples, so it's recommended that the sections are read in order.
+
 ### Prerequisites
 
 Before creating your extension, it will certainly be helpful if you first become familiar with
@@ -19,8 +21,6 @@ so you can understand how your code works with the internals.
 - [Core concepts overview](core-concepts)
 - [Architecture concepts](architecture-concepts)
 - [Autodiscovery](autodiscovery)
-
-This documentation page will function heavily through examples, so it's recommended that you first read the sections in order.
 
 ### The why and how of the Extensions API
 
@@ -32,16 +32,15 @@ This may sound like a small thing, but it's actually incredibly powerful as the 
 of HydePHP's functionality. They tell the system how to discover pages, how to render them,
 and how they interact with the site.
 
-Any other functionality you want to add to HydePHP, such as new commands, new configuration options,
-that can all be added the same way as you would in Laravel, and are thus not part of the Extensions API.
-
-You may want to read up on the [Laravel package development guide](https://laravel.com/docs/10.x/packages)
+Any other functionality you want to add to HydePHP, such as new commands or configuration options,
+can be added the same way as you would in Laravel, and are thus not part of our API.
+See the [Laravel package development guide](https://laravel.com/docs/10.x/packages) for more.
 
 
 ## Creating your Extension class
 
-The entry point for your extension is your Extensions class. Within this, you can register the custom page classes for your extension.
-If needed, you can also register discovery handlers which can run custom logic at various points in the boot process.
+The entry-point for your extension is your Extensions class. Within this, you can register the custom page classes.
+If needed, you can also register discovery handlers which can run custom logic at various parts of the boot process.
 
 In this article we will create an extension that registers a new type of page, a `JsonPageExtension`.
 
