@@ -12,7 +12,7 @@ Using the API, you can hook directly into the HydePHP Kernel and extend sites wi
 
 ### Prerequisites
 
-Before creating your extension, it will certainly be helpful if you first become familiar with 
+Before creating your extension, it will certainly be helpful if you first become familiar with
 the basic internal architecture of HydePHP, as well as how the auto-discovery system works,
 so you can understand how your code works with the internals.
 
@@ -36,6 +36,7 @@ Any other functionality you want to add to HydePHP, such as new commands, new co
 that can all be added the same way as you would in Laravel, and are thus not part of the Extensions API.
 
 You may want to read up on the [Laravel package development guide](https://laravel.com/docs/10.x/packages)
+
 
 ## Creating your Extension class
 
@@ -113,9 +114,10 @@ class JsonPageExtension extends HydeExtension {
 Since the discovery steps are handled sequentially, the added pages will automatically be discovered as routes without
 us having to implement that handler method. As we inject the page objects directly, we bypass the need of the `FileCollection`.
 
+
 ## Registering your extension
 
-Now that we have our extension class, we need to register it with HydePHP. 
+Now that we have our extension class, we need to register it with HydePHP.
 
 It's important that your class is registered before the HydeKernel boots. Therefore, an excellent place for this is the
 `register` method of your extensions service provider,  where you call the `registerExtension` method of the `HydeKernel`
@@ -130,7 +132,7 @@ class JsonPageExtensionServiceProvider extends ServiceProvider {
     public function register(): void {
         // Via the service container:
         $this->app->make(HydeKernel::class)->registerExtension(JsonPageExtension::class);
-        
+
         // Or via the facade:
         Hyde::registerExtension(JsonPageExtension::class);
     }
