@@ -67,15 +67,17 @@ class JsonPageExtension extends HydeExtension {
 ```
 
 Hyde will then use the information from the `JsonPage` class to automatically discover the pages when booting the Kernel.
+For example, if you specify the file extension and source directory, that is all Hyde needs to know to discover the pages.
 
-However, if our page model has more complex requirements we can add a discovery handler, so let's take a quick look at that next.
+If our pages need more complex discovery logic, we can create custom handlers. so let's take a quick look at that next.
 
 ### Discovery handlers
 
 The discovery handlers lets you run code at various points of the booting process. This is usually only needed if your
-page models don't contain the information required for Hyde run the standard auto-discovery, for example if you need
-something custom. And while you usually only in that case need to add files to the Kernel `FileCollection`, the
-`HydeExtension` class offers following three discovery handlers, in case you need them:
+page models cannot provide the information required for Hyde run the standard auto-discovery, and thus need custom logic.
+
+Usually in these cases, you would only need to add files to the Kernel `FileCollection`,
+though the `HydeExtension` class offers following three discovery handlers, in case you need them:
 
 ```php
 /** Runs during file discovery */
@@ -109,4 +111,4 @@ class JsonPageExtension extends HydeExtension {
 ```
 
 Since the discovery steps are handled sequentially, the added pages will automatically be discovered as routes without
-us having to implement that handler method.
+us having to implement that handler method. As we inject the page objects directly, we bypass the need of the `FileCollection`.
