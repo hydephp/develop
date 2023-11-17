@@ -21,6 +21,7 @@
                 </header>
                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                 <input type="hidden" name="page" value="{{ $page->getSourcePath() }}">
+                <input type="hidden" name="currentContentHash" value="{{ hash('sha256', $page->markdown()->body()) }}">
                 <label for="live-editor" class="sr-only">Edit page contents</label>
                 <textarea name="markdown" id="live-editor" cols="30" rows="20" class="rounded-lg bg-gray-200 dark:bg-gray-800">{{ $markdown }}</textarea>
             </form>
