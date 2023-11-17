@@ -50,7 +50,7 @@ class LiveEditController extends BaseController
             $this->abort(400, 'Page is not a markdown page');
         }
 
-        if (! $force && hash_file('sha256', $page->getSourcePath()) !== $currentContentHash) {
+        if (! $force && hash('sha256', $page->markdown()->body()) !== $currentContentHash) {
             $this->abort(409, 'Content has changed in another window');
         }
 
