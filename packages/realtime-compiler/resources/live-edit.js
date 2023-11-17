@@ -75,6 +75,14 @@ function initLiveEdit() {
             if (response.ok) {
                 window.location.reload();
             } else {
+                if (response.status === 409) {
+                    if (confirm('This page has been modified in another window. Do you want to overwrite the changes?')) {
+                        document.getElementById('liveEditForm').insertAdjacentHTML('beforeend', '<input type="hidden" name="force" value="true">');
+                        document.getElementById('liveEditForm').submit();
+                    }
+                    return;
+                }
+
                 alert(`Error saving content: ${response.status} ${response.statusText}\n${JSON.parse(await response.text()).error ?? 'Unknown error'}`);
             }
         });

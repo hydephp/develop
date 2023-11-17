@@ -41,11 +41,17 @@ class LiveEditController extends BaseController
     {
         $pagePath = $this->request->data['page'] ?? $this->abort(400, 'Must provide page path');
         $content = $this->request->data['markdown'] ?? $this->abort(400, 'Must provide content');
+        $currentContentHash = $this->request->data['currentContentHash'] ?? $this->abort(400, 'Must provide content hash');
+        $force = $this->request->data['force'] ?? false;
 
         $page = Hyde::pages()->getPage($pagePath);
 
         if (! $page instanceof BaseMarkdownPage) {
             $this->abort(400, 'Page is not a markdown page');
+        }
+
+        if (! $force && hash_file('sha256', $page->getSourcePath()) !== $currentContentHash) {
+            $this->abort(409, 'Content has changed in another window');
         }
 
         $page->markdown = new Markdown($content);
