@@ -6,10 +6,13 @@ namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
+use Desilva\Microserve\Response;
 use Hyde\Support\Models\Redirect;
 use Hyde\Markdown\Models\Markdown;
+use Desilva\Microserve\JsonResponse;
 use Illuminate\Support\Facades\Blade;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
@@ -19,14 +22,22 @@ class LiveEditController extends BaseController
     protected bool $withConsoleOutput = true;
     protected bool $withSession = true;
 
-    public function handle(): HtmlResponse
+    public function handle(): Response
     {
-        $this->authorizePostRequest();
+        try {
+            $this->authorizePostRequest();
 
-        return $this->handleRequest();
+            return $this->handleRequest();
+        } catch (HttpException $exception) {
+            if ($this->expectsJson()) {
+                return $this->sendJsonErrorResponse($exception->getStatusCode(), $exception->getMessage());
+            }
+
+            throw $exception;
+        }
     }
 
-    protected function handleRequest(): HtmlResponse
+    protected function handleRequest(): Response
     {
         $pagePath = $this->request->data['page'] ?? $this->abort(400, 'Must provide page path');
         $content = $this->request->data['markdown'] ?? $this->abort(400, 'Must provide content');
@@ -41,6 +52,12 @@ class LiveEditController extends BaseController
         $page->save();
 
         $this->writeToConsole("Updated file '$pagePath'", 'hyde@live-edit');
+
+        if ($this->expectsJson()) {
+            return new JsonResponse(200, 'OK', [
+                'message' => 'Page saved successfully.',
+            ]);
+        }
 
         return $this->redirectToPage($page->getRoute());
     }

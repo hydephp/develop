@@ -51,6 +51,8 @@ function initLiveEdit() {
             showEditor();
 
             document.getElementById('liveEditCancel').addEventListener('click', hideEditor);
+
+            document.getElementById('liveEditForm').addEventListener('submit', handleFormSubmit);
         }
 
         if (hasEditorBeenSetUp()) {
@@ -58,6 +60,24 @@ function initLiveEdit() {
         } else {
             setupEditor();
         }
+    }
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        fetch('/_hyde/live-edit', {
+            method: "POST",
+            body: new FormData(event.target),
+            headers: new Headers({
+                "Accept": "application/json",
+            }),
+        }).then(async response => {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                alert(`Error saving content: ${response.status} ${response.statusText}\n${JSON.parse(await response.text()).error ?? 'Unknown error'}`);
+            }
+        });
     }
 
     function handleShortcut(event) {
