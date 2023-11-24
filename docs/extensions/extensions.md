@@ -1,7 +1,7 @@
 ---
 navigation:
     label: "Extensions & Integrations"
-    priority: 28
+    priority: 80
 ---
 
 # Extensions and Integrations
