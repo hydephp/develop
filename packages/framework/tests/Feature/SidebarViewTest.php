@@ -65,6 +65,17 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer-text'));
     }
 
+    public function testBaseSidebarWithCustomFooterText()
+    {
+        config(['docs.sidebar.footer' => 'My **Markdown** Footer Text']);
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeHtml('<footer id="sidebar-footer"')
+            ->assertSeeHtml('<p>My <strong>Markdown</strong> Footer Text</p>')
+            ->assertDontSee('Back to home page')
+            ->allGood();
+    }
+
     public function testBaseSidebarCustomHeaderBrand()
     {
         config(['docs.sidebar.header' => 'My Custom Header']);
