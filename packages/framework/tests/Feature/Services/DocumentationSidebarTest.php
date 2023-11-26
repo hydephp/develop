@@ -376,6 +376,31 @@ class DocumentationSidebarTest extends TestCase
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('foo'));
     }
 
+    public function test_index_page_added_to_sidebar_when_it_is_the_only_page()
+    {
+        Filesystem::touch('_docs/index.md');
+        $sidebar = DocumentationSidebar::create();
+
+        $this->assertCount(1, $sidebar->items);
+        $this->assertEquals(
+            collect([NavItem::fromRoute(Routes::get('docs/index'))]),
+            $sidebar->items
+        );
+    }
+
+    public function test_index_page_not_added_to_sidebar_when_other_pages_exist()
+    {
+        $this->createTestFiles(1);
+        Filesystem::touch('_docs/index.md');
+        $sidebar = DocumentationSidebar::create();
+
+        $this->assertCount(1, $sidebar->items);
+        $this->assertEquals(
+            collect([NavItem::fromRoute(Routes::get('docs/test-0'))]),
+            $sidebar->items
+        );
+    }
+
     protected function createTestFiles(int $count = 5): void
     {
         for ($i = 0; $i < $count; $i++) {
