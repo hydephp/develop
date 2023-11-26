@@ -13,7 +13,7 @@ This serves two purposes:
 - Adds a new fancy output for the realtime compiler serve command in https://github.com/hydephp/develop/pull/1444
 
 ### Changed
-- for changes in existing functionality.
+- The `docs.sidebar.footer` config option now accepts a Markdown string to replace the default footer in https://github.com/hydephp/develop/pull/1477
 
 ### Deprecated
 - for soon-to-be removed features.
