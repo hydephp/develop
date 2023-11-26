@@ -140,6 +140,20 @@ The feature is enabled automatically when one or more of your documentation page
 in the front matter. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
 Any pages without the group front matter will get put in the "Other" group.
 
+### Sidebar footer customization
+
+The sidebar footer contains, by default, a link to your site homepage. You can change this in the `config/docs.php` file.
+
+```php
+// filepath: config/docs.php
+
+'sidebar' => [
+    'footer' => 'My **Markdown** Footer Text',
+],
+```
+
+You can also set the option to `false` to disable it entirely.
+
 #### Using Front Matter
 
 To enable sidebar grouping, you can add the following front matter to your documentation pages:
