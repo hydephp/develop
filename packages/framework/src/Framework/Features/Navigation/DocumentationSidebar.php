@@ -22,6 +22,11 @@ class DocumentationSidebar extends BaseNavigationMenu
                 $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
         });
+
+        // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
+        if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
+            $this->items->push(NavItem::fromRoute(DocumentationPage::home(), group: 'other'));
+        }
     }
 
     public function hasGroups(): bool
