@@ -199,7 +199,7 @@ jobs:
         env:
           ENV: testing
 
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
           fail_ci_if_error: false # optional (default = false)
