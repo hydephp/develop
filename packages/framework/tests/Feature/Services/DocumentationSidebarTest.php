@@ -345,6 +345,16 @@ class DocumentationSidebarTest extends TestCase
         $this->assertSame('Hello World', DocumentationSidebar::create()->makeGroupTitle('helloWorld'));
     }
 
+    public function test_make_group_title_uses_configured_sidebar_group_labels_when_available()
+    {
+        Config::set('docs.sidebar_group_labels', [
+            'example' => 'Hello world!',
+        ]);
+
+        $this->assertSame('Hello world!', DocumentationSidebar::create()->makeGroupTitle('example'));
+        $this->assertSame('Default', DocumentationSidebar::create()->makeGroupTitle('default'));
+    }
+
     public function test_can_have_multiple_grouped_pages_with_the_same_name_labels()
     {
         $this->makePage('foo', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);

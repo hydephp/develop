@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
@@ -59,7 +60,7 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     public function makeGroupTitle(string $group): string
     {
-        return Hyde::makeTitle($group);
+        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
     }
 
     protected function canAddRoute(Route $route): bool
