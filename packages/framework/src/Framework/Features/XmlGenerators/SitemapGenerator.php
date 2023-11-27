@@ -57,7 +57,7 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $urlItem = $this->xmlElement->addChild('url');
 
-        $this->addChild($urlItem, 'loc', Hyde::url($route->getOutputPath()));
+        $this->addChild($urlItem, 'loc', $this->resolveRouteLink($route));
         $this->addChild($urlItem, 'lastmod', $this->getLastModDate($route->getSourcePath()));
         $this->addChild($urlItem, 'changefreq', 'daily');
 
@@ -102,5 +102,10 @@ class SitemapGenerator extends BaseXmlGenerator
     protected function getFormattedProcessingTime(): string
     {
         return (string) $this->getExecutionTimeInMs();
+    }
+
+    protected function resolveRouteLink(Route $route): string
+    {
+        return Hyde::url($route->getOutputPath());
     }
 }
