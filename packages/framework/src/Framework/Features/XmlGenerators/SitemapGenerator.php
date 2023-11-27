@@ -22,6 +22,7 @@ use function filemtime;
 use function in_array;
 use function date;
 use function time;
+use function str_starts_with;
 
 /**
  * @see https://www.sitemaps.org/protocol.html
@@ -109,7 +110,7 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $baseUrl = Config::getNullableString('hyde.url');
 
-        $canUseQualifiedUrl = filled($baseUrl);
+        $canUseQualifiedUrl = filled($baseUrl) && ! str_starts_with($baseUrl, 'http://localhost');
 
         if ($canUseQualifiedUrl) {
             return Hyde::url($route->getOutputPath());
