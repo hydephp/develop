@@ -17,6 +17,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 
+use function filled;
 use function filemtime;
 use function in_array;
 use function date;
@@ -106,6 +107,14 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function resolveRouteLink(Route $route): string
     {
-        return Hyde::url($route->getOutputPath());
+        $baseUrl = Config::getNullableString('hyde.url');
+
+        $canUseQualifiedUrl = filled($baseUrl);
+
+        if ($canUseQualifiedUrl) {
+            return Hyde::url($route->getOutputPath());
+        }
+
+        return $route->getLink();
     }
 }
