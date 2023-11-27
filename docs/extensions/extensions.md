@@ -1,7 +1,6 @@
 ---
 navigation:
     label: "Extensions & Integrations"
-    groupName: "Extensions & Integrations"
     priority: 80
 ---
 
