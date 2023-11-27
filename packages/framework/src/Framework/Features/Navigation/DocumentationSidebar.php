@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
@@ -54,6 +55,11 @@ class DocumentationSidebar extends BaseNavigationMenu
     {
         return Str::slug(Render::getPage()->navigationMenuGroup()) === $group
             || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
+    }
+
+    public function makeGroupTitle(string $group): string
+    {
+        return Hyde::makeTitle($group);
     }
 
     protected function canAddRoute(Route $route): bool
