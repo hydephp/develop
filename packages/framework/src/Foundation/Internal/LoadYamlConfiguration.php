@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Internal;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Support\Arr;
 use Symfony\Component\Yaml\Yaml;
 
 use function array_key_first;
@@ -48,7 +49,7 @@ class LoadYamlConfiguration
     /** @return array<string, mixed> */
     protected function getYaml(): array
     {
-        return (array) Yaml::parse(file_get_contents($this->getFile()));
+        return Arr::undot((array) Yaml::parse(file_get_contents($this->getFile())));
     }
 
     protected function getFile(): string
@@ -67,7 +68,7 @@ class LoadYamlConfiguration
         if ($this->configurationContainsNamespaces($yaml)) {
             /** @var array<string, array<string, scalar>> $yaml */
             foreach ($yaml as $namespace => $data) {
-                $this->mergeConfiguration($namespace, (array) $data);
+                $this->mergeConfiguration($namespace, Arr::undot((array) $data));
             }
 
             return;

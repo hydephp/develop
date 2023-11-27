@@ -227,6 +227,41 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('baz', Config::get('foo.bar'));
     }
 
+    public function testDotNotationCanBeUsed()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        foo.bar.baz: qux
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame(['foo' => ['bar' => ['baz' => 'qux']]], Config::get('hyde'));
+        $this->assertSame('qux', Config::get('hyde.foo.bar.baz'));
+    }
+
+    public function testDotNotationCanBeUsedWithNamespaces()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            foo.bar.baz: qux
+        one:
+            foo:
+                bar:
+                    baz: qux
+        two:
+            foo.bar.baz: qux
+        YAML);
+        $this->runBootstrapper();
+
+        $expected = ['foo' => ['bar' => ['baz' => 'qux']]];
+        $this->assertSame($expected, Config::get('hyde'));
+        $this->assertSame($expected, Config::get('one'));
+        $this->assertSame($expected, Config::get('two'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
