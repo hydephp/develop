@@ -12,6 +12,8 @@ use InvalidArgumentException;
 use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
+use Symfony\Component\Process\Process as SymfonyProcess;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 use function sprintf;
 use function class_exists;
@@ -31,6 +33,7 @@ class ServeCommand extends Command
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
+        {--open : Open the site preview in the browser.}
     ';
 
     /** @var string */
@@ -42,6 +45,10 @@ class ServeCommand extends Command
     {
         $this->configureOutput();
         $this->printStartMessage();
+
+        if ($this->option('open')) {
+            $this->openInBrowser();
+        }
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
@@ -134,5 +141,24 @@ class ServeCommand extends Command
         }
 
         return null;
+    }
+
+    protected function openInBrowser(): void
+    {
+        $command = match (PHP_OS_FAMILY) {
+            'Windows' => 'start',
+            'Darwin' => 'open',
+            'Linux' => 'xdg-open',
+            default => null
+        };
+
+        try {
+            SymfonyProcess::fromShellCommandline(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->mustRun();
+        } catch (ProcessFailedException $exception) {
+            $this->warn("Unable to open the site preview in the browser on your system.\n");
+            if ($this->output->isVerbose()) {
+                $this->line($exception->getMessage());
+            }
+        }
     }
 }
