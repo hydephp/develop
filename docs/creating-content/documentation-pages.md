@@ -250,7 +250,6 @@ Please note that this option is not added to the config file by default, as it's
 ],
 ```
 
-
 ### Table of contents settings
 
 In the `config/docs.php` file you can configure the behavior, content, and the look and feel of the sidebar table of contents.
