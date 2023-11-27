@@ -17,7 +17,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 
-use function filled;
+use function blank;
 use function filemtime;
 use function in_array;
 use function date;
@@ -110,7 +110,7 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $baseUrl = Config::getNullableString('hyde.url');
 
-        if (! filled($baseUrl) || str_starts_with($baseUrl, 'http://localhost')) {
+        if (blank($baseUrl) || str_starts_with($baseUrl, 'http://localhost')) {
             // While the sitemap spec requires a full URL, we rather fall back
             // to using relative links instead of using localhost links.
 
