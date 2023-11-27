@@ -110,12 +110,13 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $baseUrl = Config::getNullableString('hyde.url');
 
-        $canUseQualifiedUrl = filled($baseUrl) && ! str_starts_with($baseUrl, 'http://localhost');
+        if (! filled($baseUrl) || str_starts_with($baseUrl, 'http://localhost')) {
+            // While the sitemap spec requires a full URL, we rather fall back
+            // to using relative links instead of using localhost links.
 
-        if ($canUseQualifiedUrl) {
+            return $route->getLink();
+        } else {
             return Hyde::url($route->getOutputPath());
         }
-
-        return $route->getLink();
     }
 }
