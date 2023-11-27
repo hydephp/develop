@@ -169,4 +169,15 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('404.html', $service->getXmlElement()->url[0]->loc);
         $this->assertEquals('index.html', $service->getXmlElement()->url[1]->loc);
     }
+
+    public function testLinksFallbackToRelativeLinksWhenSiteUrlIsLocalhost()
+    {
+        config(['hyde.url' => 'http://localhost']);
+
+        $service = new SitemapGenerator();
+        $service->generate();
+
+        $this->assertEquals('404.html', $service->getXmlElement()->url[0]->loc);
+        $this->assertEquals('index.html', $service->getXmlElement()->url[1]->loc);
+    }
 }
