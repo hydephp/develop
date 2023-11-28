@@ -12,10 +12,9 @@ use InvalidArgumentException;
 use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
-use Symfony\Component\Process\Process as SymfonyProcess;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 use function sprintf;
+use function str_replace;
 use function class_exists;
 
 /**
@@ -152,13 +151,13 @@ class ServeCommand extends Command
             default => null
         };
 
-        try {
-            SymfonyProcess::fromShellCommandline(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->mustRun();
-        } catch (ProcessFailedException $exception) {
-            $this->warn("Unable to open the site preview in the browser on your system.\n");
-            if ($this->output->isVerbose()) {
-                $this->line($exception->getMessage());
-            }
+        $process = Process::command(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->run();
+
+        if ($process->failed()) {
+            $this->warn('Unable to open the site preview in the browser on your system:');
+            $this->line(sprintf('  %s', str_replace("\n", "\n  ", $process->errorOutput())));
         }
+
+        $this->newLine();
     }
 }
