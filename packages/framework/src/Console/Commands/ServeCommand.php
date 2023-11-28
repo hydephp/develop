@@ -151,11 +151,11 @@ class ServeCommand extends Command
             default => null
         };
 
-        $process = Process::command(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->run();
+        $process = $command ? Process::command(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->run() : null;
 
-        if ($process->failed()) {
+        if (! $process || $process->failed()) {
             $this->warn('Unable to open the site preview in the browser on your system:');
-            $this->line(sprintf('  %s', str_replace("\n", "\n  ", $process->errorOutput())));
+            $this->line(sprintf('  %s', str_replace("\n", "\n  ", $process ? $process->errorOutput() : "Missing suitable 'open' binary.")));
         }
 
         $this->newLine();
