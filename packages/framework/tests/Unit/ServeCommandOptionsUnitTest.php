@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
 use Hyde\Testing\UnitTestCase;
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Console\OutputStyle;
 use Hyde\Console\Commands\ServeCommand;
 use Illuminate\Support\Facades\Process;
@@ -203,6 +204,37 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
 
     public function testWithOpenArgument()
     {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $command = new class(['open' => true]) extends ServeCommandMock
+        {
+            public bool $openInBrowserCalled = false;
+
+            // Void unrelated methods
+            protected function configureOutput(): void
+            {
+            }
+
+            protected function printStartMessage(): void
+            {
+            }
+
+            protected function runServerProcess(string $command): void
+            {
+            }
+
+            protected function openInBrowser(): void
+            {
+                $this->openInBrowserCalled = true;
+            }
+        };
+
+        $command->safeHandle();
+        $this->assertTrue($command->openInBrowserCalled);
+    }
+
+    public function test_openInBrowser()
+    {
         $output = $this->createMock(OutputStyle::class);
         $output->expects($this->never())->method('writeln');
 
@@ -222,7 +254,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command->openInBrowser();
     }
 
-    public function testWithOpenArgumentThatFails()
+    public function test_openInBrowserThatFails()
     {
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('getFormatter')->andReturn($this->createMock(OutputFormatterInterface::class));
