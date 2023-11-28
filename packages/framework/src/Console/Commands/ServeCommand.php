@@ -156,8 +156,7 @@ class ServeCommand extends Command
         if (! $process || $process->failed()) {
             $this->warn('Unable to open the site preview in the browser on your system:');
             $this->line(sprintf('  %s', str_replace("\n", "\n  ", $process ? $process->errorOutput() : "Missing suitable 'open' binary.")));
+            $this->newLine();
         }
-
-        $this->newLine();
     }
 }
