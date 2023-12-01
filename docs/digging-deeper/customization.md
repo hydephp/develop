@@ -340,6 +340,30 @@ Simplified, this will then be rendered as follows:
 <a href="https://github.com/hydephp/hyde">GitHub</a>
 ```
 
+#### Automatic navigation menu dropdowns 
+
+HydePHP has a neat feature to automatically place pages in dropdowns based on subdirectories.
+
+For pages that can be in the main site menu, ths feature needs to be enabled in the `hyde.php` config file.
+
+```php
+// filepath config/hyde.php
+
+'navigation' => [
+    'subdirectories' => 'dropdown',
+],
+```
+
+Now if you create a page called `_pages/about/contact.md` it will automatically be placed in a dropdown called "About".
+
+#### Automatic documentation sidebar grouping
+
+This feature works similarly to the automatic navigation menu dropdowns, but instead place the sidebar items in named groups. 
+This feature is enabled by default, so you only need to place your pages in subdirectories to have them grouped.
+
+For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
+
+
 ## Blade Views
 
 Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.

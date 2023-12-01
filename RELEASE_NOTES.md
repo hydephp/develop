@@ -30,3 +30,8 @@ This serves two purposes:
 
 ### Security
 - in case of vulnerabilities.
+
+### Internal
+
+- Internal: Only inject custom app config location when missing from parent in https://github.com/hydephp/develop/pull/1485
+- Internal: Remove experimental Phar support from internal configuration loader in https://github.com/hydephp/develop/pull/1485
