@@ -13,6 +13,7 @@ This serves two purposes:
 - Adds a new fancy output for the realtime compiler serve command in https://github.com/hydephp/develop/pull/1444
 - Added support for dot notation in the Yaml configuration files in https://github.com/hydephp/develop/pull/1478
 - Added a config option to customize automatic sidebar navigation group names in https://github.com/hydephp/develop/pull/1481
+- Added a new `hyde serve --open` option to automatically open the site in the browser in https://github.com/hydephp/develop/pull/1483
 
 ### Changed
 - The `docs.sidebar.footer` config option now accepts a Markdown string to replace the default footer in https://github.com/hydephp/develop/pull/1477

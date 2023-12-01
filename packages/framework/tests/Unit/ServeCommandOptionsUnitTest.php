@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Mockery;
 use Hyde\Testing\UnitTestCase;
+use Hyde\Foundation\HydeKernel;
+use Illuminate\Console\OutputStyle;
 use Hyde\Console\Commands\ServeCommand;
+use Illuminate\Support\Facades\Process;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 
 /**
  * @covers \Hyde\Console\Commands\ServeCommand
@@ -196,6 +202,91 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $_SERVER = $serverBackup;
     }
 
+    public function testWithOpenArgument()
+    {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $command = new class(['open' => true]) extends ServeCommandMock
+        {
+            public bool $openInBrowserCalled = false;
+
+            // Void unrelated methods
+            protected function configureOutput(): void
+            {
+            }
+
+            protected function printStartMessage(): void
+            {
+            }
+
+            protected function runServerProcess(string $command): void
+            {
+            }
+
+            protected function openInBrowser(): void
+            {
+                $this->openInBrowserCalled = true;
+            }
+        };
+
+        $command->safeHandle();
+        $this->assertTrue($command->openInBrowserCalled);
+    }
+
+    public function test_openInBrowser()
+    {
+        $output = $this->createMock(OutputStyle::class);
+        $output->expects($this->never())->method('writeln');
+
+        $command = $this->getMock(['--open' => true]);
+        $command->setOutput($output);
+
+        $binary = match (PHP_OS_FAMILY) {
+            'Darwin' => 'open',
+            'Windows' => 'start',
+            default => 'xdg-open',
+        };
+
+        Process::shouldReceive('command')->once()->with("$binary http://localhost:8080")->andReturnSelf();
+        Process::shouldReceive('run')->once()->andReturnSelf();
+        Process::shouldReceive('failed')->once()->andReturn(false);
+
+        $command->openInBrowser();
+    }
+
+    public function test_openInBrowserThatFails()
+    {
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('getFormatter')->andReturn($this->createMock(OutputFormatterInterface::class));
+
+        $warning = '<warning>Unable to open the site preview in the browser on your system:</warning>';
+        $context = '  Missing suitable \'open\' binary.';
+
+        $output->shouldReceive('writeln')->once()->with($warning, OutputInterface::VERBOSITY_NORMAL);
+        $output->shouldReceive('writeln')->once()->with($context, OutputInterface::VERBOSITY_NORMAL);
+        $output->shouldReceive('newLine')->once();
+
+        $command = $this->getMock(['--open' => true]);
+        $command->setOutput($output);
+
+        $binary = match (PHP_OS_FAMILY) {
+            'Darwin' => 'open',
+            'Windows' => 'start',
+            default => 'xdg-open',
+        };
+
+        Process::shouldReceive('command')->once()->with("$binary http://localhost:8080")->andReturnSelf();
+        Process::shouldReceive('run')->once()->andReturnSelf();
+        Process::shouldReceive('failed')->once()->andReturn(true);
+        Process::shouldReceive('errorOutput')->once()->andReturn("Missing suitable 'open' binary.");
+
+        $command->openInBrowser();
+
+        Mockery::close();
+
+        $this->assertTrue(true);
+    }
+
     protected function getMock(array $options = []): ServeCommandMock
     {
         return new ServeCommandMock($options);
@@ -208,6 +299,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
  * @method getEnvironmentVariables
  * @method parseEnvironmentOption(string $name)
  * @method checkArgvForOption(string $name)
+ * @method openInBrowser()
  */
 class ServeCommandMock extends ServeCommand
 {

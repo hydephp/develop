@@ -14,6 +14,7 @@ use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 
 use function sprintf;
+use function str_replace;
 use function class_exists;
 
 /**
@@ -31,6 +32,7 @@ class ServeCommand extends Command
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
+        {--open : Open the site preview in the browser.}
     ';
 
     /** @var string */
@@ -42,6 +44,10 @@ class ServeCommand extends Command
     {
         $this->configureOutput();
         $this->printStartMessage();
+
+        if ($this->option('open')) {
+            $this->openInBrowser();
+        }
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
@@ -134,5 +140,23 @@ class ServeCommand extends Command
         }
 
         return null;
+    }
+
+    protected function openInBrowser(): void
+    {
+        $command = match (PHP_OS_FAMILY) {
+            'Windows' => 'start',
+            'Darwin' => 'open',
+            'Linux' => 'xdg-open',
+            default => null
+        };
+
+        $process = $command ? Process::command(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->run() : null;
+
+        if (! $process || $process->failed()) {
+            $this->warn('Unable to open the site preview in the browser on your system:');
+            $this->line(sprintf('  %s', str_replace("\n", "\n  ", $process ? $process->errorOutput() : "Missing suitable 'open' binary.")));
+            $this->newLine();
+        }
     }
 }
