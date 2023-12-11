@@ -18,6 +18,7 @@ This serves two purposes:
 ### Changed
 - The `docs.sidebar.footer` config option now accepts a Markdown string to replace the default footer in https://github.com/hydephp/develop/pull/1477
 - Links in the `sitemap.xml` file are now relative when a site URL is not set, instead of using the default localhost URL in https://github.com/hydephp/develop/pull/1479
+- Improves the portability of the realtime compiler to better support running through the standalone executable in https://github.com/hydephp/develop/pull/1488
 
 ### Deprecated
 - for soon-to-be removed features.
