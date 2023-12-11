@@ -18,7 +18,7 @@ trait InteractsWithLaravel
 
     protected function createApplication(): void
     {
-        $this->laravel = require BASE_PATH.'/app/bootstrap.php';
+        $this->laravel = require getenv('HYDE_BOOTSTRAP_PATH') ?: (BASE_PATH.'/app/bootstrap.php');
     }
 
     protected function bootApplication(): void

@@ -4,7 +4,7 @@ try {
     define('BASE_PATH', realpath(getcwd()));
     define('HYDE_START', microtime(true));
 
-    require_once BASE_PATH.'/vendor/autoload.php';
+    require getenv('HYDE_AUTOLOAD_PATH') ?: BASE_PATH.'/vendor/autoload.php';
 
     try {
         $app = \Desilva\Microserve\Microserve::boot(\Hyde\RealtimeCompiler\Http\HttpKernel::class);
