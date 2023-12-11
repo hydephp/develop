@@ -17,6 +17,29 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [1.4.0](https://github.com/hydephp/develop/releases/tag/1.4.0) - 2023-12-11
+### Added
+- Adds a new fancy output for the realtime compiler serve command in https://github.com/hydephp/develop/pull/1444
+- Added support for dot notation in the Yaml configuration files in https://github.com/hydephp/develop/pull/1478
+- Added a config option to customize automatic sidebar navigation group names in https://github.com/hydephp/develop/pull/1481
+- Added a new `hyde serve --open` option to automatically open the site in the browser in https://github.com/hydephp/develop/pull/1483
+
+### Changed
+- The `docs.sidebar.footer` config option now accepts a Markdown string to replace the default footer in https://github.com/hydephp/develop/pull/1477
+- Links in the `sitemap.xml` file are now relative when a site URL is not set, instead of using the default localhost URL in https://github.com/hydephp/develop/pull/1479
+- Improves the portability of the realtime compiler to better support running through the standalone executable in https://github.com/hydephp/develop/pull/1488
+- Bumps realtime compiler version to v3.2 in https://github.com/hydephp/develop/pull/1489
+### Removed
+- Removed unhelpful boilerplate from the `hyde/hyde` `package.json` in https://github.com/hydephp/develop/pull/1436
+
+### Fixed
+- Fixed dot notation in Yaml configuration not being expanded (https://github.com/hydephp/develop/issues/1471) in https://github.com/hydephp/develop/pull/1478
+### Internal
+
+- Internal: Only inject custom app config location when missing from parent in https://github.com/hydephp/develop/pull/1485
+- Internal: Remove experimental Phar support from internal configuration loader in https://github.com/hydephp/develop/pull/1485
+
+
 ## [1.3.0](https://github.com/hydephp/develop/releases/tag/1.3.0) - 2023-10-30
 ### Added
 - Added support for setting custom content when calling source file creator actions directly in https://github.com/hydephp/develop/pull/1393
