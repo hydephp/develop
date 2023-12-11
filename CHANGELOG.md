@@ -30,11 +30,16 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 - Links in the `sitemap.xml` file are now relative when a site URL is not set, instead of using the default localhost URL in https://github.com/hydephp/develop/pull/1479
 - Improves the portability of the realtime compiler to better support running through the standalone executable in https://github.com/hydephp/develop/pull/1488
 - Bumps realtime compiler version to v3.2 in https://github.com/hydephp/develop/pull/1489
+- Support both route keys and identifiers for specifying sidebar order in https://github.com/hydephp/develop/pull/1432
+- Updated sitemap generator to use relative links instead of localhost when missing site URL in https://github.com/hydephp/develop/pull/1479
+
+  
 ### Removed
 - Removed unhelpful boilerplate from the `hyde/hyde` `package.json` in https://github.com/hydephp/develop/pull/1436
 
 ### Fixed
 - Fixed dot notation in Yaml configuration not being expanded (https://github.com/hydephp/develop/issues/1471) in https://github.com/hydephp/develop/pull/1478
+
 ### Internal
 
 - Internal: Only inject custom app config location when missing from parent in https://github.com/hydephp/develop/pull/1485
