@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Shortened the path printed to console when using dashboard to create a page in https://github.com/hydephp/develop/pull/1492
 
 ### Deprecated
 - for soon-to-be removed features.

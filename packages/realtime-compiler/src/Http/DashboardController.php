@@ -357,7 +357,7 @@ class DashboardController extends BaseController
             $this->abort($exception->getCode(), $exception->getMessage());
         }
 
-        $this->writeToConsole(sprintf("Created file '%s'", $path), 'dashboard@createPage');
+        $this->writeToConsole(sprintf("Created file '%s'", Hyde::pathToRelative($path)), 'dashboard@createPage');
 
         $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
         $this->setJsonResponse(201, "Created file '$path'!");
