@@ -62,7 +62,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
-                        <h2 class="h5 mb-0">Site Pages & Routes</h2>
+                        <h2 class="h5 mb-0">Project Information</h2>
                         @if($dashboard->isInteractive())
                             <form class="buttonActionForm" action="" method="POST">
                                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
