@@ -6,7 +6,6 @@ namespace Hyde\Foundation;
 
 use Hyde\Hyde;
 use Phar;
-use BadMethodCallException;
 
 use function dirname;
 use function is_dir;
@@ -47,10 +46,6 @@ class PharSupport
 
     public static function vendorPath(string $path = '', string $package = 'framework'): string
     {
-        if ($package !== 'framework') {
-            throw new BadMethodCallException('Cannot use vendorPath() outside of the framework package when running from a Phar archive.');
-        }
-
-        return rtrim(str_replace('/', DIRECTORY_SEPARATOR, rtrim(dirname(__DIR__, 2).'/'.$path, '/\\')), '/\\');
+        return rtrim(str_replace('/', DIRECTORY_SEPARATOR, rtrim(dirname(__DIR__, 3).'/'.$package.'/'.$path, '/\\')), '/\\');
     }
 }

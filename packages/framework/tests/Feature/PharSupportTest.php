@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use BadMethodCallException;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -63,16 +62,6 @@ class PharSupportTest extends TestCase
         PharSupport::mock('hasVendorDirectory', false);
 
         $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework/file.php")), Hyde::vendorPath('file.php'));
-    }
-
-    public function test_vendor_path_can_run_in_phar_with_package_argument_but_throws()
-    {
-        PharSupport::mock('running', true);
-        PharSupport::mock('hasVendorDirectory', false);
-
-        $this->expectException(BadMethodCallException::class);
-
-        Hyde::vendorPath(package: 'realtime-compiler');
     }
 
     protected function getBaseVendorPath(): string
