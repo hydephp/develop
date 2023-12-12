@@ -56,6 +56,10 @@ class Filesystem
             return $this->getBasePath();
         }
 
+        if (str_starts_with($path, 'phar://')) {
+            return $path;
+        }
+
         $path = unslash($this->pathToRelative($path));
 
         return path_join($this->getBasePath(), $path);

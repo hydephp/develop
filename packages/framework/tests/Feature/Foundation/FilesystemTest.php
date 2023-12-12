@@ -115,6 +115,11 @@ class FilesystemTest extends UnitTestCase
         $this->assertSame($this->filesystem->path('foo'), $this->filesystem->path($this->filesystem->path('foo/')));
     }
 
+    public function testPathMethodDoesNotModifyPharPaths()
+    {
+        $this->assertSame('phar://foo', $this->filesystem->path('phar://foo'));
+    }
+
     public function testHydePathMethodExists()
     {
         $this->assertTrue(method_exists(HydeKernel::class, 'path'));
