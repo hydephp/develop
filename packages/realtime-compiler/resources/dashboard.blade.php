@@ -217,46 +217,58 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
-                                <th>{{ $header }}</th>
-                            @endforeach
-                            <th class="text-end">Actions</th>
-                        </tr>
-                        @foreach($dashboard->getPageList() as $route)
-                            <tr id="pageRow-{{ $route->getRouteKey() }}" @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage active' : ''])>
-                                <td>
-                                    <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
-                                </td>
-                                <td>
-                                    {{ $route->getRouteKey() }}
-                                </td>
-                                <td>
-                                    {{ $route->getSourcePath() }}
-                                </td>
-                                <td>
-                                    {{ $route->getOutputPath() }}
-                                </td>
-                                <td>
-                                    {{ $route->getPageIdentifier() }}
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-flex justify-content-end">
-                                        @if($dashboard->isInteractive())
-                                            <form class="buttonActionForm" action="" method="POST">
-                                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
-                                                <input type="hidden" name="action" value="openPageInEditor">
-                                                <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
-                                            </form>
-                                        @endif
-                                        <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
-                                    </div>
-                                </td>
+                    @if(empty($dashboard->getPageList()))
+                        <div class="alert alert-info">
+                            <strong>Info:</strong>
+                            There are no pages yet.
+                            @if($dashboard->isInteractive())
+                                Why not create one using the button above?
+                            @else
+                                Why not create some?
+                            @endif
+                        </div>
+                    @else
+                        <table class="table table-bordered">
+                            <tr>
+                                @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
+                                    <th>{{ $header }}</th>
+                                @endforeach
+                                <th class="text-end">Actions</th>
                             </tr>
-                        @endforeach
-                    </table>
+                            @foreach($dashboard->getPageList() as $route)
+                                <tr id="pageRow-{{ $route->getRouteKey() }}" @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage active' : ''])>
+                                    <td>
+                                        <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
+                                    </td>
+                                    <td>
+                                        {{ $route->getRouteKey() }}
+                                    </td>
+                                    <td>
+                                        {{ $route->getSourcePath() }}
+                                    </td>
+                                    <td>
+                                        {{ $route->getOutputPath() }}
+                                    </td>
+                                    <td>
+                                        {{ $route->getPageIdentifier() }}
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="d-flex justify-content-end">
+                                            @if($dashboard->isInteractive())
+                                                <form class="buttonActionForm" action="" method="POST">
+                                                    <input type="hidden" name="_token" value="{{ $csrfToken }}">
+                                                    <input type="hidden" name="action" value="openPageInEditor">
+                                                    <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
+                                                    <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
+                                                </form>
+                                            @endif
+                                            <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>
@@ -270,57 +282,64 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="container d-flex flex-wrap" style="margin: 0 -0.5rem">
-                        @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
-                            <div class="col-lg-4 p-2 d-flex flex-grow-1">
-                                <figure class="card w-100 p-2 mb-0">
-                                    @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif']))
-                                        <img loading="lazy" src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
-                                    @else
-                                        <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);" role="presentation">
-                                            @if($dashboard::isMediaFileProbablyMinified($mediaFile->getContents()))
-                                                <pre style="white-space: normal;">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
-                                            @else
-                                                <pre class="overflow-hidden">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
-                                            @endif
-                                        </code>
-                                    @endif
-                                    <figcaption class="container mt-3">
-                                        <div class="row flex-nowrap">
-                                            <div class="col-auto px-0">
-                                                <div class="file-icon" data-type="{{ $mediaFile->getExtension() }}"></div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="row flex-nowrap justify-content-start">
-                                                    <p class="col-auto text-truncate mb-0 pe-2">
-                                                        <strong title="{{ $mediaFile->getPath() }}">{{ $mediaFile->getName() }}</strong>
-                                                    </p>
-                                                    <div class="col px-0 text-nowrap">
-                                                        <small class="text-muted">({{ $dashboard::bytesToHuman($mediaFile->getContentLength()) }})</small>
-                                                    </div>
+                    @if(empty(\Hyde\Support\Filesystem\MediaFile::all()))
+                        <div class="alert alert-info">
+                            <strong>Info:</strong>
+                            There are no media files yet. Why not add some?
+                        </div>
+                    @else
+                       <div class="container d-flex flex-wrap" style="margin: 0 -0.5rem">
+                            @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
+                                <div class="col-lg-4 p-2 d-flex flex-grow-1">
+                                    <figure class="card w-100 p-2 mb-0">
+                                        @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif']))
+                                            <img loading="lazy" src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
+                                        @else
+                                            <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);" role="presentation">
+                                                @if($dashboard::isMediaFileProbablyMinified($mediaFile->getContents()))
+                                                    <pre style="white-space: normal;">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
+                                                @else
+                                                    <pre class="overflow-hidden">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
+                                                @endif
+                                            </code>
+                                        @endif
+                                        <figcaption class="container mt-3">
+                                            <div class="row flex-nowrap">
+                                                <div class="col-auto px-0">
+                                                    <div class="file-icon" data-type="{{ $mediaFile->getExtension() }}"></div>
                                                 </div>
-                                                <div class="row small align-items-center">
-                                                    <div class="w-auto pe-0">
-                                                        <a href="media/{{ $mediaFile->getIdentifier() }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
-                                                    </div>
-                                                    @if($dashboard->isInteractive())
-                                                        <div class="w-auto ps-0">
-                                                            <form class="buttonActionForm" action="" method="POST">
-                                                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
-                                                                <input type="hidden" name="action" value="openMediaFileInEditor">
-                                                                <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
-                                                                <button type="submit" class="btn btn-link btn-sm py-0" title="Open this image in the system editor">Edit</button>
-                                                            </form>
+                                                <div class="col">
+                                                    <div class="row flex-nowrap justify-content-start">
+                                                        <p class="col-auto text-truncate mb-0 pe-2">
+                                                            <strong title="{{ $mediaFile->getPath() }}">{{ $mediaFile->getName() }}</strong>
+                                                        </p>
+                                                        <div class="col px-0 text-nowrap">
+                                                            <small class="text-muted">({{ $dashboard::bytesToHuman($mediaFile->getContentLength()) }})</small>
                                                         </div>
-                                                    @endif
+                                                    </div>
+                                                    <div class="row small align-items-center">
+                                                        <div class="w-auto pe-0">
+                                                            <a href="media/{{ $mediaFile->getIdentifier() }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
+                                                        </div>
+                                                        @if($dashboard->isInteractive())
+                                                            <div class="w-auto ps-0">
+                                                                <form class="buttonActionForm" action="" method="POST">
+                                                                    <input type="hidden" name="_token" value="{{ $csrfToken }}">
+                                                                    <input type="hidden" name="action" value="openMediaFileInEditor">
+                                                                    <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
+                                                                    <button type="submit" class="btn btn-link btn-sm py-0" title="Open this image in the system editor">Edit</button>
+                                                                </form>
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        @endforeach
-                    </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added info banners when dashboard content sections are empty in https://github.com/hydephp/develop/pull/1494
 
 ### Changed
 - Shortened the path printed to console when using the dashboard to create a page in https://github.com/hydephp/develop/pull/1492
