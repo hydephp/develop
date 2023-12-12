@@ -13,6 +13,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Foundation\PharSupport;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
@@ -261,7 +262,11 @@ class DashboardController extends BaseController
 
     public function getScripts(): string
     {
-        return file_get_contents(__DIR__.'/../../resources/dashboard.js');
+        if (PharSupport::running()) {
+            return file_get_contents('phar://hyde.phar/vendor/hyde/realtime-compiler/resources/dashboard.js');
+        }
+
+        return file_get_contents(Hyde::vendorPath('resources/dashboard.js', 'realtime-compiler'));
     }
 
     public function getFlash(string $key, $default = null): ?string
