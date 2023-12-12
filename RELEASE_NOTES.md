@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- Shortened the path printed to console when using dashboard to create a page in https://github.com/hydephp/develop/pull/1492
+- Shortened the path printed to console when using the dashboard to create a page in https://github.com/hydephp/develop/pull/1492
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Fixed
 - Improved support for running HydePHP through the Phar archive in https://github.com/hydephp/develop/pull/1491
+- Fixed wrong section title in the dashboard page in https://github.com/hydephp/develop/pull/1493
 
 ### Security
 - in case of vulnerabilities.
