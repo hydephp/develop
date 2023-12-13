@@ -28,7 +28,7 @@ class PublicationPageValidatorTest extends TestCase
             myField: foo
             myNumber: 123
             ---
-            
+
             # My Page
             MD
         );
@@ -52,7 +52,7 @@ class PublicationPageValidatorTest extends TestCase
             ---
             myField: false
             ---
-            
+
             # My Page
             MD
         );
@@ -76,7 +76,7 @@ class PublicationPageValidatorTest extends TestCase
             ---
             myField: false
             ---
-            
+
             # My Page
             MD
         );
@@ -99,7 +99,7 @@ class PublicationPageValidatorTest extends TestCase
             ---
             extra: field
             ---
-            
+
             # My Page
             MD
         );

@@ -52,7 +52,7 @@ class LoadYamlConfigurationTest extends TestCase
             name: HydePHP
             url: "http://localhost"
         docs:
-            sidebar: 
+            sidebar:
                 header: "My Docs"
         YAML);
 
@@ -147,7 +147,7 @@ class LoadYamlConfigurationTest extends TestCase
 
         $this->file('hyde.yml', <<<'YAML'
         hyde:
-          some: thing 
+          some: thing
         foo:
           bar: baz
         YAML);
