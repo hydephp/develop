@@ -33,7 +33,7 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 - Support both route keys and identifiers for specifying sidebar order in https://github.com/hydephp/develop/pull/1432
 - Updated sitemap generator to use relative links instead of localhost when missing site URL in https://github.com/hydephp/develop/pull/1479
 
-  
+
 ### Removed
 - Removed unhelpful boilerplate from the `hyde/hyde` `package.json` in https://github.com/hydephp/develop/pull/1436
 
