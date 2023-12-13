@@ -26,3 +26,7 @@ This serves two purposes:
 
 ### Security
 - in case of vulnerabilities.
+
+### Upgrade Guide
+
+If there are any breaking changes, include an upgrade guide here.
