@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Add experimental InMemoryPage::getOutputPath overload support
 
 ### Changed
 - for changes in existing functionality.

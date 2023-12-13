@@ -82,6 +82,16 @@ class InMemoryPage extends HydePage
         return $this->view;
     }
 
+    /** @experimental Get the path to the output file for the page. */
+    public function getOutputPath(): string
+    {
+        if ($this->hasMacro('getOutputPath')) {
+            return $this->__call('getOutputPath', []);
+        }
+
+        return parent::getOutputPath();
+    }
+
     /**
      * Get the contents that will be saved to disk for this page.
      *
