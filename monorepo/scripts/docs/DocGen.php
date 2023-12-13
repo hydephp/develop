@@ -226,9 +226,9 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
 {
     $template = <<<'MARKDOWN'
     #### `{{ $methodName }}()`
-    
+
     {{ $description }}
-    
+
     ```php
     // torchlight! {"lineNumbers": false}
     {{ $signature }}({{ $argList }}): {{ $returnType }}

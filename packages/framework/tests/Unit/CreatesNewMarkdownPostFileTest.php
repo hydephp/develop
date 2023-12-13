@@ -66,7 +66,7 @@ class CreatesNewMarkdownPostFileTest extends TestCase
         ---
 
         ## Write something awesome.
-        
+
         MARKDOWN, file_get_contents($path));
 
         unlink($path);
@@ -89,7 +89,7 @@ class CreatesNewMarkdownPostFileTest extends TestCase
         ---
 
         Hello World!
-        
+
         MARKDOWN, file_get_contents($path));
 
         unlink($path);
