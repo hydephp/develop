@@ -26,7 +26,7 @@ class GeneratesDocumentationSearchIndex
     protected string $path;
 
     /**
-     * Generate the search index and save it to disk.
+     * @deprecated Generate the search index and save it to disk.
      *
      * @return string The path to the generated file.
      */
