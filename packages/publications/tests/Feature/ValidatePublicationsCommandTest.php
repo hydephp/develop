@@ -141,7 +141,7 @@ Hello World
             ---
             myField: false
             ---
-            
+
             # My Page
             MD
         );
@@ -301,7 +301,7 @@ Hello World
             title: foo
             extra: field
             ---
-            
+
             # My Page
             MD
         );
@@ -311,7 +311,7 @@ Hello World
             title: false
             extra: field
             ---
-            
+
             # My Page
             MD
         );
@@ -319,7 +319,7 @@ Hello World
         $this->file('test-publication/missing-field.md', <<<'MD'
             ---
             ---
-            
+
             # My Page
             MD
         );
@@ -328,7 +328,7 @@ Hello World
             ---
             title: false
             ---
-            
+
             # My Page
             MD
         );
@@ -337,7 +337,7 @@ Hello World
             ---
             title: foo
             ---
-            
+
             # My Page
             MD
         );

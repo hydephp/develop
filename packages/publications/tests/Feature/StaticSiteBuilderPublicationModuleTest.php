@@ -217,7 +217,7 @@ class StaticSiteBuilderPublicationModuleTest extends TestCase
             <div class="px-2">
             <strong>1</strong>
             <a href="../test-publication/page-2.html">2</a>                                                <a href="../test-publication/page-3.html">3</a>                        </div>
-            
+
             <a href="../test-publication/page-2.html">&#8250;</a>    </nav>        </div>
             HTML, Filesystem::get('_site/test-publication/page-1.html')
         );

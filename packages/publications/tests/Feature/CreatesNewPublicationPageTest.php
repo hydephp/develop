@@ -58,10 +58,10 @@ class CreatesNewPublicationPageTest extends TestCase
             __createdAt: 2022-01-01T00:00:00+00:00
             title: 'Hello World'
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
@@ -88,10 +88,10 @@ class CreatesNewPublicationPageTest extends TestCase
                 This is a description
                 It can be multiple lines.
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
@@ -117,10 +117,10 @@ class CreatesNewPublicationPageTest extends TestCase
                 - tag2
                 - 'foo bar'
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
@@ -155,10 +155,10 @@ class CreatesNewPublicationPageTest extends TestCase
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
@@ -192,10 +192,10 @@ class CreatesNewPublicationPageTest extends TestCase
                 - tag2
                 - 'foo bar'
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, $contents
         );
 

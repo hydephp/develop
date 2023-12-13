@@ -144,7 +144,7 @@ class CreatesNewPageSourceFileTest extends TestCase
             ---
             title: 'Test Page'
             ---
-            
+
             # Test Page
 
             Hello World!

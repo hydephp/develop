@@ -192,10 +192,10 @@ class MakePublicationCommandTest extends TestCase
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
@@ -419,10 +419,10 @@ class MakePublicationCommandTest extends TestCase
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, $this->getDatedPublicationContents());
     }
 
@@ -510,10 +510,10 @@ class MakePublicationCommandTest extends TestCase
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, $this->getDatedPublicationContents());
     }
 
@@ -547,10 +547,10 @@ class MakePublicationCommandTest extends TestCase
             __createdAt: 2022-01-01T00:00:00+00:00
             title: 'Hello World'
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, file_get_contents(Hyde::path('test-publication/hello-world.md'))
         );
     }
@@ -573,10 +573,10 @@ class MakePublicationCommandTest extends TestCase
             __createdAt: 2022-01-01T00:00:00+00:00
             $expected
             ---
-            
+
             ## Write something awesome.
-            
-            
+
+
             MARKDOWN, $this->getDatedPublicationContents());
     }
 
