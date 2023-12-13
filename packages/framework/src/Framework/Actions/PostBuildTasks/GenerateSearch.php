@@ -9,6 +9,7 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
+/** @deprecated */
 class GenerateSearch extends PostBuildTask
 {
     use InteractsWithDirectories;

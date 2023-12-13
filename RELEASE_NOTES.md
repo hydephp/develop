@@ -16,7 +16,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
 
 ### Removed
 - for now removed features.
