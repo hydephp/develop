@@ -8,9 +8,12 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 use function array_filter;
 use function array_keys;
@@ -27,5 +30,19 @@ class HydeCoreExtension extends HydeExtension
             MarkdownPost::class => Features::hasMarkdownPosts(),
             DocumentationPage::class => Features::hasDocumentationPages(),
         ], fn (bool $value): bool => $value));
+    }
+
+    public function discoverPages(PageCollection $collection): void
+    {
+        if (Features::hasDocumentationSearch()) {
+            $collection->addPage(tap(new InMemoryPage('search.json'), function (InMemoryPage $page): void {
+                $page->macro('compile', function (): string {
+                    return GeneratesDocumentationSearchIndex::generate();
+                });
+                $page->macro('getOutputPath', function (): string {
+                    return DocumentationPage::outputDirectory().'/search.json';
+                });
+            }));
+        }
     }
 }
