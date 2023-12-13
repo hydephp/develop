@@ -59,7 +59,7 @@ class GeneratesDocumentationSearchIndex
     protected function run(): void
     {
         DocumentationPage::all()->each(function (DocumentationPage $page): void {
-            if (! in_array($page->identifier, Config::getArray('docs.exclude_from_search', []))) {
+            if (! in_array($page->identifier, array_merge(Config::getArray('docs.exclude_from_search', []), ['search']))) {
                 $this->index->push($this->generatePageEntry($page));
             }
         });
