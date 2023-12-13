@@ -36,7 +36,7 @@ class HydeCoreExtension extends HydeExtension
     public function discoverPages(PageCollection $collection): void
     {
         if (Features::hasDocumentationSearch()) {
-            $collection->addPage(tap(new InMemoryPage('search.json'), function (InMemoryPage $page): void {
+            $collection->addPage(tap(new InMemoryPage('search.json', ['navigation' => ['hidden' => true]]), function (InMemoryPage $page): void {
                 $page->macro('compile', function (): string {
                     return GeneratesDocumentationSearchIndex::generate();
                 });

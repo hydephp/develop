@@ -36,6 +36,7 @@ class DocumentationSearchPage extends DocumentationPage
     {
         parent::__construct('search', [
             'title' => 'Search',
+            'navigation' => ['hidden' => true],
         ]);
     }
 
