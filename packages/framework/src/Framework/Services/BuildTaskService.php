@@ -11,7 +11,6 @@ use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
@@ -136,7 +135,6 @@ class BuildTaskService
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
-        $this->registerIf(GenerateSearch::class, $this->canGenerateSearch());
     }
 
     private function canCleanSiteDirectory(): bool
@@ -157,10 +155,5 @@ class BuildTaskService
     private function canGenerateFeed(): bool
     {
         return Features::rss();
-    }
-
-    private function canGenerateSearch(): bool
-    {
-        return Features::hasDocumentationSearch();
     }
 }
