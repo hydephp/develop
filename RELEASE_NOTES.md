@@ -1,4 +1,4 @@
-## [Unreleased] - YYYY-MM-DD
+## [v2-dev] - YYYY-MM-DD
 
 ### About
 
