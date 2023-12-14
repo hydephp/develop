@@ -59,7 +59,7 @@ class GeneratesDocumentationSearchIndex
     protected function run(): void
     {
         DocumentationPage::all()->each(function (DocumentationPage $page): void {
-            if (! in_array($page->identifier, array_merge(Config::getArray('docs.exclude_from_search', []), ['search']))) {
+            if (! in_array($page->identifier, $this->getPagesToExcludeFromSearch())) {
                 $this->index->push($this->generatePageEntry($page));
             }
         });
@@ -102,5 +102,10 @@ class GeneratesDocumentationSearchIndex
     protected function getPath(): string
     {
         return Hyde::sitePath(DocumentationPage::outputDirectory().'/search.json');
+    }
+
+    protected function getPagesToExcludeFromSearch(): array
+    {
+        return array_merge(Config::getArray('docs.exclude_from_search', []), ['search']);
     }
 }
