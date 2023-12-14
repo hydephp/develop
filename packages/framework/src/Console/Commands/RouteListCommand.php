@@ -23,7 +23,7 @@ class RouteListCommand extends Command
     protected $signature = 'route:list';
 
     /** @var string */
-    protected $description = 'Display all registered routes';
+    protected $description = 'Display all the registered routes';
 
     public function handle(): int
     {

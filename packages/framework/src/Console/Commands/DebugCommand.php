@@ -22,7 +22,7 @@ class DebugCommand extends Command
     protected $signature = 'debug';
 
     /** @var string */
-    protected $description = 'Print debug info';
+    protected $description = 'Print debug information';
 
     public function __construct()
     {
