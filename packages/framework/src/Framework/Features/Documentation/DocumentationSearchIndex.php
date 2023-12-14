@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 /**
@@ -14,16 +13,6 @@ use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
  */
 class DocumentationSearchIndex extends InMemoryPage
 {
-    /**
-     * Generate the search page and save it to disk.
-     *
-     * @return string The path to the generated file.
-     */
-    public static function generate(): string
-    {
-        return StaticPageBuilder::handle(new static());
-    }
-
     /**
      * Create a new DocumentationSearchPage instance.
      */
