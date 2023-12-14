@@ -52,6 +52,6 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function routeKey(): string
     {
-        return parent::outputDirectory().'/search';
+        return ltrim(parent::outputDirectory().'/search');
     }
 }
