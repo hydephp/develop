@@ -30,7 +30,7 @@ class ChangeSourceDirectoryCommand extends Command
     protected $signature = 'change:sourceDirectory {name : The new source directory name }';
 
     /** @var string */
-    protected $description = 'Change the source directory for your project.';
+    protected $description = 'Change the source directory for your project';
 
     protected $hidden = true;
 

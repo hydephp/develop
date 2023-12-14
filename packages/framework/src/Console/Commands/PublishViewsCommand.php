@@ -20,23 +20,23 @@ class PublishViewsCommand extends Command
     protected $signature = 'publish:views {category? : The category to publish}';
 
     /** @var string */
-    protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten.';
+    protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten';
 
     /** @var array<string, array<string, string>> */
     protected array $options = [
         'layouts' => [
             'name' => 'Blade Layouts',
-            'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates.',
+            'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates',
             'group' => 'hyde-layouts',
         ],
         'components' => [
             'name' => 'Blade Components',
-            'description' => 'More or less self contained components, extracted for customizability and DRY code.',
+            'description' => 'More or less self contained components, extracted for customizability and DRY code',
             'group' => 'hyde-components',
         ],
         'page-404' => [
             'name' => '404 Page',
-            'description' => 'A beautiful 404 error page by the Laravel Collective.',
+            'description' => 'A beautiful 404 error page by the Laravel Collective',
             'group' => 'hyde-page-404',
         ],
     ];

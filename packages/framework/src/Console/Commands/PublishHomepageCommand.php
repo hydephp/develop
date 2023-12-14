@@ -29,7 +29,7 @@ class PublishHomepageCommand extends Command
                                 {--force : Overwrite any existing files}';
 
     /** @var string */
-    protected $description = 'Publish one of the default homepages to index.blade.php.';
+    protected $description = 'Publish one of the default homepages to index.blade.php';
 
     /** @var array<string, array{name: string, description: string, group: string}> */
     protected array $options = [
