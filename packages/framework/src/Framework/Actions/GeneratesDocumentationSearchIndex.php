@@ -11,8 +11,8 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
-use function tap;
 use function basename;
 use function in_array;
 use function trim;
@@ -55,14 +55,7 @@ class GeneratesDocumentationSearchIndex
     /** @experimental May be moved to a DocumentationSearch class */
     public static function makePage(): InMemoryPage
     {
-        return tap(new InMemoryPage('search.json', ['navigation' => ['hidden' => true]]), function (InMemoryPage $page): void {
-            $page->macro('compile', function (): string {
-                return GeneratesDocumentationSearchIndex::generate();
-            });
-            $page->macro('getOutputPath', function (): string {
-                return DocumentationPage::outputDirectory().'/search.json';
-            });
-        });
+        return DocumentationSearchIndex::make();
     }
 
     protected function __construct()

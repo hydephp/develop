@@ -9,7 +9,6 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
-use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 /**
  * @covers \Hyde\Console\Commands\BuildSearchCommand
@@ -108,8 +107,9 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_command_uses_search_pages_from_kernel_when_present()
     {
-        Hyde::pages()->addPage(tap(GeneratesDocumentationSearchIndex::makePage(), function (InMemoryPage $page): void {
+        Hyde::pages()->addPage(tap(new InMemoryPage('search.json'), function (InMemoryPage $page): void {
             $page->macro('compile', fn () => '{"foo":"bar"}');
+            $page->macro('getOutputPath', fn () => 'docs/search.json');
         }));
 
         Hyde::pages()->addPage(tap(new InMemoryPage('docs/search'), function (InMemoryPage $page): void {
