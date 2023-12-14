@@ -106,6 +106,6 @@ class GeneratesDocumentationSearchIndex
 
     protected function getPagesToExcludeFromSearch(): array
     {
-        return array_merge(Config::getArray('docs.exclude_from_search', []), ['search']);
+        return array_merge(Config::getArray('docs.exclude_from_search', []), Config::getBool('docs.create_search_page', true) ? ['search'] : []);
     }
 }
