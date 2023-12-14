@@ -7,11 +7,9 @@ namespace Hyde\Framework\Actions;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
-use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
-use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
 use function basename;
 use function in_array;
@@ -50,12 +48,6 @@ class GeneratesDocumentationSearchIndex
         $service->run();
 
         return $service->index->toJson();
-    }
-
-    /** @experimental May be moved to a DocumentationSearch class */
-    public static function makePage(): InMemoryPage
-    {
-        return DocumentationSearchIndex::make();
     }
 
     protected function __construct()

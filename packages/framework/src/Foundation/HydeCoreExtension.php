@@ -12,8 +12,8 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
-use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
+use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
 use function array_filter;
 use function array_keys;
@@ -35,7 +35,7 @@ class HydeCoreExtension extends HydeExtension
     public function discoverPages(PageCollection $collection): void
     {
         if (Features::hasDocumentationSearch()) {
-            $collection->addPage(GeneratesDocumentationSearchIndex::makePage());
+            $collection->addPage(DocumentationSearchIndex::make());
 
             if (DocumentationSearchPage::enabled()) {
                 $collection->addPage(new DocumentationSearchPage());
