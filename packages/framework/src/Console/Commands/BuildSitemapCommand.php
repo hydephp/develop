@@ -8,7 +8,7 @@ use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * Hyde command to run the build process for the sitemap.
+ * Run the build process for the sitemap.
  */
 class BuildSitemapCommand extends Command
 {

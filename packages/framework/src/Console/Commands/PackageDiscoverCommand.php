@@ -8,6 +8,9 @@ use Hyde\Hyde;
 use Illuminate\Foundation\Console\PackageDiscoverCommand as BaseCommand;
 use Illuminate\Foundation\PackageManifest;
 
+/**
+ * Extended package discovery command to use the custom manifest path.
+ */
 class PackageDiscoverCommand extends BaseCommand
 {
     /** @var true */

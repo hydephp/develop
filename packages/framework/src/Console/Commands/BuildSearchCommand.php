@@ -8,7 +8,7 @@ use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * Hyde command to run the build process for the documentation search index.
+ * Run the build process for the documentation search index.
  */
 class BuildSearchCommand extends Command
 {

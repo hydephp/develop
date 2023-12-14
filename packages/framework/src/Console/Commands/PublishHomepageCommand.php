@@ -18,7 +18,7 @@ use function str_replace;
 use function strstr;
 
 /**
- * Publish one of the default homepages.
+ * Publish one of the default homepages to index.blade.php.
  */
 class PublishHomepageCommand extends Command
 {

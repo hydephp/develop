@@ -12,7 +12,7 @@ use function array_search;
 use function sprintf;
 
 /**
- * Publish the Hyde Config Files.
+ * Publish the Hyde config files.
  */
 class PublishConfigsCommand extends Command
 {

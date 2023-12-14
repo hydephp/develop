@@ -13,6 +13,9 @@ use function microtime;
 use function sprintf;
 use function sizeof;
 
+/**
+ * Run a series of tests to validate your setup and help you optimize your site.
+ */
 class ValidateCommand extends Command
 {
     use TracksExecutionTime;

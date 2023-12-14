@@ -14,7 +14,7 @@ use function realpath;
 use function app;
 
 /**
- * Hyde Command to print debug information.
+ * Print debug information.
  */
 class DebugCommand extends Command
 {
