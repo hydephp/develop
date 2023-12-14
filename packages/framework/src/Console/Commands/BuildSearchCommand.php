@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use LaravelZero\Framework\Commands\Command;
+use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
+use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 
 /**
  * Run the build process for the documentation search index.
@@ -20,6 +22,12 @@ class BuildSearchCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSearch())->run($this->output);
+        StaticPageBuilder::handle(GeneratesDocumentationSearchIndex::makePage());
+
+        if (DocumentationSearchPage::enabled()) {
+            DocumentationSearchPage::generate();
+        }
+
+        return Command::SUCCESS;
     }
 }
