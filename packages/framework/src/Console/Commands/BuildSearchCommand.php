@@ -16,7 +16,7 @@ class BuildSearchCommand extends Command
     protected $signature = 'build:search';
 
     /** @var string */
-    protected $description = 'Generate the docs/search.json';
+    protected $description = 'Generate the documentation search index';
 
     public function handle(): int
     {
