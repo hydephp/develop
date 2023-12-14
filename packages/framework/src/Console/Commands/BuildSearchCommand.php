@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use LaravelZero\Framework\Commands\Command;
@@ -24,17 +23,12 @@ class BuildSearchCommand extends Command
 
     public function handle(): int
     {
-        StaticPageBuilder::handle($this->getPageFromKernel() ?? GeneratesDocumentationSearchIndex::makePage());
+        StaticPageBuilder::handle(Pages::get('search.json') ?? GeneratesDocumentationSearchIndex::makePage());
 
         if (DocumentationSearchPage::enabled()) {
             DocumentationSearchPage::generate();
         }
 
         return Command::SUCCESS;
-    }
-
-    protected function getPageFromKernel(): ?HydePage
-    {
-        return Pages::get('search.json');
     }
 }
