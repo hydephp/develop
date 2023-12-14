@@ -18,7 +18,7 @@ class DocumentationSearchIndex extends InMemoryPage
      */
     public function __construct()
     {
-        parent::__construct('search.json', [
+        parent::__construct(DocumentationPage::sourceDirectory().'/search.json', [
             'navigation' => ['hidden' => true],
         ]);
     }
