@@ -15,7 +15,7 @@ use function strtolower;
 use function ucfirst;
 
 /**
- * Hyde command to scaffold a new Markdown or Blade page file.
+ * Scaffold a new Markdown or Blade page file.
  */
 class MakePageCommand extends Command
 {

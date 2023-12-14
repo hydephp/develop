@@ -24,7 +24,7 @@ use function str_replace;
 use function unslash;
 
 /**
- * Hyde command to build a single static site file.
+ * Build a single static site file.
  */
 class RebuildPageCommand extends Command
 {
