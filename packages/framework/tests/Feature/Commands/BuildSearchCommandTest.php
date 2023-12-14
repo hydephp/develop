@@ -106,15 +106,21 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::deleteDirectory('foo');
     }
 
-    public function test_command_uses_page_from_kernel_when_present()
+    public function test_command_uses_search_pages_from_kernel_when_present()
     {
         Hyde::pages()->addPage(tap(GeneratesDocumentationSearchIndex::makePage(), function (InMemoryPage $page): void {
             $page->macro('compile', fn () => '{"foo":"bar"}');
         }));
 
+        Hyde::pages()->addPage(tap(new InMemoryPage('docs/search'), function (InMemoryPage $page): void {
+            $page->macro('compile', fn () => 'Foo');
+        }));
+
         $this->artisan('build:search')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/docs/search.json'));
+        $this->assertFileExists(Hyde::path('_site/docs/search.html'));
         $this->assertSame('{"foo":"bar"}', Filesystem::getContents('_site/docs/search.json'));
+        $this->assertSame('Foo', Filesystem::getContents('_site/docs/search.html'));
 
         Filesystem::unlink('_site/docs/search.json');
         Filesystem::unlink('_site/docs/search.html');

@@ -26,7 +26,7 @@ class BuildSearchCommand extends Command
         StaticPageBuilder::handle(Pages::get('search.json') ?? GeneratesDocumentationSearchIndex::makePage());
 
         if (DocumentationSearchPage::enabled()) {
-            DocumentationSearchPage::generate();
+            StaticPageBuilder::handle(Pages::get('docs/search') ?? new DocumentationSearchPage());
         }
 
         return Command::SUCCESS;
