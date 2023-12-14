@@ -34,7 +34,7 @@ use function strlen;
 use function substr_count;
 
 /**
- * Hyde Command to validate one or all publications.
+ * Hyde command to validate one or all publications.
  *
  * @see \Hyde\Publications\Testing\Feature\ValidatePublicationsCommandTest
  *

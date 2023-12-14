@@ -10,7 +10,8 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
 /**
- * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
+ * The RouteCollection contains all the page routes, making it the pseudo-router for Hyde,
+ * as it maps each page to the eventual URL that will be used to access it once built.
  *
  * @template T of \Hyde\Support\Models\Route
  *

@@ -14,6 +14,7 @@ This serves two purposes:
 
 ### Changed
 - Shortened the path printed to console when using the dashboard to create a page in https://github.com/hydephp/develop/pull/1492
+- Code cleanup and style improvements in https://github.com/hydephp/develop/pull/1501 and https://github.com/hydephp/develop/pull/1502
 
 ### Deprecated
 - for soon-to-be removed features.
