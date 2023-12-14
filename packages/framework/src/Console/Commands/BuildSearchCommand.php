@@ -23,7 +23,7 @@ class BuildSearchCommand extends Command
 
     public function handle(): int
     {
-        StaticPageBuilder::handle(Pages::get('search.json') ?? DocumentationSearchIndex::make());
+        StaticPageBuilder::handle(Pages::get('search.json') ?? new DocumentationSearchIndex());
 
         if (DocumentationSearchPage::enabled()) {
             StaticPageBuilder::handle(Pages::get('docs/search') ?? new DocumentationSearchPage());

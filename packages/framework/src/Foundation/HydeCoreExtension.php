@@ -35,7 +35,7 @@ class HydeCoreExtension extends HydeExtension
     public function discoverPages(PageCollection $collection): void
     {
         if (Features::hasDocumentationSearch()) {
-            $collection->addPage(DocumentationSearchIndex::make());
+            $collection->addPage(new DocumentationSearchIndex());
 
             if (DocumentationSearchPage::enabled()) {
                 $collection->addPage(new DocumentationSearchPage());
