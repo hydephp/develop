@@ -21,6 +21,9 @@ use function str_replace;
 use function basename;
 use function realpath;
 
+/**
+ * Change the source directory for your project.
+ */
 class ChangeSourceDirectoryCommand extends Command
 {
     /** @var string */
