@@ -8,7 +8,6 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Concerns\HydeExtension;
@@ -36,14 +35,7 @@ class HydeCoreExtension extends HydeExtension
     public function discoverPages(PageCollection $collection): void
     {
         if (Features::hasDocumentationSearch()) {
-            $collection->addPage(tap(new InMemoryPage('search.json', ['navigation' => ['hidden' => true]]), function (InMemoryPage $page): void {
-                $page->macro('compile', function (): string {
-                    return GeneratesDocumentationSearchIndex::generate();
-                });
-                $page->macro('getOutputPath', function (): string {
-                    return DocumentationPage::outputDirectory().'/search.json';
-                });
-            }));
+            $collection->addPage(GeneratesDocumentationSearchIndex::makePage());
 
             if (DocumentationSearchPage::enabled()) {
                 $collection->addPage(new DocumentationSearchPage());
