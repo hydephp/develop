@@ -20,7 +20,7 @@ use function sprintf;
 use function app;
 
 /**
- * Run the Build Process.
+ * Run the static site build process.
  */
 class BuildSiteCommand extends Command
 {

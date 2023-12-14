@@ -12,7 +12,7 @@ use function sprintf;
 use function ucwords;
 
 /**
- * Scaffold a new Markdown Post.
+ * Scaffold a new Markdown blog post file.
  */
 class MakePostCommand extends Command
 {
