@@ -36,7 +36,7 @@ class ServeCommand extends Command
     ';
 
     /** @var string */
-    protected $description = 'Start the realtime compiler server.';
+    protected $description = 'Start the realtime compiler server';
 
     protected ConsoleOutput $console;
 
