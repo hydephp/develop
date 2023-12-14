@@ -10,7 +10,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\Concerns\HydePage;
 
 /**
- * Converts a Page Model into a static HTML page.
+ * Converts a Hyde page object into a static HTML page.
  */
 class StaticPageBuilder
 {

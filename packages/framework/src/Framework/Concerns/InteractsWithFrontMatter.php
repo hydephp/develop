@@ -11,7 +11,7 @@ use function array_merge;
 use function blank;
 
 /**
- * Adds methods to a class to allow it to fluently interact with the front matter.
+ * Adds methods to a class to allow it to fluently interact with its front matter.
  */
 trait InteractsWithFrontMatter
 {
