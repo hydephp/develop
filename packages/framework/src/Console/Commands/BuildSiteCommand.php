@@ -20,7 +20,7 @@ use function sprintf;
 use function app;
 
 /**
- * Hyde Command to run the Build Process.
+ * Hyde command to run the Build Process.
  */
 class BuildSiteCommand extends Command
 {

@@ -24,7 +24,7 @@ use function array_keys;
 use function strtolower;
 
 /**
- * Hyde Command to create a new publication type.
+ * Hyde command to create a new publication type.
  *
  * @see \Hyde\Publications\Actions\CreatesNewPublicationType
  * @see \Hyde\Publications\Testing\Feature\MakePublicationTypeCommandTest

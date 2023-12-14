@@ -16,7 +16,7 @@ use function round;
 use function sprintf;
 
 /**
- * Hyde Command to seed publication files for a publication type.
+ * Hyde command to seed publication files for a publication type.
  *
  * @see \Hyde\Publications\Actions\SeedsPublicationFiles
  * @see \Hyde\Publications\Testing\Feature\SeedPublicationCommandTest

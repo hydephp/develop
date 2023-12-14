@@ -12,7 +12,7 @@ use function sprintf;
 use function ucwords;
 
 /**
- * Hyde Command to scaffold a new Markdown Post.
+ * Hyde command to scaffold a new Markdown Post.
  */
 class MakePostCommand extends Command
 {

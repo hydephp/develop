@@ -25,7 +25,7 @@ use function in_array;
 use function str_starts_with;
 
 /**
- * Hyde Command to create a new publication for a given publication type.
+ * Hyde command to create a new publication for a given publication type.
  *
  * @see \Hyde\Publications\Actions\CreatesNewPublicationPage
  * @see \Hyde\Publications\Testing\Feature\MakePublicationCommandTest
