@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
-use Illuminate\Support\Facades\View;
 
 /**
  * @internal This page is used to render the search page for the documentation.
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\View;
  * If you want to override this page, you can create a page with the route key "docs/search",
  * then this class will not be applied. For example, `_pages/docs/search.blade.php`.
  */
-class DocumentationSearchPage extends DocumentationPage
+class DocumentationSearchPage extends InMemoryPage
 {
     /**
      * Generate the search page and save it to disk.
@@ -34,15 +34,10 @@ class DocumentationSearchPage extends DocumentationPage
      */
     public function __construct()
     {
-        parent::__construct('search', [
+        parent::__construct(ltrim(DocumentationPage::outputDirectory().'/search', '/'), [
             'title' => 'Search',
             'navigation' => ['hidden' => true],
-        ]);
-    }
-
-    public function compile(): string
-    {
-        return View::make('hyde::pages.documentation-search')->render();
+        ], view: 'hyde::pages.documentation-search');
     }
 
     public static function enabled(): bool
@@ -52,6 +47,6 @@ class DocumentationSearchPage extends DocumentationPage
 
     public static function routeKey(): string
     {
-        return ltrim(parent::outputDirectory().'/search');
+        return ltrim(DocumentationPage::outputDirectory().'/search');
     }
 }
