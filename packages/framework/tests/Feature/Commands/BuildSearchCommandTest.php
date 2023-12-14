@@ -6,8 +6,10 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
 /**
  * @covers \Hyde\Console\Commands\BuildSearchCommand
@@ -102,5 +104,19 @@ class BuildSearchCommandTest extends TestCase
         $this->assertFileExists(Hyde::path('foo/bar/baz/search.html'));
 
         Filesystem::deleteDirectory('foo');
+    }
+
+    public function test_command_uses_page_from_kernel_when_present()
+    {
+        Hyde::pages()->addPage(tap(GeneratesDocumentationSearchIndex::makePage(), function (InMemoryPage $page): void {
+            $page->macro('compile', fn () => '{"foo":"bar"}');
+        }));
+
+        $this->artisan('build:search')->assertExitCode(0);
+        $this->assertFileExists(Hyde::path('_site/docs/search.json'));
+        $this->assertSame('{"foo":"bar"}', Filesystem::getContents('_site/docs/search.json'));
+
+        Filesystem::unlink('_site/docs/search.json');
+        Filesystem::unlink('_site/docs/search.html');
     }
 }
