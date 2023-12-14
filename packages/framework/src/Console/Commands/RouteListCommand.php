@@ -15,7 +15,7 @@ use function file_exists;
 use function sprintf;
 
 /**
- * Hyde command to display the list of site routes.
+ * Display the list of site routes.
  */
 class RouteListCommand extends Command
 {

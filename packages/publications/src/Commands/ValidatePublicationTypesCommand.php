@@ -23,7 +23,7 @@ use function round;
 use function sprintf;
 
 /**
- * Hyde Command to validate all publication schema file..
+ * Hyde command to validate all publication schema file..
  *
  * @see \Hyde\Publications\Testing\Feature\ValidatePublicationTypesCommandTest
  *
