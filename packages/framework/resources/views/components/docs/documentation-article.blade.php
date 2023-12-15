@@ -1,5 +1,5 @@
 @php
-    $document = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::make($page);
+    $document ??= \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::make($page);
 @endphp
 
 <article id="document" itemscope itemtype="https://schema.org/Article" @class([
