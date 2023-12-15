@@ -46,6 +46,7 @@ class DocumentationSearchPage extends InMemoryPage
         return Config::getBool('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
     }
 
+    /** @deprecated Can be removed by https://github.com/hydephp/develop/pull/1498 */
     public static function routeKey(): string
     {
         return ltrim(DocumentationPage::outputDirectory().'/search');
