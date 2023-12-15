@@ -37,6 +37,7 @@ class DocumentationSearchPage extends InMemoryPage
         parent::__construct(ltrim(DocumentationPage::outputDirectory().'/search', '/'), [
             'title' => 'Search',
             'navigation' => ['hidden' => true],
+            'document' => $this->makeDocument(),
         ], view: 'hyde::pages.documentation-search');
     }
 
@@ -48,5 +49,11 @@ class DocumentationSearchPage extends InMemoryPage
     public static function routeKey(): string
     {
         return ltrim(DocumentationPage::outputDirectory().'/search');
+    }
+
+    /** @experimental Fixes type issue {@see https://github.com/hydephp/develop/commit/37f7046251b8c0514b8d8ef821de4ef3d35bbac8#commitcomment-135026537} */
+    protected function makeDocument(): SemanticDocumentationArticle
+    {
+        return SemanticDocumentationArticle::make(new DocumentationPage());
     }
 }
