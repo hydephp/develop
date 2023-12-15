@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Documentation;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
 
@@ -43,7 +44,13 @@ class DocumentationSearchPage extends InMemoryPage
 
     public static function enabled(): bool
     {
-        return Config::getBool('docs.create_search_page', true) && ! Hyde::routes()->has(self::routeKey());
+        return Config::getBool('docs.create_search_page', true) && ! static::anotherSearchPageExists();
+    }
+
+    protected static function anotherSearchPageExists(): bool
+    {
+        // Since routes aren't discovered yet, we need to check the pages directly
+        return Hyde::pages()->first(fn (HydePage $file): bool => $file->getRouteKey() === static::routeKey()) !== null;
     }
 
     protected static function routeKey(): string

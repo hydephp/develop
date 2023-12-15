@@ -49,14 +49,14 @@ class DocumentationSearchPageTest extends TestCase
 
     public function testEnabledIsFalseWhenRouteExists()
     {
-        Hyde::routes()->put('docs/search', new InMemoryPage('docs/search'));
+        Hyde::pages()->put('docs/search', new InMemoryPage('docs/search'));
         $this->assertFalse(DocumentationSearchPage::enabled());
     }
 
     public function testEnabledIsFalseWhenDisabledAndRouteExists()
     {
         config(['docs.create_search_page' => false]);
-        Hyde::routes()->put('docs/search', new InMemoryPage('docs/search'));
+        Hyde::pages()->put('docs/search', new InMemoryPage('docs/search'));
         $this->assertFalse(DocumentationSearchPage::enabled());
     }
 }
