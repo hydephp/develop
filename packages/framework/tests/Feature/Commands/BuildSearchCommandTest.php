@@ -107,7 +107,7 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_command_uses_search_pages_from_kernel_when_present()
     {
-        Hyde::pages()->addPage(tap(new InMemoryPage('search.json'), function (InMemoryPage $page): void {
+        Hyde::pages()->addPage(tap(new InMemoryPage('docs/search.json'), function (InMemoryPage $page): void {
             $page->macro('compile', fn () => '{"foo":"bar"}');
             $page->macro('getOutputPath', fn () => 'docs/search.json');
         }));
