@@ -39,3 +39,16 @@ The documentation search page and search index have been changed to be generated
 In case you have customized the GenerateSearch post-build task, you will need to adapt your code to the new InMemoryPage, which is generated in the HydeCoreExtension class.
 
 For more information, see https://github.com/hydephp/develop/pull/1498.
+
+### Breaking changes
+
+#### Low impact
+- The `GenerateSearch` post-build task has been removed. If you have previously extended or customized this class, 
+  you will need to adapt your code, as the search index files are now handled implicitly during the standard build process,
+  as the search pages are now added to the kernel page and route collection. (https://github.com/hydephp/develop/pull/1498)
+- If your site has a custom documentation search page, for example `_docs/search.md` or `_pages/docs/search.blade.php`,
+  that page will no longer be build when using the specific `build:search` command. It will, of course, 
+  be built using the standard `build` command. https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
+- In the highly unlikely event your site customizes any of the search pages by replacing them in the kernel route collection,
+  you would now need to do that in the kernel page collection due to the search pages being generated earlier in the lifecycle.
+  https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
