@@ -12,7 +12,6 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\BuildSearchCommand
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
  * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
  * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchIndex
  */
