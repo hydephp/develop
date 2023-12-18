@@ -35,7 +35,7 @@ class DocumentationSearchPage extends InMemoryPage
      */
     public function __construct()
     {
-        parent::__construct(ltrim(DocumentationPage::outputDirectory().'/search', '/'), [
+        parent::__construct(static::routeKey(), [
             'title' => 'Search',
             'navigation' => ['hidden' => true],
             'document' => $this->makeDocument(),
