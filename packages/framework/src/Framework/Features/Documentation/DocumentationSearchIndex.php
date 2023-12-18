@@ -6,9 +6,8 @@ namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\RouteKey;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
-
-use function ltrim;
 
 /**
  * @internal This page is used to render the search index for the documentation.
@@ -37,6 +36,6 @@ class DocumentationSearchIndex extends InMemoryPage
 
     public static function routeKey(): string
     {
-        return ltrim(DocumentationPage::outputDirectory().'/search.json', '/');
+        return RouteKey::fromPage(DocumentationPage::class, 'search').'.json';
     }
 }
