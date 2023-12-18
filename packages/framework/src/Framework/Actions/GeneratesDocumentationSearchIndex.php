@@ -40,17 +40,6 @@ class GeneratesDocumentationSearchIndex
         return $service->path;
     }
 
-    /**
-     * Generate the search index return it as a string.
-     */
-    public static function generate(): string
-    {
-        $service = new static();
-        $service->run();
-
-        return $service->index->toJson();
-    }
-
     protected function __construct()
     {
         $this->index = new Collection();
