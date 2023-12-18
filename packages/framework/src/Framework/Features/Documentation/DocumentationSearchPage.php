@@ -8,10 +8,9 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Models\RouteKey;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
-
-use function ltrim;
 
 /**
  * @internal This page is used to render the search page for the documentation.
@@ -51,7 +50,7 @@ class DocumentationSearchPage extends InMemoryPage
 
     public static function routeKey(): string
     {
-        return ltrim(DocumentationPage::outputDirectory().'/search', '/');
+        return RouteKey::fromPage(DocumentationPage::class, 'search')->get();
     }
 
     protected static function anotherSearchPageExists(): bool
