@@ -11,6 +11,8 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
 
+use function ltrim;
+
 /**
  * @internal This page is used to render the search page for the documentation.
  *
