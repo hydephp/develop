@@ -102,7 +102,7 @@ class GeneratesDocumentationSearchIndex
 
     protected function getPath(): string
     {
-        return Hyde::sitePath(DocumentationSearchIndex::routeKey());
+        return Hyde::sitePath(DocumentationSearchIndex::outputPath());
     }
 
     protected function getPagesToExcludeFromSearch(): array

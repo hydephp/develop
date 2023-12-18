@@ -19,7 +19,7 @@ class DocumentationSearchIndex extends InMemoryPage
      */
     public function __construct()
     {
-        parent::__construct(static::routeKey(), [
+        parent::__construct(DocumentationSearchIndex::outputPath(), [
             'navigation' => ['hidden' => true],
         ]);
     }
@@ -32,10 +32,5 @@ class DocumentationSearchIndex extends InMemoryPage
     public static function outputPath(string $identifier = ''): string
     {
         return RouteKey::fromPage(DocumentationPage::class, 'search').'.json';
-    }
-
-    public static function routeKey(): string
-    {
-        return static::outputPath();
     }
 }

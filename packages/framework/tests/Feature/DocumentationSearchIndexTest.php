@@ -34,20 +34,20 @@ class DocumentationSearchIndexTest extends TestCase
         $this->assertSame('foo/search.json', $page->routeKey);
     }
 
-    public function testStaticRouteKeyHelper()
+    public function testStaticOutputPathHelper()
     {
-        $this->assertSame('docs/search.json', DocumentationSearchIndex::routeKey());
+        $this->assertSame('docs/search.json', DocumentationSearchIndex::outputPath());
     }
 
-    public function testStaticRouteKeyHelperWithCustomOutputDirectory()
+    public function testStaticOutputPathHelperWithCustomOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('foo');
-        $this->assertSame('foo/search.json', DocumentationSearchIndex::routeKey());
+        $this->assertSame('foo/search.json', DocumentationSearchIndex::outputPath());
     }
 
-    public function testStaticRouteKeyHelperWithRootOutputDirectory()
+    public function testStaticOutputPathHelperWithRootOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('');
-        $this->assertSame('search.json', DocumentationSearchIndex::routeKey());
+        $this->assertSame('search.json', DocumentationSearchIndex::outputPath());
     }
 }
