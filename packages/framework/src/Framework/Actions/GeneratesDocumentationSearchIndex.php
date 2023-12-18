@@ -10,6 +10,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
 use function basename;
 use function in_array;
@@ -101,7 +102,7 @@ class GeneratesDocumentationSearchIndex
 
     protected function getPath(): string
     {
-        return Hyde::sitePath(DocumentationPage::outputDirectory().'/search.json');
+        return Hyde::sitePath(DocumentationSearchIndex::routeKey());
     }
 
     protected function getPagesToExcludeFromSearch(): array

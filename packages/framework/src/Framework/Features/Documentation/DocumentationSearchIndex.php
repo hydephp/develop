@@ -8,6 +8,8 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 
+use function ltrim;
+
 /**
  * @internal This page is used to render the search index for the documentation.
  */
@@ -18,7 +20,7 @@ class DocumentationSearchIndex extends InMemoryPage
      */
     public function __construct()
     {
-        parent::__construct(ltrim(DocumentationPage::outputDirectory().'/search.json', '/'), [
+        parent::__construct(static::routeKey(), [
             'navigation' => ['hidden' => true],
         ]);
     }
@@ -29,6 +31,11 @@ class DocumentationSearchIndex extends InMemoryPage
     }
 
     public function getOutputPath(): string
+    {
+        return static::routeKey();
+    }
+
+    public static function routeKey(): string
     {
         return ltrim(DocumentationPage::outputDirectory().'/search.json', '/');
     }
