@@ -30,7 +30,7 @@ class DocumentationSearchIndex extends InMemoryPage
         return GeneratesDocumentationSearchIndex::generate();
     }
 
-    public function getOutputPath(): string
+    public static function outputPath(string $identifier): string
     {
         return static::routeKey();
     }
