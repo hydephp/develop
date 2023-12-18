@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
 /**
  * @covers \Hyde\Console\Commands\BuildSearchCommand
@@ -107,10 +108,7 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_command_uses_search_pages_from_kernel_when_present()
     {
-        Hyde::pages()->addPage(tap(new InMemoryPage('docs/search.json'), function (InMemoryPage $page): void {
-            $page->macro('compile', fn () => '{"foo":"bar"}');
-            $page->macro('getOutputPath', fn () => 'docs/search.json');
-        }));
+        Hyde::pages()->addPage(new SearchIndexOverrideTestPage());
 
         Hyde::pages()->addPage(tap(new InMemoryPage('docs/search'), function (InMemoryPage $page): void {
             $page->macro('compile', fn () => 'Foo');
@@ -126,5 +124,18 @@ class BuildSearchCommandTest extends TestCase
 
         Filesystem::unlink('_site/docs/search.json');
 //        Filesystem::unlink('_site/docs/search.html');
+    }
+}
+
+class SearchIndexOverrideTestPage extends DocumentationSearchIndex
+{
+    public function compile(): string
+    {
+        return '{"foo":"bar"}';
+    }
+
+    public function getOutputPath(): string
+    {
+        return 'docs/search.json';
     }
 }

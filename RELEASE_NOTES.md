@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Add experimental `InMemoryPage::getOutputPath` overload support
+- for new features.
 
 ### Changed
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
