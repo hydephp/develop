@@ -54,7 +54,8 @@ class DocumentationSearchPage extends InMemoryPage
         return Hyde::pages()->first(fn (HydePage $file): bool => $file->getRouteKey() === static::routeKey()) !== null;
     }
 
-    protected static function routeKey(): string
+    /** @deprecated Can be removed by https://github.com/hydephp/develop/pull/1498 */
+    public static function routeKey(): string
     {
         return ltrim(DocumentationPage::outputDirectory().'/search');
     }
