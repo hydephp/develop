@@ -31,11 +31,11 @@ class DocumentationSearchIndex extends InMemoryPage
 
     public static function outputPath(string $identifier = ''): string
     {
-        return static::routeKey();
+        return RouteKey::fromPage(DocumentationPage::class, 'search').'.json';
     }
 
     public static function routeKey(): string
     {
-        return RouteKey::fromPage(DocumentationPage::class, 'search').'.json';
+        return static::outputPath();
     }
 }
