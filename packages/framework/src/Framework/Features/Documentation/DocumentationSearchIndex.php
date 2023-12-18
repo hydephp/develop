@@ -26,7 +26,7 @@ class DocumentationSearchIndex extends InMemoryPage
 
     public function compile(): string
     {
-        return GeneratesDocumentationSearchIndex::generate();
+        return GeneratesDocumentationSearchIndex::handle();
     }
 
     public static function outputPath(string $identifier = ''): string
