@@ -49,7 +49,8 @@ class DocumentationSearchPage extends InMemoryPage
 
     protected static function anotherSearchPageExists(): bool
     {
-        // Since routes aren't discovered yet, we need to check the pages directly
+        // Since routes aren't discovered yet due to this page being added in the core extension,
+        // we need to check the page collection directly, instead of the route collection.
         return Hyde::pages()->first(fn (HydePage $file): bool => $file->getRouteKey() === static::routeKey()) !== null;
     }
 
