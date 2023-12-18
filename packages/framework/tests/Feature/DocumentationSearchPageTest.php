@@ -70,4 +70,10 @@ class DocumentationSearchPageTest extends TestCase
         DocumentationPage::setOutputDirectory('foo');
         $this->assertSame('foo/search', DocumentationSearchPage::routeKey());
     }
+
+    public function testStaticRouteKeyHelperWithRootOutputDirectory()
+    {
+        DocumentationPage::setOutputDirectory('');
+        $this->assertSame('search', DocumentationSearchPage::routeKey());
+    }
 }

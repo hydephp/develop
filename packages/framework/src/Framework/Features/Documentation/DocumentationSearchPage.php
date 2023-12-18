@@ -51,7 +51,7 @@ class DocumentationSearchPage extends InMemoryPage
 
     public static function routeKey(): string
     {
-        return ltrim(DocumentationPage::outputDirectory().'/search');
+        return ltrim(DocumentationPage::outputDirectory().'/search', '/');
     }
 
     protected static function anotherSearchPageExists(): bool
