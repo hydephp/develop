@@ -47,16 +47,16 @@ class DocumentationSearchPage extends InMemoryPage
         return Config::getBool('docs.create_search_page', true) && ! static::anotherSearchPageExists();
     }
 
+    public static function routeKey(): string
+    {
+        return ltrim(DocumentationPage::outputDirectory().'/search');
+    }
+
     protected static function anotherSearchPageExists(): bool
     {
         // Since routes aren't discovered yet due to this page being added in the core extension,
         // we need to check the page collection directly, instead of the route collection.
         return Hyde::pages()->first(fn (HydePage $file): bool => $file->getRouteKey() === static::routeKey()) !== null;
-    }
-
-    public static function routeKey(): string
-    {
-        return ltrim(DocumentationPage::outputDirectory().'/search');
     }
 
     /** @experimental Fixes type issue {@see https://github.com/hydephp/develop/commit/37f7046251b8c0514b8d8ef821de4ef3d35bbac8#commitcomment-135026537} */
