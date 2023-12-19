@@ -117,13 +117,10 @@ class BuildSearchCommandTest extends TestCase
         $this->artisan('build:search')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/docs/search.json'));
-//        $this->assertFileExists(Hyde::path('_site/docs/search.html'));
 
         $this->assertSame('{"foo":"bar"}', Filesystem::getContents('_site/docs/search.json'));
-//        $this->assertSame('Foo', Filesystem::getContents('_site/docs/search.html'));
 
         Filesystem::unlink('_site/docs/search.json');
-//        Filesystem::unlink('_site/docs/search.html');
     }
 }
 
