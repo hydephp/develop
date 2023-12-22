@@ -10,11 +10,10 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added info banners when dashboard content sections are empty in https://github.com/hydephp/develop/pull/1494
+- for new features.
 
 ### Changed
-- Shortened the path printed to console when using the dashboard to create a page in https://github.com/hydephp/develop/pull/1492
-- Code cleanup and style improvements in https://github.com/hydephp/develop/pull/1501, https://github.com/hydephp/develop/pull/1502, and https://github.com/hydephp/develop/pull/1503.
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -23,8 +22,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- Improved support for running HydePHP through the Phar archive in https://github.com/hydephp/develop/pull/1491
-- Fixed wrong section title in the dashboard page in https://github.com/hydephp/develop/pull/1493
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
