@@ -17,6 +17,18 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [1.4.2](https://github.com/hydephp/develop/releases/tag/1.4.2) - 2023-12-22
+### Added
+- Added info banners when dashboard content sections are empty in https://github.com/hydephp/develop/pull/1494
+
+### Changed
+- Shortened the path printed to console when using the dashboard to create a page in https://github.com/hydephp/develop/pull/1492
+- Code cleanup and style improvements in https://github.com/hydephp/develop/pull/1501, https://github.com/hydephp/develop/pull/1502, and https://github.com/hydephp/develop/pull/1503.
+### Fixed
+- Improved support for running HydePHP through the Phar archive in https://github.com/hydephp/develop/pull/1491
+- Fixed wrong section title in the dashboard page in https://github.com/hydephp/develop/pull/1493
+
+
 ## [1.4.0](https://github.com/hydephp/develop/releases/tag/1.4.0) - 2023-12-11
 ### Added
 - Adds a new fancy output for the realtime compiler serve command in https://github.com/hydephp/develop/pull/1444
