@@ -13,7 +13,8 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Renamed local template variable `$document` to `$article` to better match the usage in https://github.com/hydephp/develop/pull/1506
+- Updated semantic documentation article component to support existing variables in https://github.com/hydephp/develop/pull/1506
 
 ### Deprecated
 - for soon-to-be removed features.
