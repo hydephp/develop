@@ -45,42 +45,42 @@ class SchemaContractsTest extends UnitTestCase
     public function testSchemasAreNotAccidentallyChanged()
     {
         $this->assertSame([
-            'title'         => 'string',
-            'canonicalUrl'  => 'string',
-            'navigation'    => NavigationSchema::NAVIGATION_SCHEMA,
+            'title' => 'string',
+            'canonicalUrl' => 'string',
+            'navigation' => NavigationSchema::NAVIGATION_SCHEMA,
         ], PageSchema::PAGE_SCHEMA);
 
         $this->assertSame([
-            'label'     => 'string',
-            'priority'  => 'int',
-            'hidden'    => 'bool',
-            'group'     => 'string',
+            'label' => 'string',
+            'priority' => 'int',
+            'hidden' => 'bool',
+            'group' => 'string',
         ], NavigationSchema::NAVIGATION_SCHEMA);
 
         $this->assertSame([
-            'title'        => 'string',
-            'description'  => 'string',
-            'category'     => 'string',
-            'date'         => 'string',
-            'author'       => ['string', AuthorSchema::AUTHOR_SCHEMA],
-            'image'        => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
+            'title' => 'string',
+            'description' => 'string',
+            'category' => 'string',
+            'date' => 'string',
+            'author' => ['string', AuthorSchema::AUTHOR_SCHEMA],
+            'image' => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
         ], BlogPostSchema::BLOG_POST_SCHEMA);
 
         $this->assertSame([
-            'name'      => 'string',
-            'username'  => 'string',
-            'website'   => 'string',
+            'name' => 'string',
+            'username' => 'string',
+            'website' => 'string',
         ], AuthorSchema::AUTHOR_SCHEMA);
 
         $this->assertSame([
-            'source'         => 'string',
-            'altText'        => 'string',
-            'titleText'      => 'string',
-            'licenseName'    => 'string',
-            'licenseUrl'     => 'string',
-            'authorName'     => 'string',
-            'authorUrl'      => 'string',
-            'copyright'      => 'string',
+            'source' => 'string',
+            'altText' => 'string',
+            'titleText' => 'string',
+            'licenseName' => 'string',
+            'licenseUrl' => 'string',
+            'authorName' => 'string',
+            'authorUrl' => 'string',
+            'copyright' => 'string',
         ], FeaturedImageSchema::FEATURED_IMAGE_SCHEMA);
     }
 

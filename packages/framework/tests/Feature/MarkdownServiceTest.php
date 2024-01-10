@@ -93,7 +93,7 @@ class MarkdownServiceTest extends TestCase
 
     public function test_raw_html_tags_are_not_stripped_when_explicitly_enabled()
     {
-        config(['markdown.allow_html' =>true]);
+        config(['markdown.allow_html' => true]);
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
         $service = new MarkdownService($markdown);
         $html = $service->parse();
