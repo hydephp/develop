@@ -47,7 +47,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
         $view = Mockery::mock(\Illuminate\View\View::class);
         $mock = Mockery::mock(Factory::class);
         $mock->shouldReceive('make')->once()->with('hyde::components.breadcrumbs')->andReturn($view);
-        app()->singleton('view', fn () =>$mock);
+        app()->singleton('view', fn () => $mock);
         View::swap($mock);
 
         $this->assertSame($view, (new BreadcrumbsComponent())->render());
