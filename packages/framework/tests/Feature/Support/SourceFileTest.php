@@ -93,8 +93,8 @@ class SourceFileTest extends TestCase
         $this->file('foo.txt', 'foo bar');
 
         $this->assertSame([
-            'name' => 'foo.txt',
-            'path' => 'foo.txt',
+            'name'     => 'foo.txt',
+            'path'     => 'foo.txt',
             'pageClass' => HydePage::class,
         ], SourceFile::make('foo.txt')->toArray());
     }

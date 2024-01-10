@@ -61,9 +61,9 @@ class PublicationTypeTest extends TestCase
     public function test_construct_with_pagination_settings()
     {
         $paginationSettings = [
-            'sortField' => 'title',
+            'sortField'     => 'title',
             'sortAscending' => false,
-            'pageSize' => 10,
+            'pageSize'      => 10,
         ];
         $publicationType = new PublicationType('Test Publication', ...$paginationSettings);
 

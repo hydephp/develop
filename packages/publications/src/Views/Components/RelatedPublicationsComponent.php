@@ -105,9 +105,9 @@ class RelatedPublicationsComponent extends Component
             if ($matchedTagCount) {
                 $allRelatedPages->add(
                     collect([
-                        'count' => $matchedTagCount,
+                        'count'      => $matchedTagCount,
                         'identifier' => $publicationPage->identifier,
-                        'page' => $publicationPage,
+                        'page'       => $publicationPage,
                     ])
                 );
             }

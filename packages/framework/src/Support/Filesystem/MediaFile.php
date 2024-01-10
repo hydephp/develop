@@ -70,18 +70,18 @@ class MediaFile extends ProjectFile
         // See if we can find a mime type for the extension instead of
         // having to rely on a PHP extension and filesystem lookups.
         $lookup = [
-            'txt' => 'text/plain',
-            'md' => 'text/markdown',
+            'txt'  => 'text/plain',
+            'md'   => 'text/markdown',
             'html' => 'text/html',
-            'css' => 'text/css',
-            'svg' => 'image/svg+xml',
-            'png' => 'image/png',
-            'jpg' => 'image/jpeg',
+            'css'  => 'text/css',
+            'svg'  => 'image/svg+xml',
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
             'jpeg' => 'image/jpeg',
-            'gif' => 'image/gif',
+            'gif'  => 'image/gif',
             'json' => 'application/json',
-            'js' => 'application/javascript',
-            'xml' => 'application/xml',
+            'js'   => 'application/javascript',
+            'xml'  => 'application/xml',
         ];
 
         if (isset($lookup[$extension])) {

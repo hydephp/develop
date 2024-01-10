@@ -37,8 +37,8 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
             ]),
             'share' => null,
         ]));
-        app()->bind(\Illuminate\Contracts\View\Factory::class, fn () => $mock);
-        app()->bind('view', fn () => $mock);
+        app()->bind(\Illuminate\Contracts\View\Factory::class, fn () =>$mock);
+        app()->bind('view', fn () =>$mock);
 
         Render::swap(new RenderData());
     }

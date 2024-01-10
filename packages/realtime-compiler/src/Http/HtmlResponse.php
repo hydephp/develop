@@ -9,7 +9,7 @@ class HtmlResponse extends Response
     public function send(): void
     {
         $this->withHeaders([
-            'Content-Type' => 'text/html',
+            'Content-Type'   => 'text/html',
             'Content-Length' => strlen($this->responseData['body']),
         ]);
 

@@ -74,8 +74,8 @@ class ProjectFileTest extends TestCase
         $this->file('foo.txt', 'foo bar');
 
         $this->assertSame([
-            'name' => 'foo.txt',
-            'path' => 'foo.txt',
+            'name'     => 'foo.txt',
+            'path'     => 'foo.txt',
         ], ProjectFileTestClass::make('foo.txt')->toArray());
     }
 

@@ -266,7 +266,7 @@ class FeaturedImageViewTest extends TestCase
         return str_replace([' ', "\r", "\n"], '', $string);
     }
 
-    protected function renderComponent(FeaturedImage|array $data = ['image.source' => 'foo']): string
+    protected function renderComponent(FeaturedImage|array $data = ['image.source'=>'foo']): string
     {
         $image = $data instanceof FeaturedImage ? $data : $this->make($data);
 
