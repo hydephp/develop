@@ -203,7 +203,7 @@ class CreatesNewPublicationPageTest extends TestCase
             '__createdAt' => 1640995200,
             'title' => 'Hello World',
             'description' => "This is a description.\nIt can be multiple lines.\n",
-            'tags' =>  ['tag1', 'tag2', 'foo bar'],
+            'tags' => ['tag1', 'tag2', 'foo bar'],
         ], Yaml::parse(Str::between($contents, '---', '---')));
     }
 

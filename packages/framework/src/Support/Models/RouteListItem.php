@@ -28,10 +28,10 @@ class RouteListItem implements Arrayable
     public function toArray(): array
     {
         return [
-            'page_type'   => $this->stylePageType($this->route->getPageClass()),
+            'page_type' => $this->stylePageType($this->route->getPageClass()),
             'source_file' => $this->styleSourcePath($this->route->getSourcePath()),
             'output_file' => $this->styleOutputPath($this->route->getOutputPath()),
-            'route_key'   => $this->styleRouteKey($this->route->getRouteKey()),
+            'route_key' => $this->styleRouteKey($this->route->getRouteKey()),
         ];
     }
 
