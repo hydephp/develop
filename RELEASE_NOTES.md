@@ -23,7 +23,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed icons not being considered as images by dashboard viewer in https://github.com/hydephp/develop/pull/1512
 
 ### Security
 - in case of vulnerabilities.
