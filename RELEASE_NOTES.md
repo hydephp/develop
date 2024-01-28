@@ -23,7 +23,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed icons not being considered images by dashboard viewer in 
 
 ### Security
 - in case of vulnerabilities.
