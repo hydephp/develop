@@ -13,7 +13,7 @@
 
 ## About HydePHP
 
-HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static
+HydePHP is a Static Site Generator focused on writing content, not markup. With Hyde, it is easy to create static
 websites, blogs, and documentation pages using Markdown and (optionally) Laravel's Blade.
 
 Operated entirely through the command-line, HydePHP provides developers with a fast and efficient way to create high-quality websites with ease.
