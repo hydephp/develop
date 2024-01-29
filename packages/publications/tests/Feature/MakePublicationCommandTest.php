@@ -66,20 +66,20 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [],
+            'fields' => [],
         ]);
         $this->directory('second-publication');
         file_put_contents(
             Hyde::path('second-publication/schema.json'),
             json_encode([
-                'name'           => 'Second Publication',
+                'name' => 'Second Publication',
                 'canonicalField' => '__createdAt',
                 'detailTemplate' => 'detail',
-                'listTemplate'   => 'list',
-                'pageSize'       => 10,
-                'sortField'      => '__createdAt',
-                'sortAscending'  => true,
-                'fields'         =>  [],
+                'listTemplate' => 'list',
+                'pageSize' => 10,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'fields' => [],
             ])
         );
 
@@ -222,7 +222,7 @@ class MakePublicationCommandTest extends TestCase
         InputStreamHandler::mockInput("Hello\nWorld\n<<<");
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'text',
                 'name' => 'description',
             ],
@@ -243,7 +243,7 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'boolean',
                 'name' => 'published',
             ],
@@ -262,7 +262,7 @@ class MakePublicationCommandTest extends TestCase
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag\n<<<");
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'array',
                 'name' => 'tags',
             ],
@@ -287,7 +287,7 @@ class MakePublicationCommandTest extends TestCase
         $this->file('_media/test-publication/image.jpg');
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'media',
                 'name' => 'media',
             ],
@@ -311,7 +311,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'media',
                 'name' => 'media',
             ],
@@ -333,7 +333,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'tag',
                 'name' => 'tag',
             ],
@@ -357,7 +357,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'tag',
                 'name' => 'tags',
             ],
@@ -380,7 +380,7 @@ class MakePublicationCommandTest extends TestCase
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'media',
                 'name' => 'media',
             ],
@@ -400,7 +400,7 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'media',
                 'name' => 'media',
             ],
@@ -431,7 +431,7 @@ class MakePublicationCommandTest extends TestCase
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'tag',
                 'name' => 'tag',
             ],
@@ -450,7 +450,7 @@ class MakePublicationCommandTest extends TestCase
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'media',
                 'name' => 'media',
                 'rules' => ['required'],
@@ -468,7 +468,7 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'integer',
                 'name' => 'integer',
                 'rules' => ['max:10'],
@@ -492,7 +492,7 @@ class MakePublicationCommandTest extends TestCase
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
-            'fields'         =>  [[
+            'fields' => [[
                 'type' => 'string',
                 'name' => 'string',
             ],
@@ -522,14 +522,14 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
             json_encode(array_merge([
-                'name'           => 'Test Publication',
+                'name' => 'Test Publication',
                 'canonicalField' => 'title',
                 'detailTemplate' => 'detail',
-                'listTemplate'   => 'list',
-                'pageSize'       => 10,
-                'sortField'      => '__createdAt',
-                'sortAscending'  => true,
-                'fields'         =>  [
+                'listTemplate' => 'list',
+                'pageSize' => 10,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'fields' => [
                     [
                         'name' => 'title',
                         'type' => 'string',

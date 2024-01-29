@@ -33,17 +33,17 @@ class PublishHomepageCommand extends Command
 
     /** @var array<string, array{name: string, description: string, group: string}> */
     protected array $options = [
-        'welcome'=> [
+        'welcome' => [
             'name' => 'Welcome',
             'description' => 'The default welcome page.',
             'group' => 'hyde-welcome-page',
         ],
-        'posts'=> [
+        'posts' => [
             'name' => 'Posts Feed',
             'description' => 'A feed of your latest posts. Perfect for a blog site!',
             'group' => 'hyde-posts-page',
         ],
-        'blank'=>  [
+        'blank' => [
             'name' => 'Blank Starter',
             'description' => 'A blank Blade template with just the base layout.',
             'group' => 'hyde-blank-page',
