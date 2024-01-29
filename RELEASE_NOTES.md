@@ -14,7 +14,6 @@ This serves two purposes:
 
 ### Changed
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
-- Updated the documentation article component to support existing `$document` instance.
 
 ### Deprecated
 - for soon-to-be removed features.

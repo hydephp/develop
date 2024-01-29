@@ -198,6 +198,28 @@ class HydeSmartDocsTest extends TestCase
         $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
     }
 
+    public function test_the_documentation_article_view_with_existing_variable()
+    {
+        $rendered = view('hyde::components.docs.documentation-article', [
+            'page' => $page = $this->makePage(),
+            'article' => new class($page) extends SemanticDocumentationArticle
+            {
+                public function __construct(DocumentationPage $page)
+                {
+                    parent::__construct($page);
+                }
+
+                public function renderHeader(): HtmlString
+                {
+                    return new HtmlString('<h1>Custom Header</h1>');
+                }
+            },
+        ])->render();
+
+        $this->assertStringContainsString('<h1>Custom Header</h1>', $rendered);
+        $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
+    }
+
     protected function makeArticle(string $sourceFileContents = "# Foo\n\nHello world."): SemanticDocumentationArticle
     {
         $this->file('_docs/foo.md', $sourceFileContents);

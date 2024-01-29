@@ -90,14 +90,14 @@ Hello World!
     protected function getTestData(): array
     {
         return [
-            'name'           => 'test',
+            'name' => 'test',
             'canonicalField' => 'canonical',
             'detailTemplate' => 'detail.blade.php',
-            'listTemplate'   => 'list.blade.php',
-            'sortField'      => 'sort',
-            'sortAscending'  => true,
-            'pageSize'       => 10,
-            'fields'         => [
+            'listTemplate' => 'list.blade.php',
+            'sortField' => 'sort',
+            'sortAscending' => true,
+            'pageSize' => 10,
+            'fields' => [
                 [
                     'type' => 'string',
                     'name' => 'Foo',

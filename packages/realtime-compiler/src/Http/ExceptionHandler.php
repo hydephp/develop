@@ -22,9 +22,9 @@ class ExceptionHandler
         $html = $whoops->handleException($exception);
 
         return Response::make(500, 'Internal Server Error', [
-            'Content-Type'   => 'text/html',
+            'Content-Type' => 'text/html',
             'Content-Length' => strlen($html),
-            'body'           => $html,
+            'body' => $html,
         ]);
     }
 }
