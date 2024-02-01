@@ -19,4 +19,9 @@ class MarkdownPage extends BaseMarkdownPage
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
     public static string $template = 'hyde::layouts/page';
+
+    public function getBladeView(): string
+    {
+        return $this->matter->get('extends') ?? parent::getBladeView();
+    }
 }
