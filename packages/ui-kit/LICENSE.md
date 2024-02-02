@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) Caen De Silva
+Copyright (c) 2023 HydePHP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
