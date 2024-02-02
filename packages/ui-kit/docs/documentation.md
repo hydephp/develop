@@ -14,7 +14,6 @@ Here are some of the components you can use to build your next project! As you c
 
 ![Components Screenshot](https://raw.githubusercontent.com/hydephp/ui-kit/art/header-large-min.png)
 
-
 ## Components
 
 Please make sure you're familiar with [Laravel Blade](https://laravel.com/docs/blade) before using the HydePHP UI Kit.
