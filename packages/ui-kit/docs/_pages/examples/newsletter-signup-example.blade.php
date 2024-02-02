@@ -1,5 +1,5 @@
 <x-hyde-ui::layouts.focus>
-    <x-hyde-ui::card>
+    <x-hyde-ui::card class="mx-auto">
         <x-slot name="title">
             Let your creativity flow!
         </x-slot>
@@ -14,7 +14,7 @@
             </x-hyde-ui::prose>
         </x-slot>
      
-        <x-slot name="footer" class="text-center flex">
+        <x-slot name="footer" class="flex text-center justify-center">
             <x-hyde-ui::input placeholder="Enter email" />
      
             <x-hyde-ui::button-primary>
