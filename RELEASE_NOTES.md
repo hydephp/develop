@@ -24,6 +24,7 @@ This serves two purposes:
 
 ### Fixed
 - Fixed icons not being considered as images by dashboard viewer in https://github.com/hydephp/develop/pull/1512
+- HydeFront: Fixed bug where heading permalink buttons were included in text represented output in https://github.com/hydephp/develop/pull/1519
 
 ### Security
 - in case of vulnerabilities.
