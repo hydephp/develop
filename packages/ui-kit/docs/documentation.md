@@ -162,3 +162,7 @@ You can get surprisingly far when you combine the components. Take this newslett
 ```
 
 ![Newsletter Screenshot](https://raw.githubusercontent.com/hydephp/ui-kit/art/newsletter-signup-example-min.png)
+
+## GitHub Repository
+
+You can find the source code for the UI Kit on GitHub at [hydephp/ui-kit](https://github.com/hydephp/ui-kit).
