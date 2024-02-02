@@ -1,4 +1,8 @@
-# Hyde UI Kit - Documentation
+---
+title: Documentation
+---
+
+# HydePHP UI Kit - Documentation
 
 The HydePHP UI Kit is a collection of minimalistic and un-opinionated TailwindCSS components for Laravel Blade,
 indented to be used with HydePHP. Note that these components may require CSS classes not present in the bundled app.css
@@ -9,7 +13,6 @@ file and that you may need to recompile the CSS file using the included Laravel 
 Please make sure you're familiar with [Laravel Blade](https://laravel.com/docs/blade) before using the HydePHP UI Kit.
 
 >info Tip: Most components allow you to pass any additional HTML attributes to the element!
-
 
 ## Components
 
@@ -116,7 +119,7 @@ This component will convert any Markdown within it to HTML using the Hyde Markdo
 ```blade
 <x-hyde-ui::markdown>
     ## Markdown Heading
-
+    
     Hello world!
 </x-hyde-ui::markdown>
 ```
