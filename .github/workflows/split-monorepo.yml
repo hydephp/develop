@@ -375,3 +375,5 @@ jobs:
 
           git add .
           git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+
+          git push upstream master
