@@ -123,7 +123,7 @@ This component will convert any Markdown within it to HTML using the Hyde Markdo
 ```blade
 <x-hyde-ui::markdown>
     ## Markdown Heading
-    
+
     Hello world!
 </x-hyde-ui::markdown>
 ```
