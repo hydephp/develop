@@ -21,13 +21,13 @@ The Hyde Realtime Compiler is included with Hyde installations and is what power
 
 ### UI Kit
 
-The [HydePHP UI Kit](https://github.com/hydephp/ui-kit) is  set of minimalistic Blade & Tailwind components to kickstart development of custom Blade views for your HydePHP site.
-- Learn more at https://github.com/hydephp/ui-kit and see the documentation at https://hydephp.github.io/ui-kit/
+The [HydePHP UI Kit](https://github.com/hydephp/ui-kit) is a set of minimalistic Blade & Tailwind components to kickstart development of custom Blade views for your HydePHP site.
+- Learn more at https://github.com/hydephp/ui-kit and see the documentation at https://hydephp.github.io/ui-kit
 
 ### GitHub Action
 
 The [GitHub Action for HydePHP](https://github.com/hydephp/action) is hands-down the easiest way to build and deploy your Hyde site to GitHub Pages.
-- Learn more at https://github.com/hydephp/action and see the documentation at https://hydephp.github.io/action/
+- Learn more at https://github.com/hydephp/action and see the documentation at https://hydephp.github.io/action
 
 ## Integrations with third-party tools
 
