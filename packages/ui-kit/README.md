@@ -19,7 +19,6 @@ composer require hyde/ui-kit
 
 Since HydePHP already comes with several built-in views and templates, including a precompiled CSS file to get you started quickly, this package is not required to use HydePHP and is tailored to intermediate-to-advanced users, giving you an excellent productivity boost in kick-starting development of any custom Blade pages.
 
-
 ## Usage
 
 Once installed, the package service provider will automatically register the Blade components for you to use.
