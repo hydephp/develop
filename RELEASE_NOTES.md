@@ -15,6 +15,7 @@ This serves two purposes:
 ### Changed
 - Renamed local template variable `$document` to `$article` to better match the usage in https://github.com/hydephp/develop/pull/1506
 - Updated semantic documentation article component to support existing variables in https://github.com/hydephp/develop/pull/1506
+- HydeFront: Changed `<code>` styling to display as inline instead of inline-block in https://github.com/hydephp/develop/pull/1525
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -25,6 +26,7 @@ This serves two purposes:
 ### Fixed
 - Fixed icons not being considered as images by dashboard viewer in https://github.com/hydephp/develop/pull/1512
 - HydeFront: Fixed bug where heading permalink buttons were included in text represented output in https://github.com/hydephp/develop/pull/1519
+- HydeFront: Fix visual overflow bug in inline code blocks within blockquotes https://github.com/hydephp/hydefront/issues/65 in https://github.com/hydephp/develop/pull/1525
 
 ### Security
 - in case of vulnerabilities.
