@@ -132,7 +132,7 @@ This component will convert any Markdown within it to HTML using the Hyde Markdo
 
 ### What's Next?
 
-The UI kit is minimal by design. It's up to you to create something amazing.
+The UI kit is minimal by design. It's up to you to create something amazing, we just want to give you a head start.
 You can get surprisingly far when you combine the components. Take this newsletter signup card for example!
 
 ```blade
