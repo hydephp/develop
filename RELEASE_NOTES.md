@@ -27,6 +27,7 @@ This serves two purposes:
 - Fixed icons not being considered as images by dashboard viewer in https://github.com/hydephp/develop/pull/1512
 - HydeFront: Fixed bug where heading permalink buttons were included in text represented output in https://github.com/hydephp/develop/pull/1519
 - HydeFront: Fix visual overflow bug in inline code blocks within blockquotes https://github.com/hydephp/hydefront/issues/65 in https://github.com/hydephp/develop/pull/1525
+- Realtime Compiler: Fixes visual dashboard bugs https://github.com/hydephp/realtime-compiler/issues/23 and https://github.com/hydephp/realtime-compiler/issues/24 in https://github.com/hydephp/develop/pull/1528
 
 ### Security
 - in case of vulnerabilities.
