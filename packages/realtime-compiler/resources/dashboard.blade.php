@@ -41,9 +41,9 @@
                 <a class="nav-link px-3" href="/dashboard">Open full page dashboard</a>
             </div>
         @else
-        <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="/">Back to site</a>
-        </div>
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="/">Back to site</a>
+            </div>
         @endif
     </div>
 </nav>
@@ -228,7 +228,7 @@
                             @endif
                         </div>
                     @else
-                        <table class="table table-bordered">
+                        <table class="table table-bordered d-block overflow-x-auto">
                             <tr>
                                 @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
                                     <th>{{ $header }}</th>
@@ -288,7 +288,7 @@
                             There are no media files yet. Why not add some?
                         </div>
                     @else
-                       <div class="container d-flex flex-wrap" style="margin: 0 -0.5rem">
+                        <div class="container d-flex flex-wrap px-0">
                             @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
                                 <div class="col-lg-4 p-2 d-flex flex-grow-1">
                                     <figure class="card w-100 p-2 mb-0">
@@ -310,7 +310,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="row flex-nowrap justify-content-start">
-                                                        <p class="col-auto text-truncate mb-0 pe-2">
+                                                        <p class="col-auto text-truncate mb-0 pe-2" style="max-width: 210px;">
                                                             <strong title="{{ $mediaFile->getPath() }}">{{ $mediaFile->getName() }}</strong>
                                                         </p>
                                                         <div class="col px-0 text-nowrap">
