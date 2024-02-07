@@ -116,9 +116,7 @@ class DashboardController extends BaseController
 
     public function getVersion(): string
     {
-        $version = InstalledVersions::getPrettyVersion('hyde/realtime-compiler');
-
-        return str_starts_with($version, 'dev-') ? $version : "v$version";
+        return InstalledVersions::getPrettyVersion('hyde/realtime-compiler');
     }
 
     public function getProjectInformation(): array
