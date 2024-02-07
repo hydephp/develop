@@ -363,6 +363,65 @@ This feature is enabled by default, so you only need to place your pages in subd
 
 For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
 
+## Additional Advanced Options
+
+The following configuration options in the `confg/hyde.php` file are intended for advanced users and 
+should only be modified if you fully understand their impact. The code examples show the default values.
+
+### `media_extensions`
+
+This option allows you to specify file extensions considered as media files, which will be copied to the output directory. 
+To add more extensions, either append them to the existing array or override the entire array.
+
+```php
+// filepath config/hyde.php
+use \Hyde\Support\Filesystem\MediaFile;
+
+'media_extensions' => array_merge([], MediaFile::EXTENSIONS),
+```
+
+### `safe_output_directories`
+
+This setting defines a list of directories deemed safe to empty during the site build process as a safeguard to prevent accidental data loss.
+If the site output directory is not in this list, the build command will prompt for confirmation before emptying it. It is preconfigured
+with common directories including the default one, but you are free to change this to include any custom directories you may need.
+
+```php
+// filepath config/hyde.php
+'safe_output_directories' => ['_site', 'docs', 'build'],
+```
+
+### `generate_build_manifest`
+
+Determines whether a JSON build manifest with metadata about the build should be generated. Set to `true` to enable.
+
+```php
+// filepath config/hyde.php
+'generate_build_manifest' => true,
+```
+
+### `build_manifest_path`
+
+Specifies the path where the build manifest should be saved, relative to the project root.
+
+```php
+// filepath config/hyde.php
+'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
+```
+
+### `hydefront_version` and `hydefront_cdn_url`
+
+These options allow you to specify the HydeFront version and CDN URL when loading `app.css` from the CDN.
+
+Only change these if you know what you're doing as some versions may incompatible with your Hyde version.
+
+```php
+// filepath config/hyde.php
+use \Hyde\Framework\Services\AssetService;
+
+'hydefront_version' => AssetService::HYDEFRONT_VERSION,
+'hydefront_cdn_url' => AssetService::HYDEFRONT_CDN_URL,
+```
 
 ## Blade Views
 
