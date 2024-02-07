@@ -375,7 +375,9 @@ To add more extensions, either append them to the existing array or override the
 
 ```php
 // filepath config/hyde.php
-'media_extensions' => array_merge([], \Hyde\Support\Filesystem\MediaFile::EXTENSIONS),
+use \Hyde\Support\Filesystem\MediaFile;
+
+'media_extensions' => array_merge([], MediaFile::EXTENSIONS),
 ```
 
 ### `safe_output_directories`
@@ -415,8 +417,10 @@ Only change these if you know what you're doing as some versions may incompatibl
 
 ```php
 // filepath config/hyde.php
-'hydefront_version' => \Hyde\Framework\Services\AssetService::HYDEFRONT_VERSION,
-'hydefront_cdn_url' => \Hyde\Framework\Services\AssetService::HYDEFRONT_CDN_URL,
+use \Hyde\Framework\Services\AssetService;
+
+'hydefront_version' => AssetService::HYDEFRONT_VERSION,
+'hydefront_cdn_url' => AssetService::HYDEFRONT_CDN_URL,
 ```
 
 ## Blade Views
