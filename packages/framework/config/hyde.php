@@ -446,9 +446,8 @@ return [
     |
     */
 
-    // Change the file extensions to be considered as media files.
-    // If you want to add more extensions, use the merge array.
-    // If you want to replace them, override the entire array.
+    // Change the file extensions to be considered as media files and are copied to the output directory.
+    // If you want to add more extensions, add it to the empty merge array, or just override the entire array.
     'media_extensions' => array_merge([], \Hyde\Support\Filesystem\MediaFile::EXTENSIONS),
 
     // The list of directories that are considered to be safe to empty upon site build.
