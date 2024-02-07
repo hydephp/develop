@@ -20,7 +20,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added the existing `media_extensions` option to the `hyde` configuration file in https://github.com/hydephp/develop/pull/1531
 
 ### Changed
 - Renamed local template variable `$document` to `$article` to better match the usage in https://github.com/hydephp/develop/pull/1506
