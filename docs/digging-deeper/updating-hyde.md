@@ -13,6 +13,24 @@ This guide will help you update your HydePHP project to the latest version.
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
 
+## Version compatibility
+
+HydePHP follows [semantic versioning](https://semver.org/), so you can expect that minor and patch releases will be backwards compatible.
+Only major releases may introduce breaking changes, all of which are thoroughly documented in the accompanying release notes.
+
+New features and bug fixes are added in minor and patch releases, so it is recommended to keep your project up to date.
+
+### Side effects and ensuring a smooth update
+
+Please note that due to the indicate nature of software, there is a possibility that an update contains side effects,
+hence why version controlling your site is helpful when updating versions as you can roll back changes. It can also
+be helpful to version control the compiled HTML, so you can view a diff of the changes. Be sure to test your site
+can be built and that it looks as expected after updating before deploying the changes to your live site.
+
+We of course have extensive tests in place run on each single code commit to ensure all code is functional,
+however when fixing bugs it is possible that for example a bug fix may change an edge-case that some users may be relying on.
+
+Obligatory related XKCD: [https://xkcd.com/1172/](https://xkcd.com/1172/)
 
 ## Methods
 
