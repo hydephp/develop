@@ -28,7 +28,7 @@ This serves two purposes:
 - HydeFront: Changed `<code>` styling to display as inline instead of inline-block in https://github.com/hydephp/develop/pull/1525
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated the `BuildService::transferMediaAssets()` method in https://github.com/hydephp/develop/pull/1533, as it will be moved into a build task in v2.0.
 
 ### Removed
 - for now removed features.

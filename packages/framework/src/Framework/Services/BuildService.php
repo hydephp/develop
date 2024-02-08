@@ -48,6 +48,7 @@ class BuildService
         });
     }
 
+    /** @deprecated This method will be replaced by a build task in v2.0 */
     public function transferMediaAssets(): void
     {
         $this->needsDirectory(Hyde::siteMediaPath());
