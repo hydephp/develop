@@ -25,4 +25,9 @@ class TransferMediaAssets extends PreBuildTask
             copy(Hyde::mediaPath($identifier), $sitePath);
         });
     }
+
+    public function printFinishMessage(): void
+    {
+        // We don't need a finish message for this task.
+    }
 }
