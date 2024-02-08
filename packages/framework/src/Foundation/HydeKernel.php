@@ -112,4 +112,9 @@ class HydeKernel implements SerializableContract
             'routes' => $this->routes(),
         ];
     }
+
+    public function navigation(): NavigationMenu
+    {
+        return $this->navigation;
+    }
 }
