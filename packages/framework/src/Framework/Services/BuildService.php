@@ -44,11 +44,6 @@ class BuildService
         });
     }
 
-    public function transferMediaAssets(): void
-    {
-        //
-    }
-
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
