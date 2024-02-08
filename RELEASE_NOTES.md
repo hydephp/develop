@@ -53,7 +53,7 @@ For more information, see https://github.com/hydephp/develop/pull/1498.
 - If your site has a custom documentation search page, for example `_docs/search.md` or `_pages/docs/search.blade.php`,
   that page will no longer be built when using the specific `build:search` command. It will, of course, 
   be built using the standard `build` command. https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
-- 
+ 
 - In the highly unlikely event your site customizes any of the search pages by replacing them in the kernel route collection,
   you would now need to do that in the kernel page collection due to the search pages being generated earlier in the lifecycle.
   https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
