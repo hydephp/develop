@@ -9,14 +9,14 @@ navigation:
 
 Managing and compiling assets is a very common task in web development. Unfortunately, it's rarely fun.
 
-With hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
+With Hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
 But as always with Hyde, you can customize everything if you want to.
 
 Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions.
 Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Laravel Mix.
 
-To get you started quickly, all the styles are already compiled minified into `_media/app.css`, which will be copied
-to the `_site/media/app.css` directory when you run `php hyde build`.
+To get you started quickly, all the styles are already compiled and minified into `_media/app.css`,
+which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
 
 ## Additional Information and Answers to Common Questions
@@ -38,7 +38,7 @@ If you use Markdown-based pages, you do not need to compile anything as those st
 
 The frontend assets are separated into three places.
 
-- The `resources/assets` contains **source** files, meaning files that will be compiled into something else.
+- The `resources/assets` folder contain **source** files, meaning files that will be compiled into something else.
 Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place
 to add your custom styles. It is also where we import HydeFront. If you compile this file in the base install,
 it will output the same file that's already included in Hyde.
@@ -64,12 +64,12 @@ You can also run `npm run watch` to watch for changes in the source files and re
 
 ### How does it work?
 
-Hyde uses [Laravel Mix](https://laravel-mix.com/) (which is a wrapper for [webpack](https://webpack.js.org/)) to compile the assets.
+Hyde uses [Laravel Mix](https://laravel-mix.com/) (which is a wrapper for [Webpack](https://webpack.js.org/)) to compile the assets.
 
 When running the `npm run dev/prod` command, the following happens:
 
 1. Laravel Mix will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
-2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`, making blend perfectly with the realtime compiler (`php hyde serve`).
+2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
 
 
 ## Telling Hyde where to find assets
@@ -118,7 +118,7 @@ making it the recommended place to store images. You can then easily reference t
 
 ### Referencing images
 
-The recommended way to reference images are with relative paths as this offers the most compatibility,
+The recommended way to reference images is with relative paths as this offers the most compatibility,
 allowing you to browse the site both locally on your filesystem and on the web when serving from a subdirectory.
 
 >warning Note: The path is relative to the <b>compiled</b> file in the site output
@@ -132,7 +132,7 @@ The path to use depends on the location of the page. Note the subtle difference 
 
 #### Making images accessible
 
-To improve accessibility, you should always add an `alt` text. Here is a full example for an image in a blog post:
+To improve accessibility, you should always add an `alt` text. Here is a full example including an image in a blog post:
 
 ```markdown
 ![Image Alt](../media/image.png "Image Title") # Note the relative path
@@ -142,4 +142,4 @@ To improve accessibility, you should always add an `alt` text. Here is a full ex
 
 Hyde offers great support for creating data-rich and accessible featured images for blog posts.
 
-You can read more about this in the [creating blog posts page](blog-posts#image).
+You can read more about this on the [creating blog posts page](blog-posts#image).

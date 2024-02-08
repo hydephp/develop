@@ -56,7 +56,7 @@ Once the site is compiled there is nothing to configure or worry about.
 ### FTP and File Managers
 
 If you have a conventional web host, you can use `FTP`/`SFTP`/`FTPS` to upload your compiled site files to the web server.
-Some web hosting services also have web based file managers.
+Some web hosting services also have web-based file managers.
 
 To deploy your site using any of these methods, all you need to do is upload the entire contents of your `_site`
 directory to the web server's public document root, which is usually the `public_html`, `htdocs`, or `www` directory.

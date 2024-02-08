@@ -28,7 +28,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 #### Filenames
 
-- Hyde Documentation pages are files are stored in the `_docs` directory
+- Hyde Documentation pages are files stored in the `_docs` directory
 - The filename is used as the filename for the compiled HTML
 - Filenames should use `kebab-case-name` format, followed by the appropriate extension
 - Files prefixed with `_underscores` are ignored by Hyde
@@ -267,7 +267,7 @@ You can also disable the feature completely.
 ### Using flattened output paths
 
 If this setting is set to true, Hyde will output all documentation pages into the same configured documentation output directory.
-This means that you can use the automatic directory based grouping feature, but still have a "flat" output structure.
+This means that you can use the automatic directory-based grouping feature, but still have a "flat" output structure.
 Note that this means that you can't have two documentation pages with the same filename or navigation menu label as they will overwrite each other.
 
 If you set this to false, Hyde will match the directory structure of the source files (just like all other pages).
@@ -285,7 +285,7 @@ If you set this to false, Hyde will match the directory structure of the source 
 The HydeSearch plugin adds a search feature to documentation pages. It consists of two parts, a search index generator
 that runs during the build command, and a frontend JavaScript plugin that adds the actual search widget.
 
->info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)!
+>info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)?
 
 The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
 
@@ -329,7 +329,7 @@ The Realtime Compiler that powers the `php hyde serve` command will automaticall
 
 ### Introduction
 
-Hyde can automatically add links to documentation pages that takes the user
+Hyde can automatically add links to documentation pages that take the user
 to a GitHub page (or similar) to edit the page. This makes it great for open-source projects
 looking to allow others to contribute to the documentation in a quick and easy manner.
 
@@ -341,7 +341,7 @@ if not, please send a PR and/or create an issue on the [GitHub repository](https
 
 ### Configuration
 
-As an example configuration, let's take a practical example for how HydePHP.com uses this feature.
+As an example configuration, let's take a practical example of how HydePHP.com uses this feature.
 
 ```php
 // Filepath: config/docs.php

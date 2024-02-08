@@ -13,22 +13,22 @@ autodiscovery, you may benefit from creating a custom page class instead, as tha
 
 ### About discovery
 
-Since the InMemoryPages are not present in the filesystem, they cannot be found by the auto-discovery process,
-thus it's up to the developer to manually register them. If you are developing for your own project, you can do this in
+Since the InMemoryPages are not present in the filesystem, they cannot be found by the auto-discovery process.
+Instead, it's up to the developer to manually register them. If you are working on your own project, you can do this in
 the `boot` method of a service provider, such as the `AppServiceProvider` which is already present in your `app/` directory.
 
 If you are developing a package, you may instead want to register the page in your package extension class, within the
 page collection callback. In either case, if you want your page to be able to be fully processed by Hyde, you need to
 make sure you register it before the full application is booted so that routes can be generated.
 
-_To see how to register the page, see the examples below, first we must look at how to actually create the page._
+_To see how to register the page, see the examples below. But first we must look at how to actually create the page._
 
 
 ## Creating the page
 
-To create an InMemoryPage, you need to instantiate it, and pass it the required parameters.
+To create an InMemoryPage, you need to instantiate it with the required parameters.
 
-A page would not be useful without any content to render. The class offers two content options through the constructor.
+Since a page would not be useful without any content to render, the class offers two content options through the constructor.
 
 You can either pass a string to the `$contents` parameter, Hyde will then save that literally as the page's contents.
 
