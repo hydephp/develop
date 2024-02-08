@@ -82,8 +82,6 @@ class HydeKernelTest extends TestCase
 
     public function test_has_navigation_helper_returns_site_navigation_instance()
     {
-        Hyde::boot();
-
         $this->assertInstanceOf(NavigationMenu::class, Hyde::navigation());
     }
 

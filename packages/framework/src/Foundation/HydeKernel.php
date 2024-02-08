@@ -115,6 +115,8 @@ class HydeKernel implements SerializableContract
 
     public function navigation(): NavigationMenu
     {
+        $this->needsToBeBooted();
+
         return $this->navigation;
     }
 }
