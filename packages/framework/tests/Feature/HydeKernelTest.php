@@ -24,6 +24,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
@@ -77,6 +78,13 @@ class HydeKernelTest extends TestCase
     public function test_has_feature_helper_calls_method_on_features_class()
     {
         $this->assertSame(Features::enabled('foo'), Hyde::hasFeature('foo'));
+    }
+
+    public function test_has_navigation_helper_returns_site_navigation_instance()
+    {
+        Hyde::boot();
+
+        $this->assertInstanceOf(NavigationMenu::class, Hyde::navigation());
     }
 
     public function test_current_page_helper_returns_current_page_name()
