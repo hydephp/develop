@@ -315,6 +315,7 @@ You can also specify that a page should be excluded by setting the page front ma
 navigation:
     hidden: true
 ---
+```
 
 #### Adding Custom Navigation Menu Links
 
