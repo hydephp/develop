@@ -13,6 +13,7 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -64,6 +65,8 @@ class HydeKernel implements SerializableContract
     protected FileCollection $files;
     protected PageCollection $pages;
     protected RouteCollection $routes;
+
+    protected NavigationMenu $navigation;
 
     protected bool $booted = false;
 
