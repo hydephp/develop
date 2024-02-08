@@ -55,7 +55,7 @@ The kernel is also where the discovered data is stored in memory, so it's import
 ### The kernel lifecycle
 
 Now that we know the role of the HydeKernel, let's take a look at its lifecycle. The kernel is "lazy-booted", meaning
-that the all the heavy lifting only happens when you actually need it. Once booted, the kernel data will stay in memory
+that all the heavy lifting only happens when you actually need it. Once booted, the kernel data will stay in memory
 until the console application is terminated.
 
 The kernel data is primarily stored in three collections that get generated during the kernel's boot process.

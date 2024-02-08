@@ -45,7 +45,7 @@ Routes::get('docs/readme')
 
 When designing Blade layouts it can be useful to use the `x-link` component to automatically resolve relative links.
 
-You can of course, use it just like a normal anchor tag like so:
+You can of course use it just like a normal anchor tag like so:
 
 ```blade
 <x-link href="index.html">Home</x-link>

@@ -97,7 +97,7 @@ Why not combine the components?
 
 #### Heading
 
-This component will create a styled `<h1>` level heading centered on the page.
+This component will create a styled `<h1>` level heading centred on the page.
 
 ```blade
 <x-hyde-ui::heading>

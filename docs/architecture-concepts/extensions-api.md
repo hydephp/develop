@@ -6,7 +6,7 @@ navigation.priority: 1000
 
 ## Introduction
 
-The Extensions API a powerful interface designed for package developers who want to extend the functionality of HydePHP.
+The Extensions API is a powerful interface designed for package developers who want to extend the functionality of HydePHP.
 
 Using the API, you can hook directly into the HydePHP Kernel and extend sites with custom page types and new features.
 
@@ -24,7 +24,7 @@ so you can understand how your code works with the internals.
 
 ### The why and how of the Extensions API
 
-HydePHP being a static site generator, the Extensions API is centered around [Page Models](page-models),
+HydePHP being a static site generator, the Extensions API is centred around [Page Models](page-models),
 which you are hopefully already familiar with, otherwise you should read up on them first.
 
 What the Extensions API does is to allow you to create custom page types, and tell HydePHP how to discover them.
@@ -73,11 +73,11 @@ If our pages need more complex discovery logic, we can create custom handlers. s
 
 ### Discovery handlers
 
-The discovery handlers lets you run code at various points of the booting process. This is usually only needed if your
+The discovery handlers let you run code at various points of the booting process. This is usually only needed if your
 page models cannot provide the information required for Hyde run the standard auto-discovery, and thus need custom logic.
 
 Usually in these cases, you would only need to add files to the Kernel `FileCollection`,
-though the `HydeExtension` class offers following three discovery handlers, in case you need them:
+though the `HydeExtension` class offers the following three discovery handlers, in case you need them:
 
 ```php
 /** Runs during file discovery */
@@ -111,7 +111,7 @@ class JsonPageExtension extends HydeExtension {
 ```
 
 Since the discovery steps are handled sequentially, the added pages will automatically be discovered as routes without
-us having to implement that handler method. As we inject the page objects directly, we bypass the need of the `FileCollection`.
+us having to implement that handler method. As we inject the page objects directly, we bypass the need for the `FileCollection`.
 
 
 ## Registering your extension
