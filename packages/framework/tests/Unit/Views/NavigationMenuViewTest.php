@@ -18,8 +18,6 @@ class NavigationMenuViewTest extends TestCase
         parent::setUp();
         $this->mockRoute();
         $this->mockPage();
-
-        Hyde::boot();
     }
 
     protected function render(): string
