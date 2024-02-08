@@ -11,10 +11,12 @@ This serves two purposes:
 
 ### Added
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- Added a new `NavItem::getLink()` method contain the previous `NavItem::getDestination()` logic, to return the link URL.
 
 ### Changed
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
+- The `NavItem::getDestination()` method now returns its `Route` instance if that is the destination type.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -53,6 +55,11 @@ want to adapt your code to interact with the new `InMemoryPage`, which is genera
 For more information, see https://github.com/hydephp/develop/pull/1498.
 
 ## Low impact
+
+### Navigation item changes
+
+The `NavItem::getDestination()` method now returns its `Route` instance if that is the destination type.
+If you want to retain the previous state where a string is always returned, you can use the new `NavItem::getLink()` method instead.
 
 ### New documentation search implementation
 
