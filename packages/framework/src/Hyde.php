@@ -10,6 +10,7 @@ use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Filesystem\SourceFile;
@@ -50,6 +51,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static string getMediaDirectory()
  * @method static string getMediaOutputDirectory()
  * @method static Features features()
+ * @method static NavigationMenu navigation()
  * @method static FileCollection<SourceFile> files()
  * @method static PageCollection<HydePage> pages()
  * @method static RouteCollection<Route> routes()
