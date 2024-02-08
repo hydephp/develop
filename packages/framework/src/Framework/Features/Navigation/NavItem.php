@@ -79,7 +79,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Get the destination link of the navigation item.
+     * Get the destination of the navigation item.
      *
      * If the navigation item is an external link, this will return the link as is,
      * if it's for a route, the route instance will be returned.
@@ -87,6 +87,17 @@ class NavItem implements Stringable
     public function getDestination(): Route|string
     {
         return $this->destination;
+    }
+
+    /**
+     * Get the destination link of the navigation item.
+     *
+     * If the navigation item is an external link, this will return the link as is,
+     * if it's for a route, the route's resolved link will be returned.
+     */
+    public function getLink(): string
+    {
+        return (string) $this->destination;
     }
 
     /**

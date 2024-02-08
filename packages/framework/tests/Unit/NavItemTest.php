@@ -43,13 +43,21 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500);
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route, $item->destination);
     }
 
     public function testGetDestination()
     {
+        $route = new Route(new MarkdownPage());
+        $item = new NavItem($route, 'Test', 500);
+
+        $this->assertSame($route, $item->getDestination());
+    }
+
+    public function testGetLink()
+    {
         $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
-        $this->assertSame('foo.html', $navItem->getDestination());
+        $this->assertSame('foo.html', $navItem->getLink());
     }
 
     public function testGetLabel()
@@ -75,7 +83,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = NavItem::fromRoute($route);
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route, $item->destination);
     }
 
     public function test__toString()
@@ -104,7 +112,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('404');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route, $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(999, $item->priority);
     }
@@ -114,7 +122,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('index');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route, $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(0, $item->priority);
     }
