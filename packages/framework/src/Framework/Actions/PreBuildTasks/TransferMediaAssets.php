@@ -8,5 +8,5 @@ use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 
 class TransferMediaAssets extends PreBuildTask
 {
-    //
+    protected static string $message = 'Transferring Media Assets';
 }
