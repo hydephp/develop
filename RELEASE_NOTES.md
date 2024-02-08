@@ -58,8 +58,11 @@ For more information, see https://github.com/hydephp/develop/pull/1498.
 
 ### Navigation item changes
 
-The `NavItem::getDestination()` method now returns its `Route` instance if that is the destination type.
-If you want to retain the previous state where a string is always returned, you can use the new `NavItem::getLink()` method instead.
+The `NavItem::getDestination()` method now returns its `Route` instance if that is the destination type. This allows for deferring the route evaluation.
+
+If you have previously used this method directly and expected a string to be returned, you may need to adapt your code to handle the new return type.
+
+If you want to retain the previous state where a string is always returned, you can use the new `NavItem::getLink()` method instead, which will resolve the route immediately.
 
 ### New documentation search implementation
 
