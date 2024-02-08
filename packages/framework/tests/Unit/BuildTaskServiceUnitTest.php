@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
-use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
@@ -51,75 +50,49 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGetTasks()
     {
-        $this->assertSame([
-            TransferMediaAssets::class,
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([], $this->service->getRegisteredTasks());
     }
 
     public function testGetTasksWithTaskRegisteredInConfig()
     {
-        self::mockConfig(array_merge(config()->all(), ['hyde.build_tasks' => [
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ]]));
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ], $this->createService()->getRegisteredTasks());
+        self::mockConfig(array_merge(config()->all(), ['hyde.build_tasks' => [TestBuildTask::class]]));
+        $this->assertSame([TestBuildTask::class], $this->createService()->getRegisteredTasks());
     }
 
     public function testRegisterTask()
     {
         $this->service->registerTask(TestBuildTask::class);
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterPreBuildTask()
     {
         $this->service->registerTask(TestPreBuildTask::class);
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestPreBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestPreBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterPostBuildTask()
     {
         $this->service->registerTask(TestPostBuildTask::class);
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestPostBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestPostBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterInstantiatedTask()
     {
         $this->service->registerTask(new TestBuildTask());
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterInstantiatedPreBuildTask()
     {
         $this->service->registerTask(new TestPreBuildTask());
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestPreBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestPreBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterInstantiatedPostBuildTask()
     {
         $this->service->registerTask(new TestPostBuildTask());
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestPostBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestPostBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterTaskWithInvalidClassTypeThrowsException()
@@ -145,34 +118,22 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(TestBuildTask::class);
         $this->service->registerTask(TestBuildTask::class);
 
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testRegisterTaskWithTaskAlreadyRegisteredInConfig()
     {
-        self::mockConfig(array_merge(config()->all(), ['hyde.build_tasks' => [
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ]]));
+        self::mockConfig(array_merge(config()->all(), ['hyde.build_tasks' => [TestBuildTask::class]]));
         $this->createService();
 
         $this->service->registerTask(TestBuildTask::class);
-        $this->assertSame([
-            TransferMediaAssets::class,
-            TestBuildTask::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([TestBuildTask::class], $this->service->getRegisteredTasks());
     }
 
     public function testCanRegisterFrameworkTasks()
     {
         $this->service->registerTask(FrameworkGenerateSitemap::class);
-        $this->assertSame([
-            TransferMediaAssets::class,
-            FrameworkGenerateSitemap::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([FrameworkGenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
     public function testCanOverloadFrameworkTasks()
@@ -180,10 +141,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->registerTask(FrameworkGenerateSitemap::class);
         $this->service->registerTask(GenerateSitemap::class);
 
-        $this->assertSame([
-            TransferMediaAssets::class,
-            GenerateSitemap::class
-        ], $this->service->getRegisteredTasks());
+        $this->assertSame([GenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
     public function testSetOutputWithNull()
