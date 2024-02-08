@@ -13,10 +13,10 @@ Hyde is designed to automatically configure these menus for you based on the con
 
 There are two types of navigation menus in Hyde:
 
-- **Primary Navigation Menu**: This is the main navigation menu that appears on most pages your site.
+- **Primary Navigation Menu**: This is the main navigation menu that appears on most pages of your site.
 - **Documentation Sidebar**: This is a sidebar that appears on documentation pages and contains links to other documentation pages.
 
-HydePHP automatically generates all of these menus for you based on the content in your project,
+HydePHP automatically generates all of these menus for you based on the content of your project,
 and does its best to automatically configure them in the way that you most likely want them to be.
 
 Of course, this won't always be perfect, so thankfully Hyde makes it a breeze to customize these menus to your liking.
@@ -24,7 +24,7 @@ Keep on reading to learn how! To learn even more about the sidebars, visit the [
 
 ## Quick primer on the internals
 
-It may be beneficial to understand the internal workings of the navigation menus in order to take full advantage of the options.
+It may be beneficial to understand the internal workings of the navigation menus to take full advantage of the options.
 
 In short, both navigation menu types extend the same class (meaning they share the same base code), this means that the way
 they are configured are very similar, making the documentation here applicable to both types of menus.
@@ -43,7 +43,7 @@ Here is a quick overview of what you might want to customize in your navigation 
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
-The best way to learn about this is to look at the source code, so here is a high level overview with details on where to look in the source code.
+The best way to learn about this is to look at the source code, so here is a high-level overview with details on where to look in the source code.
 
 The main navigation menu is the `NavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class.
 Both extend the same `BaseNavigationMenu` class:
@@ -59,7 +59,7 @@ while the child implementations contain the extra logic tailored for their speci
 
 All the navigation menus store the menu items in their `$items` array containing instances of the `NavItem` class.
 
-The `NavItem` class is a simple class that contains the label and URL of the menu item, and is used to represent each item in the menu.
+The `NavItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
 Dropdowns are represented by `DropdownNavItem` instances, which extend the `NavItem` class and contain an array of additional `NavItem` instances.
 
 ```php
