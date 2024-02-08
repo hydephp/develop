@@ -1,7 +1,7 @@
 ---
 navigation:
-    label: "Navigation"
+    label: "Navigation Menus"
     priority: 26
 ---
 
-# Navigation
+# Navigation Menus
