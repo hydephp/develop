@@ -1,0 +1,1927 @@
+Managing and Compiling Assets
+
+Managing and Compiling Assets
+
+Introduction
+
+Managing and compiling assets is a very common task in web development. Unfortunately, it's rarely fun.
+
+With hyde, you don't have to do it, in fact, you can skip this entire page if you are happy with how it is.
+But as always with Hyde, you can customize everything if you want to.
+
+Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions.
+Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Laravel Mix.
+
+To get you started quickly, all the styles are already compiled minified into _media/app.css, which will be copied
+to the _site/media/app.css directory when you run php hyde build.
+
+Additional Information and Answers to Common Questions
+
+Is NodeJS/NPM Required for Using Hyde?
+
+No, it is optional. All the compiled styles that you need are already installed, and NPM is only necessary if you want to compile your own styles.
+
+When Should Assets be Compiled?
+
+The _media/app.css file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, as well as the HydeFront custom styles.
+If you want to customize the Tailwind settings or add custom styles, you will need to recompile the styles yourself.
+
+For example, if you customize the Blade views and add new classes or add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
+If you use Markdown-based pages, you do not need to compile anything as those styles are already included in the compiled CSS file.
+
+How are assets stored and managed?
+
+The frontend assets are separated into three places.
+
+- The resources/assets contains source files, meaning files that will be compiled into something else.
+Here you will find the app.css file that bootstraps the TailwindCSS styles. This file is also an excellent place
+to add your custom styles. It is also where we import HydeFront. If you compile this file in the base install,
+it will output the same file that's already included in Hyde.
+
+- The _media folder contains compiled (and usually minified) files. When Hyde compiles your static site,
+all asset files here will get copied as they are into the _site/media folder.
+
+- The _site/media folder contains the files that are served to the user.
+
+What is the difference between media and site/media?
+
+It may seem weird to have two folders for storing the compiled assets, but it is quite useful.
+
+The site directory is intended to be excluded from version control, while the media folder is included in the
+version control. You are of course free to modify this behavior by editing the webpack.mix.js file to change the output directory.
+
+How do I compile assets?
+
+First, make sure that you have installed all the NodeJS dependencies using npm install.
+Then run npm run dev to compile the assets. If you want to compile the assets for production, run npm run prod.
+You can also run npm run watch to watch for changes in the source files and recompile the assets automatically.
+
+How does it work?
+
+Hyde uses Laravel Mix (which is a wrapper for webpack) to compile the assets.
+
+When running the npm run dev/prod command, the following happens:
+
+1. Laravel Mix will compile the resources/assets/app.css file into _media/app.css using PostCSS with TailwindCSS and AutoPrefixer.
+2. Mix then copies the media folder into site/media, this is so that they are automatically accessible to your site without having to rerun php hyde build, making blend perfectly with the realtime compiler (php hyde serve).
+
+Telling Hyde where to find assets
+
+Customizing the Blade templates
+
+To make it really easy to customize asset loading, the styles and scripts are loaded in dedicated Blade components.
+
+- Styles are loaded in hyde::layouts.styles
+- Scripts are loaded in hyde::layouts.scripts
+
+To customize them, run the following command:
+
+php hyde publish:views layouts
+
+Then edit the files found in resources/views/vendor/hyde/layouts directory of your project.
+
+You might not even need to do anything!
+
+For the absolute majority of the cases, you don't need to mess with these files. Hyde will automatically load the app.css file when it exists in the _media directory.
+
+Loading from CDN
+
+If you want to load the same pre-compiled file included with Hyde but from a CDN, you can set loadappstylesfromcdn to true in the config/hyde.php file. While you lose the ability to customize it, your styles will be automatically updated when needed, as the installed Framework version will automatically specify the correct version to load.
+
+Using the TailwindCSS Play CDN
+
+warning Note that the Play CDN is not meant for production use, so enabling it will add a warning to the web console.
+
+If you want to use the TailwindCSS Play CDN, all you need to do is
+set useplaycdn to true in the config/hyde.php file. This will in addition to loading the standard app.css file,
+also add a script tag which loads the TailwindCSS Play CDN.
+
+What's even better is that Hyde will also inject the contents of the included tailwind.config.js file into the script tag,
+so the Play CDN styles match the ones created by Laravel Mix.
+
+All in all, this allows you to tinker around with Tailwind without having to compile anything.
+
+Managing images
+
+As mentioned above, assets stored in the media folder are automatically copied to the site/media folder,
+making it the recommended place to store images. You can then easily reference them in your Markdown files.
+
+Referencing images
+
+The recommended way to reference images are with relative paths as this offers the most compatibility,
+allowing you to browse the site both locally on your filesystem and on the web when serving from a subdirectory.
+
+warning Note: The path is relative to the compiled file in the site output
+
+The path to use depends on the location of the page. Note the subtle difference in the path prefix.
+
+- If you are in a Blog Post or Documentation Page, use ../media/image.png
+- If in a Markdown Page or Blade Page, use media/image.png
+- While not recommended, you can also use absolute paths: /media/image.png
+- You can of course also use full URLs, for example when using a CDN.
+
+Making images accessible
+
+To improve accessibility, you should always add an alt text. Here is a full example for an image in a blog post:
+
+Image Alt # Note the relative path
+
+Setting a featured image for blog posts
+
+Hyde offers great support for creating data-rich and accessible featured images for blog posts.
+
+You can read more about this in the creating blog posts page.
+
+Creating Static Pages
+
+# Creating Static Pages
+
+## Introduction to Hyde Pages
+
+Hyde offers two ways to create static pages:
+Markdown pages which are perfect for simple pages that focuses heavily on the content,
+and Blade pages which are perfect for more complex pages where you want full control over the HTML,
+and where you may want to include other components.
+
+Let's start with the basics.
+
+### Best Practices and Hyde Expectations
+
+Since Hyde does a lot of things automatically, there are some things you may need
+to keep in mind when creating blog posts so that you don't get unexpected results.
+
+#### Filenames
+
+- Hyde Pages are files are stored in the _pages directory
+- The filename is used as the filename for the compiled HTML
+- Filenames should use kebab-case-identifier format, followed by the appropriate extension
+- Files prefixed with _underscores are ignored by Hyde
+- Your page will be stored in _site/.html
+- Blade pages will override any Markdown pages with the same filename when compiled
+
+## Creating Markdown Pages
+
+Markdown pages are the easiest way to create static pages. You can create a Markdown page by adding a file to the
+_pages directory where the filename ends in .md. You can also use Front Matter to add page metadata.
+
+### Scaffolding Markdown Pages
+
+Scaffolding a Markdown page is as easy as using the HydeCLI.
+
+php hyde make:page "Page Title"
+
+This will create the following file saved as _pages/page-title.md
+
+title: Page Title
+# Page Title
+
+// Write your content here
+
+You can of course also create the file yourself with your text editor.
+
+### Front Matter is optional
+
+The most common front matter used for Markdown pages is the title, which is used as the HTML ``.
+
+If you don't supply a front matter title, Hyde will attempt to find a title in the Markdown body by searching
+for the first level one heading (# Page Title), and if that fails, it will generate one from the filename.
+
+#### Navigation Front Matter
+
+Furthermore, you can customize how the page appears in the navigation menu using the following front matter options.
+You can set just one or all of them, as Hyde will fill in the gaps for the rest.
+
+navigation:
+    label: 'string',
+    priority: 'int',
+    hidden: 'bool',
+    group: 'string',
+
+- label is the text that will be displayed in the navigation menu
+- priority is the order in which the page will appear in the navigation menu (order is also supported)
+- hidden will hide the page from the navigation menu (visible) is also supported, but obviously invert the value)
+- group will put the page in a dropdown menu with the specified group name (category) is also supported)
+
+## Creating Blade Pages
+
+Since Hyde is based on Laravel and uses the powerful Blade templating engine, you can use Blade pages to create more
+complex pages with both standard HTML, PHP code, and the templating opportunities provided by Blade directives.
+
+If you are not familiar with Blade, you may want to read the Laravel Blade docs first.
+
+### Scaffolding Blade Pages
+
+We can scaffold Blade pages using the same CLI command as Markdown pages, however, this time we need to specify that
+we want to use the blade page type, by using the --type option.
+
+php hyde make:page "Page Title" --type="blade"
+
+This will create a file saved as _pages/page-title.blade.php
+
+You can of course also create the file yourself with your text editor, however,
+the scaffolding command for Blade pages is arguably even more helpful than the
+one for Markdown pages, as this one automatically adds the included app Layout.
+
+Let's take a look at the scaffolded file. You can also copy and paste this
+if you don't want to use the scaffolding command.
+
+@extends('hyde::layouts.app')
+@section('content')
+@php($title = "Page Title")
+
+    Page Title
+
+@endsection
+
+Tip: You don't have to use Blade in Blade pages. It's also perfectly fine to use plain HTML,
+however you still need to use the blade.php extension so Hyde can recognize it.
+
+## When to use which?
+
+Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited.
+
+If you are comfortable with it, and have the need for it, use Blade to create more complex pages! And mix and match between them! Some page types are better suited for Markdown, and others for Blade.
+
+### Comparison
+
+Markdown                                            Blade
+
+➕ Easily created and updated                        ➕ Full control over the HTML
+➕ Very fast to create simple and lightweight pages  ➕ Use the default app layout or create your own
+➕ Suited for content heavy pages such as "about us" ➕ Use Blade templates and components to keep code DRY
+➖ Not as flexible as Blade pages                    ➕ Use arbitrary PHP right in the page to create dynamic content
+                                                    ➕ Access to all Blade helper directives like @foreach, @if, etc.
+                                                    ➖ Takes longer to create as as you need to write the markup
+                                                    ➖ You may need to recompile your CSS if you add Tailwind classes
+
+### Live Demos
+
+The Hyde website (hydephp.com) uses both Markdown and Blade pages. The homepage for example, is a Blade page and uses a bunch of custom HTML.
+
+A great example of a Markdown page can be found at hydephp.github.io/portfolio-demo, you can see the page source here on GitHub.
+
+## Bonus: Creating HTML Pages
+
+If you have an already created HTML page, simply drop it into the _pages directory and Hyde will copy it over as it is
+into the _site directory. Like all other Hyde pages, the page will show up in the navigation menu using a title parsed from the filename.
+You won't be able to change any settings with front matter, however.
+
+Advanced Customization
+
+Advanced Customization
+
+Introduction
+
+This page covers advanced usage and is intended for developers who know what they are doing. Documentation here will be
+mainly example driven, as it is assumed you have somewhat of an understanding of what you are doing already.
+
+Prerequisites for Customizing directories
+
+info Before customizing source and output directories it may be helpful to know how these settings are stored internally.
+
+The following is a summary from the Page Models documentation:
+
+Each page type is represented by a page model class. Each of those classes have static properties that store the source and output directories.
+These properties are set when the HydeServiceProvider
+is registered, at which point the provider will search for any overrides in the config file.
+
+This means that there are two options to change the source and output directories:
+1. Recommended: You can change the values in the config file, to let the HydeServiceProvider handle it for you.
+2. Advanced/Overkill: You can also set the static properties directly in the page model classes if you prefer.
+   - You'd probably want to do this in a service provider, as it must be done before the Kernel is booted.
+   - You can use the RegistersFileLocations
+     trait to use the same registration logic as the HydeServiceProvider.
+
+Customizing source directories
+
+The directories you place your content in are important. The directory will be used to determine the proper page type and the templates used.
+If you are not happy with defaults, you can change them. Note that these are relative to the source_root setting,
+which is the root of your project by default.
+
+Note that you need to take care of conflicts when changing the source directories. For example, if you store Markdown
+posts in the same directory as documentation pages, Hyde will not know which page type to use.
+
+In the config file
+
+// filepath config/hyde.php
+
+'source_directories' => [
+    HtmlPage::class => '_pages',
+    BladePage::class => '_pages',
+    MarkdownPage::class => '_pages',
+    MarkdownPost::class => '_posts',
+    DocumentationPage::class => '_docs',
+],
+
+In a service provider
+
+// filepath app/AppServiceProvider.php
+use Hyde\Framework\Concerns\RegistersFileLocations;
+
+public function register(): void
+{
+    $this->registerSourceDirectories([
+        HtmlPage::class => '_pages',
+        BladePage::class => '_pages',
+        MarkdownPage::class => '_pages',
+        MarkdownPost::class => '_posts',
+        DocumentationPage::class => '_docs',
+    ]);
+}
+
+Customizing output directories
+
+Like source directories, the output directories are also important as they determine the output path for the compiled pages.
+warning Note that changing output directories also affects the route keys, as those are based on the output directory. Scroll down to see the Route key impact section for more information.
+
+Each option is relative to the site's output_directory setting. Setting a value to '' will output the page to the site root.
+
+In the config file
+
+// filepath config/hyde.php
+'output_directories' => [
+    HtmlPage::class => '',
+    BladePage::class => '',
+    MarkdownPage::class => '',
+    MarkdownPost::class => 'posts',
+    DocumentationPage::class => 'docs',
+],
+
+In a service provider
+
+// filepath app/AppServiceProvider.php
+use Hyde\Framework\Concerns\RegistersFileLocations;
+
+public function register(): void
+{
+    $this->registerOutputDirectories([
+        HtmlPage::class => '',
+        BladePage::class => '',
+        MarkdownPage::class => '',
+        MarkdownPost::class => 'posts',
+        DocumentationPage::class => 'docs',
+    ]);
+}
+
+Route key impact
+
+For example, changing the output directory of Markdown posts to blog instead of posts will change the route key base from posts to blog.
+This means that a file stored as _posts/hello-world.md will have the route key blog/hello-world instead of posts/hello-world,
+this may break your site's configuration, so you should always verify the impact to your site of such a change.
+You can learn more about this in the route key documentation.
+
+Custom source root
+
+HydePHP will by default look for the source directories shown above in the root of your project.
+If you're not happy with this, it's easy to change! For example, you might want everything in a 'src' subdirectory.
+That's easy enough, just set the value of the source_root setting in config/hyde.php to 'src', or whatever you prefer!
+
+// filepath config/hyde.php
+
+'source_root' => '', // [TL! --]
+'source_root' => 'src', // [TL! ++]
+
+Automatic change
+
+You can even make this change automatically with the php hyde change:sourceDirectory command!
+
+php hyde change:sourceDirectory 
+
+When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist,
+and move all source directories and their content into it.
+
+Custom media directory
+
+The media directory houses assets like images and stylesheets. The default directory is _media, and upon building the site,
+Hyde will copy all files in this directory to _site/media (or whatever your configured output and media directories are).
+
+You can change the path to this directory by setting the media_directory option in config/hyde.php.
+
+// filepath config/hyde.php
+'mediadirectory' => 'media',
+
+Next steps
+
+1. Note that you will likely need to manually update webpack.mix.js so Laravel Mix can compile the assets correctly.
+2. You will of course also need to copy over any existing files from the old directory to the new one.
+
+Setting changes both source and output directories
+
+Note that this change will affect both the source and output directories. For example, if you set the value to assets,
+all files from assets will be copied to _site/assets. If the setting starts with an underscore, that will be removed
+from the output directory, so files in assets will be copied to site/assets.
+
+Custom output directory
+
+danger Warning: Hyde deletes all files in the output directory before compiling the site. Don't set this path to a directory that contains important files!
+
+If you want to store your compiled website in a different directory than the default _site, you can change the path
+using the following configuration option in config/hyde.php. The path is expected to be relative to your project root.
+
+// filepath config/hyde.php
+'outputdirectory' => 'site',
+
+Advanced Markdown
+
+Advanced Markdown
+
+Introduction
+
+Since HydePHP makes heavy use of Markdown, there are some extra features and helpers created just for Hyde to make using Markdown even easier and more powerful!
+
+Using Blade in Markdown
+
+A special feature in Hyde, is that you can use Laravel Blade in Markdown files!
+
+To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
+
+Standard syntax
+
+ [Blade]: {{ "Hello World!" }} // Will render: 'Hello World!'
+
+Blade includes
+
+Only single-line shortcode directives are supported. If you need to use multi-line Blade code, use an @include
+directive to render a more complex Blade template. You can pass data to includes by specifying an array to the second argument.
+
+ [Blade]: @include("hello-world")
+ [Blade]: @include("hello", ["name" => "World"])
+
+Enabling Blade-supported Markdown
+
+The feature is disabled by default since it allows arbitrary PHP to run, which could be a security risk, depending on your setup.
+However, if your Markdown is trusted, and you know it's safe, you can enable it in the config/markdown.php file.
+
+// filepath: config/markdown.php
+'enable_blade' => true,
+
+Limitations
+
+All shortcodes must be the first word on a new line, and only single-line shortcodes are supported.
+
+Coloured Blockquotes
+
+The HydePHP Markdown converter also supports some extra directives and features. One of them being four different
+coloured blockquotes. Simply append the desired colour after the initial > character.
+
+‎> Normal Blockquote
+‎>info Info Blockquote
+‎>warning Warning Blockquote
+‎>danger Danger Blockquote
+‎>success Success Blockquote
+
+Normal Blockquote
+info Info Blockquote
+warning Warning Blockquote
+danger Danger Blockquote
+success Success Blockquote
+
+Customizations
+
+You can easily customize these styles too by adding and editing the following in your resources/app.css file, and then recompiling your site styles.
+The code examples here use the Tailwind @apply directives, but you could also use border-color: something; just as well.
+
+/* filepath resources/app.css
+
+/* Markdown Features */
+
+.prose blockquote.info {
+    @apply border-blue-500;
+}
+
+.prose blockquote.success {
+    @apply border-green-500;
+}
+
+.prose blockquote.warning {
+    @apply border-amber-500;
+}
+
+.prose blockquote.danger {
+    @apply border-red-600;
+}
+
+Markdown usage
+
+The coloured blockquotes also support inline Markdown, just like normal blockquotes.
+
+‎>info Formatting is supported!
+
+Limitations
+
+Note that these currently do not support multi-line blockquotes.
+
+Code block filepaths
+
+When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
+These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.
+
+Usage
+
+Simply add a code comment with the path in the first line of a fenced code block like so:
+
+// Filepath: _docs/advanced-markdown.md
+‎// Filepath: hello-world.php
+
+echo 'Hello World!';
+
+Which becomes:
+
+// Filepath: hello-world.php
+
+echo 'Hello World!';
+
+Alternative syntax
+
+The syntax is rather forgiving, by design, and supports using both // and # for comments.
+The colon is also optional, and the 'filepath' string is case-insensitive. So the following is also perfectly valid:
+
+‎// filepath hello.js
+console.log('Hello World!');
+
+If you have a newline after the filepath, like in the first example, it will be removed so your code stays readable.
+
+Advanced usage
+
+If you have enabled HTML in Markdown by setting the allow_html option to true in your config/markdown.php file,
+anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
+
+// Filepath: View file on Github
+‎// Filepath: View file on Github
+
+Limitations
+
+The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
+
+Configuration
+
+Full configuration reference
+
+All Markdown-related configuration options are in the config/markdown.php file.
+You can find the full reference on the Customization page.
+
+Raw HTML Tags
+
+To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
+If you want to allow all arbitrary HTML tags, and understand the risks involved, you can enable all HTML tags by setting
+the allow_html option to true in your config/markdown.php file.
+
+// filepath: config/markdown.php
+'allow_html' => true,
+
+This will add and configure the DisallowedRawHtml CommonMark extension so that no HTML tags are stripped out.
+
+Tailwind Typography Prose Classes
+
+HydePHP uses the Tailwind Typography to style rendered Markdown.
+We do this by adding the .prose CSS class to the HTML elements containing the rendered Markdown, using the built-in Blade components.
+
+You can easily edit these classes, for example if you want to customize the prose colours, in the config/markdown.php file.
+
+// filepath: config/markdown.php
+'prose_classes' => 'prose dark:prose-invert', // [tl! remove]
+'prose_classes' => 'prose dark:prose-invert prose-img:inline', // [tl! add]
+
+Please note that if you add any new classes, you may need to recompile your CSS file.
+
+File-based Collections
+
+# File-based Collections
+
+## Introduction to Hyde Data Collections
+
+Hyde provides DataCollections, a subset of Laravel Collections giving you
+a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
+it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get
+parsed into objects that you can easily work with.
+
+As you have access to all standard Laravel Collection methods, you are encouraged to read the
+Laravel Collections documentation for more information.
+
+This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
+
+## High-Level Concept Overview
+
+To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections.
+Follow these conventions and creating dynamic static sites will be a breeze.
+
+1. Collections are accessed through static methods in the DataCollections class.
+2. Collections are stored as files in subdirectories of the resources/collections directory.
+3. To get a collection, specify name of the subdirectory the files are stored in.
+4. Data will be parsed into differing objects depending on which facade method you use. See the table below.
+5. The class is aliased so that you can use it in Blade files without having to include the namespace.
+6. While not enforced, each subdirectory should probably only have the same filetype to prevent developer confusion
+7. Unlike source files for pages, files starting with underscores are not ignored.
+8. You can customize the source directory for collections through a service provider.
+9. If the base source directory does not exist, it will be created for you.
+
+## Available Collection Types
+
+### Quick Reference Overview
+
+The following facade methods for creating data collections are available:
+
+\Hyde\Support\DataCollections::markdown(string $name);
+\Hyde\Support\DataCollections::yaml(string $name);
+\Hyde\Support\DataCollections::json(string $name, bool $asArray = false);
+
+### Quick Reference Table
+
+Collection Type                       Facade Method  Returned Object Type                                                                                                                                     File Extension
+
+Markdown ::markdown() MarkdownDocument                                          .md
+Yaml         ::yaml()     FrontMatter                                                    .yaml,&nbsp; .yml
+Json         ::json()     stdClass OR&nbsp; array .json
+
+## Markdown Collections
+
+### Usage
+
+$collection = \Hyde\Support\DataCollections::markdown('name');
+
+### Example returns
+
+Here is an approximation of the data types contained by the variable created above:
+
+\Hyde\Support\DataCollections {
+    "testimonials/1.md" => Hyde\Markdown\Models\MarkdownDocument
+    "testimonials/2.md" => Hyde\Markdown\Models\MarkdownDocument
+    "testimonials/3.md" => Hyde\Markdown\Models\MarkdownDocument
+  ]
+}
+
+The returned MarkdownObjects look approximately like this:
+
+\Hyde\Markdown\Models\MarkdownDocument {
+  +matter: Hyde\Markdown\Models\FrontMatter {
+     +data: array:1 [
+       "author" => "John Doe"
+     ]
+  }
+  +markdown: Hyde\Markdown\Models\Markdown {
+    +body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+  }
+}
+
+Assuming the Markdown document looks like this:
+
+author: "John Doe"
+Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+
+## Yaml Collections
+
+### Usage
+
+$collection = \Hyde\Support\DataCollections::yaml('name');
+
+### Example returns
+
+Here is an approximation of the data types contained by the variable created above:
+
+\Hyde\Support\DataCollections {
+  "authors/1.yaml" => Hyde\Markdown\Models\FrontMatter {
+    +data: array:1 [
+      "name" => "John Doe",
+      "email" => "john@example.org"
+    ]
+  }
+}
+
+Assuming the Yaml document looks like this:
+
+name: "John Doe"
+email: "john@example.org"
+
+warning Note that the Yaml file should start with --- to be parsed correctly.
+
+## Json Collections
+
+### Usage
+
+$collection = \Hyde\Support\DataCollections::json('name');
+
+By default, the entries will be returned as stdClass objects. If you want to return an associative array instead, pass true as the second parameter:
+
+$collection = \Hyde\Support\DataCollections::json('name', true);
+
+Since both return values use native PHP types, there are no example returns added here, as I'm sure you can imagine what they look like.
+
+## Markdown Collections - Hands-on Guide
+
+I think the best way to explain DataCollections is through examples, so let's create a Blade page with customer testimonials!
+
+This example will use Markdown Collections, but the same concepts apply to all other collection types.
+
+#### Setting up the file structure
+
+We start by setting up our directory structure. We will create a testimonials subdirectory, which will be the collection name.
+
+In it, we will place Markdown files. Each file will be a testimonial.
+The Markdown will be parsed into a MarkdownDocument object which parses any optional YAML front matter.
+
+Here is the sample Markdown we will use:
+
+// filepath: resources/collections/testimonials/1.md
+author: John Doe
+Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+
+Let's take a look at our directory structure. I just copied the same file a few times.
+You can name the files anything you want, I kept it simple and just numbered them.
+
+resources/collections
+└── testimonials
+    ├── 1.md
+    ├── 2.md
+    └── 3.md
+
+#### Using the Facade to Access the Collections
+
+Now for the fun part! We will use the DataCollections::markdown() to access all our files into a convenient object.
+The class is registered with an alias, so you don't need to include any namespaces when in a Blade file.
+
+The general syntax to use the facade is as follows:
+
+DataCollections::markdown('subdirectory_name')
+
+This will return a Hyde DataCollections object, containing our Markdown files as MarkdownDocument objects. Here is a quick look at the object the facade returns:
+
+^ Hyde\Support\DataCollections {#651 ▼
+  #items: array:3 [▼
+    "testimonials/1.md" =&gt; Hyde\Markdown\Models\MarkdownDocument {#653 ▼
+      +matter: Hyde\Markdown\Models\FrontMatter {#652 ▶}
+      +markdown: Hyde\Markdown\Models\Markdown {#654 ▶}
+    }
+    "testimonials/2.md" =&gt; Hyde\Markdown\Models\MarkdownDocument {#656 ▶}
+    "testimonials/3.md" =&gt; Hyde\Markdown\Models\MarkdownDocument {#659 ▶}
+  ]
+}
+
+#### Implementing it in a Blade view
+
+Let's create a Blade page to display all our testimonials.
+
+php hyde make:page "Testimonials" --type="blade"
+
+And we can use the collection almost like any other Laravel one. As you can see, since each entry is a MarkdownDocument class,
+we are able to get the author from the front matter, and the content from the body.
+
+// filepath _pages/testimonials.blade.php
+@foreach(DataCollections::markdown('testimonials') as $testimonial)
+    
+        {{ $testimonial->body }}
+        {{ $testimonial->matter['author'] }}
+    
+@endforeach
+
+Customizing your Site
+
+# Customizing your Site
+
+## Introduction
+
+Hyde favours "Convention over Configuration"
+and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable
+if you need it. This page guides you through the many options available!
+
+All the configuration files are stored in the config directory, and allow you to customize almost all aspects of your site.
+Each option is documented, so feel free to look through the files and get familiar with the options available to you.
+
+## Accessing Configuration Values
+
+### Configuration API Recap
+
+HydePHP uses the same configuration system as Laravel. Here's a quick recap from the Laravel Documentation:
+
+You may easily access your configuration values using the global config function from anywhere in your project code.
+The configuration values may be accessed using "dot notation" syntax, which includes the name of the file and option you wish to access.
+
+$value = config('hyde.name');
+
+A default value may also be specified and will be returned if the configuration option does not exist:
+
+$value = config('hyde.name', 'HydePHP');
+
+HydePHP also provides a strongly typed Config facade which extends the Laravel Config facade, but allows strict types:
+
+use Hyde\Facades\Config;
+
+// Will always return a string, or it throws a TypeError
+$name = Config::getString('hyde.name', 'HydePHP'): string;
+
+### Dot Notation
+
+As seen in the example above, when referencing configuration options, we often use "dot notation" to specify the configuration file.
+For example, config('hyde.name') means that we are looking for the name option in the config/hyde.php file.
+
+### Front Matter or Configuration Files?
+
+In some cases, the same options can be set in the front matter of a page or in a configuration file. Both ways are always documented, and it's up to you to choose which one you prefer. Note that in most cases, if a setting is set in both the front matter and the configuration file, the front matter setting will take precedence.
+
+### A note on file paths
+
+When Hyde references files, especially when passing filenames between components, the file path is almost always
+relative to the root of the project. Specifying absolute paths yourself could lead to unforeseen problems.
+
+## Configuration Files Overview
+
+There are a few configuration files available in the config directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.
+
+Below are two tables over the different configuration files. Click on a file name to see the default file on GitHub.
+
+### HydePHP Configuration Files
+
+These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP itself.
+The main configuration file, hyde.php, is used for things ranging from site name and base URL to navigation menus and what features to enable.
+
+Config File                                                                                                        Description
+
+hyde.php         Main HydePHP configuration file for customizing the overall project.
+docs.php         Options for the HydePHP documentation site generator module.
+markdown.php Configure Markdown related services, as well as change the CommonMark extensions.
+app/config.php    Configures the underlying Laravel application. (Commonly found as config/app.php in Laravel apps)
+
+info Tip: The values in hyde.php can also be set in YAML by creating a hyde.yml file in the root of your project. See #yaml-configuration for more information.
+
+### Publishable Laravel & Package Configuration Files
+
+Since HydePHP is based on Laravel we also have a few configuration files related to them. As you most often don't need
+to edit any of these, unless you want to make changes to the underlying application, they are not present in the
+base HydePHP installation. However, you can publish them to your project by running php hyde publish:configs.
+
+Config File                                                                                                            Description
+
+view.php             Configures the paths for the Blade View compiler.
+cache.php           Configures the cache driver and cache path locations.
+commands.php     Configures the Laravel Zero commands for the HydeCLI.
+torchlight.php Configures settings for the Torchlight syntax highlighting integration.
+
+{.align-top}
+
+If any of these files are missing, you can run php hyde publish:configs to copy the default files to your project.
+
+## Configuration Options
+
+While all options are already documented within the files, here are some further explanations of some of the options.
+
+### RSS feed generation
+
+When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
+Here are the default settings:
+
+// filepath config/hyde.php
+'rss' => [
+    // Should the RSS feed be generated?
+    'enabled' => true,
+
+    // What filename should the RSS file use?
+    'filename' => 'feed.xml',
+
+    // The channel description.
+    'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
+],
+
+warning Note that this feature requires that a site url is set!
+
+### Authors
+
+Hyde has support for adding authors in front matter, for example to
+automatically add a link to your website or social media profiles.
+However, it's tedious to have to add those to each and every
+post you make, and keeping them updated is even harder.
+
+You can predefine authors in the Hyde config.
+When writing posts, just specify the username in the front matter,
+and the rest of the data will be pulled from a matching entry.
+
+#### Example
+
+// torchlight! {"lineNumbers": false}
+'authors' => [
+    Author::create(
+        username: 'mr_hyde', // Required username
+        name: 'Mr. Hyde', // Optional display name
+        website: 'https://hydephp.com' // Optional website URL
+    ),
+],
+
+This is equivalent to the following front matter in a blog post:
+
+author:
+    username: mr_hyde
+    name: Mr. Hyde
+    website: https://hydephp.com
+
+But you only have to specify the username:
+
+author: mr_hyde
+
+### Footer
+
+Most websites have a footer with copyright details and contact information. You probably want to change the Markdown to include your information, though you are of course welcome to keep the default attribution link!
+
+The footer component is made up of a few levels of components, depending on how much you want to customize.
+
+#### Customizing the Markdown text
+
+There are two ways to customize the footer text. First, you can set it in the configuration file:
+
+// filepath: config/hyde.php
+'footer' => 'Site proudly built with HydePHP 🎩',
+
+If you don't want to write Markdown in the configuration file, you can create a Markdown file in your includes directory. When this file is found, it will be used instead of the configuration setting.
+
+// filepath: resources/includes/footer.md
+Site proudly built with HydePHP 🎩
+
+In both cases the parsed Markdown will be rendered in the footer Blade component.
+
+#### Customizing the Blade component
+
+The actual footer component is rendered using the layouts/footer.blade.php Blade template.
+
+In this template we automatically render the configured footer Markdown text. If you want to change this behaviour, for example, HydePHP.com uses a more sophisticated footer, simply publish the footer component.
+
+#### Disabling the footer entirely
+
+If you don't want to have a footer on your site, you can set the 'footer' configuration option to false.
+
+// filepath: config/hyde.php
+'footer' => 'false',
+
+### Navigation Menu & Sidebar
+
+A great time-saving feature of HydePHP is the automatic navigation menu and documentation sidebar generation.
+Hyde is designed to automatically configure these menus for you based on the content you have in your project.
+
+Still, you will likely want to customize some parts of these menus, and thankfully, Hyde makes it easy to do so.
+
+#### Customizing the navigation menu
+
+- To customize the navigation menu, use the setting navigation.order in the hyde.php config.
+- When customizing the navigation menu, you should use the route key of the page.
+
+Learn more in the Navigation Menu documentation.
+
+#### Customizing the documentation sidebar
+
+- To customize the sidebar, use the setting sidebar_order in the docs.php config.
+- When customizing the sidebar, can use the route key, or just the page identifier of the page.
+
+Learn more in the Documentation Pages documentation.
+
+info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
+
+### Primer on priorities
+
+All navigation menu items have an internal priority value that determines its order in the navigation.
+Lower values means that the item will be higher up in the menu. The default for pages is 999 which puts them last.
+However, some pages are autoconfigured to have a lower priority, for example, the index page defaults to a priority of 0,
+
+#### Basic syntax for changing the priorities
+
+The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of 500.
+The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
+
+[
+    'readme', // Gets priority 500
+    'installation', // Gets priority 501
+    'getting-started', // Gets priority 502
+]
+
+#### Explicit syntax for changing the priorities
+
+You can also specify explicit priorities by adding a value to the array key:
+
+[
+    'readme' => 10, // Gets priority 10
+    'installation' => 15, // Gets priority 15
+    'getting-started' => 20, // Gets priority 20
+]
+
+You can also combine these options if you want:
+
+[
+    'readme' => 10, // Gets priority 10
+    'installation', // Gets priority 500
+    'getting-started', // Gets priority 501
+]
+
+You can also set the priority of a page directly in the front matter. This will override any dynamically inferred or
+config defined priority. While this is useful for one-offs, it can make it harder to reorder items later on.
+It's up to you which method you prefer to use. This setting can be used both for the navigation menu and the sidebar.
+
+navigation:
+    priority: 25
+
+#### Changing the menu item labels
+
+Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
+You can override the label using the navigation.label front matter property.
+
+From the Hyde config you can also override the label of navigation links using the by mapping the route key
+to the desired title. Note that the front matter property will take precedence over the config property.
+
+// filepath config/hyde.php
+'navigation' => [
+    'labels' => [
+        'index' => 'Start',
+        'docs/index' => 'Documentation',
+    ]
+]
+
+#### Excluding Items (Blacklist)
+
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
+To remove items from being automatically added, simply add the page's route key to the blacklist.
+As you can see, the 404 page has already been filled in for you.
+
+// filepath config/hyde.php
+'navigation' => [
+    'exclude' => [
+        '404'
+    ]
+]
+
+You can also specify that a page should be excluded by setting the page front matter.
+
+navigation:
+    hidden: true
+#### Adding Custom Navigation Menu Links
+
+You can easily add custom navigation menu links similar how we add Authors. Simply add a NavItem model to the navigation.custom array.
+
+When linking to an external site, you should use the NavItem::forLink() method facade. The first two arguments are the
+destination and label, both required. Third argument is the priority, which is optional, and defaults to 500.
+
+// filepath config/hyde.php
+use Hyde\Framework\Features\Navigation\NavItem;
+
+'navigation' => [
+    'custom' => [
+        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+    ]
+]
+
+Simplified, this will then be rendered as follows:
+
+GitHub
+
+#### Automatic navigation menu dropdowns
+
+HydePHP has a neat feature to automatically place pages in dropdowns based on subdirectories.
+
+For pages that can be in the main site menu, ths feature needs to be enabled in the hyde.php config file.
+
+// filepath config/hyde.php
+
+'navigation' => [
+    'subdirectories' => 'dropdown',
+],
+
+Now if you create a page called _pages/about/contact.md it will automatically be placed in a dropdown called "About".
+
+#### Automatic documentation sidebar grouping
+
+This feature works similarly to the automatic navigation menu dropdowns, but instead place the sidebar items in named groups.
+This feature is enabled by default, so you only need to place your pages in subdirectories to have them grouped.
+
+For example: _docs/getting-started/installation.md will be placed in a group called "Getting Started".
+
+## Blade Views
+
+Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.
+Before editing the views you should familiarize yourself with the Laravel Blade Documentation.
+
+To edit a default Hyde component you need to publish them first using the hyde publish:views command.
+
+php hyde publish:views
+
+The files will then be available in the resources/views/vendor/hyde directory.
+
+## Frontend Styles
+
+Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
+for you to get up and running quickly. If you want to customize these, you are free to do so.
+Please see the Managing Assets page to learn more.
+
+## Markdown Configuration
+
+Hyde uses League CommonMark for converting Markdown into HTML, and
+uses the GitHub Flavored Markdown extension. The Markdown related settings are found in the config/markdown.php file.
+Below follows an overview of the Markdown configuration options available in Hyde.
+
+### CommonMark Extensions
+
+You can add any extra CommonMark Extensions,
+or change the default ones, using the extensions array in the config file. They will then automatically be loaded into
+the CommonMark converter environment when being set up by Hyde.
+
+// filepath: config/markdown.php
+'extensions' => [
+    \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
+    \League\CommonMark\Extension\Attributes\AttributesExtension::class,
+],
+
+Remember that you may need to install any third party extensions through Composer before you can use them.
+
+### CommonMark Configuration
+
+In the same file you can also change the configuration values to be passed to the CommonMark converter environment.
+Hyde handles many of the options automatically, but you may want to override some of them and/or add your own.
+
+// filepath: config/markdown.php
+'config' => [
+    'disallowedrawhtml' => [
+        'disallowed_tags' => [],
+    ],
+],
+
+See the CommonMark Configuration Docs for the available options.
+Any custom options will be merged with the defaults.
+
+### Allow Raw HTML
+
+Since Hyde uses GitHub Flavored Markdown,
+some HTML tags are stripped out by default. If you want to allow all arbitrary HTML tags, and understand the risks involved,
+you can use the allow_html setting to enable all HTML tags.
+
+// filepath: config/markdown.php
+'allow_html' => true,
+
+### Allow Blade Code
+
+HydePHP also allows you to use Blade code in your Markdown files. This is disabled by default, since it allows
+arbitrary PHP code specified in Markdown to be executed. It's easy to enable however, using the enable_blade setting.
+
+// filepath: config/markdown.php
+'enable_blade' => true,
+
+See the Blade in Markdown documentation for more information on how to use this feature.
+
+## YAML Configuration
+
+The settings in the config/hyde.php file can also be set by using a hyde.yml file in the root of your project directory.
+
+Note that YAML settings cannot call any PHP functions, so you can't access helpers like env() for environment variables,
+nor declare authors or navigation links, as you cannot use facades and objects. But that doesn't stop you from using both
+files if you want to. Just keep in mind that any duplicate settings in the YAML file override any made in the PHP file.
+
+Here is an example showing some of the config/hyde.php file settings, and how they would be set in the YAML file.
+
+# filepath hyde.yml
+name: HydePHP
+url: "http://localhost"
+pretty_urls: false
+generate_sitemap: true
+rss:
+  enabled: true
+  filename: feed.xml
+  description: HydePHP RSS Feed
+language: en
+outputdirectory: site
+
+### Namespaced YAML Configuration
+
+If you are running v1.2 or higher, you can also use namespaced configuration options in the YAML file.
+
+This allows you to set the settings of any configuration file normally found in the config directory.
+
+This feature is automatically enabled when you have a hyde: entry first in your hyde.yml file
+
+# filepath hyde.yml
+hyde:
+  name: HydePHP
+
+docs:
+  sidebar:
+    header: "My Docs"
+
+This would set the name setting in the config/hyde.php file, and the sidebar.header setting in the config/docs.php file.
+
+Each top level key in the YAML file is treated as a namespace, and the settings are set in the corresponding configuration file.
+You can of course use arrays like normal even in namespaced configuration.
+
+Troubleshooting
+
+# Troubleshooting
+
+Since Hyde has a lot of "magic" features which depend on some base assumptions,
+there might be some "gotchas" you might run into. Here are some I can think of,
+did you find a new one? Send a PR to update the docs!
+
+info Tip: You can run php hyde validate to run a series of tests to help you catch common issues.
+
+## General Tips
+
+(In no particular order of importance)
+
+1. In general, Hyde is actually pretty forgiving. While this article makes it sound like there are a lot of rules to follow,
+   honestly don't worry about it. Hyde will attempt to fix mistakes and make your life easier.
+2. You don't need to set an H1 heading in blog posts. The H1 is set by Hyde based on the front matter title.
+3. You never need front matter, though it is often useful.
+   For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
+
+## Conventions to follow
+
+### File naming
+
+For Hyde to be able to discover your files, you should follow the following conventions.
+
+Markdown files should have the extension .md. Blade files should have the extension .blade.php.
+
+Unexpected behaviour might occur if you use conflicting file names.
+All the following filenames are resolved into the same destination file:
+foo-bar.md, Foo-Bar.md, foo-bar.blade.php, causing only one of them to be saved.
+
+Remember, files retain their base filenames when compiled to HTML.
+
+#### Summary
+
+- ✔ Do use lowercase filenames and extensions
+- ✔ Do use filenames written in kebab-case-format
+- ✔ Do use the proper file extensions
+- ❌ Don't use conflicting source file names
+
+## Extra Information
+
+### Definitions
+
+We will use the following definitions to describe the behaviour of Hyde.
+
+#### General
+
+Hyde**: The application that you are using.
+HydeCLI**: The command-line interface for Hyde.
+Framework**: The package containing the core codebase.
+
+#### Path components
+
+Identifier**: The filepath without the extension, relative to the page type source directory.
+Route Key**: The page type's output directory plus the identifier. Example: posts/hello-world
+Basename**: The filename without the extension. Example: hello-world
+Filename**: The full name of a file with the extension. Example: hello-world.md
+Filepath**: The full file path including extension. Example: _posts/hello-world.md
+
+You can read more about some of these in the Core Concepts article.
+
+## Common issues, causes, and solutions
+
+Issue                                              Possible Cause / Issue Context                                                                                                                            Possible Solution
+
+404 error when visiting site                       Are you missing an index file in the pages directory?                                                                                                  Add an index.md or index.blade.php to the pages directory
+Navigation menu not linking to the docs            You probably don't have an index.md file in the docs directory.                                                                                      Create a docs/index.md file
+Page not discovered when compiling                 The file name may be invalid                                                                                                                              Ensure you follow the correct file naming convention.
+Page compiles slowly                               The Torchlight extension may cause the compile times to increase as API calls need to be made.                                                            Try disabling Torchlight
+Torchlight not working                             Missing Composer package, missing API token, extension disabled in the config.                                                                            Reinstall Torchlight, add your token in the .env file, check config
+Missing styles and/or assets                       You may have accidentally deleted the files, or you have added new Tailwind classes.                                                                      Run npm run dev
+Image not found                                    You may be using a bad relative path.                                                                                                                     Ensure your relative paths are correct.  See managing-assets.
+Wrong layout used                                  Hyde determines the layout template to use depending on the directory of the source file                                                                  Ensure your source file is in the right directory.
+Invalid/no permalinks or post URIs                 You may be missing or have an invalid site URL                                                                                                            Set the site URL in the .env file
+No styles in custom Blade pages                    When using custom blade pages need to add the styles yourself. You can do this by extending the default layout                                            Use the app layout, or by include the Blade components directly.
+Overriding Hyde views is not working               Ensure the Blade views are in the correct directory.                                                                                                      Rerun php hyde publish:views.
+Styles not updating when deploying site            It could be a caching issue. To be honest, when dealing with styles, it's always a caching issue.                                                         Clear your cache, and optionally complain to your site host
+Documentation sidebar items are in the wrong order Double check the config, make sure the route keys are written correctly. Check that you are not overriding with front matter.                             Check config for typos and front matter
+Documentation table of contents is weird           The table of contents markup is generated by the League/CommonMark extension     Make sure that your Markdown headings make sense
+Issues with date in blog post front matter         The date is parsed by the PHP strtotime() function. The date may be in an invalid format, or the front matter is invalid                                Ensure the date is in a format that strtotime() can parse. Wrap the front matter value in quotes.
+RSS feed not being generated                       The RSS feed requires that you have set a site URL in the Hyde config or the .env file. Also check that you have blog posts, and that they are enabled. Check your configuration files.
+Sitemap not being generated                        The sitemap requires that you have set a site URL in the Hyde config or the .env file.                                                                  Check your configuration files.
+Unable to do literally anything                    If everything is broken, you may be missing a Composer package or your configuration files could be messed up.                                            Run composer install and/or composer update. If you can run HydeCLI commands, update your configs with php hyde publish:configs, or copy them manually from GitHub or the vendor directory.
+Namespaced Yaml config (`hyde.yml) not working    When using namedspaced Yaml configuration, you must begin the file with hyde:, even if you just want to use another file for example docs:.           Make sure the file starts with hyde: (You don't need to specify any options, as long as it's present). See #1475`
+
+### Extra troubleshooting information
+
+#### Fixing a broken config
+
+If your configuration is broken, you might not be able to run any commands through the HydeCLI.
+To remedy this you can copy the config files from the vendor directory into the project directory.
+You can do this manually, or with the following rescue command:
+
+copy vendor/hyde/framework/config/hyde.php config/hyde.php
+
+Updating Hyde Projects
+
+Updating Hyde Projects
+
+This guide will help you update your HydePHP project to the latest version.
+
+Before you start
+
+When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
+The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
+
+Version compatibility
+
+HydePHP follows semantic versioning, so you can expect that minor and patch releases will be backwards compatible.
+Only major releases may introduce breaking changes, all of which are thoroughly documented in the accompanying release notes.
+
+New features and bug fixes are added in minor and patch releases, so it is recommended to keep your project up to date.
+
+Side effects and ensuring a smooth update
+
+Please note that due to the intricate nature of software, there is a possibility that an update contains side effects,
+hence why version controlling your site is helpful when updating versions as you can roll back changes. It can also
+be helpful to version control the compiled HTML, so you can view a diff of the changes. Be sure to test that your site
+can be built and that it looks as expected after updating before deploying the changes to your live site.
+
+We of course have extensive tests in place run on each single code commit to ensure all code is functional, however,
+it is still possible that some edge cases slip through. This means that a bug fix may impact an edge case that you depend on.
+
+Obligatory related XKCD: https://xkcd.com/1172
+
+Methods
+
+Which method?
+
+Depending on how you installed Hyde, there are a few different ways to update it.
+
+We have a few methods documented here. The Git method is recommended as it is the easiest and safest way to
+update your project. If you are not using Git, you can still update your project using any of the manual methods.
+
+Regardless of the method you use, make sure you follow the post-update instructions at the end.
+
+Updating just the Framework
+
+If you just want to update the framework patch version, you can do so by running the following command:
+
+composer update hyde/framework
+
+While the same can still be done for minor versions, it's best to also update your project scaffolding and resources to
+ensure that everything is up to date, for which you should use the methods below.
+
+Using Git
+
+First, make sure you have a remote set up for the base project repository.
+
+git remote add upstream https://github.com/hydephp/hyde.git
+
+Then pull the latest release from the upstream repository.
+
+git pull upstream master
+
+After this, you should update your composer dependencies:
+
+composer update
+
+Next, follow the post-update instructions.
+
+Manual Update
+
+If you are not using Git, you can still update your project. This is a bit more involved, but it is still possible.
+
+1. First, you will need to download the latest release archive from the releases page.
+2. Then extract the archive, and copy the contents into your project directory.
+
+Since this may overwrite modified files, it may be safer to use the hard update method.
+
+Hard Update
+
+If you are having trouble updating your project, you can try a hard update. In short, this approach consists of creating
+a brand new project and copying over only your source and resource files. If you do not want to use Git, this may be
+the safest option as you won't be overriding any of your existing files.
+
+If you have changed any other files, for example in the App directory, you will need to update those files manually as well.
+The same goes if you have created any custom Blade components or have modified Hyde ones.
+
+Here is an example CLI workflow, but you can do the same using a graphical file manager.
+
+mv my-project my-project-old
+composer create-project hyde/hyde my-project
+
+cp -r my-old-project/pages my-project/content/pages
+cp -r my-old-project/posts my-project/content/posts
+cp -r my-old-project/media my-project/content/media
+cp -r my-old-project/docs my-project/content/docs
+cp -r my-old-project/config my-project/config
+
+Next, follow the post-update instructions. After verifying that everything is working, you can delete the old project directory.
+
+Post-update instructions
+
+After updating Hyde you should update your config and resource files. This is where things can get a tiny bit dangerous
+as existing files may be overwritten. If you are using Git, you can easily take care of any merge conflicts that arise.
+
+First, ensure that your dependencies are up to date. If you have already done this, you can skip this step.
+
+composer update
+
+Then, update your config files. This is the hardest part, as you may need to manually copy in your own changes.
+
+php hyde publish:configs
+
+If you have published any of the included Blade components you will need to re-publish them.
+
+php hyde publish:views layouts
+php hyde publish:views components
+
+Next, recompile your assets, if you are not using the built-in assets.
+
+npm install
+npm run dev/prod
+
+Finally, you can rebuild your site.
+
+php hyde build
+
+Now, you should browse your site files to ensure things are still looking as expected.
+
+Extensions & Integrations
+
+Extensions & Integrations
+
+HydePHP - Extensible by design
+
+HydePHP is designed to be extensible, and comes with a number of built-in extensions and integrations,
+as well as support for third-party extensions and integrations.
+
+First party extensions & integrations
+
+Realtime Compiler
+
+The Hyde Realtime Compiler is included with Hyde installations and is what powers the php hyde serve command.
+- Learn more about the Realtime Compiler in the documentation.
+
+UI Kit
+
+The HydePHP UI Kit is a set of minimalistic Blade & Tailwind components to kickstart development of custom Blade views for your HydePHP site.
+- Learn more at https://github.com/hydephp/ui-kit and see the documentation at https://hydephp.github.io/ui-kit
+
+GitHub Action
+
+The GitHub Action for HydePHP is hands-down the easiest way to build and deploy your Hyde site to GitHub Pages.
+- Learn more at https://github.com/hydephp/action and see the documentation at https://hydephp.github.io/action
+
+Integrations with third-party tools
+
+Torchlight
+
+Torchlight is an amazing API for syntax highlighting, and is supported natively by HydePHP.
+- Learn more about Torchlight in the documentation.
+
+Contribute
+
+Have an idea for an extension or integration? Let me know! I'd love to hear from you. Get in touch on
+GitHub or send me a DM on Twitter.
+You may also want to look at the Extension API documentation to learn how to create extensions.
+
+Realtime Compiler
+
+Realtime Compiler
+
+The Hyde Realtime Compiler is included with Hyde installations and is what powers the php hyde serve command,
+allowing you to preview your static site on a local development server without having to rebuild the site.
+
+Usage
+
+To start the server, run the following command from a terminal in your project directory:
+
+php hyde serve
+
+This will start a local development server at http://localhost:8080
+
+warning Please note that the server is designed for local development, and should not be used on a public network.
+
+Configuration
+
+The server can be configured in the config/hyde.php file to change the port, host, and to customize its features.
+
+// filepath config/hyde.php
+
+'server' => [
+    'port' => env('SERVER_PORT', 8080),
+    'host' => env('SERVER_HOST', 'localhost'),
+    'save_preview' => true,
+],
+
+Live dashboard
+
+Usage
+
+The realtime compiler comes with a live dashboard that you can access at http://localhost:8080/dashboard.
+
+From here, you can visually interact with your site content, including creating new pages and posts.
+
+The live dashboard is not saved to your static site, and is only available through the development server.
+
+Configuration
+
+The dashboard can be customized, and disabled, in the config/hyde.php file.
+
+// filepath config/hyde.php
+
+'server' => [
+    'dashboard' => [
+        'enabled' => env('SERVER_DASHBOARD', true),
+        'interactive' => true,
+        'tips' => true,
+    ],
+],
+
+The dashboard was added in Realtime Compiler v3.0.0 (March 2023), with interactive features added in v3.1.0 (October 2023)
+
+Live edit
+
+Usage
+
+The live edit feature allows you to quickly edit Markdown-based pages (posts, docs, and pages) directly in the browser.
+
+To enter the live editor, simply double-click on the article you want to edit, and it will be replaced with a text editor.
+When you're done, click the save button to save the changes to the page's source file.
+
+Shortcuts
+
+The live editor supports the following keyboard shortcuts:
+- Ctrl + E - Enter/Exit editor
+- Ctrl + S - Save changes
+- esc - Exit editor if active
+
+Configuration
+
+The live editor can be disabled in the config/hyde.php file.
+The live editor plugin code will not be saved to your static site.
+
+// filepath config/hyde.php
+
+'server' => [
+    'liveedit' => env('SERVERLIVE_EDIT', true),
+],
+
+The live editor was added in Hyde Realtime Compiler Server v3.2.0 (December 2023)
+
+Source code
+
+GitHub**: hydephp/realtime-compiler
+Packagist**: hydephp/realtime-compiler
+
+Integrations with third-party tools
+
+Integrations with third-party tools
+
+Torchlight
+
+Torchlight is an amazing API for syntax highlighting, and is used by this site. I cannot recommend it highly enough,
+especially for documentation sites and code-heavy blogs! As such, HydePHP has built-in support for Torchlight,
+which is automatically enabled once you add an API token to your .env file. Nothing else needs to be done!
+
+Getting started
+
+To get started you need an API token which you can get at Torchlight.dev.
+It is entirely free for personal and open source projects, as seen on their pricing page.
+
+When you have an API token, set it in the .env file in the root directory of your project.
+Once a token is set, Hyde will automatically enable the CommonMark extension.
+
+TORCHLIGHTTOKEN=torch
+
+Attribution and configuration
+
+Note that for the free plan you need to provide an attribution link. Thankfully Hyde injects a customizable link
+automatically to all pages that use Torchlight. You can of course disable and customize this in the config/torchlight.php file.
+
+'attribution' => [
+    'enabled' => true,
+    'markdown' => 'Syntax highlighting by Torchlight.dev',
+],
+
+Don't have this file? Run php hyde vendor:publish to publish it.
+
+HydePHP UI Kit - Documentation
+
+HydePHP UI Kit - Documentation
+
+The HydePHP UI Kit is a collection of minimalistic and un-opinionated TailwindCSS components for Laravel Blade,
+indented to be used with HydePHP. Note that these components may require CSS classes not present in the bundled app.css
+file and that you may need to recompile the CSS file using the included Laravel Mix configuration.
+
+Screenshot
+
+Here are some of the components you can use to build your next project! As you can see, all components support both light and dark mode out of the box, just like the rest of HydePHP.
+
+Components Screenshot
+
+Components
+
+Please make sure you're familiar with Laravel Blade before using the HydePHP UI Kit.
+
+info Tip: Most components allow you to pass any additional HTML attributes to the element!
+
+Buttons
+
+Primary
+
+    Primary Button
+
+Secondary
+
+    Secondary Button
+
+Input
+
+The base component is ``, any additional attributes will be passed to the input element as seen below.
+
+Card
+
+An incredibly versatile component that can be used for a wide variety of purposes.
+
+In the most basic form, a card is just a container with a white background and a shadow.
+However, it also supports two slots: title and footer.
+
+    A card with some content.
+
+    
+        Card Title
+    
+
+    
+       Some footer content.
+    
+
+Why not combine the components?
+
+    
+        My Amazing Card
+    
+
+    A card with some content and a footer with a button.
+
+    
+        
+            Primary Button
+        
+    
+
+Typography Components
+
+Heading
+
+This component will create a styled `` level heading centered on the page.
+
+    Lorem ipsum dolor sit amet.
+
+Prose
+
+This simple component will create an `` element with TailwindCSS Typography (prose) styles applied.
+
+    Prose Heading
+    Prose paragraph
+
+Markdown
+
+This component will convert any Markdown within it to HTML using the Hyde Markdown compiler.
+
+Markdown Heading
+
+    Hello world!
+
+info Tip: You may also want to wrap this in the prose element or the Markdown will not be styled.
+
+What's Next?
+
+The UI kit is minimal by design. It's up to you to create something amazing, we just want to give you a head start.
+You can get surprisingly far when you combine the components. Take this newsletter signup card for example!
+
+    
+        Let your creativity flow!
+    
+
+    
+        
+            
+                The UI kit is minimal by design. It's up to you to create something amazing.
+
+                Maybe create a form to collect newsletter subscriptions?
+            
+        
+    
+
+    
+        
+
+        
+            Subscribe
+        
+    
+
+Newsletter Screenshot
+
+GitHub Repository
+
+You can find the source code for the UI Kit on GitHub at hydephp/ui-kit.
+
+Console Commands
+
+# Console Commands
+
+The primary way of interacting with Hyde is through the command line using the HydeCLI.
+
+If you have ever used the Artisan Console in Laravel you will feel right at home,
+the HydeCLI is based on Artisan after all!
+
+## Introduction
+
+To use the HydeCLI, run php hyde from your project directory followed by a command.
+
+All HydeCLI commands start with php hyde. Anything in [brackets] is optional.
+If an argument or option value has a space in it, it needs to be wrapped in quotes.
+
+The HydeCLI exists at the root of your application as the hyde script and provides a number of helpful commands that can
+assist you while you build your site. To view a list of all available Hyde commands, you may use the list command:
+
+// torchlight! {"lineNumbers": false}
+php hyde list
+
+### Got stuck? The CLI can help.
+
+Every command also includes a "help" screen which displays and describes the command's available arguments and options.
+To view a help screen, precede the name of the command with help:
+
+// torchlight! {"lineNumbers": false}
+php hyde help 
+
+You can also always add --help to a command to show detailed usage information.
+
+// torchlight! {"lineNumbers": false}
+php hyde  --help
+
+## Available Commands
+
+Here is a quick reference of all the available commands. You can also run php hyde list to see this list.
+
+Command                                 Description
+
+build                       Build the static site
+serve                       Start the realtime compiler server
+rebuild                   Run the static site builder for a single file
+build:rss               Generate the RSS feed
+build:search         Generate the docs/search.json file
+build:sitemap       Generate the sitemap.xml file
+make:page               Scaffold a new Markdown, Blade, or documentation page file
+make:post               Scaffold a new Markdown blog post file
+publish:configs   Publish the default configuration files
+publish:homepage Publish one of the default homepages as index.blade.php
+publish:views       Publish the hyde components for customization. Note that existing files will be overwritten
+vendor:publish     Publish any publishable assets from vendor packages
+route:list             Display all registered routes
+validate                 Run a series of tests to validate your setup and help you optimize your site
+list           List all available commands
+
+## Build the static site
+
+// torchlight! {"lineNumbers": false}
+php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
+
+Build the static site
+
+#### Options
+
+
+
+--run-dev      Run the NPM dev script after build
+--run-prod     Run the NPM prod script after build
+--run-prettier Format the output using NPM Prettier
+--pretty-urls  Should links in output use pretty URLs?
+--no-api       Disable API calls, for example, Torchlight
+
+## Run the static site builder for a single file
+
+// torchlight! {"lineNumbers": false}
+php hyde rebuild 
+
+Run the static site builder for a single file
+
+#### Arguments
+
+
+
+path The relative file path (example: \_posts/hello-world.md) \n - Is required: yes
+
+## Start the realtime compiler server
+
+// torchlight! {"lineNumbers": false}
+php hyde serve [--host [HOST]] [--port [PORT]]
+
+Start the realtime compiler server.
+
+#### Options
+
+
+
+--host= [default: "localhost"]
+--port= [default: 8080]
+
+## Test and validate your project to optimize your site
+
+// torchlight! {"lineNumbers": false}
+php hyde validate
+
+Run a series of tests to validate your setup and help you optimize your site.
+
+## Generate the RSS feed
+
+// torchlight! {"lineNumbers": false}
+php hyde build:rss
+
+Generate the RSS feed
+
+## Generate the docs/search.json file
+
+// torchlight! {"lineNumbers": false}
+php hyde build:search
+
+Generate the docs/search.json file
+
+## Generate the sitemap.xml file
+
+// torchlight! {"lineNumbers": false}
+php hyde build:sitemap
+
+Generate the sitemap.xml file
+
+## Scaffold a new Markdown, Blade, or documentation page file
+
+// torchlight! {"lineNumbers": false}
+php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] []
+
+Scaffold a new Markdown, Blade, or documentation page file
+
+#### Arguments & Options
+
+
+
+title           The name of the page file to create. Will be used to generate the filename
+--type=markdown The type of page to create (markdown, blade, or docs)
+--blade         Create a Blade page
+--docs          Create a Documentation page
+--force         Overwrite any existing files
+
+## Scaffold a new Markdown blog post file
+
+// torchlight! {"lineNumbers": false}
+php hyde make:post [--force] [--] []
+
+Scaffold a new Markdown blog post file
+
+#### Arguments & Options
+
+
+
+title   The title for the Post. Will also be used to generate the filename
+--force Should the generated file overwrite existing posts with the same filename?
+
+## Publish the default configuration files
+
+// torchlight! {"lineNumbers": false}
+php hyde publish:configs
+
+Publish the default configuration files
+
+## Publish one of the default homepages as index.blade.php.
+
+// torchlight! {"lineNumbers": false}
+php hyde publish:homepage [--force] [--] []
+
+Publish one of the default homepages as index.blade.php.
+
+#### Arguments & Options
+
+
+
+homepage The name of the page to publish
+--force  Overwrite any existing files
+
+## Publish the hyde components for customization
+
+// torchlight! {"lineNumbers": false}
+php hyde publish:views []
+
+Publish the hyde components for customization. Note that existing files will be overwritten.
+
+#### Arguments
+
+
+
+category The category to publish
+
+## Display all registered routes.
+
+// torchlight! {"lineNumbers": false}
+php hyde route:list
+
+Display all registered routes.
+
+## Publish any publishable assets from vendor packages
+
+// torchlight! {"lineNumbers": false}
+php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
+
+Publish any publishable assets from vendor packages
+
+#### Options
+
+
+
+--existing  Publish and overwrite only the files that have already been published
+--force     Overwrite any existing files
+--all       Publish assets for all service providers without prompt
+--provider= The service provider that has assets you want to publish
+--tag=      One or many tags that have assets you want to publish \n- Is multiple: yes
+
