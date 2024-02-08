@@ -11,9 +11,9 @@ use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Support\Contracts\SerializableContract;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
