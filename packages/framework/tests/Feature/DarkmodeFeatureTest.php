@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -21,6 +22,8 @@ class DarkmodeFeatureTest extends TestCase
 
         $this->mockRoute();
         $this->mockPage();
+
+        Hyde::boot();
     }
 
     public function test_has_darkmode()
