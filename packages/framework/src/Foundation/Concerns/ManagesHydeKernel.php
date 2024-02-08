@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\HydeKernel;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 use function ltrim;
 use function rtrim;
@@ -69,6 +70,13 @@ trait ManagesHydeKernel
     public function getMediaOutputDirectory(): string
     {
         return ltrim($this->getMediaDirectory(), '_');
+    }
+
+    public function navigation(): NavigationMenu
+    {
+        $this->needsToBeBooted();
+
+        return $this->navigation;
     }
 
     protected function normalizeSourcePath(string $outputDirectory): string
