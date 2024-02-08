@@ -29,9 +29,17 @@ This serves two purposes:
 
 ### Upgrade Guide
 
-If there are any breaking changes, include an upgrade guide here.
+Please see the "Breaking changes & upgrade guide" section below for more information.
 
-#### Documentation search page changes
+## Breaking changes & upgrade guide
+
+<!-- Editors note: The following will be part of the documentation and not the changelog, which is why the heading levels are reset. -->
+
+Please read through this section to ensure your site upgrades smoothly.
+
+## General impact
+
+### Documentation search page changes
 
 The documentation search page and search index have been changed to be generated as `InMemoryPages` instead of a post-build task.
 
@@ -42,9 +50,12 @@ want to adapt your code to interact with the new `InMemoryPage`, which is genera
 
 For more information, see https://github.com/hydephp/develop/pull/1498.
 
-### Breaking changes
+## Low impact
 
-#### Low impact
+### New documentation search implementation
+
+As the new documentation search implementation brings changes to their code API you may need to adapt your code
+according to the information below in case you wrote custom code that interacted with these parts of the codebase.
 
 - The `GenerateSearch` post-build task has been removed. If you have previously extended or customized this class, 
   you will need to adapt your code, as the search index files are now handled implicitly during the standard build process,
