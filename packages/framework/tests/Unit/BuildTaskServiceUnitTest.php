@@ -39,6 +39,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         self::mockConfig(['hyde' => [
             'empty_output_directory' => false,
             'generate_build_manifest' => false,
+            'transfer_media_assets' => false,
         ]]);
         $this->createService();
     }
