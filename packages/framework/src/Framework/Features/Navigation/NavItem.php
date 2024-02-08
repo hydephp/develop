@@ -75,7 +75,7 @@ class NavItem implements Stringable
      */
     public function __toString(): string
     {
-        return $this->destination;
+        return (string) $this->destination;
     }
 
     /**
