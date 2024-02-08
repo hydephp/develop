@@ -83,7 +83,6 @@ class StaticSiteServiceTest extends TestCase
             ->expectsOutput('Creating Markdown Pages...')
             ->expectsOutput('Creating Markdown Posts...')
             ->expectsOutput('Creating Documentation Pages...')
-            ->doesntExpectOutputToContain('Creating')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/html.html'));
