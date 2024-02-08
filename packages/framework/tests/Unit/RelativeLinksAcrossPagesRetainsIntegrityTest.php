@@ -9,6 +9,7 @@ use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Services\BuildService;
 use Illuminate\Console\OutputStyle;
 use Mockery;
+use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 
@@ -92,7 +93,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             'write' => null,
         ]));
 
-        $service->transferMediaAssets();
+        (new TransferMediaAssets())->run();
         $service->compileStaticPages();
 
         $this->assertSee('root', [
