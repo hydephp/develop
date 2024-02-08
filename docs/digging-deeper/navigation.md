@@ -31,6 +31,15 @@ they are configured are very similar, making the documentation here applicable t
 
 See the [Digging Deeper](#digging-deeper-into-the-internals) section of this page if you want the full scoop on the internals!
 
+## What to customize?
+
+Here is a quick overview of what you might want to customize in your navigation menus:
+
+- Navigation menu item labels - the text that appears in the menu links
+- Navigation menu item priority - control the order in which the links appear
+- Navigation menu item visibility - control if pages may show up in the menus
+- Navigation menu item grouping - group pages together in dropdowns
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
