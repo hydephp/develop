@@ -53,7 +53,7 @@ all asset files here will get copied as they are into the `_site/media` folder.
 It may seem weird to have two folders for storing the compiled assets, but it is quite useful.
 
 The `_site` directory is intended to be excluded from version control, while the `_media` folder is included in the
-version control. You are of course free to modify this behavior by editing the `webpack.mix.js` file to change the output directory.
+version control. You are of course free to modify this behaviour by editing the `webpack.mix.js` file to change the output directory.
 
 
 ## How do I compile assets?

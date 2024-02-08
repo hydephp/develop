@@ -123,7 +123,7 @@ _I personally think the config route is easier as it gives an instant overview, 
 
 ### Sidebar labels
 
-The sidebar items are labeled with the `label` property. The default label is the filename of the file.
+The sidebar items are labelled with the `label` property. The default label is the filename of the file.
 You can change it with the following front matter:
 
 ```yaml
@@ -252,7 +252,7 @@ Please note that this option is not added to the config file by default, as it's
 
 ### Table of contents settings
 
-In the `config/docs.php` file you can configure the behavior, content, and the look and feel of the sidebar table of contents.
+In the `config/docs.php` file you can configure the behaviour, content, and the look and feel of the sidebar table of contents.
 You can also disable the feature completely.
 
 ```php
@@ -303,7 +303,7 @@ The search works by generating a JSON search index which the JavaScript plugin l
 Two ways to access the search are added, one is a full page search screen that will be saved to `docs/search.html`.
 
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
-Opening it will open a modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
+Opening it will open a modal with an integrated search screen. You can also open the dialogue using the keyboard shortcut `/`.
 
 >info The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
