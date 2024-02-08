@@ -13,12 +13,14 @@
 
 			.heading-permalink {
 				opacity: 0;
+				visibility: hidden;
 				margin-left: 0.25rem;
 				transition: opacity 0.3s ease;
 				padding: 0 0.25rem;
 				scroll-margin: 1rem;
 				&:hover, &:focus {
 					opacity: 1;
+					visibility: visible;
 					filter: unset;
 				}
 			}
