@@ -74,8 +74,6 @@ trait ManagesHydeKernel
 
     public function navigation(): NavigationMenu
     {
-        $this->needsToBeBooted();
-
         return $this->navigation;
     }
 
