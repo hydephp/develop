@@ -10,16 +10,18 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
 
 ### Changed
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
+- Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
+- Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 
 ### Fixed
 - for any bug fixes.
@@ -68,3 +70,17 @@ according to the information below in case you wrote custom code that interacted
 - In the highly unlikely event your site customizes any of the search pages by replacing them in the kernel route collection,
   you would now need to do that in the kernel page collection due to the search pages being generated earlier in the lifecycle.
   https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
+
+### Media asset transfers
+
+The internals of how media asset files are copied during the build process have been changed. For most users, this change
+has no impact. However, if you have previously extended this method, or called it directly from your custom code,
+you will need to adapt your code to use the new `TransferMediaAssets` build task.
+
+For example, if you triggered the media transfer with a build service method call, use the new build task instead:
+
+```php
+(new BuildService)->transferMediaAssets();
+
+(new TransferMediaAssets())->run();
+```
