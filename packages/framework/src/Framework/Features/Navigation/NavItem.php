@@ -30,7 +30,7 @@ class NavItem implements Stringable
      */
     public function __construct(Route|string $destination, string $label, int $priority = 500, ?string $group = null)
     {
-        $this->destination = (string) $destination;
+        $this->destination = $destination;
         $this->label = $label;
         $this->priority = $priority;
         $this->group = $group;
