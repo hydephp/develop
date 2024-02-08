@@ -20,7 +20,7 @@ use Stringable;
  */
 class NavItem implements Stringable
 {
-    public readonly string $destination;
+    public readonly Route|string $destination;
     public readonly string $label;
     public readonly int $priority;
     public readonly ?string $group;
