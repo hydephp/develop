@@ -19,6 +19,8 @@ class TransferMediaAssets extends PreBuildTask
     {
         $this->needsDirectory(Hyde::siteMediaPath());
 
+        $this->newLine();
+
         $this->withProgressBar(MediaFile::files(), function (string $identifier): void {
             $sitePath = Hyde::siteMediaPath($identifier);
             $this->needsParentDirectory($sitePath);
