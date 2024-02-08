@@ -13,6 +13,7 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Str;
@@ -132,6 +133,7 @@ class BuildTaskService
     private function registerFrameworkTasks(): void
     {
         $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
+        $this->registerTask(TransferMediaAssets::class);
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
         $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
