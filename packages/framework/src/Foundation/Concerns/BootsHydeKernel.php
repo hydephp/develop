@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Concerns;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -57,6 +58,8 @@ trait BootsHydeKernel
         foreach ($this->bootedCallbacks as $callback) {
             $callback($this);
         }
+
+        $this->navigation = NavigationMenu::create();
 
         $this->booting = false;
         $this->booted = true;
