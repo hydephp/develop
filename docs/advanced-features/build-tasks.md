@@ -111,7 +111,7 @@ They are shown here in order of presumed convenience, but you are free to choose
 
 ### Autodiscovery registration
 
-The easiest way to register build tasks, is to not do it. Just let Hyde do it for you!
+The easiest way to register build tasks is to not do it -- just let Hyde do it for you!
 
 Any classes that end in `BuildTask.php` that are stored in `app/Actions`  will be autoloaded and registered to run automatically.
 
@@ -139,7 +139,8 @@ or you can register the extensions programmatically, I recommend you do this in 
 The build tasks are registered in an internal array of the `BuildService` class, which is bound as a singleton in the underlying Laravel service container.
 To actually register your task, provide the fully qualified class name of the task to the `BuildTaskService::registerTask()` method.
 
-Here is an example of how to do this using in a service provider. Though you could technically do it anywhere using the `app()` helper, just as long as it's done early enough in the application lifecycle, so it's registered before the build command is executed.
+Here is an example of how to do this using a service provider. Though you could technically do it anywhere using the `app()` helper,
+just as long as it's done early enough in the application lifecycle, so it's registered before the build command is executed.
 
 ```php
 class MyServiceProvider extends ServiceProvider

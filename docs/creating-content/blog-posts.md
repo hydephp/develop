@@ -10,7 +10,7 @@ navigation:
 
 Making blog posts with Hyde is easy. At the most basic level, all you need is to add a Markdown file to your `_posts` folder.
 
-To use the full power of the Hyde post module however, you'll want to add YAML [Front Matter](front-matter) to your posts.
+To use the full power of the Hyde post module you'll want to add YAML [Front Matter](front-matter) to your posts.
 
 **You can interactively scaffold posts with automatic front matter using the HydeCLI:**
 
@@ -54,7 +54,7 @@ and understand how your front matter is used. You can read more about the Front 
 
 ### Blog Post Example
 
-Before digging in deeper on all the supported options, let's take a look at what a basic post with front matter looks like.
+Before digging deeper into all the supported options, let's take a look at what a basic post with front matter looks like.
 
 ```markdown
 // filepath _posts/my-new-post.md
@@ -90,8 +90,8 @@ Keep on reading to see further explanations, details, and examples.
 | `author`       | string/array   | _See [author](#author) section_  |
 | `image`        | string/array   | _See [image](#image) section_    |
 
-Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings in quotes,
-but it can help in certain edge cases, for example if the text contains special Yaml characters, thus they are included here.
+Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings in quotes.
+However, it can help in certain edge cases, for example if the text contains special Yaml characters, thus they are included here.
 
 In the examples below, when there are multiple examples, they signify various ways to use the same property.
 
@@ -212,4 +212,4 @@ To use images stored in the `_media/` directory, you can use the following synta
 
 _Note the relative path since the blog post is compiled to `posts/example.html`_
 
-To learn more, check out the [chapter in managing assets](managing-assets#managing-images)
+To learn more, check out the [managing assets chapter](managing-assets#managing-images) on the topic.
