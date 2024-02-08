@@ -71,7 +71,7 @@ according to the information below in case you wrote custom code that interacted
   you would now need to do that in the kernel page collection due to the search pages being generated earlier in the lifecycle.
   https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
 
-### Media asset transfers
+### Media asset transfer implementation changes
 
 The internals of how media asset files are copied during the build process have been changed. For most users, this change
 has no impact. However, if you have previously extended this method, or called it directly from your custom code,
