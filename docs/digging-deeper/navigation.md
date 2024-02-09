@@ -182,7 +182,7 @@ You can also specify explicit priorities by adding a value to the array key:
 ]
 ```
 
-You can of course also combine these methods if you want:
+**You can of course also combine these methods if you want:**
 
 ```php
 // filepath: Applicable to both
@@ -252,7 +252,7 @@ Simplified, this will then be rendered as follows:
 
 Within the Hyde config you can configure how subdirectories should be displayed in the menu.
 
-```
+```php
 // filepath config/hyde.php
 'navigation' => [
     'subdirectories' => 'dropdown'
