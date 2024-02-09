@@ -56,13 +56,14 @@ It's up to you which method you prefer to use.
 
 To customize how a page is represented in navigation, you can either set the `navigation` front matter data in the page's markdown file,
 or configure it in the config file. Main navigation items are in the `hyde` config file, while documentation sidebar items are in the `docs` config file.
-General options for the entire navigation menus are also available in the `hyde` and `docs` config files. 
+General options for the entire navigation menus are also available in the `hyde` and `docs` config files.
 
 Now that you know the basics, let's dive into the details of how to customize the navigation menus!
 
+
 ## Front matter configuration
 
-The front matter options allow you to customize the navigation menus on a per-page basis. 
+The front matter options allow you to customize the navigation menus on a per-page basis.
 Here is a quick reference of the available options. The full documentation of each option is below.
 You don't need to specify all the keys, only the ones you want to customize.
 
@@ -112,6 +113,7 @@ You can also use `category` instead of `group`.
 navigation:
     group: "My Group"
 ```
+
 
 ## Config file configuration
 
@@ -195,7 +197,7 @@ You can of course also combine these methods if you want:
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
 
-From the Hyde config you can override the label of navigation links using the by mapping the route key to the desired title. 
+From the Hyde config you can override the label of navigation links using the by mapping the route key to the desired title.
 This is not yet supported for the sidebar, but will be in the future.
 
 ```php
@@ -257,8 +259,8 @@ Within the Hyde config you can configure how subdirectories should be displayed 
 ]
 ```
 
-Dropdown means that pages in subdirectories will be displayed in a dropdown menu, 
-while `flat` means that pages in subdirectories will be displayed as individual items in the menu. 
+Dropdown means that pages in subdirectories will be displayed in a dropdown menu,
+while `flat` means that pages in subdirectories will be displayed as individual items in the menu.
 Hidden means that pages in subdirectories will not be displayed in the menu at all.
 
 ### Automatic menu groups
@@ -298,7 +300,7 @@ Both extend the same `BaseNavigationMenu` class:
 ```php
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use \Hyde\Framework\Features\Navigation\BaseNavigationMenu;
+use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
 ```
 
 Within the `BaseNavigationMenu` class, you will find the main logic for how the menus are generated,
