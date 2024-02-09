@@ -288,6 +288,7 @@ This feature is enabled by default, so you only need to place your pages in subd
 
 For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
 
+>info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
 ## Digging deeper into the internals
 

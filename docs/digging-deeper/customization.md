@@ -221,8 +221,6 @@ Learn more in the [Navigation Menu](navigation) documentation.
 
 Learn more in the [Documentation Pages](documentation-pages) documentation.
 
->info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
-
 ## Additional Advanced Options
 
 The following configuration options in the `confg/hyde.php` file are intended for advanced users and 
