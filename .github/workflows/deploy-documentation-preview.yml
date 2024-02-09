@@ -94,3 +94,26 @@ jobs:
 
       - name: Compile the static site
         run: php hyde build
+
+      - name: Package the static site
+        run: zip -r site.zip _site
+
+      - name: Sign the artifact
+        run: openssl dgst -sha256 -sign ${{ secrets.CI_PREVIEW_SIGNING_RSA_PRIVATE_KEY }} -out signature.bin site.zip
+
+      - name: Upload the artifact
+        run: |
+            repository="develop"
+            bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
+            pullRequest="${{ github.event.pull_request.number }}"
+            signature=$(openssl base64 -in signature.bin)
+            artifact="site.zip"
+          
+            curl -X POST \
+              -H 'Content-Type: multipart/form-data' \
+              -H "Authorization: Bearer $bearerToken" \
+              -F 'repository=$repository \
+              -F 'pullRequest=$pullRequest' \
+              -F 'artifact=@$artifact' \
+              -F 'signature=$signature' \
+              https://ci.hydephp.com/api/deployment-previews
