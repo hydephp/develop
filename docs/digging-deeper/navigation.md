@@ -31,6 +31,12 @@ they are configured are very similar, making the documentation here applicable t
 
 See the [Digging Deeper](#digging-deeper-into-the-internals) section of this page if you want the full scoop on the internals!
 
+### Primer on priorities
+
+All navigation menu items have an internal priority value that determines its order in the navigation.
+Lower values means that the item will be higher up in the menu. The default for pages is `999` which puts them last.
+However, some pages are autoconfigured to have a lower priority, for example, the `index` page defaults to a priority of `0`,
+
 ### What to customize?
 
 Here is a quick overview of what you might want to customize in your navigation menus:

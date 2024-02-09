@@ -223,12 +223,6 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-### Primer on priorities
-
-All navigation menu items have an internal priority value that determines its order in the navigation.
-Lower values means that the item will be higher up in the menu. The default for pages is `999` which puts them last.
-However, some pages are autoconfigured to have a lower priority, for example, the `index` page defaults to a priority of `0`,
-
 #### Basic syntax for changing the priorities
 
 The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`.
