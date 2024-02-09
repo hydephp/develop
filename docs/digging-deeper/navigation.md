@@ -52,8 +52,7 @@ Now that you know the basics, let's dive into the details of how to customize th
 
 ## Front matter configuration
 
-The front matter options allow you to customize the navigation menus on a per-page basis. The following options are available:
-
+The front matter options allow you to customize the navigation menus on a per-page basis. 
 Here is a quick reference of the available options. The full documentation of each option is below.
 You don't need to specify all the keys, only the ones you want to customize.
 
