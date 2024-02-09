@@ -56,6 +56,13 @@ class ScriptsComponentViewTest extends TestCase
         Filesystem::unlink('_media/app.js');
     }
 
+    public function testCanAddHeadHtmlFromConfigHook()
+    {
+        config(['hyde.hooks.body' => '<script src="custom-hook.js"></script>']);
+
+        $this->assertStringContainsString('<script src="custom-hook.js"></script>', $this->renderTestView());
+    }
+
     public function test_scripts_can_be_pushed_to_the_component_scripts_stack()
     {
         view()->share('routeKey', '');
