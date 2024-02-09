@@ -226,7 +226,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Custom head and body HTML hooks
+    | Custom head and script HTML hooks
     |--------------------------------------------------------------------------
     |
     | While the best way to add custom `<head>` and `<body>` code is to use the
@@ -235,13 +235,11 @@ return [
     |
     */
 
-    'hooks' => [
-        // Add any extra HTML to include in the <head> tag
-        'head' => '',
+    // Add any extra HTML to include in the <head> tag
+    'head' => '',
 
-        // Add any extra HTML to include before the closing <body> tag
-        'body' => '',
-    ],
+    // Add any extra HTML to include before the closing <body> tag
+    'scripts' => '',
 
     /*
     |--------------------------------------------------------------------------
