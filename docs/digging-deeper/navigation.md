@@ -103,6 +103,17 @@ navigation:
     group: "My Group"
 ```
 
+## Config file configuration
+
+Next up, let's look at how to customize the navigation menus using the config files.
+
+- To customize the navigation menu, use the setting `navigation.order` in the `hyde.php` config.
+- When customizing the navigation menu, you should use the [route key](core-concepts#route-keys) of the page.
+
+- To customize the sidebar, use the setting `sidebar_order` in the `docs.php` config.
+- When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
+
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
