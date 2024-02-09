@@ -40,6 +40,16 @@ Here is a quick overview of what you might want to customize in your navigation 
 - Navigation menu item visibility - control if pages may show up in the menus
 - Navigation menu item grouping - group pages together in dropdowns
 
+## How and where to customize?
+
+Hyde provides a few different ways to customize the navigation menus, depending on what you prefer.
+
+To customize how a page is represented in navigation, you can either set the `navigation` front matter data in the page's markdown file,
+or configure it in the config file. Main navigation items are in the `hyde` config file, while documentation sidebar items are in the `docs` config file.
+General options for the entire navigation menus are also available in the `hyde` and `docs` config files. 
+
+Now that you know the basics, let's dive into the details of how to customize the navigation menus!
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
