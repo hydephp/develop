@@ -64,6 +64,45 @@ navigation:
     group: string  # Category is also supported
 ```
 
+### `label`
+
+The `label` option allows you to customize the text that appears in the navigation menu for the page.
+
+```yaml
+navigation:
+    label: "My Custom Label"
+```
+
+### `priority`
+
+The `priority` option allows you to control the order in which the page appears in the navigation menu. You can also use `order` instead of `priority`.
+
+```yaml
+navigation:
+    priority: 10
+```
+
+### `hidden`
+
+The `hidden` option allows you to control if the page appears in the navigation menu. You can also use `visible` instead of `hidden`, but obviously invert the value.
+
+```yaml
+navigation:
+    hidden: true
+```
+
+### `group`
+
+The `group` option has a slightly different meaning depending on the type of navigation menu.
+For the primary navigation menu, it allows you to group pages together in dropdowns.
+For the sidebar, it allows you to group pages together in the sidebar under a common heading.
+You can also use `category` instead of `group`.
+
+```yaml
+navigation:
+    group: "My Group"
+```
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
