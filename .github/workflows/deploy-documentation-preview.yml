@@ -15,7 +15,7 @@ jobs:
 
     environment:
       name: pr-documentation-${{ github.event.pull_request.number }}
-      url: https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview
+      url: https://ci.hydephp.com/previews/develop/${{ github.event.pull_request.number }}
 
     runs-on: ubuntu-latest
 
