@@ -74,7 +74,7 @@ class HeadComponentViewTest extends TestCase
 
     public function testCanAddHeadHtmlFromConfigHook()
     {
-        config(['hyde.hooks.head' => '<meta name="custom-hook" content="foo">']);
+        config(['hyde.head' => '<meta name="custom-hook" content="foo">']);
 
         $this->assertStringContainsString('<meta name="custom-hook" content="foo">', $this->renderTestView());
     }

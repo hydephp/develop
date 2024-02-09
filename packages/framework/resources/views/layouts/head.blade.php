@@ -19,4 +19,4 @@
 @endif
 
 {{-- If the user has defined any custom head tags, render them here --}}
-{!! config('hyde.hooks.head') !!}
+{!! config('hyde.head') !!}

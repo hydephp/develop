@@ -58,7 +58,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function testCanAddHeadHtmlFromConfigHook()
     {
-        config(['hyde.hooks.body' => '<script src="custom-hook.js"></script>']);
+        config(['hyde.scripts' => '<script src="custom-hook.js"></script>']);
 
         $this->assertStringContainsString('<script src="custom-hook.js"></script>', $this->renderTestView());
     }
