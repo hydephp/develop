@@ -223,29 +223,6 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-#### Automatic navigation menu dropdowns
-
-HydePHP has a neat feature to automatically place pages in dropdowns based on subdirectories.
-
-For pages that can be in the main site menu, ths feature needs to be enabled in the `hyde.php` config file.
-
-```php
-// filepath config/hyde.php
-
-'navigation' => [
-    'subdirectories' => 'dropdown',
-],
-```
-
-Now if you create a page called `_pages/about/contact.md` it will automatically be placed in a dropdown called "About".
-
-#### Automatic documentation sidebar grouping
-
-This feature works similarly to the automatic navigation menu dropdowns, but instead place the sidebar items in named groups.
-This feature is enabled by default, so you only need to place your pages in subdirectories to have them grouped.
-
-For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
-
 ## Additional Advanced Options
 
 The following configuration options in the `confg/hyde.php` file are intended for advanced users and 

@@ -261,6 +261,30 @@ Dropdown means that pages in subdirectories will be displayed in a dropdown menu
 while `flat` means that pages in subdirectories will be displayed as individual items in the menu. 
 Hidden means that pages in subdirectories will not be displayed in the menu at all.
 
+### Automatic navigation menu dropdowns
+
+HydePHP has a neat feature to automatically place pages in dropdowns based on subdirectories.
+
+For pages that can be in the main site menu, ths feature needs to be enabled in the `hyde.php` config file.
+
+```php
+// filepath config/hyde.php
+
+'navigation' => [
+    'subdirectories' => 'dropdown',
+],
+```
+
+Now if you create a page called `_pages/about/contact.md` it will automatically be placed in a dropdown called "About".
+
+### Automatic documentation sidebar grouping
+
+This feature works similarly to the automatic navigation menu dropdowns, but instead place the sidebar items in named groups.
+This feature is enabled by default, so you only need to place your pages in subdirectories to have them grouped.
+
+For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
+
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
