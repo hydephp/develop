@@ -191,6 +191,23 @@ You can of course also combine these methods if you want:
 ]
 ```
 
+#### Changing the menu item labels
+
+Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
+
+From the Hyde config you can override the label of navigation links using the by mapping the route key to the desired title. 
+This is not yet supported for the sidebar, but will be in the future.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'labels' => [
+        'index' => 'Start',
+        'docs/index' => 'Documentation',
+    ]
+]
+```
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.

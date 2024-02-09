@@ -223,24 +223,6 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-#### Changing the menu item labels
-
-Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
-You can override the label using the `navigation.label` front matter property.
-
-From the Hyde config you can also override the label of navigation links using the by mapping the route key
-to the desired title. Note that the front matter property will take precedence over the config property.
-
-```php
-// filepath config/hyde.php
-'navigation' => [
-    'labels' => [
-        'index' => 'Start',
-        'docs/index' => 'Documentation',
-    ]
-]
-```
-
 #### Excluding Items (Blacklist)
 
 Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
