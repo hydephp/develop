@@ -101,7 +101,7 @@ The sidebar is automatically generated from the files in the `_docs` directory. 
 of these items. You can do this in two ways, either in the config or with front matter using the navigation array settings.
 
 Since this feature shares a lot of similarities and implementation details with the navigation menu,
-I recommend you read the [navigation menu documentation](navigation-menu) page as well to learn more about the fundamentals and terminology.
+I recommend you read the [navigation menu documentation](navigation) page as well to learn more about the fundamentals and terminology.
 
 ### Sidebar ordering
 
