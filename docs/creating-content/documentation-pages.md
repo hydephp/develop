@@ -100,13 +100,6 @@ and where the data is from as well as where it can be overridden.
 The sidebar is automatically generated from the files in the `_docs` directory. You will probably want to change the order
 of these items. You can do this in two ways, either in the config or with front matter using the navigation array settings.
 
-### Table of contents
-
-Hyde automatically generates a table of contents for the page and adds it to the sidebar.
-
-The behaviour of this can be changed in the configuration file.
-See [the customization page](customization#navigation-menu--sidebar) for more details.
-
 ### Sidebar ordering
 
 The sidebar is sorted/ordered by the `priority` property. The higher the priority the further down in the sidebar it will be.
@@ -251,6 +244,8 @@ Please note that this option is not added to the config file by default, as it's
 ```
 
 ### Table of contents settings
+
+Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
 In the `config/docs.php` file you can configure the behaviour, content, and the look and feel of the sidebar table of contents.
 You can also disable the feature completely.
