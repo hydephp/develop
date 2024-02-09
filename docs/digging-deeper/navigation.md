@@ -191,7 +191,7 @@ You can of course also combine these methods if you want:
 ]
 ```
 
-#### Changing the menu item labels
+### Changing the menu item labels
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
 
@@ -208,7 +208,7 @@ This is not yet supported for the sidebar, but will be in the future.
 ]
 ```
 
-#### Excluding Items (Blacklist)
+### Excluding Items (Blacklist)
 
 Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
 To remove items from being automatically added, simply add the page's route key to the blacklist.
@@ -222,7 +222,7 @@ To remove items from being automatically added, simply add the page's route key 
 ]
 ```
 
-#### Adding Custom Navigation Menu Links
+### Adding Custom Navigation Menu Links
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
 
