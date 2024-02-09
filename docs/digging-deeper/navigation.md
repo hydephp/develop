@@ -246,6 +246,21 @@ Simplified, this will then be rendered as follows:
 <a href="https://github.com/hydephp/hyde">GitHub</a>
 ```
 
+### Configure subdirectory handling
+
+Within the Hyde config you can configure how subdirectories should be displayed in the menu.
+
+```
+// filepath config/hyde.php
+'navigation' => [
+    'subdirectories' => 'dropdown'
+]
+```
+
+Dropdown means that pages in subdirectories will be displayed in a dropdown menu, 
+while `flat` means that pages in subdirectories will be displayed as individual items in the menu. 
+Hidden means that pages in subdirectories will not be displayed in the menu at all.
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
