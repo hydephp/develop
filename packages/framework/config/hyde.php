@@ -236,7 +236,10 @@ return [
     */
 
     'hooks' => [
+        // Add any extra HTML to include in the <head> tag
         'head' => '',
+
+        // Add any extra HTML to include before the closing <body> tag
         'body' => '',
     ],
 
