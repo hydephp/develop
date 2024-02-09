@@ -105,7 +105,7 @@ of these items. You can do this in two ways, either in the config or with front 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
 The behaviour of this can be changed in the configuration file.
-See [the customization page](customization#navigation-menu--sidebar) for more details.
+See the [navigation menu documentation](navigation) for more details.
 
 ### Sidebar ordering
 
