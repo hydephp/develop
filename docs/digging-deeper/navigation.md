@@ -222,6 +222,30 @@ To remove items from being automatically added, simply add the page's route key 
 ]
 ```
 
+#### Adding Custom Navigation Menu Links
+
+You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
+
+When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the
+destination and label, both required. Third argument is the priority, which is optional, and defaults to `500`.
+
+```php
+// filepath config/hyde.php
+use Hyde\Framework\Features\Navigation\NavItem;
+
+'navigation' => [
+    'custom' => [
+        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+    ]
+]
+```
+
+Simplified, this will then be rendered as follows:
+
+```html
+<a href="https://github.com/hydephp/hyde">GitHub</a>
+```
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
