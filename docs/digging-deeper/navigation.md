@@ -208,6 +208,20 @@ This is not yet supported for the sidebar, but will be in the future.
 ]
 ```
 
+#### Excluding Items (Blacklist)
+
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
+To remove items from being automatically added, simply add the page's route key to the blacklist.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'exclude' => [
+        '404'
+    ]
+]
+```
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.

@@ -223,30 +223,6 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-#### Excluding Items (Blacklist)
-
-Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
-To remove items from being automatically added, simply add the page's route key to the blacklist.
-As you can see, the `404` page has already been filled in for you.
-
-```php
-// filepath config/hyde.php
-'navigation' => [
-    'exclude' => [
-        '404'
-    ]
-]
-```
-
-You can also specify that a page should be excluded by setting the page front matter.
-
-```markdown
----
-navigation:
-    hidden: true
----
-```
-
 #### Adding Custom Navigation Menu Links
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
