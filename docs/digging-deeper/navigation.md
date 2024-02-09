@@ -50,6 +50,21 @@ General options for the entire navigation menus are also available in the `hyde`
 
 Now that you know the basics, let's dive into the details of how to customize the navigation menus!
 
+## Front matter configuration
+
+The front matter options allow you to customize the navigation menus on a per-page basis. The following options are available:
+
+Here is a quick reference of the available options. The full documentation of each option is below.
+You don't need to specify all the keys, only the ones you want to customize.
+
+```yaml
+navigation:
+    'label' => 'string', # The text to display
+    'priority' => 'int',  # Order is also supported
+    'hidden' => 'bool',  # Visible is also supported (but obviously invert the value)
+    'group' => 'string', # Category is also supported
+```
+
 ## Digging deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
