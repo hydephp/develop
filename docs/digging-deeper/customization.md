@@ -223,50 +223,6 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-#### Basic syntax for changing the priorities
-
-The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`.
-The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
-
-```php
-[
-    'readme', // Gets priority 500
-    'installation', // Gets priority 501
-    'getting-started', // Gets priority 502
-]
-```
-
-#### Explicit syntax for changing the priorities
-
-You can also specify explicit priorities by adding a value to the array key:
-
-```php
-[
-    'readme' => 10, // Gets priority 10
-    'installation' => 15, // Gets priority 15
-    'getting-started' => 20, // Gets priority 20
-]
-```
-
-You can also combine these options if you want:
-
-```php
-[
-    'readme' => 10, // Gets priority 10
-    'installation', // Gets priority 500
-    'getting-started', // Gets priority 501
-]
-```
-
-You can also set the priority of a page directly in the front matter. 
-
-```markdown
----
-navigation:
-    priority: 25
----
-```
-
 #### Changing the menu item labels
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
