@@ -209,6 +209,7 @@ you can also add custom HTML directly in the configuration file. This works espe
 
 To add custom HTML to your layouts, you can use the `head` and `scripts` configuration options in the `config/hyde.php` file (or the `hyde.yml` file).
 The HTML will be added to the `<head>` section, or just before the closing `</body>` tag, respectively.
+Note that the HTML is added to all pages. If you need to add HTML to a specific page, you will need to override the layout for that page.
 
 ```php
 // filepath: config/hyde.php
