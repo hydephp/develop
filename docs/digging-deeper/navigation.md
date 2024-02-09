@@ -127,6 +127,33 @@ Next up, let's look at how to customize the navigation menus using the config fi
 
 The `navigation.order` and `sidebar_order` settings allow you to customize the order of the pages in the navigation menus.
 
+#### Basic syntax for changing the priorities
+
+The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`.
+The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
+
+```php
+// filepath: config/hyde.php
+
+'navigation' => [
+    'order' => [
+        'home', // Gets priority 500
+        'about', // Gets priority 501
+        'contact', // Gets priority 502
+    ]
+]
+```
+
+```php
+// filepath: config/docs.php
+
+'sidebar_order' => [
+    'readme', // Gets priority 500
+    'installation', // Gets priority 501
+    'getting-started', // Gets priority 502
+]
+```
+
 
 ## Digging deeper into the internals
 
