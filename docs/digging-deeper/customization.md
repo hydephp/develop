@@ -223,6 +223,24 @@ hyde:
   scripts: "<!-- Custom HTML in the body -->"
 ```
 
+You can of course also add multiple lines of HTML:
+
+```php
+// filepath: config/hyde.php
+'head' => <<<HTML
+    <!-- Custom HTML in the head -->
+    <link rel="stylesheet" href="https://example.com/styles.css">
+HTML,
+```
+
+```yaml
+# filepath: hyde.yml
+
+hyde:
+  head: |
+    <!-- Custom HTML in the head -->
+    <link rel="stylesheet" href="https://example.com/styles.css">
+```
 
 ### Navigation Menu & Sidebar
 
