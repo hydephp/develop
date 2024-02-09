@@ -200,6 +200,30 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 'footer' => 'false',
 ```
 
+### Head and script HTML hooks
+
+>info Note: The configuration options `head` and `scripts` were added in HydePHP v1.5. If you are running an older version, you need to use the Blade options, or upgrade your project.
+
+While the most robust way to add custom HTML to the head or body of your site is to publish the Blade layouts, or pushing to the `meta` or `scripts` stacks,
+you can also add custom HTML directly in the configuration file. This works especially well to quickly add things like analytics widgets or similar in the `hyde.yml` file, though the possibilities are endless.
+
+To add custom HTML to your layouts, you can use the `head` and `scripts` configuration options in the `config/hyde.php` file (or the `hyde.yml` file).
+The HTML will be added to the `<head>` section, or just before the closing `</body>` tag, respectively.
+
+```php
+// filepath: config/hyde.php
+'head' => '<!-- Custom HTML in the head -->',
+'scripts' => '<!-- Custom HTML in the body -->',
+```
+
+```yaml
+# filepath: hyde.yml
+hyde:
+  head: "<!-- Custom HTML in the head -->"
+  scripts: "<!-- Custom HTML in the body -->"
+```
+
+
 ### Navigation Menu & Sidebar
 
 A great time-saving feature of HydePHP is the automatic navigation menu and documentation sidebar generation.
