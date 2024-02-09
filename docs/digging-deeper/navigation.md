@@ -58,10 +58,10 @@ You don't need to specify all the keys, only the ones you want to customize.
 
 ```yaml
 navigation:
-    'label' => 'string', # The text to display
-    'priority' => 'int',  # Order is also supported
-    'hidden' => 'bool',  # Visible is also supported (but obviously invert the value)
-    'group' => 'string', # Category is also supported
+    label: string  # The text to display
+    priority: int  # Order is also supported
+    hidden: bool   # Visible is also supported (but obviously invert the value)
+    group: string  # Category is also supported
 ```
 
 ## Digging deeper into the internals
