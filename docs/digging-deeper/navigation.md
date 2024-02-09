@@ -22,7 +22,7 @@ and does its best to automatically configure them in the way that you most likel
 Of course, this won't always be perfect, so thankfully Hyde makes it a breeze to customize these menus to your liking.
 Keep on reading to learn how! To learn even more about the sidebars, visit the [Documentation Pages](documentation-pages) documentation.
 
-## Quick primer on the internals
+### Quick primer on the internals
 
 It may be beneficial to understand the internal workings of the navigation menus to take full advantage of the options.
 
@@ -31,7 +31,7 @@ they are configured are very similar, making the documentation here applicable t
 
 See the [Digging Deeper](#digging-deeper-into-the-internals) section of this page if you want the full scoop on the internals!
 
-## What to customize?
+### What to customize?
 
 Here is a quick overview of what you might want to customize in your navigation menus:
 
@@ -40,7 +40,7 @@ Here is a quick overview of what you might want to customize in your navigation 
 - Navigation menu item visibility - control if pages may show up in the menus
 - Navigation menu item grouping - group pages together in dropdowns
 
-## How and where to customize?
+### How and where to customize?
 
 Hyde provides a few different ways to customize the navigation menus, depending on what you prefer.
 
