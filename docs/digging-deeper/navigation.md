@@ -154,6 +154,42 @@ The offset is added to make it easier to place pages earlier in the list using f
 ]
 ```
 
+#### Explicit syntax for changing the priorities
+
+You can also specify explicit priorities by adding a value to the array key:
+
+```php
+// filepath: config/hyde.php
+
+'navigation' => [
+    'order' => [
+        'home' => 10, // Gets priority 10
+        'about' => 15, // Gets priority 15
+        'contact' => 20, // Gets priority 20
+    ]
+]
+```
+
+```php
+// filepath: config/docs.php
+
+'sidebar_order' => [
+    'readme' => 10, // Gets priority 10
+    'installation' => 15, // Gets priority 15
+    'getting-started' => 20, // Gets priority 20
+]
+```
+
+You can of course also combine these methods if you want:
+
+```php
+// filepath: Applicable to both
+[
+    'readme' => 10, // Gets priority 10
+    'installation', // Gets priority 500
+    'getting-started', // Gets priority 501
+]
+```
 
 ## Digging deeper into the internals
 
