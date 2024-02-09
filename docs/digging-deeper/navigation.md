@@ -27,14 +27,14 @@ Keep on reading to learn how! To learn even more about the sidebars, visit the [
 It may be beneficial to understand the internal workings of the navigation menus to take full advantage of the options.
 
 In short, both navigation menu types extend the same class (meaning they share the same base code), this means that the way
-they are configured are very similar, making the documentation here applicable to both types of menus.
+they are configured is very similar, making the documentation here applicable to both types of menus.
 
 See the [Digging Deeper](#digging-deeper-into-the-internals) section of this page if you want the full scoop on the internals!
 
 ### Primer on priorities
 
-All navigation menu items have an internal priority value that determines its order in the navigation.
-Lower values means that the item will be higher up in the menu. The default for pages is `999` which puts them last.
+All navigation menu items have an internal priority value that determines their order in the navigation.
+Lower values mean that the item will be higher up in the menu. The default for pages is `999` which puts them last.
 However, some pages are autoconfigured to have a lower priority, for example, the `index` page defaults to a priority of `0`,
 
 ### What to customize?
@@ -50,7 +50,7 @@ Here is a quick overview of what you might want to customize in your navigation 
 
 Hyde provides a few different ways to customize the navigation menus, depending on what you prefer.
 
-Specifying the data in the front matter will override any dynamically inferred or config defined priority.
+Specifying the data in the front matter will override any dynamically inferred or config-defined priority.
 While this is useful for one-offs, it can make it harder to reorder items later on as you can't see the whole picture at once.
 It's up to you which method you prefer to use.
 
@@ -226,10 +226,10 @@ To remove items from being automatically added, simply add the page's route key 
 
 ### Adding Custom Navigation Menu Links
 
-You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
+You can easily add custom navigation menu links similar to how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
 
 When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the
-destination and label, both required. Third argument is the priority, which is optional, and defaults to `500`.
+destination and label, both required. The third argument is the priority, which is optional, and defaults to `500`.
 
 ```php
 // filepath config/hyde.php
@@ -269,7 +269,7 @@ HydePHP has a neat feature to automatically place pages in dropdowns based on su
 
 #### Automatic navigation menu dropdowns
 
-For pages that can be in the main site menu, ths feature needs to be enabled in the `hyde.php` config file.
+For pages that can be in the main site menu, this feature needs to be enabled in the `hyde.php` config file.
 
 ```php
 // filepath config/hyde.php
@@ -283,7 +283,7 @@ Now if you create a page called `_pages/about/contact.md` it will automatically 
 
 #### Automatic documentation sidebar grouping
 
-This feature works similarly to the automatic navigation menu dropdowns, but instead place the sidebar items in named groups.
+This feature works similarly to the automatic navigation menu dropdowns, but instead places the sidebar items in named groups.
 This feature is enabled by default, so you only need to place your pages in subdirectories to have them grouped.
 
 For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
