@@ -123,7 +123,7 @@ Next up, let's look at how to customize the navigation menus using the config fi
 - To customize the sidebar, use the setting `sidebar_order` in the `docs.php` config.
 - When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
 
-### `navigation.order` and `sidebar_order`
+### Changing the priorities
 
 The `navigation.order` and `sidebar_order` settings allow you to customize the order of the pages in the navigation menus.
 
