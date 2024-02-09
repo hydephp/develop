@@ -99,7 +99,10 @@ jobs:
         run: zip -r site.zip _site
 
       - name: Sign the artifact
-        run: openssl dgst -sha256 -sign ${{ secrets.CI_PREVIEW_SIGNING_RSA_PRIVATE_KEY }} -out signature.bin site.zip
+        run: |
+          echo ${{ secrets.CI_PREVIEW_SIGNING_RSA_PRIVATE_KEY }} > private.pem
+          openssl dgst -sha256 -sign private.pem -out signature.bin site.zip
+          unlink private.pem
 
       - name: Upload the artifact
         run: |
