@@ -100,6 +100,9 @@ and where the data is from as well as where it can be overridden.
 The sidebar is automatically generated from the files in the `_docs` directory. You will probably want to change the order
 of these items. You can do this in two ways, either in the config or with front matter using the navigation array settings.
 
+Since this feature shares a lot of similarities and implementation details with the navigation menu,
+I recommend you read the [navigation menu documentation](navigation-menu) page as well to learn more about the fundamentals and terminology.
+
 ### Sidebar ordering
 
 The sidebar is sorted/ordered by the `priority` property. The higher the priority the further down in the sidebar it will be.
