@@ -226,6 +226,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom head and body HTML hooks
+    |--------------------------------------------------------------------------
+    |
+    | While the best way to add custom `<head>` and `<body>` code is to use the
+    | Blade components, you can also add them here. This is useful for adding
+    | scripts like analytics codes, chat widgets, or even custom styles.
+    |
+    */
+
+    'hooks' => [
+        'head' => '',
+        'body' => '',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Features
     |--------------------------------------------------------------------------
     |
