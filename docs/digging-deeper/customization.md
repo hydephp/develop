@@ -258,9 +258,7 @@ You can also combine these options if you want:
 ]
 ```
 
-You can also set the priority of a page directly in the front matter. This will override any dynamically inferred or
-config defined priority. While this is useful for one-offs, it can make it harder to reorder items later on.
-It's up to you which method you prefer to use. This setting can be used both for the navigation menu and the sidebar.
+You can also set the priority of a page directly in the front matter. 
 
 ```markdown
 ---

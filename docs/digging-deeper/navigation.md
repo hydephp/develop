@@ -50,6 +50,10 @@ Here is a quick overview of what you might want to customize in your navigation 
 
 Hyde provides a few different ways to customize the navigation menus, depending on what you prefer.
 
+Specifying the data in the front matter will override any dynamically inferred or config defined priority.
+While this is useful for one-offs, it can make it harder to reorder items later on as you can't see the whole picture at once.
+It's up to you which method you prefer to use.
+
 To customize how a page is represented in navigation, you can either set the `navigation` front matter data in the page's markdown file,
 or configure it in the config file. Main navigation items are in the `hyde` config file, while documentation sidebar items are in the `docs` config file.
 General options for the entire navigation menus are also available in the `hyde` and `docs` config files. 
