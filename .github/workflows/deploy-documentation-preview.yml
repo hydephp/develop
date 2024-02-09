@@ -94,9 +94,3 @@ jobs:
 
       - name: Compile the static site
         run: php hyde build
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: 'preview-docs'
-          path: '_site/dev-docs-preview'
