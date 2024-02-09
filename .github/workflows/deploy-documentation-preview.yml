@@ -100,33 +100,3 @@ jobs:
         with:
           name: 'preview-docs'
           path: '_site/dev-docs-preview'
-
-
-  upload-generated-site:
-
-    runs-on: ubuntu-latest
-    needs:
-      - build-documentation-preview
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: 'gh-pages'
-
-      - name: Reset output directories
-        run: |
-          rm -rf pr-${{ github.event.pull_request.number }}/dev-docs-preview
-          mkdir -p pr-${{ github.event.pull_request.number }}/dev-docs-preview
-
-      - name: Download documentation artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: preview-docs
-          path: pr-${{ github.event.pull_request.number }}/dev-docs-preview
-
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          pull: 'origin gh-pages'
-          add: 'pr-${{ github.event.pull_request.number }}/dev-docs-preview'
-          message: 'Upload documentation preview for PR ${{ github.event.pull_request.number }}'
