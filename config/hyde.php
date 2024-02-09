@@ -226,7 +226,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Custom head and body HTML hooks
+    | Custom head and script HTML hooks
     |--------------------------------------------------------------------------
     |
     | While the best way to add custom `<head>` and `<body>` code is to use the
