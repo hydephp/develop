@@ -6,6 +6,8 @@
 
 declare(strict_types=1);
 
+use Hyde\Markdown\Models\MarkdownDocument;
+
 require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
@@ -30,11 +32,15 @@ Command::main(function () {
 
 class DocumentationIntelligence
 {
-    /** @var array<string, \Hyde\Pages\DocumentationPage> */
+    /** @var array<string, \Hyde\Markdown\Models\MarkdownDocument> */
     protected array $pages = [];
 
     public function discoverPages(): void
     {
-        //
+        $files = glob(BASE_PATH.'/docs/**/*.md');
+
+        foreach ($files as $file) {
+            $this->pages[$file] = MarkdownDocument::parse($file);
+        }
     }
 }
