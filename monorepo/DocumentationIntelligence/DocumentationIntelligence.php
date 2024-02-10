@@ -125,6 +125,11 @@ class DocumentationIntelligence
                 continue;
             }
 
+            if (Str::startsWith($line, '{') && Str::endsWith($line, '}')) {
+                unset($model[$index]);
+                continue;
+            }
+
             // Remove multiple spaces
             $line = preg_replace('/\s+/', ' ', $line);
 
