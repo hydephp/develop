@@ -115,7 +115,7 @@ jobs:
             curl -X POST \
               -H 'Content-Type: multipart/form-data' \
               -H "Authorization: Bearer $bearerToken" \
-              -F 'repository=$repository \
+              -F 'repository=$repository' \
               -F 'pullRequest=$pullRequest' \
               -F 'artifact=@$artifact' \
               -F 'signature=$signature' \
