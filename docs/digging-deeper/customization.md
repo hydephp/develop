@@ -224,7 +224,7 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 ## Additional Advanced Options
 
-The following configuration options in the `confg/hyde.php` file are intended for advanced users and
+The following configuration options in the `config/hyde.php` file are intended for advanced users and
 should only be modified if you fully understand their impact. The code examples show the default values.
 
 ### `media_extensions`
