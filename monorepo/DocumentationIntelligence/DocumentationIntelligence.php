@@ -60,10 +60,10 @@ class DocumentationIntelligence
     {
         // This script generates a single .txt model of all HydePHP documentation
 
-        $model = 'Start HydePHP Documentation (Framework version v'. HydeKernel::VERSION.")\n\n";
+        $model = sprintf("Start HydePHP Documentation (Framework version v%s)\n\n", HydeKernel::VERSION);
 
         foreach ($this->pages as $path => $page) {
-            $model .= '--- '.$path." ---\n\n".$page->markdown."\n\n";
+            $model .= sprintf("--- %s ---\n\n%s\n\n", $path, $page->markdown);
         }
 
         file_put_contents(OUTPUT_PATH.'/model.txt', $model);
