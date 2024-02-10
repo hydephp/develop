@@ -6,6 +6,7 @@
 
 declare(strict_types=1);
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
 require_once __DIR__.'/../../vendor/autoload.php';
@@ -32,8 +33,17 @@ Command::main(function () {
 
 class DocumentationIntelligence
 {
+    protected HydeKernel $kernel;
+
     /** @var array<string, \Hyde\Markdown\Models\MarkdownDocument> */
     protected array $pages = [];
+
+    public function __construct()
+    {
+        $this->kernel = new HydeKernel(BASE_PATH);
+
+        HydeKernel::setInstance($this->kernel);
+    }
 
     public function discoverPages(): void
     {
