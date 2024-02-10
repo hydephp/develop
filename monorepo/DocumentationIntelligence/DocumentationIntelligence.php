@@ -49,7 +49,8 @@ class DocumentationIntelligence
         $files = glob(BASE_PATH.'/docs/**/*.md');
 
         foreach ($files as $file) {
-            $this->pages[$file] = MarkdownDocument::parse($file);
+            $filepath = str_replace(BASE_PATH.'/docs/', '', $file);
+            $this->pages[$filepath] = MarkdownDocument::parse($file);
         }
     }
 }
