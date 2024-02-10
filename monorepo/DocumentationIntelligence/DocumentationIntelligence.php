@@ -100,6 +100,8 @@ class DocumentationIntelligence
             $model .= sprintf("--- %s ---\n\n%s\n\n", $path, $page->markdown);
         }
 
+        $model = str_replace("\r\n", "\n", $model);
+
         file_put_contents(OUTPUT_PATH.'/model.txt', $model);
     }
 
