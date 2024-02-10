@@ -14,7 +14,7 @@ require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
 define('TIME_START', microtime(true));
 define('BASE_PATH', realpath(__DIR__.'/../../'));
-define('OUTPUT_PATH', __DIR__.'/results');
+define('OUTPUT_PATH', realpath(__DIR__.'/results'));
 
 Command::main(function () {
     /** @var Command $this */
