@@ -10,8 +10,6 @@ on:
 jobs:
 
   build-and-deploy-documentation-preview:
-    # We could add a check to only rerun if docs have changed since last run on the PR
-    # But this would require a state storage, and the current version is good enough.
     if: "! contains(github.event.pull_request.labels.*.name, 'pause-pages')"
 
     environment:
