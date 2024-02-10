@@ -24,6 +24,7 @@ Command::main(function () {
     $generator = new DocumentationIntelligence();
 
     task('discover pages', fn () => $generator->discoverPages());
+    task('assemble model', fn () => $generator->assembleModel());
 
     $this->line();
     $this->info('Time taken: '.round((microtime(true) - TIME_START) * 1000, 2).'ms');
@@ -53,5 +54,18 @@ class DocumentationIntelligence
             $filepath = str_replace(BASE_PATH.'/docs/', '', $file);
             $this->pages[$filepath] = MarkdownDocument::parse($file);
         }
+    }
+
+    public function assembleModel(): void
+    {
+        // This script generates a single .txt model of all HydePHP documentation
+
+        $model = 'Start HydePHP Documentation (Framework version v'.\Hyde\Foundation\HydeKernel::VERSION.")\n\n";
+
+        foreach ($this->pages as $path => $page) {
+            $model .= '--- '.$path." ---\n\n".$page->markdown."\n\n";
+        }
+
+        file_put_contents(OUTPUT_PATH.'/model.txt', $model);
     }
 }
