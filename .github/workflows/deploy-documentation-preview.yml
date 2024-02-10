@@ -22,9 +22,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
+# Disabled as it should not be necessary, and it takes a long time to run
+#      - uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: "8.1"
 
       - name: Cache Composer packages
         id: composer-cache
