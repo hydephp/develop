@@ -22,9 +22,7 @@ Command::main(function () {
 
     $generator = new DocumentationIntelligence();
 
-    task('discover pages', function () use ($generator) {
-        $generator->discoverPages();
-    });
+    task('discover pages', fn () => $generator->discoverPages());
 
     $this->line();
     $this->info('Time taken: '.round((microtime(true) - TIME_START) * 1000, 2).'ms');
