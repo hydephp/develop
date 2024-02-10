@@ -38,7 +38,9 @@ class DocumentationIntelligence
 
     public function __construct()
     {
-        HydeKernel::setInstance($this->kernel = new HydeKernel(realpath(__DIR__.'/../../')));
+        $this->kernel = new HydeKernel(realpath(__DIR__.'/../../'));
+
+        HydeKernel::setInstance($this->kernel);
     }
 
     public function discoverPages(): void
