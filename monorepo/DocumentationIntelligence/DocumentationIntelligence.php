@@ -123,9 +123,7 @@ class DocumentationIntelligence
             if (Str::startsWith($line, $needles)) {
                 unset($model[$index]);
                 continue;
-            }
-
-            if (Str::startsWith($line, '{') && Str::endsWith($line, '}')) {
+            } elseif (Str::startsWith($line, '{') && Str::endsWith($line, '}')) {
                 unset($model[$index]);
                 continue;
             }
