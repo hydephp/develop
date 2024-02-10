@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Hyde\Foundation\HydeKernel;
+
 require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
@@ -28,14 +30,14 @@ Command::main(function () {
  */
 class DocumentationIntelligence
 {
-    protected \Hyde\Foundation\HydeKernel $kernel;
+    protected HydeKernel $kernel;
 
     /** @var array<string, \Hyde\Pages\DocumentationPage> */
     protected array $pages = [];
 
     public function __construct()
     {
-        \Hyde\Foundation\HydeKernel::setInstance($this->kernel = new \Hyde\Foundation\HydeKernel(realpath(__DIR__.'/../../')));
+        HydeKernel::setInstance($this->kernel = new HydeKernel(realpath(__DIR__.'/../../')));
     }
 
     public function discoverPages(): void
