@@ -138,6 +138,8 @@ class DocumentationIntelligence
             $line = preg_replace('/^>\w+ /', '', $line);
             $line = ltrim($line, '> ');
 
+            // Now we remove even more Markdown syntax to only keep the text
+
             $model[$index] = rtrim($line);
         }
         $model = implode("\n", $model);
