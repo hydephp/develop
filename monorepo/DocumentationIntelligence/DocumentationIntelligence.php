@@ -134,6 +134,6 @@ class DocumentationIntelligence
         // Remove multiple newlines
         $model = preg_replace('/\n{3,}/', "\n\n", $model);
 
-        file_put_contents(OUTPUT_PATH.'/model-pruned.txt', $model);
+        file_put_contents(OUTPUT_PATH.'/model-pruned.txt', rtrim($model)."\n");
     }
 }
