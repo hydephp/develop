@@ -43,6 +43,7 @@ hyde()->version();
 
 The Kernel instance is constructed in `bootstrap.php`, and is available globally as `$hyde`.
 
+
 ## The kernel lifecycle
 
 Whenever we talk about the kernel being "booted" we are talking about the kernel's role in the autodiscovery process.
