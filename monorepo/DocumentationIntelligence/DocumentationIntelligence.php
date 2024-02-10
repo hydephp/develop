@@ -149,6 +149,9 @@ class DocumentationIntelligence
             // Replace links with their text (but put the text within quotes)
             $line = preg_replace('/\[(.*?)\]\(.*?\)/', "'\$1'", $line);
 
+            // Remove HTML tags (This does remove some examples, like `<identifier>`)
+            $line = strip_tags($line);
+
             $model[$index] = rtrim($line);
         }
         $model = implode("\n", $model);
