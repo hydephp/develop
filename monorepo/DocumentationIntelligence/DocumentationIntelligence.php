@@ -114,7 +114,7 @@ class DocumentationIntelligence
 
         // Remove all code blocks
         $model = preg_replace('/```.*?```/s', '', $model);
-        $model = preg_replace('/<pre>.*?<\/pre>/s', '', $model);
+        $model = preg_replace('/<pre.*?<\/pre>/s', '', $model);
 
         $needles = ['<!-- ', '[Blade]: ', '--- redirects/', '<meta http-equiv="refresh" ', 'Redirecting you to ['];
         $model = explode("\n", $model);
