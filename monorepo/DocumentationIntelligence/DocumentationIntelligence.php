@@ -6,6 +6,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Str;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
@@ -112,6 +113,19 @@ class DocumentationIntelligence
         $model = file_get_contents(OUTPUT_PATH.'/model.txt');
 
         $model = preg_replace('/```.*?```/s', '', $model);
+
+        $model = preg_replace('/<pre>.*?<\/pre>/s', '', $model);
+
+        $model = explode("\n", $model);
+        foreach ($model as $index => $line) {
+            if (Str::startsWith($line, ['<!-- ', '[Blade]: ','--- redirects/', '<meta http-equiv="refresh" ', 'Redirecting you to ['])) {
+                unset($model[$index]);
+            }
+        }
+        $model = implode("\n", $model);
+
+        // Remove multiple newlines
+        $model = preg_replace('/\n{3,}/', "\n\n", $model);
 
         file_put_contents(OUTPUT_PATH.'/model-pruned.txt', $model);
     }
