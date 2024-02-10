@@ -140,6 +140,9 @@ class DocumentationIntelligence
 
             // Now we remove even more Markdown syntax to only keep the text
 
+            // Replace links with their text (but put the text within quotes)
+            $line = preg_replace('/\[(.*?)\]\(.*?\)/', "'\$1'", $line);
+
             $model[$index] = rtrim($line);
         }
         $model = implode("\n", $model);
