@@ -7,6 +7,12 @@ require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
 define('TIME_START', microtime(true));
 
+Command::main(function () {
+    $this->info('Generating documentation intelligence...');
+    $this->info('Time taken: '.round((microtime(true) - TIME_START) * 1000, 2).'ms');
+    return 0;
+});
+
 /**
  * @internal
  */
