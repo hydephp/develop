@@ -26,6 +26,7 @@ Command::main(function () {
 
     $this->line();
     $this->info('Time taken: '.round((microtime(true) - TIME_START) * 1000, 2).'ms');
+
     return 0;
 });
 
