@@ -181,6 +181,12 @@ class DocumentationIntelligence
                 $line = str_replace('.,', '.', $line);
             }
 
+            // Simplify lists with removed text
+            if (Str::startsWith($line, '- \'') && Str::endsWith($line, '\'')) {
+                // Remove the quotes
+                $line = '- '. substr($line, 3, -1);
+            }
+
             $model[$index] = rtrim($line);
         }
 
