@@ -87,7 +87,7 @@ jobs:
       - name: Configure environment variables
         run: |
           echo 'SITE_NAME="HydePHP Documentation Preview"' >> .env
-          echo 'SITE_URL="https://hydephp.github.io/develop/pr-${{ github.event.pull_request.number }}/dev-docs-preview"' >> .env
+          echo 'SITE_URL="https://ci.hydephp.com/previews/develop/${{ github.event.pull_request.number }}"' >> .env
 
       - name: Move documentation files
         run: rm -rf _docs && mv -f docs _docs
