@@ -132,6 +132,14 @@ class DocumentationIntelligence
             } elseif (Str::startsWith($line, '<a name') && Str::endsWith($line, '></a>')) {
                 unset($model[$index]);
                 continue;
+            } elseif (Str::startsWith($line, '|-') && Str::endsWith($line, '-|')) {
+                // Table dividers
+                unset($model[$index]);
+                continue;
+            } elseif (filled($line) && empty(str_replace(['|', ' '], '', $line))) {
+                // Empty table row
+                unset($model[$index]);
+                continue;
             } elseif ($line === '</div>') {
                 unset($model[$index]);
                 continue;
@@ -160,6 +168,13 @@ class DocumentationIntelligence
 
             // Remove HTML tags (This does remove some examples, like `<identifier>`)
             $line = strip_tags($line);
+
+            // Replace tables with comma-separated values
+            if (Str::startsWith($line, '|') && Str::endsWith($line, '|')) {
+                $line = str_replace(['| |'], '|', $line);
+                $line = trim(str_replace([' | '], ', ', $line), '| ');
+                $line = str_replace('.,', '.', $line);
+            }
 
             $model[$index] = rtrim($line);
         }
