@@ -41,7 +41,9 @@ class DocumentationIntelligence
     public function __construct()
     {
         $this->kernel = new HydeKernel(realpath(__DIR__.'/../../'));
-        $this->app = require_once __DIR__.'/../../app/bootstrap.php';
+        $this->app = tap(require_once __DIR__ . '/../../app/bootstrap.php', function (Application $app) {
+            $app->setBasePath(__DIR__ . '/../../');
+        });
 
         HydeKernel::setInstance($this->kernel);
     }
