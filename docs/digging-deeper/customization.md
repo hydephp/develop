@@ -212,7 +212,7 @@ Still, you will likely want to customize some parts of these menus, and thankful
 - To customize the navigation menu, use the setting `navigation.order` in the `hyde.php` config.
 - When customizing the navigation menu, you should use the [route key](core-concepts#route-keys) of the page.
 
-Learn more in the [Navigation Menu](navigation) documentation.
+Learn more in the [Navigation Menu](navigation-menus) documentation.
 
 #### Customizing the documentation sidebar
 
@@ -221,15 +221,156 @@ Learn more in the [Navigation Menu](navigation) documentation.
 
 Learn more in the [Documentation Pages](documentation-pages) documentation.
 
+>info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
+
+### Primer on priorities
+
+All navigation menu items have an internal priority value that determines its order in the navigation.
+Lower values means that the item will be higher up in the menu. The default for pages is `999` which puts them last.
+However, some pages are autoconfigured to have a lower priority, for example, the `index` page defaults to a priority of `0`,
+
+#### Basic syntax for changing the priorities
+
+The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`.
+The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
+
+```php
+[
+    'readme', // Gets priority 500
+    'installation', // Gets priority 501
+    'getting-started', // Gets priority 502
+]
+```
+
+#### Explicit syntax for changing the priorities
+
+You can also specify explicit priorities by adding a value to the array key:
+
+```php
+[
+    'readme' => 10, // Gets priority 10
+    'installation' => 15, // Gets priority 15
+    'getting-started' => 20, // Gets priority 20
+]
+```
+
+You can also combine these options if you want:
+
+```php
+[
+    'readme' => 10, // Gets priority 10
+    'installation', // Gets priority 500
+    'getting-started', // Gets priority 501
+]
+```
+
+You can also set the priority of a page directly in the front matter. This will override any dynamically inferred or
+config defined priority. While this is useful for one-offs, it can make it harder to reorder items later on.
+It's up to you which method you prefer to use. This setting can be used both for the navigation menu and the sidebar.
+
+```markdown
+---
+navigation:
+    priority: 25
+---
+```
+
+#### Changing the menu item labels
+
+Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
+You can override the label using the `navigation.label` front matter property.
+
+From the Hyde config you can also override the label of navigation links using the by mapping the route key
+to the desired title. Note that the front matter property will take precedence over the config property.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'labels' => [
+        'index' => 'Start',
+        'docs/index' => 'Documentation',
+    ]
+]
+```
+
+#### Excluding Items (Blacklist)
+
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu.
+To remove items from being automatically added, simply add the page's route key to the blacklist.
+As you can see, the `404` page has already been filled in for you.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'exclude' => [
+        '404'
+    ]
+]
+```
+
+You can also specify that a page should be excluded by setting the page front matter.
+
+```markdown
+---
+navigation:
+    hidden: true
+---
+
+#### Adding Custom Navigation Menu Links
+
+You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
+
+When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the
+destination and label, both required. Third argument is the priority, which is optional, and defaults to 500.
+
+```php
+// filepath config/hyde.php
+use Hyde\Framework\Features\Navigation\NavItem;
+
+'navigation' => [
+    'custom' => [
+        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+    ]
+]
+```
+
+Simplified, this will then be rendered as follows:
+
+```html
+<a href="https://github.com/hydephp/hyde">GitHub</a>
+```
+
+#### Automatic navigation menu dropdowns
+
+HydePHP has a neat feature to automatically place pages in dropdowns based on subdirectories.
+
+For pages that can be in the main site menu, ths feature needs to be enabled in the `hyde.php` config file.
+
+```php
+// filepath config/hyde.php
+
+'navigation' => [
+    'subdirectories' => 'dropdown',
+],
+```
+
+Now if you create a page called `_pages/about/contact.md` it will automatically be placed in a dropdown called "About".
+
+#### Automatic documentation sidebar grouping
+
+This feature works similarly to the automatic navigation menu dropdowns, but instead place the sidebar items in named groups.
+This feature is enabled by default, so you only need to place your pages in subdirectories to have them grouped.
+
+For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
 
 ## Additional Advanced Options
 
-The following configuration options in the `confg/hyde.php` file are intended for advanced users and
+The following configuration options in the `confg/hyde.php` file are intended for advanced users and 
 should only be modified if you fully understand their impact. The code examples show the default values.
 
 ### `media_extensions`
 
-This option allows you to specify file extensions considered as media files, which will be copied to the output directory.
+This option allows you to specify file extensions considered as media files, which will be copied to the output directory. 
 To add more extensions, either append them to the existing array or override the entire array.
 
 ```php
@@ -282,7 +423,6 @@ use \Hyde\Framework\Services\AssetService;
 'hydefront_cdn_url' => AssetService::HYDEFRONT_CDN_URL,
 ```
 
-
 ## Blade Views
 
 Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.
@@ -296,13 +436,11 @@ php hyde publish:views
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
-
 ## Frontend Styles
 
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
 for you to get up and running quickly. If you want to customize these, you are free to do so.
 Please see the [Managing Assets](managing-assets) page to learn more.
-
 
 ## Markdown Configuration
 
@@ -365,7 +503,6 @@ arbitrary PHP code specified in Markdown to be executed. It's easy to enable how
 ```
 
 See the [Blade in Markdown](advanced-markdown#blade-support) documentation for more information on how to use this feature.
-
 
 ## YAML Configuration
 

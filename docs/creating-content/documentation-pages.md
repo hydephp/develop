@@ -100,8 +100,12 @@ and where the data is from as well as where it can be overridden.
 The sidebar is automatically generated from the files in the `_docs` directory. You will probably want to change the order
 of these items. You can do this in two ways, either in the config or with front matter using the navigation array settings.
 
-Since this feature shares a lot of similarities and implementation details with the navigation menu,
-I recommend you read the [navigation menu documentation](navigation) page as well to learn more about the fundamentals and terminology.
+### Table of contents
+
+Hyde automatically generates a table of contents for the page and adds it to the sidebar.
+
+The behaviour of this can be changed in the configuration file.
+See [the customization page](customization#navigation-menu--sidebar) for more details.
 
 ### Sidebar ordering
 
@@ -133,7 +137,7 @@ Sidebar grouping allows you to group items in the sidebar into categories. This 
 The Hyde docs for instance use this.
 
 The feature is enabled automatically when one or more of your documentation pages have the `navigation.group` property set
-in the front matter, or when subdirectories are used. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
+in the front matter. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
 Any pages without the group front matter will get put in the "Other" group.
 
 ### Sidebar footer customization
@@ -165,9 +169,7 @@ You can also automatically group your documentation pages by placing source file
 
 For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter seen above.
 
->info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they overwrite each other.
-
->info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
+>info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories.
 
 ### Hiding items
 
@@ -249,8 +251,6 @@ Please note that this option is not added to the config file by default, as it's
 ```
 
 ### Table of contents settings
-
-Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
 In the `config/docs.php` file you can configure the behaviour, content, and the look and feel of the sidebar table of contents.
 You can also disable the feature completely.
