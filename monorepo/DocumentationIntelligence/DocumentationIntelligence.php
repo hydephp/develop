@@ -125,12 +125,10 @@ class DocumentationIntelligence
                 continue;
             }
 
-            $line = rtrim($line);
-
             // Remove multiple spaces
             $line = preg_replace('/\s+/', ' ', $line);
 
-            $model[$index] = $line;
+            $model[$index] = rtrim($line);
         }
         $model = implode("\n", $model);
 
