@@ -26,6 +26,25 @@ Command::main(function () {
     task('discover pages', fn () => $generator->discoverPages());
     task('assemble model', fn () => $generator->assembleModel());
 
+    task('get data', function () use (&$data) {
+        $data = [
+            number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
+            number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
+            number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
+        ];
+    });
+
+    $this->line();
+
+    $this->line(sprintf(<<<'EOF'
+        Full model details:
+            Model size: %s
+            Model words: %s
+            Model lines: %s
+        EOF,
+        ...$data
+    ));
+
     $this->line();
     $this->info(sprintf('Time taken: %s. Memory used: %s',
         number_format((microtime(true) - TIME_START) * 1000, 2).'ms',
