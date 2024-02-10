@@ -134,8 +134,9 @@ class DocumentationIntelligence
             // Remove heading tags
             $line = ltrim($line, '# ');
 
-            // Trim colored blockquotes (['>danger', '>info', '>success', '>warning'])
+            // Trim colored and normal blockquotes (['>danger', '>info', '>success', '>warning'])
             $line = preg_replace('/^>\w+ /', '', $line);
+            $line = ltrim($line, '> ');
 
             $model[$index] = rtrim($line);
         }
