@@ -10,8 +10,6 @@ on:
 jobs:
 
   build-and-deploy-documentation-preview:
-    # We could add a check to only rerun if docs have changed since last run on the PR
-    # But this would require a state storage, and the current version is good enough.
     if: "! contains(github.event.pull_request.labels.*.name, 'pause-pages')"
 
     environment:
@@ -22,10 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-# Disabled as it should not be necessary, and it takes a long time to run
-#      - uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: "8.1"
 
       - name: Cache Composer packages
         id: composer-cache
@@ -113,7 +107,7 @@ jobs:
             pullRequest="${{ github.event.pull_request.number }}"
             signature="$(openssl base64 -in signature.bin)"
             artifact="site.zip"
-          
+
             curl -X POST --fail-with-body \
               -H "Content-Type: multipart/form-data" \
               -H "Authorization: Bearer $bearerToken" \

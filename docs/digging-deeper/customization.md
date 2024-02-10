@@ -221,14 +221,15 @@ Learn more in the [Navigation Menu](navigation) documentation.
 
 Learn more in the [Documentation Pages](documentation-pages) documentation.
 
+
 ## Additional Advanced Options
 
-The following configuration options in the `confg/hyde.php` file are intended for advanced users and 
+The following configuration options in the `confg/hyde.php` file are intended for advanced users and
 should only be modified if you fully understand their impact. The code examples show the default values.
 
 ### `media_extensions`
 
-This option allows you to specify file extensions considered as media files, which will be copied to the output directory. 
+This option allows you to specify file extensions considered as media files, which will be copied to the output directory.
 To add more extensions, either append them to the existing array or override the entire array.
 
 ```php
@@ -281,6 +282,7 @@ use \Hyde\Framework\Services\AssetService;
 'hydefront_cdn_url' => AssetService::HYDEFRONT_CDN_URL,
 ```
 
+
 ## Blade Views
 
 Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.
@@ -294,11 +296,13 @@ php hyde publish:views
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
+
 ## Frontend Styles
 
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
 for you to get up and running quickly. If you want to customize these, you are free to do so.
 Please see the [Managing Assets](managing-assets) page to learn more.
+
 
 ## Markdown Configuration
 
@@ -361,6 +365,7 @@ arbitrary PHP code specified in Markdown to be executed. It's easy to enable how
 ```
 
 See the [Blade in Markdown](advanced-markdown#blade-support) documentation for more information on how to use this feature.
+
 
 ## YAML Configuration
 
