@@ -25,12 +25,18 @@ Command::main(function () {
 
     task('discover pages', fn () => $generator->discoverPages());
     task('assemble model', fn () => $generator->assembleModel());
+    task('create pruned model', fn () => $generator->createPrunedModel());
 
     task('get data', function () use (&$data) {
         $data = [
             number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
             number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
             number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
+
+            number_format(filesize(OUTPUT_PATH.'/model-pruned.txt') / 1024, 2).'KB',
+            number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model-pruned.txt'))),
+            number_format(count(file(OUTPUT_PATH.'/model-pruned.txt')) + 1),
+            number_format((1 - (filesize(OUTPUT_PATH.'/model-pruned.txt') / filesize(OUTPUT_PATH.'/model.txt'))) * 100, 2),
         ];
     });
 
@@ -41,6 +47,12 @@ Command::main(function () {
             Model size: %s
             Model words: %s
             Model lines: %s
+            
+        Pruned model details:
+            Model size: %s
+            Model words: %s
+            Model lines: %s
+            Pruned model compression: %s%%
         EOF,
         ...$data
     ));
@@ -89,5 +101,16 @@ class DocumentationIntelligence
         }
 
         file_put_contents(OUTPUT_PATH.'/model.txt', $model);
+    }
+
+    public function createPrunedModel(): void
+    {
+        // Remove all code blocks from the full model
+
+        $model = file_get_contents(OUTPUT_PATH.'/model.txt');
+
+        $model = preg_replace('/```.*?```/s', '', $model);
+
+        file_put_contents(OUTPUT_PATH.'/model-pruned.txt', $model);
     }
 }
