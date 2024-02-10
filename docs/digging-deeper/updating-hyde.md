@@ -27,7 +27,7 @@ hence why version controlling your site is helpful when updating versions as you
 be helpful to version control the compiled HTML, so you can view a diff of the changes. Be sure to test that your site
 can be built and that it looks as expected after updating before deploying the changes to your live site.
 
-We of course have extensive tests in place run on each single code commit to ensure all code is functional, however, 
+We of course have extensive tests in place run on each single code commit to ensure all code is functional, however,
 it is still possible that some edge cases slip through. This means that a bug fix may impact an edge case that you depend on.
 
 Obligatory related XKCD: [https://xkcd.com/1172](https://xkcd.com/1172)

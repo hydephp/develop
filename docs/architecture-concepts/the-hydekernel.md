@@ -26,7 +26,7 @@ The HydeKernel is stored as a singleton in a static property in its own class an
 Commonly, you'll use the `Hyde` facade which forwards calls to the singleton instance.
 You can also use the `hyde()` function to get the Kernel, and call methods on it.
 
-Since the instance is also bound into the Laravel Application Service Container you can also use Dependency Injection by type-hinting the `HydeKernel::class`. 
+Since the instance is also bound into the Laravel Application Service Container you can also use Dependency Injection by type-hinting the `HydeKernel::class`.
 
 Here are some examples of how you can call methods on the Kernel. All methods call the same method on the same instance, so it's just a matter of preference.
 

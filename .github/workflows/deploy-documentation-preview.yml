@@ -107,7 +107,7 @@ jobs:
             pullRequest="${{ github.event.pull_request.number }}"
             signature="$(openssl base64 -in signature.bin)"
             artifact="site.zip"
-          
+
             curl -X POST --fail-with-body \
               -H "Content-Type: multipart/form-data" \
               -H "Authorization: Bearer $bearerToken" \
