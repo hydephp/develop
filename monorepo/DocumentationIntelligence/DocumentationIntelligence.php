@@ -199,6 +199,17 @@ class DocumentationIntelligence
         }
         $model = $uniqueLines;
 
+        // Pass where we move single word-lines to a new line
+        $aloneWords = [];
+        foreach ($model as $index => $line) {
+            if ((str_word_count($line) === 1) && (! Str::startsWith($line, '- '))) {
+                $aloneWords[] = $line;
+                unset($model[$index]);
+            }
+        }
+        $imploded = implode('. ', $aloneWords);
+        $model[] = "\n".$imploded;
+
         $model = implode("\n", $model);
 
         // Remove multiple newlines
