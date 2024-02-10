@@ -112,13 +112,15 @@ class DocumentationIntelligence
 
         $model = file_get_contents(OUTPUT_PATH.'/model.txt');
 
+        // Remove all code blocks
         $model = preg_replace('/```.*?```/s', '', $model);
-
         $model = preg_replace('/<pre>.*?<\/pre>/s', '', $model);
 
+        // Remove non-informative lines
+        $needles = ['<!-- ', '[Blade]: ', '--- redirects/', '<meta http-equiv="refresh" ', 'Redirecting you to ['];
         $model = explode("\n", $model);
         foreach ($model as $index => $line) {
-            if (Str::startsWith($line, ['<!-- ', '[Blade]: ','--- redirects/', '<meta http-equiv="refresh" ', 'Redirecting you to ['])) {
+            if (Str::startsWith($line, $needles)) {
                 unset($model[$index]);
             }
         }
