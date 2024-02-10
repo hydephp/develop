@@ -13,6 +13,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
 define('TIME_START', microtime(true));
+define('BASE_PATH', realpath(__DIR__.'/../../'));
 
 Command::main(function () {
     /** @var Command $this */
@@ -40,8 +41,8 @@ class DocumentationIntelligence
 
     public function __construct()
     {
-        $this->kernel = new HydeKernel(realpath(__DIR__.'/../../'));
-        $this->app = require_once __DIR__.'/../../app/bootstrap.php';
+        $this->kernel = new HydeKernel(BASE_PATH);
+        $this->app = require_once BASE_PATH.'/app/bootstrap.php';
 
         HydeKernel::setInstance($this->kernel);
     }
