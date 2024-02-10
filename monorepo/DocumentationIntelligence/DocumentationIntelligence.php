@@ -12,9 +12,10 @@ Command::main(function () {
     $this->info('Generating documentation intelligence...');
     $this->line();
 
-    task('run', function () {
-        $generator = new DocumentationIntelligence();
-        $generator->generate();
+    $generator = new DocumentationIntelligence();
+
+    task('discover pages', function () use ($generator) {
+        $generator->discoverPages();
     });
 
     $this->line();
@@ -27,7 +28,10 @@ Command::main(function () {
  */
 class DocumentationIntelligence
 {
-    public function generate(): void
+    /** @var array<string, \Hyde\Pages\DocumentationPage> */
+    protected array $pages = [];
+
+    public function discoverPages(): void
     {
         //
     }
