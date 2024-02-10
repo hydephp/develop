@@ -50,7 +50,7 @@ jobs:
       - name: Update configuration files
         run: |
           echo "output_directories:" >> hyde.yml
-          echo "  Hyde\Pages\DocumentationPage: dev-docs-preview" >> hyde.yml
+          echo "  Hyde\Pages\DocumentationPage: ''" >> hyde.yml
           sed -i "s/'header' => env('SITE_NAME', 'HydePHP').' Docs'/'header' => 'PR #${{ github.event.pull_request.number }} - Docs'/g" config/docs.php
 
       - name: Remove published article component
