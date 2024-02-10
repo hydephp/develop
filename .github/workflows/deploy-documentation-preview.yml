@@ -113,10 +113,10 @@ jobs:
             artifact="site.zip"
           
             curl -X POST \
-              -H 'Content-Type: multipart/form-data' \
+              -H "Content-Type: multipart/form-data" \
               -H "Authorization: Bearer $bearerToken" \
-              -F 'repository=$repository' \
-              -F 'pullRequest=$pullRequest' \
-              -F 'artifact=@$artifact' \
-              -F 'signature=$signature' \
+              -F "repository=$repository" \
+              -F "pullRequest=$pullRequest" \
+              -F "artifact=@$artifact" \
+              -F "signature=$signature" \
               https://ci.hydephp.com/api/deployment-previews
