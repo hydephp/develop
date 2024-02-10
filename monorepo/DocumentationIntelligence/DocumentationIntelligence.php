@@ -166,10 +166,10 @@ class DocumentationIntelligence
             $line = preg_replace('/\[(.*?)\]\(.*?\)/', "'\$1'", $line);
 
             // Remove bold and italic
-            $line = preg_replace('/\*\*(.*?)\*\*/', "\$1", $line);
+            $line = preg_replace('/\*\*(.*?)\*\*/', '$1', $line);
 
             // Remove italic (underscore syntax where there are spaces around the underscore, as it otherwise removes snake_case words)
-            $line = preg_replace('/\b_(.*?)_\b/', "\$1", $line);
+            $line = preg_replace('/\b_(.*?)_\b/', '$1', $line);
 
             // Remove HTML tags (This does remove some examples, like `<identifier>`)
             $line = strip_tags($line);
@@ -184,7 +184,7 @@ class DocumentationIntelligence
             // Simplify lists with removed text
             if (Str::startsWith($line, '- \'') && Str::endsWith($line, '\'')) {
                 // Remove the quotes
-                $line = '- '. substr($line, 3, -1);
+                $line = '- '.substr($line, 3, -1);
             }
 
             $model[$index] = rtrim($line);
