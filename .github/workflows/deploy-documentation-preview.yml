@@ -109,7 +109,7 @@ jobs:
             repository="develop"
             bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
             pullRequest="${{ github.event.pull_request.number }}"
-            signature=$(openssl base64 -in signature.bin)
+            signature="$(openssl base64 -in signature.bin)"
             artifact="site.zip"
           
             curl -X POST \
