@@ -125,7 +125,9 @@ class DocumentationIntelligence
                 continue;
             }
 
-            $model[$index] = rtrim($line);
+            $line = rtrim($line);
+
+            $model[$index] = $line;
         }
         $model = implode("\n", $model);
 
