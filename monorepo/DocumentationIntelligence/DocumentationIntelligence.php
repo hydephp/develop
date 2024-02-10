@@ -128,6 +128,9 @@ class DocumentationIntelligence
             // Remove multiple spaces
             $line = preg_replace('/\s+/', ' ', $line);
 
+            // Remove heading tags
+            $line = ltrim($line, '# ');
+
             $model[$index] = rtrim($line);
         }
         $model = implode("\n", $model);
