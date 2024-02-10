@@ -10,11 +10,14 @@ define('TIME_START', microtime(true));
 Command::main(function () {
     /** @var Command $this */
     $this->info('Generating documentation intelligence...');
-    $this->line('---');
+    $this->line();
 
-    //
+    task('run', function () {
+        $generator = new DocumentationIntelligence();
+        $generator->generate();
+    });
 
-    $this->line('---');
+    $this->line();
     $this->info('Time taken: '.round((microtime(true) - TIME_START) * 1000, 2).'ms');
     return 0;
 });
@@ -24,5 +27,8 @@ Command::main(function () {
  */
 class DocumentationIntelligence
 {
-    //
+    public function generate(): void
+    {
+        //
+    }
 }
