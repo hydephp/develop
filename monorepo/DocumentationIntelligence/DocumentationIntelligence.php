@@ -116,8 +116,10 @@ class DocumentationIntelligence
         $model = preg_replace('/```.*?```/s', '', $model);
         $model = preg_replace('/<pre.*?<\/pre>/s', '', $model);
 
-        $needles = ['<!-- ', '[//]: # ', '[Blade]: ', '--- redirects/', '<meta http-equiv="refresh" ', 'Redirecting you to ['];
         $model = explode("\n", $model);
+
+        // Normalizing pass
+        $needles = ['<!-- ', '[//]: # ', '[Blade]: ', '--- redirects/', '<meta http-equiv="refresh" ', 'Redirecting you to ['];
         foreach ($model as $index => $line) {
             // Remove non-informative lines
             if (Str::startsWith($line, $needles)) {
