@@ -27,7 +27,9 @@ Command::main(function () {
     task('assemble model', fn () => $generator->assembleModel());
 
     $this->line();
-    $this->info(sprintf("Time taken: %s", number_format((microtime(true) - TIME_START) * 1000, 2).'ms'));
+    $this->info(sprintf("Time taken: %s",
+        number_format((microtime(true) - TIME_START) * 1000, 2) . 'ms',
+    ));
 
     return 0;
 });
