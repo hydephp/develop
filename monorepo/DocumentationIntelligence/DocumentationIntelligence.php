@@ -126,6 +126,12 @@ class DocumentationIntelligence
             } elseif (Str::startsWith($line, '{') && Str::endsWith($line, '}')) {
                 unset($model[$index]);
                 continue;
+            } elseif (Str::startsWith($line, '<div') && Str::endsWith($line, '>')) {
+                unset($model[$index]);
+                continue;
+            } elseif ($line === '</div>') {
+                unset($model[$index]);
+                continue;
             }
 
             // Remove multiple spaces
