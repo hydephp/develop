@@ -6,9 +6,6 @@
 
 declare(strict_types=1);
 
-use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Application;
-
 require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
@@ -33,19 +30,8 @@ Command::main(function () {
 
 class DocumentationIntelligence
 {
-    protected HydeKernel $kernel;
-    protected Application $app;
-
     /** @var array<string, \Hyde\Pages\DocumentationPage> */
     protected array $pages = [];
-
-    public function __construct()
-    {
-        $this->kernel = new HydeKernel(BASE_PATH);
-        $this->app = require_once BASE_PATH.'/app/bootstrap.php';
-
-        HydeKernel::setInstance($this->kernel);
-    }
 
     public function discoverPages(): void
     {
