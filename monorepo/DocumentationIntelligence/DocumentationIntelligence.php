@@ -28,8 +28,15 @@ Command::main(function () {
  */
 class DocumentationIntelligence
 {
+    protected \Hyde\Foundation\HydeKernel $kernel;
+
     /** @var array<string, \Hyde\Pages\DocumentationPage> */
     protected array $pages = [];
+
+    public function __construct()
+    {
+        \Hyde\Foundation\HydeKernel::setInstance($this->kernel = new \Hyde\Foundation\HydeKernel(realpath(__DIR__.'/../../')));
+    }
 
     public function discoverPages(): void
     {
