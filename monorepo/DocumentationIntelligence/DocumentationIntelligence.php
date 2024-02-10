@@ -145,6 +145,9 @@ class DocumentationIntelligence
             } elseif ($line === '</div>') {
                 unset($model[$index]);
                 continue;
+            } elseif ($line === '---') {
+                unset($model[$index]);
+                continue;
             }
 
             // Remove multiple spaces
