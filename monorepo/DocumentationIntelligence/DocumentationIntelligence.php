@@ -152,6 +152,12 @@ class DocumentationIntelligence
             // Replace links with their text (but put the text within quotes)
             $line = preg_replace('/\[(.*?)\]\(.*?\)/', "'\$1'", $line);
 
+            // Remove bold and italic
+            $line = preg_replace('/\*\*(.*?)\*\*/', "\$1", $line);
+
+            // Remove italic (underscore syntax where there are spaces around the underscore, as it otherwise removes snake_case words)
+            $line = preg_replace('/\b_(.*?)_\b/', "\$1", $line);
+
             // Remove HTML tags (This does remove some examples, like `<identifier>`)
             $line = strip_tags($line);
 
