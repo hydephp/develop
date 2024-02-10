@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
     paths:
       - 'docs/**'
+      - '.github/workflows/deploy-documentation-preview.yml'
 
 jobs:
 
