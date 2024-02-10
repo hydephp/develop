@@ -272,7 +272,7 @@ Specifies the path where the build manifest should be saved, relative to the pro
 
 These options allow you to specify the HydeFront version and CDN URL when loading `app.css` from the CDN.
 
-Only change these if you know what you're doing as some versions may incompatible with your Hyde version.
+Only change these if you know what you're doing as some versions may be incompatible with your Hyde version.
 
 ```php
 // filepath config/hyde.php
