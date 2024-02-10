@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @internal This script is part of the internal monorepo tools.
+ */
+
 declare(strict_types=1);
 
 use Hyde\Foundation\HydeKernel;
@@ -25,9 +29,6 @@ Command::main(function () {
     return 0;
 });
 
-/**
- * @internal
- */
 class DocumentationIntelligence
 {
     protected HydeKernel $kernel;
