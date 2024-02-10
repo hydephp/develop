@@ -180,6 +180,16 @@ class DocumentationIntelligence
 
             $model[$index] = rtrim($line);
         }
+
+        // Uniqueness pass (we do this manually as array_unique removes empty lines)
+        $uniqueLines = [];
+        foreach ($model as $line) {
+            if (empty($line) || ! in_array($line, $uniqueLines, true)) {
+                $uniqueLines[] = $line;
+            }
+        }
+        $model = $uniqueLines;
+
         $model = implode("\n", $model);
 
         // Remove multiple newlines
