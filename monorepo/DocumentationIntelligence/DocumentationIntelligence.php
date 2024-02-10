@@ -122,6 +122,7 @@ class DocumentationIntelligence
             // Remove non-informative lines
             if (Str::startsWith($line, $needles)) {
                 unset($model[$index]);
+                continue;
             }
         }
         $model = implode("\n", $model);
