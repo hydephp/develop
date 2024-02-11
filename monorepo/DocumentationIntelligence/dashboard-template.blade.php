@@ -10,8 +10,11 @@
 
 <header class="container">
     <div class="row">
-        <div class="col-12 py-4">
+        <div class="col-12 py-4 text-center">
             <h1>HydePHP Documentation Intelligence Dashboard</h1>
+            <p class="lead">
+                This internal monorepo module contains tools to analyse the documentation to improve its quality.
+            </p>
         </div>
     </div>
 </header>
