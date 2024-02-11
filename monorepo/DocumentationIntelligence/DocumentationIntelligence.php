@@ -250,7 +250,7 @@ class DocumentationIntelligence
 
         $extraData = [
             'Compression' => $data['Pruned model compression'],
-            'Reading time' => \Hyde\Support\ReadingTime::fromFile(OUTPUT_PATH.'/model-pruned.txt')->getFormatted('%d mins')
+            'Reading time' => \Hyde\Support\ReadingTime::fromFile(OUTPUT_PATH.'/model-pruned.txt')->getFormatted('%d mins'),
         ];
 
         foreach ($extraData as $key => $value) {
