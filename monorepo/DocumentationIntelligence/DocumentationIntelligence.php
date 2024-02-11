@@ -224,7 +224,7 @@ class DocumentationIntelligence
     {
         $dashboard = file_get_contents(__DIR__.'/dashboard-template.blade.php');
 
-        $data = [];
+        $data = $this->getDashboardData();
 
         foreach ($data as $key => $value) {
             $dashboard = str_replace('{{ $'.$key.' }}', $value, $dashboard);
@@ -235,5 +235,11 @@ class DocumentationIntelligence
         }
 
         file_put_contents(OUTPUT_PATH.'/dashboard.html', $dashboard);
+    }
+
+    /** @return array<string, mixed> */
+    protected function getDashboardData(): array
+    {
+        return [];
     }
 }
