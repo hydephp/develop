@@ -10,6 +10,18 @@ use Illuminate\Support\Str;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
+if (php_sapi_name() !== 'cli') {
+    // Run the file and proxy the dashboard page
+    exec('php '.realpath(__FILE__).' 2>&1', $output, $returnCode);
+
+    if ($returnCode !== 0) {
+        echo '<pre>'.implode("\n", $output).'</pre>';
+        exit(1);
+    }
+
+    return require_once __DIR__.'/results/dashboard.html';
+}
+
 require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../../packages/hydefront/.github/scripts/minima.php';
 
