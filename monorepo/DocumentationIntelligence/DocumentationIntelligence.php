@@ -226,6 +226,7 @@ class DocumentationIntelligence
         return [
             'modelStatistics' => $this->makeModelStatisticsTable(),
             'modelSections' => $this->makeModelSections(),
+            'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
         ];
     }
 
@@ -264,9 +265,18 @@ class DocumentationIntelligence
         // Create textarea for each section
         $sections = explode('--- ', file_get_contents(OUTPUT_PATH.'/model.txt'));
 
+        // Skip the first empty section
+        array_shift($sections);
+
         $html = '';
         foreach ($sections as $section) {
-            $html .= '<textarea rows="10" style="width: 100%">'.e($section).'</textarea>';
+            // Extract title from first line
+            $section = explode("\n", $section, 2);
+            $title = rtrim(array_shift($section), '- ');
+            $section = implode("\n", $section);
+
+            $html .= '<h4 class="mt-2">'.e($title).'</h4>';
+            $html .= '<textarea rows="10" cols="80" style="width: 100%; white-space: pre; font-family: monospace;">'.e($section).'</textarea>';
         }
 
         return $html;

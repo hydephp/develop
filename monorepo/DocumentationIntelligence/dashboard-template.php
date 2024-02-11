@@ -42,10 +42,24 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>Raw Data</h2>
+                <h2>Model Data</h2>
 
                 <article>
-                    <?php echo $modelSections; ?>
+                    <h3>Full model</h3>
+                    <details>
+                        <summary>Click to view the model</summary>
+
+                        <textarea rows="30" cols="80" style="width: 100%; white-space: pre; font-family: monospace;"><?php echo $modelRaw; ?></textarea>
+
+                    </details>
+                </article>
+                <br>
+                <article>
+                    <h3>Sections</h3>
+                    <details>
+                        <summary>Click to view the sections</summary>
+                        <?php echo $modelSections; ?>
+                    </details>
                 </article>
             </div>
         </div>
