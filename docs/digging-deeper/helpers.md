@@ -11,6 +11,7 @@ navigation:
 HydePHP comes with a few helper classes and utilities to make your life easier. This page will cover some of the most important ones.
 Note that these helpers targets those who write custom code and Blade templates, and that you are expected to have a basic understanding of programming and PHP.
 
+
 ## File-based Collections
 
 Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
@@ -29,7 +30,8 @@ DataCollections::yaml(string $name);
 DataCollections::json(string $name, bool $asArray = false);
 ```
 
-See the [File-based Collections](collections) documentation for more information.
+See the [File-based Collections](collections) documentation for the full details.
+
 
 ## File Includes
 
@@ -52,8 +54,7 @@ Includes::get('example.md', 'Default content');
 
 #### Markdown Includes
 
-Gets the rendered Markdown of a partial file in the includes directory.
-When using this method, supplying the file extension is optional.
+Gets the rendered Markdown of a partial file in the includes directory. Supplying the file extension is optional.
 
 ```php
 use Hyde\Support\Includes;
@@ -67,8 +68,7 @@ Includes::markdown('footer', 'Default content');
 
 #### Blade Includes
 
-Gets the rendered Blade of a partial file in the includes directory.
-When using this method, supplying the file extension is optional.
+Gets the rendered Blade of a partial file in the includes directory. Supplying the file extension is optional.
 
 ```php
 use Hyde\Support\Includes;
@@ -93,16 +93,15 @@ resources/
 ```
 
 
-## ReadingTime Helper
+## Reading time helper
 
 The `ReadingTime` helper provides a simple way to calculate the reading time of a given string, for example a blog post.
 
 ### Create a new `ReadingTime` instance
 
-There are a few ways to create a new `ReadingTime` instance. Either by using the constructor,
-or by using the static `fromString` or `fromFile` facade helper methods.
+There are a few ways to create a new `ReadingTime` instance. Either create a new instance directly, or use the static `fromString` or `fromFile`  helpers.
 
-Either way, you will end up with a `ReadingTime` instance that you can use to get the reading time.
+In all cases, you will end up with a `ReadingTime` object that you can use to get the reading time.
 
 ```php
 // Via constructor
@@ -117,7 +116,7 @@ $time = ReadingTime::fromFile('path/to/file.txt');
 
 ### Get the reading time string
 
-To make things really easy, the `ReadingTime` class can be cast to a string to use the default formatting to get a human-readable string.
+To make things really easy, the `ReadingTime` instance can be automatically cast to a human-readable string with the default formatting.
 
 ```php
 (string) ReadingTime::fromString('Input text string'); // 1min, 0sec
@@ -145,7 +144,8 @@ $time->getSeconds();
 $time->getMinutes();
 
 // Get the remaining seconds after the rounded down minutes
-$time->getSecondsOver(); // (Perfect for showing after the getMinutes() value)
+// (Perfect for showing after the `getMinutes()` value)
+$time->getSecondsOver();
 
 // Get the word count of the input string
 $time->getWordCount();
@@ -158,7 +158,6 @@ Additionally, there are several ways to customize the output format.
 #### Specify sprintf format
 
 The `getFormatted` method accepts a `sprintf` format string as the first argument.
-The first `%d` will be replaced with the minutes, and the second `%d` will be replaced with the seconds.
 
 ```php
 // The default format
@@ -168,23 +167,16 @@ $time->getFormatted('%dmin, %dsec');
 $time->getFormatted('%d minutes and %d seconds');
 ```
 
+The first `%d` will be replaced with the minutes, and the second `%d` will be replaced with the seconds.
+
 #### Format using a custom callback
 
-You can also use a custom callback to format the reading time string.
-
-This is perfect if you want to customize the format further, maybe by only pluralizing values that are not 1?
+You can also use a custom callback to format the reading time string. This is perfect if you want to create custom formatting logic.
 
 The closure will receive the minutes and seconds as integers and should return a string.
 
 ```php
-/**
- * @param  int  $minutes
- * @param  int  $seconds
- * @return string
- */
-$closure = function (int $minutes, int $seconds): string {
+$time->formatUsingClosure(function (int $minutes, int $seconds): string {
     return "$minutes minutes, $seconds seconds";
-};
-
-$time->formatUsingClosure($closure); // 1 minutes, 30 seconds
+}); // 1 minutes, 30 seconds
 ```
