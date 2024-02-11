@@ -27,6 +27,7 @@ Command::main(function () {
     task('discover pages', fn () => $generator->discoverPages());
     task('assemble model', fn () => $generator->assembleModel());
     task('create pruned model', fn () => $generator->createPrunedModel());
+    task('create dashboard page', fn () => $generator->createDashboardPage());
 
     task('get data', function () use (&$data) {
         $data = [
@@ -205,5 +206,22 @@ class DocumentationIntelligence
         $model = preg_replace('/\n{3,}/', "\n\n", $model);
 
         file_put_contents(OUTPUT_PATH.'/model-pruned.txt', rtrim($model)."\n");
+    }
+
+    public function createDashboardPage(): void
+    {
+        $dashboard = file_get_contents(__DIR__.'/dashboard-template.blade.php');
+
+        $data = [];
+
+        foreach ($data as $key => $value) {
+            $dashboard = str_replace('{{ $'.$key.' }}', $value, $dashboard);
+        }
+
+        if (Str::contains($dashboard, '{{ $')) {
+            throw new RuntimeException('Some variables were not replaced in the dashboard template');
+        }
+
+        file_put_contents(OUTPUT_PATH.'/dashboard.html', $dashboard);
     }
 }
