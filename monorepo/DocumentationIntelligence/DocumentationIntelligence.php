@@ -266,7 +266,7 @@ class DocumentationIntelligence
 
         $html = '';
         foreach ($sections as $section) {
-            $html .= '<textarea rows="10" style="width: 100%">'.$section.'</textarea>';
+            $html .= '<textarea rows="10" style="width: 100%">'.e($section).'</textarea>';
         }
 
         return $html;
