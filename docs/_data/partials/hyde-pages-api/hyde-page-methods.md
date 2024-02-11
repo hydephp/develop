@@ -320,6 +320,15 @@ Get the group of the page in the navigation menu, if any.
 $page->navigationMenuGroup(): string
 ```
 
+#### `getCanonicalUrl()`
+
+No description provided.
+
+```php
+// torchlight! {"lineNumbers": false}
+$page->getCanonicalUrl(): string
+```
+
 <!-- End generated docs for Hyde\Pages\Concerns\HydePage -->
 
 </section>

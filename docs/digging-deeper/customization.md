@@ -267,7 +267,7 @@ Learn more in the [Documentation Pages](documentation-pages) documentation.
 
 ## Additional Advanced Options
 
-The following configuration options in the `confg/hyde.php` file are intended for advanced users and
+The following configuration options in the `config/hyde.php` file are intended for advanced users and
 should only be modified if you fully understand their impact. The code examples show the default values.
 
 ### `media_extensions`
@@ -315,7 +315,7 @@ Specifies the path where the build manifest should be saved, relative to the pro
 
 These options allow you to specify the HydeFront version and CDN URL when loading `app.css` from the CDN.
 
-Only change these if you know what you're doing as some versions may incompatible with your Hyde version.
+Only change these if you know what you're doing as some versions may be incompatible with your Hyde version.
 
 ```php
 // filepath config/hyde.php
