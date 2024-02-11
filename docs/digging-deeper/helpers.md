@@ -180,3 +180,12 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
     return "$minutes minutes, $seconds seconds";
 }); // 1 minutes, 30 seconds
 ```
+
+## Pagination utility
+
+The `Pagination` class provides utilities to help you create custom pagination components.
+
+Hyde comes with a simple pagination view that you can use, but you can also use the utility to create your own custom pagination components.
+You can of course also publish and modify the default pagination view to fit your needs.
+
+The paginator is designed to paginate Hyde pages and their routes, but can also be used with other data sources.
