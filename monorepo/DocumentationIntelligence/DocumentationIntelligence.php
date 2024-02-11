@@ -240,6 +240,29 @@ class DocumentationIntelligence
     /** @return array<string, mixed> */
     protected function getDashboardData(): array
     {
-        return [];
+        return [
+            'modelStatistics' => $this->makeModelStatisticsTable(),
+        ];
+    }
+
+    protected function makeModelStatisticsTable(): string
+    {
+        $data = [
+            'Model size' => number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
+            'Model words' => number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
+            'Model lines' => number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
+
+            'Pruned model size' => number_format(filesize(OUTPUT_PATH.'/model-pruned.txt') / 1024, 2).'KB',
+            'Pruned model words' => number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model-pruned.txt'))),
+            'Pruned model lines' => number_format(count(file(OUTPUT_PATH.'/model-pruned.txt')) + 1),
+            'Pruned model compression' => number_format((1 - (filesize(OUTPUT_PATH.'/model-pruned.txt') / filesize(OUTPUT_PATH.'/model.txt'))) * 100, 2).'%',
+        ];
+
+        $table = '';
+        foreach ($data as $key => $value) {
+            $table .= sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $value);
+        }
+
+        return $table;
     }
 }
