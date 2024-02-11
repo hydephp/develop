@@ -211,3 +211,21 @@ You also need to pass the current page being rendered (if you're on pagination p
 
 @include('hyde::components.pagination-navigation')
 ```
+
+### Constructor options breakdown
+
+The first two are self-explanatory:
+
+- `items` - The items to paginate. This can be a collection or an array.
+- `pageSize` - How many items to show on each page.
+
+The next may need some explanation:
+
+#### `currentPageNumber` 
+
+This current page index. You will typically get this from the URL.
+
+#### `paginationRouteBasename`
+
+This adds an optional prefix for the navigation links. For example, if you're paginating blog posts,
+you might want the links to be `/posts/page-1.html` instead of `/page-1.html`. You would then set this to `posts`.
