@@ -248,11 +248,11 @@ class DocumentationIntelligence
     public function getModelStatistics(): array
     {
         return $this->statistics ??= [
-            'Model size' => number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
+            'Model size' => number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).' KB',
             'Model words' => number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
             'Model lines' => number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
 
-            'Pruned model size' => number_format(filesize(OUTPUT_PATH.'/model-pruned.txt') / 1024, 2).'KB',
+            'Pruned model size' => number_format(filesize(OUTPUT_PATH.'/model-pruned.txt') / 1024, 2).' KB',
             'Pruned model words' => number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model-pruned.txt'))),
             'Pruned model lines' => number_format(count(file(OUTPUT_PATH.'/model-pruned.txt')) + 1),
             'Pruned model compression' => number_format((1 - (filesize(OUTPUT_PATH.'/model-pruned.txt') / filesize(OUTPUT_PATH.'/model.txt'))) * 100, 2).'%',
