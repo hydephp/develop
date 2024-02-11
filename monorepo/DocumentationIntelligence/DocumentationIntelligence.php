@@ -230,6 +230,7 @@ class DocumentationIntelligence
     {
         return [
             'modelStatistics' => $this->makeModelStatisticsTable(),
+            'modelSections' => $this->makeModelSections(),
         ];
     }
 
@@ -261,6 +262,19 @@ class DocumentationIntelligence
         }
 
         return implode("\n".str_repeat(' ', 20), $table);
+    }
+
+    protected function makeModelSections(): string
+    {
+        // Create textarea for each section
+        $sections = explode('--- ', file_get_contents(OUTPUT_PATH.'/model.txt'));
+
+        $html = '';
+        foreach ($sections as $section) {
+            $html .= '<textarea rows="10" style="width: 100%">'.$section.'</textarea>';
+        }
+
+        return $html;
     }
 
     public function getModelStatistics(): array
