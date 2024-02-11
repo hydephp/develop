@@ -237,25 +237,25 @@ class DocumentationIntelligence
     {
         $data = $this->getModelStatistics();
 
-        $table = '<tr><th>Model</th><th>Size</th><th>Words</th><th>Lines</th></tr>';
+        $table = ['<tr><th>Model</th><th>Size</th><th>Words</th><th>Lines</th></tr>'];
 
-        $table .= sprintf('<tr><th>Full</th><td>%s</td><td>%s</td><td>%s</td></tr>',
+        $table[] = sprintf('<tr><th>Full</th><td>%s</td><td>%s</td><td>%s</td></tr>',
             $data['Model size'],
             $data['Model words'],
             $data['Model lines']
         );
 
-        $table .= sprintf('<tr><th>Pruned</th><td>%s</td><td>%s</td><td>%s</td></tr>',
+        $table[] = sprintf('<tr><th>Pruned</th><td>%s</td><td>%s</td><td>%s</td></tr>',
             $data['Pruned model size'],
             $data['Pruned model words'],
             $data['Pruned model lines']
         );
 
-        $table .= sprintf('<tr><td>Compression</td><td colspan="3" align="right">%s</td></tr>',
+        $table[] = sprintf('<tr><td>Compression</td><td colspan="3" align="right">%s</td></tr>',
             $data['Pruned model compression']
         );
 
-        return $table;
+        return implode("\n".str_repeat(' ', 20), $table);
     }
 
     public function getModelStatistics(): array
