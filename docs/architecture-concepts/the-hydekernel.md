@@ -21,13 +21,12 @@ as a singleton into the application service container.
 
 ## Accessing the kernel
 
-The HydeKernel It is stored as a singleton in this class, and is bound into the
-Laravel Application Service Container, and can be accessed in a few ways.
+The HydeKernel is stored as a singleton in a static property in its own class and can be accessed in a few ways.
 
-Commonly, you'll use the `Hyde` facade, but you can also use Dependency Injection
-by type-hinting the `HydeKernel::class`, or use the `hyde()` function to get the Kernel.
+Commonly, you'll use the `Hyde` facade which forwards calls to the singleton instance.
+You can also use the `hyde()` function to get the Kernel, and call methods on it.
 
-The Kernel instance is constructed in `bootstrap.php`, and is available globally as `$hyde`.
+Since the instance is also bound into the Laravel Application Service Container you can also use Dependency Injection by type-hinting the `HydeKernel::class`.
 
 Here are some examples of how you can call methods on the Kernel. All methods call the same method on the same instance, so it's just a matter of preference.
 
@@ -41,6 +40,8 @@ HydeKernel::getInstance()->version();
 app(HydeKernel::class)->version();
 hyde()->version();
 ```
+
+The Kernel instance is constructed in `bootstrap.php`, and is available globally as `$hyde`.
 
 
 ## The kernel lifecycle

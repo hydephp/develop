@@ -1,18 +1,16 @@
----
-title: Documentation
----
-
 # HydePHP UI Kit - Documentation
 
 The HydePHP UI Kit is a collection of minimalistic and un-opinionated TailwindCSS components for Laravel Blade,
 indented to be used with HydePHP. Note that these components may require CSS classes not present in the bundled app.css
 file and that you may need to recompile the CSS file using the included Laravel Mix configuration.
 
+
 ## Screenshot
 
 Here are some of the components you can use to build your next project! As you can see, all components support both light and dark mode out of the box, just like the rest of HydePHP.
 
 ![Components Screenshot](https://raw.githubusercontent.com/hydephp/ui-kit/art/header-large-min.png)
+
 
 ## Components
 
@@ -162,6 +160,7 @@ You can get surprisingly far when you combine the components. Take this newslett
 ```
 
 ![Newsletter Screenshot](https://raw.githubusercontent.com/hydephp/ui-kit/art/newsletter-signup-example-min.png)
+
 
 ## GitHub Repository
 

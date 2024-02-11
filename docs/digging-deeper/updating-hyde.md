@@ -14,6 +14,26 @@ When updating an existing installation, first ensure that you have a backup of y
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
 
 
+## Version compatibility
+
+HydePHP follows [semantic versioning](https://semver.org/), so you can expect that minor and patch releases will be backwards compatible.
+Only major releases may introduce breaking changes, all of which are thoroughly documented in the accompanying release notes.
+
+New features and bug fixes are added in minor and patch releases, so it is recommended to keep your project up to date.
+
+### Side effects and ensuring a smooth update
+
+Please note that due to the intricate nature of software, there is a possibility that an update contains side effects,
+hence why version controlling your site is helpful when updating versions as you can roll back changes. It can also
+be helpful to version control the compiled HTML, so you can view a diff of the changes. Be sure to test that your site
+can be built and that it looks as expected after updating before deploying the changes to your live site.
+
+We of course have extensive tests in place run on each single code commit to ensure all code is functional, however,
+it is still possible that some edge cases slip through. This means that a bug fix may impact an edge case that you depend on.
+
+Obligatory related XKCD: [https://xkcd.com/1172](https://xkcd.com/1172)
+
+
 ## Methods
 
 ### Which method?
@@ -24,6 +44,17 @@ We have a few methods documented here. The [Git method](#using-git) is recommend
 update your project. If you are not using Git, you can still update your project using any of the [manual methods](#manual-update).
 
 Regardless of the method you use, make sure you follow the [post-update instructions](#post-update-instructions) at the end.
+
+### Updating just the Framework
+
+If you just want to update the framework patch version, you can do so by running the following command:
+
+```bash
+composer update hyde/framework
+```
+
+While the same can still be done for minor versions, it's best to also update your project scaffolding and resources to
+ensure that everything is up to date, for which you should use the methods below.
 
 ### Using Git
 
@@ -117,3 +148,5 @@ Finally, you can rebuild your site.
 ```bash
 php hyde build
 ```
+
+Now, you should browse your site files to ensure things are still looking as expected.

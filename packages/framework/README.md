@@ -4,7 +4,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)](https://packagist.org/packages/hyde/framework)
 [![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)](https://packagist.org/packages/hyde/framework)
-[![License MIT](https://img.shields.io/github/license/hydephp/hyde) ](https://github.com/hydephp/hyde/blob/master/LICENSE.md)
+[![License MIT](https://img.shields.io/github/license/hydephp/hyde)](https://github.com/hydephp/hyde/blob/master/LICENSE.md)
 [![Test Coverage](https://codecov.io/gh/hydephp/develop/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/hydephp/develop)
 [![Test Suite](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml)
 
@@ -22,7 +22,7 @@ You don't _need_ to customize anything. But you _can_ customize everything.
 
 ### Links & Media
 
-Hyde has already been featured in the [Laravel News Podcast](https://laravel-news.com/podcast/836911) and in the [Symfony Station Communique](https://www.symfonystation.com/Symfony-Station-Communique-13-May-2022). You can find several tutorials on [DEV Community](https://dev.to/t/hydephp) and learn much more on the [HydePHP website](https://hydephp.com) and [Official documentation](https://hydephp.com/docs).
+Hyde has already been featured in the [Laravel News Podcast](https://laravel-news.com/podcast/836911) and in the [Symfony Station Communique](https://www.symfonystation.com/Symfony-Station-Communique-13-May-2022). You can find several tutorials on [DEV Community](https://dev.to/t/hydephp) and learn much more on the [HydePHP website](https://hydephp.com) and [official documentation](https://hydephp.com/docs).
 
 ### Repositories
 

@@ -28,7 +28,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 #### Filenames
 
-- Hyde Documentation pages are files are stored in the `_docs` directory
+- Hyde Documentation pages are files stored in the `_docs` directory
 - The filename is used as the filename for the compiled HTML
 - Filenames should use `kebab-case-name` format, followed by the appropriate extension
 - Files prefixed with `_underscores` are ignored by Hyde
@@ -100,12 +100,8 @@ and where the data is from as well as where it can be overridden.
 The sidebar is automatically generated from the files in the `_docs` directory. You will probably want to change the order
 of these items. You can do this in two ways, either in the config or with front matter using the navigation array settings.
 
-### Table of contents
-
-Hyde automatically generates a table of contents for the page and adds it to the sidebar.
-
-The behaviour of this can be changed in the configuration file.
-See [the customization page](customization#navigation-menu--sidebar) for more details.
+Since this feature shares a lot of similarities and implementation details with the navigation menu,
+I recommend you read the [navigation menu documentation](navigation) page as well to learn more about the fundamentals and terminology.
 
 ### Sidebar ordering
 
@@ -123,7 +119,7 @@ _I personally think the config route is easier as it gives an instant overview, 
 
 ### Sidebar labels
 
-The sidebar items are labeled with the `label` property. The default label is the filename of the file.
+The sidebar items are labelled with the `label` property. The default label is the filename of the file.
 You can change it with the following front matter:
 
 ```yaml
@@ -137,7 +133,7 @@ Sidebar grouping allows you to group items in the sidebar into categories. This 
 The Hyde docs for instance use this.
 
 The feature is enabled automatically when one or more of your documentation pages have the `navigation.group` property set
-in the front matter. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
+in the front matter, or when subdirectories are used. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
 Any pages without the group front matter will get put in the "Other" group.
 
 ### Sidebar footer customization
@@ -169,7 +165,9 @@ You can also automatically group your documentation pages by placing source file
 
 For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter seen above.
 
->info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories.
+>info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they overwrite each other.
+
+>info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
 ### Hiding items
 
@@ -252,7 +250,9 @@ Please note that this option is not added to the config file by default, as it's
 
 ### Table of contents settings
 
-In the `config/docs.php` file you can configure the behavior, content, and the look and feel of the sidebar table of contents.
+Hyde automatically generates a table of contents for the page and adds it to the sidebar.
+
+In the `config/docs.php` file you can configure the behaviour, content, and the look and feel of the sidebar table of contents.
 You can also disable the feature completely.
 
 ```php
@@ -267,7 +267,7 @@ You can also disable the feature completely.
 ### Using flattened output paths
 
 If this setting is set to true, Hyde will output all documentation pages into the same configured documentation output directory.
-This means that you can use the automatic directory based grouping feature, but still have a "flat" output structure.
+This means that you can use the automatic directory-based grouping feature, but still have a "flat" output structure.
 Note that this means that you can't have two documentation pages with the same filename or navigation menu label as they will overwrite each other.
 
 If you set this to false, Hyde will match the directory structure of the source files (just like all other pages).
@@ -285,7 +285,7 @@ If you set this to false, Hyde will match the directory structure of the source 
 The HydeSearch plugin adds a search feature to documentation pages. It consists of two parts, a search index generator
 that runs during the build command, and a frontend JavaScript plugin that adds the actual search widget.
 
->info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)!
+>info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)?
 
 The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
 
@@ -303,7 +303,7 @@ The search works by generating a JSON search index which the JavaScript plugin l
 Two ways to access the search are added, one is a full page search screen that will be saved to `docs/search.html`.
 
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
-Opening it will open a modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
+Opening it will open a modal with an integrated search screen. You can also open the dialogue using the keyboard shortcut `/`.
 
 >info The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
@@ -329,7 +329,7 @@ The Realtime Compiler that powers the `php hyde serve` command will automaticall
 
 ### Introduction
 
-Hyde can automatically add links to documentation pages that takes the user
+Hyde can automatically add links to documentation pages that take the user
 to a GitHub page (or similar) to edit the page. This makes it great for open-source projects
 looking to allow others to contribute to the documentation in a quick and easy manner.
 
@@ -341,7 +341,7 @@ if not, please send a PR and/or create an issue on the [GitHub repository](https
 
 ### Configuration
 
-As an example configuration, let's take a practical example for how HydePHP.com uses this feature.
+As an example configuration, let's take a practical example of how HydePHP.com uses this feature.
 
 ```php
 // Filepath: config/docs.php

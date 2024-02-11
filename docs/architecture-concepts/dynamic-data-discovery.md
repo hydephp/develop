@@ -31,7 +31,7 @@ You might also want to read about the [autodiscovery lifecycle](autodiscovery) f
 
 After basic information about the page has been gathered, such as the source file information and the front matter,
 the page model is run through a series of factories. These are just classes that work around the limited data
-that is available at this point, and will assign the rich data needed to make your Hyde page awesome.
+that is available at this point and will generate the rich data used to make your Hyde page awesome.
 
 There are a few factory classes. The one we will be looking at here is the `HydePageDataFactory` class, which is
 responsible for data applicable to all page models. Complex structures and data only relevant to some page types
@@ -94,4 +94,4 @@ foreach ($data->toArray() as $key => $value) {
 }
 ```
 
-And that's pretty much it! Hyde will do this for all the data it can discover, all so that you can focus on your content.
+And that's pretty much it! Hyde will do this for all the data it can discover, freeing you to focus on your content.
