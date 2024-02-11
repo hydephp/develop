@@ -11,7 +11,7 @@ navigation:
 HydePHP comes with a few helper classes and utilities to make your life easier. This page will cover some of the most important ones.
 Note that these helpers targets those who write custom code and Blade templates, and that you are expected to have a basic understanding of programming and PHP.
 
-### File-based Collections
+## File-based Collections
 
 Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
 it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get parsed into objects that you can easily work with.
@@ -31,7 +31,7 @@ DataCollections::json(string $name, bool $asArray = false);
 
 See the [File-based Collections](collections) documentation for more information.
 
-### File Includes
+## File Includes
 
 The Includes facade provides a simple way to access partials in the includes directory.
 
@@ -39,7 +39,7 @@ If the file does not exist, the method will return `null`.
 You can also supply a default value as the second argument.
 Both Markdown and Blade includes will be rendered to HTML.
 
-#### Using Includes
+### Using Includes
 
 Includes are stored in the `resources/includes` directory. You can access them using the `Includes` facade.
 
