@@ -39,11 +39,8 @@ Command::main(function () {
     task('discover pages', fn () => $generator->discoverPages());
     task('assemble model', fn () => $generator->assembleModel());
     task('create pruned model', fn () => $generator->createPrunedModel());
+    task('generate model data', fn () => $generator->getModelStatistics());
     task('create dashboard page', fn () => $generator->createDashboardPage());
-
-    task('get data', function () use ($generator, &$data) {
-        $data = array_values($generator->getModelStatistics());
-    });
 
     $this->line();
 
@@ -59,7 +56,7 @@ Command::main(function () {
             Model lines: %s
             Pruned model compression: %s%%
         EOF,
-        ...$data
+        ...array_values($generator->getModelStatistics())
     ));
 
     $this->line();
