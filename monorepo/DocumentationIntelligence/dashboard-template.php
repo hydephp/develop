@@ -31,7 +31,7 @@
                 <h2>Statistics</h2>
                 <table class="table table-bordered table-sm w-fit">
                     <caption>Model Statistics</caption>
-                    {{ $modelStatistics }}
+                    <?php echo $modelStatistics; ?>
                 </table>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <h2>Raw Data</h2>
 
                 <article>
-                    {{ $modelSections }}
+                    <?php echo $modelSections; ?>
                 </article>
             </div>
         </div>

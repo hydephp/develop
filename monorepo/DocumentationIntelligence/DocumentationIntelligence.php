@@ -210,16 +210,11 @@ class DocumentationIntelligence
 
     public function createDashboardPage(): void
     {
-        $dashboard = file_get_contents(__DIR__.'/dashboard-template.blade.php');
-
         $data = $this->getDashboardData();
+        $dashboard = file_get_contents(__DIR__.'/dashboard-template.php');
 
         foreach ($data as $key => $value) {
-            $dashboard = str_replace('{{ $'.$key.' }}', $value, $dashboard);
-        }
-
-        if (Str::contains($dashboard, '{{ $')) {
-            throw new RuntimeException('Some variables were not replaced in the dashboard template');
+            $dashboard = str_replace('<?php echo $'.$key.'; ?>', $value, $dashboard);
         }
 
         file_put_contents(OUTPUT_PATH.'/dashboard.html', $dashboard);
