@@ -220,7 +220,7 @@ You can change this in the Docs configuration file. Tip: The header will link to
 ### Sidebar page order
 
 To quickly arrange the order of items in the sidebar, you can reorder the page identifiers in the list and the links will be sorted in that order.
-Link items without an entry here will have fall back to the default priority of 999, putting them last.
+Link items without an entry here will fall back to the default priority of 999, putting them last.
 
 ```php
 'sidebar_order' => [
