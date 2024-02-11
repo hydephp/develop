@@ -59,9 +59,22 @@ When using this method, supplying the file extension is optional.
 ```php
 use Hyde\Support\Includes;
 
-Includes::blade('footer');
-Includes::blade('footer.blade.php');
+Includes::blade('banner');
+Includes::blade('banner.blade.php');
 
 // With default value if the file does not exist
-Includes::blade('footer', 'Default content');
+Includes::blade('banner', 'Default content');
 ```
+
+#### Directory Structure Example
+
+Here is an example of the directory structure for includes:
+
+```tree
+resources/
+|-- includes/
+|   |-- example.md
+|   |-- footer.md
+|   |-- banner.blade.php
+```
+
