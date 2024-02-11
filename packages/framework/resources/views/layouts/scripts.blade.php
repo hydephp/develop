@@ -22,3 +22,6 @@
 
 {{-- Add any extra scripts to include before the closing <body> tag --}}
 @stack('scripts')
+
+{{-- If the user has defined any custom scripts, render them here --}}
+{!! config('hyde.scripts') !!}

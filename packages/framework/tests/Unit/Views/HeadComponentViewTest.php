@@ -72,6 +72,13 @@ class HeadComponentViewTest extends TestCase
         $this->assertStringContainsString("@include('hyde::layouts.styles')", $this->renderTestView());
     }
 
+    public function testCanAddHeadHtmlFromConfigHook()
+    {
+        config(['hyde.head' => '<meta name="custom-hook" content="foo">']);
+
+        $this->assertStringContainsString('<meta name="custom-hook" content="foo">', $this->renderTestView());
+    }
+
     protected function escapeIncludes(string $contents): string
     {
         return str_replace('@include', '@@include', $contents);
