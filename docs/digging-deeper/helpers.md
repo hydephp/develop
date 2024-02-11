@@ -189,3 +189,10 @@ Hyde comes with a simple pagination view that you can use, but you can also use 
 You can of course also publish and modify the default pagination view to fit your needs.
 
 The paginator is designed to paginate Hyde pages and their routes, but can also be used with other data sources.
+
+### Usage
+
+To use the pagination component which is generic by design, you need to create the `Pagination` instance yourself, with the data you want to paginate.
+
+To get started, simply create a paginator instance with a collection or array of items (like pages), and render the component.
+You also need to pass the current page being rendered (if you're on pagination page 3, pass that to the constructor).
