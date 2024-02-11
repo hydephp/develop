@@ -41,8 +41,8 @@ Command::main(function () {
     task('create pruned model', fn () => $generator->createPrunedModel());
     task('create dashboard page', fn () => $generator->createDashboardPage());
 
-    task('get data', function () use (&$data) {
-        $data = array_values(DocumentationIntelligence::getModelStatistics());
+    task('get data', function () use ($generator, &$data) {
+        $data = array_values($generator->getModelStatistics());
     });
 
     $this->line();
@@ -238,7 +238,7 @@ class DocumentationIntelligence
 
     protected function makeModelStatisticsTable(): string
     {
-        $data = static::getModelStatistics();
+        $data = $this->getModelStatistics();
 
         $table = '';
         foreach ($data as $key => $value) {
@@ -248,9 +248,9 @@ class DocumentationIntelligence
         return $table;
     }
 
-    public static function getModelStatistics(): array
+    public function getModelStatistics(): array
     {
-        return [
+        return $this->statistics ??= [
             'Model size' => number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
             'Model words' => number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
             'Model lines' => number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
