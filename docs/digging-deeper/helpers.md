@@ -196,3 +196,18 @@ To use the pagination component which is generic by design, you need to create t
 
 To get started, simply create a paginator instance with a collection or array of items (like pages), and render the component.
 You also need to pass the current page being rendered (if you're on pagination page 3, pass that to the constructor).
+
+```blade
+@php
+    // Base example to paginate the latest blog posts
+
+    $paginator = new \Hyde\Support\Paginator(
+        items: \Hyde\Pages\MarkdownPost::getLatestPosts(), // The items to paginate
+        pageSize: 25, // How many items to show on each page
+        currentPageNumber: 3, // The current page index
+        paginationRouteBasename: 'posts' // Links will be 'posts/page-1.html' instead of 'page-1.html'
+    )
+@endphp
+
+@include('hyde::components.pagination-navigation')
+```
