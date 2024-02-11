@@ -254,6 +254,7 @@ class DocumentationIntelligence
         $extraData = [
             'Compression' => $data['Pruned model compression'],
         ];
+
         foreach ($extraData as $key => $value) {
             $table[] = sprintf('<tr><th>%s</th><td colspan="3" align="right">%s</td></tr>', $key, $value);
         }
