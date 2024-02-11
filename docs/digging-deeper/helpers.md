@@ -9,6 +9,7 @@ navigation:
 ## Introduction
 
 HydePHP comes with a few helper classes and utilities to make your life easier. This page will cover some of the most important ones.
+Note that these helpers targets those who write custom code and Blade templates, and that you are expected to have a basic understanding of programming and PHP.
 
 ### File-based Collections
 
