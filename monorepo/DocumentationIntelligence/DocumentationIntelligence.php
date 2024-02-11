@@ -42,16 +42,7 @@ Command::main(function () {
     task('create dashboard page', fn () => $generator->createDashboardPage());
 
     task('get data', function () use (&$data) {
-        $data = [
-            number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
-            number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
-            number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
-
-            number_format(filesize(OUTPUT_PATH.'/model-pruned.txt') / 1024, 2).'KB',
-            number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model-pruned.txt'))),
-            number_format(count(file(OUTPUT_PATH.'/model-pruned.txt')) + 1),
-            number_format((1 - (filesize(OUTPUT_PATH.'/model-pruned.txt') / filesize(OUTPUT_PATH.'/model.txt'))) * 100, 2),
-        ];
+        $data = array_values(DocumentationIntelligence::getModelStatistics());
     });
 
     $this->line();
@@ -247,7 +238,19 @@ class DocumentationIntelligence
 
     protected function makeModelStatisticsTable(): string
     {
-        $data = [
+        $data = static::getModelStatistics();
+
+        $table = '';
+        foreach ($data as $key => $value) {
+            $table .= sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $value);
+        }
+
+        return $table;
+    }
+
+    public static function getModelStatistics(): array
+    {
+        return [
             'Model size' => number_format(filesize(OUTPUT_PATH.'/model.txt') / 1024, 2).'KB',
             'Model words' => number_format(str_word_count(file_get_contents(OUTPUT_PATH.'/model.txt'))),
             'Model lines' => number_format(count(file(OUTPUT_PATH.'/model.txt')) + 1),
@@ -257,12 +260,5 @@ class DocumentationIntelligence
             'Pruned model lines' => number_format(count(file(OUTPUT_PATH.'/model-pruned.txt')) + 1),
             'Pruned model compression' => number_format((1 - (filesize(OUTPUT_PATH.'/model-pruned.txt') / filesize(OUTPUT_PATH.'/model.txt'))) * 100, 2).'%',
         ];
-
-        $table = '';
-        foreach ($data as $key => $value) {
-            $table .= sprintf('<tr><td>%s</td><td>%s</td></tr>', $key, $value);
-        }
-
-        return $table;
     }
 }
