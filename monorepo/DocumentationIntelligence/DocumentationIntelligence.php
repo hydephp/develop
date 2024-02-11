@@ -251,9 +251,12 @@ class DocumentationIntelligence
             $data['Pruned model lines']
         );
 
-        $table[] = sprintf('<tr><td>Compression</td><td colspan="3" align="right">%s</td></tr>',
-            $data['Pruned model compression']
-        );
+        $extraData = [
+            'Compression' => $data['Pruned model compression'],
+        ];
+        foreach ($extraData as $key => $value) {
+            $table[] = sprintf('<tr><th>%s</th><td colspan="3" align="right">%s</td></tr>', $key, $value);
+        }
 
         return implode("\n".str_repeat(' ', 20), $table);
     }
