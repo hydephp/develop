@@ -86,12 +86,20 @@ Includes::markdown('example.md', 'Default content');
 
 HydePHP also supports some drop-in includes that you can use as an alternative to some config options. These currently are as follows:
 
-- `footer` If a `footer.md` file exists in the includes directory, Hyde will use that as the footer text, instead of the one set in the `hyde.footer` config option.
-- 'head' If a `head.html` file exists in the includes directory, Hyde include that within the `<head>` tag of the generated HTML, in addition to the one set in the `hyde.head` config option.
-- 'scripts' If a `scripts.html` file exists in the includes directory, Hyde include that at the end of the `<body>` tag of the generated HTML, in addition to the one set in the `hyde.scripts` config option.
+#### Footer
+
+If a `footer.md` file exists in the includes directory, Hyde will use that as the footer text, instead of the one set in the `hyde.footer` config option.
+
+#### Head
+
+If a `head.html` file exists in the includes directory, Hyde include that within the `<head>` tag of the generated HTML, in addition to the one set in the `hyde.head` config option.
+
+#### Scripts
+
+If a `scripts.html` file exists in the includes directory, Hyde include that at the end of the `<body>` tag of the generated HTML, in addition to the one set in the `hyde.scripts` config option.
 
 
-## Reading Time Helper
+## Reading-Time Helper
 
 The `ReadingTime` helper provides a simple way to calculate the reading time of a given string, for example a blog post.
 
