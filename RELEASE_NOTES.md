@@ -21,6 +21,7 @@ This serves two purposes:
 
 ### Added
 - Added the existing `media_extensions` option to the `hyde` configuration file in https://github.com/hydephp/develop/pull/1531
+- Added configuration options to add custom HTML to the `<head>` and `<script>` sections in https://github.com/hydephp/develop/pull/1542
 - Added an `html` helper to the `Includes` facade in https://github.com/hydephp/develop/pull/1552
 
 ### Changed
