@@ -182,7 +182,7 @@ class PublicationPageUnitTest extends TestCase
             (new PublicationPage('', [], '', $this->pubType()))->metadata());
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $this->assertInstanceOf(PublicationPage::class, new PublicationPage('', [], '', $this->pubType()));
     }

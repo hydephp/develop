@@ -12,7 +12,7 @@ use Hyde\Testing\UnitTestCase;
  */
 class TracksExecutionTimeTest extends UnitTestCase
 {
-    public function test_startClock()
+    public function testStartClock()
     {
         $class = new TracksExecutionTimeTestClass();
 
@@ -25,7 +25,7 @@ class TracksExecutionTimeTest extends UnitTestCase
         $this->assertLessThan(1, abs(microtime(true) - $class->timeStart));
     }
 
-    public function test_stopClock()
+    public function testStopClock()
     {
         $class = new TracksExecutionTimeTestClass();
         $class->startClock();
@@ -34,7 +34,7 @@ class TracksExecutionTimeTest extends UnitTestCase
         $this->assertLessThan(1, $class->stopClock());
     }
 
-    public function test_getExecutionTimeInMs()
+    public function testGetExecutionTimeInMs()
     {
         $class = new FixedStopClockTestClass();
 
@@ -42,7 +42,7 @@ class TracksExecutionTimeTest extends UnitTestCase
         $this->assertSame(3.14, $class->getExecutionTimeInMs());
     }
 
-    public function test_getExecutionTimeString()
+    public function testGetExecutionTimeString()
     {
         $class = new FixedStopClockTestClass();
 

@@ -24,7 +24,7 @@ use Illuminate\Support\Collection;
  */
 class RouteCollectionTest extends TestCase
 {
-    public function test_boot_method_discovers_all_pages()
+    public function testBootMethodDiscoversAllPages()
     {
         $collection = RouteCollection::init(Hyde::getInstance())->boot();
 
@@ -37,7 +37,7 @@ class RouteCollectionTest extends TestCase
         ], $collection->all());
     }
 
-    public function test_boot_method_discovers_all_page_types()
+    public function testBootMethodDiscoversAllPageTypes()
     {
         $this->withoutDefaultPages();
 
@@ -63,7 +63,7 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_get_routes_returns_all_routes()
+    public function testGetRoutesReturnsAllRoutes()
     {
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
@@ -74,7 +74,7 @@ class RouteCollectionTest extends TestCase
         $this->assertSame(Hyde::routes(), Routes::getRoutes());
     }
 
-    public function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
+    public function testGetRoutesForModelReturnsCollectionOfRoutesOfGivenClass()
     {
         $this->withoutDefaultPages();
 
@@ -96,7 +96,7 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_add_route_adds_new_route()
+    public function testAddRouteAddsNewRoute()
     {
         $collection = Hyde::routes();
         $this->assertCount(2, $collection);
@@ -105,12 +105,12 @@ class RouteCollectionTest extends TestCase
         $this->assertEquals(new Route(new BladePage('new')), $collection->last());
     }
 
-    public function test_get_route()
+    public function testGetRoute()
     {
         $this->assertEquals(new Route(new BladePage('index')), Routes::getRoute('index'));
     }
 
-    public function test_get_route_with_non_existing_route()
+    public function testGetRouteWithNonExistingRoute()
     {
         $this->expectException(RouteNotFoundException::class);
         $this->expectExceptionMessage('Route [non-existing] not found');

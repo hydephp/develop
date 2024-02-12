@@ -37,7 +37,7 @@ class MakePublicationCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_command_creates_publication()
+    public function testCommandCreatesPublication()
     {
         $this->makeSchemaFile();
 
@@ -53,7 +53,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertPublicationFileWasCreatedCorrectly();
     }
 
-    public function test_command_with_no_publication_types()
+    public function testCommandWithNoPublicationTypes()
     {
         $this->throwOnConsoleException(false);
         $this->artisan('make:publication')
@@ -62,7 +62,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    public function test_command_selects_the_right_publication_using_the_names()
+    public function testCommandSelectsTheRightPublicationUsingTheNames()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -104,7 +104,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_command_with_existing_publication()
+    public function testCommandWithExistingPublication()
     {
         $this->makeSchemaFile();
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
@@ -122,7 +122,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
-    public function test_command_with_existing_publication_and_overwrite()
+    public function testCommandWithExistingPublicationAndOverwrite()
     {
         $this->makeSchemaFile();
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
@@ -138,7 +138,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
-    public function test_can_overwrite_existing_publication_by_passing_force_flag()
+    public function testCanOverwriteExistingPublicationByPassingForceFlag()
     {
         $this->makeSchemaFile();
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
@@ -152,7 +152,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
-    public function test_command_with_publication_type_passed_as_argument()
+    public function testCommandWithPublicationTypePassedAsArgument()
     {
         $this->makeSchemaFile();
 
@@ -166,7 +166,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertPublicationFileWasCreatedCorrectly();
     }
 
-    public function test_command_with_invalid_publication_type_passed_as_argument()
+    public function testCommandWithInvalidPublicationTypePassedAsArgument()
     {
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile();
@@ -176,7 +176,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    public function test_command_with_schema_using_canonical_meta_field()
+    public function testCommandWithSchemaUsingCanonicalMetaField()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -199,7 +199,7 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
-    public function test_command_does_not_ask_user_to_fill_in_meta_fields()
+    public function testCommandDoesNotAskUserToFillInMetaFields()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -217,7 +217,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertDatedPublicationExists();
     }
 
-    public function test_command_with_text_input()
+    public function testCommandWithTextInput()
     {
         InputStreamHandler::mockInput("Hello\nWorld\n<<<");
         $this->makeSchemaFile([
@@ -239,7 +239,7 @@ class MakePublicationCommandTest extends TestCase
         );
     }
 
-    public function test_command_with_boolean_input()
+    public function testCommandWithBooleanInput()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -257,7 +257,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('published: true');
     }
 
-    public function test_command_with_array_input()
+    public function testCommandWithArrayInput()
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag\n<<<");
         $this->makeSchemaFile([
@@ -281,7 +281,7 @@ class MakePublicationCommandTest extends TestCase
         );
     }
 
-    public function test_command_with_media_input()
+    public function testCommandWithMediaInput()
     {
         $this->directory('_media/test-publication');
         $this->file('_media/test-publication/image.jpg');
@@ -302,7 +302,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('media: _media/test-publication/image.jpg');
     }
 
-    public function test_media_input_selects_the_right_file()
+    public function testMediaInputSelectsTheRightFile()
     {
         $this->directory('_media/test-publication');
         $this->file('_media/test-publication/foo.jpg');
@@ -326,7 +326,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('media: _media/test-publication/bar.png');
     }
 
-    public function test_command_with_single_tag_input()
+    public function testCommandWithSingleTagInput()
     {
         $this->markdown('test-publication/existing.md', matter: [
             'tag' => ['foo', 'bar', 'baz'],
@@ -350,7 +350,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals("tag:\n    - foo");
     }
 
-    public function test_command_with_multiple_tag_inputs()
+    public function testCommandWithMultipleTagInputs()
     {
         $this->markdown('test-publication/existing.md', matter: [
             'tags' => ['foo', 'bar', 'baz'],
@@ -375,7 +375,7 @@ class MakePublicationCommandTest extends TestCase
     - bar');
     }
 
-    public function test_media_input_with_no_images()
+    public function testMediaInputWithNoImages()
     {
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
@@ -396,7 +396,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
-    public function test_media_input_with_no_files_but_skips()
+    public function testMediaInputWithNoFilesButSkips()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -426,7 +426,7 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, $this->getDatedPublicationContents());
     }
 
-    public function test_tag_input_with_no_tags()
+    public function testTagInputWithNoTags()
     {
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
@@ -445,7 +445,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
-    public function test_handleEmptyOptionsCollection_for_required_field()
+    public function testHandleEmptyOptionsCollectionForRequiredField()
     {
         $this->throwOnConsoleException(false);
         $this->makeSchemaFile([
@@ -464,7 +464,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    public function test_with_custom_validation_rules()
+    public function testWithCustomValidationRules()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
@@ -488,7 +488,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('integer: 5');
     }
 
-    public function test_with_skipping_inputs()
+    public function testWithSkippingInputs()
     {
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',

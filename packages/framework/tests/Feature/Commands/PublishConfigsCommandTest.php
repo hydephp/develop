@@ -30,7 +30,7 @@ class PublishConfigsCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_command_has_expected_output()
+    public function testCommandHasExpectedOutput()
     {
         $this->artisan('publish:configs')
             ->expectsChoice('Which configuration files do you want to publish?', 'All configs', $this->expectedOptions())
@@ -38,7 +38,7 @@ class PublishConfigsCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_config_files_are_published()
+    public function testConfigFilesArePublished()
     {
         $this->assertDirectoryDoesNotExist(Hyde::path('config'));
 
@@ -51,7 +51,7 @@ class PublishConfigsCommandTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('config'));
     }
 
-    public function test_command_overwrites_existing_files()
+    public function testCommandOverwritesExistingFiles()
     {
         File::makeDirectory(Hyde::path('config'));
         File::put(Hyde::path('config/hyde.php'), 'foo');

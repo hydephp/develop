@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
  */
 class ValidateCommandTest extends TestCase
 {
-    public function test_validate_command_can_run()
+    public function testValidateCommandCanRun()
     {
         // Ensure the environment is clean to prevent false positives
         config(['torchlight.token' => null]);
@@ -28,7 +28,7 @@ class ValidateCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_validate_command_can_run_with_skips()
+    public function testValidateCommandCanRunWithSkips()
     {
         // Trigger skipping of Torchlight and documentation index check
         config(['hyde.features' => []]);

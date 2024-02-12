@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  */
 class RebuildPageCommandTest extends TestCase
 {
-    public function test_handle_is_successful_with_valid_path()
+    public function testHandleIsSuccessfulWithValidPath()
     {
         $this->file('_pages/test-page.md', 'foo');
 
@@ -23,7 +23,7 @@ class RebuildPageCommandTest extends TestCase
         $this->resetSite();
     }
 
-    public function test_media_files_can_be_transferred()
+    public function testMediaFilesCanBeTransferred()
     {
         $this->directory(Hyde::path('_site/media'));
         $this->file('_media/test.jpg');
@@ -33,21 +33,21 @@ class RebuildPageCommandTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/media/test.jpg'));
     }
 
-    public function test_validate_catches_bad_source_directory()
+    public function testValidateCatchesBadSourceDirectory()
     {
         $this->artisan('rebuild foo/bar')
             ->expectsOutput('Path [foo/bar] is not in a valid source directory.')
             ->assertExitCode(400);
     }
 
-    public function test_validate_catches_missing_file()
+    public function testValidateCatchesMissingFile()
     {
         $this->artisan('rebuild _pages/foo.md')
             ->expectsOutput('File [_pages/foo.md] not found.')
             ->assertExitCode(404);
     }
 
-    public function test_rebuild_documentation_page()
+    public function testRebuildDocumentationPage()
     {
         $this->file('_docs/foo.md');
 
@@ -58,7 +58,7 @@ class RebuildPageCommandTest extends TestCase
         $this->resetSite();
     }
 
-    public function test_rebuild_blog_post()
+    public function testRebuildBlogPost()
     {
         $this->file('_posts/foo.md');
 

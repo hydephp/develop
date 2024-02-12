@@ -28,58 +28,58 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         ]);
     }
 
-    public function test_getHostSelection()
+    public function testGetHostSelection()
     {
         $this->assertSame('localhost', $this->getMock()->getHostSelection());
     }
 
-    public function test_getHostSelection_withHostOption()
+    public function testGetHostSelectionWithHostOption()
     {
         $this->assertSame('foo', $this->getMock(['host' => 'foo'])->getHostSelection());
     }
 
-    public function test_getHostSelection_withConfigOption()
+    public function testGetHostSelectionWithConfigOption()
     {
         self::mockConfig(['hyde.server.host' => 'foo']);
         $this->assertSame('foo', $this->getMock()->getHostSelection());
     }
 
-    public function test_getHostSelection_withHostOptionAndConfigOption()
+    public function testGetHostSelectionWithHostOptionAndConfigOption()
     {
         self::mockConfig(['hyde.server.host' => 'foo']);
         $this->assertSame('bar', $this->getMock(['host' => 'bar'])->getHostSelection());
     }
 
-    public function test_getPortSelection()
+    public function testGetPortSelection()
     {
         $this->assertSame(8080, $this->getMock()->getPortSelection());
     }
 
-    public function test_getPortSelection_withPortOption()
+    public function testGetPortSelectionWithPortOption()
     {
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
-    public function test_getPortSelection_withConfigOption()
+    public function testGetPortSelectionWithConfigOption()
     {
         self::mockConfig(['hyde.server.port' => 8082]);
         $this->assertSame(8082, $this->getMock()->getPortSelection());
     }
 
-    public function test_getPortSelection_withPortOptionAndConfigOption()
+    public function testGetPortSelectionWithPortOptionAndConfigOption()
     {
         self::mockConfig(['hyde.server.port' => 8082]);
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
-    public function test_getEnvironmentVariables()
+    public function testGetEnvironmentVariables()
     {
         $this->assertSame([
             'HYDE_SERVER_REQUEST_OUTPUT' => true,
         ], $this->getMock()->getEnvironmentVariables());
     }
 
-    public function test_getEnvironmentVariables_withNoAnsiOption()
+    public function testGetEnvironmentVariablesWithNoAnsiOption()
     {
         $this->assertSame([
             'HYDE_SERVER_REQUEST_OUTPUT' => false,
@@ -158,7 +158,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PLAY_CDN']));
     }
 
-    public function test_parseEnvironmentOption()
+    public function testParseEnvironmentOption()
     {
         $command = $this->getMock(['foo' => 'true']);
         $this->assertSame('enabled', $command->parseEnvironmentOption('foo'));
@@ -167,19 +167,19 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertSame('disabled', $command->parseEnvironmentOption('foo'));
     }
 
-    public function test_parseEnvironmentOption_withEmptyString()
+    public function testParseEnvironmentOptionWithEmptyString()
     {
         $command = $this->getMock(['foo' => '']);
         $this->assertSame('enabled', $command->parseEnvironmentOption('foo'));
     }
 
-    public function test_parseEnvironmentOption_withNull()
+    public function testParseEnvironmentOptionWithNull()
     {
         $command = $this->getMock(['foo' => null]);
         $this->assertNull($command->parseEnvironmentOption('foo'));
     }
 
-    public function test_parseEnvironmentOption_withInvalidValue()
+    public function testParseEnvironmentOptionWithInvalidValue()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid boolean value for --foo option.');
@@ -188,7 +188,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command->parseEnvironmentOption('foo');
     }
 
-    public function test_checkArgvForOption()
+    public function testCheckArgvForOption()
     {
         $serverBackup = $_SERVER;
 
@@ -233,7 +233,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertTrue($command->openInBrowserCalled);
     }
 
-    public function test_openInBrowser()
+    public function testOpenInBrowser()
     {
         $output = $this->createMock(OutputStyle::class);
         $output->expects($this->never())->method('writeln');
@@ -254,7 +254,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command->openInBrowser();
     }
 
-    public function test_openInBrowserThatFails()
+    public function testOpenInBrowserThatFails()
     {
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('getFormatter')->andReturn($this->createMock(OutputFormatterInterface::class));

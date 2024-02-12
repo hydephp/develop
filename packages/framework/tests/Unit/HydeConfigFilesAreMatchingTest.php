@@ -23,7 +23,7 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         }
     }
 
-    public function test_hyde_config_files_are_matching()
+    public function testHydeConfigFilesAreMatching()
     {
         $this->assertFileEqualsIgnoringNewlineType(
             Hyde::path('config/hyde.php'),
@@ -31,7 +31,7 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         );
     }
 
-    public function test_docs_config_files_are_matching()
+    public function testDocsConfigFilesAreMatching()
     {
         $this->assertFileEqualsIgnoringNewlineType(
             Hyde::path('config/docs.php'),
@@ -39,7 +39,7 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         );
     }
 
-    public function test_markdown_config_files_are_matching()
+    public function testMarkdownConfigFilesAreMatching()
     {
         $this->assertFileEqualsIgnoringNewlineType(
             Hyde::path('config/markdown.php'),

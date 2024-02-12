@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
  */
 class ValidatesExistenceTest extends TestCase
 {
-    public function test_validate_existence_does_nothing_if_file_exists()
+    public function testValidateExistenceDoesNothingIfFileExists()
     {
         $class = new ValidatesExistenceTestClass();
 
@@ -24,7 +24,7 @@ class ValidatesExistenceTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function test_validate_existence_throws_file_not_found_exception_if_file_does_not_exist()
+    public function testValidateExistenceThrowsFileNotFoundExceptionIfFileDoesNotExist()
     {
         $this->expectException(FileNotFoundException::class);
 

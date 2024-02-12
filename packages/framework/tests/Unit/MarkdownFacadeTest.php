@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MarkdownFacadeTest extends TestCase
 {
-    public function test_render(): void
+    public function testRender(): void
     {
         $markdown = '# Hello World!';
 

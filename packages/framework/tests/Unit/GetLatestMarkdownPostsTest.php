@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
  */
 class GetLatestMarkdownPostsTest extends TestCase
 {
-    public function test_markdown_page_get_latest_helper_returns_sorted_markdown_page_collection()
+    public function testMarkdownPageGetLatestHelperReturnsSortedMarkdownPageCollection()
     {
         file_put_contents(Hyde::path('_posts/new.md'), "---\ndate: '2022-01-01 12:00'\n---\n");
         file_put_contents(Hyde::path('_posts/old.md'), "---\ndate: '2021-01-01 12:00'\n---\n");

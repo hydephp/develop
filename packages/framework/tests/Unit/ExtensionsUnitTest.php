@@ -189,12 +189,12 @@ class ExtensionsUnitTest extends UnitTestCase
         RouteCollection::init($this->kernel)->boot();
     }
 
-    public function test_get_registered_page_classes_returns_core_extension_classes()
+    public function testGetRegisteredPageClassesReturnsCoreExtensionClasses()
     {
         $this->assertSame(HydeCoreExtension::getPageClasses(), $this->kernel->getRegisteredPageClasses());
     }
 
-    public function test_get_registered_page_classes_merges_all_extension_classes()
+    public function testGetRegisteredPageClassesMergesAllExtensionClasses()
     {
         $this->kernel->registerExtension(HydeTestExtension::class);
 
@@ -204,7 +204,7 @@ class ExtensionsUnitTest extends UnitTestCase
         );
     }
 
-    public function test_merged_registered_page_classes_array_contents()
+    public function testMergedRegisteredPageClassesArrayContents()
     {
         $this->assertSame([
             HtmlPage::class,

@@ -10,29 +10,29 @@ use Hyde\Testing\TestCase;
 
 class HydeVendorPathHelperTest extends TestCase
 {
-    public function test_method_exists()
+    public function testMethodExists()
     {
         $this->assertTrue(method_exists(HydeKernel::class, 'vendorPath'));
     }
 
-    public function test_method_returns_string()
+    public function testMethodReturnsString()
     {
         $this->assertIsString(Hyde::vendorPath());
     }
 
-    public function test_method_returns_string_containing_vendor_path()
+    public function testMethodReturnsStringContainingVendorPath()
     {
         $this->assertStringContainsString('vendor', Hyde::vendorPath());
     }
 
-    public function test_method_returns_path_to_the_vendor_directory()
+    public function testMethodReturnsPathToTheVendorDirectory()
     {
         $this->assertDirectoryExists(Hyde::vendorPath());
         $this->assertFileExists(Hyde::vendorPath().'/composer.json');
         $this->assertStringContainsString('"name": "hyde/framework",', file_get_contents(Hyde::vendorPath().'/composer.json'));
     }
 
-    public function test_can_specify_which_hyde_package_to_use()
+    public function testCanSpecifyWhichHydePackageToUse()
     {
         $this->assertDirectoryExists(Hyde::vendorPath(package: 'realtime-compiler'));
         $this->assertFileExists(Hyde::vendorPath('composer.json', 'realtime-compiler'));

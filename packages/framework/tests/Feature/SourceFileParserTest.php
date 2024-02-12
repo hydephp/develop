@@ -17,7 +17,7 @@ use Hyde\Testing\TestCase;
  */
 class SourceFileParserTest extends TestCase
 {
-    public function test_blade_page_parser()
+    public function testBladePageParser()
     {
         $this->file('_pages/foo.blade.php');
 
@@ -27,7 +27,7 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('foo', $page->identifier);
     }
 
-    public function test_markdown_page_parser()
+    public function testMarkdownPageParser()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);
 
@@ -39,7 +39,7 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
-    public function test_markdown_post_parser()
+    public function testMarkdownPostParser()
     {
         $this->markdown('_posts/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);
 
@@ -51,7 +51,7 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
-    public function test_documentation_page_parser()
+    public function testDocumentationPageParser()
     {
         $this->markdown('_docs/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);
 
@@ -63,7 +63,7 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
-    public function test_html_page_parser()
+    public function testHtmlPageParser()
     {
         $this->file('_pages/foo.html', '<h1>Foo Bar</h1>');
 
@@ -74,21 +74,21 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('<h1>Foo Bar</h1>', $page->contents());
     }
 
-    public function test_parsed_page_is_run_through_dynamic_constructor()
+    public function testParsedPageIsRunThroughDynamicConstructor()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);
         $page = MarkdownPage::parse('foo');
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
-    public function test_blade_page_data_is_parsed_to_front_matter()
+    public function testBladePageDataIsParsedToFrontMatter()
     {
         $this->file('_pages/foo.blade.php', "@php(\$foo = 'bar')\n");
         $page = BladePage::parse('foo');
         $this->assertEquals('bar', $page->data('foo'));
     }
 
-    public function test_blade_page_matter_is_used_for_the_page_title()
+    public function testBladePageMatterIsUsedForThePageTitle()
     {
         $this->file('_pages/foo.blade.php', "@php(\$title = 'Foo Bar')\n");
         $page = BladePage::parse('foo');

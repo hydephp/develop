@@ -50,13 +50,13 @@ class DiscoveryServiceTest extends UnitTestCase
         @mkdir(Hyde::path($path), recursive: $recursive);
     }
 
-    public function test_get_source_file_list_for_model_method_finds_default_model_properties()
+    public function testGetSourceFileListForModelMethodFindsDefaultModelProperties()
     {
         $this->directory('foo');
         $this->unitTestMarkdownBasedPageList(MarkdownPage::class, '_pages'.'/foo.md');
     }
 
-    public function test_get_source_file_list_for_model_method_finds_customized_source_directory()
+    public function testGetSourceFileListForModelMethodFindsCustomizedSourceDirectory()
     {
         $this->directory('foo');
 
@@ -66,7 +66,7 @@ class DiscoveryServiceTest extends UnitTestCase
         MarkdownPage::setSourceDirectory('_pages');
     }
 
-    public function test_get_source_file_list_for_model_method_finds_customized_file_extension()
+    public function testGetSourceFileListForModelMethodFindsCustomizedFileExtension()
     {
         $this->directory('foo');
 
@@ -79,12 +79,12 @@ class DiscoveryServiceTest extends UnitTestCase
         MarkdownPage::setFileExtension('.md');
     }
 
-    public function test_get_media_asset_files()
+    public function testGetMediaAssetFiles()
     {
         $this->assertTrue(is_array(MediaFile::files()));
     }
 
-    public function test_get_media_asset_files_discovers_files()
+    public function testGetMediaAssetFilesDiscoversFiles()
     {
         $testFiles = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
@@ -95,7 +95,7 @@ class DiscoveryServiceTest extends UnitTestCase
         }
     }
 
-    public function test_get_media_asset_files_discovers_custom_file_types()
+    public function testGetMediaAssetFilesDiscoversCustomFileTypes()
     {
         $path = 'test.custom';
         $this->file("_media/$path");
@@ -104,7 +104,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertContains($path, MediaFile::files());
     }
 
-    public function test_get_media_asset_files_discovers_files_recursively()
+    public function testGetMediaAssetFilesDiscoversFilesRecursively()
     {
         $path = 'foo/bar.png';
         $this->directory('_media/foo');
@@ -112,7 +112,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertContains($path, MediaFile::files());
     }
 
-    public function test_get_media_asset_files_discovers_files_very_recursively()
+    public function testGetMediaAssetFilesDiscoversFilesVeryRecursively()
     {
         $path = 'foo/bar/img.png';
         $this->directory(dirname("_media/$path"), recursive: true);
@@ -121,7 +121,7 @@ class DiscoveryServiceTest extends UnitTestCase
         Filesystem::deleteDirectory('_media/foo');
     }
 
-    public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
+    public function testMediaAssetExtensionsCanBeAddedByCommaSeparatedValues()
     {
         self::mockConfig(['hyde.media_extensions' => []]);
         $this->file('_media/test.1');
@@ -134,7 +134,7 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
     }
 
-    public function test_media_asset_extensions_can_be_added_by_array()
+    public function testMediaAssetExtensionsCanBeAddedByArray()
     {
         self::mockConfig(['hyde.media_extensions' => []]);
         $this->file('_media/test.1');
@@ -146,31 +146,31 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
     }
 
-    public function test_blade_page_files_starting_with_underscore_are_ignored()
+    public function testBladePageFilesStartingWithUnderscoreAreIgnored()
     {
         $this->file('_pages/_foo.blade.php');
         $this->assertSame(['404', 'index'], BladePage::files());
     }
 
-    public function test_markdown_page_files_starting_with_underscore_are_ignored()
+    public function testMarkdownPageFilesStartingWithUnderscoreAreIgnored()
     {
         $this->file('_pages/_foo.md');
         $this->assertSame([], MarkdownPage::files());
     }
 
-    public function test_post_files_starting_with_underscore_are_ignored()
+    public function testPostFilesStartingWithUnderscoreAreIgnored()
     {
         $this->file('_posts/_foo.md');
         $this->assertSame([], MarkdownPost::files());
     }
 
-    public function test_documentation_page_files_starting_with_underscore_are_ignored()
+    public function testDocumentationPageFilesStartingWithUnderscoreAreIgnored()
     {
         $this->file('_docs/_foo.md');
         $this->assertSame([], DocumentationPage::files());
     }
 
-    public function test_blade_page_path_to_identifier_helper_formats_path_to_identifier()
+    public function testBladePagePathToIdentifierHelperFormatsPathToIdentifier()
     {
         $this->assertSame('foo', BladePage::pathToIdentifier('foo'));
         $this->assertSame('foo', BladePage::pathToIdentifier('foo.blade.php'));
@@ -180,21 +180,21 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->assertSame('foo', BladePage::pathToIdentifier('_pages/foo.blade.php'));
     }
 
-    public function test_markdown_page_path_to_identifier_helper_formats_path_to_identifier()
+    public function testMarkdownPagePathToIdentifierHelperFormatsPathToIdentifier()
     {
         $this->assertSame('foo', MarkdownPage::pathToIdentifier('foo'));
         $this->assertSame('foo', MarkdownPage::pathToIdentifier('foo.md'));
         $this->assertSame('foo/bar', MarkdownPage::pathToIdentifier('foo/bar.md'));
     }
 
-    public function test_markdown_post_path_to_identifier_helper_formats_path_to_identifier()
+    public function testMarkdownPostPathToIdentifierHelperFormatsPathToIdentifier()
     {
         $this->assertSame('foo', MarkdownPost::pathToIdentifier('foo'));
         $this->assertSame('foo', MarkdownPost::pathToIdentifier('foo.md'));
         $this->assertSame('foo/bar', MarkdownPost::pathToIdentifier('foo/bar.md'));
     }
 
-    public function test_documentation_page_path_to_identifier_helper_formats_path_to_identifier()
+    public function testDocumentationPagePathToIdentifierHelperFormatsPathToIdentifier()
     {
         $this->assertSame('foo', DocumentationPage::pathToIdentifier('foo'));
         $this->assertSame('foo', DocumentationPage::pathToIdentifier('foo.md'));

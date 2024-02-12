@@ -39,7 +39,7 @@ class MarkdownFileParserTest extends UnitTestCase
         parent::tearDown();
     }
 
-    public function test_can_parse_markdown_file()
+    public function testCanParseMarkdownFile()
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
 
@@ -49,7 +49,7 @@ class MarkdownFileParserTest extends UnitTestCase
         $this->assertEquals('Foo bar', $document->markdown);
     }
 
-    public function test_can_parse_markdown_file_with_front_matter()
+    public function testCanParseMarkdownFileWithFrontMatter()
     {
         $this->makeTestPost();
 
@@ -72,7 +72,7 @@ class MarkdownFileParserTest extends UnitTestCase
         );
     }
 
-    public function test_parsed_markdown_post_contains_valid_front_matter()
+    public function testParsedMarkdownPostContainsValidFrontMatter()
     {
         $this->makeTestPost();
 

@@ -15,7 +15,7 @@ use function is_dir;
  */
 class PublishViewsCommandTest extends TestCase
 {
-    public function test_command_publishes_views()
+    public function testCommandPublishesViews()
     {
         $path = str_replace('\\', '/', Hyde::pathToRelative(realpath(Hyde::vendorPath('resources/views/pages/404.blade.php'))));
         $this->artisan('publish:views')
@@ -30,7 +30,7 @@ class PublishViewsCommandTest extends TestCase
         }
     }
 
-    public function test_can_select_view()
+    public function testCanSelectView()
     {
         $path = str_replace('\\', '/', Hyde::pathToRelative(realpath(Hyde::vendorPath('resources/views/pages/404.blade.php'))));
         $this->artisan('publish:views page-404')
@@ -44,7 +44,7 @@ class PublishViewsCommandTest extends TestCase
         }
     }
 
-    public function test_with_invalid_supplied_tag()
+    public function testWithInvalidSuppliedTag()
     {
         $this->artisan('publish:views invalid')
             ->expectsOutputToContain('No publishable resources for tag [invalid].')

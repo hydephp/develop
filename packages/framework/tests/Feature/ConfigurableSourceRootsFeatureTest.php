@@ -26,12 +26,12 @@ use function mkdir;
  */
 class ConfigurableSourceRootsFeatureTest extends TestCase
 {
-    public function test_default_config_value_is_empty_string()
+    public function testDefaultConfigValueIsEmptyString()
     {
         $this->assertSame('', config('hyde.source_root'));
     }
 
-    public function test_files_in_custom_source_root_can_be_discovered()
+    public function testFilesInCustomSourceRootCanBeDiscovered()
     {
         $this->setupCustomSourceRoot();
 
@@ -41,7 +41,7 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
         File::deleteDirectory(Hyde::path('custom'));
     }
 
-    public function test_files_in_custom_source_root_can_be_compiled()
+    public function testFilesInCustomSourceRootCanBeCompiled()
     {
         $this->setupCustomSourceRoot();
 
@@ -53,7 +53,7 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
         File::deleteDirectory(Hyde::path('_site'));
     }
 
-    public function test_hyde_page_path_method_supports_custom_source_roots()
+    public function testHydePagePathMethodSupportsCustomSourceRoots()
     {
         config(['hyde.source_root' => 'custom']);
         (new HydeServiceProvider(app()))->register();

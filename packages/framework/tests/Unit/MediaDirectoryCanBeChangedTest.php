@@ -19,7 +19,7 @@ use Hyde\Testing\TestCase;
  */
 class MediaDirectoryCanBeChangedTest extends TestCase
 {
-    public function test_media_output_directory_can_be_changed_for_site_builds()
+    public function testMediaOutputDirectoryCanBeChangedForSiteBuilds()
     {
         Filesystem::deleteDirectory('_site');
 
@@ -37,7 +37,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->resetSite();
     }
 
-    public function test_media_output_directory_can_be_changed_for_site_rebuilds()
+    public function testMediaOutputDirectoryCanBeChangedForSiteRebuilds()
     {
         Filesystem::deleteDirectory('_site');
 
@@ -55,7 +55,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->resetSite();
     }
 
-    public function test_compiled_pages_have_links_to_the_right_media_file_location()
+    public function testCompiledPagesHaveLinksToTheRightMediaFileLocation()
     {
         Filesystem::moveDirectory('_media', '_assets');
         Hyde::setMediaDirectory('_assets');

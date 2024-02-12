@@ -19,31 +19,31 @@ use Symfony\Component\Yaml\Yaml;
 class HelpersTest extends TestCase
 {
     /** @covers ::hyde */
-    public function test_hyde_function_exists()
+    public function testHydeFunctionExists()
     {
         $this->assertTrue(function_exists('hyde'));
     }
 
     /** @covers ::hyde */
-    public function test_hyde_function_returns_hyde_kernel_class()
+    public function testHydeFunctionReturnsHydeKernelClass()
     {
         $this->assertInstanceOf(HydeKernel::class, hyde());
     }
 
     /** @covers ::hyde */
-    public function test_can_call_methods_on_returned_hyde_class()
+    public function testCanCallMethodsOnReturnedHydeClass()
     {
         $this->assertSame(Hyde::path(), hyde()->path());
     }
 
     /** @covers ::unslash */
-    public function test_unslash_function_exists()
+    public function testUnslashFunctionExists()
     {
         $this->assertTrue(function_exists('unslash'));
     }
 
     /** @covers ::unslash */
-    public function test_unslash_function_trims_trailing_slashes()
+    public function testUnslashFunctionTrimsTrailingSlashes()
     {
         $tests = ['foo',  '/foo',  'foo/',  '/foo/',  '\foo\\',  '\\/foo/\\'];
 
@@ -65,38 +65,38 @@ class HelpersTest extends TestCase
     }
 
     /** @covers ::\Hyde\hyde */
-    public function test_hyde_function_exists_in_hyde_namespace()
+    public function testHydeFunctionExistsInHydeNamespace()
     {
         $this->assertTrue(function_exists('Hyde\hyde'));
     }
 
     /** @covers ::\Hyde\hyde */
-    public function test_namespaced_hyde_function()
+    public function testNamespacedHydeFunction()
     {
         $this->assertSame(hyde(), \Hyde\hyde());
     }
 
     /** @covers ::\Hyde\unslash */
-    public function test_unslash_function_exists_in_hyde_namespace()
+    public function testUnslashFunctionExistsInHydeNamespace()
     {
         $this->assertTrue(function_exists('Hyde\unslash'));
     }
 
     /** @covers ::\Hyde\unslash */
-    public function test_namespaced_unslash_function()
+    public function testNamespacedUnslashFunction()
     {
         $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
     }
 
     /** @covers ::\Hyde\unixsum */
-    public function test_unixsum_function()
+    public function testUnixsumFunction()
     {
         $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\n"));
         $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\r\n"));
     }
 
     /** @covers ::\Hyde\unixsum_file */
-    public function test_unixsum_file_function()
+    public function testUnixsumFileFunction()
     {
         $this->file('unix.txt', "foo\n");
         $this->file('windows.txt', "foo\r\n");
@@ -106,50 +106,50 @@ class HelpersTest extends TestCase
     }
 
     /** @covers ::\Hyde\make_title */
-    public function test_hyde_make_title_function()
+    public function testHydeMakeTitleFunction()
     {
         $this->assertSame(Hyde::makeTitle('foo'), \Hyde\make_title('foo'));
     }
 
     /** @covers ::\Hyde\normalize_newlines */
-    public function test_hyde_normalize_newlines_function()
+    public function testHydeNormalizeNewlinesFunction()
     {
         $this->assertSame(Hyde::normalizeNewlines('foo'), \Hyde\normalize_newlines('foo'));
     }
 
     /** @covers ::\Hyde\strip_newlines */
-    public function test_hyde_strip_newlines_function()
+    public function testHydeStripNewlinesFunction()
     {
         $this->assertSame(Hyde::stripNewlines('foo'), \Hyde\strip_newlines('foo'));
     }
 
     /** @covers ::\Hyde\trim_slashes */
-    public function test_hyde_trim_slashes_function()
+    public function testHydeTrimSlashesFunction()
     {
         $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trim_slashes('foo'));
     }
 
     /** @covers ::\Hyde\evaluate_arrayable */
-    public function test_hyde_evaluate_arrayable_function()
+    public function testHydeEvaluateArrayableFunction()
     {
         $this->assertSame(['foo'], \Hyde\evaluate_arrayable(['foo']));
         $this->assertSame(['foo'], \Hyde\evaluate_arrayable(collect(['foo'])));
     }
 
     /** @covers ::\Hyde\yaml_encode */
-    public function test_hyde_yaml_encode_function()
+    public function testHydeYamlEncodeFunction()
     {
         $this->assertSame("foo: bar\n", \Hyde\yaml_encode(['foo' => 'bar']));
     }
 
     /** @covers ::\Hyde\yaml_encode */
-    public function test_hyde_yaml_encode_function_encodes_arrayables()
+    public function testHydeYamlEncodeFunctionEncodesArrayables()
     {
         $this->assertSame("foo: bar\n", \Hyde\yaml_encode(collect(['foo' => 'bar'])));
     }
 
     /** @covers ::\Hyde\yaml_encode */
-    public function test_hyde_yaml_encode_function_accepts_parameters()
+    public function testHydeYamlEncodeFunctionAcceptsParameters()
     {
         $this->assertSame(
             Yaml::dump(['foo' => 'bar'], 4, 2, 128),
@@ -158,13 +158,13 @@ class HelpersTest extends TestCase
     }
 
     /** @covers ::\Hyde\yaml_decode */
-    public function test_hyde_yaml_decode_function()
+    public function testHydeYamlDecodeFunction()
     {
         $this->assertSame(['foo' => 'bar'], \Hyde\yaml_decode("foo: bar\n"));
     }
 
     /** @covers ::\Hyde\yaml_decode */
-    public function test_hyde_yaml_decode_function_accepts_parameters()
+    public function testHydeYamlDecodeFunctionAcceptsParameters()
     {
         $this->assertSame(
             Yaml::parse('foo: bar', 128),
@@ -173,19 +173,19 @@ class HelpersTest extends TestCase
     }
 
     /** @covers ::\Hyde\path_join */
-    public function test_hyde_path_join_function()
+    public function testHydePathJoinFunction()
     {
         $this->assertSame('foo/bar', \Hyde\path_join('foo', 'bar'));
     }
 
     /** @covers ::\Hyde\path_join */
-    public function test_hyde_path_join_function_with_multiple_paths()
+    public function testHydePathJoinFunctionWithMultiplePaths()
     {
         $this->assertSame('foo/bar/baz', \Hyde\path_join('foo', 'bar', 'baz'));
     }
 
     /** @covers ::\Hyde\normalize_slashes */
-    public function test_hyde_normalize_slashes_function()
+    public function testHydeNormalizeSlashesFunction()
     {
         $this->assertSame('foo/bar', \Hyde\normalize_slashes('foo\\bar'));
         $this->assertSame('foo/bar', \Hyde\normalize_slashes('foo/bar'));

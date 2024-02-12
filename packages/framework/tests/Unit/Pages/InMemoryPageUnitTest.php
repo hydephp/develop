@@ -184,7 +184,7 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(PageMetadataBag::class, (new InMemoryPage('foo'))->metadata());
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $this->assertInstanceOf(InMemoryPage::class, new InMemoryPage('foo'));
     }

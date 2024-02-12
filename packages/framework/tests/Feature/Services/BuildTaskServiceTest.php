@@ -28,7 +28,7 @@ class BuildTaskServiceTest extends TestCase
     /**
      * @covers \Hyde\Console\Commands\BuildSiteCommand::runPostBuildActions
      */
-    public function test_build_command_can_run_build_tasks()
+    public function testBuildCommandCanRunBuildTasks()
     {
         $this->artisan('build')
             ->expectsOutputToContain('Removing all files from build directory')
@@ -39,7 +39,7 @@ class BuildTaskServiceTest extends TestCase
         File::cleanDirectory(Hyde::path('_site'));
     }
 
-    public function test_run_post_build_tasks_runs_configured_tasks_does_nothing_if_no_tasks_are_configured()
+    public function testRunPostBuildTasksRunsConfiguredTasksDoesNothingIfNoTasksAreConfigured()
     {
         $service = $this->makeService();
         $service->runPostBuildTasks();
@@ -47,7 +47,7 @@ class BuildTaskServiceTest extends TestCase
         $this->expectOutputString('');
     }
 
-    public function test_get_post_build_tasks_returns_array_merged_with_config()
+    public function testGetPostBuildTasksReturnsArrayMergedWithConfig()
     {
         config(['hyde.build_tasks' => [SecondBuildTask::class]]);
 
@@ -57,7 +57,7 @@ class BuildTaskServiceTest extends TestCase
         $this->assertEquals(1, count(array_keys($tasks, SecondBuildTask::class)));
     }
 
-    public function test_get_post_build_tasks_merges_duplicate_keys()
+    public function testGetPostBuildTasksMergesDuplicateKeys()
     {
         app(BuildTaskService::class)->registerTask(TestBuildTask::class);
         config(['hyde.build_tasks' => [TestBuildTask::class]]);
@@ -68,7 +68,7 @@ class BuildTaskServiceTest extends TestCase
         $this->assertEquals(1, count(array_keys($tasks, TestBuildTask::class)));
     }
 
-    public function test_run_post_build_tasks_runs_configured_tasks()
+    public function testRunPostBuildTasksRunsConfiguredTasks()
     {
         $task = $this->makeTask();
 
@@ -80,7 +80,7 @@ class BuildTaskServiceTest extends TestCase
         $this->expectOutputString('BuildTask');
     }
 
-    public function test_exception_handler_shows_error_message_and_exits_with_code_1_without_throwing_exception()
+    public function testExceptionHandlerShowsErrorMessageAndExitsWithCode1WithoutThrowingException()
     {
         $return = (new class extends BuildTask
         {
@@ -93,7 +93,7 @@ class BuildTaskServiceTest extends TestCase
         $this->assertEquals(1, $return);
     }
 
-    public function test_find_tasks_in_app_directory_method_discovers_tasks_in_app_directory()
+    public function testFindTasksInAppDirectoryMethodDiscoversTasksInAppDirectory()
     {
         $this->directory('app/Actions');
         $this->file('app/Actions/FooBuildTask.php', $this->classFileStub());
@@ -101,7 +101,7 @@ class BuildTaskServiceTest extends TestCase
         $this->assertContains('App\Actions\FooBuildTask', (new BuildTaskService())->getRegisteredTasks());
     }
 
-    public function test_automatically_discovered_tasks_can_be_executed()
+    public function testAutomaticallyDiscoveredTasksCanBeExecuted()
     {
         $this->directory('app/Actions');
         $this->file('app/Actions/FooBuildTask.php', $this->classFileStub());

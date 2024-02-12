@@ -21,7 +21,7 @@ class MetadataHelperTest extends TestCase
         config(['hyde.url' => null]);
     }
 
-    public function test_name_method_returns_a_valid_html_meta_string()
+    public function testNameMethodReturnsAValidHtmlMetaString()
     {
         $this->assertEquals(
             '<meta name="foo" content="bar">',
@@ -29,7 +29,7 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_property_method_returns_a_valid_html_meta_string()
+    public function testPropertyMethodReturnsAValidHtmlMetaString()
     {
         $this->assertEquals(
             '<meta property="og:foo" content="bar">',
@@ -37,7 +37,7 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_property_method_accepts_property_with_og_prefix()
+    public function testPropertyMethodAcceptsPropertyWithOgPrefix()
     {
         $this->assertEquals(
             '<meta property="og:foo" content="bar">',
@@ -45,7 +45,7 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_property_method_accepts_property_without_og_prefix()
+    public function testPropertyMethodAcceptsPropertyWithoutOgPrefix()
     {
         $this->assertEquals(
             '<meta property="og:foo" content="bar">',
@@ -53,7 +53,7 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_link_method_returns_a_valid_html_link_string()
+    public function testLinkMethodReturnsAValidHtmlLinkString()
     {
         $this->assertEquals(
             '<link rel="foo" href="bar">',
@@ -61,7 +61,7 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_link_method_returns_a_valid_html_link_string_with_attributes()
+    public function testLinkMethodReturnsAValidHtmlLinkStringWithAttributes()
     {
         $this->assertEquals(
             '<link rel="foo" href="bar" title="baz">',
@@ -69,7 +69,7 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_link_method_returns_a_valid_html_link_string_with_multiple_attributes()
+    public function testLinkMethodReturnsAValidHtmlLinkStringWithMultipleAttributes()
     {
         $this->assertEquals(
             '<link rel="foo" href="bar" title="baz" type="text/css">',
@@ -77,12 +77,12 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_get_method_returns_global_metadata_bag()
+    public function testGetMethodReturnsGlobalMetadataBag()
     {
         $this->assertEquals(Meta::get(), GlobalMetadataBag::make());
     }
 
-    public function test_render_method_renders_global_metadata_bag()
+    public function testRenderMethodRendersGlobalMetadataBag()
     {
         $this->assertSame(Meta::render(), GlobalMetadataBag::make()->render());
     }

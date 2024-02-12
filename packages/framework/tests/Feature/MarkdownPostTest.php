@@ -17,7 +17,7 @@ use Hyde\Testing\TestCase;
  */
 class MarkdownPostTest extends TestCase
 {
-    public function test_constructor_can_create_a_new_author_instance_from_username_string()
+    public function testConstructorCanCreateANewAuthorInstanceFromUsernameString()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'author' => 'John Doe',
@@ -29,7 +29,7 @@ class MarkdownPostTest extends TestCase
         $this->assertNull($post->author->website);
     }
 
-    public function test_constructor_can_create_a_new_author_instance_from_user_array()
+    public function testConstructorCanCreateANewAuthorInstanceFromUserArray()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'author' => [
@@ -45,7 +45,7 @@ class MarkdownPostTest extends TestCase
         $this->assertEquals('https://example.com', $post->author->website);
     }
 
-    public function test_constructor_can_create_a_new_image_instance_from_a_string()
+    public function testConstructorCanCreateANewImageInstanceFromAString()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'image' => 'https://example.com/image.jpg',
@@ -55,7 +55,7 @@ class MarkdownPostTest extends TestCase
         $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
     }
 
-    public function test_constructor_can_create_a_new_image_instance_from_an_array()
+    public function testConstructorCanCreateANewImageInstanceFromAnArray()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'image' => [
@@ -67,7 +67,7 @@ class MarkdownPostTest extends TestCase
         $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
     }
 
-    public function test_constructor_can_create_a_new_date_string_instance_from_matter()
+    public function testConstructorCanCreateANewDateStringInstanceFromMatter()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'date' => '2022-01-01',
@@ -77,13 +77,13 @@ class MarkdownPostTest extends TestCase
         $this->assertEquals('Jan 1st, 2022', $post->date->short);
     }
 
-    public function test_featured_image_can_be_constructed_returns_null_when_no_image_is_set_in_the_page_matter()
+    public function testFeaturedImageCanBeConstructedReturnsNullWhenNoImageIsSetInThePageMatter()
     {
         $page = new MarkdownPost();
         $this->assertNull($page->image);
     }
 
-    public function test_featured_image_can_be_constructed_returns_image_object_with_local_path_when_matter_is_string()
+    public function testFeaturedImageCanBeConstructedReturnsImageObjectWithLocalPathWhenMatterIsString()
     {
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
@@ -91,7 +91,7 @@ class MarkdownPostTest extends TestCase
         $this->assertEquals('media/foo.png', $image->getSource());
     }
 
-    public function test_featured_image_can_be_constructed_returns_image_object_with_remote_path_when_matter_is_string()
+    public function testFeaturedImageCanBeConstructedReturnsImageObjectWithRemotePathWhenMatterIsString()
     {
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
@@ -99,7 +99,7 @@ class MarkdownPostTest extends TestCase
         $this->assertEquals('https://example.com/foo.png', $image->getSource());
     }
 
-    public function test_featured_image_can_be_constructed_returns_image_object_with_supplied_data_when_matter_is_array()
+    public function testFeaturedImageCanBeConstructedReturnsImageObjectWithSuppliedDataWhenMatterIsArray()
     {
         $page = MarkdownPost::make(matter: ['image' => ['source' => 'foo.png', 'titleText' => 'bar']]);
         $image = $page->image;

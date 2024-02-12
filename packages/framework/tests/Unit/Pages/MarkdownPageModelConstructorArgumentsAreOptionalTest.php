@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 
 class MarkdownPageModelConstructorArgumentsAreOptionalTest extends TestCase
 {
-    public function test_markdown_page_model_constructor_arguments_are_optional()
+    public function testMarkdownPageModelConstructorArgumentsAreOptional()
     {
         $models = [
             MarkdownPage::class,

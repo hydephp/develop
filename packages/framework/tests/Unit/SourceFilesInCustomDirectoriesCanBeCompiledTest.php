@@ -34,7 +34,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_markdown_posts_in_changed_directory_can_be_compiled()
+    public function testMarkdownPostsInChangedDirectoryCanBeCompiled()
     {
         mkdir(Hyde::path('testSourceDir/blog'));
         Filesystem::touch('testSourceDir/blog/test.md');
@@ -47,7 +47,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         Filesystem::unlink('_site/posts/test.html');
     }
 
-    public function test_markdown_pages_in_changed_directory_can_be_compiled()
+    public function testMarkdownPagesInChangedDirectoryCanBeCompiled()
     {
         mkdir(Hyde::path('testSourceDir/pages'));
         Filesystem::touch('testSourceDir/pages/test.md');
@@ -60,7 +60,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         Filesystem::unlink('_site/test.html');
     }
 
-    public function test_documentation_pages_in_changed_directory_can_be_compiled()
+    public function testDocumentationPagesInChangedDirectoryCanBeCompiled()
     {
         mkdir(Hyde::path('testSourceDir/documentation'));
         Filesystem::touch('testSourceDir/documentation/test.md');
@@ -73,7 +73,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         Filesystem::unlink('_site/docs/test.html');
     }
 
-    public function test_blade_pages_in_changed_directory_can_be_compiled()
+    public function testBladePagesInChangedDirectoryCanBeCompiled()
     {
         mkdir(Hyde::path('testSourceDir/blade'));
         Filesystem::touch('testSourceDir/blade/test.blade.php');

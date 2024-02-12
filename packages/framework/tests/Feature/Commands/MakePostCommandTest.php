@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  */
 class MakePostCommandTest extends TestCase
 {
-    public function test_command_has_expected_output_and_creates_valid_file()
+    public function testCommandHasExpectedOutputAndCreatesValidFile()
     {
         // Assert that no old file exists which would cause issues
         $this->assertFileDoesNotExist(Hyde::path('_posts/test-post.md'));
@@ -46,7 +46,7 @@ class MakePostCommandTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function test_that_files_are_not_overwritten_when_force_flag_is_not_set()
+    public function testThatFilesAreNotOverwrittenWhenForceFlagIsNotSet()
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'This should not be overwritten');
         $this->artisan('make:post')
@@ -69,7 +69,7 @@ class MakePostCommandTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function test_that_files_are_overwritten_when_force_flag_is_set()
+    public function testThatFilesAreOverwrittenWhenForceFlagIsSet()
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'This should be overwritten');
         $this->artisan('make:post --force')
@@ -94,7 +94,7 @@ class MakePostCommandTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function test_that_title_can_be_specified_in_command_signature()
+    public function testThatTitleCanBeSpecifiedInCommandSignature()
     {
         $this->artisan('make:post "Test Post"')
             ->expectsOutputToContain('Selected title: Test Post')
@@ -108,7 +108,7 @@ class MakePostCommandTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function test_that_command_can_be_canceled()
+    public function testThatCommandCanBeCanceled()
     {
         $this->artisan('make:post "Test Post"')
         ->expectsOutputToContain('Selected title: Test Post')

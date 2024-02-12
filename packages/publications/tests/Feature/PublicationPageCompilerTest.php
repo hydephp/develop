@@ -22,7 +22,7 @@ use function json_encode;
  */
 class PublicationPageCompilerTest extends TestCase
 {
-    public function test_can_compile_publication_pages()
+    public function testCanCompilePublicationPages()
     {
         $this->setupPublicationType();
 
@@ -33,7 +33,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Detail: My Publication', $string);
     }
 
-    public function test_can_compile_list_pages()
+    public function testCanCompileListPages()
     {
         $this->setupPublicationType();
 
@@ -45,7 +45,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('List: My Publication', $string);
     }
 
-    public function test_can_compile_publication_pages_with_registered_view()
+    public function testCanCompilePublicationPagesWithRegisteredView()
     {
         $this->setupPublicationType();
 
@@ -60,7 +60,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Registered detail view', PublicationPageCompiler::call($publicationPage));
     }
 
-    public function test_can_compile_list_pages_with_registered_view()
+    public function testCanCompileListPagesWithRegisteredView()
     {
         $this->setupPublicationType();
 
@@ -75,7 +75,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
     }
 
-    public function test_can_compile_publication_pages_with_registered_namespaced_view()
+    public function testCanCompilePublicationPagesWithRegisteredNamespacedView()
     {
         $this->setupPublicationType();
 
@@ -88,7 +88,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertStringContainsString('My Publication', PublicationPageCompiler::call($publicationPage));
     }
 
-    public function test_can_compile_list_pages_with_registered_namespaced_view()
+    public function testCanCompileListPagesWithRegisteredNamespacedView()
     {
         $this->setupPublicationType();
         $this->file('vendor/hyde/framework/resources/views/layouts/test.blade.php', 'Registered list view');
@@ -103,7 +103,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
     }
 
-    public function test_with_missing_detail_blade_view()
+    public function testWithMissingDetailBladeView()
     {
         $this->setupPublicationType();
 
@@ -113,7 +113,7 @@ class PublicationPageCompilerTest extends TestCase
         PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
     }
 
-    public function test_with_missing_list_blade_view()
+    public function testWithMissingListBladeView()
     {
         $this->setupPublicationType();
 

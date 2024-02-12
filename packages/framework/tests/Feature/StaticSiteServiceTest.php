@@ -31,7 +31,7 @@ class StaticSiteServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_build_command_contains_expected_output()
+    public function testBuildCommandContainsExpectedOutput()
     {
         $this->artisan('build')
             ->expectsOutputToContain('Building your static site')
@@ -40,7 +40,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_build_command_creates_html_files()
+    public function testBuildCommandCreatesHtmlFiles()
     {
         $this->file('_posts/test-post.md');
 
@@ -51,7 +51,7 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
     }
 
-    public function test_build_command_transfers_media_asset_files()
+    public function testBuildCommandTransfersMediaAssetFiles()
     {
         file_put_contents(Hyde::path('_media/test-image.png'), 'foo');
         $this->artisan('build');
@@ -60,7 +60,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_site/media/test-image.png');
     }
 
-    public function test_build_command_transfers_media_asset_files_recursively()
+    public function testBuildCommandTransfersMediaAssetFilesRecursively()
     {
         $this->directory('_media/foo');
 
@@ -69,7 +69,7 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileEquals(Hyde::path('_media/foo/img.png'), Hyde::path('_site/media/foo/img.png'));
     }
 
-    public function test_all_page_types_can_be_compiled()
+    public function testAllPageTypesCanBeCompiled()
     {
         $this->file('_pages/html.html');
         $this->file('_pages/blade.blade.php');
@@ -99,7 +99,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_site/docs/docs.html');
     }
 
-    public function test_only_progress_bars_for_types_with_pages_are_shown()
+    public function testOnlyProgressBarsForTypesWithPagesAreShown()
     {
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
@@ -119,14 +119,14 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_site/markdown.html');
     }
 
-    public function test_print_initial_information_allows_api_to_be_disabled()
+    public function testPrintInitialInformationAllowsApiToBeDisabled()
     {
         $this->artisan('build --no-api')
             ->expectsOutput('Disabling external API calls')
             ->assertExitCode(0);
     }
 
-    public function test_node_action_outputs()
+    public function testNodeActionOutputs()
     {
         $this->artisan('build --run-prettier --run-dev --run-prod')
             ->expectsOutput('Prettifying code! This may take a second.')
@@ -135,14 +135,14 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_pretty_urls_option_output()
+    public function testPrettyUrlsOptionOutput()
     {
         $this->artisan('build --pretty-urls')
             ->expectsOutput('Generating site with pretty URLs')
             ->assertExitCode(0);
     }
 
-    public function test_sitemap_is_not_generated_when_conditions_are_not_met()
+    public function testSitemapIsNotGeneratedWhenConditionsAreNotMet()
     {
         config(['hyde.url' => '']);
         config(['hyde.generate_sitemap' => false]);
@@ -152,7 +152,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_sitemap_is_generated_when_conditions_are_met()
+    public function testSitemapIsGeneratedWhenConditionsAreMet()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.generate_sitemap' => true]);
@@ -163,7 +163,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_site/sitemap.xml');
     }
 
-    public function test_rss_feed_is_not_generated_when_conditions_are_not_met()
+    public function testRssFeedIsNotGeneratedWhenConditionsAreNotMet()
     {
         config(['hyde.url' => '']);
         config(['hyde.rss.enabled' => false]);
@@ -173,7 +173,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_rss_feed_is_generated_when_conditions_are_met()
+    public function testRssFeedIsGeneratedWhenConditionsAreMet()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.rss.enabled' => true]);
@@ -188,7 +188,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_site/feed.xml');
     }
 
-    public function test_does_not_generate_search_files_when_conditions_are_not_met()
+    public function testDoesNotGenerateSearchFilesWhenConditionsAreNotMet()
     {
         $this->artisan('build')
             ->doesntExpectOutput('Generating search index...')
@@ -196,7 +196,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_generates_search_files_when_conditions_are_met()
+    public function testGeneratesSearchFilesWhenConditionsAreMet()
     {
         Filesystem::touch('_docs/foo.md');
 
@@ -208,7 +208,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_docs/foo.md');
     }
 
-    public function test_site_directory_is_emptied_before_build()
+    public function testSiteDirectoryIsEmptiedBeforeBuild()
     {
         Filesystem::touch('_site/foo.html');
         $this->artisan('build')
@@ -217,7 +217,7 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/foo.html'));
     }
 
-    public function test_output_directory_is_not_emptied_if_disabled_in_config()
+    public function testOutputDirectoryIsNotEmptiedIfDisabledInConfig()
     {
         config(['hyde.empty_output_directory' => false]);
         Filesystem::touch('_site/keep.html');
@@ -230,7 +230,7 @@ class StaticSiteServiceTest extends TestCase
         Filesystem::unlink('_site/keep.html');
     }
 
-    public function test_aborts_when_non_standard_directory_is_emptied()
+    public function testAbortsWhenNonStandardDirectoryIsEmptied()
     {
         Hyde::setOutputDirectory('foo');
 
@@ -247,14 +247,14 @@ class StaticSiteServiceTest extends TestCase
         File::deleteDirectory(Hyde::path('foo'));
     }
 
-    public function test_without_warnings()
+    public function testWithoutWarnings()
     {
         $this->artisan('build')
             ->doesntExpectOutput('There were some warnings during the build process:')
             ->assertExitCode(0);
     }
 
-    public function test_with_warnings()
+    public function testWithWarnings()
     {
         BuildWarnings::report('This is a warning');
 
@@ -264,7 +264,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_with_warnings_and_verbose()
+    public function testWithWarningsAndVerbose()
     {
         BuildWarnings::report('This is a warning');
 
@@ -275,7 +275,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_with_warnings_but_warnings_are_disabled()
+    public function testWithWarningsButWarningsAreDisabled()
     {
         config(['hyde.log_warnings' => false]);
         BuildWarnings::report('This is a warning');
@@ -285,7 +285,7 @@ class StaticSiteServiceTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_with_warnings_converted_to_exceptions()
+    public function testWithWarningsConvertedToExceptions()
     {
         config(['hyde.convert_build_warnings_to_exceptions' => true]);
         BuildWarnings::report('This is a warning');

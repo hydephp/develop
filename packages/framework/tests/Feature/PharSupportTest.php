@@ -48,7 +48,7 @@ class PharSupportTest extends TestCase
         $this->assertFalse(PharSupport::hasVendorDirectory());
     }
 
-    public function test_vendor_path_can_run_in_phar()
+    public function testVendorPathCanRunInPhar()
     {
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
@@ -56,7 +56,7 @@ class PharSupportTest extends TestCase
         $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework")), Hyde::vendorPath());
     }
 
-    public function test_vendor_path_can_run_in_phar_with_path_argument()
+    public function testVendorPathCanRunInPharWithPathArgument()
     {
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);

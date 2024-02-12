@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  */
 class HydeGetBasePathHasFallbackTest extends TestCase
 {
-    public function test_hyde_get_base_path_falls_back_to_getcwd()
+    public function testHydeGetBasePathFallsBackToGetcwd()
     {
         $mock = new class extends Hyde
         {

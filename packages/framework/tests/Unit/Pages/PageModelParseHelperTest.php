@@ -16,7 +16,7 @@ use Hyde\Testing\TestCase;
  */
 class PageModelParseHelperTest extends TestCase
 {
-    public function test_blade_page_get_helper_returns_blade_page_object()
+    public function testBladePageGetHelperReturnsBladePageObject()
     {
         Filesystem::touch('_pages/foo.blade.php');
 
@@ -26,7 +26,7 @@ class PageModelParseHelperTest extends TestCase
         Filesystem::unlink('_pages/foo.blade.php');
     }
 
-    public function test_markdown_page_get_helper_returns_markdown_page_object()
+    public function testMarkdownPageGetHelperReturnsMarkdownPageObject()
     {
         Filesystem::touch('_pages/foo.md');
 
@@ -36,7 +36,7 @@ class PageModelParseHelperTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_markdown_post_get_helper_returns_markdown_post_object()
+    public function testMarkdownPostGetHelperReturnsMarkdownPostObject()
     {
         Filesystem::touch('_posts/foo.md');
 
@@ -46,7 +46,7 @@ class PageModelParseHelperTest extends TestCase
         Filesystem::unlink('_posts/foo.md');
     }
 
-    public function test_documentation_page_get_helper_returns_documentation_page_object()
+    public function testDocumentationPageGetHelperReturnsDocumentationPageObject()
     {
         Filesystem::touch('_docs/foo.md');
 

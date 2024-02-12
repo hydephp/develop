@@ -24,43 +24,43 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
-    public function test_has_site_url_returns_false_when_no_site_url_is_set()
+    public function testHasSiteUrlReturnsFalseWhenNoSiteUrlIsSet()
     {
         config(['hyde.url' => null]);
         $this->assertFalse($this->class->hasSiteUrl());
     }
 
-    public function test_has_site_url_returns_true_when_site_url_is_set()
+    public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSet()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->assertTrue($this->class->hasSiteUrl());
     }
 
-    public function test_qualified_url_returns_site_url_when_no_path_is_given()
+    public function testQualifiedUrlReturnsSiteUrlWhenNoPathIsGiven()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->assertEquals('https://example.com', $this->class->url());
     }
 
-    public function test_qualified_url_returns_site_url_plus_given_path()
+    public function testQualifiedUrlReturnsSiteUrlPlusGivenPath()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->assertEquals('https://example.com/path', $this->class->url('path'));
     }
 
-    public function test_qualified_url_returns_site_url_plus_given_path_with_extension()
+    public function testQualifiedUrlReturnsSiteUrlPlusGivenPathWithExtension()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->assertEquals('https://example.com/path.html', $this->class->url('path.html'));
     }
 
-    public function test_qualified_url_returns_site_url_plus_given_path_with_extension_and_query_string()
+    public function testQualifiedUrlReturnsSiteUrlPlusGivenPathWithExtensionAndQueryString()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->assertEquals('https://example.com/path.html?query=string', $this->class->url('path.html?query=string'));
     }
 
-    public function test_qualified_url_trims_trailing_slashes()
+    public function testQualifiedUrlTrimsTrailingSlashes()
     {
         config(['hyde.url' => 'https://example.com/']);
         $this->assertEquals('https://example.com', $this->class->url());
@@ -68,13 +68,13 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->assertEquals('https://example.com/foo', $this->class->url('/foo/'));
     }
 
-    public function test_qualified_url_accepts_multiple_schemes()
+    public function testQualifiedUrlAcceptsMultipleSchemes()
     {
         config(['hyde.url' => 'http://example.com']);
         $this->assertEquals('http://example.com', $this->class->url());
     }
 
-    public function test_qualified_url_throws_exception_when_no_site_url_is_set()
+    public function testQualifiedUrlThrowsExceptionWhenNoSiteUrlIsSet()
     {
         config(['hyde.url' => null]);
         $this->expectException(BaseUrlNotSetException::class);
@@ -82,13 +82,13 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->class->url();
     }
 
-    public function test_helper_returns_expected_string_when_site_url_is_set()
+    public function testHelperReturnsExpectedStringWhenSiteUrlIsSet()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->assertEquals('https://example.com/foo/bar.html', $this->class->url('foo/bar.html'));
     }
 
-    public function test_helper_returns_expected_string_when_pretty_urls_are_enabled()
+    public function testHelperReturnsExpectedStringWhenPrettyUrlsAreEnabled()
     {
         config(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
         $this->assertEquals('https://example.com', $this->class->url('index.html'));

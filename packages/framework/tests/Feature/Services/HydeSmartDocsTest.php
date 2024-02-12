@@ -20,7 +20,7 @@ use function view;
  */
 class HydeSmartDocsTest extends TestCase
 {
-    public function test_class_tokenizes_document()
+    public function testClassTokenizesDocument()
     {
         $article = $this->makeArticle("# Header Content \n\n Body Content");
 
@@ -28,7 +28,7 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals('<p>Body Content</p>', $article->renderBody());
     }
 
-    public function test_class_can_handle_document_with_no_header()
+    public function testClassCanHandleDocumentWithNoHeader()
     {
         $article = $this->makeArticle('Body Content');
 
@@ -36,7 +36,7 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals('<p>Body Content</p>', $article->renderBody());
     }
 
-    public function test_class_can_handle_document_with_only_header()
+    public function testClassCanHandleDocumentWithOnlyHeader()
     {
         $article = $this->makeArticle('# Header Content');
 
@@ -44,7 +44,7 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals('', $article->renderBody());
     }
 
-    public function test_class_can_handle_empty_document()
+    public function testClassCanHandleEmptyDocument()
     {
         $article = $this->makeArticle('');
 
@@ -52,7 +52,7 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals('', $article->renderBody());
     }
 
-    public function test_create_helper_creates_new_instance_and_processes_it()
+    public function testCreateHelperCreatesNewInstanceAndProcessesIt()
     {
         $article = $this->makeArticle();
 
@@ -64,7 +64,7 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    public function test_render_header_returns_the_extracted_header()
+    public function testRenderHeaderReturnsTheExtractedHeader()
     {
         $this->assertSame(
             '<h1>Foo</h1>',
@@ -72,7 +72,7 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    public function test_render_header_returns_the_extracted_header_with_varying_newlines()
+    public function testRenderHeaderReturnsTheExtractedHeaderWithVaryingNewlines()
     {
         $tests = [
             "# Foo\n\nHello world.",
@@ -88,7 +88,7 @@ class HydeSmartDocsTest extends TestCase
         }
     }
 
-    public function test_render_body_returns_the_extracted_body()
+    public function testRenderBodyReturnsTheExtractedBody()
     {
         $this->assertSame(
             '<p>Hello world.</p>',
@@ -96,7 +96,7 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    public function test_render_body_returns_the_extracted_body_with_varying_newlines()
+    public function testRenderBodyReturnsTheExtractedBodyWithVaryingNewlines()
     {
         $tests = [
             "# Foo\n\nHello world.",
@@ -112,7 +112,7 @@ class HydeSmartDocsTest extends TestCase
         }
     }
 
-    public function test_render_footer_is_empty_by_default()
+    public function testRenderFooterIsEmptyByDefault()
     {
         $this->assertSame(
             '',
@@ -120,7 +120,7 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    public function test_add_dynamic_header_content_adds_source_link_when_conditions_are_met()
+    public function testAddDynamicHeaderContentAddsSourceLinkWhenConditionsAreMet()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'header']);
@@ -130,7 +130,7 @@ class HydeSmartDocsTest extends TestCase
         HTML, $this->makeArticle()->renderHeader());
     }
 
-    public function test_edit_source_link_is_added_to_footer_when_conditions_are_met()
+    public function testEditSourceLinkIsAddedToFooterWhenConditionsAreMet()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'footer']);
@@ -140,7 +140,7 @@ class HydeSmartDocsTest extends TestCase
         HTML, $this->makeArticle()->renderFooter());
     }
 
-    public function test_edit_source_link_can_be_added_to_both_header_and_footer()
+    public function testEditSourceLinkCanBeAddedToBothHeaderAndFooter()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
@@ -156,7 +156,7 @@ class HydeSmartDocsTest extends TestCase
         HTML, $article->renderFooter());
     }
 
-    public function test_edit_source_link_text_can_be_customized_in_header()
+    public function testEditSourceLinkTextCanBeCustomizedInHeader()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
@@ -167,7 +167,7 @@ class HydeSmartDocsTest extends TestCase
         HTML, $this->makeArticle()->renderHeader());
     }
 
-    public function test_edit_source_link_text_can_be_customized_in_footer()
+    public function testEditSourceLinkTextCanBeCustomizedInFooter()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
@@ -178,7 +178,7 @@ class HydeSmartDocsTest extends TestCase
         HTML, $this->makeArticle()->renderFooter());
     }
 
-    public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
+    public function testAddDynamicFooterContentAddsTorchlightAttributionWhenConditionsAreMet()
     {
         app()->bind('env', fn () => 'production');
         config(['torchlight.token' => '12345']);
@@ -188,7 +188,7 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    public function test_the_documentation_article_view()
+    public function testTheDocumentationArticleView()
     {
         $rendered = view('hyde::components.docs.documentation-article', [
             'page' => $this->makePage(),
@@ -198,7 +198,7 @@ class HydeSmartDocsTest extends TestCase
         $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
     }
 
-    public function test_the_documentation_article_view_with_existing_variable()
+    public function testTheDocumentationArticleViewWithExistingVariable()
     {
         $rendered = view('hyde::components.docs.documentation-article', [
             'page' => $page = $this->makePage(),

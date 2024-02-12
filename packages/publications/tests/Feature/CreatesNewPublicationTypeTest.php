@@ -26,7 +26,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_it_creates_a_new_publication_type()
+    public function testItCreatesANewPublicationType()
     {
         $creator = new CreatesNewPublicationType(
             'Test Publication',
@@ -54,7 +54,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         );
     }
 
-    public function test_create_with_default_parameters()
+    public function testCreateWithDefaultParameters()
     {
         $creator = new CreatesNewPublicationType(
             'Test Publication',
@@ -78,7 +78,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         );
     }
 
-    public function test_it_creates_list_and_detail_pages()
+    public function testItCreatesListAndDetailPages()
     {
         $creator = new CreatesNewPublicationType(
             'Test Publication',
@@ -98,7 +98,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         );
     }
 
-    public function test_it_uses_the_paginated_list_view_when_pagination_is_enabled()
+    public function testItUsesThePaginatedListViewWhenPaginationIsEnabled()
     {
         $creator = new CreatesNewPublicationType(
             'Test Publication',
