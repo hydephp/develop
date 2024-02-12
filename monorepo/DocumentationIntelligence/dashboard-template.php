@@ -47,12 +47,9 @@
                 <article>
                     <h3>Headings</h3>
 
-                    <details>
-                        <summary>Click to view the headings</summary>
-                        <ol>
-                            <?php echo $headingList; ?>
-                        </ol>
-                    </details>
+                     <table class="table table-bordered table-sm w-fit">
+                         <?php echo $headingsTable; ?>
+                     </table>
                 </article>
             </div>
         </div>

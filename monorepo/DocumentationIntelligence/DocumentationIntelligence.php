@@ -226,7 +226,7 @@ class DocumentationIntelligence
         return [
             'modelStatistics' => $this->makeModelStatisticsTable(),
             'modelSections' => $this->makeModelSections(),
-            'headingList' => $this->makeHeadingList(),
+            'headingsTable' => $this->makeHeadingsTable(),
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
         ];
     }
@@ -283,7 +283,7 @@ class DocumentationIntelligence
         return $html;
     }
 
-    protected function makeHeadingList(): string
+    protected function makeHeadingsTable(): string
     {
         $headings = [];
 
@@ -295,7 +295,21 @@ class DocumentationIntelligence
             }
         }
 
-        return implode("\n", array_map(fn ($heading) => '<li>'.e($heading).'</li>', $headings));
+        $rows = [];
+
+        foreach ($headings as $heading) {
+            $rows[] = [
+                'level' => substr_count($heading, '#'),
+                'text' => trim($heading, '# '),
+            ];
+        }
+
+        $html = '<tr><th>Level</th><th>Heading</th></tr>';
+        foreach ($rows as $row) {
+            $html .= '<tr><td>'.implode('</td><td>', $row).'</td></tr>';
+        }
+
+        return $html;
     }
 
     public function getModelStatistics(): array
