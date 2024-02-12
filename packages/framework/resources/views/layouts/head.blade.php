@@ -20,3 +20,4 @@
 
 {{-- If the user has defined any custom head tags, render them here --}}
 {!! config('hyde.head') !!}
+{!! Includes::html('head') !!}
