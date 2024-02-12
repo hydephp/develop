@@ -290,7 +290,17 @@ class DocumentationIntelligence
 
         $model = file(OUTPUT_PATH.'/model.txt');
 
+        $isInCodeBlock = false;
+
         foreach ($model as $line) {
+            if (Str::startsWith($line, '```')) {
+                $isInCodeBlock = ! $isInCodeBlock;
+            }
+
+            if ($isInCodeBlock) {
+                continue;
+            }
+
             if (Str::startsWith($line, '#')) {
                 $headings[] = trim($line);
             }
