@@ -92,6 +92,12 @@ resources/
 |   |-- banner.blade.php
 ```
 
+#### Stock Includes
+
+HydePHP also supports some drop-in includes that you can use as an alternative to some config options. These currently are as follows:
+
+- `footer` If a `footer.md` file exists in the includes directory, Hyde will use that as the footer text, instead of the one set in the `hyde.footer` config option.
+
 
 ## Reading time helper
 
