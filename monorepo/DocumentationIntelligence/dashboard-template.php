@@ -45,7 +45,7 @@
                 <h2>Textual Analysis</h2>
 
                 <article>
-                    <h3>Headings</h3>
+                    <h3>Headings <small>(<?php echo $headingsCount; ?>)</small></h3>
 
                      <table class="table table-bordered table-sm w-fit">
                          <?php echo $headingsTable; ?>

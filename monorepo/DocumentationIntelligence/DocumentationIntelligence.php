@@ -227,6 +227,7 @@ class DocumentationIntelligence
             'modelStatistics' => $this->makeModelStatisticsTable(),
             'modelSections' => $this->makeModelSections(),
             'headingsTable' => $this->makeHeadingsTable(),
+            'headingsCount' => number_format(substr_count($this->makeHeadingsTable(), '<tr>') - 1),
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
         ];
     }
@@ -291,7 +292,7 @@ class DocumentationIntelligence
 
         foreach ($model as $line) {
             if (Str::startsWith($line, '#')) {
-                $headings[] = $line;
+                $headings[] = trim($line);
             }
         }
 
@@ -304,9 +305,12 @@ class DocumentationIntelligence
             ];
         }
 
-        $html = '<tr><th>Level</th><th>Heading</th></tr>';
+        usort($rows, fn ($a, $b) => $a['level'] <=> $b['level']);
+
+        $html = '<tr><th>Level</th><th>Heading</th></tr>'."\n";
+
         foreach ($rows as $row) {
-            $html .= '<tr><td>'.implode('</td><td>', $row).'</td></tr>';
+            $html .= '<tr><td>'.implode('</td><td>', $row).'</td></tr>'."\n";
         }
 
         return $html;
