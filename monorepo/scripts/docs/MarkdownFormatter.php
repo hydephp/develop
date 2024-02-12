@@ -457,8 +457,8 @@ if ($checksHeadings && count($headings)) {
             // Check for style: 1-2 headings should be title case, 3+ should be sentence case
             $headingText = trim(str_replace('#', '', $heading));
             $titleCase = Hyde\make_title($headingText);
-            $alwaysUppercase = ['PHP', 'HTML', 'CLI'];
-            $alwaysLowercase = ['to'];
+            $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'GitHub'];
+            $alwaysLowercase = ['to', 'it'];
             $titleCase = str_ireplace($alwaysUppercase, $alwaysUppercase, $titleCase);
             $titleCase = str_ireplace($alwaysLowercase, $alwaysLowercase, $titleCase);
 
