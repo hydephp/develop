@@ -66,7 +66,7 @@ author: Mr. Hyde
 date: 2022-05-09 18:38
 ---
 
-## Write your Markdown here
+## Write Your Markdown Here
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 Autem aliquid alias explicabo consequatur similique,
@@ -74,7 +74,7 @@ animi distinctio earum ducimus minus, magnam.
 ```
 
 
-## Supported Front Matter properties
+## Supported Front Matter Properties
 
 ### Post Front Matter Schema
 
@@ -202,7 +202,7 @@ image:
 { .info }
 
 
-## Using images in posts
+## Using Images in Posts
 
 To use images stored in the `_media/` directory, you can use the following syntax:
 

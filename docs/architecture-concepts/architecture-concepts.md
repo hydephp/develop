@@ -20,7 +20,7 @@ then by all means, please read on! This is also a great place to start if you wa
 >info For a high-level overview of these concepts, see the [Basic Architecture Concepts](core-concepts) page.
 
 
-## Behind the magic
+## Behind the Magic
 
 Want to learn more about a particular feature? Click on the links below to visit the article.
 

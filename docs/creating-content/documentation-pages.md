@@ -76,7 +76,7 @@ navigation:
 ```
 
 
-## Dynamic content generation
+## Dynamic Content Generation
 
 Hyde makes documentation pages easy to create by automatically generating dynamic content such as the sidebar and page title.
 If you are not happy with the results you can customize them in the config or with front matter.
@@ -278,7 +278,7 @@ If you set this to false, Hyde will match the directory structure of the source 
 ```
 
 
-## Search feature
+## Search Feature
 
 ### Introduction
 

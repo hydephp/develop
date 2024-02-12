@@ -30,7 +30,7 @@ php hyde <command> [--help]
 ```
 
 
-## Directory structure
+## Directory Structure
 
 To take full advantage of the framework, it may first be good to familiarize ourselves with the directory structure.
 

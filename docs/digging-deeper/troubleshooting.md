@@ -23,7 +23,7 @@ did you find a new one? Send a PR to [update the docs](https://github.com/hydeph
    For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
 
 
-## Conventions to follow
+## Conventions to Follow
 
 ### File naming
 
@@ -68,7 +68,7 @@ We will use the following definitions to describe the behaviour of Hyde.
 You can read more about some of these in the [Core Concepts](core-concepts#paths-identifiers-and-route-keys) article.
 
 
-## Common issues, causes, and solutions
+## Common Issues, Causes, and Solutions
 
 | Issue                                              | Possible Cause / Issue Context                                                                                                                            | Possible Solution                                                                                                                                                                                 |
 |----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

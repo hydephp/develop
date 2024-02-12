@@ -6,7 +6,7 @@ navigation:
 
 # Compile and Deploy your site
 
-## Running the build command
+## Running the Build Command
 
 Now that you have some amazing content, you'll want to compile your site into static HTML.
 
@@ -41,7 +41,7 @@ php hyde serve
 ---
 
 
-## Deploying your site
+## Deploying Your Site
 
 One of the things that make static sites so enjoyable to work with is how easy it is to deploy them to the web.
 This list is not exhaustive, but gives you a general idea of the most common ways to deploy your site.
