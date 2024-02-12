@@ -14,7 +14,7 @@ Using front matter is optional, as Hyde will dynamically generate data based on 
 While Hyde offers some support for front matter within Blade files, most of the time you use front matter, it will be in Markdown.
 
 
-## Front matter syntax
+## Front Matter Syntax
 
 Here's a refresher on Yaml, and a quick reference of the syntax Hyde uses and expects:
 

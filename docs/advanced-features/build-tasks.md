@@ -32,7 +32,7 @@ In a way, build tasks are like micro-commands, as they can interact directly wit
 In addition, there are some extra helpers available in the base BuildTask class that allow you to fluently format output to the console, which you will see in the examples below.
 
 
-## Creating build tasks
+## Creating Build Tasks
 
 ### Minimal example
 
@@ -103,7 +103,7 @@ Running this task will produce the following output:
 As you can see, there is no execution time tracking here, since we overrode the `printFinishMessage()` method that normally prints this. You can of course call the `withExecutionTime()` method to add this back in. See more in the API reference below.
 
 
-## Registering the tasks
+## Registering the Tasks
 
 There are a few ways to register these tasks so Hyde can find them.
 

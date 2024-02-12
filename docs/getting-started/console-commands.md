@@ -67,7 +67,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`list`](#available-commands)           | List all available commands                                                                 |
 
 
-## Build the static site
+## Build the Static Site
 
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -107,7 +107,7 @@ Run the static site builder for a single file
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
 
-## Start the realtime compiler server
+## Start the Realtime Compiler Server
 
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -138,7 +138,7 @@ php hyde validate
 Run a series of tests to validate your setup and help you optimize your site.
 
 
-## Generate the RSS feed
+## Generate the RSS Feed
 
 <a name="build-rss" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -215,7 +215,7 @@ Scaffold a new Markdown blog post file
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
 
-## Publish the default configuration files
+## Publish the Default Configuration Files
 
 <a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
@@ -264,7 +264,7 @@ Publish the hyde components for customization. Note that existing files will be 
 | `category` | The category to publish |
 
 
-## Display all registered routes.
+## Display all Registered Routes.
 
 <a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 

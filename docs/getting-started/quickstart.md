@@ -6,7 +6,7 @@ navigation:
 
 # Quickstart Guide
 
-## Installing HydePHP using Composer
+## Installing HydePHP Using Composer
 
 The recommended method of installing Hyde is using Composer, which installs the required dependencies on a per-project basis.
 
@@ -30,7 +30,7 @@ you also need NodeJS and NPM.
 The main way to interact with Hyde is through the [HydeCLI](console-commands), a Laravel Artisan-based command-line interface. Learn more about the HydeCLI in the [console commands](console-commands) documentation.
 
 
-## Starting a development server
+## Starting a Development Server
 
 To make previewing your site a breeze you can use the realtime compiler, which builds your pages on the fly.
 
@@ -40,7 +40,7 @@ php hyde serve
 Simply run the serve command, and you will be able to preview your site at [http://localhost:8080](http://localhost:8080).
 
 
-## Creating content
+## Creating Content
 
 ### Directory structure
 
@@ -81,7 +81,7 @@ You are now ready to show your site to the world! Simply copy the `_site` direct
 You can even use GitHub Pages to host your site for free. That's what the Hyde website does, using an Actions CI workflow that automatically builds and deploys this site.
 
 
-## Further reading
+## Further Reading
 
 Here's some ideas of what to read next:
 
