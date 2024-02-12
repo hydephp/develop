@@ -4,7 +4,7 @@ navigation:
     priority: 85
 ---
 
-# Integrations with third-party tools
+# Integrations with Third-Party Services
 
 ## Torchlight
 

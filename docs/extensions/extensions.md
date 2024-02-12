@@ -32,6 +32,8 @@ The [GitHub Action for HydePHP](https://github.com/hydephp/action) is hands-down
 
 ## Integration with Third-Party Services
 
+All third-party integrations are listed on the [Third-Party Integrations](third-party-integrations) page. Below is a summary.
+
 ### Torchlight
 
 Torchlight is an amazing API for syntax highlighting, and is supported natively by HydePHP.
