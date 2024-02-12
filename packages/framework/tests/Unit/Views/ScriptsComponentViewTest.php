@@ -56,7 +56,7 @@ class ScriptsComponentViewTest extends TestCase
         Filesystem::unlink('_media/app.js');
     }
 
-    public function testCanAddHeadHtmlFromConfigHook()
+    public function testCanAddScriptsHtmlFromConfigHook()
     {
         config(['hyde.scripts' => '<script src="custom-hook.js"></script>']);
 
