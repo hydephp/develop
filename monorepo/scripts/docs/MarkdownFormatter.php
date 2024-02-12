@@ -444,6 +444,9 @@ function getSignatures(): array
 $headings['foo.md'][1] = '## Bar';
 
 if ($checksHeadings && count($headings)) {
+    // Needed to use the make_title function
+    \Hyde\Foundation\HydeKernel::setInstance(new \Hyde\Foundation\HydeKernel());
+
     foreach ($headings as $filename => $fileHeadings) {
         $headingLevels = [];
         foreach ($fileHeadings as $heading) {
