@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\RealtimeCompiler\Http;
 
 use Desilva\Microserve\HttpKernel as BaseHttpKernel;
