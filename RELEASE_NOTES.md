@@ -21,6 +21,7 @@ This serves two purposes:
 
 ### Added
 - Added the existing `media_extensions` option to the `hyde` configuration file in https://github.com/hydephp/develop/pull/1531
+- Added an `html` helper to the `Includes` facade in https://github.com/hydephp/develop/pull/1552
 
 ### Changed
 - Renamed local template variable `$document` to `$article` to better match the usage in https://github.com/hydephp/develop/pull/1506
