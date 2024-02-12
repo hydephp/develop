@@ -72,7 +72,7 @@ enum PublicationFieldTypes: string
     /**
      * The types that can be used for canonical fields (used to generate file names).
      *
-     * @return \Hyde\Publications\PublicationFieldTypes[]
+     * @return \Hyde\Publications\Concerns\PublicationFieldTypes[]
      */
     public static function canonicable(): array
     {
@@ -87,7 +87,7 @@ enum PublicationFieldTypes: string
     /**
      * The types that can be array values.
      *
-     * @return \Hyde\Publications\PublicationFieldTypes[]
+     * @return \Hyde\Publications\Concerns\PublicationFieldTypes[]
      */
     public static function arrayable(): array
     {

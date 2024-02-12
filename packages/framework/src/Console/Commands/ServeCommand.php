@@ -14,6 +14,7 @@ use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 
 use function sprintf;
+use function in_array;
 use function str_replace;
 use function class_exists;
 
