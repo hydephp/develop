@@ -53,6 +53,27 @@ class IncludesFacadeTest extends TestCase
         $this->assertEquals('default', Includes::get('foo.txt', 'default'));
     }
 
+    public function test_html_returns_rendered_partial()
+    {
+        $expected = '<h1>foo bar</h1>';
+        file_put_contents(Hyde::path('resources/includes/foo.html'), '<h1>foo bar</h1>');
+        $this->assertEquals($expected, Includes::html('foo.html'));
+        Filesystem::unlink('resources/includes/foo.html');
+    }
+
+    public function test_html_returns_efault_value_when_not_found()
+    {
+        $this->assertNull(Includes::html('foo.html'));
+        $this->assertEquals('<h1>default</h1>', Includes::html('foo.html', '<h1>default</h1>'));
+    }
+
+    public function test_html_with_and_without_extension()
+    {
+        file_put_contents(Hyde::path('resources/includes/foo.html'), '# foo bar');
+        $this->assertEquals(Includes::html('foo.html'), Includes::html('foo'));
+        Filesystem::unlink('resources/includes/foo.html');
+    }
+
     public function test_markdown_returns_rendered_partial()
     {
         $expected = "<h1>foo bar</h1>\n";
