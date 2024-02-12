@@ -25,3 +25,4 @@
 
 {{-- If the user has defined any custom scripts, render them here --}}
 {!! config('hyde.scripts') !!}
+{!! Includes::html('scripts') !!}

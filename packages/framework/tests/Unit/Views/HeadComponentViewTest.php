@@ -79,6 +79,13 @@ class HeadComponentViewTest extends TestCase
         $this->assertStringContainsString('<meta name="custom-hook" content="foo">', $this->renderTestView());
     }
 
+    public function testCanAddHeadHtmlFromHtmlInclude()
+    {
+        $this->file('resources/includes/head.html', '<meta name="custom-include" content="foo">');
+
+        $this->assertStringContainsString('<meta name="custom-include" content="foo">', $this->renderTestView());
+    }
+
     protected function escapeIncludes(string $contents): string
     {
         return str_replace('@include', '@@include', $contents);
