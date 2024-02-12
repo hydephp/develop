@@ -7,11 +7,11 @@ namespace Hyde\Support;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 
 use function basename;
 use function file_exists;
 use function file_get_contents;
-use function mkdir;
 
 /**
  * The Includes facade provides a simple way to access partials in the includes directory.
@@ -20,6 +20,8 @@ use function mkdir;
  */
 class Includes
 {
+    use InteractsWithDirectories;
+
     /**
      * @var string The directory where includes are stored.
      */
@@ -92,12 +94,5 @@ class Includes
         }
 
         return Blade::render(file_get_contents($path));
-    }
-
-    protected static function needsDirectory(string $directory): void
-    {
-        if (! file_exists($directory)) {
-            mkdir($directory, recursive: true);
-        }
     }
 }
