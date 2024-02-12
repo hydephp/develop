@@ -61,6 +61,24 @@ class Includes
     }
 
     /**
+     * Get the HTML contents of a partial file in the includes directory.
+     *
+     * @param  string  $filename  The name of the partial file, with or without the extension.
+     * @param  string|null  $default  The default value to return if the partial is not found.
+     * @return string|null The raw contents of the partial file, or the default value if not found.
+     */
+    public static function html(string $filename, ?string $default = null): ?string
+    {
+        $path = static::path(basename($filename, '.html').'.html');
+
+        if (! file_exists($path)) {
+            return $default === null ? null : $default;
+        }
+
+        return file_get_contents($path);
+    }
+
+    /**
      * Get the rendered Markdown of a partial file in the includes directory.
      *
      * @param  string  $filename  The name of the partial file, with or without the extension.

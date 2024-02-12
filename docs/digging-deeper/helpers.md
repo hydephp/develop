@@ -80,6 +80,20 @@ Includes::blade('banner.blade.php');
 Includes::blade('banner', 'Default content');
 ```
 
+### HTML Includes
+
+Gets the raw HTML of a partial file in the includes directory. Supplying the file extension is optional.
+
+```php
+use Hyde\Support\Includes;
+
+Includes::html('footer');
+Includes::html('footer.html');
+
+// With default value if the file does not exist
+Includes::html('footer', 'Default content');
+```
+
 ### Directory Structure Example
 
 Here is an example of the directory structure for includes:
