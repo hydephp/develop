@@ -37,55 +37,55 @@ use Illuminate\Support\HtmlString;
  */
 class HydeKernelTest extends TestCase
 {
-    public function test_kernel_singleton_can_be_accessed_by_service_container()
+    public function testKernelSingletonCanBeAccessedByServiceContainer()
     {
         $this->assertSame(app(HydeKernel::class), app(HydeKernel::class));
     }
 
-    public function test_kernel_singleton_can_be_accessed_by_kernel_static_method()
+    public function testKernelSingletonCanBeAccessedByKernelStaticMethod()
     {
         $this->assertSame(app(HydeKernel::class), HydeKernel::getInstance());
     }
 
-    public function test_kernel_singleton_can_be_accessed_by_hyde_facade_method()
+    public function testKernelSingletonCanBeAccessedByHydeFacadeMethod()
     {
         $this->assertSame(app(HydeKernel::class), Hyde::getInstance());
     }
 
-    public function test_kernel_singleton_can_be_accessed_by_helper_function()
+    public function testKernelSingletonCanBeAccessedByHelperFunction()
     {
         $this->assertSame(app(HydeKernel::class), hyde());
     }
 
-    public function test_hyde_facade_version_method_returns_kernel_version()
+    public function testHydeFacadeVersionMethodReturnsKernelVersion()
     {
         $this->assertSame(HydeKernel::version(), Hyde::version());
     }
 
-    public function test_hyde_facade_get_facade_root_method_returns_kernel_singleton()
+    public function testHydeFacadeGetFacadeRootMethodReturnsKernelSingleton()
     {
         $this->assertSame(app(HydeKernel::class), Hyde::getFacadeRoot());
         $this->assertSame(HydeKernel::getInstance(), Hyde::getFacadeRoot());
         $this->assertSame(Hyde::getInstance(), Hyde::getFacadeRoot());
     }
 
-    public function test_features_helper_returns_new_features_instance()
+    public function testFeaturesHelperReturnsNewFeaturesInstance()
     {
         $this->assertInstanceOf(Features::class, Hyde::features());
     }
 
-    public function test_has_feature_helper_calls_method_on_features_class()
+    public function testHasFeatureHelperCallsMethodOnFeaturesClass()
     {
         $this->assertSame(Features::enabled('foo'), Hyde::hasFeature('foo'));
     }
 
-    public function test_current_page_helper_returns_current_page_name()
+    public function testCurrentPageHelperReturnsCurrentPageName()
     {
         Render::share('routeKey', 'foo');
         $this->assertSame('foo', Hyde::currentRouteKey());
     }
 
-    public function test_current_route_helper_returns_current_route_object()
+    public function testCurrentRouteHelperReturnsCurrentRouteObject()
     {
         $expected = new Route(new MarkdownPage());
         Render::share('route', $expected);
@@ -93,7 +93,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame($expected, Hyde::currentRoute());
     }
 
-    public function test_current_page_helper_returns_current_page_object()
+    public function testCurrentPageHelperReturnsCurrentPageObject()
     {
         $expected = new MarkdownPage();
         Render::share('page', $expected);
@@ -101,22 +101,22 @@ class HydeKernelTest extends TestCase
         $this->assertSame($expected, Hyde::currentPage());
     }
 
-    public function test_make_title_helper_returns_title_from_page_slug()
+    public function testMakeTitleHelperReturnsTitleFromPageSlug()
     {
         $this->assertSame('Foo Bar', Hyde::makeTitle('foo-bar'));
     }
 
-    public function test_normalize_newlines_replaces_carriage_returns_with_unix_endings()
+    public function testNormalizeNewlinesReplacesCarriageReturnsWithUnixEndings()
     {
         $this->assertSame("foo\nbar\nbaz", Hyde::normalizeNewlines("foo\nbar\r\nbaz"));
     }
 
-    public function test_strip_newlines_helper_removes_all_newlines()
+    public function testStripNewlinesHelperRemovesAllNewlines()
     {
         $this->assertSame('foo bar baz', Hyde::stripNewlines("foo\n bar\r\n baz"));
     }
 
-    public function test_trimSlashes_function_trims_trailing_slashes()
+    public function testTrimSlashesFunctionTrimsTrailingSlashes()
     {
         $tests = ['foo',  '/foo',  'foo/',  '/foo/',  '\foo\\',  '\\/foo/\\'];
 
@@ -137,17 +137,17 @@ class HydeKernelTest extends TestCase
         }
     }
 
-    public function test_markdown_helper_converts_markdown_to_html()
+    public function testMarkdownHelperConvertsMarkdownToHtml()
     {
         $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('foo'));
     }
 
-    public function test_markdown_helper_converts_indented_markdown_to_html()
+    public function testMarkdownHelperConvertsIndentedMarkdownToHtml()
     {
         $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('    foo', true));
     }
 
-    public function test_format_html_path_helper_formats_path_according_to_config_rules()
+    public function testFormatHtmlPathHelperFormatsPathAccordingToConfigRules()
     {
         Config::set('hyde.pretty_urls', false);
         $this->assertSame('foo.html', Hyde::formatLink('foo.html'));
@@ -158,7 +158,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame('/', Hyde::formatLink('index.html'));
     }
 
-    public function test_relative_link_helper_returns_relative_link_to_destination()
+    public function testRelativeLinkHelperReturnsRelativeLinkToDestination()
     {
         Render::share('routeKey', 'bar');
         $this->assertSame('foo', Hyde::relativeLink('foo'));
@@ -167,7 +167,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../foo', Hyde::relativeLink('foo'));
     }
 
-    public function test_media_link_helper_returns_relative_link_to_destination()
+    public function testMediaLinkHelperReturnsRelativeLinkToDestination()
     {
         Render::share('routeKey', 'bar');
         $this->assertSame('media/foo', Hyde::mediaLink('foo'));
@@ -176,7 +176,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
     }
 
-    public function test_image_helper_returns_image_path_for_given_name()
+    public function testImageHelperReturnsImagePathForGivenName()
     {
         Render::share('routeKey', 'foo');
         $this->assertSame('media/foo.jpg', Hyde::asset('foo.jpg'));
@@ -187,18 +187,18 @@ class HydeKernelTest extends TestCase
         $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
     }
 
-    public function test_image_helper_trims_media_prefix()
+    public function testImageHelperTrimsMediaPrefix()
     {
         $this->assertSame('media/foo.jpg', Hyde::asset('media/foo.jpg'));
     }
 
-    public function test_image_helper_supports_custom_media_directories()
+    public function testImageHelperSupportsCustomMediaDirectories()
     {
         Hyde::setMediaDirectory('_assets');
         $this->assertSame('assets/foo.jpg', Hyde::asset('foo.jpg'));
     }
 
-    public function test_has_site_url_helper_returns_boolean_value_for_when_config_setting_is_set()
+    public function testHasSiteUrlHelperReturnsBooleanValueForWhenConfigSettingIsSet()
     {
         Config::set('hyde.url', 'https://example.com');
         $this->assertTrue(Hyde::hasSiteUrl());
@@ -207,7 +207,7 @@ class HydeKernelTest extends TestCase
         $this->assertFalse(Hyde::hasSiteUrl());
     }
 
-    public function test_url_returns_qualified_url_paths()
+    public function testUrlReturnsQualifiedUrlPaths()
     {
         Config::set('hyde.url', 'https://example.com');
         $this->assertSame('https://example.com', Hyde::url());
@@ -222,24 +222,24 @@ class HydeKernelTest extends TestCase
         $this->assertSame('https://example.com', Hyde::url('index.html'));
     }
 
-    public function test_filesystem_helper_returns_the_kernel_filesystem_instance()
+    public function testFilesystemHelperReturnsTheKernelFilesystemInstance()
     {
         $this->assertInstanceOf(Filesystem::class, Hyde::filesystem());
     }
 
-    public function test_path_returns_qualified_path_for_given_path()
+    public function testPathReturnsQualifiedPathForGivenPath()
     {
         $this->assertSame(Hyde::getBasePath(), Hyde::path());
         $this->assertSame(Hyde::getBasePath().'/foo', Hyde::path('foo'));
     }
 
-    public function test_vendor_path_returns_qualified_path_for_given_path()
+    public function testVendorPathReturnsQualifiedPathForGivenPath()
     {
         $this->assertSame(Hyde::getBasePath().'/vendor/hyde/framework', Hyde::vendorPath());
         $this->assertSame(Hyde::getBasePath().'/vendor/hyde/framework/foo', Hyde::vendorPath('foo'));
     }
 
-    public function test_fluent_model_source_path_helpers()
+    public function testFluentModelSourcePathHelpers()
     {
         $this->assertSame(Hyde::path('_pages'), BladePage::path());
         $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
@@ -255,12 +255,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
-    public function test_path_to_relative_helper_returns_relative_path_for_given_path()
+    public function testPathToRelativeHelperReturnsRelativePathForGivenPath()
     {
         $this->assertSame('foo', Hyde::pathToRelative(Hyde::path('foo')));
     }
 
-    public function test_to_array_method()
+    public function testToArrayMethod()
     {
         // AssertSame cannot be used as features is reinstantiated on each call
         $this->assertEquals([
@@ -276,17 +276,17 @@ class HydeKernelTest extends TestCase
         ], Hyde::toArray());
     }
 
-    public function test_json_serialize_method()
+    public function testJsonSerializeMethod()
     {
         $this->assertEquals(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
     }
 
-    public function test_to_json_method()
+    public function testToJsonMethod()
     {
         $this->assertEquals(Hyde::kernel()->toJson(), json_encode(Hyde::toArray()));
     }
 
-    public function test_version_constant_is_a_valid_semver_string()
+    public function testVersionConstantIsAValidSemverString()
     {
         // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-stringd
         $this->assertMatchesRegularExpression(
@@ -295,7 +295,7 @@ class HydeKernelTest extends TestCase
         );
     }
 
-    public function test_version_constant_is_up_to_date_with_composer()
+    public function testVersionConstantIsUpToDateWithComposer()
     {
         $version = InstalledVersions::getPrettyVersion('hyde/framework');
 
@@ -306,7 +306,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame(HydeKernel::VERSION, $version);
     }
 
-    public function test_version_constant_is_up_to_date_with_git()
+    public function testVersionConstantIsUpToDateWithGit()
     {
         try {
             $version = trim(shell_exec('git describe --abbrev=0 --tags'));
@@ -321,106 +321,106 @@ class HydeKernelTest extends TestCase
         }
     }
 
-    public function test_version_method_returns_version_constant()
+    public function testVersionMethodReturnsVersionConstant()
     {
         $this->assertSame(HydeKernel::VERSION, Hyde::version());
     }
 
-    public function test_can_get_source_root()
+    public function testCanGetSourceRoot()
     {
         $this->assertSame('', Hyde::getSourceRoot());
     }
 
-    public function test_can_set_source_root()
+    public function testCanSetSourceRoot()
     {
         Hyde::setSourceRoot('foo');
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
-    public function test_can_set_source_root_to_absolute_project_path()
+    public function testCanSetSourceRootToAbsoluteProjectPath()
     {
         Hyde::setSourceRoot(Hyde::path('foo'));
         $this->assertSame('foo', Hyde::getSourceRoot());
     }
 
-    public function test_set_source_root_trims_trailing_slashes()
+    public function testSetSourceRootTrimsTrailingSlashes()
     {
         Hyde::setSourceRoot('/foo/');
         $this->assertSame('/foo', Hyde::getSourceRoot());
     }
 
-    public function test_can_get_output_directory()
+    public function testCanGetOutputDirectory()
     {
         $this->assertSame('_site', Hyde::getOutputDirectory());
     }
 
-    public function test_can_set_output_directory()
+    public function testCanSetOutputDirectory()
     {
         Hyde::setOutputDirectory('foo');
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
-    public function test_can_set_output_directory_to_absolute_project_path()
+    public function testCanSetOutputDirectoryToAbsoluteProjectPath()
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
 
-    public function test_set_output_directory_trims_trailing_slashes()
+    public function testSetOutputDirectoryTrimsTrailingSlashes()
     {
         Hyde::setOutputDirectory('/foo/');
         $this->assertSame('/foo', Hyde::getOutputDirectory());
     }
 
-    public function test_can_get_media_directory()
+    public function testCanGetMediaDirectory()
     {
         $this->assertSame('_media', Hyde::getMediaDirectory());
     }
 
-    public function test_can_set_media_directory()
+    public function testCanSetMediaDirectory()
     {
         Hyde::setMediaDirectory('foo');
         $this->assertSame('foo', Hyde::getMediaDirectory());
     }
 
-    public function test_set_media_directory_trims_trailing_slashes()
+    public function testSetMediaDirectoryTrimsTrailingSlashes()
     {
         Hyde::setMediaDirectory('/foo/');
         $this->assertSame('/foo', Hyde::getMediaDirectory());
     }
 
-    public function test_can_get_media_output_directory_name()
+    public function testCanGetMediaOutputDirectoryName()
     {
         $this->assertSame('media', Hyde::getMediaOutputDirectory());
     }
 
-    public function test_get_media_output_directory_name_uses_trimmed_version_of_media_source_directory()
+    public function testGetMediaOutputDirectoryNameUsesTrimmedVersionOfMediaSourceDirectory()
     {
         Hyde::setMediaDirectory('_foo');
         $this->assertSame('foo', Hyde::getMediaOutputDirectory());
     }
 
-    public function test_can_get_site_media_output_directory()
+    public function testCanGetSiteMediaOutputDirectory()
     {
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
-    public function test_get_site_media_output_directory_uses_trimmed_version_of_media_source_directory()
+    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
     {
         Hyde::setMediaDirectory('_foo');
         $this->assertSame(Hyde::path('_site/foo'), Hyde::siteMediaPath());
     }
 
-    public function test_get_site_media_output_directory_uses_configured_site_output_directory()
+    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
         Hyde::setMediaDirectory('bar');
         $this->assertSame(Hyde::path('foo/bar'), Hyde::siteMediaPath());
     }
 
-    public function test_media_output_directory_can_be_changed_in_configuration()
+    public function testMediaOutputDirectoryCanBeChangedInConfiguration()
     {
         $this->assertEquals('_media', Hyde::getMediaDirectory());
 
@@ -430,14 +430,14 @@ class HydeKernelTest extends TestCase
         $this->assertEquals('_assets', Hyde::getMediaDirectory());
     }
 
-    public function test_can_access_kernel_fluently_using_the_facade()
+    public function testCanAccessKernelFluentlyUsingTheFacade()
     {
         $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
         $this->assertSame(HydeKernel::getInstance(), Hyde::kernel());
         $this->assertSame(HydeKernel::VERSION, Hyde::kernel()->version());
     }
 
-    public function test_can_register_booting_callback_closure()
+    public function testCanRegisterBootingCallbackClosure()
     {
         $kernel = new HydeKernel();
 
@@ -448,7 +448,7 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
-    public function test_can_register_booted_callback_closure()
+    public function testCanRegisterBootedCallbackClosure()
     {
         $kernel = new HydeKernel();
 
@@ -459,7 +459,7 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
-    public function test_can_register_booting_callback_callable()
+    public function testCanRegisterBootingCallbackCallable()
     {
         $kernel = new HydeKernel();
 
@@ -468,7 +468,7 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
-    public function test_can_register_booted_callback_callable()
+    public function testCanRegisterBootedCallbackCallable()
     {
         $kernel = new HydeKernel();
 
@@ -477,7 +477,7 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
-    public function test_booting_callback_receives_kernel_instance()
+    public function testBootingCallbackReceivesKernelInstance()
     {
         $kernel = new HydeKernel();
 
@@ -488,7 +488,7 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
-    public function test_booted_callback_receives_kernel_instance()
+    public function testBootedCallbackReceivesKernelInstance()
     {
         $kernel = new HydeKernel();
 
@@ -499,7 +499,7 @@ class HydeKernelTest extends TestCase
         $kernel->boot();
     }
 
-    public function test_can_use_booting_callbacks_to_inject_custom_pages()
+    public function testCanUseBootingCallbacksToInjectCustomPages()
     {
         $kernel = HydeKernel::getInstance();
 
@@ -512,20 +512,20 @@ class HydeKernelTest extends TestCase
         $this->assertEquals($page->getRoute(), Routes::getRoute('foo'));
     }
 
-    public function test_is_booted_returns_false_when_not_booted()
+    public function testIsBootedReturnsFalseWhenNotBooted()
     {
         $kernel = new HydeKernel();
         $this->assertFalse($kernel->isBooted());
     }
 
-    public function test_is_booted_returns_true_when_booted()
+    public function testIsBootedReturnsTrueWhenBooted()
     {
         $kernel = new HydeKernel();
         $kernel->boot();
         $this->assertTrue($kernel->isBooted());
     }
 
-    public function test_is_booted_method_on_the_facade()
+    public function testIsBootedMethodOnTheFacade()
     {
         $this->assertFalse(Hyde::isBooted());
         Hyde::kernel()->boot();

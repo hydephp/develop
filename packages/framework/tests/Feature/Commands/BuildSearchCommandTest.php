@@ -16,7 +16,7 @@ use Hyde\Testing\TestCase;
  */
 class BuildSearchCommandTest extends TestCase
 {
-    public function test_it_creates_the_search_json_file()
+    public function testItCreatesTheSearchJsonFile()
     {
         $this->assertFileDoesNotExist(Hyde::path('_site/docs/search.json'));
 
@@ -27,7 +27,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::unlink('_site/docs/search.html');
     }
 
-    public function test_it_creates_the_search_page()
+    public function testItCreatesTheSearchPage()
     {
         $this->assertFileDoesNotExist(Hyde::path('_site/docs/search.html'));
 
@@ -38,7 +38,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::unlink('_site/docs/search.html');
     }
 
-    public function test_it_does_not_create_the_search_page_if_disabled()
+    public function testItDoesNotCreateTheSearchPageIfDisabled()
     {
         config(['docs.create_search_page' => false]);
 
@@ -48,7 +48,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::unlink('_site/docs/search.json');
     }
 
-    public function test_it_does_not_display_the_estimation_message_when_it_is_less_than_1_second()
+    public function testItDoesNotDisplayTheEstimationMessageWhenItIsLessThan1Second()
     {
         $this->artisan('build:search')
             ->doesntExpectOutputToContain('> This will take an estimated')
@@ -58,7 +58,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::unlink('_site/docs/search.html');
     }
 
-    public function test_search_files_can_be_generated_for_custom_docs_output_directory()
+    public function testSearchFilesCanBeGeneratedForCustomDocsOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('foo');
 
@@ -69,7 +69,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::deleteDirectory('_site/foo');
     }
 
-    public function test_search_files_can_be_generated_for_custom_site_output_directory()
+    public function testSearchFilesCanBeGeneratedForCustomSiteOutputDirectory()
     {
         Hyde::setOutputDirectory('foo');
 
@@ -80,7 +80,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::deleteDirectory('foo');
     }
 
-    public function test_search_files_can_be_generated_for_custom_site_and_docs_output_directories()
+    public function testSearchFilesCanBeGeneratedForCustomSiteAndDocsOutputDirectories()
     {
         Hyde::setOutputDirectory('foo');
         DocumentationPage::setOutputDirectory('bar');
@@ -92,7 +92,7 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::deleteDirectory('foo');
     }
 
-    public function test_search_files_can_be_generated_for_custom_site_and_nested_docs_output_directories()
+    public function testSearchFilesCanBeGeneratedForCustomSiteAndNestedDocsOutputDirectories()
     {
         Hyde::setOutputDirectory('foo/bar');
         DocumentationPage::setOutputDirectory('baz');

@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  */
 class BuildSitemapCommandTest extends TestCase
 {
-    public function test_sitemap_is_generated_when_conditions_are_met()
+    public function testSitemapIsGeneratedWhenConditionsAreMet()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.generate_sitemap' => true]);

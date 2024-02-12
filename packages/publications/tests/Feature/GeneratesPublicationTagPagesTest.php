@@ -16,7 +16,7 @@ use Hyde\Testing\TestCase;
  */
 class GeneratesPublicationTagPagesTest extends TestCase
 {
-    public function test_tags_index_page_is_generated_when_tags_are_used()
+    public function testTagsIndexPageIsGeneratedWhenTagsAreUsed()
     {
         $this->directory('test-publication');
 
@@ -48,7 +48,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_tags_index_page_is_not_generated_when_tags_are_not_used()
+    public function testTagsIndexPageIsNotGeneratedWhenTagsAreNotUsed()
     {
         $booted = PageCollection::init(Hyde::getInstance())->boot();
 
@@ -58,7 +58,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_tags_pages_for_publications_are_generated_for_used_tag()
+    public function testTagsPagesForPublicationsAreGeneratedForUsedTag()
     {
         $this->directory('publication');
         (new PublicationType('publication', fields: [
@@ -78,7 +78,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_tags_pages_for_publications_are_generated_for_used_tags_with_publication_tags_array()
+    public function testTagsPagesForPublicationsAreGeneratedForUsedTagsWithPublicationTagsArray()
     {
         $this->directory('publication');
         (new PublicationType('publication', fields: [
@@ -99,7 +99,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_tags_pages_for_publications_are_not_generated_when_no_tags_are_used()
+    public function testTagsPagesForPublicationsAreNotGeneratedWhenNoTagsAreUsed()
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [
@@ -116,7 +116,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         ], $booted->getPages()->keys()->toArray());
     }
 
-    public function test_generated_index_page()
+    public function testGeneratedIndexPage()
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [
@@ -140,7 +140,7 @@ class GeneratesPublicationTagPagesTest extends TestCase
         $this->assertSame(['tags' => ['bar' => 2, 'foo' => 1]], $page->matter->toArray());
     }
 
-    public function test_generated_detail_page()
+    public function testGeneratedDetailPage()
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [

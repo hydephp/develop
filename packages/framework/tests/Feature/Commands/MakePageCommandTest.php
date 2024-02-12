@@ -40,12 +40,12 @@ class MakePageCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_command_can_run()
+    public function testCommandCanRun()
     {
         $this->artisan('make:page "foo test page"')->assertExitCode(0);
     }
 
-    public function test_command_output()
+    public function testCommandOutput()
     {
         $this->artisan('make:page "foo test page"')
             ->expectsOutputToContain('Creating a new page!')
@@ -53,19 +53,19 @@ class MakePageCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_command_allows_user_to_specify_page_type()
+    public function testCommandAllowsUserToSpecifyPageType()
     {
         $this->artisan('make:page "foo test page" --type=markdown')->assertExitCode(0);
         $this->artisan('make:page "foo test page" --type=blade')->assertExitCode(0);
     }
 
-    public function test_type_option_is_case_insensitive()
+    public function testTypeOptionIsCaseInsensitive()
     {
         $this->artisan('make:page "foo test page" --type=Markdown')->assertExitCode(0);
         $this->artisan('make:page "foo test page" --type=Blade')->assertExitCode(0);
     }
 
-    public function test_command_fails_if_user_specifies_invalid_page_type()
+    public function testCommandFailsIfUserSpecifiesInvalidPageType()
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('The page type [invalid] is not supported.');
@@ -73,21 +73,21 @@ class MakePageCommandTest extends TestCase
         $this->artisan('make:page "foo test page" --type=invalid')->assertExitCode(400);
     }
 
-    public function test_command_creates_markdown_file()
+    public function testCommandCreatesMarkdownFile()
     {
         $this->artisan('make:page "foo test page"')->assertExitCode(0);
 
         $this->assertFileExists($this->markdownPath);
     }
 
-    public function test_command_creates_blade_file()
+    public function testCommandCreatesBladeFile()
     {
         $this->artisan('make:page "foo test page" --type="blade"')->assertExitCode(0);
 
         $this->assertFileExists($this->bladePath);
     }
 
-    public function test_command_creates_documentation_file()
+    public function testCommandCreatesDocumentationFile()
     {
         $this->artisan('make:page "foo test page" --type="documentation"')->assertExitCode(0);
 
@@ -95,7 +95,7 @@ class MakePageCommandTest extends TestCase
         Filesystem::unlink('_docs/foo-test-page.md');
     }
 
-    public function test_command_fails_if_file_already_exists()
+    public function testCommandFailsIfFileAlreadyExists()
     {
         file_put_contents($this->markdownPath, 'This should not be overwritten');
 
@@ -107,7 +107,7 @@ class MakePageCommandTest extends TestCase
         $this->assertEquals('This should not be overwritten', file_get_contents($this->markdownPath));
     }
 
-    public function test_command_overwrites_existing_files_when_force_option_is_used()
+    public function testCommandOverwritesExistingFilesWhenForceOptionIsUsed()
     {
         file_put_contents($this->markdownPath, 'This should be overwritten');
 
@@ -116,7 +116,7 @@ class MakePageCommandTest extends TestCase
         $this->assertNotEquals('This should be overwritten', file_get_contents($this->markdownPath));
     }
 
-    public function test_command_prompts_for_title_if_it_was_not_specified()
+    public function testCommandPromptsForTitleIfItWasNotSpecified()
     {
         $this->artisan('make:page')
             ->expectsQuestion('What is the title of the page?', 'Test Page')
@@ -126,7 +126,7 @@ class MakePageCommandTest extends TestCase
         Filesystem::unlink('_pages/test-page.md');
     }
 
-    public function test_command_falls_back_to_default_title_if_user_enters_nothing()
+    public function testCommandFallsBackToDefaultTitleIfUserEntersNothing()
     {
         $this->artisan('make:page')
             ->expectsQuestion('What is the title of the page?', null)
@@ -136,7 +136,7 @@ class MakePageCommandTest extends TestCase
         Filesystem::unlink('_pages/my-new-page.md');
     }
 
-    public function test_page_type_shorthand_can_be_used_to_create_blade_pages()
+    public function testPageTypeShorthandCanBeUsedToCreateBladePages()
     {
         $this->artisan('make:page "foo test page" --blade')
             ->expectsOutput("Creating a new Blade page with title: foo test page\n")
@@ -145,7 +145,7 @@ class MakePageCommandTest extends TestCase
         $this->assertFileExists($this->bladePath);
     }
 
-    public function test_page_type_shorthand_can_be_used_to_create_documentation_pages()
+    public function testPageTypeShorthandCanBeUsedToCreateDocumentationPages()
     {
         $this->artisan('make:page "foo test page" --docs')
             ->expectsOutput("Creating a new Documentation page with title: foo test page\n")

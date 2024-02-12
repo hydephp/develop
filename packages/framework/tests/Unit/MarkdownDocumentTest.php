@@ -17,44 +17,44 @@ use Illuminate\Support\HtmlString;
  */
 class MarkdownDocumentTest extends TestCase
 {
-    public function test_constructor_creates_new_markdown_document()
+    public function testConstructorCreatesNewMarkdownDocument()
     {
         $document = new MarkdownDocument([], '');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
     }
 
-    public function test_constructor_arguments_are_optional()
+    public function testConstructorArgumentsAreOptional()
     {
         $document = new MarkdownDocument();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
     }
 
-    public function test_constructor_arguments_are_assigned()
+    public function testConstructorArgumentsAreAssigned()
     {
         $document = new MarkdownDocument(['foo' => 'bar'], 'Hello, world!');
         $this->assertEquals(FrontMatter::fromArray(['foo' => 'bar']), $document->matter);
     }
 
-    public function test_magic_to_string_method_returns_body()
+    public function testMagicToStringMethodReturnsBody()
     {
         $document = new MarkdownDocument(['foo' => 'bar'], 'Hello, world!');
         $this->assertEquals('Hello, world!', (string) $document);
     }
 
-    public function test_compile_method_returns_rendered_html()
+    public function testCompileMethodReturnsRenderedHtml()
     {
         $document = new MarkdownDocument([], 'Hello, world!');
         $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->compile());
     }
 
-    public function test_to_html_method_returns_rendered_as_html_string()
+    public function testToHtmlMethodReturnsRenderedAsHtmlString()
     {
         $document = new MarkdownDocument([], 'Hello, world!');
         $this->assertInstanceOf(HtmlString::class, $document->markdown->toHtml());
         $this->assertEquals("<p>Hello, world!</p>\n", (string) $document->markdown->toHtml());
     }
 
-    public function test_parse_method_parses_a_file_using_the_markdown_file_service()
+    public function testParseMethodParsesAFileUsingTheMarkdownFileService()
     {
         file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
         $document = MarkdownDocument::parse('_pages/foo.md');
@@ -64,13 +64,13 @@ class MarkdownDocumentTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_to_array_method_returns_array_markdown_body_lines()
+    public function testToArrayMethodReturnsArrayMarkdownBodyLines()
     {
         $document = new MarkdownDocument(body: "foo\nbar\nbaz");
         $this->assertEquals(['foo', 'bar', 'baz'], $document->markdown->toArray());
     }
 
-    public function test_from_file_method_returns_new_markdown_document()
+    public function testFromFileMethodReturnsNewMarkdownDocument()
     {
         file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
         $markdown = Markdown::fromFile('_pages/foo.md');
@@ -85,7 +85,7 @@ class MarkdownDocumentTest extends TestCase
         $this->assertEquals('Hello, world!', $markdown->body());
     }
 
-    public function test_carriage_returns_are_normalized()
+    public function testCarriageReturnsAreNormalized()
     {
         $markdown = new Markdown("foo\rbar");
         $this->assertEquals("foo\rbar", $markdown->body());

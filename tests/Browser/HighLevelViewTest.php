@@ -27,7 +27,7 @@ class HighLevelViewTest extends DuskTestCase
         sleep(1);
     }
 
-    public function test_welcome_homepage()
+    public function testWelcomeHomepage()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
@@ -40,7 +40,7 @@ class HighLevelViewTest extends DuskTestCase
         Filesystem::unlink('_site/index.html');
     }
 
-    public function test_404_page()
+    public function test404Page()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/404')
@@ -53,7 +53,7 @@ class HighLevelViewTest extends DuskTestCase
         Filesystem::unlink('_site/404.html');
     }
 
-    public function test_blank_homepage()
+    public function testBlankHomepage()
     {
         $this->artisan('publish:homepage blank -n');
 
@@ -69,7 +69,7 @@ class HighLevelViewTest extends DuskTestCase
         Filesystem::unlink('_site/index.html');
     }
 
-    public function test_posts_homepage()
+    public function testPostsHomepage()
     {
         $this->artisan('publish:homepage posts -n');
 
@@ -86,7 +86,7 @@ class HighLevelViewTest extends DuskTestCase
         Filesystem::unlink('_site/index.html');
     }
 
-    public function test_posts_homepage_with_posts()
+    public function testPostsHomepageWithPosts()
     {
         $this->artisan('publish:homepage posts -n');
         file_put_contents(Hyde::path('_posts/my-new-post.md'),
@@ -115,7 +115,7 @@ date: 2022-01-01 12:00
         Filesystem::unlink('_site/index.html');
     }
 
-    public function test_documentation_index()
+    public function testDocumentationIndex()
     {
         $this->artisan('make:page Index --type="documentation" -n');
 
@@ -135,7 +135,7 @@ date: 2022-01-01 12:00
         Filesystem::unlink('_site/docs/index.html');
     }
 
-    public function test_documentation_site_with_pages()
+    public function testDocumentationSiteWithPages()
     {
         $this->makeDocumentationTestPage('Page1', withText: true);
         $this->makeDocumentationTestPage('Page2');
@@ -163,7 +163,7 @@ date: 2022-01-01 12:00
         Filesystem::unlink('_site/docs/page1.html');
     }
 
-    public function test_documentation_site_with_collapsible_grouped_pages()
+    public function testDocumentationSiteWithCollapsibleGroupedPages()
     {
         $this->makeDocumentationTestPage('Page1', ['navigation.group' => 'Group 1'], true);
         $this->makeDocumentationTestPage('Page2', ['navigation.group' => 'Group 1']);
@@ -193,7 +193,7 @@ date: 2022-01-01 12:00
         Filesystem::unlink('_site/docs/page1.html');
     }
 
-    public function test_blog_post_pages()
+    public function testBlogPostPages()
     {
         copy(Hyde::path('tests/fixtures/_posts/typography-simple.md'), Hyde::path('_posts/typography-simple.md'));
         copy(Hyde::path('tests/fixtures/_posts/typography-front-matter.md'), Hyde::path('_posts/typography-front-matter.md'));

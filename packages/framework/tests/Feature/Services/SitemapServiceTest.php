@@ -26,13 +26,13 @@ class SitemapServiceTest extends TestCase
         copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 
-    public function test_service_instantiates_xml_element()
+    public function testServiceInstantiatesXmlElement()
     {
         $service = new SitemapGenerator();
         $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
     }
 
-    public function test_generate_adds_default_pages_to_xml()
+    public function testGenerateAddsDefaultPagesToXml()
     {
         $service = new SitemapGenerator();
         $service->generate();
@@ -41,7 +41,7 @@ class SitemapServiceTest extends TestCase
         $this->assertCount(2, $service->getXmlElement()->url);
     }
 
-    public function test_generate_adds_markdown_pages_to_xml()
+    public function testGenerateAddsMarkdownPagesToXml()
     {
         Filesystem::touch('_pages/foo.md');
 
@@ -53,7 +53,7 @@ class SitemapServiceTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_generate_adds_markdown_posts_to_xml()
+    public function testGenerateAddsMarkdownPostsToXml()
     {
         Filesystem::touch('_posts/foo.md');
 
@@ -65,7 +65,7 @@ class SitemapServiceTest extends TestCase
         Filesystem::unlink('_posts/foo.md');
     }
 
-    public function test_generate_adds_documentation_pages_to_xml()
+    public function testGenerateAddsDocumentationPagesToXml()
     {
         Filesystem::touch('_docs/foo.md');
 
@@ -77,7 +77,7 @@ class SitemapServiceTest extends TestCase
         Filesystem::unlink('_docs/foo.md');
     }
 
-    public function test_get_xml_returns_xml_string()
+    public function testGetXmlReturnsXmlString()
     {
         $service = new SitemapGenerator();
         $service->generate();
@@ -87,7 +87,7 @@ class SitemapServiceTest extends TestCase
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);
     }
 
-    public function test_generate_sitemap_shorthand_method_returns_xml_string()
+    public function testGenerateSitemapShorthandMethodReturnsXmlString()
     {
         $xml = SitemapGenerator::make();
 
@@ -95,7 +95,7 @@ class SitemapServiceTest extends TestCase
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);
     }
 
-    public function test_url_item_is_generated_correctly()
+    public function testUrlItemIsGeneratedCorrectly()
     {
         config(['hyde.pretty_urls' => false]);
         config(['hyde.url' => 'https://example.com']);
@@ -112,7 +112,7 @@ class SitemapServiceTest extends TestCase
         Filesystem::unlink('_pages/0-test.blade.php');
     }
 
-    public function test_url_item_is_generated_with_pretty_urls_if_enabled()
+    public function testUrlItemIsGeneratedWithPrettyUrlsIfEnabled()
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.url' => 'https://example.com']);
@@ -127,7 +127,7 @@ class SitemapServiceTest extends TestCase
         Filesystem::unlink('_pages/0-test.blade.php');
     }
 
-    public function test_all_route_types_are_discovered()
+    public function testAllRouteTypesAreDiscovered()
     {
         config(['hyde.url' => 'foo']);
         Filesystem::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\File;
  */
 class DataCollectionTest extends TestCase
 {
-    public function test_markdown_collections()
+    public function testMarkdownCollections()
     {
         $this->directory('resources/collections/foo');
         $this->markdown('resources/collections/foo/foo.md', 'Hello World', ['title' => 'Foo']);
@@ -30,7 +30,7 @@ class DataCollectionTest extends TestCase
         ]), DataCollections::markdown('foo'));
     }
 
-    public function test_yaml_collections()
+    public function testYamlCollections()
     {
         $this->directory('resources/collections/foo');
         $this->markdown('resources/collections/foo/foo.yaml', matter: ['title' => 'Foo']);
@@ -42,7 +42,7 @@ class DataCollectionTest extends TestCase
         ]), DataCollections::yaml('foo'));
     }
 
-    public function test_json_collections()
+    public function testJsonCollections()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
@@ -54,7 +54,7 @@ class DataCollectionTest extends TestCase
         ]), DataCollections::json('foo'));
     }
 
-    public function test_json_collections_as_arrays()
+    public function testJsonCollectionsAsArrays()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
@@ -66,14 +66,14 @@ class DataCollectionTest extends TestCase
         ]), DataCollections::json('foo', true));
     }
 
-    public function test_find_markdown_files_method_returns_empty_array_if_the_specified_directory_does_not_exist()
+    public function testFindMarkdownFilesMethodReturnsEmptyArrayIfTheSpecifiedDirectoryDoesNotExist()
     {
         $class = new DataCollections();
         $this->assertIsArray(DataCollections::markdown('foo')->keys()->toArray());
         $this->assertEmpty(DataCollections::markdown('foo')->keys()->toArray());
     }
 
-    public function test_find_markdown_files_method_returns_empty_array_if_no_files_are_found_in_specified_directory()
+    public function testFindMarkdownFilesMethodReturnsEmptyArrayIfNoFilesAreFoundInSpecifiedDirectory()
     {
         $this->directory('resources/collections/foo');
 
@@ -82,7 +82,7 @@ class DataCollectionTest extends TestCase
         $this->assertEmpty(DataCollections::markdown('foo')->keys()->toArray());
     }
 
-    public function test_find_markdown_files_method_returns_an_array_of_markdown_files_in_the_specified_directory()
+    public function testFindMarkdownFilesMethodReturnsAnArrayOfMarkdownFilesInTheSpecifiedDirectory()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
@@ -94,7 +94,7 @@ class DataCollectionTest extends TestCase
         ], DataCollections::markdown('foo')->keys()->toArray());
     }
 
-    public function test_find_markdown_files_method_does_not_include_files_in_subdirectories()
+    public function testFindMarkdownFilesMethodDoesNotIncludeFilesInSubdirectories()
     {
         $this->directory('resources/collections/foo');
         $this->directory('resources/collections/foo/bar');
@@ -106,7 +106,7 @@ class DataCollectionTest extends TestCase
         ], DataCollections::markdown('foo')->keys()->toArray());
     }
 
-    public function test_find_markdown_files_method_does_not_include_files_with_extensions_other_than_md()
+    public function testFindMarkdownFilesMethodDoesNotIncludeFilesWithExtensionsOtherThanMd()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
@@ -117,7 +117,7 @@ class DataCollectionTest extends TestCase
         ], DataCollections::markdown('foo')->keys()->toArray());
     }
 
-    public function test_find_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
+    public function testFindMarkdownFilesMethodDoesNotRemoveFilesStartingWithAnUnderscore()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/_foo.md');
@@ -127,7 +127,7 @@ class DataCollectionTest extends TestCase
         ], DataCollections::markdown('foo')->keys()->toArray());
     }
 
-    public function test_static_markdown_helper_discovers_and_parses_markdown_files_in_the_specified_directory()
+    public function testStaticMarkdownHelperDiscoversAndParsesMarkdownFilesInTheSpecifiedDirectory()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
@@ -139,7 +139,7 @@ class DataCollectionTest extends TestCase
         ], DataCollections::markdown('foo')->toArray());
     }
 
-    public function test_static_markdown_helper_doest_not_ignore_files_starting_with_an_underscore()
+    public function testStaticMarkdownHelperDoestNotIgnoreFilesStartingWithAnUnderscore()
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.md');
@@ -148,7 +148,7 @@ class DataCollectionTest extends TestCase
         $this->assertCount(2, DataCollections::markdown('foo'));
     }
 
-    public function test_source_directory_can_be_changed()
+    public function testSourceDirectoryCanBeChanged()
     {
         DataCollections::$sourceDirectory = 'foo';
         $this->directory('foo/bar');
@@ -161,7 +161,7 @@ class DataCollectionTest extends TestCase
         DataCollections::$sourceDirectory = 'resources/collections';
     }
 
-    public function test_source_directory_is_automatically_added_if_missing()
+    public function testSourceDirectoryIsAutomaticallyAddedIfMissing()
     {
         $this->directory('resources/collections');
         File::deleteDirectory(Hyde::path('resources/collections'));
@@ -172,7 +172,7 @@ class DataCollectionTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('resources/collections'));
     }
 
-    public function test_custom_source_directory_is_automatically_added_if_missing()
+    public function testCustomSourceDirectoryIsAutomaticallyAddedIfMissing()
     {
         $this->directory('foo');
         File::deleteDirectory(Hyde::path('foo'));

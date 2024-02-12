@@ -16,26 +16,26 @@ use Hyde\Testing\TestCase;
  */
 class RssFeedServiceTest extends TestCase
 {
-    public function test_service_instantiates_xml_element()
+    public function testServiceInstantiatesXmlElement()
     {
         $service = new RssFeedGenerator();
         $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
     }
 
-    public function test_xml_root_element_is_set_to_rss_2_0()
+    public function testXmlRootElementIsSetToRss20()
     {
         $service = new RssFeedGenerator();
         $this->assertEquals('rss', $service->getXmlElement()->getName());
         $this->assertEquals('2.0', $service->getXmlElement()->attributes()->version);
     }
 
-    public function test_xml_element_has_channel_element()
+    public function testXmlElementHasChannelElement()
     {
         $service = new RssFeedGenerator();
         $this->assertTrue(property_exists($service->getXmlElement(), 'channel'));
     }
 
-    public function test_xml_channel_element_has_required_elements()
+    public function testXmlChannelElementHasRequiredElements()
     {
         config(['hyde.name' => 'Test Blog']);
         config(['hyde.url' => 'https://example.com']);
@@ -51,7 +51,7 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('Test Blog RSS Feed', $service->getXmlElement()->channel->description);
     }
 
-    public function test_xml_channel_element_has_additional_elements()
+    public function testXmlChannelElementHasAdditionalElements()
     {
         config(['hyde.url' => 'https://example.com']);
 
@@ -66,7 +66,7 @@ class RssFeedServiceTest extends TestCase
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'lastBuildDate'));
     }
 
-    public function test_xml_channel_data_can_be_customized()
+    public function testXmlChannelDataCanBeCustomized()
     {
         config(['hyde.name' => 'Foo']);
         config(['hyde.url' => 'https://blog.foo.com/bar']);
@@ -78,7 +78,7 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('Foo is a web log about stuff', $service->getXmlElement()->channel->description);
     }
 
-    public function test_markdown_blog_posts_are_added_to_rss_feed_through_autodiscovery()
+    public function testMarkdownBlogPostsAreAddedToRssFeedThroughAutodiscovery()
     {
         file_put_contents(Hyde::path('_posts/rss.md'), <<<'MD'
             ---
@@ -121,32 +121,32 @@ class RssFeedServiceTest extends TestCase
         Filesystem::unlink('_media/rss-test.jpg');
     }
 
-    public function test_get_xml_method_returns_xml_string()
+    public function testGetXmlMethodReturnsXmlString()
     {
         $service = new RssFeedGenerator();
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $service->getXml());
     }
 
-    public function test_generate_feed_helper_returns_xml_string()
+    public function testGenerateFeedHelperReturnsXmlString()
     {
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', RssFeedGenerator::make());
     }
 
-    public function test_can_generate_feed_helper_returns_true_if_hyde_has_base_url()
+    public function testCanGenerateFeedHelperReturnsTrueIfHydeHasBaseUrl()
     {
         config(['hyde.url' => 'foo']);
         $this->file('_posts/foo.md');
         $this->assertTrue(Features::rss());
     }
 
-    public function test_can_generate_feed_helper_returns_false_if_hyde_does_not_have_base_url()
+    public function testCanGenerateFeedHelperReturnsFalseIfHydeDoesNotHaveBaseUrl()
     {
         config(['hyde.url' => '']);
         $this->file('_posts/foo.md');
         $this->assertFalse(Features::rss());
     }
 
-    public function test_can_generate_feed_helper_returns_false_if_feeds_are_disabled_in_config()
+    public function testCanGenerateFeedHelperReturnsFalseIfFeedsAreDisabledInConfig()
     {
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.enabled' => false]);

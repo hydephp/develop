@@ -33,7 +33,7 @@ class MakePublicationTypeCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_command_creates_publication_type()
+    public function testCommandCreatesPublicationType()
     {
         $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
@@ -100,7 +100,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->assertStringContainsString('paginator', file_get_contents(Hyde::path('test-publication/list.blade.php')));
     }
 
-    public function test_with_default_values()
+    public function testWithDefaultValues()
     {
         // When running this command with the no-interaction flag in an actual console, no questions are asked.
         // However, when running it in a test, the questions are still asked, presumably due to a vendor bug.
@@ -137,7 +137,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->assertStringNotContainsString('paginator', file_get_contents(Hyde::path('test-publication/list.blade.php')));
     }
 
-    public function test_with_multiple_fields_of_the_same_name()
+    public function testWithMultipleFieldsOfTheSameName()
     {
         $this->artisan('make:publicationType "Test Publication"')
 
@@ -166,7 +166,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_with_existing_file_of_the_same_name()
+    public function testWithExistingFileOfTheSameName()
     {
         $this->throwOnConsoleException(false);
 
@@ -177,7 +177,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    public function test_with_existing_publication_of_the_same_name()
+    public function testWithExistingPublicationOfTheSameName()
     {
         $this->throwOnConsoleException(false);
 

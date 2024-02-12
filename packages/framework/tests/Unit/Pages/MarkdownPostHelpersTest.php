@@ -12,39 +12,39 @@ use Hyde\Testing\TestCase;
  */
 class MarkdownPostHelpersTest extends TestCase
 {
-    public function test_get_current_page_path_returns_local_uri_path_for_post_slug()
+    public function testGetCurrentPagePathReturnsLocalUriPathForPostSlug()
     {
         $post = new MarkdownPost('foo-bar');
         $this->assertEquals('posts/foo-bar', $post->getRouteKey());
     }
 
-    public function test_get_canonical_link_returns_canonical_uri_path_for_post_slug()
+    public function testGetCanonicalLinkReturnsCanonicalUriPathForPostSlug()
     {
         config(['hyde.url' => 'https://example.com']);
         $post = new MarkdownPost('foo-bar');
         $this->assertEquals('https://example.com/posts/foo-bar.html', $post->getCanonicalUrl());
     }
 
-    public function test_get_canonical_link_returns_pretty_url_when_enabled()
+    public function testGetCanonicalLinkReturnsPrettyUrlWhenEnabled()
     {
         config(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
         $post = new MarkdownPost('foo-bar');
         $this->assertEquals('https://example.com/posts/foo-bar', $post->getCanonicalUrl());
     }
 
-    public function test_get_post_description_returns_post_description_when_set_in_front_matter()
+    public function testGetPostDescriptionReturnsPostDescriptionWhenSetInFrontMatter()
     {
         $post = MarkdownPost::make('foo-bar', ['description' => 'This is a post description']);
         $this->assertEquals('This is a post description', $post->description);
     }
 
-    public function test_get_post_description_returns_post_body_when_no_description_set_in_front_matter()
+    public function testGetPostDescriptionReturnsPostBodyWhenNoDescriptionSetInFrontMatter()
     {
         $post = MarkdownPost::make('foo-bar', [], 'This is a post body');
         $this->assertEquals('This is a post body', $post->description);
     }
 
-    public function test_dynamic_description_is_truncated_when_longer_than_128_characters()
+    public function testDynamicDescriptionIsTruncatedWhenLongerThan128Characters()
     {
         $post = MarkdownPost::make('foo-bar', [], str_repeat('a', 128));
         $this->assertEquals(str_repeat('a', 125).'...', $post->description);

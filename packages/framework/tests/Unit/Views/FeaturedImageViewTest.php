@@ -22,7 +22,7 @@ use function view;
  */
 class FeaturedImageViewTest extends TestCase
 {
-    public function test_the_view()
+    public function testTheView()
     {
         $component = $this->renderComponent([
             'image.source' => 'foo.jpg',
@@ -48,7 +48,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_image_author_attribution_string()
+    public function testImageAuthorAttributionString()
     {
         $string = $this->renderComponent(['image.authorName' => 'John Doe']);
         $this->assertStringContainsString('itemprop="creator"', $string);
@@ -56,7 +56,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
     }
 
-    public function test_image_author_attribution_string_with_url()
+    public function testImageAuthorAttributionStringWithUrl()
     {
         $string = $this->renderComponent([
             'image.authorName' => 'John Doe',
@@ -69,27 +69,27 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('<a href="https://example.com/"', $string);
     }
 
-    public function test_copyright_string()
+    public function testCopyrightString()
     {
         $string = $this->renderComponent(['image.copyright' => 'foo copy']);
         $this->assertStringContainsString('<span itemprop="copyrightNotice">', $string);
         $this->assertStringContainsString('foo copy', $string);
     }
 
-    public function test_copyright_string_inverse()
+    public function testCopyrightStringInverse()
     {
         $string = $this->renderComponent([]);
         $this->assertStringNotContainsString('<span itemprop="copyrightNotice">', $string);
     }
 
-    public function test_license_string()
+    public function testLicenseString()
     {
         $string = $this->renderComponent(['image.licenseName' => 'foo']);
 
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
 
-    public function test_license_string_with_url()
+    public function testLicenseStringWithUrl()
     {
         $image = $this->make([
             'image.licenseName' => 'foo',
@@ -100,21 +100,21 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('<a href="https://example.com/bar.html" rel="license nofollow noopener" itemprop="license">foo</a>', $string);
     }
 
-    public function test_license_string_inverse()
+    public function testLicenseStringInverse()
     {
         $string = $this->renderComponent([]);
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
 
-    public function test_license_string_inverse_with_url()
+    public function testLicenseStringInverseWithUrl()
     {
         $string = $this->renderComponent(['image.licenseUrl' => 'https://example.com/bar.html']);
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
 
-    public function test_fluent_attribution_logic_uses_rich_html_tags()
+    public function testFluentAttributionLogicUsesRichHtmlTags()
     {
         $image = $this->make([
             'image.authorName' => 'John Doe',
@@ -133,7 +133,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('John Doe', $string);
     }
 
-    public function test_fluent_attribution_logic_uses_rich_html_tags_1()
+    public function testFluentAttributionLogicUsesRichHtmlTags1()
     {
         $image = $this->make(['image.authorName' => 'John Doe']);
         $string = $this->renderComponent($image);
@@ -141,7 +141,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('John Doe', $string);
     }
 
-    public function test_fluent_attribution_logic_uses_rich_html_tags_2()
+    public function testFluentAttributionLogicUsesRichHtmlTags2()
     {
         $image = $this->make(['image.copyright' => 'foo']);
         $string = $this->renderComponent($image);
@@ -149,7 +149,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
     }
 
-    public function test_fluent_attribution_logic_uses_rich_html_tags_3()
+    public function testFluentAttributionLogicUsesRichHtmlTags3()
     {
         $image = $this->make(['image.licenseName' => 'foo']);
 
@@ -157,7 +157,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
 
-    public function test_fluent_attribution_logic_uses_rich_html_tags_4()
+    public function testFluentAttributionLogicUsesRichHtmlTags4()
     {
         $image = $this->make();
         $string = $this->renderComponent($image);
@@ -165,7 +165,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringNotContainsString('License', $string);
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages1()
+    public function testFluentAttributionLogicCreatesFluentMessages1()
     {
         $image = $this->make([
             'image.authorName' => 'John Doe',
@@ -179,7 +179,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages2()
+    public function testFluentAttributionLogicCreatesFluentMessages2()
     {
         $image = $this->make([
             'image.authorName' => 'John Doe',
@@ -192,7 +192,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages3()
+    public function testFluentAttributionLogicCreatesFluentMessages3()
     {
         $expect = 'Image by John Doe. CC.';
         $image = $this->make([
@@ -206,7 +206,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages4()
+    public function testFluentAttributionLogicCreatesFluentMessages4()
     {
         $expect = 'All rights reserved.';
         $image = $this->make([
@@ -219,7 +219,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages5()
+    public function testFluentAttributionLogicCreatesFluentMessages5()
     {
         $expect = 'Image by John Doe.';
         $image = $this->make([
@@ -232,7 +232,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages6()
+    public function testFluentAttributionLogicCreatesFluentMessages6()
     {
         $expect = 'License MIT.';
         $image = $this->make([
@@ -245,7 +245,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages7()
+    public function testFluentAttributionLogicCreatesFluentMessages7()
     {
         $expect = '';
         $image = $this->make();

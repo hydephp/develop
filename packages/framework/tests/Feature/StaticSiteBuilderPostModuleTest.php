@@ -55,14 +55,14 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         }
     }
 
-    public function test_can_create_post()
+    public function testCanCreatePost()
     {
         StaticPageBuilder::handle($this->post);
 
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
     }
 
-    public function test_post_contains_expected_content()
+    public function testPostContainsExpectedContent()
     {
         $this->inspectHtml([
             'Adventures in Wonderland',
@@ -74,7 +74,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         ]);
     }
 
-    public function test_post_contains_expected_elements()
+    public function testPostContainsExpectedElements()
     {
         $this->inspectHtml([
             '<!DOCTYPE html>',
@@ -91,7 +91,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         ]);
     }
 
-    public function test_post_contains_expected_meta_tags()
+    public function testPostContainsExpectedMetaTags()
     {
         $this->inspectHtml([
             '<meta name="description" content="All in the golden afternoon, full leisurely we glide.">',
@@ -103,7 +103,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         ]);
     }
 
-    public function test_post_contains_expected_itemprops()
+    public function testPostContainsExpectedItemprops()
     {
         $this->inspectHtml([
             'itemtype="https://schema.org/Article"',
@@ -117,7 +117,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         ]);
     }
 
-    public function test_post_contains_expected_aria_support()
+    public function testPostContainsExpectedAriaSupport()
     {
         $this->inspectHtml([
             'role="doc-pageheader"',
@@ -126,7 +126,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         ]);
     }
 
-    public function test_post_image_is_resolved_relatively()
+    public function testPostImageIsResolvedRelatively()
     {
         $this->inspectHtml([
             '<meta property="og:image" content="../media/image.png">',

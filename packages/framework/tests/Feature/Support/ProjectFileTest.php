@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  */
 class ProjectFileTest extends TestCase
 {
-    public function test_can_construct()
+    public function testCanConstruct()
     {
         $file = new ProjectFileTestClass('foo');
         $this->assertInstanceOf(ProjectFileTestClass::class, $file);
@@ -26,41 +26,41 @@ class ProjectFileTest extends TestCase
         $this->assertEquals(new ProjectFileTestClass('foo'), ProjectFileTestClass::make('foo'));
     }
 
-    public function test_can_construct_with_nested_paths()
+    public function testCanConstructWithNestedPaths()
     {
         $this->assertEquals('path/to/file.txt', ProjectFileTestClass::make('path/to/file.txt')->path);
     }
 
-    public function test_absolute_path_is_normalized_to_relative()
+    public function testAbsolutePathIsNormalizedToRelative()
     {
         $this->assertEquals('foo', ProjectFileTestClass::make(Hyde::path('foo'))->path);
     }
 
-    public function test_get_name_returns_name_of_file()
+    public function testGetNameReturnsNameOfFile()
     {
         $this->assertSame('foo.txt', ProjectFileTestClass::make('foo.txt')->getName());
         $this->assertSame('bar.txt', ProjectFileTestClass::make('foo/bar.txt')->getName());
     }
 
-    public function test_get_path_returns_path_of_file()
+    public function testGetPathReturnsPathOfFile()
     {
         $this->assertSame('foo.txt', ProjectFileTestClass::make('foo.txt')->getPath());
         $this->assertSame('foo/bar.txt', ProjectFileTestClass::make('foo/bar.txt')->getPath());
     }
 
-    public function test_get_absolute_path_returns_absolute_path_of_file()
+    public function testGetAbsolutePathReturnsAbsolutePathOfFile()
     {
         $this->assertSame(Hyde::path('foo.txt'), ProjectFileTestClass::make('foo.txt')->getAbsolutePath());
         $this->assertSame(Hyde::path('foo/bar.txt'), ProjectFileTestClass::make('foo/bar.txt')->getAbsolutePath());
     }
 
-    public function test_get_contents_returns_contents_of_file()
+    public function testGetContentsReturnsContentsOfFile()
     {
         $this->file('foo.txt', 'foo bar');
         $this->assertSame('foo bar', ProjectFileTestClass::make('foo.txt')->getContents());
     }
 
-    public function test_get_extension_returns_extension_of_file()
+    public function testGetExtensionReturnsExtensionOfFile()
     {
         $this->file('foo.txt', 'foo');
         $this->assertSame('txt', ProjectFileTestClass::make('foo.txt')->getExtension());
@@ -69,7 +69,7 @@ class ProjectFileTest extends TestCase
         $this->assertSame('png', ProjectFileTestClass::make('foo.png')->getExtension());
     }
 
-    public function test_to_array_returns_array_of_file_properties()
+    public function testToArrayReturnsArrayOfFileProperties()
     {
         $this->file('foo.txt', 'foo bar');
 
@@ -79,7 +79,7 @@ class ProjectFileTest extends TestCase
         ], ProjectFileTestClass::make('foo.txt')->toArray());
     }
 
-    public function test_to_array_with_empty_file_with_no_extension()
+    public function testToArrayWithEmptyFileWithNoExtension()
     {
         $this->file('foo');
         $this->assertSame([
@@ -88,7 +88,7 @@ class ProjectFileTest extends TestCase
         ], ProjectFileTestClass::make('foo')->toArray());
     }
 
-    public function test_to_array_with_file_in_subdirectory()
+    public function testToArrayWithFileInSubdirectory()
     {
         mkdir(Hyde::path('foo'));
         touch(Hyde::path('foo/bar.txt'));

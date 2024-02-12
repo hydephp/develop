@@ -25,7 +25,7 @@ class SeedPublicationCommandTest extends TestCase
         $this->pubType->save();
     }
 
-    public function test_can_seed_publications()
+    public function testCanSeedPublications()
     {
         $this->artisan('seed:publications')
             ->expectsOutputToContain('Seeding new publications!')
@@ -37,7 +37,7 @@ class SeedPublicationCommandTest extends TestCase
         $this->assertPublicationsCreated();
     }
 
-    public function test_can_seed_publications_using_arguments()
+    public function testCanSeedPublicationsUsingArguments()
     {
         $this->artisan('seed:publications test-publication 1')
              ->expectsOutputToContain('Seeding new publications!')
@@ -46,7 +46,7 @@ class SeedPublicationCommandTest extends TestCase
         $this->assertPublicationsCreated();
     }
 
-    public function test_can_seed_multiple_publications()
+    public function testCanSeedMultiplePublications()
     {
         $this->artisan('seed:publications test-publication 2')
              ->expectsOutputToContain('Seeding new publications!')
@@ -56,7 +56,7 @@ class SeedPublicationCommandTest extends TestCase
         $this->assertPublicationsCreated(2);
     }
 
-    public function test_command_asks_to_confirm_before_creating_many_publications()
+    public function testCommandAsksToConfirmBeforeCreatingManyPublications()
     {
         $this->artisan('seed:publications')
              ->expectsOutputToContain('Seeding new publications!')
@@ -69,7 +69,7 @@ class SeedPublicationCommandTest extends TestCase
         $this->assertPublicationsCreated(0);
     }
 
-    public function test_command_asks_to_confirm_before_creating_many_publications_when_using_arguments()
+    public function testCommandAsksToConfirmBeforeCreatingManyPublicationsWhenUsingArguments()
     {
         $this->artisan('seed:publications test-publication 10000')
              ->expectsOutputToContain('Seeding new publications!')
@@ -80,14 +80,14 @@ class SeedPublicationCommandTest extends TestCase
         $this->assertPublicationsCreated(0);
     }
 
-    public function test_with_invalid_publication_type()
+    public function testWithInvalidPublicationType()
     {
         $this->artisan('seed:publications invalid-publication')
             ->expectsOutput('Error: Unable to locate publication type [invalid-publication]')
             ->assertExitCode(1);
     }
 
-    public function test_with_no_publication_types()
+    public function testWithNoPublicationTypes()
     {
         unlink(Hyde::path('test-publication/schema.json'));
         $this->artisan('seed:publications')

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Config;
  */
 class MarkdownServiceTest extends TestCase
 {
-    public function test_service_can_parse_markdown_to_html()
+    public function testServiceCanParseMarkdownToHtml()
     {
         $markdown = '# Hello World!';
 
@@ -25,7 +25,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertEquals("<h1>Hello World!</h1>\n", $html);
     }
 
-    public function test_service_can_parse_markdown_to_html_with_permalinks()
+    public function testServiceCanParseMarkdownToHtmlWithPermalinks()
     {
         $markdown = '## Hello World!';
 
@@ -39,7 +39,7 @@ class MarkdownServiceTest extends TestCase
         );
     }
 
-    public function test_torchlight_extension_is_not_enabled_by_default()
+    public function testTorchlightExtensionIsNotEnabledByDefault()
     {
         $markdown = '# Hello World!';
         $service = new MarkdownService($markdown);
@@ -47,7 +47,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertNotContains('Torchlight\Commonmark\V2\TorchlightExtension', $service->getExtensions());
     }
 
-    public function test_torchlight_extension_is_enabled_automatically_when_has_torchlight_feature()
+    public function testTorchlightExtensionIsEnabledAutomaticallyWhenHasTorchlightFeature()
     {
         $markdown = '# Hello World!';
         $service = new MarkdownService($markdown);
@@ -55,7 +55,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('Torchlight\Commonmark\V2\TorchlightExtension', $service->getExtensions());
     }
 
-    public function test_torchlight_integration_injects_attribution()
+    public function testTorchlightIntegrationInjectsAttribution()
     {
         $markdown = '# Hello World! <!-- Syntax highlighted by torchlight.dev -->';
 
@@ -69,13 +69,13 @@ class MarkdownServiceTest extends TestCase
                 .'rel="noopener nofollow">Torchlight.dev</a>', $html);
     }
 
-    public function test_bladedown_is_not_enabled_by_default()
+    public function testBladedownIsNotEnabledByDefault()
     {
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
         $this->assertEquals("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
     }
 
-    public function test_bladedown_can_be_enabled()
+    public function testBladedownCanBeEnabled()
     {
         config(['markdown.enable_blade' => true]);
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
@@ -83,7 +83,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertEquals("Hello World!\n", $service->parse());
     }
 
-    public function test_raw_html_tags_are_stripped_by_default()
+    public function testRawHtmlTagsAreStrippedByDefault()
     {
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
         $service = new MarkdownService($markdown);
@@ -91,7 +91,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertEquals("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
     }
 
-    public function test_raw_html_tags_are_not_stripped_when_explicitly_enabled()
+    public function testRawHtmlTagsAreNotStrippedWhenExplicitlyEnabled()
     {
         config(['markdown.allow_html' => true]);
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
@@ -100,21 +100,21 @@ class MarkdownServiceTest extends TestCase
         $this->assertEquals("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
     }
 
-    public function test_has_features_array()
+    public function testHasFeaturesArray()
     {
         $service = $this->makeService();
 
         $this->assertIsArray($service->features);
     }
 
-    public function test_the_features_array_is_empty_by_default()
+    public function testTheFeaturesArrayIsEmptyByDefault()
     {
         $service = $this->makeService();
 
         $this->assertEmpty($service->features);
     }
 
-    public function test_features_can_be_added_to_the_array()
+    public function testFeaturesCanBeAddedToTheArray()
     {
         $service = $this->makeService();
 
@@ -122,7 +122,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('test', $service->features);
     }
 
-    public function test_features_can_be_removed_from_the_array()
+    public function testFeaturesCanBeRemovedFromTheArray()
     {
         $service = $this->makeService();
 
@@ -131,7 +131,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertNotContains('test', $service->features);
     }
 
-    public function test_method_chaining_can_be_used_to_programmatically_add_features_to_the_array()
+    public function testMethodChainingCanBeUsedToProgrammaticallyAddFeaturesToTheArray()
     {
         $service = $this->makeService();
 
@@ -140,7 +140,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('test2', $service->features);
     }
 
-    public function test_method_chaining_can_be_used_to_programmatically_remove_features_from_the_array()
+    public function testMethodChainingCanBeUsedToProgrammaticallyRemoveFeaturesFromTheArray()
     {
         $service = $this->makeService();
 
@@ -149,7 +149,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('test2', $service->features);
     }
 
-    public function test_method_with_table_of_contents_method_chain_adds_the_table_of_contents_feature()
+    public function testMethodWithTableOfContentsMethodChainAddsTheTableOfContentsFeature()
     {
         $service = $this->makeService();
 
@@ -157,7 +157,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('table-of-contents', $service->features);
     }
 
-    public function test_method_with_permalinks_method_chain_adds_the_permalinks_feature()
+    public function testMethodWithPermalinksMethodChainAddsThePermalinksFeature()
     {
         $service = $this->makeService();
 
@@ -165,7 +165,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('permalinks', $service->features);
     }
 
-    public function test_has_feature_returns_true_if_the_feature_is_in_the_array()
+    public function testHasFeatureReturnsTrueIfTheFeatureIsInTheArray()
     {
         $service = $this->makeService();
 
@@ -173,14 +173,14 @@ class MarkdownServiceTest extends TestCase
         $this->assertTrue($service->hasFeature('test'));
     }
 
-    public function test_has_feature_returns_false_if_the_feature_is_not_in_the_array()
+    public function testHasFeatureReturnsFalseIfTheFeatureIsNotInTheArray()
     {
         $service = $this->makeService();
 
         $this->assertFalse($service->hasFeature('test'));
     }
 
-    public function test_method_can_enable_permalinks_returns_true_if_the_permalinks_feature_is_in_the_array()
+    public function testMethodCanEnablePermalinksReturnsTrueIfThePermalinksFeatureIsInTheArray()
     {
         $service = $this->makeService();
 
@@ -188,7 +188,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertTrue($service->canEnablePermalinks());
     }
 
-    public function test_method_can_enable_permalinks_is_automatically_for_documentation_pages()
+    public function testMethodCanEnablePermalinksIsAutomaticallyForDocumentationPages()
     {
         $service = new MarkdownServiceTestClass(pageClass: DocumentationPage::class);
 
@@ -197,14 +197,14 @@ class MarkdownServiceTest extends TestCase
         $this->assertTrue($service->canEnablePermalinks());
     }
 
-    public function test_method_can_enable_permalinks_returns_false_if_the_permalinks_feature_is_not_in_the_array()
+    public function testMethodCanEnablePermalinksReturnsFalseIfThePermalinksFeatureIsNotInTheArray()
     {
         $service = $this->makeService();
 
         $this->assertFalse($service->canEnablePermalinks());
     }
 
-    public function test_method_can_enable_torchlight_returns_true_if_the_torchlight_feature_is_in_the_array()
+    public function testMethodCanEnableTorchlightReturnsTrueIfTheTorchlightFeatureIsInTheArray()
     {
         $service = $this->makeService();
 
@@ -212,14 +212,14 @@ class MarkdownServiceTest extends TestCase
         $this->assertTrue($service->canEnableTorchlight());
     }
 
-    public function test_method_can_enable_torchlight_returns_false_if_the_torchlight_feature_is_not_in_the_array()
+    public function testMethodCanEnableTorchlightReturnsFalseIfTheTorchlightFeatureIsNotInTheArray()
     {
         $service = $this->makeService();
 
         $this->assertFalse($service->canEnableTorchlight());
     }
 
-    public function test_stripIndentation_method_with_unindented_markdown()
+    public function testStripIndentationMethodWithUnindentedMarkdown()
     {
         $service = $this->makeService();
 
@@ -227,7 +227,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame($markdown, $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_stripIndentation_method_with_indented_markdown()
+    public function testStripIndentationMethodWithIndentedMarkdown()
     {
         $service = $this->makeService();
 
@@ -241,7 +241,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_stripIndentation_method_with_tab_indented_markdown()
+    public function testStripIndentationMethodWithTabIndentedMarkdown()
     {
         $service = $this->makeService();
 
@@ -249,7 +249,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_stripIndentation_method_with_carriage_return_line_feed()
+    public function testStripIndentationMethodWithCarriageReturnLineFeed()
     {
         $service = $this->makeService();
 
@@ -257,7 +257,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_stripIndentation_method_with_code_indentation()
+    public function testStripIndentationMethodWithCodeIndentation()
     {
         $service = $this->makeService();
 
@@ -265,7 +265,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\n    baz", $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_stripIndentation_method_with_empty_newlines()
+    public function testStripIndentationMethodWithEmptyNewlines()
     {
         $service = $this->makeService();
 
@@ -276,7 +276,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\n   \nbar\nbaz", $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_stripIndentation_method_with_trailing_newline()
+    public function testStripIndentationMethodWithTrailingNewline()
     {
         $service = $this->makeService();
 

@@ -21,14 +21,14 @@ use Hyde\Testing\TestCase;
  */
 class PageModelConstructorsTest extends TestCase
 {
-    public function test_dynamic_data_constructor_can_find_title_from_front_matter()
+    public function testDynamicDataConstructorCanFindTitleFromFrontMatter()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'My Title']);
         $page = MarkdownPage::parse('foo');
         $this->assertEquals('My Title', $page->title);
     }
 
-    public function test_dynamic_data_constructor_can_find_title_from_h1_tag()
+    public function testDynamicDataConstructorCanFindTitleFromH1Tag()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar');
         $page = MarkdownPage::parse('foo');
@@ -36,7 +36,7 @@ class PageModelConstructorsTest extends TestCase
         $this->assertEquals('Foo Bar', $page->title);
     }
 
-    public function test_dynamic_data_constructor_can_find_title_from_slug()
+    public function testDynamicDataConstructorCanFindTitleFromSlug()
     {
         $this->markdown('_pages/foo-bar.md');
         $page = MarkdownPage::parse('foo-bar');
@@ -44,7 +44,7 @@ class PageModelConstructorsTest extends TestCase
         $this->assertEquals('Foo Bar', $page->title);
     }
 
-    public function test_documentation_page_parser_can_get_group_from_front_matter()
+    public function testDocumentationPageParserCanGetGroupFromFrontMatter()
     {
         $this->markdown('_docs/foo.md', '# Foo Bar', ['navigation.group' => 'foo']);
 
@@ -52,7 +52,7 @@ class PageModelConstructorsTest extends TestCase
         $this->assertEquals('foo', $page->navigationMenuGroup());
     }
 
-    public function test_documentation_page_parser_can_get_group_automatically_from_nested_page()
+    public function testDocumentationPageParserCanGetGroupAutomaticallyFromNestedPage()
     {
         mkdir(Hyde::path('_docs/foo'));
         touch(Hyde::path('_docs/foo/bar.md'));

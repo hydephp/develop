@@ -85,7 +85,7 @@ class MetadataViewTest extends TestCase
         ];
     }
 
-    public function test_metadata_tags_in_empty_blade_page()
+    public function testMetadataTagsInEmptyBladePage()
     {
         $this->file('_pages/test.blade.php', '@extends(\'hyde::layouts.app\')');
         $this->build('_pages/test.blade.php');
@@ -101,7 +101,7 @@ class MetadataViewTest extends TestCase
         $this->assertAllTagsWereCovered('test', $assertions);
     }
 
-    public function test_metadata_tags_in_empty_markdown_page()
+    public function testMetadataTagsInEmptyMarkdownPage()
     {
         $this->markdown('_pages/test.md');
         $this->build('_pages/test.md');
@@ -117,7 +117,7 @@ class MetadataViewTest extends TestCase
         $this->assertAllTagsWereCovered('test', $assertions);
     }
 
-    public function test_metadata_tags_in_empty_documentation_page()
+    public function testMetadataTagsInEmptyDocumentationPage()
     {
         $this->markdown('_docs/test.md');
         $this->build('_docs/test.md');
@@ -133,7 +133,7 @@ class MetadataViewTest extends TestCase
         $this->assertAllTagsWereCovered('docs/test', $assertions);
     }
 
-    public function test_metadata_tags_in_empty_markdown_post()
+    public function testMetadataTagsInEmptyMarkdownPost()
     {
         $this->markdown('_posts/test.md');
         $this->build('_posts/test.md');
@@ -155,7 +155,7 @@ class MetadataViewTest extends TestCase
         $this->assertAllTagsWereCovered('posts/test', $assertions);
     }
 
-    public function test_metadata_tags_in_markdown_post_with_flat_front_matter()
+    public function testMetadataTagsInMarkdownPostWithFlatFrontMatter()
     {
         // Run the test above, but with all front matter properties (without array notation)
         $this->file('_posts/test.md', <<<'MARKDOWN'

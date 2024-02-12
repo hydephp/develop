@@ -13,7 +13,7 @@ use Hyde\Testing\UnitTestCase;
  */
 class ShortcodeProcessorTest extends UnitTestCase
 {
-    public function test_constructor_discovers_default_shortcodes()
+    public function testConstructorDiscoversDefaultShortcodes()
     {
         $shortcodes = (new ShortcodeProcessor('foo'))->getShortcodes();
 
@@ -21,7 +21,7 @@ class ShortcodeProcessorTest extends UnitTestCase
         $this->assertContainsOnlyInstancesOf(MarkdownShortcodeContract::class, $shortcodes);
     }
 
-    public function test_discovered_shortcodes_are_used_to_process_input()
+    public function testDiscoveredShortcodesAreUsedToProcessInput()
     {
         $processor = new ShortcodeProcessor('>info foo');
 
@@ -29,20 +29,20 @@ class ShortcodeProcessorTest extends UnitTestCase
             $processor->run());
     }
 
-    public function test_string_without_shortcode_is_not_modified()
+    public function testStringWithoutShortcodeIsNotModified()
     {
         $processor = new ShortcodeProcessor('foo');
 
         $this->assertEquals('foo', $processor->run());
     }
 
-    public function test_process_static_shorthand()
+    public function testProcessStaticShorthand()
     {
         $this->assertEquals('<blockquote class="info"><p>foo</p></blockquote>',
             ShortcodeProcessor::preprocess('>info foo'));
     }
 
-    public function test_shortcodes_can_be_added_to_processor()
+    public function testShortcodesCanBeAddedToProcessor()
     {
         $processor = new ShortcodeProcessor('foo');
 
@@ -63,7 +63,7 @@ class ShortcodeProcessorTest extends UnitTestCase
         $this->assertEquals('bar', $processor->run());
     }
 
-    public function test_shortcodes_can_be_added_to_processor_using_array()
+    public function testShortcodesCanBeAddedToProcessorUsingArray()
     {
         $processor = new ShortcodeProcessor('foo');
 

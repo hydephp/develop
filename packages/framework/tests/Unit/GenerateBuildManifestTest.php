@@ -21,7 +21,7 @@ class GenerateBuildManifestTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function test_action_generates_build_manifest()
+    public function testActionGeneratesBuildManifest()
     {
         (new GenerateBuildManifest())->handle();
 

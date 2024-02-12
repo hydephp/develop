@@ -23,7 +23,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->mockPage();
     }
 
-    public function test_has_darkmode()
+    public function testHasDarkmode()
     {
         Config::set('hyde.features', []);
 
@@ -36,7 +36,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->assertTrue(Features::hasDarkmode());
     }
 
-    public function test_layout_has_toggle_button_and_script_when_enabled()
+    public function testLayoutHasToggleButtonAndScriptWhenEnabled()
     {
         Config::set('hyde.features', [
             Features::markdownPages(),
@@ -54,7 +54,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->assertStringContainsString('<script>if (localStorage.getItem(\'color-theme\') === \'dark\'', $view);
     }
 
-    public function test_documentation_page_has_toggle_button_and_script_when_enabled()
+    public function testDocumentationPageHasToggleButtonAndScriptWhenEnabled()
     {
         Config::set('hyde.features', [
             Features::documentationPages(),
@@ -73,7 +73,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->assertStringContainsString('<script>if (localStorage.getItem(\'color-theme\') === \'dark\'', $view);
     }
 
-    public function test_dark_mode_theme_button_is_hidden_in_layouts_when_disabled()
+    public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
         Config::set('hyde.features', [
             Features::markdownPages(),
@@ -90,7 +90,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->assertStringNotContainsString('<script>if (localStorage.getItem(\'color-theme\') === \'dark\'', $view);
     }
 
-    public function test_dark_mode_theme_button_is_hidden_in_documentation_pages_when_disabled()
+    public function testDarkModeThemeButtonIsHiddenInDocumentationPagesWhenDisabled()
     {
         Config::set('hyde.features', [
             Features::documentationPages(),

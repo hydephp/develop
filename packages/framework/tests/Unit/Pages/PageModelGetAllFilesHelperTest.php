@@ -16,7 +16,7 @@ use Hyde\Testing\TestCase;
  */
 class PageModelGetAllFilesHelperTest extends TestCase
 {
-    public function test_blade_page_get_helper_returns_blade_page_array()
+    public function testBladePageGetHelperReturnsBladePageArray()
     {
         $array = BladePage::files();
         $this->assertCount(2, $array);
@@ -24,7 +24,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         $this->assertEquals(['404', 'index'], $array);
     }
 
-    public function test_markdown_page_get_helper_returns_markdown_page_array()
+    public function testMarkdownPageGetHelperReturnsMarkdownPageArray()
     {
         Filesystem::touch('_pages/test-page.md');
 
@@ -36,7 +36,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         Filesystem::unlink('_pages/test-page.md');
     }
 
-    public function test_markdown_post_get_helper_returns_markdown_post_array()
+    public function testMarkdownPostGetHelperReturnsMarkdownPostArray()
     {
         Filesystem::touch('_posts/test-post.md');
 
@@ -48,7 +48,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function test_documentation_page_get_helper_returns_documentation_page_array()
+    public function testDocumentationPageGetHelperReturnsDocumentationPageArray()
     {
         Filesystem::touch('_docs/test-page.md');
 

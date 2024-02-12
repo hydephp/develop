@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  */
 class CodeblockFilepathProcessorTest extends TestCase
 {
-    public function test_preprocess_expands_filepath()
+    public function testPreprocessExpandsFilepath()
     {
         $markdown = "\n```php\n// filepath: foo.php\necho 'Hello World';\n```";
         $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
@@ -20,7 +20,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    public function test_preprocess_accepts_multiple_filepath_formats()
+    public function testPreprocessAcceptsMultipleFilepathFormats()
     {
         $patterns = [
             '// filepath: ',
@@ -41,7 +41,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         }
     }
 
-    public function test_filepath_pattern_is_case_insensitive()
+    public function testFilepathPatternIsCaseInsensitive()
     {
         $patterns = [
             '// filepath: ',
@@ -58,7 +58,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         }
     }
 
-    public function test_preprocess_accepts_multiple_languages()
+    public function testPreprocessAcceptsMultipleLanguages()
     {
         $languages = [
             'php',
@@ -78,7 +78,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    public function test_preprocess_accepts_multiple_input_blocks()
+    public function testPreprocessAcceptsMultipleInputBlocks()
     {
         $markdown = <<<'MD'
 
@@ -109,7 +109,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    public function test_preprocess_accepts_multi_line_codeblocks()
+    public function testPreprocessAcceptsMultiLineCodeblocks()
     {
         $markdown = <<<'MD'
 
@@ -134,7 +134,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    public function test_space_after_filepath_is_optional()
+    public function testSpaceAfterFilepathIsOptional()
     {
         $markdown = <<<'MD'
 
@@ -157,7 +157,7 @@ class CodeblockFilepathProcessorTest extends TestCase
             CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    public function test_processor_expands_filepath_directive_in_standard_codeblock()
+    public function testProcessorExpandsFilepathDirectiveInStandardCodeblock()
     {
         $html = <<<'HTML'
         <!-- HYDE[Filepath]foo.html -->
@@ -171,7 +171,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
-    public function test_processor_expands_filepath_directive_in_torchlight_codeblock()
+    public function testProcessorExpandsFilepathDirectiveInTorchlightCodeblock()
     {
         $html = <<<'HTML'
         <!-- HYDE[Filepath]foo.html -->
@@ -185,7 +185,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
-    public function test_processor_escapes_html_by_default()
+    public function testProcessorEscapesHtmlByDefault()
     {
         $html = <<<'HTML'
         <!-- HYDE[Filepath]<a href="">Link</a> -->
@@ -200,7 +200,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
-    public function test_processor_does_not_escape_html_if_configured()
+    public function testProcessorDoesNotEscapeHtmlIfConfigured()
     {
         config(['markdown.allow_html' => true]);
 

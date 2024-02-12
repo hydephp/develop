@@ -14,7 +14,7 @@ use Hyde\Publications\Models\PublicationFieldDefinition;
  */
 class PublicationFieldDefinitionTest extends TestCase
 {
-    public function test_can_instantiate_class()
+    public function testCanInstantiateClass()
     {
         $field = new PublicationFieldDefinition('string', 'test');
         $this->assertInstanceOf(PublicationFieldDefinition::class, $field);
@@ -23,7 +23,7 @@ class PublicationFieldDefinitionTest extends TestCase
         $this->assertSame('test', $field->name);
     }
 
-    public function test_from_array_method()
+    public function testFromArrayMethod()
     {
         $field = PublicationFieldDefinition::fromArray([
             'type' => 'string',
@@ -36,7 +36,7 @@ class PublicationFieldDefinitionTest extends TestCase
         $this->assertSame('test', $field->name);
     }
 
-    public function test_can_get_field_as_array()
+    public function testCanGetFieldAsArray()
     {
         $this->assertSame([
             'type' => 'string',
@@ -44,7 +44,7 @@ class PublicationFieldDefinitionTest extends TestCase
         ], (new PublicationFieldDefinition('string', 'test'))->toArray());
     }
 
-    public function test_can_get_field_with_optional_properties_as_array()
+    public function testCanGetFieldWithOptionalPropertiesAsArray()
     {
         $this->assertSame([
             'type' => 'string',
@@ -53,12 +53,12 @@ class PublicationFieldDefinitionTest extends TestCase
         ], (new PublicationFieldDefinition('string', 'test', ['required']))->toArray());
     }
 
-    public function test_can_encode_field_as_json()
+    public function testCanEncodeFieldAsJson()
     {
         $this->assertSame('{"type":"string","name":"test"}', json_encode(new PublicationFieldDefinition('string', 'test')));
     }
 
-    public function test_can_get_field_with_optional_properties_as_json()
+    public function testCanGetFieldWithOptionalPropertiesAsJson()
     {
         $this->assertSame('{"type":"string","name":"test","rules":["required"]}', json_encode(new PublicationFieldDefinition('string',
             'test',
@@ -66,7 +66,7 @@ class PublicationFieldDefinitionTest extends TestCase
         )));
     }
 
-    public function test_can_construct_type_using_enum_case()
+    public function testCanConstructTypeUsingEnumCase()
     {
         $field1 = new PublicationFieldDefinition(PublicationFieldTypes::String, 'test');
         $this->assertSame(PublicationFieldTypes::String, $field1->type);
@@ -77,32 +77,32 @@ class PublicationFieldDefinitionTest extends TestCase
         $this->assertEquals($field1, $field2);
     }
 
-    public function test_type_must_be_valid()
+    public function testTypeMustBeValid()
     {
         $this->expectException(ValueError::class);
 
         new PublicationFieldDefinition('invalid', 'test');
     }
 
-    public function test_type_input_is_case_insensitive()
+    public function testTypeInputIsCaseInsensitive()
     {
         $field = new PublicationFieldDefinition('STRING', 'test');
         $this->assertSame(PublicationFieldTypes::String, $field->type);
     }
 
-    public function test_name_gets_stored_as_kebab_case()
+    public function testNameGetsStoredAsKebabCase()
     {
         $field = new PublicationFieldDefinition('string', 'Test Field');
         $this->assertSame('test-field', $field->name);
     }
 
-    public function test_get_rules()
+    public function testGetRules()
     {
         $field = new PublicationFieldDefinition('string', 'test');
         $this->assertSame(['string'], $field->getRules());
     }
 
-    public function test_get_rules_with_custom_type_rules()
+    public function testGetRulesWithCustomTypeRules()
     {
         $field = new PublicationFieldDefinition('string', 'test', ['required', 'foo']);
         $this->assertSame(['string', 'required', 'foo'], $field->getRules());

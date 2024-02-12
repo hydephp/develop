@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\File;
  */
 class BuildOutputDirectoryCanBeChangedTest extends TestCase
 {
-    public function test_site_output_directory_can_be_changed_for_site_builds()
+    public function testSiteOutputDirectoryCanBeChangedForSiteBuilds()
     {
         $this->file('_posts/test-post.md');
 
@@ -32,7 +32,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
         File::deleteDirectory(Hyde::path('_site/build'));
     }
 
-    public function test_site_output_directory_can_be_changed_in_static_page_builder()
+    public function testSiteOutputDirectoryCanBeChangedInStaticPageBuilder()
     {
         $this->file('_posts/test-post.md');
 
@@ -45,7 +45,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
         File::deleteDirectory(Hyde::path('_site/build'));
     }
 
-    public function test_output_directory_is_created_if_it_does_not_exist_in_static_page_builder()
+    public function testOutputDirectoryIsCreatedIfItDoesNotExistInStaticPageBuilder()
     {
         $this->file('_posts/test-post.md');
         File::deleteDirectory(Hyde::path('_site/build/foo'));
@@ -56,7 +56,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
         File::deleteDirectory(Hyde::path('_site/build/foo'));
     }
 
-    public function test_site_output_directory_can_be_changed_in_configuration()
+    public function testSiteOutputDirectoryCanBeChangedInConfiguration()
     {
         $this->assertEquals('_site', Hyde::kernel()->getOutputDirectory());
 
@@ -72,7 +72,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
         File::deleteDirectory(Hyde::path('_site/build'));
     }
 
-    public function test_site_output_directory_path_is_normalized_to_trim_trailing_slashes()
+    public function testSiteOutputDirectoryPathIsNormalizedToTrimTrailingSlashes()
     {
         Hyde::setOutputDirectory('foo/bar/');
         $this->assertEquals('foo/bar', Hyde::kernel()->getOutputDirectory());

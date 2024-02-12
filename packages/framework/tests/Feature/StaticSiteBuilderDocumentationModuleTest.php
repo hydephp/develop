@@ -42,7 +42,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         }
     }
 
-    public function test_can_create_page()
+    public function testCanCreatePage()
     {
         StaticPageBuilder::handle($this->page);
 
@@ -51,7 +51,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         unlink(Hyde::path('_site/docs/test-page.html'));
     }
 
-    public function test_page_contains_expected_content()
+    public function testPageContainsExpectedContent()
     {
         $this->inspectHtml([
             'Adventures in Wonderland',
@@ -60,7 +60,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         ]);
     }
 
-    public function test_can_compile_page_to_root_output_directory()
+    public function testCanCompilePageToRootOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('');
 

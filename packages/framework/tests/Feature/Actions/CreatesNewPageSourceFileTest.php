@@ -18,7 +18,7 @@ use Hyde\Testing\TestCase;
  */
 class CreatesNewPageSourceFileTest extends TestCase
 {
-    public function test_class_can_be_instantiated()
+    public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
             CreatesNewPageSourceFile::class,
@@ -26,7 +26,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         );
     }
 
-    public function test_that_an_exception_is_thrown_for_invalid_page_type()
+    public function testThatAnExceptionIsThrownForInvalidPageType()
     {
         $this->expectException(UnsupportedPageTypeException::class);
         $this->expectExceptionMessage('The page type must be either "markdown", "blade", or "documentation"');
@@ -34,7 +34,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         (new CreatesNewPageSourceFile('Test Page', 'invalid'))->save();
     }
 
-    public function test_that_an_exception_is_thrown_if_file_already_exists_and_overwrite_is_false()
+    public function testThatAnExceptionIsThrownIfFileAlreadyExistsAndOverwriteIsFalse()
     {
         $this->file('_pages/foo.md', 'foo');
 
@@ -47,7 +47,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_that_can_save_file_returns_true_if_file_already_exists_and_overwrite_is_true()
+    public function testThatCanSaveFileReturnsTrueIfFileAlreadyExistsAndOverwriteIsTrue()
     {
         $this->file('_pages/foo.md', 'foo');
 
@@ -56,7 +56,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_exception_is_thrown_for_conflicting_blade_pages()
+    public function testExceptionIsThrownForConflictingBladePages()
     {
         $this->file('_pages/foo.blade.php', 'foo');
 
@@ -69,7 +69,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/foo.blade.php');
     }
 
-    public function test_exception_is_thrown_for_conflicting_documentation_pages()
+    public function testExceptionIsThrownForConflictingDocumentationPages()
     {
         $this->file('_docs/foo.md', 'foo');
 
@@ -82,7 +82,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_docs/foo.md');
     }
 
-    public function test_that_a_markdown_file_can_be_created_and_contains_expected_content()
+    public function testThatAMarkdownFileCanBeCreatedAndContainsExpectedContent()
     {
         (new CreatesNewPageSourceFile('Test Page'))->save();
 
@@ -95,7 +95,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/test-page.md');
     }
 
-    public function test_that_a_blade_file_can_be_created_and_contains_expected_content()
+    public function testThatABladeFileCanBeCreatedAndContainsExpectedContent()
     {
         (new CreatesNewPageSourceFile('Test Page', BladePage::class))->save();
 
@@ -119,7 +119,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/test-page.blade.php');
     }
 
-    public function test_that_a_documentation_file_can_be_created_and_contains_expected_content()
+    public function testThatADocumentationFileCanBeCreatedAndContainsExpectedContent()
     {
         (new CreatesNewPageSourceFile('Test Page', DocumentationPage::class))->save();
 
@@ -133,7 +133,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_docs/test-page.md');
     }
 
-    public function test_that_a_markdown_file_can_be_created_with_custom_content()
+    public function testThatAMarkdownFileCanBeCreatedWithCustomContent()
     {
         (new CreatesNewPageSourceFile('Test Page', customContent: 'Hello World!'))->save();
 
@@ -156,7 +156,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/test-page.md');
     }
 
-    public function test_that_a_blade_file_can_be_created_with_custom_content()
+    public function testThatABladeFileCanBeCreatedWithCustomContent()
     {
         (new CreatesNewPageSourceFile('Test Page', BladePage::class, customContent: 'Hello World!'))->save();
 
@@ -184,7 +184,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/test-page.blade.php');
     }
 
-    public function test_that_the_file_path_can_be_returned()
+    public function testThatTheFilePathCanBeReturned()
     {
         $this->assertSame(
             Hyde::path('_pages/test-page.md'),
@@ -200,21 +200,21 @@ class CreatesNewPageSourceFileTest extends TestCase
         Filesystem::unlink('_pages/test-page.blade.php');
     }
 
-    public function test_file_is_created_using_slug_generated_from_title()
+    public function testFileIsCreatedUsingSlugGeneratedFromTitle()
     {
         (new CreatesNewPageSourceFile('Foo Bar'))->save();
         $this->assertFileExists(Hyde::path('_pages/foo-bar.md'));
         Filesystem::unlink('_pages/foo-bar.md');
     }
 
-    public function test_action_can_generate_nested_pages()
+    public function testActionCanGenerateNestedPages()
     {
         (new CreatesNewPageSourceFile('foo/bar'))->save();
         $this->assertFileExists(Hyde::path('_pages/foo/bar.md'));
         Filesystem::deleteDirectory('_pages/foo');
     }
 
-    public function test_can_create_deeply_nested_pages()
+    public function testCanCreateDeeplyNestedPages()
     {
         (new CreatesNewPageSourceFile('/foo/bar/Foo Bar'))->save();
         $this->assertFileExists(Hyde::path('_pages/foo/bar/foo-bar.md'));

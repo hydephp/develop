@@ -37,7 +37,7 @@ class ValidationServiceTest extends TestCase
         $this->assertEquals($expectedStatusCode, $result->statusCode());
     }
 
-    public function test_checks_returns_an_array_of_validation_check_methods()
+    public function testChecksReturnsAnArrayOfValidationCheckMethods()
     {
         $checks = ValidationService::checks();
         $this->assertIsArray($checks);
@@ -49,31 +49,31 @@ class ValidationServiceTest extends TestCase
         }
     }
 
-    public function test_check_validators_can_run()
+    public function testCheckValidatorsCanRun()
     {
         $this->test('check_validators_can_run', 0);
     }
 
-    public function test_check_site_has_a_404_page_can_pass()
+    public function testCheckSiteHasA404PageCanPass()
     {
         $this->test('check_site_has_a_404_page', 0);
     }
 
-    public function test_check_site_has_a_404_page_can_fail()
+    public function testCheckSiteHasA404PageCanFail()
     {
         rename(Hyde::path('_pages/404.blade.php'), Hyde::path('_pages/404.blade.php.bak'));
         $this->test('check_site_has_a_404_page', 2);
         rename(Hyde::path('_pages/404.blade.php.bak'), Hyde::path('_pages/404.blade.php'));
     }
 
-    public function test_check_documentation_site_has_an_index_page_can_pass()
+    public function testCheckDocumentationSiteHasAnIndexPageCanPass()
     {
         touch('_docs/index.md');
         $this->test('check_documentation_site_has_an_index_page', 0);
         unlink('_docs/index.md');
     }
 
-    public function test_check_documentation_site_has_an_index_page_can_pass_with_warning_when_only_finding_readme()
+    public function testCheckDocumentationSiteHasAnIndexPageCanPassWithWarningWhenOnlyFindingReadme()
     {
         touch('_docs/README.md');
         $this->test('check_documentation_site_has_an_index_page', 2);
@@ -82,78 +82,78 @@ class ValidationServiceTest extends TestCase
         unlink('_docs/README.md');
     }
 
-    public function test_check_documentation_site_has_an_index_page_can_fail()
+    public function testCheckDocumentationSiteHasAnIndexPageCanFail()
     {
         touch('_docs/foo.md');
         $this->test('check_documentation_site_has_an_index_page', 2);
         unlink('_docs/foo.md');
     }
 
-    public function test_check_documentation_site_has_an_index_page_be_skipped()
+    public function testCheckDocumentationSiteHasAnIndexPageBeSkipped()
     {
         $this->test('check_documentation_site_has_an_index_page', 1);
     }
 
-    public function test_check_site_has_an_index_page_can_pass()
+    public function testCheckSiteHasAnIndexPageCanPass()
     {
         $this->test('check_site_has_an_index_page', 0);
     }
 
-    public function test_check_site_has_an_index_page_can_fail()
+    public function testCheckSiteHasAnIndexPageCanFail()
     {
         rename(Hyde::path('_pages/index.blade.php'), Hyde::path('_pages/index.blade.php.bak'));
         $this->test('check_site_has_an_index_page', 2);
         rename(Hyde::path('_pages/index.blade.php.bak'), Hyde::path('_pages/index.blade.php'));
     }
 
-    public function test_check_site_has_an_app_css_stylesheet_can_pass()
+    public function testCheckSiteHasAnAppCssStylesheetCanPass()
     {
         $this->test('check_site_has_an_app_css_stylesheet', 0);
     }
 
-    public function test_check_site_has_an_app_css_stylesheet_can_fail()
+    public function testCheckSiteHasAnAppCssStylesheetCanFail()
     {
         rename(Hyde::path('_media/app.css'), Hyde::path('_media/app.css.bak'));
         $this->test('check_site_has_an_app_css_stylesheet', 2);
         rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
     }
 
-    public function test_check_site_has_a_base_url_set_can_pass()
+    public function testCheckSiteHasABaseUrlSetCanPass()
     {
         config(['hyde.url' => 'https://example.com']);
         $this->test('check_site_has_a_base_url_set', 0);
     }
 
-    public function test_check_site_has_a_base_url_set_can_fail()
+    public function testCheckSiteHasABaseUrlSetCanFail()
     {
         config(['hyde.url' => null]);
         $this->test('check_site_has_a_base_url_set', 2);
     }
 
-    public function test_check_a_torchlight_api_token_is_set_can_skip()
+    public function testCheckATorchlightApiTokenIsSetCanSkip()
     {
         config(['hyde.features' => []]);
         $this->test('check_a_torchlight_api_token_is_set', 1);
     }
 
-    public function test_check_a_torchlight_api_token_is_set_can_pass()
+    public function testCheckATorchlightApiTokenIsSetCanPass()
     {
         config(['torchlight.token' => '12345']);
         $this->test('check_a_torchlight_api_token_is_set', 0);
     }
 
-    public function test_check_a_torchlight_api_token_is_set_can_fail()
+    public function testCheckATorchlightApiTokenIsSetCanFail()
     {
         config(['torchlight.token' => null]);
         $this->test('check_a_torchlight_api_token_is_set', 2);
     }
 
-    public function test_check_for_conflicts_between_blade_and_markdown_pages_can_pass()
+    public function testCheckForConflictsBetweenBladeAndMarkdownPagesCanPass()
     {
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 0);
     }
 
-    public function test_check_for_conflicts_between_blade_and_markdown_pages_can_fail()
+    public function testCheckForConflictsBetweenBladeAndMarkdownPagesCanFail()
     {
         Filesystem::touch('_pages/index.md');
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 2);
@@ -162,13 +162,13 @@ class ValidationServiceTest extends TestCase
 
     // Some unit tests
 
-    public function test_validation_result_message_returns_message()
+    public function testValidationResultMessageReturnsMessage()
     {
         $result = new ValidationResult();
         $this->assertEquals('Generic check', $result->message());
     }
 
-    public function test_validation_result_passed_returns_true_when_passed_is_true()
+    public function testValidationResultPassedReturnsTrueWhenPassedIsTrue()
     {
         $result = new ValidationResult();
         $result->pass();
@@ -177,7 +177,7 @@ class ValidationServiceTest extends TestCase
         $this->assertFalse($result->passed());
     }
 
-    public function test_validation_result_failed_returns_true_when_passed_is_false()
+    public function testValidationResultFailedReturnsTrueWhenPassedIsFalse()
     {
         $result = new ValidationResult();
         $result->pass();
@@ -186,7 +186,7 @@ class ValidationServiceTest extends TestCase
         $this->assertTrue($result->failed());
     }
 
-    public function test_validation_result_skipped_returns_true_when_skipped_is_true()
+    public function testValidationResultSkippedReturnsTrueWhenSkippedIsTrue()
     {
         $result = new ValidationResult();
         $this->assertFalse($result->skipped());
@@ -194,7 +194,7 @@ class ValidationServiceTest extends TestCase
         $this->assertTrue($result->skipped());
     }
 
-    public function test_validation_result_tip_returns_message_when_set()
+    public function testValidationResultTipReturnsMessageWhenSet()
     {
         $result = new ValidationResult();
         $this->assertFalse($result->tip());

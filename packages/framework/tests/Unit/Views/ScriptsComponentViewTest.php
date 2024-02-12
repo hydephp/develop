@@ -26,24 +26,24 @@ class ScriptsComponentViewTest extends TestCase
         ));
     }
 
-    public function test_component_can_be_rendered()
+    public function testComponentCanBeRendered()
     {
         $this->assertStringContainsString('<script defer', $this->renderTestView());
     }
 
-    public function test_component_has_link_to_app_js_file_when_it_exists()
+    public function testComponentHasLinkToAppJsFileWhenItExists()
     {
         Filesystem::touch('_media/app.js');
         $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
         Filesystem::unlink('_media/app.js');
     }
 
-    public function test_component_does_not_render_link_to_app_js_when_it_does_not_exist()
+    public function testComponentDoesNotRenderLinkToAppJsWhenItDoesNotExist()
     {
         $this->assertStringNotContainsString('<script defer src="media/app.js"', $this->renderTestView());
     }
 
-    public function test_component_uses_relative_path_to_app_js_file_for_nested_pages()
+    public function testComponentUsesRelativePathToAppJsFileForNestedPages()
     {
         Filesystem::touch('_media/app.js');
         $this->mockCurrentPage = 'foo';
@@ -70,7 +70,7 @@ class ScriptsComponentViewTest extends TestCase
         $this->assertStringContainsString('<script src="html-include.js"></script>', $this->renderTestView());
     }
 
-    public function test_scripts_can_be_pushed_to_the_component_scripts_stack()
+    public function testScriptsCanBePushedToTheComponentScriptsStack()
     {
         view()->share('routeKey', '');
 

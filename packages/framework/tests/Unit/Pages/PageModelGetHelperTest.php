@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class PageModelGetHelperTest extends TestCase
 {
-    public function test_blade_page_get_helper_returns_blade_page_collection()
+    public function testBladePageGetHelperReturnsBladePageCollection()
     {
         $collection = BladePage::all();
         $this->assertCount(2, $collection);
@@ -25,7 +25,7 @@ class PageModelGetHelperTest extends TestCase
         $this->assertContainsOnlyInstancesOf(BladePage::class, $collection);
     }
 
-    public function test_markdown_page_get_helper_returns_markdown_page_collection()
+    public function testMarkdownPageGetHelperReturnsMarkdownPageCollection()
     {
         Filesystem::touch('_pages/test-page.md');
 
@@ -37,7 +37,7 @@ class PageModelGetHelperTest extends TestCase
         Filesystem::unlink('_pages/test-page.md');
     }
 
-    public function test_markdown_post_get_helper_returns_markdown_post_collection()
+    public function testMarkdownPostGetHelperReturnsMarkdownPostCollection()
     {
         Filesystem::touch('_posts/test-post.md');
 
@@ -49,7 +49,7 @@ class PageModelGetHelperTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function test_documentation_page_get_helper_returns_documentation_page_collection()
+    public function testDocumentationPageGetHelperReturnsDocumentationPageCollection()
     {
         Filesystem::touch('_docs/test-page.md');
 
