@@ -264,10 +264,14 @@ So we are simply going to inline component, but with the paginator we also decla
 // filepath _pages/posts.blade.php
 @php
     $paginator = new \Hyde\Support\Paginator(
-        items: MarkdownPost::getLatestPosts(), // The items to paginate
-        pageSize: 5, // How many items to show on each page
-        currentPageNumber: 1, // The current page index
-        paginationRouteBasename: 'posts' // Links will be 'posts/page-1.html' instead of 'page-1.html'
+        // The items to paginate
+        items: MarkdownPost::getLatestPosts(),
+        // How many items to show on each page
+        pageSize: 5,
+        // The current page index
+        currentPageNumber: 1,
+        // Links will be 'posts/page-1.html' instead of 'page-1.html'
+        paginationRouteBasename: 'posts'
     );
 @endphp
 
@@ -360,10 +364,10 @@ to that new view, but for this example I'm going to update the `posts` view.
 @php
     $paginator = new \Hyde\Support\Paginator( // [tl! remove]
     $paginator = $page->matter('paginator') ?? new \Hyde\Support\Paginator( // [tl! add]
-        items: MarkdownPost::getLatestPosts(), // The items to paginate
-        pageSize: 5, // How many items to show on each page
-        currentPageNumber: 1, // The current page index
-        paginationRouteBasename: 'posts' // Links will be 'posts/page-1.html' instead of 'page-1.html'
+        items: MarkdownPost::getLatestPosts(),
+        pageSize: 5,
+        currentPageNumber: 1,
+        paginationRouteBasename: 'posts'
     );
 @endphp
 ```
