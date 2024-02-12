@@ -457,11 +457,39 @@ jobs:
       - name: Create README.md
         run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
 
+      # Generate directory listing
+
+      - name: Download directory listing generator script
+        run: wget https://raw.githubusercontent.com/caendesilva/php-directory-listing/a741e74af1a3e5b8d8b730a437c1666945fbedab/directory-listing.php -O .build.php
+
+      - name: Check download integrity
+        run: |
+          hash=$(sha256sum .build.php | awk '{print $1}')
+          if [ $hash = "af021b1bef61e31f426dcbc80540aa192e5a7cecf0db4f6b946851ab3101627d" ] ; then echo "Checksum $hash matches"; else echo "Checksum $hash not matching!" && exit 1 ; fi
+
+      - name: Set path labels
+        run: |
+          echo "hydephp/develop" > .dl-pathlabel
+          echo "hydephp/develop/master" > master/.dl-pathlabel
+
+      - name: Compile static root directory listing
+        run: php .build.php
+
+      - name: Compile static master directory listing
+        run: cp .build.php master/.build.php && cd master && php .build.php
+
+      - name: Commit the created index.html
+        uses: EndBug/add-and-commit@050a66787244b10a4874a2a5f682130263edc192
+        with:
+          add: '["index.html", "master/index.html"]'
+
+      # End directory listing
+
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           pull: 'origin gh-pages'
-          add: 'master'
+          add: '["master", "index.html"]'
           message: 'Upload live reports from test suite run ${{ github.sha }}'
 
 
