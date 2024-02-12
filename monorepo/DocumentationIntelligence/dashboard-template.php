@@ -42,6 +42,27 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <h2>Textual Analysis</h2>
+                <p class="lead">
+                    This can be used to get an overview of all the headings, to ensure a consistent writing style.
+                </p>
+
+                <article>
+                    <h3>Headings <small>(<?php echo $headingsCount; ?>)</small></h3>
+
+                     <table class="table table-bordered table-sm w-fit">
+                         <?php echo $headingsTable; ?>
+                     </table>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
                 <h2>Model Data</h2>
 
                 <article>

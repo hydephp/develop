@@ -226,6 +226,8 @@ class DocumentationIntelligence
         return [
             'modelStatistics' => $this->makeModelStatisticsTable(),
             'modelSections' => $this->makeModelSections(),
+            'headingsTable' => $this->makeHeadingsTable(),
+            'headingsCount' => number_format(substr_count($this->makeHeadingsTable(), '<tr>') - 1),
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
         ];
     }
@@ -277,6 +279,52 @@ class DocumentationIntelligence
 
             $html .= '<h4 class="mt-2">'.e($title).'</h4>';
             $html .= '<textarea rows="10" cols="80" style="width: 100%; white-space: pre; font-family: monospace;">'.e($section).'</textarea>';
+        }
+
+        return $html;
+    }
+
+    protected function makeHeadingsTable(): string
+    {
+        $headings = [];
+
+        $model = file(OUTPUT_PATH.'/model.txt');
+
+        $isInCodeBlock = false;
+
+        foreach ($model as $line) {
+            if (Str::startsWith($line, '```')) {
+                $isInCodeBlock = ! $isInCodeBlock;
+            }
+
+            if ($isInCodeBlock) {
+                continue;
+            }
+
+            if (Str::startsWith($line, '#')) {
+                $headings[] = trim($line);
+            }
+        }
+
+        $rows = [];
+
+        foreach ($headings as $heading) {
+            $headingText = trim($heading, '# ');
+            $isTitleCase = $headingText === \Hyde\Hyde::makeTitle($headingText);
+
+            $rows[] = [
+                'level' => substr_count($heading, '#'),
+                'text' => $headingText,
+                'case' => $isTitleCase ? 'Title' : 'Sentence',
+            ];
+        }
+
+        usort($rows, fn ($a, $b) => $a['level'] <=> $b['level']);
+
+        $html = '<tr><th>Level</th><th>Heading</th><th>Case type</th></tr>'."\n";
+
+        foreach ($rows as $row) {
+            $html .= '<tr><td>'.implode('</td><td>', $row).'</td></tr>'."\n";
         }
 
         return $html;
