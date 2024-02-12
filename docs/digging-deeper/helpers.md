@@ -48,62 +48,38 @@ Includes are stored in the `resources/includes` directory. You can access them u
 ```php
 use Hyde\Support\Includes;
 
+// Get the raw contents of any arbitrary file in the includes directory
 Includes::get('example.md');
-Includes::get('example.md', 'Default content');
+
+// Get the raw contents of an HTML file in the includes directory
+Includes::html('example.html');
+
+// Get the rendered Blade of a partial file in the includes directory
+Includes::blade('example.blade.php');
+
+// Get the rendered Markdown of a partial file in the includes directory
+Includes::markdown('example.md');
 ```
 
-### Markdown Includes
-
-Gets the rendered Markdown of a partial file in the includes directory. Supplying the file extension is optional.
+When using the `html`, `markdown`, and `blade` methods, the file extension is optional.
 
 ```php
 use Hyde\Support\Includes;
 
-Includes::markdown('footer');
-Includes::markdown('footer.md');
-
-// With default value if the file does not exist
-Includes::markdown('footer', 'Default content');
+Includes::html('example') === Includes::html('example.html');
+Includes::blade('example')  === Includes::blade('example.blade.php');
+Includes::markdown('example') === Includes::markdown('example.md');
 ```
 
-### Blade Includes
-
-Gets the rendered Blade of a partial file in the includes directory. Supplying the file extension is optional.
+All methods will return `null` if the file does not exist.
+However, you can supply a default value as the second argument to be used instead.
+Remember that Markdown and Blade defaults will still be rendered to HTML.
 
 ```php
 use Hyde\Support\Includes;
 
-Includes::blade('banner');
-Includes::blade('banner.blade.php');
-
-// With default value if the file does not exist
-Includes::blade('banner', 'Default content');
-```
-
-### HTML Includes
-
-Gets the raw HTML of a partial file in the includes directory. Supplying the file extension is optional.
-
-```php
-use Hyde\Support\Includes;
-
-Includes::html('footer');
-Includes::html('footer.html');
-
-// With default value if the file does not exist
-Includes::html('footer', 'Default content');
-```
-
-### Directory Structure Example
-
-Here is an example of the directory structure for includes:
-
-```tree
-resources/
-|-- includes/
-|   |-- example.md
-|   |-- footer.md
-|   |-- banner.blade.php
+// If the file does not exist, the default value will be returned
+Includes::markdown('example.md', 'Default content');
 ```
 
 ### Stock Includes
