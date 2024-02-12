@@ -20,6 +20,7 @@ $warnings = [];
 // Buffer headings so we can check for style
 $headings = []; // [filename => [line => heading]]
 $checksHeadings = true;
+$fixesHeadings = true;
 
 class MarkdownFormatter
 {
@@ -481,6 +482,20 @@ if ($checksHeadings && count($headings)) {
                 if (! $isSentenceCase) {
                     $warnings['Headings'][] = "Heading '$headingText' should be sentence case in $filename (expected '$sentenceCase')";
                 }
+            }
+
+            if ($fixesHeadings) {
+                // Replace the heading with the expected case
+
+                $headingHashes = str_repeat('#', $headingLevel);
+                $useCase = $headingLevel < 3 ? $titleCase : $sentenceCase;
+                $newHeading = "$headingHashes $useCase";
+
+                $newContent = file_get_contents($filename);
+                $newContent = str_replace($heading, $newHeading, $newContent);
+                file_put_contents($filename, $newContent);
+
+                echo "Fixed heading '$headingText' to '$newHeading' in $filename\n";
             }
         }
     }
