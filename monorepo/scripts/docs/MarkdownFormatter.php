@@ -464,6 +464,14 @@ if ($checksHeadings && count($headings)) {
             $isTitleCase = $headingText === $titleCase;
             $sentenceCase = Str::ucfirst($headingText);
             $isSentenceCase = $headingText === $sentenceCase;
+
+            // If it's just one word, or if it's more than 5 words, we can ignore it
+            $canIgnore = str_word_count($headingText) === 1 || str_word_count($headingText) > 5;
+
+            if ($canIgnore) {
+                continue;
+            }
+
             $something = false;
             if ($headingLevel < 3) {
                 if (! $isTitleCase) {
