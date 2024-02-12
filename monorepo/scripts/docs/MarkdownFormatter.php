@@ -19,7 +19,7 @@ $warnings = [];
 
 // Buffer headings so we can check for style
 $headings = []; // [filename => [line => heading]]
-$checksHeadings = false;
+$checksHeadings = true;
 
 class MarkdownFormatter
 {
