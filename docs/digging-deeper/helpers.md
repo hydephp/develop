@@ -91,7 +91,7 @@ HydePHP also supports some drop-in includes that you can use as an alternative t
 - 'scripts' If a `scripts.html` file exists in the includes directory, Hyde include that at the end of the `<body>` tag of the generated HTML, in addition to the one set in the `hyde.scripts` config option.
 
 
-## Reading Time Helper
+## Reading-Time Helper
 
 The `ReadingTime` helper provides a simple way to calculate the reading time of a given string, for example a blog post.
 

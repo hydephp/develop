@@ -12,7 +12,7 @@ HydePHP is designed to be extensible, and comes with a number of built-in extens
 as well as support for third-party extensions and integrations.
 
 
-## First party extensions & integrations
+## First-Party Extensions & Integrations
 
 ### Realtime Compiler
 
@@ -30,7 +30,7 @@ The [GitHub Action for HydePHP](https://github.com/hydephp/action) is hands-down
 - Learn more at https://github.com/hydephp/action and see the documentation at https://hydephp.github.io/action
 
 
-## Integrations with third-party tools
+## Integration with Third-Party Services
 
 ### Torchlight
 
