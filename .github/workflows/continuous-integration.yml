@@ -478,11 +478,6 @@ jobs:
       - name: Compile static master directory listing
         run: cp .build.php master/.build.php && cd master && php .build.php
 
-      - name: Commit the created index.html
-        uses: EndBug/add-and-commit@050a66787244b10a4874a2a5f682130263edc192
-        with:
-          add: '["index.html", "master/index.html"]'
-
       # End directory listing
 
       - name: Commit changes
