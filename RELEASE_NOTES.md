@@ -29,7 +29,8 @@ This serves two purposes:
 - Renamed local template variable `$document` to `$article` to better match the usage in https://github.com/hydephp/develop/pull/1506
 - Updated semantic documentation article component to support existing variables in https://github.com/hydephp/develop/pull/1506
 - HydeFront: Changed `<code>` styling to display as inline instead of inline-block in https://github.com/hydephp/develop/pull/1525
-- Realtime Compiler: Add strict type declarations in https://github.com/hydephp/develop/pull/1555/files
+- Realtime Compiler: Add strict type declarations in https://github.com/hydephp/develop/pull/1555
+- Internal: Renamed snake case test methods to camel case in https://github.com/hydephp/develop/pull/1556
 
 ### Deprecated
 - Deprecated the `BuildService::transferMediaAssets()` method in https://github.com/hydephp/develop/pull/1533, as it will be moved into a build task in v2.0.
