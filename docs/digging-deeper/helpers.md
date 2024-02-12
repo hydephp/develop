@@ -181,6 +181,7 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
 }); // 1 minutes, 30 seconds
 ```
 
+
 ## Pagination utility
 
 The `Pagination` class provides utilities to help you create custom pagination components.
@@ -202,9 +203,9 @@ use Hyde\Support\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
 
 $paginator = new Paginator(
-    Arrayable|array $items = [], 
-    int $pageSize = 25, 
-    int $currentPageNumber = null, 
+    Arrayable|array $items = [],
+    int $pageSize = 25,
+    int $currentPageNumber = null,
     string $paginationRouteBasename = null
 );
 ```
@@ -222,7 +223,7 @@ The first two are self-explanatory:
 
 The next may need some explanation:
 
-#### `currentPageNumber` 
+#### `currentPageNumber`
 
 This current page index. You will typically get this from the URL.
 
@@ -312,11 +313,11 @@ class AppServiceProvider extends ServiceProvider
                 // Now we set the paginator to the current page number
                 $paginator->setCurrentPage($page);
 
-                // Now we create the paginated listing page. We set the identifier to match the route basename we set earlier. 
+                // Now we create the paginated listing page. We set the identifier to match the route basename we set earlier.
                 $listingPage = new InMemoryPage(identifier: "posts/page-$page", matter: [
                     // And the paginator instance. We clone it so that we don't modify the original instance.
                     'paginator' => clone $paginator,
-                
+
                     // Optionally, specify a custom page title.
                     'title' => "Blog Posts - Page {$page}",
                     // Here we add the paginated collection
