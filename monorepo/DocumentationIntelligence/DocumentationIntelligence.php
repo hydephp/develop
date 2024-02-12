@@ -226,6 +226,7 @@ class DocumentationIntelligence
         return [
             'modelStatistics' => $this->makeModelStatisticsTable(),
             'modelSections' => $this->makeModelSections(),
+            'headingList' => $this->makeHeadingList(),
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
         ];
     }
@@ -280,6 +281,21 @@ class DocumentationIntelligence
         }
 
         return $html;
+    }
+
+    protected function makeHeadingList(): string
+    {
+        $headings = [];
+
+        $model = file(OUTPUT_PATH.'/model.txt');
+
+        foreach ($model as $line) {
+            if (Str::startsWith($line, '#')) {
+                $headings[] = $line;
+            }
+        }
+
+        return implode("\n", array_map(fn ($heading) => '<li>'.e($heading).'</li>', $headings));
     }
 
     public function getModelStatistics(): array

@@ -42,6 +42,27 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <h2>Textual Analysis</h2>
+
+                <article>
+                    <h3>Headings</h3>
+
+                    <details>
+                        <summary>Click to view the headings</summary>
+                        <ol>
+                            <?php echo $headingList; ?>
+                        </ol>
+                    </details>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
                 <h2>Model Data</h2>
 
                 <article>
