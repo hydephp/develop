@@ -52,7 +52,7 @@ Includes::get('example.md');
 Includes::get('example.md', 'Default content');
 ```
 
-#### Markdown Includes
+### Markdown Includes
 
 Gets the rendered Markdown of a partial file in the includes directory. Supplying the file extension is optional.
 
@@ -66,7 +66,7 @@ Includes::markdown('footer.md');
 Includes::markdown('footer', 'Default content');
 ```
 
-#### Blade Includes
+### Blade Includes
 
 Gets the rendered Blade of a partial file in the includes directory. Supplying the file extension is optional.
 
@@ -80,7 +80,7 @@ Includes::blade('banner.blade.php');
 Includes::blade('banner', 'Default content');
 ```
 
-#### Directory Structure Example
+### Directory Structure Example
 
 Here is an example of the directory structure for includes:
 
@@ -92,7 +92,7 @@ resources/
 |   |-- banner.blade.php
 ```
 
-#### Stock Includes
+### Stock Includes
 
 HydePHP also supports some drop-in includes that you can use as an alternative to some config options. These currently are as follows:
 
