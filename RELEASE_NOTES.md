@@ -5,7 +5,7 @@
 This release experiments some changes into how releases are handled to clarify the patch versioning of distributed packages compared to the monorepo source versioning.
 
 In short: We are now experimenting with rolling patch releases, where patches are released as soon as they're ready, leading to faster rollout of bugfixes.
-This means that the patch version discrepancy between the monorepo and the distributed packages will be increased, but hopefully the result will still be clearer,
+This means that the patch version discrepancy between the monorepo and the distributed packages will be increased, but hopefully the end results will still be clearer,
 thanks to the second related change: Prefixing the subpackage changes in this changelog with the package name.
 
 All this to say, please keep in mind that when the monorepo gets a new minor version, the prefixed changes may already have been released as patches in their respective packages.
@@ -21,6 +21,7 @@ This serves two purposes:
 
 ### Added
 - Added the existing `media_extensions` option to the `hyde` configuration file in https://github.com/hydephp/develop/pull/1531
+- Added configuration options to add custom HTML to the `<head>` and `<script>` sections in https://github.com/hydephp/develop/pull/1542
 - Added an `html` helper to the `Includes` facade in https://github.com/hydephp/develop/pull/1552
 
 ### Changed
