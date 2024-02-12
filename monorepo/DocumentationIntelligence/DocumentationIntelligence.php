@@ -311,10 +311,10 @@ class DocumentationIntelligence
         foreach ($headings as $heading) {
             $headingText = trim($heading, '# ');
             $isTitleCase = $headingText === \Hyde\Hyde::makeTitle($headingText);
+
             $rows[] = [
                 'level' => substr_count($heading, '#'),
                 'text' => $headingText,
-                // Does the heading use sentence case or title case?
                 'case' => $isTitleCase ? 'Title' : 'Sentence',
             ];
         }
