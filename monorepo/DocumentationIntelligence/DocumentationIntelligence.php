@@ -309,15 +309,19 @@ class DocumentationIntelligence
         $rows = [];
 
         foreach ($headings as $heading) {
+            $headingText = trim($heading, '# ');
+            $isTitleCase = $headingText === \Hyde\Hyde::makeTitle($headingText);
             $rows[] = [
                 'level' => substr_count($heading, '#'),
-                'text' => trim($heading, '# '),
+                'text' => $headingText,
+                // Does the heading use sentence case or title case?
+                'case' => $isTitleCase ? 'Title' : 'Sentence',
             ];
         }
 
         usort($rows, fn ($a, $b) => $a['level'] <=> $b['level']);
 
-        $html = '<tr><th>Level</th><th>Heading</th></tr>'."\n";
+        $html = '<tr><th>Level</th><th>Heading</th><th>Case type</th></tr>'."\n";
 
         foreach ($rows as $row) {
             $html .= '<tr><td>'.implode('</td><td>', $row).'</td></tr>'."\n";
