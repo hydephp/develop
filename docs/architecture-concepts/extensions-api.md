@@ -37,7 +37,7 @@ can be added the same way as you would in Laravel, and are thus not part of our 
 See the [Laravel package development guide](https://laravel.com/docs/10.x/packages) for more.
 
 
-## Creating your Extension class
+## Creating Your Extension Class
 
 The entry-point for your extension is your Extensions class. Within this, you can register the custom page classes.
 If needed, you can also register discovery handlers which can run custom logic at various parts of the boot process.
@@ -114,7 +114,7 @@ Since the discovery steps are handled sequentially, the added pages will automat
 us having to implement that handler method. As we inject the page objects directly, we bypass the need for the `FileCollection`.
 
 
-## Registering your extension
+## Registering Your Extension
 
 Now that we have our extension class, we need to register it with HydePHP.
 

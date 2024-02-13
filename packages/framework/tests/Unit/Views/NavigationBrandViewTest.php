@@ -26,12 +26,12 @@ class NavigationBrandViewTest extends TestCase
         ])->render();
     }
 
-    public function test_component_links_to_home_route()
+    public function testComponentLinksToHomeRoute()
     {
         $this->assertStringContainsString('href="index.html"', $this->render());
     }
 
-    public function test_component_uses_site_name()
+    public function testComponentUsesSiteName()
     {
         $this->assertStringContainsString('HydePHP', $this->render());
         config(['hyde.name' => 'foo']);

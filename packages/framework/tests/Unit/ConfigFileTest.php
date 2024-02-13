@@ -23,22 +23,22 @@ class ConfigFileTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
-    public function test_default_output_directory_value_matches_declared_value()
+    public function testDefaultOutputDirectoryValueMatchesDeclaredValue()
     {
         expect($this->getConfig('output_directory'))->toBe(Hyde::getOutputDirectory());
     }
 
-    public function test_default_media_directory_value_matches_declared_value()
+    public function testDefaultMediaDirectoryValueMatchesDeclaredValue()
     {
         expect($this->getConfig('media_directory'))->toBe(Hyde::getMediaDirectory());
     }
 
-    public function test_default_source_root_value_matches_declared_value()
+    public function testDefaultSourceRootValueMatchesDeclaredValue()
     {
         expect($this->getConfig('source_root'))->toBe(Hyde::getSourceRoot());
     }
 
-    public function test_default_source_directories_values_match_declared_values()
+    public function testDefaultSourceDirectoriesValuesMatchDeclaredValues()
     {
         expect($this->getConfig('source_directories'))->toBe([
             HtmlPage::class => '_pages',
@@ -49,7 +49,7 @@ class ConfigFileTest extends UnitTestCase
         ]);
     }
 
-    public function test_default_source_directories_values_cover_all_core_extension_classes()
+    public function testDefaultSourceDirectoriesValuesCoverAllCoreExtensionClasses()
     {
         expect($this->getConfig('source_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
             ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::sourceDirectory()])
@@ -57,7 +57,7 @@ class ConfigFileTest extends UnitTestCase
         );
     }
 
-    public function test_default_output_directories_values_match_declared_values()
+    public function testDefaultOutputDirectoriesValuesMatchDeclaredValues()
     {
         expect($this->getConfig('output_directories'))->toBe([
             HtmlPage::class => '',
@@ -68,7 +68,7 @@ class ConfigFileTest extends UnitTestCase
         ]);
     }
 
-    public function test_default_output_directories_values_cover_all_core_extension_classes()
+    public function testDefaultOutputDirectoriesValuesCoverAllCoreExtensionClasses()
     {
         expect($this->getConfig('output_directories'))->toBe(collect(HydeCoreExtension::getPageClasses())
             ->mapWithKeys(fn ($pageClass) => [$pageClass => $pageClass::outputDirectory()])
@@ -76,7 +76,7 @@ class ConfigFileTest extends UnitTestCase
         );
     }
 
-    public function test_default_features_array_matches_default_features()
+    public function testDefaultFeaturesArrayMatchesDefaultFeatures()
     {
         expect($this->getConfig('features'))
             ->toBe((new ReflectionClass(Features::class))->getMethod('getDefaultOptions')->invoke(null));

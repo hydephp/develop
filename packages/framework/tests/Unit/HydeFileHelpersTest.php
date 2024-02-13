@@ -14,24 +14,24 @@ use Hyde\Testing\TestCase;
  */
 class HydeFileHelpersTest extends TestCase
 {
-    public function test_current_page_returns_current_page_view_property()
+    public function testCurrentPageReturnsCurrentPageViewProperty()
     {
         Render::share('routeKey', 'foo');
         $this->assertEquals('foo', Hyde::currentRouteKey());
     }
 
-    public function test_current_page_falls_back_to_empty_string_if_current_page_view_property_is_not_set()
+    public function testCurrentPageFallsBackToEmptyStringIfCurrentPageViewPropertyIsNotSet()
     {
         $this->assertEquals('', Hyde::currentRouteKey());
     }
 
-    public function test_current_route_returns_current_route_view_property()
+    public function testCurrentRouteReturnsCurrentRouteViewProperty()
     {
         Render::share('route', Routes::get('index'));
         $this->assertEquals(Routes::get('index'), Hyde::currentRoute());
     }
 
-    public function test_current_route_falls_back_to_null_if_current_route_view_property_is_not_set()
+    public function testCurrentRouteFallsBackToNullIfCurrentRouteViewPropertyIsNotSet()
     {
         $this->assertNull(Hyde::currentRoute());
     }

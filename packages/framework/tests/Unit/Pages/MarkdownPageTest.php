@@ -16,13 +16,13 @@ use Hyde\Testing\TestCase;
  */
 class MarkdownPageTest extends TestCase
 {
-    public function test_can_get_collection_of_slugs()
+    public function testCanGetCollectionOfSlugs()
     {
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
         $this->assertSame(['test-page'], MarkdownPage::files());
     }
 
-    public function test_created_model_contains_expected_data()
+    public function testCreatedModelContainsExpectedData()
     {
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
         $page = MarkdownPage::parse('test-page');
@@ -32,7 +32,7 @@ class MarkdownPageTest extends TestCase
         $this->assertEquals('test-page', $page->identifier);
     }
 
-    public function test_can_render_markdown_page()
+    public function testCanRenderMarkdownPage()
     {
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
         $page = MarkdownPage::parse('test-page');

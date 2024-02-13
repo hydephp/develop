@@ -24,7 +24,7 @@ use Illuminate\Support\Collection;
  */
 class PageCollectionTest extends TestCase
 {
-    public function test_boot_method_creates_new_page_collection_and_discovers_pages_automatically()
+    public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()
     {
         $collection = PageCollection::init(Hyde::getInstance())->boot();
         $this->assertInstanceOf(PageCollection::class, $collection);
@@ -36,7 +36,7 @@ class PageCollectionTest extends TestCase
         ], $collection->all());
     }
 
-    public function test_blade_pages_are_discovered()
+    public function testBladePagesAreDiscovered()
     {
         $this->file('_pages/foo.blade.php');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
@@ -45,7 +45,7 @@ class PageCollectionTest extends TestCase
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
     }
 
-    public function test_markdown_pages_are_discovered()
+    public function testMarkdownPagesAreDiscovered()
     {
         $this->file('_pages/foo.md');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
@@ -54,7 +54,7 @@ class PageCollectionTest extends TestCase
         $this->assertEquals(new MarkdownPage('foo'), $collection->get('_pages/foo.md'));
     }
 
-    public function test_markdown_posts_are_discovered()
+    public function testMarkdownPostsAreDiscovered()
     {
         $this->file('_posts/foo.md');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
@@ -63,7 +63,7 @@ class PageCollectionTest extends TestCase
         $this->assertEquals(new MarkdownPost('foo'), $collection->get('_posts/foo.md'));
     }
 
-    public function test_documentation_pages_are_discovered()
+    public function testDocumentationPagesAreDiscovered()
     {
         $this->file('_docs/foo.md');
         $collection = PageCollection::init(Hyde::getInstance())->boot();
@@ -71,13 +71,13 @@ class PageCollectionTest extends TestCase
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('_docs/foo.md'));
     }
 
-    public function test_get_page_returns_parsed_page_object_for_given_source_path()
+    public function testGetPageReturnsParsedPageObjectForGivenSourcePath()
     {
         $this->file('_pages/foo.blade.php');
         $this->assertEquals(new BladePage('foo'), Pages::getPage('_pages/foo.blade.php'));
     }
 
-    public function test_get_pages_returns_collection_of_pages_of_given_class()
+    public function testGetPagesReturnsCollectionOfPagesOfGivenClass()
     {
         $this->withoutDefaultPages();
         $this->withoutDocumentationSearch();
@@ -107,7 +107,7 @@ class PageCollectionTest extends TestCase
         $this->restoreDocumentationSearch();
     }
 
-    public function test_get_pages_returns_all_pages_when_not_supplied_with_class_string()
+    public function testGetPagesReturnsAllPagesWhenNotSuppliedWithClassString()
     {
         $this->withoutDefaultPages();
         $this->withoutDocumentationSearch();
@@ -131,7 +131,7 @@ class PageCollectionTest extends TestCase
         $this->restoreDocumentationSearch();
     }
 
-    public function test_get_pages_returns_empty_collection_when_no_pages_are_discovered()
+    public function testGetPagesReturnsEmptyCollectionWhenNoPagesAreDiscovered()
     {
         $this->withoutDefaultPages();
         $this->withoutDocumentationSearch();
@@ -140,7 +140,7 @@ class PageCollectionTest extends TestCase
         $this->restoreDocumentationSearch();
     }
 
-    public function test_pages_are_not_discovered_for_disabled_features()
+    public function testPagesAreNotDiscoveredForDisabledFeatures()
     {
         config(['hyde.features' => []]);
 
@@ -159,7 +159,7 @@ class PageCollectionTest extends TestCase
         unlink('_docs/doc.md');
     }
 
-    public function test_pages_with_custom_source_directories_are_discovered_properly()
+    public function testPagesWithCustomSourceDirectoriesAreDiscoveredProperly()
     {
         $this->withoutDocumentationSearch();
 
@@ -189,7 +189,7 @@ class PageCollectionTest extends TestCase
         $this->restoreDocumentationSearch();
     }
 
-    public function test_get_file_throws_exception_when_file_is_not_found()
+    public function testGetFileThrowsExceptionWhenFileIsNotFound()
     {
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [_pages/foo.blade.php] not found');

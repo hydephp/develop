@@ -7,11 +7,11 @@ namespace Hyde\Support;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 
 use function basename;
 use function file_exists;
 use function file_get_contents;
-use function mkdir;
 
 /**
  * The Includes facade provides a simple way to access partials in the includes directory.
@@ -20,6 +20,8 @@ use function mkdir;
  */
 class Includes
 {
+    use InteractsWithDirectories;
+
     /**
      * @var string The directory where includes are stored.
      */
@@ -59,6 +61,24 @@ class Includes
     }
 
     /**
+     * Get the HTML contents of a partial file in the includes directory.
+     *
+     * @param  string  $filename  The name of the partial file, with or without the extension.
+     * @param  string|null  $default  The default value to return if the partial is not found.
+     * @return string|null The raw contents of the partial file, or the default value if not found.
+     */
+    public static function html(string $filename, ?string $default = null): ?string
+    {
+        $path = static::path(basename($filename, '.html').'.html');
+
+        if (! file_exists($path)) {
+            return $default === null ? null : $default;
+        }
+
+        return file_get_contents($path);
+    }
+
+    /**
      * Get the rendered Markdown of a partial file in the includes directory.
      *
      * @param  string  $filename  The name of the partial file, with or without the extension.
@@ -92,12 +112,5 @@ class Includes
         }
 
         return Blade::render(file_get_contents($path));
-    }
-
-    protected static function needsDirectory(string $directory): void
-    {
-        if (! file_exists($directory)) {
-            mkdir($directory, recursive: true);
-        }
     }
 }

@@ -25,7 +25,7 @@ use function array_reverse;
  */
 class PublicationTypeTest extends TestCase
 {
-    public function test_can_construct_new_publication_type()
+    public function testCanConstructNewPublicationType()
     {
         $publicationType = new PublicationType(...$this->getTestData());
 
@@ -42,7 +42,7 @@ class PublicationTypeTest extends TestCase
         }
     }
 
-    public function test_construct_with_default_values()
+    public function testConstructWithDefaultValues()
     {
         $publicationType = new PublicationType('Test Publication');
 
@@ -58,7 +58,7 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
 
-    public function test_construct_with_pagination_settings()
+    public function testConstructWithPaginationSettings()
     {
         $paginationSettings = [
             'sortField' => 'title',
@@ -72,43 +72,43 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(10, $publicationType->pageSize);
     }
 
-    public function test_class_is_arrayable()
+    public function testClassIsArrayable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame($this->getTestData(), $publicationType->toArray());
     }
 
-    public function test_class_is_json_serializable()
+    public function testClassIsJsonSerializable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame(json_encode($this->getTestData()), json_encode($publicationType));
     }
 
-    public function test_class_is_jsonable()
+    public function testClassIsJsonable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame(json_encode($this->getTestData(), 128), $publicationType->toJson());
     }
 
-    public function test_get_directory()
+    public function testGetDirectory()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $this->assertSame('test-publication', $publicationType->getDirectory());
     }
 
-    public function test_get_identifier()
+    public function testGetIdentifier()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $this->assertSame('test-publication', $publicationType->getIdentifier());
     }
 
-    public function test_get_identifier_with_no_directory()
+    public function testGetIdentifierWithNoDirectory()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame('test-publication', $publicationType->getIdentifier());
     }
 
-    public function test_can_save_to_json_file()
+    public function testCanSaveToJsonFile()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $publicationType->save();
@@ -119,7 +119,7 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function test_can_save_to_json_file_using_custom_path()
+    public function testCanSaveToJsonFileUsingCustomPath()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $publicationType->save('test-publication/foo.json');
@@ -130,7 +130,7 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function test_can_load_from_json_file()
+    public function testCanLoadFromJsonFile()
     {
         $this->directory('test-publication');
 
@@ -158,7 +158,7 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals($publicationType, PublicationType::fromFile('test-publication/schema.json'));
     }
 
-    public function test_can_load_fields_with_validation_rules()
+    public function testCanLoadFieldsWithValidationRules()
     {
         $this->directory('test-publication');
         $fields = [
@@ -177,7 +177,7 @@ class PublicationTypeTest extends TestCase
         $this->assertSame($fields, $publicationType->getFields()->toArray());
     }
 
-    public function test_get_fields_method_returns_collection_of_field_objects()
+    public function testGetFieldsMethodReturnsCollectionOfFieldObjects()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $collection = $publicationType->getFields();
@@ -189,7 +189,7 @@ class PublicationTypeTest extends TestCase
         ]), $collection);
     }
 
-    public function test_get_field_method_parses_publication_fields_from_schema_file()
+    public function testGetFieldMethodParsesPublicationFieldsFromSchemaFile()
     {
         $this->directory('test-publication');
         $this->file('test-publication/schema.json', json_encode([
@@ -207,7 +207,7 @@ class PublicationTypeTest extends TestCase
         ]), $publicationType->getFields());
     }
 
-    public function test_get_field_method_parses_publication_fields_with_option_properties_from_schema_file()
+    public function testGetFieldMethodParsesPublicationFieldsWithOptionPropertiesFromSchemaFile()
     {
         $this->directory('test-publication');
         $this->file('test-publication/schema.json', json_encode([
@@ -225,7 +225,7 @@ class PublicationTypeTest extends TestCase
         ]), $publicationType->getFields());
     }
 
-    public function test_get_method_can_find_existing_file_on_disk()
+    public function testGetMethodCanFindExistingFileOnDisk()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $publicationType->save();
@@ -234,14 +234,14 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function test_get_method_fails_if_publication_type_does_not_exist()
+    public function testGetMethodFailsIfPublicationTypeDoesNotExist()
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Could not parse schema file '.'missing/schema.json');
         PublicationType::get('missing');
     }
 
-    public function test_get_list_page()
+    public function testGetListPage()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $this->assertEquals(new PublicationListPage($publicationType), $publicationType->getListPage());

@@ -7,6 +7,7 @@ namespace Hyde\Facades;
 use TypeError;
 
 use function sprintf;
+use function gettype;
 use function call_user_func;
 
 /**

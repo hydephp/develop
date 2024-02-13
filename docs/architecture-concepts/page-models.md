@@ -13,7 +13,7 @@ for your pages, also house instructions to Hyde on how to parse, process, and re
 In this article, you'll get a high-level overview of the page models, and some code examples to give you a look inside.
 
 
-## The short version
+## The Short Version
 
 #### Page models are classes that have two primary concerns:
 

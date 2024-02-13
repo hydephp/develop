@@ -38,7 +38,7 @@ responsible for data applicable to all page models. Complex structures and data 
 have their own factories, making the code more modular and maintainable.
 
 
-## In-depth overview of a page factory
+## In-depth Overview of a Page Factory
 
 Let's take a look at how Hyde will discover the title of a page as an example. Since this is something used by all pages,
 this discovery is done in the `HydePageDataFactory` class.

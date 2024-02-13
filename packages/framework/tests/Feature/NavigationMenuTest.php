@@ -26,22 +26,22 @@ use Illuminate\Support\Collection;
  */
 class NavigationMenuTest extends TestCase
 {
-    public function test_constructor()
+    public function testConstructor()
     {
         $this->assertInstanceOf(NavigationMenu::class, NavigationMenu::create());
     }
 
-    public function test_generate_method_creates_collection_of_nav_items()
+    public function testGenerateMethodCreatesCollectionOfNavItems()
     {
         $this->assertInstanceOf(Collection::class, NavigationMenu::create()->items);
     }
 
-    public function test_get_items_returns_items()
+    public function testGetItemsReturnsItems()
     {
         $this->assertEquals(NavigationMenu::create()->items, NavigationMenu::create()->getItems());
     }
 
-    public function test_items_are_sorted_by_priority()
+    public function testItemsAreSortedByPriority()
     {
         Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.priority' => 1])));
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.priority' => 2])));
@@ -50,7 +50,7 @@ class NavigationMenuTest extends TestCase
         $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], NavigationMenu::create()->items->pluck('label')->toArray());
     }
 
-    public function test_items_with_hidden_property_set_to_true_are_not_added()
+    public function testItemsWithHiddenPropertySetToTrueAreNotAdded()
     {
         Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.hidden' => true])));
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.hidden' => false])));
@@ -58,7 +58,7 @@ class NavigationMenuTest extends TestCase
         $this->assertSame(['Home', 'Bar'], NavigationMenu::create()->items->pluck('label')->toArray());
     }
 
-    public function test_created_collection_is_sorted_by_navigation_menu_priority()
+    public function testCreatedCollectionIsSortedByNavigationMenuPriority()
     {
         $this->file('_pages/foo.md');
         $this->file('_docs/index.md');
@@ -75,7 +75,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_is_sorted_automatically_when_using_navigation_menu_create()
+    public function testIsSortedAutomaticallyWhenUsingNavigationMenuCreate()
     {
         $this->file('_pages/foo.md');
 
@@ -90,12 +90,12 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_collection_only_contains_nav_items()
+    public function testCollectionOnlyContainsNavItems()
     {
         $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create()->items);
     }
 
-    public function test_external_link_can_be_added_in_config()
+    public function testExternalLinkCanBeAddedInConfig()
     {
         config(['hyde.navigation.custom' => [NavItem::forLink('https://example.com', 'foo')]]);
 
@@ -110,7 +110,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_path_link_can_be_added_in_config()
+    public function testPathLinkCanBeAddedInConfig()
     {
         config(['hyde.navigation.custom' => [NavItem::forLink('foo', 'foo')]]);
 
@@ -125,7 +125,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_duplicates_are_removed_when_adding_in_config()
+    public function testDuplicatesAreRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
             NavItem::forLink('foo', 'foo'),
@@ -143,7 +143,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_destination()
+    public function testDuplicatesAreRemovedWhenAddingInConfigRegardlessOfDestination()
     {
         config(['hyde.navigation.custom' => [
             NavItem::forLink('foo', 'foo'),
@@ -161,7 +161,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_config_items_take_precedence_over_generated_items()
+    public function testConfigItemsTakePrecedenceOverGeneratedItems()
     {
         $this->file('_pages/foo.md');
 
@@ -178,7 +178,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
+    public function testDocumentationPagesThatAreNotIndexAreNotAddedToTheMenu()
     {
         $this->file('_docs/foo.md');
         $this->file('_docs/index.md');
@@ -194,7 +194,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu()
+    public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenu()
     {
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
@@ -206,7 +206,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_pages_in_subdirectories_can_be_added_to_the_navigation_menu_with_config_flat_setting()
+    public function testPagesInSubdirectoriesCanBeAddedToTheNavigationMenuWithConfigFlatSetting()
     {
         config(['hyde.navigation.subdirectories' => 'flat']);
         $this->directory('_pages/foo');
@@ -222,7 +222,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu_with_config_dropdown_setting()
+    public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenuWithConfigDropdownSetting()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $this->directory('_pages/foo');
@@ -240,14 +240,14 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_has_dropdowns_returns_false_when_there_are_no_dropdowns()
+    public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $this->assertFalse($menu->hasDropdowns());
     }
 
-    public function test_has_dropdowns_returns_true_when_there_are_dropdowns()
+    public function testHasDropdownsReturnsTrueWhenThereAreDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
@@ -255,13 +255,13 @@ class NavigationMenuTest extends TestCase
         $this->assertTrue($menu->hasDropdowns());
     }
 
-    public function test_has_dropdowns_always_returns_false_when_dropdowns_are_disabled()
+    public function testHasDropdownsAlwaysReturnsFalseWhenDropdownsAreDisabled()
     {
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $this->assertFalse(NavigationMenu::create()->hasDropdowns());
     }
 
-    public function test_get_dropdowns_returns_empty_array_there_are_no_dropdowns()
+    public function testGetDropdownsReturnsEmptyArrayThereAreNoDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
@@ -269,7 +269,7 @@ class NavigationMenuTest extends TestCase
         $this->assertSame([], $menu->getDropdowns());
     }
 
-    public function test_get_dropdowns_returns_correct_array_when_there_are_dropdowns()
+    public function testGetDropdownsReturnsCorrectArrayWhenThereAreDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
@@ -282,7 +282,7 @@ class NavigationMenuTest extends TestCase
             ]), ], $menu->getDropdowns());
     }
 
-    public function test_get_dropdowns_with_multiple_items()
+    public function testGetDropdownsWithMultipleItems()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
@@ -300,7 +300,7 @@ class NavigationMenuTest extends TestCase
         ], $menu->getDropdowns());
     }
 
-    public function test_get_dropdowns_with_multiple_dropdowns()
+    public function testGetDropdownsWithMultipleDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
@@ -323,7 +323,7 @@ class NavigationMenuTest extends TestCase
         ], $menu->getDropdowns());
     }
 
-    public function test_get_dropdowns_throws_exception_when_disabled()
+    public function testGetDropdownsThrowsExceptionWhenDisabled()
     {
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
@@ -332,7 +332,7 @@ class NavigationMenuTest extends TestCase
         $menu->getDropdowns();
     }
 
-    public function test_documentation_pages_do_not_get_added_to_dropdowns()
+    public function testDocumentationPagesDoNotGetAddedToDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
@@ -344,7 +344,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(0, $menu->getDropdowns());
     }
 
-    public function test_blog_posts_do_not_get_added_to_dropdowns()
+    public function testBlogPostsDoNotGetAddedToDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
@@ -356,7 +356,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(0, $menu->getDropdowns());
     }
 
-    public function test_pages_in_dropdowns_do_not_get_added_to_the_main_navigation()
+    public function testPagesInDropdownsDoNotGetAddedToTheMainNavigation()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
@@ -374,7 +374,7 @@ class NavigationMenuTest extends TestCase
         ], $menu->items->all());
     }
 
-    public function test_dropdown_menu_items_are_sorted_by_priority()
+    public function testDropdownMenuItemsAreSortedByPriority()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 

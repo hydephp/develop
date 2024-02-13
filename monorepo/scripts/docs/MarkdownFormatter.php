@@ -20,6 +20,7 @@ $warnings = [];
 // Buffer headings so we can check for style
 $headings = []; // [filename => [line => heading]]
 $checksHeadings = false;
+$fixesHeadings = false;
 
 class MarkdownFormatter
 {
@@ -444,6 +445,9 @@ function getSignatures(): array
 $headings['foo.md'][1] = '## Bar';
 
 if ($checksHeadings && count($headings)) {
+    // Needed to use the make_title function
+    \Hyde\Foundation\HydeKernel::setInstance(new \Hyde\Foundation\HydeKernel());
+
     foreach ($headings as $filename => $fileHeadings) {
         $headingLevels = [];
         foreach ($fileHeadings as $heading) {
@@ -453,14 +457,22 @@ if ($checksHeadings && count($headings)) {
             // Check for style: 1-2 headings should be title case, 3+ should be sentence case
             $headingText = trim(str_replace('#', '', $heading));
             $titleCase = Hyde\make_title($headingText);
-            $alwaysUppercase = ['PHP', 'HTML', 'CLI'];
-            $alwaysLowercase = ['to'];
+            $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'GitHub'];
+            $alwaysLowercase = ['to', 'it'];
             $titleCase = str_ireplace($alwaysUppercase, $alwaysUppercase, $titleCase);
             $titleCase = str_ireplace($alwaysLowercase, $alwaysLowercase, $titleCase);
 
             $isTitleCase = $headingText === $titleCase;
             $sentenceCase = Str::ucfirst($headingText);
             $isSentenceCase = $headingText === $sentenceCase;
+
+            // If it's just one word, or if it's more than 5 words, we can ignore it
+            $canIgnore = str_word_count($headingText) === 1 || str_word_count($headingText) > 5;
+
+            if ($canIgnore) {
+                continue;
+            }
+
             $something = false;
             if ($headingLevel < 3) {
                 if (! $isTitleCase) {
@@ -470,6 +482,20 @@ if ($checksHeadings && count($headings)) {
                 if (! $isSentenceCase) {
                     $warnings['Headings'][] = "Heading '$headingText' should be sentence case in $filename (expected '$sentenceCase')";
                 }
+            }
+
+            if ($fixesHeadings) {
+                // Replace the heading with the expected case
+
+                $headingHashes = str_repeat('#', $headingLevel);
+                $useCase = $headingLevel < 3 ? $titleCase : $sentenceCase;
+                $newHeading = "$headingHashes $useCase";
+
+                $newContent = file_get_contents($filename);
+                $newContent = str_replace($heading, $newHeading, $newContent);
+                file_put_contents($filename, $newContent);
+
+                echo "Fixed heading '$headingText' to '$newHeading' in $filename\n";
             }
         }
     }

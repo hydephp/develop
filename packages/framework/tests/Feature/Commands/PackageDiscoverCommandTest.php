@@ -13,7 +13,7 @@ use Illuminate\Foundation\PackageManifest;
  */
 class PackageDiscoverCommandTest extends TestCase
 {
-    public function test_package_discover_command_registers_manifest_path()
+    public function testPackageDiscoverCommandRegistersManifestPath()
     {
         $this->artisan('package:discover')->assertExitCode(0);
 

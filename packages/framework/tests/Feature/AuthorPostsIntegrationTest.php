@@ -33,7 +33,7 @@ class AuthorPostsIntegrationTest extends TestCase
      * Check that the author was not defined.
      * We do this by building the static site and inspecting the DOM.
      */
-    public function test_create_post_with_undefined_author()
+    public function testCreatePostWithUndefinedAuthor()
     {
         // Create a new post
         (new CreatesNewMarkdownPostFile(
@@ -66,7 +66,7 @@ class AuthorPostsIntegrationTest extends TestCase
     /**
      * Test that a defined author has its name injected into the DOM.
      */
-    public function test_create_post_with_defined_author_with_name()
+    public function testCreatePostWithDefinedAuthorWithName()
     {
         // Create a new post
         (new CreatesNewMarkdownPostFile(
@@ -104,7 +104,7 @@ class AuthorPostsIntegrationTest extends TestCase
     /**
      * Test that a defined author with website has its site linked.
      */
-    public function test_create_post_with_defined_author_with_website()
+    public function testCreatePostWithDefinedAuthorWithWebsite()
     {
         // Create a new post
         (new CreatesNewMarkdownPostFile(

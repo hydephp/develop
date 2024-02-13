@@ -14,19 +14,19 @@ use Illuminate\Support\Facades\Blade;
  */
 class LinkComponentTest extends TestCase
 {
-    public function test_link_component_can_be_rendered()
+    public function testLinkComponentCanBeRendered()
     {
         $this->assertEquals('<a href="foo">bar</a>', rtrim(Blade::render('<x-link href="foo">bar</x-link>')));
     }
 
-    public function test_link_component_can_be_rendered_with_route()
+    public function testLinkComponentCanBeRenderedWithRoute()
     {
         $route = Routes::get('index');
         $this->assertEquals('<a href="index.html">bar</a>', rtrim(
             Blade::render('<x-link href="'.$route.'">bar</x-link>')));
     }
 
-    public function test_link_component_can_be_rendered_with_route_for_nested_pages()
+    public function testLinkComponentCanBeRenderedWithRouteForNestedPages()
     {
         Render::share('routeKey', 'foo/bar');
         $route = Routes::get('index');

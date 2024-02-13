@@ -15,7 +15,7 @@ use Exception;
  */
 class BaseFoundationCollectionTest extends UnitTestCase
 {
-    public function test_init()
+    public function testInit()
     {
         $this->needsKernel();
 
@@ -28,19 +28,19 @@ class BaseFoundationCollectionTest extends UnitTestCase
         $this->assertTrue($booted->isDiscovered());
     }
 
-    public function test_exceptions_are_caught_and_rethrown_as_runtime_exceptions()
+    public function testExceptionsAreCaughtAndRethrownAsRuntimeExceptions()
     {
         $this->expectException(RuntimeException::class);
         ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
     }
 
-    public function test_exceptions_are_caught_and_rethrown_with_helpful_information()
+    public function testExceptionsAreCaughtAndRethrownWithHelpfulInformation()
     {
         $this->expectException(RuntimeException::class);
         ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
     }
 
-    public function test_can_get_previous_exception()
+    public function testCanGetPreviousException()
     {
         try {
             ThrowingBaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();

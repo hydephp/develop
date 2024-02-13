@@ -23,7 +23,7 @@ use Illuminate\Support\Collection;
  */
 class FileCollectionTest extends TestCase
 {
-    public function test_boot_method_creates_new_page_collection_and_discovers_pages_automatically()
+    public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()
     {
         $collection = FileCollection::init(Hyde::getInstance())->boot();
         $this->assertInstanceOf(FileCollection::class, $collection);
@@ -35,14 +35,14 @@ class FileCollectionTest extends TestCase
         ], $collection->all());
     }
 
-    public function test_get_file_returns_parsed_file_object_for_given_file_path()
+    public function testGetFileReturnsParsedFileObjectForGivenFilePath()
     {
         $this->file('_pages/foo.blade.php');
         $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class),
             Files::getFile('_pages/foo.blade.php'));
     }
 
-    public function test_get_file_throws_exception_when_file_is_not_found()
+    public function testGetFileThrowsExceptionWhenFileIsNotFound()
     {
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [_pages/foo.blade.php] not found');
@@ -50,7 +50,7 @@ class FileCollectionTest extends TestCase
         Files::getFile('_pages/foo.blade.php');
     }
 
-    public function test_get_source_files_returns_all_discovered_source_files_when_no_parameter_is_supplied()
+    public function testGetSourceFilesReturnsAllDiscoveredSourceFilesWhenNoParameterIsSupplied()
     {
         $this->assertEquals([
             '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
@@ -58,7 +58,7 @@ class FileCollectionTest extends TestCase
         ], Files::getFiles()->all());
     }
 
-    public function test_get_source_files_does_not_include_non_page_source_files()
+    public function testGetSourceFilesDoesNotIncludeNonPageSourceFiles()
     {
         $this->withoutDefaultPages();
         $this->file('_pages/foo.txt');
@@ -68,7 +68,7 @@ class FileCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_blade_pages_are_discovered()
+    public function testBladePagesAreDiscovered()
     {
         $this->file('_pages/foo.blade.php');
         $collection = FileCollection::init(Hyde::getInstance())->boot();
@@ -77,7 +77,7 @@ class FileCollectionTest extends TestCase
         $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class), $collection->get('_pages/foo.blade.php'));
     }
 
-    public function test_markdown_pages_are_discovered()
+    public function testMarkdownPagesAreDiscovered()
     {
         $this->file('_pages/foo.md');
         $collection = FileCollection::init(Hyde::getInstance())->boot();
@@ -86,7 +86,7 @@ class FileCollectionTest extends TestCase
         $this->assertEquals(new SourceFile('_pages/foo.md', MarkdownPage::class), $collection->get('_pages/foo.md'));
     }
 
-    public function test_markdown_posts_are_discovered()
+    public function testMarkdownPostsAreDiscovered()
     {
         $this->file('_posts/foo.md');
         $collection = FileCollection::init(Hyde::getInstance())->boot();
@@ -95,7 +95,7 @@ class FileCollectionTest extends TestCase
         $this->assertEquals(new SourceFile('_posts/foo.md', MarkdownPost::class), $collection->get('_posts/foo.md'));
     }
 
-    public function test_documentation_pages_are_discovered()
+    public function testDocumentationPagesAreDiscovered()
     {
         $this->file('_docs/foo.md');
         $collection = FileCollection::init(Hyde::getInstance())->boot();

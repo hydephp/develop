@@ -13,14 +13,14 @@ use RuntimeException;
  */
 class BladeMatterParserTest extends TestCase
 {
-    public function test_can_parse_front_matter()
+    public function testCanParseFrontMatter()
     {
         $parser = new BladeMatterParser('@php($foo = "bar")');
         $parser->parse();
         $this->assertEquals(['foo' => 'bar'], $parser->get());
     }
 
-    public function test_parse_string_helper_method()
+    public function testParseStringHelperMethod()
     {
         $this->assertSame(
             (new BladeMatterParser('foo'))->parse()->get(),
@@ -28,7 +28,7 @@ class BladeMatterParserTest extends TestCase
         );
     }
 
-    public function test_parse_file_helper_method()
+    public function testParseFileHelperMethod()
     {
         $this->file('foo', 'foo');
         $this->assertSame(
@@ -37,7 +37,7 @@ class BladeMatterParserTest extends TestCase
         );
     }
 
-    public function test_can_parse_multiple_front_matter_lines()
+    public function testCanParseMultipleFrontMatterLines()
     {
         $document = <<<'BLADE'
         @php($foo = 'bar')
@@ -47,7 +47,7 @@ class BladeMatterParserTest extends TestCase
         $this->assertEquals(['foo' => 'bar', 'bar' => 'baz', 'baz' => 'qux'], BladeMatterParser::parseString($document));
     }
 
-    public function test_can_parse_front_matter_with_various_formats()
+    public function testCanParseFrontMatterWithVariousFormats()
     {
         $matrix = [
             '@php($foo = "bar")' => ['foo' => 'bar'],
@@ -61,41 +61,41 @@ class BladeMatterParserTest extends TestCase
         }
     }
 
-    public function test_can_parse_front_matter_with_array()
+    public function testCanParseFrontMatterWithArray()
     {
         $document = "@php(\$foo = ['bar' => 'baz'])";
         $this->assertEquals(['foo' => ['bar' => 'baz']], BladeMatterParser::parseString($document));
     }
 
-    public function test_line_matches_front_matter()
+    public function testLineMatchesFrontMatter()
     {
         $this->assertTrue(ParserTestClass::lineMatchesFrontMatter('@php($foo = "bar")'));
         $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('foo bar'));
     }
 
-    public function test_directive_cannot_have_leading_whitespace()
+    public function testDirectiveCannotHaveLeadingWhitespace()
     {
         $this->assertFalse(ParserTestClass::lineMatchesFrontMatter(' @php($foo = "bar")'));
     }
 
-    public function test_directive_signature_cannot_contain_whitespace()
+    public function testDirectiveSignatureCannotContainWhitespace()
     {
         $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('@php( $foo = "bar")'));
         $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('@ php($foo = "bar")'));
         $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('@ php ($foo = "bar")'));
     }
 
-    public function test_extract_key()
+    public function testExtractKey()
     {
         $this->assertSame('foo', ParserTestClass::extractKey('@php($foo = "bar")'));
     }
 
-    public function test_extract_value()
+    public function testExtractValue()
     {
         $this->assertSame('bar', ParserTestClass::extractValue('@php($foo = "bar")'));
     }
 
-    public function test_get_value_with_type()
+    public function testGetValueWithType()
     {
         $this->assertSame('string', ParserTestClass::getValueWithType('string'));
         $this->assertSame('string', ParserTestClass::getValueWithType('string'));
@@ -110,7 +110,7 @@ class BladeMatterParserTest extends TestCase
         $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType("['foo' => 'bar']"));
     }
 
-    public function test_parse_array_string()
+    public function testParseArrayString()
     {
         $this->assertSame(['foo' => 'bar'], ParserTestClass::parseArrayString('["foo" => "bar"]'));
         $this->assertSame(['foo' => 'bar'], ParserTestClass::parseArrayString('["foo" => "bar"]'));
@@ -123,13 +123,13 @@ class BladeMatterParserTest extends TestCase
         $this->assertSame(['foo' => 1], ParserTestClass::parseArrayString('["foo" => 1]'));
     }
 
-    public function test_parse_invalid_array_string()
+    public function testParseInvalidArrayString()
     {
         $this->expectException(RuntimeException::class);
         ParserTestClass::parseArrayString('foo');
     }
 
-    public function test_parse_multidimensional_array_string()
+    public function testParseMultidimensionalArrayString()
     {
         $this->expectException(RuntimeException::class);
         ParserTestClass::parseArrayString('["foo" => ["bar" => "baz"]]');

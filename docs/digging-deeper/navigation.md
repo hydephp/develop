@@ -61,7 +61,7 @@ General options for the entire navigation menus are also available in the `hyde`
 Now that you know the basics, let's dive into the details of how to customize the navigation menus!
 
 
-## Front matter configuration
+## Front Matter Configuration
 
 The front matter options allow you to customize the navigation menus on a per-page basis.
 Here is a quick reference of the available options. The full documentation of each option is below.
@@ -115,7 +115,7 @@ navigation:
 ```
 
 
-## Config file configuration
+## Config File Configuration
 
 Next up, let's look at how to customize the navigation menus using the config files.
 
@@ -291,7 +291,7 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
 
-## Digging deeper into the internals
+## Digging Deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
 The best way to learn about this is to look at the source code, so here is a high-level overview with details on where to look in the source code.

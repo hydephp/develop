@@ -29,7 +29,7 @@ class NavigationDataTest extends UnitTestCase
         );
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $navigationData = new NavigationData('label', 1, true, 'group');
 

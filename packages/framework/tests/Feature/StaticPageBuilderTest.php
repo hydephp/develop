@@ -52,7 +52,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertStringContainsString('</html>', $html);
     }
 
-    public function test_can_build_blade_page()
+    public function testCanBuildBladePage()
     {
         file_put_contents(BladePage::sourceDirectory().'/foo.blade.php', 'bar');
 
@@ -67,7 +67,7 @@ class StaticPageBuilderTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function test_can_build_markdown_post()
+    public function testCanBuildMarkdownPost()
     {
         $page = MarkdownPost::make('foo', [
             'title' => 'foo',
@@ -80,7 +80,7 @@ class StaticPageBuilderTest extends TestCase
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/posts/foo.html')));
     }
 
-    public function test_can_build_markdown_page()
+    public function testCanBuildMarkdownPage()
     {
         $page = MarkdownPage::make('foo', [], '# Body');
 
@@ -91,7 +91,7 @@ class StaticPageBuilderTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function test_can_build_documentation_page()
+    public function testCanBuildDocumentationPage()
     {
         $page = DocumentationPage::make('foo', [], '# Body');
 
@@ -101,7 +101,7 @@ class StaticPageBuilderTest extends TestCase
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/'.'docs/foo.html')));
     }
 
-    public function test_can_build_html_page()
+    public function testCanBuildHtmlPage()
     {
         $this->file('_pages/foo.html', 'bar');
         $page = new HtmlPage('foo');
@@ -113,7 +113,7 @@ class StaticPageBuilderTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function test_can_build_nested_html_page()
+    public function testCanBuildNestedHtmlPage()
     {
         mkdir(Hyde::path('_pages/foo'));
         file_put_contents(Hyde::path('_pages/foo/bar.html'), 'baz');
@@ -129,7 +129,7 @@ class StaticPageBuilderTest extends TestCase
         rmdir(Hyde::path('_pages/foo'));
     }
 
-    public function test_creates_custom_documentation_directory()
+    public function testCreatesCustomDocumentationDirectory()
     {
         $page = DocumentationPage::make('foo');
 
@@ -143,7 +143,7 @@ class StaticPageBuilderTest extends TestCase
         Filesystem::unlink('_site/docs/foo/foo.html');
     }
 
-    public function test_site_directory_can_be_customized()
+    public function testSiteDirectoryCanBeCustomized()
     {
         Hyde::setOutputDirectory('foo');
 
@@ -155,7 +155,7 @@ class StaticPageBuilderTest extends TestCase
         File::deleteDirectory(Hyde::path('foo'));
     }
 
-    public function test_site_directory_can_be_customized_with_nested_pages()
+    public function testSiteDirectoryCanBeCustomizedWithNestedPages()
     {
         Hyde::setOutputDirectory('foo');
 
@@ -167,7 +167,7 @@ class StaticPageBuilderTest extends TestCase
         File::deleteDirectory(Hyde::path('foo'));
     }
 
-    public function test_can_rebuild_blade_page()
+    public function testCanRebuildBladePage()
     {
         $this->file('_pages/foo.blade.php');
         StaticPageBuilder::handle(Pages::getPage('_pages/foo.blade.php'));
@@ -176,7 +176,7 @@ class StaticPageBuilderTest extends TestCase
         unlink(Hyde::path('_site/foo.html'));
     }
 
-    public function test_can_rebuild_markdown_page()
+    public function testCanRebuildMarkdownPage()
     {
         $this->file('_pages/foo.md');
         StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
@@ -185,7 +185,7 @@ class StaticPageBuilderTest extends TestCase
         unlink(Hyde::path('_site/foo.html'));
     }
 
-    public function test_can_rebuild_markdown_post()
+    public function testCanRebuildMarkdownPost()
     {
         $this->file('_posts/foo.md');
         StaticPageBuilder::handle(Pages::getPage('_posts/foo.md'));
@@ -194,7 +194,7 @@ class StaticPageBuilderTest extends TestCase
         unlink(Hyde::path('_site/posts/foo.html'));
     }
 
-    public function test_can_rebuild_documentation_page()
+    public function testCanRebuildDocumentationPage()
     {
         $this->file('_pages/foo.md');
         StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));

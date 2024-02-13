@@ -56,7 +56,7 @@ The `_site` directory is intended to be excluded from version control, while the
 version control. You are of course free to modify this behaviour by editing the `webpack.mix.js` file to change the output directory.
 
 
-## How do I compile assets?
+## How Do I Compile assets?
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
 Then run `npm run dev` to compile the assets. If you want to compile the assets for production, run `npm run prod`.
@@ -111,7 +111,7 @@ so the Play CDN styles match the ones created by Laravel Mix.
 All in all, this allows you to tinker around with Tailwind without having to compile anything.
 
 
-## Managing images
+## Managing Images
 
 As mentioned above, assets stored in the _media folder are automatically copied to the _site/media folder,
 making it the recommended place to store images. You can then easily reference them in your Markdown files.

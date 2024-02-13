@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\JsonResponse;

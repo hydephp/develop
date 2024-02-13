@@ -15,14 +15,14 @@ use Hyde\Testing\TestCase;
  */
 class AssetServiceTest extends TestCase
 {
-    public function test_media_link_returns_media_path_with_cache_key()
+    public function testMediaLinkReturnsMediaPathWithCacheKey()
     {
         $service = new AssetService();
         $this->assertIsString($path = $service->mediaLink('app.css'));
         $this->assertEquals('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
     }
 
-    public function test_media_link_returns_media_path_without_cache_key_if_cache_busting_is_disabled()
+    public function testMediaLinkReturnsMediaPathWithoutCacheKeyIfCacheBustingIsDisabled()
     {
         config(['hyde.enable_cache_busting' => false]);
         $service = new AssetService();
@@ -30,7 +30,7 @@ class AssetServiceTest extends TestCase
         $this->assertEquals('media/app.css', $path);
     }
 
-    public function test_media_link_supports_custom_media_directories()
+    public function testMediaLinkSupportsCustomMediaDirectories()
     {
         $this->directory('_assets');
         $this->file('_assets/app.css');

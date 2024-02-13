@@ -103,7 +103,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 ```
 
 
-## Yaml Collections
+## YAML Collections
 
 ### Usage
 

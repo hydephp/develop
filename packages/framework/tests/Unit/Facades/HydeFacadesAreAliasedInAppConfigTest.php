@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 
 class HydeFacadesAreAliasedInAppConfigTest extends TestCase
 {
-    public function test_all_facades_are_aliased_in_app_config()
+    public function testAllFacadesAreAliasedInAppConfig()
     {
         $this->assertArrayHasKey('Hyde', config('app.aliases'));
 

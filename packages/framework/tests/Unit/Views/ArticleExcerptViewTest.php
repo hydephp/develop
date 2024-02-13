@@ -21,13 +21,13 @@ class ArticleExcerptViewTest extends TestCase
         ), ['post' => $post]);
     }
 
-    public function test_component_can_be_rendered()
+    public function testComponentCanBeRendered()
     {
         $view = $this->renderTestView(MarkdownPost::make());
         $this->assertStringContainsString('https://schema.org/Article', $view);
     }
 
-    public function test_component_renders_post_data()
+    public function testComponentRendersPostData()
     {
         $view = $this->renderTestView(MarkdownPost::make(matter: [
             'title' => 'Test Post',
@@ -43,7 +43,7 @@ class ArticleExcerptViewTest extends TestCase
         $this->assertStringContainsString('Read post', $view);
     }
 
-    public function test_component_renders_post_with_author_object()
+    public function testComponentRendersPostWithAuthorObject()
     {
         $view = $this->renderTestView(MarkdownPost::make(matter: [
             'author' => [
@@ -55,7 +55,7 @@ class ArticleExcerptViewTest extends TestCase
         $this->assertStringContainsString('John Doe', $view);
     }
 
-    public function test_there_is_no_comma_after_date_string_when_there_is_no_author()
+    public function testThereIsNoCommaAfterDateStringWhenThereIsNoAuthor()
     {
         $view = $this->renderTestView(MarkdownPost::make(matter: [
             'date' => '2022-01-01',
@@ -65,7 +65,7 @@ class ArticleExcerptViewTest extends TestCase
         $this->assertStringNotContainsString('Jan 1st, 2022</span>,', $view);
     }
 
-    public function test_there_is_a_comma_after_date_string_when_there_is_a_author()
+    public function testThereIsACommaAfterDateStringWhenThereIsAAuthor()
     {
         $view = $this->renderTestView(MarkdownPost::make(matter: [
             'date' => '2022-01-01',

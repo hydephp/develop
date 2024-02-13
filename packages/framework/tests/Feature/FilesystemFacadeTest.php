@@ -410,7 +410,7 @@ class FilesystemFacadeTest extends TestCase
         Filesystem::cleanDirectory('directory');
     }
 
-    public function test_method_without_mocking()
+    public function testMethodWithoutMocking()
     {
         $this->assertSame(3, Filesystem::put('foo', 'bar'));
         $this->assertFileExists(Hyde::path('foo'));
@@ -418,7 +418,7 @@ class FilesystemFacadeTest extends TestCase
         unlink(Hyde::path('foo'));
     }
 
-    public function test_method_with_named_arguments()
+    public function testMethodWithNamedArguments()
     {
         $this->assertSame(3, Filesystem::put(path: 'foo', contents: 'bar'));
         $this->assertFileExists(Hyde::path('foo'));
@@ -426,7 +426,7 @@ class FilesystemFacadeTest extends TestCase
         unlink(Hyde::path('foo'));
     }
 
-    public function test_method_with_mixed_sequential_and_named_arguments()
+    public function testMethodWithMixedSequentialAndNamedArguments()
     {
         $this->assertSame(3, Filesystem::put('foo', contents: 'bar'));
         $this->assertFileExists(Hyde::path('foo'));
@@ -434,7 +434,7 @@ class FilesystemFacadeTest extends TestCase
         unlink(Hyde::path('foo'));
     }
 
-    public function test_method_with_mixed_sequential_and_named_arguments_skipping_middle_one()
+    public function testMethodWithMixedSequentialAndNamedArgumentsSkippingMiddleOne()
     {
         Filesystem::makeDirectory('foo', recursive: true);
         $this->assertDirectoryExists(Hyde::path('foo'));

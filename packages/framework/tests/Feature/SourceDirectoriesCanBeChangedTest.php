@@ -17,7 +17,7 @@ use Hyde\Testing\TestCase;
  */
 class SourceDirectoriesCanBeChangedTest extends TestCase
 {
-    public function test_baselines()
+    public function testBaselines()
     {
         $this->assertEquals('_pages', HtmlPage::sourceDirectory());
         $this->assertEquals('_pages', BladePage::sourceDirectory());
@@ -26,7 +26,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         $this->assertEquals('_docs', DocumentationPage::sourceDirectory());
     }
 
-    public function test_source_directories_can_be_changed_programmatically()
+    public function testSourceDirectoriesCanBeChangedProgrammatically()
     {
         HtmlPage::setSourceDirectory('.source/pages');
         BladePage::setSourceDirectory('.source/pages');
@@ -41,7 +41,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         $this->assertEquals('.source/docs', DocumentationPage::sourceDirectory());
     }
 
-    public function test_source_directories_can_be_changed_in_config()
+    public function testSourceDirectoriesCanBeChangedInConfig()
     {
         config(['hyde.source_directories' => [
             HtmlPage::class => '.source/pages',
@@ -60,7 +60,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         $this->assertEquals('.source/docs', DocumentationPage::sourceDirectory());
     }
 
-    public function test_build_service_recognizes_changed_directory()
+    public function testBuildServiceRecognizesChangedDirectory()
     {
         MarkdownPost::setSourceDirectory('_source/posts');
 
@@ -70,7 +70,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         );
     }
 
-    public function test_autodiscovery_discovers_posts_in_custom_directory()
+    public function testAutodiscoveryDiscoversPostsInCustomDirectory()
     {
         $this->directory('_source');
         $this->file('_source/test.md');
@@ -83,7 +83,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         );
     }
 
-    public function test_autodiscovery_discovers_posts_in_custom_subdirectory()
+    public function testAutodiscoveryDiscoversPostsInCustomSubdirectory()
     {
         $this->directory('_source/posts');
         $this->file('_source/posts/test.md');

@@ -13,17 +13,17 @@ use Hyde\Testing\TestCase;
  */
 class AssetFacadeTest extends TestCase
 {
-    public function test_asset_facade_returns_the_asset_service()
+    public function testAssetFacadeReturnsTheAssetService()
     {
         $this->assertInstanceOf(AssetService::class, Asset::getFacadeRoot());
     }
 
-    public function test_facade_returns_same_instance_as_bound_by_the_container()
+    public function testFacadeReturnsSameInstanceAsBoundByTheContainer()
     {
         $this->assertSame(Asset::getFacadeRoot(), app(AssetService::class));
     }
 
-    public function test_asset_facade_can_call_methods_on_the_asset_service()
+    public function testAssetFacadeCanCallMethodsOnTheAssetService()
     {
         $service = new AssetService();
         $this->assertEquals($service->version(), Asset::version());

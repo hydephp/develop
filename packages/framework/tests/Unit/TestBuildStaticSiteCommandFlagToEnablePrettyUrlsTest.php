@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
  */
 class TestBuildStaticSiteCommandFlagToEnablePrettyUrlsTest extends TestCase
 {
-    public function test_pretty_urls_can_be_enabled_with_flag()
+    public function testPrettyUrlsCanBeEnabledWithFlag()
     {
         config(['hyde.pretty_urls' => false]);
 
@@ -26,7 +26,7 @@ class TestBuildStaticSiteCommandFlagToEnablePrettyUrlsTest extends TestCase
         File::cleanDirectory(Hyde::path('_site'));
     }
 
-    public function test_config_change_is_not_persisted()
+    public function testConfigChangeIsNotPersisted()
     {
         $this->assertFalse(config('hyde.pretty_urls', false));
     }

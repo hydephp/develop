@@ -18,87 +18,87 @@ class HyperlinkFormatHtmlPathTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function test_helper_returns_string_as_is_if_pretty_urls_is_not_true()
+    public function testHelperReturnsStringAsIsIfPrettyUrlsIsNotTrue()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
 
         $this->assertEquals('foo/bar.html', Hyde::formatLink('foo/bar.html'));
     }
 
-    public function test_helper_returns_pretty_url_if_pretty_urls_is_true()
+    public function testHelperReturnsPrettyUrlIfPrettyUrlsIsTrue()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
 
         $this->assertEquals('foo/bar', Hyde::formatLink('foo/bar.html'));
     }
 
-    public function test_helper_respects_absolute_urls()
+    public function testHelperRespectsAbsoluteUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
         $this->assertEquals('/foo/bar.html', Hyde::formatLink('/foo/bar.html'));
     }
 
-    public function test_helper_respects_pretty_absolute_urls()
+    public function testHelperRespectsPrettyAbsoluteUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('/foo/bar', Hyde::formatLink('/foo/bar.html'));
     }
 
-    public function test_helper_respects_relative_urls()
+    public function testHelperRespectsRelativeUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
         $this->assertEquals('../foo/bar.html', Hyde::formatLink('../foo/bar.html'));
     }
 
-    public function test_helper_respects_pretty_relative_urls()
+    public function testHelperRespectsPrettyRelativeUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('../foo/bar', Hyde::formatLink('../foo/bar.html'));
     }
 
-    public function test_non_html_links_are_not_modified()
+    public function testNonHtmlLinksAreNotModified()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('/foo/bar.jpg', Hyde::formatLink('/foo/bar.jpg'));
     }
 
-    public function test_helper_respects_absolute_urls_with_pretty_urls_enabled()
+    public function testHelperRespectsAbsoluteUrlsWithPrettyUrlsEnabled()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('/foo/bar.jpg', Hyde::formatLink('/foo/bar.jpg'));
     }
 
-    public function test_helper_rewrites_index_when_using_pretty_urls()
+    public function testHelperRewritesIndexWhenUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('/', Hyde::formatLink('index.html'));
     }
 
-    public function test_helper_does_not_rewrite_index_when_not_using_pretty_urls()
+    public function testHelperDoesNotRewriteIndexWhenNotUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
         $this->assertEquals('index.html', Hyde::formatLink('index.html'));
     }
 
-    public function test_helper_rewrites_documentation_page_index_when_using_pretty_urls()
+    public function testHelperRewritesDocumentationPageIndexWhenUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('docs/', Hyde::formatLink('docs/index.html'));
     }
 
-    public function test_helper_does_not_rewrite_documentation_page_index_when_not_using_pretty_urls()
+    public function testHelperDoesNotRewriteDocumentationPageIndexWhenNotUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
         $this->assertEquals('docs/index.html', Hyde::formatLink('docs/index.html'));
     }
 
-    public function test_helpers_rewrites_arbitrary_nested_index_pages_when_using_pretty_urls()
+    public function testHelpersRewritesArbitraryNestedIndexPagesWhenUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
         $this->assertEquals('foo/bar/', Hyde::formatLink('foo/bar/index.html'));
     }
 
-    public function test_helpers_does_not_rewrite_arbitrary_nested_index_pages_when_not_using_pretty_urls()
+    public function testHelpersDoesNotRewriteArbitraryNestedIndexPagesWhenNotUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
         $this->assertEquals('foo/bar/index.html', Hyde::formatLink('foo/bar/index.html'));
