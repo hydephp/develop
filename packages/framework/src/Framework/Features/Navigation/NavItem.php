@@ -20,7 +20,7 @@ use Stringable;
  */
 class NavItem implements Stringable
 {
-    public readonly string $destination;
+    public readonly Route $destination;
     public readonly string $label;
     public readonly int $priority;
     public readonly ?string $group;
@@ -34,7 +34,7 @@ class NavItem implements Stringable
             $destination = new ExternalRoute($destination);
         }
 
-        $this->destination = (string) $destination;
+        $this->destination = $destination;
         $this->label = $label;
         $this->priority = $priority;
         $this->group = $group;
