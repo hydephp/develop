@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Navigation\NavigationManager;
-use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Testing\TestCase;
 
 /**
@@ -17,7 +17,7 @@ class NavigationManagerTest extends TestCase
     {
         $manager = new NavigationManager();
 
-        $menu = $this->createMock(BaseNavigationMenu::class);
+        $menu = $this->createMock(NavigationMenu::class);
         $manager->registerMenu('foo', $menu);
 
         $reflection = new \ReflectionClass($manager);
@@ -33,7 +33,7 @@ class NavigationManagerTest extends TestCase
     {
         $manager = new NavigationManager();
 
-        $menu = $this->createMock(BaseNavigationMenu::class);
+        $menu = $this->createMock(NavigationMenu::class);
         $manager->registerMenu('foo', $menu);
 
         $retrievedMenu = $manager->getMenu('foo');
