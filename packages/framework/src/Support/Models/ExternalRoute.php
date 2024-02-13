@@ -9,5 +9,5 @@ namespace Hyde\Support\Models;
  */
 class ExternalRoute extends Route
 {
-    //
+    protected string $destination;
 }
