@@ -11,6 +11,7 @@ class ExternalRoute extends Route
 {
     protected string $destination;
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(string $destination)
     {
         $this->destination = $destination;
