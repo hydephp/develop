@@ -32,6 +32,7 @@ class NavigationManager
     public function getMenu(string $name): NavigationMenu
     {
         if (! Hyde::isBooted()) {
+            // Todo: This could be an anti-pattern so we may consider throwing an exception instead.
             Hyde::boot();
         }
 
