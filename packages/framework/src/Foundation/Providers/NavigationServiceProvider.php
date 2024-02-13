@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Providers;
 
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\ServiceProvider;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavigationManager;
 
 class NavigationServiceProvider extends ServiceProvider
@@ -16,5 +18,9 @@ class NavigationServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(NavigationManager::class, 'navigation');
+
+        $this->app->make(HydeKernel::class)->booted(function (HydeKernel $kernel) {
+            $this->app->make(NavigationManager::class)->registerMenu('main', new NavigationMenu());
+        });
     }
 }
