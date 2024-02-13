@@ -16,4 +16,10 @@ class NavigationMenu
     {
         $this->items = new Collection($items);
     }
+
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
 }
