@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 
 use function collect;
 
+/** @deprecated Use the new NavigationMenu class instead */
 abstract class BaseNavigationMenu
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
