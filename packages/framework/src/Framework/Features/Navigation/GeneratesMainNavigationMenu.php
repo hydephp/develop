@@ -11,6 +11,6 @@ class GeneratesMainNavigationMenu
 {
     public function execute(): NavigationMenu
     {
-        //
+        return new NavigationMenu();
     }
 }
