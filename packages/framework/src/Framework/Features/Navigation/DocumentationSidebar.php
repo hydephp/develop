@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 
 use function collect;
 
+/** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends BaseNavigationMenu
 {
     protected function generate(): void
