@@ -7,7 +7,7 @@ namespace Hyde\Framework\Features\Navigation;
 /**
  * Interact with the navigation menus for the project.
  */
-class NavigationMenus
+class NavigationManager
 {
     /**
      * The menus that are available for the project, keyed by their name identifier.

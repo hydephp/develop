@@ -7,9 +7,9 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenus
+ * @covers \Hyde\Framework\Features\Navigation\NavigationManager
  */
-class NavigationMenusTest extends TestCase
+class NavigationManagerTest extends TestCase
 {
     public function testRegisterMenu()
     {
