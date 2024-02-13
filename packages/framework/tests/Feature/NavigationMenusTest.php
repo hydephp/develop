@@ -11,5 +11,13 @@ use Hyde\Testing\TestCase;
  */
 class NavigationMenusTest extends TestCase
 {
-    //
+    public function testRegisterMenu()
+    {
+        // Todo
+    }
+
+    public function testGetMenu()
+    {
+        // Todo
+    }
 }
