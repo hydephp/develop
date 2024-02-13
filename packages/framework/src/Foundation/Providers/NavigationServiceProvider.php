@@ -19,7 +19,7 @@ class NavigationServiceProvider extends ServiceProvider
 
         $this->app->alias(NavigationManager::class, 'navigation');
 
-        $this->app->make(HydeKernel::class)->booted(function (HydeKernel $kernel) {
+        $this->app->make(HydeKernel::class)->booted(function () {
             $this->app->make(NavigationManager::class)->registerMenu('main', new NavigationMenu());
         });
     }
