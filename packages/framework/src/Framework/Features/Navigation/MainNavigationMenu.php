@@ -9,6 +9,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use BadMethodCallException;
 
+/** @deprecated Use the new NavigationMenu class instead */
 class MainNavigationMenu extends BaseNavigationMenu
 {
     protected function generate(): void
