@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Providers;
 
-class NavigationServiceProvider
+use Illuminate\Support\ServiceProvider;
+
+class NavigationServiceProvider extends ServiceProvider
 {
     //
 }
