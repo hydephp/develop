@@ -259,11 +259,11 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
     public function testItRemovesCodeBlocks()
     {
         $markdown = <<<'MD'
-            <p>Hello World</p>
+        <p>Hello World</p>
         MD;
 
         $text = <<<'TXT'
-            Hello World
+        Hello World
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
@@ -367,9 +367,9 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $text = <<<'TXT'
         This word is bold. This word is italic.
 
-            
-                &copy; My Company
-            
+        
+        &copy; My Company
+        
 
         Hello World
         TXT;
@@ -482,6 +482,23 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
         Header    Title
         Paragraph Text
+        TXT;
+
+        $this->assertSame($text, $this->convert($markdown));
+    }
+
+    public function testItTrimsIndentation()
+    {
+        $markdown = <<<'MD'
+        foo
+            bar
+                baz
+        MD;
+
+        $text = <<<'TXT'
+        foo
+        bar
+        baz
         TXT;
 
         $this->assertSame($text, $this->convert($markdown));
