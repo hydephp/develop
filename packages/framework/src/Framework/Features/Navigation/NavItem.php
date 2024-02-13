@@ -14,6 +14,8 @@ use Hyde\Support\Models\ExternalRoute;
 /**
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
  *
+ * @FIXME Before merge: Add release notes from https://github.com/hydephp/develop/pull/1539
+ *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
