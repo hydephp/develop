@@ -28,6 +28,7 @@ This serves two purposes:
 ### Changed
 - Renamed local template variable `$document` to `$article` to better match the usage in https://github.com/hydephp/develop/pull/1506
 - Updated semantic documentation article component to support existing variables in https://github.com/hydephp/develop/pull/1506
+- Updated the Markdown to plain text converter to trim whitespace in https://github.com/hydephp/develop/pull/1561
 - HydeFront: Changed `<code>` styling to display as inline instead of inline-block in https://github.com/hydephp/develop/pull/1525
 - Realtime Compiler: Add strict type declarations in https://github.com/hydephp/develop/pull/1555
 - Internal: Renamed snake case test methods to camel case in https://github.com/hydephp/develop/pull/1556
