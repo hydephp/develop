@@ -39,7 +39,7 @@ class DocumentationSearchPage extends InMemoryPage
         parent::__construct(static::routeKey(), [
             'title' => 'Search',
             'navigation' => ['hidden' => true],
-            'article' => $this->makeArticle(),
+            'article' => false,
         ], view: 'hyde::pages.documentation-search');
     }
 
