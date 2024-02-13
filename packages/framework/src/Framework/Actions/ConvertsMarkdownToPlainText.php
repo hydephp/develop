@@ -93,6 +93,7 @@ class ConvertsMarkdownToPlainText
         foreach ($lines as $line => $contents) {
             $contents = $this->removeTables($contents);
             $contents = $this->removeBlockquotes($contents);
+            $contents = $this->trimWhitespace($contents);
 
             $lines[$line] = $contents;
         }
@@ -126,5 +127,17 @@ class ConvertsMarkdownToPlainText
         }
 
         return $contents;
+    }
+
+    protected function trimWhitespace(string $contents): string
+    {
+        // If it is a list, don't trim the whitespace
+        $firstCharacter = substr(trim($contents), 0, 1);
+
+        if ($firstCharacter === '-' || $firstCharacter === '*' || $firstCharacter === '+' || is_numeric($firstCharacter)) {
+            return $contents;
+        }
+
+        return trim($contents);
     }
 }
