@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\InMemoryPage;
@@ -83,7 +84,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = NavItem::fromRoute($route);
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route, $item->destination);
     }
 
     public function testToString()
@@ -97,7 +98,7 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::forLink('foo', 'bar');
 
-        $this->assertSame('foo', $item->destination);
+        $this->assertEquals(new ExternalRoute('foo'), $item->destination);
         $this->assertSame('bar', $item->label);
         $this->assertSame(500, $item->priority);
     }
@@ -112,7 +113,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('404');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route->getLink(), $item->destination->getLink());
         $this->assertSame('foo', $item->label);
         $this->assertSame(999, $item->priority);
     }
@@ -122,7 +123,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('index');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route->getLink(), $item->destination->getLink());
         $this->assertSame('foo', $item->label);
         $this->assertSame(0, $item->priority);
     }
