@@ -80,18 +80,23 @@ class NavItem implements Stringable
      */
     public function __toString(): string
     {
-        return (string) $this->destination;
+        return $this->getLink();
     }
 
     /**
-     * Get the destination link of the navigation item.
-     *
-     * If the navigation item is an external link, this will return the link as is,
-     * if it's for a route, a resolved relative link will be returned.
+     * Get the destination route of the navigation item.
      */
     public function getDestination(): Route
     {
         return $this->destination;
+    }
+
+    /**
+     * Resolve the destination link of the navigation item.
+     */
+    public function getLink(): string
+    {
+        return (string) $this->destination;
     }
 
     /**
