@@ -13,45 +13,39 @@ use Hyde\Testing\TestCase;
  */
 class NavigationManagerTest extends TestCase
 {
-    protected NavigationManager $navigationManager;
-
-    protected function setUp(): void
+    public function testCanRegisterMenu()
     {
-        parent::setUp();
-        $this->navigationManager = new NavigationManager();
-    }
+        $manager = new NavigationManager();
 
-    /** @author Copilot */
-    public function testRegisterMenu()
-    {
         $menu = $this->createMock(BaseNavigationMenu::class);
-        $this->navigationManager->registerMenu('test', $menu);
+        $manager->registerMenu('foo', $menu);
 
-        $reflection = new \ReflectionClass($this->navigationManager);
+        $reflection = new \ReflectionClass($manager);
         $property = $reflection->getProperty('menus');
-        $property->setAccessible(true);
 
-        $menus = $property->getValue($this->navigationManager);
+        $menus = $property->getValue($manager);
 
-        $this->assertArrayHasKey('test', $menus);
-        $this->assertSame($menu, $menus['test']);
+        $this->assertArrayHasKey('foo', $menus);
+        $this->assertSame($menu, $menus['foo']);
     }
 
-    /** @author Copilot */
-    public function testGetMenu()
+    public function testCanGetMenu()
     {
-        $menu = $this->createMock(BaseNavigationMenu::class);
-        $this->navigationManager->registerMenu('test', $menu);
+        $manager = new NavigationManager();
 
-        $retrievedMenu = $this->navigationManager->getMenu('test');
+        $menu = $this->createMock(BaseNavigationMenu::class);
+        $manager->registerMenu('foo', $menu);
+
+        $retrievedMenu = $manager->getMenu('foo');
 
         $this->assertSame($menu, $retrievedMenu);
     }
 
-    /** @author Copilot */
     public function testGetMenuThrowsExceptionForNonExistentMenu()
     {
+        $manager = new NavigationManager();
+
         $this->expectException(\Exception::class);
-        $this->navigationManager->getMenu('nonexistent');
+        $manager->getMenu('foo');
     }
 }
