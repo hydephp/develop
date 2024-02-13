@@ -31,15 +31,4 @@ class NavigationManager
     {
         return $this->menus[$name];
     }
-
-    /**
-     * Temporary logic moved from MainNavigationMenu.php
-     *
-     * @internal
-     * @experimental
-     */
-    public static function generateMainMenu(): NavigationMenu
-    {
-        //
-    }
 }
