@@ -39,7 +39,7 @@ class DocumentationSearchPage extends InMemoryPage
         parent::__construct(static::routeKey(), [
             'title' => 'Search',
             'navigation' => ['hidden' => true],
-            'article' => $this->makeArticle(),
+            'article' => false,
         ], view: 'hyde::pages.documentation-search');
     }
 
@@ -58,11 +58,5 @@ class DocumentationSearchPage extends InMemoryPage
         // Since routes aren't discovered yet due to this page being added in the core extension,
         // we need to check the page collection directly, instead of the route collection.
         return Hyde::pages()->first(fn (HydePage $file): bool => $file->getRouteKey() === static::routeKey()) !== null;
-    }
-
-    /** @experimental Fixes type issue {@see https://github.com/hydephp/develop/commit/37f7046251b8c0514b8d8ef821de4ef3d35bbac8#commitcomment-135026537} */
-    protected function makeArticle(): SemanticDocumentationArticle
-    {
-        return SemanticDocumentationArticle::make(new DocumentationPage());
     }
 }

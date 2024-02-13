@@ -15,6 +15,7 @@ This serves two purposes:
 ### Changed
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
+- Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
 
 ### Deprecated
 - for soon-to-be removed features.
