@@ -9,5 +9,10 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class NavigationMenus
 {
-    //
+    /**
+     * The menus that are available for the project, keyed by their name identifier.
+     *
+     * @var array<string, \Hyde\Framework\Features\Navigation\BaseNavigationMenu>
+     */
+    protected array $menus = [];
 }
