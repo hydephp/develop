@@ -31,6 +31,7 @@ This serves two purposes:
 - Updated the Markdown to plain text converter to trim whitespace in https://github.com/hydephp/develop/pull/1561
 - HydeFront: Changed `<code>` styling to display as inline instead of inline-block in https://github.com/hydephp/develop/pull/1525
 - Realtime Compiler: Add strict type declarations in https://github.com/hydephp/develop/pull/1555
+- Bumped Realtime Compiler version to v3.3 in https://github.com/hydephp/develop/pull/1562
 - Internal: Renamed snake case test methods to camel case in https://github.com/hydephp/develop/pull/1556
 
 ### Deprecated
