@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-class ExternalRoute
+class ExternalRoute extends Route
 {
     //
 }
