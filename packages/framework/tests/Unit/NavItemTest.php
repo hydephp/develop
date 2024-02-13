@@ -113,7 +113,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('404');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route->getLink(), $item->destination->getLink());
+        $this->assertSame($route, $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(999, $item->priority);
     }
@@ -123,7 +123,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('index');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route->getLink(), $item->destination->getLink());
+        $this->assertSame($route, $item->destination);
         $this->assertSame('foo', $item->label);
         $this->assertSame(0, $item->priority);
     }
