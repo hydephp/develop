@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added a `@head` stack to the `head.blade.php` component in https://github.com/hydephp/develop/pull/1567
 
 ### Changed
 - for changes in existing functionality.
