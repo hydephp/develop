@@ -31,6 +31,7 @@ use function method_exists;
  * @covers \Hyde\Framework\HydeServiceProvider
  * @covers \Hyde\Framework\Concerns\RegistersFileLocations
  * @covers \Hyde\Foundation\Providers\ConfigurationServiceProvider
+ * @covers \Hyde\Foundation\Providers\NavigationServiceProvider
  * @covers \Hyde\Foundation\Providers\ViewServiceProvider
  */
 class HydeServiceProviderTest extends TestCase
