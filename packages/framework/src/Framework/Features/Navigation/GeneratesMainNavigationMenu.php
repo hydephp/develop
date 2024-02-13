@@ -9,5 +9,8 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class GeneratesMainNavigationMenu
 {
-    //
+    public function execute(): NavigationMenu
+    {
+        //
+    }
 }
