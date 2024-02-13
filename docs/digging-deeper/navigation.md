@@ -296,11 +296,11 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
 The best way to learn about this is to look at the source code, so here is a high-level overview with details on where to look in the source code.
 
-The main navigation menu is the `NavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class.
+The main navigation menu is the `MainNavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class.
 Both extend the same `BaseNavigationMenu` class:
 
 ```php
-use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
 ```

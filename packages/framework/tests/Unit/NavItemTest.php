@@ -17,7 +17,7 @@ use Mockery;
 
 /**
  * This unit test covers the basics of the NavItem class.
- * For the full feature test, see the NavigationMenuTest class.
+ * For the full feature test, see the MainNavigationMenuTest class.
  *
  * @covers \Hyde\Framework\Features\Navigation\NavItem
  *
