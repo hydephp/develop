@@ -9,7 +9,6 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\RouteKey;
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Facades\Config;
 
 /**
@@ -21,16 +20,6 @@ use Hyde\Facades\Config;
  */
 class DocumentationSearchPage extends InMemoryPage
 {
-    /**
-     * Generate the search page and save it to disk.
-     *
-     * @return string The path to the generated file.
-     */
-    public static function generate(): string
-    {
-        return StaticPageBuilder::handle(new static());
-    }
-
     /**
      * Create a new DocumentationSearchPage instance.
      */
