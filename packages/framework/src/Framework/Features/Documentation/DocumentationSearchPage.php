@@ -59,10 +59,4 @@ class DocumentationSearchPage extends InMemoryPage
         // we need to check the page collection directly, instead of the route collection.
         return Hyde::pages()->first(fn (HydePage $file): bool => $file->getRouteKey() === static::routeKey()) !== null;
     }
-
-    /** @experimental Fixes type issue {@see https://github.com/hydephp/develop/commit/37f7046251b8c0514b8d8ef821de4ef3d35bbac8#commitcomment-135026537} */
-    protected function makeArticle(): SemanticDocumentationArticle
-    {
-        return SemanticDocumentationArticle::make(new DocumentationPage());
-    }
 }
