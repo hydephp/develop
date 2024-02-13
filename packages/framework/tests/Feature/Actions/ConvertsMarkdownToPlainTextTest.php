@@ -367,9 +367,9 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $text = <<<'TXT'
         This word is bold. This word is italic.
 
-        
+
         &copy; My Company
-        
+
 
         Hello World
         TXT;
