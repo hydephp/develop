@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Hyde;
+
 /**
  * Manages the navigation menus for the project.
  */
@@ -29,6 +31,10 @@ class NavigationManager
      */
     public function getMenu(string $name): NavigationMenu
     {
+        if (! Hyde::isBooted()) {
+            Hyde::boot();
+        }
+
         return $this->menus[$name];
     }
 }
