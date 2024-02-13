@@ -10,4 +10,9 @@ class NavigationMenu
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
+
+    public function __construct(Collection $items)
+    {
+        $this->items = $items;
+    }
 }
