@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- Added a new `ExternalRoute` class to represent external routes.
 - Added a new `NavItem::getLink()` method contain the previous `NavItem::getDestination()` logic, to return the link URL.
 
 ### Changed
