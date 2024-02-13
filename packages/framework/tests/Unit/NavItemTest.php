@@ -43,7 +43,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500);
 
-        $this->assertSame($route->getLink(), $item->destination);
+        $this->assertSame($route, $item->destination);
     }
 
     public function testGetDestination()
