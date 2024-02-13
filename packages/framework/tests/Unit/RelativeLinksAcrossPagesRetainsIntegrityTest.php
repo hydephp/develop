@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Support\Models\Route;
+use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use Hyde\Framework\Services\BuildService;
-use Illuminate\Console\OutputStyle;
-use Mockery;
-use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
-use Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 use function config;
 
@@ -71,30 +68,9 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
 
     public function testRelativeLinksAcrossPagesRetainsIntegrity()
     {
-        $service = new BuildService(Mockery::mock(OutputStyle::class, [
-            'getFormatter' => Mockery::mock(OutputFormatterInterface::class, [
-                'hasStyle' => false,
-                'setStyle' => null,
-            ]),
-            'createProgressBar' => new ProgressBar(Mockery::mock(OutputStyle::class, [
-                'isDecorated' => false,
-                'getVerbosity' => 0,
-                'write' => null,
-                'getFormatter' => Mockery::mock(OutputFormatterInterface::class, [
-                    'hasStyle' => false,
-                    'setStyle' => null,
-                    'isDecorated' => false,
-                    'setDecorated' => null,
-                    'format' => null,
-                ]),
-            ])),
-            'writeln' => null,
-            'newLine' => null,
-            'write' => null,
-        ]));
-
-        (new TransferMediaAssets())->run();
-        $service->compileStaticPages();
+        Routes::getRoutes()->each(function (Route $route): void {
+            StaticPageBuilder::handle($route->getPage());
+        });
 
         $this->assertSee('root', [
             '<link rel="stylesheet" href="media/app.css">',
