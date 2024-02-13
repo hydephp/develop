@@ -75,7 +75,7 @@ abstract class BaseNavigationMenu
      *
      * If you are calling this method manually, you must do so after the kernel has booted.
      *
-     * @param \Hyde\Support\Models\Route $route
+     * @param  \Hyde\Support\Models\Route  $route
      * @return $this
      */
     public function addRoute(Route $route): static
