@@ -11,6 +11,8 @@ class GeneratesMainNavigationMenu
 {
     public function execute(): NavigationMenu
     {
-        return new NavigationMenu();
+        $navigation = \Hyde\Framework\Features\Navigation\MainNavigationMenu::create();
+
+        return new NavigationMenu($navigation->items);
     }
 }
