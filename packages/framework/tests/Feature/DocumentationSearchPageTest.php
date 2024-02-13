@@ -76,4 +76,34 @@ class DocumentationSearchPageTest extends TestCase
         DocumentationPage::setOutputDirectory('');
         $this->assertSame('search', DocumentationSearchPage::routeKey());
     }
+
+    public function testCanRenderSearchPage()
+    {
+        $page = new DocumentationSearchPage();
+
+        Hyde::shareViewData($page);
+        $this->assertStringContainsString('<h1>Search the documentation site</h1>', $page->compile());
+    }
+
+    public function testRenderedSearchPageUsesDocumentationPageLayout()
+    {
+        $page = new DocumentationSearchPage();
+
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $this->assertStringContainsString('<body id="hyde-docs"', $html);
+    }
+
+    public function testRenderedSearchPageDoesNotUseSemanticDocumentationMarkup()
+    {
+        $page = new DocumentationSearchPage();
+
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $this->assertStringNotContainsString('<header id="document-header"', $html);
+        $this->assertStringNotContainsString('<section id="document-main-content"', $html);
+        $this->assertStringNotContainsString('<footer id="document-footer"', $html);
+    }
 }
