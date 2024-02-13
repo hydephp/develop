@@ -182,7 +182,7 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertInstanceOf(PageMetadataBag::class, (new MarkdownPage())->metadata());
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $this->assertInstanceOf(MarkdownPage::class, new MarkdownPage());
     }

@@ -82,7 +82,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertInstanceOf(RouteCollection::class, ...InspectableTestExtension::getCalled('routes'));
     }
 
-    public function test_register_extension_method_throws_exception_when_kernel_is_already_booted()
+    public function testRegisterExtensionMethodThrowsExceptionWhenKernelIsAlreadyBooted()
     {
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Cannot register an extension after the Kernel has been booted.');
@@ -91,7 +91,7 @@ class HydeExtensionFeatureTest extends TestCase
         app(HydeKernel::class)->registerExtension(HydeTestExtension::class);
     }
 
-    public function test_register_extension_method_only_accepts_instances_of_hyde_extension()
+    public function testRegisterExtensionMethodOnlyAcceptsInstancesOfHydeExtension()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Extension [stdClass] must extend the HydeExtension class.');
@@ -99,7 +99,7 @@ class HydeExtensionFeatureTest extends TestCase
         app(HydeKernel::class)->registerExtension(stdClass::class);
     }
 
-    public function test_custom_registered_pages_are_discovered_by_the_file_collection_class()
+    public function testCustomRegisteredPagesAreDiscoveredByTheFileCollectionClass()
     {
         app(HydeKernel::class)->registerExtension(TestPageExtension::class);
         FileCollection::init(app(HydeKernel::class))->boot();
@@ -111,7 +111,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClass::class), Files::get('foo/bar.txt'));
     }
 
-    public function test_custom_registered_pages_are_discovered_by_the_page_collection_class()
+    public function testCustomRegisteredPagesAreDiscoveredByThePageCollectionClass()
     {
         $this->directory('foo');
         $this->file('foo/bar.txt');
@@ -123,7 +123,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertEquals(new TestPageClass('bar'), Pages::get('foo/bar.txt'));
     }
 
-    public function test_custom_registered_pages_are_discovered_by_the_route_collection_class()
+    public function testCustomRegisteredPagesAreDiscoveredByTheRouteCollectionClass()
     {
         $this->directory('foo');
         $this->file('foo/bar.txt');

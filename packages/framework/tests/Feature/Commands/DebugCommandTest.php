@@ -18,12 +18,12 @@ class DebugCommandTest extends TestCase
         $this->app->bind('git.version', fn () => 'foo');
     }
 
-    public function test_debug_command_can_run()
+    public function testDebugCommandCanRun()
     {
         $this->artisan('debug')->assertExitCode(0);
     }
 
-    public function test_it_prints_debug_information()
+    public function testItPrintsDebugInformation()
     {
         $this->artisan('debug')
             ->expectsOutput('HydePHP Debug Screen')
@@ -36,7 +36,7 @@ class DebugCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_it_prints_verbose_debug_information()
+    public function testItPrintsVerboseDebugInformation()
     {
         $this->artisan('debug --verbose')
             ->expectsOutput('HydePHP Debug Screen')

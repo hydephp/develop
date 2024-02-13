@@ -15,7 +15,7 @@ use Hyde\Publications\Pages\PublicationListPage;
  */
 class PublicationListPageTest extends TestCase
 {
-    public function test_source_path_mappings()
+    public function testSourcePathMappings()
     {
         $this->createPublicationFiles();
 
@@ -28,7 +28,7 @@ class PublicationListPageTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function test_listing_page_can_be_compiled()
+    public function testListingPageCanBeCompiled()
     {
         $this->createPublicationFiles();
 
@@ -41,7 +41,7 @@ class PublicationListPageTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function test_list_page_can_show_up_in_navigation()
+    public function testListPageCanShowUpInNavigation()
     {
         $this->createPublicationFiles();
 
@@ -52,7 +52,7 @@ class PublicationListPageTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function test_list_page_is_not_added_to_navigation_when_publication_identifier_is_set_in_config()
+    public function testListPageIsNotAddedToNavigationWhenPublicationIdentifierIsSetInConfig()
     {
         config(['hyde.navigation.exclude' => ['test-publication']]);
 

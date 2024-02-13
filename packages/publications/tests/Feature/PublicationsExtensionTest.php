@@ -37,19 +37,19 @@ class PublicationsExtensionTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_get_page_classes_method()
+    public function testGetPageClassesMethod()
     {
         $this->assertSame([], PublicationsExtension::getPageClasses());
     }
 
-    public function test_get_types_method()
+    public function testGetTypesMethod()
     {
         $extension = new PublicationsExtension;
         $extension->discoverFiles(Hyde::files());
         $this->assertSame([], $extension->getTypes()->toArray());
     }
 
-    public function test_get_types_method_with_types()
+    public function testGetTypesMethodWithTypes()
     {
         $this->createPublication();
 
@@ -58,7 +58,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertEquals(['publication' => PublicationType::get('publication')], $extension->getTypes()->all());
     }
 
-    public function test_get_types_method_with_multiple_types()
+    public function testGetTypesMethodWithMultipleTypes()
     {
         $this->createPublication();
 
@@ -73,7 +73,7 @@ class PublicationsExtensionTest extends TestCase
         ], $extension->getTypes()->all());
     }
 
-    public function test_publication_files_are_discovered()
+    public function testPublicationFilesAreDiscovered()
     {
         $this->createPublication();
 
@@ -88,7 +88,7 @@ class PublicationsExtensionTest extends TestCase
         );
     }
 
-    public function test_publication_files_are_discovered_for_multiple_types()
+    public function testPublicationFilesAreDiscoveredForMultipleTypes()
     {
         $this->createPublication();
 
@@ -102,7 +102,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertSame(['publication/foo.md', 'publication2/bar.md'], $files);
     }
 
-    public function test_publication_media_files_are_discovered()
+    public function testPublicationMediaFilesAreDiscovered()
     {
         $this->directory('_media/publication');
         $this->file('_media/publication/foo.jpg', 'foo');
@@ -112,7 +112,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(MediaFile::class, $files->get('publication/foo.jpg'));
     }
 
-    public function test_base_publication_pages_are_discovered()
+    public function testBasePublicationPagesAreDiscovered()
     {
         $this->createPublication();
 
@@ -122,7 +122,7 @@ class PublicationsExtensionTest extends TestCase
         ], PageCollection::init(Hyde::getInstance())->boot()->getPages()->keys()->toArray());
     }
 
-    public function test_publication_pages_are_discovered()
+    public function testPublicationPagesAreDiscovered()
     {
         $this->createPublication();
 
@@ -138,7 +138,7 @@ class PublicationsExtensionTest extends TestCase
         );
     }
 
-    public function test_listing_pages_for_publications_are_generated()
+    public function testListingPagesForPublicationsAreGenerated()
     {
         $this->createPublication();
         $booted = PageCollection::init(Hyde::getInstance())->boot();
@@ -153,7 +153,7 @@ class PublicationsExtensionTest extends TestCase
         );
     }
 
-    public function test_paginated_listing_pages_for_publications_are_generated()
+    public function testPaginatedListingPagesForPublicationsAreGenerated()
     {
         $this->createPublication();
         (new PublicationType('publication', pageSize: 1))->save();
@@ -166,7 +166,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(InMemoryPage::class, $booted->getPage('publication/page-2'));
     }
 
-    public function test_publication_tag_list_pages_are_generated()
+    public function testPublicationTagListPagesAreGenerated()
     {
         $this->directory('publication');
 
@@ -181,7 +181,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertInstanceOf(InMemoryPage::class, $booted->getPage('tags/index'));
     }
 
-    public function test_publication_tag_list_routes_with_tags_are_generated()
+    public function testPublicationTagListRoutesWithTagsAreGenerated()
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [
@@ -207,7 +207,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertSame(['foo' => 1, 'bar' => 1], $tagPage->matter('tags'));
     }
 
-    public function test_publication_routes_are_discovered()
+    public function testPublicationRoutesAreDiscovered()
     {
         $this->createPublication();
 
@@ -230,7 +230,7 @@ class PublicationsExtensionTest extends TestCase
         );
     }
 
-    public function test_publication_tag_list_routes_are_discovered()
+    public function testPublicationTagListRoutesAreDiscovered()
     {
         $this->directory('publication');
 
@@ -256,7 +256,7 @@ class PublicationsExtensionTest extends TestCase
         $this->assertSame(['foo' => 1], $tagPage->matter('tags'));
     }
 
-    public function test_publication_tag_list_routes_with_tags_are_discovered()
+    public function testPublicationTagListRoutesWithTagsAreDiscovered()
     {
         $this->createPublication();
         (new PublicationType('publication', fields: [

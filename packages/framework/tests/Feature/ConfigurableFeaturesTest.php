@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Config;
  */
 class ConfigurableFeaturesTest extends TestCase
 {
-    public function test_has_feature_returns_false_when_feature_is_not_enabled()
+    public function testHasFeatureReturnsFalseWhenFeatureIsNotEnabled()
     {
         Config::set('hyde.features', []);
         // Foreach method in Features class that begins with "has"
@@ -25,7 +25,7 @@ class ConfigurableFeaturesTest extends TestCase
         }
     }
 
-    public function test_has_feature_returns_true_when_feature_is_enabled()
+    public function testHasFeatureReturnsTrueWhenFeatureIsEnabled()
     {
         $features = [];
         foreach (get_class_methods(Features::class) as $method) {
@@ -41,26 +41,26 @@ class ConfigurableFeaturesTest extends TestCase
         }
     }
 
-    public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
+    public function testCanGenerateSitemapHelperReturnsTrueIfHydeHasBaseUrl()
     {
         config(['hyde.url' => 'foo']);
         $this->assertTrue(Features::sitemap());
     }
 
-    public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
+    public function testCanGenerateSitemapHelperReturnsFalseIfHydeDoesNotHaveBaseUrl()
     {
         config(['hyde.url' => '']);
         $this->assertFalse(Features::sitemap());
     }
 
-    public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
+    public function testCanGenerateSitemapHelperReturnsFalseIfSitemapsAreDisabledInConfig()
     {
         config(['hyde.url' => 'foo']);
         config(['hyde.generate_sitemap' => false]);
         $this->assertFalse(Features::sitemap());
     }
 
-    public function test_to_array_method_returns_method_array()
+    public function testToArrayMethodReturnsMethodArray()
     {
         $array = (new Features)->toArray();
         $this->assertIsArray($array);
@@ -72,7 +72,7 @@ class ConfigurableFeaturesTest extends TestCase
         }
     }
 
-    public function test_to_array_method_contains_all_settings()
+    public function testToArrayMethodContainsAllSettings()
     {
         $array = (new Features)->toArray();
 
@@ -88,7 +88,7 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertCount(8, $array);
     }
 
-    public function test_features_can_be_mocked()
+    public function testFeaturesCanBeMocked()
     {
         Features::mock('darkmode', true);
         $this->assertTrue(Features::hasDarkmode());
@@ -97,7 +97,7 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasDarkmode());
     }
 
-    public function test_dynamic_features_can_be_mocked()
+    public function testDynamicFeaturesCanBeMocked()
     {
         Features::mock('rss', true);
         $this->assertTrue(Features::rss());
@@ -106,7 +106,7 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::rss());
     }
 
-    public function test_multiple_features_can_be_mocked()
+    public function testMultipleFeaturesCanBeMocked()
     {
         Features::mock([
             'rss' => true,

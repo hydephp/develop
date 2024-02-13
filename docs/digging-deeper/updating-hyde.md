@@ -8,13 +8,13 @@ navigation:
 This guide will help you update your HydePHP project to the latest version.
 
 
-## Before you start
+## Before You Start
 
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
 
 
-## Version compatibility
+## Version Compatibility
 
 HydePHP follows [semantic versioning](https://semver.org/), so you can expect that minor and patch releases will be backwards compatible.
 Only major releases may introduce breaking changes, all of which are thoroughly documented in the accompanying release notes.

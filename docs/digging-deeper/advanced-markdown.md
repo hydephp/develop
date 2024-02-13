@@ -107,7 +107,7 @@ The coloured blockquotes also support inline Markdown, just like normal blockquo
 Note that these currently do not support multi-line blockquotes.
 
 
-## Code block filepaths
+## Code Block Filepaths
 
 When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
 These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.

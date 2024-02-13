@@ -124,7 +124,7 @@ if you don't want to use the scaffolding command.
 > however you still need to use the `blade.php` extension so Hyde can recognize it.
 
 
-## When to use which?
+## When to Use Which?
 
 Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited.
 

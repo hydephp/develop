@@ -86,7 +86,7 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
 
     abstract public function testMetadata();
 
-    abstract public function test__construct();
+    abstract public function testConstruct();
 
     abstract public function testMake();
 

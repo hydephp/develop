@@ -29,7 +29,7 @@ is registered, at which point the provider will search for any overrides in the 
      trait to use the same registration logic as the `HydeServiceProvider`.
 
 
-## Customizing source directories
+## Customizing Source Directories
 
 The directories you place your content in are important. The directory will be used to determine the proper page type and the templates used.
 If you are not happy the with defaults, you can change them. Note that these are relative to the `source_root` setting,
@@ -71,7 +71,7 @@ public function register(): void
 ```
 
 
-## Customizing output directories
+## Customizing Output Directories
 
 Like source directories, the output directories are also important as they determine the output path for the compiled pages.
 >warning Note that changing output directories also affects the route keys, as those are based on the output directory. <p>Scroll down to see the [Route key impact](#route-key-impact) section for more information.</p>
@@ -117,7 +117,7 @@ this may break your site's configuration and links, so you should always verify 
 You can learn more about this in the [route key documentation](core-concepts#paths-identifiers-and-route-keys).
 
 
-## Custom source root
+## Custom Source Root
 
 HydePHP will by default look for the source directories shown above in the root of your project.
 If you're not happy with this, it's easy to change! For example, you might want everything in a `'src'` subdirectory.
@@ -142,7 +142,7 @@ When run, Hyde will update the source directory setting in the config file, then
 and move all source directories and their content into it.
 
 
-## Custom media directory
+## Custom Media Directory
 
 The media directory houses assets like images and stylesheets. The default directory is `_media`, and upon building the site,
 Hyde will copy all files in this directory to `_site/media` (or whatever your configured output and media directories are).
@@ -166,7 +166,7 @@ all files from `assets` will be copied to `_site/assets`. If the setting starts 
 from the output directory, so files in `_assets` will be copied to `_site/assets`.
 
 
-## Custom output directory
+## Custom Output Directory
 
 >danger <p><strong>Warning: Hyde deletes all files in the output directory before compiling the site.</strong></p> <p>Don't set this path to a directory that contains important files!</p>
 

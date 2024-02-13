@@ -33,7 +33,7 @@ class VendorPublishCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_command_prompts_for_provider_or_tag()
+    public function testCommandPromptsForProviderOrTag()
     {
         ServiceProvider::$publishes = [
             'ExampleProvider' => '',
@@ -51,7 +51,7 @@ class VendorPublishCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_unhelpful_publishers_are_removed()
+    public function testUnhelpfulPublishersAreRemoved()
     {
         ServiceProvider::$publishes = [
             LaravelConsoleSummaryServiceProvider::class => '',
@@ -64,7 +64,7 @@ class VendorPublishCommandTest extends TestCase
             ])->assertExitCode(0);
     }
 
-    public function test_config_group_is_renamed_to_be_more_helpful()
+    public function testConfigGroupIsRenamedToBeMoreHelpful()
     {
         ServiceProvider::$publishes = [];
         ServiceProvider::$publishGroups = [
@@ -78,7 +78,7 @@ class VendorPublishCommandTest extends TestCase
             ])->assertExitCode(0);
     }
 
-    public function test_can_select_default()
+    public function testCanSelectDefault()
     {
         ServiceProvider::$publishes = [];
         ServiceProvider::$publishGroups = [];
@@ -89,7 +89,7 @@ class VendorPublishCommandTest extends TestCase
             ])->assertExitCode(0);
     }
 
-    public function test_status_method()
+    public function testStatusMethod()
     {
         $command = new StatusMethodTestClass($this->createMock(Filesystem::class));
 

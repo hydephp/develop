@@ -12,14 +12,14 @@ use Hyde\Testing\UnitTestCase;
  */
 class UnsupportedPageTypeExceptionTest extends UnitTestCase
 {
-    public function test_it_can_be_instantiated()
+    public function testItCanBeInstantiated()
     {
         $exception = new UnsupportedPageTypeException();
 
         $this->assertInstanceOf(UnsupportedPageTypeException::class, $exception);
     }
 
-    public function test_it_throws_an_exception_when_page_type_is_not_supported()
+    public function testItThrowsAnExceptionWhenPageTypeIsNotSupported()
     {
         $this->expectException(UnsupportedPageTypeException::class);
         $this->expectExceptionMessage('The page type [unsupported] is not supported.');

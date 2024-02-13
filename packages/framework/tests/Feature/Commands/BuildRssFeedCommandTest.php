@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  */
 class BuildRssFeedCommandTest extends TestCase
 {
-    public function test_rss_feed_is_generated_when_conditions_are_met()
+    public function testRssFeedIsGeneratedWhenConditionsAreMet()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.rss.enabled' => true]);
@@ -27,7 +27,7 @@ class BuildRssFeedCommandTest extends TestCase
         Filesystem::unlink('_site/feed.xml');
     }
 
-    public function test_rss_filename_can_be_changed()
+    public function testRssFilenameCanBeChanged()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.rss.enabled' => true]);

@@ -32,7 +32,7 @@ class InteractsWithDirectoriesConcernTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_methods_can_be_called_statically()
+    public function testMethodsCanBeCalledStatically()
     {
         static::needsDirectory('foo');
         $this->assertDirectoryExists(Hyde::path('foo'));
@@ -41,32 +41,32 @@ class InteractsWithDirectoriesConcernTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
-    public function test_needs_directory_creates_the_directory()
+    public function testNeedsDirectoryCreatesTheDirectory()
     {
         $this->needsDirectory('foo');
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
-    public function test_needs_directory_creates_the_directory_recursively()
+    public function testNeedsDirectoryCreatesTheDirectoryRecursively()
     {
         $this->needsDirectory('foo/bar/baz');
         $this->assertDirectoryExists(Hyde::path('foo/bar/baz'));
     }
 
-    public function test_needs_directory_handles_existing_directory()
+    public function testNeedsDirectoryHandlesExistingDirectory()
     {
         $this->needsDirectory('foo');
         $this->needsDirectory('foo');
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
-    public function test_needs_directories_creates_single_directory()
+    public function testNeedsDirectoriesCreatesSingleDirectory()
     {
         $this->needsDirectories(['foo']);
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
-    public function test_needs_directories_creates_multiple_directories()
+    public function testNeedsDirectoriesCreatesMultipleDirectories()
     {
         $this->needsDirectories(['foo', 'bar']);
         $this->assertDirectoryExists(Hyde::path('foo'));
@@ -75,7 +75,7 @@ class InteractsWithDirectoriesConcernTest extends TestCase
         File::deleteDirectory(Hyde::path('bar'));
     }
 
-    public function test_needs_parent_directory_creates_directory_for_the_parent_file()
+    public function testNeedsParentDirectoryCreatesDirectoryForTheParentFile()
     {
         $this->needsParentDirectory(Hyde::path('foo/bar/baz.txt'));
         $this->assertDirectoryExists(Hyde::path('foo/bar'));

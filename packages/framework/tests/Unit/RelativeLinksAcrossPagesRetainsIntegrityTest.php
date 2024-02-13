@@ -69,7 +69,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             "Failed asserting that the page '$page' contains the text '$text'");
     }
 
-    public function test_relative_links_across_pages_retains_integrity()
+    public function testRelativeLinksAcrossPagesRetainsIntegrity()
     {
         $service = new BuildService(Mockery::mock(OutputStyle::class, [
             'getFormatter' => Mockery::mock(OutputFormatterInterface::class, [

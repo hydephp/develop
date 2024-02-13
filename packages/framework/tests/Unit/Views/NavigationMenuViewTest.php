@@ -27,37 +27,37 @@ class NavigationMenuViewTest extends TestCase
         return view('hyde::layouts.navigation')->render();
     }
 
-    public function test_component_can_be_rendered()
+    public function testComponentCanBeRendered()
     {
         $this->assertStringContainsString('id="main-navigation"', $this->render());
     }
 
-    public function test_component_contains_dark_mode_button()
+    public function testComponentContainsDarkModeButton()
     {
         $this->assertStringContainsString('theme-toggle-button', $this->render());
     }
 
-    public function test_component_contains_navigation_menu_toggle_button()
+    public function testComponentContainsNavigationMenuToggleButton()
     {
         $this->assertStringContainsString('id="navigation-toggle-button"', $this->render());
     }
 
-    public function test_component_contains_main_navigation_links()
+    public function testComponentContainsMainNavigationLinks()
     {
         $this->assertStringContainsString('id="main-navigation-links"', $this->render());
     }
 
-    public function test_component_contains_index_html_link()
+    public function testComponentContainsIndexHtmlLink()
     {
         $this->assertStringContainsString('href="index.html"', $this->render());
     }
 
-    public function test_component_not_contains_404_html_link()
+    public function testComponentNotContains404HtmlLink()
     {
         $this->assertStringNotContainsString('href="404.html"', $this->render());
     }
 
-    public function test_navigation_menu_label_can_be_changed_in_front_matter()
+    public function testNavigationMenuLabelCanBeChangedInFrontMatter()
     {
         $this->file('_pages/foo.md', '---
 navigation:
@@ -71,7 +71,7 @@ navigation:
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function test_navigation_menu_label_can_be_changed_in_blade_matter()
+    public function testNavigationMenuLabelCanBeChangedInBladeMatter()
     {
         $this->file('_pages/foo.blade.php', <<<'BLADE'
 @extends('hyde::layouts.app')

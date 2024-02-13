@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
  */
 class RedirectTest extends TestCase
 {
-    public function test_can_create_a_redirect()
+    public function testCanCreateARedirect()
     {
         $redirect = Redirect::create('foo', 'bar');
 
@@ -48,7 +48,7 @@ class RedirectTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function test_path_parameter_is_normalized()
+    public function testPathParameterIsNormalized()
     {
         $redirect = Redirect::create('foo.html', 'bar');
 
@@ -57,7 +57,7 @@ class RedirectTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function test_text_can_be_disabled()
+    public function testTextCanBeDisabled()
     {
         $redirect = Redirect::create('foo', 'bar');
         $this->assertStringContainsString('Redirecting to <a href=', $redirect->compile());
@@ -66,7 +66,7 @@ class RedirectTest extends TestCase
         $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->compile());
     }
 
-    public function test_redirect_pages_can_be_compilable_by_static_site_though_manual_discovery()
+    public function testRedirectPagesCanBeCompilableByStaticSiteThoughManualDiscovery()
     {
         $redirect = new Redirect('foo', 'bar');
 

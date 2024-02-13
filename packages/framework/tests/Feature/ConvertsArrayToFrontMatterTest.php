@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  */
 class ConvertsArrayToFrontMatterTest extends TestCase
 {
-    public function test_action_converts_an_array_to_front_matter()
+    public function testActionConvertsAnArrayToFrontMatter()
     {
         $array = [
             'key' => 'value',
@@ -39,7 +39,7 @@ YAML;
         $this->assertEquals(str_replace("\r", '', $expected), (new ConvertsArrayToFrontMatter)->execute($array));
     }
 
-    public function test_action_returns_empty_string_if_array_is_empty()
+    public function testActionReturnsEmptyStringIfArrayIsEmpty()
     {
         $this->assertEquals('', (new ConvertsArrayToFrontMatter)->execute([]));
     }

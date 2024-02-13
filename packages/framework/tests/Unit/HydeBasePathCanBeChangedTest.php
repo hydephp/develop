@@ -34,7 +34,7 @@ class HydeBasePathCanBeChangedTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_hyde_base_path_can_be_changed()
+    public function testHydeBasePathCanBeChanged()
     {
         Hyde::setBasePath('/foo/bar');
         $this->assertEquals('/foo/bar', Hyde::getBasePath());

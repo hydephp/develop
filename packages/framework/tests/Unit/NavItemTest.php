@@ -38,7 +38,7 @@ class NavItemTest extends UnitTestCase
         Render::swap(new RenderData());
     }
 
-    public function test__construct()
+    public function testConstruct()
     {
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500);
@@ -86,7 +86,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame($route, $item->destination);
     }
 
-    public function test__toString()
+    public function testToString()
     {
         Render::shouldReceive('getRouteKey')->once()->andReturn('index');
 

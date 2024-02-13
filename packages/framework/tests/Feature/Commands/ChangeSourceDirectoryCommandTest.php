@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  */
 class ChangeSourceDirectoryCommandTest extends TestCase
 {
-    public function test_command_moves_source_directories_to_new_supplied_directory_and_updates_the_configuration_file()
+    public function testCommandMovesSourceDirectoriesToNewSuppliedDirectoryAndUpdatesTheConfigurationFile()
     {
         $this->file('_pages/tracker.txt', 'This should be moved to the new location');
 
@@ -51,7 +51,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         Filesystem::putContents('config/hyde.php', $config);
     }
 
-    public function test_with_missing_config_search_string()
+    public function testWithMissingConfigSearchString()
     {
         $this->file('_pages/tracker.txt', 'This should be moved to the new location');
 
@@ -90,14 +90,14 @@ class ChangeSourceDirectoryCommandTest extends TestCase
         Filesystem::putContents('config/hyde.php', $config);
     }
 
-    public function test_with_name_matching_current_value()
+    public function testWithNameMatchingCurrentValue()
     {
         $this->artisan('change:sourceDirectory /')
             ->expectsOutput("The directory '/' is already set as the project source root!")
             ->assertExitCode(409);
     }
 
-    public function test_with_existing_directory()
+    public function testWithExistingDirectory()
     {
         $this->directory('test');
         $this->directory('test/_pages');
@@ -108,7 +108,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
             ->assertExitCode(409);
     }
 
-    public function test_with_target_containing_subdirectory_file()
+    public function testWithTargetContainingSubdirectoryFile()
     {
         $this->directory('test');
         $this->file('test/_pages');
@@ -118,7 +118,7 @@ class ChangeSourceDirectoryCommandTest extends TestCase
             ->assertExitCode(409);
     }
 
-    public function test_with_target_being_file()
+    public function testWithTargetBeingFile()
     {
         $this->file('test');
 

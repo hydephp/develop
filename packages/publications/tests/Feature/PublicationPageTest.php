@@ -17,7 +17,7 @@ use function file_put_contents;
  */
 class PublicationPageTest extends TestCase
 {
-    public function test_source_path_mappings()
+    public function testSourcePathMappings()
     {
         $this->createPublicationFiles();
 
@@ -29,7 +29,7 @@ class PublicationPageTest extends TestCase
         $this->assertSame('test-publication/foo.html', $page->getOutputPath());
     }
 
-    public function test_publication_pages_are_routable()
+    public function testPublicationPagesAreRoutable()
     {
         $this->createPublicationFiles();
 
@@ -41,7 +41,7 @@ class PublicationPageTest extends TestCase
         $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
     }
 
-    public function test_publication_pages_are_discoverable()
+    public function testPublicationPagesAreDiscoverable()
     {
         $this->createPublicationFiles();
 
@@ -49,7 +49,7 @@ class PublicationPageTest extends TestCase
         $this->assertInstanceOf(PublicationPage::class, $collection->get('test-publication/foo.md'));
     }
 
-    public function test_publication_pages_are_properly_parsed()
+    public function testPublicationPagesAreProperlyParsed()
     {
         $this->createPublicationFiles();
 
@@ -63,7 +63,7 @@ class PublicationPageTest extends TestCase
         $this->assertEquals('Hello World!', $page->markdown()->body());
     }
 
-    public function test_publication_pages_are_parsable()
+    public function testPublicationPagesAreParsable()
     {
         $this->directory('test-publication');
 
@@ -90,7 +90,7 @@ class PublicationPageTest extends TestCase
         $this->assertTrue($page->matter->has('__createdAt'));
     }
 
-    public function test_publication_pages_are_compilable()
+    public function testPublicationPagesAreCompilable()
     {
         $this->createRealPublicationFiles();
 
@@ -100,7 +100,7 @@ class PublicationPageTest extends TestCase
         $this->assertStringContainsString('Hello World!', $page->compile());
     }
 
-    public function test_identifier_passed_constructor_is_normalized()
+    public function testIdentifierPassedConstructorIsNormalized()
     {
         $this->createPublicationFiles();
         $type = PublicationType::fromFile('test-publication/schema.json');
@@ -114,7 +114,7 @@ class PublicationPageTest extends TestCase
         $this->assertEquals($page1, $page2);
     }
 
-    public function test_identifier_normalizer_does_not_affect_directory_with_same_name_as_identifier()
+    public function testIdentifierNormalizerDoesNotAffectDirectoryWithSameNameAsIdentifier()
     {
         $this->createPublicationFiles();
         $type = PublicationType::fromFile('test-publication/schema.json');

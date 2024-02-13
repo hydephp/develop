@@ -25,7 +25,7 @@ class ServeCommandTest extends TestCase
         Process::fake();
     }
 
-    public function test_hyde_serve_command()
+    public function testHydeServeCommand()
     {
         $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
@@ -34,7 +34,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S localhost:8080 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_port_option()
+    public function testHydeServeCommandWithPortOption()
     {
         $this->artisan('serve --no-ansi --port=8081')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
@@ -43,7 +43,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_host_option()
+    public function testHydeServeCommandWithHostOption()
     {
         $this->artisan('serve --no-ansi --host=foo')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
@@ -52,7 +52,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S foo:8080 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_port_and_host_option()
+    public function testHydeServeCommandWithPortAndHostOption()
     {
         $this->artisan('serve --no-ansi --port=8081 --host=foo')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
@@ -61,7 +61,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S foo:8081 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_port_defined_in_config()
+    public function testHydeServeCommandWithPortDefinedInConfig()
     {
         config(['hyde.server.port' => 8081]);
 
@@ -72,7 +72,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_port_defined_in_config_and_port_option()
+    public function testHydeServeCommandWithPortDefinedInConfigAndPortOption()
     {
         config(['hyde.server.port' => 8081]);
 
@@ -83,7 +83,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S localhost:8082 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_port_missing_in_config_and_port_option()
+    public function testHydeServeCommandWithPortMissingInConfigAndPortOption()
     {
         config(['hyde.server.port' => null]);
 
@@ -94,7 +94,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S localhost:8081 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_host_defined_in_config()
+    public function testHydeServeCommandWithHostDefinedInConfig()
     {
         config(['hyde.server.host' => 'foo']);
 
@@ -105,7 +105,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S foo:8080 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_host_defined_in_config_and_host_option()
+    public function testHydeServeCommandWithHostDefinedInConfigAndHostOption()
     {
         config(['hyde.server.host' => 'foo']);
 
@@ -116,7 +116,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S bar:8080 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_host_missing_in_config_and_host_option()
+    public function testHydeServeCommandWithHostMissingInConfigAndHostOption()
     {
         config(['hyde.server.host' => null]);
 
@@ -127,7 +127,7 @@ class ServeCommandTest extends TestCase
         Process::assertRan("php -S foo:8080 {$this->binaryPath()}");
     }
 
-    public function test_hyde_serve_command_with_invalid_config_value()
+    public function testHydeServeCommandWithInvalidConfigValue()
     {
         $this->expectException(TypeError::class);
         config(['hyde.server.port' => 'foo']);
@@ -137,7 +137,7 @@ class ServeCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_hyde_serve_command_passes_through_process_output()
+    public function testHydeServeCommandPassesThroughProcessOutput()
     {
         Process::shouldReceive('forever')
             ->once()

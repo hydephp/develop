@@ -24,7 +24,7 @@ class HyperlinksTest extends TestCase
         $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
-    public function test_asset_helper_gets_relative_web_link_to_image_stored_in_site_media_folder()
+    public function testAssetHelperGetsRelativeWebLinkToImageStoredInSiteMediaFolder()
     {
         $tests = [
             'test.jpg' => 'media/test.jpg',
@@ -38,7 +38,7 @@ class HyperlinksTest extends TestCase
         }
     }
 
-    public function test_asset_helper_resolves_paths_for_nested_pages()
+    public function testAssetHelperResolvesPathsForNestedPages()
     {
         $tests = [
             'test.jpg' => '../media/test.jpg',
@@ -53,52 +53,52 @@ class HyperlinksTest extends TestCase
         }
     }
 
-    public function test_asset_helper_returns_qualified_absolute_uri_when_requested_and_site_has_base_url()
+    public function testAssetHelperReturnsQualifiedAbsoluteUriWhenRequestedAndSiteHasBaseUrl()
     {
         $this->assertEquals('http://localhost/media/test.jpg', $this->class->asset('test.jpg', true));
     }
 
-    public function test_asset_helper_returns_default_relative_path_when_qualified_absolute_uri_is_requested_but_site_has_no_base_url()
+    public function testAssetHelperReturnsDefaultRelativePathWhenQualifiedAbsoluteUriIsRequestedButSiteHasNoBaseUrl()
     {
         config(['hyde.url' => null]);
         $this->assertEquals('media/test.jpg', $this->class->asset('test.jpg', true));
     }
 
-    public function test_asset_helper_returns_input_when_qualified_absolute_uri_is_requested_but_image_is_already_qualified()
+    public function testAssetHelperReturnsInputWhenQualifiedAbsoluteUriIsRequestedButImageIsAlreadyQualified()
     {
         $this->assertEquals('http://localhost/media/test.jpg', $this->class->asset('http://localhost/media/test.jpg', true));
     }
 
-    public function test_asset_helper_uses_configured_media_directory()
+    public function testAssetHelperUsesConfiguredMediaDirectory()
     {
         Hyde::setMediaDirectory('_assets');
         $this->assertEquals('assets/test.jpg', $this->class->asset('test.jpg'));
     }
 
-    public function test_media_link_helper()
+    public function testMediaLinkHelper()
     {
         $this->assertSame('media/foo', $this->class->mediaLink('foo'));
     }
 
-    public function test_media_link_helper_with_relative_path()
+    public function testMediaLinkHelperWithRelativePath()
     {
         $this->mockCurrentPage('foo/bar');
         $this->assertSame('../media/foo', $this->class->mediaLink('foo'));
     }
 
-    public function test_media_link_helper_uses_configured_media_directory()
+    public function testMediaLinkHelperUsesConfiguredMediaDirectory()
     {
         Hyde::setMediaDirectory('_assets');
         $this->assertSame('assets/foo', $this->class->mediaLink('foo'));
     }
 
-    public function test_media_link_helper_with_validation_and_existing_file()
+    public function testMediaLinkHelperWithValidationAndExistingFile()
     {
         $this->file('_media/foo');
         $this->assertSame('media/foo', $this->class->mediaLink('foo', true));
     }
 
-    public function test_media_link_helper_with_validation_and_non_existing_file()
+    public function testMediaLinkHelperWithValidationAndNonExistingFile()
     {
         $this->expectException(FileNotFoundException::class);
         $this->class->mediaLink('foo', true);

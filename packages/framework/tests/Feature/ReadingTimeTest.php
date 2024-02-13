@@ -20,17 +20,17 @@ class ReadingTimeTest extends UnitTestCase
         self::setupKernel();
     }
 
-    public function test___construct()
+    public function testConstruct()
     {
         $this->assertInstanceOf(ReadingTime::class, new ReadingTime('Hello world'));
     }
 
-    public function test__toString()
+    public function testToString()
     {
         $this->assertSame('1min, 0sec', (string) new ReadingTime('Hello world'));
     }
 
-    public function test_getWordCount()
+    public function testGetWordCount()
     {
         $this->assertSame(0, (new ReadingTime($this->words(0)))->getWordCount());
         $this->assertSame(120, (new ReadingTime($this->words(120)))->getWordCount());
@@ -38,7 +38,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame(360, (new ReadingTime($this->words(360)))->getWordCount());
     }
 
-    public function test_getMinutes()
+    public function testGetMinutes()
     {
         $this->assertSame(0, (new ReadingTime($this->words(0)))->getMinutes());
         $this->assertSame(0, (new ReadingTime($this->words(120)))->getMinutes());
@@ -46,7 +46,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame(1, (new ReadingTime($this->words(360)))->getMinutes());
     }
 
-    public function test_getSeconds()
+    public function testGetSeconds()
     {
         $this->assertSame(0, (new ReadingTime($this->words(0)))->getSeconds());
         $this->assertSame(30, (new ReadingTime($this->words(120)))->getSeconds());
@@ -54,7 +54,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame(90, (new ReadingTime($this->words(360)))->getSeconds());
     }
 
-    public function test_getSecondsOver()
+    public function testGetSecondsOver()
     {
         $this->assertSame(0, (new ReadingTime($this->words(0)))->getSecondsOver());
         $this->assertSame(30, (new ReadingTime($this->words(120)))->getSecondsOver());
@@ -62,7 +62,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame(30, (new ReadingTime($this->words(360)))->getSecondsOver());
     }
 
-    public function test_getFormatted()
+    public function testGetFormatted()
     {
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(0)))->getFormatted());
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(120)))->getFormatted());
@@ -70,7 +70,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame('1min, 30sec', (new ReadingTime($this->words(360)))->getFormatted());
     }
 
-    public function test_getFormattedWithCustomFormatting()
+    public function testGetFormattedWithCustomFormatting()
     {
         $this->assertSame('1:00', (new ReadingTime($this->words(0)))->getFormatted('%d:%02d'));
         $this->assertSame('1:00', (new ReadingTime($this->words(120)))->getFormatted('%d:%02d'));
@@ -78,7 +78,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame('1:30', (new ReadingTime($this->words(360)))->getFormatted('%d:%02d'));
     }
 
-    public function test_getFormattedFormatsUpToOneMinuteWhenRoundUpIsSet()
+    public function testGetFormattedFormatsUpToOneMinuteWhenRoundUpIsSet()
     {
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(0)))->getFormatted());
         $this->assertSame('1min, 0sec', (new ReadingTime($this->words(120)))->getFormatted());
@@ -86,7 +86,7 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame('1min, 30sec', (new ReadingTime($this->words(360)))->getFormatted());
     }
 
-    public function test_formatUsingClosure()
+    public function testFormatUsingClosure()
     {
         /**
          * @param  int  $minutes
@@ -103,13 +103,13 @@ class ReadingTimeTest extends UnitTestCase
         $this->assertSame('1 minutes, 30 seconds', (new ReadingTime($this->words(360)))->formatUsingClosure($closure));
     }
 
-    public function test_fromString()
+    public function testFromString()
     {
         $this->assertInstanceOf(ReadingTime::class, ReadingTime::fromString('Hello world'));
         $this->assertEquals(new ReadingTime('Hello world'), ReadingTime::fromString('Hello world'));
     }
 
-    public function test_fromFile()
+    public function testFromFile()
     {
         app()->instance(Filesystem::class, Mockery::mock(Filesystem::class)->shouldReceive('get')->with(Hyde::path('foo.md'), false)->andReturn('Hello world')->getMock());
 

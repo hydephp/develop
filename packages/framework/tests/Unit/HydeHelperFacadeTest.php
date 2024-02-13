@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  */
 class HydeHelperFacadeTest extends TestCase
 {
-    public function test_features_facade_returns_instance_of_features_class()
+    public function testFeaturesFacadeReturnsInstanceOfFeaturesClass()
     {
         $this->assertInstanceOf(
             Features::class,
@@ -21,14 +21,14 @@ class HydeHelperFacadeTest extends TestCase
         );
     }
 
-    public function test_features_facade_can_be_used_to_call_static_methods_on_features_class()
+    public function testFeaturesFacadeCanBeUsedToCallStaticMethodsOnFeaturesClass()
     {
         $this->assertTrue(
             Hyde::features()->hasMarkdownPosts()
         );
     }
 
-    public function test_hyde_has_feature_shorthand_calls_static_method_on_features_class()
+    public function testHydeHasFeatureShorthandCallsStaticMethodOnFeaturesClass()
     {
         $this->assertTrue(
             Hyde::hasFeature('markdown-posts')

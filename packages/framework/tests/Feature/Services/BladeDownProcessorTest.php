@@ -14,12 +14,12 @@ use Hyde\Testing\TestCase;
  */
 class BladeDownProcessorTest extends TestCase
 {
-    public function test_it_renders_blade_echo_syntax()
+    public function testItRendersBladeEchoSyntax()
     {
         $this->assertEquals('Hello World!', BladeDownProcessor::render('[Blade]: {{ "Hello World!" }}'));
     }
 
-    public function test_it_renders_blade_within_multiline_markdown()
+    public function testItRendersBladeWithinMultilineMarkdown()
     {
         $this->assertEquals(
             "Foo\nHello World!\nBar",
@@ -28,7 +28,7 @@ class BladeDownProcessorTest extends TestCase
         );
     }
 
-    public function test_it_renders_blade_views()
+    public function testItRendersBladeViews()
     {
         if (! file_exists(resource_path('views'))) {
             mkdir(resource_path('views'));
@@ -43,23 +43,23 @@ class BladeDownProcessorTest extends TestCase
         unlink(resource_path('views/hello.blade.php'));
     }
 
-    public function test_directive_is_case_insensitive()
+    public function testDirectiveIsCaseInsensitive()
     {
         $this->assertEquals('Hello World!', BladeDownProcessor::render('[blade]: {{ "Hello World!" }}'));
     }
 
-    public function test_directive_is_ignored_if_it_is_not_at_the_start_of_a_line()
+    public function testDirectiveIsIgnoredIfItIsNotAtTheStartOfALine()
     {
         $this->assertEquals('Example: [Blade]: {{ "Hello World!" }}',
             BladeDownProcessor::render('Example: [Blade]: {{ "Hello World!" }}'));
     }
 
-    public function test_it_renders_blade_echo_syntax_with_variables()
+    public function testItRendersBladeEchoSyntaxWithVariables()
     {
         $this->assertEquals('Hello World!', BladeDownProcessor::render('[Blade]: {{ $foo }}', ['foo' => 'Hello World!']));
     }
 
-    public function test_it_renders_blade_views_with_variables()
+    public function testItRendersBladeViewsWithVariables()
     {
         file_put_contents(resource_path(
             'views/hello.blade.php'
@@ -70,12 +70,12 @@ class BladeDownProcessorTest extends TestCase
         unlink(resource_path('views/hello.blade.php'));
     }
 
-    public function test_preprocess_method_expands_shortcode()
+    public function testPreprocessMethodExpandsShortcode()
     {
         $this->assertEquals('<!-- HYDE[Blade]: {{ $foo }} -->', BladeDownProcessor::preprocess('[Blade]: {{ $foo }}'));
     }
 
-    public function test_process_method_renders_shortcode()
+    public function testProcessMethodRendersShortcode()
     {
         $this->assertEquals('Hello World!', BladeDownProcessor::postprocess('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
     }

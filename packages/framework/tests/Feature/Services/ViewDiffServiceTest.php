@@ -16,7 +16,7 @@ use function Hyde\unixsum_file;
  */
 class ViewDiffServiceTest extends TestCase
 {
-    public function test_get_filecache()
+    public function testGetFilecache()
     {
         $fileCacheService = new ViewDiffService();
         $fileCache = $fileCacheService->getViewFileHashIndex();
@@ -27,7 +27,7 @@ class ViewDiffServiceTest extends TestCase
         $this->assertEquals(32, strlen($fileCache['resources/views/layouts/app.blade.php']['unixsum']));
     }
 
-    public function test_get_checksums()
+    public function testGetChecksums()
     {
         $fileCacheService = new ViewDiffService();
         $checksums = $fileCacheService->getChecksums();
@@ -36,7 +36,7 @@ class ViewDiffServiceTest extends TestCase
         $this->assertEquals(32, strlen($checksums[0]));
     }
 
-    public function test_checksum_matches_any()
+    public function testChecksumMatchesAny()
     {
         $fileCacheService = new ViewDiffService();
 
@@ -45,7 +45,7 @@ class ViewDiffServiceTest extends TestCase
         ));
     }
 
-    public function test_checksum_matches_any_false()
+    public function testChecksumMatchesAnyFalse()
     {
         $fileCacheService = new ViewDiffService();
 

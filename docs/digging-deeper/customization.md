@@ -200,6 +200,49 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 'footer' => 'false',
 ```
 
+### Head and script HTML hooks
+
+>info Note: The configuration options `head` and `scripts` were added in HydePHP v1.5. If you are running an older version, you need to use the Blade options, or upgrade your project.
+
+While the most robust way to add custom HTML to the head or body of your site is to publish the Blade layouts, or pushing to the `meta` or `scripts` stacks,
+you can also add custom HTML directly in the configuration file. This works especially well to quickly add things like analytics widgets or similar in the `hyde.yml` file, though the possibilities are endless.
+
+To add custom HTML to your layouts, you can use the `head` and `scripts` configuration options in the `config/hyde.php` file (or the `hyde.yml` file).
+The HTML will be added to the `<head>` section, or just before the closing `</body>` tag, respectively.
+Note that the HTML is added to all pages. If you need to add HTML to a specific page, you will need to override the layout for that page.
+
+```php
+// filepath: config/hyde.php
+'head' => '<!-- Custom HTML in the head -->',
+'scripts' => '<!-- Custom HTML in the body -->',
+```
+
+```yaml
+# filepath: hyde.yml
+hyde:
+  head: "<!-- Custom HTML in the head -->"
+  scripts: "<!-- Custom HTML in the body -->"
+```
+
+You can of course also add multiple lines of HTML:
+
+```php
+// filepath: config/hyde.php
+'head' => <<<HTML
+    <!-- Custom HTML in the head -->
+    <link rel="stylesheet" href="https://example.com/styles.css">
+HTML,
+```
+
+```yaml
+# filepath: hyde.yml
+
+hyde:
+  head: |
+    <!-- Custom HTML in the head -->
+    <link rel="stylesheet" href="https://example.com/styles.css">
+```
+
 ### Navigation Menu & Sidebar
 
 A great time-saving feature of HydePHP is the automatic navigation menu and documentation sidebar generation.
@@ -365,7 +408,7 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 ## Additional Advanced Options
 
-The following configuration options in the `confg/hyde.php` file are intended for advanced users and
+The following configuration options in the `config/hyde.php` file are intended for advanced users and
 should only be modified if you fully understand their impact. The code examples show the default values.
 
 ### `media_extensions`
@@ -413,7 +456,7 @@ Specifies the path where the build manifest should be saved, relative to the pro
 
 These options allow you to specify the HydeFront version and CDN URL when loading `app.css` from the CDN.
 
-Only change these if you know what you're doing as some versions may incompatible with your Hyde version.
+Only change these if you know what you're doing as some versions may be incompatible with your Hyde version.
 
 ```php
 // filepath config/hyde.php

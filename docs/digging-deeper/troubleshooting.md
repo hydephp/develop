@@ -23,7 +23,7 @@ did you find a new one? Send a PR to [update the docs](https://github.com/hydeph
    For example, Hyde makes attempts to guess the title for a page depending on the content. (Headings, filenames, etc).
 
 
-## Conventions to follow
+## Conventions to Follow
 
 ### File naming
 
@@ -68,7 +68,7 @@ We will use the following definitions to describe the behaviour of Hyde.
 You can read more about some of these in the [Core Concepts](core-concepts#paths-identifiers-and-route-keys) article.
 
 
-## Common issues, causes, and solutions
+## Common Issues, Causes, and Solutions
 
 | Issue                                              | Possible Cause / Issue Context                                                                                                                            | Possible Solution                                                                                                                                                                                 |
 |----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -90,7 +90,7 @@ You can read more about some of these in the [Core Concepts](core-concepts#paths
 | RSS feed not being generated                       | The RSS feed requires that you have set a site URL in the Hyde config or the `.env` file. Also check that you have blog posts, and that they are enabled. | Check your configuration files.                                                                                                                                                                   |                                                                                                                                                         |
 | Sitemap not being generated                        | The sitemap requires that you have set a site URL in the Hyde config or the `.env` file.                                                                  | Check your configuration files.                                                                                                                                                                   |                                                                                                                                                         |
 | Unable to do literally anything                    | If everything is broken, you may be missing a Composer package or your configuration files could be messed up.                                            | Run `composer install` and/or `composer update`. If you can run HydeCLI commands, update your configs with `php hyde publish:configs`, or copy them manually from GitHub or the vendor directory. |
-| Namespaced Yaml config (``hyde.yml) not working    | When using namedspaced Yaml configuration, you must begin the file with `hyde:`, even if you just want to use another file for example `docs:`.           | Make sure the file starts with `hyde:` (You don't need to specify any options, as long as it's present). See [`#1475`](https://github.com/hydephp/develop/issues/1475)                            |
+| Namespaced Yaml config (`hyde.yml`) not working    | When using namespaced Yaml configuration, you must begin the file with `hyde:`, even if you just want to use another file for example `docs:`.            | Make sure the file starts with `hyde:` (You don't need to specify any options, as long as it's present). See [`#1475`](https://github.com/hydephp/develop/issues/1475)                            |
 
 ### Extra troubleshooting information
 

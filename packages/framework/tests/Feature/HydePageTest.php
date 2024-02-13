@@ -260,91 +260,91 @@ class HydePageTest extends TestCase
 
     // Section: In-depth tests
 
-    public function test_get_source_directory_returns_static_property()
+    public function testGetSourceDirectoryReturnsStaticProperty()
     {
         MarkdownPage::setSourceDirectory('foo');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_set_source_directory_trims_trailing_slashes()
+    public function testSetSourceDirectoryTrimsTrailingSlashes()
     {
         MarkdownPage::setSourceDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_output_directory_returns_static_property()
+    public function testGetOutputDirectoryReturnsStaticProperty()
     {
         MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_set_output_directory_trims_trailing_slashes()
+    public function testSetOutputDirectoryTrimsTrailingSlashes()
     {
         MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_file_extension_returns_static_property()
+    public function testGetFileExtensionReturnsStaticProperty()
     {
         MarkdownPage::setFileExtension('.foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_set_file_extension_forces_leading_period()
+    public function testSetFileExtensionForcesLeadingPeriod()
     {
         MarkdownPage::setFileExtension('foo');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_set_file_extension_removes_trailing_period()
+    public function testSetFileExtensionRemovesTrailingPeriod()
     {
         MarkdownPage::setFileExtension('foo.');
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_identifier_returns_identifier_property()
+    public function testGetIdentifierReturnsIdentifierProperty()
     {
         $page = new MarkdownPage('foo');
         $this->assertEquals('foo', $page->getIdentifier());
     }
 
-    public function test_set_source_directory()
+    public function testSetSourceDirectory()
     {
         ConfigurableSourcesTestPage::setSourceDirectory('foo');
         $this->assertEquals('foo', ConfigurableSourcesTestPage::sourceDirectory());
     }
 
-    public function test_set_output_directory()
+    public function testSetOutputDirectory()
     {
         ConfigurableSourcesTestPage::setOutputDirectory('foo');
         $this->assertEquals('foo', ConfigurableSourcesTestPage::outputDirectory());
     }
 
-    public function test_set_file_extension()
+    public function testSetFileExtension()
     {
         ConfigurableSourcesTestPage::setFileExtension('.foo');
         $this->assertEquals('.foo', ConfigurableSourcesTestPage::fileExtension());
     }
 
-    public function test_static_get_method_returns_discovered_page()
+    public function testStaticGetMethodReturnsDiscoveredPage()
     {
         $this->assertEquals(BladePage::parse('index'), BladePage::get('index'));
     }
 
-    public function test_static_get_method_throws_exception_if_page_not_found()
+    public function testStaticGetMethodThrowsExceptionIfPageNotFound()
     {
         $this->expectException(FileNotFoundException::class);
         BladePage::get('foo');
     }
 
-    public function test_parse_parses_supplied_slug_into_a_page_model()
+    public function testParseParsesSuppliedSlugIntoAPageModel()
     {
         Filesystem::touch('_pages/foo.md');
 
@@ -354,14 +354,14 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_files_returns_array_of_source_files()
+    public function testFilesReturnsArrayOfSourceFiles()
     {
         Filesystem::touch('_pages/foo.md');
         $this->assertEquals(['foo'], MarkdownPage::files());
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_all_returns_collection_of_all_parsed_source_files_from_page_index()
+    public function testAllReturnsCollectionOfAllParsedSourceFilesFromPageIndex()
     {
         Filesystem::touch('_pages/foo.md');
         $this->assertEquals(
@@ -375,17 +375,17 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_qualify_basename_properly_expands_basename_for_the_model()
+    public function testQualifyBasenameProperlyExpandsBasenameForTheModel()
     {
         $this->assertEquals('_pages/foo.md', MarkdownPage::sourcePath('foo'));
     }
 
-    public function test_qualify_basename_trims_slashes_from_input()
+    public function testQualifyBasenameTrimsSlashesFromInput()
     {
         $this->assertEquals('_pages/foo.md', MarkdownPage::sourcePath('/foo/\\'));
     }
 
-    public function test_qualify_basename_uses_the_static_properties()
+    public function testQualifyBasenameUsesTheStaticProperties()
     {
         MarkdownPage::setSourceDirectory('foo');
         MarkdownPage::setFileExtension('txt');
@@ -393,58 +393,58 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_path_returns_absolute_path_to_source_directory_when_no_parameter_is_supplied()
+    public function testPathReturnsAbsolutePathToSourceDirectoryWhenNoParameterIsSupplied()
     {
         $this->assertSame(
             Hyde::path('source'), TestPage::path()
         );
     }
 
-    public function test_path_returns_absolute_path_to_file_in_source_directory_when_parameter_is_supplied()
+    public function testPathReturnsAbsolutePathToFileInSourceDirectoryWhenParameterIsSupplied()
     {
         $this->assertSame(
             Hyde::path('source/foo.md'), TestPage::path('foo.md')
         );
     }
 
-    public function test_path_method_removes_trailing_slashes()
+    public function testPathMethodRemovesTrailingSlashes()
     {
         $this->assertSame(
             Hyde::path('source/foo.md'), TestPage::path('/foo.md/')
         );
     }
 
-    public function test_get_output_location_returns_the_file_output_path_for_the_supplied_basename()
+    public function testGetOutputLocationReturnsTheFileOutputPathForTheSuppliedBasename()
     {
         $this->assertEquals('foo.html', MarkdownPage::outputPath('foo'));
     }
 
-    public function test_get_output_location_returns_the_configured_location()
+    public function testGetOutputLocationReturnsTheConfiguredLocation()
     {
         MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_output_location_trims_trailing_slashes_from_directory_setting()
+    public function testGetOutputLocationTrimsTrailingSlashesFromDirectorySetting()
     {
         MarkdownPage::setOutputDirectory('/foo/\\');
         $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_output_location_trims_trailing_slashes_from_basename()
+    public function testGetOutputLocationTrimsTrailingSlashesFromBasename()
     {
         $this->assertEquals('foo.html', MarkdownPage::outputPath('/foo/\\'));
     }
 
-    public function test_get_current_page_path_returns_output_directory_and_basename()
+    public function testGetCurrentPagePathReturnsOutputDirectoryAndBasename()
     {
         $page = new MarkdownPage('foo');
         $this->assertEquals('foo', $page->getRouteKey());
     }
 
-    public function test_get_current_page_path_returns_output_directory_and_basename_for_configured_directory()
+    public function testGetCurrentPagePathReturnsOutputDirectoryAndBasenameForConfiguredDirectory()
     {
         MarkdownPage::setOutputDirectory('foo');
         $page = new MarkdownPage('bar');
@@ -452,7 +452,7 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_current_page_path_trims_trailing_slashes_from_directory_setting()
+    public function testGetCurrentPagePathTrimsTrailingSlashesFromDirectorySetting()
     {
         MarkdownPage::setOutputDirectory('/foo/\\');
         $page = new MarkdownPage('bar');
@@ -460,13 +460,13 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function test_get_output_path_returns_current_page_path_with_html_extension_appended()
+    public function testGetOutputPathReturnsCurrentPagePathWithHtmlExtensionAppended()
     {
         $page = new MarkdownPage('foo');
         $this->assertEquals('foo.html', $page->getOutputPath());
     }
 
-    public function test_get_source_path_returns_qualified_basename()
+    public function testGetSourcePathReturnsQualifiedBasename()
     {
         $this->assertEquals(
             MarkdownPage::sourcePath('foo'),
@@ -474,12 +474,12 @@ class HydePageTest extends TestCase
         );
     }
 
-    public function test_markdown_page_implements_page_contract()
+    public function testMarkdownPageImplementsPageContract()
     {
         $this->assertInstanceOf(HydePage::class, new MarkdownPage());
     }
 
-    public function test_all_page_models_extend_abstract_page()
+    public function testAllPageModelsExtendAbstractPage()
     {
         $pages = [
             HtmlPage::class,
@@ -496,7 +496,7 @@ class HydePageTest extends TestCase
         $this->assertInstanceOf(HydePage::class, new BladePage('foo'));
     }
 
-    public function test_all_page_models_have_configured_source_directory()
+    public function testAllPageModelsHaveConfiguredSourceDirectory()
     {
         $pages = [
             HtmlPage::class => '_pages',
@@ -511,7 +511,7 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function test_all_page_models_have_configured_output_directory()
+    public function testAllPageModelsHaveConfiguredOutputDirectory()
     {
         $pages = [
             BladePage::class => '',
@@ -525,7 +525,7 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function test_all_page_models_have_configured_file_extension()
+    public function testAllPageModelsHaveConfiguredFileExtension()
     {
         $pages = [
             BladePage::class => '.blade.php',
@@ -539,70 +539,70 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function test_abstract_markdown_page_extends_abstract_page()
+    public function testAbstractMarkdownPageExtendsAbstractPage()
     {
         $this->assertInstanceOf(HydePage::class, $this->mock(BaseMarkdownPage::class));
     }
 
-    public function test_abstract_markdown_page_implements_page_contract()
+    public function testAbstractMarkdownPageImplementsPageContract()
     {
         $this->assertInstanceOf(HydePage::class, $this->mock(BaseMarkdownPage::class));
     }
 
-    public function test_abstract_markdown_page_has_markdown_document_property()
+    public function testAbstractMarkdownPageHasMarkdownDocumentProperty()
     {
         $this->assertTrue(property_exists(BaseMarkdownPage::class, 'markdown'));
     }
 
-    public function test_abstract_markdown_page_has_file_extension_property()
+    public function testAbstractMarkdownPageHasFileExtensionProperty()
     {
         $this->assertTrue(property_exists(BaseMarkdownPage::class, 'fileExtension'));
     }
 
-    public function test_abstract_markdown_page_file_extension_property_is_set_to_md()
+    public function testAbstractMarkdownPageFileExtensionPropertyIsSetToMd()
     {
         $this->assertEquals('.md', BaseMarkdownPage::fileExtension());
     }
 
-    public function test_abstract_markdown_page_constructor_arguments_are_optional()
+    public function testAbstractMarkdownPageConstructorArgumentsAreOptional()
     {
         $page = $this->mock(BaseMarkdownPage::class);
         $this->assertInstanceOf(BaseMarkdownPage::class, $page);
     }
 
-    public function test_abstract_markdown_page_constructor_assigns_markdown_document_property_if_set()
+    public function testAbstractMarkdownPageConstructorAssignsMarkdownDocumentPropertyIfSet()
     {
         $markdown = new Markdown();
         $page = new MarkdownPage(markdown: $markdown);
         $this->assertSame($markdown, $page->markdown);
     }
 
-    public function test_abstract_markdown_page_constructor_creates_new_markdown_document_if_no_markdown_document_is_set()
+    public function testAbstractMarkdownPageConstructorCreatesNewMarkdownDocumentIfNoMarkdownDocumentIsSet()
     {
         $page = new MarkdownPage();
         $this->assertInstanceOf(Markdown::class, $page->markdown);
     }
 
-    public function test_abstract_markdown_page_markdown_helper_returns_the_markdown_document_instance()
+    public function testAbstractMarkdownPageMarkdownHelperReturnsTheMarkdownDocumentInstance()
     {
         $page = new MarkdownPage();
         $this->assertSame($page->markdown, $page->markdown());
     }
 
-    public function test_abstract_markdown_page_markdown_helper_returns_the_configured_markdown_document_instance()
+    public function testAbstractMarkdownPageMarkdownHelperReturnsTheConfiguredMarkdownDocumentInstance()
     {
         $markdown = new Markdown();
         $page = new MarkdownPage(markdown: $markdown);
         $this->assertSame($markdown, $page->markdown());
     }
 
-    public function test_abstract_markdown_page_make_helper_constructs_dynamic_title_automatically()
+    public function testAbstractMarkdownPageMakeHelperConstructsDynamicTitleAutomatically()
     {
         $page = MarkdownPage::make('', ['title' => 'Foo']);
         $this->assertEquals('Foo', $page->title);
     }
 
-    public function test_markdown_based_pages_extend_abstract_markdown_page()
+    public function testMarkdownBasedPagesExtendAbstractMarkdownPage()
     {
         $pages = [
             MarkdownPage::class,
@@ -615,93 +615,93 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function test_blade_pages_do_not_extend_abstract_markdown_page()
+    public function testBladePagesDoNotExtendAbstractMarkdownPage()
     {
         $this->assertNotInstanceOf(BaseMarkdownPage::class, new BladePage('foo'));
     }
 
-    public function test_get_route_returns_page_route()
+    public function testGetRouteReturnsPageRoute()
     {
         $page = new MarkdownPage();
         $this->assertEquals(new Route($page), $page->getRoute());
     }
 
-    public function test_get_route_returns_the_route_object_from_the_router_index()
+    public function testGetRouteReturnsTheRouteObjectFromTheRouterIndex()
     {
         $this->file('_pages/foo.md');
         $page = MarkdownPage::parse('foo');
         $this->assertSame(Routes::get('foo'), $page->getRoute());
     }
 
-    public function test_html_title_returns_site_name_plus_page_title()
+    public function testHtmlTitleReturnsSiteNamePlusPageTitle()
     {
         $make = MarkdownPage::make('', ['title' => 'Foo']);
         $this->assertEquals('HydePHP - Foo', $make->title());
     }
 
-    public function test_html_title_uses_configured_site_name()
+    public function testHtmlTitleUsesConfiguredSiteName()
     {
         config(['hyde.name' => 'Foo Bar']);
         $markdownPage = new MarkdownPage('Foo');
         $this->assertEquals('Foo Bar - Foo', $markdownPage->title());
     }
 
-    public function test_body_helper_returns_markdown_document_body_in_markdown_pages()
+    public function testBodyHelperReturnsMarkdownDocumentBodyInMarkdownPages()
     {
         $page = new MarkdownPage(markdown: new Markdown(body: '# Foo'));
         $this->assertEquals('# Foo', $page->markdown->body());
     }
 
-    public function test_show_in_navigation_returns_false_for_markdown_post()
+    public function testShowInNavigationReturnsFalseForMarkdownPost()
     {
         $page = MarkdownPost::make();
 
         $this->assertFalse($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_true_for_documentation_page_if_slug_is_index()
+    public function testShowInNavigationReturnsTrueForDocumentationPageIfSlugIsIndex()
     {
         $page = DocumentationPage::make('index');
 
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_true_for_documentation_page_if_slug_is_not_index()
+    public function testShowInNavigationReturnsTrueForDocumentationPageIfSlugIsNotIndex()
     {
         $page = DocumentationPage::make('not-index');
 
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_false_for_abstract_markdown_page_if_matter_navigation_hidden_is_true()
+    public function testShowInNavigationReturnsFalseForAbstractMarkdownPageIfMatterNavigationHiddenIsTrue()
     {
         $page = MarkdownPage::make('foo', ['navigation.hidden' => true]);
 
         $this->assertFalse($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_visible_is_true()
+    public function testShowInNavigationReturnsTrueForAbstractMarkdownPageIfMatterNavigationVisibleIsTrue()
     {
         $page = MarkdownPage::make('foo', ['navigation.visible' => true]);
 
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_false()
+    public function testShowInNavigationReturnsTrueForAbstractMarkdownPageIfMatterNavigationHiddenIsFalse()
     {
         $page = MarkdownPage::make('foo', ['navigation.hidden' => false]);
 
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_not_set()
+    public function testShowInNavigationReturnsTrueForAbstractMarkdownPageIfMatterNavigationHiddenIsNotSet()
     {
         $page = MarkdownPage::make('foo', ['navigation.hidden' => null]);
 
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_false_if_slug_is_present_in_config_hyde_navigation_exclude()
+    public function testShowInNavigationReturnsFalseIfSlugIsPresentInConfigHydeNavigationExclude()
     {
         $page = MarkdownPage::make('foo');
         $this->assertTrue($page->showInNavigation());
@@ -711,31 +711,31 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_false_if_slug_is_404()
+    public function testShowInNavigationReturnsFalseIfSlugIs404()
     {
         $page = MarkdownPage::make('404');
         $this->assertFalse($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_defaults_to_true_if_all_checks_pass()
+    public function testShowInNavigationDefaultsToTrueIfAllChecksPass()
     {
         $page = MarkdownPage::make('foo');
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_navigation_menu_priority_returns_front_matter_value_of_navigation_priority_if_abstract_markdown_page_and_not_null()
+    public function testNavigationMenuPriorityReturnsFrontMatterValueOfNavigationPriorityIfAbstractMarkdownPageAndNotNull()
     {
         $page = MarkdownPage::make('foo', ['navigation.priority' => 1]);
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_can_be_set_using_order_property()
+    public function testNavigationMenuPriorityCanBeSetUsingOrderProperty()
     {
         $page = MarkdownPage::make('foo', ['navigation.order' => 1]);
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_returns_specified_config_value_if_slug_exists_in_config_hyde_navigation_order()
+    public function testNavigationMenuPriorityReturnsSpecifiedConfigValueIfSlugExistsInConfigHydeNavigationOrder()
     {
         $page = MarkdownPage::make('foo');
         $this->assertEquals(999, $page->navigationMenuPriority());
@@ -745,7 +745,7 @@ class HydePageTest extends TestCase
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_gives_precedence_to_front_matter_over_config_hyde_navigation_order()
+    public function testNavigationMenuPriorityGivesPrecedenceToFrontMatterOverConfigHydeNavigationOrder()
     {
         $page = MarkdownPage::make('foo', ['navigation.priority' => 1]);
 
@@ -755,87 +755,87 @@ class HydePageTest extends TestCase
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_returns_999_for_documentation_page()
+    public function testNavigationMenuPriorityReturns999ForDocumentationPage()
     {
         $page = DocumentationPage::make('index');
         $this->assertEquals(999, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_returns_0_if_slug_is_index()
+    public function testNavigationMenuPriorityReturns0IfSlugIsIndex()
     {
         $page = MarkdownPage::make('index');
         $this->assertEquals(0, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_returns_10_if_slug_is_posts()
+    public function testNavigationMenuPriorityReturns10IfSlugIsPosts()
     {
         $page = MarkdownPage::make('posts');
         $this->assertEquals(10, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_defaults_to_999_if_no_other_conditions_are_met()
+    public function testNavigationMenuPriorityDefaultsTo999IfNoOtherConditionsAreMet()
     {
         $page = MarkdownPage::make('foo');
         $this->assertEquals(999, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_title_returns_navigation_title_matter_if_set()
+    public function testNavigationMenuTitleReturnsNavigationTitleMatterIfSet()
     {
         $page = MarkdownPage::make('foo', ['navigation.label' => 'foo']);
         $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_returns_title_matter_if_set()
+    public function testNavigationMenuTitleReturnsTitleMatterIfSet()
     {
         $page = MarkdownPage::make('foo', ['title' => 'foo']);
         $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_navigation_title_has_precedence_over_title()
+    public function testNavigationMenuTitleNavigationTitleHasPrecedenceOverTitle()
     {
         $page = MarkdownPage::make('foo', ['title' => 'foo', 'navigation.label' => 'bar']);
         $this->assertEquals('bar', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_returns_docs_if_slug_is_index_and_model_is_documentation_page()
+    public function testNavigationMenuTitleReturnsDocsIfSlugIsIndexAndModelIsDocumentationPage()
     {
         $page = DocumentationPage::make('index');
         $this->assertEquals('Docs', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_returns_home_if_slug_is_index_and_model_is_not_documentation_page()
+    public function testNavigationMenuTitleReturnsHomeIfSlugIsIndexAndModelIsNotDocumentationPage()
     {
         $page = MarkdownPage::make('index');
         $this->assertEquals('Home', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_returns_title_if_title_is_set_and_not_empty()
+    public function testNavigationMenuTitleReturnsTitleIfTitleIsSetAndNotEmpty()
     {
         $page = MarkdownPage::make('bar', ['title' => 'foo']);
         $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_falls_back_to_hyde_make_title_from_slug()
+    public function testNavigationMenuTitleFallsBackToHydeMakeTitleFromSlug()
     {
         $page = MarkdownPage::make('foo');
         $this->assertEquals('Foo', $page->navigationMenuLabel());
     }
 
-    public function test_navigation_menu_title_can_be_set_in_configuration()
+    public function testNavigationMenuTitleCanBeSetInConfiguration()
     {
         config(['hyde.navigation.labels' => ['foo' => 'bar']]);
         $page = MarkdownPage::make('foo');
         $this->assertEquals('bar', $page->navigationMenuLabel());
     }
 
-    public function test_documentation_page_can_be_hidden_from_navigation_using_config()
+    public function testDocumentationPageCanBeHiddenFromNavigationUsingConfig()
     {
         config(['hyde.navigation.exclude' => ['docs/index']]);
         $page = DocumentationPage::make('index');
         $this->assertFalse($page->showInNavigation());
     }
 
-    public function test_get_canonical_url_returns_url_for_top_level_page()
+    public function testGetCanonicalUrlReturnsUrlForTopLevelPage()
     {
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo');
@@ -843,7 +843,7 @@ class HydePageTest extends TestCase
         $this->assertEquals('https://example.com/foo.html', $page->getCanonicalUrl());
     }
 
-    public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
+    public function testGetCanonicalUrlReturnsPrettyUrlForTopLevelPage()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.pretty_urls' => true]);
@@ -852,7 +852,7 @@ class HydePageTest extends TestCase
         $this->assertEquals('https://example.com/foo', $page->getCanonicalUrl());
     }
 
-    public function test_get_canonical_url_returns_url_for_nested_page()
+    public function testGetCanonicalUrlReturnsUrlForNestedPage()
     {
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo/bar');
@@ -860,7 +860,7 @@ class HydePageTest extends TestCase
         $this->assertEquals('https://example.com/foo/bar.html', $page->getCanonicalUrl());
     }
 
-    public function test_get_canonical_url_returns_url_for_deeply_nested_page()
+    public function testGetCanonicalUrlReturnsUrlForDeeplyNestedPage()
     {
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage('foo/bar/baz');
@@ -868,7 +868,7 @@ class HydePageTest extends TestCase
         $this->assertEquals('https://example.com/foo/bar/baz.html', $page->getCanonicalUrl());
     }
 
-    public function test_canonical_url_is_not_set_when_identifier_is_null()
+    public function testCanonicalUrlIsNotSetWhenIdentifierIsNull()
     {
         config(['hyde.url' => 'https://example.com']);
         $page = new MarkdownPage();
@@ -879,7 +879,7 @@ class HydePageTest extends TestCase
         );
     }
 
-    public function test_canonical_url_is_not_set_when_site_url_is_null()
+    public function testCanonicalUrlIsNotSetWhenSiteUrlIsNull()
     {
         config(['hyde.url' => null]);
         $page = new MarkdownPage('foo');
@@ -890,7 +890,7 @@ class HydePageTest extends TestCase
         );
     }
 
-    public function test_custom_canonical_link_can_be_set_in_front_matter()
+    public function testCustomCanonicalLinkCanBeSetInFrontMatter()
     {
         config(['hyde.url' => 'https://example.com']);
         $page = MarkdownPage::make(matter: ['canonicalUrl' => 'foo/bar']);
@@ -901,7 +901,7 @@ class HydePageTest extends TestCase
         );
     }
 
-    public function test_can_create_canonical_url_using_base_url_from_config()
+    public function testCanCreateCanonicalUrlUsingBaseUrlFromConfig()
     {
         config(['hyde' => [
             'url' => 'https://example.com',
@@ -910,7 +910,7 @@ class HydePageTest extends TestCase
         $this->assertSame('https://example.com/foo.html', (new MarkdownPage('foo'))->getCanonicalUrl());
     }
 
-    public function test_can_create_canonical_url_using_base_url_from_config_using_pretty_urls()
+    public function testCanCreateCanonicalUrlUsingBaseUrlFromConfigUsingPrettyUrls()
     {
         config(['hyde' => [
             'url' => 'https://example.com',
@@ -920,56 +920,56 @@ class HydePageTest extends TestCase
         $this->assertSame('https://example.com/foo', (new MarkdownPage('foo'))->getCanonicalUrl());
     }
 
-    public function test_canonical_url_is_null_when_no_base_url_is_set()
+    public function testCanonicalUrlIsNullWhenNoBaseUrlIsSet()
     {
         config(['hyde' => []]);
         $this->assertNull((new MarkdownPage('foo'))->getCanonicalUrl());
     }
 
-    public function test_render_page_metadata_returns_string()
+    public function testRenderPageMetadataReturnsString()
     {
         $page = new MarkdownPage('foo');
         $this->assertIsString($page->metadata()->render());
     }
 
-    public function test_has_method_returns_true_if_page_has_standard_property()
+    public function testHasMethodReturnsTrueIfPageHasStandardProperty()
     {
         $page = new MarkdownPage('foo');
         $this->assertTrue($page->has('identifier'));
     }
 
-    public function test_has_method_returns_false_if_page_does_not_have_standard_property()
+    public function testHasMethodReturnsFalseIfPageDoesNotHaveStandardProperty()
     {
         $page = new MarkdownPage();
         $this->assertFalse($page->has('foo'));
     }
 
-    public function test_has_method_returns_true_if_page_has_dynamic_property()
+    public function testHasMethodReturnsTrueIfPageHasDynamicProperty()
     {
         $page = new MarkdownPage();
         $page->foo = 'bar';
         $this->assertTrue($page->has('foo'));
     }
 
-    public function test_has_method_returns_false_if_page_does_not_have_dynamic_property()
+    public function testHasMethodReturnsFalseIfPageDoesNotHaveDynamicProperty()
     {
         $page = new MarkdownPage();
         $this->assertFalse($page->has('foo'));
     }
 
-    public function test_has_method_returns_true_if_page_has_property_set_in_front_matter()
+    public function testHasMethodReturnsTrueIfPageHasPropertySetInFrontMatter()
     {
         $page = MarkdownPage::make(matter: ['foo' => 'bar']);
         $this->assertTrue($page->has('foo'));
     }
 
-    public function test_has_method_returns_false_if_page_does_not_have_property_set_in_front_matter()
+    public function testHasMethodReturnsFalseIfPageDoesNotHavePropertySetInFrontMatter()
     {
         $page = MarkdownPage::make();
         $this->assertFalse($page->has('foo'));
     }
 
-    public function test_has_method_returns_false_if_property_exists_but_is_blank()
+    public function testHasMethodReturnsFalseIfPropertyExistsButIsBlank()
     {
         $page = MarkdownPage::make();
         $page->foo = null;
@@ -980,13 +980,13 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->has('foo'));
     }
 
-    public function test_has_method_returns_true_if_page_has_blank_property_set_in_front_matter()
+    public function testHasMethodReturnsTrueIfPageHasBlankPropertySetInFrontMatter()
     {
         $this->assertFalse(MarkdownPage::make(matter: ['foo' => null])->has('foo'));
         $this->assertFalse(MarkdownPage::make(matter: ['foo' => ''])->has('foo'));
     }
 
-    public function test_markdown_pages_can_be_saved_to_disk()
+    public function testMarkdownPagesCanBeSavedToDisk()
     {
         $page = new MarkdownPage('foo');
         $page->save();
@@ -994,7 +994,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_save_method_converts_front_matter_array_to_yaml_block()
+    public function testSaveMethodConvertsFrontMatterArrayToYamlBlock()
     {
         MarkdownPage::make('foo', matter: ['foo' => 'bar'])->save();
         $this->assertEquals("---\nfoo: bar\n---\n",
@@ -1003,7 +1003,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_save_method_writes_page_body_to_file()
+    public function testSaveMethodWritesPageBodyToFile()
     {
         MarkdownPage::make('foo', markdown: 'foo')->save();
         $this->assertEquals("foo\n",
@@ -1012,7 +1012,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_save_method_writes_page_body_to_file_with_front_matter()
+    public function testSaveMethodWritesPageBodyToFileWithFrontMatter()
     {
         MarkdownPage::make('foo', matter: ['foo' => 'bar'], markdown: 'foo bar')->save();
         $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar\n",
@@ -1021,7 +1021,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_new_markdown_pages_can_be_saved()
+    public function testNewMarkdownPagesCanBeSaved()
     {
         $page = new MarkdownPage('foo');
         $page->save();
@@ -1032,7 +1032,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_existing_parsed_markdown_pages_can_be_saved()
+    public function testExistingParsedMarkdownPagesCanBeSaved()
     {
         $page = new MarkdownPage('foo', markdown: 'bar');
         $page->save();
@@ -1051,7 +1051,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
-    public function test_save_method_creates_source_directory_if_it_does_not_exist()
+    public function testSaveMethodCreatesSourceDirectoryIfItDoesNotExist()
     {
         $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
 
@@ -1064,7 +1064,7 @@ class HydePageTest extends TestCase
         Filesystem::deleteDirectory('foo');
     }
 
-    public function test_save_method_creates_source_directory_recursively_if_it_does_not_exist()
+    public function testSaveMethodCreatesSourceDirectoryRecursivelyIfItDoesNotExist()
     {
         $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
 
@@ -1078,7 +1078,7 @@ class HydePageTest extends TestCase
         Filesystem::deleteDirectory('foo');
     }
 
-    public function test_markdown_posts_can_be_saved()
+    public function testMarkdownPostsCanBeSaved()
     {
         $post = new MarkdownPost('foo');
         $post->save();
@@ -1086,7 +1086,7 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_posts/foo.md');
     }
 
-    public function test_documentation_pages_can_be_saved()
+    public function testDocumentationPagesCanBeSaved()
     {
         $page = new DocumentationPage('foo');
         $page->save();
@@ -1094,19 +1094,19 @@ class HydePageTest extends TestCase
         Filesystem::unlink('_docs/foo.md');
     }
 
-    public function test_get_method_can_access_data_from_page()
+    public function testGetMethodCanAccessDataFromPage()
     {
         $page = MarkdownPage::make('foo', ['foo' => 'bar']);
         $this->assertEquals('bar', $page->data('foo'));
     }
 
-    public function test_get_method_can_access_nested_data_from_page()
+    public function testGetMethodCanAccessNestedDataFromPage()
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
         $this->assertEquals('baz', $page->data('foo')['bar']);
     }
 
-    public function test_get_method_can_access_nested_data_from_page_with_dot_notation()
+    public function testGetMethodCanAccessNestedDataFromPageWithDotNotation()
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
         $this->assertEquals('baz', $page->data('foo.bar'));
@@ -1128,7 +1128,7 @@ class HydePageTest extends TestCase
         );
     }
 
-    public function test_path_helpers_return_same_result_as_fluent_filesystem_helpers()
+    public function testPathHelpersReturnSameResultAsFluentFilesystemHelpers()
     {
         $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), BladePage::path('foo'));
         $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), MarkdownPage::path('foo'));
@@ -1136,7 +1136,7 @@ class HydePageTest extends TestCase
         $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), DocumentationPage::path('foo'));
     }
 
-    public function test_all_pages_are_routable()
+    public function testAllPagesAreRoutable()
     {
         $pages = [
             BladePage::class,
@@ -1165,14 +1165,14 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function test_navigation_data_factory_hides_page_from_navigation_when_in_a_subdirectory()
+    public function testNavigationDataFactoryHidesPageFromNavigationWhenInASubdirectory()
     {
         $page = MarkdownPage::make('foo/bar');
         $this->assertFalse($page->showInNavigation());
         $this->assertNull($page->navigationMenuGroup());
     }
 
-    public function test_navigation_data_factory_hides_page_from_navigation_when_in_a_and_config_is_set_to_hidden()
+    public function testNavigationDataFactoryHidesPageFromNavigationWhenInAAndConfigIsSetToHidden()
     {
         config(['hyde.navigation.subdirectories' => 'hidden']);
         $page = MarkdownPage::make('foo/bar');
@@ -1180,7 +1180,7 @@ class HydePageTest extends TestCase
         $this->assertNull($page->navigationMenuGroup());
     }
 
-    public function test_navigation_data_factory_does_not_hide_page_from_navigation_when_in_a_subdirectory_and_allowed_in_configuration()
+    public function testNavigationDataFactoryDoesNotHidePageFromNavigationWhenInASubdirectoryAndAllowedInConfiguration()
     {
         config(['hyde.navigation.subdirectories' => 'flat']);
         $page = MarkdownPage::make('foo/bar');
@@ -1188,7 +1188,7 @@ class HydePageTest extends TestCase
         $this->assertNull($page->navigationMenuGroup());
     }
 
-    public function test_navigation_data_factory_allows_show_in_navigation_and_sets_group_when_dropdown_is_selected_in_config()
+    public function testNavigationDataFactoryAllowsShowInNavigationAndSetsGroupWhenDropdownIsSelectedInConfig()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $page = MarkdownPage::make('foo/bar');
@@ -1196,27 +1196,27 @@ class HydePageTest extends TestCase
         $this->assertEquals('foo', $page->navigationMenuGroup());
     }
 
-    public function test_is_discoverable_method_returns_true_for_discoverable_pages()
+    public function testIsDiscoverableMethodReturnsTrueForDiscoverablePages()
     {
         $this->assertTrue(DiscoverableTestPage::isDiscoverable());
     }
 
-    public function test_is_discoverable_method_returns_false_for_non_discoverable_pages()
+    public function testIsDiscoverableMethodReturnsFalseForNonDiscoverablePages()
     {
         $this->assertFalse(NonDiscoverableTestPage::isDiscoverable());
     }
 
-    public function test_is_discoverable_method_requires_all_required_data_to_be_present()
+    public function testIsDiscoverableMethodRequiresAllRequiredDataToBePresent()
     {
         $this->assertFalse(PartiallyDiscoverablePage::isDiscoverable());
     }
 
-    public function test_is_discoverable_method_requires_source_directory_to_be_filled()
+    public function testIsDiscoverableMethodRequiresSourceDirectoryToBeFilled()
     {
         $this->assertFalse(DiscoverablePageWithInvalidSourceDirectory::isDiscoverable());
     }
 
-    public function test_all_core_extension_pages_are_discoverable()
+    public function testAllCoreExtensionPagesAreDiscoverable()
     {
         /** @var class-string<HydePage> $page */
         foreach (HydeCoreExtension::getPageClasses() as $page) {
@@ -1224,7 +1224,7 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function test_nested_index_pages_show_up_in_navigation()
+    public function testNestedIndexPagesShowUpInNavigation()
     {
         $page = MarkdownPage::make('foo/index');
         $this->assertTrue($page->showInNavigation());

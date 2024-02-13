@@ -39,7 +39,7 @@ This is a post stub used in the automated tests
         parent::tearDown();
     }
 
-    public function test_can_parse_markdown_file()
+    public function testCanParseMarkdownFile()
     {
         $post = MarkdownPost::parse('test-post');
         $this->assertInstanceOf(MarkdownPost::class, $post);
@@ -52,7 +52,7 @@ This is a post stub used in the automated tests
         $this->assertTrue(strlen($post->identifier) > 8);
     }
 
-    public function test_parsed_markdown_post_contains_valid_front_matter()
+    public function testParsedMarkdownPostContainsValidFrontMatter()
     {
         $post = MarkdownPost::parse('test-post');
         $this->assertEquals('My New Post', $post->data('title'));
