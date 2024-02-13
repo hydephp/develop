@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;
+use Hyde\Support\Models\ExternalRoute;
 
 /**
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
@@ -54,7 +55,7 @@ class NavItem implements Stringable
      */
     public static function forLink(string $href, string $label, int $priority = 500): static
     {
-        return new static($href, $label, $priority);
+        return new static(new ExternalRoute($href), $label, $priority);
     }
 
     /**
