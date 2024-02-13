@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 
@@ -386,5 +387,26 @@ class NavigationMenuTest extends TestCase
         $dropdowns = $menu->getDropdowns();
 
         $this->assertSame(['Foo', 'Bar', 'Baz'], $dropdowns[0]->getItems()->pluck('label')->toArray());
+    }
+
+    public function test_can_add_route_to_navigation_menu()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $menu = NavigationMenu::create();
+
+        $menu->addRoute($route);
+
+        $this->assertCount(2, $menu->items);
+    }
+
+    public function test_can_add_route_kernel_navigation_menu()
+    {
+        $menu = Hyde::navigation();
+        $route = new Route(new MarkdownPage('foo'));
+
+        $menu->addRoute($route);
+
+        $this->assertCount(2, $menu->items);
+        $this->assertSame($menu->items, Hyde::navigation()->items);
     }
 }

@@ -36,7 +36,7 @@ abstract class BaseNavigationMenu
     {
         Routes::each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
-                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+                $this->addRoute($route);
             }
         });
 
@@ -68,5 +68,20 @@ abstract class BaseNavigationMenu
     public function getItems(): Collection
     {
         return $this->items;
+    }
+
+    /**
+     * Add a route to the navigation menu.
+     *
+     * If you are calling this method manually, you must do so after the kernel has booted.
+     *
+     * @param \Hyde\Support\Models\Route $route
+     * @return $this
+     */
+    public function addRoute(Route $route): static
+    {
+        $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+
+        return $this;
     }
 }
