@@ -49,7 +49,7 @@ Command::main(function () {
             Model size: %s
             Model words: %s
             Model lines: %s
-            
+
         Pruned model details:
             Model size: %s
             Model words: %s
