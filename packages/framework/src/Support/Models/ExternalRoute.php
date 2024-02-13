@@ -10,4 +10,9 @@ namespace Hyde\Support\Models;
 class ExternalRoute extends Route
 {
     protected string $destination;
+
+    public function __construct(string $destination)
+    {
+        $this->destination = $destination;
+    }
 }
