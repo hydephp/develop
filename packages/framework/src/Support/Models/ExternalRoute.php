@@ -18,4 +18,9 @@ class ExternalRoute extends Route
     {
         $this->destination = $destination;
     }
+
+    public function getLink(): string
+    {
+        return $this->destination;
+    }
 }
