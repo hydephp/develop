@@ -22,7 +22,7 @@ abstract class BaseNavigationMenu
         $this->items = new Collection();
     }
 
-    public static function create(): static
+    public static function create(): NavigationMenu
     {
         $menu = new static();
 
@@ -30,7 +30,7 @@ abstract class BaseNavigationMenu
         $menu->sortByPriority();
         $menu->removeDuplicateItems();
 
-        return $menu;
+        return new NavigationMenu($menu->getItems());
     }
 
     protected function generate(): void
