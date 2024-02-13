@@ -336,4 +336,11 @@ class HydeServiceProviderTest extends TestCase
         $this->assertInstanceOf(NavigationManager::class, $this->app->make(NavigationManager::class));
         $this->assertSame($this->app->make(NavigationManager::class), $this->app->make(NavigationManager::class));
     }
+
+    public function testProviderRegistersNavigationManagerAlias()
+    {
+        $this->assertTrue($this->app->bound('navigation'));
+        $this->assertInstanceOf(NavigationManager::class, $this->app->make('navigation'));
+        $this->assertSame($this->app->make(NavigationManager::class), $this->app->make('navigation'));
+    }
 }

@@ -14,5 +14,7 @@ class NavigationServiceProvider extends ServiceProvider
         $this->app->singleton(NavigationManager::class, function ($app) {
             return new NavigationManager();
         });
+
+        $this->app->alias(NavigationManager::class, 'navigation');
     }
 }
