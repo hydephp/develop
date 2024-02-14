@@ -80,8 +80,9 @@ class NavigationMenuUnitTest extends UnitTestCase
     protected function getItems(): array
     {
         return [
-            'item1' => 'value1',
-            'item2' => 'value2',
+            new NavItem(new ExternalRoute('/'), 'Home'),
+            new NavItem(new ExternalRoute('/about'), 'About'),
+            new NavItem(new ExternalRoute('/contact'), 'Contact'),
         ];
     }
 }

@@ -14,7 +14,11 @@ class NavigationMenu
 
     public function __construct(Arrayable|array $items = [])
     {
-        $this->items = new Collection($items);
+        $this->items = new Collection();
+
+        foreach ($items as $item) {
+            $this->add($item);
+        }
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
