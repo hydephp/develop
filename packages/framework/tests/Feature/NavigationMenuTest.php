@@ -19,7 +19,6 @@ use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  */
 class NavigationMenuTest extends TestCase
