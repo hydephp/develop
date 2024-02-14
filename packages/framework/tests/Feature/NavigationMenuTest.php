@@ -17,6 +17,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
