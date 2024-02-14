@@ -72,7 +72,7 @@ class GeneratesMainNavigationMenu
 
         foreach ($dropdowns as $group => $items) {
             // Create a new dropdown item containing the buffered items
-            $this->items->add(new DropdownNavItem($group, $items));
+            $this->items->add(NavItem::dropdown($group, $items));
         }
     }
 
