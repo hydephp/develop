@@ -50,7 +50,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.priority' => 2])));
         Routes::addRoute(new Route(new MarkdownPage('baz', ['navigation.priority' => 3])));
 
-        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], $this->createLegacyMainNavigationMenu()->getItems()->pluck('label')->toArray());
+        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], $this->createNavigationMenu()->getItems()->pluck('label')->toArray());
     }
 
     public function testItemsWithHiddenPropertySetToTrueAreNotAdded()
@@ -58,7 +58,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.hidden' => true])));
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.hidden' => false])));
 
-        $this->assertSame(['Home', 'Bar'], $this->createLegacyMainNavigationMenu()->getItems()->pluck('label')->toArray());
+        $this->assertSame(['Home', 'Bar'], $this->createNavigationMenu()->getItems()->pluck('label')->toArray());
     }
 
     public function testCreatedCollectionIsSortedByNavigationMenuPriority()
@@ -66,7 +66,7 @@ class NavigationMenuTest extends TestCase
         $this->file('_pages/foo.md');
         $this->file('_docs/index.md');
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -82,7 +82,7 @@ class NavigationMenuTest extends TestCase
     {
         $this->file('_pages/foo.md');
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -97,7 +97,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.custom' => [NavItem::forLink('https://example.com', 'foo')]]);
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -112,7 +112,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.custom' => [NavItem::forLink('foo', 'foo')]]);
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -130,7 +130,7 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('foo', 'foo'),
         ]]);
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -148,7 +148,7 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('bar', 'foo'),
         ]]);
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -165,7 +165,7 @@ class NavigationMenuTest extends TestCase
 
         config(['hyde.navigation.custom' => [NavItem::forLink('bar', 'Foo')]]);
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -181,7 +181,7 @@ class NavigationMenuTest extends TestCase
         $this->file('_docs/foo.md');
         $this->file('_docs/index.md');
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
@@ -197,7 +197,7 @@ class NavigationMenuTest extends TestCase
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
         $expected = collect([NavItem::fromRoute(Routes::get('index'))]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -210,7 +210,7 @@ class NavigationMenuTest extends TestCase
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::fromRoute(Routes::get('foo/bar')),
@@ -226,7 +226,7 @@ class NavigationMenuTest extends TestCase
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
             DropdownNavItem::fromArray('foo', [
@@ -360,7 +360,7 @@ class NavigationMenuTest extends TestCase
 
         Routes::push((new MarkdownPage('foo'))->getRoute());
         Routes::push((new MarkdownPage('bar/baz'))->getRoute());
-        $menu = $this->createLegacyMainNavigationMenu();
+        $menu = $this->createNavigationMenu();
 
         $this->assertCount(3, $menu->getItems());
         $this->assertEquals([
@@ -389,11 +389,5 @@ class NavigationMenuTest extends TestCase
     protected function createNavigationMenu(): NavigationMenu
     {
         return GeneratesMainNavigationMenu::handle();
-    }
-
-    /** @deprecated */
-    protected function createLegacyMainNavigationMenu(): MainNavigationMenu
-    {
-        return MainNavigationMenu::create();
     }
 }
