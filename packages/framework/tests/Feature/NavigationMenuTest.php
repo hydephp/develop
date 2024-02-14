@@ -226,7 +226,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
-            DropdownNavItem::fromArray('foo', [
+            new DropdownNavItem('foo', [
                 NavItem::fromRoute(Routes::get('foo/bar')),
             ]),
         ]);
@@ -272,7 +272,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
-            DropdownNavItem::fromArray('foo', [
+            new DropdownNavItem('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
             ]), ], $menu->getDropdowns());
     }
@@ -288,7 +288,7 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
-            DropdownNavItem::fromArray('foo', [
+            new DropdownNavItem('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
             ]),
@@ -308,11 +308,11 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(2, $menu->getDropdowns());
 
         $this->assertEquals([
-            DropdownNavItem::fromArray('foo', [
+            new DropdownNavItem('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
             ]),
-            DropdownNavItem::fromArray('cat', [
+            new DropdownNavItem('cat', [
                 NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
             ]),
         ], $menu->getDropdowns());
@@ -363,7 +363,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
-            DropdownNavItem::fromArray('bar', [
+            new DropdownNavItem('bar', [
                 NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
         ], $menu->getItems()->all());
