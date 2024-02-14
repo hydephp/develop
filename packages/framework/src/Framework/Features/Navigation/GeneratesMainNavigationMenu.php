@@ -30,8 +30,8 @@ class GeneratesMainNavigationMenu
         $menu = new static();
 
         $menu->generate();
-        $menu->parent__sortByPriority();
-        $menu->parent__removeDuplicateItems();
+        $menu->sortByPriority();
+        $menu->removeDuplicateItems();
 
         return new NavigationMenu($menu->items);
     }
@@ -99,7 +99,7 @@ class GeneratesMainNavigationMenu
         return $route->getPage()->showInNavigation();
     }
 
-    protected function parent__removeDuplicateItems(): void
+    protected function removeDuplicateItems(): void
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
             // Filter using a combination of the group and label to allow duplicate labels in different groups
@@ -107,7 +107,7 @@ class GeneratesMainNavigationMenu
         });
     }
 
-    protected function parent__sortByPriority(): void
+    protected function sortByPriority(): void
     {
         $this->items = $this->items->sortBy('priority')->values();
     }
