@@ -21,5 +21,6 @@ class DropdownNavItem extends NavItem
     {
         parent::__construct('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999);
         $this->items = $items;
+        $this->children = $items;
     }
 }
