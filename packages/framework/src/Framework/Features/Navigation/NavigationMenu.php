@@ -29,7 +29,7 @@ class NavigationMenu
      *
      * @deprecated If kept, they should be renamed to be more generic.
      */
-    public function hasDropdowns(): bool
+    public function legacy_hasDropdowns(): bool
     {
         return $this->dropdownsEnabled() && count($this->getDropdowns()) >= 1;
     }
@@ -41,7 +41,7 @@ class NavigationMenu
      *
      * @return array<string, DropdownNavItem>
      */
-    public function getDropdowns(): array
+    public function legacy_getDropdowns(): array
     {
         return $this->items->filter(function (NavItem $item): bool {
             return $item instanceof DropdownNavItem;
