@@ -47,6 +47,28 @@ class NavItemTest extends UnitTestCase
         $this->assertSame($route, $item->destination);
     }
 
+    public function testPassingRouteInstanceToConstructorUsesRouteInstance()
+    {
+        $route = new Route(new MarkdownPage());
+        $this->assertSame($route, (new NavItem($route, 'Home'))->destination);
+    }
+
+    public function testPassingUrlToConstructorUsesExternalRoute()
+    {
+        $item = new NavItem('https://example.com', 'Home');
+        $this->assertInstanceOf(ExternalRoute::class, $item->destination);
+        $this->assertEquals(new ExternalRoute('https://example.com'), $item->destination);
+        $this->assertSame('https://example.com', (string) $item->destination);
+    }
+
+    public function testPassingUnknownRouteKeyToConstructorUsesExternalRoute()
+    {
+        $item = new NavItem('foo', 'Home');
+        $this->assertInstanceOf(ExternalRoute::class, $item->destination);
+        $this->assertEquals(new ExternalRoute('foo'), $item->destination);
+        $this->assertSame('foo', (string) $item->destination);
+    }
+
     public function testGetDestination()
     {
         $route = new Route(new InMemoryPage('foo'));
