@@ -34,11 +34,14 @@ class NavigationMenuTest extends TestCase
     public function testGenerateMethodCreatesCollectionOfNavItems()
     {
         $this->assertInstanceOf(Collection::class, $this->createNavigationMenu()->getItems());
+        $this->assertContainsOnlyInstancesOf(NavItem::class, $this->createNavigationMenu()->getItems());
     }
 
     public function testGetItemsReturnsItems()
     {
-        $this->assertEquals($this->createNavigationMenu()->getItems(), $this->createNavigationMenu()->getItems());
+        $this->assertEquals(collect([
+            NavItem::fromRoute(Routes::get('index')),
+        ]), $this->createNavigationMenu()->getItems());
     }
 
     public function testItemsAreSortedByPriority()
