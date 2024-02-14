@@ -13,7 +13,7 @@ class GeneratesMainNavigationMenu
 {
     public static function handle(): NavigationMenu
     {
-        $navigation = \Hyde\Framework\Features\Navigation\MainNavigationMenu::create();
+        $navigation = \Hyde\Framework\Features\Navigation\MainNavigationMenu::__generate();
 
         return new NavigationMenu($navigation->items);
     }
