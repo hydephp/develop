@@ -76,6 +76,17 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo', (string) $item->destination);
     }
 
+    public function testCanConstructWithChildren()
+    {
+        $route = new Route(new MarkdownPage());
+        $item = new NavItem($route, 'Test', 500, null, [
+            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
+            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
+        ]);
+
+        $this->assertCount(2, $item->children);
+    }
+
     public function testGetDestination()
     {
         $route = new Route(new InMemoryPage('foo'));

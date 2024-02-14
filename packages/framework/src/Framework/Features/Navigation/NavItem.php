@@ -32,7 +32,7 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item.
      */
-    public function __construct(Route|string $destination, string $label, int $priority = 500, ?string $group = null)
+    public function __construct(Route|string $destination, string $label, int $priority = 500, ?string $group = null, array $children = [])
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
@@ -42,6 +42,7 @@ class NavItem implements Stringable
         $this->label = $label;
         $this->priority = $priority;
         $this->group = $group;
+        $this->children = $children;
     }
 
     /**
