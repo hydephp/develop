@@ -231,6 +231,33 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('../../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
     }
 
+    public function testDropdownFacade()
+    {
+        $item = NavItem::dropdown('foo', []);
+
+        $this->assertSame('foo', $item->label);
+        $this->assertSame([], $item->getChildren());
+        $this->assertSame(999, $item->priority);
+    }
+
+    public function testDropdownFacadeWithChildren()
+    {
+        $children = [
+            new NavItem(new Route(new MarkdownPage()), 'bar'),
+        ];
+
+        $item = NavItem::dropdown('foo', $children);
+        $this->assertSame($children, $item->getChildren());
+        $this->assertSame(999, $item->priority);
+    }
+
+    public function testDropdownFacadeWithCustomPriority()
+    {
+        $item = NavItem::dropdown('foo', [], 500);
+
+        $this->assertSame(500, $item->priority);
+    }
+
     public function testIsCurrent()
     {
         Render::swap(Mockery::mock(RenderData::class, [

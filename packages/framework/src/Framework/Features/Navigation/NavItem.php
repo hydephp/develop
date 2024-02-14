@@ -83,6 +83,18 @@ class NavItem implements Stringable
     }
 
     /**
+     * Create a new dropdown navigation menu item.
+     *
+     * @param  string  $label  The label of the dropdown item.
+     * @param  array<NavItem>  $items  The items to be included in the dropdown.
+     * @param  int|null  $priority  The priority of the dropdown item. Leave blank to use the default priority.
+     */
+    public static function dropdown(string $label, array $items, ?int $priority = null): static
+    {
+        return new static('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, null, $items);
+    }
+
+    /**
      * Resolve a link to the navigation item.
      */
     public function __toString(): string
