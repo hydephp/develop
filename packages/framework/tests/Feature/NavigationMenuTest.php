@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
@@ -318,13 +317,11 @@ class NavigationMenuTest extends TestCase
         ], $menu->getDropdowns());
     }
 
-    public function testGetDropdownsThrowsExceptionWhenDisabled()
+    public function testGetDropdownsDoesNotThrowWhenAutomaticDropdownsIsDisabled()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
-
         $menu = $this->createNavigationMenu();
-        $menu->getDropdowns();
+        $this->assertCount(0, $menu->getDropdowns());
+        $this->assertSame([], $menu->getDropdowns());
     }
 
     public function testDocumentationPagesDoNotGetAddedToDropdowns()
