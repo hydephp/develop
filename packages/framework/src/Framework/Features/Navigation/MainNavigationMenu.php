@@ -13,10 +13,7 @@ class MainNavigationMenu extends BaseNavigationMenu
     /** @deprecated Temporary method for refactor */
     public static function create(): static
     {
-        $menu = new static();
-        $menu->items = GeneratesMainNavigationMenu::handle()->getItems();
-
-        return $menu;
+        return new static(GeneratesMainNavigationMenu::handle()->getItems());
     }
 
     public function hasDropdowns(): bool
