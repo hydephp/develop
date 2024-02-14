@@ -9,7 +9,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
-use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
