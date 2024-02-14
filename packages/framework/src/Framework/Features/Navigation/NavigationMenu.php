@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class NavigationMenu
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
+    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
     public function __construct(Arrayable|array $items = [])
@@ -21,7 +21,7 @@ class NavigationMenu
         }
     }
 
-    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItems(): Collection
     {
         return $this->items;
