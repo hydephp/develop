@@ -8,11 +8,8 @@ use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
-use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
@@ -237,140 +234,6 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
-    public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = $this->createNavigationMenu();
-        $this->assertFalse($menu->hasDropdowns());
-    }
-
-    public function testHasDropdownsReturnsTrueWhenThereAreDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $menu = $this->createNavigationMenu();
-        $this->assertTrue($menu->hasDropdowns());
-    }
-
-    public function testHasDropdownsAlwaysReturnsFalseWhenDropdownsAreDisabled()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $this->assertFalse($this->createNavigationMenu()->hasDropdowns());
-    }
-
-    public function testGetDropdownsReturnsEmptyArrayThereAreNoDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = $this->createNavigationMenu();
-        $this->assertCount(0, $menu->getDropdowns());
-        $this->assertSame([], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsReturnsCorrectArrayWhenThereAreDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $menu = $this->createNavigationMenu();
-        $this->assertCount(1, $menu->getDropdowns());
-
-        $this->assertEquals([
-            new DropdownNavItem('foo', [
-                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-            ]), ], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsWithMultipleItems()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
-        $menu = $this->createNavigationMenu();
-
-        $this->assertCount(1, $menu->getDropdowns());
-
-        $this->assertEquals([
-            new DropdownNavItem('foo', [
-                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
-            ]),
-        ], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsWithMultipleDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
-        Routes::addRoute((new MarkdownPage('cat/hat'))->getRoute());
-
-        $menu = $this->createNavigationMenu();
-
-        $this->assertCount(2, $menu->getDropdowns());
-
-        $this->assertEquals([
-            new DropdownNavItem('foo', [
-                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
-            ]),
-            new DropdownNavItem('cat', [
-                NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
-            ]),
-        ], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsDoesNotThrowWhenAutomaticDropdownsIsDisabled()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        $menu = $this->createNavigationMenu();
-        $this->assertCount(0, $menu->getDropdowns());
-        $this->assertSame([], $menu->getDropdowns());
-    }
-
-    public function testDocumentationPagesDoNotGetAddedToDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new DocumentationPage('foo'))->getRoute());
-        Routes::addRoute((new DocumentationPage('bar/baz'))->getRoute());
-        $menu = $this->createNavigationMenu();
-
-        $this->assertFalse($menu->hasDropdowns());
-        $this->assertCount(0, $menu->getDropdowns());
-    }
-
-    public function testBlogPostsDoNotGetAddedToDropdowns()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new MarkdownPost('foo'))->getRoute());
-        Routes::addRoute((new MarkdownPost('bar/baz'))->getRoute());
-
-        $menu = $this->createNavigationMenu();
-        $this->assertFalse($menu->hasDropdowns());
-        $this->assertCount(0, $menu->getDropdowns());
-    }
-
     public function testPagesInDropdownsDoNotGetAddedToTheMainNavigation()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
@@ -387,22 +250,6 @@ class NavigationMenuTest extends TestCase
                 NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
         ], $menu->getItems()->all());
-    }
-
-    public function testDropdownMenuItemsAreSortedByPriority()
-    {
-        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
-
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute(new Route(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
-        Routes::addRoute(new Route(new MarkdownPage('foo/bar', ['navigation.priority' => 2])));
-        Routes::addRoute(new Route(new MarkdownPage('foo/baz', ['navigation.priority' => 3])));
-
-        $menu = $this->createNavigationMenu();
-        $dropdowns = $menu->getDropdowns();
-
-        $this->assertSame(['Foo', 'Bar', 'Baz'], collect($dropdowns[0]->getChildren())->pluck('label')->toArray());
     }
 
     public function testCanGetMenuFromServiceContainer()
