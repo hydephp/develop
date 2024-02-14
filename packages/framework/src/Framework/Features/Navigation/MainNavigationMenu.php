@@ -13,7 +13,7 @@ use BadMethodCallException;
 class MainNavigationMenu extends BaseNavigationMenu
 {
     /** @deprecated Temporary method for refactor */
-    public static function __generate(): static
+    public static function temp__generate(): static
     {
         $menu = new static();
 
