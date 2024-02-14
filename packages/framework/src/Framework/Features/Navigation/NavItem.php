@@ -145,14 +145,6 @@ class NavItem implements Stringable
     }
 
     /**
-     * Check if the NavItem instance is the current page.
-     */
-    public function isCurrent(): bool
-    {
-        return Hyde::currentRoute()->getLink() === (string) $this->destination;
-    }
-
-    /**
      * Get the children of the navigation item.
      *
      * For the main navigation menu, this stores any dropdown items.
@@ -162,6 +154,14 @@ class NavItem implements Stringable
     public function getChildren(): array
     {
         return $this->children;
+    }
+
+    /**
+     * Check if the NavItem instance is the current page.
+     */
+    public function isCurrent(): bool
+    {
+        return Hyde::currentRoute()->getLink() === (string) $this->destination;
     }
 
     protected static function getRouteGroup(Route $route): ?string
