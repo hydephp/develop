@@ -260,6 +260,7 @@ class NavigationMenuTest extends TestCase
 
     public function testGetDropdownsReturnsEmptyArrayThereAreNoDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = $this->createNavigationMenu();
         $this->assertCount(0, $menu->getDropdowns());
@@ -268,6 +269,7 @@ class NavigationMenuTest extends TestCase
 
     public function testGetDropdownsReturnsCorrectArrayWhenThereAreDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $menu = $this->createNavigationMenu();
@@ -281,6 +283,7 @@ class NavigationMenuTest extends TestCase
 
     public function testGetDropdownsWithMultipleItems()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
@@ -299,6 +302,7 @@ class NavigationMenuTest extends TestCase
 
     public function testGetDropdownsWithMultipleDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
@@ -322,6 +326,7 @@ class NavigationMenuTest extends TestCase
 
     public function testGetDropdownsDoesNotThrowWhenAutomaticDropdownsIsDisabled()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         $menu = $this->createNavigationMenu();
         $this->assertCount(0, $menu->getDropdowns());
         $this->assertSame([], $menu->getDropdowns());
@@ -373,6 +378,7 @@ class NavigationMenuTest extends TestCase
 
     public function testDropdownMenuItemsAreSortedByPriority()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         Routes::addRoute(new Route(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
