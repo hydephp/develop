@@ -80,20 +80,6 @@ class DocumentationSidebar extends BaseNavigationMenu
         return $this->parent__canAddRoute($route) && ! $route->is(DocumentationPage::homeRouteName());
     }
 
-    protected function parent__generate(): void
-    {
-        Routes::each(function (Route $route): void {
-            if ($this->canAddRoute($route)) {
-                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
-            }
-        });
-
-        collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
-            // Since these were added explicitly by the user, we can assume they should always be shown
-            $this->items->push($item);
-        });
-    }
-
     protected function parent__canAddRoute(Route $route): bool
     {
         return $route->getPage()->showInNavigation();
