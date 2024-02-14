@@ -13,18 +13,6 @@ use BadMethodCallException;
 class MainNavigationMenu extends BaseNavigationMenu
 {
     /** @deprecated Temporary method for refactor */
-    public static function temp__generate(): static
-    {
-        $menu = new static();
-
-        $menu->generate();
-        $menu->sortByPriority();
-        $menu->removeDuplicateItems();
-
-        return $menu;
-    }
-
-    /** @deprecated Temporary method for refactor */
     public static function create(): static
     {
         $menu = new static();

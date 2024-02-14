@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
+use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 
 use function collect;
@@ -18,11 +19,23 @@ use function collect;
  */
 class GeneratesMainNavigationMenu
 {
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
+    protected Collection $items;
+
+    protected function __construct()
+    {
+        $this->items = new Collection();
+    }
+
     public static function handle(): NavigationMenu
     {
-        $navigation = \Hyde\Framework\Features\Navigation\MainNavigationMenu::temp__generate();
+        $menu = new static();
 
-        return new NavigationMenu($navigation->items);
+        $menu->generate();
+        $menu->parent__sortByPriority();
+        $menu->parent__removeDuplicateItems();
+
+        return new NavigationMenu($menu->items);
     }
 
     protected function generate(): void
