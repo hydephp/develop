@@ -380,7 +380,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
         $dropdowns = $menu->getDropdowns();
 
-        $this->assertSame(['Foo', 'Bar', 'Baz'], $dropdowns[0]->getItems()->pluck('label')->toArray());
+        $this->assertSame(['Foo', 'Bar', 'Baz'], collect($dropdowns[0]->items)->pluck('label')->toArray());
     }
 
     protected function createNavigationMenu(): NavigationMenu

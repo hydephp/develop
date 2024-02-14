@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Illuminate\Support\Collection;
-
-use function collect;
-
 /**
  * A navigation item that contains other navigation items.
  *
@@ -25,11 +21,5 @@ class DropdownNavItem extends NavItem
     {
         parent::__construct('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999);
         $this->items = $items;
-    }
-
-    /** @return Collection<NavItem> */
-    public function getItems(): Collection
-    {
-        return collect($this->items);
     }
 }
