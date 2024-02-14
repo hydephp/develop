@@ -288,6 +288,21 @@ class NavItemTest extends UnitTestCase
         $this->assertSame(500, $item->priority);
     }
 
+    public function testHasChildren()
+    {
+        $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500);
+        $this->assertFalse($item->hasChildren());
+    }
+
+    public function testHasChildrenWithChildren()
+    {
+        $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, null, [
+            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
+            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
+        ]);
+        $this->assertTrue($item->hasChildren());
+    }
+
     public function testIsCurrent()
     {
         Render::swap(Mockery::mock(RenderData::class, [

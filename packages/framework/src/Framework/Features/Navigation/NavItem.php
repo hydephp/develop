@@ -157,6 +157,14 @@ class NavItem implements Stringable
     }
 
     /**
+     * Check if the NavItem instance has children.
+     */
+    public function hasChildren(): bool
+    {
+        return count($this->children) > 0;
+    }
+
+    /**
      * Check if the NavItem instance is the current page.
      */
     public function isCurrent(): bool
