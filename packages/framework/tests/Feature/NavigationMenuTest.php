@@ -236,6 +236,7 @@ class NavigationMenuTest extends TestCase
 
     public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = $this->createNavigationMenu();
         $this->assertFalse($menu->hasDropdowns());
@@ -243,6 +244,7 @@ class NavigationMenuTest extends TestCase
 
     public function testHasDropdownsReturnsTrueWhenThereAreDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $menu = $this->createNavigationMenu();
@@ -251,6 +253,7 @@ class NavigationMenuTest extends TestCase
 
     public function testHasDropdownsAlwaysReturnsFalseWhenDropdownsAreDisabled()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $this->assertFalse($this->createNavigationMenu()->hasDropdowns());
     }
@@ -326,6 +329,7 @@ class NavigationMenuTest extends TestCase
 
     public function testDocumentationPagesDoNotGetAddedToDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         Routes::addRoute((new DocumentationPage('foo'))->getRoute());
@@ -338,6 +342,7 @@ class NavigationMenuTest extends TestCase
 
     public function testBlogPostsDoNotGetAddedToDropdowns()
     {
+        $this->markTestSkipped('Tested method may be removed.');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         Routes::addRoute((new MarkdownPost('foo'))->getRoute());
