@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
 
 use function collect;
 
@@ -17,9 +18,9 @@ abstract class BaseNavigationMenu
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
-    final protected function __construct()
+    public function __construct(Arrayable|array $items = [])
     {
-        $this->items = new Collection();
+        $this->items = new Collection($items);
     }
 
     public static function create(): static
