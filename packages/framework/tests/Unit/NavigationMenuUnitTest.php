@@ -21,18 +21,12 @@ class NavigationMenuUnitTest extends UnitTestCase
 
     public function testCanConstructWithItemsArray()
     {
-        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu([
-            'item1' => 'value1',
-            'item2' => 'value2',
-        ]));
+        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu($this->getItems()));
     }
 
     public function testCanConstructWithItemsArrayable()
     {
-        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu(collect([
-            'item1' => 'value1',
-            'item2' => 'value2',
-        ])));
+        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu(collect($this->getItems())));
     }
 
     public function testGetItemsReturnsCollection()
@@ -42,40 +36,36 @@ class NavigationMenuUnitTest extends UnitTestCase
 
     public function testGetItemsReturnsCollectionWhenSuppliedArray()
     {
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu([
-            'item1' => 'value1',
-            'item2' => 'value2',
-        ]))->getItems());
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu($this->getItems()))->getItems());
     }
 
     public function testGetItemsReturnsCollectionWhenSuppliedArrayable()
     {
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu(collect([
-            'item1' => 'value1',
-            'item2' => 'value2',
-        ])))->getItems());
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu(collect($this->getItems())))->getItems());
     }
 
     public function testGetItemsReturnsItems()
     {
-        $items = [
-            'item1' => 'value1',
-            'item2' => 'value2',
-        ];
+        $items = $this->getItems();
         $this->assertSame($items, (new NavigationMenu($items))->getItems()->all());
     }
 
     public function testGetItemsReturnsItemsWhenSuppliedArrayable()
     {
-        $items = [
-            'item1' => 'value1',
-            'item2' => 'value2',
-        ];
+        $items = $this->getItems();
         $this->assertSame($items, (new NavigationMenu(collect($items)))->getItems()->all());
     }
 
     public function testGetItemsReturnsEmptyArrayWhenNoItems()
     {
         $this->assertSame([], (new NavigationMenu())->getItems()->all());
+    }
+
+    protected function getItems(): array
+    {
+        return [
+            'item1' => 'value1',
+            'item2' => 'value2',
+        ];
     }
 }
