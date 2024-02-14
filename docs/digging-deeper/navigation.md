@@ -300,6 +300,8 @@ The main navigation menu is the `MainNavigationMenu` class, and the documentatio
 Both extend the same `BaseNavigationMenu` class:
 
 ```php
+// TODO: Update these examples
+
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
