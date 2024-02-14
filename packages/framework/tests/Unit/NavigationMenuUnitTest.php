@@ -34,4 +34,25 @@ class NavigationMenuUnitTest extends UnitTestCase
             'item2' => 'value2',
         ])));
     }
+
+    public function testGetItemsReturnsCollection()
+    {
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu())->getItems());
+    }
+
+    public function testGetItemsReturnsCollectionWhenSuppliedArray()
+    {
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu([
+            'item1' => 'value1',
+            'item2' => 'value2',
+        ]))->getItems());
+    }
+
+    public function testGetItemsReturnsCollectionWhenSuppliedArrayable()
+    {
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu(collect([
+            'item1' => 'value1',
+            'item2' => 'value2',
+        ])))->getItems());
+    }
 }
