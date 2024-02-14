@@ -12,6 +12,27 @@ use BadMethodCallException;
 /** @deprecated Use the new NavigationMenu class instead */
 class MainNavigationMenu extends BaseNavigationMenu
 {
+    /** @deprecated Temporary method for refactor */
+    public static function __generate(): static
+    {
+        $menu = new static();
+
+        $menu->generate();
+        $menu->sortByPriority();
+        $menu->removeDuplicateItems();
+
+        return $menu;
+    }
+
+    /** @deprecated Temporary method for refactor */
+    public static function create(): static
+    {
+        $menu = new static();
+        $menu->items = GeneratesMainNavigationMenu::handle()->getItems();
+
+        return $menu;
+    }
+
     protected function generate(): void
     {
         parent::generate();
