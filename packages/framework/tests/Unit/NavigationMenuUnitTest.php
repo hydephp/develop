@@ -55,4 +55,27 @@ class NavigationMenuUnitTest extends UnitTestCase
             'item2' => 'value2',
         ])))->getItems());
     }
+
+    public function testGetItemsReturnsItems()
+    {
+        $items = [
+            'item1' => 'value1',
+            'item2' => 'value2',
+        ];
+        $this->assertSame($items, (new NavigationMenu($items))->getItems()->all());
+    }
+
+    public function testGetItemsReturnsItemsWhenSuppliedArrayable()
+    {
+        $items = [
+            'item1' => 'value1',
+            'item2' => 'value2',
+        ];
+        $this->assertSame($items, (new NavigationMenu(collect($items)))->getItems()->all());
+    }
+
+    public function testGetItemsReturnsEmptyArrayWhenNoItems()
+    {
+        $this->assertSame([], (new NavigationMenu())->getItems()->all());
+    }
 }
