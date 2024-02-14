@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -15,6 +16,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu
@@ -386,6 +388,12 @@ class NavigationMenuTest extends TestCase
         $this->assertSame(['Foo', 'Bar', 'Baz'], $dropdowns[0]->getItems()->pluck('label')->toArray());
     }
 
+    protected function createNewMainNavigationMenu(): NavigationMenu
+    {
+        return GeneratesMainNavigationMenu::handle();
+    }
+
+    /** @deprecated */
     protected function createMainNavigationMenu(): MainNavigationMenu
     {
         return MainNavigationMenu::create();
