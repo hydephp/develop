@@ -17,7 +17,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use function collect;
 
 /** @deprecated Use the new NavigationMenu class instead */
-class DocumentationSidebar extends BaseNavigationMenu
+class DocumentationSidebar
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
