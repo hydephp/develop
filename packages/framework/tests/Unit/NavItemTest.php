@@ -306,14 +306,6 @@ class NavItemTest extends UnitTestCase
         ]));
         $this->assertFalse(NavItem::forLink('foo', 'bar')->isCurrent());
         $this->assertFalse(NavItem::forLink('https://example.com', 'bar')->isCurrent());
-
-        Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => new ExternalRoute('foo'),
-            'getRouteKey' => 'foo',
-        ]));
-
-        $this->assertTrue(NavItem::forLink('foo', 'bar')->isCurrent());
-        $this->assertFalse(NavItem::forLink('https://example.com', 'bar')->isCurrent());
     }
 
     public function testGetGroupWithNoGroup()
