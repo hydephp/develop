@@ -22,4 +22,9 @@ class NavigationMenu
     {
         return $this->items;
     }
+
+    public function add(NavItem $item): void
+    {
+        //
+    }
 }
