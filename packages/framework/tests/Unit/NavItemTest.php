@@ -237,7 +237,7 @@ class NavItemTest extends UnitTestCase
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => (new Route(new InMemoryPage('foo'))),
+            'getRoute' => new Route(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
 
@@ -245,7 +245,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => (new Route(new InMemoryPage('foo/bar'))),
+            'getRoute' => new Route(new InMemoryPage('foo/bar')),
             'getRouteKey' => 'foo/bar',
         ]));
 
@@ -253,7 +253,7 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('../foo/bar.html', (string) NavItem::fromRoute(new Route(new InMemoryPage('foo/bar'))));
 
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => (new Route(new InMemoryPage('foo/bar/baz'))),
+            'getRoute' => new Route(new InMemoryPage('foo/bar/baz')),
             'getRouteKey' => 'foo/bar/baz',
         ]));
 
@@ -291,7 +291,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrent()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => (new Route(new InMemoryPage('foo'))),
+            'getRoute' => new Route(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
         $this->assertTrue(NavItem::fromRoute(new Route(new InMemoryPage('foo')))->isCurrent());
@@ -301,7 +301,7 @@ class NavItemTest extends UnitTestCase
     public function testIsCurrentWithExternalRoute()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => (new Route(new InMemoryPage('foo'))),
+            'getRoute' => new Route(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
         $this->assertFalse(NavItem::forLink('foo', 'bar')->isCurrent());
