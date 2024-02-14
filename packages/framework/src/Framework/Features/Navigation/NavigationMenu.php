@@ -30,6 +30,8 @@ class NavigationMenu
     /**
      * Get the navigation items in the menu.
      *
+     * Items are automatically sorted by their priority, falling back to the order they were added.
+     *
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem>
      */
     public function getItems(): Collection
