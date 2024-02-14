@@ -79,12 +79,42 @@ class NavItemTest extends UnitTestCase
     public function testCanConstructWithChildren()
     {
         $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Test', 500, null, [
+        $children = [
             new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
             new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
-        ]);
+        ];
+        $item = new NavItem($route, 'Test', 500, null, $children);
+
+        $this->assertSame('Test', $item->label);
+        $this->assertSame($route, $item->destination);
+        $this->assertSame(500, $item->priority);
 
         $this->assertCount(2, $item->children);
+        $this->assertSame($children, $item->children);
+
+        $this->assertSame('Foo', $item->children[0]->label);
+        $this->assertSame('Bar', $item->children[1]->label);
+
+        $this->assertSame('foo.html', $item->children[0]->getLink());
+        $this->assertSame('bar.html', $item->children[1]->getLink());
+
+        $this->assertSame(500, $item->children[0]->priority);
+        $this->assertSame(500, $item->children[1]->priority);
+    }
+
+    public function testCanConstructWithChildrenWithoutRoute()
+    {
+        $children = [
+            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
+            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
+        ];
+        $item = new NavItem('', 'Test', 500, null, $children);
+
+        $this->assertSame('Test', $item->label);
+        $this->assertSame('', $item->destination->getLink());
+
+        $this->assertCount(2, $item->children);
+        $this->assertSame($children, $item->children);
     }
 
     public function testGetDestination()
