@@ -32,7 +32,7 @@ class NavItem implements Stringable
     public function __construct(Route|string $destination, string $label, int $priority = 500, ?string $group = null)
     {
         if (is_string($destination)) {
-            $destination = new ExternalRoute($destination);
+            $destination = Routes::get($destination) ?? new ExternalRoute($destination);
         }
 
         $this->destination = $destination;

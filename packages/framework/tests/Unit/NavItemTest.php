@@ -53,6 +53,13 @@ class NavItemTest extends UnitTestCase
         $this->assertSame($route, (new NavItem($route, 'Home'))->destination);
     }
 
+    public function testPassingRouteKeyToConstructorUsesRouteInstance()
+    {
+        $route = Routes::get('index');
+
+        $this->assertSame($route, (new NavItem('index', 'Home'))->destination);
+    }
+
     public function testPassingUrlToConstructorUsesExternalRoute()
     {
         $item = new NavItem('https://example.com', 'Home');
