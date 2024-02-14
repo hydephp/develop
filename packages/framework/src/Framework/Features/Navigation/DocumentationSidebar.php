@@ -18,6 +18,7 @@ use function collect;
 /** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends BaseNavigationMenu
 {
+    /** @deprecated Will be moved to an action */
     public static function create(): static
     {
         $menu = new static();
