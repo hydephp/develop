@@ -236,7 +236,7 @@ class NavigationMenuTest extends TestCase
 
     public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
     {
-        $this->markTestSkipped('Tested method may be removed.');
+        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = $this->createNavigationMenu();
         $this->assertFalse($menu->hasDropdowns());
@@ -244,7 +244,7 @@ class NavigationMenuTest extends TestCase
 
     public function testHasDropdownsReturnsTrueWhenThereAreDropdowns()
     {
-        $this->markTestSkipped('Tested method may be removed.');
+        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $menu = $this->createNavigationMenu();
@@ -253,14 +253,14 @@ class NavigationMenuTest extends TestCase
 
     public function testHasDropdownsAlwaysReturnsFalseWhenDropdownsAreDisabled()
     {
-        $this->markTestSkipped('Tested method may be removed.');
+        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         $this->assertFalse($this->createNavigationMenu()->hasDropdowns());
     }
 
     public function testGetDropdownsReturnsEmptyArrayThereAreNoDropdowns()
     {
-        $this->markTestSkipped('Tested method may be removed.');
+        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = $this->createNavigationMenu();
         $this->assertCount(0, $menu->getDropdowns());
@@ -378,7 +378,7 @@ class NavigationMenuTest extends TestCase
 
     public function testDropdownMenuItemsAreSortedByPriority()
     {
-        $this->markTestSkipped('Tested method may be removed.');
+        $this->markTestSkipped('Tested method removed in https://github.com/hydephp/develop/commit/78d7570060718c5bca1428e4464aaf630d66ec6a');
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         Routes::addRoute(new Route(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
