@@ -77,6 +77,34 @@ class NavigationMenuUnitTest extends UnitTestCase
         $this->assertSame($item, $menu->getItems()->first());
     }
 
+    public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
+    {
+        $menu = new NavigationMenu();
+        $item1 = new NavItem(new ExternalRoute('/'), 'Home');
+        $item2 = new NavItem(new ExternalRoute('/about'), 'About');
+        $item3 = new NavItem(new ExternalRoute('/contact'), 'Contact');
+
+        $menu->add($item1);
+        $menu->add($item2);
+        $menu->add($item3);
+
+        $this->assertSame([$item1, $item2, $item3], $menu->getItems()->all());
+    }
+
+    public function testItemsAreSortedByPriority()
+    {
+        $menu = new NavigationMenu();
+        $item1 = new NavItem(new ExternalRoute('/'), 'Home', 100);
+        $item2 = new NavItem(new ExternalRoute('/about'), 'About', 200);
+        $item3 = new NavItem(new ExternalRoute('/contact'), 'Contact', 300);
+
+        $menu->add($item3);
+        $menu->add($item1);
+        $menu->add($item2);
+
+        $this->assertSame([$item1, $item2, $item3], $menu->getItems()->all());
+    }
+
     protected function getItems(): array
     {
         return [
