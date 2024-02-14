@@ -6,6 +6,8 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
+use Hyde\Support\Models\ExternalRoute;
+use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 /**
@@ -62,6 +64,17 @@ class NavigationMenuUnitTest extends UnitTestCase
     public function testGetItemsReturnsEmptyArrayWhenNoItems()
     {
         $this->assertSame([], (new NavigationMenu())->getItems()->all());
+    }
+
+    public function testCanAddItems()
+    {
+        $menu = new NavigationMenu();
+        $item = new NavItem(new ExternalRoute('/'), 'Home');
+
+        $menu->add($item);
+
+        $this->assertCount(1, $menu->getItems());
+        $this->assertSame($item, $menu->getItems()->first());
     }
 
     protected function getItems(): array
