@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -402,6 +403,20 @@ class NavigationMenuTest extends TestCase
         $dropdowns = $menu->getDropdowns();
 
         $this->assertSame(['Foo', 'Bar', 'Baz'], collect($dropdowns[0]->getChildren())->pluck('label')->toArray());
+    }
+
+    public function testCanGetMenuFromServiceContainer()
+    {
+        $this->assertEquals($this->createNavigationMenu(), app('navigation')->getMenu('main'));
+    }
+
+    public function testCanAddItemsToMainNavigationMenuResolvedFromContainer()
+    {
+        $navigation = app('navigation')->getMenu('main');
+        $navigation->add(new NavItem(new ExternalRoute('/foo'), 'Foo'));
+
+        $this->assertCount(2, $navigation->getItems());
+        $this->assertSame('Foo', $navigation->getItems()->last()->label);
     }
 
     protected function createNavigationMenu(): NavigationMenu
