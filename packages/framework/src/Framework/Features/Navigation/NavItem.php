@@ -26,6 +26,9 @@ class NavItem implements Stringable
     public readonly int $priority;
     public readonly ?string $group;
 
+    /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
+    public readonly array $children;
+
     /**
      * Create a new navigation menu item.
      */
