@@ -32,7 +32,7 @@ class DropdownNavItemTest extends UnitTestCase
         Render::swap(new RenderData());
     }
 
-    public function testConstruct()
+    public function testDropdownConstruct()
     {
         $item = new DropdownNavItem('foo', []);
 
@@ -41,21 +41,21 @@ class DropdownNavItemTest extends UnitTestCase
         $this->assertSame(999, $item->priority);
     }
 
-    public function testConstructWithCustomPriority()
+    public function testDropdownConstructWithCustomPriority()
     {
         $item = new DropdownNavItem('foo', [], 500);
 
         $this->assertSame(500, $item->priority);
     }
 
-    public function testConstructWithNullPriority()
+    public function testDropdownConstructWithNullPriority()
     {
         $item = new DropdownNavItem('foo', [], null);
 
         $this->assertSame(999, $item->priority);
     }
 
-    public function testFromArray()
+    public function testDropdownFromArray()
     {
         $item = DropdownNavItem::fromArray('foo', []);
 
@@ -63,7 +63,7 @@ class DropdownNavItemTest extends UnitTestCase
         $this->assertSame([], $item->items);
     }
 
-    public function testWithChildren()
+    public function testDropdownWithChildren()
     {
         $children = [
             new NavItem(new Route(new MarkdownPage()), 'bar'),
@@ -76,7 +76,7 @@ class DropdownNavItemTest extends UnitTestCase
         $this->assertSame($children, $item->items);
     }
 
-    public function testGetItems()
+    public function testDropdownGetItems()
     {
         $children = [
             new NavItem(new Route(new MarkdownPage()), 'bar'),
@@ -89,7 +89,7 @@ class DropdownNavItemTest extends UnitTestCase
         $this->assertSame($children, $item->getItems()->all());
     }
 
-    public function testCanSetPriorityInConfig()
+    public function testCanSetDropdownPriorityInConfig()
     {
         $root = Config::getFacadeRoot();
         $mock = clone $root;
