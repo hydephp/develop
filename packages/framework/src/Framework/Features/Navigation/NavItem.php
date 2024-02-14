@@ -16,6 +16,7 @@ use Hyde\Support\Models\ExternalRoute;
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
  *
  * @todo Consider splitting facade methods to actual facade class.
+ * @todo Consider adding an "identifier" property to make it more visible how items are identified, for example when modifying sidebars in the config.
  *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
