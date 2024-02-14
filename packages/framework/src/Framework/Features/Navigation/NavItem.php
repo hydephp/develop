@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
