@@ -38,7 +38,16 @@ class GeneratesMainNavigationMenu
 
     protected function generate(): void
     {
-        $this->parent__generate();
+        Routes::each(function (Route $route): void {
+            if ($this->canAddRoute($route)) {
+                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+            }
+        });
+
+        collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+            // Since these were added explicitly by the user, we can assume they should always be shown
+            $this->items->push($item);
+        });
 
         if ($this->dropdownsEnabled()) {
             $this->moveGroupedItemsIntoDropdowns();
@@ -67,7 +76,7 @@ class GeneratesMainNavigationMenu
 
     protected function canAddRoute(Route $route): bool
     {
-        return $this->parent__canAddRoute($route) && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
+        return $route->getPage()->showInNavigation() && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
     }
 
     protected function canAddItemToDropdown(NavItem $item): bool
@@ -78,25 +87,6 @@ class GeneratesMainNavigationMenu
     protected function dropdownsEnabled(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
-    }
-
-    protected function parent__generate(): void
-    {
-        Routes::each(function (Route $route): void {
-            if ($this->canAddRoute($route)) {
-                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
-            }
-        });
-
-        collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
-            // Since these were added explicitly by the user, we can assume they should always be shown
-            $this->items->push($item);
-        });
-    }
-
-    protected function parent__canAddRoute(Route $route): bool
-    {
-        return $route->getPage()->showInNavigation();
     }
 
     protected function removeDuplicateItems(): void
