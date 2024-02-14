@@ -20,8 +20,6 @@ class NavigationMenu
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     public function getItems(): Collection
     {
-        // TODO: Consider sorting by priority here, as orders may have been changed after adding items
-
         return $this->items;
     }
 
