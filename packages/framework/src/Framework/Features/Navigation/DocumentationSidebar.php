@@ -12,12 +12,27 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\Support\Arrayable;
 
 use function collect;
 
 /** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends BaseNavigationMenu
 {
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
+    protected Collection $items;
+
+    public function __construct(Arrayable|array $items = [])
+    {
+        $this->items = new Collection($items);
+    }
+
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
+    public function getItems(): Collection
+    {
+        return $this->items->values();
+    }
+
     /** @deprecated Will be moved to an action */
     public static function create(): static
     {
