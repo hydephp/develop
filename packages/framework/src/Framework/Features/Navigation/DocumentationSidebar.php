@@ -18,6 +18,17 @@ use function collect;
 /** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends BaseNavigationMenu
 {
+    public static function create(): static
+    {
+        $menu = new static();
+
+        $menu->generate();
+        $menu->sortByPriority();
+        $menu->removeDuplicateItems();
+
+        return $menu;
+    }
+
     protected function generate(): void
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {

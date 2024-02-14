@@ -18,17 +18,6 @@ abstract class BaseNavigationMenu
         $this->items = new Collection($items);
     }
 
-    public static function create(): static
-    {
-        $menu = new static();
-
-        $menu->generate();
-        $menu->sortByPriority();
-        $menu->removeDuplicateItems();
-
-        return $menu;
-    }
-
     /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItems(): Collection
     {
