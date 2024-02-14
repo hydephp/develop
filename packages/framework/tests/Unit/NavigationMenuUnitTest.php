@@ -47,12 +47,14 @@ class NavigationMenuUnitTest extends UnitTestCase
     public function testGetItemsReturnsItems()
     {
         $items = $this->getItems();
+
         $this->assertSame($items, (new NavigationMenu($items))->getItems()->all());
     }
 
     public function testGetItemsReturnsItemsWhenSuppliedArrayable()
     {
         $items = $this->getItems();
+
         $this->assertSame($items, (new NavigationMenu(collect($items)))->getItems()->all());
     }
 
