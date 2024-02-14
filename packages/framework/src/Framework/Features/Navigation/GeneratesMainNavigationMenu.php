@@ -14,8 +14,6 @@ use function collect;
 
 /**
  * @experimental This class may change significantly before its release.
- *
- * @todo Refactor to move logic to the new action
  */
 class GeneratesMainNavigationMenu
 {
