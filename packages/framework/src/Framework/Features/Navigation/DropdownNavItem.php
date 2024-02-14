@@ -13,7 +13,7 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class DropdownNavItem extends NavItem
 {
-    /** @var array<NavItem> */
+    /** @deprecated */
     public array $items;
 
     /** @param array<NavItem> $items */
