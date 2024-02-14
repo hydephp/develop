@@ -243,7 +243,7 @@ class NavigationMenuTest extends TestCase
     public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $this->assertFalse($menu->hasDropdowns());
     }
 
@@ -251,20 +251,20 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $this->assertTrue($menu->hasDropdowns());
     }
 
     public function testHasDropdownsAlwaysReturnsFalseWhenDropdownsAreDisabled()
     {
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $this->assertFalse($this->createMainNavigationMenu()->hasDropdowns());
+        $this->assertFalse($this->createNewMainNavigationMenu()->hasDropdowns());
     }
 
     public function testGetDropdownsReturnsEmptyArrayThereAreNoDropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $this->assertCount(0, $menu->getDropdowns());
         $this->assertSame([], $menu->getDropdowns());
     }
@@ -273,7 +273,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
@@ -288,7 +288,7 @@ class NavigationMenuTest extends TestCase
 
         Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
         Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
 
         $this->assertCount(1, $menu->getDropdowns());
 
@@ -308,7 +308,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
         Routes::addRoute((new MarkdownPage('cat/hat'))->getRoute());
 
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
 
         $this->assertCount(2, $menu->getDropdowns());
 
@@ -328,7 +328,7 @@ class NavigationMenuTest extends TestCase
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
 
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $menu->getDropdowns();
     }
 
@@ -338,7 +338,7 @@ class NavigationMenuTest extends TestCase
 
         Routes::addRoute((new DocumentationPage('foo'))->getRoute());
         Routes::addRoute((new DocumentationPage('bar/baz'))->getRoute());
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
 
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
@@ -351,7 +351,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute((new MarkdownPost('foo'))->getRoute());
         Routes::addRoute((new MarkdownPost('bar/baz'))->getRoute());
 
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
     }
@@ -382,7 +382,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('foo/bar', ['navigation.priority' => 2])));
         Routes::addRoute(new Route(new MarkdownPage('foo/baz', ['navigation.priority' => 3])));
 
-        $menu = $this->createMainNavigationMenu();
+        $menu = $this->createNewMainNavigationMenu();
         $dropdowns = $menu->getDropdowns();
 
         $this->assertSame(['Foo', 'Bar', 'Baz'], $dropdowns[0]->getItems()->pluck('label')->toArray());
