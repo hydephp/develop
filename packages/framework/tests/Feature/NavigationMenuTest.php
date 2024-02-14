@@ -31,12 +31,12 @@ class NavigationMenuTest extends TestCase
 
     public function testGenerateMethodCreatesCollectionOfNavItems()
     {
-        $this->assertInstanceOf(Collection::class, MainNavigationMenu::create()->items);
+        $this->assertInstanceOf(Collection::class, MainNavigationMenu::create()->getItems());
     }
 
     public function testGetItemsReturnsItems()
     {
-        $this->assertEquals(MainNavigationMenu::create()->items, MainNavigationMenu::create()->getItems());
+        $this->assertEquals(MainNavigationMenu::create()->getItems(), MainNavigationMenu::create()->getItems());
     }
 
     public function testItemsAreSortedByPriority()
@@ -45,7 +45,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.priority' => 2])));
         Routes::addRoute(new Route(new MarkdownPage('baz', ['navigation.priority' => 3])));
 
-        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], MainNavigationMenu::create()->items->pluck('label')->toArray());
+        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], MainNavigationMenu::create()->getItems()->pluck('label')->toArray());
     }
 
     public function testItemsWithHiddenPropertySetToTrueAreNotAdded()
@@ -53,7 +53,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.hidden' => true])));
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.hidden' => false])));
 
-        $this->assertSame(['Home', 'Bar'], MainNavigationMenu::create()->items->pluck('label')->toArray());
+        $this->assertSame(['Home', 'Bar'], MainNavigationMenu::create()->getItems()->pluck('label')->toArray());
     }
 
     public function testCreatedCollectionIsSortedByNavigationMenuPriority()
@@ -69,8 +69,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Routes::get('docs/index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testIsSortedAutomaticallyWhenUsingNavigationMenuCreate()
@@ -84,13 +84,13 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Routes::get('foo')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testCollectionOnlyContainsNavItems()
     {
-        $this->assertContainsOnlyInstancesOf(NavItem::class, MainNavigationMenu::create()->items);
+        $this->assertContainsOnlyInstancesOf(NavItem::class, MainNavigationMenu::create()->getItems());
     }
 
     public function testExternalLinkCanBeAddedInConfig()
@@ -104,8 +104,8 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('https://example.com', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPathLinkCanBeAddedInConfig()
@@ -119,8 +119,8 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testDuplicatesAreRemovedWhenAddingInConfig()
@@ -137,8 +137,8 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testDuplicatesAreRemovedWhenAddingInConfigRegardlessOfDestination()
@@ -155,8 +155,8 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testConfigItemsTakePrecedenceOverGeneratedItems()
@@ -172,8 +172,8 @@ class NavigationMenuTest extends TestCase
             NavItem::forLink('bar', 'Foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testDocumentationPagesThatAreNotIndexAreNotAddedToTheMenu()
@@ -188,8 +188,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Routes::get('docs/index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenu()
@@ -200,8 +200,8 @@ class NavigationMenuTest extends TestCase
         $menu = MainNavigationMenu::create();
         $expected = collect([NavItem::fromRoute(Routes::get('index'))]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInSubdirectoriesCanBeAddedToTheNavigationMenuWithConfigFlatSetting()
@@ -216,8 +216,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Routes::get('foo/bar')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenuWithConfigDropdownSetting()
@@ -234,8 +234,8 @@ class NavigationMenuTest extends TestCase
             ]),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
@@ -362,14 +362,14 @@ class NavigationMenuTest extends TestCase
         Routes::push((new MarkdownPage('bar/baz'))->getRoute());
         $menu = MainNavigationMenu::create();
 
-        $this->assertCount(3, $menu->items);
+        $this->assertCount(3, $menu->getItems());
         $this->assertEquals([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
             DropdownNavItem::fromArray('bar', [
                 NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
-        ], $menu->items->all());
+        ], $menu->getItems()->all());
     }
 
     public function testDropdownMenuItemsAreSortedByPriority()

@@ -51,7 +51,7 @@ class DocumentationSidebarTest extends TestCase
 
         $sidebar = DocumentationSidebar::create();
 
-        $this->assertCount(5, $sidebar->items);
+        $this->assertCount(5, $sidebar->getItems());
     }
 
     public function testIndexPageIsRemovedFromSidebar()
@@ -60,7 +60,7 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(5, $sidebar->items);
+        $this->assertCount(5, $sidebar->getItems());
     }
 
     public function testFilesWithFrontMatterHiddenSetToTrueAreRemovedFromSidebar()
@@ -69,7 +69,7 @@ class DocumentationSidebarTest extends TestCase
         File::put(Hyde::path('_docs/test.md'), "---\nnavigation:\n    hidden: true\n---\n\n# Foo");
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(5, $sidebar->items);
+        $this->assertCount(5, $sidebar->getItems());
     }
 
     public function testSidebarIsOrderedAlphabeticallyWhenNoOrderIsSetInConfig()
@@ -85,7 +85,7 @@ class DocumentationSidebarTest extends TestCase
                 NavItem::fromRoute(Routes::get('docs/b'), priority: 999),
                 NavItem::fromRoute(Routes::get('docs/c'), priority: 999),
             ]),
-            DocumentationSidebar::create()->items
+            DocumentationSidebar::create()->getItems()
         );
     }
 
@@ -106,7 +106,7 @@ class DocumentationSidebarTest extends TestCase
                 NavItem::fromRoute(Routes::get('docs/b'), priority: 250 + 251),
                 NavItem::fromRoute(Routes::get('docs/a'), priority: 250 + 252),
             ]),
-            DocumentationSidebar::create()->items
+            DocumentationSidebar::create()->getItems()
         );
     }
 
@@ -114,7 +114,7 @@ class DocumentationSidebarTest extends TestCase
     {
         $this->makePage('foo', ['navigation.priority' => 25]);
 
-        $this->assertEquals(25, DocumentationSidebar::create()->items->first()->priority);
+        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->priority);
     }
 
     public function testSidebarItemPrioritySetInConfigOverridesFrontMatter()
@@ -123,7 +123,7 @@ class DocumentationSidebarTest extends TestCase
 
         Config::set('docs.sidebar_order', ['foo']);
 
-        $this->assertEquals(25, DocumentationSidebar::create()->items->first()->priority);
+        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->priority);
     }
 
     public function testSidebarPrioritiesCanBeSetInBothFrontMatterAndConfig()
@@ -145,7 +145,7 @@ class DocumentationSidebarTest extends TestCase
                 NavItem::fromRoute(Routes::get('docs/second'), priority: 250 + 252),
                 NavItem::fromRoute(Routes::get('docs/third'), priority: 250 + 300),
             ]),
-            DocumentationSidebar::create()->items
+            DocumentationSidebar::create()->getItems()
         );
     }
 
@@ -153,7 +153,7 @@ class DocumentationSidebarTest extends TestCase
     {
         $this->makePage('foo', ['navigation.group' => 'bar']);
 
-        $this->assertEquals('bar', DocumentationSidebar::create()->items->first()->getGroup());
+        $this->assertEquals('bar', DocumentationSidebar::create()->getItems()->first()->getGroup());
     }
 
     public function testHasGroupsReturnsFalseWhenThereAreNoGroups()
@@ -276,7 +276,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([NavItem::fromRoute(Routes::get('docs/foo'), priority: 999)]),
-            DocumentationSidebar::create()->items
+            DocumentationSidebar::create()->getItems()
         );
     }
 
@@ -361,14 +361,14 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('bar', ['navigation.group' => 'bar', 'navigation.label' => 'Foo']);
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(2, $sidebar->items);
+        $this->assertCount(2, $sidebar->getItems());
 
         $this->assertEquals(
             collect([
                 NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
                 NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
             ]),
-            $sidebar->items
+            $sidebar->getItems()
         );
     }
 
@@ -378,11 +378,11 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('bar', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(1, $sidebar->items);
+        $this->assertCount(1, $sidebar->getItems());
 
         $this->assertEquals(
             collect([NavItem::fromRoute(Routes::get('docs/bar'), priority: 999)]),
-            $sidebar->items
+            $sidebar->getItems()
         );
     }
 
@@ -399,10 +399,10 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
         $sidebar = DocumentationSidebar::create();
 
-        $this->assertCount(1, $sidebar->items);
+        $this->assertCount(1, $sidebar->getItems());
         $this->assertEquals(
             collect([NavItem::fromRoute(Routes::get('docs/index'))]),
-            $sidebar->items
+            $sidebar->getItems()
         );
     }
 
@@ -412,10 +412,10 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
         $sidebar = DocumentationSidebar::create();
 
-        $this->assertCount(1, $sidebar->items);
+        $this->assertCount(1, $sidebar->getItems());
         $this->assertEquals(
             collect([NavItem::fromRoute(Routes::get('docs/test-0'))]),
-            $sidebar->items
+            $sidebar->getItems()
         );
     }
 

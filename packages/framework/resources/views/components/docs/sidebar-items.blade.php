@@ -1,7 +1,7 @@
 @php /** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */ @endphp
 @if(! $sidebar->hasGroups())
     <ul id="sidebar-items" role="list" class="pl-2">
-        @foreach ($sidebar->items as $item)
+        @foreach ($sidebar->getItems() as $item)
             @include('hyde::components.docs.sidebar-item')
         @endforeach
     </ul>

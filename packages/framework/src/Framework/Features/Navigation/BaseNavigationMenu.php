@@ -15,7 +15,7 @@ use function collect;
 abstract class BaseNavigationMenu
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
-    public Collection $items;
+    protected Collection $items;
 
     final protected function __construct()
     {
