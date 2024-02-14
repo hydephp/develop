@@ -27,6 +27,6 @@ class NavigationMenu
 
     public function add(NavItem $item): void
     {
-        //
+        // If item has identifier, put $this->items->put($item->identifier(), $item);
     }
 }
