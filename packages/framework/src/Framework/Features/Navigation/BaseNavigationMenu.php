@@ -68,6 +68,6 @@ abstract class BaseNavigationMenu
     /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItems(): Collection
     {
-        return $this->items;
+        return $this->items->values();
     }
 }
