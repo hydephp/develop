@@ -6,10 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
-
-use function collect;
-use function config;
-
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
