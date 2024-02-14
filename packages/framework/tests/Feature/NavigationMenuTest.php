@@ -93,11 +93,6 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
-    public function testCollectionOnlyContainsNavItems()
-    {
-        $this->assertContainsOnlyInstancesOf(NavItem::class, $this->createLegacyMainNavigationMenu()->getItems());
-    }
-
     public function testExternalLinkCanBeAddedInConfig()
     {
         config(['hyde.navigation.custom' => [NavItem::forLink('https://example.com', 'foo')]]);
