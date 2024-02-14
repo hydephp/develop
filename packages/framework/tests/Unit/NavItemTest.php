@@ -119,6 +119,23 @@ class NavItemTest extends UnitTestCase
         $this->assertNull($navItem->getGroup());
     }
 
+    public function testGetChildren()
+    {
+        $children = [
+            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
+            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
+        ];
+
+        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500, null, $children);
+        $this->assertSame($children, $navItem->getChildren());
+    }
+
+    public function testGetChildrenWithNoChildren()
+    {
+        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $this->assertEmpty($navItem->getChildren());
+    }
+
     public function testFromRoute()
     {
         $route = new Route(new MarkdownPage());

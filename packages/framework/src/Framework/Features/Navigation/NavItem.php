@@ -137,6 +137,18 @@ class NavItem implements Stringable
         return Hyde::currentRoute()->getLink() === (string) $this->destination;
     }
 
+    /**
+     * Get the children of the navigation item.
+     *
+     * For the main navigation menu, this stores any dropdown items.
+     *
+     * @return array<\Hyde\Framework\Features\Navigation\NavItem>
+     */
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
+
     protected static function getRouteGroup(Route $route): ?string
     {
         /** @var string|null $group */
