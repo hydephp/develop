@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 
 /**
@@ -31,17 +32,17 @@ class NavigationMenuUnitTest extends UnitTestCase
 
     public function testGetItemsReturnsCollection()
     {
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu())->getItems());
+        $this->assertInstanceOf(Collection::class, (new NavigationMenu())->getItems());
     }
 
     public function testGetItemsReturnsCollectionWhenSuppliedArray()
     {
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu($this->getItems()))->getItems());
+        $this->assertInstanceOf(Collection::class, (new NavigationMenu($this->getItems()))->getItems());
     }
 
     public function testGetItemsReturnsCollectionWhenSuppliedArrayable()
     {
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, (new NavigationMenu(collect($this->getItems())))->getItems());
+        $this->assertInstanceOf(Collection::class, (new NavigationMenu(collect($this->getItems())))->getItems());
     }
 
     public function testGetItemsReturnsItems()
