@@ -25,12 +25,23 @@ class NavigationMenu
         return $this->items;
     }
 
+    /**
+     * @experimental These do not seem to be used outside of tests and may be removed
+     *
+     * @deprecated If kept, they should be renamed to be more generic.
+     */
     public function hasDropdowns(): bool
     {
         return $this->dropdownsEnabled() && count($this->getDropdowns()) >= 1;
     }
 
-    /** @return array<string, DropdownNavItem> */
+    /**
+     * @experimental These do not seem to be used outside of tests and may be removed
+     *
+     * @deprecated If kept, they should be renamed to be more generic.
+     *
+     * @return array<string, DropdownNavItem>
+     */
     public function getDropdowns(): array
     {
         if (! $this->dropdownsEnabled()) {
