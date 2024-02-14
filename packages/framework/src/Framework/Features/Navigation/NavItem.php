@@ -163,7 +163,7 @@ class NavItem implements Stringable
         return $group ? Str::slug($group) : null;
     }
 
-    protected function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
+    protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
         /** @var array<string, int> $config */
         $config = Config::getArray('hyde.navigation.order', [

@@ -23,7 +23,7 @@ class DropdownNavItem extends NavItem
     /** @param array<NavItem> $items */
     public function __construct(string $label, array $items, ?int $priority = null)
     {
-        parent::__construct('', $label, $priority ?? $this->searchForDropdownPriorityInNavigationConfig($label) ?? 999);
+        parent::__construct('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999);
         $this->items = $items;
     }
 
