@@ -77,12 +77,7 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     protected function canAddRoute(Route $route): bool
     {
-        return $this->parent__canAddRoute($route) && ! $route->is(DocumentationPage::homeRouteName());
-    }
-
-    protected function parent__canAddRoute(Route $route): bool
-    {
-        return $route->getPage()->showInNavigation();
+        return $route->getPage()->showInNavigation() && ! $route->is(DocumentationPage::homeRouteName());
     }
 
     protected function removeDuplicateItems(): void
