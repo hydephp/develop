@@ -28,17 +28,17 @@ class NavigationMenuTest extends TestCase
 {
     public function testConstructor()
     {
-        $this->assertInstanceOf(MainNavigationMenu::class, $this->createMainNavigationMenu());
+        $this->assertInstanceOf(NavigationMenu::class, $this->createNewMainNavigationMenu());
     }
 
     public function testGenerateMethodCreatesCollectionOfNavItems()
     {
-        $this->assertInstanceOf(Collection::class, $this->createMainNavigationMenu()->getItems());
+        $this->assertInstanceOf(Collection::class, $this->createNewMainNavigationMenu()->getItems());
     }
 
     public function testGetItemsReturnsItems()
     {
-        $this->assertEquals($this->createMainNavigationMenu()->getItems(), $this->createMainNavigationMenu()->getItems());
+        $this->assertEquals($this->createNewMainNavigationMenu()->getItems(), $this->createNewMainNavigationMenu()->getItems());
     }
 
     public function testItemsAreSortedByPriority()
