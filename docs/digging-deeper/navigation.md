@@ -319,3 +319,9 @@ Dropdowns are represented by `DropdownNavItem` instances, which extend the `NavI
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
 ```
+
+## The Navigation API
+
+If you want to interact with the site navigation programmatically, you can do so through the new Navigation API.
+
+For most cases you don't need this, as Hyde creates the navigation for you. But it can be useful for advanced users and package developers.
