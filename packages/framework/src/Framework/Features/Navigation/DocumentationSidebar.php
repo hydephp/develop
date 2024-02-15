@@ -6,10 +6,8 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Support\Arrayable;
@@ -37,21 +35,6 @@ class DocumentationSidebar
     public static function create(): static
     {
         return GeneratesDocumentationSidebarMenu::handle();
-    }
-
-    /** @deprecated Move to new action */
-    protected function generate(): void
-    {
-        Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
-            if ($this->canAddRoute($route)) {
-                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
-            }
-        });
-
-        // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
-        if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
-            $this->items->push(NavItem::fromRoute(DocumentationPage::home(), group: 'other'));
-        }
     }
 
     public function hasGroups(): bool
@@ -84,27 +67,6 @@ class DocumentationSidebar
     public function makeGroupTitle(string $group): string
     {
         return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
-    }
-
-    /** @deprecated Move to new action */
-    protected function canAddRoute(Route $route): bool
-    {
-        return $route->getPage()->showInNavigation() && ! $route->is(DocumentationPage::homeRouteName());
-    }
-
-    /** @deprecated Move to new action */
-    protected function removeDuplicateItems(): void
-    {
-        $this->items = $this->items->unique(function (NavItem $item): string {
-            // Filter using a combination of the group and label to allow duplicate labels in different groups
-            return $item->getGroup().$item->label;
-        });
-    }
-
-    /** @deprecated Move to new action */
-    protected function sortByPriority(): void
-    {
-        $this->items = $this->items->sortBy('priority')->values();
     }
 
     /** @deprecated Move to new action */
