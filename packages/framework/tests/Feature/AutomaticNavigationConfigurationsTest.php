@@ -24,7 +24,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         $this->menu()
             ->assertHasItem('Home')
-            ->assertMatchesFormat([
+            ->assertEquals([
                 [
                     'label' => 'Home',
                     'group' => null,
@@ -101,7 +101,7 @@ class AssertableNavigationMenu extends NavigationMenu
      * @param  array  $expected  The expected format
      * @param  bool  $strict  If false, missing array keys are ignored
      */
-    public function assertMatchesFormat(array $expected, bool $strict = false): static
+    public function assertEquals(array $expected, bool $strict = false): static
     {
         // $this->test->assertEquals($expected, $this->format(), 'Failed to match the expected format');
 
