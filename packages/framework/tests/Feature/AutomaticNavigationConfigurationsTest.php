@@ -82,6 +82,27 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testOnlyFirstItemWithDuplicateIdentifierIsUsed()
+    {
+        $this->assertMenuEquals(['Markdown'], [
+            new MarkdownPage('foo', ['navigation.label' => 'Markdown']),
+            new BladePage('foo', ['navigation.label' => 'Blade']),
+        ]);
+    }
+
+    public function testItemWithHighestPriorityIsUsedForDuplicateIdentifier()
+    {
+        $this->assertMenuEquals(['Markdown'], [
+            new MarkdownPage('foo', ['navigation.label' => 'Markdown', 'navigation.priority' => 1]),
+            new BladePage('foo', ['navigation.label' => 'Blade', 'navigation.priority' => 2]),
+        ]);
+
+        $this->assertMenuEquals(['Blade'], [
+            new MarkdownPage('foo', ['navigation.label' => 'Markdown', 'navigation.priority' => 2]),
+            new BladePage('foo', ['navigation.label' => 'Blade', 'navigation.priority' => 1]),
+        ]);
+    }
+
     public function testMainNavigationMenuWithFrontMatterPriority()
     {
         $this->assertMenuEquals(['First', 'Second', 'Third'], [
