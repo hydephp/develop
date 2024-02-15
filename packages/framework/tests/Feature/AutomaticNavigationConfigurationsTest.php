@@ -56,21 +56,21 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
-        $this->menu([
+        $this->assertMenuEquals([
             new MarkdownPage('first', ['navigation.priority' => 1]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 3]),
-        ])->assertEquals([
+        ], [
             'First',
             'Second',
             'Third',
         ]);
 
-        $this->menu([
+        $this->assertMenuEquals([
             new MarkdownPage('first', ['navigation.priority' => 3]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 1]),
-        ])->assertEquals([
+        ], [
             'Third',
             'Second',
             'First',
@@ -79,25 +79,30 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
     {
-        $this->menu([
+        $this->assertMenuEquals([
             new MarkdownPage('first', ['navigation.order' => 1]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 3]),
-        ])->assertEquals([
+        ], [
             'First',
             'Second',
             'Third',
         ]);
 
-        $this->menu([
+        $this->assertMenuEquals([
             new MarkdownPage('first', ['navigation.order' => 3]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 1]),
-        ])->assertEquals([
+        ], [
             'Third',
             'Second',
             'First',
         ]);
+    }
+
+    protected function assertMenuEquals(array $menuPages, array $expected): void
+    {
+        $this->menu($menuPages)->assertEquals($expected);
     }
 
     protected function menu(?array $withPages = null): AssertableNavigationMenu
