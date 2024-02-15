@@ -84,6 +84,15 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithFrontMatterLabel()
+    {
+        $this->assertMenuEquals(['First', 'Second', 'Third'], [
+            new MarkdownPage('foo', ['navigation.label' => 'First']),
+            new MarkdownPage('bar', ['navigation.label' => 'Second']),
+            new MarkdownPage('baz', ['navigation.label' => 'Third']),
+        ]);
+    }
+
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
