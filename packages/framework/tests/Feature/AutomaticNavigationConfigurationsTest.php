@@ -153,6 +153,29 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithFrontMatterPriorityAndOrder()
+    {
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'priority' => 1],
+            ['label' => 'Bar', 'priority' => 2],
+            ['label' => 'Baz', 'priority' => 3],
+        ], [
+            new MarkdownPage('foo', ['navigation.priority' => 1, 'navigation.order' => 10]),
+            new MarkdownPage('bar', ['navigation.priority' => 2, 'navigation.order' => 20]),
+            new MarkdownPage('baz', ['navigation.priority' => 3, 'navigation.order' => 30]),
+        ]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'priority' => 1],
+            ['label' => 'Bar', 'priority' => 2],
+            ['label' => 'Baz', 'priority' => 3],
+        ], [
+            new MarkdownPage('foo', ['navigation.order' => 10, 'navigation.priority' => 1]),
+            new MarkdownPage('bar', ['navigation.order' => 20, 'navigation.priority' => 2]),
+            new MarkdownPage('baz', ['navigation.order' => 30, 'navigation.priority' => 3]),
+        ]);
+    }
+
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
