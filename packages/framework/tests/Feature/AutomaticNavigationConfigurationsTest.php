@@ -215,11 +215,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         // Since the main key in the navigation schema is 'group', that takes precedence over its 'category' alias
 
-        $this->assertMenuEquals([
-            ['group' => 'group-1'],
-            ['group' => 'group-1'],
-            ['group' => 'group-1'],
-        ], [
+        $this->assertMenuEquals(array_fill(0, 3, ['group' => 'group-1']), [
             new MarkdownPage('foo', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
             new MarkdownPage('bar', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
             new MarkdownPage('baz', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
