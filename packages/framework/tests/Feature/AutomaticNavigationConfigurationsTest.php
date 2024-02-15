@@ -56,21 +56,21 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
-        $this->withPages([
+        $this->menu([
             new MarkdownPage('first', ['navigation.priority' => 1]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 3]),
-        ])->menu()->assertEquals([
+        ])->assertEquals([
             'First',
             'Second',
             'Third',
         ]);
 
-        $this->withPages([
+        $this->menu([
             new MarkdownPage('first', ['navigation.priority' => 3]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 1]),
-        ])->menu()->assertEquals([
+        ])->assertEquals([
             'Third',
             'Second',
             'First',
@@ -79,21 +79,21 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
     {
-        $this->withPages([
+        $this->menu([
             new MarkdownPage('first', ['navigation.order' => 1]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 3]),
-        ])->menu()->assertEquals([
+        ])->assertEquals([
             'First',
             'Second',
             'Third',
         ]);
 
-        $this->withPages([
+        $this->menu([
             new MarkdownPage('first', ['navigation.order' => 3]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 1]),
-        ])->menu()->assertEquals([
+        ])->assertEquals([
             'Third',
             'Second',
             'First',
@@ -107,8 +107,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         return $this;
     }
 
-    protected function menu(): AssertableNavigationMenu
+    protected function menu(?array $withPages = null): AssertableNavigationMenu
     {
+        if ($withPages) {
+            $this->withPages($withPages);
+        }
+
         return new AssertableNavigationMenu($this);
     }
 
