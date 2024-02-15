@@ -54,6 +54,33 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
+    {
+        $this->withPages([
+            new MarkdownPage('first', ['navigation.priority' => 1]),
+            new MarkdownPage('second', ['navigation.priority' => 2]),
+        ])->menu()->assertEquals([
+            'First',
+            'Second',
+        ]);
+
+        $this->withPages([
+            new MarkdownPage('first', ['navigation.priority' => 2]),
+            new MarkdownPage('second', ['navigation.priority' => 1]),
+        ])->menu()->assertEquals([
+            'Second',
+            'First',
+        ]);
+
+        $this->withPages([
+            new MarkdownPage('first', ['navigation.order' => 2]),
+            new MarkdownPage('second', ['navigation.order' => 1]),
+        ])->menu()->assertEquals([
+            'Second',
+            'First',
+        ]);
+    }
+
     protected function withPages(array $pages): static
     {
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
