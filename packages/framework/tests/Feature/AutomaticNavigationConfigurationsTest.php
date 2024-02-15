@@ -57,12 +57,14 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
-        $this->assertMenuOrder(['priority', 'order'], [1, 2, 3], ['First', 'Second', 'Third']);
-        $this->assertMenuOrder(['priority', 'order'], [3, 2, 1], ['Third', 'Second', 'First']);
+        $this->assertMenuOrder([1, 2, 3], ['First', 'Second', 'Third']);
+        $this->assertMenuOrder([3, 2, 1], ['Third', 'Second', 'First']);
     }
 
-    protected function assertMenuOrder(array $fields, array $frontMatterValues, array $expectedOrder): void
+    protected function assertMenuOrder(array $frontMatterValues, array $expectedOrder): void
     {
+        $fields = ['priority', 'order'];
+
         foreach ($fields as $field) {
             $pages = collect($frontMatterValues)->map(function ($value) use ($expectedOrder, $field) {
                 return new MarkdownPage(Str::slug($expectedOrder[$value - 1]), ["navigation.$field" => $value]);
