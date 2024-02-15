@@ -54,6 +54,7 @@ class DocumentationSidebar
     public function getItemsInGroup(?string $group): Collection
     {
         return $this->items->filter(function (NavItem $item) use ($group): bool {
+            // Todo: Use identifier instead of slug
             return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
         })->sortBy('navigation.priority')->values();
     }
