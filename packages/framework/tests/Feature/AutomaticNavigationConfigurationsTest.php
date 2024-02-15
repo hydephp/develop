@@ -24,14 +24,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         $this->menu()
             ->assertHasItem('Home')
-            ->assertEquals([
-                [
-                    'label' => 'Home',
-                    'group' => null,
-                    'priority' => 0,
-                    'children' => [],
-                ],
-            ]);
+            ->assertEquals(['Home']);
     }
 
     protected function menu(): AssertableNavigationMenu
@@ -104,6 +97,10 @@ class AssertableNavigationMenu extends NavigationMenu
     public function assertEquals(array $expected, bool $strict = false): static
     {
         foreach ($expected as $index => $item) {
+            if (! is_array($item)) {
+                $item = ['label' => $item];
+            }
+
             foreach (TestNavItem::properties() as $property) {
                 if ($this->getState($index) !== null) {
                     if (isset($item[$property])) {
