@@ -105,9 +105,7 @@ class AssertableNavigationMenu extends NavigationMenu
     {
         foreach ($expected as $index => $item) {
             foreach (TestNavItem::properties() as $property) {
-                $actual = $this->getState($index);
-
-                if ($actual === null) {
+                if ($this->getState($index) === null) {
                     // Count mismatch which we will catch at end of loop
 
                     continue;
@@ -121,7 +119,7 @@ class AssertableNavigationMenu extends NavigationMenu
                     continue;
                 }
 
-                $this->test->assertSame($item[$property], $actual->$property, "Failed to match the expected value for '$property'");
+                $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
             }
 
             $this->test->assertCount(count($expected), $this->state(), 'The expected state has a different count than the actual state');
