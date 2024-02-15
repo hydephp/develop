@@ -100,13 +100,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    protected function withPages(array $pages): static
-    {
-        $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
-
-        return $this;
-    }
-
     protected function menu(?array $withPages = null): AssertableNavigationMenu
     {
         if ($withPages) {
@@ -114,6 +107,13 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         }
 
         return new AssertableNavigationMenu($this);
+    }
+
+    protected function withPages(array $pages): static
+    {
+        $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
+
+        return $this;
     }
 
     protected function sidebar(): AssertableNavigationMenu
