@@ -8,6 +8,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+use Hyde\Foundation\Facades\Routes;
 
 use function collect;
 
@@ -35,6 +36,20 @@ class GeneratesDocumentationSidebarMenu
         $menu->removeDuplicateItems();
 
         return new DocumentationSidebar($menu->items);
+    }
+
+    protected function generate(): void
+    {
+        Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
+            if ($this->canAddRoute($route)) {
+                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
+            }
+        });
+
+        // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
+        if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
+            $this->items->push(NavItem::fromRoute(DocumentationPage::home(), group: 'other'));
+        }
     }
 
     protected function canAddRoute(Route $route): bool

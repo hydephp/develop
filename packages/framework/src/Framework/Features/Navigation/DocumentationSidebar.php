@@ -45,6 +45,7 @@ class DocumentationSidebar
         return $menu;
     }
 
+    /** @deprecated Move to new action */
     protected function generate(): void
     {
         Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
