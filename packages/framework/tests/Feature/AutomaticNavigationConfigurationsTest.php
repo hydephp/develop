@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -51,6 +56,29 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ])->menu()->assertEquals([
             'About',
             'Contact',
+        ]);
+    }
+
+    public function testMainNavigationDoesNotInclude404Page()
+    {
+        $this->assertMenuEquals([], [new MarkdownPage('404')]);
+    }
+
+    public function testOnlyRootTypePagesAreAddedToNavigationMenu()
+    {
+        $this->assertMenuEquals(['Html Page', 'Blade Page', 'Markdown Page'], [
+            new HtmlPage('html-page'),
+            new BladePage('blade-page'),
+            new MarkdownPage('markdown-page'),
+            new MarkdownPost('markdown-post'),
+            new DocumentationPage('documentation-page'),
+        ]);
+    }
+
+    public function testInMemoryPagesIsAddedToNavigationMenu()
+    {
+        $this->assertMenuEquals(['In Memory Page'], [
+            new InMemoryPage('in-memory-page'),
         ]);
     }
 
