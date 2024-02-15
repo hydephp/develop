@@ -48,9 +48,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->withPages([
             'About' => MarkdownPage::class,
             'Contact' => MarkdownPage::class,
-        ]);
-
-        $this->menu()->assertEquals([
+        ])->menu()->assertEquals([
             'About',
             'Contact',
         ]);
