@@ -55,21 +55,23 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
+    public function testMainNavigationMenuWithPagesPriority()
     {
-        $this->testNavigationMenuWithPages('priority', [1, 2, 3], ['First', 'Second', 'Third']);
-        $this->testNavigationMenuWithPages('priority', [3, 2, 1], ['Third', 'Second', 'First']);
+        $this->assertMenuOrder(['priority' => [1, 2, 3]], ['First', 'Second', 'Third']);
+        $this->assertMenuOrder(['priority' => [3, 2, 1]], ['Third', 'Second', 'First']);
     }
 
-    public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
+    public function testMainNavigationMenuWithPagesOrder()
     {
-        $this->testNavigationMenuWithPages('order', [1, 2, 3], ['First', 'Second', 'Third']);
-        $this->testNavigationMenuWithPages('order', [3, 2, 1], ['Third', 'Second', 'First']);
+        $this->assertMenuOrder(['order' => [1, 2, 3]], ['First', 'Second', 'Third']);
+        $this->assertMenuOrder(['order' => [3, 2, 1]], ['Third', 'Second', 'First']);
     }
 
-    protected function testNavigationMenuWithPages($field, $priorities, $expectedOrder): void
+    protected function assertMenuOrder(array $frontMatterValues, array $expectedOrder): void
     {
-        $pages = collect($priorities)->map(function ($value) use ($expectedOrder, $field) {
+        $field = key($frontMatterValues);
+
+        $pages = collect($frontMatterValues[$field])->map(function ($value) use ($expectedOrder, $field) {
             return new MarkdownPage(Str::slug($expectedOrder[$value - 1]), ["navigation.$field" => $value]);
         })->all();
 
