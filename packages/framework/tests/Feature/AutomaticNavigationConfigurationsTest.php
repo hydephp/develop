@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Collection;
+use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
 use Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu;
@@ -21,6 +23,14 @@ use Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu;
  */
 class AutomaticNavigationConfigurationsTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->kernel = new TestKernel();
+        HydeKernel::setInstance($this->kernel);
+    }
+
     public function testMainNavigationMenu()
     {
         $this->menu()->assertEquals(['Home']);
@@ -134,5 +144,21 @@ class AssertableNavigationMenu
         $this->test->assertNotEmpty($this->items->first(fn ($item) => $item->getLabel() === $label), "Item with label '$label' not found in the main navigation menu");
 
         return $this;
+    }
+}
+
+class TestKernel extends HydeKernel
+{
+    protected ?RouteCollection $mockRoutes = null;
+
+    public function setRoutes(Collection $routes): void
+    {
+        $this->mockRoutes = RouteCollection::make($routes);
+    }
+
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
+    public function routes(): RouteCollection
+    {
+        return $this->mockRoutes ?? parent::routes();
     }
 }
