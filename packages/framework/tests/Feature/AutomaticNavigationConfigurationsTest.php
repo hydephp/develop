@@ -8,6 +8,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
+use Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu;
 
 /**
  * High-level broad-spectrum tests for the automatic navigation configurations, testing various setups.
@@ -25,9 +26,19 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->menu()->assertEquals(['Home']);
     }
 
+    public function testDocumentationSidebarMenu()
+    {
+        $this->sidebar()->assertEquals([]);
+    }
+
     protected function menu(): AssertableNavigationMenu
     {
         return new AssertableNavigationMenu($this);
+    }
+
+    protected function sidebar(): AssertableNavigationMenu
+    {
+        return new AssertableNavigationMenu($this, true);
     }
 }
 
@@ -57,9 +68,11 @@ class AssertableNavigationMenu
     protected TestCase $test;
     protected Collection $items;
 
-    public function __construct(TestCase $test)
+    public function __construct(TestCase $test, $sidebar = false)
     {
-        $this->items = GeneratesMainNavigationMenu::handle()->getItems();
+        $this->items = $sidebar
+            ? GeneratesDocumentationSidebarMenu::handle()->getItems()
+            : GeneratesMainNavigationMenu::handle()->getItems();
 
         $this->test = $test;
     }
