@@ -127,7 +127,7 @@ class AssertableNavigationMenu
     }
 
     /** @noinspection PhpUnused, PhpNoReturnAttributeCanBeAddedInspection */
-    public function ddFormat(): void
+    public function ddState(): void
     {
         dd($this->state());
     }
