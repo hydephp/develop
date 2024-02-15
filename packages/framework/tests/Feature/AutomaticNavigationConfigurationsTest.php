@@ -121,9 +121,9 @@ class AssertableNavigationMenu extends NavigationMenu
 
                 $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
             }
-
-            $this->test->assertCount(count($expected), $this->state(), 'The expected state has a different count than the actual state');
         }
+
+        $this->test->assertCount(count($expected), $this->state(), 'The expected state has a different count than the actual state');
 
         return $this;
     }
