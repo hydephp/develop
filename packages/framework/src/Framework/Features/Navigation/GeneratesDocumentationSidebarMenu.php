@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Support\Models\Route;
-use Hyde\Support\Facades\Render;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
-
-use function collect;
 
 /**
  * @experimental This class may change significantly before its release.
@@ -68,15 +65,5 @@ class GeneratesDocumentationSidebarMenu
     protected function sortByPriority(): void
     {
         $this->items = $this->items->sortBy('priority')->values();
-    }
-
-    private function isPageIndexPage(): bool
-    {
-        return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
-    }
-
-    private function shouldIndexPageBeActive(string $group): bool
-    {
-        return Render::getPage()->navigationMenuGroup() === 'other' && $group === collect($this->getGroups())->first();
     }
 }
