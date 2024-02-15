@@ -125,6 +125,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithFrontMatterGroup()
     {
+        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
+
         $this->assertMenuEquals([
             ['label' => 'Foo', 'group' => 'group-1'],
             ['label' => 'Bar', 'group' => 'group-1'],
@@ -138,6 +140,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithFrontMatterCategory()
     {
+        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
+
         $this->assertMenuEquals([
             ['label' => 'Foo', 'group' => 'group-1'],
             ['label' => 'Bar', 'group' => 'group-1'],
