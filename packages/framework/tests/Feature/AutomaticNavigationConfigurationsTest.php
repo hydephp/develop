@@ -111,15 +111,11 @@ class AssertableNavigationMenu extends NavigationMenu
                     continue;
                 }
 
-                if (! isset($item[$property])) {
-                    if ($strict) {
-                        $this->test->fail("Missing array key '$property' in the expected state");
-                    }
-
-                    continue;
+                if (isset($item[$property])) {
+                    $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
+                } elseif ($strict) {
+                    $this->test->fail("Missing array key '$property' in the expected state");
                 }
-
-                $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
             }
         }
 
