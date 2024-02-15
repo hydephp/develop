@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
@@ -56,48 +57,23 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
-        $this->withPages([
-            new MarkdownPage('first', ['navigation.priority' => 1]),
-            new MarkdownPage('second', ['navigation.priority' => 2]),
-            new MarkdownPage('third', ['navigation.priority' => 3]),
-        ])->menu()->assertEquals([
-            'First',
-            'Second',
-            'Third',
-        ]);
-
-        $this->withPages([
-            new MarkdownPage('first', ['navigation.priority' => 3]),
-            new MarkdownPage('second', ['navigation.priority' => 2]),
-            new MarkdownPage('third', ['navigation.priority' => 1]),
-        ])->menu()->assertEquals([
-            'Third',
-            'Second',
-            'First',
-        ]);
+        $this->testNavigationMenuWithPages('priority', [1, 2, 3], ['First', 'Second', 'Third']);
+        $this->testNavigationMenuWithPages('priority', [3, 2, 1], ['Third', 'Second', 'First']);
     }
 
     public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
     {
-        $this->withPages([
-            new MarkdownPage('first', ['navigation.order' => 1]),
-            new MarkdownPage('second', ['navigation.order' => 2]),
-            new MarkdownPage('third', ['navigation.order' => 3]),
-        ])->menu()->assertEquals([
-            'First',
-            'Second',
-            'Third',
-        ]);
+        $this->testNavigationMenuWithPages('order', [1, 2, 3], ['First', 'Second', 'Third']);
+        $this->testNavigationMenuWithPages('order', [3, 2, 1], ['Third', 'Second', 'First']);
+    }
 
-        $this->withPages([
-            new MarkdownPage('first', ['navigation.order' => 3]),
-            new MarkdownPage('second', ['navigation.order' => 2]),
-            new MarkdownPage('third', ['navigation.order' => 1]),
-        ])->menu()->assertEquals([
-            'Third',
-            'Second',
-            'First',
-        ]);
+    protected function testNavigationMenuWithPages($field, $priorities, $expectedOrder): void
+    {
+        $pages = collect($priorities)->map(function ($value) use ($expectedOrder, $field) {
+            return new MarkdownPage(Str::slug($expectedOrder[$value - 1]), ["navigation.$field" => $value]);
+        })->all();
+
+        $this->withPages($pages)->menu()->assertEquals($expectedOrder);
     }
 
     protected function withPages(array $pages): static
