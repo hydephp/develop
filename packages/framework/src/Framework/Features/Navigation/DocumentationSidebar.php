@@ -71,7 +71,11 @@ class DocumentationSidebar
         return $groupMatchesCurrentPageGroup || $currentPageIsIndexPageAndShouldBeActive;
     }
 
-    /** @deprecated With the new NavItem system this should not be necessary, as the parent has a title */
+    /**
+     * @deprecated With the new NavItem system this should not be necessary, as the parent has a title
+     *
+     * @todo Get title from instance
+     */
     public function makeGroupTitle(string $group): string
     {
         return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
