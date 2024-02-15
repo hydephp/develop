@@ -59,23 +59,42 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->withPages([
             new MarkdownPage('first', ['navigation.priority' => 1]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
+            new MarkdownPage('third', ['navigation.priority' => 3]),
         ])->menu()->assertEquals([
             'First',
             'Second',
+            'Third',
         ]);
 
         $this->withPages([
-            new MarkdownPage('first', ['navigation.priority' => 2]),
-            new MarkdownPage('second', ['navigation.priority' => 1]),
+            new MarkdownPage('first', ['navigation.priority' => 3]),
+            new MarkdownPage('second', ['navigation.priority' => 2]),
+            new MarkdownPage('third', ['navigation.priority' => 1]),
         ])->menu()->assertEquals([
+            'Third',
             'Second',
             'First',
         ]);
+    }
+
+    public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
+    {
+        $this->withPages([
+            new MarkdownPage('first', ['navigation.order' => 1]),
+            new MarkdownPage('second', ['navigation.order' => 2]),
+            new MarkdownPage('third', ['navigation.order' => 3]),
+        ])->menu()->assertEquals([
+            'First',
+            'Second',
+            'Third',
+        ]);
 
         $this->withPages([
-            new MarkdownPage('first', ['navigation.order' => 2]),
-            new MarkdownPage('second', ['navigation.order' => 1]),
+            new MarkdownPage('first', ['navigation.order' => 3]),
+            new MarkdownPage('second', ['navigation.order' => 2]),
+            new MarkdownPage('third', ['navigation.order' => 1]),
         ])->menu()->assertEquals([
+            'Third',
             'Second',
             'First',
         ]);
