@@ -22,9 +22,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 {
     public function testMainNavigationMenu()
     {
-        $this->menu()
-            ->assertHasItem('Home')
-            ->assertEquals(['Home']);
+        $this->menu()->assertEquals(['Home']);
     }
 
     protected function menu(): AssertableNavigationMenu
