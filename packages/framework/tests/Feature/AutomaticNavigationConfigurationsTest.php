@@ -73,7 +73,7 @@ class AssertableNavigationMenu extends NavigationMenu
     }
 
     /** A simplified serialized format for comparisons */
-    public function format(): array
+    public function state(): array
     {
         return $this->items->map(function (NavItem $item): TestNavItem {
             return new TestNavItem($item->getLabel(), $item->getGroup(), $item->getPriority(), $item->getChildren());
@@ -89,18 +89,18 @@ class AssertableNavigationMenu extends NavigationMenu
     /** @noinspection PhpUnused, PhpNoReturnAttributeCanBeAddedInspection */
     public function ddFormat(): void
     {
-        dd($this->format());
+        dd($this->state());
     }
 
     /**
-     * @param  array  $expected  The expected format
+     * @param  array  $expected  The expected state format
      * @param  bool  $strict  If false, missing array keys are ignored
      */
     public function assertEquals(array $expected, bool $strict = false): static
     {
         foreach ($expected as $index => $item) {
             foreach (TestNavItem::properties() as $property) {
-                $actual = $this->format()[$index] ?? null;
+                $actual = $this->state()[$index] ?? null;
 
                 if ($actual === null) {
                     // Count mismatch which we will catch at end of loop
@@ -110,7 +110,7 @@ class AssertableNavigationMenu extends NavigationMenu
 
                 if (! isset($item[$property])) {
                     if ($strict) {
-                        $this->test->fail("Missing array key '$property' in the expected format");
+                        $this->test->fail("Missing array key '$property' in the expected state");
                     }
 
                     continue;
@@ -119,7 +119,7 @@ class AssertableNavigationMenu extends NavigationMenu
                 $this->test->assertSame($item[$property], $actual->$property, "Failed to match the expected value for '$property'");
             }
 
-            $this->test->assertCount(count($expected), $this->format(), 'The expected format has a different count than the actual format');
+            $this->test->assertCount(count($expected), $this->state(), 'The expected state has a different count than the actual state');
         }
 
         return $this;
