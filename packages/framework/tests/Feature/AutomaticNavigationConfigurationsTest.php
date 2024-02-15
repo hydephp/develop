@@ -55,7 +55,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
+    public function testMainNavigationMenuWithPagesWithFrontMatter()
     {
         $this->assertMenuOrder([1, 2, 3], ['First', 'Second', 'Third']);
         $this->assertMenuOrder([3, 2, 1], ['Third', 'Second', 'First']);
