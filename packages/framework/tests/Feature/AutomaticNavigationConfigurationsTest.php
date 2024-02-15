@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
 
 /**
@@ -52,13 +52,14 @@ class TestNavItem
     }
 }
 
-class AssertableNavigationMenu extends NavigationMenu
+class AssertableNavigationMenu
 {
     protected TestCase $test;
+    protected Collection $items;
 
     public function __construct(TestCase $test)
     {
-        parent::__construct(GeneratesMainNavigationMenu::handle()->getItems());
+        $this->items = GeneratesMainNavigationMenu::handle()->getItems();
 
         $this->test = $test;
     }
