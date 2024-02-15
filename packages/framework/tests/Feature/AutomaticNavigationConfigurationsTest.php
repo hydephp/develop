@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -46,8 +46,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     public function testMainNavigationMenuWithPages()
     {
         $this->withPages([
-            'About' => MarkdownPage::class,
-            'Contact' => MarkdownPage::class,
+            new MarkdownPage('about'),
+            new MarkdownPage('contact'),
         ])->menu()->assertEquals([
             'About',
             'Contact',
@@ -56,10 +56,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     protected function withPages(array $pages): static
     {
-        $routes = collect($pages)->mapWithKeys(/** @param class-string<\Hyde\Pages\Concerns\HydePage> $page */ function (string $page, string $title) {
-            return [Str::slug($title) => $page::make(Str::slug($title), ['title' => $title])->getRoute()];
-        });
-        $this->kernel->setRoutes($routes);
+        $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
 
         return $this;
     }
