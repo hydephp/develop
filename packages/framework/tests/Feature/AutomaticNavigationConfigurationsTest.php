@@ -176,6 +176,41 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithFrontMatterHiddenAndVisible()
+    {
+        // Since the main key in the navigation schema is 'hidden', that takes precedence over its 'visible' alias
+
+        $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
+            new MarkdownPage('foo', ['navigation.hidden' => false, 'navigation.visible' => true]),
+            new MarkdownPage('bar', ['navigation.hidden' => false, 'navigation.visible' => true]),
+            new MarkdownPage('baz', ['navigation.hidden' => false, 'navigation.visible' => true]),
+        ]);
+
+        $this->assertMenuEquals([], [
+            new MarkdownPage('foo', ['navigation.hidden' => true, 'navigation.visible' => false]),
+            new MarkdownPage('bar', ['navigation.hidden' => true, 'navigation.visible' => false]),
+            new MarkdownPage('baz', ['navigation.hidden' => true, 'navigation.visible' => false]),
+        ]);
+
+        $this->assertMenuEquals([], [
+            new MarkdownPage('foo', ['navigation.hidden' => true, 'navigation.visible' => true]),
+            new MarkdownPage('bar', ['navigation.hidden' => true, 'navigation.visible' => true]),
+            new MarkdownPage('baz', ['navigation.hidden' => true, 'navigation.visible' => true]),
+        ]);
+
+        $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
+            new MarkdownPage('foo', ['navigation.hidden' => false, 'navigation.visible' => false]),
+            new MarkdownPage('bar', ['navigation.hidden' => false, 'navigation.visible' => false]),
+            new MarkdownPage('baz', ['navigation.hidden' => false, 'navigation.visible' => false]),
+        ]);
+
+        $this->assertMenuEquals(['Bar'], [
+            new MarkdownPage('foo', ['navigation.hidden' => true, 'navigation.visible' => false]),
+            new MarkdownPage('bar', ['navigation.hidden' => false, 'navigation.visible' => true]),
+            new MarkdownPage('baz', ['navigation.hidden' => true, 'navigation.visible' => false]),
+        ]);
+    }
+
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
