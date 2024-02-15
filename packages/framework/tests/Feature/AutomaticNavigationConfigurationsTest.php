@@ -57,50 +57,50 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
         $this->assertMenuEquals([
+            'First',
+            'Second',
+            'Third',
+        ], [
             new MarkdownPage('first', ['navigation.priority' => 1]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 3]),
-        ], [
-            'First',
-            'Second',
-            'Third',
         ]);
 
         $this->assertMenuEquals([
-            new MarkdownPage('first', ['navigation.priority' => 3]),
-            new MarkdownPage('second', ['navigation.priority' => 2]),
-            new MarkdownPage('third', ['navigation.priority' => 1]),
-        ], [
             'Third',
             'Second',
             'First',
+        ], [
+            new MarkdownPage('first', ['navigation.priority' => 3]),
+            new MarkdownPage('second', ['navigation.priority' => 2]),
+            new MarkdownPage('third', ['navigation.priority' => 1]),
         ]);
     }
 
     public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
     {
         $this->assertMenuEquals([
+            'First',
+            'Second',
+            'Third',
+        ], [
             new MarkdownPage('first', ['navigation.order' => 1]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 3]),
-        ], [
-            'First',
-            'Second',
-            'Third',
         ]);
 
         $this->assertMenuEquals([
-            new MarkdownPage('first', ['navigation.order' => 3]),
-            new MarkdownPage('second', ['navigation.order' => 2]),
-            new MarkdownPage('third', ['navigation.order' => 1]),
-        ], [
             'Third',
             'Second',
             'First',
+        ], [
+            new MarkdownPage('first', ['navigation.order' => 3]),
+            new MarkdownPage('second', ['navigation.order' => 2]),
+            new MarkdownPage('third', ['navigation.order' => 1]),
         ]);
     }
 
-    protected function assertMenuEquals(array $menuPages, array $expected): void
+    protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
     }
