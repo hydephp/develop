@@ -91,11 +91,13 @@ class DocumentationSidebar
         return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
     }
 
+    /** @deprecated Move to new action */
     protected function canAddRoute(Route $route): bool
     {
         return $route->getPage()->showInNavigation() && ! $route->is(DocumentationPage::homeRouteName());
     }
 
+    /** @deprecated Move to new action */
     protected function removeDuplicateItems(): void
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
@@ -104,16 +106,19 @@ class DocumentationSidebar
         });
     }
 
+    /** @deprecated Move to new action */
     protected function sortByPriority(): void
     {
         $this->items = $this->items->sortBy('priority')->values();
     }
 
+    /** @deprecated Move to new action */
     private function isPageIndexPage(): bool
     {
         return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
     }
 
+    /** @deprecated Move to new action */
     private function shouldIndexPageBeActive(string $group): bool
     {
         return Render::getPage()->navigationMenuGroup() === 'other' && $group === collect($this->getGroups())->first();
