@@ -93,6 +93,36 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithFrontMatterHidden()
+    {
+        $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
+            new MarkdownPage('foo', ['navigation.hidden' => false]),
+            new MarkdownPage('bar', ['navigation.hidden' => false]),
+            new MarkdownPage('baz', ['navigation.hidden' => false]),
+        ]);
+
+        $this->assertMenuEquals([], [
+            new MarkdownPage('foo', ['navigation.hidden' => true]),
+            new MarkdownPage('bar', ['navigation.hidden' => true]),
+            new MarkdownPage('baz', ['navigation.hidden' => true]),
+        ]);
+    }
+
+    public function testMainNavigationMenuWithFrontMatterVisible()
+    {
+        $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
+            new MarkdownPage('foo', ['navigation.visible' => true]),
+            new MarkdownPage('bar', ['navigation.visible' => true]),
+            new MarkdownPage('baz', ['navigation.visible' => true]),
+        ]);
+
+        $this->assertMenuEquals([], [
+            new MarkdownPage('foo', ['navigation.visible' => false]),
+            new MarkdownPage('bar', ['navigation.visible' => false]),
+            new MarkdownPage('baz', ['navigation.visible' => false]),
+        ]);
+    }
+
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
