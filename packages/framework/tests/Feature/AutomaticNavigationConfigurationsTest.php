@@ -105,16 +105,12 @@ class AssertableNavigationMenu extends NavigationMenu
     {
         foreach ($expected as $index => $item) {
             foreach (TestNavItem::properties() as $property) {
-                if ($this->getState($index) === null) {
-                    // Count mismatch which we will catch at end of loop
-
-                    continue;
-                }
-
-                if (isset($item[$property])) {
-                    $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
-                } elseif ($strict) {
-                    $this->test->fail("Missing array key '$property' in the expected state");
+                if ($this->getState($index) !== null) {
+                    if (isset($item[$property])) {
+                        $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
+                    } elseif ($strict) {
+                        $this->test->fail("Missing array key '$property' in the expected state");
+                    }
                 }
             }
         }
