@@ -98,8 +98,6 @@ class AssertableNavigationMenu extends NavigationMenu
      */
     public function assertEquals(array $expected, bool $strict = false): static
     {
-        // $this->test->assertEquals($expected, $this->format(), 'Failed to match the expected format');
-
         foreach ($expected as $index => $item) {
             foreach (TestNavItem::properties() as $property) {
                 $actual = $this->format()[$index] ?? null;
