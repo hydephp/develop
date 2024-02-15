@@ -73,8 +73,12 @@ class AssertableNavigationMenu extends NavigationMenu
     }
 
     /** A simplified serialized format for comparisons */
-    public function state(): array
+    public function state(?int $index = null): TestNavItem|array
     {
+        if ($index !== null) {
+            return $this->state()[$index];
+        }
+
         return $this->items->map(function (NavItem $item): TestNavItem {
             return new TestNavItem($item->getLabel(), $item->getGroup(), $item->getPriority(), $item->getChildren());
         })->toArray();
@@ -100,7 +104,7 @@ class AssertableNavigationMenu extends NavigationMenu
     {
         foreach ($expected as $index => $item) {
             foreach (TestNavItem::properties() as $property) {
-                $actual = $this->state()[$index] ?? null;
+                $actual = $this->state($index) ?? null;
 
                 if ($actual === null) {
                     // Count mismatch which we will catch at end of loop
