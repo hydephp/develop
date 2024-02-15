@@ -60,6 +60,8 @@ class DocumentationSidebar
 
     /**
      * Is a page within the group the current page?
+     *
+     * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
      */
     public function isGroupActive(string $group): bool
     {
