@@ -80,6 +80,11 @@ class AssertableNavigationMenu extends NavigationMenu
         })->toArray();
     }
 
+    public function getState(int $index): ?TestNavItem
+    {
+        return $this->state()[$index] ?? null;
+    }
+
     /** @noinspection PhpUnused, PhpNoReturnAttributeCanBeAddedInspection */
     public function dd(): void
     {
@@ -100,7 +105,7 @@ class AssertableNavigationMenu extends NavigationMenu
     {
         foreach ($expected as $index => $item) {
             foreach (TestNavItem::properties() as $property) {
-                $actual = $this->state()[$index] ?? null;
+                $actual = $this->getState($index);
 
                 if ($actual === null) {
                     // Count mismatch which we will catch at end of loop
