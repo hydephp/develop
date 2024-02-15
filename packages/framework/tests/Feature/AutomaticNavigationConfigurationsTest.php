@@ -56,21 +56,13 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
-        $this->assertMenuEquals([
-            'First',
-            'Second',
-            'Third',
-        ], [
+        $this->assertMenuEquals(['First', 'Second', 'Third'], [
             new MarkdownPage('first', ['navigation.priority' => 1]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 3]),
         ]);
 
-        $this->assertMenuEquals([
-            'Third',
-            'Second',
-            'First',
-        ], [
+        $this->assertMenuEquals(['Third', 'Second', 'First'], [
             new MarkdownPage('first', ['navigation.priority' => 3]),
             new MarkdownPage('second', ['navigation.priority' => 2]),
             new MarkdownPage('third', ['navigation.priority' => 1]),
@@ -79,21 +71,13 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
     {
-        $this->assertMenuEquals([
-            'First',
-            'Second',
-            'Third',
-        ], [
+        $this->assertMenuEquals(['First', 'Second', 'Third'], [
             new MarkdownPage('first', ['navigation.order' => 1]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 3]),
         ]);
 
-        $this->assertMenuEquals([
-            'Third',
-            'Second',
-            'First',
-        ], [
+        $this->assertMenuEquals(['Third', 'Second', 'First'], [
             new MarkdownPage('first', ['navigation.order' => 3]),
             new MarkdownPage('second', ['navigation.order' => 2]),
             new MarkdownPage('third', ['navigation.order' => 1]),
