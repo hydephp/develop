@@ -64,6 +64,7 @@ class DocumentationSidebar
             || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
     }
 
+    /** @deprecated With the new NavItem system this should not be necessary, as the parent has a title */
     public function makeGroupTitle(string $group): string
     {
         return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
