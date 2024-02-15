@@ -55,13 +55,13 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationMenuWithPagesPriority()
+    public function testMainNavigationMenuWithPagesWithFrontMatterPriority()
     {
         $this->assertMenuOrder(['priority' => [1, 2, 3]], ['First', 'Second', 'Third']);
         $this->assertMenuOrder(['priority' => [3, 2, 1]], ['Third', 'Second', 'First']);
     }
 
-    public function testMainNavigationMenuWithPagesOrder()
+    public function testMainNavigationMenuWithPagesWithFrontMatterOrder()
     {
         $this->assertMenuOrder(['order' => [1, 2, 3]], ['First', 'Second', 'Third']);
         $this->assertMenuOrder(['order' => [3, 2, 1]], ['Third', 'Second', 'First']);
