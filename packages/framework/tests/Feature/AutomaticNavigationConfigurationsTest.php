@@ -75,7 +75,7 @@ class AssertableNavigationMenu extends NavigationMenu
     /** A simplified serialized format for comparisons */
     public function format(): array
     {
-        return $this->items->map(function (NavItem $item) {
+        return $this->items->map(function (NavItem $item): TestNavItem {
             return new TestNavItem($item->getLabel(), $item->getGroup(), $item->getPriority(), $item->getChildren());
         })->toArray();
     }
