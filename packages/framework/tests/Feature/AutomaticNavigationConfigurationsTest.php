@@ -123,6 +123,19 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithFrontMatterGroup()
+    {
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'group' => 'group-1'],
+            ['label' => 'Bar', 'group' => 'group-1'],
+            ['label' => 'Baz', 'group' => 'group-1'],
+        ], [
+            new MarkdownPage('foo', ['navigation.group' => 'Group 1']),
+            new MarkdownPage('bar', ['navigation.group' => 'Group 1']),
+            new MarkdownPage('baz', ['navigation.group' => 'Group 1']),
+        ]);
+    }
+
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
