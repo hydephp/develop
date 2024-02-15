@@ -61,10 +61,10 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertMenuOrder([3, 2, 1], ['Third', 'Second', 'First']);
     }
 
-    protected function assertMenuOrder(array $frontMatterValues, array $expectedOrder): void
+    protected function assertMenuOrder(array $priorities, array $expectedOrder): void
     {
         foreach (['priority', 'order'] as $field) {
-            $pages = collect($frontMatterValues)->map(function ($value) use ($expectedOrder, $field) {
+            $pages = collect($priorities)->map(function ($value) use ($expectedOrder, $field) {
                 return new MarkdownPage(Str::slug($expectedOrder[$value - 1]), ["navigation.$field" => $value]);
             })->all();
 
