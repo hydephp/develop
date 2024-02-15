@@ -58,6 +58,9 @@ class DocumentationSidebar
         })->sortBy('navigation.priority')->values();
     }
 
+    /**
+     * Is a page within the group the current page?
+     */
     public function isGroupActive(string $group): bool
     {
         return Str::slug(Render::getPage()->navigationMenuGroup()) === $group
