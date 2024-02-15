@@ -155,6 +155,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithFrontMatterPriorityAndOrder()
     {
+        // Since the main key in the navigation schema is 'priority', that takes precedence over its 'order' alias
+
         $this->assertMenuEquals([
             ['label' => 'Foo', 'priority' => 1],
             ['label' => 'Bar', 'priority' => 2],
