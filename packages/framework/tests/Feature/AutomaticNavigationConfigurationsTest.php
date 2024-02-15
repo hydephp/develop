@@ -157,21 +157,19 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         // Since the main key in the navigation schema is 'priority', that takes precedence over its 'order' alias
 
-        $this->assertMenuEquals([
+        $expected = [
             ['label' => 'Foo', 'priority' => 1],
             ['label' => 'Bar', 'priority' => 2],
             ['label' => 'Baz', 'priority' => 3],
-        ], [
+        ];
+
+        $this->assertMenuEquals($expected, [
             new MarkdownPage('foo', ['navigation.priority' => 1, 'navigation.order' => 10]),
             new MarkdownPage('bar', ['navigation.priority' => 2, 'navigation.order' => 20]),
             new MarkdownPage('baz', ['navigation.priority' => 3, 'navigation.order' => 30]),
         ]);
 
-        $this->assertMenuEquals([
-            ['label' => 'Foo', 'priority' => 1],
-            ['label' => 'Bar', 'priority' => 2],
-            ['label' => 'Baz', 'priority' => 3],
-        ], [
+        $this->assertMenuEquals($expected, [
             new MarkdownPage('foo', ['navigation.order' => 10, 'navigation.priority' => 1]),
             new MarkdownPage('bar', ['navigation.order' => 20, 'navigation.priority' => 2]),
             new MarkdownPage('baz', ['navigation.order' => 30, 'navigation.priority' => 3]),
