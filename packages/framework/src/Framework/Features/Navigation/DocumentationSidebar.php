@@ -65,8 +65,10 @@ class DocumentationSidebar
      */
     public function isGroupActive(string $group): bool
     {
-        return Str::slug(Render::getPage()->navigationMenuGroup()) === $group
-            || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
+        $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
+        $currentPageIsIndexPageAndShouldBeActive = $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
+
+        return $groupMatchesCurrentPageGroup || $currentPageIsIndexPageAndShouldBeActive;
     }
 
     /** @deprecated With the new NavItem system this should not be necessary, as the parent has a title */
@@ -82,6 +84,9 @@ class DocumentationSidebar
 
     private function shouldIndexPageBeActive(string $group): bool
     {
-        return Render::getPage()->navigationMenuGroup() === 'other' && $group === collect($this->getGroups())->first();
+        $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === 'other';
+        $groupIsTheFirstOneInSidebar = $group === collect($this->getGroups())->first();
+
+        return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
     }
 }
