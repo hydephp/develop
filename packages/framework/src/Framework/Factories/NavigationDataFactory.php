@@ -210,6 +210,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function defaultGroup(): ?string
     {
+        // TODO: It would be better if this was null in all cases, considering 'other' is used a a sort of confusing pseudo-null
         return $this->isInstanceOf(DocumentationPage::class) ? 'other' : null;
     }
 
