@@ -36,13 +36,7 @@ class DocumentationSidebar
     /** @deprecated Will be moved to an action */
     public static function create(): static
     {
-        $menu = new static();
-
-        $menu->generate();
-        $menu->sortByPriority();
-        $menu->removeDuplicateItems();
-
-        return $menu;
+        return GeneratesDocumentationSidebarMenu::handle();
     }
 
     /** @deprecated Move to new action */
