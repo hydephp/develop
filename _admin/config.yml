@@ -8,6 +8,14 @@ logo_url: /admin/assets/logo.svg
 media_folder: "_media"
 public_folder: "media"
 
+commit_messages:
+  create: Create {{collection}} "{{slug}}" from Decap
+  update: Update {{collection}} "{{slug}}" from Decap
+  delete: Delete {{collection}} "{{slug}}" from Decap
+  uploadMedia: Upload "{{path}}" from Decap
+  deleteMedia: Delete "{{path}}" from Decap
+  openAuthoring: '{{message}}'
+
 collections:
   - name: "posts" # Used in routes, e.g., /admin/collections/blog
     label: "Blog Posts" # Used in the UI
@@ -25,11 +33,3 @@ collections:
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Author", name: "author", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
-
-commit_messages:
-  create: Create {{collection}} "{{slug}}" from Decap
-  update: Update {{collection}} "{{slug}}" from Decap
-  delete: Delete {{collection}} "{{slug}}" from Decap
-  uploadMedia: Upload "{{path}}" from Decap
-  deleteMedia: Delete "{{path}}" from Decap
-  openAuthoring: '{{message}}'
