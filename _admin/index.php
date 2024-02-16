@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * The HydePHP CMS Admin Panel Router
+ * The HydePHP CMS Admin Panel Router.
  *
  * This file is the main entry point for the HydePHP CMS Admin Panel.
  *
@@ -15,7 +15,6 @@ declare(strict_types=1);
  *
  * Next, visit http://localhost:3000/admin in your web browser.
  */
-
 (new AdminRouter())->handle(rtrim($_SERVER['REQUEST_URI'] ?? '/', '/') ?: '/');
 
 class AdminRouter
@@ -49,7 +48,7 @@ class AdminController
 
     public function index(): string
     {
-        return file_get_contents(__DIR__ . '/index.html');
+        return file_get_contents(__DIR__.'/index.html');
     }
 }
 
@@ -59,7 +58,7 @@ class ConfigurationController
     {
         header('Content-Type: text/yaml');
 
-        return file_get_contents(__DIR__ . '/config.yml');
+        return file_get_contents(__DIR__.'/config.yml');
     }
 }
 
@@ -67,10 +66,10 @@ class AssetController
 {
     protected function serve(string $path): string
     {
-        $assetPath = __DIR__ . '/assets/' . basename($path);
+        $assetPath = __DIR__.'/assets/'.basename($path);
 
         if (file_exists($assetPath)) {
-            $contentType = match(pathinfo($assetPath, PATHINFO_EXTENSION)) {
+            $contentType = match (pathinfo($assetPath, PATHINFO_EXTENSION)) {
                 'css' => 'text/css',
                 'svg' => 'image/svg+xml',
                 default => 'text/plain',
