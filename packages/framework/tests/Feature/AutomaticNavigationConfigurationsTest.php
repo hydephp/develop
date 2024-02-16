@@ -82,6 +82,19 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testDefaultNavigationPriorities()
+    {
+        $this->assertMenuEquals([
+            ['priority' => 0],
+            ['priority' => 10],
+            ['priority' => 100],
+        ], [
+            new MarkdownPage('index'),
+            new MarkdownPage('posts'),
+            new MarkdownPage('docs/index'),
+        ]);
+    }
+
     public function testMainNavigationMenuWithFrontMatterPriority()
     {
         $this->assertMenuEquals(['First', 'Second', 'Third'], [
