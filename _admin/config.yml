@@ -20,7 +20,7 @@ collections:
   - name: "posts"
     label: "Blog Posts"
     label_singular: "Post"
-    description: "Blog posts to be displayed on the site"
+    description: "The blog posts for the site"
     folder: "_posts"
     create: true
     slug: "{{slug}}"
