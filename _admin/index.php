@@ -23,6 +23,7 @@ class AdminRouter
     const ROUTES = [
         '/' => [AdminController::class, 'redirectToIndex'],
         '/admin' => [AdminController::class, 'index'],
+        '/admin/config.yml' => [ConfigurationController::class, '__invoke'],
     ];
 
     public function handle(string $uri): void
@@ -47,5 +48,15 @@ class AdminController
     public function index(): string
     {
         return file_get_contents(__DIR__ . '/index.html');
+    }
+}
+
+class ConfigurationController
+{
+    public function __invoke(): string
+    {
+        header('Content-Type: text/yaml');
+
+        return file_get_contents(__DIR__ . '/config.yml');
     }
 }
