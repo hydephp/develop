@@ -95,6 +95,17 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testDefaultNavigationLabels()
+    {
+        $this->assertMenuEquals([
+            ['label' => 'Home'],
+            ['label' => 'Docs'],
+        ], [
+            new MarkdownPage('index'),
+            new MarkdownPage('docs/index'),
+        ]);
+    }
+
     public function testMainNavigationMenuWithFrontMatterPriority()
     {
         $this->assertMenuEquals(['First', 'Second', 'Third'], [
