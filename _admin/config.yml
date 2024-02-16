@@ -45,3 +45,16 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "markdown-pages"
+    label: "Markdown Pages"
+    label_singular: "Markdown Page"
+    description: "The Markdown pages for the site"
+    folder: "_pages"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
