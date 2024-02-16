@@ -2,6 +2,8 @@ backend:
   name: github
   repo: hyde-staging/decap-test
 
+site_url: https://hyde-staging.github.io/decap-test
+
 media_folder: "_media"
 public_folder: "media"
 
