@@ -16,7 +16,7 @@ declare(strict_types=1);
  * Next, visit http://localhost:3000/admin in your web browser.
  */
 
-(new AdminRouter())->handle($_SERVER['REQUEST_URI'] ?? '/');
+(new AdminRouter())->handle(rtrim($_SERVER['REQUEST_URI'] ?? '/', '/') ?: '/');
 
 class AdminRouter
 {
