@@ -34,18 +34,6 @@ collections:
       - { label: "Author", name: "author", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "docs"
-    label: "Documentation Pages"
-    label_singular: "Documentation Page"
-    description: "The documentation pages for the site"
-    folder: "_docs"
-    create: true
-    slug: "{{slug}}"
-    preview_path: docs/{{slug}}
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
-
   - name: "markdown-pages"
     label: "Markdown Pages"
     label_singular: "Markdown Page"
@@ -58,3 +46,15 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
 
+
+  - name: "docs"
+    label: "Documentation Pages"
+    label_singular: "Documentation Page"
+    description: "The documentation pages for the site"
+    folder: "_docs"
+    create: true
+    slug: "{{slug}}"
+    preview_path: docs/{{slug}}
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
