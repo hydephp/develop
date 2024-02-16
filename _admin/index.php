@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * The HydePHP CMS Admin Panel Router
  *
