@@ -17,15 +17,15 @@ commit_messages:
   openAuthoring: '{{message}}'
 
 collections:
-  - name: "posts" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog Posts" # Used in the UI
-    label_singular: "Post" # Used in the UI for one instance of the collection
-    description: "Blog posts to be displayed on the site" # Used in the UI
-    folder: "_posts" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Post"
+    description: "Blog posts to be displayed on the site"
+    folder: "_posts"
+    create: true
+    slug: "{{slug}}"
     preview_path: posts/{{slug}}
-    fields: # The fields for each document, usually in front matter
+    fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Cover Image", name: "image", widget: "image" }
       - { label: "Description", name: "Description", widget: "string" }
