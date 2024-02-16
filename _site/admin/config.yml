@@ -10,7 +10,9 @@ public_folder: "media"
 
 collections:
   - name: "posts" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog Post" # Used in the UI
+    label: "Blog Posts" # Used in the UI
+    label_singular: "Post" # Used in the UI for one instance of the collection
+    description: "Blog posts to be displayed on the site" # Used in the UI
     folder: "_posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
