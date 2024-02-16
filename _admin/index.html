@@ -13,6 +13,11 @@
 
     <script>
       CMS.registerPreviewStyle("/admin/assets/preview.css");
+
+      CMS.registerCustomFormat('blade', '.blade.php', {
+        fromFile: text => text,
+        toFile: value => value,
+      });
     </script>
   </body>
 </html>

@@ -58,3 +58,22 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
 
+
+
+  - name: "blade-pages"
+    label: "Blade Pages"
+    label_singular: "Blade Page"
+    description: "The Blade pages for the site"
+    folder: "_pages"
+    extension: ".blade.php"
+    format: "blade"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Blade", name: "body", widget: "text" }
+    editor:
+      preview: false
+
+
