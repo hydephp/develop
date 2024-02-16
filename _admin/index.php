@@ -24,6 +24,8 @@ class AdminRouter
         '/' => [AdminController::class, 'redirectToIndex'],
         '/admin' => [AdminController::class, 'index'],
         '/admin/config.yml' => [ConfigurationController::class, '__invoke'],
+        '/admin/assets/logo.svg' => [AssetController::class, 'logoSvg'],
+        '/admin/assets/preview.css' => [AssetController::class, 'previewCss'],
     ];
 
     public function handle(string $uri): void
@@ -58,5 +60,38 @@ class ConfigurationController
         header('Content-Type: text/yaml');
 
         return file_get_contents(__DIR__ . '/config.yml');
+    }
+}
+
+class AssetController
+{
+    protected function serve(string $path): string
+    {
+        $assetPath = __DIR__ . '/assets/' . basename($path);
+
+        if (file_exists($assetPath)) {
+            $contentType = match(pathinfo($assetPath, PATHINFO_EXTENSION)) {
+                'css' => 'text/css',
+                'svg' => 'image/svg+xml',
+                default => 'text/plain',
+            };
+
+            header("Content-Type: $contentType");
+            header('Cache-Control: public, max-age=86400');
+
+            return file_get_contents($assetPath);
+        }
+
+        exit(http_response_code(404));
+    }
+
+    public function logoSvg(): string
+    {
+        return $this->serve('/logo.svg');
+    }
+
+    public function previewCss(): string
+    {
+        return $this->serve('/preview.css');
     }
 }
