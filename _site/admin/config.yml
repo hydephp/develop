@@ -21,9 +21,9 @@ collections:
       - { label: "Body", name: "body", widget: "markdown" }
 
 commit_messages:
-  create: Create {{collection}} “{{slug}}”
-  update: Update {{collection}} “{{slug}}”
-  delete: Delete {{collection}} “{{slug}}”
-  uploadMedia: Upload “{{path}}”
-  deleteMedia: Delete “{{path}}”
+  create: Create {{collection}} "{{slug}}" from Decap
+  update: Update {{collection}} "{{slug}}" from Decap
+  delete: Delete {{collection}} "{{slug}}" from Decap
+  uploadMedia: Upload "{{path}}" from Decap
+  deleteMedia: Delete "{{path}}" from Decap
   openAuthoring: '{{message}}'
