@@ -75,7 +75,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testInMemoryPagesIsAddedToNavigationMenu()
+    public function testInMemoryPagesAreAddedToNavigationMenu()
     {
         $this->assertMenuEquals(['In Memory Page'], [
             new InMemoryPage('in-memory-page'),
