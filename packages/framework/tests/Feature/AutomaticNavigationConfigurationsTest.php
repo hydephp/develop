@@ -399,6 +399,17 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithConfigHidden()
+    {
+        config(['hyde.navigation.exclude' => ['foo', 'bar', 'baz']]);
+
+        $this->assertMenuEquals([], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+        ]);
+    }
+
     // Main navigation subdirectory handling tests
 
     public function testPagesInSubdirectoriesAreNotAddedToNavigation()
