@@ -71,20 +71,8 @@ class GeneratesMainNavigationMenu
         }
 
         foreach ($dropdowns as $group => $items) {
-            // If items contain an index page, we use that as the dropdown root (TODO handle external links)
-            $hasIndex = collect($items)->first(fn (NavItem $item): bool => basename($item->getDestination()->getPageIdentifier()) === 'index');
-
-            if ($hasIndex) {
-                /** @var NavItem $index */
-                $index = collect($items)->first(fn (NavItem $item): bool => basename($item->getDestination()->getPageIdentifier()) === 'index');
-                $items = collect($items)->reject(fn (NavItem $item): bool => basename($item->getDestination()->getPageIdentifier()) === 'index')->values();
-                $dropdown = new NavItem($index->getDestination(), $index->getLabel(), $index->getPriority(), $group, $items->all());
-            } else {
-                $dropdown = NavItem::dropdown($group, $items);
-            }
-
             // Create a new dropdown item containing the buffered items
-            $this->items->add($dropdown);
+            $this->items->add(NavItem::dropdown($group, $items));
         }
     }
 
