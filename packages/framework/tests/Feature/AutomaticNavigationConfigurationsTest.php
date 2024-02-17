@@ -13,6 +13,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -88,6 +89,13 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     public function testMainNavigationDoesNotInclude404Page()
     {
         $this->assertMenuEquals([], [new MarkdownPage('404')]);
+    }
+
+    public function testRedirectPagesAreAddedToNavigationMenu()
+    {
+        $this->assertMenuEquals(['Redirect'], [
+            new Redirect('redirect', 'destination'),
+        ]);
     }
 
     public function testDefaultNavigationPriorities()
