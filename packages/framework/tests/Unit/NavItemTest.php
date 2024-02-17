@@ -342,4 +342,10 @@ class NavItemTest extends UnitTestCase
     {
         $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroup());
     }
+
+    public function testGroupKeysAreNormalized()
+    {
+        $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
+        $this->assertSame('foo-bar', $item->getGroup());
+    }
 }

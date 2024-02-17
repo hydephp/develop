@@ -45,7 +45,7 @@ class NavItem implements Stringable
         $this->destination = $destination;
         $this->label = $label;
         $this->priority = $priority;
-        $this->group = $group;
+        $this->group = static::normalizeGroupKey($group);
         $this->children = $children;
     }
 
