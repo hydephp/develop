@@ -381,6 +381,36 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarWithFrontMatterGroup()
+    {
+        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
+
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'group' => 'group-1'],
+            ['label' => 'Bar', 'group' => 'group-1'],
+            ['label' => 'Baz', 'group' => 'group-1'],
+        ], [
+            new DocumentationPage('foo', ['navigation.group' => 'Group 1']),
+            new DocumentationPage('bar', ['navigation.group' => 'Group 1']),
+            new DocumentationPage('baz', ['navigation.group' => 'Group 1']),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterCategory()
+    {
+        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
+
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'group' => 'group-1'],
+            ['label' => 'Bar', 'group' => 'group-1'],
+            ['label' => 'Baz', 'group' => 'group-1'],
+        ], [
+            new DocumentationPage('foo', ['navigation.category' => 'Group 1']),
+            new DocumentationPage('bar', ['navigation.category' => 'Group 1']),
+            new DocumentationPage('baz', ['navigation.category' => 'Group 1']),
+        ]);
+    }
+
     protected function assertSidebarEquals(array $expected, array $menuPages): void
     {
         $this->sidebar($menuPages)->assertEquals($expected);
