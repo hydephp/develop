@@ -311,8 +311,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         return $this;
     }
 
-    protected function sidebar(): AssertableNavigationMenu
+    protected function sidebar(?array $withPages = null): AssertableNavigationMenu
     {
+        if ($withPages) {
+            $this->withPages($withPages);
+        }
+
         return new AssertableNavigationMenu($this, true);
     }
 }
