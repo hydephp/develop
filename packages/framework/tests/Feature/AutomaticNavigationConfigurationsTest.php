@@ -75,6 +75,13 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testDocumentationIndexPagesAreAddedToNavigationMenu()
+    {
+        $this->assertMenuEquals(['Docs'], [
+            new DocumentationPage('index'),
+        ]);
+    }
+
     public function testInMemoryPagesAreAddedToNavigationMenu()
     {
         $this->assertMenuEquals(['In Memory Page'], [
