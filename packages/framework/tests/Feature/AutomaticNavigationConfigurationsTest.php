@@ -294,6 +294,42 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Main navigation subdirectory handling tests
+
+    public function testPagesInSubdirectoriesAreNotAddedToNavigation()
+    {
+        $this->assertMenuEquals([], [
+            new MarkdownPage('about/foo'),
+            new MarkdownPage('about/bar'),
+            new MarkdownPage('about/baz'),
+        ]);
+    }
+
+    public function testPagesInSubdirectoriesAreAddedToNavigationWhenNavigationSubdirectoriesIsSetToFlat()
+    {
+        config(['hyde.navigation.subdirectories' => 'flat']);
+
+        $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
+            new MarkdownPage('about/foo'),
+            new MarkdownPage('about/bar'),
+            new MarkdownPage('about/baz'),
+        ]);
+    }
+
+    public function testPagesInSubdirectoriesAreAddedAsDropdownsWhenNavigationSubdirectoriesIsSetToDropdown()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertMenuEquals([
+            ['Foo', 'Bar', 'Baz'],
+            // TODO: New state will be ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
+        ], [
+            new MarkdownPage('about/foo'),
+            new MarkdownPage('about/bar'),
+            new MarkdownPage('about/baz'),
+        ]);
+    }
+
     // Documentation sidebar menu tests
 
     public function testSidebarWithPages()
