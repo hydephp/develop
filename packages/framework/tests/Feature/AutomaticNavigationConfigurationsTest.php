@@ -102,6 +102,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Main navigation front matter tests
+
     public function testDefaultNavigationPriorities()
     {
         $this->assertMenuEquals([
@@ -353,6 +355,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new Redirect('redirect', 'destination'),
         ]);
     }
+
+    // Documentation sidebar front matter tests
 
     public function testSidebarWithFrontMatterPriority()
     {
