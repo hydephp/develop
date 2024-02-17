@@ -296,6 +296,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Main navigation configuration tests
+
     // Main navigation subdirectory handling tests
 
     public function testPagesInSubdirectoriesAreNotAddedToNavigation()
