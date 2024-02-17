@@ -79,6 +79,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         $this->assertMenuEquals(['Docs'], [
             new DocumentationPage('index'),
+            new DocumentationPage('foo'),
         ]);
     }
 
