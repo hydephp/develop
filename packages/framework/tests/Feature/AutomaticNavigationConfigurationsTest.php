@@ -403,13 +403,6 @@ class AssertableNavigationMenu
 
         return $this;
     }
-
-    public function assertHasItem(string $label): static
-    {
-        $this->test->assertNotEmpty($this->items->first(fn ($item) => $item->getLabel() === $label), "Item with label '$label' not found in the main navigation menu");
-
-        return $this;
-    }
 }
 
 class TestKernel extends HydeKernel
