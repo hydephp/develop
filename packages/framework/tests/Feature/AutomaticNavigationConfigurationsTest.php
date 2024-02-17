@@ -522,6 +522,46 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Sidebar subdirectory handling tests
+
+    public function testDocumentationPagesInSubdirectoriesAreAddedToSidebar()
+    {
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'group' => 'about'],
+            ['label' => 'Bar', 'group' => 'about'],
+            ['label' => 'Baz', 'group' => 'about'],
+        ], [
+            new DocumentationPage('about/foo'),
+            new DocumentationPage('about/bar'),
+            new DocumentationPage('about/baz'),
+        ]);
+    }
+
+    public function testPagesInSubdirectoriesAreAddedToSidebarWhenSidebarSubdirectoriesIsSetToFlat()
+    {
+        config(['hyde.navigation.subdirectories' => 'flat']);
+
+        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
+            new DocumentationPage('about/foo'),
+            new DocumentationPage('about/bar'),
+            new DocumentationPage('about/baz'),
+        ]);
+    }
+
+    public function testPagesInSubdirectoriesAreAddedAsDropdownsWhenSidebarSubdirectoriesIsSetToDropdown()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertSidebarEquals([
+            'Foo', 'Bar', 'Baz',
+            // TODO: New state will be ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
+        ], [
+            new DocumentationPage('about/foo'),
+            new DocumentationPage('about/bar'),
+            new DocumentationPage('about/baz'),
+        ]);
+    }
+
     // Testing helpers
 
     protected function assertSidebarEquals(array $expected, array $menuPages): void
