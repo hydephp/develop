@@ -59,11 +59,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationDoesNotInclude404Page()
-    {
-        $this->assertMenuEquals([], [new MarkdownPage('404')]);
-    }
-
     public function testOnlyRootTypePagesAreAddedToNavigationMenu()
     {
         $this->assertMenuEquals(['Html Page', 'Blade Page', 'Markdown Page'], [
@@ -88,6 +83,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertMenuEquals(['In Memory Page'], [
             new InMemoryPage('in-memory-page'),
         ]);
+    }
+
+    public function testMainNavigationDoesNotInclude404Page()
+    {
+        $this->assertMenuEquals([], [new MarkdownPage('404')]);
     }
 
     public function testDefaultNavigationPriorities()
