@@ -399,6 +399,16 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationDropdownLabelsCanBeSetInConfig()
+    {
+        $this->markTestSkipped('Not yet implemented');
+    }
+
+    public function testMainNavigationAutomaticDropdownLabelsCanBeSetInConfig()
+    {
+        $this->markTestSkipped('Not yet implemented');
+    }
+
     public function testMainNavigationMenuWithConfigHidden()
     {
         config(['hyde.navigation.exclude' => ['foo', 'bar', 'baz']]);
