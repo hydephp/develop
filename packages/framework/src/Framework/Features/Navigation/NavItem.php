@@ -58,7 +58,7 @@ class NavItem implements Stringable
             $route,
             $label ?? $route->getPage()->navigationMenuLabel(),
             $priority ?? $route->getPage()->navigationMenuPriority(),
-            $group ?? static::getRouteGroup($route),
+            $group ?? $route->getPage()->data('navigation.group'),
         );
     }
 
@@ -172,14 +172,6 @@ class NavItem implements Stringable
     public function isCurrent(): bool
     {
         return Hyde::currentRoute()->getLink() === (string) $this->destination;
-    }
-
-    protected static function getRouteGroup(Route $route): ?string
-    {
-        /** @var string|null $group */
-        $group = $route->getPage()->data('navigation.group');
-
-        return static::normalizeGroupKey($group);
     }
 
     protected static function normalizeGroupKey(?string $group): ?string
