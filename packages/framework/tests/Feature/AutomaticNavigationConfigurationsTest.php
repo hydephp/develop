@@ -388,6 +388,17 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuWithConfigLabels()
+    {
+        config(['hyde.navigation.labels' => ['foo' => 'First', 'bar' => 'Second', 'baz' => 'Third']]);
+
+        $this->assertMenuEquals(['First', 'Second', 'Third'], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+        ]);
+    }
+
     // Main navigation subdirectory handling tests
 
     public function testPagesInSubdirectoriesAreNotAddedToNavigation()
