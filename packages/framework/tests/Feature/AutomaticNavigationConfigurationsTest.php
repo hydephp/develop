@@ -411,6 +411,75 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarWithFrontMatterPriorityAndOrder()
+    {
+        // Since the main key in the navigation schema is 'priority', that takes precedence over its 'order' alias
+
+        $expected = [
+            ['label' => 'Foo', 'priority' => 1],
+            ['label' => 'Bar', 'priority' => 2],
+            ['label' => 'Baz', 'priority' => 3],
+        ];
+
+        $this->assertSidebarEquals($expected, [
+            new DocumentationPage('foo', ['navigation.priority' => 1, 'navigation.order' => 10]),
+            new DocumentationPage('bar', ['navigation.priority' => 2, 'navigation.order' => 20]),
+            new DocumentationPage('baz', ['navigation.priority' => 3, 'navigation.order' => 30]),
+        ]);
+
+        $this->assertSidebarEquals($expected, [
+            new DocumentationPage('foo', ['navigation.order' => 10, 'navigation.priority' => 1]),
+            new DocumentationPage('bar', ['navigation.order' => 20, 'navigation.priority' => 2]),
+            new DocumentationPage('baz', ['navigation.order' => 30, 'navigation.priority' => 3]),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterHiddenAndVisible()
+    {
+        // Since the main key in the navigation schema is 'hidden', that takes precedence over its 'visible' alias
+
+        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
+            new DocumentationPage('foo', ['navigation.hidden' => false, 'navigation.visible' => true]),
+            new DocumentationPage('bar', ['navigation.hidden' => false, 'navigation.visible' => true]),
+            new DocumentationPage('baz', ['navigation.hidden' => false, 'navigation.visible' => true]),
+        ]);
+
+        $this->assertSidebarEquals([], [
+            new DocumentationPage('foo', ['navigation.hidden' => true, 'navigation.visible' => false]),
+            new DocumentationPage('bar', ['navigation.hidden' => true, 'navigation.visible' => false]),
+            new DocumentationPage('baz', ['navigation.hidden' => true, 'navigation.visible' => false]),
+        ]);
+
+        $this->assertSidebarEquals([], [
+            new DocumentationPage('foo', ['navigation.hidden' => true, 'navigation.visible' => true]),
+            new DocumentationPage('bar', ['navigation.hidden' => true, 'navigation.visible' => true]),
+            new DocumentationPage('baz', ['navigation.hidden' => true, 'navigation.visible' => true]),
+        ]);
+
+        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
+            new DocumentationPage('foo', ['navigation.hidden' => false, 'navigation.visible' => false]),
+            new DocumentationPage('bar', ['navigation.hidden' => false, 'navigation.visible' => false]),
+            new DocumentationPage('baz', ['navigation.hidden' => false, 'navigation.visible' => false]),
+        ]);
+
+        $this->assertSidebarEquals(['Bar'], [
+            new DocumentationPage('foo', ['navigation.hidden' => true, 'navigation.visible' => false]),
+            new DocumentationPage('bar', ['navigation.hidden' => false, 'navigation.visible' => true]),
+            new DocumentationPage('baz', ['navigation.hidden' => true, 'navigation.visible' => false]),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterGroupAndCategory()
+    {
+        // Since the main key in the navigation schema is 'group', that takes precedence over its 'category' alias
+
+        $this->assertSidebarEquals(array_fill(0, 3, ['group' => 'group-1']), [
+            new DocumentationPage('foo', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
+            new DocumentationPage('bar', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
+            new DocumentationPage('baz', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
+        ]);
+    }
+
     protected function assertSidebarEquals(array $expected, array $menuPages): void
     {
         $this->sidebar($menuPages)->assertEquals($expected);
