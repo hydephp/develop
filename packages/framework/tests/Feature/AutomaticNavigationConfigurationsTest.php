@@ -312,6 +312,75 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarWithFrontMatterPriority()
+    {
+        $this->assertSidebarEquals(['First', 'Second', 'Third'], [
+            new DocumentationPage('first', ['navigation.priority' => 1]),
+            new DocumentationPage('second', ['navigation.priority' => 2]),
+            new DocumentationPage('third', ['navigation.priority' => 3]),
+        ]);
+
+        $this->assertSidebarEquals(['Third', 'Second', 'First'], [
+            new DocumentationPage('first', ['navigation.priority' => 3]),
+            new DocumentationPage('second', ['navigation.priority' => 2]),
+            new DocumentationPage('third', ['navigation.priority' => 1]),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterOrder()
+    {
+        $this->assertSidebarEquals(['First', 'Second', 'Third'], [
+            new DocumentationPage('first', ['navigation.order' => 1]),
+            new DocumentationPage('second', ['navigation.order' => 2]),
+            new DocumentationPage('third', ['navigation.order' => 3]),
+        ]);
+
+        $this->assertSidebarEquals(['Third', 'Second', 'First'], [
+            new DocumentationPage('first', ['navigation.order' => 3]),
+            new DocumentationPage('second', ['navigation.order' => 2]),
+            new DocumentationPage('third', ['navigation.order' => 1]),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterLabel()
+    {
+        $this->assertSidebarEquals(['First', 'Second', 'Third'], [
+            new DocumentationPage('foo', ['navigation.label' => 'First']),
+            new DocumentationPage('bar', ['navigation.label' => 'Second']),
+            new DocumentationPage('baz', ['navigation.label' => 'Third']),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterHidden()
+    {
+        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
+            new DocumentationPage('foo', ['navigation.hidden' => false]),
+            new DocumentationPage('bar', ['navigation.hidden' => false]),
+            new DocumentationPage('baz', ['navigation.hidden' => false]),
+        ]);
+
+        $this->assertSidebarEquals([], [
+            new DocumentationPage('foo', ['navigation.hidden' => true]),
+            new DocumentationPage('bar', ['navigation.hidden' => true]),
+            new DocumentationPage('baz', ['navigation.hidden' => true]),
+        ]);
+    }
+
+    public function testSidebarWithFrontMatterVisible()
+    {
+        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
+            new DocumentationPage('foo', ['navigation.visible' => true]),
+            new DocumentationPage('bar', ['navigation.visible' => true]),
+            new DocumentationPage('baz', ['navigation.visible' => true]),
+        ]);
+
+        $this->assertSidebarEquals([], [
+            new DocumentationPage('foo', ['navigation.visible' => false]),
+            new DocumentationPage('bar', ['navigation.visible' => false]),
+            new DocumentationPage('baz', ['navigation.visible' => false]),
+        ]);
+    }
+
     protected function assertSidebarEquals(array $expected, array $menuPages): void
     {
         $this->sidebar($menuPages)->assertEquals($expected);
