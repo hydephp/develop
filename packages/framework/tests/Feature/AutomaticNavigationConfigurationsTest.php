@@ -39,6 +39,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         HydeKernel::setInstance($this->kernel);
     }
 
+    // Base tests
+
     public function testMainNavigationMenu()
     {
         $this->menu()->assertEquals(['Home']);
@@ -48,6 +50,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         $this->sidebar()->assertEquals([]);
     }
+
+    // Main navigation menu tests
 
     public function testMainNavigationMenuWithPages()
     {
@@ -290,6 +294,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Documentation sidebar menu tests
+
     public function testSidebarWithPages()
     {
         $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
@@ -479,6 +485,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('baz', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
         ]);
     }
+
+    // Testing helpers
 
     protected function assertSidebarEquals(array $expected, array $menuPages): void
     {
