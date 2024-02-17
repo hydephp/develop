@@ -290,6 +290,15 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarWithPages()
+    {
+        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
+        ]);
+    }
+
     protected function assertSidebarEquals(array $expected, array $menuPages): void
     {
         $this->sidebar($menuPages)->assertEquals($expected);
