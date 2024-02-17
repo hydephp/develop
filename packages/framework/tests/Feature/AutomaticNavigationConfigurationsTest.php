@@ -290,6 +290,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    protected function assertSidebarEquals(array $expected, array $menuPages): void
+    {
+        $this->sidebar($menuPages)->assertEquals($expected);
+    }
+
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
