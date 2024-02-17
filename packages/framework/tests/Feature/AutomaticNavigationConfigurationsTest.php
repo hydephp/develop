@@ -298,6 +298,96 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     // Main navigation configuration tests
 
+    public function testMainNavigationMenuWithConfigOrder()
+    {
+        config(['hyde.navigation.order' => ['first', 'second', 'third']]);
+
+        $this->assertMenuEquals(['First', 'Second', 'Third'], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+
+        config(['hyde.navigation.order' => ['third', 'second', 'first']]);
+
+        $this->assertMenuEquals(['Third', 'Second', 'First'], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+    }
+
+    public function testMainNavigationMenuWithConfigOrderHasInferredPriorities()
+    {
+        $this->assertMenuEquals([
+            ['priority' => 999],
+            ['priority' => 999],
+            ['priority' => 999],
+        ], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+
+        config(['hyde.navigation.order' => ['first', 'second', 'third']]);
+
+        $this->assertMenuEquals([
+            ['priority' => 500],
+            ['priority' => 501],
+            ['priority' => 502],
+        ], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+    }
+
+    public function testMainNavigationMenuWithExplicitConfigOrder()
+    {
+        config(['hyde.navigation.order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
+
+        $this->assertMenuEquals(['First', 'Second', 'Third'], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+
+        config(['hyde.navigation.order' => ['first' => 3, 'second' => 2, 'third' => 1]]);
+
+        $this->assertMenuEquals(['Third', 'Second', 'First'], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+
+        config(['hyde.navigation.order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
+
+        $this->assertMenuEquals([
+            ['label' => 'First', 'priority' => 1],
+            ['label' => 'Second', 'priority' => 2],
+            ['label' => 'Third', 'priority' => 3],
+        ], [
+            new MarkdownPage('first'),
+            new MarkdownPage('second'),
+            new MarkdownPage('third'),
+        ]);
+    }
+
+    public function testMainNavigationMenuWithMixedConfigOrders()
+    {
+        config(['hyde.navigation.order' => ['foo', 'bar' => 650]]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'priority' => 500],
+            ['label' => 'Bar', 'priority' => 650],
+            ['label' => 'Baz', 'priority' => 999],
+        ], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+        ]);
+    }
+
     // Main navigation subdirectory handling tests
 
     public function testPagesInSubdirectoriesAreNotAddedToNavigation()
