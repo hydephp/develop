@@ -299,6 +299,19 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testOnlyDocumentationPagesAreAddedToSidebar()
+    {
+        $this->assertSidebarEquals(['Documentation Page'], [
+            new HtmlPage('html-page'),
+            new BladePage('blade-page'),
+            new MarkdownPage('markdown-page'),
+            new MarkdownPost('markdown-post'),
+            new DocumentationPage('documentation-page'),
+            new InMemoryPage('in-memory-page'),
+            new Redirect('redirect', 'destination'),
+        ]);
+    }
+
     protected function assertSidebarEquals(array $expected, array $menuPages): void
     {
         $this->sidebar($menuPages)->assertEquals($expected);
