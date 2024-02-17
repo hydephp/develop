@@ -1,5 +1,4 @@
 @php
-    // Todo consider passing from shared view data?
     $navigation = app('navigation')->getMenu('main');
 @endphp
 
