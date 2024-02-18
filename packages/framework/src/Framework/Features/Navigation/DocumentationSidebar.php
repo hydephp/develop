@@ -45,7 +45,7 @@ class DocumentationSidebar
     /** @return array<string> */
     public function getGroups(): array
     {
-        return $this->items->map(function (NavItem $item): string {
+        return $this->items->map(function (NavItem $item): ?string {
             return $item->getGroup();
         })->unique()->toArray();
     }
