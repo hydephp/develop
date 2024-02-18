@@ -239,7 +239,7 @@ class HydePageTest extends TestCase
         $this->assertNull((new MarkdownPage())->navigationMenuGroup());
         $this->assertNull((new MarkdownPost())->navigationMenuGroup());
         $this->assertNull((new HtmlPage())->navigationMenuGroup());
-        $this->assertSame(null, (new DocumentationPage())->navigationMenuGroup());
+        $this->assertNull((new DocumentationPage())->navigationMenuGroup());
         $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
 
