@@ -11,6 +11,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
+use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Redirect;
@@ -973,6 +974,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     protected function assertMenuEquals(array $expected, array $menuPages): void
     {
         $this->menu($menuPages)->assertEquals($expected);
+    }
+
+    #[NoReturn]
+    protected function ddMenu(?array $menuPages = null): void
+    {
+        dd($this->menu($menuPages)->state());
     }
 
     protected function menu(?array $withPages = null): AssertableNavigationMenu
