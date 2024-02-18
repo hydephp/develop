@@ -484,6 +484,45 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuItemsWithSameLabelButDifferentGroupsAreNotFiltered()
+    {
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'group' => 'group-1'],
+            ['label' => 'Foo', 'group' => 'group-2'],
+        ], [
+            new MarkdownPage('foo', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 1']),
+            new MarkdownPage('bar', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 2']),
+        ]);
+    }
+
+    public function testMainNavigationMenuDropdownItemsWithSameLabelButDifferentGroupsAreNotFiltered()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertMenuEquals([
+            // Todo: Should use proper group name
+            ['label' => 'group-1', 'children' => ['Foo']],
+            ['label' => 'group-2', 'children' => ['Foo']],
+        ], [
+            new MarkdownPage('one/foo', ['navigation.group' => 'Group 1']),
+            new MarkdownPage('two/foo', ['navigation.group' => 'Group 2']),
+        ]);
+    }
+
+    public function testMainNavigationMenuAutomaticDropdownItemsWithSameLabelButDifferentGroupsAreNotFiltered()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertMenuEquals([
+            // Todo: Should use proper group name
+            ['label' => 'one', 'children' => ['Foo']],
+            ['label' => 'two', 'children' => ['Foo']],
+        ], [
+            new MarkdownPage('one/foo'),
+            new MarkdownPage('two/foo'),
+        ]);
+    }
+
     // Documentation sidebar menu tests
 
     public function testSidebarWithPages()
@@ -867,6 +906,60 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertSidebarEquals(['Foo'], [
             new DocumentationPage('foo', ['navigation.label' => 'foo']),
             new DocumentationPage('bar', ['navigation.label' => 'Foo']),
+        ]);
+    }
+
+    public function testSidebarItemsWithSameLabelButDifferentGroupsAreNotFiltered()
+    {
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'group' => 'group-1'],
+            ['label' => 'Foo', 'group' => 'group-2'],
+        ], [
+            new DocumentationPage('foo', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 1']),
+            new DocumentationPage('bar', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 2']),
+        ]);
+    }
+
+    public function testSidebarDropdownItemsWithSameLabelButDifferentGroupsAreFiltered()
+    {
+        $this->assertSidebarEquals(['Foo'], [
+            new DocumentationPage('one/foo', ['navigation.group' => 'Group 1']),
+            new DocumentationPage('two/foo', ['navigation.group' => 'Group 2']),
+        ]);
+    }
+
+    public function testSidebarAutomaticDropdownItemsWithSameLabelButDifferentGroupsAreFiltered()
+    {
+        $this->assertSidebarEquals(['Foo'], [
+            new DocumentationPage('one/foo'),
+            new DocumentationPage('two/foo'),
+        ]);
+    }
+
+    public function testSidebarDropdownItemsWithSameLabelButDifferentGroupsAreNotFilteredWithFlattenedOutputPaths()
+    {
+        config(['docs.flattened_output_paths' => false]);
+
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'group' => 'group-1'],
+            ['label' => 'Foo', 'group' => 'group-2'],
+        ], [
+            new DocumentationPage('one/foo', ['navigation.group' => 'Group 1']),
+            new DocumentationPage('two/foo', ['navigation.group' => 'Group 2']),
+        ]);
+    }
+
+    public function testSidebarAutomaticDropdownItemsWithSameLabelButDifferentGroupsAreNotFilteredWithFlattenedOutputPaths()
+    {
+        config(['docs.flattened_output_paths' => false]);
+
+        $this->assertSidebarEquals([
+            // Todo: Should use proper group name
+            ['label' => 'Foo', 'group' => 'one'],
+            ['label' => 'Foo', 'group' => 'two'],
+        ], [
+            new DocumentationPage('one/foo'),
+            new DocumentationPage('two/foo'),
         ]);
     }
 
