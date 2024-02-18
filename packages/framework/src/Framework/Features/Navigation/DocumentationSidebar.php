@@ -81,9 +81,9 @@ class DocumentationSidebar
      *
      * @todo Get title from instance
      */
-    public function makeGroupTitle(string $group): string
+    public function makeGroupTitle(?string $group): string
     {
-        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
+        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group ?? 'Other');
     }
 
     private function isPageIndexPage(): bool
