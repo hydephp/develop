@@ -795,29 +795,23 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testPagesInSubdirectoriesAreAddedToSidebarWhenSidebarSubdirectoriesIsSetToFlat()
+    public function testPagesInSubdirectoriesAreAddedToSidebarRegardlessOfConfiguration()
     {
-        config(['hyde.navigation.subdirectories' => 'flat']);
+        $options = ['dropdown', 'flat', 'hidden'];
 
-        $this->assertSidebarEquals(['Foo', 'Bar', 'Baz'], [
-            new DocumentationPage('about/foo'),
-            new DocumentationPage('about/bar'),
-            new DocumentationPage('about/baz'),
-        ]);
-    }
+        foreach ($options as $option) {
+            config(['docs.sidebar.subdirectories' => $option]);
 
-    public function testPagesInSubdirectoriesAreAddedAsDropdownsWhenSidebarSubdirectoriesIsSetToDropdown()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        $this->assertSidebarEquals([
-            'Foo', 'Bar', 'Baz',
-            // TODO: New state will be ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
-        ], [
-            new DocumentationPage('about/foo'),
-            new DocumentationPage('about/bar'),
-            new DocumentationPage('about/baz'),
-        ]);
+            $this->assertSidebarEquals([
+                ['label' => 'Foo', 'group' => 'about'],
+                ['label' => 'Bar', 'group' => 'about'],
+                ['label' => 'Baz', 'group' => 'about'],
+            ], [
+                new DocumentationPage('about/foo'),
+                new DocumentationPage('about/bar'),
+                new DocumentationPage('about/baz'),
+            ]);
+        }
     }
 
     // Testing helpers
