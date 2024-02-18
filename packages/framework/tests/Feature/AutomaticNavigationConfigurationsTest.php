@@ -456,6 +456,34 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainNavigationMenuItemsWithTheSameLabelAreFiltered()
+    {
+        $this->assertMenuEquals(['Foo'], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('foo'),
+        ]);
+
+        $this->assertMenuEquals(['Foo'], [
+            new MarkdownPage('foo', ['navigation.label' => 'Foo']),
+            new MarkdownPage('bar', ['navigation.label' => 'Foo']),
+        ]);
+    }
+
+    public function testMainNavigationMenuItemsWithTheSameLabelAreFilteredCaseInsensitive()
+    {
+        $this->markTestSkipped('Not yet implemented, but we should, as identifiers on some systems are case insensitive, and it makes sense to match that to labels');
+
+        $this->assertMenuEquals(['Foo'], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('FOO'),
+        ]);
+
+        $this->assertMenuEquals(['Foo'], [
+            new MarkdownPage('foo', ['navigation.label' => 'foo']),
+            new MarkdownPage('bar', ['navigation.label' => 'Foo']),
+        ]);
+    }
+
     // Documentation sidebar menu tests
 
     public function testSidebarWithPages()
@@ -812,6 +840,34 @@ class AutomaticNavigationConfigurationsTest extends TestCase
                 new DocumentationPage('about/baz'),
             ]);
         }
+    }
+
+    public function testSidebarItemsWithTheSameLabelAreFiltered()
+    {
+        $this->assertSidebarEquals(['Foo'], [
+            new DocumentationPage('foo'),
+            new DocumentationPage('foo'),
+        ]);
+
+        $this->assertSidebarEquals(['Foo'], [
+            new DocumentationPage('foo', ['navigation.label' => 'Foo']),
+            new DocumentationPage('bar', ['navigation.label' => 'Foo']),
+        ]);
+    }
+
+    public function testSidebarItemsWithTheSameLabelAreFilteredCaseInsensitive()
+    {
+        $this->markTestSkipped('Not yet implemented, but we should, as identifiers on some systems are case insensitive, and it makes sense to match that to labels');
+
+        $this->assertSidebarEquals(['Foo'], [
+            new DocumentationPage('foo'),
+            new DocumentationPage('FOO'),
+        ]);
+
+        $this->assertSidebarEquals(['Foo'], [
+            new DocumentationPage('foo', ['navigation.label' => 'foo']),
+            new DocumentationPage('bar', ['navigation.label' => 'Foo']),
+        ]);
     }
 
     // Testing helpers
