@@ -84,7 +84,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getSubdirectoryName();
         }
 
-        return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
+        return $this->searchForGroupInFrontMatter() ?? null;
     }
 
     protected function makeHidden(): bool
@@ -206,11 +206,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->getSubdirectoryConfiguration() === 'dropdown'
             || $this->isInstanceOf(DocumentationPage::class);
-    }
-
-    private function defaultGroup(): ?string
-    {
-        return null;
     }
 
     private function pageIsInSubdirectory(): bool
