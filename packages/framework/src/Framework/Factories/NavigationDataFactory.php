@@ -84,7 +84,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getSubdirectoryName();
         }
 
-        return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
+        return $this->searchForGroupInFrontMatter();
     }
 
     protected function makeHidden(): bool
@@ -206,12 +206,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->getSubdirectoryConfiguration() === 'dropdown'
             || $this->isInstanceOf(DocumentationPage::class);
-    }
-
-    private function defaultGroup(): ?string
-    {
-        // TODO: It would be better if this was null in all cases, considering 'other' is used a a sort of confusing pseudo-null
-        return $this->isInstanceOf(DocumentationPage::class) ? 'other' : null;
     }
 
     private function pageIsInSubdirectory(): bool

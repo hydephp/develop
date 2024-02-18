@@ -98,7 +98,7 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testNavigationMenuGroup()
     {
-        $this->assertSame('other', (new DocumentationPage('foo'))->navigationMenuGroup());
+        $this->assertSame(null, (new DocumentationPage('foo'))->navigationMenuGroup());
     }
 
     public function testNavigationMenuGroupWithData()

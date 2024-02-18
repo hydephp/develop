@@ -39,13 +39,13 @@ class DocumentationSidebar
 
     public function hasGroups(): bool
     {
-        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== ['other']);
+        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== [null]);
     }
 
     /** @return array<string> */
     public function getGroups(): array
     {
-        return $this->items->map(function (NavItem $item): string {
+        return $this->items->map(function (NavItem $item): ?string {
             return $item->getGroup();
         })->unique()->toArray();
     }
@@ -64,8 +64,12 @@ class DocumentationSidebar
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
      */
-    public function isGroupActive(string $group): bool
+    public function isGroupActive(?string $group): bool
     {
+        if ($group === null) {
+            return false;
+        }
+
         $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
         $currentPageIsIndexPageAndShouldBeActive = $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
 
@@ -77,9 +81,9 @@ class DocumentationSidebar
      *
      * @todo Get title from instance
      */
-    public function makeGroupTitle(string $group): string
+    public function makeGroupTitle(?string $group): string
     {
-        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
+        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group ?? 'Other');
     }
 
     private function isPageIndexPage(): bool
@@ -89,7 +93,7 @@ class DocumentationSidebar
 
     private function shouldIndexPageBeActive(string $group): bool
     {
-        $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === 'other';
+        $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
         $groupIsTheFirstOneInSidebar = $group === collect($this->getGroups())->first();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
