@@ -977,8 +977,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     }
 
     #[NoReturn]
-    protected function ddMenu(?array $menuPages = null): void
+    protected function ddMenu(?array $menuPages = null, ?string $menu = 'menu'): void
     {
+        if ($menu === 'sidebar') {
+            dd($this->sidebar($menuPages)->state());
+        }
+
         dd($this->menu($menuPages)->state());
     }
 
