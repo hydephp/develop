@@ -66,6 +66,10 @@ class DocumentationSidebar
      */
     public function isGroupActive(?string $group): bool
     {
+        if ($group === null) {
+            return false;
+        }
+
         $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
         $currentPageIsIndexPageAndShouldBeActive = $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
 
