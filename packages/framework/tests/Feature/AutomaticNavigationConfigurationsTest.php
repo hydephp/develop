@@ -448,8 +448,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            ['Foo', 'Bar', 'Baz'],
-            // TODO: New state will be ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
+            ['label' => 'about', 'children' => ['Foo', 'Bar', 'Baz']],
+            // TODO: Label should be About
         ], [
             new MarkdownPage('about/foo'),
             new MarkdownPage('about/bar'),
