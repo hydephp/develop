@@ -650,6 +650,136 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Sidebar configuration tests
+
+    public function testSidebarWithConfigOrder()
+    {
+        // TODO should be sidebar.order instead of docs.sidebar_order
+
+        config(['docs.sidebar_order' => ['first', 'second', 'third']]);
+
+        $this->assertSidebarEquals(['First', 'Second', 'Third'], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+
+        config(['docs.sidebar_order' => ['third', 'second', 'first']]);
+
+        $this->assertSidebarEquals(['Third', 'Second', 'First'], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+    }
+
+    public function testSidebarWithConfigOrderHasInferredPriorities()
+    {
+        $this->assertSidebarEquals([
+            ['priority' => 999],
+            ['priority' => 999],
+            ['priority' => 999],
+        ], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+
+        config(['docs.sidebar_order' => ['first', 'second', 'third']]);
+
+        $this->assertSidebarEquals([
+            ['priority' => 500],
+            ['priority' => 501],
+            ['priority' => 502],
+        ], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+    }
+
+    public function testSidebarWithExplicitConfigOrder()
+    {
+        config(['docs.sidebar_order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
+
+        $this->assertSidebarEquals(['First', 'Second', 'Third'], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+
+        config(['docs.sidebar_order' => ['first' => 3, 'second' => 2, 'third' => 1]]);
+
+        $this->assertSidebarEquals(['Third', 'Second', 'First'], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+
+        config(['docs.sidebar_order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
+
+        $this->assertSidebarEquals([
+            ['label' => 'First', 'priority' => 1],
+            ['label' => 'Second', 'priority' => 2],
+            ['label' => 'Third', 'priority' => 3],
+        ], [
+            new DocumentationPage('first'),
+            new DocumentationPage('second'),
+            new DocumentationPage('third'),
+        ]);
+    }
+
+    public function testSidebarWithMixedConfigOrders()
+    {
+        config(['docs.sidebar_order' => ['foo', 'bar' => 650]]);
+
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'priority' => 500],
+            ['label' => 'Bar', 'priority' => 650],
+            ['label' => 'Baz', 'priority' => 999],
+        ], [
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
+        ]);
+    }
+
+    public function testSidebarWithConfigLabels()
+    {
+        $this->markTestSkipped('Not supported (yet?)');
+
+        config(['docs.sidebar.labels' => ['foo' => 'First', 'bar' => 'Second', 'baz' => 'Third']]);
+
+        $this->assertSidebarEquals(['First', 'Second', 'Third'], [
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
+        ]);
+    }
+
+    public function testSidebarDropdownLabelsCanBeSetInConfig()
+    {
+        $this->markTestSkipped('Not yet implemented');
+    }
+
+    public function testSidebarAutomaticDropdownLabelsCanBeSetInConfig()
+    {
+        $this->markTestSkipped('Not yet implemented');
+    }
+
+    public function testSidebarWithConfigHidden()
+    {
+        $this->markTestSkipped('Not supported (yet?)');
+
+        config(['docs.sidebar.exclude' => ['foo', 'bar', 'baz']]);
+
+        $this->assertSidebarEquals([], [
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
+        ]);
+    }
+
     // Sidebar subdirectory handling tests
 
     public function testDocumentationPagesInSubdirectoriesAreAddedToSidebar()
