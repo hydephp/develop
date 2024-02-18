@@ -13,6 +13,8 @@ use Hyde\Foundation\Facades\Routes;
  * @experimental This class may change significantly before its release.
  *
  * @todo Consider making into a service which can create the sidebar as well.
+ *
+ * @see \Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu
  */
 class GeneratesDocumentationSidebarMenu
 {
