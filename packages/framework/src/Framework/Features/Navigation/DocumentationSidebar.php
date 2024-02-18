@@ -39,7 +39,7 @@ class DocumentationSidebar
 
     public function hasGroups(): bool
     {
-        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== ['other']);
+        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== [null]);
     }
 
     /** @return array<string> */
@@ -89,7 +89,7 @@ class DocumentationSidebar
 
     private function shouldIndexPageBeActive(string $group): bool
     {
-        $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === 'other';
+        $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
         $groupIsTheFirstOneInSidebar = $group === collect($this->getGroups())->first();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
