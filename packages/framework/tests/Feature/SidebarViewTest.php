@@ -169,6 +169,31 @@ class SidebarViewTest extends TestCase
         $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-group-toggle-button'));
     }
 
+    public function testSidebarWithMixedGroupedAndUngroupedItems()
+    {
+        $this->mockRoute();
+        $this->mockPage();
+        $this->file('_docs/index.md');
+        $this->markdown('_docs/first.md', matter: ['navigation.group' => 'Group 1']);
+        $this->markdown('_docs/second.md');
+
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertSeeText('Group 1')
+            ->assertSeeText('First')
+            ->assertSeeText('Other')
+            ->assertSeeText('Second')
+            ->assertSeeHtml('href="docs/first.html"')
+            ->assertSeeHtml('href="docs/second.html"')
+            ->allGood();
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
+            'sidebar' => DocumentationSidebar::create(),
+            'grouped' => true,
+        ]));
+
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-group-toggle-button'));
+    }
+
     protected function renderComponent(View $view): self
     {
         try {
