@@ -471,16 +471,16 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuItemsWithTheSameLabelAreFilteredCaseInsensitive()
     {
-        $this->markTestSkipped('Not yet implemented, but we should, as identifiers on some systems are case insensitive, and it makes sense to match that to labels');
-
         $this->assertMenuEquals(['Foo'], [
             new MarkdownPage('foo'),
+            new MarkdownPage('Foo'),
             new MarkdownPage('FOO'),
         ]);
 
-        $this->assertMenuEquals(['Foo'], [
+        $this->assertMenuEquals(['foo'], [
             new MarkdownPage('foo', ['navigation.label' => 'foo']),
             new MarkdownPage('bar', ['navigation.label' => 'Foo']),
+            new MarkdownPage('baz', ['navigation.label' => 'FOO']),
         ]);
     }
 
@@ -896,16 +896,16 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarItemsWithTheSameLabelAreFilteredCaseInsensitive()
     {
-        $this->markTestSkipped('Not yet implemented, but we should, as identifiers on some systems are case insensitive, and it makes sense to match that to labels');
-
         $this->assertSidebarEquals(['Foo'], [
             new DocumentationPage('foo'),
+            new DocumentationPage('Foo'),
             new DocumentationPage('FOO'),
         ]);
 
-        $this->assertSidebarEquals(['Foo'], [
+        $this->assertSidebarEquals(['foo'], [
             new DocumentationPage('foo', ['navigation.label' => 'foo']),
             new DocumentationPage('bar', ['navigation.label' => 'Foo']),
+            new DocumentationPage('baz', ['navigation.label' => 'FOO']),
         ]);
     }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
+use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -97,7 +98,7 @@ class GeneratesMainNavigationMenu
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
             // Filter using a combination of the group and label to allow duplicate labels in different groups
-            return $item->getGroup().$item->label;
+            return $item->getGroup().Str::slug($item->getLabel());
         });
     }
 
