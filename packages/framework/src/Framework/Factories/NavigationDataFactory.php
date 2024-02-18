@@ -84,7 +84,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getSubdirectoryName();
         }
 
-        return $this->searchForGroupInFrontMatter() ?? null;
+        return $this->searchForGroupInFrontMatter();
     }
 
     protected function makeHidden(): bool
