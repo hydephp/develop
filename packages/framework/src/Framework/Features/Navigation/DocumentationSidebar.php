@@ -19,12 +19,6 @@ class DocumentationSidebar extends NavigationMenu
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
-    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
-    public function getItems(): Collection
-    {
-        return $this->items->values();
-    }
-
     /** @deprecated Will be moved to an action */
     public static function create(): static
     {
