@@ -11,8 +11,6 @@ use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-use function collect;
-
 /** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends NavigationMenu
 {
@@ -30,19 +28,6 @@ class DocumentationSidebar extends NavigationMenu
         return $this->getItems()->filter(function (NavItem $item): bool {
             return $item->hasChildren();
         })->isNotEmpty();
-    }
-
-    /**
-     * @deprecated Use children instead
-     *
-     * @return Collection<\Hyde\Framework\Features\Navigation\NavItem>
-     */
-    public function getItemsInGroup(?string $group): Collection
-    {
-        // Todo might not need collections here
-        return collect($this->getItems()->first(function (NavItem $item) use ($group): bool {
-            return $item->getIdentifier() === Str::slug($group);
-        })?->getChildren() ?? []);
     }
 
     /**

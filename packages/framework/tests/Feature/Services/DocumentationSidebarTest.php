@@ -184,60 +184,6 @@ class DocumentationSidebarTest extends TestCase
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
     }
 
-    public function testGetItemsInGroupReturnsEmptyCollectionWhenThereAreNoItems()
-    {
-        $this->assertEquals(collect(), DocumentationSidebar::create()->getItemsInGroup('foo'));
-    }
-
-    public function testGetItemsInGroupReturnsCollectionOfItemsInGroup()
-    {
-        $this->makePage('foo', ['navigation.group' => 'bar']);
-        $this->makePage('bar', ['navigation.group' => 'bar']);
-        $this->makePage('baz', ['navigation.group' => 'baz']);
-
-        $this->assertEquals(
-            collect([
-                NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
-                NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
-            ]),
-            DocumentationSidebar::create()->getItemsInGroup('bar')
-        );
-
-        $this->assertEquals(
-            collect([
-                NavItem::fromRoute(Routes::get('docs/baz'), priority: 999),
-            ]),
-            DocumentationSidebar::create()->getItemsInGroup('baz')
-        );
-    }
-
-    public function testGetItemsInGroupNormalizesGroupNameToSlugFormat()
-    {
-        $this->makePage('a', ['navigation.group' => 'foo bar']);
-        $this->makePage('b', ['navigation.group' => 'Foo Bar']);
-        $this->makePage('c', ['navigation.group' => 'foo-bar']);
-
-        $this->assertEquals(
-            collect([
-                NavItem::fromRoute(Routes::get('docs/a'), priority: 999),
-                NavItem::fromRoute(Routes::get('docs/b'), priority: 999),
-                NavItem::fromRoute(Routes::get('docs/c'), priority: 999),
-            ]),
-            DocumentationSidebar::create()->getItemsInGroup('Foo bar')
-        );
-    }
-
-    public function testGetItemsInGroupDoesNotIncludeItemsWithHiddenFrontMatter()
-    {
-        $this->makePage('a', ['navigation.hidden' => true, 'navigation.group' => 'foo']);
-        $this->makePage('b', ['navigation.group' => 'foo']);
-
-        $this->assertEquals(
-            collect([NavItem::fromRoute(Routes::get('docs/b'), priority: 999)]),
-            DocumentationSidebar::create()->getItemsInGroup('foo')
-        );
-    }
-
     public function testGetItemsInGroupDoesNotIncludeDocsIndex()
     {
         Filesystem::touch('_docs/foo.md');
