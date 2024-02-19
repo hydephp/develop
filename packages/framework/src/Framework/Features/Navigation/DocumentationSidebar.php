@@ -48,7 +48,7 @@ class DocumentationSidebar extends NavigationMenu
     }
 
     /**
-     * Is a page within the group the current page?
+     * Is a page within the group the current page? This is used to determine if the sidebar group should be open when loading the page.
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
      */
