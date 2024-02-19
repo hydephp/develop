@@ -55,6 +55,7 @@ class GeneratesDocumentationSidebarMenu
         }
     }
 
+    /** @experimental Might not actually be needed now that groups default to null */
     protected function findSidebarGroups(RouteCollection $routes): array
     {
         // In order to know if we should use groups in the sidebar,
