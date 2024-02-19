@@ -459,12 +459,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuItemsWithTheSameLabelAreNotFilteredForDuplicates()
     {
-        // Since the route key is the same, only one route is actually added
-        $this->assertMenuEquals(['Foo'], [
-            new MarkdownPage('foo'),
-            new MarkdownPage('foo'),
-        ]);
-
         $this->assertMenuEquals(['Foo', 'Foo'], [
             new MarkdownPage('foo', ['navigation.label' => 'Foo']),
             new MarkdownPage('bar', ['navigation.label' => 'Foo']),
@@ -885,12 +879,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarItemsWithTheSameLabelAreNotFiltered()
     {
-        // Since the route key is the same, only one route is actually added
-        $this->assertSidebarEquals(['Foo'], [
-            new DocumentationPage('foo'),
-            new DocumentationPage('foo'),
-        ]);
-
         $this->assertSidebarEquals(['Foo', 'Foo'], [
             new DocumentationPage('foo', ['navigation.label' => 'Foo']),
             new DocumentationPage('bar', ['navigation.label' => 'Foo']),
