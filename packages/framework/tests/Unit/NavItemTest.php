@@ -368,7 +368,7 @@ class NavItemTest extends UnitTestCase
     public function testIdentifierFromRouteKey()
     {
         $item = NavItem::fromRoute(Routes::get('index'));
-        $this->assertSame('index', $item->identifier);
+        $this->assertSame('home', $item->identifier);
     }
 
     public function testIdentifierUsesLabelWhenRouteKeyIsFalsy()

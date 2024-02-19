@@ -29,7 +29,7 @@ class NavItem implements Stringable
     public readonly int $priority;
     public readonly ?string $group;
 
-    /** The route key, or a "slugified" version of the label if the route has no key, for example external links and dropdowns items. */
+    /** The "slugified" version of the label. */
     public readonly string $identifier;
 
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
@@ -48,7 +48,7 @@ class NavItem implements Stringable
         $this->label = $label;
         $this->priority = $priority;
         $this->group = static::normalizeGroupKey($group);
-        $this->identifier = $this->makeIdentifier($destination, $label);
+        $this->identifier = $this->makeIdentifier($label);
         $this->children = $children;
     }
 
@@ -182,11 +182,9 @@ class NavItem implements Stringable
         return $group ? Str::slug($group) : null;
     }
 
-    protected static function makeIdentifier(Route $destination, string $label): string
+    protected static function makeIdentifier(string $label): string
     {
-        return ! $destination instanceof ExternalRoute && $destination->getRouteKey()
-            ? $destination->getRouteKey()
-            : Str::slug($label);
+        return Str::slug($label);
     }
 
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
