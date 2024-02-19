@@ -24,16 +24,16 @@ use Hyde\Support\Models\ExternalRoute;
  */
 class NavItem implements Stringable
 {
-    public readonly Route $destination;
-    public readonly string $label;
-    public readonly int $priority;
-    public readonly ?string $group;
+    public Route $destination;
+    public string $label;
+    public int $priority;
+    public ?string $group;
 
     /** The "slugified" version of the label. */
-    public readonly string $identifier;
+    public string $identifier;
 
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
-    public readonly array $children;
+    public array $children;
 
     /**
      * Create a new navigation menu item.
