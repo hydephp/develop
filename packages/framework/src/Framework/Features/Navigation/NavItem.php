@@ -30,7 +30,7 @@ class NavItem implements Stringable
     protected ?string $group;
 
     /** The "slugified" version of the label. */
-    public string $identifier;
+    protected string $identifier;
 
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
     protected array $children;
@@ -147,6 +147,14 @@ class NavItem implements Stringable
     public function getGroup(): ?string
     {
         return $this->group;
+    }
+
+    /**
+     * Get the identifier of the navigation item.
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
     }
 
     /**

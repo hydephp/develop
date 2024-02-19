@@ -354,7 +354,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500);
 
-        $this->assertSame('test', $item->identifier);
+        $this->assertSame('test', $item->getIdentifier());
     }
 
     public function testIdentifierWithCustomLabel()
@@ -362,13 +362,13 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Foo Bar', 500);
 
-        $this->assertSame('foo-bar', $item->identifier);
+        $this->assertSame('foo-bar', $item->getIdentifier());
     }
 
     public function testIdentifierFromRouteKey()
     {
         $item = NavItem::fromRoute(Routes::get('index'));
-        $this->assertSame('home', $item->identifier);
+        $this->assertSame('home', $item->getIdentifier());
     }
 
     public function testIdentifierUsesLabelWhenRouteKeyIsFalsy()
@@ -376,12 +376,12 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Foo Bar', 500);
 
-        $this->assertSame('foo-bar', $item->identifier);
+        $this->assertSame('foo-bar', $item->getIdentifier());
     }
 
     public function testIdentifierUsesLabelForExternalRoute()
     {
         $item = NavItem::forLink('https://example.com', 'Foo Bar');
-        $this->assertSame('foo-bar', $item->identifier);
+        $this->assertSame('foo-bar', $item->getIdentifier());
     }
 }
