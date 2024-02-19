@@ -40,7 +40,9 @@ class GeneratesDocumentationSidebarMenu
 
     protected function generate(): void
     {
-        Routes::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
+        $routes = Routes::getRoutes(DocumentationPage::class);
+
+        $routes->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
                 $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
