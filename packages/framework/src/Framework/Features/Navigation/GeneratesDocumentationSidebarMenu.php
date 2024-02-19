@@ -48,6 +48,7 @@ class GeneratesDocumentationSidebarMenu
         $routes->each(function (Route $route) use ($groups): void {
             if ($this->canAddRoute($route)) {
                 $item = NavItem::fromRoute($route);
+                $group = $item->getGroup();
 
                 $this->items->put($route->getRouteKey(), $item);
             }
