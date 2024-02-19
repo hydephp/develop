@@ -964,6 +964,15 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarItemGroupingIsCaseInsensitive()
+    {
+        $this->assertSidebarEquals(['foo'], [
+            new DocumentationPage('foo', ['navigation.group' => 'foo']),
+            new DocumentationPage('bar', ['navigation.group' => 'Foo']),
+            new DocumentationPage('baz', ['navigation.group' => 'FOO']),
+        ]);
+    }
+
     public function testSidebarGroupsAreSortedByLowestFoundPriorityInEachGroup()
     {
         $this->assertSidebarEquals([
