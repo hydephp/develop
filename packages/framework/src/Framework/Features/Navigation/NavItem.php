@@ -182,6 +182,17 @@ class NavItem implements Stringable
         return $group ? Str::slug($group) : null;
     }
 
+    protected static function makeIdentifier(Route $destination, string $label): string
+    {
+        if (! $destination instanceof ExternalRoute && $destination->getRouteKey()) {
+            $identifier = $destination->getRouteKey();
+        } else {
+            $identifier = Str::slug($label);
+        }
+
+        return $identifier;
+    }
+
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
         /** @var array<string, int> $config */
@@ -192,16 +203,5 @@ class NavItem implements Stringable
         ]);
 
         return $config[$groupKey] ?? null;
-    }
-
-    protected static function makeIdentifier(Route $destination, string $label): string
-    {
-        if (! $destination instanceof ExternalRoute && $destination->getRouteKey()) {
-            $identifier = $destination->getRouteKey();
-        } else {
-            $identifier = Str::slug($label);
-        }
-
-        return $identifier;
     }
 }
