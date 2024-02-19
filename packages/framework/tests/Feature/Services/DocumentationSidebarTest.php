@@ -372,16 +372,19 @@ class DocumentationSidebarTest extends TestCase
         );
     }
 
-    public function testDuplicateLabelsWithinTheSameGroupIsRemoved()
+    public function testDuplicateLabelsWithinTheSameGroupAreNotRemoved()
     {
         $this->makePage('foo', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
         $this->makePage('bar', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(1, $sidebar->getItems());
+        $this->assertCount(2, $sidebar->getItems());
 
         $this->assertEquals(
-            collect([NavItem::fromRoute(Routes::get('docs/bar'), priority: 999)]),
+            collect([
+                NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
+                NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
+            ]),
             $sidebar->getItems()
         );
     }

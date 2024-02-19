@@ -34,7 +34,6 @@ class GeneratesDocumentationSidebarMenu
 
         $menu->generate();
         $menu->sortByPriority();
-        $menu->removeDuplicateItems();
 
         return new DocumentationSidebar($menu->items);
     }
@@ -84,14 +83,6 @@ class GeneratesDocumentationSidebarMenu
     protected function canAddRoute(Route $route): bool
     {
         return $route->getPage()->showInNavigation() && ! $route->is(DocumentationPage::homeRouteName());
-    }
-
-    protected function removeDuplicateItems(): void
-    {
-        $this->items = $this->items->unique(function (NavItem $item): string {
-            // Filter using a combination of the group and identifier to allow duplicate labels in different groups
-            return $item->getGroup().$item->identifier;
-        });
     }
 
     protected function sortByPriority(): void
