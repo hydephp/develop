@@ -87,7 +87,7 @@ class GeneratesDocumentationSidebarMenu
         // we need to loop through the pages and see if they have a group set
 
         return $routes->first(function (Route $route): bool {
-            return filled($route->getPage()->data('navigation.group'));
+            return filled($route->getPage()->data('navigation.group')) || filled($route->getPage()->data('navigation.category'));
         }) !== null;
     }
 
