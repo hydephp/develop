@@ -32,7 +32,11 @@ class DocumentationSidebar extends NavigationMenu
         return (! empty($this->getGroups())) && ($this->getGroups() !== [null]);
     }
 
-    /** @return array<string> */
+    /**
+     * @deprecated Use children instead
+     *
+     * @return array<string>
+     */
     public function getGroups(): array
     {
         return $this->items->map(function (NavItem $item): ?string {
