@@ -46,7 +46,11 @@ class DocumentationSidebar extends NavigationMenu
         })->values()->toArray();
     }
 
-    /** @return Collection<\Hyde\Framework\Features\Navigation\NavItem> */
+    /**
+     * @deprecated Use children instead
+     *
+     * @return Collection<\Hyde\Framework\Features\Navigation\NavItem>
+     */
     public function getItemsInGroup(?string $group): Collection
     {
         // Todo might not need collections here
