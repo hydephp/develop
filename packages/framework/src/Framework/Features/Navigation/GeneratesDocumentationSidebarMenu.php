@@ -33,6 +33,7 @@ class GeneratesDocumentationSidebarMenu
         $menu = new static();
 
         $menu->generate();
+        $menu->sortByPriority();
 
         return new DocumentationSidebar($menu->items);
     }
@@ -99,5 +100,10 @@ class GeneratesDocumentationSidebarMenu
     protected function canAddRoute(Route $route): bool
     {
         return $route->getPage()->showInNavigation() && ! $route->is(DocumentationPage::homeRouteName());
+    }
+
+    protected function sortByPriority(): void
+    {
+        $this->items = $this->items->sortBy(fn (NavItem $item) => $item->getPriority())->values();
     }
 }
