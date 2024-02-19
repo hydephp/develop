@@ -27,6 +27,8 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
+        // Todo check if any items have children
+
         return (! empty($this->getGroups())) && ($this->getGroups() !== [null]);
     }
 
