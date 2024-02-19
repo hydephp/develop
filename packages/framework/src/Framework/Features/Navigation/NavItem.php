@@ -194,7 +194,7 @@ class NavItem implements Stringable
         return $config[$groupKey] ?? null;
     }
 
-    protected static function makeIdentifier(Route|ExternalRoute $destination, string $label): string
+    protected static function makeIdentifier(Route $destination, string $label): string
     {
         if (! $destination instanceof ExternalRoute && $destination->getRouteKey()) {
             $identifier = $destination->getRouteKey();
