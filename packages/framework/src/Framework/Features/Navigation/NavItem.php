@@ -30,6 +30,8 @@ class NavItem implements Stringable
     public readonly int $priority;
     public readonly ?string $group;
 
+    public readonly string $identifier;
+
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
     public readonly array $children;
 
