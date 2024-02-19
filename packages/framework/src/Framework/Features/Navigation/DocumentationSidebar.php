@@ -39,7 +39,7 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function getGroups(): array
     {
-        return $this->items->map(function (NavItem $item): ?string {
+        return $this->getItems()->map(function (NavItem $item): ?string {
             return $item->getGroup();
         })->unique()->toArray();
     }
@@ -47,7 +47,7 @@ class DocumentationSidebar extends NavigationMenu
     /** @return Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItemsInGroup(?string $group): Collection
     {
-        return $this->items->filter(function (NavItem $item) use ($group): bool {
+        return $this->getItems()->filter(function (NavItem $item) use ($group): bool {
             // Todo: Use identifier instead of slug
             return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
         })->sortBy('navigation.priority')->values();
