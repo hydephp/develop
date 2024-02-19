@@ -114,7 +114,7 @@ class DocumentationSidebarTest extends TestCase
     {
         $this->makePage('foo', ['navigation.priority' => 25]);
 
-        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->priority);
+        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->getPriority());
     }
 
     public function testSidebarItemPrioritySetInConfigOverridesFrontMatter()
@@ -123,7 +123,7 @@ class DocumentationSidebarTest extends TestCase
 
         Config::set('docs.sidebar_order', ['foo']);
 
-        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->priority);
+        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->getPriority());
     }
 
     public function testSidebarPrioritiesCanBeSetInBothFrontMatterAndConfig()

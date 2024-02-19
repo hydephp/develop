@@ -87,7 +87,7 @@ class NavItemTest extends UnitTestCase
 
         $this->assertSame('Test', $item->getLabel());
         $this->assertSame($route, $item->getDestination());
-        $this->assertSame(500, $item->priority);
+        $this->assertSame(500, $item->getPriority());
 
         $this->assertCount(2, $item->children);
         $this->assertSame($children, $item->children);
@@ -98,8 +98,8 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo.html', $item->children[0]->getLink());
         $this->assertSame('bar.html', $item->children[1]->getLink());
 
-        $this->assertSame(500, $item->children[0]->priority);
-        $this->assertSame(500, $item->children[1]->priority);
+        $this->assertSame(500, $item->children[0]->getPriority());
+        $this->assertSame(500, $item->children[1]->getPriority());
     }
 
     public function testCanConstructWithChildrenWithoutRoute()
@@ -187,12 +187,12 @@ class NavItemTest extends UnitTestCase
 
         $this->assertEquals(new ExternalRoute('foo'), $item->getDestination());
         $this->assertSame('bar', $item->getLabel());
-        $this->assertSame(500, $item->priority);
+        $this->assertSame(500, $item->getPriority());
     }
 
     public function testForLinkWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::forLink('foo', 'bar', 100)->priority);
+        $this->assertSame(100, NavItem::forLink('foo', 'bar', 100)->getPriority());
     }
 
     public function testForRoute()
@@ -202,7 +202,7 @@ class NavItemTest extends UnitTestCase
 
         $this->assertSame($route, $item->getDestination());
         $this->assertSame('foo', $item->getLabel());
-        $this->assertSame(999, $item->priority);
+        $this->assertSame(999, $item->getPriority());
     }
 
     public function testForIndexRoute()
@@ -212,7 +212,7 @@ class NavItemTest extends UnitTestCase
 
         $this->assertSame($route, $item->getDestination());
         $this->assertSame('foo', $item->getLabel());
-        $this->assertSame(0, $item->priority);
+        $this->assertSame(0, $item->getPriority());
     }
 
     public function testForRouteWithRouteKey()
@@ -231,7 +231,7 @@ class NavItemTest extends UnitTestCase
 
     public function testForRouteWithCustomPriority()
     {
-        $this->assertSame(100, NavItem::forRoute(Routes::get('index'), 'foo', 100)->priority);
+        $this->assertSame(100, NavItem::forRoute(Routes::get('index'), 'foo', 100)->getPriority());
     }
 
     public function testRouteBasedNavItemDestinationsAreResolvedRelatively()
@@ -267,7 +267,7 @@ class NavItemTest extends UnitTestCase
 
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame([], $item->getChildren());
-        $this->assertSame(999, $item->priority);
+        $this->assertSame(999, $item->getPriority());
     }
 
     public function testDropdownFacadeWithChildren()
@@ -278,14 +278,14 @@ class NavItemTest extends UnitTestCase
 
         $item = NavItem::dropdown('foo', $children);
         $this->assertSame($children, $item->getChildren());
-        $this->assertSame(999, $item->priority);
+        $this->assertSame(999, $item->getPriority());
     }
 
     public function testDropdownFacadeWithCustomPriority()
     {
         $item = NavItem::dropdown('foo', [], 500);
 
-        $this->assertSame(500, $item->priority);
+        $this->assertSame(500, $item->getPriority());
     }
 
     public function testHasChildren()

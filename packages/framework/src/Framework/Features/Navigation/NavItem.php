@@ -26,7 +26,7 @@ class NavItem implements Stringable
 {
     protected Route $destination;
     protected string $label;
-    public int $priority;
+    protected int $priority;
     public ?string $group;
 
     /** The "slugified" version of the label. */
