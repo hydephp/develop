@@ -384,4 +384,16 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forLink('https://example.com', 'Foo Bar');
         $this->assertSame('foo-bar', $item->getIdentifier());
     }
+
+    public function testCanAddItemToDropdown()
+    {
+        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
+
+        $this->assertSame([], $parent->getChildren());
+
+        $parent->addChild($child);
+
+        $this->assertSame([$child], $parent->getChildren());
+    }
 }
