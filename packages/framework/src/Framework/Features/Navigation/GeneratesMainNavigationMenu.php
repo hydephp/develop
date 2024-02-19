@@ -34,7 +34,6 @@ class GeneratesMainNavigationMenu
         $menu = new static();
 
         $menu->generate();
-        $menu->sortByPriority();
 
         return new NavigationMenu($menu->items);
     }
@@ -90,10 +89,5 @@ class GeneratesMainNavigationMenu
     protected function useSubdirectoriesAsDropdowns(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
-    }
-
-    protected function sortByPriority(): void
-    {
-        $this->items = $this->items->sortBy(fn (NavItem $item): int => $item->getPriority())->values();
     }
 }
