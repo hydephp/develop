@@ -94,6 +94,6 @@ class GeneratesMainNavigationMenu
 
     protected function sortByPriority(): void
     {
-        $this->items = $this->items->sortBy('priority')->values();
+        $this->items = $this->items->sortBy(fn (NavItem $item): int => $item->getPriority())->values();
     }
 }

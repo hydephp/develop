@@ -36,7 +36,7 @@ class NavigationMenu
      */
     public function getItems(): Collection
     {
-        return $this->items->sortBy('priority')->values();
+        return $this->items->sortBy(fn (NavItem $item) => $item->getPriority())->values();
     }
 
     /**
