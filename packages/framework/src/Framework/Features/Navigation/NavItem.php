@@ -185,12 +185,10 @@ class NavItem implements Stringable
     protected static function makeIdentifier(Route $destination, string $label): string
     {
         if (! $destination instanceof ExternalRoute && $destination->getRouteKey()) {
-            $identifier = $destination->getRouteKey();
+            return $destination->getRouteKey();
         } else {
-            $identifier = Str::slug($label);
+            return Str::slug($label);
         }
-
-        return $identifier;
     }
 
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
