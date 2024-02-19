@@ -89,8 +89,8 @@ class GeneratesDocumentationSidebarMenu
     protected function removeDuplicateItems(): void
     {
         $this->items = $this->items->unique(function (NavItem $item): string {
-            // Filter using a combination of the group and label to allow duplicate labels in different groups
-            return $item->getGroup().Str::slug($item->getLabel()); // Todo we could use this as the "identifier" for the item, as it uniquely identifies it
+            // Filter using a combination of the group and identifier to allow duplicate labels in different groups
+            return $item->getGroup().$item->identifier;
         });
     }
 
