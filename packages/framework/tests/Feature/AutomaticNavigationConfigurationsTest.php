@@ -987,6 +987,17 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testAllSidebarItemsArePlacedInGroupsWhenAtLeastOneItemIsGrouped()
+    {
+        $this->assertSidebarEquals([
+            ['label' => 'foo', 'children' => ['Grouped']],
+            ['label' => 'Other', 'children' => ['Ungrouped']],
+        ], [
+            new DocumentationPage('grouped', ['navigation.group' => 'foo']),
+            new DocumentationPage('ungrouped'),
+        ]);
+    }
+
     // Testing helpers
 
     protected function assertSidebarEquals(array $expected, array $menuPages): void
