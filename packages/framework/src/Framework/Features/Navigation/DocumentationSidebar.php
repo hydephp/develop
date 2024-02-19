@@ -94,7 +94,10 @@ class DocumentationSidebar extends NavigationMenu
     private function shouldIndexPageBeActive(string $group): bool
     {
         $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
-        $groupIsTheFirstOneInSidebar = $group === collect($this->getGroups())->first();
+
+        $groupIsTheFirstOneInSidebar = $group === $this->getItems()->firstWhere(function (NavItem $item): bool {
+            return $item->hasChildren();
+        })?->getIdentifier();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
     }
