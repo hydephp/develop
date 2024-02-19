@@ -457,28 +457,29 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationMenuItemsWithTheSameLabelAreFiltered()
+    public function testMainNavigationMenuItemsWithTheSameLabelAreNotFilteredForDuplicates()
     {
+        // Since the route key is the same, only one route is actually added
         $this->assertMenuEquals(['Foo'], [
             new MarkdownPage('foo'),
             new MarkdownPage('foo'),
         ]);
 
-        $this->assertMenuEquals(['Foo'], [
+        $this->assertMenuEquals(['Foo', 'Foo'], [
             new MarkdownPage('foo', ['navigation.label' => 'Foo']),
             new MarkdownPage('bar', ['navigation.label' => 'Foo']),
         ]);
     }
 
-    public function testMainNavigationMenuItemsWithTheSameLabelAreFilteredCaseInsensitive()
+    public function testMainNavigationMenuItemsWithTheSameLabelAreNotFilteredForDuplicatesRegardlessOfCase()
     {
-        $this->assertMenuEquals(['Foo'], [
+        $this->assertMenuEquals(['Foo', 'Foo', 'FOO'], [
             new MarkdownPage('foo'),
             new MarkdownPage('Foo'),
             new MarkdownPage('FOO'),
         ]);
 
-        $this->assertMenuEquals(['foo'], [
+        $this->assertMenuEquals(['foo', 'Foo', 'FOO'], [
             new MarkdownPage('foo', ['navigation.label' => 'foo']),
             new MarkdownPage('bar', ['navigation.label' => 'Foo']),
             new MarkdownPage('baz', ['navigation.label' => 'FOO']),
