@@ -30,6 +30,7 @@ class NavItem implements Stringable
     public readonly int $priority;
     public readonly ?string $group;
 
+    /** The route key, or a "slugified" version of the label if the route has no key, for example external links and dropdowns items. */
     public readonly string $identifier;
 
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
