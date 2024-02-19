@@ -49,7 +49,7 @@ class GeneratesDocumentationSidebarMenu
                 $item = NavItem::fromRoute($route);
                 $group = $item->getGroup();
 
-                if ($groups && $group === null) {
+                if ($groups && $group !== null) {
                     // Todo: Add item
                 }
 
