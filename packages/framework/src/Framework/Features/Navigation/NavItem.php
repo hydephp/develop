@@ -48,11 +48,7 @@ class NavItem implements Stringable
         $this->label = $label;
         $this->priority = $priority;
         $this->group = static::normalizeGroupKey($group);
-        if (! $destination instanceof ExternalRoute && $destination->getRouteKey()) {
-            $this->identifier = $destination->getRouteKey();
-        } else {
-            $this->identifier = Str::slug($label);
-        }
+        $this->identifier = $this->makeIdentifier($destination, $label);
         $this->children = $children;
     }
 
@@ -196,5 +192,16 @@ class NavItem implements Stringable
         ]);
 
         return $config[$groupKey] ?? null;
+    }
+
+    protected static function makeIdentifier(Route|ExternalRoute $destination, string $label): string
+    {
+        if (! $destination instanceof ExternalRoute && $destination->getRouteKey()) {
+            $identifier = $destination->getRouteKey();
+        } else {
+            $identifier = Str::slug($label);
+        }
+
+        return $identifier;
     }
 }
