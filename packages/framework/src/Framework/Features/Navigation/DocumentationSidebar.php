@@ -10,7 +10,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Illuminate\Contracts\Support\Arrayable;
 
 use function collect;
 
@@ -19,11 +18,6 @@ class DocumentationSidebar extends NavigationMenu
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
-
-    public function __construct(Arrayable|array $items = [])
-    {
-        $this->items = new Collection($items);
-    }
 
     /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItems(): Collection
