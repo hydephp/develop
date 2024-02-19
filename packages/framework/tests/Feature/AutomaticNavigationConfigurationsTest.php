@@ -543,6 +543,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testDocumentationIndexPageIsNotAddedToSidebar()
+    {
+        $this->assertSidebarEquals([], [new DocumentationPage('index')]);
+    }
+
     // Documentation sidebar front matter tests
 
     public function testSidebarWithFrontMatterPriority()
