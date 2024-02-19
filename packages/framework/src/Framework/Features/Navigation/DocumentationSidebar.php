@@ -27,9 +27,14 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        // Todo check if any items have children
+        /** @deprecated */
+        $legacyCompat = (! empty($this->getGroups())) && ($this->getGroups() !== [null]);
 
-        return (! empty($this->getGroups())) && ($this->getGroups() !== [null]);
+        $newLogic = $this->getItems()->filter(function (NavItem $item): bool {
+            return $item->hasChildren();
+        })->isNotEmpty();
+
+        return $legacyCompat || $newLogic;
     }
 
     /**
@@ -39,18 +44,25 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function getGroups(): array
     {
-        return $this->getItems()->map(function (NavItem $item): ?string {
-            return $item->getGroup();
-        })->unique()->toArray();
+        return $this->getItems()->filter(function (NavItem $item): bool {
+            return $item->hasChildren();
+        })->sortBy(function (NavItem $item): int {
+            // Sort by lowest priority found in each group
+            return collect($item->getChildren())->min(
+                fn (NavItem $child): int => $child->getPriority()
+            );
+        })->map(function (NavItem $item): string {
+            return $item->getIdentifier();
+        })->values()->toArray();
     }
 
     /** @return Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     public function getItemsInGroup(?string $group): Collection
     {
-        return $this->getItems()->filter(function (NavItem $item) use ($group): bool {
-            // Todo: Use identifier instead of slug
-            return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
-        })->sortBy('navigation.priority')->values();
+        // Todo might not need collections here
+        return collect($this->getItems()->first(function (NavItem $item) use ($group): bool {
+            return $item->getIdentifier() === Str::slug($group);
+        })?->getChildren() ?? []);
     }
 
     /**

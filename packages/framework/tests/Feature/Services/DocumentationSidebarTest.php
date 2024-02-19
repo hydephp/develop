@@ -152,8 +152,7 @@ class DocumentationSidebarTest extends TestCase
     public function testGroupCanBeSetInFrontMatter()
     {
         $this->makePage('foo', ['navigation.group' => 'bar']);
-
-        $this->assertEquals('bar', DocumentationSidebar::create()->getItems()->first()->getGroup());
+        $this->assertEquals('bar', collect(DocumentationSidebar::create()->getItems()->first()->getChildren())->first()->getGroup());
     }
 
     public function testHasGroupsReturnsFalseWhenThereAreNoGroups()
@@ -365,8 +364,12 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
-                NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
+                NavItem::dropdown('bar', [
+                    NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
+                ]),
+                NavItem::dropdown('foo', [
+                    NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
+                ]),
             ]),
             $sidebar->getItems()
         );
@@ -378,12 +381,14 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('bar', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(2, $sidebar->getItems());
+        $this->assertCount(1, $sidebar->getItems());
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
-                NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
+                NavItem::dropdown('foo', [
+                    NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
+                    NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
+                ]),
             ]),
             $sidebar->getItems()
         );

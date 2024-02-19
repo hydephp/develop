@@ -616,12 +616,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithFrontMatterGroup()
     {
-        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
-
-        $this->assertSidebarEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Bar', 'group' => 'group-1'],
-            ['label' => 'Baz', 'group' => 'group-1'],
+        $this->assertSidebarEquals([[
+            'label' => 'group-1', // Todo: Should use proper group name
+            'children' => ['Foo', 'Bar', 'Baz']],
         ], [
             new DocumentationPage('foo', ['navigation.group' => 'Group 1']),
             new DocumentationPage('bar', ['navigation.group' => 'Group 1']),
@@ -631,12 +628,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithFrontMatterCategory()
     {
-        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
-
-        $this->assertSidebarEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Bar', 'group' => 'group-1'],
-            ['label' => 'Baz', 'group' => 'group-1'],
+        $this->assertSidebarEquals([[
+            'label' => 'group-1', // Todo: Should use proper group name
+            'children' => ['Foo', 'Bar', 'Baz']],
         ], [
             new DocumentationPage('foo', ['navigation.category' => 'Group 1']),
             new DocumentationPage('bar', ['navigation.category' => 'Group 1']),
@@ -706,7 +700,10 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         // Since the main key in the navigation schema is 'group', that takes precedence over its 'category' alias
 
-        $this->assertSidebarEquals(array_fill(0, 3, ['group' => 'group-1']), [
+        $this->assertSidebarEquals([[
+            'label' => 'group-1', // Todo: Should use proper group name
+            'children' => ['Foo', 'Bar', 'Baz'],
+        ]], [
             new DocumentationPage('foo', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
             new DocumentationPage('bar', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
             new DocumentationPage('baz', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
@@ -847,11 +844,10 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testDocumentationPagesInSubdirectoriesAreAddedToSidebar()
     {
-        $this->assertSidebarEquals([
-            ['label' => 'Foo', 'group' => 'about'],
-            ['label' => 'Bar', 'group' => 'about'],
-            ['label' => 'Baz', 'group' => 'about'],
-        ], [
+        $this->assertSidebarEquals([[
+            'label' => 'about', // Todo: Should use proper group name
+            'children' => ['Foo', 'Bar', 'Baz'],
+        ]], [
             new DocumentationPage('about/foo'),
             new DocumentationPage('about/bar'),
             new DocumentationPage('about/baz'),
@@ -865,11 +861,10 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         foreach ($options as $option) {
             config(['docs.sidebar.subdirectories' => $option]);
 
-            $this->assertSidebarEquals([
-                ['label' => 'Foo', 'group' => 'about'],
-                ['label' => 'Bar', 'group' => 'about'],
-                ['label' => 'Baz', 'group' => 'about'],
-            ], [
+            $this->assertSidebarEquals([[
+                'label' => 'about', // Todo: Should use proper group name
+                'children' => ['Foo', 'Bar', 'Baz'],
+            ]], [
                 new DocumentationPage('about/foo'),
                 new DocumentationPage('about/bar'),
                 new DocumentationPage('about/baz'),
@@ -903,8 +898,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     public function testSidebarItemsWithSameLabelButDifferentGroupsAreNotFiltered()
     {
         $this->assertSidebarEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Foo', 'group' => 'group-2'],
+            // Todo: Should use proper group name
+            ['label' => 'group-1', 'children' => ['Foo']],
+            ['label' => 'group-2', 'children' => ['Foo']],
         ], [
             new DocumentationPage('foo', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 1']),
             new DocumentationPage('bar', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 2']),
@@ -913,7 +909,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarDropdownItemsWithSameLabelButDifferentGroupsAreFiltered()
     {
-        $this->assertSidebarEquals(['Foo'], [
+        $this->assertSidebarEquals([
+            // Todo: Should use proper group name
+            ['label' => 'group-1', 'children' => ['Foo']],
+            ['label' => 'group-2', 'children' => ['Foo']],
+        ], [
             new DocumentationPage('one/foo', ['navigation.group' => 'Group 1']),
             new DocumentationPage('two/foo', ['navigation.group' => 'Group 2']),
         ]);
@@ -921,7 +921,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarAutomaticDropdownItemsWithSameLabelButDifferentGroupsAreFiltered()
     {
-        $this->assertSidebarEquals(['Foo'], [
+        $this->assertSidebarEquals([
+            // Todo: Should use proper group name
+            ['label' => 'one', 'children' => ['Foo']],
+            ['label' => 'two', 'children' => ['Foo']],
+        ], [
             new DocumentationPage('one/foo'),
             new DocumentationPage('two/foo'),
         ]);
@@ -932,8 +936,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['docs.flattened_output_paths' => false]);
 
         $this->assertSidebarEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Foo', 'group' => 'group-2'],
+            // Todo: Should use proper group name
+            ['label' => 'group-1', 'children' => ['Foo']],
+            ['label' => 'group-2', 'children' => ['Foo']],
         ], [
             new DocumentationPage('one/foo', ['navigation.group' => 'Group 1']),
             new DocumentationPage('two/foo', ['navigation.group' => 'Group 2']),
@@ -946,8 +951,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
         $this->assertSidebarEquals([
             // Todo: Should use proper group name
-            ['label' => 'Foo', 'group' => 'one'],
-            ['label' => 'Foo', 'group' => 'two'],
+            ['label' => 'one', 'children' => ['Foo']],
+            ['label' => 'two', 'children' => ['Foo']],
         ], [
             new DocumentationPage('one/foo'),
             new DocumentationPage('two/foo'),

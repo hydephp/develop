@@ -48,8 +48,25 @@ class GeneratesDocumentationSidebarMenu
                 $item = NavItem::fromRoute($route);
                 $group = $item->getGroup();
 
-                if ($groups && $group !== null) {
-                    // Todo: Add item
+                if ($groups) {
+                    if (! $group) {
+                        $group = 'Other';
+                    }
+
+                    $groupItem = $this->items->get($group);
+
+                    if ($groupItem === null) {
+                        // Todo get group label
+                        $groupItem = NavItem::dropdown($group, []);
+                    }
+
+                    $groupItem->addChild($item);
+
+                    if (! $this->items->has($group)) {
+                        $this->items->put($group, $groupItem);
+                    }
+
+                    return;
                 }
 
                 $this->items->put($route->getRouteKey(), $item);
