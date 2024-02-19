@@ -41,11 +41,6 @@ class DocumentationSidebar extends NavigationMenu
     {
         return $this->getItems()->filter(function (NavItem $item): bool {
             return $item->hasChildren();
-        })->sortBy(function (NavItem $item): int {
-            // Sort by lowest priority found in each group
-            return collect($item->getChildren())->min(
-                fn (NavItem $child): int => $child->getPriority()
-            );
         })->map(function (NavItem $item): string {
             return $item->getIdentifier();
         })->values()->toArray();

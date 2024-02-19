@@ -11,6 +11,8 @@ use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 
+use function collect;
+
 /**
  * @experimental This class may change significantly before its release.
  *
@@ -104,6 +106,15 @@ class GeneratesDocumentationSidebarMenu
 
     protected function sortByPriority(): void
     {
-        $this->items = $this->items->sortBy(fn (NavItem $item) => $item->getPriority())->values();
+        $this->items = $this->items->sortBy(function (NavItem $item): int {
+            if ($item->getChildren()) {
+                // Sort by lowest priority found in each group
+                return collect($item->getChildren())->min(
+                    fn (NavItem $child): int => $child->getPriority()
+                );
+            } else {
+                return $item->getPriority();
+            }
+        })->values();
     }
 }
