@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -59,7 +60,7 @@ class GeneratesDocumentationSidebarMenu
 
                     if ($groupItem === null) {
                         // Todo search for group label in config (we can also search for other labels in the group before slugifying them)
-                        $groupItem = NavItem::dropdown($group, []);
+                        $groupItem = NavItem::dropdown(Hyde::makeTitle($group), []);
                     }
 
                     $groupItem->addChild($item);
