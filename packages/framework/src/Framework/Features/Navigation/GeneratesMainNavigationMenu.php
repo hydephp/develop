@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
-use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -36,7 +35,6 @@ class GeneratesMainNavigationMenu
 
         $menu->generate();
         $menu->sortByPriority();
-        $menu->removeDuplicateItems();
 
         return new NavigationMenu($menu->items);
     }
@@ -92,14 +90,6 @@ class GeneratesMainNavigationMenu
     protected function useSubdirectoriesAsDropdowns(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
-    }
-
-    protected function removeDuplicateItems(): void
-    {
-        $this->items = $this->items->unique(function (NavItem $item): string {
-            // Filter using a combination of the group and label to allow duplicate labels in different groups
-            return $item->getGroup().Str::slug($item->getLabel());
-        });
     }
 
     protected function sortByPriority(): void

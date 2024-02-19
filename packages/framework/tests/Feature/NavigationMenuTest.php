@@ -119,7 +119,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
-    public function testDuplicatesAreRemovedWhenAddingInConfig()
+    public function testDuplicatesAreNotRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
             NavItem::forLink('foo', 'foo'),
@@ -131,13 +131,14 @@ class NavigationMenuTest extends TestCase
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::forLink('foo', 'foo'),
+            NavItem::forLink('foo', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
         $this->assertEquals($expected, $menu->getItems());
     }
 
-    public function testDuplicatesAreRemovedWhenAddingInConfigRegardlessOfDestination()
+    public function testDuplicatesAreNotRemovedWhenAddingInConfigRegardlessOfDestination()
     {
         config(['hyde.navigation.custom' => [
             NavItem::forLink('foo', 'foo'),
@@ -149,6 +150,7 @@ class NavigationMenuTest extends TestCase
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::forLink('foo', 'foo'),
+            NavItem::forLink('bar', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -166,6 +168,7 @@ class NavigationMenuTest extends TestCase
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::forLink('bar', 'Foo'),
+            NavItem::fromRoute(Routes::get('foo')),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());

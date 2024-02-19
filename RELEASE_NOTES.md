@@ -18,6 +18,7 @@ This serves two purposes:
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
+- Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Breaking: The `NavItem` class now always stores the destination as a `Route` instance.
 - Breaking: The `NavItem::getDestination()` method now returns its `Route` instance.
 
