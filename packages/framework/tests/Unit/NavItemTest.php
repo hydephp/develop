@@ -89,17 +89,17 @@ class NavItemTest extends UnitTestCase
         $this->assertSame($route, $item->getDestination());
         $this->assertSame(500, $item->getPriority());
 
-        $this->assertCount(2, $item->children);
-        $this->assertSame($children, $item->children);
+        $this->assertCount(2, $item->getChildren());
+        $this->assertSame($children, $item->getChildren());
 
-        $this->assertSame('Foo', $item->children[0]->getLabel());
-        $this->assertSame('Bar', $item->children[1]->getLabel());
+        $this->assertSame('Foo', $item->getChildren()[0]->getLabel());
+        $this->assertSame('Bar', $item->getChildren()[1]->getLabel());
 
-        $this->assertSame('foo.html', $item->children[0]->getLink());
-        $this->assertSame('bar.html', $item->children[1]->getLink());
+        $this->assertSame('foo.html', $item->getChildren()[0]->getLink());
+        $this->assertSame('bar.html', $item->getChildren()[1]->getLink());
 
-        $this->assertSame(500, $item->children[0]->getPriority());
-        $this->assertSame(500, $item->children[1]->getPriority());
+        $this->assertSame(500, $item->getChildren()[0]->getPriority());
+        $this->assertSame(500, $item->getChildren()[1]->getPriority());
     }
 
     public function testCanConstructWithChildrenWithoutRoute()
@@ -113,8 +113,8 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('Test', $item->getLabel());
         $this->assertSame('', $item->getDestination()->getLink());
 
-        $this->assertCount(2, $item->children);
-        $this->assertSame($children, $item->children);
+        $this->assertCount(2, $item->getChildren());
+        $this->assertSame($children, $item->getChildren());
     }
 
     public function testGetDestination()
