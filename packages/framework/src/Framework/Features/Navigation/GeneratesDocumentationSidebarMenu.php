@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -44,14 +43,14 @@ class GeneratesDocumentationSidebarMenu
     {
         $routes = Routes::getRoutes(DocumentationPage::class);
 
-        $groups = $this->findSidebarGroups($routes);
+        $useGroups = $this->usesSidebarGroups($routes);
 
-        $routes->each(function (Route $route) use ($groups): void {
+        $routes->each(function (Route $route) use ($useGroups): void {
             if ($this->canAddRoute($route)) {
                 $item = NavItem::fromRoute($route);
                 $group = $item->getGroup();
 
-                if ($groups) {
+                if ($useGroups) {
                     if (! $group) {
                         $group = 'Other';
                     }
@@ -82,21 +81,14 @@ class GeneratesDocumentationSidebarMenu
         }
     }
 
-    /** @experimental Might not actually be needed now that groups default to null */
-    protected function findSidebarGroups(RouteCollection $routes): array
+    protected function usesSidebarGroups(RouteCollection $routes): bool
     {
         // In order to know if we should use groups in the sidebar,
-        // we need to loop through all the pages and see if they have a group set
+        // we need to loop through the pages and see if they have a group set
 
-        $groups = [];
-
-        $routes->each(function (Route $route) use (&$groups): void {
-            if ($route->getPage()->data('navigation.group')) {
-                $groups[Str::slug($route->getPage()->data('navigation.group'))] = true;
-            }
-        });
-
-        return array_keys($groups);
+        return $routes->first(function (Route $route): bool {
+            return filled($route->getPage()->data('navigation.group'));
+        }) !== null;
     }
 
     protected function canAddRoute(Route $route): bool
