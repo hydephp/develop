@@ -107,7 +107,7 @@ class GeneratesDocumentationSidebarMenu
     protected function sortByPriority(): void
     {
         $this->items = $this->items->sortBy(function (NavItem $item): int {
-            if ($item->getChildren()) {
+            if ($item->hasChildren()) {
                 return $this->getLowestPriorityInGroup($item);
             } else {
                 return $item->getPriority();
