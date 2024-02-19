@@ -9,6 +9,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Foundation\Kernel\RouteCollection;
 
 /**
  * @experimental This class may change significantly before its release.
@@ -52,6 +53,22 @@ class GeneratesDocumentationSidebarMenu
         if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
             $this->items->push(NavItem::fromRoute(DocumentationPage::home()));
         }
+    }
+
+    protected function findSidebarGroups(RouteCollection $routes): array
+    {
+        // In order to know if we should use groups in the sidebar,
+        // we need to loop through all the pages and see if they have a group set
+
+        $groups = [];
+
+        $routes->each(function (Route $route) use (&$groups): void {
+            if ($route->getPage()->data('navigation.group')) {
+                $groups[Str::slug($route->getPage()->data('navigation.group'))] = true;
+            }
+        });
+
+        return array_keys($groups);
     }
 
     protected function canAddRoute(Route $route): bool
