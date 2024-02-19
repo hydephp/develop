@@ -1064,7 +1064,19 @@ class AssertableNavigationMenu
             foreach (TestNavItem::properties() as $property) {
                 if ($this->getState($index) !== null) {
                     if (isset($item[$property])) {
-                        $this->test->assertSame($item[$property], $this->getState($index)->$property, "Failed to match the expected value for '$property'");
+                        $a = $item[$property];
+                        $b = $this->getState($index)->$property;
+
+                        if ($a !== $b) {
+                            dump([
+                                'error' => "Failed to match the expected value for '$property'",
+                                'expected' => $a,
+                                'actual' => $b,
+                                'menu' => $this->state(),
+                            ]);
+                        }
+
+                        $this->test->assertSame($a, $b, "Failed to match the expected value for '$property'");
                     } elseif ($strict) {
                         $this->test->fail("Missing array key '$property' in the expected state");
                     }
