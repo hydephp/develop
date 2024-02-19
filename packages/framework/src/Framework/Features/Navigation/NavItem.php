@@ -184,7 +184,7 @@ class NavItem implements Stringable
 
     protected static function makeIdentifier(string $label): string
     {
-        return Str::slug($label);
+        return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
     }
 
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
