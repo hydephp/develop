@@ -108,13 +108,15 @@ class GeneratesDocumentationSidebarMenu
     {
         $this->items = $this->items->sortBy(function (NavItem $item): int {
             if ($item->getChildren()) {
-                // Sort by lowest priority found in each group
-                return collect($item->getChildren())->min(
-                    fn (NavItem $child): int => $child->getPriority()
-                );
+                return $this->getLowestPriorityInGroup($item);
             } else {
                 return $item->getPriority();
             }
         })->values();
+    }
+
+    protected function getLowestPriorityInGroup(NavItem $item): int
+    {
+        return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
     }
 }
