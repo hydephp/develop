@@ -58,7 +58,7 @@ class GeneratesDocumentationSidebarMenu
                     $groupItem = $this->items->get($group);
 
                     if ($groupItem === null) {
-                        // Todo search for group label in config
+                        // Todo search for group label in config (we can also search for other labels in the group before slugifying them)
                         $groupItem = NavItem::dropdown($group, []);
                     }
 
