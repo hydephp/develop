@@ -35,20 +35,6 @@ class DocumentationSidebar extends NavigationMenu
     /**
      * @deprecated Use children instead
      *
-     * @return array<string>
-     */
-    public function getGroups(): array
-    {
-        return $this->getItems()->filter(function (NavItem $item): bool {
-            return $item->hasChildren();
-        })->map(function (NavItem $item): string {
-            return $item->getIdentifier();
-        })->values()->toArray();
-    }
-
-    /**
-     * @deprecated Use children instead
-     *
      * @return Collection<\Hyde\Framework\Features\Navigation\NavItem>
      */
     public function getItemsInGroup(?string $group): Collection

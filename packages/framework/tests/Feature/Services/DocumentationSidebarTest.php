@@ -184,36 +184,6 @@ class DocumentationSidebarTest extends TestCase
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
     }
 
-    public function testGetGroupsReturnsEmptyArrayWhenThereAreNoGroups()
-    {
-        $this->assertEquals([], DocumentationSidebar::create()->getGroups());
-    }
-
-    public function testGetGroupsReturnsArrayOfGroupsWhenThereAreGroups()
-    {
-        $this->makePage('foo', ['navigation.group' => 'bar']);
-
-        $this->assertEquals(['bar'], DocumentationSidebar::create()->getGroups());
-    }
-
-    public function testGetGroupsReturnsArrayWithNoDuplicates()
-    {
-        $this->makePage('foo', ['navigation.group' => 'bar']);
-        $this->makePage('bar', ['navigation.group' => 'bar']);
-        $this->makePage('baz', ['navigation.group' => 'baz']);
-
-        $this->assertEquals(['bar', 'baz'], DocumentationSidebar::create()->getGroups());
-    }
-
-    public function testGroupsAreSortedByLowestFoundPriorityInEachGroup()
-    {
-        $this->makePage('foo', ['navigation.group' => 'bar', 'navigation.priority' => 100]);
-        $this->makePage('bar', ['navigation.group' => 'bar', 'navigation.priority' => 200]);
-        $this->makePage('baz', ['navigation.group' => 'baz', 'navigation.priority' => 10]);
-
-        $this->assertEquals(['baz', 'bar'], DocumentationSidebar::create()->getGroups());
-    }
-
     public function testGetItemsInGroupReturnsEmptyCollectionWhenThereAreNoItems()
     {
         $this->assertEquals(collect(), DocumentationSidebar::create()->getItemsInGroup('foo'));
