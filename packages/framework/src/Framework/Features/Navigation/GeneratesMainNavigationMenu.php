@@ -54,7 +54,7 @@ class GeneratesMainNavigationMenu
             $this->items->push($item);
         });
 
-        if ($this->dropdownsEnabled()) {
+        if ($this->useSubdirectoriesAsDropdowns()) {
             $this->moveGroupedItemsIntoDropdowns();
         }
     }
@@ -89,7 +89,7 @@ class GeneratesMainNavigationMenu
         return $item->getGroup() !== null;
     }
 
-    protected function dropdownsEnabled(): bool
+    protected function useSubdirectoriesAsDropdowns(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
