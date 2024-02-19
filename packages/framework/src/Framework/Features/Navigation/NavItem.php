@@ -25,7 +25,7 @@ use Hyde\Support\Models\ExternalRoute;
 class NavItem implements Stringable
 {
     protected Route $destination;
-    public string $label;
+    protected string $label;
     public int $priority;
     public ?string $group;
 

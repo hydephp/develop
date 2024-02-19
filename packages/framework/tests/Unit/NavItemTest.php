@@ -85,15 +85,15 @@ class NavItemTest extends UnitTestCase
         ];
         $item = new NavItem($route, 'Test', 500, null, $children);
 
-        $this->assertSame('Test', $item->label);
+        $this->assertSame('Test', $item->getLabel());
         $this->assertSame($route, $item->getDestination());
         $this->assertSame(500, $item->priority);
 
         $this->assertCount(2, $item->children);
         $this->assertSame($children, $item->children);
 
-        $this->assertSame('Foo', $item->children[0]->label);
-        $this->assertSame('Bar', $item->children[1]->label);
+        $this->assertSame('Foo', $item->children[0]->getLabel());
+        $this->assertSame('Bar', $item->children[1]->getLabel());
 
         $this->assertSame('foo.html', $item->children[0]->getLink());
         $this->assertSame('bar.html', $item->children[1]->getLink());
@@ -110,7 +110,7 @@ class NavItemTest extends UnitTestCase
         ];
         $item = new NavItem('', 'Test', 500, null, $children);
 
-        $this->assertSame('Test', $item->label);
+        $this->assertSame('Test', $item->getLabel());
         $this->assertSame('', $item->getDestination()->getLink());
 
         $this->assertCount(2, $item->children);
@@ -186,7 +186,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forLink('foo', 'bar');
 
         $this->assertEquals(new ExternalRoute('foo'), $item->getDestination());
-        $this->assertSame('bar', $item->label);
+        $this->assertSame('bar', $item->getLabel());
         $this->assertSame(500, $item->priority);
     }
 
@@ -201,7 +201,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route, $item->getDestination());
-        $this->assertSame('foo', $item->label);
+        $this->assertSame('foo', $item->getLabel());
         $this->assertSame(999, $item->priority);
     }
 
@@ -211,7 +211,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route, $item->getDestination());
-        $this->assertSame('foo', $item->label);
+        $this->assertSame('foo', $item->getLabel());
         $this->assertSame(0, $item->priority);
     }
 
@@ -265,7 +265,7 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::dropdown('foo', []);
 
-        $this->assertSame('foo', $item->label);
+        $this->assertSame('foo', $item->getLabel());
         $this->assertSame([], $item->getChildren());
         $this->assertSame(999, $item->priority);
     }
