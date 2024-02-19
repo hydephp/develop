@@ -27,14 +27,9 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        /** @deprecated */
-        $legacyCompat = (! empty($this->getGroups())) && ($this->getGroups() !== [null]);
-
-        $newLogic = $this->getItems()->filter(function (NavItem $item): bool {
+        return $this->getItems()->filter(function (NavItem $item): bool {
             return $item->hasChildren();
         })->isNotEmpty();
-
-        return $legacyCompat || $newLogic;
     }
 
     /**
