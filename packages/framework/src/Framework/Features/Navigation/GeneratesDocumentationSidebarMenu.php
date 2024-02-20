@@ -52,18 +52,18 @@ class GeneratesDocumentationSidebarMenu
         $this->routes->each(function (Route $route) use ($useGroups): void {
             if ($this->canAddRoute($route)) {
                 $item = NavItem::fromRoute($route);
-                $group = $item->getGroup();
+                $groupName = $item->getGroup();
 
                 if ($useGroups) {
-                    if (! $group) {
-                        $group = 'Other';
+                    if (! $groupName) {
+                        $groupName = 'Other';
                     }
 
-                    $groupIdentifier = Str::slug($group);
+                    $groupIdentifier = Str::slug($groupName);
                     $groupItem = $this->items->get($groupIdentifier);
 
                     if ($groupItem === null) {
-                        $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$groupIdentifier] ?? $group, []);
+                        $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$groupIdentifier] ?? $groupName, []);
                     }
 
                     $groupItem->addChild($item);
