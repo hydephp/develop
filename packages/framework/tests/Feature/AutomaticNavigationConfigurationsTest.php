@@ -1038,6 +1038,68 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Label casing tests
+
+    public function testMainMenuNavigationItemCasing()
+    {
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('Hello World')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello-world')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello world')]);
+    }
+
+    public function testMainMenuNavigationItemCasingUsingFrontMatter()
+    {
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.label' => 'Hello World'])]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.label' => 'hello-world'])]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.label' => 'hello world'])]);
+    }
+
+    public function testMainMenuNavigationGroupCasing()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('Hello World/foo')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello-world/foo')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello world/foo')]);
+    }
+
+    public function testMainMenuNavigationGroupCasingUsingFrontMatter()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']); // TODO This should NOT be necessary when using front matter
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'Hello World'])]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'hello-world'])]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'hello world'])]);
+    }
+
+    public function testSidebarItemCasing()
+    {
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('Hello World')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello-world')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello world')]);
+    }
+
+    public function testSidebarItemCasingUsingFrontMatter()
+    {
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.label' => 'Hello World'])]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.label' => 'hello-world'])]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.label' => 'hello world'])]);
+    }
+
+    public function testSidebarGroupCasing()
+    {
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('Hello World/foo')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello-world/foo')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello world/foo')]);
+    }
+
+    public function testSidebarGroupCasingUsingFrontMatter()
+    {
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'Hello World'])]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello-world'])]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello world'])]);
+    }
+
     // Testing helpers
 
     protected function assertSidebarEquals(array $expected, array $menuPages): void
