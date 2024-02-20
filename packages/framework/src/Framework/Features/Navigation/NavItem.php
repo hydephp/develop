@@ -64,7 +64,7 @@ class NavItem implements Stringable
             $route,
             $label ?? $route->getPage()->navigationMenuLabel(),
             $priority ?? $route->getPage()->navigationMenuPriority(),
-            $group ?? $route->getPage()->data('navigation.group'),
+            $group ?? $route->getPage()->navigationMenuGroup(),
         );
     }
 
