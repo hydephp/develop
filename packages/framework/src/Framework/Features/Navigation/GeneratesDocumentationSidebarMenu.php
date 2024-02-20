@@ -96,7 +96,13 @@ class GeneratesDocumentationSidebarMenu
     {
         // Todo search for other labels in the group before slugifying them
 
-        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
+        $configLabel = Config::getNullableString("docs.sidebar_group_labels.$group");
+
+        if ($configLabel) {
+            return $configLabel;
+        }
+
+        return Hyde::makeTitle($group);
     }
 
     protected function canAddRoute(Route $route): bool
