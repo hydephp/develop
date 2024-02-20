@@ -240,12 +240,7 @@ class NavItem implements Stringable
     /** Find the best label for the group. */
     protected function makeGroupLabel(): string
     {
-        $configLabel = Config::getNullableString('docs.sidebar_group_labels.'.Str::slug($this->identifier));
-
-        if ($configLabel) {
-            return $configLabel;
-        }
-
-        return static::normalizeGroupLabel($this->group ?? $this->label);
+        return Config::getNullableString('docs.sidebar_group_labels.'.Str::slug($this->identifier))
+            ?? static::normalizeGroupLabel($this->group ?? $this->label);
     }
 }
