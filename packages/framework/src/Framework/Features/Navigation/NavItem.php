@@ -130,6 +130,10 @@ class NavItem implements Stringable
      */
     public function getLabel(): string
     {
+        if ($this->hasChildren()) {
+            return $this->makeGroupLabel();
+        }
+
         return $this->label;
     }
 
