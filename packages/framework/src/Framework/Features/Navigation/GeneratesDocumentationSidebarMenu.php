@@ -26,9 +26,13 @@ class GeneratesDocumentationSidebarMenu
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
+    /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
+    protected RouteCollection $routes;
+
     protected function __construct()
     {
         $this->items = new Collection();
+        $this->routes = Routes::getRoutes(DocumentationPage::class);
     }
 
     public static function handle(): DocumentationSidebar
@@ -43,11 +47,9 @@ class GeneratesDocumentationSidebarMenu
 
     protected function generate(): void
     {
-        $routes = Routes::getRoutes(DocumentationPage::class);
+        $useGroups = $this->usesSidebarGroups();
 
-        $useGroups = $this->usesSidebarGroups($routes);
-
-        $routes->each(function (Route $route) use ($useGroups): void {
+        $this->routes->each(function (Route $route) use ($useGroups): void {
             if ($this->canAddRoute($route)) {
                 $item = NavItem::fromRoute($route);
                 $group = $item->getGroup();
@@ -82,12 +84,12 @@ class GeneratesDocumentationSidebarMenu
         }
     }
 
-    protected function usesSidebarGroups(RouteCollection $routes): bool
+    protected function usesSidebarGroups(): bool
     {
         // In order to know if we should use groups in the sidebar,
         // we need to loop through the pages and see if they have a group set
 
-        return $routes->first(function (Route $route): bool {
+        return $this->routes->first(function (Route $route): bool {
             return filled($route->getPage()->navigationMenuGroup());
         }) !== null;
     }
