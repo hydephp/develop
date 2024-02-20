@@ -975,21 +975,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testSidebarLabelsRetainBestFormatting()
-    {
-        $this->markTestSkipped('Not yet implemented');
-
-        $this->assertSidebarEquals(['GitHub'], [
-            new DocumentationPage('foo', ['navigation.group' => 'GitHub']),
-            new DocumentationPage('bar', ['navigation.group' => 'github']),
-        ]);
-
-        $this->assertSidebarEquals(['GitHub'], [
-            new DocumentationPage('foo', ['navigation.group' => 'github']),
-            new DocumentationPage('bar', ['navigation.group' => 'GitHub']),
-        ]);
-    }
-
     public function testSidebarLabelsCanBeSetInConfig()
     {
         config(['docs.sidebar_group_labels' => ['foo' => 'Hello world!']]);
