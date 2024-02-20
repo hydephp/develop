@@ -218,11 +218,7 @@ class NavItem implements Stringable
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
         /** @var array<string, int> $config */
-        $config = Config::getArray('hyde.navigation.order', [
-            'index' => 0,
-            'posts' => 10,
-            'docs/index' => 100,
-        ]);
+        $config = Config::getArray('hyde.navigation.order', []);
 
         return $config[$groupKey] ?? null;
     }
