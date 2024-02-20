@@ -209,12 +209,13 @@ class NavItem implements Stringable
         return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
     }
 
-    // TODO: Consider moving all of these to a dropdown factory
+    /** @deprecated This responsibility does not belong here. This should happen before the NavItem is created. */
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
         return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }
 
+    /** @deprecated This responsibility does not belong here. This should happen before the NavItem is created. */
     protected static function normalizeGroupLabel(string $label): string
     {
         // If there is no label, and the group is a slug, we can make a title from it
