@@ -23,9 +23,9 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return $this->getItems()->filter(function (NavItem $item): bool {
+        return $this->getItems()->contains(function (NavItem $item): bool {
             return $item->hasChildren();
-        })->isNotEmpty();
+        });
     }
 
     /**
