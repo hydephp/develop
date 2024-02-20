@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
@@ -13,6 +14,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 
 use function collect;
+use function strtolower;
 
 /**
  * @experimental This class may change significantly before its release.
@@ -122,11 +124,22 @@ class GeneratesDocumentationSidebarMenu
     {
         $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
 
-        return NavItem::dropdown($label, []);
+        return NavItem::dropdown(static::normalizeGroupLabel($label), []);
     }
 
     protected function searchForGroupLabelInConfig(string $identifier): ?string
     {
         return Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? null;
+    }
+
+    /** Todo: Move into shared class */
+    protected static function normalizeGroupLabel(string $label): string
+    {
+        // If there is no label, and the group is a slug, we can make a title from it
+        if ($label === strtolower($label)) {
+            return Hyde::makeTitle($label);
+        }
+
+        return $label;
     }
 }

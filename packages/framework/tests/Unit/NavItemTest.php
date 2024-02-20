@@ -265,7 +265,7 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::dropdown('foo', []);
 
-        $this->assertSame('Foo', $item->getLabel());
+        $this->assertSame('foo', $item->getLabel());
         $this->assertSame([], $item->getChildren());
         $this->assertSame(999, $item->getPriority());
     }
