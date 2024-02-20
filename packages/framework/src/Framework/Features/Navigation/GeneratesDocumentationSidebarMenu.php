@@ -59,8 +59,7 @@ class GeneratesDocumentationSidebarMenu
                     $groupItem = $this->items->get($group);
 
                     if ($groupItem === null) {
-                        // Todo search for group label in config (we can also search for other labels in the group before slugifying them)
-                        $groupItem = NavItem::dropdown(Hyde::makeTitle($group), []);
+                        $groupItem = NavItem::dropdown($this->makeTitleForGroup($group), []);
                     }
 
                     $groupItem->addChild($item);
@@ -90,6 +89,13 @@ class GeneratesDocumentationSidebarMenu
         return $routes->first(function (Route $route): bool {
             return filled($route->getPage()->navigationMenuGroup());
         }) !== null;
+    }
+
+    protected function makeTitleForGroup(string $group): string
+    {
+        // Todo search for group label in config (we can also search for other labels in the group before slugifying them)
+
+        return Hyde::makeTitle($group);
     }
 
     protected function canAddRoute(Route $route): bool
