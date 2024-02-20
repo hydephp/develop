@@ -89,6 +89,8 @@ class NavItem implements Stringable
     /**
      * Create a new dropdown navigation menu item.
      *
+     * @TODO: Might be more semantic to have this named something else, as it also includes sidebars groups.
+     *
      * @param  string  $label  The label of the dropdown item.
      * @param  array<NavItem>  $items  The items to be included in the dropdown.
      * @param  int|null  $priority  The priority of the dropdown item. Leave blank to use the default priority.
