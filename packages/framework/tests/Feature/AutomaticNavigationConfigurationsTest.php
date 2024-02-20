@@ -516,6 +516,21 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testConflictingSubdirectoryAndFrontMatterDropdownConfigurationGivesPrecedenceToSubdirectory()
+    {
+        // In case subdirectories are set to be used as dropdowns, but a page has a group set in its front matter,
+        // we run into a conflicting state where we don't know what the user intended. We solve this by giving
+        // precedence to the subdirectory configuration. This is opinionated, but allows for good grouping.
+
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'children' => ['Child']],
+        ], [
+            new MarkdownPage('foo/child', ['navigation.group' => 'bar']),
+        ]);
+    }
+
     // Documentation sidebar menu tests
 
     public function testSidebarWithPages()
