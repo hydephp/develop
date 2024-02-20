@@ -986,6 +986,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('foo', ['navigation.group' => 'GitHub']),
             new DocumentationPage('bar', ['navigation.group' => 'github']),
         ]);
+
+        $this->assertSidebarEquals(['GitHub'], [
+            new DocumentationPage('foo', ['navigation.group' => 'github']),
+            new DocumentationPage('bar', ['navigation.group' => 'GitHub']),
+        ]);
     }
 
     public function testSidebarLabelsCanBeSetInConfig()
