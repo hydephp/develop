@@ -50,6 +50,8 @@ class DocumentationSidebar extends NavigationMenu
 
     private function shouldIndexPageBeActive(string $group): bool
     {
+        // Unless the index page has a specific group set, the first group in the sidebar should be active.
+
         $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
 
         $firstGroupInSidebar = $this->getItems()->firstWhere(fn (NavItem $item): bool => $item->hasChildren());
