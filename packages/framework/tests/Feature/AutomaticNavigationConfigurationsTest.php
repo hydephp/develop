@@ -472,7 +472,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new MarkdownPage('FOO'),
         ]);
 
-        $this->assertMenuEquals(['Foo', 'Foo', 'FOO'], [
+        $this->assertMenuEquals(['foo', 'Foo', 'FOO'], [
             new MarkdownPage('foo', ['navigation.label' => 'foo']),
             new MarkdownPage('bar', ['navigation.label' => 'Foo']),
             new MarkdownPage('baz', ['navigation.label' => 'FOO']),
@@ -890,7 +890,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('FOO'),
         ]);
 
-        $this->assertSidebarEquals(['Foo', 'Foo', 'FOO'], [
+        $this->assertSidebarEquals(['foo', 'Foo', 'FOO'], [
             new DocumentationPage('foo', ['navigation.label' => 'foo']),
             new DocumentationPage('bar', ['navigation.label' => 'Foo']),
             new DocumentationPage('baz', ['navigation.label' => 'FOO']),
