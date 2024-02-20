@@ -207,6 +207,12 @@ class NavItem implements Stringable
 
     protected static function normalizeGroupLabel(string $label): string
     {
+        $configLabel = Config::getNullableString('docs.sidebar_group_labels.'.Str::slug($label));
+
+        if ($configLabel) {
+            return $configLabel;
+        }
+
         return $label;
     }
 

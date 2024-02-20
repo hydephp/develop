@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
-use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -94,16 +93,9 @@ class GeneratesDocumentationSidebarMenu
         }) !== null;
     }
 
-    /** Todo: Refactor to move label resolver to model class */
     protected function makeTitleForGroup(string $group): string
     {
         // Todo search for other labels in the group before slugifying them
-
-        $configLabel = Config::getNullableString("docs.sidebar_group_labels.$group");
-
-        if ($configLabel) {
-            return $configLabel;
-        }
 
         return Hyde::makeTitle($group);
     }
