@@ -98,7 +98,7 @@ class NavItem implements Stringable
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
         // TODO resolve label from config here instead of view
-        return new static('', static::normalizeLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
+        return new static('', static::normalizeGroupLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
     }
 
     /**
@@ -234,10 +234,10 @@ class NavItem implements Stringable
         }
 
         // If there is no label, and the group is a slug, we can make a title from it
-        return $this->normalizeLabel($this->group ?? $this->label);
+        return $this->normalizeGroupLabel($this->group ?? $this->label);
     }
 
-    protected static function normalizeLabel(?string $label): ?string
+    protected static function normalizeGroupLabel(?string $label): ?string
     {
         if ($label && ($label === strtolower($label))) {
             return Hyde::makeTitle($label);
