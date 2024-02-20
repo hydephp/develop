@@ -59,10 +59,11 @@ class GeneratesDocumentationSidebarMenu
                         $group = 'Other';
                     }
 
-                    $groupItem = $this->items->get(Str::slug($group));
+                    $groupIdentifier = Str::slug($group);
+                    $groupItem = $this->items->get($groupIdentifier);
 
                     if ($groupItem === null) {
-                        $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[Str::slug($group)] ?? $group, []);
+                        $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$groupIdentifier] ?? $group, []);
                     }
 
                     $groupItem->addChild($item);
