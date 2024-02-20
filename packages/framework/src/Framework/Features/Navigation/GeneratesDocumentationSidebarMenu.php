@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
+use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -95,7 +96,7 @@ class GeneratesDocumentationSidebarMenu
     {
         // Todo search for group label in config (we can also search for other labels in the group before slugifying them)
 
-        return Hyde::makeTitle($group);
+        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
     }
 
     protected function canAddRoute(Route $route): bool

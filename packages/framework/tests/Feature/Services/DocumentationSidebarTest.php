@@ -252,24 +252,6 @@ class DocumentationSidebarTest extends TestCase
         $this->assertTrue(DocumentationSidebar::create()->isGroupActive('baz'));
     }
 
-    public function testMakeGroupTitleTurnsGroupKeyIntoTitle()
-    {
-        $this->assertSame('Hello World', DocumentationSidebar::create()->makeGroupTitle('hello world'));
-        $this->assertSame('Hello World', DocumentationSidebar::create()->makeGroupTitle('hello-world'));
-        $this->assertSame('Hello World', DocumentationSidebar::create()->makeGroupTitle('hello_world'));
-        $this->assertSame('Hello World', DocumentationSidebar::create()->makeGroupTitle('helloWorld'));
-    }
-
-    public function testMakeGroupTitleUsesConfiguredSidebarGroupLabelsWhenAvailable()
-    {
-        Config::set('docs.sidebar_group_labels', [
-            'example' => 'Hello world!',
-        ]);
-
-        $this->assertSame('Hello world!', DocumentationSidebar::create()->makeGroupTitle('example'));
-        $this->assertSame('Default', DocumentationSidebar::create()->makeGroupTitle('default'));
-    }
-
     public function testCanHaveMultipleGroupedPagesWithTheSameNameLabels()
     {
         $this->makePage('foo', ['navigation.group' => 'foo', 'navigation.label' => 'Foo']);

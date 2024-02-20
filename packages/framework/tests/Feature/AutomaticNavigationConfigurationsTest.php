@@ -988,6 +988,15 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarLabelsCanBeSetInConfig()
+    {
+        config(['docs.sidebar_group_labels' => ['foo' => 'Hello world!']]);
+
+        $this->assertSidebarEquals(['Hello world!'], [
+            new DocumentationPage('foo', ['navigation.group' => 'foo']),
+        ]);
+    }
+
     public function testSidebarGroupsAreSortedByLowestFoundPriorityInEachGroup()
     {
         $this->assertSidebarEquals([
