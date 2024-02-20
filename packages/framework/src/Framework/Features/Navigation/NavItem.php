@@ -224,6 +224,15 @@ class NavItem implements Stringable
         return $config[$groupKey] ?? null;
     }
 
+    protected static function normalizeGroupLabel(?string $label): ?string
+    {
+        if ($label && ($label === strtolower($label))) {
+            return Hyde::makeTitle($label);
+        }
+
+        return $label;
+    }
+
     /** Find the best label for the group. */
     protected function makeGroupLabel(): string
     {
@@ -235,14 +244,5 @@ class NavItem implements Stringable
 
         // If there is no label, and the group is a slug, we can make a title from it
         return $this->normalizeGroupLabel($this->group ?? $this->label);
-    }
-
-    protected static function normalizeGroupLabel(?string $label): ?string
-    {
-        if ($label && ($label === strtolower($label))) {
-            return Hyde::makeTitle($label);
-        }
-
-        return $label;
     }
 }
