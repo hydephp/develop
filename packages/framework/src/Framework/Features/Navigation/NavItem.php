@@ -217,10 +217,7 @@ class NavItem implements Stringable
     // TODO: Consider moving all of these to a dropdown factory
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
-        /** @var array<string, int> $config */
-        $config = Config::getArray('hyde.navigation.order', []);
-
-        return $config[$groupKey] ?? null;
+        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }
 
     protected static function normalizeGroupLabel(string $label): string
