@@ -94,7 +94,7 @@ class GeneratesDocumentationSidebarMenu
         }) !== null;
     }
 
-    /** Todo: Refactor to move label resolver to model classRefactor to move label resolver to model class */
+    /** Todo: Refactor to move label resolver to model class */
     protected function makeTitleForGroup(string $group): string
     {
         // Todo search for other labels in the group before slugifying them
