@@ -23,6 +23,10 @@ class NavigationMenu
         $this->items = new Collection();
 
         foreach ($items as $item) {
+            // Instead of adding the items directly, we iterate through them and
+            // add them through the helper. This ensures that all the items are
+            // of the correct type, bringing type safety to the menu's items.
+
             $this->add($item);
         }
     }
