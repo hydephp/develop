@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
@@ -11,6 +12,7 @@ use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 
 use function collect;
+use function strtolower;
 
 /**
  * @experimental This class may change significantly before its release.
@@ -72,7 +74,7 @@ class GeneratesMainNavigationMenu
 
         foreach ($dropdowns as $group => $items) {
             // Create a new dropdown item containing the buffered items
-            $this->items->add(NavItem::dropdown($group, $items));
+            $this->items->add(NavItem::dropdown(static::normalizeGroupLabel($group), $items, static::searchForDropdownPriorityInConfig($group)));
         }
     }
 
@@ -89,5 +91,22 @@ class GeneratesMainNavigationMenu
     protected function useSubdirectoriesAsDropdowns(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+    }
+
+    /** Todo: Move into shared class */
+    protected static function normalizeGroupLabel(string $label): string
+    {
+        // If there is no label, and the group is a slug, we can make a title from it
+        if ($label === strtolower($label)) {
+            return Hyde::makeTitle($label);
+        }
+
+        return $label;
+    }
+
+    /** Todo: Move into shared class */
+    protected static function searchForDropdownPriorityInConfig(string $groupKey): ?int
+    {
+        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }
 }

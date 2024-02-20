@@ -1038,6 +1038,50 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    // Priority tests
+
+    public function testMainNavigationDropdownPriorityCanBeSetInConfig()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.order' => ['foo' => 500]]);
+
+        $this->assertMenuEquals(
+            [['label' => 'Foo', 'priority' => 500]],
+            [new MarkdownPage('foo/bar')]
+        );
+    }
+
+    public function testMainNavigationDropdownPriorityCanBeSetInConfigUsingDifferingCases()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.order' => ['hello-world' => 500]]);
+
+        $expected = [['label' => 'Hello World', 'priority' => 500]];
+        $this->assertMenuEquals($expected, [new MarkdownPage('Hello World/bar')]);
+        $this->assertMenuEquals($expected, [new MarkdownPage('hello-world/bar')]);
+        $this->assertMenuEquals($expected, [new MarkdownPage('hello world/bar')]);
+    }
+
+    public function testSidebarGroupPriorityCanBeSetInConfig()
+    {
+        config(['docs.sidebar_order' => ['foo' => 500]]);
+
+        $this->assertSidebarEquals(
+            [['label' => 'Foo', 'priority' => 500]],
+            [new DocumentationPage('foo/bar')]
+        );
+    }
+
+    public function testSidebarGroupPriorityCanBeSetInConfigUsingDifferingCases()
+    {
+        config(['docs.sidebar_order' => ['hello-world' => 500]]);
+
+        $expected = [['label' => 'Hello World', 'priority' => 500]];
+        $this->assertSidebarEquals($expected, [new DocumentationPage('Hello World/bar')]);
+        $this->assertSidebarEquals($expected, [new DocumentationPage('hello-world/bar')]);
+        $this->assertSidebarEquals($expected, [new DocumentationPage('hello world/bar')]);
+    }
+
     // Label casing tests
 
     public function testMainMenuNavigationItemCasing()
