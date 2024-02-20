@@ -13,6 +13,7 @@ use Stringable;
 use Hyde\Support\Models\ExternalRoute;
 
 use function is_string;
+use function strtolower;
 
 /**
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
@@ -99,7 +100,7 @@ class NavItem implements Stringable
      */
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
-        return new static('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
+        return new static('', static::normalizeGroupLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
     }
 
     /**
@@ -212,5 +213,15 @@ class NavItem implements Stringable
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
         return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
+    }
+
+    protected static function normalizeGroupLabel(string $label): string
+    {
+        // If there is no label, and the group is a slug, we can make a title from it
+        if ($label === strtolower($label)) {
+            return Hyde::makeTitle($label);
+        }
+
+        return $label;
     }
 }
