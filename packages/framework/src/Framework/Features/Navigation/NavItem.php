@@ -232,4 +232,10 @@ class NavItem implements Stringable
 
         return $config[$groupKey] ?? null;
     }
+
+    /** Find the best label for the group. */
+    protected function makeGroupLabel(): string
+    {
+        return static::normalizeGroupLabel($this->label);
+    }
 }
