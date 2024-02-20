@@ -235,9 +235,9 @@ class NavItem implements Stringable
         return $this->normalizeLabel($this->group);
     }
 
-    protected function normalizeLabel(string $label): ?string
+    protected function normalizeLabel(?string $label): ?string
     {
-        if ($label === strtolower($label)) {
+        if ($label && ($label === strtolower($label))) {
             return Hyde::makeTitle($label);
         }
 
