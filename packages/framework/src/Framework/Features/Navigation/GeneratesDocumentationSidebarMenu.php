@@ -116,6 +116,11 @@ class GeneratesDocumentationSidebarMenu
 
     protected function createGroupItem(string $identifier, string $groupName): NavItem
     {
-        return NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? $groupName, []);
+        return NavItem::dropdown($this->searchForGroupLabelInConfig($identifier) ?? $groupName, []);
+    }
+
+    protected function searchForGroupLabelInConfig(string $identifier): ?string
+    {
+        return Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? null;
     }
 }
