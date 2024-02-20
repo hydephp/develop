@@ -968,6 +968,16 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarItemGroupingIsNormalized()
+    {
+        $this->assertSidebarEquals(['Hello World'], [
+            new DocumentationPage('foo', ['navigation.group' => 'hello world']),
+            new DocumentationPage('bar', ['navigation.group' => 'hello-world']),
+            new DocumentationPage('baz', ['navigation.group' => 'hello_world']),
+            new DocumentationPage('qux', ['navigation.group' => 'Hello World']),
+        ]);
+    }
+
     public function testSidebarGroupsAreSortedByLowestFoundPriorityInEachGroup()
     {
         $this->assertSidebarEquals([
