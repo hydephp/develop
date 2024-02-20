@@ -345,8 +345,8 @@ class NavItemTest extends UnitTestCase
 
     public function testGroupKeysAreNormalized()
     {
-        $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
-        $this->assertSame('foo-bar', $item->getGroup());
+        $this->assertSame('Foo Bar', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar'))->getGroup());
+        $this->assertSame('Foo Bar', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'foo-bar'))->getGroup());
     }
 
     public function testIdentifier()

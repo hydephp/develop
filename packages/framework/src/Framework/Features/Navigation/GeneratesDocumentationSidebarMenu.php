@@ -96,9 +96,12 @@ class GeneratesDocumentationSidebarMenu
 
     protected function makeTitleForGroup(string $group): string
     {
-        // Todo search for other labels in the group before slugifying them
+        // If the label is not formatted, we format it here
+        if ($group === strtolower($group)) {
+            return Hyde::makeTitle($group);
+        }
 
-        return Hyde::makeTitle($group);
+        return $group;
     }
 
     protected function canAddRoute(Route $route): bool

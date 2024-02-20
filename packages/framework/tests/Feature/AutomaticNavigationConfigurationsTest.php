@@ -203,9 +203,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
 
         $this->assertMenuEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Bar', 'group' => 'group-1'],
-            ['label' => 'Baz', 'group' => 'group-1'],
+            ['label' => 'Foo', 'group' => 'Group 1'],
+            ['label' => 'Bar', 'group' => 'Group 1'],
+            ['label' => 'Baz', 'group' => 'Group 1'],
         ], [
             new MarkdownPage('foo', ['navigation.group' => 'Group 1']),
             new MarkdownPage('bar', ['navigation.group' => 'Group 1']),
@@ -218,9 +218,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
 
         $this->assertMenuEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Bar', 'group' => 'group-1'],
-            ['label' => 'Baz', 'group' => 'group-1'],
+            ['label' => 'Foo', 'group' => 'Group 1'],
+            ['label' => 'Bar', 'group' => 'Group 1'],
+            ['label' => 'Baz', 'group' => 'Group 1'],
         ], [
             new MarkdownPage('foo', ['navigation.category' => 'Group 1']),
             new MarkdownPage('bar', ['navigation.category' => 'Group 1']),
@@ -290,7 +290,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         // Since the main key in the navigation schema is 'group', that takes precedence over its 'category' alias
 
-        $this->assertMenuEquals(array_fill(0, 3, ['group' => 'group-1']), [
+        $this->assertMenuEquals(array_fill(0, 3, ['group' => 'Group 1']), [
             new MarkdownPage('foo', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
             new MarkdownPage('bar', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
             new MarkdownPage('baz', ['navigation.group' => 'Group 1', 'navigation.category' => 'Group 2']),
@@ -483,8 +483,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     public function testMainNavigationMenuItemsWithSameLabelButDifferentGroupsAreNotFiltered()
     {
         $this->assertMenuEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Foo', 'group' => 'group-2'],
+            ['label' => 'Foo', 'group' => 'Group 1'],
+            ['label' => 'Foo', 'group' => 'Group 2'],
         ], [
             new MarkdownPage('foo', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 1']),
             new MarkdownPage('bar', ['navigation.label' => 'Foo', 'navigation.group' => 'Group 2']),
@@ -496,9 +496,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            // Todo: Should use proper group name
-            ['label' => 'group-1', 'children' => ['Foo']],
-            ['label' => 'group-2', 'children' => ['Foo']],
+            ['label' => 'Group 1', 'children' => ['Foo']],
+            ['label' => 'Group 2', 'children' => ['Foo']],
         ], [
             new MarkdownPage('one/foo', ['navigation.group' => 'Group 1']),
             new MarkdownPage('two/foo', ['navigation.group' => 'Group 2']),
@@ -980,8 +979,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarLabelsRetainBestFormatting()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->assertSidebarEquals(['GitHub'], [
             new DocumentationPage('foo', ['navigation.group' => 'GitHub']),
             new DocumentationPage('bar', ['navigation.group' => 'github']),
