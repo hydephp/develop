@@ -53,7 +53,7 @@ class GeneratesDocumentationSidebarMenu
             if ($this->canAddRoute($route)) {
                 $item = NavItem::fromRoute($route);
                 if ($useGroups) {
-                    $groupItem = $this->createGroupItem($item->getGroup() ?? 'Other');
+                    $groupItem = $this->getOrCreateGroupItem($item->getGroup() ?? 'Other');
 
                     $groupItem->addChild($item);
 
@@ -106,7 +106,7 @@ class GeneratesDocumentationSidebarMenu
         return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
     }
 
-    protected function createGroupItem(string $groupName): NavItem
+    protected function getOrCreateGroupItem(string $groupName): NavItem
     {
         $groupIdentifier = Str::slug($groupName);
         $groupItem = $this->items->get($groupIdentifier);
