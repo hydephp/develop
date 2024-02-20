@@ -205,6 +205,7 @@ class NavItem implements Stringable
         return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
     }
 
+    // TODO: Consider moving all of these to a dropdown factory
     protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
     {
         /** @var array<string, int> $config */
