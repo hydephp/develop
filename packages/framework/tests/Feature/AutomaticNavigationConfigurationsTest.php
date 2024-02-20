@@ -495,11 +495,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            ['label' => 'Group 1', 'children' => ['Foo']],
-            ['label' => 'Group 2', 'children' => ['Foo']],
+            ['label' => 'One', 'children' => ['Foo']],
+            ['label' => 'Two', 'children' => ['Foo']],
         ], [
-            new MarkdownPage('one/foo', ['navigation.group' => 'Group 1']),
-            new MarkdownPage('two/foo', ['navigation.group' => 'Group 2']),
+            new MarkdownPage('one/foo'),
+            new MarkdownPage('two/foo'),
         ]);
     }
 
@@ -926,11 +926,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     public function testSidebarDropdownItemsWithSameLabelButDifferentGroupsAreFiltered()
     {
         $this->assertSidebarEquals([
-            ['label' => 'Group 1', 'children' => ['Foo']],
-            ['label' => 'Group 2', 'children' => ['Foo']],
+            ['label' => 'One', 'children' => ['Foo']],
+            ['label' => 'Two', 'children' => ['Foo']],
         ], [
-            new DocumentationPage('one/foo', ['navigation.group' => 'Group 1']),
-            new DocumentationPage('two/foo', ['navigation.group' => 'Group 2']),
+            new DocumentationPage('one/foo'),
+            new DocumentationPage('two/foo'),
         ]);
     }
 
@@ -950,11 +950,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['docs.flattened_output_paths' => false]);
 
         $this->assertSidebarEquals([
-            ['label' => 'Group 1', 'children' => ['Foo']],
-            ['label' => 'Group 2', 'children' => ['Foo']],
+            ['label' => 'One', 'children' => ['Foo']],
+            ['label' => 'Two', 'children' => ['Foo']],
         ], [
-            new DocumentationPage('one/foo', ['navigation.group' => 'Group 1']),
-            new DocumentationPage('two/foo', ['navigation.group' => 'Group 2']),
+            new DocumentationPage('one/foo'),
+            new DocumentationPage('two/foo'),
         ]);
     }
 
