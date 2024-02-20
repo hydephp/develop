@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Models\ExternalRoute;
+use Hyde\Framework\Factories\NavigationDataFactory;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
 
 use function is_string;
 use function strtolower;
@@ -100,7 +102,25 @@ class NavItem implements Stringable
      */
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
-        return new static('', static::normalizeGroupLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
+        $data = (new NavigationDataFactory(new CoreDataObject(
+            new FrontMatter([
+                'navigation' => [
+                    'label' => static::normalizeGroupLabel($label),
+                    'priority' => $priority,
+                    'hidden' => false,
+                    'group' => static::normalizeGroupKey($label),
+                ]
+            ]),
+            false, '', '', '', '', Str::slug($label),
+        ), $label))->toArray();
+
+        return new static(
+            '',
+            $data['label'],
+            $data['priority'],
+            $data['group'],
+            $items
+        );
     }
 
     /**
@@ -207,12 +227,6 @@ class NavItem implements Stringable
     protected static function makeIdentifier(string $label): string
     {
         return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
-    }
-
-    // TODO: Consider moving all of these to a dropdown factory
-    protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
-    {
-        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }
 
     protected static function normalizeGroupLabel(string $label): string
