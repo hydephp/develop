@@ -243,6 +243,6 @@ class NavItem implements Stringable
         }
 
         // If there is no label, and the group is a slug, we can make a title from it
-        return $this->normalizeGroupLabel($this->group ?? $this->label);
+        return static::normalizeGroupLabel($this->group ?? $this->label);
     }
 }
