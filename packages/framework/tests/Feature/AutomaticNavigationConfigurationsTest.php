@@ -1137,7 +1137,7 @@ class AssertableNavigationMenu
             }
         }
 
-        $this->test->assertCount(count($expected), $this->state(), 'The expected state has a different count than the actual state');
+        $this->test->assertCount(count($expected), $this->state(), 'The expected state has a different count than the actual state'."\n".json_encode($this->state(), JSON_PRETTY_PRINT));
 
         return $this;
     }
