@@ -94,7 +94,7 @@ class GeneratesDocumentationSidebarMenu
 
     protected function makeTitleForGroup(string $group): string
     {
-        // Todo search for group label in config (we can also search for other labels in the group before slugifying them)
+        // Todo search for other labels in the group before slugifying them
 
         return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group);
     }
