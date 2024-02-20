@@ -98,7 +98,7 @@ class NavItem implements Stringable
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
         // TODO resolve label from config here instead of view
-        return new static('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, null, $items);
+        return new static('', static::normalizeGroupLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, null, $items);
     }
 
     /**
@@ -203,6 +203,11 @@ class NavItem implements Stringable
     protected static function makeIdentifier(string $label): string
     {
         return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
+    }
+
+    protected static function normalizeGroupLabel(string $label): string
+    {
+        return $label;
     }
 
     // TODO: Consider moving all of these to a dropdown factory
