@@ -233,7 +233,6 @@ class NavItem implements Stringable
     /** Find the best label for the group. */
     protected function makeGroupLabel(): string
     {
-        return Config::getArray('docs.sidebar_group_labels', [])[Str::slug($this->identifier)]
-            ?? $this->label;
+        return Config::getArray('docs.sidebar_group_labels', [])[Str::slug($this->identifier)] ?? $this->label;
     }
 }
