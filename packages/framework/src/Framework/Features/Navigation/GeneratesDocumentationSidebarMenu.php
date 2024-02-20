@@ -111,6 +111,11 @@ class GeneratesDocumentationSidebarMenu
         $identifier = Str::slug($groupName);
         $group = $this->items->get($identifier);
 
-        return $group ?? NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? $groupName, []);
+        return $group ?? $this->createGroupItem($identifier, $groupName);
+    }
+
+    protected function createGroupItem(string $identifier, string $groupName): NavItem
+    {
+        return NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? $groupName, []);
     }
 }
