@@ -31,12 +31,8 @@ class DocumentationSidebar extends NavigationMenu
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
      */
-    public function isGroupActive(?string $group): bool
+    public function isGroupActive(string $group): bool
     {
-        if ($group === null) {
-            return false;
-        }
-
         $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
         $currentPageIsIndexPageAndShouldBeActive = $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
 
