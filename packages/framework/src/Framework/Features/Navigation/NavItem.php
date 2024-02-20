@@ -232,10 +232,15 @@ class NavItem implements Stringable
         }
 
         // If there is no label, and the group is a slug, we can make a title from it
-        if ($this->group === $this->label && $this->group === strtolower($this->group)) {
-            return Hyde::makeTitle($this->group);
+        return $this->normalizeLabel($this->group);
+    }
+
+    protected function normalizeLabel(string $label): ?string
+    {
+        if ($label === strtolower($label)) {
+            return Hyde::makeTitle($label);
         }
 
-        return $this->label;
+        return $label;
     }
 }
