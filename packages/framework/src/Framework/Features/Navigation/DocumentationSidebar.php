@@ -52,9 +52,11 @@ class DocumentationSidebar extends NavigationMenu
     {
         $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
 
-        $groupIsTheFirstOneInSidebar = $group === $this->getItems()->firstWhere(function (NavItem $item): bool {
+        $firstGroupInSidebar = $this->getItems()->firstWhere(function (NavItem $item): bool {
             return $item->hasChildren();
-        })?->getIdentifier();
+        });
+
+        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar?->getIdentifier();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
     }
