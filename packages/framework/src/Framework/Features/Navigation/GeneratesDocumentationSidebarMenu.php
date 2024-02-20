@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
@@ -61,7 +62,7 @@ class GeneratesDocumentationSidebarMenu
                     $groupItem = $this->items->get(Str::slug($group));
 
                     if ($groupItem === null) {
-                        $groupItem = NavItem::dropdown($group, []);
+                        $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[Str::slug($group)] ?? $group, []);
                     }
 
                     $groupItem->addChild($item);

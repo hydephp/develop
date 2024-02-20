@@ -132,10 +132,6 @@ class NavItem implements Stringable
      */
     public function getLabel(): string
     {
-        if ($this->hasChildren()) {
-            return $this->makeGroupLabel();
-        }
-
         return $this->label;
     }
 
@@ -227,11 +223,5 @@ class NavItem implements Stringable
         }
 
         return $label;
-    }
-
-    /** Find the best label for the group. */
-    protected function makeGroupLabel(): string
-    {
-        return Config::getArray('docs.sidebar_group_labels', [])[Str::slug($this->identifier)] ?? $this->label;
     }
 }
