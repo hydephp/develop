@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Hyde;
-use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
@@ -45,16 +43,6 @@ class DocumentationSidebar extends NavigationMenu
         $currentPageIsIndexPageAndShouldBeActive = $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
 
         return $groupMatchesCurrentPageGroup || $currentPageIsIndexPageAndShouldBeActive;
-    }
-
-    /**
-     * @deprecated With the new NavItem system this should not be necessary, as the parent has a title
-     *
-     * @todo Get title from instance
-     */
-    public function makeGroupTitle(?string $group): string
-    {
-        return Config::getNullableString("docs.sidebar_group_labels.$group") ?? Hyde::makeTitle($group ?? 'Other');
     }
 
     private function isPageIndexPage(): bool
