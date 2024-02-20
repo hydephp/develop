@@ -36,6 +36,10 @@ class NavigationMenu
      */
     public function getItems(): Collection
     {
+        // The reason we sort them here is that navigation items can be added from different sources,
+        // so any sorting we do in generator actions will only be partial. This way, we can ensure
+        // that the items are always freshly sorted by their priorities when they are retrieved.
+
         return $this->items->sortBy(fn (NavItem $item) => $item->getPriority())->values();
     }
 
