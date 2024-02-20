@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 use Stringable;
 use Hyde\Support\Models\ExternalRoute;
 
+use function is_string;
+use function strtolower;
+
 /**
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
  *
@@ -98,7 +101,7 @@ class NavItem implements Stringable
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
         // TODO resolve label from config here instead of view
-        return new static('', static::normalizeGroupLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, null, $items);
+        return new static('', static::normalizeGroupLabel($label), $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
     }
 
     /**
@@ -130,6 +133,10 @@ class NavItem implements Stringable
      */
     public function getLabel(): string
     {
+        if ($this->hasChildren()) {
+            return $this->makeGroupLabel();
+        }
+
         return $this->label;
     }
 
@@ -192,6 +199,8 @@ class NavItem implements Stringable
      */
     public function addChild(NavItem $item): void
     {
+        // Todo: Ensure that the item has a group identifier by creating it from the label if it doesn't exist?
+
         $this->children[] = $item;
     }
 
@@ -205,27 +214,25 @@ class NavItem implements Stringable
         return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
     }
 
+    // TODO: Consider moving all of these to a dropdown factory
+    protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
+    {
+        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
+    }
+
     protected static function normalizeGroupLabel(string $label): string
     {
-        $configLabel = Config::getNullableString('docs.sidebar_group_labels.'.Str::slug($label));
-
-        if ($configLabel) {
-            return $configLabel;
+        // If there is no label, and the group is a slug, we can make a title from it
+        if ($label === strtolower($label)) {
+            return Hyde::makeTitle($label);
         }
 
         return $label;
     }
 
-    // TODO: Consider moving all of these to a dropdown factory
-    protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
+    /** Find the best label for the group. */
+    protected function makeGroupLabel(): string
     {
-        /** @var array<string, int> $config */
-        $config = Config::getArray('hyde.navigation.order', [
-            'index' => 0,
-            'posts' => 10,
-            'docs/index' => 100,
-        ]);
-
-        return $config[$groupKey] ?? null;
+        return Config::getArray('docs.sidebar_group_labels', [])[Str::slug($this->identifier)] ?? $this->label;
     }
 }

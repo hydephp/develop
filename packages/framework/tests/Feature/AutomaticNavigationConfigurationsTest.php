@@ -448,8 +448,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            ['label' => 'about', 'children' => ['Foo', 'Bar', 'Baz']],
-            // TODO: Label should be About
+            ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
         ], [
             new MarkdownPage('about/foo'),
             new MarkdownPage('about/bar'),
@@ -496,9 +495,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            // Todo: Should use proper group name
-            ['label' => 'group-1', 'children' => ['Foo']],
-            ['label' => 'group-2', 'children' => ['Foo']],
+            ['label' => 'Group 1', 'children' => ['Foo']],
+            ['label' => 'Group 2', 'children' => ['Foo']],
         ], [
             new MarkdownPage('one/foo', ['navigation.group' => 'Group 1']),
             new MarkdownPage('two/foo', ['navigation.group' => 'Group 2']),
@@ -510,9 +508,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            // Todo: Should use proper group name
-            ['label' => 'one', 'children' => ['Foo']],
-            ['label' => 'two', 'children' => ['Foo']],
+            ['label' => 'One', 'children' => ['Foo']],
+            ['label' => 'Two', 'children' => ['Foo']],
         ], [
             new MarkdownPage('one/foo'),
             new MarkdownPage('two/foo'),
@@ -986,6 +983,11 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('foo', ['navigation.group' => 'GitHub']),
             new DocumentationPage('bar', ['navigation.group' => 'github']),
         ]);
+
+        $this->assertSidebarEquals(['GitHub'], [
+            new DocumentationPage('foo', ['navigation.group' => 'github']),
+            new DocumentationPage('bar', ['navigation.group' => 'GitHub']),
+        ]);
     }
 
     public function testSidebarLabelsCanBeSetInConfig()
@@ -1034,6 +1036,92 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('grouped', ['navigation.group' => 'foo']),
             new DocumentationPage('ungrouped'),
         ]);
+    }
+
+    // Label casing tests
+
+    public function testMainMenuNavigationItemCasing()
+    {
+        // These labels are based on the page titles, which are made from the file names, so we try to format them
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('Hello World')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello-world')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello world')]);
+    }
+
+    public function testMainMenuNavigationItemCasingUsingFrontMatter()
+    {
+        // If the user explicitly sets the label, we should respect that and assume it's already formatted correctly
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['title' => 'Hello World'])]);
+        $this->assertMenuEquals(['hello-world'], [new MarkdownPage('foo', ['title' => 'hello-world'])]);
+        $this->assertMenuEquals(['hello world'], [new MarkdownPage('foo', ['title' => 'hello world'])]);
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.label' => 'Hello World'])]);
+        $this->assertMenuEquals(['hello-world'], [new MarkdownPage('foo', ['navigation.label' => 'hello-world'])]);
+        $this->assertMenuEquals(['hello world'], [new MarkdownPage('foo', ['navigation.label' => 'hello world'])]);
+    }
+
+    public function testMainMenuNavigationGroupCasing()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        // When using subdirectory groupings, we try to format them the same way as the page titles
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('Hello World/foo')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello-world/foo')]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('hello world/foo')]);
+    }
+
+    public function testMainMenuNavigationGroupCasingUsingFrontMatter()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']); // TODO This should NOT be necessary when using front matter
+
+        // If the user explicitly sets the group, we should respect that and assume it's already formatted correctly
+
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'Hello World'])]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'hello-world'])]);
+        $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'hello world'])]);
+    }
+
+    public function testSidebarItemCasing()
+    {
+        // These labels are based on the page titles, which are made from the file names, so we try to format them
+
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('Hello World')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello-world')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello world')]);
+    }
+
+    public function testSidebarItemCasingUsingFrontMatter()
+    {
+        // If the user explicitly sets the label, we should respect that and assume it's already formatted correctly
+
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['title' => 'Hello World'])]);
+        $this->assertSidebarEquals(['hello-world'], [new DocumentationPage('foo', ['title' => 'hello-world'])]);
+        $this->assertSidebarEquals(['hello world'], [new DocumentationPage('foo', ['title' => 'hello world'])]);
+
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.label' => 'Hello World'])]);
+        $this->assertSidebarEquals(['hello-world'], [new DocumentationPage('foo', ['navigation.label' => 'hello-world'])]);
+        $this->assertSidebarEquals(['hello world'], [new DocumentationPage('foo', ['navigation.label' => 'hello world'])]);
+    }
+
+    public function testSidebarGroupCasing()
+    {
+        // When using subdirectory groupings, we try to format them the same way as the page titles
+
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('Hello World/foo')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello-world/foo')]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('hello world/foo')]);
+    }
+
+    public function testSidebarGroupCasingUsingFrontMatter()
+    {
+        // If the user explicitly sets the group, we should respect that and assume it's already formatted correctly
+
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'Hello World'])]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello-world'])]);
+        $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello world'])]);
     }
 
     // Testing helpers

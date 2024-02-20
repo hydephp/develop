@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Hyde;
+use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -58,16 +58,16 @@ class GeneratesDocumentationSidebarMenu
                         $group = 'Other';
                     }
 
-                    $groupItem = $this->items->get($group);
+                    $groupItem = $this->items->get(Str::slug($group));
 
                     if ($groupItem === null) {
-                        $groupItem = NavItem::dropdown($this->makeTitleForGroup($group), []);
+                        $groupItem = NavItem::dropdown($group, []);
                     }
 
                     $groupItem->addChild($item);
 
-                    if (! $this->items->has($group)) {
-                        $this->items->put($group, $groupItem);
+                    if (! $this->items->has($groupItem->getIdentifier())) {
+                        $this->items->put($groupItem->getIdentifier(), $groupItem);
                     }
 
                     return;
@@ -91,13 +91,6 @@ class GeneratesDocumentationSidebarMenu
         return $this->routes->first(function (Route $route): bool {
             return filled($route->getPage()->navigationMenuGroup());
         }) !== null;
-    }
-
-    protected function makeTitleForGroup(string $group): string
-    {
-        // Todo search for other labels in the group before slugifying them
-
-        return Hyde::makeTitle($group);
     }
 
     protected function canAddRoute(Route $route): bool
