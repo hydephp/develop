@@ -55,16 +55,7 @@ class GeneratesDocumentationSidebarMenu
                 $groupName = $item->getGroup();
 
                 if ($useGroups) {
-                    if (! $groupName) {
-                        $groupName = 'Other';
-                    }
-
-                    $groupIdentifier = Str::slug($groupName);
-                    $groupItem = $this->items->get($groupIdentifier);
-
-                    if ($groupItem === null) {
-                        $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$groupIdentifier] ?? $groupName, []);
-                    }
+                    $groupItem = $this->createGroupItem($groupName);
 
                     $groupItem->addChild($item);
 
@@ -115,5 +106,21 @@ class GeneratesDocumentationSidebarMenu
     protected function getLowestPriorityInGroup(NavItem $item): int
     {
         return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
+    }
+
+    protected function createGroupItem(?string $groupName): NavItem
+    {
+        if (! $groupName) {
+            $groupName = 'Other';
+        }
+
+        $groupIdentifier = Str::slug($groupName);
+        $groupItem = $this->items->get($groupIdentifier);
+
+        if ($groupItem === null) {
+            $groupItem = NavItem::dropdown(Config::getArray('docs.sidebar_group_labels', [])[$groupIdentifier] ?? $groupName, []);
+        }
+
+        return $groupItem;
     }
 }
