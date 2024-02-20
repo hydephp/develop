@@ -197,7 +197,17 @@ class NavItem implements Stringable
 
     protected static function normalizeGroupKey(?string $group): ?string
     {
-        return $group ? Str::slug($group) : null;
+        // If there is no group, we return null
+        if (! $group) {
+            return null;
+        }
+
+        // If the label is not formatted, we format it here
+        if ($group === strtolower($group)) {
+            return Hyde::makeTitle($group);
+        }
+
+        return $group;
     }
 
     protected static function makeIdentifier(string $label): string
