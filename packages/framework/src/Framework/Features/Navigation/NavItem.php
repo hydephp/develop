@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 use Stringable;
 use Hyde\Support\Models\ExternalRoute;
 
+use function is_string;
+use function strtolower;
+
 /**
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
  *
