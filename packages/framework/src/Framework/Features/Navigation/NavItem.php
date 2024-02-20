@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
@@ -99,7 +98,7 @@ class NavItem implements Stringable
      */
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
-        return new static('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig(Str::slug($label)) ?? 999, $label, $items);
+        return new static('', $label, $priority ?? 999, $label, $items);
     }
 
     /**
@@ -206,11 +205,5 @@ class NavItem implements Stringable
     protected static function makeIdentifier(string $label): string
     {
         return Str::slug($label); // Todo: If it's a dropdown based on a subdirectory, we should use the subdirectory as the identifier
-    }
-
-    /** @deprecated This responsibility does not belong here. This should happen before the NavItem is created. */
-    protected static function searchForDropdownPriorityInNavigationConfig(string $groupKey): ?int
-    {
-        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }
 }

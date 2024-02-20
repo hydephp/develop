@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 
+use function filled;
 use function collect;
 use function strtolower;
 
@@ -123,8 +124,9 @@ class GeneratesDocumentationSidebarMenu
     protected function createGroupItem(string $identifier, string $groupName): NavItem
     {
         $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
+        $priority = $this->searchForGroupPriorityInConfig($identifier);
 
-        return NavItem::dropdown(static::normalizeGroupLabel($label), []);
+        return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
     }
 
     protected function searchForGroupLabelInConfig(string $identifier): ?string
@@ -141,5 +143,11 @@ class GeneratesDocumentationSidebarMenu
         }
 
         return $label;
+    }
+
+    /** Todo: Move into shared class */
+    protected static function searchForGroupPriorityInConfig(string $groupKey): ?int
+    {
+        return Config::getArray('docs.sidebar_order', [])[$groupKey] ?? null;
     }
 }

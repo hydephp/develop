@@ -396,16 +396,4 @@ class NavItemTest extends UnitTestCase
 
         $this->assertSame([$child], $parent->getChildren());
     }
-
-    public function testDefaultDropdownItemPriority()
-    {
-        $this->assertSame(999, NavItem::dropdown('foo', [])->getPriority());
-    }
-
-    public function testCanResolveDropdownItemPriorityFromConfig()
-    {
-        $this->mockConfig(['hyde.navigation.order' => ['foo' => 500]]);
-
-        $this->assertSame(500, NavItem::dropdown('foo', [])->getPriority());
-    }
 }

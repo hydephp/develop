@@ -74,7 +74,7 @@ class GeneratesMainNavigationMenu
 
         foreach ($dropdowns as $group => $items) {
             // Create a new dropdown item containing the buffered items
-            $this->items->add(NavItem::dropdown(static::normalizeGroupLabel($group), $items));
+            $this->items->add(NavItem::dropdown(static::normalizeGroupLabel($group), $items, static::searchForDropdownPriorityInConfig($group)));
         }
     }
 
@@ -102,5 +102,11 @@ class GeneratesMainNavigationMenu
         }
 
         return $label;
+    }
+
+    /** Todo: Move into shared class */
+    protected static function searchForDropdownPriorityInConfig(string $groupKey): ?int
+    {
+        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }
 }

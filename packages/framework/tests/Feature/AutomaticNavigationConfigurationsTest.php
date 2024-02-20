@@ -1064,8 +1064,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarGroupPriorityCanBeSetInConfig()
     {
-        $this->markTestSkipped('TODO');
-
         config(['docs.sidebar_order' => ['foo' => 500]]);
 
         $this->assertSidebarEquals(
@@ -1076,8 +1074,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarGroupPriorityCanBeSetInConfigUsingDifferingCases()
     {
-        $this->markTestSkipped('TODO');
-
         config(['docs.sidebar_order' => ['hello-world' => 500]]);
 
         $expected = [['label' => 'Hello World', 'priority' => 500]];
