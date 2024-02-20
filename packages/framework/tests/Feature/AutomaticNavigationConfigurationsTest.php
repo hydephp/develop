@@ -448,8 +448,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            ['label' => 'about', 'children' => ['Foo', 'Bar', 'Baz']],
-            // TODO: Label should be About
+            ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
         ], [
             new MarkdownPage('about/foo'),
             new MarkdownPage('about/bar'),
@@ -496,9 +495,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            // Todo: Should use proper group name
-            ['label' => 'group-1', 'children' => ['Foo']],
-            ['label' => 'group-2', 'children' => ['Foo']],
+            ['label' => 'Group 1', 'children' => ['Foo']],
+            ['label' => 'Group 2', 'children' => ['Foo']],
         ], [
             new MarkdownPage('one/foo', ['navigation.group' => 'Group 1']),
             new MarkdownPage('two/foo', ['navigation.group' => 'Group 2']),
@@ -510,9 +508,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
         $this->assertMenuEquals([
-            // Todo: Should use proper group name
-            ['label' => 'one', 'children' => ['Foo']],
-            ['label' => 'two', 'children' => ['Foo']],
+            ['label' => 'One', 'children' => ['Foo']],
+            ['label' => 'Two', 'children' => ['Foo']],
         ], [
             new MarkdownPage('one/foo'),
             new MarkdownPage('two/foo'),
