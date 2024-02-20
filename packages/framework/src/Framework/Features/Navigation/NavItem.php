@@ -241,6 +241,6 @@ class NavItem implements Stringable
     protected function makeGroupLabel(): string
     {
         return Config::getNullableString('docs.sidebar_group_labels.'.Str::slug($this->identifier))
-            ?? static::normalizeGroupLabel($this->group ?? $this->label);
+            ?? $this->label;
     }
 }
