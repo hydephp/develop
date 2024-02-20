@@ -186,7 +186,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forLink('foo', 'bar');
 
         $this->assertEquals(new ExternalRoute('foo'), $item->getDestination());
-        $this->assertSame('bar', $item->getLabel());
+        $this->assertSame('Bar', $item->getLabel());
         $this->assertSame(500, $item->getPriority());
     }
 
@@ -201,7 +201,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route, $item->getDestination());
-        $this->assertSame('foo', $item->getLabel());
+        $this->assertSame('Foo', $item->getLabel());
         $this->assertSame(999, $item->getPriority());
     }
 
@@ -211,7 +211,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forRoute($route, 'foo');
 
         $this->assertSame($route, $item->getDestination());
-        $this->assertSame('foo', $item->getLabel());
+        $this->assertSame('Foo', $item->getLabel());
         $this->assertSame(0, $item->getPriority());
     }
 
@@ -265,7 +265,7 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::dropdown('foo', []);
 
-        $this->assertSame('foo', $item->getLabel());
+        $this->assertSame('Foo', $item->getLabel());
         $this->assertSame([], $item->getChildren());
         $this->assertSame(999, $item->getPriority());
     }
