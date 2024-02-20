@@ -978,6 +978,16 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarLabelsRetainBestFormatting()
+    {
+        $this->markTestSkipped('Not yet implemented');
+
+        $this->assertSidebarEquals(['GitHub'], [
+            new DocumentationPage('foo', ['navigation.group' => 'GitHub']),
+            new DocumentationPage('bar', ['navigation.group' => 'github']),
+        ]);
+    }
+
     public function testSidebarGroupsAreSortedByLowestFoundPriorityInEachGroup()
     {
         $this->assertSidebarEquals([
