@@ -99,7 +99,7 @@ class NavItem implements Stringable
      */
     public static function dropdown(string $label, array $items, ?int $priority = null): static
     {
-        return new static('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig($label) ?? 999, $label, $items);
+        return new static('', $label, $priority ?? static::searchForDropdownPriorityInNavigationConfig(Str::slug($label)) ?? 999, $label, $items);
     }
 
     /**
