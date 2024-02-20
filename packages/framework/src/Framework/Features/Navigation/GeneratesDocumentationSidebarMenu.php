@@ -52,19 +52,12 @@ class GeneratesDocumentationSidebarMenu
         $this->routes->each(function (Route $route) use ($useGroups): void {
             if ($this->canAddRoute($route)) {
                 $item = NavItem::fromRoute($route);
+
                 if ($useGroups) {
-                    $groupItem = $this->getOrCreateGroupItem($item->getGroup() ?? 'Other');
-
-                    $groupItem->addChild($item);
-
-                    if (! $this->items->has($groupItem->getIdentifier())) {
-                        $this->items->put($groupItem->getIdentifier(), $groupItem);
-                    }
-
-                    return;
+                    $this->addItemToGroup($item);
+                } else {
+                    $this->items->put($route->getRouteKey(), $item);
                 }
-
-                $this->items->put($route->getRouteKey(), $item);
             }
         });
 
@@ -99,6 +92,17 @@ class GeneratesDocumentationSidebarMenu
                 ? $this->getLowestPriorityInGroup($item)
                 : $item->getPriority();
         })->values();
+    }
+
+    protected function addItemToGroup(NavItem $item): void
+    {
+        $groupItem = $this->getOrCreateGroupItem($item->getGroup() ?? 'Other');
+
+        $groupItem->addChild($item);
+
+        if (! $this->items->has($groupItem->getIdentifier())) {
+            $this->items->put($groupItem->getIdentifier(), $groupItem);
+        }
     }
 
     protected function getLowestPriorityInGroup(NavItem $item): int
