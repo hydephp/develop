@@ -102,7 +102,11 @@ abstract class BaseMenuGenerator
 
     protected function canGroupRoute(Route $route): bool
     {
-        return $this->usesGroups;
+        if (! $this->usesGroups) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function addRouteToGroup(Route $route): void
