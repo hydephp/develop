@@ -18,7 +18,7 @@ class DocumentationSidebar extends NavigationMenu
     /** @deprecated Will be moved to an action */
     public static function create(): static
     {
-        return GeneratesDocumentationSidebarMenu::handle();
+        return NavigationMenuGenerator::handle(DocumentationSidebar::class);
     }
 
     public function hasGroups(): bool

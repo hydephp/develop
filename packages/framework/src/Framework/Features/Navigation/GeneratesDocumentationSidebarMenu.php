@@ -9,8 +9,5 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class GeneratesDocumentationSidebarMenu
 {
-    public static function handle(): DocumentationSidebar
-    {
-        return NavigationMenuGenerator::handle(DocumentationSidebar::class);
-    }
+    //
 }

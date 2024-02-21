@@ -18,8 +18,9 @@ use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
-use Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu;
 
 /**
  * High-level broad-spectrum tests for the automatic navigation configurations, testing various setups.
@@ -1246,7 +1247,7 @@ class AssertableNavigationMenu
     public function __construct(TestCase $test, $sidebar = false)
     {
         $this->items = $sidebar
-            ? GeneratesDocumentationSidebarMenu::handle()->getItems()
+            ? NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
             : GeneratesMainNavigationMenu::handle()->getItems();
 
         $this->test = $test;
