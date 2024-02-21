@@ -52,7 +52,9 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 
     protected function canAddRoute(Route $route): bool
     {
-        return $route->getPage()->showInNavigation() && ! $route->is(DocumentationPage::homeRouteName());
+        return $route->getPage()->showInNavigation()
+            // Since the index page is linked in the header, we don't want it in the sidebar
+            && ! $route->is(DocumentationPage::homeRouteName());
     }
 
     protected function sortByPriority(): void
