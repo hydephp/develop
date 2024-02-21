@@ -37,6 +37,8 @@ class NavigationMenuGenerator
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
     protected function __construct(string $menuType)
     {
+        assert(in_array($menuType, [NavigationMenu::class, DocumentationSidebar::class]));
+
         $this->menuType = $menuType;
 
         $this->items = new Collection();
