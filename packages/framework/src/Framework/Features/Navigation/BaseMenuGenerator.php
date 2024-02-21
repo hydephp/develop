@@ -49,8 +49,10 @@ abstract class BaseMenuGenerator
 
     protected function usesGroups(): bool
     {
-        return $this->generatesSidebar
-            ? $this->usesSidebarGroups()
-            : $this->useSubdirectoriesAsDropdowns();
+        if ($this->generatesSidebar) {
+            return $this->usesSidebarGroups();
+        } else {
+            return $this->useSubdirectoriesAsDropdowns();
+        }
     }
 }
