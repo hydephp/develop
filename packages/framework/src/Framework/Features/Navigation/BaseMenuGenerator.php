@@ -40,7 +40,7 @@ abstract class BaseMenuGenerator
 
         $this->items = new Collection();
 
-        $this->generatesSidebar = $this instanceof GeneratesDocumentationSidebarMenu;
+        $this->generatesSidebar = $menuType === DocumentationSidebar::class;
 
         $this->routes = $this->generatesSidebar
             ? Routes::getRoutes(DocumentationPage::class)
