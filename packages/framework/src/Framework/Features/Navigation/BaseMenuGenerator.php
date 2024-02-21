@@ -33,9 +33,7 @@ abstract class BaseMenuGenerator
             ? Routes::getRoutes(DocumentationPage::class)
             : Routes::all();
 
-        $this->usesGroups = $this->generatesSidebar
-            ? $this->usesSidebarGroups()
-            : $this->useSubdirectoriesAsDropdowns();
+        $this->usesGroups = $this->usesGroups();
     }
 
     public static function handle(): NavigationMenu
@@ -48,4 +46,11 @@ abstract class BaseMenuGenerator
     }
 
     abstract protected function generate(): void;
+
+    protected function usesGroups(): bool
+    {
+        return $this->generatesSidebar
+            ? $this->usesSidebarGroups()
+            : $this->useSubdirectoriesAsDropdowns();
+    }
 }
