@@ -58,6 +58,7 @@ class GeneratesMainNavigationMenu
         }
     }
 
+    /** @deprecated */
     protected function moveGroupedItemsIntoDropdowns(): void
     {
         $dropdowns = [];
