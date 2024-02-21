@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -47,7 +48,9 @@ class GeneratesMainNavigationMenu
                 // TODO This conditional might not be needed as it might be evaluated by the NavDaF
                 if ($this->useSubdirectoriesAsDropdowns()) {
                     if ($this->canAddRouteToDropdown($route)) {
-                        //
+                        $this->addRouteToGroup($route);
+
+                        return;
                     }
                 }
                 $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
@@ -58,10 +61,6 @@ class GeneratesMainNavigationMenu
             // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
-
-        if ($this->useSubdirectoriesAsDropdowns()) {
-            $this->moveGroupedItemsIntoDropdowns();
-        }
     }
 
     /** @deprecated */
@@ -100,9 +99,43 @@ class GeneratesMainNavigationMenu
         return $route->getPage()->navigationMenuGroup() !== null;
     }
 
+    protected function addRouteToGroup(Route $route): void
+    {
+        $group = $route->getPage()->navigationMenuGroup();
+
+        $groupItem = $this->getOrCreateGroupItem($group);
+
+        $groupItem->addChild(NavItem::fromRoute($route));
+
+        if (! $this->items->has($groupItem->getIdentifier())) {
+            $this->items->put($groupItem->getIdentifier(), $groupItem);
+        }
+    }
+
+    protected function getOrCreateGroupItem(string $groupName): NavItem
+    {
+        $identifier = Str::slug($groupName);
+        $group = $this->items->get($identifier);
+
+        return $group ?? $this->createGroupItem($identifier, $groupName);
+    }
+
+    protected function createGroupItem(string $identifier, string $groupName): NavItem
+    {
+        $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
+        $priority = $this->searchForDropdownPriorityInConfig($identifier);
+
+        return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
+    }
+
     protected function useSubdirectoriesAsDropdowns(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+    }
+
+    protected function searchForGroupLabelInConfig(string $identifier): ?string
+    {
+        return Config::getArray('hyde.navigation.labels', [])[$identifier] ?? null;
     }
 
     /** Todo: Move into shared class */
