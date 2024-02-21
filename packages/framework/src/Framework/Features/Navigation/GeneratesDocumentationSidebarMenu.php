@@ -34,15 +34,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 
     protected function generate(): void
     {
-        $this->routes->each(function (Route $route): void {
-            if ($this->canAddRoute($route)) {
-                if ($this->canGroupRoute($route)) {
-                    $this->addRouteToGroup($route);
-                } else {
-                    $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
-                }
-            }
-        });
+        parent::generate();
 
         // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
         if ($this->items->count() === 0 && DocumentationPage::home() !== null) {

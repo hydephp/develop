@@ -24,15 +24,7 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
 {
     protected function generate(): void
     {
-        $this->routes->each(function (Route $route): void {
-            if ($this->canAddRoute($route)) {
-                if ($this->canGroupRoute($route)) {
-                    $this->addRouteToGroup($route);
-                } else {
-                    $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
-                }
-            }
-        });
+        parent::generate();
 
         collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
             // Since these were added explicitly by the user, we can assume they should always be shown
