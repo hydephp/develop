@@ -63,35 +63,9 @@ class GeneratesMainNavigationMenu
         });
     }
 
-    /** @deprecated */
-    protected function moveGroupedItemsIntoDropdowns(): void
-    {
-        $dropdowns = [];
-
-        foreach ($this->items as $key => $item) {
-            if ($this->canAddItemToDropdown($item)) {
-                // Buffer the item in the dropdowns array
-                $dropdowns[$item->getGroup()][] = $item;
-
-                // Remove the item from the main items collection
-                $this->items->forget($key);
-            }
-        }
-
-        foreach ($dropdowns as $group => $items) {
-            // Create a new dropdown item containing the buffered items
-            $this->items->add(NavItem::dropdown(static::normalizeGroupLabel($group), $items, static::searchForDropdownPriorityInConfig($group)));
-        }
-    }
-
     protected function canAddRoute(Route $route): bool
     {
         return $route->getPage()->showInNavigation() && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
-    }
-
-    protected function canAddItemToDropdown(NavItem $item): bool
-    {
-        return $item->getGroup() !== null;
     }
 
     protected function canAddRouteToDropdown(Route $route): bool
