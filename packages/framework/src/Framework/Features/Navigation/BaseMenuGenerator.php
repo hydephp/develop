@@ -116,10 +116,10 @@ abstract class BaseMenuGenerator
 
         $priority = $this->searchForGroupPriorityInConfig($identifier);
 
-        return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
+        return NavItem::dropdown($this->normalizeGroupLabel($label), [], $priority);
     }
 
-    protected static function normalizeGroupLabel(string $label): string
+    protected function normalizeGroupLabel(string $label): string
     {
         // If there is no label, and the group is a slug, we can make a title from it
         if ($label === strtolower($label)) {
