@@ -93,6 +93,11 @@ class GeneratesMainNavigationMenu
         return $item->getGroup() !== null;
     }
 
+    protected function canAddRouteToDropdown(Route $route): bool
+    {
+        return $route->getPage()->navigationMenuGroup() !== null;
+    }
+
     protected function useSubdirectoriesAsDropdowns(): bool
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
