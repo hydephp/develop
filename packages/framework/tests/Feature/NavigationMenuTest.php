@@ -16,6 +16,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  *
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
