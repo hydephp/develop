@@ -47,10 +47,4 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
     {
         return Config::getArray('hyde.navigation.labels', [])[$identifier] ?? null;
     }
-
-    /** Todo: Move into shared class */
-    protected function searchForGroupPriorityInConfig(string $groupKey): ?int
-    {
-        return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
-    }
 }

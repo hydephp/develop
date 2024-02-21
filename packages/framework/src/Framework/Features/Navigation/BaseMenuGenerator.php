@@ -128,4 +128,11 @@ abstract class BaseMenuGenerator
 
         return $label;
     }
+
+    protected function searchForGroupPriorityInConfig(string $groupKey): ?int
+    {
+        $key = $this->generatesSidebar ? 'docs.sidebar_order' : 'hyde.navigation.order';
+
+        return Config::getArray($key, [])[$groupKey] ?? null;
+    }
 }

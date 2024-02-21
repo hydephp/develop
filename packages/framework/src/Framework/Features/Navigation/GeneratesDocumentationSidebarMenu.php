@@ -67,10 +67,4 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
     {
         return Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? null;
     }
-
-    /** Todo: Move into shared class */
-    protected function searchForGroupPriorityInConfig(string $groupKey): ?int
-    {
-        return Config::getArray('docs.sidebar_order', [])[$groupKey] ?? null;
-    }
 }
