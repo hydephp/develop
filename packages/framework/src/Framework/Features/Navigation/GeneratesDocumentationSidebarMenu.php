@@ -26,9 +26,6 @@ use function strtolower;
  */
 class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
-    protected Collection $items;
-
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
     protected RouteCollection $routes;
 

@@ -24,9 +24,6 @@ use function strtolower;
  */
 class GeneratesMainNavigationMenu extends BaseMenuGenerator
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
-    protected Collection $items;
-
     protected function __construct()
     {
         $this->items = new Collection();
