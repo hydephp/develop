@@ -62,4 +62,9 @@ abstract class BaseMenuGenerator
             return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
         }
     }
+
+    protected function canAddRoute(Route $route): bool
+    {
+        return $route->getPage()->showInNavigation();
+    }
 }

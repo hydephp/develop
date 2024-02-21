@@ -42,7 +42,7 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
 
     protected function canAddRoute(Route $route): bool
     {
-        return $route->getPage()->showInNavigation()
+        return parent::canAddRoute($route)
             // While we for the most part can rely on the navigation visibility state provided by the navigation data factory,
             // we need to make an exception for documentation pages, which generally have a visible state, as the data is
             // also used in the sidebar. But we only want the documentation index page to be in the main navigation.
