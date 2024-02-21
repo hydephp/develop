@@ -34,11 +34,9 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 
     protected function generate(): void
     {
-        $useGroups = $this->usesGroups;
-
-        $this->routes->each(function (Route $route) use ($useGroups): void {
+        $this->routes->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
-                if ($useGroups) {
+                if ($this->usesGroups) {
                     $this->addRouteToGroup($route);
                 } else {
                     $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
