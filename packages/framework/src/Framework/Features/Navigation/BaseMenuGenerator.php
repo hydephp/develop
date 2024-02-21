@@ -104,17 +104,17 @@ abstract class BaseMenuGenerator
 
     protected function getOrCreateGroupItem(string $groupName): NavItem
     {
-        $identifier = Str::slug($groupName);
-        $group = $this->items->get($identifier);
+        $groupKey = Str::slug($groupName);
+        $group = $this->items->get($groupKey);
 
-        return $group ?? $this->createGroupItem($identifier, $groupName);
+        return $group ?? $this->createGroupItem($groupKey, $groupName);
     }
 
-    protected function createGroupItem(string $identifier, string $groupName): NavItem
+    protected function createGroupItem(string $groupKey, string $groupName): NavItem
     {
-        $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
+        $label = $this->searchForGroupLabelInConfig($groupKey) ?? $groupName;
 
-        $priority = $this->searchForGroupPriorityInConfig($identifier);
+        $priority = $this->searchForGroupPriorityInConfig($groupKey);
 
         return NavItem::dropdown($this->normalizeGroupLabel($label), [], $priority);
     }
@@ -129,11 +129,11 @@ abstract class BaseMenuGenerator
         return $label;
     }
 
-    protected function searchForGroupLabelInConfig(string $identifier): ?string
+    protected function searchForGroupLabelInConfig(string $groupKey): ?string
     {
         $key = $this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels';
 
-        return Config::getArray($key, [])[$identifier] ?? null;
+        return Config::getArray($key, [])[$groupKey] ?? null;
     }
 
     protected function searchForGroupPriorityInConfig(string $groupKey): ?int
