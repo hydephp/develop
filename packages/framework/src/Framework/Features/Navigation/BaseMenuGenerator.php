@@ -88,11 +88,7 @@ abstract class BaseMenuGenerator
     {
         $item = NavItem::fromRoute($route);
 
-        if ($this->generatesSidebar) {
-            $groupName = $item->getGroup() ?? 'Other';
-        } else {
-            $groupName = $item->getGroup();
-        }
+        $groupName = $this->generatesSidebar ? $item->getGroup() ?? 'Other' : $item->getGroup();
 
         $groupItem = $this->getOrCreateGroupItem($groupName);
 
