@@ -30,17 +30,5 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
             $this->items->push(NavItem::fromRoute(DocumentationPage::home()));
         }
-
-        $this->sortSidebarGroupsByLowestPriority();
-    }
-
-    protected function sortSidebarGroupsByLowestPriority(): void
-    {
-        // While the items accessor sorts the items upon retrieval,
-        // we do an initial sorting here to order any groups.
-
-        $this->items = $this->items->sortBy(function (NavItem $item): int {
-            return $item->getPriority();
-        })->values();
     }
 }
