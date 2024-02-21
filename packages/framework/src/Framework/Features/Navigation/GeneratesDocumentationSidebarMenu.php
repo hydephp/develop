@@ -13,6 +13,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 {
     public static function handle(string $menuType = DocumentationSidebar::class): DocumentationSidebar
     {
-        return BaseMenuGenerator::handle($menuType);
+        return BaseMenuGenerator::handle(DocumentationSidebar::class);
     }
 }

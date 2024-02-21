@@ -13,6 +13,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
 {
     public static function handle(string $menuType = NavigationMenu::class): NavigationMenu
     {
-        return BaseMenuGenerator::handle($menuType);
+        return BaseMenuGenerator::handle(NavigationMenu::class);
     }
 }
