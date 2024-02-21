@@ -12,7 +12,7 @@ use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu
@@ -271,6 +271,6 @@ class NavigationMenuTest extends TestCase
 
     protected function createNavigationMenu(): NavigationMenu
     {
-        return GeneratesMainNavigationMenu::handle();
+        return NavigationMenuGenerator::handle(NavigationMenu::class);
     }
 }
