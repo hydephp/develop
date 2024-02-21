@@ -1028,6 +1028,35 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarGroupsAreSortedByLowestFoundPriorityInEachGroupUnlessGroupPriorityIsLower()
+    {
+        $this->assertSidebarEquals([
+            'A', 'B', 'C',
+        ], [
+            new DocumentationPage('foo', ['navigation.group' => 'a', 'navigation.priority' => 10]),
+            new DocumentationPage('bar', ['navigation.group' => 'b', 'navigation.priority' => 20]),
+            new DocumentationPage('baz', ['navigation.group' => 'c', 'navigation.priority' => 30]),
+        ]);
+
+        $this->assertSidebarEquals([
+            'C', 'B', 'A',
+        ], [
+            new DocumentationPage('foo', ['navigation.group' => 'a', 'navigation.priority' => 30]),
+            new DocumentationPage('bar', ['navigation.group' => 'b', 'navigation.priority' => 20]),
+            new DocumentationPage('baz', ['navigation.group' => 'c', 'navigation.priority' => 10]),
+        ]);
+
+        config(['docs.sidebar_order' => ['a' => 5]]);
+
+        $this->assertSidebarEquals([
+            'A', 'C', 'B',
+        ], [
+            new DocumentationPage('foo', ['navigation.group' => 'a', 'navigation.priority' => 30]),
+            new DocumentationPage('bar', ['navigation.group' => 'b', 'navigation.priority' => 20]),
+            new DocumentationPage('baz', ['navigation.group' => 'c', 'navigation.priority' => 10]),
+        ]);
+    }
+
     public function testAllSidebarItemsArePlacedInGroupsWhenAtLeastOneItemIsGrouped()
     {
         $this->assertSidebarEquals([
