@@ -9,7 +9,7 @@ namespace Hyde\Framework\Features\Navigation;
  *
  * @see \Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu
  */
-class GeneratesMainNavigationMenu extends BaseMenuGenerator
+class GeneratesMainNavigationMenu
 {
     public static function handle(string $menuType = NavigationMenu::class): NavigationMenu
     {
