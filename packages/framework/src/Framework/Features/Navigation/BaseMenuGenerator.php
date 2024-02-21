@@ -107,4 +107,19 @@ abstract class BaseMenuGenerator
 
         return $group ?? $this->createGroupItem($identifier, $groupName);
     }
+
+    protected function createGroupItem(string $identifier, string $groupName): NavItem
+    {
+        if ($this->generatesSidebar) {
+            $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
+            $priority = $this->searchForGroupPriorityInConfig($identifier);
+
+            return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
+        } else {
+            $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
+            $priority = $this->searchForDropdownPriorityInConfig($identifier);
+
+            return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
+        }
+    }
 }

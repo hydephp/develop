@@ -45,14 +45,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
         return parent::canGroupRoute($route) && $route->getPage()->navigationMenuGroup() !== null;
     }
 
-    protected function createGroupItem(string $identifier, string $groupName): NavItem
-    {
-        $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
-        $priority = $this->searchForDropdownPriorityInConfig($identifier);
-
-        return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
-    }
-
     protected function searchForGroupLabelInConfig(string $identifier): ?string
     {
         return Config::getArray('hyde.navigation.labels', [])[$identifier] ?? null;

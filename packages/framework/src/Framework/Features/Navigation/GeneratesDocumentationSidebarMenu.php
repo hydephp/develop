@@ -65,14 +65,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
     }
 
-    protected function createGroupItem(string $identifier, string $groupName): NavItem
-    {
-        $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
-        $priority = $this->searchForGroupPriorityInConfig($identifier);
-
-        return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
-    }
-
     protected function searchForGroupLabelInConfig(string $identifier): ?string
     {
         return Config::getArray('docs.sidebar_group_labels', [])[$identifier] ?? null;
