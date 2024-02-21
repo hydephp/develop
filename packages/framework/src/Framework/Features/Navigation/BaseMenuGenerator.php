@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-class BaseMenuGenerator
+abstract class BaseMenuGenerator
 {
     //
 }
