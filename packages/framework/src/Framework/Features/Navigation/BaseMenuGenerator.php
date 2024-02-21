@@ -106,6 +106,10 @@ abstract class BaseMenuGenerator
             return false;
         }
 
+        if (! $this->generatesSidebar) {
+            return $route->getPage()->navigationMenuGroup() !== null;
+        }
+
         return true;
     }
 

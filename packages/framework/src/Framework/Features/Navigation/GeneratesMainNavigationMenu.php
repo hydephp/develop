@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
-use Hyde\Support\Models\Route;
 
 use function collect;
 
@@ -24,10 +23,5 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
             // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
-    }
-
-    protected function canGroupRoute(Route $route): bool
-    {
-        return parent::canGroupRoute($route) && $route->getPage()->navigationMenuGroup() !== null;
     }
 }
