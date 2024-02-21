@@ -57,18 +57,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
             && ! $route->is(DocumentationPage::homeRouteName());
     }
 
-    protected function sortByPriority(): void
-    {
-        // While the items accessor sorts the items upon retrieval,
-        // we do an initial sorting here to order any groups.
-
-        $this->items = $this->items->sortBy(function (NavItem $item): int {
-            return $item->hasChildren()
-                ? $this->getLowestPriorityInGroup($item)
-                : $item->getPriority();
-        })->values();
-    }
-
     protected function addRouteToGroup(Route $route): void
     {
         $item = NavItem::fromRoute($route);
@@ -80,6 +68,18 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         if (! $this->items->has($groupItem->getIdentifier())) {
             $this->items->put($groupItem->getIdentifier(), $groupItem);
         }
+    }
+
+    protected function sortByPriority(): void
+    {
+        // While the items accessor sorts the items upon retrieval,
+        // we do an initial sorting here to order any groups.
+
+        $this->items = $this->items->sortBy(function (NavItem $item): int {
+            return $item->hasChildren()
+                ? $this->getLowestPriorityInGroup($item)
+                : $item->getPriority();
+        })->values();
     }
 
     protected function getLowestPriorityInGroup(NavItem $item): int
