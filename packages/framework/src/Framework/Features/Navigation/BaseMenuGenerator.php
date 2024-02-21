@@ -129,6 +129,13 @@ abstract class BaseMenuGenerator
         return $label;
     }
 
+    protected function searchForGroupLabelInConfig(string $identifier): ?string
+    {
+        $key = $this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels';
+
+        return Config::getArray($key, [])[$identifier] ?? null;
+    }
+
     protected function searchForGroupPriorityInConfig(string $groupKey): ?int
     {
         $key = $this->generatesSidebar ? 'docs.sidebar_order' : 'hyde.navigation.order';

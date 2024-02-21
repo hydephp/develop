@@ -42,9 +42,4 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
     {
         return parent::canGroupRoute($route) && $route->getPage()->navigationMenuGroup() !== null;
     }
-
-    protected function searchForGroupLabelInConfig(string $identifier): ?string
-    {
-        return Config::getArray('hyde.navigation.labels', [])[$identifier] ?? null;
-    }
 }
