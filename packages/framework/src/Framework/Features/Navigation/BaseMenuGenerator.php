@@ -28,4 +28,13 @@ abstract class BaseMenuGenerator
             ? Routes::getRoutes(DocumentationPage::class)
             : Routes::all();
     }
+
+    public static function handle(): NavigationMenu
+    {
+        $menu = new static();
+
+        $menu->generate();
+
+        return new NavigationMenu($menu->items);
+    }
 }

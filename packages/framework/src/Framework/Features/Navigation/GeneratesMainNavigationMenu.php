@@ -22,15 +22,6 @@ use function strtolower;
  */
 class GeneratesMainNavigationMenu extends BaseMenuGenerator
 {
-    public static function handle(): NavigationMenu
-    {
-        $menu = new static();
-
-        $menu->generate();
-
-        return new NavigationMenu($menu->items);
-    }
-
     protected function generate(): void
     {
         $this->routes->each(function (Route $route): void {
