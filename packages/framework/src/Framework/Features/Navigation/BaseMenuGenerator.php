@@ -57,9 +57,7 @@ abstract class BaseMenuGenerator
             // In order to know if we should use groups in the sidebar,
             // we need to loop through the pages and see if they have a group set
 
-            return $this->routes->first(function (Route $route): bool {
-                return filled($route->getPage()->navigationMenuGroup());
-            }) !== null;
+            return $this->routes->first(fn (Route $route): bool => filled($route->getPage()->navigationMenuGroup())) !== null;
         } else {
             return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
         }
