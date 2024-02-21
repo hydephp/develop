@@ -55,7 +55,7 @@ class GeneratesDocumentationSidebarMenu
         $this->routes->each(function (Route $route) use ($useGroups): void {
             if ($this->canAddRoute($route)) {
                 if ($useGroups) {
-                    $this->addItemToGroup(NavItem::fromRoute($route));
+                    $this->addRouteToGroup($route);
                 } else {
                     $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
                 }
@@ -95,8 +95,10 @@ class GeneratesDocumentationSidebarMenu
         })->values();
     }
 
-    protected function addItemToGroup(NavItem $item): void
+    protected function addRouteToGroup(Route $route): void
     {
+        $item = NavItem::fromRoute($route);
+
         $groupItem = $this->getOrCreateGroupItem($item->getGroup() ?? 'Other');
 
         $groupItem->addChild($item);
