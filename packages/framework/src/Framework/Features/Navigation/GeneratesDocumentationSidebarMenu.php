@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 
-use function filled;
 use function collect;
 use function strtolower;
 
@@ -51,16 +50,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
             $this->items->push(NavItem::fromRoute(DocumentationPage::home()));
         }
-    }
-
-    protected function usesSidebarGroups(): bool
-    {
-        // In order to know if we should use groups in the sidebar,
-        // we need to loop through the pages and see if they have a group set
-
-        return $this->routes->first(function (Route $route): bool {
-            return filled($route->getPage()->navigationMenuGroup());
-        }) !== null;
     }
 
     protected function canAddRoute(Route $route): bool

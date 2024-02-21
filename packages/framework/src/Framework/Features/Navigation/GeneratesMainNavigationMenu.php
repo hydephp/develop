@@ -79,11 +79,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
         return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
     }
 
-    protected function useSubdirectoriesAsDropdowns(): bool
-    {
-        return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
-    }
-
     protected function searchForGroupLabelInConfig(string $identifier): ?string
     {
         return Config::getArray('hyde.navigation.labels', [])[$identifier] ?? null;
