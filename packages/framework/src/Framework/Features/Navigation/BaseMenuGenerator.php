@@ -55,7 +55,8 @@ abstract class BaseMenuGenerator
     {
         if ($this->generatesSidebar) {
             // In order to know if we should use groups in the sidebar,
-            // we need to loop through the pages and see if they have a group set
+            // we need to loop through the pages and see if they have a group set.
+            // This automatically enables the sidebar grouping for all pages if at least one group is set.
 
             return $this->routes->first(fn (Route $route): bool => filled($route->getPage()->navigationMenuGroup())) !== null;
         } else {
