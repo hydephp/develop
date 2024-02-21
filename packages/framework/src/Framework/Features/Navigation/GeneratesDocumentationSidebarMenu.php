@@ -11,12 +11,8 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 {
-    public static function handle(): DocumentationSidebar
+    public static function handle(string $menuType = DocumentationSidebar::class): DocumentationSidebar
     {
-        $menu = new static(DocumentationSidebar::class);
-
-        $menu->generate();
-
-        return new DocumentationSidebar($menu->items);
+        return parent::handle($menuType);
     }
 }

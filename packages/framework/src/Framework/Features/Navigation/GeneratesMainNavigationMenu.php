@@ -11,12 +11,8 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class GeneratesMainNavigationMenu extends BaseMenuGenerator
 {
-    public static function handle(): NavigationMenu
+    public static function handle(string $menuType = NavigationMenu::class): NavigationMenu
     {
-        $menu = new static(NavigationMenu::class);
-
-        $menu->generate();
-
-        return new NavigationMenu($menu->items);
+        return parent::handle($menuType);
     }
 }

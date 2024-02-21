@@ -50,13 +50,14 @@ abstract class BaseMenuGenerator
         $this->usesGroups = $this->usesGroups();
     }
 
-    public static function handle(): NavigationMenu
+    /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
+    public static function handle(string $menuType): NavigationMenu
     {
-        $menu = new static(NavigationMenu::class);
+        $menu = new static($menuType);
 
         $menu->generate();
 
-        return new NavigationMenu($menu->items);
+        return new $menuType($menu->items);
     }
 
     protected function generate(): void
