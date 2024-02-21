@@ -14,6 +14,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 
 use function filled;
+use function collect;
 use function strtolower;
 
 /**
@@ -69,6 +70,18 @@ abstract class BaseMenuGenerator
                 }
             }
         });
+
+        if ($this->generatesSidebar) {
+            // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
+            if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
+                $this->items->push(NavItem::fromRoute(DocumentationPage::home()));
+            }
+        } else {
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+                // Since these were added explicitly by the user, we can assume they should always be shown
+                $this->items->push($item);
+            });
+        }
     }
 
     protected function usesGroups(): bool
