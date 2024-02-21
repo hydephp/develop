@@ -20,7 +20,7 @@ use function strtolower;
 /**
  * @experimental This class may change significantly before its release.
  */
-abstract class BaseMenuGenerator
+class BaseMenuGenerator
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
