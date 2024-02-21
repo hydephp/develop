@@ -85,7 +85,11 @@ abstract class BaseMenuGenerator
 
     protected function canAddRoute(Route $route): bool
     {
-        return $route->getPage()->showInNavigation();
+        if (! $route->getPage()->showInNavigation()) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function canGroupRoute(Route $route): bool
