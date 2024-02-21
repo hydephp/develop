@@ -34,7 +34,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
             $this->items->push(NavItem::fromRoute(DocumentationPage::home()));
         }
 
-        $this->sortByPriority();
+        $this->sortSidebarGroupsByLowestPriority();
     }
 
     protected function canAddRoute(Route $route): bool
@@ -44,7 +44,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
             && ! $route->is(DocumentationPage::homeRouteName());
     }
 
-    protected function sortByPriority(): void
+    protected function sortSidebarGroupsByLowestPriority(): void
     {
         // While the items accessor sorts the items upon retrieval,
         // we do an initial sorting here to order any groups.
