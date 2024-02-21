@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
@@ -137,11 +138,11 @@ class NavItem implements Stringable
     /**
      * Get the priority to determine the order of the navigation item.
      *
-     * For dropdowns, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
+     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
      */
     public function getPriority(): int
     {
-        if ($this->hasChildren()) {
+        if ($this->hasChildren() && $this->children[0]->getDestination()->getPage() instanceof DocumentationPage) {
             return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
         }
 
