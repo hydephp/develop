@@ -68,6 +68,11 @@ abstract class BaseMenuGenerator
         return $route->getPage()->showInNavigation();
     }
 
+    protected function canGroupRoute(Route $route): bool
+    {
+        return $this->usesGroups;
+    }
+
     // Todo: Refactor to bring logic here
     abstract protected function addRouteToGroup(Route $route): void;
 }

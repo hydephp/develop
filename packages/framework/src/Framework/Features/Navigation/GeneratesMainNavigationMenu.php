@@ -26,7 +26,7 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
     {
         $this->routes->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
-                if ($this->usesGroups && $this->canGroupRoute($route)) {
+                if ($this->canGroupRoute($route)) {
                     $this->addRouteToGroup($route);
                 } else {
                     $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
@@ -51,7 +51,7 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
 
     protected function canGroupRoute(Route $route): bool
     {
-        return $route->getPage()->navigationMenuGroup() !== null;
+        return parent::canGroupRoute($route) && $route->getPage()->navigationMenuGroup() !== null;
     }
 
     protected function addRouteToGroup(Route $route): void

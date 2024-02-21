@@ -36,7 +36,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
     {
         $this->routes->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
-                if ($this->usesGroups) {
+                if ($this->canGroupRoute($route)) {
                     $this->addRouteToGroup($route);
                 } else {
                     $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
