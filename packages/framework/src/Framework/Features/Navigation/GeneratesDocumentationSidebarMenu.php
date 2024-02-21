@@ -18,7 +18,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 {
     public static function handle(): DocumentationSidebar
     {
-        $menu = new static();
+        $menu = new static(DocumentationSidebar::class);
 
         $menu->generate();
 

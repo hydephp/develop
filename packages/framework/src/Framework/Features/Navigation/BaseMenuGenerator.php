@@ -27,11 +27,17 @@ abstract class BaseMenuGenerator
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
     protected RouteCollection $routes;
 
+    /** @var class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> */
+    protected string $menuType;
+
     protected bool $generatesSidebar;
     protected bool $usesGroups;
 
-    protected function __construct()
+    /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
+    protected function __construct(string $menuType)
     {
+        $this->menuType = $menuType;
+
         $this->items = new Collection();
 
         $this->generatesSidebar = $this instanceof GeneratesDocumentationSidebarMenu;
@@ -45,7 +51,7 @@ abstract class BaseMenuGenerator
 
     public static function handle(): NavigationMenu
     {
-        $menu = new static();
+        $menu = new static(NavigationMenu::class);
 
         $menu->generate();
 
