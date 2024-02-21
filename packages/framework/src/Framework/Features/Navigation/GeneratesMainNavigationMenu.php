@@ -75,7 +75,7 @@ class GeneratesMainNavigationMenu
 
         $groupItem = $this->getOrCreateGroupItem($item->getGroup());
 
-        $groupItem->addChild(NavItem::fromRoute($route));
+        $groupItem->addChild($item);
 
         if (! $this->items->has($groupItem->getIdentifier())) {
             $this->items->put($groupItem->getIdentifier(), $groupItem);
