@@ -278,7 +278,7 @@ class NavItemTest extends UnitTestCase
 
         $item = NavItem::dropdown('foo', $children);
         $this->assertSame($children, $item->getChildren());
-        $this->assertSame(999, $item->getPriority());
+        $this->assertSame(500, $item->getPriority());
     }
 
     public function testDropdownFacadeWithCustomPriority()

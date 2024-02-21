@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavItem
