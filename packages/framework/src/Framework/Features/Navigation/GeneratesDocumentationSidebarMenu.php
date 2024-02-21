@@ -21,7 +21,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         $menu = new static();
 
         $menu->generate();
-        $menu->sortByPriority();
 
         return new DocumentationSidebar($menu->items);
     }
@@ -34,6 +33,8 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
             $this->items->push(NavItem::fromRoute(DocumentationPage::home()));
         }
+
+        $this->sortByPriority();
     }
 
     protected function canAddRoute(Route $route): bool
