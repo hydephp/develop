@@ -11,7 +11,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Foundation\Kernel\RouteCollection;
 
 use function filled;
 use function collect;
@@ -26,9 +25,6 @@ use function strtolower;
  */
 class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 {
-    /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
-    protected RouteCollection $routes;
-
     protected function __construct()
     {
         $this->items = new Collection();
