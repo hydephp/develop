@@ -21,6 +21,7 @@ abstract class BaseMenuGenerator
     protected RouteCollection $routes;
 
     protected bool $generatesSidebar;
+    protected bool $usesGroups;
 
     protected function __construct()
     {
@@ -31,6 +32,10 @@ abstract class BaseMenuGenerator
         $this->routes = $this->generatesSidebar
             ? Routes::getRoutes(DocumentationPage::class)
             : Routes::all();
+
+        $this->usesGroups = $this->generatesSidebar
+            ? $this->usesSidebarGroups()
+            : $this->useSubdirectoriesAsDropdowns();
     }
 
     public static function handle(): NavigationMenu
