@@ -6,8 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Pages\DocumentationPage;
 
-use function collect;
-
 /**
  * @experimental This class may change significantly before its release.
  *
@@ -42,16 +40,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         // we do an initial sorting here to order any groups.
 
         $this->items = $this->items->sortBy(function (NavItem $item): int {
-            return $item->hasChildren()
-                ? $this->getLowestPriorityInGroup($item)
-                : $item->getPriority();
+            return $item->getPriority();
         })->values();
-    }
-
-    protected function getLowestPriorityInGroup(NavItem $item): int
-    {
-        // Todo: Could actually be moved to the NavItem accessor
-
-        return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
     }
 }

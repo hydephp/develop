@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Stringable;
 use Hyde\Support\Models\ExternalRoute;
 
+use function collect;
 use function is_string;
 
 /**
@@ -135,9 +136,15 @@ class NavItem implements Stringable
 
     /**
      * Get the priority to determine the order of the navigation item.
+     *
+     * For dropdowns, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
      */
     public function getPriority(): int
     {
+        if ($this->hasChildren()) {
+            return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
+        }
+
         return $this->priority;
     }
 
