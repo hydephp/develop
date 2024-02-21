@@ -112,9 +112,7 @@ abstract class BaseMenuGenerator
     {
         $label = $this->searchForGroupLabelInConfig($identifier) ?? $groupName;
 
-        $priority = $this->generatesSidebar
-            ? $this->searchForGroupPriorityInConfig($identifier)
-            : $this->searchForDropdownPriorityInConfig($identifier);
+        $priority = $this->searchForGroupPriorityInConfig($identifier);
 
         return NavItem::dropdown(static::normalizeGroupLabel($label), [], $priority);
     }

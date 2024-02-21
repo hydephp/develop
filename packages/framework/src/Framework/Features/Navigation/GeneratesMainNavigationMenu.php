@@ -62,7 +62,7 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
     }
 
     /** Todo: Move into shared class */
-    protected static function searchForDropdownPriorityInConfig(string $groupKey): ?int
+    protected function searchForGroupPriorityInConfig(string $groupKey): ?int
     {
         return Config::getArray('hyde.navigation.order', [])[$groupKey] ?? null;
     }

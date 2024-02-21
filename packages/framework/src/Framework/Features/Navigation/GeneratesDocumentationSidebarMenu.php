@@ -82,7 +82,7 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
     }
 
     /** Todo: Move into shared class */
-    protected static function searchForGroupPriorityInConfig(string $groupKey): ?int
+    protected function searchForGroupPriorityInConfig(string $groupKey): ?int
     {
         return Config::getArray('docs.sidebar_order', [])[$groupKey] ?? null;
     }
