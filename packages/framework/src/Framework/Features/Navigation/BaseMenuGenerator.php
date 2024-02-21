@@ -24,10 +24,8 @@ abstract class BaseMenuGenerator
     {
         $this->items = new Collection();
 
-        if ($this instanceof GeneratesDocumentationSidebarMenu) {
-            $this->routes = Routes::getRoutes(DocumentationPage::class);
-        } else {
-            $this->routes = Routes::all();
-        }
+        $this->routes = $this instanceof GeneratesDocumentationSidebarMenu
+            ? Routes::getRoutes(DocumentationPage::class)
+            : Routes::all();
     }
 }
