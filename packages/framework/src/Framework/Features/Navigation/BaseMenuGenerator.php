@@ -41,4 +41,6 @@ abstract class BaseMenuGenerator
 
         return new NavigationMenu($menu->items);
     }
+
+    abstract protected function generate(): void;
 }
