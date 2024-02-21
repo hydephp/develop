@@ -67,4 +67,7 @@ abstract class BaseMenuGenerator
     {
         return $route->getPage()->showInNavigation();
     }
+
+    // Todo: Refactor to bring logic here
+    abstract protected function addRouteToGroup(Route $route): void;
 }
