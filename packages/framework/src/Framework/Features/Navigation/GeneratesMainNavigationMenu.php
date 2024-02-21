@@ -11,6 +11,6 @@ class GeneratesMainNavigationMenu
 {
     public static function handle(): NavigationMenu
     {
-        return BaseMenuGenerator::handle(NavigationMenu::class);
+        return NavigationMenuGenerator::handle(NavigationMenu::class);
     }
 }

@@ -11,6 +11,6 @@ class GeneratesDocumentationSidebarMenu
 {
     public static function handle(): DocumentationSidebar
     {
-        return BaseMenuGenerator::handle(DocumentationSidebar::class);
+        return NavigationMenuGenerator::handle(DocumentationSidebar::class);
     }
 }
