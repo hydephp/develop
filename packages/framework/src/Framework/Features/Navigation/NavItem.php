@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Stringable;
 use Hyde\Support\Models\ExternalRoute;
 
+use function min;
 use function collect;
 use function is_string;
 
