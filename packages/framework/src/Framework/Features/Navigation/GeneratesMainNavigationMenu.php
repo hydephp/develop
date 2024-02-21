@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
-use Hyde\Pages\DocumentationPage;
 
 use function collect;
 
@@ -25,15 +24,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
             // Since these were added explicitly by the user, we can assume they should always be shown
             $this->items->push($item);
         });
-    }
-
-    protected function canAddRoute(Route $route): bool
-    {
-        return parent::canAddRoute($route)
-            // While we for the most part can rely on the navigation visibility state provided by the navigation data factory,
-            // we need to make an exception for documentation pages, which generally have a visible state, as the data is
-            // also used in the sidebar. But we only want the documentation index page to be in the main navigation.
-            && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
     }
 
     protected function canGroupRoute(Route $route): bool

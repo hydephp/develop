@@ -92,9 +92,12 @@ abstract class BaseMenuGenerator
         if ($this->generatesSidebar) {
             // Since the index page is linked in the header, we don't want it in the sidebar
             return ! $route->is(DocumentationPage::homeRouteName());
+        } else {
+            // While we for the most part can rely on the navigation visibility state provided by the navigation data factory,
+            // we need to make an exception for documentation pages, which generally have a visible state, as the data is
+            // also used in the sidebar. But we only want the documentation index page to be in the main navigation.
+            return ! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName());
         }
-
-        return true;
     }
 
     protected function canGroupRoute(Route $route): bool
