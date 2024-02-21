@@ -6,8 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 /**
  * @experimental This class may change significantly before its release.
- *
- * @see \Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu
  */
 class GeneratesMainNavigationMenu
 {
