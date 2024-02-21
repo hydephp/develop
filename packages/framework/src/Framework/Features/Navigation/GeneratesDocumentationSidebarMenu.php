@@ -49,19 +49,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
             && ! $route->is(DocumentationPage::homeRouteName());
     }
 
-    protected function addRouteToGroup(Route $route): void
-    {
-        $item = NavItem::fromRoute($route);
-
-        $groupItem = $this->getOrCreateGroupItem($item->getGroup() ?? 'Other');
-
-        $groupItem->addChild($item);
-
-        if (! $this->items->has($groupItem->getIdentifier())) {
-            $this->items->put($groupItem->getIdentifier(), $groupItem);
-        }
-    }
-
     protected function sortByPriority(): void
     {
         // While the items accessor sorts the items upon retrieval,

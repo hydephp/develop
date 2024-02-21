@@ -84,6 +84,22 @@ abstract class BaseMenuGenerator
         return $this->usesGroups;
     }
 
-    // Todo: Refactor to bring logic here
-    abstract protected function addRouteToGroup(Route $route): void;
+    protected function addRouteToGroup(Route $route): void
+    {
+        $item = NavItem::fromRoute($route);
+
+        if ($this->generatesSidebar) {
+            $groupName = $item->getGroup() ?? 'Other';
+        } else {
+            $groupName = $item->getGroup();
+        }
+
+        $groupItem = $this->getOrCreateGroupItem($groupName);
+
+        $groupItem->addChild($item);
+
+        if (! $this->items->has($groupItem->getIdentifier())) {
+            $this->items->put($groupItem->getIdentifier(), $groupItem);
+        }
+    }
 }

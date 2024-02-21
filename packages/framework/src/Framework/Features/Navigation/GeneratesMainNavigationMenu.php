@@ -46,19 +46,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
         return parent::canGroupRoute($route) && $route->getPage()->navigationMenuGroup() !== null;
     }
 
-    protected function addRouteToGroup(Route $route): void
-    {
-        $item = NavItem::fromRoute($route);
-
-        $groupItem = $this->getOrCreateGroupItem($item->getGroup());
-
-        $groupItem->addChild($item);
-
-        if (! $this->items->has($groupItem->getIdentifier())) {
-            $this->items->put($groupItem->getIdentifier(), $groupItem);
-        }
-    }
-
     protected function getOrCreateGroupItem(string $groupName): NavItem
     {
         $identifier = Str::slug($groupName);
