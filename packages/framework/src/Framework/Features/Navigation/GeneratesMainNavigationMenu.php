@@ -45,12 +45,10 @@ class GeneratesMainNavigationMenu
     {
         Routes::each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
-                if ($this->useSubdirectoriesAsDropdowns()) {
-                    if ($this->canAddRouteToGroup($route)) {
-                        $this->addRouteToGroup($route);
+                if ($this->useSubdirectoriesAsDropdowns() && $this->canAddRouteToGroup($route)) {
+                    $this->addRouteToGroup($route);
 
-                        return;
-                    }
+                    return;
                 }
                 $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
