@@ -142,7 +142,7 @@ class NavItem implements Stringable
      */
     public function getPriority(): int
     {
-        if ($this->hasChildren() && $this->children[0]->getDestination()->getPage() instanceof DocumentationPage) {
+        if ($this->hasChildren() && $this->children[0]->getDestination()->getPageClass() === DocumentationPage::class) {
             return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
         }
 
