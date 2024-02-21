@@ -46,7 +46,7 @@ class GeneratesMainNavigationMenu
         Routes::each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
                 if ($this->useSubdirectoriesAsDropdowns()) {
-                    if ($this->canAddRouteToDropdown($route)) {
+                    if ($this->canAddRouteToGroup($route)) {
                         $this->addRouteToGroup($route);
 
                         return;
@@ -67,7 +67,7 @@ class GeneratesMainNavigationMenu
         return $route->getPage()->showInNavigation() && (! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName()));
     }
 
-    protected function canAddRouteToDropdown(Route $route): bool
+    protected function canAddRouteToGroup(Route $route): bool
     {
         return $route->getPage()->navigationMenuGroup() !== null;
     }
