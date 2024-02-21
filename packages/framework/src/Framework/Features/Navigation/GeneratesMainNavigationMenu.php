@@ -46,7 +46,9 @@ class GeneratesMainNavigationMenu
             if ($this->canAddRoute($route)) {
                 // TODO This conditional might not be needed as it might be evaluated by the NavDaF
                 if ($this->useSubdirectoriesAsDropdowns()) {
-                    //
+                    if ($this->canAddRouteToDropdown($route)) {
+                        //
+                    }
                 }
                 $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
