@@ -50,14 +50,7 @@ abstract class BaseMenuGenerator
         $this->usesGroups = $this->usesGroups();
     }
 
-    public static function handle(): NavigationMenu
-    {
-        $menu = new static(NavigationMenu::class);
-
-        $menu->generate();
-
-        return new NavigationMenu($menu->items);
-    }
+    abstract public static function handle(): NavigationMenu;
 
     protected function generate(): void
     {
