@@ -50,6 +50,8 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 
     protected function getLowestPriorityInGroup(NavItem $item): int
     {
+        // Todo: Could actually be moved to the NavItem accessor
+
         return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
     }
 }
